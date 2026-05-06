@@ -89,6 +89,27 @@ org $C23BCF
 !C08EFC_CommitTileBufferToStaging = $C08EFC
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C1DD70_RedirectBuildBattleAttackerNameBuffer = $C1DD70
+!C2B66A_ReadBattlerNameVariantFlag = $C2B66A
+!ActiveAttackerBattlerPointer = $A970
+!BattleTextAttackerArticleFlag = $5E77
+!BattleTextAttackerNameBuffer = $A983
+!LastAttackerBattleTextId = $9658
+!PartyCharactersBase = $99CE
+!PartyCharacterRowSize = $005F
+!EnemyDataTableBase = $9589
+!EnemyDataTableBank = $00D5
+!EnemyDataRowSize = $005E
+!EnemyNameCopyLength = $0019
+!AttackerNameRedirectLength = $001B
+!PartyNameRedirectLength = $0005
+!BattlerIdWord = $0000
+!BattlerTheFlagByte = $000B
+!BattlerAllyOrEnemyByte = $000E
+!BattlerNpcIdByte = $000F
+!BattlerPartyRowByte = $0010
+!BattlerNameVariantSourceWord = $004C
+!EnemyBattlerSide = $0001
+!SpecialLocalNameId = $00A0
 FIX_ATTACKER_NAME:
 !C23BCF_BuildBattleAttackerTextContext = FIX_ATTACKER_NAME
     rep #$31
@@ -101,30 +122,30 @@ FIX_ATTACKER_NAME:
     tay
     sty $16
     sep #$20
-    stz $5E77
+    stz !BattleTextAttackerArticleFlag
     stz $0E
-    ldx.w #$001C
+    ldx.w #!AttackerNameRedirectLength+1
     rep #$20
-    lda.w #$A983
+    lda.w #!BattleTextAttackerNameBuffer
     jsl !C08EFC_CommitTileBufferToStaging
-    ldx $A970
-    lda $000E,X
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     beq C23C0B_BuildBattleAttackerTextContext_L3C0B
-    ldx $A970
-    lda $000F,X
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerNpcIdByte,X
     and.w #$00FF
     bne C23C0B_BuildBattleAttackerTextContext_L3C0B
     jmp.w C23CD7_BuildBattleAttackerTextContext_L3CD7
 C23C0B_BuildBattleAttackerTextContext_L3C0B:
-    lda.w #$9589
+    lda.w #!EnemyDataTableBase
     sta $06
-    lda.w #$00D5
+    lda.w #!EnemyDataTableBank
     sta $08
-    ldx $A970
-    lda $0000,X
-    ldy.w #$005E
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerIdWord,X
+    ldy.w #!EnemyDataRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     inc A
     clc
@@ -133,26 +154,26 @@ C23C0B_BuildBattleAttackerTextContext_L3C0B:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0019
-    lda.w #$A983
+    ldx.w #!EnemyNameCopyLength
+    lda.w #!BattleTextAttackerNameBuffer
     jsr COPY_ENEMY_NAME
     tax
     stx $14
-    ldx $A970
-    lda $000E,X
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     bne C23C8D_BuildBattleAttackerTextContext_L3C8D
     ldy $16
     bne C23C8D_BuildBattleAttackerTextContext_L3C8D
-    ldx $A970
-    lda $000B,X
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerTheFlagByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     bne C23C6E_BuildBattleAttackerTextContext_L3C6E
-    ldx $A970
-    lda $004C,X
-    jsl $C2B66A
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerNameVariantSourceWord,X
+    jsl !C2B66A_ReadBattlerNameVariantFlag
     rep #$20
     and.w #$00FF
     cmp.w #$0002
@@ -165,18 +186,18 @@ C23C6E_BuildBattleAttackerTextContext_L3C6E:
     inx
     stx $16
     lda.b #$01
-    sta $5E77
-    ldx $A970
-    lda $000B,X
+    sta !BattleTextAttackerArticleFlag
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerTheFlagByte,X
     clc
     adc.b #$70
     ldx $16
     sta $0000,X
 C23C8D_BuildBattleAttackerTextContext_L3C8D:
-    ldx $A970
+    ldx !ActiveAttackerBattlerPointer
     rep #$20
-    lda $0000,X
-    cmp.w #$00A0
+    lda.w !BattlerIdWord,X
+    cmp.w #!SpecialLocalNameId
     bne C23CC0_BuildBattleAttackerTextContext_L3CC0
     lda.w #$9819
     sta $06
@@ -191,35 +212,35 @@ C23C8D_BuildBattleAttackerTextContext_L3C8D:
     lda $08
     sta $10
     ldx.w #$0006
-    lda.w #$A983
+    lda.w #!BattleTextAttackerNameBuffer
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
     stz $A989
 C23CC0_BuildBattleAttackerTextContext_L3CC0:
-    ldx.w #$001B
+    ldx.w #!AttackerNameRedirectLength
     rep #$20
-    lda.w #$A983
+    lda.w #!BattleTextAttackerNameBuffer
     jsl !C1DD70_RedirectBuildBattleAttackerNameBuffer
-    ldx $A970
-    lda $0000,X
-    sta $9658
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerIdWord,X
+    sta !LastAttackerBattleTextId
     bra C23D03_BuildBattleAttackerTextContext_L3D03
 C23CD7_BuildBattleAttackerTextContext_L3CD7:
-    ldx $A970
-    lda $0000,X
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerIdWord,X
     cmp.w #$0004
     beq C23CE4_BuildBattleAttackerTextContext_L3CE4
     bcs C23D03_BuildBattleAttackerTextContext_L3D03
 C23CE4_BuildBattleAttackerTextContext_L3CE4:
-    ldx.w #$0005
+    ldx.w #!PartyNameRedirectLength
     stx $12
-    ldx $A970
-    lda $0010,X
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerPartyRowByte,X
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!PartyCharactersBase
     ldx $12
     jsl !C1DD70_RedirectBuildBattleAttackerNameBuffer
 C23D03_BuildBattleAttackerTextContext_L3D03:
@@ -401,7 +422,55 @@ org $C23D05
 !C08EFC_CommitTileBufferToStaging = $C08EFC
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C09231_ModUnsignedWordByIndex = $C09231
+!C1DD70_RedirectBuildBattleAttackerNameBuffer = $C1DD70
 !C1DD76_RedirectBuildBattleTargetNameBuffer = $C1DD76
+!C26BFB_MaskSet_BuildActiveTypedCandidates = $C26BFB
+!C26C82_MaskSet_BuildPhase1Candidates = $C26C82
+!C26D04_MaskSet_BuildRandomSideCandidates = $C26D04
+!C26E00_MaskSet_BuildActiveCandidates = $C26E00
+!C26E77_MaskSet_RemoveActiveTypedCandidates = $C26E77
+!C26EF8_MaskSet_FindFirstMatchInRange = $C26EF8
+!C27029_MaskSet_TestBit = $C27029
+!C2B66A_ReadBattlerNameVariantFlag = $C2B66A
+!ActiveAttackerBattlerPointer = $A970
+!ActiveTargetBattlerPointer = $A972
+!CurrentTargetMaskLo = $A96C
+!CurrentTargetMaskHi = $A96E
+!BattleTextAttackerArticleFlag = $5E77
+!BattleTextTargetArticleFlag = $5E78
+!BattleTextTargetNameBuffer = $A99E
+!BattleTextSelectedTargetNameBuffer = $A9B9
+!LastAttackerBattleTextId = $9658
+!LastTargetBattleTextId = $965A
+!PartyCharactersBase = $99CE
+!PartyCharacterRowSize = $005F
+!PartySlotCharacterIds = $986F
+!FrontRowBattlerCount = $AD56
+!FrontRowBattlerOrder = $AD7A
+!BackRowBattlerOrder = $AD82
+!BattlersTableBase = $9FAC
+!EnemyDataTableBase = $9589
+!EnemyDataTableBank = $00D5
+!EnemyDataRowSize = $005E
+!EnemyAiTable = $D58F23
+!EnemyNameCopyLength = $0019
+!TargetNameRedirectLength = $001B
+!SelectedTargetNameRedirectLength = $001A
+!PartyNameRedirectLength = $0005
+!TargetMaskBitLimit = $0020
+!BattlePartyMemberLimit = $0006
+!BattlerIdWord = $0000
+!BattlerCurrentActionWord = $0004
+!BattlerActionTargetingByte = $0009
+!BattlerTheFlagByte = $000B
+!BattlerConsciousnessByte = $000C
+!BattlerAllyOrEnemyByte = $000E
+!BattlerNpcIdByte = $000F
+!BattlerPartyRowByte = $0010
+!BattlerNameVariantSourceWord = $004C
+!BattlerRowSize = $004E
+!EnemyBattlerSide = $0001
+!SpecialLocalNameId = $00A0
 FIX_TARGET_NAME:
 !C23D05_BuildBattleTargetTextContext = FIX_TARGET_NAME
     rep #$31
@@ -410,30 +479,30 @@ FIX_TARGET_NAME:
     adc.w #$FFEA
     tcd
     sep #$20
-    stz $5E78
+    stz !BattleTextTargetArticleFlag
     stz $0E
-    ldx.w #$001B
+    ldx.w #!TargetNameRedirectLength
     rep #$20
-    lda.w #$A99E
+    lda.w #!BattleTextTargetNameBuffer
     jsl !C08EFC_CommitTileBufferToStaging
-    ldx $A972
-    lda $000E,X
+    ldx !ActiveTargetBattlerPointer
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     beq C23D3C_BuildBattleTargetTextContext_L3D3C
-    ldx $A972
-    lda $000F,X
+    ldx !ActiveTargetBattlerPointer
+    lda.w !BattlerNpcIdByte,X
     and.w #$00FF
     bne C23D3C_BuildBattleTargetTextContext_L3D3C
     jmp.w C23E04_BuildBattleTargetTextContext_L3E04
 C23D3C_BuildBattleTargetTextContext_L3D3C:
-    lda.w #$9589
+    lda.w #!EnemyDataTableBase
     sta $06
-    lda.w #$00D5
+    lda.w #!EnemyDataTableBank
     sta $08
-    ldx $A972
-    lda $0000,X
-    ldy.w #$005E
+    ldx !ActiveTargetBattlerPointer
+    lda.w !BattlerIdWord,X
+    ldy.w #!EnemyDataRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     inc A
     clc
@@ -442,24 +511,24 @@ C23D3C_BuildBattleTargetTextContext_L3D3C:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0019
-    lda.w #$A99E
+    ldx.w #!EnemyNameCopyLength
+    lda.w #!BattleTextTargetNameBuffer
     jsr COPY_ENEMY_NAME
     tax
     stx $14
-    ldx $A972
-    lda $000E,X
+    ldx !ActiveTargetBattlerPointer
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     bne C23DBA_BuildBattleTargetTextContext_L3DBA
-    ldx $A972
-    lda $000B,X
+    ldx !ActiveTargetBattlerPointer
+    lda.w !BattlerTheFlagByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     bne C23D9B_BuildBattleTargetTextContext_L3D9B
-    ldx $A972
-    lda $004C,X
-    jsl $C2B66A
+    ldx !ActiveTargetBattlerPointer
+    lda.w !BattlerNameVariantSourceWord,X
+    jsl !C2B66A_ReadBattlerNameVariantFlag
     rep #$20
     and.w #$00FF
     cmp.w #$0002
@@ -472,18 +541,18 @@ C23D9B_BuildBattleTargetTextContext_L3D9B:
     inx
     stx $12
     lda.b #$01
-    sta $5E78
-    ldx $A972
-    lda $000B,X
+    sta !BattleTextTargetArticleFlag
+    ldx !ActiveTargetBattlerPointer
+    lda.w !BattlerTheFlagByte,X
     clc
     adc.b #$70
     ldx $12
     sta $0000,X
 C23DBA_BuildBattleTargetTextContext_L3DBA:
-    ldx $A972
+    ldx !ActiveTargetBattlerPointer
     rep #$20
-    lda $0000,X
-    cmp.w #$00A0
+    lda.w !BattlerIdWord,X
+    cmp.w #!SpecialLocalNameId
     bne C23DED_BuildBattleTargetTextContext_L3DED
     lda.w #$9819
     sta $06
@@ -498,35 +567,35 @@ C23DBA_BuildBattleTargetTextContext_L3DBA:
     lda $08
     sta $10
     ldx.w #$0006
-    lda.w #$A99E
+    lda.w #!BattleTextTargetNameBuffer
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
     stz $A9A4
 C23DED_BuildBattleTargetTextContext_L3DED:
-    ldx.w #$001B
+    ldx.w #!TargetNameRedirectLength
     rep #$20
-    lda.w #$A99E
+    lda.w #!BattleTextTargetNameBuffer
     jsl !C1DD76_RedirectBuildBattleTargetNameBuffer
-    ldx $A972
-    lda $0000,X
-    sta $965A
+    ldx !ActiveTargetBattlerPointer
+    lda.w !BattlerIdWord,X
+    sta !LastTargetBattleTextId
     bra C23E30_BuildBattleTargetTextContext_L3E30
 C23E04_BuildBattleTargetTextContext_L3E04:
-    ldx $A972
-    lda $0000,X
+    ldx !ActiveTargetBattlerPointer
+    lda.w !BattlerIdWord,X
     cmp.w #$0004
     beq C23E11_BuildBattleTargetTextContext_L3E11
     bcs C23E30_BuildBattleTargetTextContext_L3E30
 C23E11_BuildBattleTargetTextContext_L3E11:
-    ldx.w #$0005
+    ldx.w #!PartyNameRedirectLength
     stx $14
-    ldx $A972
-    lda $0010,X
+    ldx !ActiveTargetBattlerPointer
+    lda.w !BattlerPartyRowByte,X
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!PartyCharactersBase
     ldx $14
     jsl !C1DD76_RedirectBuildBattleTargetNameBuffer
 C23E30_BuildBattleTargetTextContext_L3E30:
@@ -541,9 +610,9 @@ C23E30_BuildBattleTargetTextContext_L3E30:
     sta $0A
     lda.w #$0000
     sta $0C
-    lda $A96C
+    lda !CurrentTargetMaskLo
     sta $06
-    lda $A96E
+    lda !CurrentTargetMaskHi
     sta $08
     cmp $0C
     bne C23E56_BuildBattleTargetTextContext_L3E56
@@ -556,23 +625,23 @@ C23E56_BuildBattleTargetTextContext_L3E56:
     bra C23E6E_BuildBattleTargetTextContext_L3E6E
 C23E5F_BuildBattleTargetTextContext_L3E5F:
     txa
-    jsl $C27029
+    jsl !C27029_MaskSet_TestBit
     cmp.w #$0000
     bne C23E73_BuildBattleTargetTextContext_L3E73
     ldx $0E
     inx
     stx $0E
 C23E6E_BuildBattleTargetTextContext_L3E6E:
-    cpx.w #$0020
+    cpx.w #!TargetMaskBitLimit
     bcc C23E5F_BuildBattleTargetTextContext_L3E5F
 C23E73_BuildBattleTargetTextContext_L3E73:
     ldx $0E
     txa
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9FAC
-    sta $A972
+    adc.w #!BattlersTableBase
+    sta !ActiveTargetBattlerPointer
     jsl FIX_TARGET_NAME
 C23E88_BuildBattleTargetTextContext_L3E88:
     pld
@@ -587,43 +656,43 @@ C23E88_BuildBattleTargetTextContext_L3E88:
     tay
     sty $14
     sep #$20
-    stz $5E77
+    stz !BattleTextAttackerArticleFlag
     stz $0E
-    ldx.w #$001B
+    ldx.w #!TargetNameRedirectLength
     rep #$20
-    lda.w #$A9B9
+    lda.w #!BattleTextSelectedTargetNameBuffer
     jsl !C08EFC_CommitTileBufferToStaging
     ldy $14
-    cpy $AD56
+    cpy !FrontRowBattlerCount
     bcc C23EC4_BuildBattleTargetTextContext_L3EC4
     beq C23EC4_BuildBattleTargetTextContext_L3EC4
     tya
     sec
-    sbc $AD56
+    sbc !FrontRowBattlerCount
     tax
     dex
-    lda $AD82,X
+    lda !BackRowBattlerOrder,X
     and.w #$00FF
     sta $02
     bra C23ECE_BuildBattleTargetTextContext_L3ECE
 C23EC4_BuildBattleTargetTextContext_L3EC4:
     tyx
     dex
-    lda $AD7A,X
+    lda !FrontRowBattlerOrder,X
     and.w #$00FF
     sta $02
 C23ECE_BuildBattleTargetTextContext_L3ECE:
     lda $02
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tay
     sty $14
-    lda.w #$9589
+    lda.w #!EnemyDataTableBase
     sta $06
-    lda.w #$00D5
+    lda.w #!EnemyDataTableBank
     sta $08
-    lda $9FAC,Y
-    ldy.w #$005E
+    lda.w !BattlersTableBase+!BattlerIdWord,Y
+    ldy.w #!EnemyDataRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     inc A
     clc
@@ -632,18 +701,18 @@ C23ECE_BuildBattleTargetTextContext_L3ECE:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0019
-    lda.w #$A9B9
+    ldx.w #!EnemyNameCopyLength
+    lda.w #!BattleTextSelectedTargetNameBuffer
     jsr COPY_ENEMY_NAME
     tax
     stx $12
     ldy $14
-    lda $9FB7,Y
+    lda.w !BattlersTableBase+!BattlerTheFlagByte,Y
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     bne C23F24_BuildBattleTargetTextContext_L3F24
-    lda $9FF8,Y
-    jsl $C2B66A
+    lda.w !BattlersTableBase+!BattlerNameVariantSourceWord,Y
+    jsl !C2B66A_ReadBattlerNameVariantFlag
     rep #$20
     and.w #$00FF
     cmp.w #$0002
@@ -657,28 +726,28 @@ C23F24_BuildBattleTargetTextContext_L3F24:
     stx $14
     rep #$20
     lda $02
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     sep #$20
-    lda $9FB7,X
+    lda.w !BattlersTableBase+!BattlerTheFlagByte,X
     clc
     adc.b #$70
     ldx $14
     sta $0000,X
     lda.b #$01
-    sta $5E77
+    sta !BattleTextAttackerArticleFlag
 C23F4E_BuildBattleTargetTextContext_L3F4E:
-    ldx.w #$001A
+    ldx.w #!SelectedTargetNameRedirectLength
     rep #$20
-    lda.w #$A9B9
-    jsl $C1DD70
+    lda.w #!BattleTextSelectedTargetNameBuffer
+    jsl !C1DD70_RedirectBuildBattleAttackerNameBuffer
     lda $02
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FAC,X
-    sta $9658
+    lda.w !BattlersTableBase+!BattlerIdWord,X
+    sta !LastAttackerBattleTextId
     pld
     rtl
     rep #$31
@@ -697,16 +766,16 @@ C23F82_BuildBattleTargetTextContext_L3F82:
     bra C23FE0_BuildBattleTargetTextContext_L3FE0
 C23F89_BuildBattleTargetTextContext_L3F89:
     tax
-    lda $986F,X
+    lda.w !PartySlotCharacterIds,X
     and.w #$00FF
     tay
     sty $0E
-    cpy.w #$0005
+    cpy.w #!PartyNameRedirectLength
     bcc C23FDB_BuildBattleTargetTextContext_L3FDB
     tya
     asl A
     tax
-    lda $D58F23,X
+    lda.l !EnemyAiTable,X
     and.w #$00FF
     and.w #$0002
     beq C23FDB_BuildBattleTargetTextContext_L3FDB
@@ -714,15 +783,15 @@ C23F89_BuildBattleTargetTextContext_L3F89:
     sta $10
     bra C23FD6_BuildBattleTargetTextContext_L3FD6
 C23FAE_BuildBattleTargetTextContext_L3FAE:
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FB8,X
+    lda.w !BattlersTableBase+!BattlerConsciousnessByte,X
     and.w #$00FF
     beq C23FD1_BuildBattleTargetTextContext_L3FD1
     ldy $0E
     sty $02
-    lda $9FBB,X
+    lda.w !BattlersTableBase+!BattlerNpcIdByte,X
     and.w #$00FF
     cmp $02
     bne C23FD1_BuildBattleTargetTextContext_L3FD1
@@ -734,14 +803,14 @@ C23FD1_BuildBattleTargetTextContext_L3FD1:
     inc A
     sta $10
 C23FD6_BuildBattleTargetTextContext_L3FD6:
-    cmp.w #$0006
+    cmp.w #!BattlePartyMemberLimit
     bcc C23FAE_BuildBattleTargetTextContext_L3FAE
 C23FDB_BuildBattleTargetTextContext_L3FDB:
     lda $10
     inc A
     sta $10
 C23FE0_BuildBattleTargetTextContext_L3FE0:
-    cmp.w #$0006
+    cmp.w #!BattlePartyMemberLimit
     bcc C23F89_BuildBattleTargetTextContext_L3F89
     lda.w #$0000
 C23FE8_BuildBattleTargetTextContext_L3FE8:
@@ -771,11 +840,11 @@ C24008_BuildBattleTargetTextContext_L4008:
     adc.w #$FFEE
     tcd
     lda.w #$0000
-    sta $A96C
+    sta !CurrentTargetMaskLo
     lda.w #$0000
-    sta $A96E
-    ldx $A970
-    lda $0009,X
+    sta !CurrentTargetMaskHi
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerActionTargetingByte,X
     and.w #$00FF
     and.w #$0007
     cmp.w #$0001
@@ -786,46 +855,46 @@ C24008_BuildBattleTargetTextContext_L4008:
     beq C24071_BuildBattleTargetTextContext_L4071
     bra C240A2_BuildBattleTargetTextContext_L40A2
 C2403A_BuildBattleTargetTextContext_L403A:
-    jsl $C26E00
-    lda $A96C
+    jsl !C26E00_MaskSet_BuildActiveCandidates
+    lda !CurrentTargetMaskLo
     sta $06
-    lda $A96E
+    lda !CurrentTargetMaskHi
     sta $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsl $C26EF8
+    jsl !C26EF8_MaskSet_FindFirstMatchInRange
     lda $06
-    sta $A96C
+    sta !CurrentTargetMaskLo
     lda $08
-    sta $A96E
+    sta !CurrentTargetMaskHi
     bra C240A2_BuildBattleTargetTextContext_L40A2
 C24060_BuildBattleTargetTextContext_L4060:
     jsl !C08E9A_GetRandom16
     ldy.w #$0003
     jsl !C09231_ModUnsignedWordByIndex
-    jsl $C26D04
+    jsl !C26D04_MaskSet_BuildRandomSideCandidates
     bra C240A2_BuildBattleTargetTextContext_L40A2
 C24071_BuildBattleTargetTextContext_L4071:
     jsl !C08E9A_GetRandom16
     and.w #$0001
     beq C24080_BuildBattleTargetTextContext_L4080
-    jsl $C26BFB
+    jsl !C26BFB_MaskSet_BuildActiveTypedCandidates
     bra C24084_BuildBattleTargetTextContext_L4084
 C24080_BuildBattleTargetTextContext_L4080:
-    jsl $C26C82
+    jsl !C26C82_MaskSet_BuildPhase1Candidates
 C24084_BuildBattleTargetTextContext_L4084:
-    ldx $A970
-    lda $0004,X
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerCurrentActionWord,X
     jsl GET_SHIELD_TARGETTING
     cmp.w #$0000
     bne C240A2_BuildBattleTargetTextContext_L40A2
-    ldx $A970
-    lda $000E,X
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C240A2_BuildBattleTargetTextContext_L40A2
-    jsl $C26E77
+    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
 C240A2_BuildBattleTargetTextContext_L40A2:
     pld
     rts

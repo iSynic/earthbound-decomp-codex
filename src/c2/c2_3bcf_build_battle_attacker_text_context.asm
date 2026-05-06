@@ -16,6 +16,29 @@ C08ED2_QueueOrTransferDynamicTileBlock       = $C08ED2
 C08EFC_CommitTileBufferToStaging             = $C08EFC
 C08FF7_ResolveIndexedPointerOffset           = $C08FF7
 C1DD70_RedirectBuildBattleAttackerNameBuffer = $C1DD70
+C2B66A_ReadBattlerNameVariantFlag            = $C2B66A
+
+ActiveAttackerBattlerPointer = $A970
+BattleTextAttackerArticleFlag = $5E77
+BattleTextAttackerNameBuffer = $A983
+LastAttackerBattleTextId = $9658
+PartyCharactersBase = $99CE
+PartyCharacterRowSize = $005F
+EnemyDataTableBase = $9589
+EnemyDataTableBank = $00D5
+EnemyDataRowSize = $005E
+EnemyNameCopyLength = $0019
+AttackerNameRedirectLength = $001B
+PartyNameRedirectLength = $0005
+
+BattlerIdWord = $0000
+BattlerTheFlagByte = $000B
+BattlerAllyOrEnemyByte = $000E
+BattlerNpcIdByte = $000F
+BattlerPartyRowByte = $0010
+BattlerNameVariantSourceWord = $004C
+EnemyBattlerSide = $0001
+SpecialLocalNameId = $00A0
 
 ; ---------------------------------------------------------------------------
 ; C2:3BCF
@@ -32,30 +55,30 @@ C23BCF_BuildBattleAttackerTextContext = FIX_ATTACKER_NAME
     tay
     sty $16
     sep #$20
-    stz $5E77
+    stz BattleTextAttackerArticleFlag
     stz $0E
-    ldx.w #$001C
+    ldx.w #AttackerNameRedirectLength+1
     rep #$20
-    lda.w #$A983
+    lda.w #BattleTextAttackerNameBuffer
     jsl C08EFC_CommitTileBufferToStaging
-    ldx $A970
-    lda $000E,X
+    ldx ActiveAttackerBattlerPointer
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #EnemyBattlerSide
     beq C23C0B_BuildBattleAttackerTextContext_L3C0B
-    ldx $A970
-    lda $000F,X
+    ldx ActiveAttackerBattlerPointer
+    lda.w BattlerNpcIdByte,X
     and.w #$00FF
     bne C23C0B_BuildBattleAttackerTextContext_L3C0B
     jmp.w C23CD7_BuildBattleAttackerTextContext_L3CD7
 C23C0B_BuildBattleAttackerTextContext_L3C0B:
-    lda.w #$9589
+    lda.w #EnemyDataTableBase
     sta $06
-    lda.w #$00D5
+    lda.w #EnemyDataTableBank
     sta $08
-    ldx $A970
-    lda $0000,X
-    ldy.w #$005E
+    ldx ActiveAttackerBattlerPointer
+    lda.w BattlerIdWord,X
+    ldy.w #EnemyDataRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     inc A
     clc
@@ -64,26 +87,26 @@ C23C0B_BuildBattleAttackerTextContext_L3C0B:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0019
-    lda.w #$A983
+    ldx.w #EnemyNameCopyLength
+    lda.w #BattleTextAttackerNameBuffer
     jsr COPY_ENEMY_NAME
     tax
     stx $14
-    ldx $A970
-    lda $000E,X
+    ldx ActiveAttackerBattlerPointer
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #EnemyBattlerSide
     bne C23C8D_BuildBattleAttackerTextContext_L3C8D
     ldy $16
     bne C23C8D_BuildBattleAttackerTextContext_L3C8D
-    ldx $A970
-    lda $000B,X
+    ldx ActiveAttackerBattlerPointer
+    lda.w BattlerTheFlagByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #EnemyBattlerSide
     bne C23C6E_BuildBattleAttackerTextContext_L3C6E
-    ldx $A970
-    lda $004C,X
-    jsl $C2B66A
+    ldx ActiveAttackerBattlerPointer
+    lda.w BattlerNameVariantSourceWord,X
+    jsl C2B66A_ReadBattlerNameVariantFlag
     rep #$20
     and.w #$00FF
     cmp.w #$0002
@@ -96,18 +119,18 @@ C23C6E_BuildBattleAttackerTextContext_L3C6E:
     inx
     stx $16
     lda.b #$01
-    sta $5E77
-    ldx $A970
-    lda $000B,X
+    sta BattleTextAttackerArticleFlag
+    ldx ActiveAttackerBattlerPointer
+    lda.w BattlerTheFlagByte,X
     clc
     adc.b #$70
     ldx $16
     sta $0000,X
 C23C8D_BuildBattleAttackerTextContext_L3C8D:
-    ldx $A970
+    ldx ActiveAttackerBattlerPointer
     rep #$20
-    lda $0000,X
-    cmp.w #$00A0
+    lda.w BattlerIdWord,X
+    cmp.w #SpecialLocalNameId
     bne C23CC0_BuildBattleAttackerTextContext_L3CC0
     lda.w #$9819
     sta $06
@@ -122,35 +145,35 @@ C23C8D_BuildBattleAttackerTextContext_L3C8D:
     lda $08
     sta $10
     ldx.w #$0006
-    lda.w #$A983
+    lda.w #BattleTextAttackerNameBuffer
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
     stz $A989
 C23CC0_BuildBattleAttackerTextContext_L3CC0:
-    ldx.w #$001B
+    ldx.w #AttackerNameRedirectLength
     rep #$20
-    lda.w #$A983
+    lda.w #BattleTextAttackerNameBuffer
     jsl C1DD70_RedirectBuildBattleAttackerNameBuffer
-    ldx $A970
-    lda $0000,X
-    sta $9658
+    ldx ActiveAttackerBattlerPointer
+    lda.w BattlerIdWord,X
+    sta LastAttackerBattleTextId
     bra C23D03_BuildBattleAttackerTextContext_L3D03
 C23CD7_BuildBattleAttackerTextContext_L3CD7:
-    ldx $A970
-    lda $0000,X
+    ldx ActiveAttackerBattlerPointer
+    lda.w BattlerIdWord,X
     cmp.w #$0004
     beq C23CE4_BuildBattleAttackerTextContext_L3CE4
     bcs C23D03_BuildBattleAttackerTextContext_L3D03
 C23CE4_BuildBattleAttackerTextContext_L3CE4:
-    ldx.w #$0005
+    ldx.w #PartyNameRedirectLength
     stx $12
-    ldx $A970
-    lda $0010,X
+    ldx ActiveAttackerBattlerPointer
+    lda.w BattlerPartyRowByte,X
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #PartyCharacterRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #PartyCharactersBase
     ldx $12
     jsl C1DD70_RedirectBuildBattleAttackerNameBuffer
 C23D03_BuildBattleAttackerTextContext_L3D03:

@@ -2,12 +2,14 @@
 
 This note records the byte-neutral C2 action-dispatch polish slice. It promotes
 the local contract between the `D5:7B68` battle-action descriptor table, derived
-candidate-row action bytes, target-mask construction, and second-pointer payload
-application.
+candidate-row action bytes, target-mask construction, battle text-context
+refresh, and second-pointer payload application.
 
 Primary source modules:
 
 - `src/c2/c2_40a4_apply_battle_action_second_pointer_payload.asm`
+- `src/c2/c2_3bcf_build_battle_attacker_text_context.asm`
+- `src/c2/c2_3d05_build_battle_target_text_context.asm`
 - `src/c2/c2_4477_build_class2_derived_action_code.asm`
 - `src/c2/c2_4703_dispatch_class2_derived_action.asm`
 
@@ -18,6 +20,8 @@ Related evidence notes:
 - `notes/class2-mask-helper-family.md`
 - `notes/class2-descriptor-field-4e-and-d57b68.md`
 - `notes/class2-d57b68-battle-action-table-match.md`
+- `notes/class2-battlers-table-layout-9f8a-9fac.md`
+- `notes/class2-concrete-battle-text-call-paths.md`
 
 ## Derived Action Bytes
 
@@ -126,6 +130,39 @@ the `$A21C` actor-target domain, the `$9FAC` candidate-target domain, the
 shared `0x4E` candidate-row stride, and the bit ranges used by the two payload
 passes.
 
+## Battle Text Context Join
+
+The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local
+bridge between the current action/targeting state and the C1 battle-text
+substitution buffers.
+
+Implementation update: `src/c2/c2_3bcf_build_battle_attacker_text_context.asm`
+now names `$A970` as the active attacker battler pointer, its `D5:9589`
+enemy-data lookup, the attacker name buffer at `$A983`, the `$5E77` article
+flag, the party-record fallback path through `$99CE + row * 0x5F`, and the
+`battler` fields used by the source body:
+
+| Battler field | Local role in `C2:3BCF` |
+| --- | --- |
+| `+0x00 id` | enemy-data row and final attacker text id |
+| `+0x0B the_flag` | article/name-format token source |
+| `+0x0E ally_or_enemy` | enemy-side versus party-side name path |
+| `+0x0F npc_id` | non-party/non-enemy name-path override |
+| `+0x10 row` | party-record fallback selector |
+| `+0x4C` | companion input to `C2:B66A` before article insertion |
+
+Implementation update: `src/c2/c2_3d05_build_battle_target_text_context.asm`
+now carries the same vocabulary for `$A972` as the active target battler
+pointer, the target name buffer at `$A99E`, and the `$5E78` target article flag.
+Its helper tails also name the `$A96C/$A96E` current target mask, the
+`C2:7029` bit test, the `9FAC + 0x4E * n` battler pointer rebuild, the
+`$AD56/$AD7A/$AD82` front/back battler order lists, and the mask builders used
+by action-targeting modes.
+
+This is the first source-backed spot where the newer `$9FAC == BATTLERS_TABLE`
+correction is carried directly through the battle-text context builders instead
+of only appearing in notes.
+
 ## Decomp Value
 
 This slice makes the selected-row controller more actionable:
@@ -137,6 +174,8 @@ This slice makes the selected-row controller more actionable:
 - `$A96C/$A96E` is explicitly documented as the current target mask.
 - `C2:40A4` is documented as a per-target action-payload applicator, which is a
   useful bridge for later table-entry naming.
+- `C2:3BCF` and `C2:3D05` now show how active battler pointers feed the
+  attacker/target text buffers used by the C1 battle-text stack.
 
 ## Remaining Soft Spots
 

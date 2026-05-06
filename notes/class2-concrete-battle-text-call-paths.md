@@ -53,6 +53,13 @@ Our earlier reflected-hit notes already established that:
 - it uses `$5E77` as the companion late-token flag
 - it ends through `C1:DD70`
 
+Source-backed update: `src/c2/c2_3bcf_build_battle_attacker_text_context.asm`
+now names `$A970` as the active attacker battler pointer and carries the
+`BATTLERS_TABLE` field names for `id`, `the_flag`, `ally_or_enemy`, `npc_id`,
+`row`, and the `+0x4C` input to `C2:B66A`. The same source body names the
+`D5:9589` enemy-data lookup, `$A983` attacker-name buffer, and `$99CE` party
+record fallback.
+
 So `C2:4F00+` gives us a real local chain, not just a neighborhood guess:
 
 - first refresh battle text context through `C2:3BCF -> C1:DD70`
@@ -74,6 +81,14 @@ This is not an enemy-record pointer load like `C2:4F00+`. But it is exactly the 
 - `C2:3D05` runs first
 - our earlier notes already tie `C2:3D05` to `C1:DD76`
 - then the path immediately emits battle-text pointers through the same `C1:DC1C` wrapper
+
+Source-backed update: `src/c2/c2_3d05_build_battle_target_text_context.asm`
+now names `$A972` as the active target battler pointer and mirrors the same
+battler-field vocabulary for the `$A99E` target-name buffer and `$5E78` article
+flag. Its helper tails also name the `$A96C/$A96E` target mask, the
+`9FAC + 0x4E * n` battler rebuild before `FIX_TARGET_NAME`, and the
+`$AD56/$AD7A/$AD82` front/back battler order lists used by the selected-target
+name path.
 
 That makes the `DD76` side much less hypothetical. We now have a concrete local path where target-side context refresh and `C1:DC1C` display calls occur back-to-back.
 

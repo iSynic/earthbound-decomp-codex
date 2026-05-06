@@ -365,6 +365,15 @@ contract notes for C0/C1/C3/C4 consumers.
   tail with the same one-hot target bit, input/output mask, candidate-row
   stride, and named test/clear helper contracts. See
   `notes/class2-mask-helper-family.md`.
+- 2026-05-05 fifty-sixth slice: promoted the active battler text-context
+  builders around `C2:3BCF` and `C2:3D05`. The source now names `$A970/$A972`
+  as active attacker/target battler pointers, the `$A983/$A99E/$A9B9` battle
+  name buffers, `$5E77/$5E78` article flags, the `D5:9589` enemy-data name
+  lookup, party-record fallback through `$99CE + row * 0x5F`, the
+  `$AD56/$AD7A/$AD82` front/back battler order lists, and the
+  `$A96C/$A96E -> 9FAC + 0x4E * n` target-mask-to-battler rebuild. See
+  `notes/c2-action-dispatch-runtime-polish.md` and
+  `notes/class2-battlers-table-layout-9f8a-9fac.md`.
 
 ## Validation
 

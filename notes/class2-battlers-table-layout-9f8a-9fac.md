@@ -111,6 +111,25 @@ This exact layout match plus the local init chain strengthens several earlier re
 - `$A970/$A972` now look much more like active battler pointers than like abstract controller-row anchors
 - `9F8C` now looks much more like `ENEMIES_IN_BATTLE_IDS` than like a generic upstream list
 
+## Source-backed text-context update
+
+The `C2:3BCF` and `C2:3D05` battle-text context builders now carry this
+interpretation directly in source comments and aliases.
+
+The attacker side names `$A970` as the active attacker battler pointer and uses
+the battler row fields `+0x00`, `+0x0B`, `+0x0E`, `+0x0F`, `+0x10`, and `+0x4C`
+while building the `$A983` attacker-name buffer and `$5E77` article flag.
+
+The target side names `$A972` as the active target battler pointer and mirrors
+the same field vocabulary for the `$A99E` target-name buffer and `$5E78` article
+flag. Its helper tails also name the `$A96C/$A96E` current target mask and the
+`9FAC + 0x4E * n` battler pointer rebuild used before calling
+`FIX_TARGET_NAME`.
+
+That makes the `$A970/$A972` active-battler interpretation source-backed in the
+same battle-text cluster that previously provided some of the strongest field
+crosswalk evidence.
+
 ## Current safest interpretation
 
 The safest current interpretation is:
