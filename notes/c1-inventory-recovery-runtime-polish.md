@@ -15,6 +15,7 @@ Primary source modules:
 - `src/c1/c1_8f64_recover_hp_for_character_or_active_party.asm`
 - `src/c1/c1_8fba_deplete_pp_for_character_or_active_party.asm`
 - `src/c1/c1_9010_recover_pp_for_character_or_active_party.asm`
+- `src/c1/c1_913d_enqueue_pending_item_id.asm`
 
 Related evidence notes:
 
@@ -31,6 +32,12 @@ the C2 party-overlay/Teddy Bear hooks and C3 egg-family lifecycle hooks by
 name; `C1:8C27` and `C1:9066` call the four C4 equipped-slot index installers
 by name; and the HP/PP quartet now calls the C3 recover/deplete workers by
 name. The combined C1 scaffold remains byte-equivalent.
+
+Source polish follow-up (2026-05-06): the adjacent pending-item queue transfer
+module now names its inventory-slot reader as
+`C3E977_ReadCharacterInventorySlotByte`, so `C1:9183` reads as a direct bridge
+from a selected character inventory slot into the packed `$984B` pending-item
+queue before calling the `C1:8C27` removal worker.
 
 ## Inventory Helpers
 

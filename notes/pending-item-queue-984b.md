@@ -25,6 +25,11 @@ Escargo store/withdraw use the packed `$984B` queue helpers, while delivery and
 pickup queue entries either remove from that queue or remove from character
 inventory before staging item/owner data.
 
+Source polish follow-up (2026-05-06): `src/c1/c1_913d_enqueue_pending_item_id.asm`
+now names the `C3:E977` inventory-slot accessor edge as
+`C3E977_ReadCharacterInventorySlotByte`, making the `C1:9183`
+inventory-slot-to-pending-queue bridge explicit in source.
+
 ## Why this interpretation fits
 
 The core helpers around it are now fairly direct.
@@ -40,7 +45,11 @@ That is a straight packed-queue insertion pattern.
 
 ### `C1:9183`
 
-`C1:9183` is the transfer wrapper used by the immediate-store path. It fetches the selected character inventory byte through `C3:E977`, tries to enqueue that item id with `C1:913D`, and on success removes the original inventory slot through `C1:8C27`.
+`C1:9183` is the transfer wrapper used by the immediate-store path. It fetches
+the selected character inventory byte through `C3:E977`, now named in source as
+`C3E977_ReadCharacterInventorySlotByte`, tries to enqueue that item id with
+`C1:913D`, and on success removes the original inventory slot through
+`C1:8C27`.
 
 So the safest current name is `StoreInventorySlotItemInPendingQueue`: it is not a raw queue helper by itself, but the bridge from character inventory into the packed pending-item queue.
 

@@ -146,6 +146,11 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   slot index installers used by inventory mutation and subtype dispatch. See
   `notes/c1-inventory-recovery-runtime-polish.md` and
   `notes/equipment-slot-subtype-dispatch-c19066-c4577d.md`.
+- 2026-05-06: C1 `C1:913D..91B0` pending-item queue follow-up named the
+  `C3:E977` inventory-slot reader edge in the immediate-store bridge, leaving
+  the pending-item queue modules raw-helper-call clean. See
+  `notes/pending-item-queue-984b.md` and
+  `notes/item-slot-helper-pair-c3e977-c3ee14.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

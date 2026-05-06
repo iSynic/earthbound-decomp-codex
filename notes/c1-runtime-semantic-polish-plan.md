@@ -429,3 +429,10 @@ This planning pass is documentation-only.
   `notes/inventory-slot-removal-helper-c18c27.md`,
   `notes/equipment-slot-subtype-dispatch-c19066-c4577d.md`, and
   `notes/hp-pp-adjust-helper-quartet-c18f0e-c19010.md`.
+- 2026-05-06 follow-up: the adjacent `C1:913D..91B0` pending-item queue bridge
+  now names its `C3:E977` inventory-slot accessor edge as
+  `C3E977_ReadCharacterInventorySlotByte`. The targeted pending-item queue
+  modules now have no raw helper-call edges, and `C1:9183` reads directly as a
+  selected-inventory-slot-to-`$984B` queue transfer before the `C1:8C27`
+  removal worker. See `notes/pending-item-queue-984b.md` and
+  `notes/item-slot-helper-pair-c3e977-c3ee14.md`.

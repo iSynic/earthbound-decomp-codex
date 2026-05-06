@@ -22,6 +22,12 @@ The strongest local clues are the arithmetic and the fixed stride:
 
 So the safest current read is: this is a generic byte accessor over the 14-byte inventory region at the front of each `0x5F`-stride character record rooted at `C3:99F1`, not an item classifier or text-only helper.
 
+Source polish follow-up (2026-05-06): `src/c1/c1_913d_enqueue_pending_item_id.asm`
+now names this edge as `C3E977_ReadCharacterInventorySlotByte` in the
+`C1:9183` immediate-store bridge, where the fetched item byte is inserted into
+the packed `$984B` pending-item queue before the original inventory slot is
+removed.
+
 ## `C3:EE14`
 
 `C3:EE14` is best read as a small equipment-slot compatibility predicate.

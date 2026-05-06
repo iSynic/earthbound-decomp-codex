@@ -22149,6 +22149,7 @@ hirom
 org $C1913D
 
 !C18C27_RemoveItemFromCharacterInventorySlot = $8C27
+!C3E977_ReadCharacterInventorySlotByte = $C3E977
 ESCARGO_EXPRESS_STORE:
 !C1913D_EnqueuePendingItemId = ESCARGO_EXPRESS_STORE
     rep #$31
@@ -22209,7 +22210,7 @@ ESCARGO_EXPRESS_MOVE:
     sty $0E
     ldx $02
     tya
-    jsl $C3E977
+    jsl !C3E977_ReadCharacterInventorySlotByte
     jsr.w ESCARGO_EXPRESS_STORE
     cmp.w #$0000
     beq C191AB_c1_913d_enqueue_pending_item_id_L91AB
