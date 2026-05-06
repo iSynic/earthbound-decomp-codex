@@ -4,6 +4,10 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_00C0 = $00C0
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -17,11 +21,11 @@ hirom
 !ClearLeadAndCompanionRegistryVisualFlags = $C4675C
 !Integrate_XYVelocityOnly = $9FC8
 !LoopC40015Pulse16FrameUntilRelease = $A1F3
-!PhysicsCallback_C09FF0 = $9FF0
-!PositionChangeCallback_C0A039 = $A039
 !ReadActiveOverworldRegistryCount = $C47333
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -46,16 +50,28 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
+    db $42
+    dl <target>
+    dw <pose_descriptor_slot_word>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
 endmacro
 
 macro EVENT_LOOP(count)
@@ -155,18 +171,18 @@ endmacro
 
 org $C34029
 RegistryAnchorPartyLookFlagRoute:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:4029  42 64 A8 C0 FF
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:402E  23 39 A0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:4029  42 64 A8 C0 FF
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:402E  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:4031  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:4034  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:4034  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:4036  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $C0, $00) ; C3:403A  42 85 A6 C0 C0 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_00C0) ; C3:403A  42 85 A6 C0 C0 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:4040  0E 05 01 00
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $FC, $00) ; C3:4044  42 38 A9 C0 FC 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $00FC) ; C3:4044  42 38 A9 C0 FC 00
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V6, $02, $FFF8) ; C3:404A  14 06 02 F8 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $FFEA) ; C3:404F  14 07 02 EA FF
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:4054  1A 59 AB
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $81, $00) ; C3:4057  42 4C A8 C0 81 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0081) ; C3:4057  42 4C A8 C0 81 00
     %EVENT_SHORTCALL_CONDITIONAL(SetYieldAndRegistryVisualFlags) ; C3:405D  0A 75 40
     %EVENT_SET_VELOCITIES_ZERO() ; C3:4060  39
     %EVENT_CALLROUTINE_0(!ReadActiveOverworldRegistryCount) ; C3:4061  42 33 73 C4
@@ -180,23 +196,23 @@ RegistryAnchorPartyLookFlagRoute:
     %EVENT_LOOP_END() ; C3:4073  02
     %EVENT_SET_VELOCITIES_ZERO() ; C3:4074  39
 SetYieldAndRegistryVisualFlags:
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:4075  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:4075  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:4078  42 5F A6 C0
     %EVENT_PAUSE($02) ; C3:407C  06 02
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:407E  42 46 6E C4
     %EVENT_CALLROUTINE_0(!SetLeadAndCompanionRegistryVisualFlags) ; C3:4082  42 12 67 C4
 LoopRegistryAnchorPoseOffset:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $FC, $00) ; C3:4086  42 6F A8 C0 FC 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00FC) ; C3:4086  42 6F A8 C0 FC 00
     %EVENT_SET_X_RELATIVE($FFF8) ; C3:408C  2B F8 FF
     %EVENT_SET_Y_RELATIVE($FFEA) ; C3:408F  2C EA FF
     %EVENT_PAUSE($01) ; C3:4092  06 01
     %EVENT_SHORTJUMP(LoopRegistryAnchorPoseOffset) ; C3:4094  19 86 40
     %EVENT_CALLROUTINE_0(!ClearLeadAndCompanionRegistryVisualFlags) ; C3:4097  42 5C 67 C4
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:409B  23 39 A0
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:409B  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:409E  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:40A1  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:40A1  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:40A3  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $C0, $00) ; C3:40A7  42 85 A6 C0 C0 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_00C0) ; C3:40A7  42 85 A6 C0 C0 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:40AD  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0360) ; C3:40B1  0E 06 60 03
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $10B0) ; C3:40B5  0E 07 B0 10
@@ -208,9 +224,9 @@ LoopRegistryAnchorPoseOffset:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:40CB  19 04 A2
     %EVENT_SET_X($0258) ; C3:40CE  28 58 02
     %EVENT_SET_Y($0D98) ; C3:40D1  29 98 0D
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:40D4  25 F0 9F
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:40D4  25 F0 9F
     %EVENT_START_TASK(!LoopC40015Pulse16FrameUntilRelease) ; C3:40D7  07 F3 A1
-    %EVENT_SET_ANIMATION($00) ; C3:40DA  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:40DA  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:40DC  42 BF A4 C0
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $02A0) ; C3:40E0  0E 00 A0 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0D70) ; C3:40E4  0E 01 70 0D
@@ -219,10 +235,10 @@ LoopRegistryAnchorPoseOffset:
 LoopTrafficLightAreaFlagToggle:
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:40F0  1A 8A AB
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:40F3  1D 01 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $59, $01) ; C3:40F6  42 57 A8 C0 59 01
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0159) ; C3:40F6  42 57 A8 C0 59 01
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:40FC  1A 94 AB
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:40FF  1D 00 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $59, $01) ; C3:4102  42 57 A8 C0 59 01
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0159) ; C3:4102  42 57 A8 C0 59 01
     %EVENT_SHORTJUMP(LoopTrafficLightAreaFlagToggle) ; C3:4108  19 F0 40
 TrafficLightFootprintAnchorA:
     %EVENT_SET_X($0258) ; C3:410B  28 58 02

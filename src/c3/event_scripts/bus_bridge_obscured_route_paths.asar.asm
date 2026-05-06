@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_FIELD2B32_STEP_0280 = $0280
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -28,16 +29,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <display_control_bits_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
 endmacro
 
 macro EVENT_CLEAR_TICK_CALLBACK()
@@ -81,7 +82,7 @@ endmacro
 org $C3DD4F
 Event463_CoordinateTextHalt:
     %EVENT_SHORTCALL(!CopyAnchorThenPrepareObscuredSimplePositionActor) ; C3:DD4F  1A DB DB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $02) ; C3:DD52  42 85 A6 C0 80 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0280) ; C3:DD52  42 85 A6 C0 80 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:DD58  0E 05 03 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1140) ; C3:DD5C  0E 06 40 11
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $27C8) ; C3:DD60  0E 07 C8 27
@@ -90,32 +91,32 @@ Event463_CoordinateTextHalt:
     %EVENT_HALT() ; C3:DD6B  09
 Event464_ObscuredRouteTransitionRelease:
     %EVENT_SHORTCALL(!CopyAnchorThenPrepareObscuredSimplePositionActor) ; C3:DD6C  1A DB DB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $02) ; C3:DD6F  42 85 A6 C0 80 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0280) ; C3:DD6F  42 85 A6 C0 80 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:DD75  0E 05 03 00
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $01) ; C3:DD79  42 79 A6 C0 01
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $01) ; C3:DD79  42 79 A6 C0 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1708) ; C3:DD7E  0E 06 08 17
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $24C8) ; C3:DD82  0E 07 C8 24
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DD86  1A 59 AB
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $18A0) ; C3:DD89  0E 06 A0 18
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2328) ; C3:DD8D  0E 07 28 23
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DD91  1A 59 AB
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:DD94  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:DD94  42 79 A6 C0 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1818) ; C3:DD99  0E 06 18 18
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2328) ; C3:DD9D  0E 07 28 23
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DDA1  1A 59 AB
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:DDA4  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:DDA4  42 79 A6 C0 03
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $17A0) ; C3:DDA9  0E 06 A0 17
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2328) ; C3:DDAD  0E 07 28 23
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DDB1  1A 59 AB
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:DDB4  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:DDB4  42 79 A6 C0 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $16C8) ; C3:DDB9  0E 06 C8 16
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2328) ; C3:DDBD  0E 07 28 23
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DDC1  1A 59 AB
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $01) ; C3:DDC4  42 79 A6 C0 01
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $01) ; C3:DDC4  42 79 A6 C0 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1648) ; C3:DDC9  0E 06 48 16
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2328) ; C3:DDCD  0E 07 28 23
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DDD1  1A 59 AB
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:DDD4  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:DDD4  42 79 A6 C0 03
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1568) ; C3:DDD9  0E 06 68 15
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2328) ; C3:DDDD  0E 07 28 23
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DDE1  1A 59 AB

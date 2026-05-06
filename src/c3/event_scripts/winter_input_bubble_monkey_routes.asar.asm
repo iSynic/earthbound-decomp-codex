@@ -4,6 +4,9 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_DOWN = $00
+!ACTIONSCRIPT_FIELD2B32_STEP_00C0 = $00C0
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -13,13 +16,13 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_QueueTextPointer = $C0A88D
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !InitActionScriptMovementState = $AA38
-!PhysicsCallback_C09FF0 = $9FF0
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
 !ReadInputState0065 = $C468AF
 !ReadInputState006d = $C468A9
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RoundAngleToWalkDirectionStep = $C46B51
 !ScriptWrapper_C472A8_Mode0 = $C0A8E7
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
@@ -45,16 +48,23 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <pose_descriptor_slot_word>
+endmacro
+
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
+    db $42
+    dl <target>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
 endmacro
 
 macro EVENT_HALT()
@@ -132,9 +142,9 @@ endmacro
 
 org $C31452
 Event317_WintersInputGateRelease:
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:1452  42 2F A8 C0
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:1456  25 F0 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:1459  3B FF
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:1452  42 2F A8 C0
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:1456  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:1459  3B FF
     %EVENT_SET_VELOCITIES_ZERO() ; C3:145B  39
     %EVENT_LOOP($B4) ; C3:145C  01 B4
     %EVENT_LOOP($3C) ; C3:145E  01 3C
@@ -148,13 +158,13 @@ LoopEvent317_WaitForInputState:
     %EVENT_PAUSE($01) ; C3:1476  06 01
     %EVENT_LOOP_END() ; C3:1478  02
     %EVENT_LOOP_END() ; C3:1479  02
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C8, $00, $8D, $88) ; C3:147A  42 8D A8 C0 C8 00 8D 88
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C8, $888D) ; C3:147A  42 8D A8 C0 C8 00 8D 88
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:1482  19 04 A2
 Event318_BubbleMonkeyLongRouteHalt:
     %EVENT_SET_X($06C0) ; C3:1485  28 C0 06
     %EVENT_SET_Y($14C0) ; C3:1488  29 C0 14
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:148B  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $05) ; C3:148E  42 85 A6 C0 00 05
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0500) ; C3:148E  42 85 A6 C0 00 05
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0005) ; C3:1494  0E 05 05 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $06F8) ; C3:1498  0E 06 F8 06
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1508) ; C3:149C  0E 07 08 15
@@ -187,21 +197,21 @@ Event318_BubbleMonkeyLongRouteHalt:
     %EVENT_LOOP($40) ; C3:14FE  01 40
     %EVENT_PAUSE($01) ; C3:1500  06 01
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $1000) ; C3:1502  14 00 02 00 10
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $A9, $00) ; C3:1507  42 6F A8 C0 A9 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00A9) ; C3:1507  42 6F A8 C0 A9 00
     %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:150D  42 E7 A8 C0
     %EVENT_LOOP_END() ; C3:1511  02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $06C0) ; C3:1512  0E 06 C0 06
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $15A8) ; C3:1516  0E 07 A8 15
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:151A  1A 59 AB
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:151D  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:151D  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:1520  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1524  42 46 6E C4
     %EVENT_HALT() ; C3:1528  09
 Event319_PartyMemberRouteTextHalt:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:1529  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $A0, $00) ; C3:152C  42 85 A6 C0 A0 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $00A0) ; C3:152C  42 85 A6 C0 A0 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0011) ; C3:1532  0E 05 11 00
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $62, $00) ; C3:1536  42 38 A9 C0 62 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $0062) ; C3:1536  42 38 A9 C0 62 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:153C  1A 59 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:153F  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:1543  06 01
@@ -219,7 +229,7 @@ Event321_BubbleMonkeyRouteTextRelease:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:1563  19 04 A2
 RunEvent320_321_BubbleMonkeyReturnRoute:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:1566  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $05) ; C3:1569  42 85 A6 C0 00 05
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0500) ; C3:1569  42 85 A6 C0 00 05
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0005) ; C3:156F  0E 05 05 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0698) ; C3:1573  0E 06 98 06
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $15A0) ; C3:1577  0E 07 A0 15
@@ -250,7 +260,7 @@ Event322_WintersCoordinateRouteRelease:
     %EVENT_SET_X($17C0) ; C3:15CC  28 C0 17
     %EVENT_SET_Y($2168) ; C3:15CF  29 68 21
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:15D2  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $C0, $00) ; C3:15D5  42 85 A6 C0 C0 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_00C0) ; C3:15D5  42 85 A6 C0 C0 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:15DB  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $17A8) ; C3:15DF  0E 06 A8 17
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2168) ; C3:15E3  0E 07 68 21

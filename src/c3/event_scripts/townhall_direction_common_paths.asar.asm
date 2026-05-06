@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -15,8 +16,8 @@ hirom
 !FaceVisualTypeSlotTowardCurrentSlot_ReadWord = $C0A94E
 !InitMovementPresetVar4Countdown = $AAAA
 !LoopReadText456And459Task = $8FCE
-!PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RunRightLeftFacingPulsePair = $7545
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -31,10 +32,23 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_TYPE_ID(target, visual_type_id_word)
+    db $42
+    dl <target>
+    dw <visual_type_id_word>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -108,8 +122,8 @@ Event740_SetRightDirectionAndJumpCommon:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0000) ; C3:8EFF  0E 00 00 00
     %EVENT_SHORTJUMP(Event737_740_CommonDirectionHalt) ; C3:8F03  19 06 8F
 Event737_740_CommonDirectionHalt:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:8F06  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:8F09  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:8F06  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:8F09  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:8F0B  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:8F0C  42 DB C7 C0
     %EVENT_WRITE_VAR_TO_TEMPVAR(!ACTIONSCRIPT_VARS_V0) ; C3:8F10  20 00
@@ -117,14 +131,14 @@ Event737_740_CommonDirectionHalt:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:8F16  42 BF A4 C0
     %EVENT_HALT() ; C3:8F1A  09
 Event741_FacingPulseTextHalt:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:8F1B  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:8F1E  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:8F1B  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:8F1E  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:8F20  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:8F21  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:8F25  42 BF A4 C0
     %EVENT_SHORTCALL(!RunRightLeftFacingPulsePair) ; C3:8F29  1A 45 75
     %EVENT_PAUSE($1E) ; C3:8F2C  06 1E
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:8F2E  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:8F2E  42 6E AA C0 04 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:8F34  42 46 6E C4
     %EVENT_HALT() ; C3:8F38  09
 Event742_TownHallMovementTextPath:
@@ -133,7 +147,7 @@ Event742_TownHallMovementTextPath:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:8F3F  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $000B) ; C3:8F42  0E 04 0B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:8F46  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $20, $01) ; C3:8F4A  42 85 A6 C0 20 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0120) ; C3:8F4A  42 85 A6 C0 20 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:8F50  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $11D0) ; C3:8F54  0E 06 D0 11
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0DE0) ; C3:8F58  0E 07 E0 0D
@@ -149,18 +163,18 @@ Event742_TownHallMovementTextPath:
     %EVENT_END_LAST_TASK() ; C3:8F77  13
     %EVENT_PAUSE($1E) ; C3:8F78  06 1E
     %EVENT_END_LAST_TASK() ; C3:8F7A  13
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:8F7B  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:8F7B  42 6E AA C0 06 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:8F81  42 46 6E C4
     %EVENT_HALT() ; C3:8F85  09
 LoopEvent742_ReadText456Task:
-    %EVENT_CALLROUTINE_2(!FaceVisualTypeSlotTowardCurrentSlot_ReadWord, $56, $04) ; C3:8F86  42 4E A9 C0 56 04
+    %EVENT_CALLROUTINE_VISUAL_TYPE_ID(!FaceVisualTypeSlotTowardCurrentSlot_ReadWord, $0456) ; C3:8F86  42 4E A9 C0 56 04
     %EVENT_PAUSE($03) ; C3:8F8C  06 03
     %EVENT_SHORTJUMP(LoopEvent742_ReadText456Task) ; C3:8F8E  19 86 8F
 Event743_TownHallMovementSoundPath:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:8F91  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $000A) ; C3:8F94  0E 04 0A 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:8F98  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $20, $01) ; C3:8F9C  42 85 A6 C0 20 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0120) ; C3:8F9C  42 85 A6 C0 20 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:8FA2  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1158) ; C3:8FA6  0E 06 58 11
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0DF0) ; C3:8FAA  0E 07 F0 0D
@@ -172,6 +186,6 @@ Event743_TownHallMovementSoundPath:
     %EVENT_END_LAST_TASK() ; C3:8FBF  13
     %EVENT_PAUSE($1E) ; C3:8FC0  06 1E
     %EVENT_END_LAST_TASK() ; C3:8FC2  13
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:8FC3  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:8FC3  42 6E AA C0 04 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:8FC9  42 46 6E C4
     %EVENT_HALT() ; C3:8FCD  09

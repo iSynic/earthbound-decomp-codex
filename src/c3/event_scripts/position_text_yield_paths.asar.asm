@@ -4,6 +4,11 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_DIRECTION_DOWN = $00
+!ACTIONSCRIPT_DIRECTION_LEFT = $06
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
+!ACTIONSCRIPT_FIELD2B32_STEP_0180 = $0180
+!ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -33,10 +38,29 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <event_flag_word>
+endmacro
+
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
+    db $42
+    dl <target>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_TYPE_ID(target, visual_type_id_word)
+    db $42
+    dl <target>
+    dw <visual_type_id_word>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -103,25 +127,25 @@ endmacro
 org $C3C227
 LoopMakePartyLookAtActiveEntity:
     %EVENT_CALLROUTINE_0(!MakePartyLookAtActiveEntityCallback) ; C3:C227  42 3B 8B C4
-    %EVENT_CALLROUTINE_2(!FaceVisualTypeSlotTowardCurrentSlot_ReadWord, $47, $03) ; C3:C22B  42 4E A9 C0 47 03
+    %EVENT_CALLROUTINE_VISUAL_TYPE_ID(!FaceVisualTypeSlotTowardCurrentSlot_ReadWord, $0347) ; C3:C22B  42 4E A9 C0 47 03
     %EVENT_PAUSE($03) ; C3:C231  06 03
     %EVENT_SHORTJUMP(LoopMakePartyLookAtActiveEntity) ; C3:C233  19 27 C2
 Event120_RightStepTextYieldHandoff:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:C236  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0012) ; C3:C239  0E 04 12 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:C23D  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:C23D  42 85 A6 C0 80 00
     %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:C243  1D 02 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:C246  1A 1E AA
     %EVENT_PAUSE($30) ; C3:C249  06 30
     %EVENT_SET_VELOCITIES_ZERO() ; C3:C24B  39
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C24C  42 46 6E C4
     %EVENT_END_LAST_TASK() ; C3:C250  13
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:C251  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:C251  42 6E AA C0 06 00
     %EVENT_HALT() ; C3:C257  09
 Event121_DownLeftStepTextYieldHandoff:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:C258  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0012) ; C3:C25B  0E 04 12 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:C25F  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:C25F  42 85 A6 C0 80 00
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:C265  1D 04 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:C268  1A 1E AA
     %EVENT_PAUSE($20) ; C3:C26B  06 20
@@ -130,16 +154,16 @@ Event121_DownLeftStepTextYieldHandoff:
     %EVENT_PAUSE($20) ; C3:C273  06 20
     %EVENT_SET_VELOCITIES_ZERO() ; C3:C275  39
     %EVENT_END_LAST_TASK() ; C3:C276  13
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:C277  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:C277  42 6E AA C0 02 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C27D  42 46 6E C4
     %EVENT_HALT() ; C3:C281  09
 Event132_MoveTo1558_17B8ThenShakeLoop:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:C282  1A 38 AA
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:C285  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:C285  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:C288  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C28C  42 BF A4 C0
     %EVENT_PAUSE($1E) ; C3:C290  06 1E
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:C292  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:C292  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:C298  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1558) ; C3:C29C  0E 06 58 15
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $17B8) ; C3:C2A0  0E 07 B8 17
@@ -177,16 +201,16 @@ RunEvent122_126SharedPositionRelease:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C2EC  19 04 A2
 InitLeftFacingTempFlagMovementTo17C8_1768:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:C2EF  1A 38 AA
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:C2F2  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:C2F2  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:C2F5  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C2F9  42 BF A4 C0
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:C2FD  0E 04 01 00
 LoopWaitForTempFlag1ClearToMove17C8_1768:
     %EVENT_PAUSE($01) ; C3:C301  06 01
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:C303  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0002) ; C3:C303  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopWaitForTempFlag1ClearToMove17C8_1768) ; C3:C309  0A 01 C3
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:C30C  0E 04 00 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $01) ; C3:C310  42 85 A6 C0 80 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0180) ; C3:C310  42 85 A6 C0 80 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:C316  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $17C8) ; C3:C31A  0E 06 C8 17
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1768) ; C3:C31E  0E 07 68 17

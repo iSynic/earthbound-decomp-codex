@@ -4,6 +4,13 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_FRAME1 = $01
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_DOWN = $00
+!ACTIONSCRIPT_DIRECTION_RIGHT = $02
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -14,15 +21,15 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !Apply_TransitionSnapshotToRegistryEntities = $C03F1E
 !CentreScreenOnEntityCallback = $C48C2B
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !Integrate_XYVelocityOnly = $9FC8
 !MarkCurrentSlotCollisionStateFFFF = $C0A838
-!PositionChangeCallback_C0A039 = $A039
 !ReadActiveOverworldRegistryCount = $C47333
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
 !RefreshCurrentSlotVisualProfile_Mode1IfAligned = $C0A4B2
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_PlaySoundEffectParameter = $C0A841
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -43,16 +50,28 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
+    db $42
+    dl <target>
+    dw <sound_effect_id_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_TYPE_SLOT(target, visual_type_slot_word)
+    db $42
+    dl <target>
+    dw <visual_type_slot_word>
 endmacro
 
 macro EVENT_CLEAR_TICK_CALLBACK()
@@ -161,38 +180,38 @@ RunThreedEscaperRandomTextPause:
     %EVENT_PAUSE($01) ; C3:7E66  06 01
     %EVENT_CALLROUTINE_0(!MarkCurrentSlotCollisionStateFFFF) ; C3:7E68  42 38 A8 C0
     %EVENT_START_TASK(TaskThreedEscaperRandomTextFacePlayer) ; C3:7E6C  07 AE 7E
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $51, $00) ; C3:7E6F  42 41 A8 C0 51 00
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:7E75  1D 04 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0051) ; C3:7E6F  42 41 A8 C0 51 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:7E75  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7E78  42 5F A6 C0
     %EVENT_PAUSE($08) ; C3:7E7C  06 08
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:7E7E  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:7E7E  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7E81  42 5F A6 C0
     %EVENT_PAUSE($08) ; C3:7E85  06 08
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:7E87  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:7E87  1D 02 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7E8A  42 5F A6 C0
     %EVENT_PAUSE($B4) ; C3:7E8E  06 B4
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:7E90  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:7E90  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7E93  42 5F A6 C0
     %EVENT_PAUSE($08) ; C3:7E97  06 08
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:7E99  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:7E99  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7E9C  42 5F A6 C0
     %EVENT_PAUSE($08) ; C3:7EA0  06 08
     %EVENT_END_LAST_TASK() ; C3:7EA2  13
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:7EA3  42 2F A8 C0
-    %EVENT_SET_ANIMATION($FF) ; C3:7EA7  3B FF
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:7EA3  42 2F A8 C0
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:7EA7  3B FF
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7EA9  42 BF A4 C0
     %EVENT_SHORT_RETURN() ; C3:7EAD  1B
 TaskThreedEscaperRandomTextFacePlayer:
-    %EVENT_SET_ANIMATION($00) ; C3:7EAE  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:7EAE  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:7EB0  42 A8 A4 C0
     %EVENT_PAUSE($04) ; C3:7EB4  06 04
-    %EVENT_SET_ANIMATION($01) ; C3:7EB6  3B 01
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME1) ; C3:7EB6  3B 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:7EB8  42 B2 A4 C0
     %EVENT_PAUSE($04) ; C3:7EBC  06 04
     %EVENT_SHORTCALL_CONDITIONAL_NOT(TaskThreedEscaperRandomTextFacePlayer) ; C3:7EBE  0B AE 7E
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7EC1  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7EC1  42 64 A8 C0 FF
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:7EC6  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:7EC9  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:7EC9  3B FF
     %EVENT_SET_TICK_CALLBACK(!CentreScreenOnEntityCallback) ; C3:7ECB  08 2B 8C C4
     %EVENT_START_TASK(TaskThreedEscaperRandomTextPartyLook) ; C3:7ECF  07 1F 7F
     %EVENT_LOOP($02) ; C3:7ED2  01 02
@@ -261,21 +280,21 @@ TaskThreedEscaperRandomTextPartyLook:
     %EVENT_LOOP_END() ; C3:7F63  02
     %EVENT_END_TASK() ; C3:7F64  0C
     %EVENT_SHORTCALL(RunThreedEscaperRandomTextPositionHelper) ; C3:7F65  1A 89 7F
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $17, $05) ; C3:7F68  42 2D A9 C0 17 05
+    %EVENT_CALLROUTINE_VISUAL_TYPE_SLOT(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $0517) ; C3:7F68  42 2D A9 C0 17 05
     %EVENT_SHORTJUMP(RunThreedEscaperRandomTextReleaseTail) ; C3:7F6E  19 A5 7F
     %EVENT_SHORTCALL(RunThreedEscaperRandomTextPositionHelper) ; C3:7F71  1A 89 7F
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $18, $05) ; C3:7F74  42 2D A9 C0 18 05
+    %EVENT_CALLROUTINE_VISUAL_TYPE_SLOT(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $0518) ; C3:7F74  42 2D A9 C0 18 05
     %EVENT_SHORTJUMP(RunThreedEscaperRandomTextReleaseTail) ; C3:7F7A  19 A5 7F
     %EVENT_SHORTCALL(RunThreedEscaperRandomTextPositionHelper) ; C3:7F7D  1A 89 7F
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $19, $05) ; C3:7F80  42 2D A9 C0 19 05
+    %EVENT_CALLROUTINE_VISUAL_TYPE_SLOT(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $0519) ; C3:7F80  42 2D A9 C0 19 05
     %EVENT_SHORTJUMP(RunThreedEscaperRandomTextReleaseTail) ; C3:7F86  19 A5 7F
 RunThreedEscaperRandomTextPositionHelper:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7F89  42 64 A8 C0 FF
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:7F8E  23 39 A0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7F89  42 64 A8 C0 FF
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:7F8E  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:7F91  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:7F94  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:7F94  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:7F96  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:7F9A  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:7F9A  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:7FA0  0E 05 01 00
     %EVENT_SHORT_RETURN() ; C3:7FA4  1B
 RunThreedEscaperRandomTextReleaseTail:

@@ -4,6 +4,12 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_FRAME1 = $01
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_DOWN = $00
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -19,10 +25,10 @@ hirom
 !GetCurrentSlotDirectionClass = $C0A673
 !InitActionScriptMovementState = $AA38
 !InitializeYourSanctuaryDisplayState = $C4DE98
-!PositionChangeCallback_C0A039 = $A039
 !RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
 !RefreshCurrentSlotVisualProfile_Mode1IfAligned = $C0A4B2
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !RotateDirectionByCurrentSlotClass = $C0C682
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
@@ -50,16 +56,29 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_CLEAR_TICK_CALLBACK()
@@ -176,19 +195,19 @@ endmacro
 
 org $C31B4B
 Event346_SanctuaryDisplaySequence:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:1B4B  42 64 A8 C0 FF
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:1B50  23 39 A0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:1B4B  42 64 A8 C0 FF
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:1B50  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:1B53  25 7A A3
-    %EVENT_SET_ANIMATION($00) ; C3:1B56  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:1B56  3B 00
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:1B58  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:1B5C  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:1B5C  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:1B62  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $01F0) ; C3:1B66  0E 06 F0 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $23B0) ; C3:1B6A  0E 07 B0 23
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:1B6E  1A 59 AB
     %EVENT_SET_VELOCITIES_ZERO() ; C3:1B71  39
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0008) ; C3:1B72  0E 00 08 00
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:1B76  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:1B76  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:1B79  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!Script_RefreshCurrentSlotVisualProfile) ; C3:1B7D  42 AC AA C0
     %EVENT_PAUSE($02) ; C3:1B81  06 02
@@ -243,13 +262,13 @@ LoopEvent347_WintersBounce:
 Event350_LeftVisualCountdownRelease:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:1BFD  1A 38 AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:1C00  0E 04 01 00
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:1C04  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:1C04  42 6E AA C0 04 00
     %EVENT_SET_Y_VELOCITY($0020) ; C3:1C0A  40 20 00
     %EVENT_PAUSE($08) ; C3:1C0D  06 08
-    %EVENT_SET_ANIMATION($01) ; C3:1C0F  3B 01
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME1) ; C3:1C0F  3B 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:1C11  42 B2 A4 C0
     %EVENT_PAUSE($08) ; C3:1C15  06 08
-    %EVENT_SET_ANIMATION($00) ; C3:1C17  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:1C17  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:1C19  42 A8 A4 C0
     %EVENT_SET_VELOCITIES_ZERO() ; C3:1C1D  39
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1C1E  42 46 6E C4
@@ -257,22 +276,22 @@ Event350_LeftVisualCountdownRelease:
 Event350_LeftwardVisualCountdownRelease:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:1C23  1A 38 AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:1C26  0E 04 01 00
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:1C2A  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:1C2A  42 6E AA C0 06 00
     %EVENT_SET_X_VELOCITY($FFE0) ; C3:1C30  3F E0 FF
     %EVENT_PAUSE($08) ; C3:1C33  06 08
-    %EVENT_SET_ANIMATION($01) ; C3:1C35  3B 01
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME1) ; C3:1C35  3B 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:1C37  42 B2 A4 C0
     %EVENT_PAUSE($08) ; C3:1C3B  06 08
-    %EVENT_SET_ANIMATION($00) ; C3:1C3D  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:1C3D  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:1C3F  42 A8 A4 C0
     %EVENT_SET_VELOCITIES_ZERO() ; C3:1C43  39
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1C44  42 46 6E C4
     %EVENT_HALT() ; C3:1C48  09
 Event351_SanctuaryDirectionPulseHalt:
-    %EVENT_SET_ANIMATION($FF) ; C3:1C49  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:1C49  3B FF
     %EVENT_PAUSE($0F) ; C3:1C4B  06 0F
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0010) ; C3:1C4D  0E 00 10 00
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:1C51  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:1C51  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:1C54  42 5F A6 C0
     %EVENT_START_TASK(LoopEvent351_DisplayLocationDirectionTask) ; C3:1C58  07 90 1C
     %EVENT_LOOP($0F) ; C3:1C5B  01 0F
@@ -303,7 +322,7 @@ LoopEvent351_DisplayLocationDirectionTask:
     %EVENT_CALLROUTINE_0(!DisplayYourSanctuaryLocation) ; C3:1C9D  42 D7 E2 C4
     %EVENT_SHORTJUMP(LoopEvent351_DisplayLocationDirectionTask) ; C3:1CA1  19 90 1C
 Event352_SanctuaryPalettePulseRelease:
-    %EVENT_SET_ANIMATION($FF) ; C3:1CA4  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:1CA4  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0000) ; C3:1CA6  0E 00 00 00
 LoopEvent352_PalettePulseForward:
     %EVENT_LOOP($09) ; C3:1CAA  01 09
@@ -316,7 +335,7 @@ LoopEvent352_PalettePulseForward:
     %EVENT_CALLROUTINE_0(!ApplyCurrentSlot0e5eBrightnessToPaletteRows) ; C3:1CBF  42 99 74 C4
     %EVENT_PAUSE($0C) ; C3:1CC3  06 0C
     %EVENT_LOOP_END() ; C3:1CC5  02
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:1CC6  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0002) ; C3:1CC6  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event352_YieldRelease) ; C3:1CCC  0B F4 1C
     %EVENT_LOOP($09) ; C3:1CCF  01 09
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $FFFF) ; C3:1CD1  14 00 02 FF FF
@@ -328,7 +347,7 @@ LoopEvent352_PalettePulseForward:
     %EVENT_CALLROUTINE_0(!ApplyCurrentSlot0e5eBrightnessToPaletteRows) ; C3:1CE4  42 99 74 C4
     %EVENT_PAUSE($0C) ; C3:1CE8  06 0C
     %EVENT_LOOP_END() ; C3:1CEA  02
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:1CEB  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0002) ; C3:1CEB  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent352_PalettePulseForward) ; C3:1CF1  0A AA 1C
 Event352_YieldRelease:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1CF4  42 46 6E C4

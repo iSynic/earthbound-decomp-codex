@@ -24,6 +24,11 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS`, `%EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER`, `%EVENT_CALLROUTINE_REGISTRY_SLOT`, `%EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN`.
+
 ## Next Promotion Step
 
 Continue with another newly unlocked seam from `notes/c3-source-pilot-frontier.md`; the `C4:74A8` contract also unlocked several stage and Sky Runner/electric-effect ranges.

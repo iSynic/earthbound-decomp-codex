@@ -4,6 +4,9 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0180 = $0180
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -29,10 +32,17 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -115,21 +125,21 @@ endmacro
 
 org $C362C0
 RunCastScreenFacingPulseCycle:
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:62C0  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:62C0  42 6E AA C0 04 00
     %EVENT_PAUSE($05) ; C3:62C6  06 05
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:62C8  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:62C8  42 6E AA C0 06 00
     %EVENT_PAUSE($05) ; C3:62CE  06 05
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:62D0  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:62D0  42 6E AA C0 00 00
     %EVENT_PAUSE($05) ; C3:62D6  06 05
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:62D8  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:62D8  42 6E AA C0 02 00
     %EVENT_PAUSE($05) ; C3:62DE  06 05
     %EVENT_SHORT_RETURN() ; C3:62E0  1B
 Event826_CastScreenStepLoopRelease:
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera39) ; C3:62E1  23 55 A0
     %EVENT_SET_PRIORITY($00) ; C3:62E4  43 00
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:62E6  25 C8 9F
-    %EVENT_SET_ANIMATION($00) ; C3:62E9  3B 00
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:62EB  1D 04 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:62E9  3B 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:62EB  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:62EE  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:62F2  42 BF A4 C0
     %EVENT_LOOP($02) ; C3:62F6  01 02
@@ -144,21 +154,21 @@ Event826_CastScreenStepLoopRelease:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:630E  19 04 A2
 Event827_CastScreenDirectionHalt:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:6311  1A B6 5F
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:6314  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:6314  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6317  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:631B  42 BF A4 C0
     %EVENT_HALT() ; C3:631F  09
 Event828_CastScreenLeftMoveRelease:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:6320  1A B6 5F
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $000C) ; C3:6323  0E 03 0C 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $55, $01) ; C3:6327  42 85 A6 C0 55 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0155) ; C3:6327  42 85 A6 C0 55 01
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:632D  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:6330  1A 1E AA
     %EVENT_PAUSE($CC) ; C3:6333  06 CC
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6335  19 04 A2
 Event829_CastScreenLeftMoveWaitOffscreenRelease:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:6338  1A B6 5F
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $01) ; C3:633B  42 85 A6 C0 80 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0180) ; C3:633B  42 85 A6 C0 80 01
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:6341  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:6344  1A 1E AA
     %EVENT_PAUSE($75) ; C3:6347  06 75

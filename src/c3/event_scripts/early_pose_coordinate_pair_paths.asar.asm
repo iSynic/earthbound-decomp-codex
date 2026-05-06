@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -18,13 +19,13 @@ hirom
 !InitSimpleScreenPositionMovementCallbacks = $AB37
 !RefreshActiveEntityDirectionAndVisualProfile = $AB44
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
-!ScriptWrapper_C47143_Mode00 = $C0A8C6
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetTargetToPoseDescriptorSlotPosition_ReadWord = $C0A938
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
+!StepCurrentSlotTowardCachedTarget = $C0A8C6
 !WaitForActiveEntityMovementToFinish = $AB59
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -33,16 +34,29 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <pose_descriptor_slot_word>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -88,23 +102,23 @@ endmacro
 org $C30295
 RunVisualCountdownMoveReturn:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:0295  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:0298  42 6E AA C0 06 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:029E  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:0298  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:029E  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:02A4  0E 05 01 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:02A8  1A 59 AB
     %EVENT_SHORT_RETURN() ; C3:02AB  1B
 Event225_226_227_PoseTargetTracker:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:02AC  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:02AC  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitSimpleScreenPositionMovementCallbacks) ; C3:02B1  1A 37 AB
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0011) ; C3:02B4  0E 05 11 00
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $4B, $00) ; C3:02B8  42 38 A9 C0 4B 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:02BE  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $004B) ; C3:02B8  42 38 A9 C0 4B 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:02BE  42 85 A6 C0 00 01
     %EVENT_SHORTCALL(!RefreshActiveEntityDirectionAndVisualProfile) ; C3:02C4  1A 44 AB
 LoopEvent225_226_227_PoseTargetTracker:
     %EVENT_PAUSE($01) ; C3:02C7  06 01
     %EVENT_SET_VELOCITIES_ZERO() ; C3:02C9  39
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $4B, $00) ; C3:02CA  42 38 A9 C0 4B 00
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:02D0  42 C6 A8 C0
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $004B) ; C3:02CA  42 38 A9 C0 4B 00
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:02D0  42 C6 A8 C0
     %EVENT_SHORTJUMP(LoopEvent225_226_227_PoseTargetTracker) ; C3:02D4  19 C7 02
 Event228_CoordinatePairYieldHalt:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1D48) ; C3:02D7  0E 06 48 1D
@@ -145,7 +159,7 @@ Event232_CoordinatePairHalt:
 Event228_232_CommonCoordinatePairMovement:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:033F  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $000E) ; C3:0342  0E 04 0E 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:0346  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:0346  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:034C  0E 05 01 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:0350  1A 59 AB
     %EVENT_WRITE_VAR_TO_TEMPVAR(!ACTIONSCRIPT_VARS_V0) ; C3:0353  20 00
