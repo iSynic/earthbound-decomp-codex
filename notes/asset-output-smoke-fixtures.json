@@ -13,13 +13,13 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 112,
-    "unique_selected_assets": 44,
-    "unique_selected_manifest_asset_pairs": 44,
-    "recipe_kinds_covered": 27,
+    "fixture_count": 114,
+    "unique_selected_assets": 45,
+    "unique_selected_manifest_asset_pairs": 45,
+    "recipe_kinds_covered": 28,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 31,
+    "family_decoder_pairs_covered": 32,
     "target_bank_output_fixture_policy_banks": 22,
     "bank_output_fixture_banks_covered": 22,
     "target_banks_without_typed_non_raw_outputs": [],
@@ -34,10 +34,10 @@
     },
     "fixture_type_counts": {
       "bank_output": 22,
-      "family_decoder": 31,
+      "family_decoder": 32,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 27,
+      "recipe_kind": 28,
       "recipe_option": 6
     },
     "fixture_family_counts": {
@@ -45,7 +45,7 @@
       "ef_debug_and_late_tail": 3,
       "map_tilesets_and_runtime_tables": 19,
       "overworld_sprites": 15,
-      "ui_font_town_map_assets": 20
+      "ui_font_town_map_assets": 22
     }
   },
   "source_ref_coverage": {
@@ -133,7 +133,8 @@
       "snes_2bpp_tiles_png": 1,
       "snes_4bpp_tiles_png": 5,
       "snes_palette_json": 2,
-      "snes_palette_swatch_png": 2
+      "snes_palette_swatch_png": 2,
+      "text_window_properties_table_json": 1
     },
     "audio_packs": {
       "raw": 171
@@ -781,6 +782,29 @@
         "raw",
         "snes_palette_json",
         "snes_palette_swatch_png"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.text_window_properties_table_json",
+      "type": "recipe_kind",
+      "key": "text_window_properties_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "ui_font_town_map_assets",
+      "bank": "E0",
+      "manifest_path": "asset-manifests/bank-e0-assets.json",
+      "asset_id": "table.e0.006_data_text_window_properties_asm",
+      "title": "data/text_window_properties.asm",
+      "category": "raw-table",
+      "bytes": 495,
+      "target_output": {
+        "kind": "text_window_properties_table_json",
+        "path": "e0/tables/006_data_text_window_properties_asm_decoded.json",
+        "decoder": "text_window_properties_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "raw",
+        "text_window_properties_table_json"
       ]
     },
     {
@@ -2885,6 +2909,29 @@
         "snes_palette_json",
         "snes_palette_swatch_png"
       ]
+    },
+    {
+      "id": "fixture.family_decoder.ui_font_town_map_assets_text_window_properties_table",
+      "type": "family_decoder",
+      "key": "ui_font_town_map_assets.text_window_properties_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "ui_font_town_map_assets",
+      "bank": "E0",
+      "manifest_path": "asset-manifests/bank-e0-assets.json",
+      "asset_id": "table.e0.006_data_text_window_properties_asm",
+      "title": "data/text_window_properties.asm",
+      "category": "raw-table",
+      "bytes": 495,
+      "target_output": {
+        "kind": "text_window_properties_table_json",
+        "path": "e0/tables/006_data_text_window_properties_asm_decoded.json",
+        "decoder": "text_window_properties_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "raw",
+        "text_window_properties_table_json"
+      ]
     }
   ],
   "command_groups": [
@@ -3050,9 +3097,10 @@
         "asset.e0.mother2_romaji_font",
         "asset.e0.mrsaturn_font_data",
         "asset.e0.mrsaturn_font_gfx",
-        "asset.e0.text_window_gfx"
+        "asset.e0.text_window_gfx",
+        "table.e0.006_data_text_window_properties_asm"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mother2_romaji_font --asset-id asset.e0.mrsaturn_font_data --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mother2_romaji_font --asset-id asset.e0.mrsaturn_font_data --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --asset-id table.e0.006_data_text_window_properties_asm --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/bank-e1-assets.json",

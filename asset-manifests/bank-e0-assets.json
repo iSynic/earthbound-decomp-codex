@@ -38,9 +38,9 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 16,
-    "output_recipe_count": 29,
-    "typed_output_kind_count": 6,
-    "decoder_output_recipe_count": 13,
+    "output_recipe_count": 30,
+    "typed_output_kind_count": 7,
+    "decoder_output_recipe_count": 14,
     "renderer_output_recipe_count": 3,
     "preview_png_recipe_count": 3,
     "output_kind_counts": {
@@ -49,32 +49,35 @@
       "font_metric_widths_json": 1,
       "raw": 16,
       "snes_2bpp_tiles_png": 1,
-      "snes_4bpp_tiles_png": 1
+      "snes_4bpp_tiles_png": 1,
+      "text_window_properties_table_json": 1
     },
     "decoder_counts": {
       "earthbound_lzhal": 9,
       "earthbound_lzhal+snes_4bpp_tiles": 1,
       "font_metric_widths": 1,
       "snes_2bpp_tiles": 1,
-      "snes_4bpp_tiles": 1
+      "snes_4bpp_tiles": 1,
+      "text_window_properties_table": 1
     },
     "renderer_counts": {
       "grayscale_tile_sheet": 3
     },
-    "smoke_fixture_count": 12,
+    "smoke_fixture_count": 14,
     "smoke_fixture_asset_ids": [
       "asset.e0.compressed_sram",
       "asset.e0.mother2_romaji_font",
       "asset.e0.mrsaturn_font_data",
       "asset.e0.mrsaturn_font_gfx",
-      "asset.e0.text_window_gfx"
+      "asset.e0.text_window_gfx",
+      "table.e0.006_data_text_window_properties_asm"
     ],
     "smoke_fixture_type_counts": {
       "bank_output": 1,
-      "family_decoder": 5,
+      "family_decoder": 6,
       "family_renderer": 1,
       "family_renderer_geometry": 2,
-      "recipe_kind": 2,
+      "recipe_kind": 3,
       "recipe_option": 1
     },
     "smoke_fixture_target_kind_counts": {
@@ -82,7 +85,8 @@
       "earthbound_lzhal_snes_4bpp_tiles_png": 2,
       "font_metric_widths_json": 2,
       "snes_2bpp_tiles_png": 6,
-      "snes_4bpp_tiles_png": 1
+      "snes_4bpp_tiles_png": 1,
+      "text_window_properties_table_json": 2
     }
   },
   "assets": [
@@ -465,12 +469,20 @@
         {
           "kind": "raw",
           "path": "e0/tables/006_data_text_window_properties_asm.bin"
+        },
+        {
+          "kind": "text_window_properties_table_json",
+          "path": "e0/tables/006_data_text_window_properties_asm_decoded.json",
+          "selector_count": 5,
+          "palette_block_count": 7,
+          "town_map_pointer_count": 6
         }
       ],
       "notes": [
         "Source include from ebsrc: data/text_window_properties.asm",
         "Original file offset: 0x201FB9",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Decoded as the combined text-window flavor selector, palette-block, movement-text palette, and town-map graphics pointer table."
       ]
     },
     {

@@ -451,6 +451,28 @@ ANIMATION_SEQUENCE_LABELS = [
     "ANIMATIONDATA_THE_END",
 ]
 
+TEXT_WINDOW_FLAVOR_NAMES = [
+    "Plain flavor",
+    "Mint flavor",
+    "Strawberry flavor",
+    "Banana flavor",
+    "Peanut flavor",
+]
+
+TEXT_WINDOW_TABLE_START = 0x1FB9
+TEXT_WINDOW_SELECTOR_OFFSET = 0x0000
+TEXT_WINDOW_SELECTOR_BYTES = 0x000F
+TEXT_WINDOW_PALETTE_BLOCK_OFFSET = 0x000F
+TEXT_WINDOW_PALETTE_BLOCK_SIZE = 0x0040
+TEXT_WINDOW_PALETTE_BLOCK_COUNT = 7
+TEXT_WINDOW_MOVEMENT_PALETTE_OFFSET = (
+    TEXT_WINDOW_PALETTE_BLOCK_OFFSET + TEXT_WINDOW_PALETTE_BLOCK_SIZE * TEXT_WINDOW_PALETTE_BLOCK_COUNT
+)
+TEXT_WINDOW_MOVEMENT_PALETTE_BYTES = 0x0008
+TEXT_WINDOW_TOWN_MAP_POINTER_OFFSET = TEXT_WINDOW_MOVEMENT_PALETTE_OFFSET + TEXT_WINDOW_MOVEMENT_PALETTE_BYTES
+TEXT_WINDOW_TOWN_MAP_POINTER_BYTES = 0x0018
+TEXT_WINDOW_EXPECTED_BYTES = TEXT_WINDOW_TOWN_MAP_POINTER_OFFSET + TEXT_WINDOW_TOWN_MAP_POINTER_BYTES
+
 
 def bgr555_components(raw: int) -> dict[str, int]:
     return {
@@ -459,6 +481,34 @@ def bgr555_components(raw: int) -> dict[str, int]:
         "green": (raw >> 5) & 0x1F,
         "blue": (raw >> 10) & 0x1F,
     }
+
+
+def snes_color_hex(raw: int) -> str:
+    color = bgr555_components(raw)
+    red = int(color["red"])
+    green = int(color["green"])
+    blue = int(color["blue"])
+    return f"#{(red << 3) | (red >> 2):02X}{(green << 3) | (green >> 2):02X}{(blue << 3) | (blue >> 2):02X}"
+
+
+def text_window_table_range(offset: int, size: int) -> str:
+    start = TEXT_WINDOW_TABLE_START + offset
+    end = start + size
+    return f"E0:{start:04X}..E0:{end:04X}"
+
+
+def text_window_palette_row(data: bytes, offset: int) -> list[dict[str, Any]]:
+    colors = []
+    for index in range(4):
+        raw = read_u16_le(data, offset + index * 2)
+        colors.append(
+            {
+                **bgr555_components(raw),
+                "snes": f"${raw:04X}",
+                "rgb888": snes_color_hex(raw),
+            }
+        )
+    return colors
 
 
 def read_long_pointer_row(data: bytes, offset: int, table_name: str) -> dict[str, Any]:
@@ -483,6 +533,176 @@ def read_long_pointer_row(data: bytes, offset: int, table_name: str) -> dict[str
         "offset_in_bank": low_word,
         "packed_pointer": (bank << 16) | low_word,
         "raw_bytes": list(data[offset : offset + 4]),
+    }
+
+
+def write_text_window_properties_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    selector_count = int(spec["selector_count"])
+    palette_block_count = int(spec["palette_block_count"])
+    town_map_pointer_count = int(spec["town_map_pointer_count"])
+    if selector_count != 5:
+        raise ValueError(f"Text-window selector_count must be 5, got {selector_count}")
+    if palette_block_count != TEXT_WINDOW_PALETTE_BLOCK_COUNT:
+        raise ValueError(
+            f"Text-window palette_block_count must be {TEXT_WINDOW_PALETTE_BLOCK_COUNT}, got {palette_block_count}"
+        )
+    if town_map_pointer_count != 6:
+        raise ValueError(f"Text-window town_map_pointer_count must be 6, got {town_map_pointer_count}")
+    if len(data) != TEXT_WINDOW_EXPECTED_BYTES:
+        raise ValueError(f"Text-window properties table expected {TEXT_WINDOW_EXPECTED_BYTES} bytes, got {len(data)}")
+
+    selectors = []
+    for index, name in enumerate(TEXT_WINDOW_FLAVOR_NAMES):
+        offset = TEXT_WINDOW_SELECTOR_OFFSET + index * 3
+        palette_block_offset = read_u16_le(data, offset)
+        expected_offset = index * TEXT_WINDOW_PALETTE_BLOCK_SIZE
+        if palette_block_offset != expected_offset:
+            raise ValueError(
+                "Text-window flavor selector offset mismatch for "
+                f"{name}: 0x{palette_block_offset:04X} != 0x{expected_offset:04X}"
+            )
+        selectors.append(
+            {
+                "flavor_value": index + 1,
+                "selectable_index": index,
+                "name": name,
+                "range": text_window_table_range(offset, 3),
+                "palette_block_index": palette_block_offset // TEXT_WINDOW_PALETTE_BLOCK_SIZE,
+                "palette_block_offset": palette_block_offset,
+                "raw_aux_byte": data[offset + 2],
+                "raw_bytes": list(data[offset : offset + 3]),
+            }
+        )
+
+    palette_blocks = []
+    for block_index in range(TEXT_WINDOW_PALETTE_BLOCK_COUNT):
+        block_offset = TEXT_WINDOW_PALETTE_BLOCK_OFFSET + block_index * TEXT_WINDOW_PALETTE_BLOCK_SIZE
+        if block_index < len(TEXT_WINDOW_FLAVOR_NAMES):
+            name = TEXT_WINDOW_FLAVOR_NAMES[block_index]
+            selection_role = "selectable_flavor"
+        elif block_index == 5:
+            name = "lead-entity override / nonselectable system block"
+            selection_role = "lead_entity_override"
+        else:
+            name = "unused extra system window block"
+            selection_role = "preserved_nonselectable_extra"
+        rows = []
+        for row_index in range(8):
+            row_offset = block_offset + row_index * 8
+            roles = []
+            if row_index == 3 and block_index < len(TEXT_WINDOW_FLAVOR_NAMES):
+                roles.append("equipment_status_palette_row")
+            rows.append(
+                {
+                    "row_index": row_index,
+                    "range": text_window_table_range(row_offset, 8),
+                    "colors": text_window_palette_row(data, row_offset),
+                    "roles": roles,
+                }
+            )
+        palette_blocks.append(
+            {
+                "block_index": block_index,
+                "name": name,
+                "range": text_window_table_range(block_offset, TEXT_WINDOW_PALETTE_BLOCK_SIZE),
+                "selectable": block_index < len(TEXT_WINDOW_FLAVOR_NAMES),
+                "flavor_value": block_index + 1 if block_index < len(TEXT_WINDOW_FLAVOR_NAMES) else None,
+                "selection_role": selection_role,
+                "source_offset_from_palette_base": block_index * TEXT_WINDOW_PALETTE_BLOCK_SIZE,
+                "rows": rows,
+            }
+        )
+
+    movement_palette = {
+        "range": text_window_table_range(TEXT_WINDOW_MOVEMENT_PALETTE_OFFSET, TEXT_WINDOW_MOVEMENT_PALETTE_BYTES),
+        "colors": text_window_palette_row(data, TEXT_WINDOW_MOVEMENT_PALETTE_OFFSET),
+        "role": "movement_text_string_palette",
+    }
+
+    town_map_pointers = []
+    packed_pointers = []
+    for index in range(town_map_pointer_count):
+        offset = TEXT_WINDOW_TOWN_MAP_POINTER_OFFSET + index * 4
+        low_word = read_u16_le(data, offset)
+        bank = data[offset + 2]
+        padding = data[offset + 3]
+        if padding != 0:
+            raise ValueError(f"Text-window town-map pointer {index} expected zero padding, got 0x{padding:02X}")
+        packed_pointer = (bank << 16) | low_word
+        packed_pointers.append(packed_pointer)
+        town_map_pointers.append(
+            {
+                "town_map_index": index,
+                "range": text_window_table_range(offset, 4),
+                "address": f"{bank:02X}:{low_word:04X}",
+                "bank": bank,
+                "offset_in_bank": low_word,
+                "packed_pointer": packed_pointer,
+                "raw_bytes": list(data[offset : offset + 4]),
+            }
+        )
+
+    expected_pointers = [0xE021A8, 0xE04920, 0xE06721, 0xE08379, 0xE0ADB4, 0xE0C7F1]
+    if packed_pointers != expected_pointers:
+        actual = [f"0x{pointer:06X}" for pointer in packed_pointers]
+        raise ValueError(f"Unexpected text-window town-map graphics pointers: {actual}")
+
+    palette_row_count = palette_block_count * 8 + 1
+    payload = {
+        "schema": "earthbound-decomp.text-window-properties-table.v1",
+        "decoder": "text_window_properties_table",
+        "byte_order": "little",
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "sections": [
+            {
+                "id": "flavor_selector_table",
+                "range": text_window_table_range(TEXT_WINDOW_SELECTOR_OFFSET, TEXT_WINDOW_SELECTOR_BYTES),
+                "bytes": TEXT_WINDOW_SELECTOR_BYTES,
+                "record_count": selector_count,
+                "record_size_bytes": 3,
+            },
+            {
+                "id": "window_palette_blocks",
+                "range": text_window_table_range(
+                    TEXT_WINDOW_PALETTE_BLOCK_OFFSET,
+                    TEXT_WINDOW_PALETTE_BLOCK_SIZE * TEXT_WINDOW_PALETTE_BLOCK_COUNT,
+                ),
+                "bytes": TEXT_WINDOW_PALETTE_BLOCK_SIZE * TEXT_WINDOW_PALETTE_BLOCK_COUNT,
+                "record_count": palette_block_count,
+                "record_size_bytes": TEXT_WINDOW_PALETTE_BLOCK_SIZE,
+            },
+            {
+                "id": "movement_text_string_palette",
+                "range": text_window_table_range(TEXT_WINDOW_MOVEMENT_PALETTE_OFFSET, TEXT_WINDOW_MOVEMENT_PALETTE_BYTES),
+                "bytes": TEXT_WINDOW_MOVEMENT_PALETTE_BYTES,
+                "record_count": 1,
+                "record_size_bytes": TEXT_WINDOW_MOVEMENT_PALETTE_BYTES,
+            },
+            {
+                "id": "town_map_graphics_pointer_table",
+                "range": text_window_table_range(TEXT_WINDOW_TOWN_MAP_POINTER_OFFSET, TEXT_WINDOW_TOWN_MAP_POINTER_BYTES),
+                "bytes": TEXT_WINDOW_TOWN_MAP_POINTER_BYTES,
+                "record_count": town_map_pointer_count,
+                "record_size_bytes": 4,
+            },
+        ],
+        "selector_count": selector_count,
+        "palette_block_count": palette_block_count,
+        "palette_row_count": palette_row_count,
+        "town_map_pointer_count": town_map_pointer_count,
+        "selectors": selectors,
+        "palette_blocks": palette_blocks,
+        "movement_palette": movement_palette,
+        "town_map_pointers": town_map_pointers,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "selector_count": selector_count,
+        "palette_block_count": palette_block_count,
+        "palette_row_count": palette_row_count,
+        "town_map_pointer_count": town_map_pointer_count,
     }
 
 
@@ -1424,6 +1644,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_animation_sequence_pointer_table_json(data, path, spec))
     elif kind == "font_metric_widths_json":
         metadata.update(write_font_metric_widths_json(data, path, spec))
+    elif kind == "text_window_properties_table_json":
+        metadata.update(write_text_window_properties_table_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         tile_data = trim_trailing_bytes(data, spec)

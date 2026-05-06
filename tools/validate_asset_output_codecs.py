@@ -111,6 +111,37 @@ def source_ref(range_text: str, data: bytes) -> dict[str, Any]:
     }
 
 
+def make_text_window_properties_table() -> bytes:
+    data = bytearray(495)
+    selector_offsets = [0x0000, 0x0040, 0x0080, 0x00C0, 0x0100]
+    for index, offset in enumerate(selector_offsets):
+        cursor = index * 3
+        data[cursor : cursor + 2] = offset.to_bytes(2, "little")
+        data[cursor + 2] = 0x01 if index == 0 else 0x08
+
+    palette_base = 0x000F
+    for block in range(7):
+        for row in range(8):
+            for color in range(4):
+                raw = snes_color((block + color) & 0x1F, (row + color) & 0x1F, (block + row + color) & 0x1F)
+                cursor = palette_base + block * 0x40 + row * 8 + color * 2
+                data[cursor : cursor + 2] = raw.to_bytes(2, "little")
+
+    movement_palette = 0x01CF
+    for color, raw in enumerate([0x0000, 0x4651, 0x4651, 0x6FFF]):
+        cursor = movement_palette + color * 2
+        data[cursor : cursor + 2] = raw.to_bytes(2, "little")
+
+    pointer_offset = 0x01D7
+    pointers = [0x21A8, 0x4920, 0x6721, 0x8379, 0xADB4, 0xC7F1]
+    for index, pointer in enumerate(pointers):
+        cursor = pointer_offset + index * 4
+        data[cursor : cursor + 2] = pointer.to_bytes(2, "little")
+        data[cursor + 2] = 0xE0
+        data[cursor + 3] = 0
+    return bytes(data)
+
+
 def synthetic_rom(palette: bytes, graphics: bytes) -> bytes:
     rom = bytearray(ROM_SIZE)
     palette_offset = 0x1000
@@ -490,6 +521,23 @@ def output_cases() -> list[dict[str, Any]]:
                 "max_width": 0xFF,
                 "distinct_widths": 6,
                 "sentinel_ff_count": 1,
+            },
+        },
+        {
+            "id": "text-window-properties-table",
+            "data": make_text_window_properties_table(),
+            "spec": {
+                "kind": "text_window_properties_table_json",
+                "path": "text_window_properties.json",
+                "selector_count": 5,
+                "palette_block_count": 7,
+                "town_map_pointer_count": 6,
+            },
+            "expected_metadata": {
+                "selector_count": 5,
+                "palette_block_count": 7,
+                "palette_row_count": 57,
+                "town_map_pointer_count": 6,
             },
         },
         {

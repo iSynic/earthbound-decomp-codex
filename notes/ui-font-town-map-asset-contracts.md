@@ -17,7 +17,7 @@ No ROM-derived payloads are checked in by this report.
 
 | Family | Assets | Bytes | Inferred payloads | Contract-covered | Unresolved metadata | Categories | Output recipes | Runtime contract |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
-| Text window skins and text palettes | 3 | 2447 | 0 | 0 | 0 | `graphics` 2, `raw-table` 1 | `raw` 3, `earthbound_lzhal` 2, `earthbound_lzhal_snes_4bpp_tiles_png` 1 | C0/C4 text-window upload and palette-flavour callers consume these as window graphics, window-property rows, and palette/font-colour data. |
+| Text window skins and text palettes | 3 | 2447 | 0 | 0 | 0 | `graphics` 2, `raw-table` 1 | `raw` 3, `earthbound_lzhal` 2, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `text_window_properties_table_json` 1 | C0/C4 text-window upload and palette-flavour callers consume these as window graphics, window-property rows, and palette/font-colour data. |
 | Font data and glyph graphics | 11 | 12532 | 0 | 0 | 0 | `graphics` 6, `binary-asset` 5 | `raw` 11, `font_metric_widths_json` 5, `snes_4bpp_tiles_png` 5, `snes_2bpp_tiles_png` 1 | Font data assets are fixed-width metric/spacing rows paired with raw or 4bpp glyph graphics consumed by the text and presentation renderers. |
 | Town-map graphics, labels, icons, and placement tables | 9 | 54924 | 0 | 0 | 0 | `binary-asset` 6, `graphics` 2, `raw-table` 1 | `raw` 9, `earthbound_lzhal` 7, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | C4:D553 selects E0 town-map graphics through E0:2190; C4:D43F walks E1 town-map icon records from E1:F491 and draws icons mapped through E1:F44C. |
 | Intro, logo, title, and attract visuals | 24 | 35132 | 3 | 3 | 0 | `graphics` 23, `binary-asset` 1 | `earthbound_lzhal` 24, `raw` 24, `earthbound_lzhal_snes_palette_json` 8, `earthbound_lzhal_snes_palette_swatch_png` 8, `earthbound_lzhal_snes_4bpp_tiles_png` 7 | C4 intro/presentation loaders consume compressed arrangement, graphics, and palette triples for logos, gas-station intro, title screen, Itoi/Nintendo presentation, and related attract payloads. |
@@ -90,7 +90,7 @@ No ROM-derived payloads are checked in by this report.
 | --- | --- | ---: | --- | --- |
 | `asset.e0.text_window_gfx` | `E0:0000..E0:0754` | 1876 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | - |
 | `asset.e0.flavoured_text_gfx` | `E0:0754..E0:07A0` | 76 | `raw`, `earthbound_lzhal` | - |
-| `table.e0.006_data_text_window_properties_asm` | `E0:1FB9..E0:21A8` | 495 | `raw` | raw-table |
+| `table.e0.006_data_text_window_properties_asm` | `E0:1FB9..E0:21A8` | 495 | `raw`, `text_window_properties_table_json` | raw-table |
 
 ### Font data and glyph graphics
 

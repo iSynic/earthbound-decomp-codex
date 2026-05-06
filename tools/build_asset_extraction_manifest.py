@@ -964,6 +964,19 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
         notes.append(
             "Decoded as the PSI animation arrangement pointer table; one long pointer per PSI animation id."
         )
+    if bank.upper() == "E0" and include == "data/text_window_properties.asm" and size == 495:
+        outputs.append(
+            {
+                "kind": "text_window_properties_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "selector_count": 5,
+                "palette_block_count": 7,
+                "town_map_pointer_count": 6,
+            }
+        )
+        notes.append(
+            "Decoded as the combined text-window flavor selector, palette-block, movement-text palette, and town-map graphics pointer table."
+        )
     if bank.upper() == "CA":
         battle_bg_pointer_output = battle_bg_pointer_table_output(raw_path, include, size)
         if battle_bg_pointer_output is not None:
