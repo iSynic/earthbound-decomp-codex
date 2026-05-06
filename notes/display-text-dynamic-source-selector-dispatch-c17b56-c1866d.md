@@ -39,7 +39,10 @@ See also:
   primary/secondary context loads and installs, text input lock/unlock, wait
   gate, transition music restore, interaction-flag helpers, save-current-game
   wrapper, and teleport landing state refresh edges.
+- The remaining presentation/runtime joins in this source are now named too:
+  map-position context lookup, auto sector-music latch writes, the active-window
+  glyph-mode flag helper at `C1:0FAC`, nearby Magic Truffle direction lookup,
+  selected-mode slot clear, and the C0 bicycle-entry helper.
 - The broader corridor through `C1:866D` decodes cleanly as linear 65816 code
-  (no embedded tables required for byte-equivalence). A few late presentation
-  helpers remain intentionally raw until their local contracts are pinned with
-  the same confidence.
+  (no embedded tables required for byte-equivalence), and this source no longer
+  has raw `jsr $...` or `jsl $...` edges.

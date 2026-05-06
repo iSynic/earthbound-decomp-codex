@@ -250,3 +250,11 @@ This planning pass is documentation-only.
   `notes/display-text-dynamic-source-selector-dispatch-c17b56-c1866d.md`,
   `notes/text-command-family-1a-menus.md`, and
   `notes/text-command-family-1c-print-display.md`.
+- 2026-05-06 follow-up: the remaining raw-call edges in
+  `src/c1/c1_7b56_dispatch_display_text_dynamic_source_selector.asm` are now
+  promoted to local contracts. The source names the C0 position-context lookup
+  and bicycle-entry helper, C4 auto sector-music latch, Magic Truffle direction
+  lookup, selected-mode clear helper, and the C1 active-window glyph-mode flag
+  writer at `0FAC`. See
+  `notes/display-text-dynamic-source-selector-dispatch-c17b56-c1866d.md` and
+  `notes/text-window-rendering-primitives-c1078d-c10d7c.md`.

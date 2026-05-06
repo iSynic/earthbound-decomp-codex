@@ -393,9 +393,12 @@ The adjacent source-promoted entries complete the local numeric/string bridge:
 - `C1:0EB4` sets the active window descriptor's text-mode byte at descriptor field `$8662`.
 - `C1:0EE3` dispatches debug/menu print mode `1` to `C1:2BF3` and mode `2` to `C1:2C36`.
 - `C1:0EFC` prints a caller-supplied fixed-length string through the active-window glyph path, with optional centering setup through `C4:3EF8` when `$5E74` is set.
+- `C1:0FAC` sets the active window descriptor's glyph-mode flag at descriptor
+  field `$8665`, mapping command value `$30` to zero and other values to one.
+  The dynamic source-selector corridor now calls it by that mechanical contract.
 
 ## Practical Conclusion
 
-The unknown starts `C1:078D`, `C1:07AF`, `C1:0A04`, `C1:0A1D`, `C1:0A85`, `C1:0BA1`, `C1:0BFE`, `C1:0C55`, `C1:0D60`, `C1:0D7C`, `C1:0DF6`, `C1:0EB4`, `C1:0EE3`, and `C1:0EFC` are now locally accounted for as text/window rendering primitives and wrappers.
+The unknown starts `C1:078D`, `C1:07AF`, `C1:0A04`, `C1:0A1D`, `C1:0A85`, `C1:0BA1`, `C1:0BFE`, `C1:0C55`, `C1:0D60`, `C1:0D7C`, `C1:0DF6`, `C1:0EB4`, `C1:0EE3`, `C1:0EFC`, and `C1:0FAC` are now locally accounted for as text/window rendering primitives and wrappers.
 
 The early `C1:078D..0F40` strip is now source-backed through the durable C1 scaffold. The C1 side is much clearer: descriptor-backed window tilemap construction, HP/PP display window sync, glyph placement, side-effectful letter print, decimal staging, decimal printing, and fixed-string printing. The next adjacent source-promotion target is `C1:0F40..17E2`, the text-entry/window-record corridor.

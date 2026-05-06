@@ -16797,6 +16797,8 @@ org $C17B56
 !C0887A_ClearDisplayTransitionState = $C0887A
 !C013F6_SetTeleportLandingDirection = $C013F6
 !C03FA9_UpdateTeleportLandingPosition = $C03FA9
+!C00AA1_ReadMapPositionContext = $C00AA1
+!C03C5E_GetOnBicycle = $C03C5E
 !C069F7_Get_CurrentPositionMusicOrAreaId = $C069F7
 !C0ABE0_PrepareTeleportVisualState = $C0ABE0
 !C100C7_LockTextInput = $00C7
@@ -16811,6 +16813,7 @@ org $C17B56
 !C10489_InstallSecondaryInteractionContextPointer = $0489
 !C10A04_ShowHpppWindowsInternal = $0A04
 !C10DF6_PrintNumber = $0DF6
+!C10FAC_SetActiveWindowGlyphModeFlag = $0FAC
 !C11383_ClearLoadedTextStrings = $1383
 !C1196A_RunActiveTextEntrySelectionMenu = $196A
 !C14070_ReadNameEntryLetterBoxPointer = $4070
@@ -16830,6 +16833,9 @@ org $C17B56
 !C2307B_RestoreTemporaryPartySourceState = $C2307B
 !C3E75D_ResolveReflectedHitSideArticleTokens = $C3E75D
 !C447FB_PrintFixedStringWithWrapPreflight = $C447FB
+!C466B8_ClearSelectedModeSlot = $C466B8
+!C490EE_GetNearbyMagicTruffleDirection = $C490EE
+!C4FD45_SetAutoSectorMusicChanges = $C4FD45
 !LoadedBattleTextAmountPointerLo = $06
 !LoadedBattleTextAmountPointerHi = $08
 !TextContextSourcePointerLo = $0E
@@ -17549,7 +17555,7 @@ C180DC_DispatchDisplayTextDynamicSourceSelector_L80DC:
     sty $14
     ldx $987B
     lda $9877
-    jsl $C00AA1
+    jsl !C00AA1_ReadMapPositionContext
     and.w #$0007
     cmp.w #$0002
     bne C180F8_DispatchDisplayTextDynamicSourceSelector_L80F8
@@ -17984,11 +17990,11 @@ C18436_DispatchDisplayTextDynamicSourceSelector_L8436:
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1843C_DispatchDisplayTextDynamicSourceSelector_L843C:
     lda.w #$0000
-    jsl $C4FD45
+    jsl !C4FD45_SetAutoSectorMusicChanges
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18446_DispatchDisplayTextDynamicSourceSelector_L8446:
     lda.w #$0001
-    jsl $C4FD45
+    jsl !C4FD45_SetAutoSectorMusicChanges
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18450_DispatchDisplayTextDynamicSourceSelector_L8450:
     lda.w #$741F
@@ -18048,7 +18054,7 @@ C184BC_DispatchDisplayTextDynamicSourceSelector_L84BC:
     lda.w #$6FD1
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184C2_DispatchDisplayTextDynamicSourceSelector_L84C2:
-    jsr $0FAC
+    jsr !C10FAC_SetActiveWindowGlyphModeFlag
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184C8_DispatchDisplayTextDynamicSourceSelector_L84C8:
     lda.w #$72BC
@@ -18190,7 +18196,7 @@ C185E7_DispatchDisplayTextDynamicSourceSelector_L85E7:
     lda.w #$63A7
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C185ED_DispatchDisplayTextDynamicSourceSelector_L85ED:
-    jsl $C490EE
+    jsl !C490EE_GetNearbyMagicTruffleDirection
     sta $06
     stz $08
     lda $06
@@ -18236,7 +18242,7 @@ C18639_DispatchDisplayTextDynamicSourceSelector_L8639:
     lda.w #$6D14
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1863E_DispatchDisplayTextDynamicSourceSelector_L863E:
-    jsl $C466B8
+    jsl !C466B8_ClearSelectedModeSlot
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18644_DispatchDisplayTextDynamicSourceSelector_L8644:
     lda.w #$6D62
@@ -18245,7 +18251,7 @@ C18649_DispatchDisplayTextDynamicSourceSelector_L8649:
     lda.w #$6DA5
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1864E_DispatchDisplayTextDynamicSourceSelector_L864E:
-    jsl $C03C5E
+    jsl !C03C5E_GetOnBicycle
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18654_DispatchDisplayTextDynamicSourceSelector_L8654:
     lda.w #$6EBF
