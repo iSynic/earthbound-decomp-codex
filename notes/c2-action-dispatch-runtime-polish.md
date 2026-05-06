@@ -243,6 +243,12 @@ as `ConvertStatusResistanceByte`, matching the C1 current-action text consumer.
 That ties the same resistance-byte normalization lane through enemy-data import,
 party-row snapshot export, and selected-row equipment text refresh.
 
+Enemy initializer shield follow-up: the same `C2:B6EB` source now calls
+`C2:9CDC` as `ApplyTimedSubstateOrRefreshShieldCounter` when enemy-data byte
+`+0x59` seeds initial timed shield/substate ids `1..4`. That connects enemy
+row initialization to the selected-row shield action leaves through the same
+row `+0x23/+0x25` contract.
+
 ## Decomp Value
 
 This slice makes the selected-row controller more actionable:
@@ -263,6 +269,9 @@ This slice makes the selected-row controller more actionable:
   and bit-test vocabulary as well.
 - resistance mirrors in initialized/exported battler rows now share the same
   elemental/status conversion helper names used by the C1 action-text lane.
+- initial timed shield/substate seeds in initialized enemy rows now share the
+  same `ApplyTimedSubstateOrRefreshShieldCounter` contract as shield action
+  leaves.
 - the last raw `C2:4477` target-picker helper now has an explicit zero-result
   or one-based target ordinal contract for AI-flagged NPC battlers.
 

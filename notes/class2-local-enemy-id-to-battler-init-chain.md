@@ -67,6 +67,12 @@ exporter now share the C1-backed `C2:B608` /
 `+0x41/+0x42/+0x43` and party bytes `+0x54/+0x55/+0x56` feed the flash,
 paralysis, hypnosis, and inverse brainshock resistance mirrors.
 
+Third source follow-up (2026-05-06): the initializer now names the initial
+timed-shield/substate seed path. Enemy-data byte `+0x59` dispatches through
+`C2:9CDC` / `ApplyTimedSubstateOrRefreshShieldCounter` for values `1..4`,
+installing the same row `+0x23/+0x25` shield-family state used by the selected
+row timed-substate action leaves.
+
 ## Direct local callers of `C2:B6EB`
 
 The direct caller scan now finds 12 direct call sites to `C2:B6EB`.

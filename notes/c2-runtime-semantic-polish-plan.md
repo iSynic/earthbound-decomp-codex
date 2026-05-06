@@ -762,6 +762,13 @@ contract notes for C0/C1/C3/C4 consumers.
   `GetEnemyConfigSprayVulnerabilityType` before gating enemy config `+0x1B`
   values `1` and `2`. See `notes/c2-item-bomb-runtime-polish.md` and
   `notes/class2-bomb-common-family-c2a658-c2a821.md`.
+- 2026-05-06 one hundredth slice: connected enemy initialization to the
+  shield/timed-substate action contract. `C2:B6EB` now calls `C2:9CDC` as
+  `ApplyTimedSubstateOrRefreshShieldCounter` when enemy-data byte `+0x59`
+  seeds initial row `+0x23/+0x25` shield-family state for values `1..4`. See
+  `notes/class2-local-enemy-id-to-battler-init-chain.md`,
+  `notes/c2-action-dispatch-runtime-polish.md`, and
+  `notes/c2-affliction-recovery-runtime-polish.md`.
 
 ## Validation
 

@@ -102,6 +102,10 @@ Those helpers now keep the shield gameplay mapping local:
 - row `+0x23 == 1`: psychic power shield, `EF:7050` installed /
   `EF:707A` strengthened
 
+Source follow-up: `C2:B6EB` now calls the same `C2:9CDC` helper by
+`ApplyTimedSubstateOrRefreshShieldCounter` when enemy-data byte `+0x59` seeds
+initial shield/timed-substate values for newly initialized enemy battler rows.
+
 ## Decomp Value
 
 This slice turns the curative action family into a concrete selected-row state
