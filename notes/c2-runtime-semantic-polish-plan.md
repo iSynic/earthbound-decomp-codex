@@ -737,6 +737,13 @@ contract notes for C0/C1/C3/C4 consumers.
   to the late selected-row collapse visual-refresh contract. See
   `notes/c2-selected-row-controller-runtime-polish.md` and
   `notes/c2-affliction-recovery-runtime-polish.md`.
+- 2026-05-06 ninety-sixth slice: named the selected-row startup/death-text
+  cross-module control-flow joins. `C2:7550` now jumps to `C2:7784` as
+  `DisplayHardcodedCollapseTextTail`, and `C2:7680` returns through `C2:7C92`
+  as `ReturnFromClass2LateSelectedRowController`, making the hardcoded collapse
+  text route and shared late-controller return explicit. See
+  `notes/c2-late-selected-row-runtime-polish.md` and
+  `notes/c2-selected-row-controller-runtime-polish.md`.
 
 ## Validation
 

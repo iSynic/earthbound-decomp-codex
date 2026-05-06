@@ -25,6 +25,7 @@
 ; External contracts used by this module
 
 C277CA_RunClass2LateSelectedRowController = $77CA
+C27784_DisplayHardcodedCollapseTextTail   = $7784
 C08FF7_ResolveIndexedPointerOffset        = $C08FF7
 C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 
@@ -194,7 +195,7 @@ C27639_StartSelectedBattlerCollapseAfflictionPath_L7639:
     and.w #$00FF
     bne C27676_StartSelectedBattlerCollapseAfflictionPath_L7676
     ; `npc_id/route +0x0F == 0` uses the hardcoded collapse text tail in the next module.
-    jmp $7784
+    jmp C27784_DisplayHardcodedCollapseTextTail
 C27676_StartSelectedBattlerCollapseAfflictionPath_L7676:
     ; Nonzero `+0x0F` uses the descriptor-backed `+0x31` text pointer path.
     lda.w #$9589

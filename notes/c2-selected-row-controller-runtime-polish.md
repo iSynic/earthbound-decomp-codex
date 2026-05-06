@@ -123,6 +123,9 @@ This slice ties together several previously separate-looking facts:
 - battle-start front/back controller callsites now name the second-stage row
   counter and source-entry promoter that bridge battle-start row selection into
   the collapse/affliction controller state.
+- the startup/death-text continuation now names its hardcoded collapse-text tail
+  and shared late-controller return join, clarifying where row `+0x0F` routes
+  leave the selected-row startup body.
 
 ## Remaining Soft Spots
 
