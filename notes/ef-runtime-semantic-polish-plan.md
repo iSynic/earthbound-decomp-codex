@@ -226,6 +226,10 @@ This planning pass does not split EF source corridors or regenerate the bank.
   Guts tutorial message anchors.
 - 2026-05-05: EF EBATTLE1 action-tail follow-up split `EF:9A47..9EF4` into
   action payload anchors from `MSG_BTL_NAKAMA0` through `MSG_BTL_FIRE_BREATH`.
+- 2026-05-06: EF EBATTLE1 late-status naming follow-up promoted proved
+  action-tail status rows `75`, `76`, `78..87`, and `90` to
+  `RowPresentationText` anchors while keeping their behavior-emitted
+  success/fallback direct-result scripts separate.
 - 2026-05-05: EF EGOODS2 item-use follow-up split `EF:9EF4..A2FA` into Exit
   Mouse, Hieroglyph, Town Map, and traveler-shack payload branches.
 - 2026-05-05: EF tail follow-up split `EF:A2FA..C51B` into unknown event,

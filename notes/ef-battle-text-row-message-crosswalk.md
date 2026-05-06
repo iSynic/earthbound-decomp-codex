@@ -42,16 +42,16 @@ body, success text, and fallback text are all visible.
 | ---: | --- | --- | --- |
 | `53` | `EF:8543` shared PSI `ByteSubstitution` text | `C2:9F57 -> C2:9F06` | PSI-side asleep/affliction+2 value `1`; emits `EF:6C55` or `EF:766E` |
 | `58` | `EF:8543` shared PSI `ByteSubstitution` text | `C2:A056` | PSI-side strange/affliction+3 value `1`; emits `EF:6C3A` or `EF:766E` |
-| `75` | `EF:9C30` `MSG_BTL_HOUSHI` | `C2:8BBE` | Mushroomized/affliction+1 value `1`; emits `EF:6B81` or `EF:766E` |
-| `76` | `EF:9C51` `MSG_BTL_TORITUKI` | `C2:8BFD` | Possessed/affliction+1 value `2`; emits `EF:6B98` or `EF:766E` |
-| `78` | `EF:9CAD` `MSG_BTL_KABI_HOUSI` | `C2:8C69` | Crying/affliction+2 value `2`; emits `EF:6BBB` or `EF:766E` |
-| `79..82` | `EF:9CD1`, `EF:9CF1`, `EF:9D14`, `EF:9D3E` | `C2:8CB8` | Immobilized/affliction+2 value `3`; emits `EF:6BD3` or `EF:766E` |
-| `83` | `EF:9D62` `MSG_BTL_KOWAI_KOTOBA` | `C2:8CF1` | Solidified/affliction+2 value `4`; emits `EF:6BEF` or `EF:766E` |
-| `84` | `EF:9D81` `MSG_BTL_AYASHI_KOTO` | `C2:8D3A -> C2:A056` | Strange/affliction+3 value `1`; emits `EF:6C3A` or `EF:766E` |
-| `85` | `EF:9DA1` `MSG_BTL_FUUIN` | `C2:8D5A` | Concentration/PSI-seal affliction+4 value `4`; emits `EF:6C0B` or `EF:766E` |
-| `86` | `EF:9DBD` `MSG_BTL_TACHIBA_THINK` | `C2:8DBB` | Direct strange/affliction+3 value `1`; emits `EF:6C3A` or `EF:766E` |
-| `87` | `EF:9DDA` `MSG_BTL_KOGEPPU_IKI` | `C2:8DFC` | All-target crying-family sibling; grouped with the affliction+2 crying body |
-| `90` | `EF:9E47` `MSG_BTL_MUSIC` | `C2:9F57 -> C2:9F06` | Asleep/affliction+2 value `1`; emits `EF:6C55` or `EF:766E` |
+| `75` | `EF:9C30` `MushroomSporesRowPresentationText` | `C2:8BBE` | Mushroomized/affliction+1 value `1`; emits `EF:6B81` or `EF:766E` |
+| `76` | `EF:9C51` `PossessedStatusRowPresentationText` | `C2:8BFD` | Possessed/affliction+1 value `2`; emits `EF:6B98` or `EF:766E` |
+| `78` | `EF:9CAD` `CryingMoldSporesRowPresentationText` | `C2:8C69` | Crying/affliction+2 value `2`; emits `EF:6BBB` or `EF:766E` |
+| `79..82` | `EF:9CD1/9CF1/9D14/9D3E` immobilizing `RowPresentationText` variants | `C2:8CB8` | Immobilized/affliction+2 value `3`; emits `EF:6BD3` or `EF:766E` |
+| `83` | `EF:9D62` `SolidificationScaryWordsRowPresentationText` | `C2:8CF1` | Solidified/affliction+2 value `4`; emits `EF:6BEF` or `EF:766E` |
+| `84` | `EF:9D81` `StrangeStatusSuspiciousThingRowPresentationText` | `C2:8D3A -> C2:A056` | Strange/affliction+3 value `1`; emits `EF:6C3A` or `EF:766E` |
+| `85` | `EF:9DA1` `ConcentrationPsiSealRowPresentationText` | `C2:8D5A` | Concentration/PSI-seal affliction+4 value `4`; emits `EF:6C0B` or `EF:766E` |
+| `86` | `EF:9DBD` `StrangeStatusThoughtRowPresentationText` | `C2:8DBB` | Direct strange/affliction+3 value `1`; emits `EF:6C3A` or `EF:766E` |
+| `87` | `EF:9DDA` `CryingBreathRowPresentationText` | `C2:8DFC` | All-target crying-family sibling; grouped with the affliction+2 crying body |
+| `90` | `EF:9E47` `AsleepMusicRowPresentationText` | `C2:9F57 -> C2:9F06` | Asleep/affliction+2 value `1`; emits `EF:6C55` or `EF:766E` |
 | `159` | `EF:8E3C` `ConcentrationPsiSealRowPresentationText` | `C2:A3D1` | Item-side concentration/PSI-seal; emits `EF:6C0B` or `EF:766E` |
 | `207` | `EF:83A8` `MSG_BTL_LAUGH_HEN` | `C2:8D3A -> C2:A056` | Strange-status wrapper reuse; emits `EF:6C3A` or `EF:766E` |
 

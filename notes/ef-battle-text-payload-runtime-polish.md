@@ -174,7 +174,8 @@ macros.
   system-message branches.
 - `EF:9A47..9EF4` now splits the later EBATTLE1 action-tail include into
   symbol-derived action payload anchors from `MSG_BTL_NAKAMA0` through
-  `MSG_BTL_FIRE_BREATH`.
+  `MSG_BTL_FIRE_BREATH`. The proved late status rows inside this tail now use
+  `RowPresentationText` names for rows `75`, `76`, `78..87`, and `90`.
 - `EF:9EF4..A2FA` now splits the EGOODS2 item-use include around the Exit
   Mouse, Hieroglyph, Town Map, and Onett traveler-shack payload branches.
 - `EF:A2FA..C51B` now splits the remaining EF text-payload tail into the
@@ -446,8 +447,9 @@ secondary result scripts emitted by the behavior body.
 The follow-up row-message crosswalk now expands this tail into the
 source-backed late affliction rows: persistent status rows `75..76`,
 temporary-status rows `78..87`, asleep row `90`, and the item-side
-concentration row `159` in EBATTLE3. These remain exact action-message anchors;
-their success/failure result scripts stay separately named.
+concentration row `159` in EBATTLE3. The EBATTLE1 late status rows now carry
+`RowPresentationText` source names, while their success/failure result scripts
+stay separately named.
 
 The crosswalk also records a stricter unresolved frontier: numeric-effect rows
 and no-op/flavor rows may have well-understood C2 row `+8` behavior bodies, but

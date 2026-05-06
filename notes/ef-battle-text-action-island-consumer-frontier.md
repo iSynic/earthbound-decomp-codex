@@ -66,11 +66,13 @@ consumer-ready handoff points:
 | `117` | `EF:80C4` | All-target physical wrapper, tornado text |
 | `118` | `EF:80E4` | All-target physical wrapper, gigantic-blast text |
 
-The EBATTLE1 action tail has at least one strong late-table row-message join:
+The EBATTLE1 action tail has a proved late status row-message cluster:
 
 | Action-table row | Row `+4` EF pointer | Current consumer read |
 | ---: | --- | --- |
-| `85` | `EF:9DA1` | Concentration/PSI-seal action row message; the `+8` body emits success `EF:6C0B` or fallback `EF:766E` |
+| `75..76` | `EF:9C30/9C51` | Persistent-status row messages; behavior bodies emit success `EF:6B81/6B98` or fallback `EF:766E` |
+| `78..87` | `EF:9CAD..9DDA` | Temporary-status row messages; behavior bodies emit success `EF:6BBB..6C3A` or fallback `EF:766E` |
+| `90` | `EF:9E47` | Asleep row message; the `+8` body emits success `EF:6C55` or fallback `EF:766E` |
 
 The row-message crosswalk expands this into the currently source-backed status
 rows (`53`, `58`, `75`, `76`, `78..87`, `90`, `159`, and `207`) plus late

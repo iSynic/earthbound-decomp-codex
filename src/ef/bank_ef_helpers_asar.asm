@@ -6954,20 +6954,20 @@ db $A3,$16,$5C,$94,$17,$39,$98,$51,$03,$10,$01,$02
 
 EF9C02_EBattle1MsgBtlTumetaiIki:
 
-; Original data gap before EF9C30_EBattle1MsgBtlHoushi:
+; Original data gap before EF9C30_EBattle1MushroomSporesRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$A8,$98,$91,$9C,$95,$94,$00
 db $50,$50,$08,$6E,$E6,$C7,$00,$50,$91,$A2,$93,$A4,$99,$93,$5D,$93
 db $17,$8E,$92,$16,$82,$98,$51,$1F,$02,$51,$03,$10,$01,$02
 
-EF9C30_EBattle1MsgBtlHoushi:
+EF9C30_EBattle1MushroomSporesRowPresentationText:
 
-; Original data gap before EF9C51_EBattle1MsgBtlTorituki:
+; Original data gap before EF9C51_EBattle1PossessedStatusRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$91,$A4,$16,$06,$95,$94
 db $00,$50,$15,$1C,$A3,$A0,$9F,$17,$51,$51,$1F,$02,$52,$03,$10,$01
 db $02
 
 ; EBATTLE1: row 76 possessed persistent-status row message.
-EF9C51_EBattle1MsgBtlTorituki:
+EF9C51_EBattle1PossessedStatusRowPresentationText:
 
 ; Original data gap before EF9C7E_EBattle1MsgBtlYoiKaori:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A4,$17,$B0,$15,$90,$00,$50,$50
@@ -6976,79 +6976,79 @@ db $1B,$17,$D2,$9E,$17,$88,$1F,$02,$60,$03,$10,$01,$02
 
 EF9C7E_EBattle1MsgBtlYoiKaori:
 
-; Original data gap before EF9CAD_EBattle1MsgBtlKabiHousi:
+; Original data gap before EF9CAD_EBattle1CryingMoldSporesRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$A2,$99,$9E,$9B,$9C,$95,$94
 db $15,$AB,$17,$72,$50,$A7,$9F,$16,$DA,$16,$E8,$5D,$A3,$9D,$95,$9C
 db $16,$A3,$A0,$9F,$A7,$94,$17,$88,$1F,$02,$52,$03,$10,$01,$02
 
-EF9CAD_EBattle1MsgBtlKabiHousi:
+EF9CAD_EBattle1CryingMoldSporesRowPresentationText:
 
-; Original data gap before EF9CD1_EBattle1MsgBtlShibari:
+; Original data gap before EF9CD1_EBattle1ImmobilizingBindingRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$91,$A4,$16,$06,$95,$94
 db $00,$50,$15,$1C,$9D,$17,$8E,$A3,$A0,$9F,$17,$51,$51,$1F,$02,$52
 db $03,$10,$01,$02
 
 ; EBATTLE1: row 79 immobilized/could-not-move row message.
-EF9CD1_EBattle1MsgBtlShibari:
+EF9CD1_EBattle1ImmobilizingBindingRowPresentationText:
 
-; Original data gap before EF9CF1_EBattle1MsgBtlNeneki:
+; Original data gap before EF9CF1_EBattle1ImmobilizingMucusRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$9D,$A0,$9C,$9F,$A9,$95,$94
 db $00,$50,$17,$33,$99,$9E,$94,$15,$4E,$15,$DB,$51,$03,$10,$01,$02
 
 ; EBATTLE1: row 80 immobilized/could-not-move row message.
-EF9CF1_EBattle1MsgBtlNeneki:
+EF9CF1_EBattle1ImmobilizingMucusRowPresentationText:
 
-; Original data gap before EF9D14_EBattle1MsgBtlHaemitu:
+; Original data gap before EF9D14_EBattle1ImmobilizingFlyHoneyRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$99,$A4,$15,$93,$50,$15,$BC
 db $A3,$A4,$15,$FA,$A9,$50,$9D,$A5,$93,$A5,$A3,$51,$1F,$02,$51,$03
 db $10,$01,$02
 
 ; EBATTLE1: row 81 immobilized/could-not-move row message.
-EF9D14_EBattle1MsgBtlHaemitu:
+EF9D14_EBattle1ImmobilizingFlyHoneyRowPresentationText:
 
-; Original data gap before EF9D3E_EBattle1MsgBtlOshiriIto:
+; Original data gap before EF9D3E_EBattle1ImmobilizingThreadRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$95,$A7,$95,$94,$00,$50,$50
 db $6C,$76,$15,$9D,$78,$17,$3E,$6E,$16,$2A,$9F,$96,$16,$D9,$9D,$16
 db $17,$98,$51,$1F,$02,$51,$03,$10,$01,$02
 
 ; EBATTLE1: row 82 immobilized/could-not-move row message.
-EF9D3E_EBattle1MsgBtlOshiriIto:
+EF9D3E_EBattle1ImmobilizingThreadRowPresentationText:
 
-; Original data gap before EF9D62_EBattle1MsgBtlKowaiKotoba:
+; Original data gap before EF9D62_EBattle1SolidificationScaryWordsRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DF,$A4,$00,$50,$17,$F4,$99,$94
 db $15,$E0,$A3,$99,$9C,$9B,$16,$2A,$9F,$96,$15,$6C,$A3,$17,$47,$94
 db $A9,$51,$03,$02
 
 ; EBATTLE1: row 83 solidification row message.
-EF9D62_EBattle1MsgBtlKowaiKotoba:
+EF9D62_EBattle1SolidificationScaryWordsRowPresentationText:
 
-; Original data gap before EF9D81_EBattle1MsgBtlAyashiKoto:
+; Original data gap before EF9D81_EBattle1StrangeStatusSuspiciousThingRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$CA,$99,$94,$00,$50,$15,$0A,$A2
 db $95,$15,$DD,$A3,$16,$EE,$A9,$51,$1F,$02,$54,$03,$10,$01,$02
 
 ; EBATTLE1: row 84 resist-checked strange-status row message.
-EF9D81_EBattle1MsgBtlAyashiKoto:
+EF9D81_EBattle1StrangeStatusSuspiciousThingRowPresentationText:
 
-; Original data gap before EF9DA1_EBattle1MsgBtlFuuin:
+; Original data gap before EF9DA1_EBattle1ConcentrationPsiSealRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$94,$00,$50,$15,$0A,$15,$ED
 db $50,$9D,$A9,$A3,$16,$06,$16,$81,$51,$1F,$02,$55,$03,$10,$01,$02
 
 ; EBATTLE1: row 85 concentration/PSI-seal row message.
-EF9DA1_EBattle1MsgBtlFuuin:
+EF9DA1_EBattle1ConcentrationPsiSealRowPresentationText:
 
-; Original data gap before EF9DBD_EBattle1MsgBtlTachibaThink:
+; Original data gap before EF9DBD_EBattle1StrangeStatusThoughtRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$A3,$A2,$A5,$A0,$A4,$95,$94
 db $00,$50,$15,$0E,$A3,$17,$C7,$95,$A3,$51,$03,$02
 
 ; EBATTLE1: row 86 direct strange-status sibling row message.
-EF9DBD_EBattle1MsgBtlTachibaThink:
+EF9DBD_EBattle1StrangeStatusThoughtRowPresentationText:
 
-; Original data gap before EF9DDA_EBattle1MsgBtlKogeppuIki:
+; Original data gap before EF9DDA_EBattle1CryingBreathRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$50,$A3,$99,$AA,$15
 db $1B,$A5,$A0,$16,$26,$99,$A4,$A5,$15,$5E,$51,$03,$02
 
 ; EBATTLE1: row 87 all-target crying-family row message.
-EF9DDA_EBattle1MsgBtlKogeppuIki:
+EF9DDA_EBattle1CryingBreathRowPresentationText:
 
 ; Original data gap before EF9E05_EBattle1MsgBtlTyphoon:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$A8,$98,$91,$9C,$95,$94,$00
@@ -7063,12 +7063,12 @@ db $50,$91,$16,$F1,$9D,$51,$1F,$02,$56,$03,$10,$01,$02
 
 EF9E22_EBattle1MsgBtlCoffee:
 
-; Original data gap before EF9E47_EBattle1MsgBtlMusic:
+; Original data gap before EF9E47_EBattle1AsleepMusicRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$16,$08,$95,$94,$00,$50,$15
 db $1C,$A3,$93,$91,$9C,$94,$15,$1B,$98,$9F,$A4,$50,$95,$A3,$16,$AF
 db $A3,$9F,$51,$03,$02
 
-EF9E47_EBattle1MsgBtlMusic:
+EF9E47_EBattle1AsleepMusicRowPresentationText:
 
 ; Original data gap before EF9E69_EBattle1MsgBtlSyoukaEki:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$17,$36,$A9,$95,$94,$00,$50,$15

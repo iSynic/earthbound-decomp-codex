@@ -3232,16 +3232,14 @@ EF9C02_EBattle1MsgBtlTumetaiIki:
 ; ---------------------------------------------------------------------------
 ; EF:9C30
 
-; EBATTLE1: `MSG_BTL_HOUSHI` action payload text; D5:7B68 row 75 starts the
-; source-backed persistent-status row-message pair.
-EF9C30_EBattle1MsgBtlHoushi:
+; EBATTLE1: row 75 row +4 mushroom-spores presentation text.
+EF9C30_EBattle1MushroomSporesRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9C51
 
-; EBATTLE1: `MSG_BTL_TORITUKI` action payload text; D5:7B68 row 76 is the
-; possessed persistent-status row message.
-EF9C51_EBattle1MsgBtlTorituki:
+; EBATTLE1: row 76 row +4 possessed-status presentation text.
+EF9C51_EBattle1PossessedStatusRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9C7E
@@ -3252,72 +3250,62 @@ EF9C7E_EBattle1MsgBtlYoiKaori:
 ; ---------------------------------------------------------------------------
 ; EF:9CAD
 
-; EBATTLE1: `MSG_BTL_KABI_HOUSI` action payload text; D5:7B68 row 78 starts
-; the source-backed temporary-status row-message cluster.
-EF9CAD_EBattle1MsgBtlKabiHousi:
+; EBATTLE1: row 78 row +4 crying mold-spores presentation text.
+EF9CAD_EBattle1CryingMoldSporesRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9CD1
 
-; EBATTLE1: `MSG_BTL_SHIBARI` action payload text; D5:7B68 row 79 is part of
-; the immobilized/could-not-move row-message cluster.
-EF9CD1_EBattle1MsgBtlShibari:
+; EBATTLE1: row 79 row +4 immobilizing binding presentation text.
+EF9CD1_EBattle1ImmobilizingBindingRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9CF1
 
-; EBATTLE1: `MSG_BTL_NENEKI` action payload text; D5:7B68 row 80 is part of
-; the immobilized/could-not-move row-message cluster.
-EF9CF1_EBattle1MsgBtlNeneki:
+; EBATTLE1: row 80 row +4 immobilizing mucus presentation text.
+EF9CF1_EBattle1ImmobilizingMucusRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D14
 
-; EBATTLE1: `MSG_BTL_HAEMITU` action payload text; D5:7B68 row 81 is part of
-; the immobilized/could-not-move row-message cluster.
-EF9D14_EBattle1MsgBtlHaemitu:
+; EBATTLE1: row 81 row +4 immobilizing Fly Honey presentation text.
+EF9D14_EBattle1ImmobilizingFlyHoneyRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D3E
 
-; EBATTLE1: `MSG_BTL_OSHIRI_ITO` action payload text; D5:7B68 row 82 is part
-; of the immobilized/could-not-move row-message cluster.
-EF9D3E_EBattle1MsgBtlOshiriIto:
+; EBATTLE1: row 82 row +4 immobilizing thread presentation text.
+EF9D3E_EBattle1ImmobilizingThreadRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D62
 
-; EBATTLE1: `MSG_BTL_KOWAI_KOTOBA` action payload text; D5:7B68 row 83 is the
-; solidification row message.
-EF9D62_EBattle1MsgBtlKowaiKotoba:
+; EBATTLE1: row 83 row +4 solidification scary-words presentation text.
+EF9D62_EBattle1SolidificationScaryWordsRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D81
 
-; EBATTLE1: `MSG_BTL_AYASHI_KOTO` action payload text; D5:7B68 row 84 reuses
-; the resist-checked strange-status behavior body.
-EF9D81_EBattle1MsgBtlAyashiKoto:
+; EBATTLE1: row 84 row +4 strange-status suspicious-thing presentation text.
+EF9D81_EBattle1StrangeStatusSuspiciousThingRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9DA1
 
-; EBATTLE1: `MSG_BTL_FUUIN` action payload text; D5:7B68 row 85 is the
-; concentration/PSI-seal row message.
-EF9DA1_EBattle1MsgBtlFuuin:
+; EBATTLE1: row 85 row +4 concentration/PSI-seal presentation text.
+EF9DA1_EBattle1ConcentrationPsiSealRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9DBD
 
-; EBATTLE1: `MSG_BTL_TACHIBA_THINK` action payload text; D5:7B68 row 86 is the
-; direct strange-status sibling row message.
-EF9DBD_EBattle1MsgBtlTachibaThink:
+; EBATTLE1: row 86 row +4 strange-status thought presentation text.
+EF9DBD_EBattle1StrangeStatusThoughtRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9DDA
 
-; EBATTLE1: `MSG_BTL_KOGEPPU_IKI` action payload text; D5:7B68 row 87 is the
-; all-target crying-family row message.
-EF9DDA_EBattle1MsgBtlKogeppuIki:
+; EBATTLE1: row 87 row +4 crying breath presentation text.
+EF9DDA_EBattle1CryingBreathRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9E05
@@ -3334,9 +3322,8 @@ EF9E22_EBattle1MsgBtlCoffee:
 ; ---------------------------------------------------------------------------
 ; EF:9E47
 
-; EBATTLE1: `MSG_BTL_MUSIC` action payload text; D5:7B68 row 90 reuses the
-; all-target asleep-status wrapper body.
-EF9E47_EBattle1MsgBtlMusic:
+; EBATTLE1: row 90 row +4 asleep music presentation text.
+EF9E47_EBattle1AsleepMusicRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9E69
