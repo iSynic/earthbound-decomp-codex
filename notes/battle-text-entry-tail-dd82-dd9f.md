@@ -34,6 +34,10 @@ equipment subtype caches, convert resistance bytes, and redraw focused HP/PP
 rows. The source keeps `$00BC/$00BE` distinct from the wrapper's `$0E/$10`
 dispatch staging so the action-table fallback branches remain byte-identical.
 
+Follow-up source polish names the remaining selection-menu row insertion edge
+in this source unit as `C1153B_AddSelectionMenuItem`, closing its last raw
+helper-call site while preserving the existing selection-menu setup contract.
+
 ## Working Names
 
 - `C1:DD82` = `StageBattleTextPointerSubstitutionOnly`

@@ -13,6 +13,7 @@
 
 C10036_SetBattleTextDisplayMode    = $0036
 C1003C_ClearBattleTextDisplayMode  = $003C
+C1153B_AddSelectionMenuItem        = $153B
 C1163C_FinalizeSelectionMenu       = $163C
 C1196A_OpenMenuSelectionLoop       = $196A
 C1242E_RunCharacterSelectionPrompt = $242E
@@ -178,7 +179,7 @@ C1DDDA_BuildSelectionMenuSetupAndRedirects = SELECTION_MENU_ITEM_SETUP
     lda $08
     sta $14
     lda $1A
-    jsr $153B
+    jsr C1153B_AddSelectionMenuItem
     pld
     rtl
     ; Far-call wrapper table used by C2 battle-start menu controller.

@@ -66,6 +66,7 @@ C1F3C2_OpenTextSpeedMenu                   = $C1F3C2
 C1F497_OpenOrRefreshTextSpeedSelection     = $C1F497
 C1F568_OpenSoundSettingMenu                = $F568
 C1D8D0_RefreshCharacterBattleStartState    = $D8D0
+C1D9E9_AwardExperienceToCharacter          = $C1D9E9
 EF0A4D_SaveGameSlot                        = $EF0A4D
 
 ; ---------------------------------------------------------------------------
@@ -953,7 +954,7 @@ C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
     sta $10
     ldx.w #$0000
     lda $04
-    jsl $C1D9E9
+    jsl C1D9E9_AwardExperienceToCharacter
 C1FD72_OpenOrRefreshSoundSettingSelection_LFD72:
     lda $1E
     ldy.w #$005F

@@ -32,6 +32,7 @@ C1196A_OpenMenuSelectionLoop              = $196A
 C11F5A_SetMenuRowFormatterCallback        = $1F5A
 C11F8A_OpenMenuSelectionLoopAlt           = $1F8A
 C1AD0A_StageBattleTextSubstitutionPointer = $AD0A
+C1EC8F_PreviewWindowFlavourAndRedraw      = $C1EC8F
 C1ECD1_PreviewPackedHighByteWindowFlavour = $ECD1
 C08EED_CopyToVramOrRendererBuffer         = $C08EED
 C08EFC_CommitTileBufferToStaging          = $C08EFC
@@ -51,7 +52,7 @@ C1ECD1_PreviewPackedHighByteWindowFlavour:
     rep #$31
     xba
     and.w #$00FF
-    jsl $C1EC8F
+    jsl C1EC8F_PreviewWindowFlavourAndRedraw
     rtl
 CORRUPTION_CHECK:
 C1ECDC_ShowCorruptSaveFilesNotice = CORRUPTION_CHECK

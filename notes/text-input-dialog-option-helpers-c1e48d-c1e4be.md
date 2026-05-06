@@ -93,6 +93,16 @@ C4 renderer layer is source-backed through the option-strip upload path.
 
 This confirms that the C1 routines are wrappers and policy. The actual option-strip state lives in the C4 metric buffers and the `$3492` scratch rows.
 
+## Source Polish Follow-Up
+
+2026-05-06 source polish names the remaining helper-call surface in
+`src/c1/c1_e4be_build_text_input_option_strip.asm`. The main dialog body now
+calls through local contracts for the C3 window update-scope exit and light
+tick helpers, C1 tile-attribute/glyph-print/text-system ticks, C1/C2 movement
+candidate search helpers, C0 sound effects, C1:E48D single-row render wrapper,
+and C0 text-length measurement edge. The source unit has no remaining raw
+helper-call edges while preserving C1 byte equivalence.
+
 ## Remaining Soft Edge
 
 The exact layout of `D5:F4CF` still needs a table dump before assigning final names to each page/mode. The routine shape is already clear enough for decompilation work:

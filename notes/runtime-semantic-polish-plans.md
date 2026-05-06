@@ -167,6 +167,16 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   calls in `C1:D109..DC1C`, covering stat refresh recalculators, random/divide
   helpers, battle-text focus/mode helpers, and the Sound Stone display tail.
   See `notes/level-up-stat-growth-helper-c1d08b.md`.
+- 2026-05-06: C1 text-input option strip follow-up named the remaining helper
+  calls in `C1:E4BE..EAD6`, covering window update/tick helpers, tile
+  attributes, glyph printing, text-system ticks, movement and menu-cell
+  selection helpers, sound effects, the local row renderer, and input-buffer
+  text-length measurement. See
+  `notes/text-input-dialog-option-helpers-c1e48d-c1e4be.md`.
+- 2026-05-06: C1 small-tail follow-up named the remaining simple helper edges
+  in the battle selection-menu setup, packed window-flavour preview, and
+  new-file party setup lanes. C1's residual numeric-call map is now only the
+  deferred local structural calls in the character-selection dispatcher.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

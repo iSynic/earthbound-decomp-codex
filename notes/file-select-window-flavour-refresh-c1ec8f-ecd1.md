@@ -54,6 +54,10 @@ Direct code references found locally:
 - `C1:ECD7 -> C1:EC8F`, inside the `C1:ECD1` wrapper
 - `C1:F7EF -> C1:EC8F`, inside the window-style/flavour menu cancel path
 
+2026-05-06 source polish names the `C1:ECD7 -> C1:EC8F` wrapper edge directly
+as `C1EC8F_PreviewWindowFlavourAndRedraw`, matching the existing runtime
+contract and preserving byte equivalence.
+
 ## Working Names
 
 - `C1:EC8F` = `PreviewWindowFlavourAndRedraw`

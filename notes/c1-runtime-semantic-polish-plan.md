@@ -460,3 +460,16 @@ This planning pass is documentation-only.
   max HP/PP bumps, battle-text mode/focus/name-buffer helpers, and the
   Sound Stone display tick tail. See `notes/level-up-stat-growth-helper-c1d08b.md`
   and `notes/level-up-stat-gain-text-family-c1d15b-d76d.md`.
+- 2026-05-06 follow-up: the `C1:E4BE..EAD6` text-input option strip and dialog
+  body source unit now names its remaining helper-call surface. The pass covers
+  C3 window update-scope exit/light-tick helpers, active-window tile attributes
+  and glyph printing, text-system ticking, movement candidate search helpers,
+  menu-cell selection search, sound effects, the local `C1:E48D` row renderer,
+  and text-length measurement before committing the input buffer. See
+  `notes/text-input-dialog-option-helpers-c1e48d-c1e4be.md`.
+- 2026-05-06 follow-up: three small C1 tail edges now use existing stable
+  contracts: `C1:DDDA` calls `C1:153B` as `AddSelectionMenuItem`,
+  `C1:ECD1` calls `C1:EC8F` as `PreviewWindowFlavourAndRedraw`, and the
+  new-file party setup branch calls `C1:D9E9` as `AwardExperienceToCharacter`.
+  The remaining C1 numeric calls are the four deferred local structural edges
+  in `src/c1/c1_242e_dispatch_character_selection_prompt_mode.asm`.

@@ -103,9 +103,11 @@ the shared start-file tail at `C1:FEC2`.
 The `C1:F805` source now names the local action/copy/delete/setup helpers
 directly (`C1:F07E`, `C1:F14F`, `C1:F2A8`, `C1:F3C2`, `C1:F497`,
 `C1:F568`, and `C1:F6E3`). The new-file branch also calls the C4 file-select
-pose/entity helpers and C3 party-overlay sync by contract names, leaving only
-the still-provisional naming payload handoff at `C1:D9E9` as an intentionally
-raw edge in this pass.
+pose/entity helpers and C3 party-overlay sync by contract names. A later
+source-polish follow-up also named the `C1:D9E9` experience-award handoff used
+while initializing the new-file party records, so this file-select source unit
+now has no raw helper-call edges outside the deliberately deferred local
+character-selection dispatcher.
 
 `C1:FF6B` is the bank-C1 file-select session wrapper. It clears `$5E6E`, sets
 `$B49D`, runs `C1:F805`, pumps post-loop display updates, clears `$B4B6/$B4A2`,

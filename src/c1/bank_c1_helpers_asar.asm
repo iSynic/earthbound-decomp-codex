@@ -27294,6 +27294,7 @@ org $C1F616
 !C1F497_OpenOrRefreshTextSpeedSelection = $C1F497
 !C1F568_OpenSoundSettingMenu = $F568
 !C1D8D0_RefreshCharacterBattleStartState = $D8D0
+!C1D9E9_AwardExperienceToCharacter = $C1D9E9
 !EF0A4D_SaveGameSlot = $EF0A4D
 C1F616_OpenOrRefreshSoundSettingSelection:
     rep #$31
@@ -28176,7 +28177,7 @@ C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
     sta $10
     ldx.w #$0000
     lda $04
-    jsl $C1D9E9
+    jsl !C1D9E9_AwardExperienceToCharacter
 C1FD72_OpenOrRefreshSoundSettingSelection_LFD72:
     lda $1E
     ldy.w #$005F
@@ -29512,10 +29513,20 @@ org $C1E4BE
 !C1007E_SetActiveWindowFocus = $007E
 !C104EE_SetWindowFocus = $04EE
 !C08616_QueueVramTransfer_FromDpSource = $C08616
+!C08F22_MeasureTerminatedTextLength = $C08F22
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C10D60_PrintGlyphAndMarkWindowRedraw = $0D60
+!C10FEA_SetActiveWindowTileAttributes = $0FEA
+!C118E7_FindSelectionCandidatePair = $C118E7
+!C12DD5_TickWindowTextSystem = $C12DD5
 !C186B1_PrintTextFromPointer = $C186B1
+!C1E48D_RenderSingleTextInputOptionRowScoped = $E48D
+!C20B65_FindNextSelectableMenuCell = $C20B65
+!C0ABE0_PlaySoundEffect = $C0ABE0
+!C3E4CA_ExitWindowUpdateScope = $C3E4CA
 !C3E4D4_EnterWindowUpdateScope = $C3E4D4
+!C3E4E0_TickWindowWithoutInstantPrinting = $C3E4E0
 !C438A5_SetTextCursorPosition = $C438A5
 !C4406A_ReadNameEntryGridCharacter = $C4406A
 !C441B7_InitializeTextInputOptionGlyphMetrics = $C441B7
@@ -29739,7 +29750,7 @@ C1E65A_BuildTextInputOptionStrip_LE65A:
 C1E667_BuildTextInputOptionStrip_LE667:
     lda.w #$001C
     jsr !C104EE_SetWindowFocus
-    jsl $C3E4E0
+    jsl !C3E4E0_TickWindowWithoutInstantPrinting
     lda $28
     cmp.w #$FFFF
     bne C1E692_BuildTextInputOptionStrip_LE692
@@ -29834,17 +29845,17 @@ C1E71F_BuildTextInputOptionStrip_LE71F:
     adc.w #$8650
     sta $1C
 C1E736_BuildTextInputOptionStrip_LE736:
-    jsl $C3E4CA
+    jsl !C3E4CA_ExitWindowUpdateScope
     ldx $22
     lda $20
     jsl !C438A5_SetTextCursorPosition
     lda.w #$0001
-    jsr $0FEA
+    jsr !C10FEA_SetActiveWindowTileAttributes
     lda.w #$0021
-    jsr $0D60
+    jsr !C10D60_PrintGlyphAndMarkWindowRedraw
     lda.w #$0000
-    jsr $0FEA
-    jsl $C12DD5
+    jsr !C10FEA_SetActiveWindowTileAttributes
+    jsl !C12DD5_TickWindowTextSystem
     lda.w #$0001
     sta $04
 C1E75D_BuildTextInputOptionStrip_LE75D:
@@ -29933,7 +29944,7 @@ C1E7E5_BuildTextInputOptionStrip_LE7E5:
     ldy.w #$FFFF
     ldx $22
     lda $20
-    jsl $C118E7
+    jsl !C118E7_FindSelectionCandidatePair
     tay
     sty $16
     jmp.w C1EA23_BuildTextInputOptionStrip_LEA23
@@ -29953,7 +29964,7 @@ C1E815_BuildTextInputOptionStrip_LE815:
     ldy.w #$0000
     ldx $22
     lda $20
-    jsl $C118E7
+    jsl !C118E7_FindSelectionCandidatePair
     tay
     sty $16
     jmp.w C1EA23_BuildTextInputOptionStrip_LEA23
@@ -29971,7 +29982,7 @@ C1E843_BuildTextInputOptionStrip_LE843:
     ldy.w #$0001
     ldx $22
     lda $20
-    jsl $C118E7
+    jsl !C118E7_FindSelectionCandidatePair
     tay
     sty $16
     jmp.w C1EA23_BuildTextInputOptionStrip_LEA23
@@ -29990,7 +30001,7 @@ C1E86C_BuildTextInputOptionStrip_LE86C:
     ldy.w #$0000
     ldx $22
     lda $20
-    jsl $C118E7
+    jsl !C118E7_FindSelectionCandidatePair
     tay
     sty $16
     jmp.w C1EA23_BuildTextInputOptionStrip_LEA23
@@ -30004,7 +30015,7 @@ C1E898_BuildTextInputOptionStrip_LE898:
     ldy.w #$FFFF
     ldx $22
     lda $20
-    jsl $C20B65
+    jsl !C20B65_FindNextSelectableMenuCell
     tay
     sty $16
     jmp.w C1EA23_BuildTextInputOptionStrip_LEA23
@@ -30018,7 +30029,7 @@ C1E8B8_BuildTextInputOptionStrip_LE8B8:
     ldy.w #$0001
     ldx $22
     lda $20
-    jsl $C20B65
+    jsl !C20B65_FindNextSelectableMenuCell
     tay
     sty $16
     jmp.w C1EA23_BuildTextInputOptionStrip_LEA23
@@ -30033,7 +30044,7 @@ C1E8D8_BuildTextInputOptionStrip_LE8D8:
     ldy.w #$0000
     ldx $22
     lda $20
-    jsl $C20B65
+    jsl !C20B65_FindNextSelectableMenuCell
     tay
     sty $16
     jmp.w C1EA23_BuildTextInputOptionStrip_LEA23
@@ -30048,7 +30059,7 @@ C1E8FB_BuildTextInputOptionStrip_LE8FB:
     ldy.w #$0000
     ldx $22
     lda $20
-    jsl $C20B65
+    jsl !C20B65_FindNextSelectableMenuCell
     tay
     sty $16
     jmp.w C1EA23_BuildTextInputOptionStrip_LEA23
@@ -30070,7 +30081,7 @@ C1E929_BuildTextInputOptionStrip_LE929:
     jmp.w C1EA07_BuildTextInputOptionStrip_LEA07
 C1E941_BuildTextInputOptionStrip_LE941:
     lda.w #$007A
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     ldy $24
     ldx $28
     lda $2A
@@ -30079,11 +30090,11 @@ C1E941_BuildTextInputOptionStrip_LE941:
     jmp.w C1E736_BuildTextInputOptionStrip_LE736
 C1E956_BuildTextInputOptionStrip_LE956:
     lda.w #$007A
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     ldy.w #$FFFF
     ldx $2C
     lda $2A
-    jsr $E48D
+    jsr !C1E48D_RenderSingleTextInputOptionRowScoped
     cmp.w #$0000
     bne C1E96F_BuildTextInputOptionStrip_LE96F
     jmp.w C1E736_BuildTextInputOptionStrip_LE736
@@ -30097,11 +30108,11 @@ C1E979_BuildTextInputOptionStrip_LE979:
     jmp.w C1EAA4_BuildTextInputOptionStrip_LEAA4
 C1E97F_BuildTextInputOptionStrip_LE97F:
     lda.w #$005E
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     jmp.w C1EA4E_BuildTextInputOptionStrip_LEA4E
 C1E989_BuildTextInputOptionStrip_LE989:
     lda.w #$007A
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     lda $22
     cmp.w #$0004
     bne C1E9AF_BuildTextInputOptionStrip_LE9AF
@@ -30126,18 +30137,18 @@ C1E9AF_BuildTextInputOptionStrip_LE9AF:
     tay
     ldx $2C
     lda $2A
-    jsr $E48D
+    jsr !C1E48D_RenderSingleTextInputOptionRowScoped
     jmp.w C1E736_BuildTextInputOptionStrip_LE736
 C1E9C5_BuildTextInputOptionStrip_LE9C5:
     lda $006D
     and.w #$A000
     beq C1E9F6_BuildTextInputOptionStrip_LE9F6
     lda.w #$007D
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     ldy.w #$FFFF
     ldx $2C
     lda $2A
-    jsr $E48D
+    jsr !C1E48D_RenderSingleTextInputOptionRowScoped
     cmp.w #$0000
     bne C1E9E6_BuildTextInputOptionStrip_LE9E6
     jmp.w C1E736_BuildTextInputOptionStrip_LE736
@@ -30154,7 +30165,7 @@ C1E9F6_BuildTextInputOptionStrip_LE9F6:
     and.w #$1000
     beq C1EA07_BuildTextInputOptionStrip_LEA07
     lda.w #!C1007E_SetActiveWindowFocus
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     bra C1EA4E_BuildTextInputOptionStrip_LEA4E
 C1EA07_BuildTextInputOptionStrip_LEA07:
     ldx $18
@@ -30178,7 +30189,7 @@ C1EA23_BuildTextInputOptionStrip_LEA23:
     lda $20
     jsl !C438A5_SetTextCursorPosition
     lda.w #$002F
-    jsr $0D60
+    jsr !C10D60_PrintGlyphAndMarkWindowRedraw
     ldy $16
     cpy.w #$FFFF
     bne C1EA3B_BuildTextInputOptionStrip_LEA3B
@@ -30206,7 +30217,7 @@ C1EA4E_BuildTextInputOptionStrip_LEA4E:
     sta $0E
     lda $08
     sta $10
-    jsl $C08F22
+    jsl !C08F22_MeasureTerminatedTextLength
     cmp.w #$0000
     bne C1EA71_BuildTextInputOptionStrip_LEA71
     jmp.w C1E736_BuildTextInputOptionStrip_LE736
@@ -31104,6 +31115,7 @@ org $C1DD9F
 
 !C10036_SetBattleTextDisplayMode = $0036
 !C1003C_ClearBattleTextDisplayMode = $003C
+!C1153B_AddSelectionMenuItem = $153B
 !C1163C_FinalizeSelectionMenu = $163C
 !C1196A_OpenMenuSelectionLoop = $196A
 !C1242E_RunCharacterSelectionPrompt = $242E
@@ -31254,7 +31266,7 @@ SELECTION_MENU_ITEM_SETUP:
     lda $08
     sta $14
     lda $1A
-    jsr $153B
+    jsr !C1153B_AddSelectionMenuItem
     pld
     rtl
     rep #$31
@@ -33055,6 +33067,7 @@ org $C1ECD1
 !C11F5A_SetMenuRowFormatterCallback = $1F5A
 !C11F8A_OpenMenuSelectionLoopAlt = $1F8A
 !C1AD0A_StageBattleTextSubstitutionPointer = $AD0A
+!C1EC8F_PreviewWindowFlavourAndRedraw = $C1EC8F
 !C1ECD1_PreviewPackedHighByteWindowFlavour = $ECD1
 !C08EED_CopyToVramOrRendererBuffer = $C08EED
 !C08EFC_CommitTileBufferToStaging = $C08EFC
@@ -33070,7 +33083,7 @@ C1ECD1_PreviewPackedHighByteWindowFlavour:
     rep #$31
     xba
     and.w #$00FF
-    jsl $C1EC8F
+    jsl !C1EC8F_PreviewWindowFlavourAndRedraw
     rtl
 CORRUPTION_CHECK:
 !C1ECDC_ShowCorruptSaveFilesNotice = CORRUPTION_CHECK
