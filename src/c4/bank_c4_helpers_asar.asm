@@ -531,16 +531,16 @@ org $C423DC
 !REGISTER_CGADSUB = $002131
 !REGISTER_COLDATA = $002132
 !REGISTER_WOBJSEL = $002125
-!DMA4_DMAP = $004340
-!DMA4_BBAD = $004341
-!DMA4_A1T = $004342
-!DMA4_A1B = $004344
-!DMA4_DASB = $004347
-!DMA5_DMAP = $004350
-!DMA5_BBAD = $004351
-!DMA5_A1T = $004352
-!DMA5_A1B = $004354
-!DMA5_DASB = $004357
+!DMA4_HDMA_MODE = $004340
+!DMA4_BBUS_TARGET = $004341
+!DMA4_HDMA_TABLE_ADDR = $004342
+!DMA4_HDMA_TABLE_BANK = $004344
+!DMA4_INDIRECT_BANK = $004347
+!DMA5_HDMA_MODE = $004350
+!DMA5_BBUS_TARGET = $004351
+!DMA5_HDMA_TABLE_ADDR = $004352
+!DMA5_HDMA_TABLE_BANK = $004354
+!DMA5_INDIRECT_BANK = $004357
 !HDMA_ENABLE_SHADOW = $001F
 !HDMA_CHANNEL4_ENABLE_BIT = $10
 !HDMA_CHANNEL4_DISABLE_MASK = $EF
@@ -621,15 +621,15 @@ C42439_ApplyColorMathAndFixedColorFrom9e37:
     rtl
 C4245D_StartWh0HdmaChannel4AndWhselA0:
     sep #$20
-    sta.l !DMA4_A1B
-    sta.l !DMA4_DASB
+    sta.l !DMA4_HDMA_TABLE_BANK
+    sta.l !DMA4_INDIRECT_BANK
     lda.b #!HDMA_MODE_INDIRECT_2REG
-    sta.l !DMA4_DMAP
+    sta.l !DMA4_HDMA_MODE
     lda.b #!HDMA_TARGET_WH0
-    sta.l !DMA4_BBAD
+    sta.l !DMA4_BBUS_TARGET
     rep #$20
     txa
-    sta.l !DMA4_A1T
+    sta.l !DMA4_HDMA_TABLE_ADDR
     sep #$20
     lda.b #!WOBJSEL_DUAL_WINDOW
     sta.l !REGISTER_WOBJSEL
@@ -710,15 +710,15 @@ C42509_ApplyFullscreenColorSubtractHalfPreset:
     rtl
 C42542_StartWh0HdmaChannel4:
     sep #$20
-    sta.l !DMA4_A1B
-    sta.l !DMA4_DASB
+    sta.l !DMA4_HDMA_TABLE_BANK
+    sta.l !DMA4_INDIRECT_BANK
     lda.b #!HDMA_MODE_INDIRECT_2REG
-    sta.l !DMA4_DMAP
+    sta.l !DMA4_HDMA_MODE
     lda.b #!HDMA_TARGET_WH0
-    sta.l !DMA4_BBAD
+    sta.l !DMA4_BBUS_TARGET
     rep #$20
     txa
-    sta.l !DMA4_A1T
+    sta.l !DMA4_HDMA_TABLE_ADDR
     sep #$20
     lda.b #!HDMA_CHANNEL4_ENABLE_BIT
     tsb.w !HDMA_ENABLE_SHADOW
@@ -768,15 +768,15 @@ C4258C_ApplyDualCenteredColorSubtractHalfPreset:
     rtl
 C425CC_StartWh0HdmaChannel4AltEntry:
     sep #$20
-    sta.l !DMA4_A1B
-    sta.l !DMA4_DASB
+    sta.l !DMA4_HDMA_TABLE_BANK
+    sta.l !DMA4_INDIRECT_BANK
     lda.b #!HDMA_MODE_INDIRECT_2REG
-    sta.l !DMA4_DMAP
+    sta.l !DMA4_HDMA_MODE
     lda.b #!HDMA_TARGET_WH0
-    sta.l !DMA4_BBAD
+    sta.l !DMA4_BBUS_TARGET
     rep #$20
     txa
-    sta.l !DMA4_A1T
+    sta.l !DMA4_HDMA_TABLE_ADDR
     sep #$20
     lda.b #!HDMA_CHANNEL4_ENABLE_BIT
     tsb.w !HDMA_ENABLE_SHADOW
@@ -790,15 +790,15 @@ C425F3_ClearWh0HdmaChannel4EnableViaTrb:
     rtl
 C425FD_StartWh2HdmaChannel5:
     sep #$20
-    sta.l !DMA5_A1B
-    sta.l !DMA5_DASB
+    sta.l !DMA5_HDMA_TABLE_BANK
+    sta.l !DMA5_INDIRECT_BANK
     lda.b #!HDMA_MODE_INDIRECT_2REG
-    sta.l !DMA5_DMAP
+    sta.l !DMA5_HDMA_MODE
     lda.b #!HDMA_TARGET_WH2
-    sta.l !DMA5_BBAD
+    sta.l !DMA5_BBUS_TARGET
     rep #$20
     txa
-    sta.l !DMA5_A1T
+    sta.l !DMA5_HDMA_TABLE_ADDR
     sep #$20
     lda.b #!HDMA_CHANNEL5_ENABLE_BIT
     tsb.w !HDMA_ENABLE_SHADOW

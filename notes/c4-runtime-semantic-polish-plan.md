@@ -259,6 +259,12 @@ closure.
   `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`,
   `notes/movement-target-bounds-and-vector-refresh-c46ef8-c47369.md`, and
   `notes/sound-stone-presentation-data-c4ac57.md`.
+- 2026-05-06 HDMA register-name follow-up: split the C4 window/color HDMA
+  register aliases into mode, B-bus target, table address, table bank, and
+  indirect-bank fields for channels 4/5. The entry comments now record that
+  caller A feeds both bank registers and caller X feeds the table address,
+  while leaving stream payload interpretation to the generating callers.
+  See `notes/c4-window-color-math-and-palette-helpers-23dc-26ed.md`.
 - 2026-05-06 visual table follow-up: split the coarse
   `C4:2A1F..30EC` footprint / secondary visual descriptor corridor into
   labeled footprint geometry tables, the secondary descriptor pointer table,

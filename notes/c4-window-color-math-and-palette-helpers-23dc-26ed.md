@@ -48,10 +48,16 @@ for these small entries.
 
 The HDMA helpers in this run program B-bus targets for the window edge registers:
 
-- `C4:245D` programs DMA channel 4 as HDMA mode `#$01`, target register `#$26` (`WH0`), source bank and indirect bank from caller A, source address from caller X, writes `WOBJSEL = #$A0`, then sets bit `#$10` in `$001F`.
+- `C4:245D` programs DMA channel 4 as HDMA mode `#$01`, B-bus target register `#$26` (`WH0`), table bank and indirect data bank from caller A, table address from caller X, writes `WOBJSEL = #$A0`, then sets bit `#$10` in `$001F`.
 - `C4:2542` programs the same channel-4 `WH0` HDMA setup but does not touch `WOBJSEL`.
 - `C4:25CC` is another channel-4 `WH0` setup entry with the same register shape as `C4:2542`; the callsite semantics are still open, so it keeps a distinct working name for now.
-- `C4:25FD` programs DMA channel 5 as HDMA mode `#$01`, target register `#$28` (`WH2`), source bank and indirect bank from caller A, source address from caller X, then sets bit `#$20` in `$001F`.
+- `C4:25FD` programs DMA channel 5 as HDMA mode `#$01`, B-bus target register `#$28` (`WH2`), table bank and indirect data bank from caller A, table address from caller X, then sets bit `#$20` in `$001F`.
+
+2026-05-06 HDMA register-name follow-up: `window_color_hdma_helpers.asm` now
+splits the channel-4/channel-5 DMA register aliases into HDMA mode, B-bus
+target, table address, table bank, and indirect-bank fields. The entry comments
+now say caller A is written to both bank fields and caller X to the table
+address, without assigning semantics to the stream payload bytes themselves.
 
 The disable helpers are similarly small:
 
