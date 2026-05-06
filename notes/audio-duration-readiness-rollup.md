@@ -18,6 +18,8 @@ Status: exact-duration readiness remains blocked; current playback/export behavi
 - nonzero blocker tracks without source candidate: `146`
 - zero coverage probe jobs: `19`
 - zero runtime reader PC targets: `10`
+- residual uncertainty records: `8`
+- residual public exact blocked: `2`
 - release ready: `False`
 
 ## Gates
@@ -32,6 +34,7 @@ Status: exact-duration readiness remains blocked; current playback/export behavi
 | `sequence_promotion_gate` | `False` | `{'uncertainty_register_allows_sequence_promotion': False, 'probe_campaign_allows_sequence_promotion': False}` |
 | `nonzero_control_coverage_gate` | `False` | `{'blocker_track_count': 155, 'probe_job_count': 7, 'source_candidate_record_count': 56, 'unique_source_candidate_track_count': 10, 'blocker_tracks_without_source_candidate_count': 146}` |
 | `zero_runtime_coverage_gate` | `False` | `{'blocker_track_count': 19, 'probe_job_count': 19, 'job_track_coverage_exact': True, 'reader_pc_target_count': 10, 'runtime_zero_read_count': 5931, 'pre_promotion_blocker_counts': {'ef_return_stack_model': 15, 'zero_runtime_effect_proof': 19}}` |
+| `residual_uncertainty_coverage_gate` | `False` | `{'record_count': 8, 'public_exact_allowed_count': 6, 'public_exact_blocked_count': 2, 'pcm_trim_sequence_intent_open_count': 5, 'primary_uncertainty_counts': {'active_preview_classification_pending': 1, 'measurement_missing': 1, 'no_duration_uncertainty_for_current_export': 1, 'pcm_trim_usable_sequence_intent_open': 5}}` |
 
 ## Blocker Lanes
 
@@ -51,6 +54,7 @@ Status: exact-duration readiness remains blocked; current playback/export behavi
 - Finite and loop tail metrics prove current diagnostic activity patterns, not final exact-duration policy.
 - Nonzero control coverage maps representative probe anchors but does not replace imported runtime probe outputs.
 - Zero runtime coverage maps every current zero blocker to a probe job but still requires imported runtime classifications.
+- Residual uncertainty coverage keeps PCM-trim public readiness separate from sequence-intent promotion.
 - Release-quality exact-duration readiness requires public exact duration coverage plus independent oracle and lane-specific runtime evidence.
 
 ## Remaining Uncertainty

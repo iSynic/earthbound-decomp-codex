@@ -21,6 +21,7 @@ REQUIRED_REFERENCES = {
     "manifests/audio-probe-campaign-plan.json",
     "manifests/audio-nonzero-control-coverage-report.json",
     "manifests/audio-zero-runtime-coverage-report.json",
+    "manifests/audio-residual-uncertainty-coverage-report.json",
 }
 REQUIRED_GATES = {
     "public_exact_duration_gate",
@@ -31,6 +32,7 @@ REQUIRED_GATES = {
     "sequence_promotion_gate",
     "nonzero_control_coverage_gate",
     "zero_runtime_coverage_gate",
+    "residual_uncertainty_coverage_gate",
 }
 REQUIRED_LANES = {
     "non_zero_control_semantics",
@@ -78,6 +80,8 @@ def validate(data: dict[str, Any]) -> None:
     )
     require(int(summary.get("zero_coverage_probe_jobs", 0)) == 19, "expected 19 zero coverage probe jobs")
     require(int(summary.get("zero_runtime_reader_pc_targets", 0)) == 10, "expected 10 zero runtime reader PC targets")
+    require(int(summary.get("residual_uncertainty_records", 0)) == 8, "expected 8 residual uncertainty records")
+    require(int(summary.get("residual_public_exact_blocked", -1)) == 2, "expected 2 residual public-exact blockers")
     require(summary.get("release_ready") is False, "release readiness should remain blocked")
     require(summary.get("current_playback_export_behavior_preserved") is True, "behavior preservation flag missing")
     primary_counts = summary.get("primary_uncertainty_track_counts", {})
@@ -135,6 +139,12 @@ def validate(data: dict[str, Any]) -> None:
         zero_gate.get("pre_promotion_blocker_counts") == {"ef_return_stack_model": 15, "zero_runtime_effect_proof": 19},
         "zero runtime blocker counts mismatch",
     )
+    residual_gate = gates["residual_uncertainty_coverage_gate"]
+    require(residual_gate.get("passed") is False, "residual uncertainty coverage gate should fail")
+    require(int(residual_gate.get("record_count", 0)) == 8, "residual coverage record count mismatch")
+    require(int(residual_gate.get("public_exact_allowed_count", 0)) == 6, "residual public-exact allowed count mismatch")
+    require(int(residual_gate.get("public_exact_blocked_count", 0)) == 2, "residual public-exact blocked count mismatch")
+    require(int(residual_gate.get("pcm_trim_sequence_intent_open_count", 0)) == 5, "residual PCM trim count mismatch")
 
     lanes = data.get("blocker_lanes", [])
     require({str(lane.get("lane")) for lane in lanes} == REQUIRED_LANES, "blocker lane coverage mismatch")

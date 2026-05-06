@@ -19,6 +19,7 @@ DEFAULT_INDEPENDENT_ORACLE_COVERAGE = ROOT / "manifests" / "audio-independent-or
 DEFAULT_PROBE_CAMPAIGN = ROOT / "manifests" / "audio-probe-campaign-plan.json"
 DEFAULT_NONZERO_COVERAGE = ROOT / "manifests" / "audio-nonzero-control-coverage-report.json"
 DEFAULT_ZERO_COVERAGE = ROOT / "manifests" / "audio-zero-runtime-coverage-report.json"
+DEFAULT_RESIDUAL_COVERAGE = ROOT / "manifests" / "audio-residual-uncertainty-coverage-report.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-duration-readiness-rollup.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-duration-readiness-rollup.md"
 
@@ -34,6 +35,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--probe-campaign", default=str(DEFAULT_PROBE_CAMPAIGN), help="Probe campaign plan JSON.")
     parser.add_argument("--nonzero-coverage", default=str(DEFAULT_NONZERO_COVERAGE), help="Nonzero control coverage report JSON.")
     parser.add_argument("--zero-coverage", default=str(DEFAULT_ZERO_COVERAGE), help="0x00 runtime coverage report JSON.")
+    parser.add_argument("--residual-coverage", default=str(DEFAULT_RESIDUAL_COVERAGE), help="Residual uncertainty coverage report JSON.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Rollup JSON output.")
     parser.add_argument("--notes", default=str(DEFAULT_NOTES), help="Rollup markdown output.")
     return parser.parse_args()
@@ -53,6 +55,7 @@ def build_rollup(
     probe_campaign: dict[str, Any],
     nonzero_coverage: dict[str, Any],
     zero_coverage: dict[str, Any],
+    residual_coverage: dict[str, Any],
 ) -> dict[str, Any]:
     uncertainty_summary = uncertainty.get("summary", {})
     oracle_gates = oracle_report.get("gate_results", {})
@@ -63,6 +66,7 @@ def build_rollup(
     probe_summary = probe_campaign.get("summary", {})
     nonzero_summary = nonzero_coverage.get("summary", {})
     zero_summary = zero_coverage.get("summary", {})
+    residual_summary = residual_coverage.get("summary", {})
     public_exact_count = int(uncertainty_summary.get("public_exact_duration_track_count", 0))
     track_count = int(uncertainty_summary.get("track_count", 0))
     primary_counts = uncertainty_summary.get("primary_uncertainty_track_counts", {})
@@ -127,6 +131,14 @@ def build_rollup(
             "runtime_zero_read_count": int(zero_summary.get("runtime_zero_read_count", 0)),
             "pre_promotion_blocker_counts": zero_summary.get("pre_promotion_blocker_counts", {}),
         },
+        "residual_uncertainty_coverage_gate": {
+            "passed": False,
+            "record_count": int(residual_summary.get("record_count", 0)),
+            "public_exact_allowed_count": int(residual_summary.get("public_exact_allowed_count", 0)),
+            "public_exact_blocked_count": int(residual_summary.get("public_exact_blocked_count", 0)),
+            "pcm_trim_sequence_intent_open_count": int(residual_summary.get("pcm_trim_sequence_intent_open_count", 0)),
+            "primary_uncertainty_counts": residual_summary.get("primary_uncertainty_counts", {}),
+        },
     }
     blocker_lanes = [
         {
@@ -173,6 +185,7 @@ def build_rollup(
             "manifests/audio-probe-campaign-plan.json",
             "manifests/audio-nonzero-control-coverage-report.json",
             "manifests/audio-zero-runtime-coverage-report.json",
+            "manifests/audio-residual-uncertainty-coverage-report.json",
         ],
         "summary": {
             "track_count": track_count,
@@ -193,6 +206,8 @@ def build_rollup(
             ),
             "zero_coverage_probe_jobs": int(zero_summary.get("probe_job_count", 0)),
             "zero_runtime_reader_pc_targets": int(zero_summary.get("reader_pc_target_count", 0)),
+            "residual_uncertainty_records": int(residual_summary.get("record_count", 0)),
+            "residual_public_exact_blocked": int(residual_summary.get("public_exact_blocked_count", 0)),
             "release_ready": release_ready,
             "current_playback_export_behavior_preserved": True,
         },
@@ -205,6 +220,7 @@ def build_rollup(
             "Finite and loop tail metrics prove current diagnostic activity patterns, not final exact-duration policy.",
             "Nonzero control coverage maps representative probe anchors but does not replace imported runtime probe outputs.",
             "Zero runtime coverage maps every current zero blocker to a probe job but still requires imported runtime classifications.",
+            "Residual uncertainty coverage keeps PCM-trim public readiness separate from sequence-intent promotion.",
             "Release-quality exact-duration readiness requires public exact duration coverage plus independent oracle and lane-specific runtime evidence.",
         ],
     }
@@ -251,6 +267,8 @@ def render_markdown(data: dict[str, Any]) -> str:
             f"- nonzero blocker tracks without source candidate: `{summary['nonzero_blocker_tracks_without_source_candidate']}`",
             f"- zero coverage probe jobs: `{summary['zero_coverage_probe_jobs']}`",
             f"- zero runtime reader PC targets: `{summary['zero_runtime_reader_pc_targets']}`",
+            f"- residual uncertainty records: `{summary['residual_uncertainty_records']}`",
+            f"- residual public exact blocked: `{summary['residual_public_exact_blocked']}`",
             f"- release ready: `{summary['release_ready']}`",
             "",
             "## Gates",
@@ -291,6 +309,7 @@ def main() -> int:
         load_json(Path(args.probe_campaign)),
         load_json(Path(args.nonzero_coverage)),
         load_json(Path(args.zero_coverage)),
+        load_json(Path(args.residual_coverage)),
     )
     output = Path(args.output)
     notes = Path(args.notes)
