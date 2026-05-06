@@ -201,6 +201,9 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-06: EF EBATTLE2 row `207` follow-up promoted `EF:83A8` to a
   strange-status `RowPresentationText` anchor, closing the proved status-row
   outlier that reuses the `C2:8D3A -> C2:A056` body.
+- 2026-05-06: EF row-message crosswalk consolidation updated proved early
+  command/PSI joins and rows `243/244` to show their promoted source labels,
+  keeping the exact `MSG_BTL_*` policy only for unproved action islands.
 - 2026-05-05: EF EBATTLE1 battle-command front follow-up split
   `EF:848C..8814` into Bash/attack, Shoot, Guard, Metamorphose, flee, Spy,
   shared PSI action text, and the first PSI animation/effect dispatch branches.

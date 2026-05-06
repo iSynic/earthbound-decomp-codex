@@ -77,8 +77,8 @@ writes.
 | `140` | `EF:8E27` `SharedNamedItemRowPresentationText` | `C2:9AD8` | Item-side full-heal reuse over the fixed-amount healing core; named-item presentation wrapper |
 | `228` | `EF:8BE8` `DiamondizeBiteRowPresentationText` | `C2:916E` | One-target diamondize action; emits `EF:6AC7` or `EF:7655` |
 | `232` | `EF:8C58` `BadSmellOdorRowPresentationText` | `C2:9254` | Odor/offense-reduction family; reports amount through C8 text via `DC66` |
-| `243` | `EF:72F6` | `C2:9298` | Runaway Five / Clumsy Robot special-event controller; branches to `EF:72F7` or `EF:733D` |
-| `244` | `EF:7415` | `C2:92EE` | Master Barf defeat / Poo Starstorm event result; later emits `EF:743B` |
+| `243` | `EF:72F6` `RunawayFiveBreakInRowPresentationText` | `C2:9298` | Runaway Five / Clumsy Robot special-event controller; branches to `EF:72F7` or `EF:733D` |
+| `244` | `EF:7415` `PooBreakInRowPresentationText` | `C2:92EE` | Master Barf defeat / Poo Starstorm event result; later emits `EF:743B` |
 | `247` | `EF:8E27` `SharedNamedItemRowPresentationText` | `C2:90C6` | Battler normalization wrapper; can emit `EF:7142` and queue `EF:7123` |
 | `248` | `EF:8D9F` `NeutralizeSparkleRowPresentationText` | `C2:90C6` | Same normalization wrapper reuse |
 | `273` | `EF:8EBE` `BadSmellGasRowPresentationText` | `C2:9254` | Odor/offense-reduction family reuse |
@@ -99,19 +99,19 @@ The early row-message joins remain the cleanest `DD9F` examples:
 
 | Row | Row `+4` EF message | Row `+8` C2 body | Current behavior read |
 | ---: | --- | --- | --- |
-| `4` | `EF:848C` | `C2:859F` | Bash |
-| `5` | `EF:84B6` | `C2:8740` | Shoot |
-| `6` | `EF:8530` | `C2:8770` | Spy |
-| `7` | `EF:89E0` | `C2:AD1B` | Pray |
-| `10..31`, `53`, `58` | `EF:8543` | PSI wrapper/status families | Shared PSI row message; `ByteSubstitution` PSI name |
+| `4` | `EF:848C` `BashAttackRowPresentationText` | `C2:859F` | Bash |
+| `5` | `EF:84B6` `ShootRowPresentationText` | `C2:8740` | Shoot |
+| `6` | `EF:8530` `SpyCheckRowPresentationText` | `C2:8770` | Spy |
+| `7` | `EF:89E0` `PrayRowPresentationText` | `C2:AD1B` | Pray |
+| `10..31`, `53`, `58` | `EF:8543` `SharedPsiNameByteSubstitutionRowPresentationText` | PSI wrapper/status families | Shared PSI row message; `ByteSubstitution` PSI name |
 
 ## How To Use This Crosswalk
 
 For future EF payload work:
 
 - If a row `+4` message has a row-specific C2 body and a result script, name the
-  EF row-message anchor conservatively around the exact `MSG_BTL_*` text and
-  document the behavior in this crosswalk.
+  EF row-message anchor conservatively around the proved presentation role and
+  document the behavior/result split in this crosswalk.
 - If the C2 body emits a separate EF script through `DC1C` or `DC66`, keep that
   result payload named independently from the row-message text.
 - If only table order or reference names are known, keep the anchor

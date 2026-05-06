@@ -53,6 +53,11 @@ The front EBATTLE1 row-message joins are currently the strongest:
 | `0x0007` | `EF:89E0` | Pray row message via `DD9F` |
 | `0x000A..0x0019` | `EF:8543` | Shared PSI row message via `DD9F`, with PSI-name `ByteSubstitution` |
 
+The EF source labels for those early joins now carry the same lane names:
+`BashAttackRowPresentationText`, `ShootRowPresentationText`,
+`SpyCheckRowPresentationText`, `PrayRowPresentationText`, and
+`SharedPsiNameByteSubstitutionRowPresentationText`.
+
 EBATTLE2 also has several late-table anchors that are strong enough to keep as
 consumer-ready handoff points:
 
@@ -121,9 +126,9 @@ row `+4` pointer and row `+8` behavior body are joined:
   rows `140/247`, `159`, `228`, `232`, `248`, `273`, and `290`; the remaining
   labels should stay symbol-derived until specific `D5:7B68` rows are mapped.
 - `EF:9A47..9EF4` EBATTLE1 tail: status, flavor, item, and special action
-  row-message candidates. Promote in small families, such as concentration
-  seal, Time Stop, call-for-help, or breath/status-flavor, only after C2 bodies
-  prove the runtime role.
+  row-message candidates. The proved status rows are already promoted; promote
+  remaining flavor/item/special anchors only after C2 row `+4/+8` joins prove
+  the runtime role.
 
 Direct status/result scripts are different: if a C2 body chooses a hardcoded EF
 pointer through `DC1C`, or an `ActionAmount` script through `DC66`, it is safe

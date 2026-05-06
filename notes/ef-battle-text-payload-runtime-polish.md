@@ -284,6 +284,8 @@ The row `243` and `244` special-event split now carries the lane in the source
 labels: `EF:72F6` and `EF:7415` are `RowPresentationText` anchors displayed by
 `DD9F`, while `EF:72F7`, `EF:733D`, and `EF:743B` are behavior-emitted
 `ResultText` continuations.
+The crosswalk now uses those source labels too, keeping special-event
+presentation text separate from the direct-result continuations.
 
 The random-talk tail is now named by consumer shape rather than inherited
 message-symbol prose: `EF:745F` is the Pokey random-talk dispatcher, while
@@ -386,6 +388,8 @@ the row `+8` behavior pointer is a separate C2 action payload. The shared
 its `ByteSubstitutionRowPresentationText` suffix records both facts: the
 displayed row message consumes the `C1:DD7C -> $9D11 -> 19 1F` PSI-name byte,
 and the row-message proof remains distinct from row `+8` behavior bodies.
+The row-message crosswalk now records those source labels directly so the
+proved early `DD9F` joins no longer appear as bare EF pointers.
 
 ## Thunder, Effect, And Pray Follow-up
 

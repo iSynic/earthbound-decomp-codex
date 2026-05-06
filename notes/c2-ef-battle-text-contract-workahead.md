@@ -148,6 +148,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   inherited `MSG_BTL_LAUGH_HEN` shell into a strange-status
   `RowPresentationText` anchor, matching its `C2:8D3A -> C2:A056` behavior
   join.
+- 2026-05-06: EF row-message crosswalk consolidation updated the proved early
+  command/PSI joins and rows `243/244` to use their promoted source labels
+  directly, leaving only unproved action islands under the exact `MSG_BTL_*`
+  naming policy.
 - 2026-05-05: EF EBATTLE9 field/graveyard follow-up split the complete
   `EF:8FAD..9A47` include into the `_SUB_SOREZORE` helper, Sanctuary
   field-monster payloads, graveyard/Paula branches, and the Guts tutorial
