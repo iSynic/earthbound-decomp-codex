@@ -14388,9 +14388,12 @@ org $C26189
 !C09451_RestoreSavedCoordinateState = $C09451
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+!C1DD47_OpenBattleTextWindow = $C1DD47
 !C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 !C26A2D_GetRandomBelow = $6A2D
+!C2B930_ExportBattleSelectionSnapshot = $C2B930
+!C2BAC5_CountFilteredSecondStageBattlerRows = $C2BAC5
 !C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
 !C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
@@ -14490,7 +14493,7 @@ C26235_FillInstantWinTileBufferAndUpload_L6235:
     jsl !C49740_FinishPaletteFadeWorkBuffer
     jsl !C0943C_SaveCurrentCoordinateState
     lda.w #$000E
-    jsl $C1DD47
+    jsl !C1DD47_OpenBattleTextWindow
     stz $A978
     lda.w #$0000
     sta $18
@@ -14583,7 +14586,7 @@ C262FC_FillInstantWinTileBufferAndUpload_L62FC:
     adc.w #$9FAC
     tax
     lda $18
-    jsl $C2B930
+    jsl !C2B930_ExportBattleSelectionSnapshot
 C2630F_FillInstantWinTileBufferAndUpload_L630F:
     ldy $16
     iny
@@ -14642,7 +14645,7 @@ C2637F_FillInstantWinTileBufferAndUpload_L637F:
     cmp $9F8A
     bcc C2632C_FillInstantWinTileBufferAndUpload_L632C
     lda.w #$0000
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     dec A
     sta $0A
     stz $0C
@@ -14662,7 +14665,7 @@ C2637F_FillInstantWinTileBufferAndUpload_L637F:
     lda $08
     sta $A976
     lda.w #$0000
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageBattlerRows
     sta $0A
     stz $0C
     jsl !C090FF_AddLongPointerOffset
@@ -29097,6 +29100,7 @@ org $C25AFB
 !C2BAC5_CountFilteredSecondStageBattlerRows = $C2BAC5
 !C2BB18_PromoteSourceEntryToCollapseAfflictionController = $C2BB18
 !C2BCB9_ApplyBattlerPpTargetLoss = $C2BCB9
+!C2BC5C_ClearInactiveSourceEntryLiveSlotTransientFields = $C2BC5C
 !C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
 !D57B68_BattleActionTable = $D57B68
 !D57B68_BattleActionTableLo = $7B68
@@ -29850,7 +29854,7 @@ C2613B_RunBattleStartCandidateControllerBack_L613B:
     beq C26145_RunBattleStartCandidateControllerBack_L6145
     jmp.w C260B9_RunBattleStartCandidateControllerBack_L60B9
 C26145_RunBattleStartCandidateControllerBack_L6145:
-    jsl $C2BC5C
+    jsl !C2BC5C_ClearInactiveSourceEntryLiveSlotTransientFields
     sep #$20
     stz $98B1
     rep #$20
@@ -29901,6 +29905,7 @@ org $C27EAF
 !C26BB8_RollActionChanceGate = $6BB8
 !C26BDB_Success500 = $6BDB
 !C26EF8_MaskSet_FindFirstMatchInRange = $C26EF8
+!C27029_MaskSet_TestBit = $C27029
 !C27126_SetBattlerHpTarget = $7126
 !C271F0_ReduceBattlerHpTarget = $71F0
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
@@ -29908,6 +29913,7 @@ org $C27EAF
 !C27C96_RollSelectedRowThresholdGate = $7C96
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C27E8A_SwapReflectedHitBattleTextContexts = $7E8A
+!C2416F_FilterBattleActionTargetMaskByRowState = $C2416F
 !C2BAC5_CountFilteredSelectedRows = $C2BAC5
 !BattlerRecordSize = $004E
 !CurrentTargetBattlerPtr = $A972
@@ -31213,7 +31219,7 @@ C288EA_RunHitResolutionAndStatusActionCluster_L88EA:
     sty $14
     jmp.w C289A4_RunHitResolutionAndStatusActionCluster_L89A4
 C2891B_RunHitResolutionAndStatusActionCluster_L891B:
-    jsl $C2416F
+    jsl !C2416F_FilterBattleActionTargetMaskByRowState
     lda.w #$0000
     sta $06
     lda.w #$0000
@@ -31254,7 +31260,7 @@ C2893B_RunHitResolutionAndStatusActionCluster_L893B:
     bra C28981_RunHitResolutionAndStatusActionCluster_L8981
 C28972_RunHitResolutionAndStatusActionCluster_L8972:
     txa
-    jsl $C27029
+    jsl !C27029_MaskSet_TestBit
     cmp.w #$0000
     bne C28986_RunHitResolutionAndStatusActionCluster_L8986
     ldx $12

@@ -30,6 +30,11 @@ and comments while preserving byte-equivalence.
 - Follow-up action-table polish now names the local `D5:7B68` row root/bank,
   the `0x0C` row size, the `+2/+3/+4/+8` row fields used by battle-start, and
   the `C1:DD9F` primary-message lane versus the later companion-payload lane.
+- Result-corridor follow-up now carries source-backed helper names into the
+  instant-win handler and battle-start cleanup tail: `C1:DD47` opens the battle
+  text window, `C2:B930` exports battle selection snapshots, `C2:BAC5` counts
+  filtered second-stage rows, and `C2:BC5C` clears inactive source-entry
+  live-slot transient fields.
 
 ## Payload Joins
 
@@ -51,6 +56,11 @@ byte-substitution bridge:
 The victory scripts continue to use `C1:DC66` with `$12/$14` populated from the
 accumulated result pointer/value pair, keeping them separate from direct
 `C1:DC1C` status-result text.
+
+The instant-win forced-victory path now calls the same named
+`ExportBattleSelectionSnapshot` and `CountFilteredSecondStageBattlerRows`
+helpers used by battle-start and target-selection setup before it builds the
+reward pointer/value pair for `EF:7A28`.
 
 ## Action-Table Text Lane
 

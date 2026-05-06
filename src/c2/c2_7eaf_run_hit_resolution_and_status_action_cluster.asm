@@ -26,6 +26,7 @@ C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
 C26BB8_RollActionChanceGate                     = $6BB8
 C26BDB_Success500                               = $6BDB
 C26EF8_MaskSet_FindFirstMatchInRange            = $C26EF8
+C27029_MaskSet_TestBit                          = $C27029
 C27126_SetBattlerHpTarget                       = $7126
 C271F0_ReduceBattlerHpTarget                    = $71F0
 C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
@@ -33,6 +34,7 @@ C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 C27C96_RollSelectedRowThresholdGate             = $7C96
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
 C27E8A_SwapReflectedHitBattleTextContexts       = $7E8A
+C2416F_FilterBattleActionTargetMaskByRowState   = $C2416F
 C2BAC5_CountFilteredSelectedRows                = $C2BAC5
 
 BattlerRecordSize             = $004E
@@ -1348,7 +1350,7 @@ C288EA_RunHitResolutionAndStatusActionCluster_L88EA:
     sty $14
     jmp.w C289A4_RunHitResolutionAndStatusActionCluster_L89A4
 C2891B_RunHitResolutionAndStatusActionCluster_L891B:
-    jsl $C2416F
+    jsl C2416F_FilterBattleActionTargetMaskByRowState
     lda.w #$0000
     sta $06
     lda.w #$0000
@@ -1389,7 +1391,7 @@ C2893B_RunHitResolutionAndStatusActionCluster_L893B:
     bra C28981_RunHitResolutionAndStatusActionCluster_L8981
 C28972_RunHitResolutionAndStatusActionCluster_L8972:
     txa
-    jsl $C27029
+    jsl C27029_MaskSet_TestBit
     cmp.w #$0000
     bne C28986_RunHitResolutionAndStatusActionCluster_L8986
     ldx $12

@@ -110,6 +110,12 @@ The retargeting tail now calls the named `C2:6EF8`
 keeps the hit-resolution cluster aligned with the standalone class-`2` mask
 helper note and the A89D item/status payload lane.
 
+Result-corridor follow-up: the Time Stop/retarget status tail now also names
+the adjacent `C2:416F` / `FilterBattleActionTargetMaskByRowState` prune and
+`C2:7029` / `MaskSet_TestBit` scan helpers. The local flow is now explicit:
+prune the current target mask, pick the first surviving mask range, scan for
+the selected bit, rebuild target text context, and invoke the bash payload.
+
 ## Evidence Inputs
 
 - `refs/EB-M2-Listing-v1/US/bank02.txt` for helper names such as

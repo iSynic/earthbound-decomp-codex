@@ -173,6 +173,10 @@ Battle-start controller follow-up: the front half now names its
 fallback retargeting loop read as: build derived action bytes, build the
 current target mask, prune blocked row states, and retry when the mask is empty.
 
+Hit-resolution follow-up: the Time Stop/retarget tail now uses the same named
+`FilterBattleActionTargetMaskByRowState` and `MaskSet_TestBit` contracts before
+refreshing the target text context and applying the selected hit payload.
+
 ## Battle Text Context Join
 
 The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local
@@ -227,6 +231,8 @@ This slice makes the selected-row controller more actionable:
 - battle-start front/back controller callsites now use the same action-dispatch,
   target-mask, bit-test, payload-dispatch, and text-context vocabulary as the
   helper source bodies.
+- the hit-resolution retarget/status tail now shares that target-mask filter
+  and bit-test vocabulary as well.
 
 ## Remaining Soft Spots
 

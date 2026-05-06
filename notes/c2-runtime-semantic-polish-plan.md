@@ -604,6 +604,18 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-action-dispatch-runtime-polish.md`,
   `notes/c2-selected-row-controller-runtime-polish.md`, and
   `notes/class2-second-stage-selector-a970.md`.
+- 2026-05-06 eighty-first slice: tightened the result-flow corridor around
+  instant-win, battle-start completion, and the Time Stop retarget/status tail.
+  Instant-win now names `C1:DD47` as `OpenBattleTextWindow`, `C2:B930` as
+  `ExportBattleSelectionSnapshot`, and `C2:BAC5` as
+  `CountFilteredSecondStageBattlerRows`; battle-start completion names
+  `C2:BC5C` as `ClearInactiveSourceEntryLiveSlotTransientFields`; and the
+  hit-resolution Time Stop tail now names the `C2:416F` target-mask row-state
+  filter plus the `C2:7029` bit-test helper. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/c2-instant-win-and-magic-butterfly-helpers-c26189-c2654c.md`,
+  `notes/c2-hit-resolution-status-runtime-polish.md`, and
+  `notes/class2-second-stage-selector-a970.md`.
 
 ## Validation
 

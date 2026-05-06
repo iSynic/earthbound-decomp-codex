@@ -29,6 +29,7 @@ C27029_MaskSet_TestBit               = $C27029
 C2BAC5_CountFilteredSecondStageBattlerRows = $C2BAC5
 C2BB18_PromoteSourceEntryToCollapseAfflictionController = $C2BB18
 C2BCB9_ApplyBattlerPpTargetLoss      = $C2BCB9
+C2BC5C_ClearInactiveSourceEntryLiveSlotTransientFields = $C2BC5C
 C2EACF_PollBattleSwirlOverlayBusy   = $C2EACF
 D57B68_BattleActionTable            = $D57B68
 D57B68_BattleActionTableLo          = $7B68
@@ -796,7 +797,7 @@ C2613B_RunBattleStartCandidateControllerBack_L613B:
     beq C26145_RunBattleStartCandidateControllerBack_L6145
     jmp.w C260B9_RunBattleStartCandidateControllerBack_L60B9
 C26145_RunBattleStartCandidateControllerBack_L6145:
-    jsl $C2BC5C
+    jsl C2BC5C_ClearInactiveSourceEntryLiveSlotTransientFields
     sep #$20
     stz $98B1
     rep #$20

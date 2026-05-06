@@ -21,6 +21,9 @@ Source-scaffold promotion:
   `CountFilteredSecondStageBattlerRows` and `C2:BB18` as
   `PromoteSourceEntryToCollapseAfflictionController`, so the controller
   handoff is visible at both caller and callee.
+- The instant-win handler now also calls `C2:BAC5` by that row-count name when
+  preparing forced-victory reward text, and the battle-start tail calls
+  `C2:BC5C` as `ClearInactiveSourceEntryLiveSlotTransientFields`.
 
 ## Why this cluster matters
 
@@ -88,6 +91,8 @@ This selector layer fits cleanly with the existing findings:
 - the battle-start controller callsites now use the same named bridge helpers
   before invoking the action derivation, target-mask, result-text, and
   selected-row controller paths
+- instant-win reward flow now shares the named filtered-row counter, while
+  battle-start completion names the transient live-slot cleanup helper
 
 ## What is still unresolved
 
