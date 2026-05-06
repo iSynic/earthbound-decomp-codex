@@ -302,8 +302,8 @@ def build_triage() -> list[BankTriage]:
             "map graphics plus palette animation data",
             "asset-and-table-ready",
             3,
-            "Extract tileset/animation graphics and promote the palette-animation table family.",
-            ["palette-animation region is inferred"],
+            "Extract tileset/animation graphics and keep the landing palette-animation table contracts regression-tested.",
+            ["profile meanings still need naming, but the table/payload split is contract-backed"],
             ["tileset graphics", "animation graphics", "palette-animation table", "audio pack"],
         )
     )

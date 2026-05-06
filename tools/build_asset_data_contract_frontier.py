@@ -72,7 +72,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "label": "Map tilesets and runtime tables",
         "banks": ["D6", "D7", "D8", "D9", "DA", "DB", "DC", "DD", "DE", "DF"],
         "maturity": "contract-backed-with-known-followups",
-        "proof": "map object, sector, tileset, FTS, collision, palette, movement, sprite-usage, and scene-composition contracts exist",
+        "proof": "map object, sector, tileset, FTS, collision, palette, movement, sprite-usage, landing palette-animation, and scene-composition contracts exist",
         "docs": [
             "notes/map-milestone-closure.md",
             "notes/map-object-bundles.md",
@@ -81,9 +81,10 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/map-fts-format-audit.md",
             "notes/map-collision-runtime-bit-contract.md",
             "notes/map-palette-descriptor-context.md",
+            "notes/bank-df-first-pass.md",
             "notes/map-scene-composition-contract.md",
         ],
-        "next_contract": "Map contracts are phase-good-enough: collision low modifier labels and DA palette metadata/event-selector runtime behavior are bounded deferred semantic polish.",
+        "next_contract": "Map contracts are phase-good-enough: D7 generated map metadata split, collision low modifier labels, DA palette metadata/event-selector runtime behavior, and DF profile names are bounded deferred semantic polish.",
     },
     {
         "id": "ui_font_town_map_assets",

@@ -340,6 +340,11 @@ PALETTE_ROW_4_FIELDS = (
     field("colour_3", 0x06, 2),
 )
 
+LANDING_PALETTE_ANIM_PROFILE_BASE_FIELDS = (
+    field("compressed_palette_payload_pointer", 0x00, 4, note="C0:023F decompresses this payload to 7E:B800"),
+    field("step_count", 0x04, 1, note="C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy"),
+)
+
 TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_FIELDS = (
     field("relative_y_offset", 0x00, 1, note="signed Y offset consumed by C0:8C54/C0:8CD5"),
     field("tile_attribute_word", 0x01, 2, note="tile/attribute word staged by the town-map icon renderer"),
@@ -652,6 +657,109 @@ def town_map_icon_placement_list_contracts() -> list[Contract]:
             fields=TOWN_MAP_ICON_PLACEMENT_FIELDS,
         )
         for index, address, count, terminator in specs
+    ]
+
+
+def landing_palette_anim_profile_fields(step_count: int) -> tuple[FieldSpec, ...]:
+    if step_count == 0:
+        return LANDING_PALETTE_ANIM_PROFILE_BASE_FIELDS
+    return LANDING_PALETTE_ANIM_PROFILE_BASE_FIELDS + (
+        field(
+            "step_durations",
+            0x05,
+            1,
+            step_count,
+            "one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F",
+        ),
+    )
+
+
+def landing_palette_anim_profile_contracts() -> list[Contract]:
+    specs = (
+        (0, "DF:E55D", "DF:E61B", 4),
+        (1, "DF:E566", "DF:E6B2", 4),
+        (2, "DF:E56F", "DF:E73D", 6),
+        (3, "DF:E57A", "DF:E8E0", 3),
+        (4, "DF:E582", "DF:E96C", 4),
+        (5, "DF:E58B", "DF:EA56", 3),
+        (6, "DF:E593", "DF:EB31", 3),
+        (7, "DF:E59B", "DF:EBAC", 8),
+        (8, "DF:E5A8", "DF:EC46", 0),
+        (9, "DF:E5AD", "DF:EC46", 0),
+        (10, "DF:E5B2", "DF:EC46", 0),
+        (11, "DF:E5B7", "DF:EC46", 0),
+        (12, "DF:E5BC", "DF:EC46", 0),
+        (13, "DF:E5C1", "DF:EC46", 0),
+        (14, "DF:E5C6", "DF:EC46", 0),
+        (15, "DF:E5CB", "DF:EC46", 0),
+        (16, "DF:E5D0", "DF:EC46", 0),
+        (17, "DF:E5D5", "DF:EC46", 0),
+        (18, "DF:E5DA", "DF:EC46", 0),
+        (19, "DF:E5DF", "DF:EC46", 0),
+        (20, "DF:E5E4", "DF:EC46", 0),
+        (21, "DF:E5E9", "DF:EC46", 0),
+        (22, "DF:E5EE", "DF:EC46", 0),
+        (23, "DF:E5F3", "DF:EC46", 0),
+        (24, "DF:E5F8", "DF:EC46", 0),
+        (25, "DF:E5FD", "DF:EC46", 0),
+        (26, "DF:E602", "DF:EC46", 0),
+        (27, "DF:E607", "DF:EC46", 0),
+        (28, "DF:E60C", "DF:EC46", 0),
+        (29, "DF:E611", "DF:EC46", 0),
+        (30, "DF:E616", "DF:EC46", 0),
+    )
+    return [
+        Contract(
+            id=f"LANDING_PALETTE_ANIM_PROFILE_{index}",
+            domain="rom-variable-table",
+            address=address,
+            stride=0x05 + step_count,
+            count=1,
+            struct_name="landing_palette_anim_profile",
+            confidence="runtime-corroborated-shape",
+            note=f"Landing palette-animation profile {index}; C0:023F selects this record through DF:E4E1, decompresses {payload_address}, and copies {step_count} step bytes after the payload pointer.",
+            evidence=(
+                "notes/bank-df-first-pass.md",
+                "notes/landing-profile-cache-436e-4474.md",
+                "src/c0/c0_023f_build_landing_profile_step_sequencer.asm",
+                "src/c0/c0_030f_advance_landing_profile_step_sequencer.asm",
+            ),
+            fields=landing_palette_anim_profile_fields(step_count),
+        )
+        for index, address, payload_address, step_count in specs
+    ]
+
+
+def landing_palette_anim_payload_contracts() -> list[Contract]:
+    specs = (
+        (0, "DF:E61B", 0x97),
+        (1, "DF:E6B2", 0x8B),
+        (2, "DF:E73D", 0x1A3),
+        (3, "DF:E8E0", 0x8C),
+        (4, "DF:E96C", 0xEA),
+        (5, "DF:EA56", 0xDB),
+        (6, "DF:EB31", 0x7B),
+        (7, "DF:EBAC", 0x9A),
+    )
+    return [
+        Contract(
+            id=f"LANDING_PALETTE_ANIM_PAYLOAD_{index}",
+            domain="rom-compressed-payload",
+            address=address,
+            stride=size,
+            count=1,
+            struct_name="landing_palette_anim_compressed_payload",
+            confidence="pointer-bounded",
+            note="Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.",
+            evidence=(
+                "notes/bank-df-first-pass.md",
+                "notes/landing-profile-cache-436e-4474.md",
+                "src/c0/c0_023f_build_landing_profile_step_sequencer.asm",
+                "src/df/bank_df_helpers_asar.asm",
+            ),
+            fields=(field("compressed_payload", 0x00, 1, size, "C4:1A9E-compatible compressed payload bytes"),),
+        )
+        for index, address, size in specs
     ]
 
 
@@ -1199,6 +1307,24 @@ def extra_contracts() -> list[Contract]:
             ),
             fields=PER_SECTOR_MUSIC_FIELDS,
         ),
+        Contract(
+            id="LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE",
+            domain="rom-table",
+            address="DF:E4E1",
+            stride=0x04,
+            count=31,
+            struct_name="far_pointer",
+            confidence="runtime-corroborated",
+            note="Thirty-one long pointers from landing palette/profile selector ($02A0 - 1) to DF:E55D..DF:E61B profile records.",
+            evidence=(
+                "notes/bank-df-first-pass.md",
+                "notes/landing-profile-cache-436e-4474.md",
+                "src/c0/c0_023f_build_landing_profile_step_sequencer.asm",
+            ),
+            fields=FAR_POINTER_FIELDS,
+        ),
+        *landing_palette_anim_profile_contracts(),
+        *landing_palette_anim_payload_contracts(),
         Contract(
             id="TEXT_WINDOW_FLAVOR_SELECTOR_TABLE",
             domain="rom-table",

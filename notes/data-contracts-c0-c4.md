@@ -5,8 +5,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 ## Summary
 
 - schema: `earthbound-decomp.data-contracts.v1`
-- contracts: `124`
-- fields: `593`
+- contracts: `164`
+- fields: `672`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -67,6 +67,46 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | MAP_DATA_TILE_COLLISION_POINTERS_19 | rom-table | `D8:EC2E` | `0x2` | 536 | `word_pointer` | 1 | exact |
 | MAP_PALETTE_POINTER_TABLE | rom-table | `DA:FAA7` | `0x3` | 32 | `snes_long_pointer24` | 2 | verified |
 | PER_SECTOR_MUSIC_TABLE | rom-table | `DC:D637` | `0x2` | 1280 | `per_sector_music_options_index` | 1 | structural-corroborated |
+| LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE | rom-table | `DF:E4E1` | `0x4` | 31 | `far_pointer` | 1 | runtime-corroborated |
+| LANDING_PALETTE_ANIM_PROFILE_0 | rom-variable-table | `DF:E55D` | `0x9` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_1 | rom-variable-table | `DF:E566` | `0x9` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_2 | rom-variable-table | `DF:E56F` | `0xB` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_3 | rom-variable-table | `DF:E57A` | `0x8` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_4 | rom-variable-table | `DF:E582` | `0x9` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_5 | rom-variable-table | `DF:E58B` | `0x8` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_6 | rom-variable-table | `DF:E593` | `0x8` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_7 | rom-variable-table | `DF:E59B` | `0xD` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_8 | rom-variable-table | `DF:E5A8` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_9 | rom-variable-table | `DF:E5AD` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_10 | rom-variable-table | `DF:E5B2` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_11 | rom-variable-table | `DF:E5B7` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_12 | rom-variable-table | `DF:E5BC` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_13 | rom-variable-table | `DF:E5C1` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_14 | rom-variable-table | `DF:E5C6` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_15 | rom-variable-table | `DF:E5CB` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_16 | rom-variable-table | `DF:E5D0` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_17 | rom-variable-table | `DF:E5D5` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_18 | rom-variable-table | `DF:E5DA` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_19 | rom-variable-table | `DF:E5DF` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_20 | rom-variable-table | `DF:E5E4` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_21 | rom-variable-table | `DF:E5E9` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_22 | rom-variable-table | `DF:E5EE` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_23 | rom-variable-table | `DF:E5F3` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_24 | rom-variable-table | `DF:E5F8` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_25 | rom-variable-table | `DF:E5FD` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_26 | rom-variable-table | `DF:E602` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_27 | rom-variable-table | `DF:E607` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_28 | rom-variable-table | `DF:E60C` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_29 | rom-variable-table | `DF:E611` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PROFILE_30 | rom-variable-table | `DF:E616` | `0x5` | 1 | `landing_palette_anim_profile` | 2 | runtime-corroborated-shape |
+| LANDING_PALETTE_ANIM_PAYLOAD_0 | rom-compressed-payload | `DF:E61B` | `0x97` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_1 | rom-compressed-payload | `DF:E6B2` | `0x8B` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_2 | rom-compressed-payload | `DF:E73D` | `0x1A3` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_3 | rom-compressed-payload | `DF:E8E0` | `0x8C` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_4 | rom-compressed-payload | `DF:E96C` | `0xEA` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_5 | rom-compressed-payload | `DF:EA56` | `0xDB` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_6 | rom-compressed-payload | `DF:EB31` | `0x7B` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
+| LANDING_PALETTE_ANIM_PAYLOAD_7 | rom-compressed-payload | `DF:EBAC` | `0x9A` | 1 | `landing_palette_anim_compressed_payload` | 1 | pointer-bounded |
 | TEXT_WINDOW_FLAVOR_SELECTOR_TABLE | rom-table | `E0:1FB9` | `0x3` | 5 | `text_window_flavor_selector` | 2 | runtime-corroborated |
 | TEXT_WINDOW_PALETTE_BLOCKS | rom-table | `E0:1FC8` | `0x40` | 7 | `text_window_palette_block` | 8 | runtime-corroborated |
 | MOVEMENT_TEXT_STRING_PALETTE | rom-table | `E0:2188` | `0x8` | 1 | `four_colour_palette_row` | 4 | structural-corroborated |
@@ -1251,6 +1291,645 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `music_options_index` | 2 | 1 | 40x32 sector-indexed word joined to map_music.yml option lists by the map sector bundle contract |
+
+### LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `DF:E4E1`
+- stride: `0x4`
+- count: `31`
+- struct: `far_pointer`
+- confidence: `runtime-corroborated`
+- note: Thirty-one long pointers from landing palette/profile selector ($02A0 - 1) to DF:E55D..DF:E61B profile records.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 4 | 1 |  |
+
+### LANDING_PALETTE_ANIM_PROFILE_0
+
+- domain: `rom-variable-table`
+- address: `DF:E55D`
+- stride: `0x9`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 0; C0:023F selects this record through DF:E4E1, decompresses DF:E61B, and copies 4 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 4 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_1
+
+- domain: `rom-variable-table`
+- address: `DF:E566`
+- stride: `0x9`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 1; C0:023F selects this record through DF:E4E1, decompresses DF:E6B2, and copies 4 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 4 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_2
+
+- domain: `rom-variable-table`
+- address: `DF:E56F`
+- stride: `0xB`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 2; C0:023F selects this record through DF:E4E1, decompresses DF:E73D, and copies 6 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 6 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_3
+
+- domain: `rom-variable-table`
+- address: `DF:E57A`
+- stride: `0x8`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 3; C0:023F selects this record through DF:E4E1, decompresses DF:E8E0, and copies 3 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 3 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_4
+
+- domain: `rom-variable-table`
+- address: `DF:E582`
+- stride: `0x9`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 4; C0:023F selects this record through DF:E4E1, decompresses DF:E96C, and copies 4 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 4 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_5
+
+- domain: `rom-variable-table`
+- address: `DF:E58B`
+- stride: `0x8`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 5; C0:023F selects this record through DF:E4E1, decompresses DF:EA56, and copies 3 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 3 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_6
+
+- domain: `rom-variable-table`
+- address: `DF:E593`
+- stride: `0x8`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 6; C0:023F selects this record through DF:E4E1, decompresses DF:EB31, and copies 3 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 3 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_7
+
+- domain: `rom-variable-table`
+- address: `DF:E59B`
+- stride: `0xD`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 7; C0:023F selects this record through DF:E4E1, decompresses DF:EBAC, and copies 8 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+| `0x5` | `step_durations` | 1 | 8 | one-byte sequencer values copied to $4460 by C0:023F and consumed by C0:030F |
+
+### LANDING_PALETTE_ANIM_PROFILE_8
+
+- domain: `rom-variable-table`
+- address: `DF:E5A8`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 8; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_9
+
+- domain: `rom-variable-table`
+- address: `DF:E5AD`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 9; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_10
+
+- domain: `rom-variable-table`
+- address: `DF:E5B2`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 10; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_11
+
+- domain: `rom-variable-table`
+- address: `DF:E5B7`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 11; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_12
+
+- domain: `rom-variable-table`
+- address: `DF:E5BC`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 12; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_13
+
+- domain: `rom-variable-table`
+- address: `DF:E5C1`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 13; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_14
+
+- domain: `rom-variable-table`
+- address: `DF:E5C6`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 14; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_15
+
+- domain: `rom-variable-table`
+- address: `DF:E5CB`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 15; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_16
+
+- domain: `rom-variable-table`
+- address: `DF:E5D0`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 16; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_17
+
+- domain: `rom-variable-table`
+- address: `DF:E5D5`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 17; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_18
+
+- domain: `rom-variable-table`
+- address: `DF:E5DA`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 18; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_19
+
+- domain: `rom-variable-table`
+- address: `DF:E5DF`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 19; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_20
+
+- domain: `rom-variable-table`
+- address: `DF:E5E4`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 20; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_21
+
+- domain: `rom-variable-table`
+- address: `DF:E5E9`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 21; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_22
+
+- domain: `rom-variable-table`
+- address: `DF:E5EE`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 22; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_23
+
+- domain: `rom-variable-table`
+- address: `DF:E5F3`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 23; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_24
+
+- domain: `rom-variable-table`
+- address: `DF:E5F8`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 24; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_25
+
+- domain: `rom-variable-table`
+- address: `DF:E5FD`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 25; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_26
+
+- domain: `rom-variable-table`
+- address: `DF:E602`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 26; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_27
+
+- domain: `rom-variable-table`
+- address: `DF:E607`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 27; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_28
+
+- domain: `rom-variable-table`
+- address: `DF:E60C`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 28; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_29
+
+- domain: `rom-variable-table`
+- address: `DF:E611`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 29; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PROFILE_30
+
+- domain: `rom-variable-table`
+- address: `DF:E616`
+- stride: `0x5`
+- count: `1`
+- struct: `landing_palette_anim_profile`
+- confidence: `runtime-corroborated-shape`
+- note: Landing palette-animation profile 30; C0:023F selects this record through DF:E4E1, decompresses DF:EC46, and copies 0 step bytes after the payload pointer.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/c0/c0_030f_advance_landing_profile_step_sequencer.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_palette_payload_pointer` | 4 | 1 | C0:023F decompresses this payload to 7E:B800 |
+| `0x4` | `step_count` | 1 | 1 | C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_0
+
+- domain: `rom-compressed-payload`
+- address: `DF:E61B`
+- stride: `0x97`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 151 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_1
+
+- domain: `rom-compressed-payload`
+- address: `DF:E6B2`
+- stride: `0x8B`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 139 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_2
+
+- domain: `rom-compressed-payload`
+- address: `DF:E73D`
+- stride: `0x1A3`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 419 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_3
+
+- domain: `rom-compressed-payload`
+- address: `DF:E8E0`
+- stride: `0x8C`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 140 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_4
+
+- domain: `rom-compressed-payload`
+- address: `DF:E96C`
+- stride: `0xEA`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 234 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_5
+
+- domain: `rom-compressed-payload`
+- address: `DF:EA56`
+- stride: `0xDB`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 219 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_6
+
+- domain: `rom-compressed-payload`
+- address: `DF:EB31`
+- stride: `0x7B`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 123 | C4:1A9E-compatible compressed payload bytes |
+
+### LANDING_PALETTE_ANIM_PAYLOAD_7
+
+- domain: `rom-compressed-payload`
+- address: `DF:EBAC`
+- stride: `0x9A`
+- count: `1`
+- struct: `landing_palette_anim_compressed_payload`
+- confidence: `pointer-bounded`
+- note: Compressed palette-animation payload selected by a non-empty DF landing palette-animation profile and decompressed by C0:023F.
+- evidence: `notes/bank-df-first-pass.md`, `notes/landing-profile-cache-436e-4474.md`, `src/c0/c0_023f_build_landing_profile_step_sequencer.asm`, `src/df/bank_df_helpers_asar.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `compressed_payload` | 1 | 154 | C4:1A9E-compatible compressed payload bytes |
 
 ### TEXT_WINDOW_FLAVOR_SELECTOR_TABLE
 
