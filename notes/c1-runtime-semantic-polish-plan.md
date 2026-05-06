@@ -536,3 +536,11 @@ This planning pass is documentation-only.
   mixed-decode edges in `src/c1/c1_242e_dispatch_character_selection_prompt_mode.asm`.
   The scaffold was regenerated from source; exact byte-equivalence remains
   pending on the same missing-ROM gate.
+- 2026-05-06 follow-up: the file-select setup menu wrappers now expose their
+  local UI contracts in source. `C1:F497` and `C1:F616` name the text-speed,
+  sound, and window-flavour window ids, active-focus and descriptor/table
+  lookup fields, `$89D4` text-entry selected-row offsets, setup-state bytes
+  `$98B6/$98B7/$99CD`, the setup-stage cancel value, the `C1:EC8F`
+  window-flavour preview callback pointer, and the final selected-file text
+  speed handoff. The scaffold was regenerated from source; exact
+  byte-equivalence remains pending on the same missing-ROM gate.

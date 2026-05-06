@@ -81,6 +81,12 @@ wrapper for `$98B7`. It persists through the same `EF:0A4D` setup-state helper.
 rows through `C1:EC8F`, commits `$99CD` on nonzero selection, and persists setup
 state through `EF:0A4D`.
 
+The setup source now also names the local UI caller contract around these
+wrappers: active focus `$8958`, descriptor lookup through `$88E4/$8650+0x2B`,
+the `$89D4` text-entry chain stride and selected-row text offsets, cancel
+results passed between the three setup stages, and the explicit `C1:EC8F`
+preview callback low/bank pair used by the window-flavour menu.
+
 The source now names that persistence edge as `EF0A4D_SaveGameSlot`, matching
 the EF save/SRAM contract: C1 passes the visible one-based slot minus one, and
 EF expands it to the primary/backup save-block pair.
@@ -131,6 +137,9 @@ This slice makes the file-select path useful to future SRAM/setup work:
 - EF save helpers are linked to the exact UI paths that call them
 - setup bytes `$98B6`, `$98B7`, and `$99CD` are tied to their preview, commit,
   and persistence paths
+- the setup UI wrappers now expose their window ids, cancel contract, active
+  descriptor lookup, text-entry selected-row offsets, and window-flavour
+  preview callback pointer as source names
 - the bank-C1 session wrapper and transient redraw latch are separated from the
   larger menu loop
 - the main file-select loop now has named source edges for its submenu

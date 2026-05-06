@@ -32,6 +32,27 @@ C438A5_SetTextCursorPosition                    = $C438A5
 C43BB9_PrintTextFromPointer                     = $C43BB9
 EF0A4D_SaveCurrentFileSetupState                = $EF0A4D
 
+TextSpeedMenuWindowId = $0018
+SoundSettingMenuWindowId = $0019
+CurrentTextSpeedSetting = $98B6
+CurrentSoundSetting = $98B7
+CurrentSaveSlot = $B4A1
+ActiveWindowFocus = $8958
+ActiveWindowDescriptorTable = $88E4
+WindowDescriptorTableBase = $8650
+WindowDescriptorEntryListOffset = $2B
+WindowDescriptorStride = $0052
+TextEntryRecordTableBase = $89D4
+TextEntryRecordStride = $002D
+TextEntryNextRecordOffset = $0002
+TextEntryCursorColumnOffset = $0008
+TextEntryCursorRowOffset = $000A
+TextEntryBodyTextOffset = $0013
+RedrawSelectedSetupRowMode = $0006
+MenuSelectionEnabled = $0001
+NoCursorLimit = $FFFF
+ZeroWord = $0000
+
 ; ---------------------------------------------------------------------------
 ; C1:F497
 
@@ -45,56 +66,56 @@ C1F497_OpenOrRefreshTextSpeedSelection:
     pla
     tax
     stx $16
-    lda.w #$0018
-    sta $8958
+    lda.w #TextSpeedMenuWindowId
+    sta ActiveWindowFocus
     jsl C3E4D4_EnterWindowUpdateScope
     ldx $16
     bne C1F4B5_OpenOrRefreshTextSpeedSelection_LF4B5
     jmp.w C1F542_OpenOrRefreshTextSpeedSelection_LF542
 C1F4B5_OpenOrRefreshTextSpeedSelection_LF4B5:
     jsl OPEN_TEXT_SPEED_MENU
-    lda $8958
+    lda ActiveWindowFocus
     asl A
     tax
-    lda $88E4,X
-    ldy.w #$0052
+    lda ActiveWindowDescriptorTable,X
+    ldy.w #WindowDescriptorStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $867B,X
-    ldy.w #$002D
+    lda WindowDescriptorTableBase + WindowDescriptorEntryListOffset,X
+    ldy.w #TextEntryRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$89D4
+    adc.w #TextEntryRecordTableBase
     tay
     sty $14
-    lda $98B6
+    lda CurrentTextSpeedSetting
     and.w #$00FF
     tax
     dex
     bra C1F4F6_OpenOrRefreshTextSpeedSelection_LF4F6
 C1F4E4_OpenOrRefreshTextSpeedSelection_LF4E4:
-    lda $0002,Y
-    ldy.w #$002D
+    lda TextEntryNextRecordOffset,Y
+    ldy.w #TextEntryRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$89D4
+    adc.w #TextEntryRecordTableBase
     tay
     sty $14
     dex
 C1F4F6_OpenOrRefreshTextSpeedSelection_LF4F6:
     bne C1F4E4_OpenOrRefreshTextSpeedSelection_LF4E4
-    lda.w #$0006
+    lda.w #RedrawSelectedSetupRowMode
     jsr C10FEA_ClearOrPrepareWindowContent
     ldy $14
-    lda $000A,Y
+    lda TextEntryCursorRowOffset,Y
     tax
-    lda $0008,Y
+    lda TextEntryCursorColumnOffset,Y
     inc A
     jsl C438A5_SetTextCursorPosition
     ldy $14
     tya
     clc
-    adc.w #$0013
+    adc.w #TextEntryBodyTextOffset
     sta $06
     phb
     sep #$20
@@ -106,28 +127,28 @@ C1F4F6_OpenOrRefreshTextSpeedSelection_LF4F6:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0001
-    lda.w #$FFFF
+    ldx.w #MenuSelectionEnabled
+    lda.w #NoCursorLimit
     jsl C43BB9_PrintTextFromPointer
-    lda.w #$0000
+    lda.w #ZeroWord
     jsr C10FEA_ClearOrPrepareWindowContent
-    lda $98B6
+    lda CurrentTextSpeedSetting
     and.w #$00FF
     tax
     stx $12
     bra C1F563_OpenOrRefreshTextSpeedSelection_LF563
 C1F542_OpenOrRefreshTextSpeedSelection_LF542:
     stz $5E6E
-    lda.w #$0001
+    lda.w #MenuSelectionEnabled
     jsr C1196A_OpenMenuSelectionLoop
     tax
     stx $12
     beq C1F563_OpenOrRefreshTextSpeedSelection_LF563
     txa
     sep #$20
-    sta $98B6
+    sta CurrentTextSpeedSetting
     rep #$20
-    lda $B4A1
+    lda CurrentSaveSlot
     and.w #$00FF
     dec A
     jsl EF0A4D_SaveCurrentFileSetupState
@@ -143,7 +164,7 @@ C1F568_OpenSoundSettingMenu = OPEN_SOUND_MENU
     tdc
     adc.w #$FFE6
     tcd
-    lda.w #$0019
+    lda.w #SoundSettingMenuWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4D4_EnterWindowUpdateScope
     lda.w #$C0FE
@@ -156,9 +177,9 @@ C1F568_OpenSoundSettingMenu = OPEN_SOUND_MENU
     sta $0A
     lda.w #$00C4
     sta $0C
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $06
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $08
     lda $06
     sta $16
@@ -180,8 +201,8 @@ C1F568_OpenSoundSettingMenu = OPEN_SOUND_MENU
     sta $12
     lda $08
     sta $14
-    ldx.w #$0001
-    lda.w #$0000
+    ldx.w #MenuSelectionEnabled
+    lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #$0007
     ldx $0A
@@ -203,9 +224,9 @@ C1F568_OpenSoundSettingMenu = OPEN_SOUND_MENU
     lda $08
     sta $14
     ldx.w #$0002
-    lda.w #$0000
+    lda.w #ZeroWord
     jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
-    lda $98B7
+    lda CurrentSoundSetting
     and.w #$00FF
     beq C1F60D_OpenOrRefreshTextSpeedSelection_LF60D
     and.w #$00FF
