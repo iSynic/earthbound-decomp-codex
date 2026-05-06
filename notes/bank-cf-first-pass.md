@@ -21,6 +21,7 @@ Primary artifacts:
 
 - `notes/bank-cf-asset-data-map.md`
 - `notes/cf-table-splits.md`
+- `notes/cf-sector-list-contracts.md`
 - `build/asset-bank-cf.json`
 - `build/cf-table-splits.json`
 
@@ -84,19 +85,29 @@ High confidence:
 - CF is data/audio, not executable code.
 - The generated map-data block runs from `CF:0000` through `CF:F2B4`.
 - The internal generated-data spans are exact in `notes/cf-table-splits.md`.
+- `DOOR_CONFIG_TABLE` is now a D0-pointer-addressed counted sector-list
+  family with 2080 source-order physical movement-trigger rows across 601
+  sectors. `notes/cf-sector-list-contracts.md` also records the 19
+  overlapping pointer starts that make raw pointer-consumer row scans differ
+  from the flat source-order row view.
+- `SPRITE_PLACEMENT_POINTER_TABLE` and `SPRITE_PLACEMENT_TABLE` now have a
+  counted-list contract: 627 non-empty sector lists, 1582 four-byte placement
+  rows, and consumer-backed `npc_config_id`, `sector_local_y`, and
+  `sector_local_x` field names.
 - The audio tail contains US retail `AUDIO_PACK_94` and `AUDIO_PACK_96`.
 - Only `CF:FFF9..CF:FFFF` remains unclaimed tail slack.
 
 Still intentionally out of scope:
 
-- Subrecord semantics for `DOOR_DATA`, `DOOR_CONFIG_TABLE`,
-  `OVERWORLD_EVENT_MUSIC_TABLE`, and `SPRITE_PLACEMENT_TABLE` remain variable
-  list formats rather than fully expanded row contracts.
+- `DOOR_DATA` remains a packed payload family. The door-sector-list row
+  contract names the final word as `trigger_payload_word` until each movement
+  trigger helper is joined to its payload variant.
+- `OVERWORLD_EVENT_MUSIC_TABLE` remains a variable-length row family rather
+  than a fully expanded row contract.
 - Audio-pack internals remain opaque.
 
 ## Recommended next move
 
-Treat CF as structurally complete and byte-protected for the current
-bank-coverage phase. Continue the D0 splitter. CF now supplies the D0
-door-pointer target contract, and the same pointer/list strategy should apply
-to D0's enemy placement and battle-entry families.
+Use the same pointer/list strategy on the remaining D0 battle and enemy
+placement families, then return to CF only when a consumer-backed `DOOR_DATA`
+payload variant can be promoted.

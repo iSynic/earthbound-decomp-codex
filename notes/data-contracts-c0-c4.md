@@ -6,7 +6,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 
 - schema: `earthbound-decomp.data-contracts.v1`
 - contracts: `164`
-- fields: `672`
+- fields: `674`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -34,7 +34,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | TIMED_DELIVERY_CONTROLLER_TABLE | rom-table | `D5:F645` | `0x14` | 10 | `timed_delivery_controller_row` | 11 | consumer-corroborated |
 | CF_DOOR_DATA | rom-block | `CF:0000` | `0x264F` | 1 | `cf_door_data_payload` | 1 | exact-boundary |
 | CF_DOOR_CONFIG_TABLE | rom-variable-table | `CF:264F` | `0x32A0` | 1 | `door_sector_list_block` | 1 | exact-variable-lists |
-| D0_DOOR_POINTER_TABLE | rom-table | `D0:0000` | `0x4` | 1280 | `far_pointer` | 1 | exact |
+| D0_DOOR_POINTER_TABLE | rom-table | `D0:0000` | `0x4` | 1280 | `door_sector_list_far_pointer` | 3 | exact |
 | SCREEN_TRANSITION_CONFIG_TABLE | rom-table | `D0:1400` | `0xC` | 34 | `screen_transition_config` | 12 | corroborated |
 | EVENT_CONTROL_PTR_TABLE | rom-table | `D0:1598` | `0x2` | 20 | `word_pointer` | 1 | exact |
 | MAP_TILE_EVENT_CONTROL_TABLE | rom-variable-table | `D0:15C0` | `0x2C0` | 1 | `map_tile_event_chain_block` | 1 | exact-variable-chains |
@@ -127,7 +127,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | OVERWORLD_EVENT_MUSIC_POINTER_TABLE | rom-table | `CF:58EF` | `0x2` | 165 | `word_pointer` | 1 | exact |
 | OVERWORLD_EVENT_MUSIC_TABLE | rom-variable-table | `CF:5A39` | `0x7A4` | 1 | `overworld_event_music_rows` | 1 | exact-boundary |
 | CF_INLINE_EVENT_MUSIC_TRAILER | rom-block | `CF:61DD` | `0xA` | 1 | `inline_event_music_trailer` | 1 | exact |
-| SPRITE_PLACEMENT_POINTER_TABLE | rom-table | `CF:61E7` | `0x2` | 1280 | `word_pointer` | 1 | exact |
+| SPRITE_PLACEMENT_POINTER_TABLE | rom-table | `CF:61E7` | `0x2` | 1280 | `sprite_placement_sector_pointer` | 1 | exact |
 | SPRITE_PLACEMENT_TABLE | rom-variable-table | `CF:6BE7` | `0x1D9E` | 1 | `sprite_placement_sector_list_block` | 1 | exact-variable-lists |
 | NPC_CONFIG_TABLE | rom-table | `CF:8985` | `0x11` | 1584 | `npc_config` | 8 | corroborated |
 | BATTLE_SELECTION_SNAPSHOT | wram-overlay | `7E:9FFA` | `0x4E` | 1 | `battle_menu_selection_header_plus_snapshot` | 17 | corroborated-overlay |
@@ -760,12 +760,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `door_sector_list_block`
 - confidence: `exact-variable-lists`
-- note: 1280 counted door sector lists; D0 door pointers address individual lists inside this block.
-- evidence: `notes/cf-table-splits.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`
+- note: 1280 D0-pointer-addressed counted door/trigger sector lists. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.
+- evidence: `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_sector_lists` | 1 | 12960 | 1280 counted sector door lists; each list is count word plus five-byte entries |
+| `0x0` | `counted_door_sector_lists` | 1 | 12960 | 1280 D0-pointer-addressed counted sector door/trigger lists; each list starts with a count word and five-byte movement-trigger rows |
 
 ### D0_DOOR_POINTER_TABLE
 
@@ -773,14 +773,16 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D0:0000`
 - stride: `0x4`
 - count: `1280`
-- struct: `far_pointer`
+- struct: `door_sector_list_far_pointer`
 - confidence: `exact`
 - note: 40x32 long-pointer grid into the CF door sector lists.
-- evidence: `notes/cf-table-splits.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank10.asm`
+- evidence: `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank10.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 4 | 1 |  |
+| `0x0` | `door_sector_list_pointer_low_word` | 2 | 1 | low word of a CF door sector-list start inside CF:264F..CF:58EE |
+| `0x2` | `door_sector_list_pointer_bank` | 1 | 1 | bank byte; validated as CF for all 1280 rows |
+| `0x3` | `reserved` | 1 | 1 | zero pad byte in the four-byte long-pointer row |
 
 ### SCREEN_TRANSITION_CONFIG_TABLE
 
@@ -2299,14 +2301,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `CF:61E7`
 - stride: `0x2`
 - count: `1280`
-- struct: `word_pointer`
+- struct: `sprite_placement_sector_pointer`
 - confidence: `exact`
 - note: 40x32 sector pointer grid into the CF sprite placement table; zero means empty.
-- evidence: `refs/eb-decompile-4ef92/map_sprites.yml`, `notes/cf-table-splits.md`
+- evidence: `refs/eb-decompile-4ef92/map_sprites.yml`, `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `sprite_placement_list_offset` | 2 | 1 | zero means empty sector; nonzero is a CPU low word into CF:6BE7..CF:8984 |
 
 ### SPRITE_PLACEMENT_TABLE
 
@@ -2316,12 +2318,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `sprite_placement_sector_list_block`
 - confidence: `exact-variable-lists`
-- note: 627 counted sprite-placement sector lists; each entry matches the ebsrc sprite_placement struct.
-- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/eb-decompile-4ef92/map_sprites.yml`, `notes/cf-table-splits.md`
+- note: 627 counted sprite-placement sector lists; each four-byte row is npc_config_id plus sector-local Y/X placement bytes.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `refs/eb-decompile-4ef92/map_sprites.yml`, `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `notes/coilsnake-field-join-report.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_sector_lists` | 1 | 7582 | 627 counted sprite-placement sector lists; each entry is sprite_placement |
+| `0x0` | `counted_sprite_placement_sector_lists` | 1 | 7582 | 627 counted sprite-placement sector lists; each entry is npc_config_id, sector_local_y, sector_local_x |
 
 ### NPC_CONFIG_TABLE
 

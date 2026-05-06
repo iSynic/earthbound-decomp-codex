@@ -227,7 +227,19 @@ RAW_CF_DOOR_DATA_FIELDS = (
 )
 
 RAW_CF_DOOR_CONFIG_LIST_FIELDS = (
-    field("raw_sector_lists", 0x00, 1, 0x32A0, "1280 counted sector door lists; each list is count word plus five-byte entries"),
+    field(
+        "counted_door_sector_lists",
+        0x00,
+        1,
+        0x32A0,
+        "1280 D0-pointer-addressed counted sector door/trigger lists; each list starts with a count word and five-byte movement-trigger rows",
+    ),
+)
+
+D0_DOOR_POINTER_FIELDS = (
+    field("door_sector_list_pointer_low_word", 0x00, 2, note="low word of a CF door sector-list start inside CF:264F..CF:58EE"),
+    field("door_sector_list_pointer_bank", 0x02, 1, note="bank byte; validated as CF for all 1280 rows"),
+    field("reserved", 0x03, 1, note="zero pad byte in the four-byte long-pointer row"),
 )
 
 FAR_POINTER_FIELDS = (
@@ -247,7 +259,22 @@ RAW_CF_INLINE_EVENT_MUSIC_TRAILER_FIELDS = (
 )
 
 RAW_CF_SPRITE_PLACEMENT_LIST_FIELDS = (
-    field("raw_sector_lists", 0x00, 1, 0x1D9E, "627 counted sprite-placement sector lists; each entry is sprite_placement"),
+    field(
+        "counted_sprite_placement_sector_lists",
+        0x00,
+        1,
+        0x1D9E,
+        "627 counted sprite-placement sector lists; each entry is npc_config_id, sector_local_y, sector_local_x",
+    ),
+)
+
+SPRITE_PLACEMENT_POINTER_FIELDS = (
+    field(
+        "sprite_placement_list_offset",
+        0x00,
+        2,
+        note="zero means empty sector; nonzero is a CPU low word into CF:6BE7..CF:8984",
+    ),
 )
 
 NPC_CONFIG_FIELDS = (
@@ -1124,9 +1151,10 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="door_sector_list_block",
             confidence="exact-variable-lists",
-            note="1280 counted door sector lists; D0 door pointers address individual lists inside this block.",
+            note="1280 D0-pointer-addressed counted door/trigger sector lists. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.",
             evidence=(
                 "notes/cf-table-splits.md",
+                "notes/cf-sector-list-contracts.md",
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm",
             ),
             fields=RAW_CF_DOOR_CONFIG_LIST_FIELDS,
@@ -1137,14 +1165,15 @@ def extra_contracts() -> list[Contract]:
             address="D0:0000",
             stride=0x04,
             count=1280,
-            struct_name="far_pointer",
+            struct_name="door_sector_list_far_pointer",
             confidence="exact",
             note="40x32 long-pointer grid into the CF door sector lists.",
             evidence=(
                 "notes/cf-table-splits.md",
+                "notes/cf-sector-list-contracts.md",
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank10.asm",
             ),
-            fields=FAR_POINTER_FIELDS,
+            fields=D0_DOOR_POINTER_FIELDS,
         ),
         Contract(
             id="SCREEN_TRANSITION_CONFIG_TABLE",
@@ -1565,14 +1594,15 @@ def extra_contracts() -> list[Contract]:
             address="CF:61E7",
             stride=0x02,
             count=1280,
-            struct_name="word_pointer",
+            struct_name="sprite_placement_sector_pointer",
             confidence="exact",
             note="40x32 sector pointer grid into the CF sprite placement table; zero means empty.",
             evidence=(
                 "refs/eb-decompile-4ef92/map_sprites.yml",
                 "notes/cf-table-splits.md",
+                "notes/cf-sector-list-contracts.md",
             ),
-            fields=WORD_POINTER_FIELDS,
+            fields=SPRITE_PLACEMENT_POINTER_FIELDS,
         ),
         Contract(
             id="SPRITE_PLACEMENT_TABLE",
@@ -1582,11 +1612,13 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="sprite_placement_sector_list_block",
             confidence="exact-variable-lists",
-            note="627 counted sprite-placement sector lists; each entry matches the ebsrc sprite_placement struct.",
+            note="627 counted sprite-placement sector lists; each four-byte row is npc_config_id plus sector-local Y/X placement bytes.",
             evidence=(
                 "refs/ebsrc-main/ebsrc-main/include/structs.asm",
                 "refs/eb-decompile-4ef92/map_sprites.yml",
                 "notes/cf-table-splits.md",
+                "notes/cf-sector-list-contracts.md",
+                "notes/coilsnake-field-join-report.md",
             ),
             fields=RAW_CF_SPRITE_PLACEMENT_LIST_FIELDS,
         ),

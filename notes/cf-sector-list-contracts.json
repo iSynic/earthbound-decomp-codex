@@ -1,0 +1,494 @@
+{
+  "schema": "earthbound-decomp.cf-sector-list-contracts.v1",
+  "sources": {
+    "cf_helper": "src/cf/bank_cf_helpers_asar.asm",
+    "d0_helper": "src/d0/bank_d0_helpers_asar.asm",
+    "cf_table_splits": "notes/cf-table-splits.md",
+    "d0_table_splits": "notes/d0-table-splits.md"
+  },
+  "sector_grid": {
+    "columns": 40,
+    "rows": 32,
+    "order": "x-major: sector_index = x * 32 + y"
+  },
+  "door_config": {
+    "span": "CF:264F..CF:58EE",
+    "list_count": 1280,
+    "non_empty_list_count": 601,
+    "logical_pointer_entry_count": 2100,
+    "source_order_physical_entry_count": 2080,
+    "max_raw_entries_per_sector": 45,
+    "max_source_order_physical_entries_per_sector": 45,
+    "trigger_type_counts": {
+      "0x00": 6,
+      "0x01": 641,
+      "0x02": 1072,
+      "0x03": 20,
+      "0x04": 72,
+      "0x05": 220,
+      "0x06": 49
+    },
+    "logical_pointer_trigger_type_counts": {
+      "0x00": 11,
+      "0x01": 644,
+      "0x02": 1075,
+      "0x03": 20,
+      "0x04": 72,
+      "0x05": 220,
+      "0x06": 49,
+      "0x08": 1,
+      "0x09": 2,
+      "0x0A": 1,
+      "0x0D": 2,
+      "0x14": 1,
+      "0x16": 2
+    },
+    "payload_stats_by_trigger_type": {
+      "0x00": {
+        "count": 6,
+        "min": 8014,
+        "max": 8429,
+        "in_cf_door_data_span": 6,
+        "sentinel_8000": 0
+      },
+      "0x01": {
+        "count": 641,
+        "min": 0,
+        "max": 32768,
+        "in_cf_door_data_span": 341,
+        "sentinel_8000": 300
+      },
+      "0x02": {
+        "count": 1072,
+        "min": 0,
+        "max": 9784,
+        "in_cf_door_data_span": 1072,
+        "sentinel_8000": 0
+      },
+      "0x03": {
+        "count": 20,
+        "min": 0,
+        "max": 32768,
+        "in_cf_door_data_span": 10,
+        "sentinel_8000": 10
+      },
+      "0x04": {
+        "count": 72,
+        "min": 0,
+        "max": 768,
+        "in_cf_door_data_span": 72,
+        "sentinel_8000": 0
+      },
+      "0x05": {
+        "count": 220,
+        "min": 1408,
+        "max": 9803,
+        "in_cf_door_data_span": 220,
+        "sentinel_8000": 0
+      },
+      "0x06": {
+        "count": 49,
+        "min": 7071,
+        "max": 9659,
+        "in_cf_door_data_span": 49,
+        "sentinel_8000": 0
+      }
+    },
+    "overlap_count": 19,
+    "overlap_bytes": 100,
+    "sample_overlaps": [
+      {
+        "sector_index": 49,
+        "sector": {
+          "x": 1,
+          "y": 17
+        },
+        "address": "CF:28FA",
+        "raw_count": 1,
+        "source_order_physical_count": 0,
+        "raw_end": "CF:2901",
+        "next_pointer_start": "CF:28FC",
+        "overlap_bytes": 5
+      },
+      {
+        "sector_index": 81,
+        "sector": {
+          "x": 2,
+          "y": 17
+        },
+        "address": "CF:2AAC",
+        "raw_count": 3,
+        "source_order_physical_count": 2,
+        "raw_end": "CF:2ABD",
+        "next_pointer_start": "CF:2AB8",
+        "overlap_bytes": 5
+      },
+      {
+        "sector_index": 97,
+        "sector": {
+          "x": 3,
+          "y": 1
+        },
+        "address": "CF:2BDF",
+        "raw_count": 5,
+        "source_order_physical_count": 4,
+        "raw_end": "CF:2BFA",
+        "next_pointer_start": "CF:2BF5",
+        "overlap_bytes": 5
+      },
+      {
+        "sector_index": 98,
+        "sector": {
+          "x": 3,
+          "y": 2
+        },
+        "address": "CF:2BF5",
+        "raw_count": 3,
+        "source_order_physical_count": 2,
+        "raw_end": "CF:2C06",
+        "next_pointer_start": "CF:2C01",
+        "overlap_bytes": 5
+      },
+      {
+        "sector_index": 140,
+        "sector": {
+          "x": 4,
+          "y": 12
+        },
+        "address": "CF:2D75",
+        "raw_count": 1,
+        "source_order_physical_count": 0,
+        "raw_end": "CF:2D7C",
+        "next_pointer_start": "CF:2D77",
+        "overlap_bytes": 5
+      }
+    ],
+    "sample_lists": [
+      {
+        "sector_index": 0,
+        "sector": {
+          "x": 0,
+          "y": 0
+        },
+        "address": "CF:264F",
+        "raw_count": 1,
+        "source_order_physical_count": 1,
+        "raw_byte_length": 7,
+        "source_order_physical_byte_length": 7,
+        "first_entry_index": 0,
+        "first_physical_entry_index": 0
+      },
+      {
+        "sector_index": 1,
+        "sector": {
+          "x": 0,
+          "y": 1
+        },
+        "address": "CF:2656",
+        "raw_count": 2,
+        "source_order_physical_count": 2,
+        "raw_byte_length": 12,
+        "source_order_physical_byte_length": 12,
+        "first_entry_index": 1,
+        "first_physical_entry_index": 1
+      },
+      {
+        "sector_index": 2,
+        "sector": {
+          "x": 0,
+          "y": 2
+        },
+        "address": "CF:2662",
+        "raw_count": 1,
+        "source_order_physical_count": 1,
+        "raw_byte_length": 7,
+        "source_order_physical_byte_length": 7,
+        "first_entry_index": 3,
+        "first_physical_entry_index": 3
+      },
+      {
+        "sector_index": 7,
+        "sector": {
+          "x": 0,
+          "y": 7
+        },
+        "address": "CF:2671",
+        "raw_count": 1,
+        "source_order_physical_count": 1,
+        "raw_byte_length": 7,
+        "source_order_physical_byte_length": 7,
+        "first_entry_index": 4,
+        "first_physical_entry_index": 4
+      },
+      {
+        "sector_index": 8,
+        "sector": {
+          "x": 0,
+          "y": 8
+        },
+        "address": "CF:2678",
+        "raw_count": 4,
+        "source_order_physical_count": 4,
+        "raw_byte_length": 22,
+        "source_order_physical_byte_length": 22,
+        "first_entry_index": 5,
+        "first_physical_entry_index": 5
+      }
+    ],
+    "sample_entries": [
+      {
+        "entry_index": 0,
+        "entry_in_sector": 0,
+        "address": "CF:2651",
+        "sector_index": 0,
+        "sector": {
+          "x": 0,
+          "y": 0
+        },
+        "sector_local_x": 17,
+        "sector_local_y": 21,
+        "movement_trigger_type": 5,
+        "trigger_payload_word": 9143,
+        "physical_entry_index": 0
+      },
+      {
+        "entry_index": 1,
+        "entry_in_sector": 0,
+        "address": "CF:2658",
+        "sector_index": 1,
+        "sector": {
+          "x": 0,
+          "y": 1
+        },
+        "sector_local_x": 14,
+        "sector_local_y": 21,
+        "movement_trigger_type": 2,
+        "trigger_payload_word": 9121,
+        "physical_entry_index": 1
+      },
+      {
+        "entry_index": 2,
+        "entry_in_sector": 1,
+        "address": "CF:265D",
+        "sector_index": 1,
+        "sector": {
+          "x": 0,
+          "y": 1
+        },
+        "sector_local_x": 25,
+        "sector_local_y": 21,
+        "movement_trigger_type": 5,
+        "trigger_payload_word": 9147,
+        "physical_entry_index": 2
+      },
+      {
+        "entry_index": 3,
+        "entry_in_sector": 0,
+        "address": "CF:2664",
+        "sector_index": 2,
+        "sector": {
+          "x": 0,
+          "y": 2
+        },
+        "sector_local_x": 14,
+        "sector_local_y": 22,
+        "movement_trigger_type": 2,
+        "trigger_payload_word": 9077,
+        "physical_entry_index": 3
+      },
+      {
+        "entry_index": 4,
+        "entry_in_sector": 0,
+        "address": "CF:2673",
+        "sector_index": 7,
+        "sector": {
+          "x": 0,
+          "y": 7
+        },
+        "sector_local_x": 15,
+        "sector_local_y": 5,
+        "movement_trigger_type": 2,
+        "trigger_payload_word": 0,
+        "physical_entry_index": 4
+      }
+    ]
+  },
+  "d0_door_pointer_table": {
+    "span": "D0:0000..D0:13FF",
+    "row_count": 1280,
+    "target_bank_counts": {
+      "0xCF": 1280
+    },
+    "reserved_byte_counts": {
+      "0x00": 1280
+    }
+  },
+  "sprite_placement": {
+    "pointer_span": "CF:61E7..CF:6BE6",
+    "table_span": "CF:6BE7..CF:8984",
+    "pointer_row_count": 1280,
+    "nonzero_pointer_count": 627,
+    "zero_pointer_count": 653,
+    "list_count": 627,
+    "entry_count": 1582,
+    "max_entries_per_sector": 21,
+    "npc_config_id_range": [
+      1,
+      1583
+    ],
+    "sector_local_x_range": [
+      0,
+      252
+    ],
+    "sector_local_y_range": [
+      0,
+      248
+    ],
+    "sample_pointer_rows": [
+      {
+        "sector_index": 0,
+        "sector": {
+          "x": 0,
+          "y": 0
+        },
+        "sprite_placement_list_offset": 27623,
+        "target": "CF:6BE7"
+      },
+      {
+        "sector_index": 1,
+        "sector": {
+          "x": 0,
+          "y": 1
+        },
+        "sprite_placement_list_offset": 27629,
+        "target": "CF:6BED"
+      },
+      {
+        "sector_index": 2,
+        "sector": {
+          "x": 0,
+          "y": 2
+        },
+        "sprite_placement_list_offset": 27647,
+        "target": "CF:6BFF"
+      },
+      {
+        "sector_index": 6,
+        "sector": {
+          "x": 0,
+          "y": 6
+        },
+        "sprite_placement_list_offset": 27657,
+        "target": "CF:6C09"
+      },
+      {
+        "sector_index": 7,
+        "sector": {
+          "x": 0,
+          "y": 7
+        },
+        "sprite_placement_list_offset": 27675,
+        "target": "CF:6C1B"
+      }
+    ],
+    "sample_lists": [
+      {
+        "list_index": 0,
+        "address": "CF:6BE7",
+        "count": 1,
+        "byte_length": 6,
+        "first_entry_index": 0
+      },
+      {
+        "list_index": 1,
+        "address": "CF:6BED",
+        "count": 4,
+        "byte_length": 18,
+        "first_entry_index": 1
+      },
+      {
+        "list_index": 2,
+        "address": "CF:6BFF",
+        "count": 2,
+        "byte_length": 10,
+        "first_entry_index": 5
+      },
+      {
+        "list_index": 3,
+        "address": "CF:6C09",
+        "count": 4,
+        "byte_length": 18,
+        "first_entry_index": 7
+      },
+      {
+        "list_index": 4,
+        "address": "CF:6C1B",
+        "count": 5,
+        "byte_length": 22,
+        "first_entry_index": 11
+      }
+    ],
+    "sample_entries": [
+      {
+        "entry_index": 0,
+        "entry_in_sector": 0,
+        "address": "CF:6BE9",
+        "npc_config_id": 1254,
+        "sector_local_y": 112,
+        "sector_local_x": 152
+      },
+      {
+        "entry_index": 1,
+        "entry_in_sector": 0,
+        "address": "CF:6BEF",
+        "npc_config_id": 1251,
+        "sector_local_y": 112,
+        "sector_local_x": 208
+      },
+      {
+        "entry_index": 2,
+        "entry_in_sector": 1,
+        "address": "CF:6BF3",
+        "npc_config_id": 1267,
+        "sector_local_y": 160,
+        "sector_local_x": 48
+      },
+      {
+        "entry_index": 3,
+        "entry_in_sector": 2,
+        "address": "CF:6BF7",
+        "npc_config_id": 1259,
+        "sector_local_y": 176,
+        "sector_local_x": 72
+      },
+      {
+        "entry_index": 4,
+        "entry_in_sector": 3,
+        "address": "CF:6BFB",
+        "npc_config_id": 1256,
+        "sector_local_y": 240,
+        "sector_local_x": 144
+      }
+    ]
+  },
+  "validation": {
+    "door_config_byte_count_ok": true,
+    "door_sector_list_count_ok": true,
+    "door_entry_width": 5,
+    "door_logical_pointer_entry_count": 2100,
+    "door_source_order_physical_entry_count": 2080,
+    "door_pointer_overlap_count": 19,
+    "door_pointer_overlap_bytes": 100,
+    "d0_door_pointer_rows_ok": true,
+    "d0_door_pointer_match_count": 1280,
+    "d0_door_pointer_mismatch_count": 0,
+    "sprite_pointer_rows_ok": true,
+    "sprite_nonzero_pointer_count": 627,
+    "sprite_list_count": 627,
+    "sprite_pointer_match_count": 627,
+    "sprite_pointer_mismatch_count": 0,
+    "sprite_entry_width": 4,
+    "sprite_entry_count": 1582,
+    "sprite_npc_ids_within_npc_config_table": true
+  }
+}
