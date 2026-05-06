@@ -20,7 +20,20 @@ See:
 - `src/c1/c1_86b1_execute_nested_text_pointer.asm`
 - `src/c1/c1_87cc_invoke_text_engine_callback_low_word.asm`
 
+## Source polish follow-up
+
+2026-05-06: both source modules now name their main execution edges directly.
+
+- `C1:86B1` names the caller-side letter-box pointer advance helper, managed
+  text-event slot front initializer at `C1:866D`, active-window parser preflight
+  helper at `C4:45E1`, and the shared done target at `C1:8B2A`.
+- `C1:87CC` names the line/scroll, line-state, halt-control, selection-menu,
+  working-memory, active-line clear, glyph print, managed-slot apply, and
+  name-entry pointer retreat helpers.
+- The same source now names the compressed-bank pointer tables used by
+  pseudo-opcodes `0x15..17` and the top-level callback roots for the low
+  control strip plus structured families `0x18..1F`.
+
 ## Manifest intent
 
 These two intervals are now treated as full `source` segments in the C1 build-candidate manifest so the scaffold emits assembled instructions instead of preserving the bytes as `db` data gaps.
-

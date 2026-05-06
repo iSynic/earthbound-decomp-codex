@@ -11,7 +11,47 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C10166_RunTextHaltControlWorker = $0166
+C1042E_IncrementCurrentTextContextWorkmem = $042E
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C104B5_GetCurrentTextContextLineState = $04B5
+C10BD3_ClearActiveTextDisplayLine = $0BD3
+C10CB6_PrintGlyphWithSoundAndDelay = $0CB6
+C11383_ClearLoadedTextStrings = $1383
+C1196A_RunActiveTextEntrySelectionMenu = $196A
+C14049_RetreatNameEntryLetterBoxPointer = $4049
+C1869D_ApplyActiveManagedTextEventSlotSnapshot = $869D
+C438B1_AdvanceActiveWindowLineOrScroll = $C438B1
+
+CompressedBank1TextPointerTableLo = $CDED
+CompressedBank2TextPointerTableLo = $D1ED
+CompressedBank3TextPointerTableLo = $D5ED
+CompressedTextPointerTableBank = $00C8
+
+ContinueNestedTextAfterCallback = $8754
+NestedTextPointerDone = $8B2A
+
+HandleTextCommand0BTestWorkmemTrue = $4558
+HandleTextCommand0CTestWorkmemFalse = $4591
+HandleTextCommand0DCopyToArgmem = $45EF
+HandleTextCommand0EStoreToArgmem = $461A
+HandleTextCommand04SetEventFlag = $4265
+HandleTextCommand05ClearEventFlag = $42AD
+HandleTextCommand06JumpIfFlagSet = $42F5
+HandleTextCommand07CheckEventFlag = $435F
+HandleTextCommand09JumpMulti = $41D0
+HandleTextCommand10ParameterizedPause = $4EAB
+
+BuildCallTextFarPointerAndDispatch = $43D6
+BuildTextCommand24BitJumpTarget = $4103
+DispatchDisplayTextDynamicSourceSelector = $7B56
+DispatchTextCommand18WindowFamily = $790B
+DispatchTextCommand19DataSubstitutionFamily = $79AA
+DispatchTextCommand1BMemoryContextFamily = $7C36
+DispatchTextCommand1CPrintDisplayFamily = $7D94
+DispatchTextCommand1DInventoryMoneyFamily = $7F11
+DispatchTextCommand1EStatRecoveryFamily = $811F
+DispatchTextCommand1FDeferredCallbackFamily = $81BB
 
 ; ---------------------------------------------------------------------------
 ; C1:87CC
@@ -33,7 +73,7 @@ C187CC_InvokeTextEngineCallbackLowWord:
     rts
     tay
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C187ED_InvokeTextEngineCallbackLowWord_L87ED:
     lda $14
     cmp.w #$0015
@@ -54,9 +94,9 @@ C18804_InvokeTextEngineCallbackLowWord_L8804:
     sta $0A
     lda $0002,Y
     sta $0C
-    lda.w #$CDED
+    lda.w #CompressedBank1TextPointerTableLo
     sta $06
-    lda.w #$00C8
+    lda.w #CompressedTextPointerTableBank
     sta $08
     lda [$0A]
     and.w #$00FF
@@ -98,9 +138,9 @@ C1885E_InvokeTextEngineCallbackLowWord_L885E:
     sta $0A
     lda $0002,Y
     sta $0C
-    lda.w #$D1ED
+    lda.w #CompressedBank2TextPointerTableLo
     sta $06
-    lda.w #$00C8
+    lda.w #CompressedTextPointerTableBank
     sta $08
     lda [$0A]
     and.w #$00FF
@@ -142,9 +182,9 @@ C188B7_InvokeTextEngineCallbackLowWord_L88B7:
     sta $0A
     lda $0002,Y
     sta $0C
-    lda.w #$D5ED
+    lda.w #CompressedBank3TextPointerTableLo
     sta $06
-    lda.w #$00C8
+    lda.w #CompressedTextPointerTableBank
     sta $08
     lda [$0A]
     and.w #$00FF
@@ -298,134 +338,134 @@ C189F9_InvokeTextEngineCallbackLowWord_L89F9:
     bne C18A01_InvokeTextEngineCallbackLowWord_L8A01
     jmp.w C18AFC_InvokeTextEngineCallbackLowWord_L8AFC
 C18A01_InvokeTextEngineCallbackLowWord_L8A01:
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A04_InvokeTextEngineCallbackLowWord_L8A04:
-    jsl $C438B1
-    jmp $8754
+    jsl C438B1_AdvanceActiveWindowLineOrScroll
+    jmp ContinueNestedTextAfterCallback
 C18A0B_InvokeTextEngineCallbackLowWord_L8A0B:
-    jsr $04B5
+    jsr C104B5_GetCurrentTextContextLineState
     cmp.w #$0000
     bne C18A16_InvokeTextEngineCallbackLowWord_L8A16
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A16_InvokeTextEngineCallbackLowWord_L8A16:
-    jsl $C438B1
-    jmp $8754
+    jsl C438B1_AdvanceActiveWindowLineOrScroll
+    jmp ContinueNestedTextAfterCallback
 C18A1D_InvokeTextEngineCallbackLowWord_L8A1D:
     ldx.w #$0000
     lda.w #$0001
-    jsr $0166
-    jmp $8754
+    jsr C10166_RunTextHaltControlWorker
+    jmp ContinueNestedTextAfterCallback
 C18A29_InvokeTextEngineCallbackLowWord_L8A29:
-    ldy.w #$4265
+    ldy.w #HandleTextCommand04SetEventFlag
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A31_InvokeTextEngineCallbackLowWord_L8A31:
-    ldy.w #$42AD
+    ldy.w #HandleTextCommand05ClearEventFlag
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A39_InvokeTextEngineCallbackLowWord_L8A39:
-    ldy.w #$42F5
+    ldy.w #HandleTextCommand06JumpIfFlagSet
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A41_InvokeTextEngineCallbackLowWord_L8A41:
-    ldy.w #$435F
+    ldy.w #HandleTextCommand07CheckEventFlag
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A49_InvokeTextEngineCallbackLowWord_L8A49:
-    ldy.w #$43D6
+    ldy.w #BuildCallTextFarPointerAndDispatch
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A51_InvokeTextEngineCallbackLowWord_L8A51:
-    ldy.w #$41D0
+    ldy.w #HandleTextCommand09JumpMulti
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A59_InvokeTextEngineCallbackLowWord_L8A59:
-    ldy.w #$4103
+    ldy.w #BuildTextCommand24BitJumpTarget
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A61_InvokeTextEngineCallbackLowWord_L8A61:
-    ldy.w #$4558
+    ldy.w #HandleTextCommand0BTestWorkmemTrue
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A69_InvokeTextEngineCallbackLowWord_L8A69:
-    ldy.w #$4591
+    ldy.w #HandleTextCommand0CTestWorkmemFalse
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A71_InvokeTextEngineCallbackLowWord_L8A71:
-    ldy.w #$45EF
+    ldy.w #HandleTextCommand0DCopyToArgmem
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A79_InvokeTextEngineCallbackLowWord_L8A79:
-    ldy.w #$461A
+    ldy.w #HandleTextCommand0EStoreToArgmem
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A81_InvokeTextEngineCallbackLowWord_L8A81:
-    jsr $042E
-    jmp $8754
+    jsr C1042E_IncrementCurrentTextContextWorkmem
+    jmp ContinueNestedTextAfterCallback
 C18A87_InvokeTextEngineCallbackLowWord_L8A87:
-    ldy.w #$4EAB
+    ldy.w #HandleTextCommand10ParameterizedPause
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18A8F_InvokeTextEngineCallbackLowWord_L8A8F:
     lda.w #$0001
-    jsr $196A
+    jsr C1196A_RunActiveTextEntrySelectionMenu
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
-    jsr $1383
-    jmp $8754
+    jsr C1045D_InstallPrimaryInteractionContextPointer
+    jsr C11383_ClearLoadedTextStrings
+    jmp ContinueNestedTextAfterCallback
 C18AAA_InvokeTextEngineCallbackLowWord_L8AAA:
-    jsr $0BD3
-    jmp $8754
+    jsr C10BD3_ClearActiveTextDisplayLine
+    jmp ContinueNestedTextAfterCallback
 C18AB0_InvokeTextEngineCallbackLowWord_L8AB0:
     ldx.w #$0000
     txa
-    jsr $0166
-    jmp $8754
+    jsr C10166_RunTextHaltControlWorker
+    jmp ContinueNestedTextAfterCallback
 C18ABA_InvokeTextEngineCallbackLowWord_L8ABA:
     ldx.w #$0001
     txa
-    jsr $0166
-    jmp $8754
+    jsr C10166_RunTextHaltControlWorker
+    jmp ContinueNestedTextAfterCallback
 C18AC4_InvokeTextEngineCallbackLowWord_L8AC4:
-    ldy.w #$790B
+    ldy.w #DispatchTextCommand18WindowFamily
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18ACC_InvokeTextEngineCallbackLowWord_L8ACC:
-    ldy.w #$79AA
+    ldy.w #DispatchTextCommand19DataSubstitutionFamily
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18AD4_InvokeTextEngineCallbackLowWord_L8AD4:
-    ldy.w #$7B56
+    ldy.w #DispatchDisplayTextDynamicSourceSelector
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18ADC_InvokeTextEngineCallbackLowWord_L8ADC:
-    ldy.w #$7C36
+    ldy.w #DispatchTextCommand1BMemoryContextFamily
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18AE4_InvokeTextEngineCallbackLowWord_L8AE4:
-    ldy.w #$7D94
+    ldy.w #DispatchTextCommand1CPrintDisplayFamily
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18AEC_InvokeTextEngineCallbackLowWord_L8AEC:
-    ldy.w #$7F11
+    ldy.w #DispatchTextCommand1DInventoryMoneyFamily
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18AF4_InvokeTextEngineCallbackLowWord_L8AF4:
-    ldy.w #$811F
+    ldy.w #DispatchTextCommand1EStatRecoveryFamily
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18AFC_InvokeTextEngineCallbackLowWord_L8AFC:
-    ldy.w #$81BB
+    ldy.w #DispatchTextCommand1FDeferredCallbackFamily
     sty $1E
-    jmp $8754
+    jmp ContinueNestedTextAfterCallback
 C18B04_InvokeTextEngineCallbackLowWord_L8B04:
-    jsr $0CB6
-    jmp $8754
+    jsr C10CB6_PrintGlyphWithSoundAndDelay
+    jmp ContinueNestedTextAfterCallback
 C18B0A_InvokeTextEngineCallbackLowWord_L8B0A:
     lda $12
     sta $02
@@ -435,8 +475,8 @@ C18B0A_InvokeTextEngineCallbackLowWord_L8B0A:
     lda $0002,Y
     sta $08
     lda $02
-    jsr $869D
-    jsr $4049
+    jsr C1869D_ApplyActiveManagedTextEventSlotSnapshot
+    jsr C14049_RetreatNameEntryLetterBoxPointer
     lda $06
     sta $2A
     lda $08

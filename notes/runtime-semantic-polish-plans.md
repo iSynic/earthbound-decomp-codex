@@ -136,6 +136,11 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   helper surface plus the managed-slot snapshot edge shared with the timed
   event slot notes. See `notes/text-command-family-18-windows-and-selection.md`
   and `notes/text-command-load-string-pointer-c17796-c17889.md`.
+- 2026-05-06: C1 `C1:86B1..8B2C` nested-text executor/callback invoker
+  follow-up named the managed-slot, parser-preflight, line/scroll,
+  halt/selection, compressed-bank pseudo-opcode, and `00..1F` callback-root
+  surfaces. See `notes/nested-text-pointer-and-callback-invoker-c186b1-c18b2c.md`
+  and `notes/bank01-text-command-map-00-1f.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

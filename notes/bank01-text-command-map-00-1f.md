@@ -75,6 +75,13 @@ The live family roots in the ordinary parser path are:
 - `0x1E` -> `C1:811F`
 - `0x1F` -> `C1:81BB`
 
+Source polish follow-up (2026-05-06): the top-level parser source in
+`src/c1/c1_87cc_invoke_text_engine_callback_low_word.asm` now names these
+callback roots directly, along with the lower-strip callback roots for
+`0x04..10`. The same pass gives cautious names to the compressed-bank pointer
+tables used by pseudo-opcodes `0x15..17`, matching the caution above that those
+three entries are not ordinary runtime families.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

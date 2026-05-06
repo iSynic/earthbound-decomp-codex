@@ -409,3 +409,13 @@ This planning pass is documentation-only.
   status-window display. See `notes/text-command-family-18-windows-and-selection.md`,
   `notes/text-command-family-19-data-and-substitution.md`, and
   `notes/text-command-load-string-pointer-c17796-c17889.md`.
+- 2026-05-06 follow-up: the core `C1:86B1..8B2C` nested-text executor and
+  callback invoker now names its principal helper-call and callback-root
+  surface. The source names the managed-slot initialize/apply helpers,
+  active-window parser preflight, line/scroll and line-clear helpers,
+  selection and halt-control helpers, compressed-bank text pointer tables for
+  pseudo-opcodes `0x15..17`, and the top-level `00..1F` callback roots for the
+  low control strip and structured families. See
+  `notes/nested-text-pointer-and-callback-invoker-c186b1-c18b2c.md`,
+  `notes/bank01-text-command-map-00-1f.md`, and
+  `notes/timed-event-callback-invoker-c187cc.md`.

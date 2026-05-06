@@ -11,7 +11,11 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C14012_AdvanceNameEntryLetterBoxPointer = $4012
+C1866D_InitializeManagedTextEventSlotFront = $866D
+C445E1_PreflightTextParserWrapForActiveWindow = $C445E1
+
+NestedTextPointerDone = $8B2A
 
 ; ---------------------------------------------------------------------------
 ; C1:86B1
@@ -71,9 +75,9 @@ C1870A_ExecuteNestedTextPointer_L870A:
     sta $2A
     lda $08
     sta $2C
-    jmp $8B2A
+    jmp NestedTextPointerDone
 C1871F_ExecuteNestedTextPointer_L871F:
-    jsr $4012
+    jsr C14012_AdvanceNameEntryLetterBoxPointer
     sta $14
     lda $20
     sta $06
@@ -84,7 +88,7 @@ C1871F_ExecuteNestedTextPointer_L871F:
     lda $08
     sta $10
     lda $14
-    jsr $866D
+    jsr C1866D_InitializeManagedTextEventSlotFront
     sta $02
     sta $12
     lda $02
@@ -97,7 +101,7 @@ C1871F_ExecuteNestedTextPointer_L871F:
     sta $2A
     lda $08
     sta $2C
-    jmp $8B2A
+    jmp NestedTextPointerDone
 C18754_ExecuteNestedTextPointer_L8754:
     lda $5E6E
     beq C18787_ExecuteNestedTextPointer_L8787
@@ -119,7 +123,7 @@ C18754_ExecuteNestedTextPointer_L8754:
     sta $10
     lda $12
     sta $02
-    jsl $C445E1
+    jsl C445E1_PreflightTextParserWrapForActiveWindow
     bra C18787_ExecuteNestedTextPointer_L8787
 C18784_ExecuteNestedTextPointer_L8784:
     dec $9660

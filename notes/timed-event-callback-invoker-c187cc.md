@@ -77,3 +77,9 @@ That makes the callback family look stateful rather than one-shot: the callback 
 The safest current interpretation is that `$1E` in this bank-`01` text-engine path is the active same-bank callback low word, and `C1:87CC` is the execution step that dispatches it.
 
 For the timed-delivery branch, the callback low word is `7440`, and the important argument is the one-byte callback payload fetched into `X` just before dispatch. `C1:7440` forwards that byte into `EF:0EAD`, which makes the current safest local read: the first payload byte after `0x1F D3` becomes the 1-based delivery row selector.
+
+Source polish follow-up (2026-05-06): the `C1:87CC..8B2C` source now names the
+callback continuation target, the managed-slot snapshot apply helper at
+`C1:869D`, and the ordinary `00..1F` callback-root installs. The RTS-as-JSR
+mechanism is unchanged, but the surrounding parser and slot-management edges no
+longer appear as raw address calls in source.
