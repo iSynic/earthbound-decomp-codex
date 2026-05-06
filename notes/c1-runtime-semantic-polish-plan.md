@@ -489,3 +489,11 @@ This planning pass is documentation-only.
   literals. Validation was attempted in this worktree, but the local ROM was
   absent from both default lookup paths, so byte-equivalence remains pending
   until `EarthBound (USA).sfc` is supplied.
+- 2026-05-06 follow-up: the `C1:621F..7708` deferred-callback tail now names
+  the shared `$97BA..$97BE/$97CA` queued-argument ABI and the self-return
+  low-word contracts inside the callback leaves themselves. This covers the
+  `1F C0` dword jump finalizer, adjacent `1F` event/entity callbacks,
+  `1D 24` bank-deposit staging, `1C 13` battle visual-effect staging, and the
+  `1E 09..0E` experience/stat-boost leaves. The durable C1 scaffold was
+  regenerated from source; byte-equivalence is still pending on the missing ROM
+  gate noted above.

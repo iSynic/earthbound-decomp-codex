@@ -89,6 +89,12 @@ contracts only; they preserve the same return values while making the menu,
 display, inventory/money, stat-recovery, and deferred-callback tables readable
 without relying on bare addresses.
 
+Source polish follow-up (2026-05-06): the deferred callback leaf bodies now use
+the same naming at the consumer side. The shared queued-byte block
+`$97BA..$97BE/$97CA` is named in the `1F C0` and adjacent `1F` callback tail,
+and the late `1E` stat-recovery leaves now name their staged bytes and target
+character-record fields.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

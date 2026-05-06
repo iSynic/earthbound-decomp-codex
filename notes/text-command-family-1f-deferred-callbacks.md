@@ -97,6 +97,15 @@ source-facing aliases instead of raw `$xxxx` literals. The immediate helper
 leaves in the same dispatcher, including `1F 03`, `64/65`, `A0/A1/A2`, `B0`,
 `D1`, `ED`, and `F0`, keep their direct helper-call contracts.
 
+Source polish follow-up (2026-05-06): the callback leaves in
+`src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` and
+`src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm` now name the
+same queued-argument ABI at the point of use. `$97BA..$97BE` read as deferred
+argument bytes, `$97CA` reads as the deferred argument count, and each staged
+leaf returns a named callback low word while it waits for more bytes. The
+`1F C0`, `1F 13..23`, `1F 62/63/66/67`, `1F D0`, `1F E1/E4..EC/EE/EF`, and
+`1F F1..F4` source bodies are therefore aligned with the dispatcher table.
+
 The immediate `0x1F D1` branch's target is now semantically polished in
 `src/c4/nearby_truffle_and_landing_profile_interpolation_helpers.asm`. The C4
 source names the magic-truffle pose descriptor, missing-slot sentinel,

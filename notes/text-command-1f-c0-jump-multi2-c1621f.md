@@ -84,3 +84,11 @@ The repeated use of `$97BA/$97BB/$97BC/$97CA` is therefore intentional: it is th
 Source polish follow-up (2026-05-06): `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm`
 now names the shift, context-load, text-printer, and callback helper calls in
 this finalizer directly, with C1 byte-equivalence still green.
+
+Source polish follow-up (2026-05-06): the same source now names the deferred
+argument queue itself. The selected-target collector reads as
+`DeferredCommandByteQueue`, `DeferredCommandByte1/2`, and
+`DeferredCommandQueueCount`, and its pending self-return uses
+`TextCommand1FC0JumpMulti2FinalizerCallback` instead of the raw `$621F` low
+word. `$97D5` is named as the remaining unselected destination count before the
+final parser-pointer advance.

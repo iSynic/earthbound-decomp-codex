@@ -21,6 +21,34 @@ C21D65_RecalculateCharacterDerivedVitality = $C21D65
 C21D7D_RecalculateCharacterDerivedIq = $C21D7D
 EF0EAD_InstantiateDeliveryRowSpriteOrPlaceholder = $EF0EAD
 
+DeferredCommandByteQueue = $97BA
+DeferredCommandByte1 = $97BB
+DeferredCommandByte2 = $97BC
+DeferredCommandByte3 = $97BD
+DeferredCommandQueueCount = $97CA
+
+GiveExperienceArgumentLimit = $0004
+StatBoostArgumentLimit = $0001
+AwardExperienceModeNormal = $0001
+CharacterRecordStride = $005F
+CharacterSpeedFieldBase = $9A25
+CharacterGutsFieldBase = $9A26
+CharacterVitalityFieldBase = $9A27
+CharacterIqFieldBase = $9A28
+CharacterLuckFieldBase = $9A29
+LowByteMask = $00FF
+EightBitShift = $08
+SixteenBitShift = $10
+TwentyFourBitShift = $18
+ZeroWord = $0000
+
+TextCommand1E09GiveExperienceCallback = $744B
+TextCommand1E0ABoostIqCallback = $7523
+TextCommand1E0BBoostGutsCallback = $7584
+TextCommand1E0CBoostSpeedCallback = $75E5
+TextCommand1E0DBoostVitalityCallback = $7646
+TextCommand1E0EBoostLuckCallback = $76A7
+
 ; ---------------------------------------------------------------------------
 ; C1:7440
 
@@ -29,7 +57,7 @@ C17440_TimedDeliveryRowSelectorCallback = CC_1F_D3
     rep #$31
     txa
     jsl EF0EAD_InstantiateDeliveryRowSpriteOrPlaceholder
-    lda.w #$0000
+    lda.w #ZeroWord
     rts
 CC_1E_09:
 C1744B_GiveExperienceTextCommand = CC_1E_09
@@ -42,9 +70,9 @@ C1744B_GiveExperienceTextCommand = CC_1E_09
     pla
     txa
     sta $12
-    lda.w #$0004
+    lda.w #GiveExperienceArgumentLimit
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C17465_c1_7440_timed_delivery_row_selector_callback_L7465
     bpl C1747C_c1_7440_timed_delivery_row_selector_callback_L747C
     bra C17467_c1_7440_timed_delivery_row_selector_callback_L7467
@@ -53,15 +81,15 @@ C17465_c1_7440_timed_delivery_row_selector_callback_L7465:
 C17467_c1_7440_timed_delivery_row_selector_callback_L7467:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$744B
+    inc DeferredCommandQueueCount
+    lda.w #TextCommand1E09GiveExperienceCallback
     jmp.w C17521_c1_7440_timed_delivery_row_selector_callback_L7521
 C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     sep #$10
-    ldy.b #$18
+    ldy.b #TwentyFourBitShift
     lda $12
     sta $06
     stz $08
@@ -70,9 +98,9 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     pha
     lda $06
     pha
-    ldy.b #$10
+    ldy.b #SixteenBitShift
     sep #$20
-    lda $97BD
+    lda DeferredCommandByte3
     sta $06
     stz $07
     stz $08
@@ -83,9 +111,9 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     pha
     lda $06
     pha
-    ldy.b #$08
+    ldy.b #EightBitShift
     sep #$20
-    lda $97BC
+    lda DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -97,7 +125,7 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     lda $08
     sta $0C
     sep #$20
-    lda $97BB
+    lda DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -134,11 +162,11 @@ C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
     lda $08
     sta $10
     rep #$10
-    ldx.w #$0001
-    lda $97BA
-    and.w #$00FF
+    ldx.w #AwardExperienceModeNormal
+    lda DeferredCommandByteQueue
+    and.w #LowByteMask
     jsl C1D9E9_AwardExperienceToCharacter
-    lda.w #$0000
+    lda.w #ZeroWord
 C17521_c1_7440_timed_delivery_row_selector_callback_L7521:
     pld
     rts
@@ -153,9 +181,9 @@ C17523_BoostIqTextCommand = CC_1E_0A
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #StatBoostArgumentLimit
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C1753D_c1_7440_timed_delivery_row_selector_callback_L753D
     bpl C17553_c1_7440_timed_delivery_row_selector_callback_L7553
     bra C1753F_c1_7440_timed_delivery_row_selector_callback_L753F
@@ -164,21 +192,21 @@ C1753D_c1_7440_timed_delivery_row_selector_callback_L753D:
 C1753F_c1_7440_timed_delivery_row_selector_callback_L753F:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$7523
+    inc DeferredCommandQueueCount
+    lda.w #TextCommand1E0ABoostIqCallback
     bra C17582_c1_7440_timed_delivery_row_selector_callback_L7582
 C17553_c1_7440_timed_delivery_row_selector_callback_L7553:
-    lda $97BA
-    and.w #$00FF
+    lda DeferredCommandByteQueue
+    and.w #LowByteMask
     tax
     dec A
-    ldy.w #$005F
+    ldy.w #CharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A28
+    adc.w #CharacterIqFieldBase
     tay
     lda $0E
     sep #$20
@@ -191,7 +219,7 @@ C17553_c1_7440_timed_delivery_row_selector_callback_L7553:
     txa
     jsl C21D7D_RecalculateCharacterDerivedIq
     rep #$20
-    lda.w #$0000
+    lda.w #ZeroWord
 C17582_c1_7440_timed_delivery_row_selector_callback_L7582:
     pld
     rts
@@ -206,9 +234,9 @@ C17584_BoostGutsTextCommand = CC_1E_0B
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #StatBoostArgumentLimit
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C1759E_c1_7440_timed_delivery_row_selector_callback_L759E
     bpl C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4
     bra C175A0_c1_7440_timed_delivery_row_selector_callback_L75A0
@@ -217,21 +245,21 @@ C1759E_c1_7440_timed_delivery_row_selector_callback_L759E:
 C175A0_c1_7440_timed_delivery_row_selector_callback_L75A0:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$7584
+    inc DeferredCommandQueueCount
+    lda.w #TextCommand1E0BBoostGutsCallback
     bra C175E3_c1_7440_timed_delivery_row_selector_callback_L75E3
 C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4:
-    lda $97BA
-    and.w #$00FF
+    lda DeferredCommandByteQueue
+    and.w #LowByteMask
     tax
     dec A
-    ldy.w #$005F
+    ldy.w #CharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A26
+    adc.w #CharacterGutsFieldBase
     tay
     lda $0E
     sep #$20
@@ -244,7 +272,7 @@ C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4:
     txa
     jsl C21BA4_RecalculateCharacterDerivedGuts
     rep #$20
-    lda.w #$0000
+    lda.w #ZeroWord
 C175E3_c1_7440_timed_delivery_row_selector_callback_L75E3:
     pld
     rts
@@ -259,9 +287,9 @@ C175E5_BoostSpeedTextCommand = CC_1E_0C
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #StatBoostArgumentLimit
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C175FF_c1_7440_timed_delivery_row_selector_callback_L75FF
     bpl C17615_c1_7440_timed_delivery_row_selector_callback_L7615
     bra C17601_c1_7440_timed_delivery_row_selector_callback_L7601
@@ -270,21 +298,21 @@ C175FF_c1_7440_timed_delivery_row_selector_callback_L75FF:
 C17601_c1_7440_timed_delivery_row_selector_callback_L7601:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$75E5
+    inc DeferredCommandQueueCount
+    lda.w #TextCommand1E0CBoostSpeedCallback
     bra C17644_c1_7440_timed_delivery_row_selector_callback_L7644
 C17615_c1_7440_timed_delivery_row_selector_callback_L7615:
-    lda $97BA
-    and.w #$00FF
+    lda DeferredCommandByteQueue
+    and.w #LowByteMask
     tax
     dec A
-    ldy.w #$005F
+    ldy.w #CharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A25
+    adc.w #CharacterSpeedFieldBase
     tay
     lda $0E
     sep #$20
@@ -297,7 +325,7 @@ C17615_c1_7440_timed_delivery_row_selector_callback_L7615:
     txa
     jsl C21AEB_RecalculateCharacterDerivedSpeed
     rep #$20
-    lda.w #$0000
+    lda.w #ZeroWord
 C17644_c1_7440_timed_delivery_row_selector_callback_L7644:
     pld
     rts
@@ -312,9 +340,9 @@ C17646_BoostVitalityTextCommand = CC_1E_0D
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #StatBoostArgumentLimit
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C17660_c1_7440_timed_delivery_row_selector_callback_L7660
     bpl C17676_c1_7440_timed_delivery_row_selector_callback_L7676
     bra C17662_c1_7440_timed_delivery_row_selector_callback_L7662
@@ -323,21 +351,21 @@ C17660_c1_7440_timed_delivery_row_selector_callback_L7660:
 C17662_c1_7440_timed_delivery_row_selector_callback_L7662:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$7646
+    inc DeferredCommandQueueCount
+    lda.w #TextCommand1E0DBoostVitalityCallback
     bra C176A5_c1_7440_timed_delivery_row_selector_callback_L76A5
 C17676_c1_7440_timed_delivery_row_selector_callback_L7676:
-    lda $97BA
-    and.w #$00FF
+    lda DeferredCommandByteQueue
+    and.w #LowByteMask
     tax
     dec A
-    ldy.w #$005F
+    ldy.w #CharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A27
+    adc.w #CharacterVitalityFieldBase
     tay
     lda $0E
     sep #$20
@@ -350,7 +378,7 @@ C17676_c1_7440_timed_delivery_row_selector_callback_L7676:
     txa
     jsl C21D65_RecalculateCharacterDerivedVitality
     rep #$20
-    lda.w #$0000
+    lda.w #ZeroWord
 C176A5_c1_7440_timed_delivery_row_selector_callback_L76A5:
     pld
     rts
@@ -365,9 +393,9 @@ C176A7_BoostLuckTextCommand = CC_1E_0E
     pla
     txa
     sta $0E
-    lda.w #$0001
+    lda.w #StatBoostArgumentLimit
     clc
-    sbc $97CA
+    sbc DeferredCommandQueueCount
     bvc C176C1_c1_7440_timed_delivery_row_selector_callback_L76C1
     bpl C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7
     bra C176C3_c1_7440_timed_delivery_row_selector_callback_L76C3
@@ -376,21 +404,21 @@ C176C1_c1_7440_timed_delivery_row_selector_callback_L76C1:
 C176C3_c1_7440_timed_delivery_row_selector_callback_L76C3:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx DeferredCommandQueueCount
+    sta DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$76A7
+    inc DeferredCommandQueueCount
+    lda.w #TextCommand1E0EBoostLuckCallback
     bra C17706_c1_7440_timed_delivery_row_selector_callback_L7706
 C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7:
-    lda $97BA
-    and.w #$00FF
+    lda DeferredCommandByteQueue
+    and.w #LowByteMask
     tax
     dec A
-    ldy.w #$005F
+    ldy.w #CharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9A29
+    adc.w #CharacterLuckFieldBase
     tay
     lda $0E
     sep #$20
@@ -403,7 +431,7 @@ C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7:
     txa
     jsl C21C5D_RecalculateCharacterDerivedLuck
     rep #$20
-    lda.w #$0000
+    lda.w #ZeroWord
 C17706_c1_7440_timed_delivery_row_selector_callback_L7706:
     pld
     rts

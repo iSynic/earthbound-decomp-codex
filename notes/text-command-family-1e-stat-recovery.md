@@ -92,6 +92,13 @@ remaining helper-call edges for `0x1E 09..0E`. `GIVE_EXPERIENCE` now uses
 `C1D9E9_AwardExperienceToCharacter`; the stat-boost leaves now call named C2
 derived-stat recalculation helpers for IQ, Guts, Speed, Vitality, and Luck.
 
+Source polish follow-up (2026-05-06): the same tail now names the queued-byte
+ABI and stat-field offsets directly. `0x1E 09` reads `$97BA` as the character
+selector and `$97BB..$97BD` as the staged experience amount bytes; the stat
+boost leaves read the shared one-byte boost argument from `$97BA` and use named
+field bases for speed `$9A25`, guts `$9A26`, vitality `$9A27`, IQ `$9A28`, and
+luck `$9A29`.
+
 ### Early HP / PP recover-deplete block
 
 The eight early leaves form a very clean structured block:
@@ -256,4 +263,3 @@ So the safest current interpretation is that those extra subcommands are parser-
 ## Best current interpretation
 
 The safest current local read is that `0x1E` is the text engine's recovery / experience / stat-boost family. The dispatcher is now pinned, the HP/PP block is structurally grouped, the level and experience leaves have good local fits, and the five trailing leaves form a clean stat-boost block with real local add-to-field behavior plus a cross-validated IQ/Guts/Speed/Vitality/Luck assignment instead of only macro-order support.
-
