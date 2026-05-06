@@ -14,6 +14,7 @@ if str(SCRIPT_DIR) not in sys.path:
 import extract_assets
 import rom_tools
 from asset_output_recipe_contracts import OUTPUT_RECIPE_CONTRACTS
+from build_asset_output_preview_geometry import preview_geometry
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -80,6 +81,7 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
     fixture_count_by_type: dict[str, int] = {}
     selected_by_manifest: dict[str, set[str]] = {}
     fixtures_by_manifest: dict[str, list[dict[str, Any]]] = {}
+    preview_geometries_checked = 0
 
     for fixture in plan["fixtures"]:
         fixture_id = fixture.get("id")
@@ -131,16 +133,33 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
             outputs = asset.get("outputs", [])
             if not isinstance(outputs, list):
                 raise ValueError(f"{fixture_id}: asset outputs must be a list")
-            if not any(
-                isinstance(output, dict)
-                and output.get("kind") == target_kind
-                and output.get("path") == target_path
-                for output in outputs
-            ):
+            matched_output = next(
+                (
+                    output
+                    for output in outputs
+                    if isinstance(output, dict)
+                    and output.get("kind") == target_kind
+                    and output.get("path") == target_path
+                ),
+                None,
+            )
+            if matched_output is None:
                 raise ValueError(
                     f"{fixture_id}: target output not found on {asset_id}: "
                     f"{target_kind} {target_path}"
                 )
+            expected_geometry = fixture.get("target_preview_geometry")
+            if isinstance(expected_geometry, dict):
+                source = asset.get("source", {})
+                if not isinstance(source, dict):
+                    source = {}
+                actual_geometry = preview_geometry(matched_output, int(source.get("bytes", 0) or 0))
+                if actual_geometry != expected_geometry:
+                    raise ValueError(
+                        f"{fixture_id}: target preview geometry is stale; "
+                        f"expected {expected_geometry!r}, actual {actual_geometry!r}"
+                    )
+                preview_geometries_checked += 1
         manifest_asset_counts[manifest] = len(asset_ids)
 
     command_group_assets = {
@@ -155,6 +174,7 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
         "fixture_type_counts": dict(sorted(fixture_count_by_type.items())),
         "manifest_asset_counts": manifest_asset_counts,
         "target_outputs_checked": len(fixture_ids),
+        "preview_geometries_checked": preview_geometries_checked,
         "unique_selected_assets": len({asset_id for asset_ids in selected_by_manifest.values() for asset_id in asset_ids}),
     }
 
@@ -358,6 +378,7 @@ def main() -> int:
             "asset output smoke fixtures dry-run: "
             f"{selector_summary['fixture_count']} fixtures, "
             f"{selector_summary['target_outputs_checked']} target outputs, "
+            f"{selector_summary['preview_geometries_checked']} preview geometries, "
             f"{selector_summary['unique_selected_assets']} selected assets"
         )
         for manifest, count in selector_summary["manifest_asset_counts"].items():
