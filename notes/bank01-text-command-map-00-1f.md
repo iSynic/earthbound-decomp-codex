@@ -82,6 +82,13 @@ callback roots directly, along with the lower-strip callback roots for
 tables used by pseudo-opcodes `0x15..17`, matching the caution above that those
 three entries are not ordinary runtime families.
 
+Source polish follow-up (2026-05-06): the adjacent dynamic source-selector
+source now names the returned low-word leaves behind the `0x1A`, `0x1C`,
+`0x1D`, `0x1E`, and `0x1F` family dispatchers. The labels are local callback
+contracts only; they preserve the same return values while making the menu,
+display, inventory/money, stat-recovery, and deferred-callback tables readable
+without relying on bare addresses.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

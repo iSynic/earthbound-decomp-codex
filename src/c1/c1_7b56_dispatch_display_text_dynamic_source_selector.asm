@@ -63,6 +63,131 @@ LoadedBattleTextAmountPointerHi    = $08
 TextContextSourcePointerLo         = $0E
 TextContextSourcePointerHi         = $10
 
+TextCommand0A24BitJumpCallback     = $4103
+
+TextCommand1A00PartySelectionMenuNoCancel = $463B
+TextCommand1A01PartySelectionMenu         = $467D
+TextCommand1A05DisplayInventoryMenu       = $549E
+TextCommand1A06DisplayShopMenu            = $4EB5
+
+TextCommand1C00TextColourEffects          = $40F9
+TextCommand1C01PrintStatistic             = $40B0
+TextCommand1C02PrintCharacterName         = $4FD7
+TextCommand1C03PrintCharacter             = $488D
+TextCommand1C05PrintItemName              = $46BF
+TextCommand1C06PrintTeleportDestinationName = $46DE
+TextCommand1C07PrintHorizontalTextString  = $45CA
+TextCommand1C08PrintBattleSpecialGraphics = $43B8
+TextCommand1C09SetActiveWindowTextMode    = $40EF
+TextCommand1C0APrintNumber                = $53AF
+TextCommand1C0BPrintMoneyAmount           = $5573
+TextCommand1C0CPrintVerticalTextString    = $5BA7
+TextCommand1C11LoadSpecialSelector        = $40CF
+TextCommand1C12PrintPsiName               = $61D1
+TextCommand1C13StageBattleVisualEffectResult = $73C0
+TextCommand1C14LoadSpecialTextSelector    = $516B
+TextCommand1C15LoadSpecialForJumpMultiSelector = $51FC
+
+TextCommand1D00GiveItemToCharacter        = $4C1E
+TextCommand1D01TakeItemFromCharacter      = $4C86
+TextCommand1D02CheckItemBroadClass        = $48AC
+TextCommand1D03FindInventoryRoom          = $4CEE
+TextCommand1D04FindCharacterWithoutItem   = $4D24
+TextCommand1D05FindCharacterWithItem      = $4D93
+TextCommand1D06AddToAtm                   = $5C85
+TextCommand1D07TakeFromAtm                = $5D6B
+TextCommand1D08AddToWallet                = $48E9
+TextCommand1D09TakeFromWallet             = $494A
+TextCommand1D0AGetBuyPriceOfItem          = $4EF8
+TextCommand1D0BGetSellPriceOfItem         = $4F33
+TextCommand1D0CCheckEscargoStorageStatus  = $7058
+TextCommand1D0DCharacterHasAilment        = $50E4
+TextCommand1D0EGiveItemToCharacterB       = $5659
+TextCommand1D0FRemoveInventoryItemBySlot  = $56DB
+TextCommand1D10CheckItemEquipped          = $575D
+TextCommand1D11CheckInventoryItemUsability = $57CD
+TextCommand1D12StoreInventoryItemWithEscargo = $58A5
+TextCommand1D13WithdrawEscargoItemToInventory = $58FE
+TextCommand1D14HaveEnoughMoney            = $59F9
+TextCommand1D15PutValueInArgmem           = $5BCA
+TextCommand1D17HaveEnoughMoneyInAtm       = $5E5C
+TextCommand1D18AddItemToEscargoStorage    = $6124
+TextCommand1D19HaveXPartyMembers          = $6172
+TextCommand1D21GenerateRandomNumber       = $61F0
+TextCommand1D23ClassifyEquippedItemOffensiveDefensive = $7708
+TextCommand1D24StageBankDepositAccumulator = $7274
+
+TextCommand1E00RecoverHpPercent           = $49B6
+TextCommand1E01DepleteHpPercent           = $4A03
+TextCommand1E02RecoverHpAmount            = $4A50
+TextCommand1E03DepleteHpAmount            = $4A9D
+TextCommand1E04RecoverPpPercent           = $4AEA
+TextCommand1E05DepletePpPercent           = $4B37
+TextCommand1E06RecoverPpAmount            = $4B84
+TextCommand1E07DepletePpAmount            = $4BD1
+TextCommand1E08SetCharacterLevel          = $6A01
+TextCommand1E09GiveExperience             = $744B
+TextCommand1E0ABoostIq                    = $7523
+TextCommand1E0BBoostGuts                  = $7584
+TextCommand1E0CBoostSpeed                 = $75E5
+TextCommand1E0DBoostVitality              = $7646
+TextCommand1E0EBoostLuck                  = $76A7
+
+TextCommand1F00QueueOrApplyMusicTrack     = $4751
+TextCommand1F01StopMusic                  = $47A0
+TextCommand1F02PlaySound                  = $47AB
+TextCommand1F04Callback                   = $7254
+TextCommand1F07Callback                   = $741F
+TextCommand1F11AddToWallet                = $5F71
+TextCommand1F12TakeFromWallet             = $5F91
+TextCommand1F13Callback                   = $63FD
+TextCommand1F14Callback                   = $646E
+TextCommand1F15Callback                   = $6744
+TextCommand1F16Callback                   = $6490
+TextCommand1F17Callback                   = $6509
+TextCommand1F18Callback                   = $6582
+TextCommand1F19Callback                   = $65AA
+TextCommand1F1ACallback                   = $65D2
+TextCommand1F1BCallback                   = $662A
+TextCommand1F1CCallback                   = $666D
+TextCommand1F1DCallback                   = $66DD
+TextCommand1F1ECallback                   = $67D6
+TextCommand1F1FCallback                   = $683B
+TextCommand1F20UseItemOnCharacter         = $4DFB
+TextCommand1F21TeleportToPresetLocation   = $4E8C
+TextCommand1F23Callback                   = $6FD1
+TextCommand1F40StageSpecialEventArgument  = $72BC
+TextCommand1F41SpecialEventDispatch       = $72DA
+TextCommand1F52CreateNumberSelector       = $44A3
+TextCommand1F60WaitForTextPromptOrInputGate = $5494
+TextCommand1F62Callback                   = $69F7
+TextCommand1F63Callback                   = $6DE8
+TextCommand1F66Callback                   = $711C
+TextCommand1F67Callback                   = $7233
+TextCommand1F71PartyUtility               = $5C58
+TextCommand1F81CheckDirectItemUseCompatibility = $4F6F
+TextCommand1F83CheckDeferredItemUseCompatibility = $583D
+TextCommand1FC0JumpMulti2                 = $6308
+TextCommand1FD0JeffRepairBrokenItem       = $63A7
+TextCommand1FD2WanderingPhotographer      = $7304
+TextCommand1FD3TimedDeliveryRowSelector   = $7440
+TextCommand1FE1Callback                   = $66FE
+TextCommand1FE4Callback                   = $6B2B
+TextCommand1FE5Callback                   = $6BA4
+TextCommand1FE6Callback                   = $6BAF
+TextCommand1FE7Callback                   = $6BF2
+TextCommand1FE8Callback                   = $6C35
+TextCommand1FE9Callback                   = $6C40
+TextCommand1FEACallback                   = $6C83
+TextCommand1FEBCallback                   = $6CC6
+TextCommand1FECCallback                   = $6D14
+TextCommand1FEECallback                   = $6D62
+TextCommand1FEFCallback                   = $6DA5
+TextCommand1FF1Callback                   = $6EBF
+TextCommand1FF2Callback                   = $6F2F
+TextCommand1FF3Callback                   = $7325
+TextCommand1FF4Callback                   = $737D
+
 ; ---------------------------------------------------------------------------
 ; C1:7B56
 
@@ -101,10 +226,10 @@ C17B8E_DispatchDisplayTextDynamicSourceSelector_L7B8E:
 C17B96_DispatchDisplayTextDynamicSourceSelector_L7B96:
     jmp.w C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17B99_DispatchDisplayTextDynamicSourceSelector_L7B99:
-    lda.w #$463B
+    lda.w #TextCommand1A00PartySelectionMenuNoCancel
     jmp.w C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17B9F_DispatchDisplayTextDynamicSourceSelector_L7B9F:
-    lda.w #$467D
+    lda.w #TextCommand1A01PartySelectionMenu
     jmp.w C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BA5_DispatchDisplayTextDynamicSourceSelector_L7BA5:
     lda.w #$0000
@@ -119,10 +244,10 @@ C17BA5_DispatchDisplayTextDynamicSourceSelector_L7BA5:
     jsr C11383_ClearLoadedTextStrings
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17BBF_DispatchDisplayTextDynamicSourceSelector_L7BBF:
-    lda.w #$549E
+    lda.w #TextCommand1A05DisplayInventoryMenu
     bra C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BC4_DispatchDisplayTextDynamicSourceSelector_L7BC4:
-    lda.w #$4EB5
+    lda.w #TextCommand1A06DisplayShopMenu
     bra C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BC9_DispatchDisplayTextDynamicSourceSelector_L7BC9:
     jsr C19A43_BuildEscargoStorageSelectionMenu
@@ -229,7 +354,7 @@ C17C7C_DispatchDisplayTextDynamicSourceSelector_L7C7C:
     cmp $0A
 C17C93_DispatchDisplayTextDynamicSourceSelector_L7C93:
     bne C17C9B_DispatchDisplayTextDynamicSourceSelector_L7C9B
-    lda.w #$4103
+    lda.w #TextCommand0A24BitJumpCallback
     jmp.w C17D92_DispatchDisplayTextDynamicSourceSelector_L7D92
 C17C9B_DispatchDisplayTextDynamicSourceSelector_L7C9B:
     ldy $16
@@ -258,7 +383,7 @@ C17CBA_DispatchDisplayTextDynamicSourceSelector_L7CBA:
     cmp $0A
 C17CD1_DispatchDisplayTextDynamicSourceSelector_L7CD1:
     beq C17CD9_DispatchDisplayTextDynamicSourceSelector_L7CD9
-    lda.w #$4103
+    lda.w #TextCommand0A24BitJumpCallback
     jmp.w C17D92_DispatchDisplayTextDynamicSourceSelector_L7D92
 C17CD9_DispatchDisplayTextDynamicSourceSelector_L7CD9:
     ldy $16
@@ -441,49 +566,49 @@ C17E3C_DispatchDisplayTextDynamicSourceSelector_L7E3C:
 C17E44_DispatchDisplayTextDynamicSourceSelector_L7E44:
     jmp.w C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17E47_DispatchDisplayTextDynamicSourceSelector_L7E47:
-    lda.w #$40F9
+    lda.w #TextCommand1C00TextColourEffects
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E4D_DispatchDisplayTextDynamicSourceSelector_L7E4D:
-    lda.w #$40B0
+    lda.w #TextCommand1C01PrintStatistic
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E53_DispatchDisplayTextDynamicSourceSelector_L7E53:
-    lda.w #$4FD7
+    lda.w #TextCommand1C02PrintCharacterName
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E59_DispatchDisplayTextDynamicSourceSelector_L7E59:
-    lda.w #$488D
+    lda.w #TextCommand1C03PrintCharacter
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E5F_DispatchDisplayTextDynamicSourceSelector_L7E5F:
     jsr C10A04_ShowHpppWindowsInternal
     jmp.w C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17E65_DispatchDisplayTextDynamicSourceSelector_L7E65:
-    lda.w #$46BF
+    lda.w #TextCommand1C05PrintItemName
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E6B_DispatchDisplayTextDynamicSourceSelector_L7E6B:
-    lda.w #$46DE
+    lda.w #TextCommand1C06PrintTeleportDestinationName
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E71_DispatchDisplayTextDynamicSourceSelector_L7E71:
-    lda.w #$45CA
+    lda.w #TextCommand1C07PrintHorizontalTextString
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E77_DispatchDisplayTextDynamicSourceSelector_L7E77:
-    lda.w #$43B8
+    lda.w #TextCommand1C08PrintBattleSpecialGraphics
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E7D_DispatchDisplayTextDynamicSourceSelector_L7E7D:
-    lda.w #$40EF
+    lda.w #TextCommand1C09SetActiveWindowTextMode
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E83_DispatchDisplayTextDynamicSourceSelector_L7E83:
-    lda.w #$53AF
+    lda.w #TextCommand1C0APrintNumber
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E89_DispatchDisplayTextDynamicSourceSelector_L7E89:
-    lda.w #$5573
+    lda.w #TextCommand1C0BPrintMoneyAmount
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E8F_DispatchDisplayTextDynamicSourceSelector_L7E8F:
-    lda.w #$5BA7
+    lda.w #TextCommand1C0CPrintVerticalTextString
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E95_DispatchDisplayTextDynamicSourceSelector_L7E95:
-    lda.w #$516B
+    lda.w #TextCommand1C14LoadSpecialTextSelector
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E9A_DispatchDisplayTextDynamicSourceSelector_L7E9A:
-    lda.w #$51FC
+    lda.w #TextCommand1C15LoadSpecialForJumpMultiSelector
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E9F_DispatchDisplayTextDynamicSourceSelector_L7E9F:
     lda.w #$0000
@@ -531,13 +656,13 @@ C17EED_DispatchDisplayTextDynamicSourceSelector_L7EED:
     jsr C10DF6_PrintNumber
     bra C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17EFD_DispatchDisplayTextDynamicSourceSelector_L7EFD:
-    lda.w #$40CF
+    lda.w #TextCommand1C11LoadSpecialSelector
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17F02_DispatchDisplayTextDynamicSourceSelector_L7F02:
-    lda.w #$61D1
+    lda.w #TextCommand1C12PrintPsiName
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17F07_DispatchDisplayTextDynamicSourceSelector_L7F07:
-    lda.w #$73C0
+    lda.w #TextCommand1C13StageBattleVisualEffectResult
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C:
     lda.w #$0000
@@ -673,79 +798,79 @@ C18001_DispatchDisplayTextDynamicSourceSelector_L8001:
 C18009_DispatchDisplayTextDynamicSourceSelector_L8009:
     jmp.w C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C1800C_DispatchDisplayTextDynamicSourceSelector_L800C:
-    lda.w #$4C1E
+    lda.w #TextCommand1D00GiveItemToCharacter
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18012_DispatchDisplayTextDynamicSourceSelector_L8012:
-    lda.w #$4C86
+    lda.w #TextCommand1D01TakeItemFromCharacter
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18018_DispatchDisplayTextDynamicSourceSelector_L8018:
-    lda.w #$48AC
+    lda.w #TextCommand1D02CheckItemBroadClass
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1801E_DispatchDisplayTextDynamicSourceSelector_L801E:
-    lda.w #$4CEE
+    lda.w #TextCommand1D03FindInventoryRoom
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18024_DispatchDisplayTextDynamicSourceSelector_L8024:
-    lda.w #$4D24
+    lda.w #TextCommand1D04FindCharacterWithoutItem
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1802A_DispatchDisplayTextDynamicSourceSelector_L802A:
-    lda.w #$4D93
+    lda.w #TextCommand1D05FindCharacterWithItem
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18030_DispatchDisplayTextDynamicSourceSelector_L8030:
-    lda.w #$5C85
+    lda.w #TextCommand1D06AddToAtm
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18036_DispatchDisplayTextDynamicSourceSelector_L8036:
-    lda.w #$5D6B
+    lda.w #TextCommand1D07TakeFromAtm
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1803C_DispatchDisplayTextDynamicSourceSelector_L803C:
-    lda.w #$48E9
+    lda.w #TextCommand1D08AddToWallet
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18042_DispatchDisplayTextDynamicSourceSelector_L8042:
-    lda.w #$494A
+    lda.w #TextCommand1D09TakeFromWallet
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18048_DispatchDisplayTextDynamicSourceSelector_L8048:
-    lda.w #$4EF8
+    lda.w #TextCommand1D0AGetBuyPriceOfItem
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1804E_DispatchDisplayTextDynamicSourceSelector_L804E:
-    lda.w #$4F33
+    lda.w #TextCommand1D0BGetSellPriceOfItem
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18054_DispatchDisplayTextDynamicSourceSelector_L8054:
-    lda.w #$7058
+    lda.w #TextCommand1D0CCheckEscargoStorageStatus
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1805A_DispatchDisplayTextDynamicSourceSelector_L805A:
-    lda.w #$50E4
+    lda.w #TextCommand1D0DCharacterHasAilment
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18060_DispatchDisplayTextDynamicSourceSelector_L8060:
-    lda.w #$5659
+    lda.w #TextCommand1D0EGiveItemToCharacterB
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18066_DispatchDisplayTextDynamicSourceSelector_L8066:
-    lda.w #$56DB
+    lda.w #TextCommand1D0FRemoveInventoryItemBySlot
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1806C_DispatchDisplayTextDynamicSourceSelector_L806C:
-    lda.w #$575D
+    lda.w #TextCommand1D10CheckItemEquipped
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18072_DispatchDisplayTextDynamicSourceSelector_L8072:
-    lda.w #$57CD
+    lda.w #TextCommand1D11CheckInventoryItemUsability
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18078_DispatchDisplayTextDynamicSourceSelector_L8078:
-    lda.w #$58A5
+    lda.w #TextCommand1D12StoreInventoryItemWithEscargo
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1807E_DispatchDisplayTextDynamicSourceSelector_L807E:
-    lda.w #$58FE
+    lda.w #TextCommand1D13WithdrawEscargoItemToInventory
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18084_DispatchDisplayTextDynamicSourceSelector_L8084:
-    lda.w #$59F9
+    lda.w #TextCommand1D14HaveEnoughMoney
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1808A_DispatchDisplayTextDynamicSourceSelector_L808A:
-    lda.w #$5BCA
+    lda.w #TextCommand1D15PutValueInArgmem
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18090_DispatchDisplayTextDynamicSourceSelector_L8090:
-    lda.w #$5E5C
+    lda.w #TextCommand1D17HaveEnoughMoneyInAtm
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18096_DispatchDisplayTextDynamicSourceSelector_L8096:
-    lda.w #$6124
+    lda.w #TextCommand1D18AddItemToEscargoStorage
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1809C_DispatchDisplayTextDynamicSourceSelector_L809C:
-    lda.w #$6172
+    lda.w #TextCommand1D19HaveXPartyMembers
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C180A2_DispatchDisplayTextDynamicSourceSelector_L80A2:
     ldy.w #$0000
@@ -775,7 +900,7 @@ C180CA_DispatchDisplayTextDynamicSourceSelector_L80CA:
     jsr C1045D_InstallPrimaryInteractionContextPointer
     bra C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C180D7_DispatchDisplayTextDynamicSourceSelector_L80D7:
-    lda.w #$61F0
+    lda.w #TextCommand1D21GenerateRandomNumber
     bra C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C180DC_DispatchDisplayTextDynamicSourceSelector_L80DC:
     ldy.w #$0000
@@ -803,10 +928,10 @@ C18103_DispatchDisplayTextDynamicSourceSelector_L8103:
     jsr C1045D_InstallPrimaryInteractionContextPointer
     bra C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C18110_DispatchDisplayTextDynamicSourceSelector_L8110:
-    lda.w #$7708
+    lda.w #TextCommand1D23ClassifyEquippedItemOffensiveDefensive
     bra C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C18115_DispatchDisplayTextDynamicSourceSelector_L8115:
-    lda.w #$7274
+    lda.w #TextCommand1D24StageBankDepositAccumulator
     bra C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1811A_DispatchDisplayTextDynamicSourceSelector_L811A:
     lda.w #$0000
@@ -846,49 +971,49 @@ C1811D_DispatchDisplayTextDynamicSourceSelector_L811D:
     beq C181B2_DispatchDisplayTextDynamicSourceSelector_L81B2
     bra C181B7_DispatchDisplayTextDynamicSourceSelector_L81B7
 C1816C_DispatchDisplayTextDynamicSourceSelector_L816C:
-    lda.w #$49B6
+    lda.w #TextCommand1E00RecoverHpPercent
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18171_DispatchDisplayTextDynamicSourceSelector_L8171:
-    lda.w #$4A03
+    lda.w #TextCommand1E01DepleteHpPercent
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18176_DispatchDisplayTextDynamicSourceSelector_L8176:
-    lda.w #$4A50
+    lda.w #TextCommand1E02RecoverHpAmount
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C1817B_DispatchDisplayTextDynamicSourceSelector_L817B:
-    lda.w #$4A9D
+    lda.w #TextCommand1E03DepleteHpAmount
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18180_DispatchDisplayTextDynamicSourceSelector_L8180:
-    lda.w #$4AEA
+    lda.w #TextCommand1E04RecoverPpPercent
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18185_DispatchDisplayTextDynamicSourceSelector_L8185:
-    lda.w #$4B37
+    lda.w #TextCommand1E05DepletePpPercent
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C1818A_DispatchDisplayTextDynamicSourceSelector_L818A:
-    lda.w #$4B84
+    lda.w #TextCommand1E06RecoverPpAmount
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C1818F_DispatchDisplayTextDynamicSourceSelector_L818F:
-    lda.w #$4BD1
+    lda.w #TextCommand1E07DepletePpAmount
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18194_DispatchDisplayTextDynamicSourceSelector_L8194:
-    lda.w #$6A01
+    lda.w #TextCommand1E08SetCharacterLevel
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C18199_DispatchDisplayTextDynamicSourceSelector_L8199:
-    lda.w #$744B
+    lda.w #TextCommand1E09GiveExperience
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C1819E_DispatchDisplayTextDynamicSourceSelector_L819E:
-    lda.w #$7523
+    lda.w #TextCommand1E0ABoostIq
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181A3_DispatchDisplayTextDynamicSourceSelector_L81A3:
-    lda.w #$7584
+    lda.w #TextCommand1E0BBoostGuts
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181A8_DispatchDisplayTextDynamicSourceSelector_L81A8:
-    lda.w #$75E5
+    lda.w #TextCommand1E0CBoostSpeed
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181AD_DispatchDisplayTextDynamicSourceSelector_L81AD:
-    lda.w #$7646
+    lda.w #TextCommand1E0DBoostVitality
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181B2_DispatchDisplayTextDynamicSourceSelector_L81B2:
-    lda.w #$76A7
+    lda.w #TextCommand1E0EBoostLuck
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181B7_DispatchDisplayTextDynamicSourceSelector_L81B7:
     lda.w #$0000
@@ -1199,13 +1324,13 @@ C1840B_DispatchDisplayTextDynamicSourceSelector_L840B:
 C18413_DispatchDisplayTextDynamicSourceSelector_L8413:
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18416_DispatchDisplayTextDynamicSourceSelector_L8416:
-    lda.w #$4751
+    lda.w #TextCommand1F00QueueOrApplyMusicTrack
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1841C_DispatchDisplayTextDynamicSourceSelector_L841C:
-    lda.w #$47A0
+    lda.w #TextCommand1F01StopMusic
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18422_DispatchDisplayTextDynamicSourceSelector_L8422:
-    lda.w #$47AB
+    lda.w #TextCommand1F02PlaySound
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18428_DispatchDisplayTextDynamicSourceSelector_L8428:
     ; Text command 1F 03: restore the current-position map music track.
@@ -1214,7 +1339,7 @@ C18428_DispatchDisplayTextDynamicSourceSelector_L8428:
     jsl C216AD_ApplyMusicTrackAndSyncMirror
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18436_DispatchDisplayTextDynamicSourceSelector_L8436:
-    lda.w #$7254
+    lda.w #TextCommand1F04Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1843C_DispatchDisplayTextDynamicSourceSelector_L843C:
     lda.w #DisableAutoSectorMusicChanges
@@ -1225,70 +1350,70 @@ C18446_DispatchDisplayTextDynamicSourceSelector_L8446:
     jsl C4FD45_SetAutoSectorMusicChanges
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18450_DispatchDisplayTextDynamicSourceSelector_L8450:
-    lda.w #$741F
+    lda.w #TextCommand1F07Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18456_DispatchDisplayTextDynamicSourceSelector_L8456:
-    lda.w #$5F71
+    lda.w #TextCommand1F11AddToWallet
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1845C_DispatchDisplayTextDynamicSourceSelector_L845C:
-    lda.w #$5F91
+    lda.w #TextCommand1F12TakeFromWallet
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18462_DispatchDisplayTextDynamicSourceSelector_L8462:
-    lda.w #$63FD
+    lda.w #TextCommand1F13Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18468_DispatchDisplayTextDynamicSourceSelector_L8468:
-    lda.w #$646E
+    lda.w #TextCommand1F14Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1846E_DispatchDisplayTextDynamicSourceSelector_L846E:
-    lda.w #$6744
+    lda.w #TextCommand1F15Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18474_DispatchDisplayTextDynamicSourceSelector_L8474:
-    lda.w #$6490
+    lda.w #TextCommand1F16Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1847A_DispatchDisplayTextDynamicSourceSelector_L847A:
-    lda.w #$6509
+    lda.w #TextCommand1F17Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18480_DispatchDisplayTextDynamicSourceSelector_L8480:
-    lda.w #$6582
+    lda.w #TextCommand1F18Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18486_DispatchDisplayTextDynamicSourceSelector_L8486:
-    lda.w #$65AA
+    lda.w #TextCommand1F19Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1848C_DispatchDisplayTextDynamicSourceSelector_L848C:
-    lda.w #$65D2
+    lda.w #TextCommand1F1ACallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18492_DispatchDisplayTextDynamicSourceSelector_L8492:
-    lda.w #$662A
+    lda.w #TextCommand1F1BCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18498_DispatchDisplayTextDynamicSourceSelector_L8498:
-    lda.w #$666D
+    lda.w #TextCommand1F1CCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1849E_DispatchDisplayTextDynamicSourceSelector_L849E:
-    lda.w #$66DD
+    lda.w #TextCommand1F1DCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184A4_DispatchDisplayTextDynamicSourceSelector_L84A4:
-    lda.w #$67D6
+    lda.w #TextCommand1F1ECallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184AA_DispatchDisplayTextDynamicSourceSelector_L84AA:
-    lda.w #$683B
+    lda.w #TextCommand1F1FCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184B0_DispatchDisplayTextDynamicSourceSelector_L84B0:
-    lda.w #$4DFB
+    lda.w #TextCommand1F20UseItemOnCharacter
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184B6_DispatchDisplayTextDynamicSourceSelector_L84B6:
-    lda.w #$4E8C
+    lda.w #TextCommand1F21TeleportToPresetLocation
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184BC_DispatchDisplayTextDynamicSourceSelector_L84BC:
-    lda.w #$6FD1
+    lda.w #TextCommand1F23Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184C2_DispatchDisplayTextDynamicSourceSelector_L84C2:
     jsr C10FAC_SetActiveWindowGlyphModeFlag
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184C8_DispatchDisplayTextDynamicSourceSelector_L84C8:
-    lda.w #$72BC
+    lda.w #TextCommand1F40StageSpecialEventArgument
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184CE_DispatchDisplayTextDynamicSourceSelector_L84CE:
-    lda.w #$72DA
+    lda.w #TextCommand1F41SpecialEventDispatch
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184D4_DispatchDisplayTextDynamicSourceSelector_L84D4:
     jsr C100C7_LockTextInput
@@ -1297,19 +1422,19 @@ C184DA_DispatchDisplayTextDynamicSourceSelector_L84DA:
     jsr C100D0_UnlockTextInput
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184E0_DispatchDisplayTextDynamicSourceSelector_L84E0:
-    lda.w #$44A3
+    lda.w #TextCommand1F52CreateNumberSelector
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184E6_DispatchDisplayTextDynamicSourceSelector_L84E6:
-    lda.w #$5494
+    lda.w #TextCommand1F60WaitForTextPromptOrInputGate
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184EC_DispatchDisplayTextDynamicSourceSelector_L84EC:
     jsr C102D0_WaitForTextStateFlag9641
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184F2_DispatchDisplayTextDynamicSourceSelector_L84F2:
-    lda.w #$69F7
+    lda.w #TextCommand1F62Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184F8_DispatchDisplayTextDynamicSourceSelector_L84F8:
-    lda.w #$6DE8
+    lda.w #TextCommand1F63Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE:
 C184FE_SaveAndClearTemporaryPartySourceStateTextCommand = C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE
@@ -1322,10 +1447,10 @@ C18505_RestoreTemporaryPartySourceStateTextCommand = C18505_DispatchDisplayTextD
     jsl C2307B_RestoreTemporaryPartySourceState
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C1850C_DispatchDisplayTextDynamicSourceSelector_L850C:
-    lda.w #$711C
+    lda.w #TextCommand1F66Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18512_DispatchDisplayTextDynamicSourceSelector_L8512:
-    lda.w #$7233
+    lda.w #TextCommand1F67Callback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18518_DispatchDisplayTextDynamicSourceSelector_L8518:
     lda $9877
@@ -1372,13 +1497,13 @@ C1853B_DispatchDisplayTextDynamicSourceSelector_L853B:
     sta $5DC4
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18582_DispatchDisplayTextDynamicSourceSelector_L8582:
-    lda.w #$5C58
+    lda.w #TextCommand1F71PartyUtility
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18588_DispatchDisplayTextDynamicSourceSelector_L8588:
-    lda.w #$4F6F
+    lda.w #TextCommand1F81CheckDirectItemUseCompatibility
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1858E_DispatchDisplayTextDynamicSourceSelector_L858E:
-    lda.w #$583D
+    lda.w #TextCommand1F83CheckDeferredItemUseCompatibility
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18594_DispatchDisplayTextDynamicSourceSelector_L8594:
     jsr C19441_BuildPhoneContactSelectionMenu
@@ -1424,10 +1549,10 @@ C185DA_SaveCurrentGameTextCommand = C185DA_DispatchDisplayTextDynamicSourceSelec
     jsl C22A2C_SaveCurrentGame
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185E1_DispatchDisplayTextDynamicSourceSelector_L85E1:
-    lda.w #$6308
+    lda.w #TextCommand1FC0JumpMulti2
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C185E7_DispatchDisplayTextDynamicSourceSelector_L85E7:
-    lda.w #$63A7
+    lda.w #TextCommand1FD0JeffRepairBrokenItem
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C185ED_DispatchDisplayTextDynamicSourceSelector_L85ED:
     jsl C490EE_GetNearbyMagicTruffleDirection
@@ -1440,64 +1565,64 @@ C185ED_DispatchDisplayTextDynamicSourceSelector_L85ED:
     jsr C1045D_InstallPrimaryInteractionContextPointer
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18602_DispatchDisplayTextDynamicSourceSelector_L8602:
-    lda.w #$7304
+    lda.w #TextCommand1FD2WanderingPhotographer
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18607_DispatchDisplayTextDynamicSourceSelector_L8607:
-    lda.w #$7440
+    lda.w #TextCommand1FD3TimedDeliveryRowSelector
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1860C_DispatchDisplayTextDynamicSourceSelector_L860C:
-    lda.w #$66FE
+    lda.w #TextCommand1FE1Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18611_DispatchDisplayTextDynamicSourceSelector_L8611:
-    lda.w #$6B2B
+    lda.w #TextCommand1FE4Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18616_DispatchDisplayTextDynamicSourceSelector_L8616:
-    lda.w #$6BA4
+    lda.w #TextCommand1FE5Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1861B_DispatchDisplayTextDynamicSourceSelector_L861B:
-    lda.w #$6BAF
+    lda.w #TextCommand1FE6Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18620_DispatchDisplayTextDynamicSourceSelector_L8620:
-    lda.w #$6BF2
+    lda.w #TextCommand1FE7Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18625_DispatchDisplayTextDynamicSourceSelector_L8625:
-    lda.w #$6C35
+    lda.w #TextCommand1FE8Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1862A_DispatchDisplayTextDynamicSourceSelector_L862A:
-    lda.w #$6C40
+    lda.w #TextCommand1FE9Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1862F_DispatchDisplayTextDynamicSourceSelector_L862F:
-    lda.w #$6C83
+    lda.w #TextCommand1FEACallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18634_DispatchDisplayTextDynamicSourceSelector_L8634:
-    lda.w #$6CC6
+    lda.w #TextCommand1FEBCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18639_DispatchDisplayTextDynamicSourceSelector_L8639:
-    lda.w #$6D14
+    lda.w #TextCommand1FECCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1863E_DispatchDisplayTextDynamicSourceSelector_L863E:
     jsl C466B8_ClearSelectedModeSlot
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18644_DispatchDisplayTextDynamicSourceSelector_L8644:
-    lda.w #$6D62
+    lda.w #TextCommand1FEECallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18649_DispatchDisplayTextDynamicSourceSelector_L8649:
-    lda.w #$6DA5
+    lda.w #TextCommand1FEFCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1864E_DispatchDisplayTextDynamicSourceSelector_L864E:
     jsl C03C5E_GetOnBicycle
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18654_DispatchDisplayTextDynamicSourceSelector_L8654:
-    lda.w #$6EBF
+    lda.w #TextCommand1FF1Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18659_DispatchDisplayTextDynamicSourceSelector_L8659:
-    lda.w #$6F2F
+    lda.w #TextCommand1FF2Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1865E_DispatchDisplayTextDynamicSourceSelector_L865E:
-    lda.w #$7325
+    lda.w #TextCommand1FF3Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18663_DispatchDisplayTextDynamicSourceSelector_L8663:
-    lda.w #$737D
+    lda.w #TextCommand1FF4Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18668_DispatchDisplayTextDynamicSourceSelector_L8668:
     lda.w #$0000

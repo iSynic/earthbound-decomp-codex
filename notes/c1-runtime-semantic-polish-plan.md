@@ -480,3 +480,12 @@ This planning pass is documentation-only.
   new-file party setup branch calls `C1:D9E9` as `AwardExperienceToCharacter`.
   The remaining C1 numeric calls are the four deferred local structural edges
   in `src/c1/c1_242e_dispatch_character_selection_prompt_mode.asm`.
+- 2026-05-06 follow-up: the display-text dynamic source selector now names
+  its callback-return low words for the stable `1A`, `1C`, `1D`, `1E`, and
+  `1F` text-command leaves. This keeps the dispatcher contract table readable
+  without changing the byte stream: menu leaves, print/display leaves,
+  inventory/money leaves, stat-recovery leaves, and deferred callback/event
+  leaves all return through source-facing aliases instead of raw low-word
+  literals. Validation was attempted in this worktree, but the local ROM was
+  absent from both default lookup paths, so byte-equivalence remains pending
+  until `EarthBound (USA).sfc` is supplied.

@@ -89,6 +89,14 @@ Source polish follow-up (2026-05-06): the adjacent `C1:7440` callback adapter
 now names its direct `EF:0EAD` call as the delivery row sprite/placeholder
 instantiator, so the `0x1F D3` callback handoff is explicit at the source edge.
 
+Source polish follow-up (2026-05-06): the dynamic source-selector dispatcher
+now names the `0x1F` callback low-word returns directly. The `1F 00..02`,
+`04`, `07`, `11..23`, `40/41`, `52`, `60`, `62/63`, `66/67`, `71`, `81/83`,
+`C0`, `D0`, `D2/D3`, `E1`, `E4..EC`, `EE/EF`, and `F1..F4` cases return
+source-facing aliases instead of raw `$xxxx` literals. The immediate helper
+leaves in the same dispatcher, including `1F 03`, `64/65`, `A0/A1/A2`, `B0`,
+`D1`, `ED`, and `F0`, keep their direct helper-call contracts.
+
 The immediate `0x1F D1` branch's target is now semantically polished in
 `src/c4/nearby_truffle_and_landing_profile_interpolation_helpers.asm`. The C4
 source names the magic-truffle pose descriptor, missing-slot sentinel,
