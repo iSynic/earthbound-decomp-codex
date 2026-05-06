@@ -13594,6 +13594,7 @@ org $C1621F
 !FourByteCallbackFrameOffset = $FFEC
 !ThreeByteCallbackFrameOffset = $FFEE
 !FiveByteCallbackFrameOffset = $FFEB
+!TwoByteCallbackFrameOffset = $FFF0
 !SingleWordArgumentFrameOffset = $FFF2
 !PackedDwordCurrentByte = $12
 !PackedDwordLo = $06
@@ -13631,32 +13632,32 @@ org $C1621F
 !TextCommand1FC0JumpMulti2FinalizerCallback = $621F
 !TextCommand1FC0JumpMulti2Callback = $6308
 !TextCommand1FD0JeffRepairBrokenItemCallback = $63A7
-!TextCommand1F13Callback = $63FD
-!TextCommand1F16Callback = $6490
-!TextCommand1F17Callback = $6509
-!TextCommand1F18Callback = $6582
-!TextCommand1F19Callback = $65AA
-!TextCommand1F1ACallback = $65D2
-!TextCommand1F1BCallback = $662A
-!TextCommand1F1CCallback = $666D
-!TextCommand1FE1Callback = $66FE
-!TextCommand1F15Callback = $6744
-!TextCommand1F1ECallback = $67D6
-!TextCommand1F1FCallback = $683B
+!TextCommand1F13UpdateRegistryFrameSelectorCallback = $63FD
+!TextCommand1F16UpdateVisualFrameSelectorCallback = $6490
+!TextCommand1F17InitVisualEntityAndAppendRecordCallback = $6509
+!TextCommand1F18NoOpSevenArgBytesCallback = $6582
+!TextCommand1F19NoOpSevenArgBytesAltCallback = $65AA
+!TextCommand1F1ASpawnVisualAttachedChildCallback = $65D2
+!TextCommand1F1BClearVisualAttachedChildCallback = $662A
+!TextCommand1F1CSpawnRegistryAttachedChildCallback = $666D
+!TextCommand1FE1RunLandingProfileDisplayCallback = $66FE
+!TextCommand1F15InitForcedVisualEntityOrDrainCallback = $6744
+!TextCommand1F1ERunVisualScriptWithCachedPoseCallback = $67D6
+!TextCommand1F1FRunPoseScriptWithCachedPoseCallback = $683B
 !TextCommand1922FacingDirectionCallback = $68A0
 !TextCommand1923FacingDirectionCallback = $6947
 !TextCommand1F62Callback = $69F7
 !TextCommand1E08SetCharacterLevelCallback = $6A01
 !TextCommand1924FacingDirectionCallback = $6A7B
-!TextCommand1FE4Callback = $6B2B
-!TextCommand1FE6Callback = $6BAF
-!TextCommand1FE7Callback = $6BF2
-!TextCommand1FE9Callback = $6C40
-!TextCommand1FEACallback = $6C83
-!TextCommand1FEBCallback = $6CC6
-!TextCommand1FECCallback = $6D14
-!TextCommand1FEECallback = $6D62
-!TextCommand1FEFCallback = $6DA5
+!TextCommand1FE4UpdatePoseFrameSelectorCallback = $6B2B
+!TextCommand1FE6SetVisualSlotFlagsC000Callback = $6BAF
+!TextCommand1FE7SetPoseSlotFlagsC000Callback = $6BF2
+!TextCommand1FE9ClearVisualSlotFlagsC000Callback = $6C40
+!TextCommand1FEAClearPoseSlotFlagsC000Callback = $6C83
+!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback = $6CC6
+!TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback = $6D14
+!TextCommand1FEESelectModeSlotByVisualCallback = $6D62
+!TextCommand1FEFSelectModeSlotByPoseCallback = $6DA5
 !TextCommand1F63Callback = $6DE8
 !TextCommand1FF1Callback = $6EBF
 !TextCommand1FF2Callback = $6F2F
@@ -13670,7 +13671,7 @@ C1621F_FinalizeTextCommand1FC0JumpMulti2Target:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     sta $12
@@ -13791,7 +13792,7 @@ CC_1F_C0:
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -13877,7 +13878,7 @@ CC_1F_D0:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     cpx.w #!ZeroWord
@@ -13921,12 +13922,12 @@ C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB:
     pld
     rts
 CC_1F_13:
-!C163FD_HandleTextCommand1F13 = CC_1F_13
+!C163FD_UpdateRegistryFrameSelectorTextCommand = CC_1F_13
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -13946,7 +13947,7 @@ C16419_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6419:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F13Callback
+    lda.w #!TextCommand1F13UpdateRegistryFrameSelectorCallback
     bra C1646C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L646C
 C1642D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L642D:
     lda !DeferredCommandByteQueue
@@ -13985,12 +13986,12 @@ C1646C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L646C:
     pld
     rts
 CC_1F_14:
-!C1646E_HandleTextCommand1F14 = CC_1F_14
+!C1646E_BroadcastRegistryFrameSelectorTextCommand = CC_1F_14
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     txa
@@ -14008,12 +14009,12 @@ C16484_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6484:
     pld
     rts
 CC_1F_16:
-!C16490_HandleTextCommand1F16 = CC_1F_16
+!C16490_UpdateVisualFrameSelectorTextCommand = CC_1F_16
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -14032,7 +14033,7 @@ C164AB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64AB:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F16Callback
+    lda.w #!TextCommand1F16UpdateVisualFrameSelectorCallback
     bra C16507_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6507
 C164BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64BE:
     sep #$20
@@ -14076,12 +14077,12 @@ C16507_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6507:
     pld
     rts
 CC_1F_17:
-!C16509_HandleTextCommand1F17 = CC_1F_17
+!C16509_InitVisualEntityAndAppendRecordTextCommand = CC_1F_17
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     txy
@@ -14101,7 +14102,7 @@ C16525_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6525:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F17Callback
+    lda.w #!TextCommand1F17InitVisualEntityAndAppendRecordCallback
     bra C16580_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6580
 C16538_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6538:
     sep #$10
@@ -14137,7 +14138,7 @@ C16580_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6580:
     pld
     rts
 CC_1F_18:
-!C16582_HandleTextCommand1F18 = CC_1F_18
+!C16582_NoOpSevenArgBytesTextCommand = CC_1F_18
     rep #$31
     lda.w #!SixWord
     clc
@@ -14154,14 +14155,14 @@ C16593_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6593:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F18Callback
+    lda.w #!TextCommand1F18NoOpSevenArgBytesCallback
     bra C165A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A9
 C165A6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A6:
     lda.w #!ZeroWord
 C165A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A9:
     rts
 CC_1F_19:
-!C165AA_HandleTextCommand1F19 = CC_1F_19
+!C165AA_NoOpSevenArgBytesAltTextCommand = CC_1F_19
     rep #$31
     lda.w #!SixWord
     clc
@@ -14178,19 +14179,19 @@ C165BB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65BB:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F19Callback
+    lda.w #!TextCommand1F19NoOpSevenArgBytesAltCallback
     bra C165D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65D1
 C165CE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65CE:
     lda.w #!ZeroWord
 C165D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65D1:
     rts
 CC_1F_1A:
-!C165D2_HandleTextCommand1F1A = CC_1F_1A
+!C165D2_SpawnVisualAttachedChildTextCommand = CC_1F_1A
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     stx $0E
@@ -14209,7 +14210,7 @@ C165ED_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65ED:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F1ACallback
+    lda.w #!TextCommand1F1ASpawnVisualAttachedChildCallback
     bra C16628_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6628
 C16600_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6600:
     sep #$20
@@ -14232,12 +14233,12 @@ C16628_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6628:
     pld
     rts
 CC_1F_1B:
-!C1662A_HandleTextCommand1F1B = CC_1F_1B
+!C1662A_ClearVisualAttachedChildTextCommand = CC_1F_1B
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -14250,7 +14251,7 @@ CC_1F_1B:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F1BCallback
+    lda.w #!TextCommand1F1BClearVisualAttachedChildCallback
     bra C1666B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L666B
 C16650_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6650:
     sep #$10
@@ -14267,12 +14268,12 @@ C1666B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L666B:
     pld
     rts
 CC_1F_1C:
-!C1666D_HandleTextCommand1F1C = CC_1F_1C
+!C1666D_SpawnRegistryAttachedChildTextCommand = CC_1F_1C
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -14292,7 +14293,7 @@ C16689_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6689:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F1CCallback
+    lda.w #!TextCommand1F1CSpawnRegistryAttachedChildCallback
     bra C166DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66DB
 C1669D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L669D:
     lda !DeferredCommandByteQueue
@@ -14330,12 +14331,12 @@ C166DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66DB:
     pld
     rts
 CC_1F_1D:
-!C166DD_HandleTextCommand1F1D = CC_1F_1D
+!C166DD_ClearRegistryAttachedChildTextCommand = CC_1F_1D
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     txa
@@ -14352,12 +14353,12 @@ C166F3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66F3:
     pld
     rts
 CC_1F_E1:
-!C166FE_HandleTextCommand1FE1 = CC_1F_E1
+!C166FE_RunLandingProfileDisplayTextCommand = CC_1F_E1
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     lda.w #!TwoWord
@@ -14375,7 +14376,7 @@ C16717_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6717:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FE1Callback
+    lda.w #!TextCommand1FE1RunLandingProfileDisplayCallback
     bra C16742_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6742
 C1672A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L672A:
     sep #$20
@@ -14392,12 +14393,12 @@ C16742_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6742:
     pld
     rts
 CC_1F_15:
-!C16744_HandleTextCommand1F15 = CC_1F_15
+!C16744_InitForcedVisualEntityOrDrainTextCommand = CC_1F_15
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $02
@@ -14416,7 +14417,7 @@ C1675F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L675F:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F15Callback
+    lda.w #!TextCommand1F15InitForcedVisualEntityOrDrainCallback
     bra C167D4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D4
 C16773_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6773:
     sep #$10
@@ -14466,12 +14467,12 @@ C167D4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D4:
     pld
     rts
 CC_1F_1E:
-!C167D6_HandleTextCommand1F1E = CC_1F_1E
+!C167D6_RunVisualScriptWithCachedPoseTextCommand = CC_1F_1E
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     stx $02
@@ -14490,7 +14491,7 @@ C167F1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67F1:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F1ECallback
+    lda.w #!TextCommand1F1ERunVisualScriptWithCachedPoseCallback
     bra C16839_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6839
 C16805_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6805:
     sep #$10
@@ -14518,12 +14519,12 @@ C16839_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6839:
     pld
     rts
 CC_1F_1F:
-!C1683B_HandleTextCommand1F1F = CC_1F_1F
+!C1683B_RunPoseScriptWithCachedPoseTextCommand = CC_1F_1F
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     stx $02
@@ -14542,7 +14543,7 @@ C16856_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6856:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F1FCallback
+    lda.w #!TextCommand1F1FRunPoseScriptWithCachedPoseCallback
     bra C1689E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L689E
 C1686A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L686A:
     sep #$10
@@ -14575,7 +14576,7 @@ CC_19_22:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -14664,7 +14665,7 @@ CC_19_23:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -14764,7 +14765,7 @@ CC_1E_08:
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     lda.w #!OneWord
@@ -14834,7 +14835,7 @@ CC_19_24:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -14922,12 +14923,12 @@ C16B29_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B29:
     pld
     rts
 CC_1F_E4:
-!C16B2B_HandleTextCommand1FE4 = CC_1F_E4
+!C16B2B_UpdatePoseFrameSelectorTextCommand = CC_1F_E4
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -14946,7 +14947,7 @@ C16B46_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B46:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FE4Callback
+    lda.w #!TextCommand1FE4UpdatePoseFrameSelectorCallback
     bra C16BA2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BA2
 C16B59_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B59:
     sep #$20
@@ -14990,19 +14991,19 @@ C16BA2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BA2:
     pld
     rts
 CC_1F_E5:
-!C16BA4_HandleTextCommand1FE5 = CC_1F_E5
+!C16BA4_SetRegistrySlotFlagsC000TextCommand = CC_1F_E5
     rep #$31
     txa
     jsl !C46594_SetRegistrySlotFlagsC000
     lda.w #!ZeroWord
     rts
 CC_1F_E6:
-!C16BAF_HandleTextCommand1FE6 = CC_1F_E6
+!C16BAF_SetVisualSlotFlagsC000TextCommand = CC_1F_E6
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -15015,7 +15016,7 @@ CC_1F_E6:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FE6Callback
+    lda.w #!TextCommand1FE6SetVisualSlotFlagsC000Callback
     bra C16BF0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BF0
 C16BD5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BD5:
     sep #$10
@@ -15032,12 +15033,12 @@ C16BF0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BF0:
     pld
     rts
 CC_1F_E7:
-!C16BF2_HandleTextCommand1FE7 = CC_1F_E7
+!C16BF2_SetPoseSlotFlagsC000TextCommand = CC_1F_E7
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -15050,7 +15051,7 @@ CC_1F_E7:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FE7Callback
+    lda.w #!TextCommand1FE7SetPoseSlotFlagsC000Callback
     bra C16C33_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C33
 C16C18_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C18:
     sep #$10
@@ -15067,19 +15068,19 @@ C16C33_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C33:
     pld
     rts
 CC_1F_E8:
-!C16C35_HandleTextCommand1FE8 = CC_1F_E8
+!C16C35_ClearRegistrySlotFlagsC000TextCommand = CC_1F_E8
     rep #$31
     txa
     jsl !C46631_ClearRegistrySlotFlagsC000
     lda.w #!ZeroWord
     rts
 CC_1F_E9:
-!C16C40_HandleTextCommand1FE9 = CC_1F_E9
+!C16C40_ClearVisualSlotFlagsC000TextCommand = CC_1F_E9
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -15092,7 +15093,7 @@ CC_1F_E9:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FE9Callback
+    lda.w #!TextCommand1FE9ClearVisualSlotFlagsC000Callback
     bra C16C81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C81
 C16C66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C66:
     sep #$10
@@ -15109,12 +15110,12 @@ C16C81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C81:
     pld
     rts
 CC_1F_EA:
-!C16C83_HandleTextCommand1FEA = CC_1F_EA
+!C16C83_ClearPoseSlotFlagsC000TextCommand = CC_1F_EA
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -15127,7 +15128,7 @@ CC_1F_EA:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FEACallback
+    lda.w #!TextCommand1FEAClearPoseSlotFlagsC000Callback
     bra C16CC4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CC4
 C16CA9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CA9:
     sep #$10
@@ -15144,12 +15145,12 @@ C16CC4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CC4:
     pld
     rts
 CC_1F_EB:
-!C16CC6_HandleTextCommand1FEB = CC_1F_EB
+!C16CC6_MarkRegistryFlag8000AndAppendRecordTextCommand = CC_1F_EB
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -15168,7 +15169,7 @@ C16CE1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CE1:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FEBCallback
+    lda.w #!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback
     bra C16D12_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D12
 C16CF4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CF4:
     lda !DeferredCommandByteQueue
@@ -15187,12 +15188,12 @@ C16D12_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D12:
     pld
     rts
 CC_1F_EC:
-!C16D14_HandleTextCommand1FEC = CC_1F_EC
+!C16D14_ClearRegistryFlag8000AndAppendRecordTextCommand = CC_1F_EC
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -15211,7 +15212,7 @@ C16D2F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D2F:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FECCallback
+    lda.w #!TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback
     bra C16D60_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D60
 C16D42_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D42:
     lda !DeferredCommandByteQueue
@@ -15230,12 +15231,12 @@ C16D60_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D60:
     pld
     rts
 CC_1F_EE:
-!C16D62_HandleTextCommand1FEE = CC_1F_EE
+!C16D62_SelectModeSlotByVisualTextCommand = CC_1F_EE
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -15248,7 +15249,7 @@ CC_1F_EE:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FEECallback
+    lda.w #!TextCommand1FEESelectModeSlotByVisualCallback
     bra C16DA3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DA3
 C16D88_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D88:
     sep #$10
@@ -15265,12 +15266,12 @@ C16DA3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DA3:
     pld
     rts
 CC_1F_EF:
-!C16DA5_HandleTextCommand1FEF = CC_1F_EF
+!C16DA5_SelectModeSlotByPoseTextCommand = CC_1F_EF
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -15283,7 +15284,7 @@ CC_1F_EF:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FEFCallback
+    lda.w #!TextCommand1FEFSelectModeSlotByPoseCallback
     bra C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6
 C16DCB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DCB:
     sep #$10
@@ -15890,7 +15891,7 @@ CC_1F_67:
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     txa
@@ -15912,7 +15913,7 @@ CC_1F_04:
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     txa
@@ -17721,19 +17722,19 @@ org $C17B56
 !TextCommand1F07Callback = $741F
 !TextCommand1F11AddToWallet = $5F71
 !TextCommand1F12TakeFromWallet = $5F91
-!TextCommand1F13Callback = $63FD
-!TextCommand1F14Callback = $646E
-!TextCommand1F15Callback = $6744
-!TextCommand1F16Callback = $6490
-!TextCommand1F17Callback = $6509
-!TextCommand1F18Callback = $6582
-!TextCommand1F19Callback = $65AA
-!TextCommand1F1ACallback = $65D2
-!TextCommand1F1BCallback = $662A
-!TextCommand1F1CCallback = $666D
-!TextCommand1F1DCallback = $66DD
-!TextCommand1F1ECallback = $67D6
-!TextCommand1F1FCallback = $683B
+!TextCommand1F13UpdateRegistryFrameSelectorCallback = $63FD
+!TextCommand1F14BroadcastRegistryFrameSelectorCallback = $646E
+!TextCommand1F15InitForcedVisualEntityOrDrainCallback = $6744
+!TextCommand1F16UpdateVisualFrameSelectorCallback = $6490
+!TextCommand1F17InitVisualEntityAndAppendRecordCallback = $6509
+!TextCommand1F18NoOpSevenArgBytesCallback = $6582
+!TextCommand1F19NoOpSevenArgBytesAltCallback = $65AA
+!TextCommand1F1ASpawnVisualAttachedChildCallback = $65D2
+!TextCommand1F1BClearVisualAttachedChildCallback = $662A
+!TextCommand1F1CSpawnRegistryAttachedChildCallback = $666D
+!TextCommand1F1DClearRegistryAttachedChildCallback = $66DD
+!TextCommand1F1ERunVisualScriptWithCachedPoseCallback = $67D6
+!TextCommand1F1FRunPoseScriptWithCachedPoseCallback = $683B
 !TextCommand1F20UseItemOnCharacter = $4DFB
 !TextCommand1F21TeleportToPresetLocation = $4E8C
 !TextCommand1F23Callback = $6FD1
@@ -17752,18 +17753,18 @@ org $C17B56
 !TextCommand1FD0JeffRepairBrokenItem = $63A7
 !TextCommand1FD2WanderingPhotographer = $7304
 !TextCommand1FD3TimedDeliveryRowSelector = $7440
-!TextCommand1FE1Callback = $66FE
-!TextCommand1FE4Callback = $6B2B
-!TextCommand1FE5Callback = $6BA4
-!TextCommand1FE6Callback = $6BAF
-!TextCommand1FE7Callback = $6BF2
-!TextCommand1FE8Callback = $6C35
-!TextCommand1FE9Callback = $6C40
-!TextCommand1FEACallback = $6C83
-!TextCommand1FEBCallback = $6CC6
-!TextCommand1FECCallback = $6D14
-!TextCommand1FEECallback = $6D62
-!TextCommand1FEFCallback = $6DA5
+!TextCommand1FE1RunLandingProfileDisplayCallback = $66FE
+!TextCommand1FE4UpdatePoseFrameSelectorCallback = $6B2B
+!TextCommand1FE5SetRegistrySlotFlagsC000Callback = $6BA4
+!TextCommand1FE6SetVisualSlotFlagsC000Callback = $6BAF
+!TextCommand1FE7SetPoseSlotFlagsC000Callback = $6BF2
+!TextCommand1FE8ClearRegistrySlotFlagsC000Callback = $6C35
+!TextCommand1FE9ClearVisualSlotFlagsC000Callback = $6C40
+!TextCommand1FEAClearPoseSlotFlagsC000Callback = $6C83
+!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback = $6CC6
+!TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback = $6D14
+!TextCommand1FEESelectModeSlotByVisualCallback = $6D62
+!TextCommand1FEFSelectModeSlotByPoseCallback = $6DA5
 !TextCommand1FF1Callback = $6EBF
 !TextCommand1FF2Callback = $6F2F
 !TextCommand1FF3Callback = $7325
@@ -17777,19 +17778,19 @@ org $C17B56
 !TextCommand1F07CallbackSubcommand = $0007
 !TextCommand1F11AddToWalletSubcommand = $0011
 !TextCommand1F12TakeFromWalletSubcommand = $0012
-!TextCommand1F13CallbackSubcommand = $0013
-!TextCommand1F14CallbackSubcommand = $0014
-!TextCommand1F15CallbackSubcommand = $0015
-!TextCommand1F16CallbackSubcommand = $0016
-!TextCommand1F17CallbackSubcommand = $0017
-!TextCommand1F18CallbackSubcommand = $0018
-!TextCommand1F19CallbackSubcommand = $0019
-!TextCommand1F1ACallbackSubcommand = $001A
-!TextCommand1F1BCallbackSubcommand = $001B
-!TextCommand1F1CCallbackSubcommand = $001C
-!TextCommand1F1DCallbackSubcommand = $001D
-!TextCommand1F1ECallbackSubcommand = $001E
-!TextCommand1F1FCallbackSubcommand = $001F
+!TextCommand1F13UpdateRegistryFrameSelectorSubcommand = $0013
+!TextCommand1F14BroadcastRegistryFrameSelectorSubcommand = $0014
+!TextCommand1F15InitForcedVisualEntityOrDrainSubcommand = $0015
+!TextCommand1F16UpdateVisualFrameSelectorSubcommand = $0016
+!TextCommand1F17InitVisualEntityAndAppendRecordSubcommand = $0017
+!TextCommand1F18NoOpSevenArgBytesSubcommand = $0018
+!TextCommand1F19NoOpSevenArgBytesAltSubcommand = $0019
+!TextCommand1F1ASpawnVisualAttachedChildSubcommand = $001A
+!TextCommand1F1BClearVisualAttachedChildSubcommand = $001B
+!TextCommand1F1CSpawnRegistryAttachedChildSubcommand = $001C
+!TextCommand1F1DClearRegistryAttachedChildSubcommand = $001D
+!TextCommand1F1ERunVisualScriptWithCachedPoseSubcommand = $001E
+!TextCommand1F1FRunPoseScriptWithCachedPoseSubcommand = $001F
 !TextCommand1F20UseItemOnCharacterSubcommand = $0020
 !TextCommand1F21TeleportToPresetLocationSubcommand = $0021
 !TextCommand1F23CallbackSubcommand = $0023
@@ -17823,19 +17824,19 @@ org $C17B56
 !TextCommand1FD1NearbyMagicTruffleDirectionSubcommand = $00D1
 !TextCommand1FD2WanderingPhotographerSubcommand = $00D2
 !TextCommand1FD3TimedDeliveryRowSelectorSubcommand = $00D3
-!TextCommand1FE1CallbackSubcommand = $00E1
-!TextCommand1FE4CallbackSubcommand = $00E4
-!TextCommand1FE5CallbackSubcommand = $00E5
-!TextCommand1FE6CallbackSubcommand = $00E6
-!TextCommand1FE7CallbackSubcommand = $00E7
-!TextCommand1FE8CallbackSubcommand = $00E8
-!TextCommand1FE9CallbackSubcommand = $00E9
-!TextCommand1FEACallbackSubcommand = $00EA
-!TextCommand1FEBCallbackSubcommand = $00EB
-!TextCommand1FECCallbackSubcommand = $00EC
+!TextCommand1FE1RunLandingProfileDisplaySubcommand = $00E1
+!TextCommand1FE4UpdatePoseFrameSelectorSubcommand = $00E4
+!TextCommand1FE5SetRegistrySlotFlagsC000Subcommand = $00E5
+!TextCommand1FE6SetVisualSlotFlagsC000Subcommand = $00E6
+!TextCommand1FE7SetPoseSlotFlagsC000Subcommand = $00E7
+!TextCommand1FE8ClearRegistrySlotFlagsC000Subcommand = $00E8
+!TextCommand1FE9ClearVisualSlotFlagsC000Subcommand = $00E9
+!TextCommand1FEAClearPoseSlotFlagsC000Subcommand = $00EA
+!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordSubcommand = $00EB
+!TextCommand1FECClearRegistryFlag8000AndAppendRecordSubcommand = $00EC
 !TextCommand1FEDClearSelectedModeSlotSubcommand = $00ED
-!TextCommand1FEECallbackSubcommand = $00EE
-!TextCommand1FEFCallbackSubcommand = $00EF
+!TextCommand1FEESelectModeSlotByVisualSubcommand = $00EE
+!TextCommand1FEFSelectModeSlotByPoseSubcommand = $00EF
 !TextCommand1FF0GetOnBicycleSubcommand = $00F0
 !TextCommand1FF1CallbackSubcommand = $00F1
 !TextCommand1FF2CallbackSubcommand = $00F2
@@ -18733,55 +18734,55 @@ C1820B_DispatchDisplayTextDynamicSourceSelector_L820B:
     bne C18213_DispatchDisplayTextDynamicSourceSelector_L8213
     jmp.w C1845C_DispatchDisplayTextDynamicSourceSelector_L845C
 C18213_DispatchDisplayTextDynamicSourceSelector_L8213:
-    cmp.w #!TextCommand1F13CallbackSubcommand
+    cmp.w #!TextCommand1F13UpdateRegistryFrameSelectorSubcommand
     bne C1821B_DispatchDisplayTextDynamicSourceSelector_L821B
     jmp.w C18462_DispatchDisplayTextDynamicSourceSelector_L8462
 C1821B_DispatchDisplayTextDynamicSourceSelector_L821B:
-    cmp.w #!TextCommand1F14CallbackSubcommand
+    cmp.w #!TextCommand1F14BroadcastRegistryFrameSelectorSubcommand
     bne C18223_DispatchDisplayTextDynamicSourceSelector_L8223
     jmp.w C18468_DispatchDisplayTextDynamicSourceSelector_L8468
 C18223_DispatchDisplayTextDynamicSourceSelector_L8223:
-    cmp.w #!TextCommand1F15CallbackSubcommand
+    cmp.w #!TextCommand1F15InitForcedVisualEntityOrDrainSubcommand
     bne C1822B_DispatchDisplayTextDynamicSourceSelector_L822B
     jmp.w C1846E_DispatchDisplayTextDynamicSourceSelector_L846E
 C1822B_DispatchDisplayTextDynamicSourceSelector_L822B:
-    cmp.w #!TextCommand1F16CallbackSubcommand
+    cmp.w #!TextCommand1F16UpdateVisualFrameSelectorSubcommand
     bne C18233_DispatchDisplayTextDynamicSourceSelector_L8233
     jmp.w C18474_DispatchDisplayTextDynamicSourceSelector_L8474
 C18233_DispatchDisplayTextDynamicSourceSelector_L8233:
-    cmp.w #!TextCommand1F17CallbackSubcommand
+    cmp.w #!TextCommand1F17InitVisualEntityAndAppendRecordSubcommand
     bne C1823B_DispatchDisplayTextDynamicSourceSelector_L823B
     jmp.w C1847A_DispatchDisplayTextDynamicSourceSelector_L847A
 C1823B_DispatchDisplayTextDynamicSourceSelector_L823B:
-    cmp.w #!TextCommand1F18CallbackSubcommand
+    cmp.w #!TextCommand1F18NoOpSevenArgBytesSubcommand
     bne C18243_DispatchDisplayTextDynamicSourceSelector_L8243
     jmp.w C18480_DispatchDisplayTextDynamicSourceSelector_L8480
 C18243_DispatchDisplayTextDynamicSourceSelector_L8243:
-    cmp.w #!TextCommand1F19CallbackSubcommand
+    cmp.w #!TextCommand1F19NoOpSevenArgBytesAltSubcommand
     bne C1824B_DispatchDisplayTextDynamicSourceSelector_L824B
     jmp.w C18486_DispatchDisplayTextDynamicSourceSelector_L8486
 C1824B_DispatchDisplayTextDynamicSourceSelector_L824B:
-    cmp.w #!TextCommand1F1ACallbackSubcommand
+    cmp.w #!TextCommand1F1ASpawnVisualAttachedChildSubcommand
     bne C18253_DispatchDisplayTextDynamicSourceSelector_L8253
     jmp.w C1848C_DispatchDisplayTextDynamicSourceSelector_L848C
 C18253_DispatchDisplayTextDynamicSourceSelector_L8253:
-    cmp.w #!TextCommand1F1BCallbackSubcommand
+    cmp.w #!TextCommand1F1BClearVisualAttachedChildSubcommand
     bne C1825B_DispatchDisplayTextDynamicSourceSelector_L825B
     jmp.w C18492_DispatchDisplayTextDynamicSourceSelector_L8492
 C1825B_DispatchDisplayTextDynamicSourceSelector_L825B:
-    cmp.w #!TextCommand1F1CCallbackSubcommand
+    cmp.w #!TextCommand1F1CSpawnRegistryAttachedChildSubcommand
     bne C18263_DispatchDisplayTextDynamicSourceSelector_L8263
     jmp.w C18498_DispatchDisplayTextDynamicSourceSelector_L8498
 C18263_DispatchDisplayTextDynamicSourceSelector_L8263:
-    cmp.w #!TextCommand1F1DCallbackSubcommand
+    cmp.w #!TextCommand1F1DClearRegistryAttachedChildSubcommand
     bne C1826B_DispatchDisplayTextDynamicSourceSelector_L826B
     jmp.w C1849E_DispatchDisplayTextDynamicSourceSelector_L849E
 C1826B_DispatchDisplayTextDynamicSourceSelector_L826B:
-    cmp.w #!TextCommand1F1ECallbackSubcommand
+    cmp.w #!TextCommand1F1ERunVisualScriptWithCachedPoseSubcommand
     bne C18273_DispatchDisplayTextDynamicSourceSelector_L8273
     jmp.w C184A4_DispatchDisplayTextDynamicSourceSelector_L84A4
 C18273_DispatchDisplayTextDynamicSourceSelector_L8273:
-    cmp.w #!TextCommand1F1FCallbackSubcommand
+    cmp.w #!TextCommand1F1FRunPoseScriptWithCachedPoseSubcommand
     bne C1827B_DispatchDisplayTextDynamicSourceSelector_L827B
     jmp.w C184AA_DispatchDisplayTextDynamicSourceSelector_L84AA
 C1827B_DispatchDisplayTextDynamicSourceSelector_L827B:
@@ -18917,43 +18918,43 @@ C1837B_DispatchDisplayTextDynamicSourceSelector_L837B:
     bne C18383_DispatchDisplayTextDynamicSourceSelector_L8383
     jmp.w C18607_DispatchDisplayTextDynamicSourceSelector_L8607
 C18383_DispatchDisplayTextDynamicSourceSelector_L8383:
-    cmp.w #!TextCommand1FE1CallbackSubcommand
+    cmp.w #!TextCommand1FE1RunLandingProfileDisplaySubcommand
     bne C1838B_DispatchDisplayTextDynamicSourceSelector_L838B
     jmp.w C1860C_DispatchDisplayTextDynamicSourceSelector_L860C
 C1838B_DispatchDisplayTextDynamicSourceSelector_L838B:
-    cmp.w #!TextCommand1FE4CallbackSubcommand
+    cmp.w #!TextCommand1FE4UpdatePoseFrameSelectorSubcommand
     bne C18393_DispatchDisplayTextDynamicSourceSelector_L8393
     jmp.w C18611_DispatchDisplayTextDynamicSourceSelector_L8611
 C18393_DispatchDisplayTextDynamicSourceSelector_L8393:
-    cmp.w #!TextCommand1FE5CallbackSubcommand
+    cmp.w #!TextCommand1FE5SetRegistrySlotFlagsC000Subcommand
     bne C1839B_DispatchDisplayTextDynamicSourceSelector_L839B
     jmp.w C18616_DispatchDisplayTextDynamicSourceSelector_L8616
 C1839B_DispatchDisplayTextDynamicSourceSelector_L839B:
-    cmp.w #!TextCommand1FE6CallbackSubcommand
+    cmp.w #!TextCommand1FE6SetVisualSlotFlagsC000Subcommand
     bne C183A3_DispatchDisplayTextDynamicSourceSelector_L83A3
     jmp.w C1861B_DispatchDisplayTextDynamicSourceSelector_L861B
 C183A3_DispatchDisplayTextDynamicSourceSelector_L83A3:
-    cmp.w #!TextCommand1FE7CallbackSubcommand
+    cmp.w #!TextCommand1FE7SetPoseSlotFlagsC000Subcommand
     bne C183AB_DispatchDisplayTextDynamicSourceSelector_L83AB
     jmp.w C18620_DispatchDisplayTextDynamicSourceSelector_L8620
 C183AB_DispatchDisplayTextDynamicSourceSelector_L83AB:
-    cmp.w #!TextCommand1FE8CallbackSubcommand
+    cmp.w #!TextCommand1FE8ClearRegistrySlotFlagsC000Subcommand
     bne C183B3_DispatchDisplayTextDynamicSourceSelector_L83B3
     jmp.w C18625_DispatchDisplayTextDynamicSourceSelector_L8625
 C183B3_DispatchDisplayTextDynamicSourceSelector_L83B3:
-    cmp.w #!TextCommand1FE9CallbackSubcommand
+    cmp.w #!TextCommand1FE9ClearVisualSlotFlagsC000Subcommand
     bne C183BB_DispatchDisplayTextDynamicSourceSelector_L83BB
     jmp.w C1862A_DispatchDisplayTextDynamicSourceSelector_L862A
 C183BB_DispatchDisplayTextDynamicSourceSelector_L83BB:
-    cmp.w #!TextCommand1FEACallbackSubcommand
+    cmp.w #!TextCommand1FEAClearPoseSlotFlagsC000Subcommand
     bne C183C3_DispatchDisplayTextDynamicSourceSelector_L83C3
     jmp.w C1862F_DispatchDisplayTextDynamicSourceSelector_L862F
 C183C3_DispatchDisplayTextDynamicSourceSelector_L83C3:
-    cmp.w #!TextCommand1FEBCallbackSubcommand
+    cmp.w #!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordSubcommand
     bne C183CB_DispatchDisplayTextDynamicSourceSelector_L83CB
     jmp.w C18634_DispatchDisplayTextDynamicSourceSelector_L8634
 C183CB_DispatchDisplayTextDynamicSourceSelector_L83CB:
-    cmp.w #!TextCommand1FECCallbackSubcommand
+    cmp.w #!TextCommand1FECClearRegistryFlag8000AndAppendRecordSubcommand
     bne C183D3_DispatchDisplayTextDynamicSourceSelector_L83D3
     jmp.w C18639_DispatchDisplayTextDynamicSourceSelector_L8639
 C183D3_DispatchDisplayTextDynamicSourceSelector_L83D3:
@@ -18961,11 +18962,11 @@ C183D3_DispatchDisplayTextDynamicSourceSelector_L83D3:
     bne C183DB_DispatchDisplayTextDynamicSourceSelector_L83DB
     jmp.w C1863E_DispatchDisplayTextDynamicSourceSelector_L863E
 C183DB_DispatchDisplayTextDynamicSourceSelector_L83DB:
-    cmp.w #!TextCommand1FEECallbackSubcommand
+    cmp.w #!TextCommand1FEESelectModeSlotByVisualSubcommand
     bne C183E3_DispatchDisplayTextDynamicSourceSelector_L83E3
     jmp.w C18644_DispatchDisplayTextDynamicSourceSelector_L8644
 C183E3_DispatchDisplayTextDynamicSourceSelector_L83E3:
-    cmp.w #!TextCommand1FEFCallbackSubcommand
+    cmp.w #!TextCommand1FEFSelectModeSlotByPoseSubcommand
     bne C183EB_DispatchDisplayTextDynamicSourceSelector_L83EB
     jmp.w C18649_DispatchDisplayTextDynamicSourceSelector_L8649
 C183EB_DispatchDisplayTextDynamicSourceSelector_L83EB:
@@ -19025,43 +19026,43 @@ C1845C_DispatchDisplayTextDynamicSourceSelector_L845C:
     lda.w #!TextCommand1F12TakeFromWallet
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18462_DispatchDisplayTextDynamicSourceSelector_L8462:
-    lda.w #!TextCommand1F13Callback
+    lda.w #!TextCommand1F13UpdateRegistryFrameSelectorCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18468_DispatchDisplayTextDynamicSourceSelector_L8468:
-    lda.w #!TextCommand1F14Callback
+    lda.w #!TextCommand1F14BroadcastRegistryFrameSelectorCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1846E_DispatchDisplayTextDynamicSourceSelector_L846E:
-    lda.w #!TextCommand1F15Callback
+    lda.w #!TextCommand1F15InitForcedVisualEntityOrDrainCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18474_DispatchDisplayTextDynamicSourceSelector_L8474:
-    lda.w #!TextCommand1F16Callback
+    lda.w #!TextCommand1F16UpdateVisualFrameSelectorCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1847A_DispatchDisplayTextDynamicSourceSelector_L847A:
-    lda.w #!TextCommand1F17Callback
+    lda.w #!TextCommand1F17InitVisualEntityAndAppendRecordCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18480_DispatchDisplayTextDynamicSourceSelector_L8480:
-    lda.w #!TextCommand1F18Callback
+    lda.w #!TextCommand1F18NoOpSevenArgBytesCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18486_DispatchDisplayTextDynamicSourceSelector_L8486:
-    lda.w #!TextCommand1F19Callback
+    lda.w #!TextCommand1F19NoOpSevenArgBytesAltCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1848C_DispatchDisplayTextDynamicSourceSelector_L848C:
-    lda.w #!TextCommand1F1ACallback
+    lda.w #!TextCommand1F1ASpawnVisualAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18492_DispatchDisplayTextDynamicSourceSelector_L8492:
-    lda.w #!TextCommand1F1BCallback
+    lda.w #!TextCommand1F1BClearVisualAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18498_DispatchDisplayTextDynamicSourceSelector_L8498:
-    lda.w #!TextCommand1F1CCallback
+    lda.w #!TextCommand1F1CSpawnRegistryAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1849E_DispatchDisplayTextDynamicSourceSelector_L849E:
-    lda.w #!TextCommand1F1DCallback
+    lda.w #!TextCommand1F1DClearRegistryAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184A4_DispatchDisplayTextDynamicSourceSelector_L84A4:
-    lda.w #!TextCommand1F1ECallback
+    lda.w #!TextCommand1F1ERunVisualScriptWithCachedPoseCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184AA_DispatchDisplayTextDynamicSourceSelector_L84AA:
-    lda.w #!TextCommand1F1FCallback
+    lda.w #!TextCommand1F1FRunPoseScriptWithCachedPoseCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184B0_DispatchDisplayTextDynamicSourceSelector_L84B0:
     lda.w #!TextCommand1F20UseItemOnCharacter
@@ -19231,43 +19232,43 @@ C18607_DispatchDisplayTextDynamicSourceSelector_L8607:
     lda.w #!TextCommand1FD3TimedDeliveryRowSelector
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1860C_DispatchDisplayTextDynamicSourceSelector_L860C:
-    lda.w #!TextCommand1FE1Callback
+    lda.w #!TextCommand1FE1RunLandingProfileDisplayCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18611_DispatchDisplayTextDynamicSourceSelector_L8611:
-    lda.w #!TextCommand1FE4Callback
+    lda.w #!TextCommand1FE4UpdatePoseFrameSelectorCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18616_DispatchDisplayTextDynamicSourceSelector_L8616:
-    lda.w #!TextCommand1FE5Callback
+    lda.w #!TextCommand1FE5SetRegistrySlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1861B_DispatchDisplayTextDynamicSourceSelector_L861B:
-    lda.w #!TextCommand1FE6Callback
+    lda.w #!TextCommand1FE6SetVisualSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18620_DispatchDisplayTextDynamicSourceSelector_L8620:
-    lda.w #!TextCommand1FE7Callback
+    lda.w #!TextCommand1FE7SetPoseSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18625_DispatchDisplayTextDynamicSourceSelector_L8625:
-    lda.w #!TextCommand1FE8Callback
+    lda.w #!TextCommand1FE8ClearRegistrySlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1862A_DispatchDisplayTextDynamicSourceSelector_L862A:
-    lda.w #!TextCommand1FE9Callback
+    lda.w #!TextCommand1FE9ClearVisualSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1862F_DispatchDisplayTextDynamicSourceSelector_L862F:
-    lda.w #!TextCommand1FEACallback
+    lda.w #!TextCommand1FEAClearPoseSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18634_DispatchDisplayTextDynamicSourceSelector_L8634:
-    lda.w #!TextCommand1FEBCallback
+    lda.w #!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18639_DispatchDisplayTextDynamicSourceSelector_L8639:
-    lda.w #!TextCommand1FECCallback
+    lda.w #!TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1863E_DispatchDisplayTextDynamicSourceSelector_L863E:
     jsl !C466B8_ClearSelectedModeSlot
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18644_DispatchDisplayTextDynamicSourceSelector_L8644:
-    lda.w #!TextCommand1FEECallback
+    lda.w #!TextCommand1FEESelectModeSlotByVisualCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18649_DispatchDisplayTextDynamicSourceSelector_L8649:
-    lda.w #!TextCommand1FEFCallback
+    lda.w #!TextCommand1FEFSelectModeSlotByPoseCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1864E_DispatchDisplayTextDynamicSourceSelector_L864E:
     jsl !C03C5E_GetOnBicycle

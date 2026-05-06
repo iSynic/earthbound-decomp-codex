@@ -260,19 +260,19 @@ TextCommand1F04Callback                   = $7254
 TextCommand1F07Callback                   = $741F
 TextCommand1F11AddToWallet                = $5F71
 TextCommand1F12TakeFromWallet             = $5F91
-TextCommand1F13Callback                   = $63FD
-TextCommand1F14Callback                   = $646E
-TextCommand1F15Callback                   = $6744
-TextCommand1F16Callback                   = $6490
-TextCommand1F17Callback                   = $6509
-TextCommand1F18Callback                   = $6582
-TextCommand1F19Callback                   = $65AA
-TextCommand1F1ACallback                   = $65D2
-TextCommand1F1BCallback                   = $662A
-TextCommand1F1CCallback                   = $666D
-TextCommand1F1DCallback                   = $66DD
-TextCommand1F1ECallback                   = $67D6
-TextCommand1F1FCallback                   = $683B
+TextCommand1F13UpdateRegistryFrameSelectorCallback                   = $63FD
+TextCommand1F14BroadcastRegistryFrameSelectorCallback                   = $646E
+TextCommand1F15InitForcedVisualEntityOrDrainCallback                   = $6744
+TextCommand1F16UpdateVisualFrameSelectorCallback                   = $6490
+TextCommand1F17InitVisualEntityAndAppendRecordCallback                   = $6509
+TextCommand1F18NoOpSevenArgBytesCallback                   = $6582
+TextCommand1F19NoOpSevenArgBytesAltCallback                   = $65AA
+TextCommand1F1ASpawnVisualAttachedChildCallback                   = $65D2
+TextCommand1F1BClearVisualAttachedChildCallback                   = $662A
+TextCommand1F1CSpawnRegistryAttachedChildCallback                   = $666D
+TextCommand1F1DClearRegistryAttachedChildCallback                   = $66DD
+TextCommand1F1ERunVisualScriptWithCachedPoseCallback                   = $67D6
+TextCommand1F1FRunPoseScriptWithCachedPoseCallback                   = $683B
 TextCommand1F20UseItemOnCharacter         = $4DFB
 TextCommand1F21TeleportToPresetLocation   = $4E8C
 TextCommand1F23Callback                   = $6FD1
@@ -291,18 +291,18 @@ TextCommand1FC0JumpMulti2                 = $6308
 TextCommand1FD0JeffRepairBrokenItem       = $63A7
 TextCommand1FD2WanderingPhotographer      = $7304
 TextCommand1FD3TimedDeliveryRowSelector   = $7440
-TextCommand1FE1Callback                   = $66FE
-TextCommand1FE4Callback                   = $6B2B
-TextCommand1FE5Callback                   = $6BA4
-TextCommand1FE6Callback                   = $6BAF
-TextCommand1FE7Callback                   = $6BF2
-TextCommand1FE8Callback                   = $6C35
-TextCommand1FE9Callback                   = $6C40
-TextCommand1FEACallback                   = $6C83
-TextCommand1FEBCallback                   = $6CC6
-TextCommand1FECCallback                   = $6D14
-TextCommand1FEECallback                   = $6D62
-TextCommand1FEFCallback                   = $6DA5
+TextCommand1FE1RunLandingProfileDisplayCallback                   = $66FE
+TextCommand1FE4UpdatePoseFrameSelectorCallback                   = $6B2B
+TextCommand1FE5SetRegistrySlotFlagsC000Callback                   = $6BA4
+TextCommand1FE6SetVisualSlotFlagsC000Callback                   = $6BAF
+TextCommand1FE7SetPoseSlotFlagsC000Callback                   = $6BF2
+TextCommand1FE8ClearRegistrySlotFlagsC000Callback                   = $6C35
+TextCommand1FE9ClearVisualSlotFlagsC000Callback                   = $6C40
+TextCommand1FEAClearPoseSlotFlagsC000Callback                   = $6C83
+TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback                   = $6CC6
+TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback                   = $6D14
+TextCommand1FEESelectModeSlotByVisualCallback                   = $6D62
+TextCommand1FEFSelectModeSlotByPoseCallback                   = $6DA5
 TextCommand1FF1Callback                   = $6EBF
 TextCommand1FF2Callback                   = $6F2F
 TextCommand1FF3Callback                   = $7325
@@ -316,19 +316,19 @@ TextCommand1F06EnableSectorMusicChangeSubcommand = $0006
 TextCommand1F07CallbackSubcommand = $0007
 TextCommand1F11AddToWalletSubcommand = $0011
 TextCommand1F12TakeFromWalletSubcommand = $0012
-TextCommand1F13CallbackSubcommand = $0013
-TextCommand1F14CallbackSubcommand = $0014
-TextCommand1F15CallbackSubcommand = $0015
-TextCommand1F16CallbackSubcommand = $0016
-TextCommand1F17CallbackSubcommand = $0017
-TextCommand1F18CallbackSubcommand = $0018
-TextCommand1F19CallbackSubcommand = $0019
-TextCommand1F1ACallbackSubcommand = $001A
-TextCommand1F1BCallbackSubcommand = $001B
-TextCommand1F1CCallbackSubcommand = $001C
-TextCommand1F1DCallbackSubcommand = $001D
-TextCommand1F1ECallbackSubcommand = $001E
-TextCommand1F1FCallbackSubcommand = $001F
+TextCommand1F13UpdateRegistryFrameSelectorSubcommand = $0013
+TextCommand1F14BroadcastRegistryFrameSelectorSubcommand = $0014
+TextCommand1F15InitForcedVisualEntityOrDrainSubcommand = $0015
+TextCommand1F16UpdateVisualFrameSelectorSubcommand = $0016
+TextCommand1F17InitVisualEntityAndAppendRecordSubcommand = $0017
+TextCommand1F18NoOpSevenArgBytesSubcommand = $0018
+TextCommand1F19NoOpSevenArgBytesAltSubcommand = $0019
+TextCommand1F1ASpawnVisualAttachedChildSubcommand = $001A
+TextCommand1F1BClearVisualAttachedChildSubcommand = $001B
+TextCommand1F1CSpawnRegistryAttachedChildSubcommand = $001C
+TextCommand1F1DClearRegistryAttachedChildSubcommand = $001D
+TextCommand1F1ERunVisualScriptWithCachedPoseSubcommand = $001E
+TextCommand1F1FRunPoseScriptWithCachedPoseSubcommand = $001F
 TextCommand1F20UseItemOnCharacterSubcommand = $0020
 TextCommand1F21TeleportToPresetLocationSubcommand = $0021
 TextCommand1F23CallbackSubcommand = $0023
@@ -362,19 +362,19 @@ TextCommand1FD0JeffRepairBrokenItemSubcommand = $00D0
 TextCommand1FD1NearbyMagicTruffleDirectionSubcommand = $00D1
 TextCommand1FD2WanderingPhotographerSubcommand = $00D2
 TextCommand1FD3TimedDeliveryRowSelectorSubcommand = $00D3
-TextCommand1FE1CallbackSubcommand = $00E1
-TextCommand1FE4CallbackSubcommand = $00E4
-TextCommand1FE5CallbackSubcommand = $00E5
-TextCommand1FE6CallbackSubcommand = $00E6
-TextCommand1FE7CallbackSubcommand = $00E7
-TextCommand1FE8CallbackSubcommand = $00E8
-TextCommand1FE9CallbackSubcommand = $00E9
-TextCommand1FEACallbackSubcommand = $00EA
-TextCommand1FEBCallbackSubcommand = $00EB
-TextCommand1FECCallbackSubcommand = $00EC
+TextCommand1FE1RunLandingProfileDisplaySubcommand = $00E1
+TextCommand1FE4UpdatePoseFrameSelectorSubcommand = $00E4
+TextCommand1FE5SetRegistrySlotFlagsC000Subcommand = $00E5
+TextCommand1FE6SetVisualSlotFlagsC000Subcommand = $00E6
+TextCommand1FE7SetPoseSlotFlagsC000Subcommand = $00E7
+TextCommand1FE8ClearRegistrySlotFlagsC000Subcommand = $00E8
+TextCommand1FE9ClearVisualSlotFlagsC000Subcommand = $00E9
+TextCommand1FEAClearPoseSlotFlagsC000Subcommand = $00EA
+TextCommand1FEBMarkRegistryFlag8000AndAppendRecordSubcommand = $00EB
+TextCommand1FECClearRegistryFlag8000AndAppendRecordSubcommand = $00EC
 TextCommand1FEDClearSelectedModeSlotSubcommand = $00ED
-TextCommand1FEECallbackSubcommand = $00EE
-TextCommand1FEFCallbackSubcommand = $00EF
+TextCommand1FEESelectModeSlotByVisualSubcommand = $00EE
+TextCommand1FEFSelectModeSlotByPoseSubcommand = $00EF
 TextCommand1FF0GetOnBicycleSubcommand = $00F0
 TextCommand1FF1CallbackSubcommand = $00F1
 TextCommand1FF2CallbackSubcommand = $00F2
@@ -1277,55 +1277,55 @@ C1820B_DispatchDisplayTextDynamicSourceSelector_L820B:
     bne C18213_DispatchDisplayTextDynamicSourceSelector_L8213
     jmp.w C1845C_DispatchDisplayTextDynamicSourceSelector_L845C
 C18213_DispatchDisplayTextDynamicSourceSelector_L8213:
-    cmp.w #TextCommand1F13CallbackSubcommand
+    cmp.w #TextCommand1F13UpdateRegistryFrameSelectorSubcommand
     bne C1821B_DispatchDisplayTextDynamicSourceSelector_L821B
     jmp.w C18462_DispatchDisplayTextDynamicSourceSelector_L8462
 C1821B_DispatchDisplayTextDynamicSourceSelector_L821B:
-    cmp.w #TextCommand1F14CallbackSubcommand
+    cmp.w #TextCommand1F14BroadcastRegistryFrameSelectorSubcommand
     bne C18223_DispatchDisplayTextDynamicSourceSelector_L8223
     jmp.w C18468_DispatchDisplayTextDynamicSourceSelector_L8468
 C18223_DispatchDisplayTextDynamicSourceSelector_L8223:
-    cmp.w #TextCommand1F15CallbackSubcommand
+    cmp.w #TextCommand1F15InitForcedVisualEntityOrDrainSubcommand
     bne C1822B_DispatchDisplayTextDynamicSourceSelector_L822B
     jmp.w C1846E_DispatchDisplayTextDynamicSourceSelector_L846E
 C1822B_DispatchDisplayTextDynamicSourceSelector_L822B:
-    cmp.w #TextCommand1F16CallbackSubcommand
+    cmp.w #TextCommand1F16UpdateVisualFrameSelectorSubcommand
     bne C18233_DispatchDisplayTextDynamicSourceSelector_L8233
     jmp.w C18474_DispatchDisplayTextDynamicSourceSelector_L8474
 C18233_DispatchDisplayTextDynamicSourceSelector_L8233:
-    cmp.w #TextCommand1F17CallbackSubcommand
+    cmp.w #TextCommand1F17InitVisualEntityAndAppendRecordSubcommand
     bne C1823B_DispatchDisplayTextDynamicSourceSelector_L823B
     jmp.w C1847A_DispatchDisplayTextDynamicSourceSelector_L847A
 C1823B_DispatchDisplayTextDynamicSourceSelector_L823B:
-    cmp.w #TextCommand1F18CallbackSubcommand
+    cmp.w #TextCommand1F18NoOpSevenArgBytesSubcommand
     bne C18243_DispatchDisplayTextDynamicSourceSelector_L8243
     jmp.w C18480_DispatchDisplayTextDynamicSourceSelector_L8480
 C18243_DispatchDisplayTextDynamicSourceSelector_L8243:
-    cmp.w #TextCommand1F19CallbackSubcommand
+    cmp.w #TextCommand1F19NoOpSevenArgBytesAltSubcommand
     bne C1824B_DispatchDisplayTextDynamicSourceSelector_L824B
     jmp.w C18486_DispatchDisplayTextDynamicSourceSelector_L8486
 C1824B_DispatchDisplayTextDynamicSourceSelector_L824B:
-    cmp.w #TextCommand1F1ACallbackSubcommand
+    cmp.w #TextCommand1F1ASpawnVisualAttachedChildSubcommand
     bne C18253_DispatchDisplayTextDynamicSourceSelector_L8253
     jmp.w C1848C_DispatchDisplayTextDynamicSourceSelector_L848C
 C18253_DispatchDisplayTextDynamicSourceSelector_L8253:
-    cmp.w #TextCommand1F1BCallbackSubcommand
+    cmp.w #TextCommand1F1BClearVisualAttachedChildSubcommand
     bne C1825B_DispatchDisplayTextDynamicSourceSelector_L825B
     jmp.w C18492_DispatchDisplayTextDynamicSourceSelector_L8492
 C1825B_DispatchDisplayTextDynamicSourceSelector_L825B:
-    cmp.w #TextCommand1F1CCallbackSubcommand
+    cmp.w #TextCommand1F1CSpawnRegistryAttachedChildSubcommand
     bne C18263_DispatchDisplayTextDynamicSourceSelector_L8263
     jmp.w C18498_DispatchDisplayTextDynamicSourceSelector_L8498
 C18263_DispatchDisplayTextDynamicSourceSelector_L8263:
-    cmp.w #TextCommand1F1DCallbackSubcommand
+    cmp.w #TextCommand1F1DClearRegistryAttachedChildSubcommand
     bne C1826B_DispatchDisplayTextDynamicSourceSelector_L826B
     jmp.w C1849E_DispatchDisplayTextDynamicSourceSelector_L849E
 C1826B_DispatchDisplayTextDynamicSourceSelector_L826B:
-    cmp.w #TextCommand1F1ECallbackSubcommand
+    cmp.w #TextCommand1F1ERunVisualScriptWithCachedPoseSubcommand
     bne C18273_DispatchDisplayTextDynamicSourceSelector_L8273
     jmp.w C184A4_DispatchDisplayTextDynamicSourceSelector_L84A4
 C18273_DispatchDisplayTextDynamicSourceSelector_L8273:
-    cmp.w #TextCommand1F1FCallbackSubcommand
+    cmp.w #TextCommand1F1FRunPoseScriptWithCachedPoseSubcommand
     bne C1827B_DispatchDisplayTextDynamicSourceSelector_L827B
     jmp.w C184AA_DispatchDisplayTextDynamicSourceSelector_L84AA
 C1827B_DispatchDisplayTextDynamicSourceSelector_L827B:
@@ -1461,43 +1461,43 @@ C1837B_DispatchDisplayTextDynamicSourceSelector_L837B:
     bne C18383_DispatchDisplayTextDynamicSourceSelector_L8383
     jmp.w C18607_DispatchDisplayTextDynamicSourceSelector_L8607
 C18383_DispatchDisplayTextDynamicSourceSelector_L8383:
-    cmp.w #TextCommand1FE1CallbackSubcommand
+    cmp.w #TextCommand1FE1RunLandingProfileDisplaySubcommand
     bne C1838B_DispatchDisplayTextDynamicSourceSelector_L838B
     jmp.w C1860C_DispatchDisplayTextDynamicSourceSelector_L860C
 C1838B_DispatchDisplayTextDynamicSourceSelector_L838B:
-    cmp.w #TextCommand1FE4CallbackSubcommand
+    cmp.w #TextCommand1FE4UpdatePoseFrameSelectorSubcommand
     bne C18393_DispatchDisplayTextDynamicSourceSelector_L8393
     jmp.w C18611_DispatchDisplayTextDynamicSourceSelector_L8611
 C18393_DispatchDisplayTextDynamicSourceSelector_L8393:
-    cmp.w #TextCommand1FE5CallbackSubcommand
+    cmp.w #TextCommand1FE5SetRegistrySlotFlagsC000Subcommand
     bne C1839B_DispatchDisplayTextDynamicSourceSelector_L839B
     jmp.w C18616_DispatchDisplayTextDynamicSourceSelector_L8616
 C1839B_DispatchDisplayTextDynamicSourceSelector_L839B:
-    cmp.w #TextCommand1FE6CallbackSubcommand
+    cmp.w #TextCommand1FE6SetVisualSlotFlagsC000Subcommand
     bne C183A3_DispatchDisplayTextDynamicSourceSelector_L83A3
     jmp.w C1861B_DispatchDisplayTextDynamicSourceSelector_L861B
 C183A3_DispatchDisplayTextDynamicSourceSelector_L83A3:
-    cmp.w #TextCommand1FE7CallbackSubcommand
+    cmp.w #TextCommand1FE7SetPoseSlotFlagsC000Subcommand
     bne C183AB_DispatchDisplayTextDynamicSourceSelector_L83AB
     jmp.w C18620_DispatchDisplayTextDynamicSourceSelector_L8620
 C183AB_DispatchDisplayTextDynamicSourceSelector_L83AB:
-    cmp.w #TextCommand1FE8CallbackSubcommand
+    cmp.w #TextCommand1FE8ClearRegistrySlotFlagsC000Subcommand
     bne C183B3_DispatchDisplayTextDynamicSourceSelector_L83B3
     jmp.w C18625_DispatchDisplayTextDynamicSourceSelector_L8625
 C183B3_DispatchDisplayTextDynamicSourceSelector_L83B3:
-    cmp.w #TextCommand1FE9CallbackSubcommand
+    cmp.w #TextCommand1FE9ClearVisualSlotFlagsC000Subcommand
     bne C183BB_DispatchDisplayTextDynamicSourceSelector_L83BB
     jmp.w C1862A_DispatchDisplayTextDynamicSourceSelector_L862A
 C183BB_DispatchDisplayTextDynamicSourceSelector_L83BB:
-    cmp.w #TextCommand1FEACallbackSubcommand
+    cmp.w #TextCommand1FEAClearPoseSlotFlagsC000Subcommand
     bne C183C3_DispatchDisplayTextDynamicSourceSelector_L83C3
     jmp.w C1862F_DispatchDisplayTextDynamicSourceSelector_L862F
 C183C3_DispatchDisplayTextDynamicSourceSelector_L83C3:
-    cmp.w #TextCommand1FEBCallbackSubcommand
+    cmp.w #TextCommand1FEBMarkRegistryFlag8000AndAppendRecordSubcommand
     bne C183CB_DispatchDisplayTextDynamicSourceSelector_L83CB
     jmp.w C18634_DispatchDisplayTextDynamicSourceSelector_L8634
 C183CB_DispatchDisplayTextDynamicSourceSelector_L83CB:
-    cmp.w #TextCommand1FECCallbackSubcommand
+    cmp.w #TextCommand1FECClearRegistryFlag8000AndAppendRecordSubcommand
     bne C183D3_DispatchDisplayTextDynamicSourceSelector_L83D3
     jmp.w C18639_DispatchDisplayTextDynamicSourceSelector_L8639
 C183D3_DispatchDisplayTextDynamicSourceSelector_L83D3:
@@ -1505,11 +1505,11 @@ C183D3_DispatchDisplayTextDynamicSourceSelector_L83D3:
     bne C183DB_DispatchDisplayTextDynamicSourceSelector_L83DB
     jmp.w C1863E_DispatchDisplayTextDynamicSourceSelector_L863E
 C183DB_DispatchDisplayTextDynamicSourceSelector_L83DB:
-    cmp.w #TextCommand1FEECallbackSubcommand
+    cmp.w #TextCommand1FEESelectModeSlotByVisualSubcommand
     bne C183E3_DispatchDisplayTextDynamicSourceSelector_L83E3
     jmp.w C18644_DispatchDisplayTextDynamicSourceSelector_L8644
 C183E3_DispatchDisplayTextDynamicSourceSelector_L83E3:
-    cmp.w #TextCommand1FEFCallbackSubcommand
+    cmp.w #TextCommand1FEFSelectModeSlotByPoseSubcommand
     bne C183EB_DispatchDisplayTextDynamicSourceSelector_L83EB
     jmp.w C18649_DispatchDisplayTextDynamicSourceSelector_L8649
 C183EB_DispatchDisplayTextDynamicSourceSelector_L83EB:
@@ -1570,43 +1570,43 @@ C1845C_DispatchDisplayTextDynamicSourceSelector_L845C:
     lda.w #TextCommand1F12TakeFromWallet
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18462_DispatchDisplayTextDynamicSourceSelector_L8462:
-    lda.w #TextCommand1F13Callback
+    lda.w #TextCommand1F13UpdateRegistryFrameSelectorCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18468_DispatchDisplayTextDynamicSourceSelector_L8468:
-    lda.w #TextCommand1F14Callback
+    lda.w #TextCommand1F14BroadcastRegistryFrameSelectorCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1846E_DispatchDisplayTextDynamicSourceSelector_L846E:
-    lda.w #TextCommand1F15Callback
+    lda.w #TextCommand1F15InitForcedVisualEntityOrDrainCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18474_DispatchDisplayTextDynamicSourceSelector_L8474:
-    lda.w #TextCommand1F16Callback
+    lda.w #TextCommand1F16UpdateVisualFrameSelectorCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1847A_DispatchDisplayTextDynamicSourceSelector_L847A:
-    lda.w #TextCommand1F17Callback
+    lda.w #TextCommand1F17InitVisualEntityAndAppendRecordCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18480_DispatchDisplayTextDynamicSourceSelector_L8480:
-    lda.w #TextCommand1F18Callback
+    lda.w #TextCommand1F18NoOpSevenArgBytesCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18486_DispatchDisplayTextDynamicSourceSelector_L8486:
-    lda.w #TextCommand1F19Callback
+    lda.w #TextCommand1F19NoOpSevenArgBytesAltCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1848C_DispatchDisplayTextDynamicSourceSelector_L848C:
-    lda.w #TextCommand1F1ACallback
+    lda.w #TextCommand1F1ASpawnVisualAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18492_DispatchDisplayTextDynamicSourceSelector_L8492:
-    lda.w #TextCommand1F1BCallback
+    lda.w #TextCommand1F1BClearVisualAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18498_DispatchDisplayTextDynamicSourceSelector_L8498:
-    lda.w #TextCommand1F1CCallback
+    lda.w #TextCommand1F1CSpawnRegistryAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1849E_DispatchDisplayTextDynamicSourceSelector_L849E:
-    lda.w #TextCommand1F1DCallback
+    lda.w #TextCommand1F1DClearRegistryAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184A4_DispatchDisplayTextDynamicSourceSelector_L84A4:
-    lda.w #TextCommand1F1ECallback
+    lda.w #TextCommand1F1ERunVisualScriptWithCachedPoseCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184AA_DispatchDisplayTextDynamicSourceSelector_L84AA:
-    lda.w #TextCommand1F1FCallback
+    lda.w #TextCommand1F1FRunPoseScriptWithCachedPoseCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184B0_DispatchDisplayTextDynamicSourceSelector_L84B0:
     lda.w #TextCommand1F20UseItemOnCharacter
@@ -1782,43 +1782,43 @@ C18607_DispatchDisplayTextDynamicSourceSelector_L8607:
     lda.w #TextCommand1FD3TimedDeliveryRowSelector
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1860C_DispatchDisplayTextDynamicSourceSelector_L860C:
-    lda.w #TextCommand1FE1Callback
+    lda.w #TextCommand1FE1RunLandingProfileDisplayCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18611_DispatchDisplayTextDynamicSourceSelector_L8611:
-    lda.w #TextCommand1FE4Callback
+    lda.w #TextCommand1FE4UpdatePoseFrameSelectorCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18616_DispatchDisplayTextDynamicSourceSelector_L8616:
-    lda.w #TextCommand1FE5Callback
+    lda.w #TextCommand1FE5SetRegistrySlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1861B_DispatchDisplayTextDynamicSourceSelector_L861B:
-    lda.w #TextCommand1FE6Callback
+    lda.w #TextCommand1FE6SetVisualSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18620_DispatchDisplayTextDynamicSourceSelector_L8620:
-    lda.w #TextCommand1FE7Callback
+    lda.w #TextCommand1FE7SetPoseSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18625_DispatchDisplayTextDynamicSourceSelector_L8625:
-    lda.w #TextCommand1FE8Callback
+    lda.w #TextCommand1FE8ClearRegistrySlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1862A_DispatchDisplayTextDynamicSourceSelector_L862A:
-    lda.w #TextCommand1FE9Callback
+    lda.w #TextCommand1FE9ClearVisualSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1862F_DispatchDisplayTextDynamicSourceSelector_L862F:
-    lda.w #TextCommand1FEACallback
+    lda.w #TextCommand1FEAClearPoseSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18634_DispatchDisplayTextDynamicSourceSelector_L8634:
-    lda.w #TextCommand1FEBCallback
+    lda.w #TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18639_DispatchDisplayTextDynamicSourceSelector_L8639:
-    lda.w #TextCommand1FECCallback
+    lda.w #TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1863E_DispatchDisplayTextDynamicSourceSelector_L863E:
     jsl C466B8_ClearSelectedModeSlot
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18644_DispatchDisplayTextDynamicSourceSelector_L8644:
-    lda.w #TextCommand1FEECallback
+    lda.w #TextCommand1FEESelectModeSlotByVisualCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18649_DispatchDisplayTextDynamicSourceSelector_L8649:
-    lda.w #TextCommand1FEFCallback
+    lda.w #TextCommand1FEFSelectModeSlotByPoseCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1864E_DispatchDisplayTextDynamicSourceSelector_L864E:
     jsl C03C5E_GetOnBicycle

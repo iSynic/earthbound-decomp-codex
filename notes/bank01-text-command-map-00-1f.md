@@ -126,6 +126,13 @@ selector assembly for `1F F1/F2`. The callback low words are unchanged, but
 the movement-record, hotspot-activation, visual-script, and pose-script
 handoffs are now readable at the source boundary.
 
+Source polish follow-up (2026-05-06): the same `0x1F` corridor now promotes
+the neighboring entity-helper callback names rather than leaving them as
+numbered callback placeholders. The dispatcher and callback source now name the
+`13..1F` frame-selector, dynamic visual entity, attached-child, no-op absorber,
+and cached-pose script leaves, plus the `E1/E4..EF` landing-profile, C4 entity
+flag, registry `8000`, and mode-slot selector leaves.
+
 Source polish follow-up (2026-05-06): the adjacent `0x19 25` and `0x1D 0C`
 consumer leaves in `C1:6F9F..711A` now expose their result staging too. The
 condiment helper and Escargo storage-status classifier both install their

@@ -136,6 +136,16 @@ the C1-side payload assembly behind `1F 63`, `1F 66`, `1F F1`, and `1F F2`.
 five-byte packed payload before `C0:72CF`; and `1F F1/F2` expose the paired
 visual-type or pose-descriptor script selectors before their C4 script runners.
 
+Source polish follow-up (2026-05-06): the generic low-word names in the
+adjacent entity-helper cluster are now promoted too. The `1F 13..1F` callback
+returns expose registry and visual frame-selector updates, dynamic visual entity
+creation, no-op seven-byte absorbers, visual/registry attached-child
+spawn/clear leaves, and cached-pose visual/pose script runners. The
+`1F E1/E4..EF` strip now names the landing-profile display, pose-frame update,
+registry/visual/pose `C000` flag set/clear leaves, registry `8000` mark/clear
+leaves, and visual/pose mode-slot selectors at both the dispatcher and callback
+body definitions.
+
 Source polish follow-up (2026-05-06): the adjacent `1F 23` leaf now names its
 scripted-battle init selector staging. The source shows the queued high byte,
 fallback to a direct text argument when the packed selector is zero, the

@@ -652,3 +652,10 @@ This planning pass is documentation-only.
   text-context source pointer aliases. This closes the last raw frame-offset
   and installer-handoff literals in `C1:7B56..866D` without moving any
   dispatcher boundaries.
+- 2026-05-06 follow-up: the `C1:621F..7274` deferred-callback corridor now
+  names the entity-helper callback leaves behind `1F 13..1F` and `1F E1/E4..EF`
+  at both the callback bodies and the `C1:81BB` dispatcher return table. The
+  pass promotes frame-selector updates, dynamic visual entity setup, attached
+  child spawn/clear leaves, no-op seven-byte absorbers, landing-profile display,
+  C4 entity flag set/clear leaves, registry `8000` mark/clear leaves, and
+  visual/pose mode-slot selectors.
