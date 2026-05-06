@@ -98,7 +98,10 @@ and PSI-name examples are the current high-confidence cases: `EF:7BDF` and
 PSI names, plus shield PSI-name result scripts `EF:70D2` and `EF:70FA`.
 
 `LOAD_POINTER_SUBSTITUTION (19 1E)` consumes `$9D12/$9D14`; EF branches that
-depend on that pointer should keep the `PointerSubstitution` suffix.
+depend on that pointer should keep the `PointerSubstitution` suffix. Current
+high-confidence EF branch consumers are `EF:7B85`, `EF:7BA2`, and `EF:7BC1`;
+the adjacent `EF:7B83`, `EF:7BA0`, and `EF:7BBF` anchors are branch-state
+separators in the same island, not the parsed `19 1E` command sites.
 
 ## Non-EF Row Messages
 

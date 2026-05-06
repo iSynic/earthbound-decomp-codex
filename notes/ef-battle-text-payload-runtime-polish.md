@@ -131,6 +131,9 @@ macros.
 - `EF:7B77`, `EF:7B85`, `EF:7BA2`, `EF:7BC1`, `EF:7BDF`, and `EF:7DD5` now
   mark the byte and pointer substitution examples in `EBATTLE8`: `19 1F` byte
   substitution for PSI/item names and `19 1E` pointer substitution branches.
+  The `EF:7B85/7BA2/7BC1` branch labels now keep the lane noun first
+  (`PointerSubstitutionSweet/Tears/OhBabyBranch`), while `EF:7B83/7BA0/7BBF`
+  remain the small branch-state separators around those consumers.
 - `EF:7C42`, `EF:7C73`, `EF:7C89`, `EF:7CB4`, `EF:7CED`, `EF:7CF8`,
   `EF:7D0F`, `EF:7D83`, and `EF:7DBE` now split the `MSG_BTL_PRESENT`
   result continuation into dead-recipient, full-inventory, abandon, drop, and

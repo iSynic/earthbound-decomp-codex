@@ -258,3 +258,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   PSI-name scripts `EF:70D2/70FA` and shared PSI row text `EF:8543` so their
   `C1:DD7C -> $9D11 -> 19 1F` payload contract is visible at the source
   anchor without changing the row-presentation lane model.
+- 2026-05-06: EF pointer-substitution suffix follow-up normalized the
+  `EF:7B85/7BA2/7BC1` branch anchors so the lane noun leads the label, and
+  documented that the adjacent `EF:7B83/7BA0/7BBF` anchors are branch-state
+  separators rather than parsed `19 1E` consumer sites.

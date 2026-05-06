@@ -353,6 +353,11 @@ These occur in the same decoded script region as the present/UFO byte-substituti
 
 - `EF:7B77` uses `LOAD_BYTE_SUBSTITUTION` (`19 1F`) and prints a PSI name
 - `EF:7B85` / `EF:7BA2` / `EF:7BC1` use `LOAD_POINTER_SUBSTITUTION` (`19 1E`) and branch on active-memory values
+  - source labels keep the lane first:
+    `PointerSubstitutionSweetBranch`, `PointerSubstitutionTearsBranch`, and
+    `PointerSubstitutionOhBabyBranch`
+  - `EF:7B83`, `EF:7BA0`, and `EF:7BBF` are the adjacent two-byte branch-state
+    separators, so they should not be treated as the parsed `19 1E` sites.
 
 **C2 promotion guidance:** a `DC66` caller is not always “display-with-number.” If the displayed script consumes `19 1E` rather than `1C 0F`, name the C2 corridor around “stage pointer-substitution payload, then display battle script.”
 
@@ -556,6 +561,8 @@ EF payload anchor suffixes should mirror those wrapper contracts:
   `EF:70D2/70FA`.
 - `PointerSubstitution`: EF script consumes the staged pointer payload through
   `LOAD_POINTER_SUBSTITUTION (19 1E)`.
+  Current EF branch consumers are `EF:7B85/7BA2/7BC1`; the nearby
+  `EF:7B83/7BA0/7BBF` state anchors only delimit that branch island.
 
 And for the most actionable C2 call-site families:
 

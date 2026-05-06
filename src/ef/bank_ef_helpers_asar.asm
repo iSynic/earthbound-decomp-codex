@@ -5369,10 +5369,10 @@ db $19,$1F,$1B,$04,$50,$50,$1C,$12,$00,$5E,$14,$02
 
 EF7B83_EBattle8PointerSubstitutionIntroState:
 
-; Original data gap before EF7B85_EBattle8SweetPointerSubstitutionBranch:
+; Original data gap before EF7B85_EBattle8PointerSubstitutionSweetBranch:
 db $1B,$00
 
-EF7B85_EBattle8SweetPointerSubstitutionBranch:
+EF7B85_EBattle8PointerSubstitutionSweetBranch:
 
 ; Original data gap before EF7BA0_EBattle8PointerSubstitutionBranch2State:
 db $19,$1E,$18,$07,$14,$00,$00,$00,$00,$1B,$02,$9D,$7B,$EF,$00,$83
@@ -5380,10 +5380,10 @@ db $A7,$95,$95,$A4,$51,$00,$50,$50,$1B,$01,$02
 
 EF7BA0_EBattle8PointerSubstitutionBranch2State:
 
-; Original data gap before EF7BA2_EBattle8TearsPointerSubstitutionBranch:
+; Original data gap before EF7BA2_EBattle8PointerSubstitutionTearsBranch:
 db $1B,$00
 
-EF7BA2_EBattle8TearsPointerSubstitutionBranch:
+EF7BA2_EBattle8PointerSubstitutionTearsBranch:
 
 ; Original data gap before EF7BBF_EBattle8PointerSubstitutionBranch3State:
 db $19,$1E,$18,$07,$08,$00,$00,$00,$00,$1B,$02,$BC,$7B,$EF,$00,$84
@@ -5391,10 +5391,10 @@ db $15,$C6,$A2,$17,$5A,$A3,$51,$00,$50,$50,$1B,$01,$02
 
 EF7BBF_EBattle8PointerSubstitutionBranch3State:
 
-; Original data gap before EF7BC1_EBattle8OhBabyPointerSubstitutionBranch:
+; Original data gap before EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
 db $1B,$00
 
-EF7BC1_EBattle8OhBabyPointerSubstitutionBranch:
+EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
 
 ; Original data gap before EF7BDF_EBattle8MsgBtlPresentItemByteSubstitutionText:
 db $19,$1E,$18,$07,$03,$00,$00,$00,$00,$1B,$02,$DC,$7B,$EF,$00,$7F

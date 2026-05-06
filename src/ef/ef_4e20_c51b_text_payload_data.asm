@@ -1754,38 +1754,38 @@ EF7B77_EBattle8PsiNameByteSubstitutionText:
 ; ---------------------------------------------------------------------------
 ; EF:7B83
 
-; EBATTLE8: pointer-substitution branch state.
+; EBATTLE8: pointer-substitution intro state before the Sweet branch.
 EF7B83_EBattle8PointerSubstitutionIntroState:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B85
 
 ; EBATTLE8: "Sweet!" branch; consumes staged pointer payload through 19 1E.
-EF7B85_EBattle8SweetPointerSubstitutionBranch:
+EF7B85_EBattle8PointerSubstitutionSweetBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7BA0
 
-; EBATTLE8: pointer-substitution branch state.
+; EBATTLE8: pointer-substitution state before the tears branch.
 EF7BA0_EBattle8PointerSubstitutionBranch2State:
 
 ; ---------------------------------------------------------------------------
 ; EF:7BA2
 
 ; EBATTLE8: tears branch; consumes staged pointer payload through 19 1E.
-EF7BA2_EBattle8TearsPointerSubstitutionBranch:
+EF7BA2_EBattle8PointerSubstitutionTearsBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7BBF
 
-; EBATTLE8: pointer-substitution branch state.
+; EBATTLE8: pointer-substitution state before the Oh Baby branch.
 EF7BBF_EBattle8PointerSubstitutionBranch3State:
 
 ; ---------------------------------------------------------------------------
 ; EF:7BC1
 
 ; EBATTLE8: "Oh, baby!" branch; consumes staged pointer payload through 19 1E.
-EF7BC1_EBattle8OhBabyPointerSubstitutionBranch:
+EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7BDF
