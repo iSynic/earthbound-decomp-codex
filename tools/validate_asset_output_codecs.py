@@ -323,6 +323,22 @@ def output_cases() -> list[dict[str, Any]]:
             },
         },
         {
+            "id": "battle-bg-layer-table",
+            "data": bytes([0x06, 0x01, 0x00, 0x00, 0xCB, 0x00, 0xCA, 0x00, 0x00, 0x00, 0x00, 0x00]),
+            "spec": {
+                "kind": "battle_bg_layer_table_json",
+                "path": "battle_bg_layers.json",
+                "row_count": 3,
+                "config_row_count": 327,
+            },
+            "expected_metadata": {
+                "row_count": 3,
+                "max_layer_config_index": 262,
+                "distinct_layer_refs": 3,
+                "two_layer_entry_count": 1,
+            },
+        },
+        {
             "id": "battle-sprite-pointer-table",
             "data": bytes(
                 [

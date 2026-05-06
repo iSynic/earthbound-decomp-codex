@@ -9,7 +9,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 - assets/tables/gaps represented: `689`
 - source bytes represented: `327680`
 - contract families: `17`
-- assets with decoder/preview recipes beyond raw extraction: `677`
+- assets with decoder/preview recipes beyond raw extraction: `678`
 
 ## Reference Counts
 
@@ -21,7 +21,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 | Battle background graphics | 103 | 61657 | `CB` 88, `CA` 15 | `graphics` 103 | `earthbound_lzhal` 103, `raw` 103, `earthbound_lzhal_snes_4bpp_tiles_png` 90, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 68 | Compressed 4bpp graphics payloads selected by battle-background graphics pointers and uploaded by the C2 battle-background loader. |
 | Battle background arrangements | 103 | 46018 | `CB` 98, `CA` 5 | `graphics` 103 | `earthbound_lzhal` 103, `earthbound_lzhal_battle_bg_arrangement_png` 103, `raw` 103 | Compressed arrangement/tilemap payloads selected alongside background graphics to compose battle-background scenes. |
 | Battle background palettes | 114 | 2976 | `CB` 114 | `graphics` 114 | `raw` 114, `snes_palette_json` 114, `snes_palette_swatch_png` 114 | Palette payloads and palette pointers used by C2 palette/effect setup during battle-background loading. |
-| Battle background runtime tables | 7 | 12270 | `CA` 6, `CB` 1 | `raw-table` 7 | `raw` 7, `battle_bg_pointer_table_json` 3, `battle_bg_config_table_json` 1, `battle_bg_distortion_table_json` 1, `battle_bg_scrolling_table_json` 1 | Pointer, config, scrolling, distortion, and battle-entry background tables that bind battle backgrounds to runtime effects. |
+| Battle background runtime tables | 7 | 12270 | `CA` 6, `CB` 1 | `raw-table` 7 | `raw` 7, `battle_bg_pointer_table_json` 3, `battle_bg_config_table_json` 1, `battle_bg_distortion_table_json` 1, `battle_bg_layer_table_json` 1, `battle_bg_scrolling_table_json` 1 | Pointer, config, scrolling, distortion, and battle-entry background tables that bind battle backgrounds to runtime effects. |
 | Scripted animation data | 6 | 11745 | `CC` 6 | `binary-asset` 6 | `earthbound_lzhal` 6, `raw` 6 | Named animation data payloads for Car Painter lightning, Starman Jr teleport, Boom, Zombies, and The End sequences. |
 | PSI animation arrangements | 34 | 46574 | `CC` 34 | `graphics` 34 | `earthbound_lzhal` 34, `raw` 34 | Compressed PSI animation arrangement payloads selected by PSI animation config/pointer tables. |
 | PSI animation graphics sets | 4 | 3808 | `CC` 4 | `graphics` 4 | `earthbound_lzhal` 4, `raw` 4, `earthbound_lzhal_snes_4bpp_tiles_png` 1 | Compressed graphics sets shared by PSI animation arrangements. |
@@ -402,7 +402,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 | `table.ca.023_data_battle_backgrounds_config_table_asm` | `CA:DCA1..CA:F258` | 5559 | `raw`, `battle_bg_config_table_json` |
 | `table.ca.024_data_battle_backgrounds_scrolling_table_asm` | `CA:F258..CA:F708` | 1200 | `raw`, `battle_bg_scrolling_table_json` |
 | `table.ca.025_data_battle_backgrounds_distortion_table_asm` | `CA:F708..CA:FFFF` | 2295 | `raw`, `battle_bg_distortion_table_json` |
-| `table.cb.300_data_battle_background_layer_table_asm` | `CB:D89A..CB:E02A` | 1936 | `raw` |
+| `table.cb.300_data_battle_background_layer_table_asm` | `CB:D89A..CB:E02A` | 1936 | `raw`, `battle_bg_layer_table_json` |
 
 ### Scripted animation data
 

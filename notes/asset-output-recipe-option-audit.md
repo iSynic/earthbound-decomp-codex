@@ -9,19 +9,20 @@ Generated asset-output and source-range reports are freshness-checked together w
 ## Snapshot
 
 - status: `ok`
-- registered optional fields: `7`
-- used optional recipe/field pairs: `5`
-- manifest option usages: `2626`
-- smoke fixture option hits: `22`
-- synthetic codec option hits: `1`
+- registered optional fields: `8`
+- used optional recipe/field pairs: `6`
+- manifest option usages: `2627`
+- smoke fixture option hits: `25`
+- synthetic codec option hits: `2`
 - decode-affecting used pairs: `1`
 - invalid option pairs: `0`
-- field usage mix: `palette_id` 1312, `sprite_id` 1312, `trim_trailing_bytes` 2
+- field usage mix: `palette_id` 1312, `sprite_id` 1312, `trim_trailing_bytes` 2, `config_row_count` 1
 
 ## Option Coverage
 
 | Recipe kind | Field | Decode-affecting | Manifest uses | Smoke hits | Codec hits | Status | Example |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
+| `battle_bg_layer_table_json` | `config_row_count` | no | 1 | 3 | 1 | `ok` | `table.cb.300_data_battle_background_layer_table_asm` -> `cb/tables/300_data_battle_background_layer_table_asm_decoded.json` |
 | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `sprite_id` | no | 166 | 2 | 0 | `ok` | `asset.cd.battle_sprite_107` -> `cd/battle_sprites/107_palette_01_preview.png` |
 | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `palette_id` | no | 166 | 2 | 0 | `ok` | `asset.cd.battle_sprite_107` -> `cd/battle_sprites/107_palette_01_preview.png` |
 | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `graphics_id` | no | 0 | 0 | 0 | `unused` | - |
@@ -34,7 +35,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 
 | Family | Option usages | Fields |
 | --- | ---: | --- |
-| Battle visual assets | 332 | `palette_id` 166, `sprite_id` 166 |
+| Battle visual assets | 333 | `palette_id` 166, `sprite_id` 166, `config_row_count` 1 |
 | Overworld sprites | 2292 | `palette_id` 1146, `sprite_id` 1146 |
 | UI, fonts, and town-map assets | 1 | `trim_trailing_bytes` 1 |
 | EF debug and late-tail data | 1 | `trim_trailing_bytes` 1 |

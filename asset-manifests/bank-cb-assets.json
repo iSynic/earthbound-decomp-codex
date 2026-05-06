@@ -39,12 +39,13 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 304,
-    "output_recipe_count": 960,
-    "typed_output_kind_count": 7,
-    "decoder_output_recipe_count": 656,
+    "output_recipe_count": 961,
+    "typed_output_kind_count": 8,
+    "decoder_output_recipe_count": 657,
     "renderer_output_recipe_count": 356,
     "preview_png_recipe_count": 356,
     "output_kind_counts": {
+      "battle_bg_layer_table_json": 1,
       "earthbound_lzhal": 186,
       "earthbound_lzhal_battle_bg_arrangement_png": 98,
       "earthbound_lzhal_snes_4bpp_tiles_palette_png": 64,
@@ -54,6 +55,7 @@
       "snes_palette_swatch_png": 114
     },
     "decoder_counts": {
+      "battle_background_layer_table": 1,
       "earthbound_lzhal": 186,
       "earthbound_lzhal+snes_4bpp_tiles": 80,
       "earthbound_lzhal+snes_4bpp_tiles+snes_palette": 64,
@@ -66,19 +68,22 @@
       "palette_swatch": 114,
       "palette_tile_sheet": 64
     },
-    "smoke_fixture_count": 6,
+    "smoke_fixture_count": 9,
     "smoke_fixture_asset_ids": [
       "asset.cb.battle_background_arr_0",
-      "asset.cb.battle_background_palette_0"
+      "asset.cb.battle_background_palette_0",
+      "table.cb.300_data_battle_background_layer_table_asm"
     ],
     "smoke_fixture_type_counts": {
       "bank_output": 1,
-      "family_decoder": 1,
+      "family_decoder": 2,
       "family_renderer": 1,
       "family_renderer_geometry": 1,
-      "recipe_kind": 2
+      "recipe_kind": 3,
+      "recipe_option": 1
     },
     "smoke_fixture_target_kind_counts": {
+      "battle_bg_layer_table_json": 3,
       "earthbound_lzhal_battle_bg_arrangement_png": 1,
       "snes_palette_json": 2,
       "snes_palette_swatch_png": 3
@@ -12031,11 +12036,18 @@
         {
           "kind": "raw",
           "path": "cb/tables/300_data_battle_background_layer_table_asm.bin"
+        },
+        {
+          "kind": "battle_bg_layer_table_json",
+          "path": "cb/tables/300_data_battle_background_layer_table_asm_decoded.json",
+          "row_count": 484,
+          "config_row_count": 327
         }
       ],
       "notes": [
         "Source include from ebsrc: data/battle/background_layer_table.asm",
-        "Original file offset: 0x0BD89A"
+        "Original file offset: 0x0BD89A",
+        "Decoded as the battle-entry background layer table; rows preserve two CA layer config references."
       ]
     },
     {

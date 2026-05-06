@@ -8,20 +8,20 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 
 ## Snapshot
 
-- fixture selectors: `103`
-- unique selected assets: `40`
-- recipe kinds covered: `23`
+- fixture selectors: `106`
+- unique selected assets: `41`
+- recipe kinds covered: `24`
 - family/renderer pairs covered: `12`
 - family/renderer/geometry-status pairs covered: `14`
-- family/decoder pairs covered: `27`
+- family/decoder pairs covered: `28`
 - target bank-output policy banks: `22`
 - target banks with bank-output fixtures: `22`
 - target banks without typed non-raw outputs: -
 - fixture target source refs: `27`
 - fixture source-ref status mix: `manifest_asset` 21, `known_external` 6
 - fixture source-ref field mix: `palette_source` 21, `graphics_source` 6
-- fixture type mix: `family_decoder` 27, `recipe_kind` 23, `bank_output` 22, `family_renderer_geometry` 14, `family_renderer` 12, +1 more
-- fixture family mix: `battle_visual_assets` 46, `ui_font_town_map_assets` 20, `map_tilesets_and_runtime_tables` 19, `overworld_sprites` 15, `ef_debug_and_late_tail` 3
+- fixture type mix: `family_decoder` 28, `recipe_kind` 24, `bank_output` 22, `family_renderer_geometry` 14, `family_renderer` 12, +1 more
+- fixture family mix: `battle_visual_assets` 49, `ui_font_town_map_assets` 20, `map_tilesets_and_runtime_tables` 19, `overworld_sprites` 15, `ef_debug_and_late_tail` 3
 
 ## Runner
 
@@ -45,6 +45,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | --- | --- | --- | --- | --- | --- |
 | `battle_bg_config_table_json` | `table.ca.023_data_battle_backgrounds_config_table_asm` | `asset-manifests/bank-ca-assets.json` | `ca/tables/023_data_battle_backgrounds_config_table_asm_decoded.json` | `battle_background_config_table` | - |
 | `battle_bg_distortion_table_json` | `table.ca.025_data_battle_backgrounds_distortion_table_asm` | `asset-manifests/bank-ca-assets.json` | `ca/tables/025_data_battle_backgrounds_distortion_table_asm_decoded.json` | `battle_background_distortion_table` | - |
+| `battle_bg_layer_table_json` | `table.cb.300_data_battle_background_layer_table_asm` | `asset-manifests/bank-cb-assets.json` | `cb/tables/300_data_battle_background_layer_table_asm_decoded.json` | `battle_background_layer_table` | - |
 | `battle_bg_pointer_table_json` | `table.ca.020_data_battle_backgrounds_graphics_pointers_asm` | `asset-manifests/bank-ca-assets.json` | `ca/tables/020_data_battle_backgrounds_graphics_pointers_asm_decoded.json` | `battle_background_pointer_table` | - |
 | `battle_bg_scrolling_table_json` | `table.ca.024_data_battle_backgrounds_scrolling_table_asm` | `asset-manifests/bank-ca-assets.json` | `ca/tables/024_data_battle_backgrounds_scrolling_table_asm_decoded.json` | `battle_background_scrolling_table` | - |
 | `battle_sprite_pointer_table_json` | `table.ce.055_data_battle_battle_sprites_pointers_asm` | `asset-manifests/bank-ce-assets.json` | `ce/tables/055_data_battle_battle_sprites_pointers_asm_decoded.json` | `battle_sprite_pointer_table` | - |
@@ -88,6 +89,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 
 | Recipe option | Asset | Manifest | Target recipe | Target output |
 | --- | --- | --- | --- | --- |
+| `battle_bg_layer_table_json.config_row_count` | `table.cb.300_data_battle_background_layer_table_asm` | `asset-manifests/bank-cb-assets.json` | `battle_bg_layer_table_json` | `cb/tables/300_data_battle_background_layer_table_asm_decoded.json` |
 | `earthbound_lzhal_snes_4bpp_tiles_palette_png.palette_id` | `asset.cd.battle_sprite_10` | `asset-manifests/bank-cd-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `cd/battle_sprites/10_palette_09_preview.png` |
 | `earthbound_lzhal_snes_4bpp_tiles_palette_png.sprite_id` | `asset.cd.battle_sprite_10` | `asset-manifests/bank-cd-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `cd/battle_sprites/10_palette_09_preview.png` |
 | `snes_2bpp_tiles_png.trim_trailing_bytes` | `asset.e0.mother2_romaji_font` | `asset-manifests/bank-e0-assets.json` | `snes_2bpp_tiles_png` | `e0/fonts/romaji_2bpp_preview.png` |
@@ -146,6 +148,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | --- | --- | --- | --- | --- |
 | `battle_visual_assets.battle_background_config_table` | `table.ca.023_data_battle_backgrounds_config_table_asm` | `asset-manifests/bank-ca-assets.json` | `battle_bg_config_table_json` | `ca/tables/023_data_battle_backgrounds_config_table_asm_decoded.json` |
 | `battle_visual_assets.battle_background_distortion_table` | `table.ca.025_data_battle_backgrounds_distortion_table_asm` | `asset-manifests/bank-ca-assets.json` | `battle_bg_distortion_table_json` | `ca/tables/025_data_battle_backgrounds_distortion_table_asm_decoded.json` |
+| `battle_visual_assets.battle_background_layer_table` | `table.cb.300_data_battle_background_layer_table_asm` | `asset-manifests/bank-cb-assets.json` | `battle_bg_layer_table_json` | `cb/tables/300_data_battle_background_layer_table_asm_decoded.json` |
 | `battle_visual_assets.battle_background_pointer_table` | `table.ca.020_data_battle_backgrounds_graphics_pointers_asm` | `asset-manifests/bank-ca-assets.json` | `battle_bg_pointer_table_json` | `ca/tables/020_data_battle_backgrounds_graphics_pointers_asm_decoded.json` |
 | `battle_visual_assets.battle_background_scrolling_table` | `table.ca.024_data_battle_backgrounds_scrolling_table_asm` | `asset-manifests/bank-ca-assets.json` | `battle_bg_scrolling_table_json` | `ca/tables/024_data_battle_backgrounds_scrolling_table_asm_decoded.json` |
 | `battle_visual_assets.battle_sprite_pointer_table` | `table.ce.055_data_battle_battle_sprites_pointers_asm` | `asset-manifests/bank-ce-assets.json` | `battle_sprite_pointer_table_json` | `ce/tables/055_data_battle_battle_sprites_pointers_asm_decoded.json` |
@@ -177,7 +180,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | Manifest | Selected assets | Command |
 | --- | ---: | --- |
 | `asset-manifests/bank-ca-assets.json` | 6 | `python tools/extract_assets.py --manifest asset-manifests/bank-ca-assets.json --asset-id asset.ca.battle_background_arr_100 --asset-id asset.ca.battle_background_gfx_38 --asset-id table.ca.020_data_battle_backgrounds_graphics_pointers_asm --asset-id table.ca.023_data_battle_backgrounds_config_table_asm --asset-id table.ca.024_data_battle_backgrounds_scrolling_table_asm --asset-id table.ca.025_data_battle_backgrounds_distortion_table_asm --out build/asset-output-smoke-fixtures` |
-| `asset-manifests/bank-cb-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/bank-cb-assets.json --asset-id asset.cb.battle_background_arr_0 --asset-id asset.cb.battle_background_palette_0 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-cb-assets.json` | 3 | `python tools/extract_assets.py --manifest asset-manifests/bank-cb-assets.json --asset-id asset.cb.battle_background_arr_0 --asset-id asset.cb.battle_background_palette_0 --asset-id table.cb.300_data_battle_background_layer_table_asm --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-cc-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-cc-assets.json --asset-id asset.cc.psi_anim_gfx_set_3 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-cd-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-cd-assets.json --asset-id asset.cd.battle_sprite_10 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-ce-assets.json` | 5 | `python tools/extract_assets.py --manifest asset-manifests/bank-ce-assets.json --asset-id asset.ce.battle_sprite_0 --asset-id asset.ce.swirl_data_0 --asset-id table.ce.055_data_battle_battle_sprites_pointers_asm --asset-id table.ce.214_data_battle_swirl_pointers_asm --asset-id table.ce.215_inline_swirl_primary_table --out build/asset-output-smoke-fixtures` |

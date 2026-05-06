@@ -20,22 +20,22 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 
 - status: `ok`
 - assets with typed outputs: `2219`
-- typed output records: `6327`
-- output recipe kinds: `23`
-- decoder-backed outputs: `4108`
+- typed output records: `6328`
+- output recipe kinds: `24`
+- decoder-backed outputs: `4109`
 - renderer-backed outputs: `3266`
 - PNG preview/render outputs: `3266`
-- smoke fixture selectors: `103`
-- distinct smoke target outputs: `50`
-- smoke fixture assets: `40`
-- raw-only assets: `233`
+- smoke fixture selectors: `106`
+- distinct smoke target outputs: `51`
+- smoke fixture assets: `41`
+- raw-only assets: `232`
 - preview geometry status mix: `known` 2785, `requires_decode` 481
 
 ## Family Output Coverage
 
 | Family | Assets | Outputs | Decoder | Renderer | PNG | Smoke outputs | Smoke assets | Raw-only assets | Output mix | Renderer mix |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- |
-| Battle visual assets | 689 | 2252 | 1563 | 886 | 886 | 21 | 15 | 12 | `raw` 689, `earthbound_lzhal` 361, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 234, `earthbound_lzhal_snes_4bpp_tiles_png` 202, `snes_palette_json` 181, +11 more | `palette_tile_sheet` 234, `grayscale_tile_sheet` 202, `palette_swatch` 181, `battle_sprite` 166, `battle_background_arrangement` 103 |
+| Battle visual assets | 689 | 2253 | 1564 | 886 | 886 | 22 | 16 | 11 | `raw` 689, `earthbound_lzhal` 361, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 234, `earthbound_lzhal_snes_4bpp_tiles_png` 202, `snes_palette_json` 181, +12 more | `palette_tile_sheet` 234, `grayscale_tile_sheet` 202, `palette_swatch` 181, `battle_sprite` 166, `battle_background_arrangement` 103 |
 | Mixed asset/table banks | 7 | 7 | 0 | 0 | 0 | 0 | 0 | 7 | `raw` 7 | - |
 | Overworld sprites | 1148 | 3440 | 2292 | 2292 | 2292 | 6 | 5 | 2 | `raw` 1148, `snes_4bpp_tiles_palette_png` 1146, `snes_4bpp_tiles_png` 1146 | `grayscale_tile_sheet` 1146, `palette_tile_sheet` 1146 |
 | Map tilesets and runtime tables | 130 | 292 | 162 | 55 | 55 | 12 | 11 | 23 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22, +1 more | `palette_swatch` 33, `grayscale_tile_sheet` 22 |
@@ -49,6 +49,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | --- | ---: | ---: | --- | --- | ---: | --- |
 | `battle_bg_config_table_json` | 1 | 1 | `battle_background_config_table` | - | 1 | - |
 | `battle_bg_distortion_table_json` | 1 | 1 | `battle_background_distortion_table` | - | 1 | - |
+| `battle_bg_layer_table_json` | 1 | 1 | `battle_background_layer_table` | - | 1 | - |
 | `battle_bg_pointer_table_json` | 3 | 3 | `battle_background_pointer_table` | - | 1 | - |
 | `battle_bg_scrolling_table_json` | 1 | 1 | `battle_background_scrolling_table` | - | 1 | - |
 | `battle_sprite_pointer_table_json` | 1 | 1 | `battle_sprite_pointer_table` | - | 1 | - |

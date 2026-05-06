@@ -600,6 +600,81 @@ def write_battle_bg_distortion_table_json(data: bytes, path: Path, spec: dict[st
     }
 
 
+def write_battle_bg_layer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    config_row_count = spec.get("config_row_count")
+    config_row_count = int(config_row_count) if config_row_count is not None else None
+    row_size = 4
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"Battle background layer table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle background layer table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    layer_refs = set()
+    invalid_refs = []
+    two_layer_entry_count = 0
+    for offset in range(0, len(data), row_size):
+        entry_index = offset // row_size
+        layer_1 = read_u16_le(data, offset)
+        layer_2 = read_u16_le(data, offset + 2)
+        enabled_layers = []
+        for slot, value in [(1, layer_1), (2, layer_2)]:
+            enabled = value != 0
+            if enabled:
+                layer_refs.add(value)
+                enabled_layers.append(
+                    {
+                        "slot": slot,
+                        "layer_config_index": value,
+                    }
+                )
+                if config_row_count is not None and value >= config_row_count:
+                    invalid_refs.append({"battle_entry_index": entry_index, "slot": slot, "layer_config_index": value})
+        if len(enabled_layers) == 2:
+            two_layer_entry_count += 1
+        rows.append(
+            {
+                "battle_entry_index": entry_index,
+                "layer_1_config_index": layer_1,
+                "layer_2_config_index": layer_2,
+                "layer_1_enabled": layer_1 != 0,
+                "layer_2_enabled": layer_2 != 0,
+                "enabled_layers": enabled_layers,
+                "raw_words": [layer_1, layer_2],
+            }
+        )
+
+    max_layer_config_index = max(layer_refs) if layer_refs else 0
+    payload = {
+        "schema": "earthbound-decomp.battle-bg-layer-table.v1",
+        "decoder": "battle_background_layer_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "config_row_count": config_row_count,
+        "all_layer_refs_within_config_rows": not invalid_refs if config_row_count is not None else None,
+        "invalid_layer_refs": invalid_refs,
+        "max_layer_config_index": max_layer_config_index,
+        "distinct_layer_refs": len(layer_refs),
+        "empty_entry_count": sum(1 for row in rows if not row["enabled_layers"]),
+        "one_layer_entry_count": sum(1 for row in rows if len(row["enabled_layers"]) == 1),
+        "two_layer_entry_count": two_layer_entry_count,
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "max_layer_config_index": max_layer_config_index,
+        "distinct_layer_refs": len(layer_refs),
+        "two_layer_entry_count": two_layer_entry_count,
+    }
+
+
 BATTLE_SPRITE_SIZE_CODES = {
     1: ("_32X32", 32, 32),
     2: ("_64X32", 64, 32),
@@ -1101,6 +1176,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_battle_bg_scrolling_table_json(data, path, spec))
     elif kind == "battle_bg_distortion_table_json":
         metadata.update(write_battle_bg_distortion_table_json(data, path, spec))
+    elif kind == "battle_bg_layer_table_json":
+        metadata.update(write_battle_bg_layer_table_json(data, path, spec))
     elif kind == "battle_sprite_pointer_table_json":
         metadata.update(write_battle_sprite_pointer_table_json(data, path, spec))
     elif kind == "font_metric_widths_json":

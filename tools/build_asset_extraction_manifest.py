@@ -919,6 +919,18 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
         notes.append(
             "Decoded as the battle sprite pointer/size table; rows preserve long pointer target and sprite dimensions."
         )
+    if bank.upper() == "CB" and include == "data/battle/background_layer_table.asm" and size % 4 == 0:
+        outputs.append(
+            {
+                "kind": "battle_bg_layer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "row_count": size // 4,
+                "config_row_count": 327,
+            }
+        )
+        notes.append(
+            "Decoded as the battle-entry background layer table; rows preserve two CA layer config references."
+        )
     if bank.upper() == "CA":
         battle_bg_pointer_output = battle_bg_pointer_table_output(raw_path, include, size)
         if battle_bg_pointer_output is not None:
