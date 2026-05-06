@@ -120,6 +120,12 @@ callback bodies name their queued-byte slots, queue count, callback self-return
 low words, 24-bit assembly scratch, event-flag staging, and call-text or
 forced-alignment output slots.
 
+Source polish follow-up (2026-05-06): the lower `0x1F` consumer corridor now
+also names packed-payload assembly for `1F 63` and `1F 66`, plus the paired
+selector assembly for `1F F1/F2`. The callback low words are unchanged, but
+the movement-record, hotspot-activation, visual-script, and pose-script
+handoffs are now readable at the source boundary.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

@@ -631,3 +631,8 @@ This planning pass is documentation-only.
   `$97BA/$97CA`, the one-byte argument limit, and self-return callback low
   words for `0x1D 04`, `0x1D 05`, and adjacent `0x1F 20`, matching the
   already-polished lower queued callback ABI.
+- 2026-05-06 follow-up: the lower `0x1F` callback corridor in
+  `C1:6DE8..7231` now names its packed-payload staging. `1F 63` exposes the
+  movement-record dword before `C0:64E3`, `1F 66` exposes the hotspot selector,
+  target selector, and five-byte payload before `C0:72CF`, and `1F F1/F2`
+  expose their visual-type or pose-descriptor script selector pairs.

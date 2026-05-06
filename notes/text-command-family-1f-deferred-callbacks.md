@@ -123,6 +123,13 @@ leaf returns a named callback low word while it waits for more bytes. The
 `1F C0`, `1F 13..23`, `1F 62/63/66/67`, `1F D0`, `1F E1/E4..EC/EE/EF`, and
 `1F F1..F4` source bodies are therefore aligned with the dispatcher table.
 
+Source polish follow-up (2026-05-06): the lower callback corridor now names
+the C1-side payload assembly behind `1F 63`, `1F 66`, `1F F1`, and `1F F2`.
+`1F 63` exposes its four-byte packed movement-record payload before
+`C0:64E3`; `1F 66` exposes the hotspot selector, target selector, and
+five-byte packed payload before `C0:72CF`; and `1F F1/F2` expose the paired
+visual-type or pose-descriptor script selectors before their C4 script runners.
+
 Source polish follow-up (2026-05-06): the lower deferred-callback siblings in
 `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` now match
 that naming too. `1F 83` uses the one-byte item-use compatibility selector
