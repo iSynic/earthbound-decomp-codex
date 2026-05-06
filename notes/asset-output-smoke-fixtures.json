@@ -25,6 +25,15 @@
     "target_banks_without_typed_non_raw_outputs": [
       "D6"
     ],
+    "fixture_target_source_refs": 27,
+    "fixture_target_source_ref_status_counts": {
+      "known_external": 6,
+      "manifest_asset": 21
+    },
+    "fixture_target_source_ref_field_counts": {
+      "graphics_source": 6,
+      "palette_source": 21
+    },
     "fixture_type_counts": {
       "bank_output": 21,
       "family_decoder": 16,
@@ -40,6 +49,42 @@
       "overworld_sprites": 15,
       "ui_font_town_map_assets": 15
     }
+  },
+  "source_ref_coverage": {
+    "source_ref_count": 27,
+    "field_counts": {
+      "graphics_source": 6,
+      "palette_source": 21
+    },
+    "match_status_counts": {
+      "known_external": 6,
+      "manifest_asset": 21
+    },
+    "families": [
+      {
+        "id": "battle_visual_assets",
+        "label": "Battle visual assets",
+        "source_ref_count": 21,
+        "match_status_counts": {
+          "manifest_asset": 21
+        },
+        "field_counts": {
+          "graphics_source": 6,
+          "palette_source": 15
+        }
+      },
+      {
+        "id": "overworld_sprites",
+        "label": "Overworld sprites",
+        "source_ref_count": 6,
+        "match_status_counts": {
+          "known_external": 6
+        },
+        "field_counts": {
+          "palette_source": 6
+        }
+      }
+    ]
   },
   "family_output_kind_counts": {
     "battle_visual_assets": {

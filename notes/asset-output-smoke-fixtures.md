@@ -17,6 +17,9 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 - target bank-output policy banks: `22`
 - target banks with bank-output fixtures: `21`
 - target banks without typed non-raw outputs: `D6` 1
+- fixture target source refs: `27`
+- fixture source-ref status mix: `manifest_asset` 21, `known_external` 6
+- fixture source-ref field mix: `palette_source` 21, `graphics_source` 6
 - fixture type mix: `bank_output` 21, `family_decoder` 16, `family_renderer_geometry` 14, `recipe_kind` 13, `family_renderer` 12, +1 more
 - fixture family mix: `battle_visual_assets` 30, `map_tilesets_and_runtime_tables` 16, `overworld_sprites` 15, `ui_font_town_map_assets` 15, `ef_debug_and_late_tail` 5
 
@@ -28,6 +31,13 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 - dry-run validation checks fixture ids, command groups, selected asset ids, target output kind/path presence, typed output specs, target decoder/renderer labels, target palette/graphics source refs, and static target preview geometry
 - post-extraction validation checks that every manifest-qualified fixture target output exists, is non-empty, matches reported SHA-1/size, carries required typed report metadata, and matches statically known fixture preview geometry
 - check generated asset-output report freshness: `python tools/validate_asset_output_reports.py`
+
+## Fixture Source-Ref Coverage
+
+| Family | Source refs | Match status | Source fields |
+| --- | ---: | --- | --- |
+| Battle visual assets | 21 | `manifest_asset` 21 | `palette_source` 15, `graphics_source` 6 |
+| Overworld sprites | 6 | `known_external` 6 | `palette_source` 6 |
 
 ## Recipe-Kind Fixtures
 

@@ -11,9 +11,10 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from asset_output_recipe_contracts import OUTPUT_RECIPE_CONTRACTS
+from asset_output_recipe_contracts import OUTPUT_RECIPE_CONTRACTS, SOURCE_FIELDS
 from build_asset_output_preview_geometry import preview_geometry
 from build_asset_output_recipe_contracts import FAMILIES, compact_counts, load_manifest_assets, rel
+from build_asset_output_source_refs import KNOWN_EXTERNAL_SOURCE_REFS, build_asset_source_index, source_ref_key
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -150,6 +151,102 @@ def command_groups(fixtures: list[dict[str, Any]]) -> list[dict[str, Any]]:
             }
         )
     return groups
+
+
+def fixture_output_key(fixture: dict[str, Any]) -> tuple[str, str, str, str]:
+    output = fixture["target_output"]
+    return (
+        str(fixture["manifest_path"]),
+        str(fixture["asset_id"]),
+        str(output["kind"]),
+        str(output["path"]),
+    )
+
+
+def source_ref_match_status(
+    source: dict[str, Any],
+    asset_sources: dict[tuple[str, int, str], list[dict[str, Any]]],
+) -> str:
+    key = source_ref_key(source)
+    if key is None:
+        return "invalid"
+    if asset_sources.get(key):
+        return "manifest_asset"
+    if KNOWN_EXTERNAL_SOURCE_REFS.get(key) is not None:
+        return "known_external"
+    return "unmatched"
+
+
+def build_fixture_source_ref_coverage(
+    fixtures: list[dict[str, Any]],
+    candidates: list[tuple[dict[str, Any], dict[str, Any]]],
+    manifest_dir: Path,
+) -> dict[str, Any]:
+    candidate_outputs = {
+        (str(asset["manifest_path"]), str(asset["id"]), str(output["kind"]), str(output["path"])): output
+        for asset, output in candidates
+    }
+    asset_sources = build_asset_source_index(manifest_dir)
+    field_counts: Counter[str] = Counter()
+    status_counts: Counter[str] = Counter()
+    family_status_counts: dict[str, Counter[str]] = defaultdict(Counter)
+    family_field_counts: dict[str, Counter[str]] = defaultdict(Counter)
+    records: list[dict[str, Any]] = []
+
+    for fixture in fixtures:
+        output = candidate_outputs[fixture_output_key(fixture)]
+        kind = str(output["kind"])
+        contract = OUTPUT_RECIPE_CONTRACTS[kind]
+        for field in sorted((set(contract.required_fields) | set(contract.optional_fields)) & SOURCE_FIELDS):
+            source = output.get(field)
+            if not isinstance(source, dict):
+                continue
+            status = source_ref_match_status(source, asset_sources)
+            field_counts[field] += 1
+            status_counts[status] += 1
+            family = str(fixture["family"])
+            family_status_counts[family][status] += 1
+            family_field_counts[family][field] += 1
+            records.append(
+                {
+                    "fixture_id": fixture["id"],
+                    "family": family,
+                    "bank": fixture["bank"],
+                    "asset_id": fixture["asset_id"],
+                    "manifest_path": fixture["manifest_path"],
+                    "output_kind": kind,
+                    "output_path": output["path"],
+                    "field": field,
+                    "range": source.get("range"),
+                    "bytes": source.get("bytes"),
+                    "match_status": status,
+                }
+            )
+
+    invalid = [record for record in records if record["match_status"] in {"invalid", "unmatched"}]
+    if invalid:
+        raise ValueError(f"Smoke fixture target source refs did not resolve: {invalid[:5]}")
+
+    family_summaries = []
+    for family in FAMILIES:
+        family_id = family["id"]
+        if family_status_counts[family_id] or family_field_counts[family_id]:
+            family_summaries.append(
+                {
+                    "id": family_id,
+                    "label": family["label"],
+                    "source_ref_count": sum(family_status_counts[family_id].values()),
+                    "match_status_counts": dict(sorted(family_status_counts[family_id].items())),
+                    "field_counts": dict(sorted(family_field_counts[family_id].items())),
+                }
+            )
+
+    return {
+        "source_ref_count": len(records),
+        "field_counts": dict(sorted(field_counts.items())),
+        "match_status_counts": dict(sorted(status_counts.items())),
+        "families": family_summaries,
+    }
 
 
 def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
@@ -332,6 +429,7 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
     target_banks_without_typed_output = sorted(
         TARGET_BANK_OUTPUT_FIXTURE_BANKS - set(bank_output_fixture_candidates)
     )
+    source_ref_coverage = build_fixture_source_ref_coverage(fixtures, candidates, manifest_dir)
 
     return {
         "schema": "earthbound-decomp.asset-output-smoke-fixtures.v1",
@@ -358,9 +456,13 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
             "target_bank_output_fixture_policy_banks": len(TARGET_BANK_OUTPUT_FIXTURE_BANKS),
             "bank_output_fixture_banks_covered": len(bank_output_fixture_banks),
             "target_banks_without_typed_non_raw_outputs": target_banks_without_typed_output,
+            "fixture_target_source_refs": source_ref_coverage["source_ref_count"],
+            "fixture_target_source_ref_status_counts": source_ref_coverage["match_status_counts"],
+            "fixture_target_source_ref_field_counts": source_ref_coverage["field_counts"],
             "fixture_type_counts": dict(sorted(type_counts.items())),
             "fixture_family_counts": dict(sorted(family_counts.items())),
         },
+        "source_ref_coverage": source_ref_coverage,
         "family_output_kind_counts": {
             family["id"]: dict(sorted(family_output_counts[family["id"]].items())) for family in FAMILIES
         },
@@ -415,6 +517,9 @@ def render_markdown(plan: dict[str, Any]) -> str:
         f"- target banks with bank-output fixtures: `{coverage['bank_output_fixture_banks_covered']}`",
         "- target banks without typed non-raw outputs: "
         f"{compact_counts({bank: 1 for bank in coverage['target_banks_without_typed_non_raw_outputs']})}",
+        f"- fixture target source refs: `{coverage['fixture_target_source_refs']}`",
+        f"- fixture source-ref status mix: {compact_counts(coverage['fixture_target_source_ref_status_counts'])}",
+        f"- fixture source-ref field mix: {compact_counts(coverage['fixture_target_source_ref_field_counts'])}",
         f"- fixture type mix: {compact_counts(coverage['fixture_type_counts'])}",
         f"- fixture family mix: {compact_counts(coverage['fixture_family_counts'])}",
         "",
@@ -427,11 +532,30 @@ def render_markdown(plan: dict[str, Any]) -> str:
         "- post-extraction validation checks that every manifest-qualified fixture target output exists, is non-empty, matches reported SHA-1/size, carries required typed report metadata, and matches statically known fixture preview geometry",
         "- check generated asset-output report freshness: `python tools/validate_asset_output_reports.py`",
         "",
+        "## Fixture Source-Ref Coverage",
+        "",
+        "| Family | Source refs | Match status | Source fields |",
+        "| --- | ---: | --- | --- |",
+    ]
+    for family in plan["source_ref_coverage"]["families"]:
+        lines.append(
+            "| {label} | {count} | {status} | {fields} |".format(
+                label=family["label"],
+                count=family["source_ref_count"],
+                status=compact_counts(family["match_status_counts"]),
+                fields=compact_counts(family["field_counts"]),
+            )
+        )
+
+    lines.extend(
+        [
+            "",
         "## Recipe-Kind Fixtures",
         "",
         "| Recipe kind | Asset | Manifest | Target output | Decoder | Renderer |",
         "| --- | --- | --- | --- | --- | --- |",
-    ]
+        ]
+    )
     for fixture in plan["fixtures"]:
         if fixture["type"] != "recipe_kind":
             continue
