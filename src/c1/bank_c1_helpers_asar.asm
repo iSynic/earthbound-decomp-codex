@@ -26121,6 +26121,7 @@ org $C1D109
 !C21D7D_RecalculateCharacterDerivedIq = $C21D7D
 !C45F7B_GetRandomLessThanA = $C45F7B
 !C4FBBD_ChangeMusic = $C4FBBD
+!C1D8C7_ClearBattleTextDisplayModeAndReturn = $D8C7
 LEVEL_UP_CHAR:
 !C1D109_LevelUpCharacterAndRefreshDerivedStats = LEVEL_UP_CHAR
     rep #$31
@@ -26873,7 +26874,7 @@ C1D6A6_LevelUpCharacterAndRefreshDerivedStats_LD6A6:
     ldy $1B
     cpy.w #$0002
     bne C1D6B0_LevelUpCharacterAndRefreshDerivedStats_LD6B0
-    jmp $D8C7
+    jmp !C1D8C7_ClearBattleTextDisplayModeAndReturn
 C1D6B0_LevelUpCharacterAndRefreshDerivedStats_LD6B0:
     cpy.w #$0000
     bne C1D6D5_LevelUpCharacterAndRefreshDerivedStats_LD6D5
@@ -26981,7 +26982,7 @@ C1D76D_PrintMaximumPpGainMessage:
 C1D77E_LevelUpCharacterAndRefreshDerivedStats_LD77E:
     lda $1D
     bne C1D785_LevelUpCharacterAndRefreshDerivedStats_LD785
-    jmp $D8C7
+    jmp !C1D8C7_ClearBattleTextDisplayModeAndReturn
 C1D785_LevelUpCharacterAndRefreshDerivedStats_LD785:
     lda $16
     sta $04
@@ -26996,7 +26997,7 @@ C1D785_LevelUpCharacterAndRefreshDerivedStats_LD785:
     bne C1D79F_LevelUpCharacterAndRefreshDerivedStats_LD79F
     jmp.w C1D867_LevelUpCharacterAndRefreshDerivedStats_LD867
 C1D79F_LevelUpCharacterAndRefreshDerivedStats_LD79F:
-    jmp $D8C7
+    jmp !C1D8C7_ClearBattleTextDisplayModeAndReturn
 C1D7A2_LevelUpCharacterAndRefreshDerivedStats_LD7A2:
     ldx.w #$0001
     stx $1B
@@ -34680,7 +34681,7 @@ C1EB29_RunNamingBufferCommitFlow_LEB29:
     ldy.w #!TemporaryNameInputBuffer
     ldx.w #!TemporaryNameInputLength
     lda.w #!TextInputDialogWindowId
-    jsr TEXT_INPUT_DIALOG
+    jsr !C1E57F_RunTextInputDialog
     tay
     sty $12
     jmp.w C1EBE4_RunNamingBufferCommitFlow_LEBE4
@@ -34721,7 +34722,7 @@ C1EB96_RunNamingBufferCommitFlow_LEB96:
     ldy $02
     ldx.w #!PlayerNameInputLength
     lda.w #!TextInputDialogWindowId
-    jsr TEXT_INPUT_DIALOG
+    jsr !C1E57F_RunTextInputDialog
     tay
     sty $12
     ldx $02
@@ -34812,7 +34813,7 @@ C1EC48_RunNamingBufferCommitFlow_LEC48:
     ldy $12
     ldx $02
     lda.w #!NamePreviewWindowId
-    jsr TEXT_INPUT_DIALOG
+    jsr !C1E57F_RunTextInputDialog
     tax
     stx $14
     lda.w #!TextInputOptionWindowId
@@ -35993,7 +35994,7 @@ C1C01C_DispatchTextCommand1F41SpecialEvent_LC01C:
     jsl !C4ACCE_RunSoundStoneScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C025_DispatchTextCommand1F41SpecialEvent_LC025:
-    jsr ATTEMPT_HOMESICKNESS
+    jsr !C1BE4D_AttemptHomesicknessResult
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C02A_DispatchTextCommand1F41SpecialEvent_LC02A:
     lda !BicycleMovementState

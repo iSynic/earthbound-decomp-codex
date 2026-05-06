@@ -478,7 +478,7 @@ This planning pass is documentation-only.
   contracts: `C1:DDDA` calls `C1:153B` as `AddSelectionMenuItem`,
   `C1:ECD1` calls `C1:EC8F` as `PreviewWindowFlavourAndRedraw`, and the
   new-file party setup branch calls `C1:D9E9` as `AwardExperienceToCharacter`.
-  The remaining C1 numeric calls are the four deferred local structural edges
+  The remaining raw local numeric edges are fenced to the mixed-decode island
   in `src/c1/c1_242e_dispatch_character_selection_prompt_mode.asm`.
 - 2026-05-06 follow-up: the display-text dynamic source selector now names
   its callback-return low words for the stable `1A`, `1C`, `1D`, `1E`, and
@@ -527,3 +527,12 @@ This planning pass is documentation-only.
   text-input window ids, and commit-flow cleanup flags. The scaffold was
   regenerated from source; exact byte-equivalence remains pending on the same
   missing-ROM gate.
+- 2026-05-06 follow-up: the final non-fenced raw local C1 branch/caller aliases
+  now use stable contract names. `C1:D109..DC1C` names the shared `D8C7`
+  battle-text-mode cleanup tail, `[1F 41]` case `11` calls
+  `C1BE4D_AttemptHomesicknessResult` by name, and the naming-buffer commit flow
+  calls `C1E57F_RunTextInputDialog` directly. The only remaining raw numeric
+  local jumps/calls in checked-in C1 source are the intentionally deferred
+  mixed-decode edges in `src/c1/c1_242e_dispatch_character_selection_prompt_mode.asm`.
+  The scaffold was regenerated from source; exact byte-equivalence remains
+  pending on the same missing-ROM gate.

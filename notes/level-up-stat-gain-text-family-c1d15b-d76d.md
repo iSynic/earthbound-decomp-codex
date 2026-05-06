@@ -17,6 +17,11 @@ remaining IQ/Luck recalculators, max HP/PP random bump helper, battle-text mode
 clear, focus/window close, attacker-name buffer, and text tick calls. The fixed
 message leaves remain byte-equivalent source labels.
 
+Source polish follow-up (2026-05-06): the three local exits that skip or finish
+late PP/Sound Stone narration now jump through the named
+`C1D8C7_ClearBattleTextDisplayModeAndReturn` contract instead of the raw
+`$D8C7` target.
+
 The strongest current local read is:
 
 - `C1:ACA1` builds the live target-name buffer for the affected character

@@ -180,7 +180,7 @@ C1C01C_DispatchTextCommand1F41SpecialEvent_LC01C:
     jsl C4ACCE_RunSoundStoneScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C025_DispatchTextCommand1F41SpecialEvent_LC025:
-    jsr ATTEMPT_HOMESICKNESS
+    jsr C1BE4D_AttemptHomesicknessResult
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C02A_DispatchTextCommand1F41SpecialEvent_LC02A:
     lda BicycleMovementState

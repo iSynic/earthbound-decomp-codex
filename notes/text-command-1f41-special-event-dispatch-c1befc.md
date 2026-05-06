@@ -59,6 +59,9 @@ zero/one scene arguments, the event-flag clear span at `$9C08..$9C87`, the
 homesickness restriction flag `0x0049`, and the bicycle-state predicate used by
 case `12`. The adjacent name-entry sources now name the `$9801/$97F5/$9C9F`
 buffers, text-input window ids, and the `EAA6 -> EB4C` preview-entry handoff.
+Case `11` now calls the existing `C1BE4D_AttemptHomesicknessResult` contract by
+name, and the neighboring naming commit flow calls `C1E57F_RunTextInputDialog`
+directly instead of the legacy local entry alias.
 
 ## Reference Corroboration
 

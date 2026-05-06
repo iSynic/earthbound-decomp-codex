@@ -118,6 +118,7 @@ name-entry path now share source-facing names. Cases `03/04` call
 name-entry state flags and tail-call into the `EB4C` preview-entry path; and
 the neighboring naming-buffer commit source names the `$9801`, `$97F5`, and
 `$9C9F` buffers plus the text-input window ids used by the dialog.
+Case `11` now calls `C1BE4D_AttemptHomesicknessResult` by name as well.
 
 The immediate `0x1F D1` branch's target is now semantically polished in
 `src/c4/nearby_truffle_and_landing_profile_interpolation_helpers.asm`. The C4

@@ -90,7 +90,7 @@ C1EB29_RunNamingBufferCommitFlow_LEB29:
     ldy.w #TemporaryNameInputBuffer
     ldx.w #TemporaryNameInputLength
     lda.w #TextInputDialogWindowId
-    jsr TEXT_INPUT_DIALOG
+    jsr C1E57F_RunTextInputDialog
     tay
     sty $12
     jmp.w C1EBE4_RunNamingBufferCommitFlow_LEBE4
@@ -131,7 +131,7 @@ C1EB96_RunNamingBufferCommitFlow_LEB96:
     ldy $02
     ldx.w #PlayerNameInputLength
     lda.w #TextInputDialogWindowId
-    jsr TEXT_INPUT_DIALOG
+    jsr C1E57F_RunTextInputDialog
     tay
     sty $12
     ldx $02
@@ -222,7 +222,7 @@ C1EC48_RunNamingBufferCommitFlow_LEC48:
     ldy $12
     ldx $02
     lda.w #NamePreviewWindowId
-    jsr TEXT_INPUT_DIALOG
+    jsr C1E57F_RunTextInputDialog
     tax
     stx $14
     lda.w #TextInputOptionWindowId
