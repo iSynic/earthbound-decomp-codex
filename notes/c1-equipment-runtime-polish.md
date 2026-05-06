@@ -93,6 +93,14 @@ selects the target party member directly for one-person parties or through
 calls `C1:A795`, closes the equipment windows, restores `$9C8A`, and returns the
 selected party code or zero on cancel.
 
+Source polish follow-up (2026-05-06): `src/c1/c1_a795_run_character_equipment_slot_selection_loop.asm`
+now names the remaining helper-call surface in the per-character equipment loop
+and its wallet/status refresh tail. The promoted calls cover the `C1:9066`
+equipped-slot subtype dispatcher, the `C1:A778` display refresh, C2 managed
+text-event snapshot/restore, C3 window update/close helpers, the C1 active
+window text-mode/content helpers, and the C4 right-aligned decimal/status
+printer.
+
 ## Decomp Value
 
 This slice turns the editor-facing item/equipment vocabulary into concrete

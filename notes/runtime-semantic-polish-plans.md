@@ -151,6 +151,12 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   the pending-item queue modules raw-helper-call clean. See
   `notes/pending-item-queue-984b.md` and
   `notes/item-slot-helper-pair-c3e977-c3ee14.md`.
+- 2026-05-06: C1 display/equipment follow-up named the last raw helper calls in
+  `C1:9437..9A11` and `C1:A795..AA5D`, covering required-experience display,
+  equipment slot mutation/refresh, managed text-event snapshots, window update
+  helpers, and wallet/status printing. See
+  `notes/c1-display-helper-runtime-polish.md` and
+  `notes/c1-equipment-runtime-polish.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

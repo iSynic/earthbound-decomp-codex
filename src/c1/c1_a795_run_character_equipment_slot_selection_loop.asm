@@ -30,6 +30,9 @@ C1181B_SelectActiveTextEntryByY               = $181B
 C1196A_RunActiveTextEntrySelectionMenu        = $196A
 C11F5A_InstallSelectionPromptCallback         = $1F5A
 C11F8A_ClearActiveSelectionPromptScratch      = $1F8A
+C10EB4_SetActiveWindowTextModeByte            = $0EB4
+C10FA3_ClearActiveWindowContent               = $0FA3
+C19066_DispatchEquippedSlotSubtypeUpdate      = $9066
 C193E7_OpenTargetSelectionPromptLabel         = $93E7
 C19437_CloseTargetSelectionPromptLabel        = $9437
 C19EE6_ClassifyItemCompactCategory            = $9EE6
@@ -37,9 +40,15 @@ C08ED2_QueueOrTransferDynamicTileBlock        = $C08ED2
 C08F22_MeasureTerminatedTextLength            = $C08F22
 C08FF7_ResolveIndexedPointerOffset            = $C08FF7
 C2032B_WriteWindowTitleAndUpload              = $C2032B
+C20A20_SnapshotManagedTextEventSlotState      = $C20A20
+C20ABC_RestoreManagedTextEventSlotState       = $C20ABC
 C224E1_ClassifyEquipmentSlotFamily            = $C224E1
+C3E4CA_ClearInstantPrinting                   = $C3E4CA
+C3E4D4_SetInstantPrinting                     = $C3E4D4
+C3E521_CloseWindowAndReleaseTileState         = $C3E521
 C3E9A0_TestEquippedItemPrefixMarker           = $C3E9A0
 C3EE14_TestCharacterCanEquipItem              = $C3EE14
+C4507A_PrintRightAlignedDecimalValueInActiveWindow = $C4507A
 C4577D_ClearWeaponEquipmentSlot               = $C4577D
 C457CA_ClearCharmEquipmentSlot                = $C457CA
 C45815_ClearBraceletEquipmentSlot             = $C45815
@@ -344,13 +353,13 @@ C1A9FA_RunCharacterEquipmentSlotSelectionLoop_LA9FA:
     beq C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
     lda $1E
     inc A
-    jsr $9066
+    jsr C19066_DispatchEquippedSlotSubtypeUpdate
 C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05:
     lda.w #$0007
-    jsl $C3E521
+    jsl C3E521_CloseWindowAndReleaseTileState
     lda $1E
     inc A
-    jsl $C1A778
+    jsl C1A778_RefreshSelectedCharacterEquipmentDisplay
     jmp.w C1A7A3_RunCharacterEquipmentSlotSelectionLoop_LA7A3
 C1AA16_RunCharacterEquipmentSlotSelectionLoop_LAA16:
     pld
@@ -366,13 +375,13 @@ C1AA18_RefreshWalletOrStatusDisplay:
     adc.w #$FFEE
     tcd
     lda.w #$9C8A
-    jsl $C20A20
+    jsl C20A20_SnapshotManagedTextEventSlotState
     lda.w #$000A
     jsr CREATE_WINDOW
     lda.w #$0005
-    jsr $0EB4
-    jsl $C3E4D4
-    jsr $0FA3
+    jsr C10EB4_SetActiveWindowTextModeByte
+    jsl C3E4D4_SetInstantPrinting
+    jsr C10FA3_ClearActiveWindowContent
     lda $9831
     sta $06
     lda $9833
@@ -381,9 +390,9 @@ C1AA18_RefreshWalletOrStatusDisplay:
     sta $0E
     lda $08
     sta $10
-    jsl $C4507A
-    jsl $C3E4CA
+    jsl C4507A_PrintRightAlignedDecimalValueInActiveWindow
+    jsl C3E4CA_ClearInstantPrinting
     lda.w #$9C8A
-    jsl $C20ABC
+    jsl C20ABC_RestoreManagedTextEventSlotState
     pld
     rts

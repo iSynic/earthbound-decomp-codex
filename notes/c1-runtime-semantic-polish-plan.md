@@ -436,3 +436,12 @@ This planning pass is documentation-only.
   selected-inventory-slot-to-`$984B` queue transfer before the `C1:8C27`
   removal worker. See `notes/pending-item-queue-984b.md` and
   `notes/item-slot-helper-pair-c3e977-c3ee14.md`.
+- 2026-05-06 follow-up: the `C1:9437..9A11` display/status helper bridge and
+  `C1:A795..AA5D` per-character equipment loop now name their remaining
+  helper-call edges. This closes the raw helper-call surface in those source
+  units, including the C4 required-experience printer, C1 equipped-slot
+  dispatcher/display refresh, C2 managed text-event snapshot pair, C3
+  window-update helpers, and C4 right-aligned decimal/status printer. See
+  `notes/c1-display-helper-runtime-polish.md`,
+  `notes/c1-equipment-runtime-polish.md`, and
+  `notes/equipment-menu-top-level-flow-c1a778-c1aa5d.md`.

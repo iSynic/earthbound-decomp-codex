@@ -24,6 +24,11 @@ The top-level equipment path splits cleanly:
 
 `C1:A778..AC4A` is now source-backed across the durable C1 scaffold: `C1:A778`, `C1:A795`, `C1:AA18`, `C1:AA5D`, `C1:AAFA`, and `C1:AC00` all validate byte-for-byte as decoded source.
 
+Source polish follow-up (2026-05-06): the `C1:A795..AA5D` source unit now names
+the last raw helper calls in the per-character equipment loop and wallet/status
+refresh tail, including `C1:9066`, `C1:A778`, `C20A20/C20ABC`,
+`C3:E4D4/E4CA/E521`, `C1:0EB4/0FA3`, and `C4:507A`.
+
 ## Selected-Character Refresh
 
 `C1:A778` is tiny but important:

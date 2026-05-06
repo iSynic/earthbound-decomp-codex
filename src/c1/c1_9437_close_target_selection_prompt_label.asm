@@ -42,6 +42,7 @@ C3E9A0_CheckEquippedInventorySlotReference    = $C3E9A0
 C438A5_SetActiveWindowDescriptorCursorFields  = $C438A5
 C43D75_StageGlyphVariantTileState             = $C43D75
 C43F77_PrintGlyphWithTileCleanupSoundDelay    = $C43F77
+C4599A_StoreRequiredExperienceRemainingForCharacter = $C4599A
 
 ; ---------------------------------------------------------------------------
 ; C1:9437
@@ -448,7 +449,7 @@ C197BE_c1_9437_target_selection_bridge_L97BE:
     jsl C43D75_StageGlyphVariantTileState
     lda $02
     inc A
-    jsl $C4599A
+    jsl C4599A_StoreRequiredExperienceRemainingForCharacter
     lda $06
     sta $0E
     lda $08
