@@ -24,6 +24,13 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- `C0:A685` calls render through `%EVENT_CALLROUTINE_FIELD2B32(..., field2b32_word)`, preserving the same little-endian bytes with a word-shaped operand.
+- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants.
+- Direction tempvar writes render as `!ACTIONSCRIPT_DIRECTION_*` constants only when a later direction/vector callback consumes them in the same emitted row, with no intervening tempvar rewrite or unrelated native callback.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_FIELD2B32`, `%EVENT_CALLROUTINE_SOUND_EFFECT_ID`.
+
 ## Next Promotion Step
 
 Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; this closes the compact gap immediately before the existing position/text-yield path pilot.

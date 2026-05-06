@@ -4,6 +4,9 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_00C0 = $00C0
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -15,8 +18,8 @@ hirom
 !BeginBattleSwirlOverlayScript = $C2EA15
 !InitMovementPresetVar4Countdown = $AAAA
 !LoopEvent757_StepBattleOverlayTask = $9244
-!PhysicsCallback_C09FF0 = $9FF0
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
@@ -31,16 +34,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <registry_slot_byte>
 endmacro
 
 macro EVENT_END_TASK()
@@ -135,8 +138,8 @@ LoopWaitUntilBattleSwirlAndEnemyTouchClear:
     %EVENT_PAUSE($01) ; C3:9E0E  06 01
     %EVENT_SHORTJUMP(WaitUntilNoBattleSwirlOrEnemyTouch) ; C3:9E10  19 01 9E
 Event773_DownDirectionOffscreenRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9E13  42 64 A8 C0 FF
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:9E18  1D 04 00
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9E13  42 64 A8 C0 FF
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:9E18  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:9E1B  42 5F A6 C0
     %EVENT_SHORTJUMP(!TrafficLightWaitUntilOffscreenAndRelease) ; C3:9E1F  19 AA A2
 Event774_CoordinateHalt:
@@ -144,7 +147,7 @@ Event774_CoordinateHalt:
     %EVENT_SET_Y($0150) ; C3:9E25  29 50 01
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:9E28  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $000E) ; C3:9E2B  0E 04 0E 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $C0, $00) ; C3:9E2F  42 85 A6 C0 C0 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_00C0) ; C3:9E2F  42 85 A6 C0 C0 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:9E35  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1D58) ; C3:9E39  0E 06 58 1D
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0150) ; C3:9E3D  0E 07 50 01
@@ -154,12 +157,12 @@ Event774_CoordinateHalt:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:9E4C  1A 59 AB
     %EVENT_HALT() ; C3:9E4F  09
 Event775_BattleSwirlOverlayRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9E50  42 64 A8 C0 FF
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:9E55  25 F0 9F
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9E50  42 64 A8 C0 FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:9E55  25 F0 9F
     %EVENT_START_TASK(!LoopEvent757_StepBattleOverlayTask) ; C3:9E58  07 44 92
     %EVENT_START_TASK(Event775_DelayedOverlayTaskEnd) ; C3:9E5B  07 78 9E
     %EVENT_SET_VELOCITIES_ZERO() ; C3:9E5E  39
-    %EVENT_SET_ANIMATION($FF) ; C3:9E5F  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:9E5F  3B FF
     %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:9E61  1D 02 00
     %EVENT_CALLROUTINE_0(!BeginBattleSwirlOverlayScript) ; C3:9E64  42 15 EA C2
 LoopEvent775_WaitForBattleEffectStep:

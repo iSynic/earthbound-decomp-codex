@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -20,11 +21,11 @@ hirom
 !RotateDirectionByCurrentSlotClass = $C0C682
 !RunPositionDoorCloseOpeningPath = $C1E0
 !RunPositionDoorCloseSoundPath = $C20F
-!ScriptWrapper_C47143_Mode00 = $C0A8C6
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetTargetToPoseDescriptorSlotPosition_ReadWord = $C0A938
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
+!StepCurrentSlotTowardCachedTarget = $C0A8C6
 
 ; Minimal macro vocabulary used by this source pilot.
 macro EVENT_CALLROUTINE_0(target)
@@ -32,10 +33,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
+    db $42
+    dl <target>
+    dw <pose_descriptor_slot_word>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -118,14 +125,14 @@ Event475_PositionDoorCloseTargetPath:
     %EVENT_SET_Y($1368) ; C3:C1AB  29 68 13
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:C1AE  1A 38 AA
     %EVENT_START_TASK(!LoopMakePartyLookAtActiveEntity) ; C3:C1B1  07 27 C2
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:C1B4  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:C1B4  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0011) ; C3:C1BA  0E 05 11 00
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $BB, $00) ; C3:C1BE  42 38 A9 C0 BB 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $00BB) ; C3:C1BE  42 38 A9 C0 BB 00
     %EVENT_SHORTCALL(!RefreshActiveEntityDirectionAndVisualProfile) ; C3:C1C4  1A 44 AB
 LoopEvent475_WaitForTargetPose:
     %EVENT_PAUSE($01) ; C3:C1C7  06 01
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $BB, $00) ; C3:C1C9  42 38 A9 C0 BB 00
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:C1CF  42 C6 A8 C0
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $00BB) ; C3:C1C9  42 38 A9 C0 BB 00
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:C1CF  42 C6 A8 C0
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent475_WaitForTargetPose) ; C3:C1D3  0A C7 C1
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C1D6  42 46 6E C4
     %EVENT_SHORTCALL(!RunPositionDoorCloseSoundPath) ; C3:C1DA  1A 0F C2

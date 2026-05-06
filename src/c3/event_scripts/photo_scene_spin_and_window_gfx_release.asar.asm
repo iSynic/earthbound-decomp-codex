@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_UP = $04
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -37,16 +39,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <registry_slot_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <sound_effect_id_word>
 endmacro
 
 macro EVENT_HALT()
@@ -110,14 +112,14 @@ LoopPhotoSceneSpinDirectionTask:
 Event449_PhotoSceneRecordHalt:
     %EVENT_CALLROUTINE_0(!PlaceCurrentSlotFromPhotoSceneRecord) ; C3:3B8B  42 4B 6D C4
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:3B8F  1A 38 AA
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:3B92  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:3B92  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:3B95  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:3B99  42 BF A4 C0
     %EVENT_HALT() ; C3:3B9D  09
 Event450_PhotoSceneCopyAnchorHalt:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $01) ; C3:3B9E  42 64 A8 C0 01
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $01) ; C3:3B9E  42 64 A8 C0 01
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:3BA3  1A 38 AA
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:3BA6  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:3BA6  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:3BA9  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:3BAD  42 BF A4 C0
     %EVENT_HALT() ; C3:3BB1  09
@@ -125,12 +127,12 @@ Event451_PhotoSceneCopyAnchorPriorityHalt:
     %EVENT_SET_PRIORITY($00) ; C3:3BB2  43 00
     %EVENT_SHORTJUMP(Event450_PhotoSceneCopyAnchorHalt) ; C3:3BB4  19 9E 3B
 Event452_WindowGfxSoundRelease:
-    %EVENT_SET_ANIMATION($FF) ; C3:3BB7  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:3BB7  3B FF
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:3BB9  25 C8 9F
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0001) ; C3:3BBC  0E 00 01 00
     %EVENT_CALLROUTINE_0(!LoadCurrentEntityIndexedWindowGfxToVram) ; C3:3BC0  42 9E 7A C4
     %EVENT_PAUSE($05) ; C3:3BC4  06 05
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $0D, $00) ; C3:3BC6  42 41 A8 C0 0D 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $000D) ; C3:3BC6  42 41 A8 C0 0D 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0005) ; C3:3BCC  0E 01 05 00
     %EVENT_LOOP($06) ; C3:3BD0  01 06
     %EVENT_CALLROUTINE_0(!LoadIndexedWindowGfxAndReadVariantByte) ; C3:3BD2  42 77 7B C4

@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -14,9 +16,9 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_FadeOutWrapper = $C09FBB
 !LoopBattleSwirlFootprintWaitInsideWindow = $9ABB
-!PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RunFlyoverIntroTextSceneByIndex = $C49EC4
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !SetYieldToTextLatch9641 = $C46E46
@@ -29,16 +31,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FADEOUT_EFFECT(target, fadeout_effect_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <fadeout_effect_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <registry_slot_byte>
 endmacro
 
 macro EVENT_SET_ANIMATION(animation)
@@ -81,18 +83,18 @@ endmacro
 
 org $C39AC7
 PrepareBattleSwirlFootprintVisualReturn:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:9AC7  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:9ACA  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:9AC7  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:9ACA  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:9ACC  39
     %EVENT_START_TASK(!LoopBattleSwirlFootprintWaitInsideWindow) ; C3:9ACD  07 BB 9A
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:9AD0  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:9AD4  42 BF A4 C0
     %EVENT_SHORT_RETURN() ; C3:9AD8  1B
 Event765_FlyoverIntroTextRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9AD9  42 64 A8 C0 FF
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:9ADE  25 F0 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:9AE1  3B FF
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $01) ; C3:9AE3  42 BB 9F C0 01 01
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9AD9  42 64 A8 C0 FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:9ADE  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:9AE1  3B FF
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, $0101) ; C3:9AE3  42 BB 9F C0 01 01
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:9AE9  1A E0 AB
     %EVENT_WRITE_WORD_TEMPVAR($0007) ; C3:9AEC  1D 07 00
     %EVENT_CALLROUTINE_0(!RunFlyoverIntroTextSceneByIndex) ; C3:9AEF  42 C4 9E C4

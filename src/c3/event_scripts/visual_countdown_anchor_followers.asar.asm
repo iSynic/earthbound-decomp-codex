@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -18,10 +19,17 @@ hirom
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 
 ; Minimal macro vocabulary used by this source pilot.
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <pose_descriptor_slot_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_CHOOSE_RANDOM_SCRIPT_WORD_2(target, count, choice0, choice1)
@@ -91,13 +99,13 @@ endmacro
 
 org $C33549
 LoopVisualCountdownRandomWaitTask:
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:3549  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:3549  42 6E AA C0 04 00
     %EVENT_PAUSE($02) ; C3:354F  06 02
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $01) ; C3:3551  42 6E AA C0 04 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $01) ; C3:3551  42 6E AA C0 04 01
     %EVENT_PAUSE($04) ; C3:3557  06 04
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:3559  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:3559  42 6E AA C0 04 00
     %EVENT_PAUSE($02) ; C3:355F  06 02
-    %EVENT_SET_ANIMATION($FF) ; C3:3561  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:3561  3B FF
     %EVENT_PAUSE($2D) ; C3:3563  06 2D
     %EVENT_CHOOSE_RANDOM_SCRIPT_WORD_2(!ChooseRandomScriptWord, 2, $0000, $000C) ; C3:3565  42 82 9F C0 02 00 00 0C 00
     %EVENT_WRITE_TEMPVAR_WAITTIMER() ; C3:356E  44
@@ -110,7 +118,7 @@ Event440_FixedAnchorVisualFollowerA:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:357D  0E 04 01 00
     %EVENT_START_TASK(LoopVisualCountdownRandomWaitTask) ; C3:3581  07 49 35
 LoopEvent440_CopyAnchorOffsetFollower:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $A5, $00) ; C3:3584  42 6F A8 C0 A5 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00A5) ; C3:3584  42 6F A8 C0 A5 00
     %EVENT_SET_X_RELATIVE($FFFA) ; C3:358A  2B FA FF
     %EVENT_SET_Y_RELATIVE($FFF8) ; C3:358D  2C F8 FF
     %EVENT_PAUSE($01) ; C3:3590  06 01
@@ -123,7 +131,7 @@ Event441_FixedAnchorVisualFollowerB:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:35A0  0E 04 01 00
     %EVENT_START_TASK(LoopVisualCountdownRandomWaitTask) ; C3:35A4  07 49 35
 LoopEvent441_CopyAnchorOffsetFollower:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $A5, $00) ; C3:35A7  42 6F A8 C0 A5 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00A5) ; C3:35A7  42 6F A8 C0 A5 00
     %EVENT_SET_X_RELATIVE($0003) ; C3:35AD  2B 03 00
     %EVENT_PAUSE($01) ; C3:35B0  06 01
     %EVENT_SHORTJUMP(LoopEvent441_CopyAnchorOffsetFollower) ; C3:35B2  19 A7 35

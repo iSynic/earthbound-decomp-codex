@@ -4,6 +4,9 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_FRAME1 = $01
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -22,7 +25,7 @@ hirom
 !CopyPathToLane_FromCurrentEntityRequestReverse = $C0C251
 !CopyPathToLane_FromPartyMemberRequest = $C0C19B
 !DecrementCurrentDeliveryCountdown = $EF0D73
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !Export_CurrentSlotAttentionTarget = $C0D98F
 !GetCurrentDeliveryEnterSpeed = $EF0E67
 !GetCurrentDeliveryExitSpeed = $EF0E8A
@@ -50,10 +53,10 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <direction_class_byte>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -129,11 +132,11 @@ LoopTimedDeliveryDeparturePulseUntilOffscreen:
     %EVENT_PAUSE($08) ; C3:43DB  06 08
     %EVENT_WRITE_VAR_TO_TEMPVAR(!ACTIONSCRIPT_VARS_V4) ; C3:43DD  20 04
     %EVENT_SHORTCALL_CONDITIONAL_NOT(TimedDeliveryDeparturePulseAnimation0Half) ; C3:43DF  0B E8 43
-    %EVENT_SET_ANIMATION($01) ; C3:43E2  3B 01
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME1) ; C3:43E2  3B 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:43E4  42 B2 A4 C0
 TimedDeliveryDeparturePulseAnimation0Half:
     %EVENT_PAUSE($08) ; C3:43E8  06 08
-    %EVENT_SET_ANIMATION($00) ; C3:43EA  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:43EA  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:43EC  42 A8 A4 C0
     %EVENT_CALLROUTINE_0(!CheckCurrentSlotInsideLiveAreaWindow) ; C3:43F0  42 B6 C6 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopTimedDeliveryDeparturePulseUntilOffscreen) ; C3:43F4  0B DB 43
@@ -141,19 +144,19 @@ TimedDeliveryDeparturePulseAnimation0Half:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:43FB  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:43FF  19 04 A2
 Event500_TimedDeliveryExistingRowGate:
-    %EVENT_CALLROUTINE_2(!Script_SetDirectionClassAndField2C9A, $1F, $05) ; C3:4402  42 43 A6 C0 1F 05
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField2C9A, $051F) ; C3:4402  42 43 A6 C0 1F 05
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:4408  25 60 A3
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:440B  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:440B  42 2F A8 C0
     %EVENT_SET_VELOCITIES_ZERO() ; C3:440F  39
     %EVENT_CALLROUTINE_0(!ReadActivePartySlotCacheWord) ; C3:4410  42 87 0C EF
     %EVENT_SHORTCALL_CONDITIONAL_NOT(TimedDeliveryReadinessGate) ; C3:4414  0B 4D 44
     %EVENT_SHORTJUMP(TimedDeliveryCommonCountdownLoop) ; C3:4417  19 32 44
 Event499_TimedDeliverySetup:
-    %EVENT_CALLROUTINE_2(!Script_SetDirectionClassAndField2C9A, $1F, $05) ; C3:441A  42 43 A6 C0 1F 05
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField2C9A, $051F) ; C3:441A  42 43 A6 C0 1F 05
     %EVENT_CALLROUTINE_0(!ClearActivePartySlotCacheWord) ; C3:4420  42 97 0C EF
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:4424  25 60 A3
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:4427  42 2F A8 C0
-    %EVENT_SET_ANIMATION($FF) ; C3:442B  3B FF
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:4427  42 2F A8 C0
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:442B  3B FF
     %EVENT_SET_VELOCITIES_ZERO() ; C3:442D  39
     %EVENT_CALLROUTINE_0(!SeedCurrentDeliveryCountdown) ; C3:442E  42 46 0D EF
 TimedDeliveryCommonCountdownLoop:
@@ -191,7 +194,7 @@ TimedDeliveryFailureTeardown:
     %EVENT_CALLROUTINE_0(!QueueCurrentDeliveryPointer2) ; C3:4481  42 FA 0D EF
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:4485  19 04 A2
 PrepareTimedDeliveryActorForPresentation:
-    %EVENT_SET_ANIMATION($00) ; C3:4488  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:4488  3B 00
     %EVENT_START_TASK(!LoopActiveEntityWalkAnimationPulse) ; C3:448A  07 9F A0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:448D  42 BF A4 C0
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0016) ; C3:4491  0E 02 16 00

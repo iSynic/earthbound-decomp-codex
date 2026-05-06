@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_DIRECTION_RIGHT = $02
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -26,10 +27,10 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <direction_class_byte>
 endmacro
 
 macro EVENT_CHOOSE_RANDOM_SCRIPT_WORD_2(target, count, choice0, choice1)
@@ -96,7 +97,7 @@ endmacro
 org $C3DF90
 RunRightwardLiveAreaTextYieldPath:
     %EVENT_START_TASK(LoopRandomBounceOrDownwardWaitTask) ; C3:DF90  07 B5 DF
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $02) ; C3:DF93  42 51 A6 C0 02
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:DF93  42 51 A6 C0 02
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:DF98  42 BF A4 C0
     %EVENT_SET_X_VELOCITY($0040) ; C3:DF9C  3F 40 00
 LoopWaitUntilCurrentSlotInsideLiveArea:

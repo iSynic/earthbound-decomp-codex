@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -14,9 +15,9 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
 !LoopActiveEntityWalkAnimationPulse = $A09F
-!PhysicsCallback_C09FF0 = $9FF0
 !ProjectWorldToScreen_CopyWorld = $A0BB
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !Script_SetCurrentSlotDisplayControlBits = $C0A679
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 
@@ -26,10 +27,10 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <display_control_bits_byte>
 endmacro
 
 macro EVENT_END_TASK()
@@ -78,7 +79,7 @@ org $C3A272
 EndPreviousTaskThenDirectionFollowerPath:
     %EVENT_END_TASK() ; C3:A272  0C
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_CopyWorld) ; C3:A273  23 BB A0
-    %EVENT_SET_ANIMATION($00) ; C3:A276  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A276  3B 00
     %EVENT_START_TASK(!LoopActiveEntityWalkAnimationPulse) ; C3:A278  07 9F A0
 LoopEvent4_CopyDirectionThenPause:
     %EVENT_WRITE_WRAM_TEMPVAR($2AF8) ; C3:A27B  1E F8 2A
@@ -86,9 +87,9 @@ LoopEvent4_CopyDirectionThenPause:
     %EVENT_PAUSE($1E) ; C3:A282  06 1E
     %EVENT_SHORTJUMP(LoopEvent4_CopyDirectionThenPause) ; C3:A284  19 7B A2
 Event7_DisplayResetAndRelease:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:A287  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:A28A  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:A287  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A28A  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:A28C  39
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:A28D  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:A28D  42 79 A6 C0 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:A292  42 BF A4 C0
     %EVENT_SHORTJUMP(!Event8_Entry2WaitUntilOffscreenRelease) ; C3:A296  19 B8 A2

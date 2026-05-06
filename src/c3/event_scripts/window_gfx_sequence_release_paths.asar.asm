@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -16,8 +17,8 @@ hirom
 !Event705_706_ColorMathFlashTask = $8751
 !LoadCurrentEntityIndexedWindowGfxToVram = $C47A9E
 !LoadIndexedWindowGfxAndReadVariantByte = $C47B77
-!PhysicsCallback_C09FF0 = $9FF0
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RunWindowGfxVariantLoop = $3C1D
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_PlaySoundEffectParameter = $C0A841
@@ -35,16 +36,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <registry_slot_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <sound_effect_id_word>
 endmacro
 
 macro EVENT_LOOP(count)
@@ -95,11 +96,11 @@ endmacro
 
 org $C386B2
 Event705_WindowGfxSequenceRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:86B2  42 64 A8 C0 FF
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:86B7  25 F0 9F
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:86B2  42 64 A8 C0 FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:86B7  25 F0 9F
     %EVENT_START_TASK(!Event705_706_ColorMathFlashTask) ; C3:86BA  07 51 87
     %EVENT_SET_VELOCITIES_ZERO() ; C3:86BD  39
-    %EVENT_SET_ANIMATION($FF) ; C3:86BE  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:86BE  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0002) ; C3:86C0  0E 00 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0000) ; C3:86C4  0E 01 00 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0004) ; C3:86C8  0E 02 04 00
@@ -117,11 +118,11 @@ Event705_WindowGfxSequenceRelease:
     %EVENT_PAUSE($01) ; C3:86F5  06 01
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:86F7  19 04 A2
 Event706_WindowGfxSoundTextRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:86FA  42 64 A8 C0 FF
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:86FF  25 F0 9F
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:86FA  42 64 A8 C0 FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:86FF  25 F0 9F
     %EVENT_START_TASK(!Event705_706_ColorMathFlashTask) ; C3:8702  07 51 87
     %EVENT_SET_VELOCITIES_ZERO() ; C3:8705  39
-    %EVENT_SET_ANIMATION($FF) ; C3:8706  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:8706  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0002) ; C3:8708  0E 00 02 00
     %EVENT_CALLROUTINE_0(!LoadCurrentEntityIndexedWindowGfxToVram) ; C3:870C  42 9E 7A C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0004) ; C3:8710  0E 02 04 00
@@ -130,7 +131,7 @@ Event706_WindowGfxSoundTextRelease:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0000) ; C3:871A  0E 01 00 00
     %EVENT_SHORTCALL(!RunWindowGfxVariantLoop) ; C3:871E  1A 1D 3C
     %EVENT_LOOP_END() ; C3:8721  02
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $3A, $00) ; C3:8722  42 41 A8 C0 3A 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $003A) ; C3:8722  42 41 A8 C0 3A 00
     %EVENT_PAUSE($06) ; C3:8728  06 06
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:872A  42 46 6E C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0003) ; C3:872E  0E 01 03 00

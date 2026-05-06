@@ -388,6 +388,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "refresh current slot collision cache using one script mode byte and a long neighbor-cache callback pointer",
         "args": "collision_probe_mode_byte, neighbor_cache_callback_long",
     },
+    "C0:A643": {
+        "name": "Script_SetDirectionClassAndField2C9A",
+        "group": "movement",
+        "contract": "read one direction/visual class word, apply it when active, and store the resulting class value to current slot field $2C9A",
+        "args": "direction_class_word",
+    },
     "C0:A651": {
         "name": "Script_SetDirectionClassAndField1A86",
         "group": "movement",

@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_DIRECTION_DOWN = $00
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -27,10 +29,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
+    db $42
+    dl <target>
+    dw <sound_effect_id_word>
 endmacro
 
 macro EVENT_PAUSE(frames)
@@ -72,16 +80,16 @@ RunPositionDoorCloseOpeningPath:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:C1EE  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1160) ; C3:C1F2  0E 06 60 11
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1360) ; C3:C1F6  0E 07 60 13
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:C1FA  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:C1FA  42 85 A6 C0 00 01
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:C200  1A 59 AB
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:C203  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:C203  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:C206  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C20A  42 BF A4 C0
     %EVENT_SHORT_RETURN() ; C3:C20E  1B
 RunPositionDoorCloseSoundPath:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $11F0) ; C3:C20F  0E 06 F0 11
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1368) ; C3:C213  0E 07 68 13
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:C217  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:C217  42 85 A6 C0 00 01
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:C21D  1A 59 AB
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $09, $00) ; C3:C220  42 41 A8 C0 09 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0009) ; C3:C220  42 41 A8 C0 09 00
     %EVENT_SHORT_RETURN() ; C3:C226  1B

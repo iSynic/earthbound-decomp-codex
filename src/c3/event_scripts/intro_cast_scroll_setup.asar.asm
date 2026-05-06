@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_DIRECTION_UP = $04
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -12,8 +14,8 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
-!PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !Script_RefreshCurrentSlotVisualProfile = $C0AAAC
 !Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetDirectionClassAndField1A86 = $C0A651
@@ -24,10 +26,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <direction_class_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
+    db $42
+    dl <target>
+    db <display_control_bits_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -65,20 +73,20 @@ endmacro
 org $C351FD
 Event799_ObscuredDownFacingCastActorHalt:
     %EVENT_WRITE_VAR_TO_WAIT_TIMER(!ACTIONSCRIPT_VARS_V0) ; C3:51FD  21 00
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:51FF  25 F0 9F
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:5202  42 79 A6 C0 03
-    %EVENT_SET_ANIMATION($00) ; C3:5207  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:51FF  25 F0 9F
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:5202  42 79 A6 C0 03
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:5207  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:5209  39
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $04) ; C3:520A  42 51 A6 C0 04
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_UP) ; C3:520A  42 51 A6 C0 04
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:520F  42 BF A4 C0
     %EVENT_HALT() ; C3:5213  09
 Event800_ObscuredDownFacingCastActorRefreshGate:
     %EVENT_WRITE_VAR_TO_WAIT_TIMER(!ACTIONSCRIPT_VARS_V0) ; C3:5214  21 00
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:5216  25 F0 9F
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:5219  42 79 A6 C0 03
-    %EVENT_SET_ANIMATION($00) ; C3:521E  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:5216  25 F0 9F
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:5219  42 79 A6 C0 03
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:521E  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:5220  39
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $04) ; C3:5221  42 51 A6 C0 04
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_UP) ; C3:5221  42 51 A6 C0 04
 LoopWaitForCastActorRefreshFlag:
     %EVENT_WRITE_WRAM_TEMPVAR($0099) ; C3:5226  1E 99 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopWaitForCastActorRefreshFlag) ; C3:5229  0B 26 52

@@ -24,6 +24,11 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS`.
+
 ## Next Promotion Step
 
 Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; adjacent `C3:A299..C3:A401` should be split after the `C0:C353` callback contract is pinned.

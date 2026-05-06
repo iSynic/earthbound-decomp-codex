@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -17,9 +18,9 @@ hirom
 !DisableCurrentSlotNeighborCache = $C0A82F
 !InitMovementPresetVar4Countdown = $AAAA
 !LoopPartyLooksAtActiveEntity = $AFA3
-!PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetYieldToTextLatch9641 = $C46E46
 !TrafficLightWaitUntilOffscreenAndRelease = $A2AA
@@ -32,16 +33,23 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
+    db $42
+    dl <target>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
 endmacro
 
 macro EVENT_PAUSE(frames)
@@ -138,10 +146,10 @@ Event284_BubbleMonkeyByeMovementRelease:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0010) ; C3:0CF5  0E 02 10 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0018) ; C3:0CF9  0E 03 18 00
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:0CFD  1A 94 AB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C8, $00, $BD, $82) ; C3:0D00  42 8D A8 C0 C8 00 BD 82
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C8, $82BD) ; C3:0D00  42 8D A8 C0 C8 00 BD 82
     %EVENT_PAUSE($01) ; C3:0D08  06 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $000B) ; C3:0D0A  0E 04 0B 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $20, $01) ; C3:0D0E  42 85 A6 C0 20 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0120) ; C3:0D0E  42 85 A6 C0 20 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:0D14  0E 05 02 00
     %EVENT_SHORTCALL(RunBubbleMonkeyLongCoordinateRoute) ; C3:0D18  1A 3C 0D
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:0D1B  19 04 A2
@@ -149,7 +157,7 @@ Event285_BubbleMonkeyMovementTextRelease:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:0D1E  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $000B) ; C3:0D21  0E 04 0B 00
     %EVENT_START_TASK(!LoopPartyLooksAtActiveEntity) ; C3:0D25  07 A3 AF
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $20, $01) ; C3:0D28  42 85 A6 C0 20 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0120) ; C3:0D28  42 85 A6 C0 20 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:0D2E  0E 05 02 00
     %EVENT_SHORTCALL(RunBubbleMonkeyLongCoordinateRoute) ; C3:0D32  1A 3C 0D
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:0D35  42 46 6E C4
@@ -190,10 +198,10 @@ RunBubbleMonkeyLongCoordinateRoute:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:0DB2  1A 59 AB
     %EVENT_SHORT_RETURN() ; C3:0DB5  1B
 Event286_GiygasWinFlagWaitRelease:
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $49, $00) ; C3:0DB6  42 4C A8 C0 49 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0049) ; C3:0DB6  42 4C A8 C0 49 00
     %EVENT_SHORTCALL_CONDITIONAL(!TrafficLightWaitUntilOffscreenAndRelease) ; C3:0DBC  0A AA A2
     %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:0DBF  42 2F A8 C0
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:0DC3  25 F0 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:0DC6  3B FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:0DC3  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:0DC6  3B FF
     %EVENT_PAUSE($0A) ; C3:0DC8  06 0A
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:0DCA  19 04 A2

@@ -24,6 +24,11 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_COLLISION_PROBE_MODE_NEIGHBOR_CACHE_CALLBACK`.
+
 ## Next Promotion Step
 
 Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; this helper cluster is a semantic neighbor of the existing movement pulse preset family.

@@ -61,12 +61,6 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
-    db $42
-    dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
-endmacro
-
 macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
     db $42
     dl <target>
@@ -89,6 +83,13 @@ macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
     db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(target, staged_offset_x_word, staged_offset_y_word)
+    db $42
+    dl <target>
+    dw <staged_offset_x_word>
+    dw <staged_offset_y_word>
 endmacro
 
 macro EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(target, teleport_destination_selector_byte)
@@ -212,7 +213,7 @@ Event65_TwosonBusDriverDialogLoop:
     %EVENT_START_TASK(LoopWaitInsideLiveAreaThenRelease) ; C3:B475  07 31 B4
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:B478  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B47C  42 BF A4 C0
-    %EVENT_CALLROUTINE_4(!Script_SetStagedPositionOffset_ReadTwoWords, $00, $00, $08, $00) ; C3:B480  42 B3 A8 C0 00 00 08 00
+    %EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(!Script_SetStagedPositionOffset_ReadTwoWords, $0000, $0008) ; C3:B480  42 B3 A8 C0 00 00 08 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0018) ; C3:B488  0E 02 18 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0008) ; C3:B48C  0E 03 08 00
 LoopEvent65_BusDriverDialog:

@@ -78,12 +78,6 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
-    db $42
-    dl <target>
-    db <arg0>, <arg1>
-endmacro
-
 macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
@@ -260,10 +254,10 @@ Event73_TargetPoseApproachShakeAndYield:
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:B757  42 64 A8 C0 FF
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:B75C  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:B762  0E 05 01 00
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $CD, $00) ; C3:B766  42 38 A9 C0 CD 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $00CD) ; C3:B766  42 38 A9 C0 CD 00
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $0008) ; C3:B76C  14 07 02 08 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:B771  1A 59 AB
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $CD, $00) ; C3:B774  42 38 A9 C0 CD 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $00CD) ; C3:B774  42 38 A9 C0 CD 00
     %EVENT_SHORTCALL(RunFaceTargetShakeByRegistryCount) ; C3:B77A  1A 0C B7
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:B77D  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:B781  19 04 A2
@@ -302,7 +296,7 @@ Event76_C40015PresetMoveToPoseAndYield:
     %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:B7F2  08 3B 8B C4
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:B7F6  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:B7FC  0E 05 01 00
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $F3, $00) ; C3:B800  42 38 A9 C0 F3 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_SetTargetToPoseDescriptorSlotPosition_ReadWord, $00F3) ; C3:B800  42 38 A9 C0 F3 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:B806  1A 59 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:B809  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:B80D  19 04 A2

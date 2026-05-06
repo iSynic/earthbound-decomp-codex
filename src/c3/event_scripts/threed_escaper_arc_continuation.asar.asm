@@ -49,16 +49,17 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <pose_descriptor_slot_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
 endmacro
 
 macro EVENT_HALT()
@@ -144,7 +145,7 @@ LoopEvent667_ArcRiseDamping:
     %EVENT_LOOP($80) ; C3:7B2F  01 80
     %EVENT_PAUSE($01) ; C3:7B31  06 01
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $1000) ; C3:7B33  14 00 02 00 10
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $A9, $00) ; C3:7B38  42 6F A8 C0 A9 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00A9) ; C3:7B38  42 6F A8 C0 A9 00
     %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:7B3E  42 E7 A8 C0
     %EVENT_CALLROUTINE_0(!HalveCurrentSlot0d32PreserveSign) ; C3:7B42  42 0E 73 C4
     %EVENT_CALLROUTINE_0(!GetCurrentSlotField2B32) ; C3:7B46  42 91 A6 C0
@@ -199,5 +200,5 @@ ThreedEscaperApproachFinalLeg:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $04D0) ; C3:7BEA  0E 06 D0 04
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2710) ; C3:7BEE  0E 07 10 27
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7BF2  1A 59 AB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C6, $00, $65, $28) ; C3:7BF5  42 8D A8 C0 C6 00 65 28
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C6, $2865) ; C3:7BF5  42 8D A8 C0 C6 00 65 28
     %EVENT_HALT() ; C3:7BFD  09
