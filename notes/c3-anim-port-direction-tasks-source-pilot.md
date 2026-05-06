@@ -27,6 +27,8 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 ## Source Readability
 
 - Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants.
+- Direction tempvar writes render as `!ACTIONSCRIPT_DIRECTION_*` constants only when a later direction/vector callback consumes them in the same emitted row, with no intervening tempvar rewrite or unrelated native callback.
 - Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_EVENT_FLAG`.
 
 ## Next Promotion Step

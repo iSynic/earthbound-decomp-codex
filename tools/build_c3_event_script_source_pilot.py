@@ -741,7 +741,7 @@ LABEL_OVERRIDES = {
     "C3:83A9": "SetAnimPortFlags11",
     "C3:8978": "LoopAnimPortDirectionFromVar4",
     "C3:898C": "UseDirectionRightWhenAnimPort0Clear",
-    "C3:8992": "UseDirectionDownWhenVar4Clear",
+    "C3:8992": "UseDirectionUpWhenVar4Clear",
     "C3:8995": "ApplyAnimPortDirectionAndLoop",
     "C3:899E": "LoopAnimPortBlinkAnimation",
     "C3:89BD": "Event715_BlinkThenRelease",
@@ -1538,6 +1538,23 @@ for address, count in CALL_ARG_COUNTS.items():
     if sum(int(width) for width in widths) != count:
         continue
     CALLROUTINE_SCHEMA_MACROS[f"EVENT_CALLROUTINE_{callroutine_schema_suffix(fields)}"] = fields
+
+DIRECTION_TEMPVAR_CONSUMERS = {
+    "C0:A65F",  # SetCurrentSlotDirectionClassIfActive
+    "C0:C83B",  # InstallScriptMovementVectorFromDirection
+}
+
+TEMPVAR_REPLACING_OPCODES = {
+    "EVENT_WRITE_WORD_TEMPVAR",
+    "EVENT_WRITE_WRAM_TEMPVAR",
+    "EVENT_WRITE_VAR_TO_TEMPVAR",
+    "EVENT_WRITE_TEMPVAR_WAITTIMER",
+}
+
+TEMPVAR_MUTATING_OPCODES = {
+    "EVENT_BINOP_TEMPVAR",
+    "EVENT_LOOP_TEMPVAR",
+}
 
 FAMILY_DEFAULTS = {
     "movement-pulse-presets": {
@@ -3394,6 +3411,7 @@ def operand_expr(
     labels: dict[str, str],
     names: dict[str, list[str]],
     constants: dict[str, str],
+    direction_tempvar_writes: set[str],
 ) -> str:
     if operand.kind == "byte":
         value = int(operand.value)
@@ -3420,6 +3438,21 @@ def operand_expr(
         return fmt_byte(value)
     if operand.kind in {"word", "call_arg_byte"}:
         value = int(operand.value)
+        if (
+            operand.kind == "word"
+            and instruction.opcode.name == "EVENT_WRITE_WORD_TEMPVAR"
+            and index == 0
+            and instruction.address.key in direction_tempvar_writes
+        ):
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_DIRECTION_WORDS,
+                prefix="DIRECTION",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol
         return fmt_byte(value) if operand.kind == "call_arg_byte" else fmt_word(value)
     if operand.kind in {"wordlist_count", "call_wordlist_count"}:
         return str(int(operand.value))
@@ -3448,6 +3481,33 @@ def callroutine_target(instruction: Instruction) -> Address | None:
     if not instruction.operands or not isinstance(instruction.operands[0].value, Address):
         return None
     return instruction.operands[0].value
+
+
+def collect_direction_tempvar_writes(rows: list[RowSource]) -> set[str]:
+    writes: set[str] = set()
+    for row in rows:
+        pending: list[str] = []
+        for instruction in row.instructions:
+            opcode_name = instruction.opcode.name
+            if (
+                opcode_name == "EVENT_WRITE_WORD_TEMPVAR"
+                and instruction.operands
+                and int(instruction.operands[0].value) in ACTIONSCRIPT_DIRECTION_WORDS
+            ):
+                pending.append(instruction.address.key)
+                continue
+            target = callroutine_target(instruction)
+            if target and target.key in DIRECTION_TEMPVAR_CONSUMERS:
+                writes.update(pending)
+                pending = []
+                continue
+            if (
+                opcode_name in TEMPVAR_REPLACING_OPCODES
+                or opcode_name in TEMPVAR_MUTATING_OPCODES
+                or target is not None
+            ):
+                pending = []
+    return writes
 
 
 def call_arg_expr(
@@ -3516,6 +3576,7 @@ def rendered_operands(
     labels: dict[str, str],
     names: dict[str, list[str]],
     constants: dict[str, str],
+    direction_tempvar_writes: set[str],
 ) -> list[str]:
     target = callroutine_target(instruction)
     fields = callroutine_schema(target, instruction.call_arg_count) if target else None
@@ -3527,6 +3588,7 @@ def rendered_operands(
             labels=labels,
             names=names,
             constants=constants,
+            direction_tempvar_writes=direction_tempvar_writes,
         )
         raw_args = [int(operand.value) for operand in instruction.operands[1:]]
         cursor = 0
@@ -3546,6 +3608,7 @@ def rendered_operands(
             labels=labels,
             names=names,
             constants=constants,
+            direction_tempvar_writes=direction_tempvar_writes,
         )
         for index, operand in enumerate(instruction.operands)
     ]
@@ -3557,6 +3620,7 @@ def render_instruction(
     labels: dict[str, str],
     names: dict[str, list[str]],
     constants: dict[str, str],
+    direction_tempvar_writes: set[str],
 ) -> str:
     args = ", ".join(
         rendered_operands(
@@ -3564,6 +3628,7 @@ def render_instruction(
             labels=labels,
             names=names,
             constants=constants,
+            direction_tempvar_writes=direction_tempvar_writes,
         )
     )
     raw = " ".join(f"{byte:02X}" for byte in instruction.raw)
@@ -3737,6 +3802,7 @@ def render_source(
         for value, symbol in sorted(VAR_NAMES.items())
     }
     used_macros = {macro_name(instruction) for row in rows for instruction in row.instructions}
+    direction_tempvar_writes = collect_direction_tempvar_writes(rows)
 
     rendered_rows: list[str] = []
     for row in rows:
@@ -3748,7 +3814,13 @@ def render_source(
             if label and label != row.name:
                 rendered_rows.append(f"{label}:")
             rendered_rows.append(
-                render_instruction(instruction, labels=labels, names=names, constants=constants)
+                render_instruction(
+                    instruction,
+                    labels=labels,
+                    names=names,
+                    constants=constants,
+                    direction_tempvar_writes=direction_tempvar_writes,
+                )
             )
 
     constant_lines = ["; External constants and action-script variable slots."]
@@ -3787,6 +3859,7 @@ def render_report(
     manifest_path: Path,
     constants: dict[str, str],
     used_macros: set[str],
+    direction_tempvar_write_count: int,
     mismatches: list[str],
 ) -> str:
     total_bytes = sum(row.size for row in rows)
@@ -3840,6 +3913,10 @@ def render_report(
     if any(symbol.startswith("!ACTIONSCRIPT_DIRECTION_") for symbol in constants):
         readability_lines.append(
             "- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants."
+        )
+    if direction_tempvar_write_count:
+        readability_lines.append(
+            "- Direction tempvar writes render as `!ACTIONSCRIPT_DIRECTION_*` constants only when a later direction/vector callback consumes them in the same emitted row, with no intervening tempvar rewrite or unrelated native callback."
         )
     schema_macros = sorted(macro for macro in used_macros if macro in CALLROUTINE_SCHEMA_MACROS)
     if schema_macros:
@@ -3901,6 +3978,7 @@ def main() -> int:
     labels = collect_label_map(rows, names)
     source, constants = render_source(rows, labels, names, family_id=args.family)
     used_macros = {macro_name(instruction) for row in rows for instruction in row.instructions}
+    direction_tempvar_writes = collect_direction_tempvar_writes(rows)
 
     mismatches: list[str] = []
     for row in rows:
@@ -3939,6 +4017,7 @@ def main() -> int:
             manifest_path=manifest_path,
             constants=constants,
             used_macros=used_macros,
+            direction_tempvar_write_count=len(direction_tempvar_writes),
             mismatches=mismatches,
         ),
         encoding="utf-8",
