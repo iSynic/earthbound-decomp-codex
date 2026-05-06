@@ -11,6 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C0AD9F_WriteVramAddressFrom3B3C                  = $AD9F
 C018F3_CloseOrResetPresentationState             = $C018F3
 C019B2_RestorePartyStateAfterTransition          = $C019B2
 C01A69_ResetEntitySlotStateTables                = $C01A69
@@ -22,7 +23,7 @@ C06B21_RunPostTransitionDeferredScriptQueue      = $C06B21
 C07B52_RebuildPartyRecordsOrEntityState          = $C07B52
 C0856B_WaitFramesOrTransitionDelay               = $C0856B
 C085B7_QueueChunkedVramDma                       = $C085B7
-PREPARE_VRAM_COPY            = $C08616
+C08616_QueueVramTransfer_FromDpSource            = $C08616
 C08726_BlankWaitAndDisableHdma                   = $C08726
 C08744_OpenDisplayTransitionBracket              = $C08744
 C08756_WaitOneFrameAndPollInput                  = $C08756
@@ -95,13 +96,16 @@ C4954C_SeedPaletteFadeWorkBuffer                 = $C4954C
 C496E7_StartPaletteFadeFromWorkBuffer            = $C496E7
 C49740_FinishPaletteFadeWorkBuffer               = $C49740
 C4A7B0_StepBattleOverlayScriptState              = $C4A7B0
+C4EFC4_EnqueueCreditsDma                         = $C4EFC4
 C4FBBD_PlaySoundStoneMelody                      = $C4FBBD
 
 ; ---------------------------------------------------------------------------
 ; C0:F41E
 
 CREDITS_SCROLL_FRAME:
-C0F41E_FrameCallbackProcessCommandStream = CREDITS_SCROLL_FRAME
+C0F41E_FrameCallback_ProcessCommandStream = CREDITS_SCROLL_FRAME
+    ; Interpret the credits command stream and enqueue WRAM tile rows for DMA.
+    ; DBR is expected to point at WRAM while this frame callback is installed.
     rep #$31
     phd
     tdc
@@ -109,11 +113,11 @@ C0F41E_FrameCallbackProcessCommandStream = CREDITS_SCROLL_FRAME
     tcd
     lda $003B
     cmp $B4E3
-    beq C0F430_FrameCallbackProcessCommandStream_LF430
-    bcs C0F433_FrameCallbackProcessCommandStream_LF433
-C0F430_FrameCallbackProcessCommandStream_LF430:
-    jmp.w C0F85F_FrameCallbackProcessCommandStream_LF85F
-C0F433_FrameCallbackProcessCommandStream_LF433:
+    beq C0F430_FrameCallback_ProcessCommandStream_LF430
+    bcs C0F433_FrameCallback_ProcessCommandStream_LF433
+C0F430_FrameCallback_ProcessCommandStream_LF430:
+    jmp.w C0F85F_FrameCallback_ProcessCommandStream_LF85F
+C0F433_FrameCallback_ProcessCommandStream_LF433:
     lda $B4F7
     sta $23
     lda $B4F7
@@ -192,32 +196,35 @@ C0F433_FrameCallbackProcessCommandStream_LF433:
     lda $08
     sta $1D
     lda $15
+    ; Command bytes: 01/02 emit tile rows, 03 advances timing, 04 remaps a row,
+    ; FF terminates the stream. Unknown command bytes only advance the pointer.
     cmp.w #$0001
-    beq C0F4EC_FrameCallbackProcessCommandStream_LF4EC
+    beq C0F4EC_FrameCallback_ProcessCommandStream_LF4EC
     cmp.w #$0002
-    bne C0F4D1_FrameCallbackProcessCommandStream_LF4D1
-    jmp.w C0F581_FrameCallbackProcessCommandStream_LF581
-C0F4D1_FrameCallbackProcessCommandStream_LF4D1:
+    bne C0F4D1_FrameCallback_ProcessCommandStream_LF4D1
+    jmp.w C0F581_FrameCallback_ProcessCommandStream_LF581
+C0F4D1_FrameCallback_ProcessCommandStream_LF4D1:
     cmp.w #$0003
-    bne C0F4D9_FrameCallbackProcessCommandStream_LF4D9
-    jmp.w C0F668_FrameCallbackProcessCommandStream_LF668
-C0F4D9_FrameCallbackProcessCommandStream_LF4D9:
+    bne C0F4D9_FrameCallback_ProcessCommandStream_LF4D9
+    jmp.w C0F668_FrameCallback_ProcessCommandStream_LF668
+C0F4D9_FrameCallback_ProcessCommandStream_LF4D9:
     cmp.w #$0004
-    bne C0F4E1_FrameCallbackProcessCommandStream_LF4E1
-    jmp.w C0F67A_FrameCallbackProcessCommandStream_LF67A
-C0F4E1_FrameCallbackProcessCommandStream_LF4E1:
+    bne C0F4E1_FrameCallback_ProcessCommandStream_LF4E1
+    jmp.w C0F67A_FrameCallback_ProcessCommandStream_LF67A
+C0F4E1_FrameCallback_ProcessCommandStream_LF4E1:
     cmp.w #$00FF
-    bne C0F4E9_FrameCallbackProcessCommandStream_LF4E9
-    jmp.w C0F845_FrameCallbackProcessCommandStream_LF845
-C0F4E9_FrameCallbackProcessCommandStream_LF4E9:
-    jmp.w C0F84B_FrameCallbackProcessCommandStream_LF84B
-C0F4EC_FrameCallbackProcessCommandStream_LF4EC:
+    bne C0F4E9_FrameCallback_ProcessCommandStream_LF4E9
+    jmp.w C0F845_FrameCallback_ProcessCommandStream_LF845
+C0F4E9_FrameCallback_ProcessCommandStream_LF4E9:
+    jmp.w C0F84B_FrameCallback_ProcessCommandStream_LF84B
+C0F4EC_FrameCallback_ProcessCommandStream_LF4EC:
+    ; Command 01: emit one row into the current ring slot.
     lda $B4E3
     clc
     adc.w #$0008
     sta $B4E3
-    bra C0F531_FrameCallbackProcessCommandStream_LF531
-C0F4F8_FrameCallbackProcessCommandStream_LF4F8:
+    bra C0F531_FrameCallback_ProcessCommandStream_LF531
+C0F4F8_FrameCallback_ProcessCommandStream_LF4F8:
     and.w #$00FF
     clc
     adc.w #$2000
@@ -246,10 +253,10 @@ C0F4F8_FrameCallbackProcessCommandStream_LF4F8:
     lda $08
     sta $19
     inc $02
-C0F531_FrameCallbackProcessCommandStream_LF531:
+C0F531_FrameCallback_ProcessCommandStream_LF531:
     lda [$1B]
     and.w #$00FF
-    bne C0F4F8_FrameCallbackProcessCommandStream_LF4F8
+    bne C0F4F8_FrameCallback_ProcessCommandStream_LF4F8
     lda $02
     lsr A
     pha
@@ -293,15 +300,16 @@ C0F531_FrameCallbackProcessCommandStream_LF531:
     tax
     sep #$20
     lda.b #$00
-    jsl $C4EFC4
-    jmp.w C0F84B_FrameCallbackProcessCommandStream_LF84B
-C0F581_FrameCallbackProcessCommandStream_LF581:
+    jsl C4EFC4_EnqueueCreditsDma
+    jmp.w C0F84B_FrameCallback_ProcessCommandStream_LF84B
+C0F581_FrameCallback_ProcessCommandStream_LF581:
+    ; Command 02: emit paired rows into consecutive ring slots.
     lda $B4E3
     clc
     adc.w #$0010
     sta $B4E3
-    bra C0F5D1_FrameCallbackProcessCommandStream_LF5D1
-C0F58D_FrameCallbackProcessCommandStream_LF58D:
+    bra C0F5D1_FrameCallback_ProcessCommandStream_LF5D1
+C0F58D_FrameCallback_ProcessCommandStream_LF58D:
     and.w #$00FF
     clc
     adc.w #$2400
@@ -335,10 +343,10 @@ C0F58D_FrameCallbackProcessCommandStream_LF58D:
     inc $02
     lda $02
     sta $1F
-C0F5D1_FrameCallbackProcessCommandStream_LF5D1:
+C0F5D1_FrameCallback_ProcessCommandStream_LF5D1:
     lda [$1B]
     and.w #$00FF
-    bne C0F58D_FrameCallbackProcessCommandStream_LF58D
+    bne C0F58D_FrameCallback_ProcessCommandStream_LF58D
     lda $02
     lsr A
     sta $02
@@ -380,21 +388,21 @@ C0F5D1_FrameCallbackProcessCommandStream_LF5D1:
     tax
     sep #$20
     lda.b #$00
-    jsl $C4EFC4
+    jsl C4EFC4_EnqueueCreditsDma
     lda $04
     cmp.w #$001F
-    beq C0F62E_FrameCallbackProcessCommandStream_LF62E
+    beq C0F62E_FrameCallback_ProcessCommandStream_LF62E
     lda $13
     clc
     adc.w #$0020
     sta $23
-    bra C0F636_FrameCallbackProcessCommandStream_LF636
-C0F62E_FrameCallbackProcessCommandStream_LF62E:
+    bra C0F636_FrameCallback_ProcessCommandStream_LF636
+C0F62E_FrameCallback_ProcessCommandStream_LF62E:
     lda $13
     sec
     sbc.w #$03E0
     sta $23
-C0F636_FrameCallbackProcessCommandStream_LF636:
+C0F636_FrameCallback_ProcessCommandStream_LF636:
     lda $21
     asl A
     asl A
@@ -422,9 +430,10 @@ C0F636_FrameCallbackProcessCommandStream_LF636:
     tax
     sep #$20
     lda.b #$00
-    jsl $C4EFC4
-    jmp.w C0F84B_FrameCallbackProcessCommandStream_LF84B
-C0F668_FrameCallbackProcessCommandStream_LF668:
+    jsl C4EFC4_EnqueueCreditsDma
+    jmp.w C0F84B_FrameCallback_ProcessCommandStream_LF84B
+C0F668_FrameCallback_ProcessCommandStream_LF668:
+    ; Command 03: advance the stream timing threshold by a small scaled count.
     lda [$1B]
     and.w #$00FF
     asl A
@@ -433,32 +442,33 @@ C0F668_FrameCallbackProcessCommandStream_LF668:
     clc
     adc $B4E3
     sta $B4E3
-    jmp.w C0F84B_FrameCallbackProcessCommandStream_LF84B
-C0F67A_FrameCallbackProcessCommandStream_LF67A:
+    jmp.w C0F84B_FrameCallback_ProcessCommandStream_LF84B
+C0F67A_FrameCallback_ProcessCommandStream_LF67A:
+    ; Command 04: remap a byte row through the $B4F9 staging buffer.
     ldx.w #$9801
     stx $15
     lda $0000,X
     and.w #$00FF
-    bne C0F68A_FrameCallbackProcessCommandStream_LF68A
-    jmp.w C0F831_FrameCallbackProcessCommandStream_LF831
-C0F68A_FrameCallbackProcessCommandStream_LF68A:
+    bne C0F68A_FrameCallback_ProcessCommandStream_LF68A
+    jmp.w C0F831_FrameCallback_ProcessCommandStream_LF831
+C0F68A_FrameCallback_ProcessCommandStream_LF68A:
     ldy.w #$B4F9
     sep #$20
     lda.b #$00
     sta $12
-    jmp.w C0F72A_FrameCallbackProcessCommandStream_LF72A
-C0F696_FrameCallbackProcessCommandStream_LF696:
+    jmp.w C0F72A_FrameCallback_ProcessCommandStream_LF72A
+C0F696_FrameCallback_ProcessCommandStream_LF696:
     lda $00
     and.w #$00FF
     sta $13
     cmp.w #$00AC
-    beq C0F6AE_FrameCallbackProcessCommandStream_LF6AE
+    beq C0F6AE_FrameCallback_ProcessCommandStream_LF6AE
     cmp.w #$00AE
-    beq C0F6C3_FrameCallbackProcessCommandStream_LF6C3
+    beq C0F6C3_FrameCallback_ProcessCommandStream_LF6C3
     cmp.w #$00AF
-    beq C0F6D8_FrameCallbackProcessCommandStream_LF6D8
-    bra C0F6ED_FrameCallbackProcessCommandStream_LF6ED
-C0F6AE_FrameCallbackProcessCommandStream_LF6AE:
+    beq C0F6D8_FrameCallback_ProcessCommandStream_LF6D8
+    bra C0F6ED_FrameCallback_ProcessCommandStream_LF6ED
+C0F6AE_FrameCallback_ProcessCommandStream_LF6AE:
     lda $12
     and.w #$00FF
     sta $02
@@ -469,8 +479,8 @@ C0F6AE_FrameCallbackProcessCommandStream_LF6AE:
     sep #$20
     lda.b #$7C
     sta $0000,X
-    bra C0F720_FrameCallbackProcessCommandStream_LF720
-C0F6C3_FrameCallbackProcessCommandStream_LF6C3:
+    bra C0F720_FrameCallback_ProcessCommandStream_LF720
+C0F6C3_FrameCallback_ProcessCommandStream_LF6C3:
     lda $12
     and.w #$00FF
     sta $02
@@ -481,8 +491,8 @@ C0F6C3_FrameCallbackProcessCommandStream_LF6C3:
     sep #$20
     lda.b #$7E
     sta $0000,X
-    bra C0F720_FrameCallbackProcessCommandStream_LF720
-C0F6D8_FrameCallbackProcessCommandStream_LF6D8:
+    bra C0F720_FrameCallback_ProcessCommandStream_LF720
+C0F6D8_FrameCallback_ProcessCommandStream_LF6D8:
     lda $12
     and.w #$00FF
     sta $02
@@ -493,28 +503,28 @@ C0F6D8_FrameCallbackProcessCommandStream_LF6D8:
     sep #$20
     lda.b #$7F
     sta $0000,X
-    bra C0F720_FrameCallbackProcessCommandStream_LF720
-C0F6ED_FrameCallbackProcessCommandStream_LF6ED:
+    bra C0F720_FrameCallback_ProcessCommandStream_LF720
+C0F6ED_FrameCallback_ProcessCommandStream_LF6ED:
     lda $13
     clc
     sbc.w #$0090
-    bvc C0F6F9_FrameCallbackProcessCommandStream_LF6F9
-    bpl C0F705_FrameCallbackProcessCommandStream_LF705
-    bra C0F6FB_FrameCallbackProcessCommandStream_LF6FB
-C0F6F9_FrameCallbackProcessCommandStream_LF6F9:
-    bmi C0F705_FrameCallbackProcessCommandStream_LF705
-C0F6FB_FrameCallbackProcessCommandStream_LF6FB:
+    bvc C0F6F9_FrameCallback_ProcessCommandStream_LF6F9
+    bpl C0F705_FrameCallback_ProcessCommandStream_LF705
+    bra C0F6FB_FrameCallback_ProcessCommandStream_LF6FB
+C0F6F9_FrameCallback_ProcessCommandStream_LF6F9:
+    bmi C0F705_FrameCallback_ProcessCommandStream_LF705
+C0F6FB_FrameCallback_ProcessCommandStream_LF6FB:
     lda $13
     sec
     sbc.w #$0050
     sta $13
-    bra C0F70D_FrameCallbackProcessCommandStream_LF70D
-C0F705_FrameCallbackProcessCommandStream_LF705:
+    bra C0F70D_FrameCallback_ProcessCommandStream_LF70D
+C0F705_FrameCallback_ProcessCommandStream_LF705:
     lda $13
     sec
     sbc.w #$0030
     sta $13
-C0F70D_FrameCallbackProcessCommandStream_LF70D:
+C0F70D_FrameCallback_ProcessCommandStream_LF70D:
     lda $12
     and.w #$00FF
     sta $02
@@ -525,29 +535,29 @@ C0F70D_FrameCallbackProcessCommandStream_LF70D:
     lda $13
     sep #$20
     sta $0000,X
-C0F720_FrameCallbackProcessCommandStream_LF720:
+C0F720_FrameCallback_ProcessCommandStream_LF720:
     ldx $15
     inx
     stx $15
     lda $12
     inc A
     sta $12
-C0F72A_FrameCallbackProcessCommandStream_LF72A:
+C0F72A_FrameCallback_ProcessCommandStream_LF72A:
     lda $0000,X
     sta $00
     rep #$20
     lda $00
     and.w #$00FF
-    beq C0F73B_FrameCallbackProcessCommandStream_LF73B
-    jmp.w C0F696_FrameCallbackProcessCommandStream_LF696
-C0F73B_FrameCallbackProcessCommandStream_LF73B:
+    beq C0F73B_FrameCallback_ProcessCommandStream_LF73B
+    jmp.w C0F696_FrameCallback_ProcessCommandStream_LF696
+C0F73B_FrameCallback_ProcessCommandStream_LF73B:
     lda $B4E3
     clc
     adc.w #$0010
     sta $B4E3
     ldx.w #$0000
-    bra C0F795_FrameCallbackProcessCommandStream_LF795
-C0F74A_FrameCallbackProcessCommandStream_LF74A:
+    bra C0F795_FrameCallback_ProcessCommandStream_LF795
+C0F74A_FrameCallback_ProcessCommandStream_LF74A:
     and.w #$00FF
     sta $02
     and.w #$00F0
@@ -586,13 +596,13 @@ C0F74A_FrameCallbackProcessCommandStream_LF74A:
     lda $02
     sta $1F
     inx
-C0F795_FrameCallbackProcessCommandStream_LF795:
+C0F795_FrameCallback_ProcessCommandStream_LF795:
     lda $0000,Y
     and.w #$00FF
-    beq C0F7A2_FrameCallbackProcessCommandStream_LF7A2
+    beq C0F7A2_FrameCallback_ProcessCommandStream_LF7A2
     cpx.w #$0018
-    bcc C0F74A_FrameCallbackProcessCommandStream_LF74A
-C0F7A2_FrameCallbackProcessCommandStream_LF7A2:
+    bcc C0F74A_FrameCallback_ProcessCommandStream_LF74A
+C0F7A2_FrameCallback_ProcessCommandStream_LF7A2:
     lda $1F
     sta $02
     lsr A
@@ -635,21 +645,21 @@ C0F7A2_FrameCallbackProcessCommandStream_LF7A2:
     tax
     sep #$20
     lda.b #$00
-    jsl $C4EFC4
+    jsl C4EFC4_EnqueueCreditsDma
     lda $04
     cmp.w #$001F
-    beq C0F7FA_FrameCallbackProcessCommandStream_LF7FA
+    beq C0F7FA_FrameCallback_ProcessCommandStream_LF7FA
     lda $13
     clc
     adc.w #$0020
     sta $23
-    bra C0F802_FrameCallbackProcessCommandStream_LF802
-C0F7FA_FrameCallbackProcessCommandStream_LF7FA:
+    bra C0F802_FrameCallback_ProcessCommandStream_LF802
+C0F7FA_FrameCallback_ProcessCommandStream_LF7FA:
     lda $13
     sec
     sbc.w #$03E0
     sta $23
-C0F802_FrameCallbackProcessCommandStream_LF802:
+C0F802_FrameCallback_ProcessCommandStream_LF802:
     lda $21
     asl A
     asl A
@@ -677,8 +687,8 @@ C0F802_FrameCallbackProcessCommandStream_LF802:
     tax
     sep #$20
     lda.b #$00
-    jsl $C4EFC4
-C0F831_FrameCallbackProcessCommandStream_LF831:
+    jsl C4EFC4_EnqueueCreditsDma
+C0F831_FrameCallback_ProcessCommandStream_LF831:
     lda $1B
     sta $06
     lda $1D
@@ -688,11 +698,12 @@ C0F831_FrameCallbackProcessCommandStream_LF831:
     sta $1B
     lda $08
     sta $1D
-    bra C0F84B_FrameCallbackProcessCommandStream_LF84B
-C0F845_FrameCallbackProcessCommandStream_LF845:
+    bra C0F84B_FrameCallback_ProcessCommandStream_LF84B
+C0F845_FrameCallback_ProcessCommandStream_LF845:
+    ; FF terminates the stream by parking the timing threshold at FFFF.
     lda.w #$FFFF
     sta $B4E3
-C0F84B_FrameCallbackProcessCommandStream_LF84B:
+C0F84B_FrameCallback_ProcessCommandStream_LF84B:
     lda $1B
     sta $06
     lda $1D
@@ -702,10 +713,11 @@ C0F84B_FrameCallbackProcessCommandStream_LF84B:
     sta $B4E7
     lda $08
     sta $B4E9
-C0F85F_FrameCallbackProcessCommandStream_LF85F:
+C0F85F_FrameCallback_ProcessCommandStream_LF85F:
+    ; Queue the rolling background row and advance the BG3 vertical offset.
     lda $B4E5
     cmp $003B
-    bcs C0F89A_FrameCallbackProcessCommandStream_LF89A
+    bcs C0F89A_FrameCallback_ProcessCommandStream_LF89A
     lda $B4E5
     clc
     adc.w #$0008
@@ -731,8 +743,8 @@ C0F85F_FrameCallbackProcessCommandStream_LF85F:
     ldx.w #$0040
     sep #$20
     lda.b #$03
-    jsl $C4EFC4
-C0F89A_FrameCallbackProcessCommandStream_LF89A:
+    jsl C4EFC4_EnqueueCreditsDma
+C0F89A_FrameCallback_ProcessCommandStream_LF89A:
     lda $B4EB
     sta $06
     lda $B4ED
@@ -741,15 +753,15 @@ C0F89A_FrameCallbackProcessCommandStream_LF89A:
     lda $06
     adc.w #$4000
     sta $06
-    bcc C0F8B0_FrameCallbackProcessCommandStream_LF8B0
+    bcc C0F8B0_FrameCallback_ProcessCommandStream_LF8B0
     inc $08
-C0F8B0_FrameCallbackProcessCommandStream_LF8B0:
+C0F8B0_FrameCallback_ProcessCommandStream_LF8B0:
     lda $06
     sta $B4EB
     lda $08
     sta $B4ED
     sta $003B
-    jsr $AD9F
+    jsr C0AD9F_WriteVramAddressFrom3B3C
     pld
     rts
 

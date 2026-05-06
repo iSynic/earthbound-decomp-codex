@@ -90,10 +90,13 @@ split-aware mixed source:
   split as code `C0:F41E..C0:F8C2` plus bank-tail data/header/vector bytes
   `C0:F8C2..C0:10000`.
 
-The `C0:F41E` unit needs explicit accumulator-width entry hints at several
+The `C0:F41E` unit uses explicit accumulator-width entry hints at several
 alternate entries and post-`jsl` decode points so the source stays readable:
 `C0:F581`, `C0:F61D`, `C0:F668`, `C0:F67A`, `C0:F696`, `C0:F6C3`,
 `C0:F6D8`, `C0:F6ED`, `C0:F705`, `C0:F7E9`, `C0:F831`, and `C0:F89A`.
+The 2026-05-06 source polish follow-up also names its reference-backed
+`C4:EFC4` credits-DMA enqueue calls and final `C0:AD9F` BG3 vertical-scroll
+commit.
 
 ## Tooling
 

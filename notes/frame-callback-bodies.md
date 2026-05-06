@@ -166,7 +166,16 @@ Working interpretation:
 
 - It likely feeds one or more WRAM-backed staging buffers in the `7Dxx` range.
 
-- Some late branches still depend on understanding processor-width restoration after `JSL $C4EFC4`, so the remaining `BRK`-looking artifacts in that region should be treated as decoder-state ambiguity, not final semantic conclusions.
+- `C4:EFC4` is the reference-named `ENQUEUE_CREDITS_DMA`; this callback uses
+  it to queue the tile rows staged in WRAM for later credits DMA processing.
+
+- `C0:AD9F` writes the current `$003B/$003C` value into `BG3VOFS`
+  (`$2112`), making the tail of this callback the live BG3 vertical scroll
+  commit.
+
+- The late decode ambiguity is now resolved in source with explicit
+  accumulator-width force points after the `C4:EFC4` enqueue calls. The source
+  no longer contains the previous `BRK`-looking artifacts in this region.
 
 ## Support routines
 
@@ -204,7 +213,11 @@ Working interpretation:
 
 - Name the table families around `$0E5E-$103E`, `$107A/$10B6`, `$13FE`, and `$148A` in task-record terms instead of raw offsets.
 
-- Resolve accumulator-width restoration after `JSL $C4EFC4` inside `C0:F41E` to finish naming the command handlers with confidence.
+- Continue naming the `C0:F41E` command handlers from stream data ownership:
+  `01/02` are row emitters, `03` advances the timing threshold, `04` remaps a
+  staged row through `$B4F9`, and `FF` terminates the stream. The next useful
+  step is tying the stream payload source and `$B4E3/$B4E5/$B4E7/$B4EB`
+  fields to the C4 installer at `C4:F592`.
 
 ## Working Names
 

@@ -74,6 +74,10 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   the logo and gas-station entry leaves, and closed the raw helper-call surface
   for C2 battle-bg updates, C4 gas-station/palette helpers, and entity cleanup.
   See `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md`.
+- 2026-05-06: C0 credits command-stream follow-up restored the
+  `CREDITS_SCROLL_FRAME` alias, named `C4:EFC4` credits-DMA enqueues and the
+  `C0:AD9F` BG3 vertical-scroll commit, and refreshed the `01/02/03/04/FF`
+  command-handler interpretation. See `notes/frame-callback-bodies.md`.
 - 2026-04-30: C1 battle front-end first slice landed as byte-neutral source
   comments plus `notes/c1-battle-front-end-runtime-polish.md`.
 - 2026-04-30: C1 battle PSI second slice landed as byte-neutral source

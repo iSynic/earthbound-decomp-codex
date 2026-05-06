@@ -140,6 +140,11 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   C4 gas-station visual loader, CGRAM mirror, palette fade helpers, and entity
   cleanup call into local source contracts. See
   `notes/intro-logo-wait-and-gas-station-helpers-c0efe1-c0f21e.md`.
+- 2026-05-06 follow-up: the C0 credits command-stream callback pass restored
+  the `CREDITS_SCROLL_FRAME` alias on `C0:F41E`, named its C4 credits-DMA
+  enqueue contract and final BG3 vertical-scroll commit, and replaced the stale
+  decode-ambiguity note with command-handler roles for `01/02/03/04/FF`.
+  See `notes/frame-callback-bodies.md`.
 
 ## Validation
 
