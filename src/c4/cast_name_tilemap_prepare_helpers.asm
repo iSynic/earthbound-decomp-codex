@@ -17,6 +17,12 @@ FillLocalBufferMaybe               = $C08EFC
 C08F15_ClearVramOrRendererBuffer   = $C08F15
 Multiply16By8_ViaHardwareRegisters = $C08FF7
 
+; Local C4 patch strings emitted at the tail of RenderCastNameText.
+CastNameTextTilemapPatchBank              = $00C4
+CastNameTextTilemapPatchPossessiveDadLow  = $E796
+CastNameTextTilemapPatchPossessiveMomLow  = $E79D
+CastNameTextTilemapPatchPossessiveMasterLow = $E7A4
+
 ; ---------------------------------------------------------------------------
 ; C4:E7AE
 
@@ -197,10 +203,12 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    lda.w #$E796
+    lda.w #CastNameTextTilemapPatchPossessiveDadLow
     sta $12
-    lda.w #$00C4
+    lda.w #CastNameTextTilemapPatchBank
     sta $14
+    ; Copy the C4-local possessive "dad" patch into the prepared cast-name
+    ; tilemap row before rendering the referenced E1 source name.
     jsl CopyCastNameTilemapPatchMaybe
     lda $2E
     sta $06
@@ -273,10 +281,11 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    lda.w #$E79D
+    lda.w #CastNameTextTilemapPatchPossessiveMomLow
     sta $12
-    lda.w #$00C4
+    lda.w #CastNameTextTilemapPatchBank
     sta $14
+    ; Same row patch contract for the local possessive "mom" suffix.
     jsl CopyCastNameTilemapPatchMaybe
     lda $2E
     sta $06
@@ -353,10 +362,11 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    lda.w #$E7A4
+    lda.w #CastNameTextTilemapPatchPossessiveMasterLow
     sta $12
-    lda.w #$00C4
+    lda.w #CastNameTextTilemapPatchBank
     sta $14
+    ; Final local suffix patch; the E1 record supplies the adjacent name.
     jsl CopyCastNameTilemapPatchMaybe
     lda $2E
     sta $06

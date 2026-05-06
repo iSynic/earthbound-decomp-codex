@@ -24,6 +24,38 @@ C425FD_StartWh2HdmaFromDpStream           = $C425FD
 ; ---------------------------------------------------------------------------
 ; C4:7501
 
+; ---------------------------------------------------------------------------
+; WRAM / data contracts
+;
+; This corridor owns generated WH0/WH2 HDMA stream staging for C4 visual
+; effects. Keep the per-slot names local: $0E5E is a stream-buffer toggle in
+; the HDMA starters, and an indexed graphics selector in the loaders.
+
+CurrentEntitySlotIndex                       = $1A42
+BaseEntitySlotIndex                          = $9889
+CameraScreenOriginX                          = $0031
+CameraScreenOriginY                          = $0033
+LiveEntityWorldXTable                        = $0B8E
+LiveEntityWorldYTable                        = $0BCA
+WindowMaskCurrentSlotToggleOrGfxIndexTable   = $0E5E
+IndexedWindowGfxVariantTable                 = $0E9A
+CurrentEntityMirrorYAnchorTable              = $1002
+BoxMaskStreamToggle                          = $9E3A
+DisplayTransferSelector30                    = $0030
+BgScrollShadow3b                             = $003B
+
+WindowMaskWorkBank                           = $007F
+CurrentEntityWh0MaskBufferA                  = $0000
+CurrentEntityWh0MaskBufferB                  = $02FE
+CurrentEntityWh2MaskBufferA                  = $05FC
+CurrentEntityWh2MaskBufferB                  = $08FA
+MosaicFadeWh0MaskBuffer                      = $0BF8
+WhBoxMaskBufferA                             = $0000
+WhBoxMaskBufferB                             = $02FE
+IndexedWindowGfxRecordTable                  = $CC2DE1
+IndexedWindowGfxRecordTableLow               = $2DE1
+IndexedWindowGfxRecordTableBank              = $00CC
+
 
 ; ---------------------------------------------------------------------------
 ; C4:74F6
@@ -32,6 +64,8 @@ C474F6_WhWindowSpanRadiusRampTable:
     ; data bytes: C4:74F6..C4:7501
     db $10,$10,$0F,$0F,$0E,$0D,$0C,$0B,$09,$06,$03
 
+; Writes one current-entity WH window span stream to the long pointer in
+; $22/$24. The stream is screen-relative and ends with a zero HDMA terminator.
 C47501_WriteCurrentEntityWhWindowSpan:
     rep #$31
     phd
@@ -261,6 +295,8 @@ C4767D_WindowMaskAndIndexedGfxHelpers_L767D:
     rep #$20
     pld
     rts
+; Stages a current-entity WH0 mask stream in alternating 7F buffers and starts
+; channel-4 HDMA through the C4:25CC entry. Increments the slot-local toggle.
 C476A5_StageCurrentEntityWh0MaskAndStartHdma:
     rep #$31
     phd
@@ -312,6 +348,8 @@ C476C9_WindowMaskAndIndexedGfxHelpers_L76C9:
     sta $0000,X
     pld
     rtl
+; Stages the channel-5 WH2 partner stream in alternating 7F buffers and starts
+; HDMA through C4:25FD. Increments the same slot-local toggle.
 C47705_StageCurrentEntityWh2MaskAndStartHdma:
     rep #$31
     phd
@@ -363,6 +401,8 @@ C47729_WindowMaskAndIndexedGfxHelpers_L7729:
     sta $0000,X
     pld
     rtl
+; Builds the fixed-buffer WH0 stream used by the mosaic/fade wrapper path and
+; starts channel-4 HDMA through the C4:2542 entry, leaving WOBJSEL unchanged.
 C47765_StageMosaicFadeWh0MaskAndStartHdma:
     rep #$31
     phd
@@ -496,6 +536,8 @@ C47831_WindowMaskAndIndexedGfxHelpers_L7831:
     jsl C42542_StartWh0HdmaKeepWindowObjSelect
     pld
     rtl
+; Clamps caller A into the unsigned range 0..X. Used by the rectangular WH0
+; mask builder before stream descriptor emission.
 C47866_ClampCoordToUnsignedLimit:
     rep #$31
     phd
@@ -534,6 +576,8 @@ C4789A_WindowMaskAndIndexedGfxHelpers_L789A:
     lda $0E
     pld
     rts
+; Appends one WH window run descriptor to the long pointer in $1F/$21, splitting
+; runs at the $7F descriptor length boundary.
 C4789E_AppendWhWindowRunDescriptor:
     rep #$31
     phd
@@ -615,6 +659,8 @@ C47926_WindowMaskAndIndexedGfxHelpers_L7926:
     sta $19
     pld
     rts
+; Stages a rectangular WH0 mask stream in alternating 7F buffers, starts
+; channel-4 HDMA through C4:245D, and increments the $9E3A box-mask toggle.
 C47930_StageWh0BoxMaskAndStartHdma:
     rep #$31
     phd
@@ -704,6 +750,8 @@ C47957_WindowMaskAndIndexedGfxHelpers_L7957:
     inc $9E3A
     pld
     rtl
+; Derives a centered rectangle from the current entity's screen-relative
+; position and delegates to the WH0 box-mask starter.
 C479E9_StageCurrentEntityCenteredWh0BoxMask:
     rep #$31
     phd
@@ -738,6 +786,8 @@ C479E9_StageCurrentEntityCenteredWh0BoxMask:
     jsl C47930_StageWh0BoxMaskAndStartHdma
     pld
     rtl
+; Builds a base-slot-relative rectangle after rebasing the vertical screen
+; origin to the current slot, then delegates to the WH0 box-mask starter.
 C47A27_StageBaseSlotRelativeWh0BoxMask:
     rep #$31
     phd
@@ -774,6 +824,7 @@ C47A27_StageBaseSlotRelativeWh0BoxMask:
     jsl C47930_StageWh0BoxMaskAndStartHdma
     pld
     rtl
+; Mirrors current-slot live Y around the slot-local $1002 anchor/target word.
 C47A6B_MirrorCurrentEntityYAroundTarget1002:
     rep #$31
     phd
@@ -803,6 +854,9 @@ C47A6B_MirrorCurrentEntityYAroundTarget1002:
     sta $0000,X
     pld
     rtl
+; Uses $0E5E[current] as an index into the CC:2DE1 graphics record family,
+; decompresses through C4:1A9E, queues the VRAM upload, sets $0030 = $18, and
+; marks $003B with $FFFF.
 C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     rep #$31
     phd
@@ -912,6 +966,9 @@ C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     sta $003B
     pld
     rtl
+; Uses $0E5E[current] and $0E9A[current] against the CC:2DE1 graphics record
+; family, queues a $0700-byte block to $7C00, and returns the selected metadata
+; byte from record offsets +6/+7.
 C47B77_LoadIndexedWindowGfxAndReadVariantByte:
     rep #$31
     phd

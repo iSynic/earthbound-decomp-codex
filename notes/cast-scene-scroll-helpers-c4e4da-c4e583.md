@@ -106,6 +106,12 @@ the row upload used by the ending cast display. The helpers share the
 apply the cast-name base tile offset at `$B4D1`, and use the C0 local-buffer
 copy/VRAM transfer contracts already seen in earlier text/window helpers.
 
+2026-05-06 cast-name patch follow-up: the inline `C4:E796..E7AE` table is now
+split into the three C4-local suffix patch rows consumed by
+`PrepareCastNameTilemap`: possessive dad, possessive mom, and possessive
+Master. The prep helper names the three patch source lows plus the C4 bank byte
+where it stages the local copy arguments for the C0 tilemap-patch callee.
+
 `C4:EBAD..C4:EC6E` are small print wrappers that select the party/current-slot
 or entity-var0 source before entering the cast-name print path.
 
@@ -140,6 +146,12 @@ selector byte, destination VRAM word, long source pointer, and byte count that
 the C0 credits command-stream callback supplies. `C4:F01D` drains one record
 per call from `$B4F3` and forwards it to `C0:8616`.
 
+2026-05-06 credits DMA queue follow-up: the enqueue and drain helpers now share
+named record constants for the 9-byte stride, selector byte, VRAM destination,
+source low/bank words, byte count, and `$007F` ring-index mask. The source
+comments keep this as a C4-owned queue-packing/unpacking contract while leaving
+the C0 VRAM transfer helper semantics to C0.
+
 `C4:F07D..C4:F70A` is the main credits scene block. It initializes the credits
 display, seeds the command-stream WRAM fields at `$B4E3/$B4E5/$B4E7..$B4ED`,
 checks which photograph flags are set, installs `C0:F41E` through the C0 frame
@@ -147,6 +159,13 @@ callback pointer, renders eligible photographs, slides them while draining the
 credits DMA queue, resets the callback to the default stub, reinstalls the
 delayed-action callback, and restores the display state after the credits
 presentation.
+
+2026-05-06 credits scene state follow-up: the initializer now names the local
+`$7F:0000` work buffer, E1 command-stream start at `E1:413F`, initial BG3 row
+threshold, `$7DFE` clear span, and display selector/mode bytes it seeds before
+arming the C0 command-stream callback. The playback tail now names the fixed
+post-scroll hold, return entity spawn coordinates, final `$7DFE` clear span,
+and display mode restored before the delayed-action callback is reinstalled.
 
 `C4:F70A..C4:F947` is the ebsrc-named music dataset table. `ChangeMusic` treats
 the requested music id as one-based, subtracts one for the row lookup, and reads
@@ -183,6 +202,9 @@ or sector refresh code.
 - `C4:E51E` = `HandleCastScrolling`
 - `C4:E583` = `RenderCastNameText`
 - `C4:E796` = `CastNameTextTilemapPatchTable`
+- `C4:E796` = `CastNameTextTilemapPatchPossessiveDad`
+- `C4:E79D` = `CastNameTextTilemapPatchPossessiveMom`
+- `C4:E7A4` = `CastNameTextTilemapPatchPossessiveMaster`
 - `C4:E7AE` = `PrepareCastNameTilemap`
 - `C4:EA9C` = `CopyCastNameTilemap`
 - `C4:EB04` = `PrintCastName`

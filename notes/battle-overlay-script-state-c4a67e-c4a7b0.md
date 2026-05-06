@@ -51,6 +51,16 @@ Source polish: `src/c4/battle_overlay_transition_data.asm` now splits the
 combined data corridor into the static transition wave table and the four named
 open/close script payload blocks while preserving the byte layout.
 
+2026-05-06 transition-data follow-up: the four local script payloads are now
+row-structured as one `#$16`-byte active record followed by one `#$16`-byte
+terminator record. The source records line up with the `C4:A7B0` interpreter
+fields: delay/count byte, optional X/Y/width/height words, signed deltas, and
+delta-step words. The closing records use `$8000` only for the optional
+width/height fields, matching the stepper's leave-current-value sentinel check.
+The stepper source now also marks the active long-script path, the null-pointer
+table-driven frame path, the special-mode ladder, and the cleanup handoff as
+separate C4-owned phases.
+
 ## Initializer
 
 `C4:A67E` initializes the active overlay state.
@@ -101,6 +111,11 @@ active script pointer, `CE:DD41` script table, `CE:DC45` frame pointer table,
 `#$16` record stride, `#$8000` optional-field sentinel, effect position/size
 and delta fields, special-mode delay ladder, and the C0 window/offset helper
 calls.
+
+2026-05-06 source polish: the initializer source now states the callee-side
+ownership boundary explicitly: C2/C3 pass mode and flag words, but C4 owns the
+`$AEC2..$AEE6` state layout, the optional local `C4:A5CE` default opening
+script pointer, and the handoff to the C0 renderer primer.
 
 ## Working Names
 

@@ -24,6 +24,11 @@ C0AE16_HdmaChannelEnableBitTable         = $C0AE16
 
 ; ---------------------------------------------------------------------------
 ; ROM/WRAM contracts
+;
+; C4 consumes the cached sprite-pose descriptor fields below but does not own
+; their global setup semantics. The helpers here copy frame words into 7F
+; staging buffers, merge masked tile columns, emit render DMA strip descriptors
+; through C0:A56E, and start one main-screen layer HDMA effect.
 
 VISUAL_FRAME_LIST_POINTER_TABLE       = $29CA
 VISUAL_FRAME_DATA_BANK_TABLE          = $2A42
@@ -87,6 +92,13 @@ RENDER_STRIP_SOURCE_OFFSET_HIGH_ZERO  = $0000
 ; C4:283F
 
 ; CopySecondaryVisualProfileFrameWords
+;
+; Entry:
+;   A = slot/profile index.
+;   X = 7F destination low word.
+;   Y = last byte/word offset to copy downward.
+; Side effects: copies selected frame words from the cached secondary visual
+; profile stream into the caller's 7F destination buffer.
 C4283F_CopySecondaryVisualProfileFrameWords:
     rep #$20
     phd
@@ -133,6 +145,13 @@ C4287A_CopySecondaryVisualProfileFrameWords_Loop:
 ; C4:2884
 
 ; CopyDirectionalVisualProfileFrameWords
+;
+; Entry:
+;   A = slot/profile index.
+;   X = 7F destination low word.
+;   Y = last byte/word offset to copy downward.
+; Side effects: copies selected frame words from the cached direction-facing
+; stream into the caller's 7F destination buffer.
 C42884_CopyDirectionalVisualProfileFrameWords:
     rep #$20
     phd
@@ -334,6 +353,13 @@ C42965_MergeMasked7fTileColumnPair:
 ; C4:29AE
 
 ; GenerateVisualProfileRenderDmaStrips
+;
+; Entry:
+;   A = initial source offset for the first frame piece.
+;   X = slot/profile index.
+; Side effects: fills the C0 render-strip descriptor fields at $0091..$0097
+; and calls C0:A56E once per cached visual piece. C0 owns the descriptor
+; queueing behavior after each call.
 C429AE_GenerateVisualProfileRenderDmaStrips:
     pha
     txa
@@ -367,6 +393,12 @@ C429E7_GenerateVisualProfileRenderDmaStrips_Return:
 ; C4:29E8
 
 ; StartMainScreenLayerHdmaFromAdb8
+;
+; Entry:
+;   A = HDMA channel index.
+; Side effects: programs the selected DMA channel for indirect HDMA to TM
+; ($212C) from 7E:ADB8 and sets that channel's bit in the $001F HDMA enable
+; shadow. The source table contents are owned outside this small starter.
 C429E8_StartMainScreenLayerHdmaFromAdb8:
     tay
     asl

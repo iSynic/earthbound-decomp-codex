@@ -17,6 +17,13 @@ CreditsDmaQueueWriteIndex = $B4F5
 ; Queue record layout under `CreditsDmaQueueBuffer`, stride 9 bytes:
 ; +0 transfer selector byte, +1 destination VRAM word, +3 source pointer
 ; low/bank word pair, +7 transfer byte count.
+CreditsDmaQueueRecordStride          = $0009
+CreditsDmaQueueRecordSelectorOffset  = $0000
+CreditsDmaQueueRecordVramDestOffset  = $0001
+CreditsDmaQueueRecordSourceLowOffset = $0003
+CreditsDmaQueueRecordSourceBankOffset = $0005
+CreditsDmaQueueRecordByteCountOffset = $0007
+CreditsDmaQueueIndexMask             = $007F
 
 ; ---------------------------------------------------------------------------
 ; C4:EFC4
@@ -43,7 +50,8 @@ C4EFC4_EnqueueCreditsDma = ENQUEUE_CREDITS_DMA
     lda $1F
     sta $08
     lda CreditsDmaQueueWriteIndex
-    ; Convert the ring index to a 9-byte queue record offset.
+    ; Convert the ring index to a CreditsDmaQueueRecordStride byte offset:
+    ; index*8 + index.
     sta $04
     asl A
     asl A
@@ -54,24 +62,28 @@ C4EFC4_EnqueueCreditsDma = ENQUEUE_CREDITS_DMA
     tax
     sep #$20
     lda $0E
+    ; +0 selector byte forwarded to C0:8616.
     sta $0000,X
     rep #$20
     tya
+    ; +1 destination VRAM word.
     sta $0001,X
     txy
     iny
     iny
     iny
+    ; +3/+5 long source pointer low/bank words.
     lda $06
     sta $0000,Y
     lda $08
     sta $0002,Y
+    ; +7 transfer byte count.
     lda $02
     sta $0007,X
     lda CreditsDmaQueueWriteIndex
     inc A
     sta CreditsDmaQueueWriteIndex
-    and.w #$007F
+    and.w #CreditsDmaQueueIndexMask
     sta CreditsDmaQueueWriteIndex
     pld
     rtl

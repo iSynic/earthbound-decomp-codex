@@ -16,6 +16,14 @@ CreditsDmaQueueReadIndex       = $B4F3
 CreditsDmaQueueWriteIndex      = $B4F5
 QueueVramTransfer_FromDpSource = $C08616
 
+CreditsDmaQueueRecordStride          = $0009
+CreditsDmaQueueRecordSelectorOffset  = $0000
+CreditsDmaQueueRecordVramDestOffset  = $0001
+CreditsDmaQueueRecordSourceLowOffset = $0003
+CreditsDmaQueueRecordSourceBankOffset = $0005
+CreditsDmaQueueRecordByteCountOffset = $0007
+CreditsDmaQueueIndexMask             = $007F
+
 ; ---------------------------------------------------------------------------
 ; C4:F01D
 
@@ -33,7 +41,8 @@ C4F01D_ProcessCreditsDmaQueue = PROCESS_CREDITS_DMA_QUEUE
     cmp CreditsDmaQueueReadIndex
     beq C4F07B_ProcessCreditsDmaQueue_LF07B
     lda CreditsDmaQueueReadIndex
-    ; Convert the ring index to a 9-byte queue record offset.
+    ; Convert the ring index to a CreditsDmaQueueRecordStride byte offset:
+    ; index*8 + index.
     sta $04
     asl A
     asl A
@@ -46,6 +55,7 @@ C4F01D_ProcessCreditsDmaQueue = PROCESS_CREDITS_DMA_QUEUE
     iny
     iny
     iny
+    ; +3/+5 source pointer low/bank words become the C0 transfer source.
     lda $0000,Y
     sta $06
     lda $0002,Y
@@ -56,6 +66,7 @@ C4F01D_ProcessCreditsDmaQueue = PROCESS_CREDITS_DMA_QUEUE
     sta $10
     lda $14
     tax
+    ; +7 byte count, +1 VRAM destination, +0 selector byte.
     ldy $0007,X
     tax
     lda $0001,X
@@ -70,7 +81,7 @@ C4F01D_ProcessCreditsDmaQueue = PROCESS_CREDITS_DMA_QUEUE
     lda CreditsDmaQueueReadIndex
     inc A
     sta CreditsDmaQueueReadIndex
-    and.w #$007F
+    and.w #CreditsDmaQueueIndexMask
     sta CreditsDmaQueueReadIndex
 C4F07B_ProcessCreditsDmaQueue_LF07B:
     pld

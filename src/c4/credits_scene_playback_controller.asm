@@ -45,6 +45,12 @@ CreditsPhotoRecordCount                 = $0020
 CreditsScrollLimit                      = $11B0
 CreditsPhotoFadeFrames                  = $0040
 CreditsDisplayTransferSelector          = $0018
+CreditsPostScrollHoldFrames             = $07D0
+CreditsReturnEntitySpawnX               = $0017
+CreditsReturnEntitySpawnY               = $0018
+CreditsSceneClearBase                   = $7DFE
+CreditsSceneClearWords                  = $0200
+CreditsReturnDisplayMode                = $17
 
 ; ---------------------------------------------------------------------------
 ; C4:F554
@@ -187,8 +193,10 @@ C4F67E_PlayCredits_LF67E:
     inx
     stx $12
 C4F687_PlayCredits_LF687:
-    cpx.w #$07D0
+    cpx.w #CreditsPostScrollHoldFrames
     bcc C4F67E_PlayCredits_LF67E
+    ; Return from the credits presentation into the normal overworld display
+    ; state; C4 only seeds the local display/entity arguments here.
     ldy.w #$0000
     ldx.w #$0002
     lda.w #$0001
@@ -199,9 +207,9 @@ C4F687_PlayCredits_LF687:
     jsl ClearRange7fMaybe
     jsl ResetDisplayStateMaybe
     jsl ResetActiveEntitySlots
-    lda.w #$0017
+    lda.w #CreditsReturnEntitySpawnX
     sta $0A4C
-    lda.w #$0018
+    lda.w #CreditsReturnEntitySpawnY
     sta $0A4E
     ldy.w #$0000
     tyx
@@ -209,7 +217,7 @@ C4F687_PlayCredits_LF687:
     jsl SpawnEntityByScriptMaybe
     jsl FinalizeEntitiesMaybe
     jsl RefreshOverworldStateMaybe
-    lda.w #$7DFE
+    lda.w #CreditsSceneClearBase
     sta $06
     phb
     sep #$20
@@ -226,11 +234,11 @@ C4F6E0_PlayCredits_LF6E0:
     inc $06
     inx
 C4F6EC_PlayCredits_LF6EC:
-    cpx.w #$0200
+    cpx.w #CreditsSceneClearWords
     bcc C4F6E0_PlayCredits_LF6E0
     jsl RestoreC4VisualState
     sep #$20
-    lda.b #$17
+    lda.b #CreditsReturnDisplayMode
     sta $001A
     rep #$20
     lda.w #FrameCallback_ProcessDelayedActions

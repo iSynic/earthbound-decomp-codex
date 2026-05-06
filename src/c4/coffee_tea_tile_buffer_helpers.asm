@@ -35,6 +35,11 @@ C2EA15_BeginBattleBgVisualState              = $C2EA15
 
 ; ---------------------------------------------------------------------------
 ; WRAM / data contracts
+;
+; This helper family owns the coffee/tea and flyover tile-window state rooted
+; at $3492, $7DFE/$7E00, $9F2D, $9F2F, $9F31, and $3C14..$3C20. C2 owns the
+; battle-background visual-state routines called from here; C4 owns the tile
+; buffer composition and transfer arguments it passes to C0.
 
 COFFEE_TEA_TOKEN_METADATA                    = $C3F054
 COFFEE_TEA_TOKEN_METADATA_BANK               = $00C3
@@ -114,6 +119,9 @@ DISPLAY_SHADOW_30                            = $0030
 ; C4:9841
 
 ; BeginCoffeeTeaBattleBgVisualState
+;
+; Side effects: asks C2:EA15 to start visual state 1 for the coffee/tea
+; presentation family. No local tile-buffer state is changed here.
 C49841_BeginCoffeeTeaBattleBgVisualState:
     rep #$31
     lda #COFFEE_TEA_BATTLE_BG_VISUAL_STATE
@@ -124,6 +132,9 @@ C49841_BeginCoffeeTeaBattleBgVisualState:
 ; C4:984B
 
 ; InvertCoffeeTeaTileBufferWords
+;
+; Side effects: XORs every word in the $3492 coffee/tea tile buffer. This is a
+; local preconditioning pass used before window uploads.
 C4984B_InvertCoffeeTeaTileBufferWords:
     rep #$31
     phd
@@ -155,6 +166,11 @@ C4986E_InvertCoffeeTeaTileBufferWords_Check:
 ; C4:9875
 
 ; ApplyCoffeeTeaTileRowMask
+;
+; Entry:
+;   A/Y and direct-page pointer locals select the source run and row window.
+; Side effects: AND/merge writes into the $3492 tile buffer and updates the
+; dirty min/max range at $3C1E/$3C20.
 C49875_ApplyCoffeeTeaTileRowMask:
     rep #$31
     phd
@@ -325,6 +341,11 @@ C49999_ApplyCoffeeTeaTileRowMask_Return:
 ; C4:999B
 
 ; DrawCoffeeTeaTileTokenRun
+;
+; Entry:
+;   A = token id; X = render width/slot argument.
+; Side effects: resolves C3:F054 token metadata and merges the selected token
+; graphics into the $3492 tile buffer through ApplyCoffeeTeaTileRowMask.
 C4999B_DrawCoffeeTeaTileTokenRun:
     rep #$31
     phd
@@ -422,6 +443,9 @@ C49A36_DrawCoffeeTeaTileTokenRun_FinalChunk:
 ; C4:9A4B
 
 ; WaitFrameAndUpdateBattleBgVisualState
+;
+; Side effects: waits one frame through C0:8756, then advances the C2
+; battle-background visual state. It does not touch the coffee/tea cursors.
 C49A4B_WaitFrameAndUpdateBattleBgVisualState:
     rep #$31
     jsl C08756_WaitOneFrameAndPollInput
@@ -432,6 +456,10 @@ C49A4B_WaitFrameAndUpdateBattleBgVisualState:
 ; C4:9A56
 
 ; InitCoffeeTeaTileBufferAndTransferState
+;
+; Side effects: seeds the $3492 tile buffer, $7DFE/$7E00 staging region,
+; $9F2D/$9F2F/$9F31 row/window cursors, $3C14/$3C16/$3C1E/$3C20 scroll and
+; dirty-range state, and queues the static $7C00 -> VRAM $6000 transfer.
 C49A56_InitCoffeeTeaTileBufferAndTransferState:
     rep #$31
     phd
@@ -577,6 +605,12 @@ C49B20_InitCoffeeTeaTileBufferAndTransferState_ColumnCheck:
 ; C4:9B6E
 
 ; UploadCoffeeTeaTileBufferWindow
+;
+; Entry:
+;   A = pixel/byte step for the visible window.
+; Side effects: preconditions $3492, uploads the current visible window to the
+; $6150 VRAM region, handles the $3400 wrap split, resets dirty range, and
+; waits one frame.
 C49B6E_UploadCoffeeTeaTileBufferWindow:
     rep #$31
     phd
@@ -697,6 +731,11 @@ C49C47_UploadCoffeeTeaTileBufferWindow_Done:
 ; C4:9C56
 
 ; AdvanceCoffeeTeaTileScrollState
+;
+; Entry:
+;   A = scroll step to accumulate.
+; Side effects: advances $3C16/$9F2D, commits the $3492 tile buffer through
+; C0:8EFC when the row window wraps, and resets $9F2F/$9F31.
 C49C56_AdvanceCoffeeTeaTileScrollState:
     rep #$31
     phd
@@ -742,6 +781,11 @@ C49C81_AdvanceCoffeeTeaTileScrollState_InRange:
 ; C4:9CA8
 
 ; AdvanceCoffeeTeaRowRevealCursor
+;
+; Entry:
+;   A = row-reveal increment.
+; Side effects: updates raw pixel cursor $9F2F and aligned row-base cursor
+; $9F31.
 C49CA8_AdvanceCoffeeTeaRowRevealCursor:
     rep #$31
     and #COFFEE_TEA_FULL_BYTE_MASK
@@ -764,6 +808,11 @@ C49CA8_AdvanceCoffeeTeaRowRevealCursor:
 ; C4:9CC3
 
 ; RenderCoffeeTeaTokenString
+;
+; Entry:
+;   A = compact token-string index; X = token render width/slot argument.
+; Side effects: draws up to five token bytes from the compact C4 table through
+; DrawCoffeeTeaTileTokenRun.
 C49CC3_RenderCoffeeTeaTokenString:
     rep #$31
     phd
@@ -819,6 +868,9 @@ C49D12_RenderCoffeeTeaTokenString_Return:
 ; C4:9D16
 
 ; RenderSingleCoffeeTeaTileToken
+;
+; Entry:
+;   A = token id; X/Y are passed through to DrawCoffeeTeaTileTokenRun.
 C49D16_RenderSingleCoffeeTeaTileToken:
     rep #$31
     tax
@@ -829,6 +881,11 @@ C49D16_RenderSingleCoffeeTeaTileToken:
 ; C4:9D1E
 
 ; AdvanceCoffeeTeaVramOffsetByTileRow
+;
+; Entry:
+;   A = current VRAM/tile offset.
+; Side effects: advances the offset by one tile row, adjusts BG scroll shadow
+; $003B on high-byte crossings, and calls C0:8B26 to apply the queued update.
 C49D1E_AdvanceCoffeeTeaVramOffsetByTileRow:
     rep #$31
     phd

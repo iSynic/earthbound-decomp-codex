@@ -212,6 +212,108 @@ closure.
   exception, stereo/mono stream loader, and auto-sector music-change latch. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md` and
   `notes/audio-pack-format-and-renderer-frontier.md`.
+- 2026-05-06 PPU/presentation contract follow-up: added conservative
+  side-effect comments for the C4 color-window and WH0/WH2 HDMA helpers,
+  clarified that the battle overlay initializer owns the `$AEC2..$AEE6`
+  callee-side state layout, attached local movement-presentation WRAM names to
+  the current-slot vector/bounds helper corridor, and split the Sound Stone
+  presentation data block into labeled EF payload, coordinate, melody,
+  phrase-length, and event tables. See
+  `notes/c4-window-color-math-and-palette-helpers-23dc-26ed.md`,
+  `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`,
+  `notes/movement-target-bounds-and-vector-refresh-c46ef8-c47369.md`, and
+  `notes/sound-stone-presentation-data-c4ac57.md`.
+- 2026-05-06 visual table follow-up: split the coarse
+  `C4:2A1F..30EC` footprint / secondary visual descriptor corridor into
+  labeled footprint geometry tables, the secondary descriptor pointer table,
+  descriptor rows, the preserved callback byte island, map-tile chunk pointers,
+  and visual tile-word ladders. Also documented the side effects for the visual
+  frame-word copy helpers, render-strip wrapper, and `$212C` main-screen HDMA
+  starter. See
+  `notes/c4-visual-frame-copy-and-footprint-tables-283f-2b0d.md` and
+  `notes/secondary-visual-descriptor-contracts.md`.
+- 2026-05-06 coffee/tea interpreter follow-up: tightened side-effect comments
+  for the shared coffee/tea tile-buffer helpers and scene interpreters, naming
+  the local `$3492`, `$7DFE/$7E00`, `$9F2D/$9F2F/$9F31`, and `$3C14..$3C20`
+  ownership boundary while leaving C0/C2 transfer and battle-background callee
+  behavior to those banks. The flyover text pointer table is now row-split with
+  only the three locally corroborated intro-string roles called out. See
+  `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-06 window mask / indexed graphics follow-up: tightened the
+  C4-local contracts for generated WH0/WH2 mask streams, the `$0E5E`
+  toggle-versus-index boundary, the `CC:2DE1` indexed graphics loaders, the
+  window graphics cache rebuild, the `$0200` window-flavour palette refresh,
+  and the flyover-undraw return-to-world presentation side effects. C0/C2
+  transfer and cleanup callees remain documented only as caller joins where C4
+  writes their local arguments. See
+  `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`.
+- 2026-05-06 Event 353 reveal follow-up: tightened the event-specific tile
+  reveal contract around the `$3492` glyph scratch rows, `$7F:0000/$0002`
+  transfer staging, `$7F:1000/$4000` reveal maps, `$0E5E/$0E9A` current-slot
+  reveal state, and the C3 visual-transfer queue arguments. The adjacent Event
+  670 landing helper now documents only its C4-owned `$9F41 = 5` and
+  `$987F = 2` seeds, leaving destination staging and transition interpretation
+  to the owning banks. See
+  `notes/event353-message-tile-builders-c4810e-c48a6d.md`.
+- 2026-05-06 battle-background / palette-brightness follow-up: tightened the
+  movement-script battle-background presentation loader around its C4-owned BG
+  mode/base arguments, display bracket calls, and C2 sprite-resource arguments.
+  The adjacent palette adapters now name the `$4476 -> $0240` row transform,
+  `$0030 = #$18` upload selector, `$0E5E[current]` signed brightness/magnitude
+  role, and the fixed-color mode values passed to C4:249A while leaving C0/C2
+  queue and battle-background internals to their owning banks. See
+  `notes/palette-brightness-row-adjusters-c473b2-c474a8.md`.
+- 2026-05-06 landing palette export follow-up: tightened side-effect comments
+  for the `$7F:0000` scaled palette builder, `$7F:0200..0C00` interpolation
+  plane initializer, `$0200 <-> $7F:0000` mirror/export pair, selector `#$18`
+  CGRAM upload queue, and the full fade driver. The parallel
+  `$7F:7900..7E00 -> $0240` landing-profile stepper and descriptor-driven
+  display/template orchestrator now carry matching source comments, with C0 row
+  and tilemap builders still treated as external callees. See
+  `notes/landing-palette-interpolation-export-c4958e-c426ed.md` and
+  `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-06 gas-station intro visual follow-up: tightened side-effect comments
+  for the CA:F038 selector, CA:D7A1/CA:D93D asset pointer-table walks,
+  `$7F:0000` decompression staging, `$6000/$7C00` VRAM queue arguments,
+  tilemap high-byte rewrite, and the C4-owned `$ADD4/$AE20/$AE4B` plus
+  `$ADE0/$AE00` battle-visual tail seeds. C0/C2 queue, asset-format, and script
+  runner internals remain out of scope. See
+  `notes/gas-station-intro-asset-loader-c4a377.md`.
+- 2026-05-06 battle-overlay transition follow-up: converted the four local
+  C4:A5CE/A5FA/A626/A652 overlay payloads from raw byte blocks into
+  row-structured `#$16` records with explicit terminators, optional-field
+  `$8000` sentinels, signed deltas, and delta-step fields. The stepper now marks
+  its active script-record path, table-driven frame fallback, special-mode
+  ladder, and cleanup handoff without assigning C0/C2 renderer internals to C4.
+  See `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`.
+- 2026-05-06 Sound Stone presentation follow-up: converted the C4:AC57 EF
+  payload pointer prefix into nine explicit 4-byte row labels and added
+  side-effect comments around the Sound Stone controller's setup, Sanctuary
+  record initialization, per-frame sequence, render pass, animated EF-payload
+  walk, and closeout handoff. C0/C2 renderer, transition, and battle-visual
+  internals remain external callee contracts. See
+  `notes/sound-stone-presentation-data-c4ac57.md`.
+- 2026-05-06 flyover text pointer follow-up: tightened the C4:9EA4 flyover
+  intro text pointer table into eight explicit row labels, keeping only the
+  three locally corroborated user-facing names and leaving later rows numbered.
+  The `C4:9EC4` runner now marks the C4-owned low-word/bank/padding pointer
+  walk before handing control to the shared coffee/tea text command grammar.
+  See `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-06 cast-name patch follow-up: split the inline C4:E796 tilemap patch
+  bytes into the three local suffix rows used by `PrepareCastNameTilemap`, then
+  replaced the raw E796/E79D/E7A4 source lows with row-specific constants and
+  callee-argument comments. C0 tilemap-copy internals remain external. See
+  `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 credits DMA queue follow-up: promoted the shared C4 credits DMA
+  ring-record shape into enqueue/drain constants for the 9-byte stride, field
+  offsets, and `$007F` index mask, then marked where C4 packs/unpacks the C0
+  transfer selector, VRAM destination, long source pointer, and byte count.
+  See `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 credits scene state follow-up: tightened the credits initializer
+  and playback controller around their C4-owned work-buffer, command-stream,
+  display selector/mode, post-scroll hold, return-spawn, and scene-clear
+  arguments while leaving frame-callback and display internals to C0. See
+  `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
 
 ## Validation
 

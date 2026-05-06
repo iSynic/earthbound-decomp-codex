@@ -303,5 +303,10 @@ C4E794_RenderCastNameText_LE794:
 ; C4:E796..C4:E7AE
 
 C4E796_CastNameTextTilemapPatchTable:
-    db $57,$A3,$50,$94,$91,$94,$00,$57,$A3,$50,$9D,$9F,$9D,$00,$57,$A3
-    db $50,$7D,$91,$A3,$A4,$95,$A2,$00
+    ; Three local text/tilemap patch strings copied by PrepareCastNameTilemap.
+C4E796_CastNameTextTilemapPatchPossessiveDad:
+    db $57,$A3,$50,$94,$91,$94,$00
+C4E79D_CastNameTextTilemapPatchPossessiveMom:
+    db $57,$A3,$50,$9D,$9F,$9D,$00
+C4E7A4_CastNameTextTilemapPatchPossessiveMaster:
+    db $57,$A3,$50,$7D,$91,$A3,$A4,$95,$A2,$00

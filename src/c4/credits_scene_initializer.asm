@@ -33,6 +33,16 @@ QueueOrTransferDynamicTileBlock     = $C08ED2
 FillLocalBufferMaybe                = $C08EFC
 ExpandC4AssetMaybe                  = $C41A9E
 
+CreditsWorkBufferLow                = $0000
+CreditsWorkBufferBank               = $007F
+CreditsCommandStreamStartLow        = $413F
+CreditsCommandStreamStartBank       = $00E1
+CreditsInitialBg3RowThreshold       = $0007
+CreditsSceneClearBase               = $7DFE
+CreditsSceneClearWords              = $0200
+CreditsDisplayTransferSelector      = $18
+CreditsDisplayMode                  = $17
+
 ; ---------------------------------------------------------------------------
 ; C4:F07D
 
@@ -46,9 +56,9 @@ C4F07D_InitializeCreditsScene = INITIALIZE_CREDITS_SCENE
     tdc
     adc.w #$FFEA
     tcd
-    lda.w #$0000
+    lda.w #CreditsWorkBufferLow
     sta $06
-    lda.w #$007F
+    lda.w #CreditsWorkBufferBank
     sta $08
     jsl ClearRange7fMaybe
     jsl ResetActiveEntitySlots
@@ -69,6 +79,8 @@ C4F07D_InitializeCreditsScene = INITIALIZE_CREDITS_SCENE
     jsl LoadCompressedAssetToVramThirdMaybe
     lda.w #$0062
     jsl SetBattleBgPresetMaybe
+    ; Clear the local BG3/credits scroll shadow words before C0:F41E starts
+    ; advancing the command stream.
     stz $0039
     stz $003B
     stz $0037
@@ -193,9 +205,9 @@ C4F07D_InitializeCreditsScene = INITIALIZE_CREDITS_SCENE
     lda $02
     jsl FillLocalBufferMaybe
     sep #$20
-    lda.b #$18
+    lda.b #CreditsDisplayTransferSelector
     sta $0030
-    lda.b #$17
+    lda.b #CreditsDisplayMode
     sta $001A
     rep #$20
     stz CreditsCommandStreamThreshold
@@ -203,9 +215,9 @@ C4F07D_InitializeCreditsScene = INITIALIZE_CREDITS_SCENE
     sta CreditsBg3ScrollFixedLo
     lda.w #$0000
     sta CreditsBg3ScrollFixedHi
-    lda.w #$0007
+    lda.w #CreditsInitialBg3RowThreshold
     sta CreditsNextBg3RowThreshold
-    lda.w #$7DFE
+    lda.w #CreditsSceneClearBase
     sta $06
     phb
     sep #$20
@@ -222,12 +234,13 @@ C4F23F_InitializeCreditsScene_LF23F:
     inc $06
     inx
 C4F24B_InitializeCreditsScene_LF24B:
-    cpx.w #$0200
+    cpx.w #CreditsSceneClearWords
     bcc C4F23F_InitializeCreditsScene_LF23F
     rep #$20
-    lda.w #$413F
+    ; Arm the C0 command-stream callback with the E1 credits script source.
+    lda.w #CreditsCommandStreamStartLow
     sta CreditsCommandStreamPointerLo
-    lda.w #$00E1
+    lda.w #CreditsCommandStreamStartBank
     sta CreditsCommandStreamPointerBank
     jsl FinalizeDisplaySetupMaybe
     pld

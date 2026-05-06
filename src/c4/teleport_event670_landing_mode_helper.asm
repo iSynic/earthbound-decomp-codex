@@ -16,6 +16,20 @@
 ; ---------------------------------------------------------------------------
 ; C4:8B2C
 
+; ---------------------------------------------------------------------------
+; WRAM contracts
+;
+; Event 670 writes the destination selector before calling this C4 helper. This
+; callee owns only the two local presentation/arrival seeds below; the broader
+; landing-mode controller that interprets $9F41 lives outside C4.
+
+TransitionLandingModeSelector = $9F41
+PlayerFacingDirectionWord     = $987F
+Event670LandingModeValue      = $0005
+Event670LandingFacingValue    = $0002
+
+; Seeds Event 670's landing-mode/facing pair after the script has staged the
+; destination selector. Do not expand this into a full teleport contract here.
 C48B2C_SetTeleportEvent670LandingMode:
     rep #$31
     lda.w #$0005

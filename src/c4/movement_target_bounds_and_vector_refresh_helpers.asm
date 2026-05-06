@@ -26,8 +26,43 @@ C46B51_ConvertAngleToFacingDirection           = $C46B51
 C47044_ProjectAngleIntoCurrentSlotVectorWords  = $C47044
 
 ; ---------------------------------------------------------------------------
+; WRAM contracts
+;
+; Keep these names local to this movement-presentation corridor. The same
+; per-slot tables are reused by other C0/C4 helper families with narrower
+; local meanings, so this module only claims the fields it reads or writes.
+
+CurrentEntitySlotIndex                         = $1A42
+PlayerWorldXSnapshot                           = $9877
+PlayerWorldYSnapshot                           = $987B
+MovementProximityGateFlag                      = $9F3F
+ActiveOverworldRegistryCount                   = $98A3
+LiveEntityWorldXTable                          = $0B8E
+LiveEntityWorldYTable                          = $0BCA
+LiveEntityVelocityXHighTable                   = $0CF6
+LiveEntityVelocityXLowTable                    = $0DAA
+LiveEntityVelocityYHighTable                   = $0D32
+LiveEntityVelocityYLowTable                    = $0DE6
+CurrentSlotAreaMinXTable                       = $0E5E
+CurrentSlotAreaMaxXTable                       = $0E9A
+CurrentSlotAreaMinYTable                       = $0ED6
+CurrentSlotAreaMaxYTable                       = $0F12
+CachedTargetWorldXTable                        = $0FC6
+CachedTargetWorldYTable                        = $1002
+MovementArrivalToleranceTable                  = $0F8A
+LiveEntityFacingDirectionTable                 = $2AF6
+LiveEntityMovementMagnitudeTable               = $2B32
+CameraScreenOriginX                            = $0031
+LandingProfileIndex                            = $436E
+LandingProfileActionPointerTable               = $EF101B
+SignedWordInvertMask                           = $FFFF
+SignByteShift                                  = $0008
+
+; ---------------------------------------------------------------------------
 ; C4:6EF8
 
+; Checks the current slot against the player snapshot using the slot-local
+; X/Y proximity thresholds in $0ED6/$0F12. Returns 1 when both axes are inside.
 C46EF8_CheckCurrentSlotWithinPlayerProximityThreshold:
     rep #$31
     phd
@@ -108,6 +143,9 @@ C46F77_MovementTargetBoundsAndVectorRefreshHelpers_L6F77:
 C46F7A_MovementTargetBoundsAndVectorRefreshHelpers_L6F7A:
     pld
     rtl
+; Returns 1 if the current slot is within its cached-target tolerance. When it
+; is still moving, refreshes facing and visual profile if the facing bucket
+; changes.
 C46F7C_StepCurrentSlotTowardCachedTargetOrReportArrival:
     rep #$31
     phd
@@ -218,6 +256,9 @@ C4703F_MovementTargetBoundsAndVectorRefreshHelpers_L703F:
 C47042_MovementTargetBoundsAndVectorRefreshHelpers_L7042:
     pld
     rtl
+; Projects caller A through the current slot's movement magnitude and writes
+; the split high/low X/Y vector words. The split-byte writes are presentation
+; state for the movement engine; this helper does not move the world position.
 C47044_ProjectAngleIntoCurrentSlotVectorWords:
     rep #$31
     phd
@@ -340,6 +381,8 @@ C4713F_MovementTargetBoundsAndVectorRefreshHelpers_L713F:
     lda $04
     pld
     rtl
+; Recomputes the current slot's movement vector toward the cached target and
+; optionally flips the facing direction by a half turn. Returns 1 on arrival.
 C47143_StepCurrentSlotTargetVectorByAngleModes:
     rep #$31
     phd
@@ -467,6 +510,7 @@ C47220_MovementTargetBoundsAndVectorRefreshHelpers_L7220:
 C47223_MovementTargetBoundsAndVectorRefreshHelpers_L7223:
     pld
     rtl
+; Builds current-slot rectangular bounds around the live world position.
 C47225_SetCurrentSlotAreaBoundsFromRadii:
     rep #$31
     phd
@@ -505,6 +549,8 @@ C47225_SetCurrentSlotAreaBoundsFromRadii:
     sta $0F12,Y
     pld
     rtl
+; Classifies current-slot live position against the local bounds rectangle.
+; Return values are direction-like edge classes used by the caller.
 C47269_ClassifyCurrentSlotAgainstAreaBounds:
     rep #$31
     lda $1A42
@@ -539,6 +585,8 @@ C472A4_MovementTargetBoundsAndVectorRefreshHelpers_L72A4:
     lda.w #$0000
 C472A7_MovementTargetBoundsAndVectorRefreshHelpers_L72A7:
     rtl
+; Treats $0E5E[current] as a local angle source in this helper, projects the
+; vector, and refreshes the visual profile if the facing bucket changes.
 C472A8_ProjectSlot0e5eAngleAndRefreshFacing:
     rep #$31
     phd
@@ -595,6 +643,7 @@ C472DC_MovementTargetBoundsAndVectorRefreshHelpers_L72DC:
 C4730C_MovementTargetBoundsAndVectorRefreshHelpers_L730C:
     pld
     rtl
+; Halves the current slot's Y high-vector word while preserving its sign bit.
 C4730E_HalveCurrentSlot0d32PreserveSign:
     rep #$31
     phd
@@ -616,11 +665,14 @@ C4730E_HalveCurrentSlot0d32PreserveSign:
     sta $0000,X
     pld
     rtl
+; Reads the low byte of the active overworld registry count.
 C47333_ReadActiveOverworldRegistryCount:
     rep #$31
     lda $98A3
     and.w #$00FF
     rtl
+; Dispatches the C4-owned landing-profile action selected by $436E through the
+; C0 action dispatcher. C4 owns the table lookup; C0 owns the callee behavior.
 C4733C_DispatchCurrentLandingProfileAction:
     rep #$31
     lda $436E
@@ -629,6 +681,7 @@ C4733C_DispatchCurrentLandingProfileAction:
     lda $EF101B,X
     jsl C006F2_DispatchLandingProfileAction
     rtl
+; Refreshes the map strip for the current camera column and returns caller A.
 C4734C_RefreshMapStripForIndexPreserveA:
     rep #$31
     phd

@@ -77,7 +77,8 @@ LandingPaletteUseExistingWorkBit             = $0001
 ; ---------------------------------------------------------------------------
 ; C4:9496
 
-; ScalePackedRgb555ColorByStep
+; Scales one packed RGB555 word by caller X. Full-scale #$32 returns the source
+; word unchanged; larger steps clamp all components to the 5-bit maximum.
 C49496_ScalePackedRgb555ColorByStep:
     rep #$31
     phd
@@ -181,7 +182,8 @@ C49548_ScalePackedRgb555ColorByStep_ReturnOriginal:
 ; ---------------------------------------------------------------------------
 ; C4:954C
 
-; BuildScaledPaletteBlockTo7f0000
+; Builds a 0x200-byte scaled palette block at $7F:0000 from the caller's source
+; pointer in $1E/$20, using caller A as the scale step for each RGB555 word.
 C4954C_BuildScaledPaletteBlockTo7f0000:
     rep #$31
     phd
@@ -224,7 +226,9 @@ C49587_BuildScaledPaletteBlockTo7f0000_CheckLoop:
 ; ---------------------------------------------------------------------------
 ; C4:958E
 
-; BuildLandingPaletteInterpolationPlanes
+; Builds the six $7F:0200..0C00 landing palette interpolation planes from the
+; source row base in Y. A is the frame/divisor count, and X bit 0 selects
+; whether to seed current values from existing $7F:0000 work or the template.
 C4958E_BuildLandingPaletteInterpolationPlanes:
     rep #$31
     phd
@@ -413,7 +417,8 @@ C496E5_BuildLandingPaletteInterpolationPlanes_Return:
 ; ---------------------------------------------------------------------------
 ; C4:96E7
 
-; InitLandingPalettePlanesFrom0200
+; Initializes the landing palette interpolation planes from the live $0200 CGRAM
+; shadow/template source.
 C496E7_InitLandingPalettePlanesFrom0200:
     rep #$31
     ldy #CGRAM_SHADOW_BUFFER
@@ -423,7 +428,8 @@ C496E7_InitLandingPalettePlanesFrom0200:
 ; ---------------------------------------------------------------------------
 ; C4:96F0
 
-; InitLandingPalettePlanesFrom4476
+; Initializes the landing palette interpolation planes from the saved $4476
+; CGRAM shadow copy.
 C496F0_InitLandingPalettePlanesFrom4476:
     rep #$31
     ldy #SAVED_CGRAM_SHADOW_BUFFER
@@ -433,7 +439,8 @@ C496F0_InitLandingPalettePlanesFrom4476:
 ; ---------------------------------------------------------------------------
 ; C4:96F9
 
-; MirrorCgramShadow0200To7f0000
+; Mirrors the live $0200 CGRAM shadow into the $7F:0000 landing palette work
+; block. This is a staging/backup copy; visible upload is queued separately.
 C496F9_MirrorCgramShadow0200To7f0000:
     rep #$31
     phd
@@ -474,7 +481,8 @@ C496F9_MirrorCgramShadow0200To7f0000:
 ; ---------------------------------------------------------------------------
 ; C4:9740
 
-; ExportLandingPaletteAndQueueCgramUpload
+; Copies $7F:0000 landing palette work back to the live $0200 CGRAM shadow and
+; writes selector #$18 through the C0 display-selector helper.
 C49740_ExportLandingPaletteAndQueueCgramUpload:
     rep #$31
     phd
@@ -517,7 +525,8 @@ C49740_ExportLandingPaletteAndQueueCgramUpload:
 ; ---------------------------------------------------------------------------
 ; C4:978E
 
-; CopyCgramShadow0200To4476
+; Copies the live $0200 CGRAM shadow into the saved $4476 palette shadow through
+; the C0 dynamic block-copy helper.
 C4978E_CopyCgramShadow0200To4476:
     rep #$31
     phd
@@ -547,7 +556,9 @@ C4978E_CopyCgramShadow0200To4476:
 ; ---------------------------------------------------------------------------
 ; C4:97C0
 
-; RunLandingPaletteFadeToScaledBlock
+; Builds a scaled target palette in $7F:0000, initializes the $0200-based
+; interpolation planes, optionally steps them for caller A frames, then exports
+; $7F:0000 back to $0200 and queues the #$18 CGRAM upload selector.
 C497C0_RunLandingPaletteFadeToScaledBlock:
     rep #$31
     phd
@@ -602,7 +613,8 @@ C49812_RunLandingPaletteFadeToScaledBlock_Export:
 ; ---------------------------------------------------------------------------
 ; C4:981F
 
-; CopyStaticVisualBlock0be8To7c00
+; Queues the static zero block at C4:0BE8 to the $7C00 VRAM-source staging area.
+; Later coffee/tea and flyover setup consumes this as a prepared clear source.
 C4981F_CopyStaticVisualBlock0be8To7c00:
     rep #$31
     phd

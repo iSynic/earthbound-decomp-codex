@@ -26,6 +26,45 @@ C44B3A_MergeGlyphSpanIntoTileBuffer          = $C44B3A
 ; ---------------------------------------------------------------------------
 ; C4:7C3F
 
+; ---------------------------------------------------------------------------
+; WRAM / data contracts
+;
+; C4 owns the window-graphics rebuild choreography here: decompression into
+; bank $7F work buffers, compact tile-state reconstruction through the shared
+; $3492 glyph scratch rows, and local refresh of the palette block at $0200.
+; The C0 helpers remain transfer/copy callees; avoid assigning their NMI-side
+; behavior beyond the selector/queue values written in this module.
+
+WindowGfxBaseSourceLow                       = $0000
+WindowGfxBaseSourceBank                      = $00E0
+WindowGfxWorkBank                            = $007F
+WindowGfxDecompressBufferBase                = $0000
+WindowGfxCopySourceBlock                     = $2000
+WindowGfxStagedTileBlock                     = $2A00
+WindowGfxTileStateWorkBlock                  = $3200
+WindowGfxGlyphScratchRowsBase                = $3492
+WindowGfxGlyphBitCursor                      = $9E23
+WindowGfxGlyphRowCursor                      = $9E25
+WindowGfxVariantOffsetLowMirror              = $9652
+WindowGfxVariantOffsetHighMirror             = $9654
+WindowFlavourSelection                       = $99CD
+WindowFlavourRecordTable                     = $E01FB9
+WindowFlavourPaletteBaseLow                  = $1FC8
+WindowFlavourLeadEntityOverridePaletteLow    = $2108
+WindowFlavourPaletteQueueDest                = $0200
+WindowFlavourSuppressLeadOverride            = $B4B6
+LeadPartySlotIndex                           = $98A4
+PartyObjectRecordIndexTable                  = $9891
+ObjectRecordPointerTable                     = $4DC8
+TileWordRewritePatternPointer                = $C45A89
+DisplayTransferSelector30                    = $0030
+FlyoverBg2ScreenBaseY                        = $6000
+FlyoverBg2ScreenBaseX                        = $7C00
+
+; Rebuilds the active text-window graphics cache: decompresses the base E0
+; graphics into $7F, stages/copies the 7F tile blocks, rebuilds compact tile
+; rows through the shared $3492 glyph scratch contract, and refreshes the
+; flavor-dependent palette/tile work used by later window draws.
 LOAD_WINDOW_GFX:
 C47C3F_LoadWindowGfxAndResetWindowTileState = LOAD_WINDOW_GFX
     rep #$31
@@ -439,6 +478,9 @@ C47F7E_WindowGfxLoadAndFlyoverUndrawHelpers_L7F7E:
 C47F85_WindowGfxLoadAndFlyoverUndrawHelpers_L7F85:
     pld
     rtl
+; Refreshes the $0200 palette work block for the current window flavour. The
+; lead-entity override path uses E0:2108 unless $B4B6 suppresses it; otherwise
+; $99CD selects a row from the E0:1FB9 flavour table.
 C47F87_RefreshWindowFlavourPaletteBlock:
     rep #$31
     phd
@@ -501,6 +543,10 @@ C47FFF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FFF:
     jsl C0856B_WaitFramesOrTransitionDelay
     pld
     rtl
+; Restores the flyover text presentation back to the normal world/window
+; display path: updates the BG2 screen-base queue, lets the C2-owned callee do
+; its own cleanup, reloads window graphics, resets glyph run 2, refreshes the
+; window-flavour palette block, and marks display selector $0030 with #$18.
 UNDRAW_FLYOVER_TEXT:
 C4800B_UndrawFlyoverTextAndRestoreWorldDisplay = UNDRAW_FLYOVER_TEXT
     rep #$31
@@ -523,6 +569,8 @@ C4800B_UndrawFlyoverTextAndRestoreWorldDisplay = UNDRAW_FLYOVER_TEXT
 ; C4:8037
 
 C48037_LumineHallAndEvent353TextPayload:
+    ; Text payload bytes consumed by the adjacent Event 353/Lumine Hall reveal
+    ; helpers; this module only preserves the C4-local payload island.
     ; data bytes: C4:8037..C4:810E
     db $79,$57,$9D,$50,$5E,$5E,$5E,$5E,$50,$50,$79,$A4,$57,$A3,$50,$92
     db $95,$95,$9E,$50,$91,$50,$9C,$9F,$9E,$97,$50,$A2,$9F,$91,$94,$50

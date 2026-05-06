@@ -13,6 +13,24 @@ This range is a palette brightness/tint adapter family. It has two related outpu
 
 The field read by the public wrappers is `$0E5E[$1A42]`. The wider visual-selector notes already tie `$1A42` to the current entity slot and `$0E5E` to the per-slot visual context/row family, but this cluster uses that word specifically as a signed brightness or fixed-color magnitude.
 
+## 2026-05-06 source polish
+
+`src/c4/battlebg_load_and_palette_brightness_helpers.asm` now carries a local
+contract block for the movement-script battle-background loader and the palette
+brightness adapters. `LOAD_BACKGROUND_ANIMATION` is documented as a C4 caller
+for the display bracket, BG mode/base queue, and C2 presentation sprite-resource
+load. The note intentionally stops at the arguments C4 writes: C0 owns the
+display/PPU queue internals, and C2 owns the battle-background resource state.
+
+The palette helpers now name the local row buffers and upload selector in
+source: rows are read from `$4476 + row*0x20`, adjusted into `$0240`, and the
+batch wrapper writes `$0030 = #$18`. `C4:7499` and `C4:74A8` both read
+`$0E5E[current]`, but the source comments keep that meaning local to this effect
+family as a signed palette brightness or fixed-color magnitude. `C4:74A8`
+passes only the derived magnitude and mode (`#$33` or `#$B3`) to `C4:249A`; the
+lower-level fixed-color register choreography remains documented with the C4
+window/color helper.
+
 ## Component clamp
 
 `C4:73B2` is the shared 5-bit component clamp.
@@ -73,4 +91,3 @@ Direct callers at `C3:F596` and `EF:0585` reach this after clearing `$9641`; bot
 - the human-facing meaning of the signed `$0E5E[$1A42]` values in this effect path
 - whether `C4:7499` is pointer-dispatched or currently orphaned in the split-bank direct-call scan
 - the exact transition/event name for the `C3:F596` and `EF:0585` callers of `C4:74A8`
-

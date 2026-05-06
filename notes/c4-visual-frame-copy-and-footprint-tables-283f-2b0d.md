@@ -64,6 +64,13 @@ directional frame-list entry stride, tile-column mask index, row-offset mask,
 mask complement word, and zero high-source field used when emitting visual
 profile render strip descriptors.
 
+2026-05-06 source polish: the same helper source now documents the caller
+inputs and side effects for the secondary/directional frame-word copiers, the
+`C0:A56E` render-strip wrapper, and the `$212C` main-screen-layer HDMA starter.
+The comments keep ownership narrow: C4 consumes cached sprite-pose descriptor
+fields and toggles the `$001F` HDMA enable shadow, while C0 owns descriptor
+queueing and broader renderer state.
+
 ## Render descriptor and HDMA helpers
 
 `C4:29AE` is a C4 wrapper around `C0:A56E` (`Generate_RenderDmaStripDescriptors`). It takes the caller's initial source in A and a slot/profile selector in X, then:
@@ -87,6 +94,13 @@ The data tables from `C4:2A1F` onward are already cross-referenced by the collis
 - `C4:2AA7` and `C4:2AC9` are tile-span count tables used by horizontal and vertical edge collision probes.
 - `C4:2AEB` is another footprint anchor/offset table used with the first two geometry tables by full-footprint and half-footprint probes.
 - `C4:2B0D` is the pointer table for the secondary visual descriptor records documented separately.
+
+2026-05-06 table polish: `src/c4/entity_footprint_visual_profile_tables.asm`
+now splits the former raw byte corridor into labeled footprint geometry tables,
+the 17-entry secondary visual descriptor pointer table, named descriptor rows,
+the adjacent preserved `C4:2F45..2F65` callback byte island, map-tile chunk
+pointers, and the two visual tile-word ladders. The descriptor labels follow
+the generated secondary-visual descriptor contract note and remain C4-local.
 
 ## Working Names
 

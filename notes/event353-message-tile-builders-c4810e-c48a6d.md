@@ -75,6 +75,24 @@ It:
 
 This matches the event script pattern exactly: initialize once, then poll the stepper once per short pause until done.
 
+## 2026-05-06 source polish
+
+The source now gives this cluster a local C4 contract block instead of leaving
+the scratch fields anonymous. `$3492` is named as the Event 353 glyph scratch
+row base, with `$9E23/$9E25` as the local bit/row cursors while the message
+buffer is being built. The `$7F` work blocks are also named by role:
+`$7F:0000` is the transfer header/source root, `$7F:0002` is the live transfer
+payload window, and `$7F:1000/$7F:4000` are the two reveal tile maps consumed by
+the stepper.
+
+`$0E5E[current]` and `$0E9A[current]` are intentionally scoped to this event
+family. `C4:880C` writes the reveal frame limit to `$0E5E[current]`, while
+`C4:8A6D` reads/increments `$0E9A[current]` as the reveal cursor and returns the
+script loop completion flag once that cursor passes the limit. The visual upload
+claim is also conservative: C4 stages `$7F:0000` and passes `X = #$024C`,
+`A = #$0328` to the C3 visual-transfer helper, but C3 owns the downstream
+transfer implementation.
+
 ## Teleport event helper
 
 `C4:8B2C` is not part of event 353. It is called by event script `670` immediately after:
@@ -86,7 +104,11 @@ The routine itself only writes:
 - `$9F41 = 5`
 - `$987F = 2`
 
-The local name therefore keeps the event-side staging role without claiming that the routine writes the destination id itself.
+The local name therefore keeps the event-side staging role without claiming that
+the routine writes the destination id itself. The source comments now mirror
+that boundary: Event 670 stages the destination before the call, while this C4
+callee only seeds the landing-mode selector and facing word consumed by the
+broader C0/C2 transition family.
 
 ## Working Names
 
@@ -107,6 +129,8 @@ The local name therefore keeps the event-side staging role without claiming that
 - `C4:827B` is called by `C4:838A` and consumes byte/table entries to draw into `$3492`.
 - `C4:810E` is called only by `C4:880C` locally and expands tile-cell rows into `$7F` output.
 - `C4:8B2C` belongs to event script `670`, not event script `353`.
+- C4 owns the Event 353 scratch/reveal buffers and stepper state, but not the
+  C3 transfer helper internals.
 
 ### Still open
 

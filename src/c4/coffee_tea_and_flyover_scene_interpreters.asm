@@ -40,12 +40,18 @@ C49D1E_AdvanceCoffeeTeaVramOffsetByTileRow_Ext = $C49D1E
 
 ; ---------------------------------------------------------------------------
 ; WRAM / data contracts
+;
+; These interpreters own the script-byte grammar for the coffee/tea and flyover
+; presentation text scenes. The C4 tile-buffer helpers own the rendering state;
+; the C0 display calls only bracket and restore the presentation environment.
 
 COFFEE_SCENE_TEXT_BASE_LOW                   = $0000
 TEA_SCENE_TEXT_BASE_LOW                      = $0652
 COFFEE_TEA_SCENE_TEXT_BANK                   = $00E1
 FLYOVER_TEXT_POINTER_TABLE                   = $C49EA4
 FLYOVER_TEXT_POINTER_TABLE_BANK              = $00C4
+FLYOVER_TEXT_POINTER_ROW_SIZE                = $0004
+FLYOVER_TEXT_POINTER_COUNT                   = $0008
 
 COFFEE_TEA_TILE_WINDOW_INDEX                 = $9F2D
 COFFEE_TEA_ROW_TILE_LIMIT                    = $2000
@@ -83,6 +89,13 @@ ZeroWord                                     = $0000
 ; C4:9D6A
 
 ; RunCoffeeTeaScene
+;
+; Entry:
+;   A = scene selector; zero chooses coffee text, nonzero chooses tea text.
+; Side effects: opens display transition slot 1, initializes the shared
+; coffee/tea tile-buffer state, displays the prompt token, interprets E1 script
+; bytes, waits for input release, clears $7DFE..$84FE, sets $5E6E = $00FF, and
+; restores C4/C0 presentation state.
 COFFEETEA_SCENE:
 C49D6A_RunCoffeeTeaScene = COFFEETEA_SCENE
     rep #$31
@@ -254,10 +267,39 @@ C49E86_RunCoffeeTeaScene_ClearTileBufferCheck:
 ; C4:9EA4
 
 C49EA4_FlyoverIntroTextPointerTable:
-    ; data bytes: C4:9EA4..C4:9EC4
-    db $86,$0B,$E1,$00,$9C,$0B,$E1,$00,$C2,$0B,$E1,$00,$D2,$0B,$E1,$00
-    db $FD,$0B,$E1,$00,$1B,$0C,$E1,$00,$38,$0C,$E1,$00,$61,$0C,$E1,$00
+    ; Eight long pointers to E1 flyover text scripts. The first three are the
+    ; locally corroborated Year 199X, Onett, and Ness house intro strings.
+    ; The runner indexes these as low word + bank byte + padding byte.
+C49EA4_FlyoverIntroTextYear199xPointer:
+    dw $0B86
+    db $E1,$00
+C49EA8_FlyoverIntroTextOnettPointer:
+    dw $0B9C
+    db $E1,$00
+C49EAC_FlyoverIntroTextNessHousePointer:
+    dw $0BC2
+    db $E1,$00
+C49EB0_FlyoverIntroTextPointer3:
+    dw $0BD2
+    db $E1,$00
+C49EB4_FlyoverIntroTextPointer4:
+    dw $0BFD
+    db $E1,$00
+C49EB8_FlyoverIntroTextPointer5:
+    dw $0C1B
+    db $E1,$00
+C49EBC_FlyoverIntroTextPointer6:
+    dw $0C38
+    db $E1,$00
+C49EC0_FlyoverIntroTextPointer7:
+    dw $0C61
+    db $E1,$00
 
+; Entry:
+;   A = index into FlyoverIntroTextPointerTable.
+; Side effects: temporarily ORs $10E4 with $C000, reuses the coffee/tea
+; tile-buffer interpreter commands, runs a fixed display fade/wait/clear tail,
+; sets $5E6E = $00FF, restores $10E4, and closes the display bracket.
 C49EC4_RunFlyoverIntroTextSceneByIndex:
     rep #$31
     phd
@@ -277,6 +319,8 @@ C49EC4_RunFlyoverIntroTextSceneByIndex:
     sta $0A
     lda #FLYOVER_TEXT_POINTER_TABLE_BANK
     sta $0C
+    ; Index the C4-owned pointer rows, then hand the selected E1 script stream
+    ; to the shared coffee/tea command interpreter below.
     lda $0E
     asl
     asl
