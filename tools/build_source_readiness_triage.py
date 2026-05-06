@@ -315,9 +315,9 @@ def build_triage() -> list[BankTriage]:
                 "UI/font/town-map/audio assets",
                 "asset-and-table-ready",
                 3,
-                "Extract text-window graphics, fonts, town maps, and audio packs; split the generated text-window/town-map table span.",
-                ["SRAM mystery payload and small generated table span need stronger contracts"],
-                ["text-window graphics", "font data", "town maps", "audio packs"],
+                "Extract text-window graphics, fonts, town maps, and audio packs using the text-window/town-map table splits and SRAM save-template contract.",
+                ["reserved SRAM template blocks and per-palette-row presentation labels remain optional semantic polish"],
+                ["text-window graphics", "font data", "SRAM save-template blocks", "text-window/town-map table splits", "town maps", "audio packs"],
             ),
             entry(
                 "E1",

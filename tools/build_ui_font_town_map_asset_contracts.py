@@ -624,6 +624,25 @@ def render_markdown(contract: dict[str, Any]) -> str:
     for shape in contract["known_runtime_shapes"]:
         lines.append(f"- `{shape['id']}`: {shape['shape']} Source: `{shape['source']}`.")
 
+    lines.extend(
+        [
+            "",
+            "## CoilSnake Probe Context",
+            "",
+            "- `font0-width5-probe` is valid CoilSnake rebuilt-layout evidence, but its",
+            "  changed byte lands at `CF:60DC` in the baseline rebuild rather than any",
+            "  original E0/E1 font metric range listed below.",
+            "- `town-map-first-icon-x-probe` changes one byte at `E0:11A4` in the",
+            "  CoilSnake baseline rebuild. In the original ROM, that address falls inside",
+            "  the compressed SRAM template range `E0:09B4..E0:1359`, while town-map icon",
+            "  placement records live at `E1:F4A9..E1:F581`; keep it deferred until a",
+            "  rebuilt-to-original town-map layout map exists.",
+            "- `windowgraphics-windows1-copy-probe` changes a bounded span inside",
+            "  `E0:1FC8..E0:2188`, so it is safe evidence that CoilSnake's WindowGraphics",
+            "  resource feeds the local text-window palette block contract.",
+        ]
+    )
+
     lines.extend(["", "## Runtime Subrange Contracts", ""])
     lines.append("| Subrange | Range | Status | Contract | Evidence |")
     lines.append("| --- | --- | --- | --- | --- |")

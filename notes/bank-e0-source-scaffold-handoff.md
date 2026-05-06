@@ -13,7 +13,10 @@ Bank `E0` is byte-complete for the current source-scaffold phase.
 - preserved data-gap bytes: `65536`
 - byte-equivalence: `OK`, `0` mismatches
 
-E0 is protected as exact UI/font/town-map/audio payload corridors, including inferred COMPRESSED_SRAM and generated text-window/town-map table spans.
+E0 is protected as exact UI/font/town-map/audio payload corridors, including
+the inferred `COMPRESSED_SRAM` span and generated text-window/town-map table
+span. Their semantic contracts now live in `notes/sram-template-contracts.md`
+and `notes/text-window-skin-bundle-contracts.md`.
 
 ## Regenerate And Validate
 
@@ -34,7 +37,8 @@ Expected validation:
 
 ## Remaining Semantic Work
 
-- resolve missing metadata for mystery_sram.bin.lzhal if asset-level extraction needs a named source file
-- split the generated text-window/town-map table span into typed contracts
+- preserve the missing-yml `mystery_sram.bin.lzhal` provenance note if asset-level extraction needs a named source file
+- use the existing SRAM save-template and text-window/town-map table contracts for source emission
+- optionally name reserve SRAM template block provenance and remaining palette-row presentation roles when stronger caller evidence appears
 - optional render fixtures for text-window graphics, fonts, and town maps
 - leave audio packs opaque unless audio-pack decoding becomes a separate target
