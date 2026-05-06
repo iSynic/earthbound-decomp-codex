@@ -106,6 +106,12 @@ the row upload used by the ending cast display. The helpers share the
 apply the cast-name base tile offset at `$B4D1`, and use the C0 local-buffer
 copy/VRAM transfer contracts already seen in earlier text/window helpers.
 
+2026-05-06 cast-name patch follow-up: the inline `C4:E796..E7AE` table is now
+split into the three C4-local suffix patch rows consumed by
+`PrepareCastNameTilemap`: possessive dad, possessive mom, and possessive
+Master. The prep helper names the three patch source lows plus the C4 bank byte
+where it stages the local copy arguments for the C0 tilemap-patch callee.
+
 `C4:EBAD..C4:EC6E` are small print wrappers that select the party/current-slot
 or entity-var0 source before entering the cast-name print path.
 
@@ -183,6 +189,9 @@ or sector refresh code.
 - `C4:E51E` = `HandleCastScrolling`
 - `C4:E583` = `RenderCastNameText`
 - `C4:E796` = `CastNameTextTilemapPatchTable`
+- `C4:E796` = `CastNameTextTilemapPatchPossessiveDad`
+- `C4:E79D` = `CastNameTextTilemapPatchPossessiveMom`
+- `C4:E7A4` = `CastNameTextTilemapPatchPossessiveMaster`
 - `C4:E7AE` = `PrepareCastNameTilemap`
 - `C4:EA9C` = `CopyCastNameTilemap`
 - `C4:EB04` = `PrintCastName`
