@@ -845,16 +845,29 @@ org $C240A4
 !C27029_MaskSet_TestBit = $C27029
 !C27089_MaskSet_ClearBit = $C27089
 !C2EACF_WaitForBattleEffectStepReady = $C2EACF
+!CallerFrameSecondPayloadPointerLo = $1E
+!CallerFrameSecondPayloadPointerHi = $20
+!LocalSecondPayloadPointerLo = $06
+!LocalSecondPayloadPointerHi = $08
+!NullPointerWord = $0000
+!ActorTargetRowDomainBase = $A21C
+!CandidateTargetRowDomainBase = $9FAC
+!CurrentTargetRowPointer = $A972
+!CandidateRowSize = $004E
+!ActorTargetStartBit = $0008
+!TargetMaskBitLimit = $0020
+!CandidateTargetStartBit = $0000
+!CandidateTargetLimit = $0008
 C240A4_ApplyBattleActionSecondPointerPayload:
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    lda $1E
-    sta $06
-    lda $20
-    sta $08
+    lda !CallerFrameSecondPayloadPointerLo
+    sta !LocalSecondPayloadPointerLo
+    lda !CallerFrameSecondPayloadPointerHi
+    sta !LocalSecondPayloadPointerHi
     bra C240BA_ApplyBattleActionSecondPointerPayload_L40BA
 C240B6_ApplyBattleActionSecondPointerPayload_L40B6:
     jsl !C12DD5_WindowTick
@@ -862,9 +875,9 @@ C240BA_ApplyBattleActionSecondPointerPayload_L40BA:
     jsl !C2EACF_WaitForBattleEffectStepReady
     cmp.w #$0000
     bne C240B6_ApplyBattleActionSecondPointerPayload_L40B6
-    lda.w #$A21C
-    sta $A972
-    ldx.w #$0008
+    lda.w #!ActorTargetRowDomainBase
+    sta !CurrentTargetRowPointer
+    ldx.w #!ActorTargetStartBit
     stx $0E
     bra C24113_ApplyBattleActionSecondPointerPayload_L4113
 C240D0_ApplyBattleActionSecondPointerPayload_L40D0:
@@ -873,38 +886,38 @@ C240D0_ApplyBattleActionSecondPointerPayload_L40D0:
     cmp.w #$0000
     beq C24104_ApplyBattleActionSecondPointerPayload_L4104
     jsl FIX_TARGET_NAME
-    lda.w #$0000
+    lda.w #!NullPointerWord
     sta $0A
-    lda.w #$0000
+    lda.w #!NullPointerWord
     sta $0C
-    lda $08
+    lda !LocalSecondPayloadPointerHi
     cmp $0C
     bne C240F2_ApplyBattleActionSecondPointerPayload_L40F2
-    lda $06
+    lda !LocalSecondPayloadPointerLo
     cmp $0A
 C240F2_ApplyBattleActionSecondPointerPayload_L40F2:
     beq C24104_ApplyBattleActionSecondPointerPayload_L4104
     pha
-    lda $06
+    lda !LocalSecondPayloadPointerLo
     sta $00BC
-    lda $08
+    lda !LocalSecondPayloadPointerHi
     sta $00BE
     pla
     jsl !C09279_DispatchBattleActionPayload
 C24104_ApplyBattleActionSecondPointerPayload_L4104:
-    lda $A972
+    lda !CurrentTargetRowPointer
     clc
-    adc.w #$004E
-    sta $A972
+    adc.w #!CandidateRowSize
+    sta !CurrentTargetRowPointer
     ldx $0E
     inx
     stx $0E
 C24113_ApplyBattleActionSecondPointerPayload_L4113:
-    cpx.w #$0020
+    cpx.w #!TargetMaskBitLimit
     bcc C240D0_ApplyBattleActionSecondPointerPayload_L40D0
-    lda.w #$9FAC
-    sta $A972
-    ldx.w #$0000
+    lda.w #!CandidateTargetRowDomainBase
+    sta !CurrentTargetRowPointer
+    ldx.w #!CandidateTargetStartBit
     stx $0E
     bra C24168_ApplyBattleActionSecondPointerPayload_L4168
 C24125_ApplyBattleActionSecondPointerPayload_L4125:
@@ -913,34 +926,34 @@ C24125_ApplyBattleActionSecondPointerPayload_L4125:
     cmp.w #$0000
     beq C24159_ApplyBattleActionSecondPointerPayload_L4159
     jsl FIX_TARGET_NAME
-    lda.w #$0000
+    lda.w #!NullPointerWord
     sta $0A
-    lda.w #$0000
+    lda.w #!NullPointerWord
     sta $0C
-    lda $08
+    lda !LocalSecondPayloadPointerHi
     cmp $0C
     bne C24147_ApplyBattleActionSecondPointerPayload_L4147
-    lda $06
+    lda !LocalSecondPayloadPointerLo
     cmp $0A
 C24147_ApplyBattleActionSecondPointerPayload_L4147:
     beq C24159_ApplyBattleActionSecondPointerPayload_L4159
     pha
-    lda $06
+    lda !LocalSecondPayloadPointerLo
     sta $00BC
-    lda $08
+    lda !LocalSecondPayloadPointerHi
     sta $00BE
     pla
     jsl !C09279_DispatchBattleActionPayload
 C24159_ApplyBattleActionSecondPointerPayload_L4159:
-    lda $A972
+    lda !CurrentTargetRowPointer
     clc
-    adc.w #$004E
-    sta $A972
+    adc.w #!CandidateRowSize
+    sta !CurrentTargetRowPointer
     ldx $0E
     inx
     stx $0E
 C24168_ApplyBattleActionSecondPointerPayload_L4168:
-    cpx.w #$0008
+    cpx.w #!CandidateTargetLimit
     bcc C24125_ApplyBattleActionSecondPointerPayload_L4125
     pld
     rtl
@@ -977,7 +990,7 @@ C2419B_ApplyBattleActionSecondPointerPayload_L419B:
     beq C241D0_ApplyBattleActionSecondPointerPayload_L41D0
     ldy $0E
     tya
-    ldy.w #$004E
+    ldy.w #!CandidateRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     lda $9FB8,X
@@ -999,7 +1012,7 @@ C241D0_ApplyBattleActionSecondPointerPayload_L41D0:
     iny
     sty $0E
 C241D5_ApplyBattleActionSecondPointerPayload_L41D5:
-    cpy.w #$0020
+    cpy.w #!TargetMaskBitLimit
     bcc C2419B_ApplyBattleActionSecondPointerPayload_L419B
 C241DA_ApplyBattleActionSecondPointerPayload_L41DA:
     pld
@@ -1765,6 +1778,22 @@ org $C24703
 !C2EEE7_PrepareBattleSpriteRenderResources = $C2EEE7
 !C44963_ResetActiveTextGlyphRun = $C44963
 !C47C3F_ClearWindowOrMenuMaskState = $C47C3F
+!CurrentTargetMaskLo = $A96C
+!CurrentTargetMaskHi = $A96E
+!CandidateRowActionIdOffset = $0004
+!CandidateRowPhaseOffset = $000E
+!CandidateRowDerivedActionCodeOffset = $0009
+!CandidateRowDerivedActionParamOffset = $000A
+!CandidateRowSize = $004E
+!DerivedAction_TargetParamBattler = $0001
+!DerivedAction_TargetAlliesAndMaybeNpcFilter = $0002
+!DerivedAction_TargetAllies = $0004
+!DerivedAction_TargetRankedListMember = $0011
+!DerivedAction_TargetCandidateRow = $0012
+!DerivedAction_TargetAllEnemies = $0014
+!SpecialRetargetActionId = $0027
+!CandidateScanStartBit = $0008
+!TargetMaskBitLimit = $0020
 C24703_DispatchClass2DerivedAction:
     rep #$31
     phd
@@ -1776,30 +1805,30 @@ C24703_DispatchClass2DerivedAction:
     tax
     stx $0E
     lda.w #$0000
-    sta $A96C
+    sta !CurrentTargetMaskLo
     lda.w #$0000
-    sta $A96E
-    lda $0009,X
+    sta !CurrentTargetMaskHi
+    lda !CandidateRowDerivedActionCodeOffset,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!DerivedAction_TargetParamBattler
     beq C24749_DispatchClass2DerivedAction_L4749
-    cmp.w #$0002
+    cmp.w #!DerivedAction_TargetAlliesAndMaybeNpcFilter
     beq C24757_DispatchClass2DerivedAction_L4757
-    cmp.w #$0004
+    cmp.w #!DerivedAction_TargetAllies
     beq C24757_DispatchClass2DerivedAction_L4757
-    cmp.w #$0011
+    cmp.w #!DerivedAction_TargetRankedListMember
     beq C2477E_DispatchClass2DerivedAction_L477E
-    cmp.w #$0012
+    cmp.w #!DerivedAction_TargetCandidateRow
     bne C2473E_DispatchClass2DerivedAction_L473E
     jmp.w C247F5_DispatchClass2DerivedAction_L47F5
 C2473E_DispatchClass2DerivedAction_L473E:
-    cmp.w #$0014
+    cmp.w #!DerivedAction_TargetAllEnemies
     bne C24746_DispatchClass2DerivedAction_L4746
     jmp.w C24809_DispatchClass2DerivedAction_L4809
 C24746_DispatchClass2DerivedAction_L4746:
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C24749_DispatchClass2DerivedAction_L4749:
-    lda $000A,X
+    lda !CandidateRowDerivedActionParamOffset,X
     and.w #$00FF
     dec A
     jsl TARGET_BATTLER
@@ -1807,12 +1836,12 @@ C24749_DispatchClass2DerivedAction_L4749:
 C24757_DispatchClass2DerivedAction_L4757:
     jsl TARGET_ALLIES
     ldx $0E
-    lda $0004,X
+    lda !CandidateRowActionIdOffset,X
     jsl !C23FEA_CheckBattleActionSpecialCase
     cmp.w #$0000
     bne C24777_DispatchClass2DerivedAction_L4777
     ldx $0E
-    lda $000E,X
+    lda !CandidateRowPhaseOffset,X
     and.w #$00FF
     bne C24777_DispatchClass2DerivedAction_L4777
     jsl REMOVE_NPC_TARGETTING
@@ -1820,7 +1849,7 @@ C24777_DispatchClass2DerivedAction_L4777:
     jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C2477E_DispatchClass2DerivedAction_L477E:
-    lda $000A,X
+    lda !CandidateRowDerivedActionParamOffset,X
     and.w #$00FF
     cmp $AD56
     bcc C2479D_DispatchClass2DerivedAction_L479D
@@ -1841,10 +1870,10 @@ C2479D_DispatchClass2DerivedAction_L479D:
     jsl TARGET_BATTLER
 C247A9_DispatchClass2DerivedAction_L47A9:
     ldx $0E
-    lda $0004,X
-    cmp.w #$0027
+    lda !CandidateRowActionIdOffset,X
+    cmp.w #!SpecialRetargetActionId
     bne C2481F_DispatchClass2DerivedAction_L481F
-    lda.w #$0008
+    lda.w #!CandidateScanStartBit
     sta $0E
     bra C247EE_DispatchClass2DerivedAction_L47EE
 C247BA_DispatchClass2DerivedAction_L47BA:
@@ -1859,9 +1888,9 @@ C247BA_DispatchClass2DerivedAction_L47BA:
     cmp.w #$0001
     bne C247E9_DispatchClass2DerivedAction_L47E9
     lda.w #$0000
-    sta $A96C
+    sta !CurrentTargetMaskLo
     lda.w #$0000
-    sta $A96E
+    sta !CurrentTargetMaskHi
     lda $0E
     jsl TARGET_BATTLER
     bra C2481F_DispatchClass2DerivedAction_L481F
@@ -1870,11 +1899,11 @@ C247E9_DispatchClass2DerivedAction_L47E9:
     inc A
     sta $0E
 C247EE_DispatchClass2DerivedAction_L47EE:
-    cmp.w #$0020
+    cmp.w #!TargetMaskBitLimit
     bcc C247BA_DispatchClass2DerivedAction_L47BA
     bra C2481F_DispatchClass2DerivedAction_L481F
 C247F5_DispatchClass2DerivedAction_L47F5:
-    lda $000A,X
+    lda !CandidateRowDerivedActionParamOffset,X
     and.w #$00FF
     jsl TARGET_ROW
     jsl REMOVE_NPC_TARGETTING
@@ -1883,7 +1912,7 @@ C247F5_DispatchClass2DerivedAction_L47F5:
 C24809_DispatchClass2DerivedAction_L4809:
     jsl TARGET_ALL_ENEMIES
     ldx $0E
-    lda $000E,X
+    lda !CandidateRowPhaseOffset,X
     and.w #$00FF
     bne C2481B_DispatchClass2DerivedAction_L481B
     jsl REMOVE_NPC_TARGETTING

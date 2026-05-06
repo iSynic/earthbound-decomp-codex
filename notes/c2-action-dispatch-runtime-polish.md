@@ -68,6 +68,12 @@ producer aligned with the C1/C2 text and payload consumers.
 `C2:4703` accepts a candidate row base in A, clears `$A96C/$A96E`, then
 dispatches on row byte `+0x09`. Several branches consume row byte `+0x0A`.
 
+Implementation update: `src/c2/c2_4703_dispatch_class2_derived_action.asm`
+now names `$A96C/$A96E` as the current target mask, candidate row
+`+0x04/+0x09/+0x0A/+0x0E` offsets, and the observed derived-action code lanes:
+single parameter battler (`1`), allied target sets (`2/4`), ranked-list member
+(`0x11`), direct candidate-row metadata (`0x12`), and all enemies (`0x14`).
+
 The dispatch branches build, prune, or target bits through the class-2 mask
 helper family:
 
@@ -103,6 +109,12 @@ It is not just a passive animation or data-stream routine.
 `C2:416F` is the sibling mask-pruning helper in the same source module. It
 removes currently targeted rows from `$A96C/$A96E` when their candidate row is
 inactive or in blocked row states.
+
+Implementation update: `src/c2/c2_40a4_apply_battle_action_second_pointer_payload.asm`
+now names the caller-frame second-payload pointer, the local payload pointer,
+the `$A21C` actor-target domain, the `$9FAC` candidate-target domain, the
+shared `0x4E` candidate-row stride, and the bit ranges used by the two payload
+passes.
 
 ## Decomp Value
 

@@ -29,6 +29,20 @@ C27029_MaskSet_TestBit              = $C27029
 C27089_MaskSet_ClearBit             = $C27089
 C2EACF_WaitForBattleEffectStepReady = $C2EACF
 
+CallerFrameSecondPayloadPointerLo   = $1E
+CallerFrameSecondPayloadPointerHi   = $20
+LocalSecondPayloadPointerLo         = $06
+LocalSecondPayloadPointerHi         = $08
+NullPointerWord                     = $0000
+ActorTargetRowDomainBase            = $A21C
+CandidateTargetRowDomainBase        = $9FAC
+CurrentTargetRowPointer             = $A972
+CandidateRowSize                    = $004E
+ActorTargetStartBit                 = $0008
+TargetMaskBitLimit                  = $0020
+CandidateTargetStartBit             = $0000
+CandidateTargetLimit                = $0008
+
 ; ---------------------------------------------------------------------------
 ; C2:40A4
 
@@ -38,10 +52,10 @@ C240A4_ApplyBattleActionSecondPointerPayload:
     tdc
     adc.w #$FFF0
     tcd
-    lda $1E
-    sta $06
-    lda $20
-    sta $08
+    lda CallerFrameSecondPayloadPointerLo
+    sta LocalSecondPayloadPointerLo
+    lda CallerFrameSecondPayloadPointerHi
+    sta LocalSecondPayloadPointerHi
     bra C240BA_ApplyBattleActionSecondPointerPayload_L40BA
 C240B6_ApplyBattleActionSecondPointerPayload_L40B6:
     jsl C12DD5_WindowTick
@@ -50,9 +64,9 @@ C240BA_ApplyBattleActionSecondPointerPayload_L40BA:
     cmp.w #$0000
     bne C240B6_ApplyBattleActionSecondPointerPayload_L40B6
     ; First pass: selected entries in the `$A21C` domain.
-    lda.w #$A21C
-    sta $A972
-    ldx.w #$0008
+    lda.w #ActorTargetRowDomainBase
+    sta CurrentTargetRowPointer
+    ldx.w #ActorTargetStartBit
     stx $0E
     bra C24113_ApplyBattleActionSecondPointerPayload_L4113
 C240D0_ApplyBattleActionSecondPointerPayload_L40D0:
@@ -61,38 +75,39 @@ C240D0_ApplyBattleActionSecondPointerPayload_L40D0:
     cmp.w #$0000
     beq C24104_ApplyBattleActionSecondPointerPayload_L4104
     jsl FIX_TARGET_NAME
-    lda.w #$0000
+    lda.w #NullPointerWord
     sta $0A
-    lda.w #$0000
+    lda.w #NullPointerWord
     sta $0C
-    lda $08
+    lda LocalSecondPayloadPointerHi
     cmp $0C
     bne C240F2_ApplyBattleActionSecondPointerPayload_L40F2
-    lda $06
+    lda LocalSecondPayloadPointerLo
     cmp $0A
 C240F2_ApplyBattleActionSecondPointerPayload_L40F2:
     beq C24104_ApplyBattleActionSecondPointerPayload_L4104
     pha
-    lda $06
+    lda LocalSecondPayloadPointerLo
     sta $00BC
-    lda $08
+    lda LocalSecondPayloadPointerHi
     sta $00BE
     pla
     jsl C09279_DispatchBattleActionPayload
 C24104_ApplyBattleActionSecondPointerPayload_L4104:
-    lda $A972
+    lda CurrentTargetRowPointer
     clc
-    adc.w #$004E
-    sta $A972
+    adc.w #CandidateRowSize
+    sta CurrentTargetRowPointer
     ldx $0E
     inx
     stx $0E
 C24113_ApplyBattleActionSecondPointerPayload_L4113:
-    cpx.w #$0020
+    cpx.w #TargetMaskBitLimit
     bcc C240D0_ApplyBattleActionSecondPointerPayload_L40D0
-    lda.w #$9FAC
-    sta $A972
-    ldx.w #$0000
+    ; Second pass: selected entries in the ordinary `$9FAC` candidate domain.
+    lda.w #CandidateTargetRowDomainBase
+    sta CurrentTargetRowPointer
+    ldx.w #CandidateTargetStartBit
     stx $0E
     bra C24168_ApplyBattleActionSecondPointerPayload_L4168
 C24125_ApplyBattleActionSecondPointerPayload_L4125:
@@ -101,34 +116,34 @@ C24125_ApplyBattleActionSecondPointerPayload_L4125:
     cmp.w #$0000
     beq C24159_ApplyBattleActionSecondPointerPayload_L4159
     jsl FIX_TARGET_NAME
-    lda.w #$0000
+    lda.w #NullPointerWord
     sta $0A
-    lda.w #$0000
+    lda.w #NullPointerWord
     sta $0C
-    lda $08
+    lda LocalSecondPayloadPointerHi
     cmp $0C
     bne C24147_ApplyBattleActionSecondPointerPayload_L4147
-    lda $06
+    lda LocalSecondPayloadPointerLo
     cmp $0A
 C24147_ApplyBattleActionSecondPointerPayload_L4147:
     beq C24159_ApplyBattleActionSecondPointerPayload_L4159
     pha
-    lda $06
+    lda LocalSecondPayloadPointerLo
     sta $00BC
-    lda $08
+    lda LocalSecondPayloadPointerHi
     sta $00BE
     pla
     jsl C09279_DispatchBattleActionPayload
 C24159_ApplyBattleActionSecondPointerPayload_L4159:
-    lda $A972
+    lda CurrentTargetRowPointer
     clc
-    adc.w #$004E
-    sta $A972
+    adc.w #CandidateRowSize
+    sta CurrentTargetRowPointer
     ldx $0E
     inx
     stx $0E
 C24168_ApplyBattleActionSecondPointerPayload_L4168:
-    cpx.w #$0008
+    cpx.w #CandidateTargetLimit
     bcc C24125_ApplyBattleActionSecondPointerPayload_L4125
     pld
     rtl
@@ -166,7 +181,7 @@ C2419B_ApplyBattleActionSecondPointerPayload_L419B:
     ; Remove targeted rows that are inactive or in blocked row states.
     ldy $0E
     tya
-    ldy.w #$004E
+    ldy.w #CandidateRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     lda $9FB8,X
@@ -188,7 +203,7 @@ C241D0_ApplyBattleActionSecondPointerPayload_L41D0:
     iny
     sty $0E
 C241D5_ApplyBattleActionSecondPointerPayload_L41D5:
-    cpy.w #$0020
+    cpy.w #TargetMaskBitLimit
     bcc C2419B_ApplyBattleActionSecondPointerPayload_L419B
 C241DA_ApplyBattleActionSecondPointerPayload_L41DA:
     pld

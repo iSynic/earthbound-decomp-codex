@@ -37,6 +37,23 @@ C2EEE7_PrepareBattleSpriteRenderResources     = $C2EEE7
 C44963_ResetActiveTextGlyphRun                = $C44963
 C47C3F_ClearWindowOrMenuMaskState             = $C47C3F
 
+CurrentTargetMaskLo                           = $A96C
+CurrentTargetMaskHi                           = $A96E
+CandidateRowActionIdOffset                    = $0004
+CandidateRowPhaseOffset                       = $000E
+CandidateRowDerivedActionCodeOffset           = $0009
+CandidateRowDerivedActionParamOffset          = $000A
+CandidateRowSize                              = $004E
+DerivedAction_TargetParamBattler              = $0001
+DerivedAction_TargetAlliesAndMaybeNpcFilter   = $0002
+DerivedAction_TargetAllies                    = $0004
+DerivedAction_TargetRankedListMember          = $0011
+DerivedAction_TargetCandidateRow              = $0012
+DerivedAction_TargetAllEnemies                = $0014
+SpecialRetargetActionId                       = $0027
+CandidateScanStartBit                         = $0008
+TargetMaskBitLimit                            = $0020
+
 ; ---------------------------------------------------------------------------
 ; C2:4703
 
@@ -51,44 +68,47 @@ C24703_DispatchClass2DerivedAction:
     tax
     stx $0E
     lda.w #$0000
-    sta $A96C
+    sta CurrentTargetMaskLo
     lda.w #$0000
-    sta $A96E
-    lda $0009,X
+    sta CurrentTargetMaskHi
+    lda CandidateRowDerivedActionCodeOffset,X
     and.w #$00FF
     ; Derived action code from C2:4477 selects target-mask construction.
-    cmp.w #$0001
+    cmp.w #DerivedAction_TargetParamBattler
     beq C24749_DispatchClass2DerivedAction_L4749
-    cmp.w #$0002
+    cmp.w #DerivedAction_TargetAlliesAndMaybeNpcFilter
     beq C24757_DispatchClass2DerivedAction_L4757
-    cmp.w #$0004
+    cmp.w #DerivedAction_TargetAllies
     beq C24757_DispatchClass2DerivedAction_L4757
-    cmp.w #$0011
+    cmp.w #DerivedAction_TargetRankedListMember
     beq C2477E_DispatchClass2DerivedAction_L477E
-    cmp.w #$0012
+    cmp.w #DerivedAction_TargetCandidateRow
     bne C2473E_DispatchClass2DerivedAction_L473E
     jmp.w C247F5_DispatchClass2DerivedAction_L47F5
 C2473E_DispatchClass2DerivedAction_L473E:
-    cmp.w #$0014
+    cmp.w #DerivedAction_TargetAllEnemies
     bne C24746_DispatchClass2DerivedAction_L4746
     jmp.w C24809_DispatchClass2DerivedAction_L4809
 C24746_DispatchClass2DerivedAction_L4746:
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C24749_DispatchClass2DerivedAction_L4749:
-    lda $000A,X
+    ; Code 1 consumes row +0x0A as a 1-based battler target ordinal.
+    lda CandidateRowDerivedActionParamOffset,X
     and.w #$00FF
     dec A
     jsl TARGET_BATTLER
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C24757_DispatchClass2DerivedAction_L4757:
+    ; Codes 2/4 begin with all active allies, then prune NPC/blocked rows when
+    ; the action is not a special-case row and the actor is ordinary phase 0.
     jsl TARGET_ALLIES
     ldx $0E
-    lda $0004,X
+    lda CandidateRowActionIdOffset,X
     jsl C23FEA_CheckBattleActionSpecialCase
     cmp.w #$0000
     bne C24777_DispatchClass2DerivedAction_L4777
     ldx $0E
-    lda $000E,X
+    lda CandidateRowPhaseOffset,X
     and.w #$00FF
     bne C24777_DispatchClass2DerivedAction_L4777
     jsl REMOVE_NPC_TARGETTING
@@ -96,7 +116,8 @@ C24777_DispatchClass2DerivedAction_L4777:
     jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C2477E_DispatchClass2DerivedAction_L477E:
-    lda $000A,X
+    ; Code 0x11 consumes row +0x0A as a ranked-list ordinal spanning AD7A/AD82.
+    lda CandidateRowDerivedActionParamOffset,X
     and.w #$00FF
     cmp $AD56
     bcc C2479D_DispatchClass2DerivedAction_L479D
@@ -117,10 +138,11 @@ C2479D_DispatchClass2DerivedAction_L479D:
     jsl TARGET_BATTLER
 C247A9_DispatchClass2DerivedAction_L47A9:
     ldx $0E
-    lda $0004,X
-    cmp.w #$0027
+    lda CandidateRowActionIdOffset,X
+    cmp.w #SpecialRetargetActionId
     bne C2481F_DispatchClass2DerivedAction_L481F
-    lda.w #$0008
+    ; Action 0x27 can retarget to the first active phase-1 row from bit 8 up.
+    lda.w #CandidateScanStartBit
     sta $0E
     bra C247EE_DispatchClass2DerivedAction_L47EE
 C247BA_DispatchClass2DerivedAction_L47BA:
@@ -135,9 +157,9 @@ C247BA_DispatchClass2DerivedAction_L47BA:
     cmp.w #$0001
     bne C247E9_DispatchClass2DerivedAction_L47E9
     lda.w #$0000
-    sta $A96C
+    sta CurrentTargetMaskLo
     lda.w #$0000
-    sta $A96E
+    sta CurrentTargetMaskHi
     lda $0E
     jsl TARGET_BATTLER
     bra C2481F_DispatchClass2DerivedAction_L481F
@@ -146,11 +168,12 @@ C247E9_DispatchClass2DerivedAction_L47E9:
     inc A
     sta $0E
 C247EE_DispatchClass2DerivedAction_L47EE:
-    cmp.w #$0020
+    cmp.w #TargetMaskBitLimit
     bcc C247BA_DispatchClass2DerivedAction_L47BA
     bra C2481F_DispatchClass2DerivedAction_L481F
 C247F5_DispatchClass2DerivedAction_L47F5:
-    lda $000A,X
+    ; Code 0x12 consumes row +0x0A as direct metadata for TARGET_ROW.
+    lda CandidateRowDerivedActionParamOffset,X
     and.w #$00FF
     jsl TARGET_ROW
     jsl REMOVE_NPC_TARGETTING
@@ -159,7 +182,7 @@ C247F5_DispatchClass2DerivedAction_L47F5:
 C24809_DispatchClass2DerivedAction_L4809:
     jsl TARGET_ALL_ENEMIES
     ldx $0E
-    lda $000E,X
+    lda CandidateRowPhaseOffset,X
     and.w #$00FF
     bne C2481B_DispatchClass2DerivedAction_L481B
     jsl REMOVE_NPC_TARGETTING

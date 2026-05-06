@@ -351,6 +351,11 @@ contract notes for C0/C1/C3/C4 consumers.
   vocabulary upstream into `C2:4477`, where candidate row `+0x04` selects the
   table row and row bytes `+0/+1` produce candidate row `+0x09/+0x0A` for
   `C2:4703`. See `notes/c2-action-dispatch-runtime-polish.md`.
+- 2026-05-05 fifty-third slice: tightened the `C2:4703` target-mask dispatcher
+  and `C2:40A4` second-pointer payload consumer. The promoted contracts name
+  the current target mask, derived-action code lanes, candidate-row handoff
+  offsets, `$A21C/$9FAC` payload target domains, and the shared `0x4E` row
+  stride. See `notes/c2-action-dispatch-runtime-polish.md`.
 
 ## Validation
 
