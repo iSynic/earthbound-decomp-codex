@@ -18,7 +18,7 @@ The `D8:0000..D8:F05D` generated tile-collision region now reconciles exactly.
 
 | Label | Include | CPU span | Bytes | Count | Stride | Confidence |
 | --- | --- | --- | ---: | ---: | ---: | --- |
-| `MAP_TILE_COLLISION_DATA` | `data/map/tile_collision_data.asm` | `D8:0000..D8:8F4F` | 36688 | - | - | `exact-boundary` |
+| `MAP_TILE_COLLISION_DATA` | `data/map/tile_collision_data.asm` | `D8:0000..D8:8F4F` | 36688 | 2293 | `0x10` | `consumer-corroborated` |
 | `MAP_DATA_TILE_COLLISION_POINTERS_0` | `data/map/tile_collision_pointers_00.asm` | `D8:8F50..D8:95CF` | 1664 | 832 | `0x2` | `exact` |
 | `MAP_DATA_TILE_COLLISION_POINTERS_1` | `data/map/tile_collision_pointers_01.asm` | `D8:95D0..D8:9C69` | 1690 | 845 | `0x2` | `exact` |
 | `MAP_DATA_TILE_COLLISION_POINTERS_2` | `data/map/tile_collision_pointers_02.asm` | `D8:9C6A..D8:A2DF` | 1654 | 827 | `0x2` | `exact` |
@@ -50,10 +50,11 @@ The `D8:0000..D8:F05D` generated tile-collision region now reconciles exactly.
 ## Source Notes
 
 - `EF:117B` is the 20-entry tileset-collision long-pointer table that anchors the D8 pointer-table family.
-- `MAP_TILE_COLLISION_DATA` ends at `D8:8F4F`; the first pointer table begins at `D8:8F50`.
+- `MAP_TILE_COLLISION_DATA` is a 2293-record pool of 16-byte 4x4 metatile-cell `surface_collision_flags` grids; it ends at `D8:8F4F`, and the first pointer table begins at `D8:8F50`.
 - Each `MAP_DATA_TILE_COLLISION_POINTERS_n` span is an exact word-offset table into the D8 collision data family.
+- `notes/d8-collision-subrecord-contracts.md` promotes the row shape and C0-backed masks: observed high collision `0x80`, special-surface latch `0x10`, entity terrain-compatibility class `0x04/0x08`, and still-provisional low surface modifiers `0x01/0x02`.
 - `D8:F05E` is the first warning-screen asset byte, so all generated collision data ends exactly at `D8:F05D`.
 
 ## Recommended next move
 
-Promote the collision data and pointer tables into the data-contract manifest. The remaining work is semantic decoding of the pointed collision rows, not boundary discovery.
+Use the central manifest plus `notes/d8-collision-subrecord-contracts.md` for source emission. The remaining D8 collision work is optional low surface modifier gameplay labels, not boundary discovery or row-shape decoding.

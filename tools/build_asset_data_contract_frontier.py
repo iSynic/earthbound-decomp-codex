@@ -78,7 +78,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "label": "Map tilesets and runtime tables",
         "banks": ["D6", "D7", "D8", "D9", "DA", "DB", "DC", "DD", "DE", "DF"],
         "maturity": "contract-backed-with-known-followups",
-        "proof": "map object, sector, D7 sector metadata, DA palette subrecords, DC current-position music selectors, tileset, FTS, collision, palette, movement, sprite-usage, landing palette-animation, and scene-composition contracts exist",
+        "proof": "map object, sector, D7 sector metadata, DA palette subrecords, DC current-position music selectors, tileset, FTS, D8 collision subrecords, palette, movement, sprite-usage, landing palette-animation, and scene-composition contracts exist",
         "docs": [
             "notes/map-milestone-closure.md",
             "notes/map-object-bundles.md",
@@ -88,6 +88,8 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/map-tileset-bundles.md",
             "notes/map-fts-format-audit.md",
             "notes/da-map-palette-subrecord-contracts.md",
+            "notes/d8-collision-subrecord-contracts.md",
+            "notes/map-collision-pointer-contract.md",
             "notes/map-collision-runtime-bit-contract.md",
             "notes/map-palette-descriptor-context.md",
             "notes/bank-df-first-pass.md",

@@ -256,9 +256,9 @@ def build_triage() -> list[BankTriage]:
             "map collision plus error/audio assets",
             "data-contract-ready",
             3,
-            "Emit D8 as exact collision data, collision pointer tables, warning assets, and audio tail using `notes/d8-table-splits.md` and the promoted D8 contracts.",
-            ["collision row semantics still need decoding beyond pointer-table boundaries"],
-            ["tile collision data", "20 collision pointer tables", "anti-piracy/faulty-game-pak assets", "audio pack"],
+            "Emit D8 as exact collision data, collision pointer tables, warning assets, and audio tail using `notes/d8-table-splits.md`, the central D8 collision contracts, and `notes/d8-collision-subrecord-contracts.md`.",
+            ["low surface modifier gameplay labels remain optional; row shape and runtime mask roles are already contract-backed"],
+            ["tile collision data", "20 collision pointer tables", "4x4 collision subrecords", "anti-piracy/faulty-game-pak assets", "audio pack"],
         )
     )
 
