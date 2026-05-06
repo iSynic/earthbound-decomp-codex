@@ -74,6 +74,15 @@ The exact split is:
 - `D0:C60D..D0:D52C`: `BTL_ENTRY_PTR_TABLE`, 484 fixed `0x08`-byte rows.
 - `D0:D52D..D0:DFB3`: `ENEMY_BATTLE_GROUPS_TABLE`, variable battle groups.
 
+`notes/d0-variable-list-contracts.md` now surfaces the source-emission details
+for the enemy/battle variable lists: all 203 enemy-placement pointer rows own
+one placement list each, 76 placement lists carry a nonzero event-flag gate, and
+28 carry a nonzero flagged-spawn chance. All 484 `BTL_ENTRY_PTR_TABLE` rows
+target bank `D0`, have zero pointer-padding bytes, and resolve to unique parsed
+battle-group slices. The battle-group span has 2668 pointer-owned bytes plus one
+27-byte unpointed gap at `D0:D531..D0:D54C`, which source emission should
+preserve separately instead of assigning to a battle-entry row.
+
 ## Runtime corroboration
 
 The battle runtime references `BTL_ENTRY_PTR_TABLE` using the
@@ -106,6 +115,8 @@ High confidence:
 - `ENEMY_BATTLE_GROUPS_TABLE` repeat-count enemy entries are consumer-backed by
   C2 battle setup/sprite/help-selection paths and summarized in
   `notes/d0-variable-list-contracts.md`.
+- `BTL_ENTRY_PTR_TABLE` row ownership and the unpointed battle-group gap are
+  now summarized for source-emission planning.
 - `MAP_TILE_EVENT_CONTROL_TABLE` chains now have decoded event-condition
   headers and replacement pairs in `notes/d0-tile-event-contracts.md`.
 - The audio tail contains US retail `AUDIO_PACK_139`.

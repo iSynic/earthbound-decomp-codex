@@ -200,9 +200,9 @@ def build_triage() -> list[BankTriage]:
             "generated map/battle data",
             "data-contract-ready",
             3,
-            "Emit D0 as exact generated map/battle tables plus audio tail using `notes/d0-table-splits.md`, the promoted D0 manifest contracts, `notes/d0-tile-event-contracts.md`, and `notes/d0-variable-list-contracts.md`.",
-            ["source include generation still needs to consume the promoted D0 row artifacts"],
-            ["door pointers", "screen transitions", "tile events", "enemy placement", "battle entry pointers", "audio tail"],
+            "Emit D0 as exact generated map/battle tables plus audio tail using `notes/d0-table-splits.md`, the promoted D0 manifest contracts, `notes/d0-tile-event-contracts.md`, and `notes/d0-variable-list-contracts.md` for variable-list ownership, BTL entry distributions, and the unpointed battle-group gap.",
+            ["source include generation still needs to consume the promoted D0 row artifacts and preserve the D0:D531..D0:D54C unpointed battle-group gap"],
+            ["door pointers", "screen transitions", "tile events", "enemy placement", "battle entry pointers", "battle-group gap accounting", "audio tail"],
         )
     )
     for bank in bank_sequence("D1", "D4"):

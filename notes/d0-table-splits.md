@@ -37,6 +37,7 @@ The `D0:0000..D0:DFB3` generated map/battle-data region now reconciles exactly.
 
 - `DOOR_POINTER_TABLE` is a 40x32 long-pointer grid into CF's door sector-list block.
 - `ENEMY_PLACEMENT_GROUPS_TABLE` and `ENEMY_BATTLE_GROUPS_TABLE` now have consumer-backed row-level contracts in `notes/d0-variable-list-contracts.md` / `.json`.
+- `notes/d0-variable-list-contracts.md` also records BTL entry pointer-row distributions and the unpointed `D0:D531..D0:D54C` battle-group gap for source emission.
 - `MAP_TILE_EVENT_CONTROL_TABLE` now has consumer-backed chain/header/replacement-pair contracts in `notes/d0-tile-event-contracts.md` / `.json`.
 - `MAP_ENEMY_PLACEMENT` is a 20480-row word table, matching `map_enemy_placement.yml`.
 - `BTL_ENTRY_PTR_TABLE` uses the ebsrc `battle_entry_ptr_entry` struct size of 8 bytes.

@@ -62,6 +62,32 @@
         "size": 2,
         "consumer": "C2:2F38 stages this id into $9F8C; C2:EEE7 maps it through D5 enemy config"
       }
+    ],
+    "battle_entry_pointer_row": [
+      {
+        "offset": 0,
+        "field": "enemy_list_pointer",
+        "size": 4,
+        "consumer": "ebsrc `battle_entry_ptr_entry` field; every non-null row targets a D0 enemy battle-group slice"
+      },
+      {
+        "offset": 4,
+        "field": "run_away_flag",
+        "size": 2,
+        "consumer": "ebsrc `battle_entry_ptr_entry` field; this pass keeps numeric values"
+      },
+      {
+        "offset": 6,
+        "field": "run_away_flag_state",
+        "size": 1,
+        "consumer": "ebsrc `battle_entry_ptr_entry` field; this pass keeps numeric values"
+      },
+      {
+        "offset": 7,
+        "field": "presentation_sprite_style",
+        "size": 1,
+        "consumer": "C2 battle presentation paths pass this byte as Y to C2:D121 LoadPresentationSpriteResource"
+      }
     ]
   },
   "summary": {
@@ -79,6 +105,9 @@
       "7": 12,
       "8": 1
     },
+    "enemy_placement_pointer_fan_in_histogram": {
+      "1": 203
+    },
     "enemy_placement_selection_weight_histogram": {
       "0": 6,
       "1": 121,
@@ -90,14 +119,63 @@
       "7": 1,
       "8": 38
     },
+    "enemy_placement_total_selection_weight_histogram": {
+      "0": 8,
+      "8": 176,
+      "16": 19
+    },
+    "enemy_placement_event_flag_rows": 76,
+    "enemy_placement_flagged_chance_rows": 28,
     "battle_entry_pointer_rows": 484,
+    "battle_entry_pointer_null_rows": 0,
+    "battle_entry_pointer_bank_histogram": {
+      "0xD0": 484
+    },
+    "battle_entry_pointer_padding_byte_histogram": {
+      "0x00": 484
+    },
+    "battle_entry_run_away_flag_histogram": {
+      "0x0000": 371,
+      "0x0040": 3,
+      "0x00BE": 10,
+      "0x00BF": 9,
+      "0x00C0": 8,
+      "0x00C1": 13,
+      "0x00C2": 14,
+      "0x00C3": 14,
+      "0x00C4": 20,
+      "0x00C5": 14,
+      "0x0154": 8
+    },
+    "battle_entry_run_away_flag_state_histogram": {
+      "0": 379,
+      "1": 105
+    },
+    "battle_entry_presentation_sprite_style_histogram": {
+      "0": 48,
+      "1": 45,
+      "2": 215,
+      "3": 176
+    },
     "battle_group_unique_pointer_slices": 484,
+    "battle_group_pointer_fan_in_histogram": {
+      "1": 484
+    },
     "battle_group_enemy_entries": 728,
     "battle_group_entry_count_histogram": {
       "1": 268,
       "2": 190,
       "3": 24,
       "4": 2
+    },
+    "battle_group_total_enemy_count_histogram": {
+      "0": 1,
+      "1": 183,
+      "2": 183,
+      "3": 79,
+      "4": 30,
+      "5": 2,
+      "6": 6
     },
     "battle_group_repeat_count_histogram": {
       "0": 24,
@@ -107,7 +185,22 @@
       "4": 14,
       "5": 2,
       "6": 5
-    }
+    },
+    "battle_group_byte_length_histogram": {
+      "4": 268,
+      "7": 190,
+      "10": 24,
+      "13": 2
+    },
+    "battle_group_pointed_list_bytes": 2668,
+    "battle_group_unpointed_gap_bytes": 27,
+    "battle_group_unpointed_gap_ranges": [
+      {
+        "range": "D0:D531..D0:D54C",
+        "bytes": 27,
+        "reason": "no BTL_ENTRY_PTR_TABLE row targets this byte range"
+      }
+    ]
   },
   "enemy_placement_group_lists": [
     {

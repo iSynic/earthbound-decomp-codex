@@ -45,7 +45,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "label": "Mixed asset/table banks",
         "banks": ["CF", "D0"],
         "maturity": "contract-backed-with-known-followups",
-        "proof": "table split manifests, source scaffolds, CF door-data, movement-trigger, sector-list, and event-music context contracts, and D0 tile-event plus placement/battle variable-list contracts account for bytes and the highest-risk variable-list subrecords",
+        "proof": "table split manifests, source scaffolds, CF door-data, movement-trigger, sector-list, and event-music context contracts, and D0 tile-event plus placement/battle variable-list contracts with BTL entry distribution and unpointed-gap accounting cover the highest-risk variable-list subrecords",
         "docs": [
             "notes/bank-cf-asset-data-map.md",
             "notes/bank-d0-asset-data-map.md",
@@ -56,7 +56,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/d0-tile-event-contracts.md",
             "notes/d0-variable-list-contracts.md",
         ],
-        "next_contract": "CF/D0 table contracts are now useful for source planning; remaining polish is generated source-emission polish plus optional gameplay labels for the already-bounded CF trigger selectors.",
+        "next_contract": "CF/D0 table contracts are now useful for source planning; remaining polish is generated source-emission polish, preserving the D0 battle-group gap, plus optional gameplay labels for the already-bounded CF trigger selectors.",
     },
     {
         "id": "overworld_sprites",
