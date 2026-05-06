@@ -22,6 +22,7 @@ Primary artifacts:
 - `notes/bank-cf-asset-data-map.md`
 - `notes/cf-table-splits.md`
 - `notes/cf-sector-list-contracts.md`
+- `notes/cf-door-data-contracts.md`
 - `notes/cf-event-music-context-contracts.md`
 - `build/asset-bank-cf.json`
 - `build/cf-table-splits.json`
@@ -92,6 +93,10 @@ High confidence:
   overlapping pointer starts that make raw pointer-consumer row scans differ
   from the flat source-order row view, and `notes/cf-sector-list-contracts.json`
   now carries the complete decoded pointer/list/entry rows.
+- `DOOR_DATA` now has a partial consumer-backed payload contract for the
+  highest-risk movement-trigger variants: type `0` has 6 event-gated script
+  pointer records, type `2` has 840 door-transition records used by
+  `C0:6BFF`, and type `6` has 6 cached front-interaction pointer records.
 - `SPRITE_PLACEMENT_POINTER_TABLE` and `SPRITE_PLACEMENT_TABLE` now have a
   counted-list contract: 627 non-empty sector lists, 1582 four-byte placement
   rows, and consumer-backed `npc_config_id`, `sector_local_y`, and
@@ -108,15 +113,17 @@ High confidence:
 
 Still intentionally out of scope:
 
-- `DOOR_DATA` remains a packed payload family. The door-sector-list row
-  contract names the final word as `trigger_payload_word` until each movement
-  trigger helper is joined to its payload variant.
+- Remaining `DOOR_DATA` trigger-type `1`, `3`, `4`, and `5` parameters stay
+  bounded/raw until their helpers are joined to a payload variant. Type `5`
+  offsets are pointer-like in source bytes, but the local C0 dispatcher body is
+  a no-op, so this pass does not promote them.
 - Human names for event flags, track ids, and transition SFX ids remain
   deferred; the event-music context contract keeps those values numeric.
 - Audio-pack internals remain opaque.
 
 ## Recommended next move
 
-Use the checked-in CF sector-list and event-music-context JSON artifacts for
-source emission planning. The next CF semantic pass should join a
-consumer-backed `DOOR_DATA` payload variant.
+Use the checked-in CF door-data, sector-list, and event-music-context JSON
+artifacts for source emission planning. The remaining CF semantic pass should
+focus on trigger-type `1`/`3`/`4`/`5` parameter names only where a consumer
+join supports them.

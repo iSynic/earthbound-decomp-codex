@@ -187,8 +187,8 @@ def build_triage() -> list[BankTriage]:
                 "generated map data",
                 "data-contract-ready",
                 3,
-                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.json`, and the CF event-music context contract.",
-                ["DOOR_DATA payload variants remain unresolved"],
+                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md`, the CF sector-list/event-music contracts, and the CF door-data payload contract.",
+                ["remaining trigger-type 1/3/4/5 parameter meanings are bounded but not fully named"],
                 ["door pointers", "door lists", "event music", "sprite placement", "NPC config", "audio tail"],
             ),
         ]

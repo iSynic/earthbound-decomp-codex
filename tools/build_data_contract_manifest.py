@@ -223,7 +223,13 @@ TIMED_DELIVERY_CONTROLLER_FIELDS = (
 )
 
 RAW_CF_DOOR_DATA_FIELDS = (
-    field("raw_payload", 0x00, 1, 0x264F, "exact CF door-data payload block; subrecords are variable/packed"),
+    field(
+        "raw_payload",
+        0x00,
+        1,
+        0x264F,
+        "exact CF door-data payload block; see notes/cf-door-data-contracts.json for consumer-backed type 0 event-gated script pointers, type 2 door-transition records, and type 6 cached interaction pointers",
+    ),
 )
 
 RAW_CF_DOOR_CONFIG_LIST_FIELDS = (
@@ -1255,11 +1261,17 @@ def extra_contracts() -> list[Contract]:
             stride=0x264F,
             count=1,
             struct_name="cf_door_data_payload",
-            confidence="exact-boundary",
-            note="CF door-data payload block before the 1280 counted sector door-list records.",
+            confidence="consumer-corroborated-partial",
+            note="CF door-data payload block before the 1280 counted sector door-list records. Type 0, type 2, and type 6 payload shapes are decoded by the CF door-data contract; remaining trigger-type parameters stay bounded/raw.",
             evidence=(
                 "notes/cf-table-splits.md",
+                "notes/cf-sector-list-contracts.md",
+                "notes/cf-door-data-contracts.md",
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm",
+                "src/c0/c0_6a1b_movement_trigger_type0_queue_door_destination.asm",
+                "src/c0/c0_6aca_movement_trigger_type2_queue_door_transition.asm",
+                "src/c0/c0_6bff_run_deferred_script_pointer_and_refresh_transition_state.asm",
+                "src/c0/c0_65c2_probe_type6_door_candidate.asm",
             ),
             fields=RAW_CF_DOOR_DATA_FIELDS,
         ),

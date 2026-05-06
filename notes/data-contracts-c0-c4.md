@@ -32,7 +32,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | INITIAL_STATS | rom-table | `D5:F5F5` | `0x15` | 4 | `initial_party_member_stats` | 5 | corroborated |
 | TIMED_DELIVERY_TABLE | rom-table | `D5:F649` | `0x14` | 10 | `timed_delivery_source_window` | 1 | exact-source-window |
 | TIMED_DELIVERY_CONTROLLER_TABLE | rom-table | `D5:F645` | `0x14` | 10 | `timed_delivery_controller_row` | 11 | consumer-corroborated |
-| CF_DOOR_DATA | rom-block | `CF:0000` | `0x264F` | 1 | `cf_door_data_payload` | 1 | exact-boundary |
+| CF_DOOR_DATA | rom-block | `CF:0000` | `0x264F` | 1 | `cf_door_data_payload` | 1 | consumer-corroborated-partial |
 | CF_DOOR_CONFIG_TABLE | rom-variable-table | `CF:264F` | `0x32A0` | 1 | `door_sector_list_block` | 1 | exact-variable-lists |
 | D0_DOOR_POINTER_TABLE | rom-table | `D0:0000` | `0x4` | 1280 | `door_sector_list_far_pointer` | 3 | exact |
 | SCREEN_TRANSITION_CONFIG_TABLE | rom-table | `D0:1400` | `0xC` | 34 | `screen_transition_config` | 12 | corroborated |
@@ -748,13 +748,13 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - stride: `0x264F`
 - count: `1`
 - struct: `cf_door_data_payload`
-- confidence: `exact-boundary`
-- note: CF door-data payload block before the 1280 counted sector door-list records.
-- evidence: `notes/cf-table-splits.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`
+- confidence: `consumer-corroborated-partial`
+- note: CF door-data payload block before the 1280 counted sector door-list records. Type 0, type 2, and type 6 payload shapes are decoded by the CF door-data contract; remaining trigger-type parameters stay bounded/raw.
+- evidence: `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `notes/cf-door-data-contracts.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`, `src/c0/c0_6a1b_movement_trigger_type0_queue_door_destination.asm`, `src/c0/c0_6aca_movement_trigger_type2_queue_door_transition.asm`, `src/c0/c0_6bff_run_deferred_script_pointer_and_refresh_transition_state.asm`, `src/c0/c0_65c2_probe_type6_door_candidate.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_payload` | 1 | 9807 | exact CF door-data payload block; subrecords are variable/packed |
+| `0x0` | `raw_payload` | 1 | 9807 | exact CF door-data payload block; see notes/cf-door-data-contracts.json for consumer-backed type 0 event-gated script pointers, type 2 door-transition records, and type 6 cached interaction pointers |
 
 ### CF_DOOR_CONFIG_TABLE
 
