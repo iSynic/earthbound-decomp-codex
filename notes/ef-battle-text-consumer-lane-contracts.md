@@ -74,6 +74,10 @@ Examples:
 - `EF:72F6` and `EF:7415` are special-event row `+4` presentation anchors for
   rows `243` and `244`; `EF:72F7`, `EF:733D`, and `EF:743B` are the separate
   C2 behavior-emitted result continuations.
+- `EF:745F..7593` names the Pokey random-talk dispatcher/branches and
+  companion talk tail as flavor/event text islands. These labels are useful
+  source anchors, but they are not row-presentation or direct-result lane
+  promotions until a caller proves that consumer shape.
 - `EF:7142` and queued `EF:7123` belong to normalization result flow, separate
   from the row `247`/`248` presentation messages.
 

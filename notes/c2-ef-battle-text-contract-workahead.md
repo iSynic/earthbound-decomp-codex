@@ -164,6 +164,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `ByteSubstitution` names `C1:DD7C -> $9D11 -> 19 1F` consumers; and
   `PointerSubstitution` names the `19 1E` payload branches. No C2 source was
   edited in this pass.
+- 2026-05-06: EF EBATTLE4 random-talk follow-up renamed the Pokey random-talk
+  dispatcher at `EF:745F`, its branch texts through `EF:7548`, and the
+  adjacent My Dog/Pickey/Tony/Balmon companion talk anchors through `EF:7593`.
+  These remain flavor/event text islands until a C2 caller or row-pointer pass
+  proves a stronger consumer lane.
 - 2026-05-06: EF action-island frontier follow-up documented the remaining
   `MSG_BTL_*` row-message islands separately from direct result payloads. The
   handoff note names the `C1:DD9F` row `+4` message lane, the row `+8`

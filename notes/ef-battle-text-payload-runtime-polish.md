@@ -92,8 +92,8 @@ macros.
   player-side branch leads to a `ByteSubstitutionResultText` script at
   `EF:7221`, which consumes the PSI-name byte through `19 1F`.
 - `EF:7249..75AB` now splits EBATTLE4 guard, Fly Honey, homesickness,
-  Runaway Five, Poo/Starstorm, Pokey, and companion event text before the
-  central damage block.
+  Runaway Five, Poo/Starstorm, Pokey random-talk, and companion event text
+  before the central damage block.
 - `EF:75AB`, `EF:75C2`, `EF:75D9`, `EF:75F0`, and `EF:7607` now mark the
   `ActionAmount` damage and SMAAAASH damage scripts selected by the C2
   hit-resolution cluster. These consume staged HP damage through `1C 0F`.
@@ -230,6 +230,16 @@ The row `243` and `244` special-event split now carries the lane in the source
 labels: `EF:72F6` and `EF:7415` are `RowPresentationText` anchors displayed by
 `DD9F`, while `EF:72F7`, `EF:733D`, and `EF:743B` are behavior-emitted
 `ResultText` continuations.
+
+The random-talk tail is now named by consumer shape rather than inherited
+message-symbol prose: `EF:745F` is the Pokey random-talk dispatcher, while
+`EF:749D..7548` are its played-dead, pretended-cry, apology,
+thought-to-self, innocent-act, sincere-smile, complaint, and edge-closer
+branches. The companion tail at `EF:7569..7593` now names My Dog, Pickey,
+Tony, and Balmon talk text as adjacent flavor/event anchors. These names do
+not claim a row `+4` table join; they keep the source-side text islands
+searchable while the C2 caller evidence remains the authority for action/result
+lane promotion.
 
 ## Recovery And Death Follow-up
 

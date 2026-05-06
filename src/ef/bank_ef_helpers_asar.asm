@@ -4859,85 +4859,85 @@ db $52,$A3,$9B,$A9,$51,$02
 ; EBATTLE4: row 244 direct-result continuation, not row +4 presentation text.
 EF743B_EBattle4PooStarstormRevealResultText:
 
-; Original data gap before EF745F_EBattle4MsgBtlPokeyTalkRandom:
+; Original data gap before EF745F_EBattle4PokeyRandomTalkDispatcher:
 db $01,$70,$1C,$02,$04,$16,$AC,$16,$55,$50,$9E,$95,$A7,$50,$16,$FE
 db $5C,$14,$00,$50,$50,$80,$83,$79,$50,$83,$A4,$91,$A2,$17,$60,$9D
 db $51,$14,$00,$02
 
-EF745F_EBattle4MsgBtlPokeyTalkRandom:
+EF745F_EBattle4PokeyRandomTalkDispatcher:
 
-; Original data gap before EF749D_EBattle4MsgBtlPokeyPlayedDead:
+; Original data gap before EF749D_EBattle4PokeyRandomTalkPlayedDeadBranch:
 db $1D,$21,$08,$09,$08,$9D,$74,$EF,$00,$B0,$74,$EF,$00,$C9,$74,$EF
 db $00,$E6,$74,$EF,$00,$FA,$74,$EF,$00,$14,$75,$EF,$00,$30,$75,$EF
 db $00,$48,$75,$EF,$00,$01,$70,$80,$17,$09,$A9,$16,$AC,$1C,$01,$08
 db $00,$50,$50,$91,$16,$F5,$17,$E8,$95,$9C,$94,$51,$03,$02
 
-EF749D_EBattle4MsgBtlPokeyPlayedDead:
+EF749D_EBattle4PokeyRandomTalkPlayedDeadBranch:
 
-; Original data gap before EF74B0_EBattle4MsgBtlPokeyPretendedCry:
+; Original data gap before EF74B0_EBattle4PokeyRandomTalkPretendedCryBranch:
 db $01,$70,$80,$17,$09,$A9,$50,$17,$36,$A9,$15,$57,$94,$95,$91,$94
 db $51,$03,$02
 
-EF74B0_EBattle4MsgBtlPokeyPretendedCry:
+EF74B0_EBattle4PokeyRandomTalkPretendedCryBranch:
 
-; Original data gap before EF74C9_EBattle4MsgBtlPokeyApologized:
+; Original data gap before EF74C9_EBattle4PokeyRandomTalkApologyBranch:
 db $01,$70,$80,$17,$09,$A9,$50,$A0,$A2,$95,$A4,$16,$74,$95,$94,$00
 db $50,$15,$0C,$93,$A2,$A9,$51,$03,$02
 
-EF74C9_EBattle4MsgBtlPokeyApologized:
+EF74C9_EBattle4PokeyRandomTalkApologyBranch:
 
-; Original data gap before EF74E6_EBattle4MsgBtlPokeyThoughtToSelf:
+; Original data gap before EF74E6_EBattle4PokeyRandomTalkThoughtToSelfBranch:
 db $01,$70,$80,$17,$09,$A9,$50,$91,$A0,$9F,$9C,$9F,$97,$99,$AA,$95
 db $94,$00,$50,$17,$96,$96,$16,$4B,$9C,$A9,$51,$03,$02
 
-EF74E6_EBattle4MsgBtlPokeyThoughtToSelf:
+EF74E6_EBattle4PokeyRandomTalkThoughtToSelfBranch:
 
-; Original data gap before EF74FA_EBattle4MsgBtlPokeyActedInnocent:
+; Original data gap before EF74FA_EBattle4PokeyRandomTalkInnocentActBranch:
 db $01,$70,$80,$17,$09,$A9,$15,$80,$00,$50,$15,$0C,$98,$99,$9D,$16
 db $EB,$51,$03,$02
 
-EF74FA_EBattle4MsgBtlPokeyActedInnocent:
+EF74FA_EBattle4PokeyRandomTalkInnocentActBranch:
 
-; Original data gap before EF7514_EBattle4MsgBtlPokeySmiledSincerely:
+; Original data gap before EF7514_EBattle4PokeyRandomTalkSincereSmileBranch:
 db $01,$70,$80,$17,$09,$A9,$50,$17,$9D,$95,$94,$00,$50,$50,$15,$BF
 db $99,$9E,$9E,$9F,$93,$15,$9E,$51,$03,$02
 
-EF7514_EBattle4MsgBtlPokeySmiledSincerely:
+EF7514_EBattle4PokeyRandomTalkSincereSmileBranch:
 
-; Original data gap before EF7530_EBattle4MsgBtlPokeyComplained:
+; Original data gap before EF7530_EBattle4PokeyRandomTalkComplaintBranch:
 db $01,$70,$80,$17,$09,$A9,$50,$A3,$9D,$99,$9C,$95,$94,$00,$50,$15
 db $8C,$A3,$99,$17,$CE,$A2,$95,$9C,$A9,$51,$03,$02
 
-EF7530_EBattle4MsgBtlPokeyComplained:
+EF7530_EBattle4PokeyRandomTalkComplaintBranch:
 
-; Original data gap before EF7548_EBattle4MsgBtlPokeyEdgedCloser:
+; Original data gap before EF7548_EBattle4PokeyRandomTalkEdgeCloserBranch:
 db $01,$70,$80,$17,$09,$A9,$16,$C5,$A0,$9C,$16,$43,$95,$94,$00,$50
 db $15,$0C,$1C,$01,$08,$51,$03,$02
 
-EF7548_EBattle4MsgBtlPokeyEdgedCloser:
+EF7548_EBattle4PokeyRandomTalkEdgeCloserBranch:
 
-; Original data gap before EF7569_EBattle4MsgBtlMyDogHowling:
+; Original data gap before EF7569_EBattle4CompanionMyDogHowlingText:
 db $01,$70,$80,$17,$09,$A9,$50,$A4,$17,$B0,$15,$90,$00,$50,$50,$95
 db $94,$97,$95,$50,$93,$9C,$9F,$17,$AB,$15,$06,$17,$42,$A9,$51,$03
 db $02
 
-EF7569_EBattle4MsgBtlMyDogHowling:
+EF7569_EBattle4CompanionMyDogHowlingText:
 
-; Original data gap before EF7579_EBattle4MsgBtlPickeyTalk:
+; Original data gap before EF7579_EBattle4CompanionPickeyTalkText:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$92,$17,$25,$17,$7D,$03,$02
 
-EF7579_EBattle4MsgBtlPickeyTalk:
+EF7579_EBattle4CompanionPickeyTalkText:
 
-; Original data gap before EF7591_EBattle4MsgBtlTonyTalk:
+; Original data gap before EF7591_EBattle4CompanionTonyTalkText:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$17,$EF,$16,$DC,$16,$96,$9D,$17
 db $BE,$17,$F4,$16,$7F,$51,$03,$02
 
-EF7591_EBattle4MsgBtlTonyTalk:
+EF7591_EBattle4CompanionTonyTalkText:
 
-; Original data gap before EF7593_EBattle4MsgBtlBalmonTalk:
+; Original data gap before EF7593_EBattle4CompanionBalmonTalkText:
 db $01,$02
 
-EF7593_EBattle4MsgBtlBalmonTalk:
+EF7593_EBattle4CompanionBalmonTalkText:
 
 ; Original data gap before EF75AB_EBattle4MsgBtlDamageActionAmount:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$A3,$93,$A2,$91,$A4,$17,$97

@@ -146,6 +146,11 @@ This planning pass does not split EF source corridors or regenerate the bank.
   branches, guard/Fly-Honey/homesick flavor, Runaway Five and Poo/Starstorm
   event text, Pokey random talk branches, and companion talk anchors before
   the already split damage pipeline.
+- 2026-05-06: EF EBATTLE4 random-talk naming follow-up tightened the tail of
+  that corridor: `EF:745F` now marks the Pokey random-talk dispatcher,
+  `EF:749D..7548` mark the individual talk branches, and `EF:7569..7593`
+  marks the adjacent companion talk text without promoting those flavor/event
+  anchors into row-message joins.
 - 2026-05-05: EF EBATTLE8 encounter/victory/level-up follow-up split the
   remaining `EF:7858..7B77` tail into encounter-opening variants, group-actor
   helper branches, ordinary/boss/forced victory text, monster-win text,

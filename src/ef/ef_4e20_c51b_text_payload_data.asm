@@ -1245,79 +1245,79 @@ EF743B_EBattle4PooStarstormRevealResultText:
 ; EF:745F
 
 ; EBATTLE4: Pokey talk random branch dispatcher.
-EF745F_EBattle4MsgBtlPokeyTalkRandom:
+EF745F_EBattle4PokeyRandomTalkDispatcher:
 
 ; ---------------------------------------------------------------------------
 ; EF:749D
 
 ; EBATTLE4: Pokey played-dead talk branch.
-EF749D_EBattle4MsgBtlPokeyPlayedDead:
+EF749D_EBattle4PokeyRandomTalkPlayedDeadBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:74B0
 
 ; EBATTLE4: Pokey pretended-to-cry talk branch.
-EF74B0_EBattle4MsgBtlPokeyPretendedCry:
+EF74B0_EBattle4PokeyRandomTalkPretendedCryBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:74C9
 
 ; EBATTLE4: Pokey apology talk branch.
-EF74C9_EBattle4MsgBtlPokeyApologized:
+EF74C9_EBattle4PokeyRandomTalkApologyBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:74E6
 
 ; EBATTLE4: Pokey thought-to-self talk branch.
-EF74E6_EBattle4MsgBtlPokeyThoughtToSelf:
+EF74E6_EBattle4PokeyRandomTalkThoughtToSelfBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:74FA
 
 ; EBATTLE4: Pokey innocent-act talk branch.
-EF74FA_EBattle4MsgBtlPokeyActedInnocent:
+EF74FA_EBattle4PokeyRandomTalkInnocentActBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7514
 
 ; EBATTLE4: Pokey sincere-smile talk branch.
-EF7514_EBattle4MsgBtlPokeySmiledSincerely:
+EF7514_EBattle4PokeyRandomTalkSincereSmileBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7530
 
 ; EBATTLE4: Pokey complaint talk branch.
-EF7530_EBattle4MsgBtlPokeyComplained:
+EF7530_EBattle4PokeyRandomTalkComplaintBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7548
 
 ; EBATTLE4: Pokey edge-closer talk branch.
-EF7548_EBattle4MsgBtlPokeyEdgedCloser:
+EF7548_EBattle4PokeyRandomTalkEdgeCloserBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7569
 
 ; EBATTLE4: My Dog howling text.
-EF7569_EBattle4MsgBtlMyDogHowling:
+EF7569_EBattle4CompanionMyDogHowlingText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7579
 
 ; EBATTLE4: Pickey talk text.
-EF7579_EBattle4MsgBtlPickeyTalk:
+EF7579_EBattle4CompanionPickeyTalkText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7591
 
 ; EBATTLE4: Tony talk text.
-EF7591_EBattle4MsgBtlTonyTalk:
+EF7591_EBattle4CompanionTonyTalkText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7593
 
 ; EBATTLE4: Balmon talk text.
-EF7593_EBattle4MsgBtlBalmonTalk:
+EF7593_EBattle4CompanionBalmonTalkText:
 
 ; ---------------------------------------------------------------------------
 ; EF:75AB
