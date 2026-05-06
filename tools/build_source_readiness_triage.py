@@ -324,9 +324,9 @@ def build_triage() -> list[BankTriage]:
                 "text/font/intro/ending/town-map assets",
                 "asset-and-table-ready",
                 3,
-                "Extract flyover text, font, intro/title/ending/cast/town-map assets, and town-map icon placement data.",
-                ["locale text and generated table size handling should stay regression-tested"],
-                ["flyover text", "intro/title/ending assets", "town-map labels/icons", "audio pack"],
+                "Extract flyover text, font, intro/title/ending/cast/town-map assets using the promoted E1 visual and town-map table contracts.",
+                ["flyover, photographer, cast-formatting, credits-adjacent, and remaining unknown table field names need caller evidence before promotion"],
+                ["flyover text", "intro/title visual contracts", "ending cast visual contracts", "town-map labels/icons", "audio pack"],
             ),
         ]
     )

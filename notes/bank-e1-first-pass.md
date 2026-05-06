@@ -44,13 +44,15 @@ The high-level E1 layout is:
   `23550` bytes total.
 - `E1:AADF..E1:AE7B`: attract-mode produced-by/Nintendo-presentation assets,
   `925` bytes total.
-- `E1:AE7C..E1:AF7C`: inferred pre-title unknown payload span, `257` bytes.
+- `E1:AE7C..E1:AF7C`: title-screen palette animation payloads, `257`
+  bytes total.
 - `E1:AF7D..E1:CE07`: title-screen arrangement, graphics, letters, and
   palette, `7819` bytes total.
-- `E1:CE08..E1:CFAE`: inferred `data/unknown/E1CE08.asm`, `423` bytes.
-- `E1:CFAF..E1:D6E0`: unknown graphics/palette/arrangement assets,
-  `1842` bytes total.
-- `E1:D6E1..E1:D834`: inferred `UNKNOWN_E1D6E1`, `340` bytes.
+- `E1:CE08..E1:CFAE`: title-screen letter OAM data, `423` bytes.
+- `E1:CFAF..E1:D6E0`: saved-coordinate landing display graphics, palette,
+  and arrangement assets, `1842` bytes total.
+- `E1:D6E1..E1:D834`: ending cast-name visual support prelude graphics plus
+  small support table, `340` bytes.
 - `E1:D835..E1:E923`: cast/credits ending graphics and palette/font data,
   `4335` bytes total.
 - `E1:E924..E1:EA4F`: inferred ending/unknown table span, `300` bytes.
@@ -80,9 +82,13 @@ Four bank-config binary payloads are not present in `earthbound.yml`:
 - `E1AEFD.bin.lzhal`
 - `E1D6E1.gfx.lzhal`
 
-The manifest can infer the bracketing spans for the first pre-title unknown
-group and for `UNKNOWN_E1D6E1`, but the exact split among `E1AE7C`, `E1AE83`,
-and `E1AEFD` remains unresolved.
+The manifest can infer the bracketing spans for these payloads even though the
+yml metadata is absent. `notes/title-screen-palette-animation-contracts.md`
+resolves the former `E1:AE7C..E1:AF7C` followup into the initial, letter, and
+glow title palette animation subpayloads, while
+`notes/landing-cast-visual-contracts.md` assigns `E1:D6E1..E1:D815` to the
+ending cast-scene prelude graphics bundle. The missing-yml fact remains useful
+provenance, but these ranges are no longer open semantic blockers.
 
 ## Current E1 confidence boundary
 
@@ -94,21 +100,23 @@ High confidence:
 - The only unclaimed space is `E1:FFF2..E1:FFFF`, `14` bytes.
 - `src/e1/bank_e1_helpers_asar.asm` protects the full bank through the reusable
   source-bank scaffold pipeline. The inferred missing payload groups remain
-  byte-exact but still need asset-level splits/names before individual asset
-  extraction is semantically final.
+  byte-exact; their checked-in semantic contracts now cover the title palette
+  animation and ending cast-name visual support ranges.
 
 Still intentionally out of scope:
 
-- Exact split of the three missing pre-title unknown payloads.
-- Semantic decoding of flyover scripts, photographer config, town-map icon
-  placement, and unknown E1 table spans.
+- Deciding whether future manifest normalization should split
+  `asset.e1.unknown_e1ae7c` into the three title palette-animation subassets.
+- Semantic decoding of flyover scripts, photographer config, cast formatting,
+  credits-adjacent tables, and remaining unknown E1 table spans.
 - Rendering/decompressing intro/title/ending graphics.
 - Audio-pack internals.
 
 ## Recommended next move
 
 E1 is now closed for byte-preserving scaffold purposes. The remaining work is
-semantic: resolve the exact split among the pre-title missing payloads, name the
-`E1D6E1` inferred graphics payload, promote photographer/flyover/town-map icon
-placement spans into typed contracts, and optionally add render fixtures for the
-intro/title/ending/town-map assets.
+semantic polish: use the intro/title, title-palette, title-letter OAM, landing
+display, ending cast, and town-map icon contracts for source emission; preserve
+missing-yml notes for provenance; promote photographer/flyover/credits-adjacent
+table spans only when caller evidence supports field names; and optionally add
+render fixtures for the intro/title/ending/town-map assets.
