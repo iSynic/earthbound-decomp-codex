@@ -13646,7 +13646,7 @@ org $C1621F
 !TextCommand1F1FRunPoseScriptWithCachedPoseCallback = $683B
 !TextCommand1922FacingDirectionCallback = $68A0
 !TextCommand1923FacingDirectionCallback = $6947
-!TextCommand1F62Callback = $69F7
+!TextCommand1F62SetBlinkingTriangleStateCallback = $69F7
 !TextCommand1E08SetCharacterLevelCallback = $6A01
 !TextCommand1924FacingDirectionCallback = $6A7B
 !TextCommand1FE4UpdatePoseFrameSelectorCallback = $6B2B
@@ -13658,14 +13658,14 @@ org $C1621F
 !TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback = $6D14
 !TextCommand1FEESelectModeSlotByVisualCallback = $6D62
 !TextCommand1FEFSelectModeSlotByPoseCallback = $6DA5
-!TextCommand1F63Callback = $6DE8
-!TextCommand1FF1Callback = $6EBF
-!TextCommand1FF2Callback = $6F2F
-!TextCommand1F23Callback = $6FD1
+!TextCommand1F63EnqueueMovementRecordCallback = $6DE8
+!TextCommand1FF1RunVisualScriptFromRecordCallback = $6EBF
+!TextCommand1FF2RunPoseScriptFromRecordCallback = $6F2F
+!TextCommand1F23InitScriptedBattleCallback = $6FD1
 !TextCommand1D0CCheckEscargoStorageStatusCallback = $7058
-!TextCommand1F66Callback = $711C
-!TextCommand1F67Callback = $7233
-!TextCommand1F04Callback = $7254
+!TextCommand1F66ActivateHotspotCallback = $711C
+!TextCommand1F67DisableHotspotCallback = $7233
+!TextCommand1F04SetTextSoundModeCallback = $7254
 C1621F_FinalizeTextCommand1FC0JumpMulti2Target:
     rep #$31
     phd
@@ -14753,7 +14753,7 @@ C169F5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69F5:
     pld
     rts
 CC_1F_62:
-!C169F7_HandleTextCommand1F62 = CC_1F_62
+!C169F7_SetBlinkingTriangleStateTextCommand = CC_1F_62
     rep #$31
     txa
     jsr !C10036_SetBlinkingTriangleState
@@ -15301,7 +15301,7 @@ C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6:
     pld
     rts
 CC_1F_63:
-!C16DE8_HandleTextCommand1F63 = CC_1F_63
+!C16DE8_EnqueueMovementRecordTextCommand = CC_1F_63
     rep #$31
     phd
     pha
@@ -15326,7 +15326,7 @@ C16E04_QueueMovementRecordArgumentByte:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F63Callback
+    lda.w #!TextCommand1F63EnqueueMovementRecordCallback
     jmp.w C16EBD_ReturnFromMovementRecordTextCommand
 C16E19_ApplyQueuedMovementRecord:
     sep #$10
@@ -15411,7 +15411,7 @@ C16EBD_ReturnFromMovementRecordTextCommand:
     pld
     rts
 CC_1F_F1:
-!C16EBF_HandleTextCommand1FF1 = CC_1F_F1
+!C16EBF_RunVisualScriptFromRecordTextCommand = CC_1F_F1
     rep #$31
     phd
     pha
@@ -15436,7 +15436,7 @@ C16EDB_QueueVisualScriptArgumentByte:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FF1Callback
+    lda.w #!TextCommand1FF1RunVisualScriptFromRecordCallback
     bra C16F2D_ReturnFromVisualScriptTextCommand
 C16EEF_RunQueuedVisualTypeEntityScript:
     sep #$10
@@ -15469,7 +15469,7 @@ C16F2D_ReturnFromVisualScriptTextCommand:
     pld
     rts
 CC_1F_F2:
-!C16F2F_HandleTextCommand1FF2 = CC_1F_F2
+!C16F2F_RunPoseScriptFromRecordTextCommand = CC_1F_F2
     rep #$31
     phd
     pha
@@ -15494,7 +15494,7 @@ C16F4B_QueuePoseScriptArgumentByte:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FF2Callback
+    lda.w #!TextCommand1FF2RunPoseScriptFromRecordCallback
     bra C16F9D_ReturnFromPoseScriptTextCommand
 C16F5F_RunQueuedPoseDescriptorEntityScript:
     sep #$10
@@ -15557,7 +15557,7 @@ C16FB5_FindCondimentForResolvedFoodItem:
     pld
     rts
 CC_1F_23:
-!C16FD1_HandleTextCommand1F23 = CC_1F_23
+!C16FD1_InitScriptedBattleTextCommand = CC_1F_23
     rep #$31
     phd
     pha
@@ -15575,7 +15575,7 @@ CC_1F_23:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F23Callback
+    lda.w #!TextCommand1F23InitScriptedBattleCallback
     bra C17035_ReturnFromScriptedBattleInitTextCommand
 C16FF7_ApplyQueuedScriptedBattleInit:
     sep #$10
@@ -15741,7 +15741,7 @@ C1711A_ReturnFromEscargoStorageStatusTextCommand:
     pld
     rts
 CC_1F_66:
-!C1711C_HandleTextCommand1F66 = CC_1F_66
+!C1711C_ActivateHotspotTextCommand = CC_1F_66
     rep #$31
     phd
     pha
@@ -15765,7 +15765,7 @@ C17137_QueueHotspotActivationArgumentByte:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F66Callback
+    lda.w #!TextCommand1F66ActivateHotspotCallback
     jmp.w C17231_ReturnFromHotspotActivationTextCommand
 C1714B_ApplyQueuedHotspotActivation:
     lda !DeferredCommandByteQueue
@@ -15886,7 +15886,7 @@ C17231_ReturnFromHotspotActivationTextCommand:
     pld
     rts
 CC_1F_67:
-!C17233_HandleTextCommand1F67 = CC_1F_67
+!C17233_DisableHotspotTextCommand = CC_1F_67
     rep #$31
     phd
     pha
@@ -15908,7 +15908,7 @@ C17249_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7249:
     pld
     rts
 CC_1F_04:
-!C17254_HandleTextCommand1F04 = CC_1F_04
+!C17254_SetTextSoundModeTextCommand = CC_1F_04
     rep #$31
     phd
     pha
@@ -15973,8 +15973,8 @@ org $C17274
 !AttachedChildPoseDescriptorWordScratch = $02
 !BattleVisualActorSelector = $12
 !TextCommand1F40StageSpecialEventArgumentCallback = $72BC
-!TextCommand1FF3SpawnAttachedChildByPoseCallback = $7325
-!TextCommand1FF4ClearAttachedChildByPoseCallback = $737D
+!TextCommand1FF3SpawnAttachedChildByPoseDescriptorCallback = $7325
+!TextCommand1FF4ClearAttachedChildByPoseDescriptorCallback = $737D
 !TextCommand1C13StageBattleVisualEffectResultCallback = $73C0
 CC_1D_24:
 !C17274_StageBankDepositAccumulatorTextValue = CC_1D_24
@@ -16078,7 +16078,7 @@ C1731A_RunResolvedWanderingPhotographerScript:
     pld
     rts
 CC_1F_F3:
-!C17325_HandleTextCommand1FF3 = CC_1F_F3
+!C17325_SpawnAttachedChildByPoseDescriptorTextCommand = CC_1F_F3
     rep #$31
     phd
     pha
@@ -16102,7 +16102,7 @@ C17340_QueueSpawnAttachedChildArgumentByte:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FF3SpawnAttachedChildByPoseCallback
+    lda.w #!TextCommand1FF3SpawnAttachedChildByPoseDescriptorCallback
     bra C1737B_ReturnFromSpawnAttachedChildTextCommand
 C17353_SpawnQueuedAttachedChildByPose:
     sep #$20
@@ -16125,7 +16125,7 @@ C1737B_ReturnFromSpawnAttachedChildTextCommand:
     pld
     rts
 CC_1F_F4:
-!C1737D_HandleTextCommand1FF4 = CC_1F_F4
+!C1737D_ClearAttachedChildByPoseDescriptorTextCommand = CC_1F_F4
     rep #$31
     phd
     pha
@@ -16143,7 +16143,7 @@ CC_1F_F4:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FF4ClearAttachedChildByPoseCallback
+    lda.w #!TextCommand1FF4ClearAttachedChildByPoseDescriptorCallback
     bra C173BE_ReturnFromClearAttachedChildTextCommand
 C173A3_ClearQueuedAttachedChildByPose:
     sep #$10
@@ -16213,7 +16213,7 @@ C1741D_ReturnFromBattleVisualTextCommand:
     pld
     rts
 CC_1F_07:
-!C1741F_HandleTextCommand1F07 = CC_1F_07
+!C1741F_QueuePresentationSfxTextCommand = CC_1F_07
     rep #$31
     phd
     pha
@@ -17718,8 +17718,8 @@ org $C17B56
 !TextCommand1F00QueueOrApplyMusicTrack = $4751
 !TextCommand1F01StopMusic = $47A0
 !TextCommand1F02PlaySound = $47AB
-!TextCommand1F04Callback = $7254
-!TextCommand1F07Callback = $741F
+!TextCommand1F04SetTextSoundModeCallback = $7254
+!TextCommand1F07QueuePresentationSfxCallback = $741F
 !TextCommand1F11AddToWallet = $5F71
 !TextCommand1F12TakeFromWallet = $5F91
 !TextCommand1F13UpdateRegistryFrameSelectorCallback = $63FD
@@ -17737,15 +17737,15 @@ org $C17B56
 !TextCommand1F1FRunPoseScriptWithCachedPoseCallback = $683B
 !TextCommand1F20UseItemOnCharacter = $4DFB
 !TextCommand1F21TeleportToPresetLocation = $4E8C
-!TextCommand1F23Callback = $6FD1
+!TextCommand1F23InitScriptedBattleCallback = $6FD1
 !TextCommand1F40StageSpecialEventArgument = $72BC
 !TextCommand1F41SpecialEventDispatch = $72DA
 !TextCommand1F52CreateNumberSelector = $44A3
 !TextCommand1F60WaitForTextPromptOrInputGate = $5494
-!TextCommand1F62Callback = $69F7
-!TextCommand1F63Callback = $6DE8
-!TextCommand1F66Callback = $711C
-!TextCommand1F67Callback = $7233
+!TextCommand1F62SetBlinkingTriangleStateCallback = $69F7
+!TextCommand1F63EnqueueMovementRecordCallback = $6DE8
+!TextCommand1F66ActivateHotspotCallback = $711C
+!TextCommand1F67DisableHotspotCallback = $7233
 !TextCommand1F71PartyUtility = $5C58
 !TextCommand1F81CheckDirectItemUseCompatibility = $4F6F
 !TextCommand1F83CheckDeferredItemUseCompatibility = $583D
@@ -17765,17 +17765,17 @@ org $C17B56
 !TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback = $6D14
 !TextCommand1FEESelectModeSlotByVisualCallback = $6D62
 !TextCommand1FEFSelectModeSlotByPoseCallback = $6DA5
-!TextCommand1FF1Callback = $6EBF
-!TextCommand1FF2Callback = $6F2F
-!TextCommand1FF3Callback = $7325
-!TextCommand1FF4Callback = $737D
+!TextCommand1FF1RunVisualScriptFromRecordCallback = $6EBF
+!TextCommand1FF2RunPoseScriptFromRecordCallback = $6F2F
+!TextCommand1FF3SpawnAttachedChildByPoseDescriptorCallback = $7325
+!TextCommand1FF4ClearAttachedChildByPoseDescriptorCallback = $737D
 !TextCommand1F01StopMusicSubcommand = $0001
 !TextCommand1F02PlaySoundSubcommand = $0002
 !TextCommand1F03RestoreCurrentMapMusicSubcommand = $0003
-!TextCommand1F04CallbackSubcommand = $0004
+!TextCommand1F04SetTextSoundModeSubcommand = $0004
 !TextCommand1F05DisableSectorMusicChangeSubcommand = $0005
 !TextCommand1F06EnableSectorMusicChangeSubcommand = $0006
-!TextCommand1F07CallbackSubcommand = $0007
+!TextCommand1F07QueuePresentationSfxSubcommand = $0007
 !TextCommand1F11AddToWalletSubcommand = $0011
 !TextCommand1F12TakeFromWalletSubcommand = $0012
 !TextCommand1F13UpdateRegistryFrameSelectorSubcommand = $0013
@@ -17793,7 +17793,7 @@ org $C17B56
 !TextCommand1F1FRunPoseScriptWithCachedPoseSubcommand = $001F
 !TextCommand1F20UseItemOnCharacterSubcommand = $0020
 !TextCommand1F21TeleportToPresetLocationSubcommand = $0021
-!TextCommand1F23CallbackSubcommand = $0023
+!TextCommand1F23InitScriptedBattleSubcommand = $0023
 !TextCommand1F30SetActiveWindowGlyphModeSubcommand = $0030
 !TextCommand1F31SetActiveWindowGlyphModeSubcommand = $0031
 !TextCommand1F40StageSpecialEventArgumentSubcommand = $0040
@@ -17803,12 +17803,12 @@ org $C17B56
 !TextCommand1F52CreateNumberSelectorSubcommand = $0052
 !TextCommand1F60WaitForTextPromptOrInputGateSubcommand = $0060
 !TextCommand1F61WaitForTextStateFlagSubcommand = $0061
-!TextCommand1F62CallbackSubcommand = $0062
-!TextCommand1F63CallbackSubcommand = $0063
+!TextCommand1F62SetBlinkingTriangleStateSubcommand = $0062
+!TextCommand1F63EnqueueMovementRecordSubcommand = $0063
 !TextCommand1F64SaveAndClearTemporaryPartySourceStateSubcommand = $0064
 !TextCommand1F65RestoreTemporaryPartySourceStateSubcommand = $0065
-!TextCommand1F66CallbackSubcommand = $0066
-!TextCommand1F67CallbackSubcommand = $0067
+!TextCommand1F66ActivateHotspotSubcommand = $0066
+!TextCommand1F67DisableHotspotSubcommand = $0067
 !TextCommand1F68SnapshotTeleportLandingPositionSubcommand = $0068
 !TextCommand1F69RefreshTeleportLandingStateSubcommand = $0069
 !TextCommand1F71PartyUtilitySubcommand = $0071
@@ -17838,10 +17838,10 @@ org $C17B56
 !TextCommand1FEESelectModeSlotByVisualSubcommand = $00EE
 !TextCommand1FEFSelectModeSlotByPoseSubcommand = $00EF
 !TextCommand1FF0GetOnBicycleSubcommand = $00F0
-!TextCommand1FF1CallbackSubcommand = $00F1
-!TextCommand1FF2CallbackSubcommand = $00F2
-!TextCommand1FF3CallbackSubcommand = $00F3
-!TextCommand1FF4CallbackSubcommand = $00F4
+!TextCommand1FF1RunVisualScriptFromRecordSubcommand = $00F1
+!TextCommand1FF2RunPoseScriptFromRecordSubcommand = $00F2
+!TextCommand1FF3SpawnAttachedChildByPoseDescriptorSubcommand = $00F3
+!TextCommand1FF4ClearAttachedChildByPoseDescriptorSubcommand = $00F4
 !TextCommandResultLo = $06
 !TextCommandResultHi = $08
 !TeleportLandingSnapshotX = $98B2
@@ -18710,7 +18710,7 @@ C181DB_DispatchDisplayTextDynamicSourceSelector_L81DB:
     bne C181E3_DispatchDisplayTextDynamicSourceSelector_L81E3
     jmp.w C18428_DispatchDisplayTextDynamicSourceSelector_L8428
 C181E3_DispatchDisplayTextDynamicSourceSelector_L81E3:
-    cmp.w #!TextCommand1F04CallbackSubcommand
+    cmp.w #!TextCommand1F04SetTextSoundModeSubcommand
     bne C181EB_DispatchDisplayTextDynamicSourceSelector_L81EB
     jmp.w C18436_DispatchDisplayTextDynamicSourceSelector_L8436
 C181EB_DispatchDisplayTextDynamicSourceSelector_L81EB:
@@ -18722,7 +18722,7 @@ C181F3_DispatchDisplayTextDynamicSourceSelector_L81F3:
     bne C181FB_DispatchDisplayTextDynamicSourceSelector_L81FB
     jmp.w C18446_DispatchDisplayTextDynamicSourceSelector_L8446
 C181FB_DispatchDisplayTextDynamicSourceSelector_L81FB:
-    cmp.w #!TextCommand1F07CallbackSubcommand
+    cmp.w #!TextCommand1F07QueuePresentationSfxSubcommand
     bne C18203_DispatchDisplayTextDynamicSourceSelector_L8203
     jmp.w C18450_DispatchDisplayTextDynamicSourceSelector_L8450
 C18203_DispatchDisplayTextDynamicSourceSelector_L8203:
@@ -18794,7 +18794,7 @@ C18283_DispatchDisplayTextDynamicSourceSelector_L8283:
     bne C1828B_DispatchDisplayTextDynamicSourceSelector_L828B
     jmp.w C184B6_DispatchDisplayTextDynamicSourceSelector_L84B6
 C1828B_DispatchDisplayTextDynamicSourceSelector_L828B:
-    cmp.w #!TextCommand1F23CallbackSubcommand
+    cmp.w #!TextCommand1F23InitScriptedBattleSubcommand
     bne C18293_DispatchDisplayTextDynamicSourceSelector_L8293
     jmp.w C184BC_DispatchDisplayTextDynamicSourceSelector_L84BC
 C18293_DispatchDisplayTextDynamicSourceSelector_L8293:
@@ -18834,11 +18834,11 @@ C182D3_DispatchDisplayTextDynamicSourceSelector_L82D3:
     bne C182DB_DispatchDisplayTextDynamicSourceSelector_L82DB
     jmp.w C184EC_DispatchDisplayTextDynamicSourceSelector_L84EC
 C182DB_DispatchDisplayTextDynamicSourceSelector_L82DB:
-    cmp.w #!TextCommand1F62CallbackSubcommand
+    cmp.w #!TextCommand1F62SetBlinkingTriangleStateSubcommand
     bne C182E3_DispatchDisplayTextDynamicSourceSelector_L82E3
     jmp.w C184F2_DispatchDisplayTextDynamicSourceSelector_L84F2
 C182E3_DispatchDisplayTextDynamicSourceSelector_L82E3:
-    cmp.w #!TextCommand1F63CallbackSubcommand
+    cmp.w #!TextCommand1F63EnqueueMovementRecordSubcommand
     bne C182EB_DispatchDisplayTextDynamicSourceSelector_L82EB
     jmp.w C184F8_DispatchDisplayTextDynamicSourceSelector_L84F8
 C182EB_DispatchDisplayTextDynamicSourceSelector_L82EB:
@@ -18850,11 +18850,11 @@ C182F3_DispatchDisplayTextDynamicSourceSelector_L82F3:
     bne C182FB_DispatchDisplayTextDynamicSourceSelector_L82FB
     jmp.w C18505_DispatchDisplayTextDynamicSourceSelector_L8505
 C182FB_DispatchDisplayTextDynamicSourceSelector_L82FB:
-    cmp.w #!TextCommand1F66CallbackSubcommand
+    cmp.w #!TextCommand1F66ActivateHotspotSubcommand
     bne C18303_DispatchDisplayTextDynamicSourceSelector_L8303
     jmp.w C1850C_DispatchDisplayTextDynamicSourceSelector_L850C
 C18303_DispatchDisplayTextDynamicSourceSelector_L8303:
-    cmp.w #!TextCommand1F67CallbackSubcommand
+    cmp.w #!TextCommand1F67DisableHotspotSubcommand
     bne C1830B_DispatchDisplayTextDynamicSourceSelector_L830B
     jmp.w C18512_DispatchDisplayTextDynamicSourceSelector_L8512
 C1830B_DispatchDisplayTextDynamicSourceSelector_L830B:
@@ -18974,19 +18974,19 @@ C183EB_DispatchDisplayTextDynamicSourceSelector_L83EB:
     bne C183F3_DispatchDisplayTextDynamicSourceSelector_L83F3
     jmp.w C1864E_DispatchDisplayTextDynamicSourceSelector_L864E
 C183F3_DispatchDisplayTextDynamicSourceSelector_L83F3:
-    cmp.w #!TextCommand1FF1CallbackSubcommand
+    cmp.w #!TextCommand1FF1RunVisualScriptFromRecordSubcommand
     bne C183FB_DispatchDisplayTextDynamicSourceSelector_L83FB
     jmp.w C18654_DispatchDisplayTextDynamicSourceSelector_L8654
 C183FB_DispatchDisplayTextDynamicSourceSelector_L83FB:
-    cmp.w #!TextCommand1FF2CallbackSubcommand
+    cmp.w #!TextCommand1FF2RunPoseScriptFromRecordSubcommand
     bne C18403_DispatchDisplayTextDynamicSourceSelector_L8403
     jmp.w C18659_DispatchDisplayTextDynamicSourceSelector_L8659
 C18403_DispatchDisplayTextDynamicSourceSelector_L8403:
-    cmp.w #!TextCommand1FF3CallbackSubcommand
+    cmp.w #!TextCommand1FF3SpawnAttachedChildByPoseDescriptorSubcommand
     bne C1840B_DispatchDisplayTextDynamicSourceSelector_L840B
     jmp.w C1865E_DispatchDisplayTextDynamicSourceSelector_L865E
 C1840B_DispatchDisplayTextDynamicSourceSelector_L840B:
-    cmp.w #!TextCommand1FF4CallbackSubcommand
+    cmp.w #!TextCommand1FF4ClearAttachedChildByPoseDescriptorSubcommand
     bne C18413_DispatchDisplayTextDynamicSourceSelector_L8413
     jmp.w C18663_DispatchDisplayTextDynamicSourceSelector_L8663
 C18413_DispatchDisplayTextDynamicSourceSelector_L8413:
@@ -19006,7 +19006,7 @@ C18428_DispatchDisplayTextDynamicSourceSelector_L8428:
     jsl !C216AD_ApplyMusicTrackAndSyncMirror
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18436_DispatchDisplayTextDynamicSourceSelector_L8436:
-    lda.w #!TextCommand1F04Callback
+    lda.w #!TextCommand1F04SetTextSoundModeCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1843C_DispatchDisplayTextDynamicSourceSelector_L843C:
     lda.w #!DisableAutoSectorMusicChanges
@@ -19017,7 +19017,7 @@ C18446_DispatchDisplayTextDynamicSourceSelector_L8446:
     jsl !C4FD45_SetAutoSectorMusicChanges
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18450_DispatchDisplayTextDynamicSourceSelector_L8450:
-    lda.w #!TextCommand1F07Callback
+    lda.w #!TextCommand1F07QueuePresentationSfxCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18456_DispatchDisplayTextDynamicSourceSelector_L8456:
     lda.w #!TextCommand1F11AddToWallet
@@ -19071,7 +19071,7 @@ C184B6_DispatchDisplayTextDynamicSourceSelector_L84B6:
     lda.w #!TextCommand1F21TeleportToPresetLocation
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184BC_DispatchDisplayTextDynamicSourceSelector_L84BC:
-    lda.w #!TextCommand1F23Callback
+    lda.w #!TextCommand1F23InitScriptedBattleCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184C2_DispatchDisplayTextDynamicSourceSelector_L84C2:
     jsr !C10FAC_SetActiveWindowGlyphModeFlag
@@ -19098,10 +19098,10 @@ C184EC_DispatchDisplayTextDynamicSourceSelector_L84EC:
     jsr !C102D0_WaitForTextStateFlag9641
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184F2_DispatchDisplayTextDynamicSourceSelector_L84F2:
-    lda.w #!TextCommand1F62Callback
+    lda.w #!TextCommand1F62SetBlinkingTriangleStateCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184F8_DispatchDisplayTextDynamicSourceSelector_L84F8:
-    lda.w #!TextCommand1F63Callback
+    lda.w #!TextCommand1F63EnqueueMovementRecordCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE:
 !C184FE_SaveAndClearTemporaryPartySourceStateTextCommand = C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE
@@ -19112,10 +19112,10 @@ C18505_DispatchDisplayTextDynamicSourceSelector_L8505:
     jsl !C2307B_RestoreTemporaryPartySourceState
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C1850C_DispatchDisplayTextDynamicSourceSelector_L850C:
-    lda.w #!TextCommand1F66Callback
+    lda.w #!TextCommand1F66ActivateHotspotCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18512_DispatchDisplayTextDynamicSourceSelector_L8512:
-    lda.w #!TextCommand1F67Callback
+    lda.w #!TextCommand1F67DisableHotspotCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18518_DispatchDisplayTextDynamicSourceSelector_L8518:
     lda !CurrentOverworldX
@@ -19274,16 +19274,16 @@ C1864E_DispatchDisplayTextDynamicSourceSelector_L864E:
     jsl !C03C5E_GetOnBicycle
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18654_DispatchDisplayTextDynamicSourceSelector_L8654:
-    lda.w #!TextCommand1FF1Callback
+    lda.w #!TextCommand1FF1RunVisualScriptFromRecordCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18659_DispatchDisplayTextDynamicSourceSelector_L8659:
-    lda.w #!TextCommand1FF2Callback
+    lda.w #!TextCommand1FF2RunPoseScriptFromRecordCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1865E_DispatchDisplayTextDynamicSourceSelector_L865E:
-    lda.w #!TextCommand1FF3Callback
+    lda.w #!TextCommand1FF3SpawnAttachedChildByPoseDescriptorCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18663_DispatchDisplayTextDynamicSourceSelector_L8663:
-    lda.w #!TextCommand1FF4Callback
+    lda.w #!TextCommand1FF4ClearAttachedChildByPoseDescriptorCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18668_DispatchDisplayTextDynamicSourceSelector_L8668:
     lda.w #!TextCommandNoFollowupCallback

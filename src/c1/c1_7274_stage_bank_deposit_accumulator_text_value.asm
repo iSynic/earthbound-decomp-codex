@@ -49,8 +49,8 @@ AttachedChildPoseDescriptorWordScratch = $02
 BattleVisualActorSelector = $12
 
 TextCommand1F40StageSpecialEventArgumentCallback = $72BC
-TextCommand1FF3SpawnAttachedChildByPoseCallback = $7325
-TextCommand1FF4ClearAttachedChildByPoseCallback = $737D
+TextCommand1FF3SpawnAttachedChildByPoseDescriptorCallback = $7325
+TextCommand1FF4ClearAttachedChildByPoseDescriptorCallback = $737D
 TextCommand1C13StageBattleVisualEffectResultCallback = $73C0
 
 ; ---------------------------------------------------------------------------
@@ -158,7 +158,7 @@ C1731A_RunResolvedWanderingPhotographerScript:
     pld
     rts
 CC_1F_F3:
-C17325_HandleTextCommand1FF3 = CC_1F_F3
+C17325_SpawnAttachedChildByPoseDescriptorTextCommand = CC_1F_F3
     rep #$31
     phd
     pha
@@ -182,7 +182,7 @@ C17340_QueueSpawnAttachedChildArgumentByte:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FF3SpawnAttachedChildByPoseCallback
+    lda.w #TextCommand1FF3SpawnAttachedChildByPoseDescriptorCallback
     bra C1737B_ReturnFromSpawnAttachedChildTextCommand
 C17353_SpawnQueuedAttachedChildByPose:
     sep #$20
@@ -205,7 +205,7 @@ C1737B_ReturnFromSpawnAttachedChildTextCommand:
     pld
     rts
 CC_1F_F4:
-C1737D_HandleTextCommand1FF4 = CC_1F_F4
+C1737D_ClearAttachedChildByPoseDescriptorTextCommand = CC_1F_F4
     rep #$31
     phd
     pha
@@ -223,7 +223,7 @@ C1737D_HandleTextCommand1FF4 = CC_1F_F4
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FF4ClearAttachedChildByPoseCallback
+    lda.w #TextCommand1FF4ClearAttachedChildByPoseDescriptorCallback
     bra C173BE_ReturnFromClearAttachedChildTextCommand
 C173A3_ClearQueuedAttachedChildByPose:
     sep #$10
@@ -293,7 +293,7 @@ C1741D_ReturnFromBattleVisualTextCommand:
     pld
     rts
 CC_1F_07:
-C1741F_HandleTextCommand1F07 = CC_1F_07
+C1741F_QueuePresentationSfxTextCommand = CC_1F_07
     rep #$31
     phd
     pha

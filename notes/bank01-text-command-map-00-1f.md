@@ -133,6 +133,13 @@ numbered callback placeholders. The dispatcher and callback source now name the
 and cached-pose script leaves, plus the `E1/E4..EF` landing-profile, C4 entity
 flag, registry `8000`, and mode-slot selector leaves.
 
+Source polish follow-up (2026-05-06): the remaining named-but-generic `0x1F`
+low-word returns now expose their contracts as well: text sound mode,
+presentation SFX, scripted-battle init, blinking-triangle state, movement
+record enqueue, hotspot activation/disable, record-backed visual/pose scripts,
+and pose-descriptor attached-child spawn/clear. This leaves the high-family
+callback map readable by behavior rather than by numbered placeholders.
+
 Source polish follow-up (2026-05-06): the adjacent `0x19 25` and `0x1D 0C`
 consumer leaves in `C1:6F9F..711A` now expose their result staging too. The
 condiment helper and Escargo storage-status classifier both install their

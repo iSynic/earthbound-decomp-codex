@@ -146,6 +146,14 @@ registry/visual/pose `C000` flag set/clear leaves, registry `8000` mark/clear
 leaves, and visual/pose mode-slot selectors at both the dispatcher and callback
 body definitions.
 
+Source polish follow-up (2026-05-06): the remaining generic low-word returns in
+this callback band now have C1-facing behavior names too. The source now names
+`1F 04` as the text sound-mode setter, `1F 07` as the presentation SFX queue,
+`1F 23` as scripted-battle init, `1F 62` as the blinking-triangle state setter,
+`1F 63` as the packed movement-record enqueuer, `1F 66/67` as hotspot
+activate/disable leaves, `1F F1/F2` as record-backed visual/pose script
+runners, and `1F F3/F4` as pose-descriptor attached-child spawn/clear leaves.
+
 Source polish follow-up (2026-05-06): the adjacent `1F 23` leaf now names its
 scripted-battle init selector staging. The source shows the queued high byte,
 fallback to a direct text argument when the packed selector is zero, the

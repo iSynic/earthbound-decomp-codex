@@ -144,7 +144,7 @@ TextCommand1F1ERunVisualScriptWithCachedPoseCallback                       = $67
 TextCommand1F1FRunPoseScriptWithCachedPoseCallback                       = $683B
 TextCommand1922FacingDirectionCallback        = $68A0
 TextCommand1923FacingDirectionCallback        = $6947
-TextCommand1F62Callback                       = $69F7
+TextCommand1F62SetBlinkingTriangleStateCallback = $69F7
 TextCommand1E08SetCharacterLevelCallback      = $6A01
 TextCommand1924FacingDirectionCallback        = $6A7B
 TextCommand1FE4UpdatePoseFrameSelectorCallback                       = $6B2B
@@ -156,14 +156,14 @@ TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback                      
 TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback                       = $6D14
 TextCommand1FEESelectModeSlotByVisualCallback                       = $6D62
 TextCommand1FEFSelectModeSlotByPoseCallback                       = $6DA5
-TextCommand1F63Callback                       = $6DE8
-TextCommand1FF1Callback                       = $6EBF
-TextCommand1FF2Callback                       = $6F2F
-TextCommand1F23Callback                       = $6FD1
+TextCommand1F63EnqueueMovementRecordCallback = $6DE8
+TextCommand1FF1RunVisualScriptFromRecordCallback = $6EBF
+TextCommand1FF2RunPoseScriptFromRecordCallback = $6F2F
+TextCommand1F23InitScriptedBattleCallback    = $6FD1
 TextCommand1D0CCheckEscargoStorageStatusCallback = $7058
-TextCommand1F66Callback                       = $711C
-TextCommand1F67Callback                       = $7233
-TextCommand1F04Callback                       = $7254
+TextCommand1F66ActivateHotspotCallback       = $711C
+TextCommand1F67DisableHotspotCallback        = $7233
+TextCommand1F04SetTextSoundModeCallback      = $7254
 
 ; ---------------------------------------------------------------------------
 ; C1:621F
@@ -1255,7 +1255,7 @@ C169F5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69F5:
     pld
     rts
 CC_1F_62:
-C169F7_HandleTextCommand1F62 = CC_1F_62
+C169F7_SetBlinkingTriangleStateTextCommand = CC_1F_62
     rep #$31
     txa
     jsr C10036_SetBlinkingTriangleState
@@ -1803,7 +1803,7 @@ C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6:
     pld
     rts
 CC_1F_63:
-C16DE8_HandleTextCommand1F63 = CC_1F_63
+C16DE8_EnqueueMovementRecordTextCommand = CC_1F_63
     rep #$31
     phd
     pha
@@ -1828,7 +1828,7 @@ C16E04_QueueMovementRecordArgumentByte:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F63Callback
+    lda.w #TextCommand1F63EnqueueMovementRecordCallback
     jmp.w C16EBD_ReturnFromMovementRecordTextCommand
 C16E19_ApplyQueuedMovementRecord:
     sep #$10
@@ -1913,7 +1913,7 @@ C16EBD_ReturnFromMovementRecordTextCommand:
     pld
     rts
 CC_1F_F1:
-C16EBF_HandleTextCommand1FF1 = CC_1F_F1
+C16EBF_RunVisualScriptFromRecordTextCommand = CC_1F_F1
     rep #$31
     phd
     pha
@@ -1938,7 +1938,7 @@ C16EDB_QueueVisualScriptArgumentByte:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FF1Callback
+    lda.w #TextCommand1FF1RunVisualScriptFromRecordCallback
     bra C16F2D_ReturnFromVisualScriptTextCommand
 C16EEF_RunQueuedVisualTypeEntityScript:
     sep #$10
@@ -1971,7 +1971,7 @@ C16F2D_ReturnFromVisualScriptTextCommand:
     pld
     rts
 CC_1F_F2:
-C16F2F_HandleTextCommand1FF2 = CC_1F_F2
+C16F2F_RunPoseScriptFromRecordTextCommand = CC_1F_F2
     rep #$31
     phd
     pha
@@ -1996,7 +1996,7 @@ C16F4B_QueuePoseScriptArgumentByte:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FF2Callback
+    lda.w #TextCommand1FF2RunPoseScriptFromRecordCallback
     bra C16F9D_ReturnFromPoseScriptTextCommand
 C16F5F_RunQueuedPoseDescriptorEntityScript:
     sep #$10
@@ -2059,7 +2059,7 @@ C16FB5_FindCondimentForResolvedFoodItem:
     pld
     rts
 CC_1F_23:
-C16FD1_HandleTextCommand1F23 = CC_1F_23
+C16FD1_InitScriptedBattleTextCommand = CC_1F_23
     rep #$31
     phd
     pha
@@ -2077,7 +2077,7 @@ C16FD1_HandleTextCommand1F23 = CC_1F_23
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F23Callback
+    lda.w #TextCommand1F23InitScriptedBattleCallback
     bra C17035_ReturnFromScriptedBattleInitTextCommand
 C16FF7_ApplyQueuedScriptedBattleInit:
     sep #$10
@@ -2243,7 +2243,7 @@ C1711A_ReturnFromEscargoStorageStatusTextCommand:
     pld
     rts
 CC_1F_66:
-C1711C_HandleTextCommand1F66 = CC_1F_66
+C1711C_ActivateHotspotTextCommand = CC_1F_66
     rep #$31
     phd
     pha
@@ -2267,7 +2267,7 @@ C17137_QueueHotspotActivationArgumentByte:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F66Callback
+    lda.w #TextCommand1F66ActivateHotspotCallback
     jmp.w C17231_ReturnFromHotspotActivationTextCommand
 C1714B_ApplyQueuedHotspotActivation:
     lda DeferredCommandByteQueue
@@ -2388,7 +2388,7 @@ C17231_ReturnFromHotspotActivationTextCommand:
     pld
     rts
 CC_1F_67:
-C17233_HandleTextCommand1F67 = CC_1F_67
+C17233_DisableHotspotTextCommand = CC_1F_67
     rep #$31
     phd
     pha
@@ -2410,7 +2410,7 @@ C17249_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7249:
     pld
     rts
 CC_1F_04:
-C17254_HandleTextCommand1F04 = CC_1F_04
+C17254_SetTextSoundModeTextCommand = CC_1F_04
     rep #$31
     phd
     pha

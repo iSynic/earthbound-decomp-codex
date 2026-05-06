@@ -659,3 +659,9 @@ This planning pass is documentation-only.
   child spawn/clear leaves, no-op seven-byte absorbers, landing-profile display,
   C4 entity flag set/clear leaves, registry `8000` mark/clear leaves, and
   visual/pose mode-slot selectors.
+- 2026-05-06 follow-up: the remaining generic `0x1F` callback returns now use
+  source-facing behavior names. `C1:621F..7274`, `C1:7274..7440`, and the
+  `C1:81BB` dispatcher table name the text sound-mode setter, presentation SFX
+  queue, scripted-battle init, blinking-triangle state setter, movement-record
+  enqueuer, hotspot activate/disable leaves, record-backed visual/pose script
+  runners, and pose-descriptor attached-child spawn/clear leaves.
