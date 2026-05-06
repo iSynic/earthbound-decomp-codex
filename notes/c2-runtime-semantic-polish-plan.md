@@ -710,6 +710,14 @@ contract notes for C0/C1/C3/C4 consumers.
   `RedirectRemoveItemFromInventory`, and `C0:DD53` as
   `SetTeleportStateSelectors`, leaving the still-local spray type helper and
   Pray/table pass raw. See `notes/c2-item-bomb-runtime-polish.md`.
+- 2026-05-06 ninety-second slice: tightened the battler-row resistance
+  conversion joins used by enemy initialization and player snapshot export.
+  `C2:B6EB` and `C2:B930` now call `C2:B608` as
+  `ConvertElementalResistanceByte` and `C2:B639` as
+  `ConvertStatusResistanceByte`, matching the C1 selected-row action-text
+  consumer and retiring the earlier compact-stat soft spot. See
+  `notes/class2-local-enemy-id-to-battler-init-chain.md` and
+  `notes/c2-action-dispatch-runtime-polish.md`.
 
 ## Validation
 

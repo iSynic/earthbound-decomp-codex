@@ -13,6 +13,8 @@
 
 C08EFC_CommitTileBufferToStaging   = $C08EFC
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C2B608_ConvertElementalResistanceByte = $C2B608
+C2B639_ConvertStatusResistanceByte    = $C2B639
 C2B66A_ReadBattlerNameVariantFlag  = $C2B66A
 
 ; ---------------------------------------------------------------------------
@@ -155,22 +157,22 @@ C2B737_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB737:
     sta $0031,X
     ldy.w #$003F
     lda [$06],Y
-    jsl $C2B608
+    jsl C2B608_ConvertElementalResistanceByte
     ldx $02
     sta $003A,X
     ldy.w #$0040
     lda [$06],Y
-    jsl $C2B608
+    jsl C2B608_ConvertElementalResistanceByte
     ldx $02
     sta $0038,X
     ldy.w #$0041
     lda [$06],Y
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldx $02
     sta $0039,X
     ldy.w #$0042
     lda [$06],Y
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldx $02
     sta $0037,X
     rep #$20
@@ -184,7 +186,7 @@ C2B737_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB737:
     sta $0A
     sep #$20
     lda [$0A]
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldx $02
     sta $003C,X
     lda [$0A]
@@ -192,7 +194,7 @@ C2B737_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB737:
     lda.b #$03
     sec
     sbc $00
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldx $02
     sta $003B,X
     rep #$20

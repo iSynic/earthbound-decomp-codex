@@ -229,6 +229,12 @@ call `BuildBattleAttackerTextContext` and `BuildBattleTargetTextContext` by
 name when they refresh `$A970/$A972` before damage/status feedback, target-mask
 payload dispatch, and selected-row result text.
 
+Battler-row resistance follow-up: the C2 enemy initializer and player snapshot
+exporter now call `C2:B608` as `ConvertElementalResistanceByte` and `C2:B639`
+as `ConvertStatusResistanceByte`, matching the C1 current-action text consumer.
+That ties the same resistance-byte normalization lane through enemy-data import,
+party-row snapshot export, and selected-row equipment text refresh.
+
 ## Decomp Value
 
 This slice makes the selected-row controller more actionable:
@@ -247,6 +253,8 @@ This slice makes the selected-row controller more actionable:
   helper source bodies.
 - the hit-resolution retarget/status tail now shares that target-mask filter
   and bit-test vocabulary as well.
+- resistance mirrors in initialized/exported battler rows now share the same
+  elemental/status conversion helper names used by the C1 action-text lane.
 
 ## Remaining Soft Spots
 

@@ -56,8 +56,16 @@ That is much too close to the reference initializer to treat as coincidence.
 
 Source follow-up (2026-05-06): the initializer now calls `C2:B66A` by the
 `ReadBattlerNameVariantFlag` contract used by the C2 battle-text context
-builders. The source still leaves the nearby `C2:B608/B639` byte transforms raw
-because their compact-stat mapping is not yet named tightly enough.
+builders.
+
+Second source follow-up (2026-05-06): the initializer and the player snapshot
+exporter now share the C1-backed `C2:B608` /
+`ConvertElementalResistanceByte` and `C2:B639` /
+`ConvertStatusResistanceByte` names. The transform lane is no longer just
+"compact stat" plumbing: enemy-data bytes `+0x3F/+0x40` and party bytes
+`+0x52/+0x53` feed the fire/freeze resistance mirrors, while enemy-data bytes
+`+0x41/+0x42/+0x43` and party bytes `+0x54/+0x55/+0x56` feed the flash,
+paralysis, hypnosis, and inverse brainshock resistance mirrors.
 
 ## Direct local callers of `C2:B6EB`
 
