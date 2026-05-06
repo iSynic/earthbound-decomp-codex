@@ -4,6 +4,10 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
+!ACTIONSCRIPT_FIELD2B32_STEP_0280 = $0280
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -22,12 +26,12 @@ hirom
 !Integrate_XYVelocityOnly = $9FC8
 !LoopWaitInsideLiveAreaThenRelease = $B431
 !MoveCurrentSlotAwayFromTargetVector = $AB67
-!PhysicsCallback_C09FF0 = $9FF0
-!PositionChangeCallback_C0A039 = $A039
 !PrepareObscuredSimplePositionActor = $DBE0
 !ProjectWorldToScreen_FromCamera31 = $A023
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetStagedPositionOffset_ReadTwoWords = $C0A8B3
@@ -45,22 +49,36 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <display_control_bits_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(target, staged_offset_x_word, staged_offset_y_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <staged_offset_x_word>
+    dw <staged_offset_y_word>
+endmacro
+
+macro EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(target, teleport_destination_selector_byte)
+    db $42
+    dl <target>
+    db <teleport_destination_selector_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
+    db $42
+    dl <target>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
 endmacro
 
 macro EVENT_CLEAR_TICK_CALLBACK()
@@ -136,16 +154,16 @@ endmacro
 
 org $C3D913
 RunBusTunnelDesertRightTextHalt:
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $79, $89) ; C3:D913  42 8D A8 C0 C7 00 79 89
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $8979) ; C3:D913  42 8D A8 C0 C7 00 79 89
     %EVENT_HALT() ; C3:D91B  09
 Event211_BusTunnelBridgeRightRoute:
     %EVENT_SHORTCALL(!PrepareObscuredSimplePositionActor) ; C3:D91C  1A E0 DB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $02) ; C3:D91F  42 85 A6 C0 80 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0280) ; C3:D91F  42 85 A6 C0 80 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:D925  0E 05 03 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0528) ; C3:D929  0E 06 28 05
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2730) ; C3:D92D  0E 07 30 27
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:D931  1A 59 AB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:D934  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:D934  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:D93A  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0600) ; C3:D93E  0E 06 00 06
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2730) ; C3:D942  0E 07 30 27
@@ -162,54 +180,54 @@ Event211_BusTunnelBridgeRightRoute:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:D963  19 04 A2
 Event220_BusDesertTunnelRightRoute:
     %EVENT_SHORTCALL(!CopyAnchorThenPrepareObscuredSimplePositionActor) ; C3:D966  1A DB DB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $02) ; C3:D969  42 85 A6 C0 80 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0280) ; C3:D969  42 85 A6 C0 80 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:D96F  0E 05 03 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1048) ; C3:D973  0E 06 48 10
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2730) ; C3:D977  0E 07 30 27
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:D97B  1A 59 AB
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $4A) ; C3:D97E  42 07 A9 C0 4A
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $1B, $8A) ; C3:D983  42 8D A8 C0 C7 00 1B 8A
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $4A) ; C3:D97E  42 07 A9 C0 4A
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $8A1B) ; C3:D983  42 8D A8 C0 C7 00 1B 8A
     %EVENT_HALT() ; C3:D98B  09
 Event212_BusTunnelBridgeRightRoute:
     %EVENT_SHORTCALL(!PrepareObscuredSimplePositionActor) ; C3:D98C  1A E0 DB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $02) ; C3:D98F  42 85 A6 C0 80 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0280) ; C3:D98F  42 85 A6 C0 80 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:D995  0E 05 03 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1FC0) ; C3:D999  0E 06 C0 1F
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $21E0) ; C3:D99D  0E 07 E0 21
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:D9A1  1A 59 AB
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $D0) ; C3:D9A4  42 07 A9 C0 D0
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $2C, $8A) ; C3:D9A9  42 8D A8 C0 C7 00 2C 8A
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $D0) ; C3:D9A4  42 07 A9 C0 D0
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $8A2C) ; C3:D9A9  42 8D A8 C0 C7 00 2C 8A
     %EVENT_HALT() ; C3:D9B1  09
 Event213_BusBridgeTunnelRightRoute:
     %EVENT_SHORTCALL(!PrepareObscuredSimplePositionActor) ; C3:D9B2  1A E0 DB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $02) ; C3:D9B5  42 85 A6 C0 80 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0280) ; C3:D9B5  42 85 A6 C0 80 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:D9BB  0E 05 03 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1640) ; C3:D9BF  0E 06 40 16
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2730) ; C3:D9C3  0E 07 30 27
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:D9C7  1A 59 AB
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $D1) ; C3:D9CA  42 07 A9 C0 D1
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $3D, $8A) ; C3:D9CF  42 8D A8 C0 C7 00 3D 8A
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $D1) ; C3:D9CA  42 07 A9 C0 D1
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $8A3D) ; C3:D9CF  42 8D A8 C0 C7 00 3D 8A
     %EVENT_HALT() ; C3:D9D7  09
 Event214_BusTunnelFoursideRoute:
     %EVENT_SHORTCALL(!PrepareObscuredSimplePositionActor) ; C3:D9D8  1A E0 DB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $02) ; C3:D9DB  42 85 A6 C0 80 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0280) ; C3:D9DB  42 85 A6 C0 80 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:D9E1  0E 05 03 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $18B0) ; C3:D9E5  0E 06 B0 18
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0D60) ; C3:D9E9  0E 07 60 0D
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:D9ED  1A 59 AB
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $4C) ; C3:D9F0  42 07 A9 C0 4C
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $4E, $8A) ; C3:D9F5  42 8D A8 C0 C7 00 4E 8A
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $4C) ; C3:D9F0  42 07 A9 C0 4C
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $8A4E) ; C3:D9F5  42 8D A8 C0 C7 00 4E 8A
     %EVENT_HALT() ; C3:D9FD  09
 Event215_BusTouchFoursideRoute:
     %EVENT_SHORTCALL(!PrepareObscuredSimplePositionActor) ; C3:D9FE  1A E0 DB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $02) ; C3:DA01  42 85 A6 C0 80 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0280) ; C3:DA01  42 85 A6 C0 80 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:DA07  0E 05 03 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $09B8) ; C3:DA0B  0E 06 B8 09
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $13F0) ; C3:DA0F  0E 07 F0 13
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DA13  1A 59 AB
     %EVENT_CALLROUTINE_0(!Apply_TransitionSnapshotToRegistryEntities) ; C3:DA16  42 1E 3F C0
     %EVENT_CALLROUTINE_0(!ActionScript_PrepareNewEntityAtSelf) ; C3:DA1A  42 F7 A8 C0
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $5F, $8A) ; C3:DA1E  42 8D A8 C0 C7 00 5F 8A
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $8A5F) ; C3:DA1E  42 8D A8 C0 C7 00 5F 8A
     %EVENT_CLEAR_TICK_CALLBACK() ; C3:DA26  0F
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31) ; C3:DA27  23 23 A0
     %EVENT_PAUSE($01) ; C3:DA2A  06 01
@@ -222,19 +240,19 @@ Event215_BusTouchFoursideRoute:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:DA42  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:DA46  19 04 A2
 Event216_BusDesertTouchRoute:
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:DA49  23 39 A0
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:DA49  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:DA4C  25 C8 9F
-    %EVENT_SET_ANIMATION($00) ; C3:DA4F  3B 00
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:DA51  42 79 A6 C0 03
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:DA4F  3B 00
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:DA51  42 79 A6 C0 03
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:DA56  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $02) ; C3:DA5A  42 85 A6 C0 80 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0280) ; C3:DA5A  42 85 A6 C0 80 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:DA60  0E 05 03 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $06F8) ; C3:DA64  0E 06 F8 06
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2730) ; C3:DA68  0E 07 30 27
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DA6C  1A 59 AB
     %EVENT_CALLROUTINE_0(!Apply_TransitionSnapshotToRegistryEntities) ; C3:DA6F  42 1E 3F C0
     %EVENT_CALLROUTINE_0(!ActionScript_PrepareNewEntityAtSelf) ; C3:DA73  42 F7 A8 C0
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C8, $00, $C0, $88) ; C3:DA77  42 8D A8 C0 C8 00 C0 88
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C8, $88C0) ; C3:DA77  42 8D A8 C0 C8 00 C0 88
     %EVENT_CLEAR_TICK_CALLBACK() ; C3:DA7F  0F
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31) ; C3:DA80  23 23 A0
     %EVENT_PAUSE($01) ; C3:DA83  06 01
@@ -247,66 +265,66 @@ Event217_BusTunnelDesertDriverLoop:
     %EVENT_SET_X($0700) ; C3:DA97  28 00 07
     %EVENT_SET_Y($2718) ; C3:DA9A  29 18 27
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:DA9D  25 7A A3
-    %EVENT_SET_ANIMATION($00) ; C3:DAA0  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:DAA0  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:DAA2  39
     %EVENT_PAUSE($01) ; C3:DAA3  06 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:DAA5  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:DAA9  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:DAA9  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:DAAF  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0640) ; C3:DAB3  0E 06 40 06
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2718) ; C3:DAB7  0E 07 18 27
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DABB  1A 59 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:DABE  42 46 6E C4
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:DAC2  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:DAC5  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:DAC2  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:DAC5  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:DAC7  39
     %EVENT_START_TASK(!LoopWaitInsideLiveAreaThenRelease) ; C3:DAC8  07 31 B4
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:DACB  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:DACF  42 BF A4 C0
-    %EVENT_CALLROUTINE_4(!Script_SetStagedPositionOffset_ReadTwoWords, $00, $00, $08, $00) ; C3:DAD3  42 B3 A8 C0 00 00 08 00
+    %EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(!Script_SetStagedPositionOffset_ReadTwoWords, $0000, $0008) ; C3:DAD3  42 B3 A8 C0 00 00 08 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0018) ; C3:DADB  0E 02 18 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0008) ; C3:DADF  0E 03 08 00
 LoopEvent217_BusTunnelDesertDriverDialog:
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:DAE3  1A 8A AB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $89, $86) ; C3:DAE6  42 8D A8 C0 C7 00 89 86
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $8689) ; C3:DAE6  42 8D A8 C0 C7 00 89 86
     %EVENT_CALLROUTINE_0(!ActionScript_PrepareNewEntityAtPartyLeader) ; C3:DAEE  42 FF A8 C0
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:DAF2  1A 94 AB
     %EVENT_SHORTJUMP(LoopEvent217_BusTunnelDesertDriverDialog) ; C3:DAF5  19 E3 DA
 Event218_BusTunnelHighwayLeftRoute:
     %EVENT_SHORTCALL(!PrepareObscuredSimplePositionActor) ; C3:DAF8  1A E0 DB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $02) ; C3:DAFB  42 85 A6 C0 80 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0280) ; C3:DAFB  42 85 A6 C0 80 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:DB01  0E 05 03 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $01B0) ; C3:DB05  0E 06 B0 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2718) ; C3:DB09  0E 07 18 27
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DB0D  1A 59 AB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $C0, $8C) ; C3:DB10  42 8D A8 C0 C7 00 C0 8C
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $8CC0) ; C3:DB10  42 8D A8 C0 C7 00 C0 8C
     %EVENT_HALT() ; C3:DB18  09
 Event219_BusBridgeHighwayLeftDriverLoop:
     %EVENT_SET_X($04D8) ; C3:DB19  28 D8 04
     %EVENT_SET_Y($2730) ; C3:DB1C  29 30 27
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:DB1F  25 7A A3
-    %EVENT_SET_ANIMATION($00) ; C3:DB22  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:DB22  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:DB24  39
     %EVENT_PAUSE($01) ; C3:DB25  06 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:DB27  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:DB2B  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:DB2B  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:DB31  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0598) ; C3:DB35  0E 06 98 05
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2730) ; C3:DB39  0E 07 30 27
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DB3D  1A 59 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:DB40  42 46 6E C4
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:DB44  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:DB47  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:DB44  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:DB47  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:DB49  39
     %EVENT_START_TASK(!LoopWaitInsideLiveAreaThenRelease) ; C3:DB4A  07 31 B4
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:DB4D  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:DB51  42 BF A4 C0
-    %EVENT_CALLROUTINE_4(!Script_SetStagedPositionOffset_ReadTwoWords, $00, $00, $08, $00) ; C3:DB55  42 B3 A8 C0 00 00 08 00
+    %EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(!Script_SetStagedPositionOffset_ReadTwoWords, $0000, $0008) ; C3:DB55  42 B3 A8 C0 00 00 08 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0018) ; C3:DB5D  0E 02 18 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0008) ; C3:DB61  0E 03 08 00
 LoopEvent219_BusBridgeHighwayLeftDriverDialog:
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:DB65  1A 8A AB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $A9, $87) ; C3:DB68  42 8D A8 C0 C7 00 A9 87
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $87A9) ; C3:DB68  42 8D A8 C0 C7 00 A9 87
     %EVENT_CALLROUTINE_0(!ActionScript_PrepareNewEntityAtPartyLeader) ; C3:DB70  42 FF A8 C0
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:DB74  1A 94 AB
     %EVENT_SHORTJUMP(LoopEvent219_BusBridgeHighwayLeftDriverDialog) ; C3:DB77  19 65 DB

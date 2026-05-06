@@ -24,6 +24,13 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+- `C0:A685` calls render through `%EVENT_CALLROUTINE_FIELD2B32(..., field2b32_word)`, preserving the same little-endian bytes with a word-shaped operand.
+- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_DIRECTION_CLASS`, `%EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS`, `%EVENT_CALLROUTINE_EVENT_FLAG`, `%EVENT_CALLROUTINE_FIELD2B32`, +6.
+
 ## Next Promotion Step
 
 Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; adjacent `C3:D913..C3:DB7A` remains a larger bus-transition continuation and should be split around local route/text boundaries.

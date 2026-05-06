@@ -654,6 +654,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read two script words as text pointer pieces and queue text record type #$0008",
         "args": "text_pointer_low_word, text_pointer_bank_word",
     },
+    "C0:A8B3": {
+        "name": "Script_SetStagedPositionOffset_ReadTwoWords",
+        "group": "current-slot-state",
+        "contract": "read X/Y offset words and apply them to the staged position used by script presentation helpers",
+        "args": "staged_offset_x_word, staged_offset_y_word",
+    },
     "C0:A8C6": {
         "name": "StepCurrentSlotTowardCachedTarget",
         "group": "movement",
@@ -759,6 +765,18 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "overworld-runtime",
         "contract": "read one teleport-destination selector byte and prepare a new entity at that destination",
         "args": "teleport_destination_selector_byte",
+    },
+    "C0:A92D": {
+        "name": "Script_SetTargetToVisualTypeSlotPosition_ReadWord",
+        "group": "current-slot-state",
+        "contract": "read one visual-type slot word and copy that slot position into the active script target",
+        "args": "visual_type_slot_word",
+    },
+    "C0:A938": {
+        "name": "Script_SetTargetToPoseDescriptorSlotPosition_ReadWord",
+        "group": "current-slot-state",
+        "contract": "read one pose-descriptor slot word and copy that slot position into the active script target",
+        "args": "pose_descriptor_slot_word",
     },
     "C0:A943": {
         "name": "ActionScript_GetPositionOfPartyMember",
