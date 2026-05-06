@@ -6,6 +6,8 @@ This report is a typed emitter/render/decode coverage map. It contains no ROM-de
 
 Reproducible smoke selectors for these recipe kinds are tracked in `notes/asset-output-smoke-fixtures.md` and executable with `tools/run_asset_output_smoke_fixtures.py`.
 
+Target-bank smoke selector coverage is audited in `notes/asset-output-bank-fixture-audit.md` and rebuildable via `tools/build_asset_output_bank_fixture_audit.py`.
+
 Offline codec/render validation for every typed output kind is tracked in `notes/asset-output-codec-validation.md` and executable without a ROM via `tools/validate_asset_output_codecs.py`.
 
 Static preview geometry for PNG recipe outputs is tracked in `notes/asset-output-preview-geometry.md` and rebuildable without a ROM via `tools/build_asset_output_preview_geometry.py`.

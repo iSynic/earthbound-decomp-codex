@@ -12,6 +12,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 import build_asset_data_contract_frontier
+import build_asset_output_bank_fixture_audit
 import build_asset_output_index
 import build_asset_output_path_audit
 import build_asset_output_preview_geometry
@@ -74,6 +75,19 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_output_smoke_fixtures.DEFAULT_MARKDOWN_OUT,
             build_asset_output_smoke_fixtures.render_markdown(smoke_plan),
             "python tools/build_asset_output_smoke_fixtures.py",
+        )
+    )
+
+    bank_fixture_audit = build_asset_output_bank_fixture_audit.build_report(
+        manifest_dir,
+        smoke_plan=smoke_plan,
+    )
+    reports.append(
+        CheckedReport(
+            build_asset_output_bank_fixture_audit.DEFAULT_MARKDOWN_OUT,
+            build_asset_output_bank_fixture_audit.render_markdown(bank_fixture_audit),
+            "python tools/build_asset_output_bank_fixture_audit.py",
+            bank_fixture_audit,
         )
     )
 

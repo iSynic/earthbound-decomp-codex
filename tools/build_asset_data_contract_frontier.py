@@ -13,6 +13,7 @@ DEFAULT_JSON_OUT = ROOT / "build" / "asset-data-contract-frontier.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "asset-data-contract-frontier.md"
 OUTPUT_RECIPE_CONTRACTS_MARKDOWN = ROOT / "notes" / "asset-output-recipe-contracts.md"
 OUTPUT_SMOKE_FIXTURES_MARKDOWN = ROOT / "notes" / "asset-output-smoke-fixtures.md"
+OUTPUT_BANK_FIXTURE_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-bank-fixture-audit.md"
 OUTPUT_CODEC_VALIDATION_MARKDOWN = ROOT / "notes" / "asset-output-codec-validation.md"
 OUTPUT_PREVIEW_GEOMETRY_MARKDOWN = ROOT / "notes" / "asset-output-preview-geometry.md"
 OUTPUT_INDEX_MARKDOWN = ROOT / "notes" / "asset-output-index.md"
@@ -344,6 +345,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             "generated_json": rel(DEFAULT_JSON_OUT),
             "typed_output_recipe_contracts": rel(OUTPUT_RECIPE_CONTRACTS_MARKDOWN),
             "output_smoke_fixtures": rel(OUTPUT_SMOKE_FIXTURES_MARKDOWN),
+            "output_bank_fixture_audit": rel(OUTPUT_BANK_FIXTURE_AUDIT_MARKDOWN),
             "output_codec_validation": rel(OUTPUT_CODEC_VALIDATION_MARKDOWN),
             "output_preview_geometry": rel(OUTPUT_PREVIEW_GEOMETRY_MARKDOWN),
             "output_index": rel(OUTPUT_INDEX_MARKDOWN),
@@ -407,6 +409,8 @@ def render_markdown(frontier: dict[str, Any]) -> str:
         "Typed emitter/render/decode recipe shapes are tracked in `notes/asset-output-recipe-contracts.md`; that report validates output kinds, renderer fields, palette/graphics source refs, and reproducible output paths.",
         "",
         "ROM-backed extraction smoke selectors are tracked in `notes/asset-output-smoke-fixtures.md`; they cover every typed recipe kind plus family-level renderer/decoder chains while keeping generated outputs under ignored `build/` paths.",
+        "",
+        "Target-bank smoke selector coverage is audited in `notes/asset-output-bank-fixture-audit.md`; it verifies deterministic `bank_output` selectors for each target bank with typed non-raw outputs and records raw-only target-bank exceptions.",
         "",
         "ROM-free codec validation is tracked in `notes/asset-output-codec-validation.md`; it exercises synthetic LZHAL, SNES tile, palette, tilemap, battle background, and battle sprite render paths for every typed output kind.",
         "",

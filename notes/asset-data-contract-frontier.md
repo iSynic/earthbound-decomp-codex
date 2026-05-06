@@ -8,6 +8,8 @@ Typed emitter/render/decode recipe shapes are tracked in `notes/asset-output-rec
 
 ROM-backed extraction smoke selectors are tracked in `notes/asset-output-smoke-fixtures.md`; they cover every typed recipe kind plus family-level renderer/decoder chains while keeping generated outputs under ignored `build/` paths.
 
+Target-bank smoke selector coverage is audited in `notes/asset-output-bank-fixture-audit.md`; it verifies deterministic `bank_output` selectors for each target bank with typed non-raw outputs and records raw-only target-bank exceptions.
+
 ROM-free codec validation is tracked in `notes/asset-output-codec-validation.md`; it exercises synthetic LZHAL, SNES tile, palette, tilemap, battle background, and battle sprite render paths for every typed output kind.
 
 Static preview geometry is tracked in `notes/asset-output-preview-geometry.md`; it separates PNG recipes with manifest-known dimensions from compressed recipes whose tile/color count is only known after ROM decode.

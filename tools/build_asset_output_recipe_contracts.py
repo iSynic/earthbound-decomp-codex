@@ -20,6 +20,8 @@ DEFAULT_JSON_OUT = ROOT / "build" / "asset-output-recipe-contracts.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "asset-output-recipe-contracts.md"
 SMOKE_FIXTURES_JSON = ROOT / "notes" / "asset-output-smoke-fixtures.json"
 SMOKE_FIXTURES_MARKDOWN = ROOT / "notes" / "asset-output-smoke-fixtures.md"
+BANK_FIXTURE_AUDIT_JSON = ROOT / "build" / "asset-output-bank-fixture-audit.json"
+BANK_FIXTURE_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-bank-fixture-audit.md"
 CODEC_VALIDATION_JSON = ROOT / "build" / "asset-output-codec-validation.json"
 CODEC_VALIDATION_MARKDOWN = ROOT / "notes" / "asset-output-codec-validation.md"
 PREVIEW_GEOMETRY_JSON = ROOT / "build" / "asset-output-preview-geometry.json"
@@ -301,6 +303,11 @@ def build_contract(manifest_dir: Path) -> dict[str, Any]:
             "tracked_markdown": rel(SMOKE_FIXTURES_MARKDOWN),
             "runner": "tools/run_asset_output_smoke_fixtures.py",
         },
+        "bank_fixture_audit": {
+            "generated_json": rel(BANK_FIXTURE_AUDIT_JSON),
+            "tracked_markdown": rel(BANK_FIXTURE_AUDIT_MARKDOWN),
+            "runner": "tools/build_asset_output_bank_fixture_audit.py",
+        },
         "codec_validation": {
             "generated_json": rel(CODEC_VALIDATION_JSON),
             "tracked_markdown": rel(CODEC_VALIDATION_MARKDOWN),
@@ -363,6 +370,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "This report is a typed emitter/render/decode coverage map. It contains no ROM-derived payloads; it validates the reproducible recipes that `tools/extract_assets.py` uses when a user supplies a ROM.",
         "",
         "Reproducible smoke selectors for these recipe kinds are tracked in `notes/asset-output-smoke-fixtures.md` and executable with `tools/run_asset_output_smoke_fixtures.py`.",
+        "",
+        "Target-bank smoke selector coverage is audited in `notes/asset-output-bank-fixture-audit.md` and rebuildable via `tools/build_asset_output_bank_fixture_audit.py`.",
         "",
         "Offline codec/render validation for every typed output kind is tracked in `notes/asset-output-codec-validation.md` and executable without a ROM via `tools/validate_asset_output_codecs.py`.",
         "",

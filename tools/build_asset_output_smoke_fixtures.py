@@ -391,6 +391,8 @@ def render_markdown(plan: dict[str, Any]) -> str:
         "",
         "This is the reproducible smoke-test selector set for extraction, decode, and preview/render recipes. It contains no ROM-derived outputs; `tools/run_asset_output_smoke_fixtures.py` executes these selectors when a user-supplied ROM is available.",
         "",
+        "Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank-fixture-audit.md`.",
+        "",
         "## Snapshot",
         "",
         f"- fixture selectors: `{coverage['fixture_count']}`",
