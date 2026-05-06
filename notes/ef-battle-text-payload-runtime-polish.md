@@ -9,6 +9,10 @@ Primary source module:
 
 - `src/ef/ef_4e20_c51b_text_payload_data.asm`
 
+Action-island follow-up:
+
+- `notes/ef-battle-text-action-island-consumer-frontier.md`
+
 The module is still ROM-preserved text data, not decoded text macro source. The
 new labels are zero-byte scaffold anchors that split the coarse
 `EF:4E20..C51B` data gap around battle-text scripts already proved by C1/C2
@@ -234,6 +238,12 @@ stable anchors until a C2 action-table consumer pass proves narrower runtime
 roles. The result is still useful immediately because the large pre-start-battle
 blob no longer hides dozens of direct battle-text payload targets.
 
+The current consumer frontier keeps this island as a row-message candidate set
+for `D5:7B68` row `+4` pointers. Locally proved rows include `100 -> EF:7EAC`,
+`102 -> EF:7F02`, `104 -> EF:7F32`, `117 -> EF:80C4`, and `118 -> EF:80E4`;
+the rest should stay exact `MSG_BTL_*` anchors until row `+8` behavior bodies
+are joined.
+
 ## EBATTLE1 Battle Command Front Follow-up
 
 The first slice of `EF:848C..C51B` is now split through `EF:8814`. This is the
@@ -243,6 +253,10 @@ entry, `EF:8530` is the Spy/check text pointer, and `EF:8543` is the shared PSI
 text pointer reused by many PSI-shaped action rows. The `EF:857E` dispatch and
 `EF:864C..8813` branches remain ROM-preserved text/effect bytecode, but now
 have stable anchors for later PSI animation/effect consumer work.
+
+The row-message consumer split is now explicit: `C2:5C66` selects the
+`D5:7B68` row `+4` message pointer and displays it through `C1:DD9F`, while
+the row `+8` behavior pointer is a separate C2 action payload.
 
 ## Thunder, Effect, And Pray Follow-up
 
@@ -265,6 +279,10 @@ scripts, and the late lightning/Giygas-flavor scripts. The split keeps the
 runtime payloads visible for a later C2 action-table consumer pass while still
 leaving the EB text bytecode ROM-preserved.
 
+No row-specific C2 consumer has been promoted for this island yet, so its labels
+should remain exact `MSG_BTL_*` anchors rather than gameplay-facing action
+names.
+
 ## EBATTLE9 Field-Monster And Graveyard Follow-up
 
 The `EF:8FAD..9A47` EBATTLE9 include is now split as a coherent field-facing
@@ -284,6 +302,11 @@ and goods-use branches, Time Stop and enemy gaze/wave/breath/status-flavor
 messages, coffee/music/discharge/lightning/fire payloads, and the final
 `MSG_BTL_FIRE_BREATH` anchor before the next `EGOODS2` include. These are
 conservative symbol-derived anchors for later C2 action-table consumer work.
+
+The first strong local row-message join in this tail is action-table row `85 ->
+EF:9DA1`, whose row `+8` body applies concentration/PSI seal and then emits
+`EF:6C0B` or fallback `EF:766E`. That keeps row-message text separate from the
+secondary result scripts emitted by the behavior body.
 
 ## EGOODS2 Item-Use Follow-up
 

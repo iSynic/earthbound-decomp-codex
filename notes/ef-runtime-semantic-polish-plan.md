@@ -197,3 +197,8 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `C1:DD7C`/`$9D11`/`19 1F` scripts, and `PointerSubstitution` for `19 1E`
   branches. This was an EF-only label/comment pass over ROM-preserved text
   bytes.
+- 2026-05-06: EF action-island consumer frontier follow-up added
+  `notes/ef-battle-text-action-island-consumer-frontier.md` and source comments
+  at the EBATTLE2, EBATTLE1-front, EBATTLE3, and EBATTLE1-tail action islands.
+  The handoff separates `C1:DD9F` row `+4` message pointers, row `+8` C2
+  behavior payloads, and direct `DC1C`/`DC66` result scripts.

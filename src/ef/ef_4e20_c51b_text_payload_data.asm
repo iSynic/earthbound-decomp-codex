@@ -1823,6 +1823,9 @@ EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
 ; ---------------------------------------------------------------------------
 ; EF:7E25
 
+; EBATTLE2 action island: exact MSG_BTL anchors for D5:7B68 row-message
+; candidates. Keep symbol-derived names until a row +4 EF pointer and row +8
+; C2 behavior body are joined.
 ; EBATTLE2: `MSG_BTL_PPDOWN` action-flavor text.
 EF7E25_EBattle2MsgBtlPpDown:
 
@@ -2153,6 +2156,9 @@ EF8477_EBattle0MsgRandomActMushroom:
 ; ---------------------------------------------------------------------------
 ; EF:848C
 
+; EBATTLE1 front action island: C2:5C66 displays D5:7B68 row +4 pointers here
+; through C1:DD9F. Proved row-message anchors include Bash, Shoot, Spy, shared
+; PSI, and Pray.
 ; EBATTLE1: Bash/attack text, with enemy/player-side branches.
 EF848C_EBattle1MsgBtlAttack:
 
@@ -2471,6 +2477,8 @@ EF89E0_EBattle1MsgBtlPray:
 ; ---------------------------------------------------------------------------
 ; EF:89FE
 
+; EBATTLE3 enemy-action island: exact MSG_BTL anchors preserved for later
+; D5:7B68 row-message crosswalk work.
 ; EBATTLE3: `MSG_BTL_JIHIBIKI` enemy-action text.
 EF89FE_EBattle3MsgBtlJihibiki:
 
@@ -3095,6 +3103,8 @@ EF98D3_EBattle9BranchGrfdSysmsgGutsYes:
 ; ---------------------------------------------------------------------------
 ; EF:9A47
 
+; EBATTLE1 action-tail island: status/flavor/item row-message candidates.
+; Promote gameplay-facing names only after C2 row +8 behavior joins prove them.
 ; EBATTLE1: `MSG_BTL_NAKAMA0` action payload text.
 EF9A47_EBattle1MsgBtlNakama0:
 

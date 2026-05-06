@@ -164,6 +164,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `ByteSubstitution` names `C1:DD7C -> $9D11 -> 19 1F` consumers; and
   `PointerSubstitution` names the `19 1E` payload branches. No C2 source was
   edited in this pass.
+- 2026-05-06: EF action-island frontier follow-up documented the remaining
+  `MSG_BTL_*` row-message islands separately from direct result payloads. The
+  handoff note names the `C1:DD9F` row `+4` message lane, the row `+8`
+  behavior-payload lane, and the currently proved EF row-message joins for
+  Bash/Shoot/Spy/Pray/shared PSI plus late EBATTLE2 and concentration anchors.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
@@ -242,6 +247,11 @@ This corridor also conditionally emits two hardcoded EF scripts via `DC1C` befor
 
 - `EF:845D` (user-name message: “@… acted unusual.”)
 - `EF:8477` (user-name message: “@… felt funky.”)
+
+Action-island handoff: `notes/ef-battle-text-action-island-consumer-frontier.md`
+keeps the row `+4` message pointer lane distinct from row `+8` behavior
+payloads and from the direct-result `DC1C` scripts emitted by those behavior
+bodies.
 
 ## Substitution-slot contracts that appear inside EF battle scripts
 
