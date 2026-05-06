@@ -166,7 +166,7 @@ The early row-message joins remain the cleanest `DD9F` examples:
 | `5` | `EF:84B6` `ShootRowPresentationText` | `C2:8740` | Shoot |
 | `6` | `EF:8530` `SpyCheckRowPresentationText` | `C2:8770` | Spy |
 | `7` | `EF:89E0` `PrayRowPresentationText` | `C2:AD1B` | Pray |
-| `10..35`, `48`, `49`, `53`, `58` | `EF:8543` `SharedPsiNameByteSubstitutionRowPresentationText` | PSI wrapper/status/offense families | Shared PSI row message; `ByteSubstitution` PSI name |
+| `10..35`, `48`, `49`, `53`, `58`, `60`, `61` | `EF:8543` `SharedPsiNameByteSubstitutionRowPresentationText` | PSI wrapper/status/offense families plus `C2:9039` default rows | Shared PSI row message; `ByteSubstitution` PSI name |
 
 ## How To Use This Crosswalk
 
@@ -183,9 +183,22 @@ For future EF payload work:
 ## Next Crosswalk Frontier
 
 The immediate frontier has narrowed again: Lifeup, numeric-effect, explosive,
-and the main no-op/flavor rows now have recovered row `+4` joins. The remaining
-work is a broader C2:9039 item-use/default sweep, where many row messages live
-in C7/C9 and should not drive EF battle-anchor renames.
+the main no-op/flavor rows, and the first broad `C2:9039` default/item-use
+bucket now have recovered row `+4` joins. The `C2:9039` body is not an EF
+naming signal by itself: rows whose `+4` pointers land in C7/C9/C6 remain
+non-EF presentation consumers, while the EF rows below can be named or guarded
+according to their actual payload family.
+
+### EF Rows With `C2:9039` Default Bodies
+
+| Row | Row `+4` EF message | Row `+8` C2 body | Current behavior read |
+| ---: | --- | --- | --- |
+| `60`, `61` | `EF:8543` `SharedPsiNameByteSubstitutionRowPresentationText` | `C2:9039` | Shared PSI-name row presentation with default/no-op behavior |
+| `259` | `EF:9EF4` `EGoods2MsgBtlEscapeMouse` | `C2:9039` | Exit Mouse item-use payload; keep EGOODS2 item-use naming |
+| `270` | `EF:A0DC` `EGoods2MsgBtlHiero` | `C2:9039` | Hieroglyph item-use payload; keep EGOODS2 item-use naming |
+| `309` | `EF:8F91` `Gyiyyig3FlavorRowPresentationText` | `C2:9039` | Giygas/Gyiyg flavor row presentation; calls the C9 repeated-line helper before its own text |
+| `313` | `EF:8D4C` `EnemyLifeupFlavorRowPresentationText` | `C2:9039` | Enemy Lifeup flavor row presentation, not PSI Lifeup rows `32..35` |
+| `314..317` | `EF:8CDD`, `EF:8CFB`, `EF:8D17`, `EF:8D2F` `Yudan*FlavorRowPresentationText` | `C2:9039` | Yudan/off-guard flavor row presentations |
 
 ### Remaining Special-Event Rows
 
@@ -211,6 +224,8 @@ mistaken for missing EF text splits.
 | `167`, `168` | `C9:7EB7` item thrown/fired wrapper | `C2:A818`, `C2:A821` | Bomb-family item rows; not EF row messages |
 | `186..188` | `C9:FD82`, `C9:FDBB`, `C9:7F72` item/narrative wrappers | `C2:9033` | No-op item/flavor rows; not EF row messages |
 | `0..3`, `9`, `258` | `C7:*` or `C9:FEFD` default/no-op wrappers | `C2:9039` or `C2:903C` | Default and isolated no-op rows; not EF row messages |
+| `190..200`, `308`, `312` | C9 item/narrative wrappers | `C2:9039` | Default item/narrative row messages outside EF; classify C2 join only |
+| `288`, `289` | C6 row-message wrappers | `C2:9039` | Default presentation rows outside EF; classify C2 join only |
 | `310`, `311` | `C9:7E9E` item fired wrapper | `C2:A818`, `C2:A821` | Bomb-family item rows; not EF row messages |
 | `291..299` | C9 prayer message family, including `C9:F0B8` and `C9:F3EC` | `C2:C572..C2:C6F0` | Final Prayer ladder; row presentation and C8/C9 narrative results stay outside EF action-anchor naming |
 

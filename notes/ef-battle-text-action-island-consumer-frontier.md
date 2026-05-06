@@ -54,6 +54,7 @@ The front EBATTLE1 row-message joins are currently the strongest:
 | `0x000A..0x0019` | `EF:8543` | Shared PSI row message via `DD9F`, with PSI-name `ByteSubstitution` |
 | `32..35` | `EF:8543` | Shared PSI Lifeup row messages via `DD9F`, with PSI-name `ByteSubstitution` |
 | `48`, `49` | `EF:8543` | Shared PSI offense-up row messages via `DD9F`, with PSI-name `ByteSubstitution` |
+| `60`, `61` | `EF:8543` | Shared PSI row messages with `C2:9039` default/no-op behavior |
 
 The EF source labels for those early joins now carry the same lane names:
 `BashAttackRowPresentationText`, `ShootRowPresentationText`,
@@ -91,6 +92,8 @@ enemy-action island:
 | `248` | `EF:8D9F` | Neutralize-sparkle row message |
 | `273` | `EF:8EBE` | Bad-smell gas row message |
 | `290` | `EF:8DDE` | Rainbow-colors event row message |
+| `309` | `EF:8F91` | Giygas/Gyiyg flavor row message with `C2:9039` default/no-op behavior |
+| `313..317` | `EF:8D4C`, `EF:8CDD`, `EF:8CFB`, `EF:8D17`, `EF:8D2F` | Enemy Lifeup/Yudan flavor row messages with `C2:9039` default/no-op behavior |
 
 The EBATTLE1 action tail has a proved late status row-message cluster:
 
@@ -107,17 +110,21 @@ physical, special, item, and event rows (`99..102`, `104`, `117`, `118`,
 `140`, `228`, `232..234`, `243`, `244`, `247`, `248`, `273`, and `290`).
 It also now records the recovered Lifeup/offense PSI rows (`32..35`, `48`,
 `49`), numeric-effect rows (`95..98`, `233`, `234`), and explosive rows
-(`64`, `65`). The latest pointer-recovery pass adds the no-op/flavor rows
-`119..134`, `251..257`, and `260..266`; the EBATTLE2 `119..134` anchors now
-carry source-level `FlavorRowPresentationText` names, while the EBATTLE4/status
-rows keep their event/status/result labels because several scripts are dual-use.
+(`64`, `65`). The latest pointer-recovery passes add the no-op/flavor rows
+`119..134`, `251..257`, and `260..266`, plus the first broad `C2:9039`
+default/item-use split: EF rows `60/61`, `259/270`, `309`, and `313..317`
+are recorded separately from C9/C6 non-EF rows. The EBATTLE2 `119..134` and
+EBATTLE3 `309/313..317` anchors now carry source-level
+`FlavorRowPresentationText` names, while the EBATTLE4/status and EGOODS2
+item-use rows keep their event/status/result/item labels because several
+scripts are dual-use or not battle-action anchors.
 
 Rows whose C2 behavior bodies are known but whose row `+4` EF pointers are not
 locally recovered should stay out of the proved-join table. The current
-behavior-known frontier has narrowed to broader default/item-use rows around
-`C2:9039`, many of which resolve to C7/C9 row messages rather than EF anchors.
-These are useful C2 behavior notes, but not EF battle-anchor naming evidence
-unless row `+4` points back into EF.
+behavior-known frontier has narrowed to remaining default/item-use rows around
+`C2:9039`. The first sweep proves the rule: `C2:9039` is useful C2 behavior
+evidence, but it is not EF battle-anchor naming evidence unless row `+4` points
+back into EF.
 
 ## Direct Result Joins Adjacent To Action Islands
 

@@ -5901,7 +5901,7 @@ EF8530_EBattle1SpyCheckRowPresentationText:
 db $01,$70,$1C,$0D,$17,$F4,$99,$17,$52,$9F,$9E,$00,$50,$50,$1C,$0E
 db $51,$03,$02
 
-; EBATTLE1: shared PSI row +4 presentation for rows 10..35, 48, 49, 53, and 58.
+; EBATTLE1: shared PSI row +4 presentation for rows 10..35, 48, 49, 53, 58, 60, and 61.
 EF8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText:
 
 ; Original data gap before EF8568_EBattle1PsiPlayerSideBranch:
@@ -6333,36 +6333,37 @@ db $50,$15,$6C,$A3,$50,$92,$17,$5B,$51,$03,$02
 
 EF8CC7_EBattle3MsgBtlYudan:
 
-; Original data gap before EF8CDD_EBattle3MsgBtlYudan1:
+; Original data gap before EF8CDD_EBattle3Yudan1FlavorRowPresentationText:
 db $1D,$21,$03,$09,$03,$FB,$8C,$EF,$00,$17,$8D,$EF,$00,$2F,$8D,$EF
 db $00,$0A,$DD,$8C,$EF,$00
 
-EF8CDD_EBattle3MsgBtlYudan1:
+EF8CDD_EBattle3Yudan1FlavorRowPresentationText:
 
-; Original data gap before EF8CFB_EBattle3MsgBtlYudan2:
+; Original data gap before EF8CFB_EBattle3Yudan2FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$53,$A3,$A4,$00,$50,$15,$BC,$97
 db $15,$EA,$16,$B8,$15,$1C,$92,$9F,$9C,$A4,$A3,$51,$03,$02
 
-EF8CFB_EBattle3MsgBtlYudan2:
+EF8CFB_EBattle3Yudan2FlavorRowPresentationText:
 
-; Original data gap before EF8D17_EBattle3MsgBtlYudan3:
+; Original data gap before EF8D17_EBattle3Yudan3FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$48,$5D,$91,$A0,$A0,$9C,$99,$95
 db $94,$00,$50,$17,$33,$16,$EA,$16,$01,$51,$03,$02
 
-EF8D17_EBattle3MsgBtlYudan3:
+EF8D17_EBattle3Yudan3FlavorRowPresentationText:
 
-; Original data gap before EF8D2F_EBattle3MsgBtlYudan4:
+; Original data gap before EF8D2F_EBattle3Yudan4FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$93,$9C,$95,$91,$9E,$95,$94,$00
 db $15,$95,$91,$15,$B6,$51,$03,$02
 
-EF8D2F_EBattle3MsgBtlYudan4:
+EF8D2F_EBattle3Yudan4FlavorRowPresentationText:
 
-; Original data gap before EF8D4C_EBattle3MsgBtlYudanLifeup:
+; Original data gap before EF8D4C_EBattle3EnemyLifeupFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$CD,$15,$33,$97,$9F,$00,$50,$15
 db $04,$16,$5B,$91,$17,$DB,$A4,$16,$06,$A9,$51,$03,$02
 
-; EBATTLE3: enemy Lifeup flavor, not row +4 Lifeup presentation for rows 32..35.
-EF8D4C_EBattle3MsgBtlYudanLifeup:
+; EBATTLE3: row 313 row +4 enemy Lifeup flavor presentation text, not
+; the PSI Lifeup presentation for rows 32..35.
+EF8D4C_EBattle3EnemyLifeupFlavorRowPresentationText:
 
 ; Original data gap before EF8D72_EBattle3MsgBtlNebieBeam:
 db $01,$70,$1C,$0D,$50,$16,$66,$50,$91,$00,$50,$17,$47,$9C,$9F,$97
@@ -6457,14 +6458,14 @@ db $02,$51,$02
 
 EF8F4A_EBattle3MsgBtlLightningC:
 
-; Original data gap before EF8F91_EBattle3MsgBtlGyiyyig3:
+; Original data gap before EF8F91_EBattle3Gyiyyig3FlavorRowPresentationText:
 db $08,$2F,$EE,$C9,$00,$10,$28,$18,$06,$08,$2F,$EE,$C9,$00,$10,$28
 db $18,$06,$08,$2F,$EE,$C9,$00,$10,$28,$18,$06,$16,$1A,$15,$C0,$97
 db $A2,$91,$A3,$A0,$16,$52,$A2,$A5,$95,$16,$12,$9D,$00,$50,$15,$4F
 db $1C,$0D,$57,$15,$DB,$51,$1C,$13,$31,$00,$1C,$13,$36,$00,$1F,$02
 db $51,$10,$28,$1F,$02,$51,$02
 
-EF8F91_EBattle3MsgBtlGyiyyig3:
+EF8F91_EBattle3Gyiyyig3FlavorRowPresentationText:
 
 ; Original data gap before EF8FAD_EBattle9SubSorezoreHelper:
 db $08,$2F,$EE,$C9,$00,$10,$28,$18,$06,$08,$2F,$EE,$C9,$00,$10,$28

@@ -313,6 +313,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `ActionAmount` naming contract to `EF:7A7D..7B46`, while documenting that
   these are C1 level-up narration consumers staged through `C1:AD0A`, not C2
   action-row messages.
+- 2026-05-06: EF `C2:9039` default/item-use follow-up classified the first
+  broad default bucket by row `+4` bank. Rows `60/61`, `259/270`, `309`, and
+  `313..317` now have EF joins, with EBATTLE3 flavor anchors promoted to
+  `FlavorRowPresentationText`; rows `190..200`, `288/289`, `308`, and `312`
+  stay in non-EF C9/C6 presentation lanes.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

@@ -2244,7 +2244,7 @@ EF8530_EBattle1SpyCheckRowPresentationText:
 ; EF:8543
 
 ; EBATTLE1: shared PSI row presentation text with PSI-name byte substitution.
-; D5:7B68 rows 10..35, 48, 49, 53, and 58 use this as row +4 `DD9F`
+; D5:7B68 rows 10..35, 48, 49, 53, 58, 60, and 61 use this as row +4 `DD9F`
 ; presentation text.
 EF8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText:
 
@@ -2673,33 +2673,33 @@ EF8CC7_EBattle3MsgBtlYudan:
 ; ---------------------------------------------------------------------------
 ; EF:8CDD
 
-; EBATTLE3: `MSG_BTL_YUDAN_1` enemy-action text.
-EF8CDD_EBattle3MsgBtlYudan1:
+; EBATTLE3: row 314 row +4 `MSG_BTL_YUDAN_1` flavor presentation text.
+EF8CDD_EBattle3Yudan1FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8CFB
 
-; EBATTLE3: `MSG_BTL_YUDAN_2` enemy-action text.
-EF8CFB_EBattle3MsgBtlYudan2:
+; EBATTLE3: row 315 row +4 `MSG_BTL_YUDAN_2` flavor presentation text.
+EF8CFB_EBattle3Yudan2FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8D17
 
-; EBATTLE3: `MSG_BTL_YUDAN_3` enemy-action text.
-EF8D17_EBattle3MsgBtlYudan3:
+; EBATTLE3: row 316 row +4 `MSG_BTL_YUDAN_3` flavor presentation text.
+EF8D17_EBattle3Yudan3FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8D2F
 
-; EBATTLE3: `MSG_BTL_YUDAN_4` enemy-action text.
-EF8D2F_EBattle3MsgBtlYudan4:
+; EBATTLE3: row 317 row +4 `MSG_BTL_YUDAN_4` flavor presentation text.
+EF8D2F_EBattle3Yudan4FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8D4C
 
-; EBATTLE3: `MSG_BTL_YUDAN_LIFEUP` enemy-action text, not the unproved
-; row +4 Lifeup presentation for action rows 32..35.
-EF8D4C_EBattle3MsgBtlYudanLifeup:
+; EBATTLE3: row 313 row +4 enemy Lifeup flavor presentation text, not
+; the PSI Lifeup presentation for action rows 32..35.
+EF8D4C_EBattle3EnemyLifeupFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8D72
@@ -2782,8 +2782,8 @@ EF8F4A_EBattle3MsgBtlLightningC:
 ; ---------------------------------------------------------------------------
 ; EF:8F91
 
-; EBATTLE3: `MSG_BTL_GYIYYIG_3` enemy-action text.
-EF8F91_EBattle3MsgBtlGyiyyig3:
+; EBATTLE3: row 309 row +4 `MSG_BTL_GYIYYIG_3` flavor presentation text.
+EF8F91_EBattle3Gyiyyig3FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8FAD

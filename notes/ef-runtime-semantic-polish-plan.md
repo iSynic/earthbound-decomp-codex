@@ -337,6 +337,11 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:7B85/7BA2/7BC1` branch anchors so the lane noun leads the label, and
   documented that the adjacent `EF:7B83/7BA0/7BBF` anchors are branch-state
   separators rather than parsed `19 1E` consumer sites.
+- 2026-05-06: EF `C2:9039` default/item-use follow-up split the first broad
+  default bucket by row `+4` bank. The EF side now records shared PSI rows
+  `60/61`, EGOODS2 item-use rows `259/270`, and EBATTLE3 flavor rows `309` and
+  `313..317`; C9/C6 rows such as `190..200`, `288/289`, `308`, and `312`
+  remain consumer-contract notes rather than EF anchor-renaming evidence.
 - 2026-05-06: EF status-result label follow-up renamed the proved direct
   `DC1C` status-result anchors across `EF:6AC7..6C55` and shared fallback
   `EF:766E` with `StatusResultText`, keeping them distinct from `DD9F` row
