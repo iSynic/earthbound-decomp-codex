@@ -30,9 +30,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 - manifests with typed output summaries: `38`
 - manifests with smoke fixture links: `23`
 - assets/tables/gaps represented: `2219`
-- output recipes: `6328`
-- typed output recipe kinds: `24`
-- decoder-backed output recipes: `4109`
+- output recipes: `6331`
+- typed output recipe kinds: `27`
+- decoder-backed output recipes: `4112`
 - renderer-backed output recipes: `3266`
 - PNG preview/render recipes: `3266`
 
@@ -48,6 +48,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 
 | Recipe kind | Recipes | Assets | Output type | Decoder | Renderer | Required fields | Report metadata | Example |
 | --- | ---: | ---: | --- | --- | --- | --- | --- | --- |
+| `animation_sequence_pointer_table_json` | 1 | 1 | named animation sequence pointer table JSON | `animation_sequence_pointer_table` | - | `row_count` | `row_count`, `nonnull_pointer_count`, `max_parameter_byte`, `distinct_pointer_banks` | `table.cc.006_data_animation_sequence_pointers_asm` -> `cc/tables/006_data_animation_sequence_pointers_asm_decoded.json` |
 | `battle_bg_config_table_json` | 1 | 1 | battle background layer config table JSON | `battle_background_config_table` | - | `row_count` | `row_count`, `max_graphics_index`, `max_palette_index`, `max_scrolling_movement`, `max_distortion_style` | `table.ca.023_data_battle_backgrounds_config_table_asm` -> `ca/tables/023_data_battle_backgrounds_config_table_asm_decoded.json` |
 | `battle_bg_distortion_table_json` | 1 | 1 | battle background distortion table JSON | `battle_background_distortion_table` | - | `row_count` | `row_count`, `max_duration`, `nonzero_duration_count`, `distinct_distortion_types` | `table.ca.025_data_battle_backgrounds_distortion_table_asm` -> `ca/tables/025_data_battle_backgrounds_distortion_table_asm_decoded.json` |
 | `battle_bg_layer_table_json` | 1 | 1 | battle background entry layer table JSON | `battle_background_layer_table` | - | `row_count` | `row_count`, `max_layer_config_index`, `distinct_layer_refs`, `two_layer_entry_count` | `table.cb.300_data_battle_background_layer_table_asm` -> `cb/tables/300_data_battle_background_layer_table_asm_decoded.json` |
@@ -66,6 +67,8 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `earthbound_lzhal_snes_palette_swatch_png` | 10 | 10 | decompressed palette swatch PNG | `earthbound_lzhal+snes_palette` | `palette_swatch` | `per_row`, `swatch` | `compressed_bytes_consumed`, `decompressed_bytes`, `colors`, `width`, `height` | `asset.e1.compressed_palette_unknown` -> `e1/unknown_palette_palette.png` |
 | `font_metric_widths_json` | 5 | 5 | font metric width table JSON | `font_metric_widths` | - | `font_id`, `entry_count`, `first_character_code` | `font_id`, `entry_count`, `first_character_code`, `max_width`, `distinct_widths`, `sentinel_ff_count` | `asset.e0.mrsaturn_font_data` -> `e0/fonts/mrsaturn_widths.json` |
 | `map_tile_chunk_index_json` | 10 | 10 | decoded map tile chunk index JSON | `map_tile_chunk_index` | - | `chunk_index` | `chunk_index`, `entry_count`, `min_tile_id`, `max_tile_id`, `distinct_tile_ids` | `asset.d6.map_data_tile_table_chunk_1` -> `d6/maps/tiles/chunk_01_tile_index.json` |
+| `psi_anim_config_table_json` | 1 | 1 | PSI animation config table JSON | `psi_animation_config_table` | - | `row_count` | `row_count`, `max_frame_hold_frames`, `max_total_frames`, `distinct_target_modes`, `nonzero_enemy_colour_count` | `table.cc.043_data_psi_anim_cfg_asm` -> `cc/tables/043_data_psi_anim_cfg_asm_decoded.json` |
+| `psi_anim_pointer_table_json` | 1 | 1 | PSI animation arrangement pointer table JSON | `psi_animation_pointer_table` | - | `entry_count` | `entry_count`, `min_pointer`, `max_pointer`, `distinct_pointers`, `distinct_banks` | `table.cc.080_data_psi_anim_pointers_asm` -> `cc/tables/080_data_psi_anim_pointers_asm_decoded.json` |
 | `raw` | 2219 | 2219 | byte-for-byte extract | - | - | - | - | `asset.ca.battle_background_gfx_63` -> `ca/battle_bgs/graphics/63.gfx.lzhal` |
 | `snes_2bpp_tiles_png` | 3 | 3 | tile preview PNG | `snes_2bpp_tiles` | `grayscale_tile_sheet` | `columns` | `width`, `height`, `tiles` | `asset.e0.mother2_romaji_font` -> `e0/fonts/romaji_2bpp_preview.png` |
 | `snes_4bpp_tiles_palette_png` | 1146 | 1146 | palette-applied tile preview PNG | `snes_4bpp_tiles+snes_palette` | `palette_tile_sheet` | `columns`, `colors`, `palette_source` | `colors`, `palette_source_range`, `width`, `height`, `tiles` | `asset.d1.sprite_0000` -> `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
@@ -77,7 +80,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 
 | Family | Banks | Assets | Outputs | Decoder-backed | Renderer-backed | PNG previews | Output mix | Renderer mix |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
-| Battle visual assets | `CA, CB, CC, CD, CE` | 689 | 2253 | 1564 | 886 | 886 | `raw` 689, `earthbound_lzhal` 361, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 234, `earthbound_lzhal_snes_4bpp_tiles_png` 202, `snes_palette_json` 181, +12 more | `palette_tile_sheet` 234, `grayscale_tile_sheet` 202, `palette_swatch` 181, `battle_sprite` 166, `battle_background_arrangement` 103 |
+| Battle visual assets | `CA, CB, CC, CD, CE` | 689 | 2256 | 1567 | 886 | 886 | `raw` 689, `earthbound_lzhal` 361, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 234, `earthbound_lzhal_snes_4bpp_tiles_png` 202, `snes_palette_json` 181, +15 more | `palette_tile_sheet` 234, `grayscale_tile_sheet` 202, `palette_swatch` 181, `battle_sprite` 166, `battle_background_arrangement` 103 |
 | Mixed asset/table banks | `CF, D0` | 7 | 7 | 0 | 0 | 0 | `raw` 7 | - |
 | Overworld sprites | `D1, D2, D3, D4, D5` | 1148 | 3440 | 2292 | 2292 | 2292 | `raw` 1148, `snes_4bpp_tiles_palette_png` 1146, `snes_4bpp_tiles_png` 1146 | `grayscale_tile_sheet` 1146, `palette_tile_sheet` 1146 |
 | Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | 130 | 292 | 162 | 55 | 55 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22, +1 more | `palette_swatch` 33, `grayscale_tile_sheet` 22 |

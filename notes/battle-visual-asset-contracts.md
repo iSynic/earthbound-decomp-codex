@@ -9,7 +9,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 - assets/tables/gaps represented: `689`
 - source bytes represented: `327680`
 - contract families: `17`
-- assets with decoder/preview recipes beyond raw extraction: `678`
+- assets with decoder/preview recipes beyond raw extraction: `681`
 
 ## Reference Counts
 
@@ -26,7 +26,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 | PSI animation arrangements | 34 | 46574 | `CC` 34 | `graphics` 34 | `earthbound_lzhal` 34, `raw` 34 | Compressed PSI animation arrangement payloads selected by PSI animation config/pointer tables. |
 | PSI animation graphics sets | 4 | 3808 | `CC` 4 | `graphics` 4 | `earthbound_lzhal` 4, `raw` 4, `earthbound_lzhal_snes_4bpp_tiles_png` 1 | Compressed graphics sets shared by PSI animation arrangements. |
 | PSI animation palettes | 34 | 272 | `CC` 34 | `graphics` 34 | `raw` 34, `snes_palette_json` 34, `snes_palette_swatch_png` 34 | Small SNES palette payloads used by PSI animation rendering. |
-| PSI animation runtime tables | 3 | 600 | `CC` 3 | `raw-table` 3 | `raw` 3 | Animation sequence, PSI config, and PSI pointer tables joining animation payloads to runtime effects. |
+| PSI animation runtime tables | 3 | 600 | `CC` 3 | `raw-table` 3 | `raw` 3, `animation_sequence_pointer_table_json` 1, `psi_anim_config_table_json` 1, `psi_anim_pointer_table_json` 1 | Animation sequence, PSI config, and PSI pointer tables joining animation payloads to runtime effects. |
 | Battle sprite graphics | 110 | 90862 | `CD` 55, `CE` 55 | `graphics` 110 | `earthbound_lzhal_battle_sprite_png` 166, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 166, `earthbound_lzhal` 110, `earthbound_lzhal_snes_4bpp_tiles_png` 110, `raw` 110 | Compressed battle sprite graphics payloads selected by the CE pointer table and rendered by the C2 battle-sprite path. |
 | Battle sprite palettes | 32 | 1024 | `CE` 32 | `graphics` 32 | `raw` 32, `snes_palette_json` 32, `snes_palette_swatch_png` 32 | SNES palettes consumed by the battle sprite renderer and palette tail. |
 | Battle sprite runtime tables | 1 | 550 | `CE` 1 | `raw-table` 1 | `battle_sprite_pointer_table_json` 1, `raw` 1 | Battle sprite pointer tables that bind sprite ids to compressed graphics payloads. |
@@ -521,9 +521,9 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 | Asset | Range | Bytes | Outputs |
 | --- | --- | ---: | --- |
-| `table.cc.006_data_animation_sequence_pointers_asm` | `CC:2DE1..CC:2E19` | 56 | `raw` |
-| `table.cc.043_data_psi_anim_cfg_asm` | `CC:F04D..CC:F1E5` | 408 | `raw` |
-| `table.cc.080_data_psi_anim_pointers_asm` | `CC:F58F..CC:F617` | 136 | `raw` |
+| `table.cc.006_data_animation_sequence_pointers_asm` | `CC:2DE1..CC:2E19` | 56 | `raw`, `animation_sequence_pointer_table_json` |
+| `table.cc.043_data_psi_anim_cfg_asm` | `CC:F04D..CC:F1E5` | 408 | `raw`, `psi_anim_config_table_json` |
+| `table.cc.080_data_psi_anim_pointers_asm` | `CC:F58F..CC:F617` | 136 | `raw`, `psi_anim_pointer_table_json` |
 
 ### Battle sprite graphics
 

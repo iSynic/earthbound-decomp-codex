@@ -434,6 +434,242 @@ def read_s16_le(data: bytes, offset: int) -> int:
     return value - 0x10000 if value & 0x8000 else value
 
 
+PSI_ANIM_TARGET_MODES = {
+    0: "current_enemy_centered",
+    1: "same_enemy_row",
+    2: "all_enemies_fixed_y",
+    3: "current_enemy_centered_alt",
+}
+
+ANIMATION_SEQUENCE_LABELS = [
+    "NULL",
+    "ANIMATIONDATA_CARPAINTER_LIGHTNING_REFLECT",
+    "ANIMATIONDATA_CARPAINTER_LIGHTNING_STRIKE",
+    "ANIMATIONDATA_STARMAN_JR_TELEPORT",
+    "ANIMATIONDATA_BOOM",
+    "ANIMATIONDATA_ZOMBIES",
+    "ANIMATIONDATA_THE_END",
+]
+
+
+def bgr555_components(raw: int) -> dict[str, int]:
+    return {
+        "raw": raw,
+        "red": raw & 0x1F,
+        "green": (raw >> 5) & 0x1F,
+        "blue": (raw >> 10) & 0x1F,
+    }
+
+
+def read_long_pointer_row(data: bytes, offset: int, table_name: str) -> dict[str, Any]:
+    low_word = read_u16_le(data, offset)
+    bank = data[offset + 2]
+    padding = data[offset + 3]
+    if padding != 0:
+        raise ValueError(
+            f"{table_name} expected zero in fourth byte for row {offset // 4}, got 0x{padding:02X}"
+        )
+    if low_word == 0 and bank == 0:
+        return {
+            "address": None,
+            "bank": None,
+            "offset_in_bank": None,
+            "packed_pointer": 0,
+            "raw_bytes": list(data[offset : offset + 4]),
+        }
+    return {
+        "address": f"{bank:02X}:{low_word:04X}",
+        "bank": bank,
+        "offset_in_bank": low_word,
+        "packed_pointer": (bank << 16) | low_word,
+        "raw_bytes": list(data[offset : offset + 4]),
+    }
+
+
+def write_psi_anim_config_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    row_size = 12
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"PSI animation config table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"PSI animation config table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    target_modes = set()
+    nonzero_enemy_colour_count = 0
+    for offset in range(0, len(data), row_size):
+        row = data[offset : offset + row_size]
+        target_mode = row[7]
+        target_modes.add(target_mode)
+        enemy_colour = read_u16_le(row, 10)
+        if enemy_colour != 0:
+            nonzero_enemy_colour_count += 1
+        rows.append(
+            {
+                "animation_id": offset // row_size,
+                "gfx_address": f"CC:{read_u16_le(row, 0):04X}",
+                "gfx_offset_in_bank": read_u16_le(row, 0),
+                "frame_hold_frames": row[2],
+                "palette_animation_frames": row[3],
+                "palette_animation_lower_index": row[4],
+                "palette_animation_upper_index": row[5],
+                "total_frames": row[6],
+                "target_mode": target_mode,
+                "target_mode_name": PSI_ANIM_TARGET_MODES.get(target_mode, f"unknown_{target_mode:02X}"),
+                "enemy_colour_change_start_frames_left": row[8],
+                "enemy_colour_change_frames_left": row[9],
+                "enemy_colour_change_bgr555": bgr555_components(enemy_colour),
+                "raw_bytes": list(row),
+            }
+        )
+
+    target_mode_counts = {
+        PSI_ANIM_TARGET_MODES.get(mode, f"unknown_{mode:02X}"): sum(
+            1 for row in rows if int(row["target_mode"]) == mode
+        )
+        for mode in sorted(target_modes)
+    }
+    payload = {
+        "schema": "earthbound-decomp.psi-animation-config-table.v1",
+        "decoder": "psi_animation_config_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "max_frame_hold_frames": max(row["frame_hold_frames"] for row in rows),
+        "max_total_frames": max(row["total_frames"] for row in rows),
+        "distinct_target_modes": len(target_modes),
+        "target_mode_counts": target_mode_counts,
+        "nonzero_enemy_colour_count": nonzero_enemy_colour_count,
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "max_frame_hold_frames": payload["max_frame_hold_frames"],
+        "max_total_frames": payload["max_total_frames"],
+        "distinct_target_modes": payload["distinct_target_modes"],
+        "nonzero_enemy_colour_count": nonzero_enemy_colour_count,
+    }
+
+
+def write_psi_anim_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    entry_count = int(spec["entry_count"])
+    row_size = 4
+    expected_bytes = entry_count * row_size
+    if entry_count <= 0:
+        raise ValueError(f"PSI animation pointer table entry_count must be positive, got {entry_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"PSI animation pointer table expected {expected_bytes} bytes, got {len(data)}")
+
+    entries = []
+    target_banks = set()
+    packed_pointers = []
+    for offset in range(0, len(data), row_size):
+        pointer = read_long_pointer_row(data, offset, "PSI animation pointer table")
+        packed_pointer = int(pointer["packed_pointer"])
+        if pointer["bank"] is not None:
+            target_banks.add(int(pointer["bank"]))
+            packed_pointers.append(packed_pointer)
+        entries.append(
+            {
+                "animation_id": offset // row_size,
+                **pointer,
+            }
+        )
+
+    if not packed_pointers:
+        raise ValueError("PSI animation pointer table must contain at least one non-null pointer")
+    payload = {
+        "schema": "earthbound-decomp.psi-animation-pointer-table.v1",
+        "decoder": "psi_animation_pointer_table",
+        "byte_order": "little",
+        "entry_size_bytes": row_size,
+        "entry_count": entry_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "zero_padding_byte": True,
+        "min_pointer": min(packed_pointers),
+        "max_pointer": max(packed_pointers),
+        "distinct_pointers": len(set(packed_pointers)),
+        "distinct_banks": len(target_banks),
+        "target_banks": [f"{bank:02X}" for bank in sorted(target_banks)],
+        "entries": entries,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "entry_count": entry_count,
+        "min_pointer": payload["min_pointer"],
+        "max_pointer": payload["max_pointer"],
+        "distinct_pointers": payload["distinct_pointers"],
+        "distinct_banks": payload["distinct_banks"],
+    }
+
+
+def write_animation_sequence_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    row_size = 8
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"Animation sequence pointer table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Animation sequence pointer table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    pointer_banks = set()
+    max_parameter_byte = 0
+    nonnull_pointer_count = 0
+    for offset in range(0, len(data), row_size):
+        row_index = offset // row_size
+        pointer = read_long_pointer_row(data, offset, "Animation sequence pointer table")
+        parameters = list(data[offset + 4 : offset + 8])
+        max_parameter_byte = max(max_parameter_byte, max(parameters))
+        if pointer["bank"] is not None:
+            pointer_banks.add(int(pointer["bank"]))
+            nonnull_pointer_count += 1
+        rows.append(
+            {
+                "sequence_index": row_index,
+                "label": ANIMATION_SEQUENCE_LABELS[row_index] if row_index < len(ANIMATION_SEQUENCE_LABELS) else None,
+                **pointer,
+                "parameters": {
+                    "byte_0": parameters[0],
+                    "byte_1": parameters[1],
+                    "byte_2": parameters[2],
+                    "byte_3": parameters[3],
+                },
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.animation-sequence-pointer-table.v1",
+        "decoder": "animation_sequence_pointer_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "zero_padding_byte": True,
+        "nonnull_pointer_count": nonnull_pointer_count,
+        "max_parameter_byte": max_parameter_byte,
+        "distinct_pointer_banks": len(pointer_banks),
+        "target_banks": [f"{bank:02X}" for bank in sorted(pointer_banks)],
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "nonnull_pointer_count": nonnull_pointer_count,
+        "max_parameter_byte": max_parameter_byte,
+        "distinct_pointer_banks": len(pointer_banks),
+    }
+
+
 def write_battle_bg_config_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
     row_count = int(spec["row_count"])
     row_size = 17
@@ -1180,6 +1416,12 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_battle_bg_layer_table_json(data, path, spec))
     elif kind == "battle_sprite_pointer_table_json":
         metadata.update(write_battle_sprite_pointer_table_json(data, path, spec))
+    elif kind == "psi_anim_config_table_json":
+        metadata.update(write_psi_anim_config_table_json(data, path, spec))
+    elif kind == "psi_anim_pointer_table_json":
+        metadata.update(write_psi_anim_pointer_table_json(data, path, spec))
+    elif kind == "animation_sequence_pointer_table_json":
+        metadata.update(write_animation_sequence_pointer_table_json(data, path, spec))
     elif kind == "font_metric_widths_json":
         metadata.update(write_font_metric_widths_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":

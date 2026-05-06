@@ -9,9 +9,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 ## Snapshot
 
 - status: `ok`
-- synthetic cases: `25`
+- synthetic cases: `28`
 - trim-trailing-bytes cases: `1`
-- output kinds covered: `24`
+- output kinds covered: `27`
 - missing output kinds: `0`
 - output root: `build/asset-output-codec-validation`
 
@@ -31,6 +31,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `battle-bg-distortion-table` | `battle_bg_distortion_table_json` | 987 | `row_count` | `distinct_distortion_types`, `max_duration`, `nonzero_duration_count`, `row_count` |
 | `battle-bg-layer-table` | `battle_bg_layer_table_json` | 1600 | `config_row_count`, `row_count` | `distinct_layer_refs`, `max_layer_config_index`, `row_count`, `two_layer_entry_count` |
 | `battle-sprite-pointer-table` | `battle_sprite_pointer_table_json` | 1564 | `entry_count` | `distinct_banks`, `distinct_size_codes`, `entry_count`, `max_height`, `max_width` |
+| `psi-animation-config-table` | `psi_anim_config_table_json` | 2055 | `row_count` | `distinct_target_modes`, `max_frame_hold_frames`, `max_total_frames`, `nonzero_enemy_colour_count`, `row_count` |
+| `psi-animation-pointer-table` | `psi_anim_pointer_table_json` | 948 | `entry_count` | `distinct_banks`, `distinct_pointers`, `entry_count`, `max_pointer`, `min_pointer` |
+| `animation-sequence-pointer-table` | `animation_sequence_pointer_table_json` | 1679 | `row_count` | `distinct_pointer_banks`, `max_parameter_byte`, `nonnull_pointer_count`, `row_count` |
 | `font-metric-widths` | `font_metric_widths_json` | 706 | `entry_count`, `first_character_code`, `font_id` | `distinct_widths`, `entry_count`, `first_character_code`, `font_id`, `max_width`, `sentinel_ff_count` |
 | `snes-2bpp-tiles` | `snes_2bpp_tiles_png` | 90 | `columns` | `height`, `tiles`, `width` |
 | `snes-2bpp-tiles-trimmed` | `snes_2bpp_tiles_png` | 90 | `columns`, `trim_trailing_bytes` | `height`, `tiles`, `trimmed_source_bytes`, `width` |

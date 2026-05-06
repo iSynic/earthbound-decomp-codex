@@ -931,6 +931,39 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
         notes.append(
             "Decoded as the battle-entry background layer table; rows preserve two CA layer config references."
         )
+    if bank.upper() == "CC" and include == "data/animation_sequence_pointers.asm" and size % 8 == 0:
+        outputs.append(
+            {
+                "kind": "animation_sequence_pointer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "row_count": size // 8,
+            }
+        )
+        notes.append(
+            "Decoded as the named animation sequence pointer table; rows preserve the long pointer and four caller parameter bytes."
+        )
+    if bank.upper() == "CC" and include == "data/psi_anim_cfg.asm" and size % 12 == 0:
+        outputs.append(
+            {
+                "kind": "psi_anim_config_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "row_count": size // 12,
+            }
+        )
+        notes.append(
+            "Decoded as 12-byte PSI animation config rows used by SHOW_PSI_ANIMATION for graphics, timing, target mode, and enemy-color state."
+        )
+    if bank.upper() == "CC" and include == "data/psi_anim_pointers.asm" and size % 4 == 0:
+        outputs.append(
+            {
+                "kind": "psi_anim_pointer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "entry_count": size // 4,
+            }
+        )
+        notes.append(
+            "Decoded as the PSI animation arrangement pointer table; one long pointer per PSI animation id."
+        )
     if bank.upper() == "CA":
         battle_bg_pointer_output = battle_bg_pointer_table_output(raw_path, include, size)
         if battle_bg_pointer_output is not None:

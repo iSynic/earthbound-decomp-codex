@@ -13,13 +13,13 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 106,
-    "unique_selected_assets": 41,
-    "unique_selected_manifest_asset_pairs": 41,
-    "recipe_kinds_covered": 24,
+    "fixture_count": 112,
+    "unique_selected_assets": 44,
+    "unique_selected_manifest_asset_pairs": 44,
+    "recipe_kinds_covered": 27,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 28,
+    "family_decoder_pairs_covered": 31,
     "target_bank_output_fixture_policy_banks": 22,
     "bank_output_fixture_banks_covered": 22,
     "target_banks_without_typed_non_raw_outputs": [],
@@ -34,14 +34,14 @@
     },
     "fixture_type_counts": {
       "bank_output": 22,
-      "family_decoder": 28,
+      "family_decoder": 31,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 24,
+      "recipe_kind": 27,
       "recipe_option": 6
     },
     "fixture_family_counts": {
-      "battle_visual_assets": 49,
+      "battle_visual_assets": 55,
       "ef_debug_and_late_tail": 3,
       "map_tilesets_and_runtime_tables": 19,
       "overworld_sprites": 15,
@@ -86,6 +86,7 @@
   },
   "family_output_kind_counts": {
     "battle_visual_assets": {
+      "animation_sequence_pointer_table_json": 1,
       "battle_bg_config_table_json": 1,
       "battle_bg_distortion_table_json": 1,
       "battle_bg_layer_table_json": 1,
@@ -100,6 +101,8 @@
       "earthbound_lzhal_battle_sprite_png": 166,
       "earthbound_lzhal_snes_4bpp_tiles_palette_png": 234,
       "earthbound_lzhal_snes_4bpp_tiles_png": 202,
+      "psi_anim_config_table_json": 1,
+      "psi_anim_pointer_table_json": 1,
       "raw": 689,
       "snes_palette_json": 181,
       "snes_palette_swatch_png": 181
@@ -141,6 +144,29 @@
     }
   },
   "fixtures": [
+    {
+      "id": "fixture.recipe_kind.animation_sequence_pointer_table_json",
+      "type": "recipe_kind",
+      "key": "animation_sequence_pointer_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "battle_visual_assets",
+      "bank": "CC",
+      "manifest_path": "asset-manifests/bank-cc-assets.json",
+      "asset_id": "table.cc.006_data_animation_sequence_pointers_asm",
+      "title": "data/animation_sequence_pointers.asm",
+      "category": "raw-table",
+      "bytes": 56,
+      "target_output": {
+        "kind": "animation_sequence_pointer_table_json",
+        "path": "cc/tables/006_data_animation_sequence_pointers_asm_decoded.json",
+        "decoder": "animation_sequence_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "animation_sequence_pointer_table_json",
+        "raw"
+      ]
+    },
     {
       "id": "fixture.recipe_kind.battle_bg_config_table_json",
       "type": "recipe_kind",
@@ -565,6 +591,52 @@
       },
       "all_output_kinds": [
         "map_tile_chunk_index_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.psi_anim_config_table_json",
+      "type": "recipe_kind",
+      "key": "psi_anim_config_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "battle_visual_assets",
+      "bank": "CC",
+      "manifest_path": "asset-manifests/bank-cc-assets.json",
+      "asset_id": "table.cc.043_data_psi_anim_cfg_asm",
+      "title": "data/psi_anim_cfg.asm",
+      "category": "raw-table",
+      "bytes": 408,
+      "target_output": {
+        "kind": "psi_anim_config_table_json",
+        "path": "cc/tables/043_data_psi_anim_cfg_asm_decoded.json",
+        "decoder": "psi_animation_config_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "psi_anim_config_table_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.psi_anim_pointer_table_json",
+      "type": "recipe_kind",
+      "key": "psi_anim_pointer_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "battle_visual_assets",
+      "bank": "CC",
+      "manifest_path": "asset-manifests/bank-cc-assets.json",
+      "asset_id": "table.cc.080_data_psi_anim_pointers_asm",
+      "title": "data/psi_anim_pointers.asm",
+      "category": "raw-table",
+      "bytes": 136,
+      "target_output": {
+        "kind": "psi_anim_pointer_table_json",
+        "path": "cc/tables/080_data_psi_anim_pointers_asm_decoded.json",
+        "decoder": "psi_animation_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "psi_anim_pointer_table_json",
         "raw"
       ]
     },
@@ -2087,6 +2159,29 @@
       }
     },
     {
+      "id": "fixture.family_decoder.battle_visual_assets_animation_sequence_pointer_table",
+      "type": "family_decoder",
+      "key": "battle_visual_assets.animation_sequence_pointer_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "battle_visual_assets",
+      "bank": "CC",
+      "manifest_path": "asset-manifests/bank-cc-assets.json",
+      "asset_id": "table.cc.006_data_animation_sequence_pointers_asm",
+      "title": "data/animation_sequence_pointers.asm",
+      "category": "raw-table",
+      "bytes": 56,
+      "target_output": {
+        "kind": "animation_sequence_pointer_table_json",
+        "path": "cc/tables/006_data_animation_sequence_pointers_asm_decoded.json",
+        "decoder": "animation_sequence_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "animation_sequence_pointer_table_json",
+        "raw"
+      ]
+    },
+    {
       "id": "fixture.family_decoder.battle_visual_assets_battle_background_config_table",
       "type": "family_decoder",
       "key": "battle_visual_assets.battle_background_config_table",
@@ -2388,6 +2483,52 @@
       "all_output_kinds": [
         "earthbound_lzhal",
         "earthbound_lzhal_battle_bg_arrangement_png",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.family_decoder.battle_visual_assets_psi_animation_config_table",
+      "type": "family_decoder",
+      "key": "battle_visual_assets.psi_animation_config_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "battle_visual_assets",
+      "bank": "CC",
+      "manifest_path": "asset-manifests/bank-cc-assets.json",
+      "asset_id": "table.cc.043_data_psi_anim_cfg_asm",
+      "title": "data/psi_anim_cfg.asm",
+      "category": "raw-table",
+      "bytes": 408,
+      "target_output": {
+        "kind": "psi_anim_config_table_json",
+        "path": "cc/tables/043_data_psi_anim_cfg_asm_decoded.json",
+        "decoder": "psi_animation_config_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "psi_anim_config_table_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.family_decoder.battle_visual_assets_psi_animation_pointer_table",
+      "type": "family_decoder",
+      "key": "battle_visual_assets.psi_animation_pointer_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "battle_visual_assets",
+      "bank": "CC",
+      "manifest_path": "asset-manifests/bank-cc-assets.json",
+      "asset_id": "table.cc.080_data_psi_anim_pointers_asm",
+      "title": "data/psi_anim_pointers.asm",
+      "category": "raw-table",
+      "bytes": 136,
+      "target_output": {
+        "kind": "psi_anim_pointer_table_json",
+        "path": "cc/tables/080_data_psi_anim_pointers_asm_decoded.json",
+        "decoder": "psi_animation_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "psi_anim_pointer_table_json",
         "raw"
       ]
     },
@@ -2771,9 +2912,12 @@
     {
       "manifest_path": "asset-manifests/bank-cc-assets.json",
       "asset_ids": [
-        "asset.cc.psi_anim_gfx_set_3"
+        "asset.cc.psi_anim_gfx_set_3",
+        "table.cc.006_data_animation_sequence_pointers_asm",
+        "table.cc.043_data_psi_anim_cfg_asm",
+        "table.cc.080_data_psi_anim_pointers_asm"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-cc-assets.json --asset-id asset.cc.psi_anim_gfx_set_3 --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-cc-assets.json --asset-id asset.cc.psi_anim_gfx_set_3 --asset-id table.cc.006_data_animation_sequence_pointers_asm --asset-id table.cc.043_data_psi_anim_cfg_asm --asset-id table.cc.080_data_psi_anim_pointers_asm --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/bank-cd-assets.json",

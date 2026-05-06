@@ -40,36 +40,50 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 83,
-    "output_recipe_count": 196,
-    "typed_output_kind_count": 5,
-    "decoder_output_recipe_count": 113,
+    "output_recipe_count": 199,
+    "typed_output_kind_count": 8,
+    "decoder_output_recipe_count": 116,
     "renderer_output_recipe_count": 35,
     "preview_png_recipe_count": 35,
     "output_kind_counts": {
+      "animation_sequence_pointer_table_json": 1,
       "earthbound_lzhal": 44,
       "earthbound_lzhal_snes_4bpp_tiles_png": 1,
+      "psi_anim_config_table_json": 1,
+      "psi_anim_pointer_table_json": 1,
       "raw": 83,
       "snes_palette_json": 34,
       "snes_palette_swatch_png": 34
     },
     "decoder_counts": {
+      "animation_sequence_pointer_table": 1,
       "earthbound_lzhal": 44,
       "earthbound_lzhal+snes_4bpp_tiles": 1,
+      "psi_animation_config_table": 1,
+      "psi_animation_pointer_table": 1,
       "snes_palette": 68
     },
     "renderer_counts": {
       "grayscale_tile_sheet": 1,
       "palette_swatch": 34
     },
-    "smoke_fixture_count": 1,
+    "smoke_fixture_count": 7,
     "smoke_fixture_asset_ids": [
-      "asset.cc.psi_anim_gfx_set_3"
+      "asset.cc.psi_anim_gfx_set_3",
+      "table.cc.006_data_animation_sequence_pointers_asm",
+      "table.cc.043_data_psi_anim_cfg_asm",
+      "table.cc.080_data_psi_anim_pointers_asm"
     ],
     "smoke_fixture_type_counts": {
-      "bank_output": 1
+      "bank_output": 1,
+      "family_decoder": 3,
+      "recipe_kind": 3
     },
     "smoke_fixture_target_kind_counts": {
-      "earthbound_lzhal_snes_4bpp_tiles_png": 1
+      "animation_sequence_pointer_table_json": 2,
+      "earthbound_lzhal_snes_4bpp_tiles_png": 1,
+      "psi_anim_config_table_json": 2,
+      "psi_anim_pointer_table_json": 2
     }
   },
   "assets": [
@@ -2311,11 +2325,17 @@
         {
           "kind": "raw",
           "path": "cc/tables/006_data_animation_sequence_pointers_asm.bin"
+        },
+        {
+          "kind": "animation_sequence_pointer_table_json",
+          "path": "cc/tables/006_data_animation_sequence_pointers_asm_decoded.json",
+          "row_count": 7
         }
       ],
       "notes": [
         "Source include from ebsrc: data/animation_sequence_pointers.asm",
-        "Original file offset: 0x0C2DE1"
+        "Original file offset: 0x0C2DE1",
+        "Decoded as the named animation sequence pointer table; rows preserve the long pointer and four caller parameter bytes."
       ]
     },
     {
@@ -2332,12 +2352,18 @@
         {
           "kind": "raw",
           "path": "cc/tables/043_data_psi_anim_cfg_asm.bin"
+        },
+        {
+          "kind": "psi_anim_config_table_json",
+          "path": "cc/tables/043_data_psi_anim_cfg_asm_decoded.json",
+          "row_count": 34
         }
       ],
       "notes": [
         "Source include from ebsrc: data/psi_anim_cfg.asm",
         "Original file offset: 0x0CF04D",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Decoded as 12-byte PSI animation config rows used by SHOW_PSI_ANIMATION for graphics, timing, target mode, and enemy-color state."
       ]
     },
     {
@@ -2354,12 +2380,18 @@
         {
           "kind": "raw",
           "path": "cc/tables/080_data_psi_anim_pointers_asm.bin"
+        },
+        {
+          "kind": "psi_anim_pointer_table_json",
+          "path": "cc/tables/080_data_psi_anim_pointers_asm_decoded.json",
+          "entry_count": 34
         }
       ],
       "notes": [
         "Source include from ebsrc: data/psi_anim_pointers.asm",
         "Original file offset: 0x0CF58F",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Decoded as the PSI animation arrangement pointer table; one long pointer per PSI animation id."
       ]
     },
     {
