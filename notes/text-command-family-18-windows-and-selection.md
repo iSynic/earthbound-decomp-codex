@@ -69,6 +69,12 @@ slot snapshot helper before activating `slot + 4`; and `0x18 01/03/05/07/08/09/0
 return named callback low words for the open-window, switch-window,
 force-alignment, register-compare, window-selection, and status-display leaves.
 
+Source polish follow-up (2026-05-06): the `0x18 07` comparison body at
+`C1:528D` now names the queued source bytes and callback return inside the leaf
+itself. The source reads `$97BA..$97BD` as the four assembled comparison bytes,
+then compares the result against either the active text-context value, the next
+text argument, or current work memory depending on the caller selector.
+
 ## Best current case map
 
 ### `0x18 00`

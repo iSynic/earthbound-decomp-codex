@@ -9586,9 +9586,30 @@ org $C148AC
 !C19EE6_ClassifyItemCompactCategory = $9EE6
 !C22214_AddToWallet = $C22214
 !C22272_TakeFromWallet = $C22272
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!DeferredSingleByteArgumentLimit = $0001
+!LowByteMask = $00FF
+!ZeroWord = $0000
+!PercentAdjustmentMode = $0000
+!AmountAdjustmentMode = $0001
+!AddToWalletCallback = $48E9
+!TakeFromWalletCallback = $494A
+!RecoverHpPercentCallback = $49B6
+!DepleteHpPercentCallback = $4A03
+!RecoverHpAmountCallback = $4A50
+!DepleteHpAmountCallback = $4A9D
+!RecoverPpPercentCallback = $4AEA
+!DepletePpPercentCallback = $4B37
+!RecoverPpAmountCallback = $4B84
+!DepletePpAmountCallback = $4BD1
+!GiveItemToCharacterCallback = $4C1E
+!TakeItemFromCharacterCallback = $4C86
 CC_1D_02:
 !C148AC_TestCurrentItemCompactCategory = CC_1D_02
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9618,12 +9639,12 @@ C148D9_TestCurrentItemCompactCategory_L48D9:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_1D_08:
 !C148E9_HandleTextCommand1D08 = CC_1D_08
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9632,15 +9653,15 @@ CC_1D_08:
     pla
     txa
     sta $12
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C1490F_TestCurrentItemCompactCategory_L490F
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$48E9
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!AddToWalletCallback
     bra C14948_TestCurrentItemCompactCategory_L4948
 C1490F_TestCurrentItemCompactCategory_L490F:
     sep #$10
@@ -9648,8 +9669,8 @@ C1490F_TestCurrentItemCompactCategory_L490F:
     lda $12
     jsl !C0923E_ShiftCommandArgumentHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     beq C1492B_TestCurrentItemCompactCategory_L492B
     sta $06
@@ -9668,13 +9689,13 @@ C1492E_TestCurrentItemCompactCategory_L492E:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14948_TestCurrentItemCompactCategory_L4948:
     pld
     rts
 CC_1D_09:
 !C1494A_HandleTextCommand1D09 = CC_1D_09
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9683,15 +9704,15 @@ CC_1D_09:
     pla
     txa
     sta $12
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C14970_TestCurrentItemCompactCategory_L4970
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$494A
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!TakeFromWalletCallback
     bra C149B4_TestCurrentItemCompactCategory_L49B4
 C14970_TestCurrentItemCompactCategory_L4970:
     sep #$10
@@ -9699,8 +9720,8 @@ C14970_TestCurrentItemCompactCategory_L4970:
     lda $12
     jsl !C0923E_ShiftCommandArgumentHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     beq C1498C_TestCurrentItemCompactCategory_L498C
     sta $06
@@ -9725,13 +9746,13 @@ C149A6_TestCurrentItemCompactCategory_L49A6:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C149B4_TestCurrentItemCompactCategory_L49B4:
     pld
     rts
 CC_1E_00:
 !C149B6_RecoverHpPercentTextCommand = CC_1E_00
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9739,9 +9760,9 @@ CC_1E_00:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C149CF_TestCurrentItemCompactCategory_L49CF
     bpl C149E5_TestCurrentItemCompactCategory_L49E5
     bra C149D1_TestCurrentItemCompactCategory_L49D1
@@ -9749,16 +9770,16 @@ C149CF_TestCurrentItemCompactCategory_L49CF:
     bmi C149E5_TestCurrentItemCompactCategory_L49E5
 C149D1_TestCurrentItemCompactCategory_L49D1:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$49B6
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!RecoverHpPercentCallback
     bra C14A01_TestCurrentItemCompactCategory_L4A01
 C149E5_TestCurrentItemCompactCategory_L49E5:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C149F1_TestCurrentItemCompactCategory_L49F1
     txa
@@ -9767,16 +9788,16 @@ C149F1_TestCurrentItemCompactCategory_L49F1:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C149F6_TestCurrentItemCompactCategory_L49F6:
-    ldy.w #$0000
+    ldy.w #!PercentAdjustmentMode
     ldx $02
     jsr !C18F64_RecoverHpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14A01_TestCurrentItemCompactCategory_L4A01:
     pld
     rts
 CC_1E_01:
 !C14A03_DepleteHpPercentTextCommand = CC_1E_01
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9784,9 +9805,9 @@ CC_1E_01:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14A1C_TestCurrentItemCompactCategory_L4A1C
     bpl C14A32_TestCurrentItemCompactCategory_L4A32
     bra C14A1E_TestCurrentItemCompactCategory_L4A1E
@@ -9794,16 +9815,16 @@ C14A1C_TestCurrentItemCompactCategory_L4A1C:
     bmi C14A32_TestCurrentItemCompactCategory_L4A32
 C14A1E_TestCurrentItemCompactCategory_L4A1E:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4A03
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!DepleteHpPercentCallback
     bra C14A4E_TestCurrentItemCompactCategory_L4A4E
 C14A32_TestCurrentItemCompactCategory_L4A32:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14A3E_TestCurrentItemCompactCategory_L4A3E
     txa
@@ -9812,16 +9833,16 @@ C14A3E_TestCurrentItemCompactCategory_L4A3E:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14A43_TestCurrentItemCompactCategory_L4A43:
-    ldy.w #$0000
+    ldy.w #!PercentAdjustmentMode
     ldx $02
     jsr !C18F0E_DepleteHpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14A4E_TestCurrentItemCompactCategory_L4A4E:
     pld
     rts
 CC_1E_02:
 !C14A50_RecoverHpAmountTextCommand = CC_1E_02
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9829,9 +9850,9 @@ CC_1E_02:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14A69_TestCurrentItemCompactCategory_L4A69
     bpl C14A7F_TestCurrentItemCompactCategory_L4A7F
     bra C14A6B_TestCurrentItemCompactCategory_L4A6B
@@ -9839,16 +9860,16 @@ C14A69_TestCurrentItemCompactCategory_L4A69:
     bmi C14A7F_TestCurrentItemCompactCategory_L4A7F
 C14A6B_TestCurrentItemCompactCategory_L4A6B:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4A50
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!RecoverHpAmountCallback
     bra C14A9B_TestCurrentItemCompactCategory_L4A9B
 C14A7F_TestCurrentItemCompactCategory_L4A7F:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14A8B_TestCurrentItemCompactCategory_L4A8B
     txa
@@ -9857,16 +9878,16 @@ C14A8B_TestCurrentItemCompactCategory_L4A8B:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14A90_TestCurrentItemCompactCategory_L4A90:
-    ldy.w #$0001
+    ldy.w #!AmountAdjustmentMode
     ldx $02
     jsr !C18F64_RecoverHpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14A9B_TestCurrentItemCompactCategory_L4A9B:
     pld
     rts
 CC_1E_03:
 !C14A9D_DepleteHpAmountTextCommand = CC_1E_03
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9874,9 +9895,9 @@ CC_1E_03:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14AB6_TestCurrentItemCompactCategory_L4AB6
     bpl C14ACC_TestCurrentItemCompactCategory_L4ACC
     bra C14AB8_TestCurrentItemCompactCategory_L4AB8
@@ -9884,16 +9905,16 @@ C14AB6_TestCurrentItemCompactCategory_L4AB6:
     bmi C14ACC_TestCurrentItemCompactCategory_L4ACC
 C14AB8_TestCurrentItemCompactCategory_L4AB8:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4A9D
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!DepleteHpAmountCallback
     bra C14AE8_TestCurrentItemCompactCategory_L4AE8
 C14ACC_TestCurrentItemCompactCategory_L4ACC:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14AD8_TestCurrentItemCompactCategory_L4AD8
     txa
@@ -9902,16 +9923,16 @@ C14AD8_TestCurrentItemCompactCategory_L4AD8:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14ADD_TestCurrentItemCompactCategory_L4ADD:
-    ldy.w #$0001
+    ldy.w #!AmountAdjustmentMode
     ldx $02
     jsr !C18F0E_DepleteHpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14AE8_TestCurrentItemCompactCategory_L4AE8:
     pld
     rts
 CC_1E_04:
 !C14AEA_RecoverPpPercentTextCommand = CC_1E_04
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9919,9 +9940,9 @@ CC_1E_04:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14B03_TestCurrentItemCompactCategory_L4B03
     bpl C14B19_TestCurrentItemCompactCategory_L4B19
     bra C14B05_TestCurrentItemCompactCategory_L4B05
@@ -9929,16 +9950,16 @@ C14B03_TestCurrentItemCompactCategory_L4B03:
     bmi C14B19_TestCurrentItemCompactCategory_L4B19
 C14B05_TestCurrentItemCompactCategory_L4B05:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4AEA
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!RecoverPpPercentCallback
     bra C14B35_TestCurrentItemCompactCategory_L4B35
 C14B19_TestCurrentItemCompactCategory_L4B19:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14B25_TestCurrentItemCompactCategory_L4B25
     txa
@@ -9947,16 +9968,16 @@ C14B25_TestCurrentItemCompactCategory_L4B25:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14B2A_TestCurrentItemCompactCategory_L4B2A:
-    ldy.w #$0000
+    ldy.w #!PercentAdjustmentMode
     ldx $02
     jsr !C19010_RecoverPpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14B35_TestCurrentItemCompactCategory_L4B35:
     pld
     rts
 CC_1E_05:
 !C14B37_DepletePpPercentTextCommand = CC_1E_05
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -9964,9 +9985,9 @@ CC_1E_05:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14B50_TestCurrentItemCompactCategory_L4B50
     bpl C14B66_TestCurrentItemCompactCategory_L4B66
     bra C14B52_TestCurrentItemCompactCategory_L4B52
@@ -9974,16 +9995,16 @@ C14B50_TestCurrentItemCompactCategory_L4B50:
     bmi C14B66_TestCurrentItemCompactCategory_L4B66
 C14B52_TestCurrentItemCompactCategory_L4B52:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4B37
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!DepletePpPercentCallback
     bra C14B82_TestCurrentItemCompactCategory_L4B82
 C14B66_TestCurrentItemCompactCategory_L4B66:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14B72_TestCurrentItemCompactCategory_L4B72
     txa
@@ -9992,16 +10013,16 @@ C14B72_TestCurrentItemCompactCategory_L4B72:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14B77_TestCurrentItemCompactCategory_L4B77:
-    ldy.w #$0000
+    ldy.w #!PercentAdjustmentMode
     ldx $02
     jsr !C18FBA_DepletePpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14B82_TestCurrentItemCompactCategory_L4B82:
     pld
     rts
 CC_1E_06:
 !C14B84_RecoverPpAmountTextCommand = CC_1E_06
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -10009,9 +10030,9 @@ CC_1E_06:
     tcd
     pla
     stx $0E
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14B9D_TestCurrentItemCompactCategory_L4B9D
     bpl C14BB2_TestCurrentItemCompactCategory_L4BB2
     bra C14B9F_TestCurrentItemCompactCategory_L4B9F
@@ -10019,33 +10040,33 @@ C14B9D_TestCurrentItemCompactCategory_L4B9D:
     bmi C14BB2_TestCurrentItemCompactCategory_L4BB2
 C14B9F_TestCurrentItemCompactCategory_L4B9F:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4B84
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!RecoverPpAmountCallback
     bra C14BCF_TestCurrentItemCompactCategory_L4BCF
 C14BB2_TestCurrentItemCompactCategory_L4BB2:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     beq C14BBF_TestCurrentItemCompactCategory_L4BBF
-    and.w #$00FF
+    and.w #!LowByteMask
     bra C14BC4_TestCurrentItemCompactCategory_L4BC4
 C14BBF_TestCurrentItemCompactCategory_L4BBF:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14BC4_TestCurrentItemCompactCategory_L4BC4:
-    ldy.w #$0001
+    ldy.w #!AmountAdjustmentMode
     ldx $0E
     jsr !C19010_RecoverPpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14BCF_TestCurrentItemCompactCategory_L4BCF:
     pld
     rts
 CC_1E_07:
 !C14BD1_DepletePpAmountTextCommand = CC_1E_07
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -10053,9 +10074,9 @@ CC_1E_07:
     tcd
     pla
     stx $02
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14BEA_TestCurrentItemCompactCategory_L4BEA
     bpl C14C00_TestCurrentItemCompactCategory_L4C00
     bra C14BEC_TestCurrentItemCompactCategory_L4BEC
@@ -10063,16 +10084,16 @@ C14BEA_TestCurrentItemCompactCategory_L4BEA:
     bmi C14C00_TestCurrentItemCompactCategory_L4C00
 C14BEC_TestCurrentItemCompactCategory_L4BEC:
     lda $02
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4BD1
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!DepletePpAmountCallback
     bra C14C1C_TestCurrentItemCompactCategory_L4C1C
 C14C00_TestCurrentItemCompactCategory_L4C00:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C14C0C_TestCurrentItemCompactCategory_L4C0C
     txa
@@ -10081,25 +10102,25 @@ C14C0C_TestCurrentItemCompactCategory_L4C0C:
     jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C14C11_TestCurrentItemCompactCategory_L4C11:
-    ldy.w #$0001
+    ldy.w #!AmountAdjustmentMode
     ldx $02
     jsr !C18FBA_DepletePpForCharacterOrActiveParty
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14C1C_TestCurrentItemCompactCategory_L4C1C:
     pld
     rts
 CC_1D_00:
 !C14C1E_GiveItemToCharacterTextCommand = CC_1D_00
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFEA
     tcd
     pla
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14C35_TestCurrentItemCompactCategory_L4C35
     bpl C14C4A_TestCurrentItemCompactCategory_L4C4A
     bra C14C37_TestCurrentItemCompactCategory_L4C37
@@ -10107,18 +10128,18 @@ C14C35_TestCurrentItemCompactCategory_L4C35:
     bmi C14C4A_TestCurrentItemCompactCategory_L4C4A
 C14C37_TestCurrentItemCompactCategory_L4C37:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4C1E
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!GiveItemToCharacterCallback
     bra C14C84_TestCurrentItemCompactCategory_L4C84
 C14C4A_TestCurrentItemCompactCategory_L4C4A:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     sta $14
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14C5B_TestCurrentItemCompactCategory_L4C5B
     stx $12
     bra C14C63_TestCurrentItemCompactCategory_L4C63
@@ -10142,22 +10163,22 @@ C14C6C_TestCurrentItemCompactCategory_L4C6C:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14C84_TestCurrentItemCompactCategory_L4C84:
     pld
     rts
 CC_1D_01:
 !C14C86_TakeItemFromCharacterTextCommand = CC_1D_01
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFEA
     tcd
     pla
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14C9D_TestCurrentItemCompactCategory_L4C9D
     bpl C14CB2_TestCurrentItemCompactCategory_L4CB2
     bra C14C9F_TestCurrentItemCompactCategory_L4C9F
@@ -10165,18 +10186,18 @@ C14C9D_TestCurrentItemCompactCategory_L4C9D:
     bmi C14CB2_TestCurrentItemCompactCategory_L4CB2
 C14C9F_TestCurrentItemCompactCategory_L4C9F:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4C86
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!TakeItemFromCharacterCallback
     bra C14CEC_TestCurrentItemCompactCategory_L4CEC
 C14CB2_TestCurrentItemCompactCategory_L4CB2:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     sta $14
-    cpx.w #$0000
+    cpx.w #!ZeroWord
     beq C14CC3_TestCurrentItemCompactCategory_L4CC3
     stx $12
     bra C14CCB_TestCurrentItemCompactCategory_L4CCB
@@ -10200,7 +10221,7 @@ C14CD4_TestCurrentItemCompactCategory_L4CD4:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14CEC_TestCurrentItemCompactCategory_L4CEC:
     pld
     rts
@@ -10537,6 +10558,8 @@ org $C14EAB
 !StatusEffectValue = $02
 !DeferredCommandByteQueue = $97BA
 !DeferredCommandByte1 = $97BB
+!DeferredCommandByte2 = $97BC
+!DeferredCommandByte3 = $97BD
 !DeferredCommandQueueCount = $97CA
 !ProcessorStatus16BitAIndexCarryClear = $31
 !AccumulatorWidthFlag = $20
@@ -10546,6 +10569,14 @@ org $C14EAB
 !DeferredTwoByteArgumentLimit = $0002
 !GetCharacterStatusByteCallback = $5007
 !InflictStatusCallback = $506F
+!CheckDirectItemUseCompatibilityCallback = $4F6F
+!CharacterHasAilmentCallback = $50E4
+!CompareQueuedValueAgainstTextRegisterCallback = $528D
+!PrintNumberCallback = $53AF
+!DisplayInventoryMenuCallback = $549E
+!PrintMoneyAmountCallback = $5573
+!GiveItemToCharacterBCallback = $5659
+!RemoveInventoryItemBySlotCallback = $56DB
 !ZeroWord = $0000
 !LowByteMask = $00FF
 CC_10:
@@ -10668,7 +10699,7 @@ CC_1F_81:
     pla
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14F86_C14EAB_HandleTextCommand10ParameterizedPause_L4F86
     bpl C14F9B_C14EAB_HandleTextCommand10ParameterizedPause_L4F9B
     bra C14F88_C14EAB_HandleTextCommand10ParameterizedPause_L4F88
@@ -10677,14 +10708,14 @@ C14F86_C14EAB_HandleTextCommand10ParameterizedPause_L4F86:
 C14F88_C14EAB_HandleTextCommand10ParameterizedPause_L4F88:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$4F6F
+    inc !DeferredCommandQueueCount
+    lda.w #!CheckDirectItemUseCompatibilityCallback
     bra C14FD5_C14EAB_HandleTextCommand10ParameterizedPause_L4FD5
 C14F9B_C14EAB_HandleTextCommand10ParameterizedPause_L4F9B:
-    lda $97BA
+    lda !DeferredCommandByteQueue
     and.w #$00FF
     sta $14
     cpx.w #$0000
@@ -10881,7 +10912,7 @@ CC_1D_0D:
     stx $02
     lda.w #$0002
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C150FD_C14EAB_HandleTextCommand10ParameterizedPause_L50FD
     bpl C15113_C14EAB_HandleTextCommand10ParameterizedPause_L5113
     bra C150FF_C14EAB_HandleTextCommand10ParameterizedPause_L50FF
@@ -10890,17 +10921,17 @@ C150FD_C14EAB_HandleTextCommand10ParameterizedPause_L50FD:
 C150FF_C14EAB_HandleTextCommand10ParameterizedPause_L50FF:
     lda $02
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$50E4
+    inc !DeferredCommandQueueCount
+    lda.w #!CharacterHasAilmentCallback
     bra C15169_C14EAB_HandleTextCommand10ParameterizedPause_L5169
 C15113_C14EAB_HandleTextCommand10ParameterizedPause_L5113:
-    lda $97BA
+    lda !DeferredCommandByteQueue
     and.w #$00FF
     sta $16
-    lda $97BB
+    lda !DeferredCommandByte1
     and.w #$00FF
     tax
     ldy.w #$0000
@@ -11099,23 +11130,23 @@ CC_18_07:
     tcd
     pla
     stx $12
-    lda $97CA
+    lda !DeferredCommandQueueCount
     cmp.w #$0004
     bcs C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$528D
+    inc !DeferredCommandQueueCount
+    lda.w #!CompareQueuedValueAgainstTextRegisterCallback
     jmp.w C15382_C14EAB_HandleTextCommand10ParameterizedPause_L5382
 C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     sep #$20
     lda.b #$08
     sep #$10
     tay
-    lda $97BB
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -11123,7 +11154,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     rep #$20
     jsl !C09246_ShiftLeft32ByY
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $0A
     stz $0B
     stz $0C
@@ -11138,7 +11169,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     sep #$20
     lda.b #$10
     tay
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -11154,7 +11185,7 @@ C152B5_C14EAB_HandleTextCommand10ParameterizedPause_L52B5:
     sep #$20
     lda.b #$18
     tay
-    lda $97BD
+    lda !DeferredCommandByte3
     sta $06
     stz $07
     stz $08
@@ -11257,7 +11288,7 @@ CC_1C_0A:
     sta $12
     lda.w #$0003
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C153C9_C14EAB_HandleTextCommand10ParameterizedPause_L53C9
     bpl C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0
     bra C153CB_C14EAB_HandleTextCommand10ParameterizedPause_L53CB
@@ -11266,11 +11297,11 @@ C153C9_C14EAB_HandleTextCommand10ParameterizedPause_L53C9:
 C153CB_C14EAB_HandleTextCommand10ParameterizedPause_L53CB:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$53AF
+    inc !DeferredCommandQueueCount
+    lda.w #!PrintNumberCallback
     jmp.w C15492_C14EAB_HandleTextCommand10ParameterizedPause_L5492
 C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     sep #$10
@@ -11285,7 +11316,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     pha
     ldy.b #$10
     sep #$20
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -11298,7 +11329,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     pha
     ldy.b #$08
     sep #$20
-    lda $97BB
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -11310,7 +11341,7 @@ C153E0_C14EAB_HandleTextCommand10ParameterizedPause_L53E0:
     lda $08
     sta $0C
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
@@ -11385,7 +11416,7 @@ CC_1A_05:
     sty $0E
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C154BA_C14EAB_HandleTextCommand10ParameterizedPause_L54BA
     bpl C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF
     bra C154BC_C14EAB_HandleTextCommand10ParameterizedPause_L54BC
@@ -11394,14 +11425,14 @@ C154BA_C14EAB_HandleTextCommand10ParameterizedPause_L54BA:
 C154BC_C14EAB_HandleTextCommand10ParameterizedPause_L54BC:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$549E
+    inc !DeferredCommandQueueCount
+    lda.w #!DisplayInventoryMenuCallback
     bra C15527_C14EAB_HandleTextCommand10ParameterizedPause_L5527
 C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF:
-    lda $97BA
+    lda !DeferredCommandByteQueue
     and.w #$00FF
     sta $02
     lda $8958
@@ -11501,7 +11532,7 @@ CC_1C_0B:
     sta $12
     lda.w #$0003
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C1558D_C14EAB_HandleTextCommand10ParameterizedPause_L558D
     bpl C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4
     bra C1558F_C14EAB_HandleTextCommand10ParameterizedPause_L558F
@@ -11510,11 +11541,11 @@ C1558D_C14EAB_HandleTextCommand10ParameterizedPause_L558D:
 C1558F_C14EAB_HandleTextCommand10ParameterizedPause_L558F:
     lda $12
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$5573
+    inc !DeferredCommandQueueCount
+    lda.w #!PrintMoneyAmountCallback
     jmp.w C15657_C14EAB_HandleTextCommand10ParameterizedPause_L5657
 C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     sep #$10
@@ -11529,7 +11560,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     pha
     ldy.b #$10
     sep #$20
-    lda $97BC
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
@@ -11542,7 +11573,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     pha
     ldy.b #$08
     sep #$20
-    lda $97BB
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
@@ -11554,7 +11585,7 @@ C155A4_C14EAB_HandleTextCommand10ParameterizedPause_L55A4:
     lda $08
     sta $0C
     sep #$20
-    lda $97BA
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
@@ -11619,7 +11650,7 @@ CC_1D_0E:
     pla
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15670_C14EAB_HandleTextCommand10ParameterizedPause_L5670
     bpl C15685_C14EAB_HandleTextCommand10ParameterizedPause_L5685
     bra C15672_C14EAB_HandleTextCommand10ParameterizedPause_L5672
@@ -11628,14 +11659,14 @@ C15670_C14EAB_HandleTextCommand10ParameterizedPause_L5670:
 C15672_C14EAB_HandleTextCommand10ParameterizedPause_L5672:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$5659
+    inc !DeferredCommandQueueCount
+    lda.w #!GiveItemToCharacterBCallback
     bra C156D9_C14EAB_HandleTextCommand10ParameterizedPause_L56D9
 C15685_C14EAB_HandleTextCommand10ParameterizedPause_L5685:
-    lda $97BA
+    lda !DeferredCommandByteQueue
     and.w #$00FF
     sta $16
     cpx.w #$0000
@@ -11691,7 +11722,7 @@ CC_1D_0F:
     stx $12
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C156F4_C14EAB_HandleTextCommand10ParameterizedPause_L56F4
     bpl C15709_C14EAB_HandleTextCommand10ParameterizedPause_L5709
     bra C156F6_C14EAB_HandleTextCommand10ParameterizedPause_L56F6
@@ -11700,14 +11731,14 @@ C156F4_C14EAB_HandleTextCommand10ParameterizedPause_L56F4:
 C156F6_C14EAB_HandleTextCommand10ParameterizedPause_L56F6:
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
     rep #$20
-    inc $97CA
-    lda.w #$56DB
+    inc !DeferredCommandQueueCount
+    lda.w #!RemoveInventoryItemBySlotCallback
     bra C1575B_C14EAB_HandleTextCommand10ParameterizedPause_L575B
 C15709_C14EAB_HandleTextCommand10ParameterizedPause_L5709:
-    lda $97BA
+    lda !DeferredCommandByteQueue
     and.w #$00FF
     tay
     beq C15715_C14EAB_HandleTextCommand10ParameterizedPause_L5715

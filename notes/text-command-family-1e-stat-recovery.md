@@ -99,6 +99,13 @@ boost leaves read the shared one-byte boost argument from `$97BA` and use named
 field bases for speed `$9A25`, guts `$9A26`, vitality `$9A27`, IQ `$9A28`, and
 luck `$9A29`.
 
+Source polish follow-up (2026-05-06): the early HP/PP block in
+`src/c1/c1_48ac_test_current_item_compact_category.asm` now uses the same
+queued-byte and callback vocabulary as the late stat tail. The eight
+`0x1E 00..07` leaves name their self-return low words and expose `Y = 0` /
+`Y = 1` as percent versus amount adjustment modes before calling the shared
+HP/PP recovery/depletion workers.
+
 ### Early HP / PP recover-deplete block
 
 The eight early leaves form a very clean structured block:

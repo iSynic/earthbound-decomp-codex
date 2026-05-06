@@ -64,6 +64,12 @@ The live local `C1:7B56` case map is:
 
 Several local menu leaves in this family are now decoded source: `0x1A 06 -> C1:4EB5` for the shop-menu path, `0x1A 05 -> C1:549E` for the inventory-menu path, `0x1A 0A -> C1:AC00` for the phone-contact path, and `0x1A 0B -> C1:AAFA` for the teleport-destination path. The decoder now names `0x1A 0B` as `OPEN_TELEPORT_DESTINATION_MENU`. The `C1:7B56` dispatcher source also names the shared selection-loop, result-staging, Escargo, phone-contact, and teleport-destination calls directly. The combined C1 scaffold validates byte-for-byte after these promotions: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+Source polish follow-up (2026-05-06): the `0x1A 05` inventory-menu body now
+names its deferred character-byte queue and callback self-return directly. This
+keeps the menu contract aligned with the surrounding queued text-command
+leaves: one byte is staged before the inventory rows are rendered, and the
+current active menu/window context is restored before returning to the VM.
+
 ## Best current case map
 
 ### `0x1A 00`

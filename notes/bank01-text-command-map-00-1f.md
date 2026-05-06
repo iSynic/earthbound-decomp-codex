@@ -95,6 +95,13 @@ the same naming at the consumer side. The shared queued-byte block
 and the late `1E` stat-recovery leaves now name their staged bytes and target
 character-record fields.
 
+Source polish follow-up (2026-05-06): the lower queued leaves now share that
+consumer-side vocabulary too. The `0x1D 08/09`, `0x1E 00..07`, `0x1D 00/01`,
+`0x1F 81`, `0x1D 0D/0E/0F`, `0x18 07`, `0x1A 05`, and `0x1C 0A/0B` bodies
+name their queued-byte slots and callback self-returns, tightening the contract
+between family dispatchers and the callback leaves without changing emitted
+bytes.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

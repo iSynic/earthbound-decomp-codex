@@ -497,3 +497,11 @@ This planning pass is documentation-only.
   `1E 09..0E` experience/stat-boost leaves. The durable C1 scaffold was
   regenerated from source; byte-equivalence is still pending on the missing ROM
   gate noted above.
+- 2026-05-06 follow-up: the lower queued text-command leaves now use the same
+  source-facing deferred-byte vocabulary. `C1:48AC..4CEE` names the
+  `$97BA/$97CA` queue and callback low words for wallet add/take, early HP/PP
+  recover/deplete, and item give/take wrappers; `C1:4EAB..575D` extends the
+  same queue names through direct item-use compatibility, ailment checks,
+  window-register comparison, print-number/money, inventory display, give-item
+  B, and remove-slot leaves. The C1 scaffold was regenerated from source with
+  the local ROM still absent from the exact byte-equivalence gate.
