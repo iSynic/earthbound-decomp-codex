@@ -220,4 +220,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   anchor naming.
 - 2026-05-06: EF PSI-status row-message follow-up promoted rows `53` and `58`
   into the crosswalk as shared `EF:8543` PSI presentation rows with separate
-  asleep/strange result payloads emitted by their C2 behavior bodies.
+  asleep/strange result payloads emitted by their C2 behavior bodies, and
+  extended the non-EF C9 item lane to later bomb-family rows `310` and `311`.
+  The same follow-up marks explosive rows `64` and `65` as behavior-known but
+  still blocked on exact row `+4` EF pointer recovery.

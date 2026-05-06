@@ -338,6 +338,15 @@ shared `EF:8543` PSI action text while their row `+8` bodies emit asleep and
 strange status-result scripts. This keeps shared PSI presentation text distinct
 from the later `EF:6C55` and `EF:6C3A` direct-result payloads.
 
+The non-EF row-message table also includes the later C9 bomb-family item rows
+`167`, `168`, `310`, and `311`, keeping those item presentation wrappers out
+of EF action-anchor naming while preserving their C2 behavior-body joins.
+
+Rows `64` and `65` are now called out as behavior-known explosive rows whose
+row `+4` EF message pointers are still unrecovered locally. Nearby EF explosive
+text at `EF:9A7E` and `EF:9A9E` remains candidate flavor evidence, not a
+proved action-row join.
+
 ## EGOODS2 Item-Use Follow-up
 
 The `EF:9EF4..A2FA` EGOODS2 include is now split into item-use payload anchors.

@@ -154,6 +154,19 @@ presentation message. Do not collapse those messages into "no effect" result
 text; the row message is consumed through `C1:DD9F` before the behavior body
 returns.
 
+### Behavior-Known Projectile/Explosive Rows
+
+The bomb-common note proves the shared behavior body for several explosive rows,
+but only some of those rows have local row-message pointers in this crosswalk.
+
+| Rows | Known row `+8` behavior | Known text evidence | Missing join |
+| --- | --- | --- | --- |
+| `64`, `65` | `C2:A821` | Bomb note names nearby explosive EF text candidates `EF:9A7E` and `EF:9A9E` | Exact row `+4` EF action message per row |
+
+Modeling rule: do not infer row `64` or `65` message anchors from the C2
+behavior body or from nearby EF text flavor alone. Promote these only after the
+row `+4` pointer is recovered.
+
 ### Remaining Special-Event Rows
 
 Rows `243`, `244`, and `290` are now concrete EF row-message joins because the
@@ -176,6 +189,7 @@ mistaken for missing EF text splits.
 | `139`, `141` | `C9:7B6B` item-use wrapper | `C2:9AC6`, `C2:9AE1` | Item-side healing reuses; not EF row messages |
 | `166` | `C9:7F56` item strike wrapper | `C2:A5EC` | Damage-plus-solidification item action; success/failure results still emit `EF:6BEF` or `EF:766E` |
 | `167`, `168` | `C9:7EB7` item thrown/fired wrapper | `C2:A818`, `C2:A821` | Bomb-family item rows; not EF row messages |
+| `310`, `311` | `C9:7E9E` item fired wrapper | `C2:A818`, `C2:A821` | Bomb-family item rows; not EF row messages |
 | `291..299` | C9 prayer message family, including `C9:F0B8` and `C9:F3EC` | `C2:C572..C2:C6F0` | Final Prayer ladder; row presentation and C8/C9 narrative results stay outside EF action-anchor naming |
 
 Modeling rule: non-EF row messages still travel through the same row `+4`

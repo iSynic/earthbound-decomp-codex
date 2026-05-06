@@ -186,7 +186,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   Final Prayer row-message lanes as non-EF presentation consumers.
 - 2026-05-06: EF PSI-status row-message follow-up added rows `53` and `58` as
   shared `EF:8543` PSI presentation joins whose C2 bodies emit asleep and
-  strange direct-result scripts separately.
+  strange direct-result scripts separately. The same pass extended the non-EF
+  C9 item row-message lane to the later bomb-family rows `310` and `311`, and
+  marked explosive rows `64` and `65` as blocked on exact row `+4` EF pointer
+  recovery.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
