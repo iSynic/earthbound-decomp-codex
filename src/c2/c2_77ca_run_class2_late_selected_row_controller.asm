@@ -27,6 +27,7 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset           = $C08FF7
+C0ABE0_QueueSoundEffectOrPlayApuPort3Cue     = $C0ABE0
 C1DC1C_DisplayBattleTextFromPointer          = $C1DC1C
 C23BCF_BuildBattleAttackerTextContext        = $C23BCF
 C23D05_BuildBattleTargetTextContext          = $C23D05
@@ -536,7 +537,7 @@ C27B51_RunClass2LateSelectedRowController_L7B51:
     cpy.w #TargetBitLimit
     bcc C27B39_RunClass2LateSelectedRowController_L7B39
     lda.w #$0021
-    jsl $C0ABE0
+    jsl C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
     lda.w #$000A
     jsl C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001

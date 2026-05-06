@@ -4070,6 +4070,7 @@ hirom
 org $C277CA
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C23BCF_BuildBattleAttackerTextContext = $C23BCF
 !C23D05_BuildBattleTargetTextContext = $C23D05
@@ -4559,7 +4560,7 @@ C27B51_RunClass2LateSelectedRowController_L7B51:
     cpy.w #!TargetBitLimit
     bcc C27B39_RunClass2LateSelectedRowController_L7B39
     lda.w #$0021
-    jsl $C0ABE0
+    jsl !C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
     lda.w #$000A
     jsl !C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
@@ -6260,6 +6261,7 @@ org $C292EE
 !C228F8_SelectBattleParticipantById = $C228F8
 !C23BCF_BuildBattleAttackerTextContext = $C23BCF
 !C23D05_BuildBattleTargetTextContext = $C23D05
+!C27EAF_RunHitResolutionAndStatusActionCluster = $7EAF
 !C2B930_PrepareSpecialEventBattler = $C2B930
 BTLACT_MASTERBARFDEATH:
 !C292EE_RunMasterBarfPooStarstormSpecialEvent = BTLACT_MASTERBARFDEATH
@@ -6380,7 +6382,7 @@ C293BA_RunMasterBarfPooStarstormSpecialEvent_L93BA:
     jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
-    jsr $7EAF
+    jsr !C27EAF_RunHitResolutionAndStatusActionCluster
 C293EF_RunMasterBarfPooStarstormSpecialEvent_L93EF:
     ldy $12
     iny
@@ -24628,6 +24630,8 @@ org $C2311B
 !C1DE31_OpenBattleItemSelectionLoopFar = $C1DE31
 !C1DE37_RunCharacterSelectionPromptFar = $C1DE37
 !C1DE3D_OpenBattlePsiCategorySelectionStageFar = $C1DE3D
+!C13E7A_RunDebugSetCharacterLevelPrompt = $C13E7A
+!C13EE7_RunDebugGoodsGrantViewer = $C13EE7
 !C20266_LoadDefaultTitleUploadTiles = $C20266
 !C2032B_WriteWindowTitleAndUpload = $C2032B
 !C26A2D_GetRandomBelow = $6A2D
@@ -25515,7 +25519,7 @@ C23877_C2311B_RunBattleStartPresentAndMessageController_L3877:
     lda $0065
     and.w #$0020
     beq C238C0_C2311B_RunBattleStartPresentAndMessageController_L38C0
-    jsl $C13E7A
+    jsl !C13E7A_RunDebugSetCharacterLevelPrompt
     ldy.w #$0000
     sty $22
     bra C238B8_C2311B_RunBattleStartPresentAndMessageController_L38B8
@@ -25548,7 +25552,7 @@ C238C0_C2311B_RunBattleStartPresentAndMessageController_L38C0:
     lda $0065
     and.w #$2000
     beq C238CF_C2311B_RunBattleStartPresentAndMessageController_L38CF
-    jsl $C13EE7
+    jsl !C13EE7_RunDebugGoodsGrantViewer
     jmp.w C23829_C2311B_RunBattleStartPresentAndMessageController_L3829
 C238CF_C2311B_RunBattleStartPresentAndMessageController_L38CF:
     jsl !EF026E_ResumeMusic

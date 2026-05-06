@@ -20,6 +20,8 @@ C1DE2B_OpenMenuSelectionLoopFar                     = $C1DE2B
 C1DE31_OpenBattleItemSelectionLoopFar               = $C1DE31
 C1DE37_RunCharacterSelectionPromptFar               = $C1DE37
 C1DE3D_OpenBattlePsiCategorySelectionStageFar       = $C1DE3D
+C13E7A_RunDebugSetCharacterLevelPrompt              = $C13E7A
+C13EE7_RunDebugGoodsGrantViewer                     = $C13EE7
 C20266_LoadDefaultTitleUploadTiles                  = $C20266
 C2032B_WriteWindowTitleAndUpload                    = $C2032B
 C26A2D_GetRandomBelow                               = $6A2D
@@ -917,7 +919,7 @@ C23877_C2311B_RunBattleStartPresentAndMessageController_L3877:
     lda $0065
     and.w #$0020
     beq C238C0_C2311B_RunBattleStartPresentAndMessageController_L38C0
-    jsl $C13E7A
+    jsl C13E7A_RunDebugSetCharacterLevelPrompt
     ldy.w #$0000
     sty $22
     bra C238B8_C2311B_RunBattleStartPresentAndMessageController_L38B8
@@ -950,7 +952,7 @@ C238C0_C2311B_RunBattleStartPresentAndMessageController_L38C0:
     lda $0065
     and.w #$2000
     beq C238CF_C2311B_RunBattleStartPresentAndMessageController_L38CF
-    jsl $C13EE7
+    jsl C13EE7_RunDebugGoodsGrantViewer
     jmp.w C23829_C2311B_RunBattleStartPresentAndMessageController_L3829
 C238CF_C2311B_RunBattleStartPresentAndMessageController_L38CF:
     jsl EF026E_ResumeMusic

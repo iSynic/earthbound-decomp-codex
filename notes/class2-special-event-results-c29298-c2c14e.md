@@ -79,6 +79,8 @@ The local body also behaves like a staged event result rather than a normal acti
 - scans party registry `$986F` for id `4`
 - calls `C1:DDCC` when that party id is present
 - prints `EF:743B`
+- applies the scripted Starstorm damage through `C2:7EAF` /
+  `RunHitResolutionAndStatusActionCluster`
 - restores the saved `A970/A972` context
 
 The reference action-table alignment is now strong enough to tighten the wording further:

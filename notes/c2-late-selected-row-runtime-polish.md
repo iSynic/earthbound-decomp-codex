@@ -87,7 +87,8 @@ visual-refresh follow-up now names the same presentation helpers: `C2:FAD8`
 stores the color-wave duration in `$B37C`, `C2:FB35` installs per-entry
 enemy-sprite color-wave comparison/delta state, and `C2:F8F9` renders and
 commits the battle sprite rows after the optional descriptor `+0x5A` active-row
-marking route.
+marking route. The same optional visual route now names its `C0:ABE0` cue
+dispatch as `QueueSoundEffectOrPlayApuPort3Cue`.
 
 The descriptor text continuation also now names its cross-module control-flow
 joins: `C2:7550` jumps to `C2:7784` as

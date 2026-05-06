@@ -152,6 +152,9 @@ helpers and C2 title-tile setup it already depended on. Menu entry calls
 `EF:0262` as `SetHalfHpPpMeterSpeed`, menu exits call `EF:026E` as
 `ResumeMusic`, and the Goods branch calls `C2:0266` as
 `LoadDefaultTitleUploadTiles` before entering the battle item-selection loop.
+The same controller now names its debug-only C1 joins for the hidden battle
+menu shortcuts: `C1:3E7A` / `RunDebugSetCharacterLevelPrompt` and `C1:3EE7` /
+`RunDebugGoodsGrantViewer`.
 
 ## Evidence Inputs
 

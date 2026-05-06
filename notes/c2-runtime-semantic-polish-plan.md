@@ -811,6 +811,18 @@ contract notes for C0/C1/C3/C4 consumers.
   `C2:6093` by result-tail contract names instead of raw local addresses. See
   `notes/c2-battle-start-payload-join-runtime-polish.md` and
   `notes/c2-action-dispatch-runtime-polish.md`.
+- 2026-05-06 one hundred and sixth slice: tightened remaining action/result
+  raw edges in the battle-start menu, late selected-row, and special-event
+  lanes. `C2:311B` now names the hidden C1 debug menu joins
+  `RunDebugSetCharacterLevelPrompt` and `RunDebugGoodsGrantViewer`; `C2:77CA`
+  names its late selected-row visual cue through the shared `C0:ABE0`
+  queue-dispatch contract; and `C2:92EE` calls `C2:7EAF` by the
+  `RunHitResolutionAndStatusActionCluster` contract for the scripted
+  Poo/Starstorm damage pass. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/c2-late-selected-row-runtime-polish.md`,
+  `notes/class2-special-event-results-c29298-c2c14e.md`, and
+  `notes/c2-hit-resolution-status-runtime-polish.md`.
 
 ## Validation
 

@@ -124,6 +124,10 @@ also names the shared `C0:925B` resistance-bit shifter at the defending and
 shield/power-shield reduction sites, while the target-switch cue calls
 `C0:ABE0` as the queued sound/effect dispatcher.
 
+Special-event follow-up: `C2:92EE` now calls this cluster by its
+`RunHitResolutionAndStatusActionCluster` contract when the Poo/Starstorm event
+applies the scripted `0x0168` damage pass to each selected enemy row.
+
 ## Evidence Inputs
 
 - `refs/EB-M2-Listing-v1/US/bank02.txt` for helper names such as
