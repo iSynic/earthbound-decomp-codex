@@ -25,7 +25,7 @@
 
 C26A2D_GetRandomBelow                         = $6A2D
 C26BB8_RollActionChanceGate                   = $6BB8
-C27191_ClampBattlerPpTargetDelta              = $7191
+C27191_SetBattlerPpTarget                     = $7191
 C2721D_ReduceBattlerPpTarget                  = $721D
 C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
@@ -109,7 +109,7 @@ C29FBB_RunAsleepStatusWrapperAction_L9FBB:
     adc $0019,X
     tax
     lda $A970
-    jsr C27191_ClampBattlerPpTargetDelta
+    jsr C27191_SetBattlerPpTarget
 C29FDF_RunAsleepStatusWrapperAction_L9FDF:
     pld
     rtl

@@ -30,6 +30,9 @@ message constants without changing runtime bytes.
     working mask.
   - `C2:7126`, `C2:71F0`, `C2:724A`, `C2:7550`, `C2:7C96`,
     `C2:7CFD`, and `C2:7E8A` as HP/status/default-text/reflection helpers.
+    `C2:7126` is now called as `SetBattlerHpTarget`, `C2:71F0` as
+    `ReduceBattlerHpTarget`, and `C2:7550` as
+    `StartSelectedBattlerCollapseAfflictionPath`.
     `C2:7CFD` is called as `CheckSelectedBattlerDefaultTextBlocker`, and
     `C2:7C96` is called as `RollSelectedRowThresholdGate`.
     `C2:724A` is now called by its selected-row slot writer role:

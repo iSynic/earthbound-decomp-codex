@@ -19,6 +19,7 @@ C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
 C26A2D_GetRandomBelow            = $6A2D
 C26AFD_ApplyTwentyFivePercentVariance = $6AFD
+C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 D57B68_BattleActionTable           = $D57B68
 D57B68_BattleActionTableLo         = $7B68
 D57B68_BattleActionTableBank       = $00D5
@@ -1165,7 +1166,7 @@ C2598B_RunBattleStartCandidateControllerFront_L598B:
     lda $0011,X
     bne C259C4_RunBattleStartCandidateControllerFront_L59C4
     lda $A970
-    jsl $C27550
+    jsl C27550_StartSelectedBattlerCollapseAfflictionPath
     lda.w #$0000
     jsl $C2BAC5
     cmp.w #$0000

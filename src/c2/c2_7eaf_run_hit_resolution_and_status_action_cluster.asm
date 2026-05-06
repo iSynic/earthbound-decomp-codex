@@ -26,10 +26,10 @@ C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
 C26BB8_RollActionChanceGate                     = $6BB8
 C26BDB_Success500                               = $6BDB
 C26EF8_MaskSet_FindFirstMatchInRange            = $C26EF8
-C27126_SetBattlerHp                             = $7126
-C271F0_ReduceBattlerHp                          = $71F0
+C27126_SetBattlerHpTarget                       = $7126
+C271F0_ReduceBattlerHpTarget                    = $71F0
 C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
-C27550_KnockOutBattler                          = $C27550
+C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 C27C96_RollSelectedRowThresholdGate             = $7C96
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
 C27E8A_SwapReflectedHitBattleTextContexts       = $7E8A
@@ -183,7 +183,7 @@ C27F48_RunHitResolutionAndStatusActionCluster_L7F48:
 C27F78_RunHitResolutionAndStatusActionCluster_L7F78:
     ldx $04
     tya
-    jsr C271F0_ReduceBattlerHp
+    jsr C271F0_ReduceBattlerHpTarget
 C27F7E_RunHitResolutionAndStatusActionCluster_L7F7E:
     ldy $1A
     lda $000E,Y
@@ -211,7 +211,7 @@ C27FA7_RunHitResolutionAndStatusActionCluster_L7FA7:
     ldx.w #$0001
     ldy $1A
     tya
-    jsr C27126_SetBattlerHp
+    jsr C27126_SetBattlerHpTarget
 C27FB9_RunHitResolutionAndStatusActionCluster_L7FB9:
     lda $AA90
     beq C27FDF_RunHitResolutionAndStatusActionCluster_L7FDF
@@ -226,7 +226,7 @@ C27FB9_RunHitResolutionAndStatusActionCluster_L7FB9:
     ldx.w #$0001
     ldy $1A
     tya
-    jsr C27126_SetBattlerHp
+    jsr C27126_SetBattlerHpTarget
 C27FDF_RunHitResolutionAndStatusActionCluster_L7FDF:
     ldy $1A
     lda $000E,Y
@@ -470,7 +470,7 @@ C281D6_RunHitResolutionAndStatusActionCluster_L81D6:
     lda $0011,X
     bne C281F4_RunHitResolutionAndStatusActionCluster_L81F4
     lda $A972
-    jsl C27550_KnockOutBattler
+    jsl C27550_StartSelectedBattlerCollapseAfflictionPath
 C281F4_RunHitResolutionAndStatusActionCluster_L81F4:
     lda $02
     bne C281FD_RunHitResolutionAndStatusActionCluster_L81FD
@@ -516,7 +516,7 @@ C28235_RunHitResolutionAndStatusActionCluster_L8235:
     lda $0011,X
     bne C2825D_RunHitResolutionAndStatusActionCluster_L825D
     lda $A972
-    jsl C27550_KnockOutBattler
+    jsl C27550_StartSelectedBattlerCollapseAfflictionPath
 C2825D_RunHitResolutionAndStatusActionCluster_L825D:
     jsr C27E8A_SwapReflectedHitBattleTextContexts
 C28260_RunHitResolutionAndStatusActionCluster_L8260:

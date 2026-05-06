@@ -561,6 +561,17 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-lifeup-healing-runtime-polish.md`,
   `notes/c2-stat-consequence-runtime-polish.md`, and
   `notes/c2-item-bomb-runtime-polish.md`.
+- 2026-05-06 seventy-seventh slice: tightened the selected-row HP/PP target
+  mutation vocabulary around `C2:7126/7191/71F0/721D` and the collapse startup
+  join at `C2:7550`. The helper body now exposes `SetBattlerHpTarget`,
+  `SetBattlerPpTarget`, `ReduceBattlerHpTarget`, and
+  `ReduceBattlerPpTarget`; HP-sucker, PP-drain, hit resolution, and the
+  `BCB9..BD13` target-loss sibling now call those names instead of raw setter
+  addresses or clamp-only aliases. Raw `C2:7550` long calls in battle-start and
+  HP-sucker result flow now use `StartSelectedBattlerCollapseAfflictionPath`.
+  See `notes/c2-selected-row-controller-runtime-polish.md`,
+  `notes/c2-pp-loss-and-call-for-help-width-helpers-c2bcb9-c2bd13.md`, and
+  `notes/c2-hit-resolution-status-runtime-polish.md`.
 
 ## Validation
 

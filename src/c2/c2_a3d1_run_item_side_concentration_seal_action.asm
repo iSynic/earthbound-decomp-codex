@@ -29,7 +29,10 @@ C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 
 C26A44_RollRandomAmount                         = $6A44
 C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
+C27126_SetBattlerHpTarget                       = $7126
+C271F0_ReduceBattlerHpTarget                    = $71F0
 C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
+C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 C27C96_RollSelectedRowThresholdGate             = $7C96
 C27CAF_RollSelectedVsActiveRowOffsetGate        = $7CAF
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
@@ -171,7 +174,7 @@ C2A49E_RunItemSideConcentrationSealAction_LA49E:
     ; HP-sucker path transfers a fraction of target HP back to the user.
     tyx
     lda $A972
-    jsr $71F0
+    jsr C271F0_ReduceBattlerHpTarget
     lda.w #EFMSG_HpSuckerDrainedTargetHpAmount
     sta $0E
     lda.w #EF_BattleTextScriptBank
@@ -195,12 +198,12 @@ C2A4C9_RunItemSideConcentrationSealAction_LA4C9:
     adc $0011,X
     tax
     lda $A970
-    jsr $7126
+    jsr C27126_SetBattlerHpTarget
     ldx $A972
     lda $0011,X
     bne C2A505_RunItemSideConcentrationSealAction_LA505
     lda $A972
-    jsl $C27550
+    jsl C27550_StartSelectedBattlerCollapseAfflictionPath
     bra C2A505_RunItemSideConcentrationSealAction_LA505
 C2A4F7_RunItemSideConcentrationSealAction_LA4F7:
     lda.w #EFMSG_StatusNoEffect

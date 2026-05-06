@@ -21,10 +21,10 @@ Related evidence notes:
 ## Target Loss Siblings
 
 `C2:BCB9` subtracts X from battler row `+0x19` (`pp_target`), floors at zero,
-and commits through `SET_PP` at `C2:7191`.
+and commits through `C2:7191` / `SetBattlerPpTarget`.
 
 The adjacent body has the same shape for row `+0x13` (`hp_target`) and commits
-through `SET_HP` at `C2:7126`.
+through `C2:7126` / `SetBattlerHpTarget`.
 
 ## Width Budget
 

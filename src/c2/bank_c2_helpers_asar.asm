@@ -3173,6 +3173,7 @@ C2711F_MaskSet_PruneFlaggedCandidates_L711F:
     rts
 SET_HP:
 !C27126_MaskSet_PruneFlaggedCandidates_L7126 = SET_HP
+!C27126_SetBattlerHpTarget = SET_HP
     rep #$31
     phd
     pha
@@ -3233,6 +3234,7 @@ C2718F_MaskSet_PruneFlaggedCandidates_L718F:
     rts
 SET_PP:
 !C27191_MaskSet_PruneFlaggedCandidates_L7191 = SET_PP
+!C27191_SetBattlerPpTarget = SET_PP
     rep #$31
     phd
     pha
@@ -3285,6 +3287,7 @@ C271E6_MaskSet_PruneFlaggedCandidates_L71E6:
 C271EE_MaskSet_PruneFlaggedCandidates_L71EE:
     pld
     rts
+C271F0_ReduceBattlerHpTarget:
     rep #$31
     phd
     pha
@@ -3313,6 +3316,7 @@ C27216_MaskSet_PruneFlaggedCandidates_L7216:
     jsr.w SET_HP
     pld
     rts
+C2721D_ReduceBattlerPpTarget:
     rep #$31
     phd
     pha
@@ -3484,7 +3488,7 @@ C27292_ApplyBattlerAfflictionSubgroupValue_L7292:
 hirom
 org $C27294
 
-!C27126_ClampBattlerHpTargetDelta = $7126
+!C27126_SetBattlerHpTarget = $7126
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 RECOVER_HP:
@@ -3518,7 +3522,7 @@ RECOVER_HP:
     sty $16
     tyx
     lda $02
-    jsr !C27126_ClampBattlerHpTargetDelta
+    jsr !C27126_SetBattlerHpTarget
     ldx $02
     ldy $16
     tya
@@ -3562,7 +3566,7 @@ C27316_ApplyBattlerHpRecoveryFeedback_L7316:
 hirom
 org $C27318
 
-!C27191_ClampBattlerPpTargetDelta = $7191
+!C27191_SetBattlerPpTarget = $7191
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 RECOVER_PP:
 !C27318_ApplyBattlerPpRecoveryFeedback = RECOVER_PP
@@ -3615,7 +3619,7 @@ C27363_ApplyBattlerPpRecoveryFeedback_L7363:
     adc $0019,X
     tax
     lda $02
-    jsr !C27191_ClampBattlerPpTargetDelta
+    jsr !C27191_SetBattlerPpTarget
     lda.w #$69D2
     sta $0E
     lda.w #$00EF
@@ -3641,7 +3645,7 @@ C27395_ApplyBattlerPpRecoveryFeedback_L7395:
 hirom
 org $C27397
 
-!C27126_ClampBattlerHpTargetDelta = $7126
+!C27126_SetBattlerHpTarget = $7126
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 REVIVE_TARGET:
@@ -3688,7 +3692,7 @@ REVIVE_TARGET:
     tyx
     rep #$20
     lda $04
-    jsr !C27126_ClampBattlerHpTargetDelta
+    jsr !C27126_SetBattlerHpTarget
     ldx $04
     lda $000E,X
     and.w #$00FF
@@ -8184,7 +8188,7 @@ org $C29F57
 
 !C26A2D_GetRandomBelow = $6A2D
 !C26BB8_RollActionChanceGate = $6BB8
-!C27191_ClampBattlerPpTargetDelta = $7191
+!C27191_SetBattlerPpTarget = $7191
 !C2721D_ReduceBattlerPpTarget = $721D
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
@@ -8260,7 +8264,7 @@ C29FBB_RunAsleepStatusWrapperAction_L9FBB:
     adc $0019,X
     tax
     lda $A970
-    jsr !C27191_ClampBattlerPpTargetDelta
+    jsr !C27191_SetBattlerPpTarget
 C29FDF_RunAsleepStatusWrapperAction_L9FDF:
     pld
     rtl
@@ -19446,7 +19450,10 @@ org $C2A3D1
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C26A44_RollRandomAmount = $6A44
 !C26AFD_ApplyTwentyFivePercentVariance = $6AFD
+!C27126_SetBattlerHpTarget = $7126
+!C271F0_ReduceBattlerHpTarget = $71F0
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
+!C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 !C27C96_RollSelectedRowThresholdGate = $7C96
 !C27CAF_RollSelectedVsActiveRowOffsetGate = $7CAF
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
@@ -19579,7 +19586,7 @@ C2A49E_RunItemSideConcentrationSealAction_LA49E:
     sty $16
     tyx
     lda $A972
-    jsr $71F0
+    jsr !C271F0_ReduceBattlerHpTarget
     lda.w #!EFMSG_HpSuckerDrainedTargetHpAmount
     sta $0E
     lda.w #!EF_BattleTextScriptBank
@@ -19603,12 +19610,12 @@ C2A4C9_RunItemSideConcentrationSealAction_LA4C9:
     adc $0011,X
     tax
     lda $A970
-    jsr $7126
+    jsr !C27126_SetBattlerHpTarget
     ldx $A972
     lda $0011,X
     bne C2A505_RunItemSideConcentrationSealAction_LA505
     lda $A972
-    jsl $C27550
+    jsl !C27550_StartSelectedBattlerCollapseAfflictionPath
     bra C2A505_RunItemSideConcentrationSealAction_LA505
 C2A4F7_RunItemSideConcentrationSealAction_LA4F7:
     lda.w #!EFMSG_StatusNoEffect
@@ -22543,6 +22550,8 @@ C2B92C_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB92C:
 hirom
 org $C2BCB9
 
+!C27126_SetBattlerHpTarget = $7126
+!C27191_SetBattlerPpTarget = $7191
 C2BCB9_ApplyBattlerPpTargetLoss:
     rep #$31
     phd
@@ -22569,7 +22578,7 @@ C2BCDA_C2BCB9_ApplyBattlerPpTargetLoss_LBCDA:
 C2BCDF_C2BCB9_ApplyBattlerPpTargetLoss_LBCDF:
     tax
     tya
-    jsr $7191
+    jsr !C27191_SetBattlerPpTarget
     pld
     rtl
     rep #$31
@@ -22597,7 +22606,7 @@ C2BD07_C2BCB9_ApplyBattlerPpTargetLoss_LBD07:
 C2BD0C_C2BCB9_ApplyBattlerPpTargetLoss_LBD0C:
     tax
     tya
-    jsr $7126
+    jsr !C27126_SetBattlerHpTarget
     pld
     rtl
 
@@ -27760,6 +27769,7 @@ org $C25024
 !C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 !C26A2D_GetRandomBelow = $6A2D
 !C26AFD_ApplyTwentyFivePercentVariance = $6AFD
+!C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 !D57B68_BattleActionTable = $D57B68
 !D57B68_BattleActionTableLo = $7B68
 !D57B68_BattleActionTableBank = $00D5
@@ -28895,7 +28905,7 @@ C2598B_RunBattleStartCandidateControllerFront_L598B:
     lda $0011,X
     bne C259C4_RunBattleStartCandidateControllerFront_L59C4
     lda $A970
-    jsl $C27550
+    jsl !C27550_StartSelectedBattlerCollapseAfflictionPath
     lda.w #$0000
     jsl $C2BAC5
     cmp.w #$0000
@@ -29862,10 +29872,10 @@ org $C27EAF
 !C26BB8_RollActionChanceGate = $6BB8
 !C26BDB_Success500 = $6BDB
 !C26EF8_MaskSet_FindFirstMatchInRange = $C26EF8
-!C27126_SetBattlerHp = $7126
-!C271F0_ReduceBattlerHp = $71F0
+!C27126_SetBattlerHpTarget = $7126
+!C271F0_ReduceBattlerHpTarget = $71F0
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
-!C27550_KnockOutBattler = $C27550
+!C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 !C27C96_RollSelectedRowThresholdGate = $7C96
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C27E8A_SwapReflectedHitBattleTextContexts = $7E8A
@@ -30013,7 +30023,7 @@ C27F48_RunHitResolutionAndStatusActionCluster_L7F48:
 C27F78_RunHitResolutionAndStatusActionCluster_L7F78:
     ldx $04
     tya
-    jsr !C271F0_ReduceBattlerHp
+    jsr !C271F0_ReduceBattlerHpTarget
 C27F7E_RunHitResolutionAndStatusActionCluster_L7F7E:
     ldy $1A
     lda $000E,Y
@@ -30041,7 +30051,7 @@ C27FA7_RunHitResolutionAndStatusActionCluster_L7FA7:
     ldx.w #$0001
     ldy $1A
     tya
-    jsr !C27126_SetBattlerHp
+    jsr !C27126_SetBattlerHpTarget
 C27FB9_RunHitResolutionAndStatusActionCluster_L7FB9:
     lda $AA90
     beq C27FDF_RunHitResolutionAndStatusActionCluster_L7FDF
@@ -30056,7 +30066,7 @@ C27FB9_RunHitResolutionAndStatusActionCluster_L7FB9:
     ldx.w #$0001
     ldy $1A
     tya
-    jsr !C27126_SetBattlerHp
+    jsr !C27126_SetBattlerHpTarget
 C27FDF_RunHitResolutionAndStatusActionCluster_L7FDF:
     ldy $1A
     lda $000E,Y
@@ -30300,7 +30310,7 @@ C281D6_RunHitResolutionAndStatusActionCluster_L81D6:
     lda $0011,X
     bne C281F4_RunHitResolutionAndStatusActionCluster_L81F4
     lda $A972
-    jsl !C27550_KnockOutBattler
+    jsl !C27550_StartSelectedBattlerCollapseAfflictionPath
 C281F4_RunHitResolutionAndStatusActionCluster_L81F4:
     lda $02
     bne C281FD_RunHitResolutionAndStatusActionCluster_L81FD
@@ -30345,7 +30355,7 @@ C28235_RunHitResolutionAndStatusActionCluster_L8235:
     lda $0011,X
     bne C2825D_RunHitResolutionAndStatusActionCluster_L825D
     lda $A972
-    jsl !C27550_KnockOutBattler
+    jsl !C27550_StartSelectedBattlerCollapseAfflictionPath
 C2825D_RunHitResolutionAndStatusActionCluster_L825D:
     jsr !C27E8A_SwapReflectedHitBattleTextContexts
 C28260_RunHitResolutionAndStatusActionCluster_L8260:

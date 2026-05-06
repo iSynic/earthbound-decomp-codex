@@ -40,7 +40,10 @@ HP-sucker and bottle-rocket common paths. HP-sucker is now source-promoted far
 enough to name the `EF:7710` self-drain direct text, the `EF:7729`
 amount-bearing drain text, and the `C1:DC66` substitution-payload call that
 prints the drained HP amount. Its target-max-HP amount roll now calls
-`C2:6A44` / `RollRandomAmount` by name.
+`C2:6A44` / `RollRandomAmount` by name, and its target HP loss, user HP gain,
+and collapse follow-up now call `ReduceBattlerHpTarget`,
+`SetBattlerHpTarget`, and `StartSelectedBattlerCollapseAfflictionPath`
+directly.
 
 The bottle-rocket family is now source-promoted as its own neighboring item
 slice. `C2:A57A` is the shared `BOTTLE_ROCKET_COMMON` helper; `C2:A5D1`,

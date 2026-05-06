@@ -20,7 +20,7 @@ Known robust caller:
 
 - `C2:5B79`, in the main battle command/effect flow
 
-`C2:BCB9` takes a battler pointer in `A` and an amount in `X`. It subtracts that amount from the battler's PP target, floors at zero, and calls the shared PP setter at `C2:7191`.
+`C2:BCB9` takes a battler pointer in `A` and an amount in `X`. It subtracts that amount from the battler's PP target, floors at zero, and calls `C2:7191` / `SetBattlerPpTarget`.
 
 Observed structure:
 
@@ -35,7 +35,7 @@ BPL .nonnegative
 LDA #$0000
 .nonnegative
 LDX $06
-JSL SET_PP       ; C2:7191
+JSL SetBattlerPpTarget ; C2:7191
 RTL
 ```
 
@@ -44,7 +44,7 @@ Relevant battler fields:
 - `$9FC5` = `BATTLERS_TABLE + 0x19`, `pp_target`
 - `$9FBF` = `BATTLERS_TABLE + 0x13`, `hp_target`
 
-This mirrors the adjacent named `LOSE_HP_STATUS` routine, which performs the same clamp/subtract/set operation for `hp_target` and then calls `SET_HP` (`C2:7126`). The nearby local routine at `C2:BCE6` is another HP-target wrapper with the same shape and should be treated as a sibling of the named HP-loss helper.
+This mirrors the adjacent named `LOSE_HP_STATUS` routine, which performs the same clamp/subtract/set operation for `hp_target` and then calls `C2:7126` / `SetBattlerHpTarget`. The nearby local routine at `C2:BCE6` is another HP-target wrapper with the same shape and should be treated as a sibling of the named HP-loss helper.
 
 ## `C2:BD13` - sum active enemy battle sprite widths
 

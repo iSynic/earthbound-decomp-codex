@@ -50,7 +50,8 @@ The body:
 - rejects battler affliction byte `+0x1D == 1`, the collapse or unconscious side
 - adds the requested amount to battler `hp_target` at row `+0x13`
 - clamps against battler `hp_max` at row `+0x15`
-- writes the resulting value back through `C2:7126 / C2:7191`
+- writes the resulting value back through `C2:7126` / `SetBattlerHpTarget`
+  or the PP-side sibling `C2:7191` / `SetBattlerPpTarget`
 - prints either a full-heal style message through `C1:DC1C` or an amount-bearing heal message through `C1:DC66`
 
 That is a strong local fit for an HP recovery family rather than a generic state helper.
