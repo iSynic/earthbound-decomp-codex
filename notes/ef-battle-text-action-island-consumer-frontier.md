@@ -58,11 +58,13 @@ consumer-ready handoff points:
 
 | Action-table row | Row `+4` EF pointer | Current consumer read |
 | ---: | --- | --- |
+| `99` | `EF:7E88` | Full-heal/fuel-supply row message |
 | `100` | `EF:7EAC` | Poison-on-hit physical row message |
+| `101` | `EF:7ED5` | Fired-missile projectile/explosive row message |
 | `102` | `EF:7F02` | Double-bash / attack-continuously row message |
 | `104` | `EF:7F32` | Fire-damage / flaming-fireball row message |
 | `117` | `EF:80C4` | All-target physical wrapper, tornado text |
-| `118` | `EF:80E4` | All-target physical wrapper; EF listing anchor remains `MSG_BTL_WATER` |
+| `118` | `EF:80E4` | All-target physical wrapper, gigantic-blast text |
 
 The EBATTLE1 action tail has at least one strong late-table row-message join:
 

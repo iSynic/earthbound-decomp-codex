@@ -194,6 +194,10 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:7E25..843F` island into exact `MSG_BTL_*` payload anchors from
   `MSG_BTL_PPDOWN` through `MSG_BTL_CHOU_ONPA`. The names are intentionally
   symbol-derived pending a later C2 action-table consumer pass.
+- 2026-05-06: EF EBATTLE2 proved-row naming follow-up promoted rows `99`,
+  `100`, `101`, `102`, `104`, `117`, and `118` to gameplay-facing
+  `RowPresentationText` anchors, leaving the remaining unproved EBATTLE2
+  action-flavor labels as exact `MSG_BTL_*` symbols.
 - 2026-05-05: EF EBATTLE1 battle-command front follow-up split
   `EF:848C..8814` into Bash/attack, Shoot, Guard, Metamorphose, flee, Spy,
   shared PSI action text, and the first PSI animation/effect dispatch branches.

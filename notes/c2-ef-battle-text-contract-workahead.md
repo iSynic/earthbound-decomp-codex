@@ -193,6 +193,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   asleep/PSI-seal/strange anchors now name `BattleStart...StatusAnnouncementText`
   direct `DC1C` emissions, while random-action strange/mushroom anchors name
   `RandomAction...StatusText` before the `DD9F` row-message lane.
+- 2026-05-06: EF EBATTLE2 proved-row naming follow-up promoted rows `99`,
+  `100`, `101`, `102`, `104`, `117`, and `118` from inherited `MSG_BTL_*`
+  labels into `RowPresentationText` anchors while leaving unproved EBATTLE2
+  action-flavor payloads symbol-derived.
 - 2026-05-06: EF EBATTLE4 guard/Fly-Honey/homesick naming follow-up renamed
   `EF:7249..72DB` from inherited `MsgBtl` anchors into guard-on flavor,
   Fly-Honey event, homesick dispatcher, and homesick branch labels. The pass

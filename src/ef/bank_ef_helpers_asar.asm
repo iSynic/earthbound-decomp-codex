@@ -5506,34 +5506,34 @@ db $16,$A6,$A9,$51,$1F,$02,$54,$03,$10,$01,$02
 
 EF7E70_EBattle2MsgBtlSuibun:
 
-; Original data gap before EF7E88_EBattle2MsgBtlEnergy:
+; Original data gap before EF7E88_EBattle2FuelSupplyFullHealRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$AC,$91,$00,$50,$50,$A6,$91,$93
 db $A5,$A5,$9D,$15,$DB,$51,$03,$02
 
-; EBATTLE2: row 99 row +4 full-heal/fuel-supply presentation message.
-EF7E88_EBattle2MsgBtlEnergy:
+; EBATTLE2: row 99 row +4 full-heal/fuel-supply presentation text.
+EF7E88_EBattle2FuelSupplyFullHealRowPresentationText:
 
-; Original data gap before EF7EAC_EBattle2MsgBtlDokuKamituki:
+; Original data gap before EF7EAC_EBattle2PoisonFangsRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$48,$17,$05,$9E,$17,$C8,$15,$57
 db $91,$50,$96,$A5,$95,$9C,$17,$B3,$A0,$A0,$9C,$A9,$51,$1F,$02,$59
 db $03,$10,$01,$02
 
-EF7EAC_EBattle2MsgBtlDokuKamituki:
+EF7EAC_EBattle2PoisonFangsRowPresentationText:
 
-; Original data gap before EF7ED5_EBattle2MsgBtlYoroMissile:
+; Original data gap before EF7ED5_EBattle2FiredMissileRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$40,$9B,$17,$33,$17,$15,$00,$50
 db $50,$A5,$A3,$15,$1B,$99,$17,$DA,$A0,$9F,$99,$A3,$9F,$9E,$17,$26
 db $50,$96,$91,$9E,$97,$A3,$51,$03,$02
 
-; EBATTLE2: row 101 row +4 projectile/explosive presentation message.
-EF7ED5_EBattle2MsgBtlYoroMissile:
+; EBATTLE2: row 101 row +4 fired-missile presentation text.
+EF7ED5_EBattle2FiredMissileRowPresentationText:
 
-; Original data gap before EF7F02_EBattle2MsgBtlMultiAttack:
+; Original data gap before EF7F02_EBattle2AttackContinuouslyRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$96,$99,$17,$45,$00,$50,$15,$BC
 db $9D,$99,$A3,$A3,$99,$9C,$17,$07,$9D,$91,$15,$E9,$99,$A4,$16,$EB
 db $16,$B1,$AA,$AA,$A9,$5E,$1F,$02,$46,$03,$10,$01,$02
 
-EF7F02_EBattle2MsgBtlMultiAttack:
+EF7F02_EBattle2AttackContinuouslyRowPresentationText:
 
 ; Original data gap before EF7F1E_EBattle2MsgBtlMigamae:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$51,$A2,$16,$B6,$91,$00,$50,$17
@@ -5541,11 +5541,11 @@ db $43,$A4,$99,$9E,$A5,$17,$26,$15,$DB,$51,$03,$02
 
 EF7F1E_EBattle2MsgBtlMigamae:
 
-; Original data gap before EF7F32_EBattle2MsgBtlFireball:
+; Original data gap before EF7F32_EBattle2FlamingFireballRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$16,$BC,$97,$A5,$16
 db $73,$5E,$03,$02
 
-EF7F32_EBattle2MsgBtlFireball:
+EF7F32_EBattle2FlamingFireballRowPresentationText:
 
 ; Original data gap before EF7F5A_EBattle2MsgBtlGekitotu:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$95,$A7,$95,$94,$15,$93,$00
@@ -5624,17 +5624,17 @@ db $50,$50,$91,$16,$DF,$A0,$A0,$15,$1B,$92,$91,$97,$51,$03,$02
 
 EF80AC_EBattle2MsgBtlKonbou:
 
-; Original data gap before EF80C4_EBattle2MsgBtlTatumaki:
+; Original data gap before EF80C4_EBattle2TornadoRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$A7,$A5,$9E,$97,$00,$50,$15
 db $BC,$93,$9C,$A5,$92,$51,$03,$02
 
-EF80C4_EBattle2MsgBtlTatumaki:
+EF80C4_EBattle2TornadoRowPresentationText:
 
-; Original data gap before EF80E4_EBattle2MsgBtlWater:
+; Original data gap before EF80E4_EBattle2GiganticBlastRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$95,$17,$E2,$16,$66,$94,$00
 db $50,$50,$91,$15,$90,$A2,$9E,$91,$94,$9F,$51,$1F,$02,$5A,$03,$02
 
-EF80E4_EBattle2MsgBtlWater:
+EF80E4_EBattle2GiganticBlastRowPresentationText:
 
 ; Original data gap before EF8109_EBattle2MsgBtlFutekiSmile:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$A2,$91,$A9,$15,$57,$91,$50

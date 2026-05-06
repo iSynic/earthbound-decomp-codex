@@ -67,13 +67,13 @@ writes.
 
 | Row | Row `+4` EF message | Row `+8` C2 body | Current behavior read |
 | ---: | --- | --- | --- |
-| `99` | `EF:7E88` | `C2:9AD8` | Full-heal reuse over the fixed-amount healing core; fuel-supply presentation text |
-| `100` | `EF:7EAC` `MSG_BTL_DOKU_KAMITUKI` | `C2:8F97` | Poison-on-hit physical action; secondary success text `EF:6B18` |
-| `101` | `EF:7ED5` | `C2:A821` | Projectile/explosive wrapper over bomb-common splash damage; fired-missile presentation text |
-| `102` | `EF:7F02` `MSG_BTL_MULTI_ATTACK` | `C2:8FF9` | Exact double-bash wrapper over `C2:859F` |
-| `104` | `EF:7F32` `MSG_BTL_FIREBALL` | `C2:900B` | One-target fire-damage wrapper |
-| `117` | `EF:80C4` `MSG_BTL_TATUMAKI` | `C2:902C` | All-target physical wrapper over `C2:8651` |
-| `118` | `EF:80E4` `MSG_BTL_WATER` | `C2:902C` | Same all-target physical wrapper reuse |
+| `99` | `EF:7E88` `FuelSupplyFullHealRowPresentationText` | `C2:9AD8` | Full-heal reuse over the fixed-amount healing core; fuel-supply presentation text |
+| `100` | `EF:7EAC` `PoisonFangsRowPresentationText` | `C2:8F97` | Poison-on-hit physical action; secondary success text `EF:6B18` |
+| `101` | `EF:7ED5` `FiredMissileRowPresentationText` | `C2:A821` | Projectile/explosive wrapper over bomb-common splash damage; fired-missile presentation text |
+| `102` | `EF:7F02` `AttackContinuouslyRowPresentationText` | `C2:8FF9` | Exact double-bash wrapper over `C2:859F` |
+| `104` | `EF:7F32` `FlamingFireballRowPresentationText` | `C2:900B` | One-target fire-damage wrapper |
+| `117` | `EF:80C4` `TornadoRowPresentationText` | `C2:902C` | All-target physical wrapper over `C2:8651` |
+| `118` | `EF:80E4` `GiganticBlastRowPresentationText` | `C2:902C` | Same all-target physical wrapper reuse |
 | `140` | `EF:8E27` `MSG_BTL_WARP_NEAR` | `C2:9AD8` | Item-side full-heal reuse over the fixed-amount healing core; named-item presentation wrapper |
 | `228` | `EF:8BE8` `MSG_BTL_KAMITSUKI_DIAMOND` | `C2:916E` | One-target diamondize action; emits `EF:6AC7` or `EF:7655` |
 | `232` | `EF:8C58` `MSG_BTL_BAD_SMELL` | `C2:9254` | Odor/offense-reduction family; reports amount through C8 text via `DC66` |

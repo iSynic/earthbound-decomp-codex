@@ -1886,28 +1886,26 @@ EF7E70_EBattle2MsgBtlSuibun:
 ; ---------------------------------------------------------------------------
 ; EF:7E88
 
-; EBATTLE2: `MSG_BTL_ENERGY` action-flavor text; D5:7B68 row 99 uses this as a
-; row +4 full-heal/fuel-supply presentation message.
-EF7E88_EBattle2MsgBtlEnergy:
+; EBATTLE2: row 99 row +4 full-heal/fuel-supply presentation text.
+EF7E88_EBattle2FuelSupplyFullHealRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7EAC
 
-; EBATTLE2: `MSG_BTL_DOKU_KAMITUKI` action-flavor text.
-EF7EAC_EBattle2MsgBtlDokuKamituki:
+; EBATTLE2: row 100 row +4 poison-fangs presentation text.
+EF7EAC_EBattle2PoisonFangsRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7ED5
 
-; EBATTLE2: `MSG_BTL_YORO_MISSILE` action-flavor text; D5:7B68 row 101 uses
-; this as a row +4 projectile/explosive presentation message.
-EF7ED5_EBattle2MsgBtlYoroMissile:
+; EBATTLE2: row 101 row +4 fired-missile presentation text.
+EF7ED5_EBattle2FiredMissileRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F02
 
-; EBATTLE2: `MSG_BTL_MULTI_ATTACK` action-flavor text.
-EF7F02_EBattle2MsgBtlMultiAttack:
+; EBATTLE2: row 102 row +4 attack-continuously presentation text.
+EF7F02_EBattle2AttackContinuouslyRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F1E
@@ -1918,8 +1916,8 @@ EF7F1E_EBattle2MsgBtlMigamae:
 ; ---------------------------------------------------------------------------
 ; EF:7F32
 
-; EBATTLE2: `MSG_BTL_FIREBALL` action-flavor text.
-EF7F32_EBattle2MsgBtlFireball:
+; EBATTLE2: row 104 row +4 flaming-fireball presentation text.
+EF7F32_EBattle2FlamingFireballRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F5A
@@ -1996,14 +1994,14 @@ EF80AC_EBattle2MsgBtlKonbou:
 ; ---------------------------------------------------------------------------
 ; EF:80C4
 
-; EBATTLE2: `MSG_BTL_TATUMAKI` action-flavor text.
-EF80C4_EBattle2MsgBtlTatumaki:
+; EBATTLE2: row 117 row +4 tornado presentation text.
+EF80C4_EBattle2TornadoRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:80E4
 
-; EBATTLE2: `MSG_BTL_WATER` action-flavor text.
-EF80E4_EBattle2MsgBtlWater:
+; EBATTLE2: row 118 row +4 gigantic-blast presentation text.
+EF80E4_EBattle2GiganticBlastRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8109
