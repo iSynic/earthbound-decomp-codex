@@ -225,3 +225,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   The same follow-up marks explosive rows `64` and `65` as behavior-known but
   still blocked on exact row `+4` EF pointer recovery, and adds PSI-side Lifeup
   rows `32..35` to the pointer-recovery frontier.
+- 2026-05-06: EF row-pointer recovery frontier follow-up added
+  `notes/ef-battle-text-row-pointer-recovery-frontier.md`, pinning the exact
+  local blocker and recovery commands for remaining row `+4` joins before any
+  further EF action-anchor promotion.

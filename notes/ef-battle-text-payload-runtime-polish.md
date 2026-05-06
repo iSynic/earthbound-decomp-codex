@@ -13,6 +13,7 @@ Action-island follow-up:
 
 - `notes/ef-battle-text-action-island-consumer-frontier.md`
 - `notes/ef-battle-text-row-message-crosswalk.md`
+- `notes/ef-battle-text-row-pointer-recovery-frontier.md`
 
 The module is still ROM-preserved text data, not decoded text macro source. The
 new labels are zero-byte scaffold anchors that split the coarse
@@ -351,6 +352,12 @@ The same evidence-boundary section now covers PSI-side Lifeup rows `32..35`.
 Their C2 healing wrappers and HP recovery result lanes are documented, but their
 row `+4` action-presentation pointers still need local recovery before EF can
 claim exact row-message anchors.
+
+The row-pointer recovery frontier now captures the local blocker explicitly:
+the D5 action table source is a preserved data gap, the ROM-backed inspector has
+no ROM in this checkout, and the older `eb-decompile-4ef92` table reference is
+not present here. That keeps the next EF pass focused on recovering row
+pointers rather than renaming from behavior-only evidence.
 
 ## EGOODS2 Item-Use Follow-up
 

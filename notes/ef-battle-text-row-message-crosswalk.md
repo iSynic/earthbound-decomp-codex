@@ -12,6 +12,10 @@ Scope:
 - C2 behavior lane: `D5:7B68` row `+8` behavior pointers consumed through
   the C2 action-payload path
 
+Pointer-recovery follow-up:
+
+- `notes/ef-battle-text-row-pointer-recovery-frontier.md`
+
 This is a consumer crosswalk, not an EB text macro decode. Exact `MSG_BTL_*`
 labels remain stable unless the C2 behavior body proves a narrower result name.
 
@@ -213,7 +217,8 @@ secondary direct-result EF scripts belong in the EF payload map.
 ## Next Evidence To Add
 
 The fastest way to expand this crosswalk is to add or derive local
-action-table row evidence that records, per row:
+action-table row evidence with the recovery process in
+`notes/ef-battle-text-row-pointer-recovery-frontier.md`. Record, per row:
 
 - row id and row `+0..+3` metadata
 - row `+4` EF message pointer

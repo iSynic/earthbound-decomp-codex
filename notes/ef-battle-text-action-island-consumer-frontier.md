@@ -8,6 +8,7 @@ and the C2 action-table consumers that are already source-backed.
 Concrete crosswalk follow-up:
 
 - `notes/ef-battle-text-row-message-crosswalk.md`
+- `notes/ef-battle-text-row-pointer-recovery-frontier.md`
 
 Primary source module:
 
@@ -124,8 +125,9 @@ action island remains symbol-derived.
 ## Best Next Pass
 
 The highest-value next EF/C2 join is recovering local row `+4` pointer evidence
-for the behavior-known numeric-effect and flavor-only rows recorded in
-`notes/ef-battle-text-row-message-crosswalk.md`. For each new row, record:
+for the behavior-known rows recorded in
+`notes/ef-battle-text-row-pointer-recovery-frontier.md`. For each new row,
+record:
 
 - row id and row `+0..+3` metadata
 - row `+4` EF message pointer

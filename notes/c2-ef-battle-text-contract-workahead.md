@@ -191,6 +191,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   marked explosive rows `64` and `65` as blocked on exact row `+4` EF pointer
   recovery. It also records PSI-side Lifeup rows `32..35` as behavior-known
   but not yet row-message-pointer joined.
+- 2026-05-06: EF row-pointer recovery frontier follow-up added
+  `notes/ef-battle-text-row-pointer-recovery-frontier.md`, documenting the
+  current local blocker for new row `+4` joins: D5 source preserves the table
+  as a data gap, the ROM-backed inspector has no local ROM, and the older
+  `eb-decompile-4ef92` table reference is absent from this worktree.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
