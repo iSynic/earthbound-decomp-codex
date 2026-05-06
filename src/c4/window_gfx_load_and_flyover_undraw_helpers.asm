@@ -19,6 +19,7 @@ C08EFC_CommitTileBufferToStaging             = $C08EFC
 C08F15_ClearVramOrRendererBuffer             = $C08F15
 C08FF7_ResolveIndexedPointerOffset           = $C08FF7
 C09032_DivideUnsignedWordByIndex             = $C09032
+C2038B_FlyoverTextCleanupCallee              = $C2038B
 C41A9E_GraphicsDecompressionRoutines_Main    = $C41A9E
 C44963_ResetActiveTextGlyphRun               = $C44963
 C44B3A_MergeGlyphSpanIntoTileBuffer          = $C44B3A
@@ -40,8 +41,10 @@ WindowGfxBaseSourceBank                      = $00E0
 WindowGfxWorkBank                            = $007F
 WindowGfxDecompressBufferBase                = $0000
 WindowGfxCopySourceBlock                     = $2000
+WindowGfxCopyByteCount                       = $1000
 WindowGfxStagedTileBlock                     = $2A00
 WindowGfxTileStateWorkBlock                  = $3200
+WindowGfxTileStateClearSize                  = $0600
 WindowGfxGlyphScratchRowsBase                = $3492
 WindowGfxGlyphBitCursor                      = $9E23
 WindowGfxGlyphRowCursor                      = $9E25
@@ -52,6 +55,7 @@ WindowFlavourRecordTable                     = $E01FB9
 WindowFlavourPaletteBaseLow                  = $1FC8
 WindowFlavourLeadEntityOverridePaletteLow    = $2108
 WindowFlavourPaletteQueueDest                = $0200
+WindowFlavourPaletteQueueBytes               = $0040
 WindowFlavourSuppressLeadOverride            = $B4B6
 LeadPartySlotIndex                           = $98A4
 PartyObjectRecordIndexTable                  = $9891
@@ -60,6 +64,12 @@ TileWordRewritePatternPointer                = $C45A89
 DisplayTransferSelector30                    = $0030
 FlyoverBg2ScreenBaseY                        = $6000
 FlyoverBg2ScreenBaseX                        = $7C00
+WindowGfxAltSourceLow                        = $0754
+WindowGfxAltDecompressByteCount              = $0100
+WindowGfxAltFlavourSelector                  = $0008
+WindowGfxPaletteRefreshWaitFrames            = $0008
+FlyoverGlyphRunIndex                         = $0002
+DisplayTransferSelectorWindowGfx             = $18
 
 ; Rebuilds the active text-window graphics cache: decompresses the base E0
 ; graphics into $7F, stages/copies the 7F tile blocks, rebuilds compact tile
@@ -72,34 +82,34 @@ C47C3F_LoadWindowGfxAndResetWindowTileState = LOAD_WINDOW_GFX
     tdc
     adc.w #$FFD4
     tcd
-    lda.w #$0000
+    lda.w #WindowGfxBaseSourceLow
     sta $0E
-    lda.w #$00E0
+    lda.w #WindowGfxBaseSourceBank
     sta $10
-    lda.w #$0000
+    lda.w #WindowGfxDecompressBufferBase
     sta $12
-    lda.w #$007F
+    lda.w #WindowGfxWorkBank
     sta $14
     jsl C41A9E_GraphicsDecompressionRoutines_Main
-    lda.w #$2000
+    lda.w #WindowGfxCopySourceBlock
     sta $0E
-    lda.w #$007F
+    lda.w #WindowGfxWorkBank
     sta $10
-    lda.w #$1000
+    lda.w #WindowGfxCopyByteCount
     sta $12
-    lda.w #$007F
+    lda.w #WindowGfxWorkBank
     sta $14
-    lda.w #$2A00
+    lda.w #WindowGfxStagedTileBlock
     jsl C08EED_CopyToVramOrRendererBuffer
-    lda.w #$3200
+    lda.w #WindowGfxTileStateWorkBlock
     sta $0E
-    lda.w #$007F
+    lda.w #WindowGfxWorkBank
     sta $10
-    ldx.w #$0600
+    ldx.w #WindowGfxTileStateClearSize
     sep #$20
     lda.b #$00
     jsl C08F15_ClearVramOrRendererBuffer
-    lda $99CD
+    lda WindowFlavourSelection
     and.w #$00FF
     dec A
     sta $04
@@ -108,17 +118,17 @@ C47C3F_LoadWindowGfxAndResetWindowTileState = LOAD_WINDOW_GFX
     tax
     inx
     inx
-    lda $E01FB9,X
+    lda WindowFlavourRecordTable,X
     and.w #$00FF
-    cmp.w #$0008
+    cmp.w #WindowGfxAltFlavourSelector
     bne C47CC2_WindowGfxLoadAndFlyoverUndrawHelpers_L7CC2
-    lda.w #$0754
+    lda.w #WindowGfxAltSourceLow
     sta $0E
-    lda.w #$00E0
+    lda.w #WindowGfxBaseSourceBank
     sta $10
-    lda.w #$0100
+    lda.w #WindowGfxAltDecompressByteCount
     sta $12
-    lda.w #$007F
+    lda.w #WindowGfxWorkBank
     sta $14
     jsl C41A9E_GraphicsDecompressionRoutines_Main
 C47CC2_WindowGfxLoadAndFlyoverUndrawHelpers_L7CC2:
@@ -132,9 +142,9 @@ C47CC2_WindowGfxLoadAndFlyoverUndrawHelpers_L7CC2:
     ldy.w #$0022
     lda [$06],Y
     sta $28
-    lda.w #$2A00
+    lda.w #WindowGfxStagedTileBlock
     sta $24
-    lda.w #$007F
+    lda.w #WindowGfxWorkBank
     sta $26
     lda.w #$0006
     sta $22
@@ -142,17 +152,17 @@ C47CC2_WindowGfxLoadAndFlyoverUndrawHelpers_L7CC2:
     sta $04
     jmp.w C47E27_WindowGfxLoadAndFlyoverUndrawHelpers_L7E27
 C47CF1_WindowGfxLoadAndFlyoverUndrawHelpers_L7CF1:
-    stz $9E25
-    stz $9E23
+    stz WindowGfxGlyphRowCursor
+    stz WindowGfxGlyphBitCursor
     sep #$20
     lda.b #$FF
     sta $0E
     ldx.w #$0340
     rep #$20
-    lda.w #$3492
+    lda.w #WindowGfxGlyphScratchRowsBase
     jsl C08EFC_CommitTileBufferToStaging
-    stz $9654
-    stz $9652
+    stz WindowGfxVariantOffsetHighMirror
+    stz WindowGfxVariantOffsetLowMirror
     lda $04
     ldy.w #$005F
     jsl C08FF7_ResolveIndexedPointerOffset
@@ -166,7 +176,7 @@ C47CF1_WindowGfxLoadAndFlyoverUndrawHelpers_L7CF1:
     stz $0D
     rep #$20
     lda.w #$0002
-    sta $9E23
+    sta WindowGfxGlyphBitCursor
     lda.w #$0000
     sta $02
     bra C47D69_WindowGfxLoadAndFlyoverUndrawHelpers_L7D69
@@ -218,7 +228,7 @@ C47D78_WindowGfxLoadAndFlyoverUndrawHelpers_L7D78:
     adc $02
     tax
     stx $1E
-    lda.w #$3492
+    lda.w #WindowGfxGlyphScratchRowsBase
     sta $06
     phb
     sep #$20
@@ -478,7 +488,7 @@ C47F7E_WindowGfxLoadAndFlyoverUndrawHelpers_L7F7E:
 C47F85_WindowGfxLoadAndFlyoverUndrawHelpers_L7F85:
     pld
     rtl
-; Refreshes the $0200 palette work block for the current window flavour. The
+; Refreshes the palette work block for the current window flavour. The
 ; lead-entity override path uses E0:2108 unless $B4B6 suppresses it; otherwise
 ; $99CD selects a row from the E0:1FB9 flavour table.
 C47F87_RefreshWindowFlavourPaletteBlock:
@@ -487,15 +497,15 @@ C47F87_RefreshWindowFlavourPaletteBlock:
     tdc
     adc.w #$FFEE
     tcd
-    lda $98A4
+    lda LeadPartySlotIndex
     and.w #$00FF
     tax
     dex
-    lda $9891,X
+    lda PartyObjectRecordIndexTable,X
     and.w #$00FF
     asl A
     tax
-    lda $4DC8,X
+    lda ObjectRecordPointerTable,X
     tax
     lda $000E,X
     and.w #$00FF
@@ -505,63 +515,64 @@ C47F87_RefreshWindowFlavourPaletteBlock:
     cpx.w #$0002
     bne C47FCF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FCF
 C47FB4_WindowGfxLoadAndFlyoverUndrawHelpers_L7FB4:
-    lda $B4B6
+    lda WindowFlavourSuppressLeadOverride
     bne C47FCF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FCF
-    lda.w #$2108
+    lda.w #WindowFlavourLeadEntityOverridePaletteLow
     sta $0E
-    lda.w #$00E0
+    lda.w #WindowGfxBaseSourceBank
     sta $10
-    ldx.w #$0040
-    lda.w #$0200
+    ldx.w #WindowFlavourPaletteQueueBytes
+    lda.w #WindowFlavourPaletteQueueDest
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     bra C47FFF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FFF
 C47FCF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FCF:
-    lda.w #$1FC8
+    lda.w #WindowFlavourPaletteBaseLow
     sta $06
-    lda.w #$00E0
+    lda.w #WindowGfxBaseSourceBank
     sta $08
-    lda $99CD
+    lda WindowFlavourSelection
     and.w #$00FF
     dec A
     sta $04
     asl A
     adc $04
     tax
-    lda $E01FB9,X
+    lda WindowFlavourRecordTable,X
     clc
     adc $06
     sta $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0040
-    lda.w #$0200
+    ldx.w #WindowFlavourPaletteQueueBytes
+    lda.w #WindowFlavourPaletteQueueDest
     jsl C08ED2_QueueOrTransferDynamicTileBlock
 C47FFF_WindowGfxLoadAndFlyoverUndrawHelpers_L7FFF:
-    stz $0200
-    lda.w #$0008
+    stz WindowFlavourPaletteQueueDest
+    lda.w #WindowGfxPaletteRefreshWaitFrames
     jsl C0856B_WaitFramesOrTransitionDelay
     pld
     rtl
 ; Restores the flyover text presentation back to the normal world/window
 ; display path: updates the BG2 screen-base queue, lets the C2-owned callee do
 ; its own cleanup, reloads window graphics, resets glyph run 2, refreshes the
-; window-flavour palette block, and marks display selector $0030 with #$18.
+; window-flavour palette block, and marks the display selector for window gfx.
 UNDRAW_FLYOVER_TEXT:
 C4800B_UndrawFlyoverTextAndRestoreWorldDisplay = UNDRAW_FLYOVER_TEXT
     rep #$31
-    ldy.w #$6000
-    ldx.w #$7C00
+    ldy.w #FlyoverBg2ScreenBaseY
+    ldx.w #FlyoverBg2ScreenBaseX
     lda.w #$0000
     jsl C08E1C_UpdateBg2ScreenBaseRegistersFromQueue
-    jsl $C2038B
+    ; C4 only sequences this C2 cleanup before reloading the window gfx cache.
+    jsl C2038B_FlyoverTextCleanupCallee
     jsl LOAD_WINDOW_GFX
-    lda.w #$0002
+    lda.w #FlyoverGlyphRunIndex
     jsl C44963_ResetActiveTextGlyphRun
     jsl C47F87_RefreshWindowFlavourPaletteBlock
     sep #$20
-    lda.b #$18
-    sta $0030
+    lda.b #DisplayTransferSelectorWindowGfx
+    sta DisplayTransferSelector30
     rep #$20
     rtl
 

@@ -114,6 +114,14 @@ presentation-refresh arguments. The C4-side contract is still intentionally
 limited to generating WH0/WH2 streams and staging upload arguments; HDMA register
 installation and renderer queue interpretation remain in their callee helpers.
 
+The adjacent window-gfx source now uses the same local boundary for the cache
+rebuild and flyover-undraw path: E0 source lows/banks, `$7F` work blocks,
+tile-state clear/copy sizes, `$3492/$9E23/$9E25` glyph scratch fields,
+window-flavour palette queue arguments, flyover BG2 screen-base values, glyph
+run reset index, and `$0030 = #$18` selector write are named locally. The raw
+`C2:038B` call is now a named C2 cleanup callee only in the sequencing sense;
+C4 does not claim its internal cleanup contract.
+
 ## Working Names
 
 - `C4:74F6` = `WhWindowSpanRadiusRampTable`

@@ -360,6 +360,13 @@ closure.
   arguments. The source continues to treat HDMA install and renderer queue
   behavior as callee-owned. See
   `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`.
+- 2026-05-06 window-gfx/flyover follow-up: tightened the adjacent window cache
+  rebuild and flyover-undraw helper around E0 source rows, `$7F` work blocks,
+  tile-state clear/copy sizes, glyph scratch fields, window-flavour palette
+  queue arguments, BG2 screen-base restore values, glyph-run reset index, and
+  the `$0030 = #$18` display selector. The C2 flyover cleanup remains a
+  sequenced callee rather than a C4-owned contract. See
+  `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`.
 
 ## Validation
 
