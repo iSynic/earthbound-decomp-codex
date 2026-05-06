@@ -821,8 +821,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `20`
 - struct: `word_pointer`
 - confidence: `exact`
-- note: Word offsets to the 20 MAP_TILE_EVENT chains.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/data/event_control_ptr_table.asm`, `notes/d0-table-splits.md`
+- note: Word offsets to the 20 MAP_TILE_EVENT chains; C0:0703 indexes this table by tileset/event-control id.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/data/event_control_ptr_table.asm`, `notes/d0-table-splits.md`, `notes/d0-tile-event-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -836,12 +836,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `map_tile_event_chain_block`
 - confidence: `exact-variable-chains`
-- note: 20 variable MAP_TILE_EVENT chains, each terminated by a zero event flag word.
-- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `notes/d0-table-splits.md`
+- note: 20 variable MAP_TILE_EVENT chains. Each nonzero condition header is event_flag_condition_word plus replacement_pair_count, followed by target/source replacement-block pairs consumed by C0:062A.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `notes/d0-table-splits.md`, `notes/d0-tile-event-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_event_chains` | 1 | 704 | 20 variable MAP_TILE_EVENT chains |
+| `0x0` | `raw_event_chains` | 1 | 704 | 20 variable MAP_TILE_EVENT chains; see notes/d0-tile-event-contracts.json for decoded event-condition headers and replacement pairs |
 
 ### MAP_ENEMY_PLACEMENT
 

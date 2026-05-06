@@ -45,14 +45,15 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "label": "Mixed asset/table banks",
         "banks": ["CF", "D0"],
         "maturity": "contract-backed-with-known-followups",
-        "proof": "table split manifests, source scaffolds, CF sector-list contracts, and D0 placement/battle variable-list contracts account for bytes and the highest-risk variable-list subrecords",
+        "proof": "table split manifests, source scaffolds, CF sector-list contracts, and D0 tile-event plus placement/battle variable-list contracts account for bytes and the highest-risk variable-list subrecords",
         "docs": [
             "notes/bank-cf-asset-data-map.md",
             "notes/bank-d0-asset-data-map.md",
             "notes/cf-sector-list-contracts.md",
+            "notes/d0-tile-event-contracts.md",
             "notes/d0-variable-list-contracts.md",
         ],
-        "next_contract": "CF/D0 table contracts are now useful for source planning; remaining polish is CF DOOR_DATA/event-music payload decoding and D0 MAP_TILE_EVENT chain decoding.",
+        "next_contract": "CF/D0 table contracts are now useful for source planning; remaining polish is CF DOOR_DATA/event-music payload decoding and generated source-emission polish.",
     },
     {
         "id": "overworld_sprites",

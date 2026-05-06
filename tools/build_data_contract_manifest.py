@@ -304,7 +304,13 @@ SCREEN_TRANSITION_CONFIG_FIELDS = (
 )
 
 RAW_D0_TILE_EVENT_CONTROL_FIELDS = (
-    field("raw_event_chains", 0x00, 1, 0x02C0, "20 variable MAP_TILE_EVENT chains"),
+    field(
+        "raw_event_chains",
+        0x00,
+        1,
+        0x02C0,
+        "20 variable MAP_TILE_EVENT chains; see notes/d0-tile-event-contracts.json for decoded event-condition headers and replacement pairs",
+    ),
 )
 
 MAP_ENEMY_PLACEMENT_FIELDS = (
@@ -1297,10 +1303,11 @@ def extra_contracts() -> list[Contract]:
             count=20,
             struct_name="word_pointer",
             confidence="exact",
-            note="Word offsets to the 20 MAP_TILE_EVENT chains.",
+            note="Word offsets to the 20 MAP_TILE_EVENT chains; C0:0703 indexes this table by tileset/event-control id.",
             evidence=(
                 "refs/ebsrc-main/ebsrc-main/src/data/event_control_ptr_table.asm",
                 "notes/d0-table-splits.md",
+                "notes/d0-tile-event-contracts.md",
             ),
             fields=WORD_POINTER_FIELDS,
         ),
@@ -1312,10 +1319,11 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="map_tile_event_chain_block",
             confidence="exact-variable-chains",
-            note="20 variable MAP_TILE_EVENT chains, each terminated by a zero event flag word.",
+            note="20 variable MAP_TILE_EVENT chains. Each nonzero condition header is event_flag_condition_word plus replacement_pair_count, followed by target/source replacement-block pairs consumed by C0:062A.",
             evidence=(
                 "refs/ebsrc-main/ebsrc-main/include/structs.asm",
                 "notes/d0-table-splits.md",
+                "notes/d0-tile-event-contracts.md",
             ),
             fields=RAW_D0_TILE_EVENT_CONTROL_FIELDS,
         ),

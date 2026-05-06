@@ -106,13 +106,15 @@ High confidence:
 - `ENEMY_BATTLE_GROUPS_TABLE` repeat-count enemy entries are consumer-backed by
   C2 battle setup/sprite/help-selection paths and summarized in
   `notes/d0-variable-list-contracts.md`.
+- `MAP_TILE_EVENT_CONTROL_TABLE` chains now have decoded event-condition
+  headers and replacement pairs in `notes/d0-tile-event-contracts.md`.
 - The audio tail contains US retail `AUDIO_PACK_139`.
 - Only `D0:FFA8..D0:FFFF` remains unclaimed tail slack.
 
 Still intentionally out of scope:
 
-- Row-level semantic expansion is still needed for the variable
-  `MAP_TILE_EVENT_CONTROL_TABLE` chains.
+- Human-facing names for individual tile-event chains, event flags, and
+  replacement pairs remain open.
 - Human-facing names for individual enemy placement groups and battle-group
   pointer slices remain open.
 - Audio-pack internals remain opaque.
@@ -120,7 +122,6 @@ Still intentionally out of scope:
 ## Recommended next move
 
 Treat D0 as structurally complete and byte-protected for the current
-bank-coverage phase. Use D0 and CF as the map-data splitter pattern for D8's
-collision/pointer region. For D0 itself, the next source step is typed emission
-for the placement/battle variable-list rows plus `MAP_TILE_EVENT_CONTROL_TABLE`
-chain decoding rather than boundary archaeology.
+bank-coverage phase. For D0 itself, the next source step is typed emission for
+the tile-event and placement/battle variable-list rows rather than boundary
+archaeology.
