@@ -27,7 +27,7 @@ C26A2D_RollRandomThreshold                    = $6A2D
 C26BB8_BuildCandidateMaskPhase                = $6BB8
 C27191_ClampBattlerPpTargetDelta              = $7191
 C2721D_ReduceBattlerPpTarget                  = $721D
-C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
@@ -149,7 +149,7 @@ C29FFE_RunResistCheckedParalysisStatusAction = BTLACT_PARALYSIS_A
     ldx.w #$0000
     ; Write primary affliction byte `+0x1D = 3`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A03F_RunAsleepStatusWrapperAction_LA03F
     ; Success/failure EF scripts both read the target-name battle text context.

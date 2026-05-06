@@ -38,6 +38,13 @@ as:
 
 This slice extends the Flash-local map into the late action-table status rows.
 
+Source-vocabulary update: the shared writer is now named
+`ApplySelectedRowAfflictionSlotValue` at source call sites, with the older
+`ApplyBattlerAfflictionSubgroupValue` alias retained inside the writer module.
+The late status leaves, hit-resolution status tails, asleep/strange wrappers,
+and item-side solidification leaves now call the selected-row slot ABI directly
+instead of the inherited `INFLICT_STATUS_BATTLE` label.
+
 ## Persistent Subgroup `+0x1E`
 
 | Module | Parameters | Result |

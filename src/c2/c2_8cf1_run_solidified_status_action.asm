@@ -18,7 +18,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27C96_RollSelectedRowThresholdGate           = $7C96
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
@@ -45,7 +45,7 @@ C28CF1_RunSolidifiedStatusAction = BTLACT_SOLIDIFY
     ldx.w #$0002
     ; Write temporary subgroup `+0x1F = 4`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28D2A_RunSolidifiedStatusAction_L8D2A
     ; Success/failure EF scripts both read the target-name battle text context.

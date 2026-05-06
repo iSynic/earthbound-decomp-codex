@@ -27,6 +27,8 @@ message constants without changing runtime bytes.
     working mask.
   - `C2:7126`, `C2:71F0`, `C2:724A`, `C2:7550`, `C2:7C96`,
     `C2:7CFD`, and `C2:7E8A` as HP/status/default-text/reflection helpers.
+    `C2:724A` is now called by its selected-row slot writer role:
+    `ApplySelectedRowAfflictionSlotValue`.
 - EF battle-text scripts for damage, miss/dodge, SMAAAASH, Spy readouts,
   Time Stop return, no-effect fallback, and late primary-status success text.
 - The shield/timed-substate join now uses the EF payload names from the
@@ -73,6 +75,7 @@ The late action labels now match the action bodies and EF evidence:
 
 These bodies all feed `C2:724A` with primary status-group constants and then
 emit the corresponding EF success script or `EF:766E` no-effect fallback.
+The source now calls the named selected-row slot writer directly at each tail.
 
 ## Check Present Byte Slot
 

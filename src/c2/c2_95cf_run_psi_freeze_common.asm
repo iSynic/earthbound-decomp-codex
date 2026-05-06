@@ -25,7 +25,7 @@
 
 C26A2D_RollRandomThreshold                      = $6A2D
 C26AFD_RollDamageAmount                         = $6AFD
-C2724A_ApplyBattlerAfflictionSubgroupValue      = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
 C28125_ApplyTypedDamageToSelectedTarget         = $8125
 C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
@@ -81,7 +81,7 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     ldx.w #$0002
     lda $A972
     ; Apply Freeze's chance-based subgroup status side effect.
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C29642_RunPsiFreezeCommon_L9642
     lda.w #$6BEF

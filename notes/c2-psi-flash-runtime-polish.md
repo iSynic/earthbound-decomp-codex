@@ -29,6 +29,11 @@ Related evidence notes:
 `C2:724A` is the small parameterized writer behind Flash status branches and the
 Freeze side effect.
 
+Source-vocabulary update: the helper is now exposed as
+`ApplySelectedRowAfflictionSlotValue`, with the older
+`ApplyBattlerAfflictionSubgroupValue` alias preserved for compatibility. The
+Flash and Freeze callers now use the selected-row slot-writer name directly.
+
 Runtime contract:
 
 - A = selected-row base

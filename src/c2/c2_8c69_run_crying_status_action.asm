@@ -20,7 +20,7 @@
 ; External contracts used by this module
 
 C26BB8_BuildCandidateMaskPhase                = $6BB8
-C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 EFMSG_CryingInflicted                         = $6BBB
@@ -50,7 +50,7 @@ C28C69_RunCryingStatusAction = BTLACT_CRYING
     tyx
     ; Write temporary subgroup `+0x1F = 2`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28CA8_RunCryingStatusAction_L8CA8
     ; Success/failure EF scripts both read the target-name battle text context.

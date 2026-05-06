@@ -25,7 +25,7 @@
 C26A2D_RollRandomThreshold                    = $6A2D
 C26AFD_RollDamageAmount                       = $6AFD
 C26BB8_BuildCandidateMaskPhase                = $6BB8
-C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27294_ApplyBattlerHpRecoveryFeedback         = $7294
 C27318_ApplyBattlerPpRecoveryFeedback         = $7318
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
@@ -75,7 +75,7 @@ C2A056_RunResistCheckedStrangeStatusAction = BTLACT_BRAINSHOCK_A
     ldx.w #$0003
     ; Write strange subgroup `+0x20 = 1`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A097_RunResistCheckedStrangeStatusAction_LA097
     ; Success/failure EF scripts both read the target-name battle text context.

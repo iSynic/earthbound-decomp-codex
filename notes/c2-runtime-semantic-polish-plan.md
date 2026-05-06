@@ -500,6 +500,18 @@ contract notes for C0/C1/C3/C4 consumers.
   `EF:6C6B` collapse/affliction text edge. See
   `notes/c2-target-selection-runtime-polish.md` and
   `notes/c2-late-selected-row-runtime-polish.md`.
+- 2026-05-06 seventy-first slice: tightened the shared `C2:724A` status writer
+  contract across status/effect leaves. The source now exposes
+  `ApplySelectedRowAfflictionSlotValue` for the selected-row `+0x1D + X` slot
+  write, preserving `ApplyBattlerAfflictionSubgroupValue` only as a
+  compatibility alias. Flash, Freeze, hit-resolution status tails, late status
+  actions, asleep/strange wrappers, poison/diamondize physical actions, and
+  item-side solidification callers now use the selected-row slot-writer name
+  instead of the inherited `INFLICT_STATUS_BATTLE` label. See
+  `notes/class2-affliction-apply-helper-724a.md`,
+  `notes/c2-psi-flash-runtime-polish.md`,
+  `notes/c2-late-status-runtime-polish.md`, and
+  `notes/c2-hit-resolution-status-runtime-polish.md`.
 
 ## Validation
 

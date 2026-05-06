@@ -62,8 +62,9 @@ The action:
 - attempts `C2:724A(target, X=2, Y=4)`
 
 `C2:A630` is the solidification text tail. Success displays `EF:6BEF`; failure
-displays `EF:766E`. The source now names the shared `C2:724A` affliction writer,
-the EF scripts, the EF battle-text bank, and the `C1:DC1C` direct-text dispatch.
+displays `EF:766E`. The source now names the shared `C2:724A`
+`ApplySelectedRowAfflictionSlotValue` writer, the EF scripts, the EF
+battle-text bank, and the `C1:DC1C` direct-text dispatch.
 
 `C2:A82A` is the direct item-side solidification sibling after the bomb wrappers.
 It uses the selected-row threshold gate, applies subgroup `X = 2`, value `4`

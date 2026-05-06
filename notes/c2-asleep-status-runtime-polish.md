@@ -30,7 +30,7 @@ Promoted runtime contract:
 | blocker | `C2:7CFD` |
 | resistance byte | selected row `+0x3C`, locally named `hypnosis_resist` |
 | resistance helper | `C2:6BB8` |
-| status writer | `C2:724A` |
+| status writer | `C2:724A` / `ApplySelectedRowAfflictionSlotValue` |
 | writer args | `Y = 1`, `X = 2` |
 | target field | selected row `+0x1F = 1` |
 | success text | `EF:6C55` |
@@ -38,6 +38,9 @@ Promoted runtime contract:
 
 This gives the temporary subgroup byte `+0x1F` another concrete runtime anchor:
 value `1` is asleep in this apply family and in the matching recovery path.
+
+The source call site now names the selected-row slot writer directly, rather
+than entering through the inherited `INFLICT_STATUS_BATTLE` label.
 
 ## Wrapper Reuse
 

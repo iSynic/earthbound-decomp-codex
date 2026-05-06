@@ -17,7 +17,7 @@
 ; External contracts used by this module
 
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
-C2724A_ApplyBattlerAfflictionSubgroupValue      = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 
 EFMSG_SolidificationInflicted                   = $6BEF
 EFMSG_StatusNoEffect                            = $766E
@@ -27,7 +27,7 @@ EF_BattleTextScriptBank                         = $00EF
 ; C2:A630
 
 C2A630_ApplySolidificationStatusFromItemAction:
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A656_C2A630_ApplySolidificationStatusFromItemAction_LA656
     ; Success: target's body solidified.

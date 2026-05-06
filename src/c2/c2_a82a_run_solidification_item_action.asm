@@ -12,7 +12,7 @@
 ; External contracts used by this module
 
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
-C2724A_ApplyBattlerAfflictionSubgroupValue      = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 C27C96_RollSelectedRowThresholdGate             = $7C96
 
 EFMSG_SolidificationInflicted                   = $6BEF
@@ -38,7 +38,7 @@ C2A82A_RunSolidificationItemAction = BTLACT_SOLIDIFY_2
     ldy.w #SolidificationStatusValue
     ldx.w #TemporaryAfflictionSubgroupIndex
     lda $A972
-    jsr C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A85B_C2A82A_RunSolidificationItemAction_LA85B
     lda.w #EFMSG_SolidificationInflicted

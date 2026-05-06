@@ -27,7 +27,7 @@ C26BDB_Success500                               = $6BDB
 C26EF8_MaskSet_FindFirstMatchInRange            = $C26EF8
 C27126_SetBattlerHp                             = $7126
 C271F0_ReduceBattlerHp                          = $71F0
-C2724A_InflictStatusBattle                      = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 C27550_KnockOutBattler                          = $C27550
 C27C96_SuccessLuck80                            = $7C96
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
@@ -1452,7 +1452,7 @@ C289F4_RunHitResolutionAndStatusActionCluster_L89F4:
     ldy.w #BattleStatusDiamondized
     ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr C2724A_InflictStatusBattle
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     bne C28A08_RunHitResolutionAndStatusActionCluster_L8A08
     jmp.w C28A82_RunHitResolutionAndStatusActionCluster_L8A82
@@ -1537,7 +1537,7 @@ C28A92_RunParalyzeStatusAction = BTLACT_PARALYZE
     ldy.w #BattleStatusParalyzed
     ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr C2724A_InflictStatusBattle
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB
     lda.w #EFMSG_Paralyzed
@@ -1568,7 +1568,7 @@ C28AEB_RunNauseateStatusAction = BTLACT_NAUSEATE
     ldy.w #BattleStatusNauseous
     ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr C2724A_InflictStatusBattle
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28B1C_RunHitResolutionAndStatusActionCluster_L8B1C
     lda.w #EFMSG_Nauseous
@@ -1599,7 +1599,7 @@ C28B2C_RunPoisonStatusAction = BTLACT_POISON
     ldy.w #BattleStatusPoisoned
     ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr C2724A_InflictStatusBattle
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28B5D_RunHitResolutionAndStatusActionCluster_L8B5D
     lda.w #EFMSG_Poisoned
@@ -1636,7 +1636,7 @@ C28B6D_RunColdStatusAction = BTLACT_COLD
     ldy.w #BattleStatusCold
     ldx.w #BattleStatusGroupPrimary
     lda $A972
-    jsr C2724A_InflictStatusBattle
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28BAE_RunHitResolutionAndStatusActionCluster_L8BAE
     lda.w #EFMSG_CaughtCold

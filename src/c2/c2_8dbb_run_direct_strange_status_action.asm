@@ -20,7 +20,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C2724A_ApplyBattlerAfflictionSubgroupValue    = $724A
+C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 C29F06_RunResistCheckedAsleepStatusAction     = $C29F06
@@ -45,7 +45,7 @@ C28DBB_RunDirectStrangeStatusAction = BTLACT_FEELSTRANGE
     ldx.w #$0003
     ; Write strange subgroup `+0x20 = 1`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28DEC_RunDirectStrangeStatusAction_L8DEC
     lda.w #EFMSG_StrangeInflicted
@@ -77,7 +77,7 @@ C28DFC_RunAllTargetCryingStatusAction = BTLACT_CRYING_ALL
     tyx
     ; Embedded sibling tail: write temporary subgroup `+0x1F = 2`.
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28E2B_RunDirectStrangeStatusAction_L8E2B
     lda.w #EFMSG_CryingInflicted

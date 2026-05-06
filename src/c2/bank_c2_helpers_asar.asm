@@ -3424,8 +3424,13 @@ C27086_MaskSet_TestBit_L7086:
 hirom
 org $C2724A
 
+!SelectedRowRouteSubtypeGateByte = $000F
+!SelectedRowAfflictionSlotBaseOffset = $001D
+!SelectedRowStatusWriteBlocked = $0000
+!SelectedRowStatusWriteSucceeded = $0001
 INFLICT_STATUS_BATTLE:
-!C2724A_ApplyBattlerAfflictionSubgroupValue = INFLICT_STATUS_BATTLE
+!C2724A_ApplySelectedRowAfflictionSlotValue = INFLICT_STATUS_BATTLE
+!C2724A_ApplyBattlerAfflictionSubgroupValue = C2724A_ApplySelectedRowAfflictionSlotValue
     rep #$31
     phd
     pha
@@ -3436,17 +3441,17 @@ INFLICT_STATUS_BATTLE:
     stx $02
     tax
     stx $0E
-    lda $000F,X
+    lda.w !SelectedRowRouteSubtypeGateByte,X
     and.w #$00FF
     beq C27266_ApplyBattlerAfflictionSubgroupValue_L7266
-    lda.w #$0000
+    lda.w #!SelectedRowStatusWriteBlocked
     bra C27292_ApplyBattlerAfflictionSubgroupValue_L7292
 C27266_ApplyBattlerAfflictionSubgroupValue_L7266:
     txa
     clc
     adc $02
     tax
-    lda $001D,X
+    lda.w !SelectedRowAfflictionSlotBaseOffset,X
     and.w #$00FF
     beq C2727B_ApplyBattlerAfflictionSubgroupValue_L727B
     sty $04
@@ -3461,12 +3466,12 @@ C2727B_ApplyBattlerAfflictionSubgroupValue_L727B:
     tax
     tya
     sep #$20
-    sta $001D,X
+    sta.w !SelectedRowAfflictionSlotBaseOffset,X
     rep #$20
-    lda.w #$0001
+    lda.w #!SelectedRowStatusWriteSucceeded
     bra C27292_ApplyBattlerAfflictionSubgroupValue_L7292
 C2728F_ApplyBattlerAfflictionSubgroupValue_L728F:
-    lda.w #$0000
+    lda.w #!SelectedRowStatusWriteBlocked
 C27292_ApplyBattlerAfflictionSubgroupValue_L7292:
     pld
     rts
@@ -5035,7 +5040,7 @@ C27E31_ApplyBoundedOffenseDecrease_L7E31:
 hirom
 org $C28BBE
 
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 BTLACT_MUSHROOMIZE:
@@ -5051,7 +5056,7 @@ BTLACT_MUSHROOMIZE:
     ldy.w #$0001
     tyx
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28BED_RunMushroomizeStatusAction_L8BED
     lda.w #$6B81
@@ -5078,7 +5083,7 @@ C28BFB_RunMushroomizeStatusAction_L8BFB:
 hirom
 org $C28BFD
 
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C2B6EB_ApplyCandidateRecordPayload = $C2B6EB
@@ -5099,7 +5104,7 @@ BTLACT_POSSESS:
     ldy.w #$0002
     ldx.w #$0001
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28C57_RunPossessStatusAction_L8C57
     lda.w #$6B98
@@ -5139,7 +5144,7 @@ hirom
 org $C28C69
 
 !C26BB8_BuildCandidateMaskPhase = $6BB8
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !EFMSG_CryingInflicted = $6BBB
@@ -5163,7 +5168,7 @@ BTLACT_CRYING:
     ldy.w #$0002
     tyx
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28CA8_RunCryingStatusAction_L8CA8
     lda.w #!EFMSG_CryingInflicted
@@ -5190,7 +5195,7 @@ C28CB6_RunCryingStatusAction_L8CB6:
 hirom
 org $C28CB8
 
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 BTLACT_IMMOBILIZE:
 !C28CB8_RunImmobilizedStatusAction = BTLACT_IMMOBILIZE
@@ -5202,7 +5207,7 @@ BTLACT_IMMOBILIZE:
     ldy.w #$0003
     ldx.w #$0002
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28CE1_RunImmobilizedStatusAction_L8CE1
     lda.w #$6BD3
@@ -5229,7 +5234,7 @@ C28CEF_RunImmobilizedStatusAction_L8CEF:
 hirom
 org $C28CF1
 
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27C96_RollSelectedRowThresholdGate = $7C96
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
@@ -5251,7 +5256,7 @@ BTLACT_SOLIDIFY:
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28D2A_RunSolidifiedStatusAction_L8D2A
     lda.w #!EFMSG_SolidifiedInflicted
@@ -5368,7 +5373,7 @@ C28DB9_RunConcentrationSealAction_L8DB9:
 hirom
 org $C28DBB
 
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C29F06_RunResistCheckedAsleepStatusAction = $C29F06
@@ -5388,7 +5393,7 @@ BTLACT_FEELSTRANGE:
     ldy.w #$0001
     ldx.w #$0003
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28DEC_RunDirectStrangeStatusAction_L8DEC
     lda.w #!EFMSG_StrangeInflicted
@@ -5419,7 +5424,7 @@ BTLACT_CRYING_ALL:
     ldy.w #$0002
     tyx
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28E2B_RunDirectStrangeStatusAction_L8E2B
     lda.w #!EFMSG_CryingInflicted
@@ -5666,7 +5671,7 @@ C28F95_RunOffenseDefenseReductionAction_L8F95:
 hirom
 org $C28F97
 
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C282F8_RunPhysicalPreHitGate = $82F8
 !C283F8_RunPhysicalHitGate = $83F8
@@ -5699,7 +5704,7 @@ BTLACT_LEVEL_2_ATK_POISON:
     ldy.w #$0005
     ldx.w #$0000
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28FF7_RunPoisonOnHitPhysicalAction_L8FF7
     lda.w #$6B18
@@ -6000,7 +6005,7 @@ C2914B_RunBattlerNormalizationActionWrapper_L914B:
 hirom
 org $C2916E
 
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27C96_RollSelectedRowThresholdGate = $7C96
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C282F8_RunPhysicalPreHitGate = $82F8
@@ -6047,7 +6052,7 @@ C291B6_RunDiamondizeAction_L91B6:
     ldy.w #$0002
     ldx.w #$0000
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     bne C291CA_RunDiamondizeAction_L91CA
     jmp.w C29252_RunDiamondizeAction_L9252
@@ -6670,7 +6675,7 @@ org $C295CF
 
 !C26A2D_RollRandomThreshold = $6A2D
 !C26AFD_RollDamageAmount = $6AFD
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C28125_ApplyTypedDamageToSelectedTarget = $8125
 !C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
@@ -6719,7 +6724,7 @@ PSI_FREEZE_COMMON:
     ldy.w #$0004
     ldx.w #$0002
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C29642_RunPsiFreezeCommon_L9642
     lda.w #$6BEF
@@ -7099,7 +7104,7 @@ C298DC_GateSelectedBattlerForRandomStatusAction_L98DC:
 hirom
 org $C298DE
 
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 FLASH_INFLICT_FEELING_STRANGE:
 !C298DE_TryApplyStrangeStatusToSelectedBattler = FLASH_INFLICT_FEELING_STRANGE
@@ -7111,7 +7116,7 @@ FLASH_INFLICT_FEELING_STRANGE:
     ldy.w #$0001
     ldx.w #$0003
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C29907_TryApplyStrangeStatusToSelectedBattler_L9907
     lda.w #$6C3A
@@ -7138,7 +7143,7 @@ C29915_TryApplyStrangeStatusToSelectedBattler_L9915:
 hirom
 org $C29917
 
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 FLASH_INFLICT_PARALYSIS:
 !C29917_TryApplyNumbStatusToSelectedBattler = FLASH_INFLICT_PARALYSIS
@@ -7150,7 +7155,7 @@ FLASH_INFLICT_PARALYSIS:
     ldy.w #$0003
     ldx.w #$0000
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C29940_TryApplyNumbStatusToSelectedBattler_L9940
     lda.w #$6AE0
@@ -7177,7 +7182,7 @@ C2994E_TryApplyNumbStatusToSelectedBattler_L994E:
 hirom
 org $C29950
 
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 FLASH_INFLICT_CRYING:
 !C29950_TryApplyCryingStatusToSelectedBattler = FLASH_INFLICT_CRYING
@@ -7189,7 +7194,7 @@ FLASH_INFLICT_CRYING:
     ldy.w #$0002
     tyx
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C29977_TryApplyCryingStatusToSelectedBattler_L9977
     lda.w #$6BBB
@@ -8125,7 +8130,7 @@ hirom
 org $C29F06
 
 !C26BB8_BuildCandidateMaskPhase = $6BB8
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !EFMSG_AsleepInflicted = $6C55
@@ -8149,7 +8154,7 @@ BTLACT_HYPNOSIS_A:
     ldy.w #$0001
     ldx.w #$0002
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C29F47_RunResistCheckedAsleepStatusAction_L9F47
     lda.w #!EFMSG_AsleepInflicted
@@ -8180,7 +8185,7 @@ org $C29F57
 !C26BB8_BuildCandidateMaskPhase = $6BB8
 !C27191_ClampBattlerPpTargetDelta = $7191
 !C2721D_ReduceBattlerPpTarget = $721D
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
@@ -8292,7 +8297,7 @@ BTLACT_PARALYSIS_A:
     ldy.w #$0003
     ldx.w #$0000
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A03F_RunAsleepStatusWrapperAction_LA03F
     lda.w #!EFMSG_ParalysisInflicted
@@ -8327,7 +8332,7 @@ org $C2A056
 !C26A2D_RollRandomThreshold = $6A2D
 !C26AFD_RollDamageAmount = $6AFD
 !C26BB8_BuildCandidateMaskPhase = $6BB8
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27294_ApplyBattlerHpRecoveryFeedback = $7294
 !C27318_ApplyBattlerPpRecoveryFeedback = $7318
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
@@ -8370,7 +8375,7 @@ BTLACT_BRAINSHOCK_A:
     ldy.w #$0001
     ldx.w #$0003
     lda $A972
-    jsr INFLICT_STATUS_BATTLE
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A097_RunResistCheckedStrangeStatusAction_LA097
     lda.w #!EFMSG_StrangeInflicted
@@ -23332,12 +23337,12 @@ hirom
 org $C2A630
 
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !EFMSG_SolidificationInflicted = $6BEF
 !EFMSG_StatusNoEffect = $766E
 !EF_BattleTextScriptBank = $00EF
 C2A630_ApplySolidificationStatusFromItemAction:
-    jsr !C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A656_C2A630_ApplySolidificationStatusFromItemAction_LA656
     lda.w #!EFMSG_SolidificationInflicted
@@ -24236,7 +24241,7 @@ hirom
 org $C2A82A
 
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
-!C2724A_ApplyBattlerAfflictionSubgroupValue = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27C96_RollSelectedRowThresholdGate = $7C96
 !EFMSG_SolidificationInflicted = $6BEF
 !EFMSG_StatusNoEffect = $766E
@@ -24256,7 +24261,7 @@ BTLACT_SOLIDIFY_2:
     ldy.w #!SolidificationStatusValue
     ldx.w #!TemporaryAfflictionSubgroupIndex
     lda $A972
-    jsr !C2724A_ApplyBattlerAfflictionSubgroupValue
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C2A85B_C2A82A_RunSolidificationItemAction_LA85B
     lda.w #!EFMSG_SolidificationInflicted
@@ -29826,7 +29831,7 @@ org $C27EAF
 !C26EF8_MaskSet_FindFirstMatchInRange = $C26EF8
 !C27126_SetBattlerHp = $7126
 !C271F0_ReduceBattlerHp = $71F0
-!C2724A_InflictStatusBattle = $724A
+!C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27550_KnockOutBattler = $C27550
 !C27C96_SuccessLuck80 = $7C96
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
@@ -31241,7 +31246,7 @@ C289F4_RunHitResolutionAndStatusActionCluster_L89F4:
     ldy.w #!BattleStatusDiamondized
     ldx.w #!BattleStatusGroupPrimary
     lda $A972
-    jsr !C2724A_InflictStatusBattle
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     bne C28A08_RunHitResolutionAndStatusActionCluster_L8A08
     jmp.w C28A82_RunHitResolutionAndStatusActionCluster_L8A82
@@ -31326,7 +31331,7 @@ BTLACT_PARALYZE:
     ldy.w #!BattleStatusParalyzed
     ldx.w #!BattleStatusGroupPrimary
     lda $A972
-    jsr !C2724A_InflictStatusBattle
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB
     lda.w #!EFMSG_Paralyzed
@@ -31357,7 +31362,7 @@ BTLACT_NAUSEATE:
     ldy.w #!BattleStatusNauseous
     ldx.w #!BattleStatusGroupPrimary
     lda $A972
-    jsr !C2724A_InflictStatusBattle
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28B1C_RunHitResolutionAndStatusActionCluster_L8B1C
     lda.w #!EFMSG_Nauseous
@@ -31388,7 +31393,7 @@ BTLACT_POISON:
     ldy.w #!BattleStatusPoisoned
     ldx.w #!BattleStatusGroupPrimary
     lda $A972
-    jsr !C2724A_InflictStatusBattle
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28B5D_RunHitResolutionAndStatusActionCluster_L8B5D
     lda.w #!EFMSG_Poisoned
@@ -31425,7 +31430,7 @@ BTLACT_COLD:
     ldy.w #!BattleStatusCold
     ldx.w #!BattleStatusGroupPrimary
     lda $A972
-    jsr !C2724A_InflictStatusBattle
+    jsr !C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000
     beq C28BAE_RunHitResolutionAndStatusActionCluster_L8BAE
     lda.w #!EFMSG_CaughtCold

@@ -9,7 +9,8 @@ See also [class2-solidification-item-action-c2a5ec-a630.md](notes/class2-solidif
 
 ## Working Names
 
-- `C2:724A` = `ApplyBattlerAfflictionSubgroupValue`
+- `C2:724A` = `ApplySelectedRowAfflictionSlotValue`
+- compatibility alias: `ApplyBattlerAfflictionSubgroupValue`
 
 ## Main result
 
@@ -153,8 +154,26 @@ The safest takeaway is:
 - this no longer just clarifies the Flash family; it now locally confirms primary-byte values for diamondized, numbness, nausea, poison, and cold, plus subgroup values for mushroomized, possessed, asleep, crying, could-not-move, solidified, and strange
 - that materially strengthens the battler-affliction field map and the relation between the local row layout and the reference `battler::afflictions` groups
 
+## Source-vocabulary update
+
+The C2 source now names `C2:724A` as
+`ApplySelectedRowAfflictionSlotValue` and reserves the older
+`ApplyBattlerAfflictionSubgroupValue` wording as a compatibility alias. The
+new name keeps the ABI anchored to selected-row inputs:
+
+- `A` is the selected-row base
+- `X` selects a slot relative to `+0x1D`
+- `Y` is the incoming value for that slot
+- `+0x0F` is the selected-row route/subtype gate that blocks the write
+
+The direct consumers in Flash, Freeze, late status actions, hit-resolution
+status tails, asleep/strange wrappers, poison/diamondize physical actions, and
+item-side solidification now call that source alias instead of the inherited
+`INFLICT_STATUS_BATTLE` label. The inherited label remains useful as an
+upstream reference name, but the source-facing contract now describes the row
+slot write being performed.
+
 ## Best next target
 
 The best next move is to map more `724A` callers so the remaining subgroup values can be named from local behavior, especially the callers that use `X = 1`, `2`, or `3` outside the current battle-heavy clusters.
-
 
