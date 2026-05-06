@@ -17,7 +17,7 @@ C013F6_SetTeleportLandingDirection = $C013F6
 C03FA9_UpdateTeleportLandingPosition = $C03FA9
 C00AA1_ReadMapPositionContext     = $C00AA1
 C03C5E_GetOnBicycle               = $C03C5E
-C069F7_Get_CurrentPositionMusicOrAreaId = $C069F7
+C069F7_Get_CurrentPositionMusicTrack = $C069F7
 C0ABE0_PrepareTeleportVisualState = $C0ABE0
 C100C7_LockTextInput              = $00C7
 C100D0_UnlockTextInput            = $00D0
@@ -54,6 +54,9 @@ C447FB_PrintFixedStringWithWrapPreflight = $C447FB
 C466B8_ClearSelectedModeSlot       = $C466B8
 C490EE_GetNearbyMagicTruffleDirection = $C490EE
 C4FD45_SetAutoSectorMusicChanges  = $C4FD45
+
+DisableAutoSectorMusicChanges     = $0000
+EnableAutoSectorMusicChanges      = $0001
 
 LoadedBattleTextAmountPointerLo    = $06
 LoadedBattleTextAmountPointerHi    = $08
@@ -1205,8 +1208,8 @@ C18422_DispatchDisplayTextDynamicSourceSelector_L8422:
     lda.w #$47AB
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18428_DispatchDisplayTextDynamicSourceSelector_L8428:
-    ; Text command 1F 03: restore map music from the current position.
-    jsl C069F7_Get_CurrentPositionMusicOrAreaId
+    ; Text command 1F 03: restore the current-position map music track.
+    jsl C069F7_Get_CurrentPositionMusicTrack
     ldx.w #$0000
     jsl C216AD_ApplyMusicTrackAndSyncMirror
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
@@ -1214,11 +1217,11 @@ C18436_DispatchDisplayTextDynamicSourceSelector_L8436:
     lda.w #$7254
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1843C_DispatchDisplayTextDynamicSourceSelector_L843C:
-    lda.w #$0000
+    lda.w #DisableAutoSectorMusicChanges
     jsl C4FD45_SetAutoSectorMusicChanges
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18446_DispatchDisplayTextDynamicSourceSelector_L8446:
-    lda.w #$0001
+    lda.w #EnableAutoSectorMusicChanges
     jsl C4FD45_SetAutoSectorMusicChanges
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18450_DispatchDisplayTextDynamicSourceSelector_L8450:

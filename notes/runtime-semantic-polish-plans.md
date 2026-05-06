@@ -231,6 +231,11 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   `$5DD4` latched mirror, `$5DDA` cue-suppression latch, `$B549` auto-sector
   music gate, bicycle `C4:FD45` enable/disable calls, and the C0 APU command
   leaves used by C4 `ChangeMusic`.
+- 2026-05-06: C1/C2 audio-caller follow-up carried those C0/C4 contracts back
+  into text-command and battle/result presentation source. The `1F 00..03`
+  leaves now use current-position music-track wording, the deferred queue
+  storage is named, and C1/C2 callers that route through `C4:FBBD` now use the
+  general `ChangeMusic` contract instead of the inherited Sound Stone alias.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

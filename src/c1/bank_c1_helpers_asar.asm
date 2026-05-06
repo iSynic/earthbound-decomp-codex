@@ -9147,6 +9147,10 @@ org $C1461A
 !TextCommandFamilyFrameOffset = $FFEE
 !ZeroWord = $0000
 !OneBasedNameCharacterIndexBase = $0001
+!TextCommandQueuedByteBuffer = $97BA
+!TextCommandQueuedByteCount = $97CA
+!TextCommandQueuedByteLimit = $0010
+!DeferredTextCommandReturn_CC_1F_00 = $4751
 CC_0E:
 !C1461A_HandleTextCommand0EStoreToArgmem = CC_0E
     rep #$31
@@ -9177,20 +9181,20 @@ CC_1A_00:
     adc.w #$FFEE
     tcd
     pla
-    lda $97CA
-    cmp.w #$0010
+    lda !TextCommandQueuedByteCount
+    cmp.w #!TextCommandQueuedByteLimit
     bcs C14660_HandleTextCommand0EStoreToArgmem_L4660
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !TextCommandQueuedByteCount
+    sta !TextCommandQueuedByteBuffer,X
     rep #$20
-    inc $97CA
+    inc !TextCommandQueuedByteCount
     lda.w #$463B
     bra C1467B_HandleTextCommand0EStoreToArgmem_L467B
 C14660_HandleTextCommand0EStoreToArgmem_L4660:
     ldy.w #$0000
-    lda.w #$97BA
+    lda.w #!TextCommandQueuedByteBuffer
     jsr !C1244C_CharacterSelectPrompt
     sta $06
     stz $08
@@ -9212,20 +9216,20 @@ CC_1A_01:
     adc.w #$FFEE
     tcd
     pla
-    lda $97CA
-    cmp.w #$0010
+    lda !TextCommandQueuedByteCount
+    cmp.w #!TextCommandQueuedByteLimit
     bcs C146A2_HandleTextCommand0EStoreToArgmem_L46A2
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !TextCommandQueuedByteCount
+    sta !TextCommandQueuedByteBuffer,X
     rep #$20
-    inc $97CA
+    inc !TextCommandQueuedByteCount
     lda.w #$467D
     bra C146BD_HandleTextCommand0EStoreToArgmem_L46BD
 C146A2_HandleTextCommand0EStoreToArgmem_L46A2:
     ldy.w #$0001
-    lda.w #$97BA
+    lda.w #!TextCommandQueuedByteBuffer
     jsr !C1244C_CharacterSelectPrompt
     sta $06
     stz $08
@@ -9336,7 +9340,7 @@ CC_1F_00:
     sta $0E
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc !TextCommandQueuedByteCount
     bvc C1476B_HandleTextCommand0EStoreToArgmem_L476B
     bpl C14781_HandleTextCommand0EStoreToArgmem_L4781
     bra C1476D_HandleTextCommand0EStoreToArgmem_L476D
@@ -9345,11 +9349,11 @@ C1476B_HandleTextCommand0EStoreToArgmem_L476B:
 C1476D_HandleTextCommand0EStoreToArgmem_L476D:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx !TextCommandQueuedByteCount
+    sta !TextCommandQueuedByteBuffer,X
     rep #$20
-    inc $97CA
-    lda.w #$4751
+    inc !TextCommandQueuedByteCount
+    lda.w #!DeferredTextCommandReturn_CC_1F_00
     bra C1479E_HandleTextCommand0EStoreToArgmem_L479E
 C14781_HandleTextCommand0EStoreToArgmem_L4781:
     lda $0E
@@ -9360,7 +9364,7 @@ C14781_HandleTextCommand0EStoreToArgmem_L4781:
 C1478B_HandleTextCommand0EStoreToArgmem_L478B:
     jsr !C103DC_ReadTextCommandArgumentWord
 C1478E_HandleTextCommand0EStoreToArgmem_L478E:
-    lda $97BA
+    lda !TextCommandQueuedByteBuffer
     and.w #$00FF
     tax
     lda $06
@@ -17181,7 +17185,7 @@ org $C17B56
 !C03FA9_UpdateTeleportLandingPosition = $C03FA9
 !C00AA1_ReadMapPositionContext = $C00AA1
 !C03C5E_GetOnBicycle = $C03C5E
-!C069F7_Get_CurrentPositionMusicOrAreaId = $C069F7
+!C069F7_Get_CurrentPositionMusicTrack = $C069F7
 !C0ABE0_PrepareTeleportVisualState = $C0ABE0
 !C100C7_LockTextInput = $00C7
 !C100D0_UnlockTextInput = $00D0
@@ -17218,6 +17222,8 @@ org $C17B56
 !C466B8_ClearSelectedModeSlot = $C466B8
 !C490EE_GetNearbyMagicTruffleDirection = $C490EE
 !C4FD45_SetAutoSectorMusicChanges = $C4FD45
+!DisableAutoSectorMusicChanges = $0000
+!EnableAutoSectorMusicChanges = $0001
 !LoadedBattleTextAmountPointerLo = $06
 !LoadedBattleTextAmountPointerHi = $08
 !TextContextSourcePointerLo = $0E
@@ -18363,7 +18369,7 @@ C18422_DispatchDisplayTextDynamicSourceSelector_L8422:
     lda.w #$47AB
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18428_DispatchDisplayTextDynamicSourceSelector_L8428:
-    jsl !C069F7_Get_CurrentPositionMusicOrAreaId
+    jsl !C069F7_Get_CurrentPositionMusicTrack
     ldx.w #$0000
     jsl !C216AD_ApplyMusicTrackAndSyncMirror
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
@@ -18371,11 +18377,11 @@ C18436_DispatchDisplayTextDynamicSourceSelector_L8436:
     lda.w #$7254
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1843C_DispatchDisplayTextDynamicSourceSelector_L843C:
-    lda.w #$0000
+    lda.w #!DisableAutoSectorMusicChanges
     jsl !C4FD45_SetAutoSectorMusicChanges
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18446_DispatchDisplayTextDynamicSourceSelector_L8446:
-    lda.w #$0001
+    lda.w #!EnableAutoSectorMusicChanges
     jsl !C4FD45_SetAutoSectorMusicChanges
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18450_DispatchDisplayTextDynamicSourceSelector_L8450:
@@ -25772,7 +25778,7 @@ org $C1D109
 !C21D65_RefreshVitalityDerivedStat = $C21D65
 !C21D7D_RecalculateCharacterDerivedIq = $C21D7D
 !C45F7B_GetRandomLessThanA = $C45F7B
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C4FBBD_ChangeMusic = $C4FBBD
 LEVEL_UP_CHAR:
 !C1D109_LevelUpCharacterAndRefreshDerivedStats = LEVEL_UP_CHAR
     rep #$31
@@ -27061,7 +27067,7 @@ C1DAA7_LevelUpCharacterAndRefreshDerivedStats_LDAA7:
     lda $02
     beq C1DAB2_LevelUpCharacterAndRefreshDerivedStats_LDAB2
     lda.w #$0006
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
 C1DAB2_LevelUpCharacterAndRefreshDerivedStats_LDAB2:
     ldx $02
     ldy $10
@@ -27283,7 +27289,7 @@ org $C1F616
 !C4D7D9_UpdateNameEntrySelection = $C4D7D9
 !C4D830_RunFileSelectPoseEntityScriptList = $C4D830
 !C4D8FA_SpawnFileSelectFixedEntityBatch = $C4D8FA
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C4FBBD_ChangeMusic = $C4FBBD
 !C1EC04_CommitNamingBufferFieldWithPreview = $EC04
 !C1EC8F_PreviewWindowFlavourAndRedraw = $C1EC8F
 !C1ED5B_OpenFileSelectSlotChoiceMenu = $ED5B
@@ -27633,7 +27639,7 @@ C1F8EA_OpenOrRefreshSoundSettingSelection_LF8EA:
     bra C1F8D6_OpenOrRefreshSoundSettingSelection_LF8D6
 C1F8FB_OpenOrRefreshSoundSettingSelection_LF8FB:
     lda.w #$0002
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
 C1F902_OpenOrRefreshSoundSettingSelection_LF902:
     jsr !C1008E_CloseAndDrainAllWindows
     lda.w #$0000
@@ -27652,7 +27658,7 @@ C1F90F_ResumeFileSelectNamingOrSetupFlow:
     lda.w #$0001
     jsr.w C1F616_OpenOrRefreshSoundSettingSelection
     lda.w #$0003
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
     bra C1F8EA_OpenOrRefreshSoundSettingSelection_LF8EA
 C1F935_OpenOrRefreshSoundSettingSelection_LF935:
     lda $04
@@ -28103,7 +28109,7 @@ C1FC1B_OpenOrRefreshSoundSettingSelection_LFC1B:
     jmp.w C1F902_OpenOrRefreshSoundSettingSelection_LF902
 C1FCDA_OpenOrRefreshSoundSettingSelection_LFCDA:
     lda.w #$009E
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
     jsl !C12DD5_ResetTextWindowState
     ldx.w #$0000
     stx $24
@@ -33077,7 +33083,7 @@ org $C1ECD1
 !C20ABC_ClearTimedEventState = $C20ABC
 !C438A5_SetTextPosition = $C438A5
 !C43B15_FlushTextWindowState = $C43B15
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C4FBBD_ChangeMusic = $C4FBBD
 !EF0A68_CheckSaveSlotChecksum = $EF0A68
 C1ECD1_PreviewPackedHighByteWindowFlavour:
     rep #$31
@@ -33506,7 +33512,7 @@ C1F041_PreviewPackedHighByteWindowFlavour_LF041:
     and.w #$00FF
     bne C1F041_PreviewPackedHighByteWindowFlavour_LF041
     lda.w #$0003
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
     lda.w #!C1ECD1_PreviewPackedHighByteWindowFlavour
     sta $0E
     lda.w #$00C1

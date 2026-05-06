@@ -2180,7 +2180,7 @@ org $C24958
 !C2F121_RebuildCandidateRankOutputs = $C2F121
 !C2F8F9_RefreshClass2CandidateRanking = $C2F8F9
 !C47F87_RefreshWindowFlavorPalette = $C47F87
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C4FBBD_ChangeMusic = $C4FBBD
 C24958_PopulateCandidatePoolFromSixSources:
     jmp.w C249F4_PopulateCandidatePoolFromSixSources_L49F4
 C2495B_PopulateCandidatePoolFromSixSources_L495B:
@@ -2303,7 +2303,7 @@ C24A2D_PopulateCandidatePoolFromSixSources_L4A2D:
     tax
     lda $D59589,X
     and.w #$00FF
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
     jsl !C08744_OpenDisplayTransitionBracket
     ldx.w #$0001
     txa
@@ -14374,11 +14374,14 @@ org $C26189
 !C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
 !C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C06A07_Apply_CurrentPositionMusicTrack = $C06A07
+!C4FBBD_ChangeMusic = $C4FBBD
 !EF_BattleTextScriptBank = $00EF
 !BattlePresentItemByte = $AA10
 !EFMSG_InstantWinForce = $7A28
 !EFMSG_Present = $7BDF
+!InstantWinMusicTrack = $00B7
+!BicycleMusicTrack = $0052
 C26189_FillInstantWinTileBufferAndUpload:
     rep #$31
     phd
@@ -14418,8 +14421,8 @@ INSTANT_WIN_HANDLER:
     adc.w #$FFE4
     tcd
     stz $4DBC
-    lda.w #$00B7
-    jsl !C4FBBD_PlaySoundStoneMelody
+    lda.w #!InstantWinMusicTrack
+    jsl !C4FBBD_ChangeMusic
     jsl $C2E9ED
     ldx.w #$0000
     stx $1A
@@ -14806,11 +14809,11 @@ C2652D_FillInstantWinTileBufferAndUpload_L652D:
     lda $9883
     cmp.w #$0003
     bne C26542_FillInstantWinTileBufferAndUpload_L6542
-    lda.w #$0052
-    jsl !C4FBBD_PlaySoundStoneMelody
+    lda.w #!BicycleMusicTrack
+    jsl !C4FBBD_ChangeMusic
     bra C26546_FillInstantWinTileBufferAndUpload_L6546
 C26542_FillInstantWinTileBufferAndUpload_L6542:
-    jsl $C06A07
+    jsl !C06A07_Apply_CurrentPositionMusicTrack
 C26546_FillInstantWinTileBufferAndUpload_L6546:
     jsl !C09451_RestoreSavedCoordinateState
     pld
@@ -19679,7 +19682,7 @@ org $C2C14E
 !C2F8F9_RenderAndCommitBattleSpriteRows = $C2F8F9
 !C44963_ResetActiveTextGlyphRun = $C44963
 !C47C3F_ClearWindowOrMenuMaskState = $C47C3F
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C4FBBD_ChangeMusic = $C4FBBD
 !C8_BattleTextScriptBank = $00C8
 !C8MSG_BelchGrabbedSuccess = $F8C0
 !C8MSG_BelchGrabbedFailure = $F8FD
@@ -19868,7 +19871,7 @@ C2C260_RunRainbowColorsSpecialEvent_LC260:
     lda $14
     beq C2C2E6_RunRainbowColorsSpecialEvent_LC2E6
     lda $14
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
 C2C2E6_RunRainbowColorsSpecialEvent_LC2E6:
     jsl !C08744_OpenDisplayTransitionBracket
     lda $10
@@ -19944,7 +19947,7 @@ C2C32A_RunRainbowColorsSpecialEvent_LC32A:
 hirom
 org $C2E8C4
 
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C4FBBD_ChangeMusic = $C4FBBD
 C2E8C4_StartBattleSwirlOverlayAndRecordMode:
     rep #$31
     phd
@@ -20026,7 +20029,7 @@ C2E94B_StartBattleSwirlOverlayAndRecordMode_LE94B:
 C2E964_StartBattleSwirlOverlayAndRecordMode_LE964:
     ldx $10
     txa
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
     jsl $C04F47
     lda $0E
     sta $02
@@ -24269,7 +24272,7 @@ org $C2C41F
 !C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C4FBBD_ChangeMusic = $C4FBBD
 !C8_BattleTextScriptBank = $00C8
 !C8MSG_MechPokeyFirstSpeechTail = $FC2E
 C2C41F_RunFinalPrayerNarrativeTransition:
@@ -24299,7 +24302,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     sta $001A
     rep #$20
     lda.w #$00BF
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
     ldx.w #$0001
     txa
     jsl !C0886C_SetDisplayTransitionState
@@ -24330,7 +24333,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     ldy $12
     rep #$20
     tya
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
     ldx.w #$0001
     txa
     jsl !C0886C_SetDisplayTransitionState
@@ -25648,7 +25651,7 @@ org $C24A8A
 !C2B6EB_ApplyCandidateRecordPayload = $C2B6EB
 !C2B930_InitializeCandidateRecordFromSource = $C2B930
 !C2E116_AdvanceBattleVisualEffectOrSwirlState = $C2E116
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C4FBBD_ChangeMusic = $C4FBBD
 !BattlePresentItemByte = $AA10
 !D5EnemyRecordItemDropRateOffset = $0057
 !D5EnemyRecordDroppedItemOffset = $0058
@@ -25941,7 +25944,7 @@ C24CD5_C24A8A_PopulateCandidatePoolFromVariableSources_L4CD5:
     tax
     lda $D59589,X
     and.w #$00FF
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
     lda.w #$0012
     jsl !C21628_CheckEventFlag
     cmp.w #$0000
@@ -26200,7 +26203,7 @@ org $C2C6F0
 
 !C0ABC6_ClearPresentationQueues = $C0ABC6
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C4FBBD_ChangeMusic = $C4FBBD
 !C8_BattleTextScriptBank = $00C8
 !C8MSG_PokeyRunAway = $FF31
 !C9_BattleTextScriptBank = $00C9
@@ -26256,7 +26259,7 @@ org $C2C6F0
     lda.w #$FFFF
     sta $A97A
     lda.w #$00BE
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
     ldy.w #$0000
     sty $18
 C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B:
@@ -26296,7 +26299,7 @@ C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B:
     bra C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B
 C2C7BC_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC7BC:
     lda.w #$004B
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
     stz $A97A
     lda.w #$01E0
     jsr $69BE
@@ -26384,7 +26387,7 @@ C2C872_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC872:
     lda $C4A331,X
     bne C2C817_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC817
     lda.w #$00B6
-    jsl !C4FBBD_PlaySoundStoneMelody
+    jsl !C4FBBD_ChangeMusic
     lda.w #$0258
     jsr $69BE
     lda.w #$003F

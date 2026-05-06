@@ -27,12 +27,15 @@ C1DD5F_WaitForTextOrMenuAcknowledge           = $C1DD5F
 C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
 C496E7_StartPaletteFadeFromWorkBuffer         = $C496E7
 C49740_FinishPaletteFadeWorkBuffer            = $C49740
-C4FBBD_PlaySoundStoneMelody                   = $C4FBBD
+C06A07_Apply_CurrentPositionMusicTrack        = $C06A07
+C4FBBD_ChangeMusic                            = $C4FBBD
 
 EF_BattleTextScriptBank   = $00EF
 BattlePresentItemByte     = $AA10
 EFMSG_InstantWinForce     = $7A28
 EFMSG_Present             = $7BDF
+InstantWinMusicTrack      = $00B7
+BicycleMusicTrack         = $0052
 
 ; ---------------------------------------------------------------------------
 ; C2:6189
@@ -76,8 +79,8 @@ C261BD_InstantWinHandler = INSTANT_WIN_HANDLER
     adc.w #$FFE4
     tcd
     stz $4DBC
-    lda.w #$00B7
-    jsl C4FBBD_PlaySoundStoneMelody
+    lda.w #InstantWinMusicTrack
+    jsl C4FBBD_ChangeMusic
     jsl $C2E9ED
     ldx.w #$0000
     stx $1A
@@ -465,11 +468,11 @@ C2652D_FillInstantWinTileBufferAndUpload_L652D:
     lda $9883
     cmp.w #$0003
     bne C26542_FillInstantWinTileBufferAndUpload_L6542
-    lda.w #$0052
-    jsl C4FBBD_PlaySoundStoneMelody
+    lda.w #BicycleMusicTrack
+    jsl C4FBBD_ChangeMusic
     bra C26546_FillInstantWinTileBufferAndUpload_L6546
 C26542_FillInstantWinTileBufferAndUpload_L6542:
-    jsl $C06A07
+    jsl C06A07_Apply_CurrentPositionMusicTrack
 C26546_FillInstantWinTileBufferAndUpload_L6546:
     jsl C09451_RestoreSavedCoordinateState
     pld

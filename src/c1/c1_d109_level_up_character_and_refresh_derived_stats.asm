@@ -36,7 +36,7 @@ C21C5D_RecalculateCharacterDerivedLuck    = $C21C5D
 C21D65_RefreshVitalityDerivedStat         = $C21D65
 C21D7D_RecalculateCharacterDerivedIq      = $C21D7D
 C45F7B_GetRandomLessThanA                 = $C45F7B
-C4FBBD_PlaySoundStoneMelody               = $C4FBBD
+C4FBBD_ChangeMusic                        = $C4FBBD
 
 ; ---------------------------------------------------------------------------
 ; C1:D109
@@ -1329,7 +1329,7 @@ C1DAA7_LevelUpCharacterAndRefreshDerivedStats_LDAA7:
     lda $02
     beq C1DAB2_LevelUpCharacterAndRefreshDerivedStats_LDAB2
     lda.w #$0006
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
 C1DAB2_LevelUpCharacterAndRefreshDerivedStats_LDAB2:
     ldx $02
     ldy $10

@@ -21,7 +21,7 @@
 
 C0ABC6_ClearPresentationQueues = $C0ABC6
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
-C4FBBD_PlaySoundStoneMelody    = $C4FBBD
+C4FBBD_ChangeMusic             = $C4FBBD
 
 C8_BattleTextScriptBank        = $00C8
 C8MSG_PokeyRunAway             = $FF31
@@ -86,7 +86,7 @@ C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
     lda.w #$FFFF
     sta $A97A
     lda.w #$00BE
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
     ldy.w #$0000
     sty $18
 C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B:
@@ -127,7 +127,7 @@ C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B:
     bra C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B
 C2C7BC_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC7BC:
     lda.w #$004B
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
     stz $A97A
     lda.w #$01E0
     jsr $69BE
@@ -216,7 +216,7 @@ C2C872_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC872:
     lda $C4A331,X
     bne C2C817_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC817
     lda.w #$00B6
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
     lda.w #$0258
     jsr $69BE
     lda.w #$003F

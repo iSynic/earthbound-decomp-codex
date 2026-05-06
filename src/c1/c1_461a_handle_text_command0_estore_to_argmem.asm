@@ -37,6 +37,10 @@ AccumulatorWidthFlag = $20
 TextCommandFamilyFrameOffset = $FFEE
 ZeroWord = $0000
 OneBasedNameCharacterIndexBase = $0001
+TextCommandQueuedByteBuffer = $97BA
+TextCommandQueuedByteCount = $97CA
+TextCommandQueuedByteLimit = $0010
+DeferredTextCommandReturn_CC_1F_00 = $4751
 
 ; ---------------------------------------------------------------------------
 ; C1:461A
@@ -71,20 +75,20 @@ C1463B_BuildTextQueueSelector0 = CC_1A_00
     adc.w #$FFEE
     tcd
     pla
-    lda $97CA
-    cmp.w #$0010
+    lda TextCommandQueuedByteCount
+    cmp.w #TextCommandQueuedByteLimit
     bcs C14660_HandleTextCommand0EStoreToArgmem_L4660
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx TextCommandQueuedByteCount
+    sta TextCommandQueuedByteBuffer,X
     rep #$20
-    inc $97CA
+    inc TextCommandQueuedByteCount
     lda.w #$463B
     bra C1467B_HandleTextCommand0EStoreToArgmem_L467B
 C14660_HandleTextCommand0EStoreToArgmem_L4660:
     ldy.w #$0000
-    lda.w #$97BA
+    lda.w #TextCommandQueuedByteBuffer
     jsr C1244C_CharacterSelectPrompt
     sta $06
     stz $08
@@ -106,20 +110,20 @@ C1467D_BuildTextQueueSelector1 = CC_1A_01
     adc.w #$FFEE
     tcd
     pla
-    lda $97CA
-    cmp.w #$0010
+    lda TextCommandQueuedByteCount
+    cmp.w #TextCommandQueuedByteLimit
     bcs C146A2_HandleTextCommand0EStoreToArgmem_L46A2
     txa
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx TextCommandQueuedByteCount
+    sta TextCommandQueuedByteBuffer,X
     rep #$20
-    inc $97CA
+    inc TextCommandQueuedByteCount
     lda.w #$467D
     bra C146BD_HandleTextCommand0EStoreToArgmem_L46BD
 C146A2_HandleTextCommand0EStoreToArgmem_L46A2:
     ldy.w #$0001
-    lda.w #$97BA
+    lda.w #TextCommandQueuedByteBuffer
     jsr C1244C_CharacterSelectPrompt
     sta $06
     stz $08
@@ -230,7 +234,7 @@ C14751_HandleTextCommand4751 = CC_1F_00
     sta $0E
     lda.w #$0001
     clc
-    sbc $97CA
+    sbc TextCommandQueuedByteCount
     bvc C1476B_HandleTextCommand0EStoreToArgmem_L476B
     bpl C14781_HandleTextCommand0EStoreToArgmem_L4781
     bra C1476D_HandleTextCommand0EStoreToArgmem_L476D
@@ -239,11 +243,11 @@ C1476B_HandleTextCommand0EStoreToArgmem_L476B:
 C1476D_HandleTextCommand0EStoreToArgmem_L476D:
     lda $0E
     sep #$20
-    ldx $97CA
-    sta $97BA,X
+    ldx TextCommandQueuedByteCount
+    sta TextCommandQueuedByteBuffer,X
     rep #$20
-    inc $97CA
-    lda.w #$4751
+    inc TextCommandQueuedByteCount
+    lda.w #DeferredTextCommandReturn_CC_1F_00
     bra C1479E_HandleTextCommand0EStoreToArgmem_L479E
 C14781_HandleTextCommand0EStoreToArgmem_L4781:
     lda $0E
@@ -254,7 +258,7 @@ C14781_HandleTextCommand0EStoreToArgmem_L4781:
 C1478B_HandleTextCommand0EStoreToArgmem_L478B:
     jsr C103DC_ReadTextCommandArgumentWord
 C1478E_HandleTextCommand0EStoreToArgmem_L478E:
-    lda $97BA
+    lda TextCommandQueuedByteBuffer
     and.w #$00FF
     tax
     lda $06

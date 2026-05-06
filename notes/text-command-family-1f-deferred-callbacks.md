@@ -20,7 +20,7 @@ The strongest currently pinned members are:
 - `0x1F 01` -> stop music through `C2:16C9`
 - `0x1F 02` -> play a sound/effect through `C2:16D0`, then tick the light
   window path through `C1:2E42`
-- `0x1F 03` -> restore map music from the current-position music id via
+- `0x1F 03` -> restore map music from the current-position music track via
   `C0:69F7` and `C2:16AD`
 - `0x1F 40` -> stage the one-byte special-event argument used by the adjacent
   special-event dispatcher path
@@ -57,8 +57,9 @@ entity frame, flag, script, attached-child, visual-record, and landing-profile
 helpers by contract name.
 
 The lower `C1:461A..4819` text-command source now also names the nearby
-`1F 00..02` music/sound leaves, and the dynamic source-selector corridor names
-the `1F 03` restore-current-map-music branch. These leaves call the C2 music
+`1F 00..02` music/sound leaves and the queued-byte storage used by the deferred
+music-track command, while the dynamic source-selector corridor names the
+`1F 03` restore-current-map-music branch. These leaves call the C0/C2 music
 track, stop-music, and play-sound/light-window wrappers by contract names
 instead of raw far addresses.
 

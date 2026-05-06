@@ -473,6 +473,13 @@ contract notes for C0/C1/C3/C4 consumers.
   wrapper by role. See
   `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md` and
   `notes/text-command-family-1f-deferred-callbacks.md`.
+- 2026-05-06 sixty-eighth slice: normalized C2's C4 audio caller vocabulary
+  after the C0/C4 music contracts stabilized. Candidate-pool setup, instant
+  win, rainbow event, Final Prayer, and battle-swirl presentation callers now
+  use `C4FBBD_ChangeMusic`; the instant-win tail also names the bicycle track
+  and fallback `C0:6A07` current-position music refresh edge. See
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md` and
+  `notes/c0-current-position-music-refresh-c068f4-c069af.md`.
 
 ## Validation
 

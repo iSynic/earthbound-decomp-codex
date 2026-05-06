@@ -19,7 +19,7 @@ C23BCF_BuildBattleAttackerTextContext        = $C23BCF
 C2B6EB_ApplyCandidateRecordPayload           = $C2B6EB
 C2B930_InitializeCandidateRecordFromSource   = $C2B930
 C2E116_AdvanceBattleVisualEffectOrSwirlState = $C2E116
-C4FBBD_PlaySoundStoneMelody                  = $C4FBBD
+C4FBBD_ChangeMusic                           = $C4FBBD
 
 BattlePresentItemByte           = $AA10
 D5EnemyRecordItemDropRateOffset = $0057
@@ -317,7 +317,7 @@ C24CD5_C24A8A_PopulateCandidatePoolFromVariableSources_L4CD5:
     tax
     lda $D59589,X
     and.w #$00FF
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
     lda.w #$0012
     jsl C21628_CheckEventFlag
     cmp.w #$0000

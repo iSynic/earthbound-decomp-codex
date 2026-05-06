@@ -22,7 +22,7 @@ C2F0D1_FinalizeCandidatePoolSetup          = $C2F0D1
 C2F121_RebuildCandidateRankOutputs         = $C2F121
 C2F8F9_RefreshClass2CandidateRanking       = $C2F8F9
 C47F87_RefreshWindowFlavorPalette          = $C47F87
-C4FBBD_PlaySoundStoneMelody                = $C4FBBD
+C4FBBD_ChangeMusic                         = $C4FBBD
 
 ; ---------------------------------------------------------------------------
 ; C2:4958
@@ -149,7 +149,7 @@ C24A2D_PopulateCandidatePoolFromSixSources_L4A2D:
     tax
     lda $D59589,X
     and.w #$00FF
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
     jsl C08744_OpenDisplayTransitionBracket
     ldx.w #$0001
     txa

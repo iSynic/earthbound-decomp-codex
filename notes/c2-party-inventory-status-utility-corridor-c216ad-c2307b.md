@@ -63,7 +63,16 @@ The C1 family-`1F` callers line up with those roles:
 - `1F 00` queues or applies a music track through `C2:16AD`.
 - `1F 01` stops music through `C2:16C9`.
 - `1F 02` plays a sound/effect and ticks the light window through `C2:16D0`.
-- `1F 03` restores map music by asking `C0:69F7` for the current-position music id, then applying it through `C2:16AD`.
+- `1F 03` restores map music by asking `C0:69F7` for the current-position music track, then applying it through `C2:16AD`.
+
+Follow-up source polish (2026-05-06): the C1 text-command and C2 battle/result
+presentation callers now share the same audio vocabulary as C0/C4. C1 names
+the deferred music-track queue storage and the `C0:69F7` current-position
+music-track getter; C2 instant-win, battle swirl, candidate-pool, rainbow
+event, and Final Prayer callers now refer to `C4:FBBD` as `ChangeMusic` rather
+than the inherited Sound Stone-specific alias. The instant-win handler also
+names its fixed music tracks and the `C0:6A07` current-position music refresh
+edge.
 
 ## Party overlay and party registry mutations
 

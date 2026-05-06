@@ -42,7 +42,7 @@ C20A20_EnqueueTimedEvent                  = $C20A20
 C20ABC_ClearTimedEventState               = $C20ABC
 C438A5_SetTextPosition                    = $C438A5
 C43B15_FlushTextWindowState               = $C43B15
-C4FBBD_PlaySoundStoneMelody               = $C4FBBD
+C4FBBD_ChangeMusic                        = $C4FBBD
 EF0A68_CheckSaveSlotChecksum              = $EF0A68
 
 ; ---------------------------------------------------------------------------
@@ -477,7 +477,7 @@ C1F041_PreviewPackedHighByteWindowFlavour_LF041:
     and.w #$00FF
     bne C1F041_PreviewPackedHighByteWindowFlavour_LF041
     lda.w #$0003
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
     lda.w #C1ECD1_PreviewPackedHighByteWindowFlavour
     sta $0E
     lda.w #$00C1

@@ -24,7 +24,7 @@ C2EEE7_LoadBattleGroupEnemySprites            = $C2EEE7
 C2F8F9_RenderAndCommitBattleSpriteRows        = $C2F8F9
 C44963_ResetActiveTextGlyphRun                = $C44963
 C47C3F_ClearWindowOrMenuMaskState             = $C47C3F
-C4FBBD_PlaySoundStoneMelody                   = $C4FBBD
+C4FBBD_ChangeMusic                            = $C4FBBD
 
 C8_BattleTextScriptBank    = $00C8
 C8MSG_BelchGrabbedSuccess  = $F8C0
@@ -218,7 +218,7 @@ C2C260_RunRainbowColorsSpecialEvent_LC260:
     lda $14
     beq C2C2E6_RunRainbowColorsSpecialEvent_LC2E6
     lda $14
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
 C2C2E6_RunRainbowColorsSpecialEvent_LC2E6:
     jsl C08744_OpenDisplayTransitionBracket
     lda $10

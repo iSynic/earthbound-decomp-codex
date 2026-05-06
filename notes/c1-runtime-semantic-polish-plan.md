@@ -211,8 +211,15 @@ This planning pass is documentation-only.
 - 2026-05-06: C1 text-command `1F 00..03` music/sound polish landed alongside
   the C2 wrapper pass. The promoted constants name the C2 music-track mirror
   applier, stop-music redirect, play-sound/light-window-tick wrapper, and the
-  C0 current-position music-id getter used by the restore-current-map-music
+  C0 current-position music-track getter used by the restore-current-map-music
   branch. See `notes/text-command-family-1f-deferred-callbacks.md` and
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
+- 2026-05-06: C1/C2 audio-caller vocabulary follow-up normalized the same lane
+  against the C0/C4 contracts. C1 now names the deferred `1F 00` queued-byte
+  storage and the `1F 03` current-position music-track getter, while file
+  select, level-up/Sound Stone display, and the C2 battle/result presentation
+  joins use `C4FBBD_ChangeMusic` instead of the narrower inherited Sound Stone
+  alias. See `notes/text-command-family-1f-deferred-callbacks.md` and
   `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
 - 2026-05-06: C1 text-command `1F 64/65` temporary party source polish landed
   in the dynamic source-selector corridor. The promoted constants name the C2

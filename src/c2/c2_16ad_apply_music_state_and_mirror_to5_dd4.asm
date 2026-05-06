@@ -30,6 +30,7 @@ C216AD_ApplyMusicStateAndMirrorTo5DD4 = C216AD_ApplyMusicTrackAndSyncMirror
     pla
     tax
     stx $0E
+    ; Apply incoming A as a music track, then mirror it for C0 restore paths.
     txa
     jsl C4FBBD_ChangeMusic
     ldx $0E

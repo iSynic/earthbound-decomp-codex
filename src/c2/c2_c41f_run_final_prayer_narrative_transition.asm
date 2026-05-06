@@ -26,7 +26,7 @@ C0887A_ClearDisplayTransitionState   = $C0887A
 C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
 C1DC1C_DisplayBattleTextFromPointer  = $C1DC1C
 C1DD5F_WaitForTextOrMenuAcknowledge  = $C1DD5F
-C4FBBD_PlaySoundStoneMelody          = $C4FBBD
+C4FBBD_ChangeMusic                   = $C4FBBD
 
 C8_BattleTextScriptBank        = $00C8
 C8MSG_MechPokeyFirstSpeechTail = $FC2E
@@ -63,7 +63,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     sta $001A
     rep #$20
     lda.w #$00BF
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
     ldx.w #$0001
     txa
     jsl C0886C_SetDisplayTransitionState
@@ -94,8 +94,8 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     ldy $12
     rep #$20
     tya
-    ; Replay the caller-selected Sound Stone melody cue.
-    jsl C4FBBD_PlaySoundStoneMelody
+    ; Replay the caller-selected music track.
+    jsl C4FBBD_ChangeMusic
     ldx.w #$0001
     txa
     jsl C0886C_SetDisplayTransitionState

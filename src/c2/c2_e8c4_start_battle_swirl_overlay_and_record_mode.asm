@@ -21,7 +21,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C4FBBD_PlaySoundStoneMelody = $C4FBBD
+C4FBBD_ChangeMusic = $C4FBBD
 
 ; ---------------------------------------------------------------------------
 ; C2:E8C4
@@ -110,7 +110,7 @@ C2E94B_StartBattleSwirlOverlayAndRecordMode_LE94B:
 C2E964_StartBattleSwirlOverlayAndRecordMode_LE964:
     ldx $10
     txa
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
     jsl $C04F47
     lda $0E
     sta $02

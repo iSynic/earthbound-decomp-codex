@@ -55,7 +55,7 @@ C46881_SetAllRegistryFlagsAndQueueCallerMovement = $C46881
 C4D7D9_UpdateNameEntrySelection            = $C4D7D9
 C4D830_RunFileSelectPoseEntityScriptList   = $C4D830
 C4D8FA_SpawnFileSelectFixedEntityBatch     = $C4D8FA
-C4FBBD_PlaySoundStoneMelody                = $C4FBBD
+C4FBBD_ChangeMusic                         = $C4FBBD
 C1EC04_CommitNamingBufferFieldWithPreview  = $EC04
 C1EC8F_PreviewWindowFlavourAndRedraw       = $C1EC8F
 C1ED5B_OpenFileSelectSlotChoiceMenu        = $ED5B
@@ -410,7 +410,7 @@ C1F8EA_OpenOrRefreshSoundSettingSelection_LF8EA:
     bra C1F8D6_OpenOrRefreshSoundSettingSelection_LF8D6
 C1F8FB_OpenOrRefreshSoundSettingSelection_LF8FB:
     lda.w #$0002
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
 C1F902_OpenOrRefreshSoundSettingSelection_LF902:
     jsr C1008E_CloseAndDrainAllWindows
     lda.w #$0000
@@ -429,7 +429,7 @@ C1F90F_ResumeFileSelectNamingOrSetupFlow:
     lda.w #$0001
     jsr.w C1F616_OpenOrRefreshSoundSettingSelection
     lda.w #$0003
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
     bra C1F8EA_OpenOrRefreshSoundSettingSelection_LF8EA
 C1F935_OpenOrRefreshSoundSettingSelection_LF935:
     lda $04
@@ -880,7 +880,7 @@ C1FC1B_OpenOrRefreshSoundSettingSelection_LFC1B:
     jmp.w C1F902_OpenOrRefreshSoundSettingSelection_LF902
 C1FCDA_OpenOrRefreshSoundSettingSelection_LFCDA:
     lda.w #$009E
-    jsl C4FBBD_PlaySoundStoneMelody
+    jsl C4FBBD_ChangeMusic
     jsl C12DD5_ResetTextWindowState
     ldx.w #$0000
     stx $24
