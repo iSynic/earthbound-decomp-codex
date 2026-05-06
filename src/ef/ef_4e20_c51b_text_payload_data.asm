@@ -656,61 +656,61 @@ EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
 ; EF:69EA
 
 ; EBATTLE5: Spy offense readout text; C2 stages offense through C1:DC66/1C 0F.
-EF69EA_EBattle5MsgBtlCheckOffenseActionAmount:
+EF69EA_EBattle5SpyOffenseReadoutActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:69FF
 
 ; EBATTLE5: Spy defense readout text; C2 stages defense through C1:DC66/1C 0F.
-EF69FF_EBattle5MsgBtlCheckDefenseActionAmount:
+EF69FF_EBattle5SpyDefenseReadoutActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A0D
 
 ; EBATTLE5: Spy fire-vulnerability direct readout text.
-EF6A0D_EBattle5MsgBtlCheckAntiFire:
+EF6A0D_EBattle5SpyFireVulnerabilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A24
 
 ; EBATTLE5: Spy freeze-vulnerability direct readout text.
-EF6A24_EBattle5MsgBtlCheckAntiFreeze:
+EF6A24_EBattle5SpyFreezeVulnerabilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A3C
 
 ; EBATTLE5: Spy flash-vulnerability direct readout text.
-EF6A3C_EBattle5MsgBtlCheckAntiFlash:
+EF6A3C_EBattle5SpyFlashVulnerabilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A54
 
 ; EBATTLE5: Spy paralysis-vulnerability direct readout text.
-EF6A54_EBattle5MsgBtlCheckAntiParalysis:
+EF6A54_EBattle5SpyParalysisVulnerabilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A6C
 
 ; EBATTLE5: Spy hypnosis susceptibility direct readout text.
-EF6A6C_EBattle5MsgBtlCheckBrainLevel0:
+EF6A6C_EBattle5SpyHypnosisSusceptibilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A7F
 
 ; EBATTLE5: Spy brainshock susceptibility direct readout text.
-EF6A7F_EBattle5MsgBtlCheckBrainLevel3:
+EF6A7F_EBattle5SpyBrainshockSusceptibilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A99
 
 ; EBATTLE5: metamorphose success text used by the C2 normalization tail.
-EF6A99_EBattle5MsgBtlMetamorphoseOk:
+EF6A99_EBattle5MetamorphoseSuccessResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6AB3
 
 ; EBATTLE5: metamorphose failure text used by the C2 normalization tail.
-EF6AB3_EBattle5MsgBtlMetamorphoseFailed:
+EF6AB3_EBattle5MetamorphoseFailureResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6AC7

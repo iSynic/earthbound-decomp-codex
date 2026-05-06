@@ -95,6 +95,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   scripts at `EF:69EA`, `EF:69FF`, `EF:6A0D`, `EF:6A24`, `EF:6A3C`,
   `EF:6A54`, `EF:6A6C`, and `EF:6A7F`, plus the neighboring metamorphose
   and diamondized scripts at `EF:6A99`, `EF:6AB3`, and `EF:6AC7`.
+- 2026-05-06: EF Spy/metamorphose naming follow-up removed inherited
+  `MsgBtlCheck*` labels from `EF:69EA..6A7F`, keeping Spy offense/defense as
+  `ActionAmount` readouts and resistance buckets as direct readout text, then
+  named `EF:6A99/6AB3` as metamorphose `ResultText`.
 - 2026-05-05: EF EBATTLE8 follow-up added source anchors for the four
   call-for-help result scripts (`EF:77FD`, `EF:7810`, `EF:7824`, `EF:7830`)
   and the Time Stop return script at `EF:7843`.

@@ -121,6 +121,10 @@ This planning pass does not split EF source corridors or regenerate the bank.
   direct fire/freeze/flash/paralysis/hypnosis/Brain Shock vulnerability
   readouts, metamorphose success/failure text, and the diamondized status text
   adjacent to the existing paralysis/status payload anchors.
+- 2026-05-06: EF Spy/metamorphose naming follow-up tightened that corridor:
+  `EF:69EA/69FF` now carry Spy `ActionAmount` readout names, `EF:6A0D..6A7F`
+  carry direct Spy vulnerability/susceptibility readout names, and
+  `EF:6A99/6AB3` carry metamorphose `ResultText` names.
 - 2026-05-05: EF EBATTLE8 call-for-help/Time Stop follow-up split the
   `EF:77FD..7B77` corridor into the four C2 call-for-help result scripts at
   `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830`, the C2 hit-resolution

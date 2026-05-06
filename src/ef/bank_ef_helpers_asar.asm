@@ -4237,64 +4237,64 @@ db $78,$80,$51,$1F,$02,$24,$03,$02
 
 EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
 
-; Original data gap before EF69EA_EBattle5MsgBtlCheckOffenseActionAmount:
+; Original data gap before EF69EA_EBattle5SpyOffenseReadoutActionAmount:
 db $01,$70,$1C,$0E,$50,$A2,$16,$88,$95,$94,$00,$50,$50,$1C,$0F,$50
 db $80,$80,$51,$1F,$02,$24,$03,$02
 
-EF69EA_EBattle5MsgBtlCheckOffenseActionAmount:
+EF69EA_EBattle5SpyOffenseReadoutActionAmount:
 
-; Original data gap before EF69FF_EBattle5MsgBtlCheckDefenseActionAmount:
+; Original data gap before EF69FF_EBattle5SpyDefenseReadoutActionAmount:
 db $01,$70,$1C,$0E,$57,$A3,$00,$50,$50,$7F,$96,$96,$17,$C7,$16,$46
 db $1C,$0F,$51,$03,$02
 
-EF69FF_EBattle5MsgBtlCheckDefenseActionAmount:
+EF69FF_EBattle5SpyDefenseReadoutActionAmount:
 
-; Original data gap before EF6A0D_EBattle5MsgBtlCheckAntiFire:
+; Original data gap before EF6A0D_EBattle5SpyFireVulnerabilityReadoutText:
 db $01,$70,$74,$95,$96,$17,$C7,$16,$46,$1C,$0F,$51,$03,$02
 
-EF6A0D_EBattle5MsgBtlCheckAntiFire:
+EF6A0D_EBattle5SpyFireVulnerabilityReadoutText:
 
-; Original data gap before EF6A24_EBattle5MsgBtlCheckAntiFreeze:
+; Original data gap before EF6A24_EBattle5SpyFreezeVulnerabilityReadoutText:
 db $01,$70,$86,$A5,$9C,$17,$E2,$91,$92,$9C,$15,$56,$80,$83,$79,$50
 db $76,$99,$A2,$95,$51,$03,$02
 
-EF6A24_EBattle5MsgBtlCheckAntiFreeze:
+EF6A24_EBattle5SpyFreezeVulnerabilityReadoutText:
 
-; Original data gap before EF6A3C_EBattle5MsgBtlCheckAntiFlash:
+; Original data gap before EF6A3C_EBattle5SpyFlashVulnerabilityReadoutText:
 db $01,$70,$86,$A5,$9C,$17,$E2,$91,$92,$9C,$15,$56,$80,$83,$79,$50
 db $76,$16,$FA,$AA,$95,$51,$03,$02
 
-EF6A3C_EBattle5MsgBtlCheckAntiFlash:
+EF6A3C_EBattle5SpyFlashVulnerabilityReadoutText:
 
-; Original data gap before EF6A54_EBattle5MsgBtlCheckAntiParalysis:
+; Original data gap before EF6A54_EBattle5SpyParalysisVulnerabilityReadoutText:
 db $01,$70,$86,$A5,$9C,$17,$E2,$91,$92,$9C,$15,$56,$80,$83,$79,$50
 db $76,$9C,$91,$A3,$98,$51,$03,$02
 
-EF6A54_EBattle5MsgBtlCheckAntiParalysis:
+EF6A54_EBattle5SpyParalysisVulnerabilityReadoutText:
 
-; Original data gap before EF6A6C_EBattle5MsgBtlCheckBrainLevel0:
+; Original data gap before EF6A6C_EBattle5SpyHypnosisSusceptibilityReadoutText:
 db $01,$70,$86,$A5,$9C,$17,$E2,$91,$92,$9C,$15,$56,$80,$91,$A2,$91
 db $9C,$A9,$A3,$99,$A3,$51,$03,$02
 
-EF6A6C_EBattle5MsgBtlCheckBrainLevel0:
+EF6A6C_EBattle5SpyHypnosisSusceptibilityReadoutText:
 
-; Original data gap before EF6A7F_EBattle5MsgBtlCheckBrainLevel3:
+; Original data gap before EF6A7F_EBattle5SpyBrainshockSusceptibilityReadoutText:
 db $01,$70,$7F,$A0,$95,$9E,$15,$0C,$78,$A9,$A0,$9E,$9F,$A3,$99,$A3
 db $51,$03,$02
 
-EF6A7F_EBattle5MsgBtlCheckBrainLevel3:
+EF6A7F_EBattle5SpyBrainshockSusceptibilityReadoutText:
 
-; Original data gap before EF6A99_EBattle5MsgBtlMetamorphoseOk:
+; Original data gap before EF6A99_EBattle5MetamorphoseSuccessResultText:
 db $01,$70,$83,$A5,$A3,$93,$95,$A0,$A4,$99,$92,$9C,$15,$56,$72,$A2
 db $16,$43,$50,$83,$98,$17,$5A,$5E,$03,$02
 
-EF6A99_EBattle5MsgBtlMetamorphoseOk:
+EF6A99_EBattle5MetamorphoseSuccessResultText:
 
-; Original data gap before EF6AB3_EBattle5MsgBtlMetamorphoseFailed:
+; Original data gap before EF6AB3_EBattle5MetamorphoseFailureResultText:
 db $01,$70,$89,$17,$9E,$A3,$51,$50,$1C,$0D,$50,$17,$3C,$15,$57,$17
 db $EB,$9F,$00,$50,$50,$1C,$0E,$51,$03,$02
 
-EF6AB3_EBattle5MsgBtlMetamorphoseFailed:
+EF6AB3_EBattle5MetamorphoseFailureResultText:
 
 ; Original data gap before EF6AC7_EBattle5DiamondizedStatusResultText:
 db $01,$70,$1C,$0D,$15,$91,$16,$07,$50,$17,$3C,$00,$50,$16,$0B,$1C

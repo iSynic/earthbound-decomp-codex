@@ -58,8 +58,9 @@ macros.
   freeze, flash, paralysis, hypnosis, and Brain Shock. C2 gates these direct
   scripts from battler resistance bytes before issuing the `DC1C` display call.
 - `EF:6A99` and `EF:6AB3` now mark metamorphose success/failure text used by
-  the C2 normalization tail. `EF:6AC7` now marks the diamondized
-  `StatusResultText` adjacent to the existing paralysis/status payload split.
+  the C2 normalization tail, now as `ResultText` anchors. `EF:6AC7` now marks
+  the diamondized `StatusResultText` adjacent to the existing
+  paralysis/status payload split.
 - `EF:6AE0`, `EF:6B18`, `EF:6BEF`, `EF:6C3A`, and `EF:6C55` now mark
   paralysis, poison, solidification, strange, and asleep `StatusResultText`
   anchors. The EF decode shows `EF:6AE0` as the body-numb/paralysis message
@@ -190,6 +191,11 @@ while the resistance readouts are direct display scripts selected only when C2
 finds a vulnerable/susceptible resistance byte. The metamorphose and diamondized
 neighbors were split in the same pass so the late C2 primary-status tail no
 longer lands in an anonymous gap.
+
+The source labels now carry the same split directly: `EF:69EA/69FF` are Spy
+`ActionAmount` readouts, `EF:6A0D..6A7F` are Spy direct readout text for
+vulnerability/susceptibility buckets, and `EF:6A99/6AB3` are metamorphose
+success/failure `ResultText` emitted by the normalization tail.
 
 ## Call-For-Help And Time Stop Follow-up
 

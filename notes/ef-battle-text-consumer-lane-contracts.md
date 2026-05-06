@@ -62,6 +62,9 @@ Examples:
 
 - `EF:6C55`, `EF:6C3A`, `EF:6C0B`, and `EF:766E` are status success/failure
   result scripts emitted by C2 behavior bodies.
+- Spy vulnerability/susceptibility readouts at `EF:6A0D..6A7F` are direct
+  readout text selected by C2 Spy resistance checks, while `EF:6A99/6AB3` are
+  metamorphose result text emitted by the normalization tail.
 - `StatusResultText` EF anchors such as `EF:6AC7..6C55` and `EF:766E` are
   direct-result lane names; they should not be promoted as row `+4` action
   messages without separate `D5:7B68` row-pointer evidence.
@@ -109,6 +112,8 @@ should keep the `ActionAmount` suffix when the script uses
 Examples:
 
 - HP/PP recovery scripts consume staged recovery amounts.
+- Spy offense/defense readouts at `EF:69EA/69FF` are `ActionAmount` consumers
+  staged by C2 Spy setup through `DC66`.
 - damage, drain, stat-up, stat-down, and HP-sucker scripts consume staged
   amount payloads.
 - EF periodic damage and PP-loss scripts such as `EF:7755`, `EF:7768`,
