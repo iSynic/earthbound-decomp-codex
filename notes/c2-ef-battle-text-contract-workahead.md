@@ -189,7 +189,8 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   strange direct-result scripts separately. The same pass extended the non-EF
   C9 item row-message lane to the later bomb-family rows `310` and `311`, and
   marked explosive rows `64` and `65` as blocked on exact row `+4` EF pointer
-  recovery.
+  recovery. It also records PSI-side Lifeup rows `32..35` as behavior-known
+  but not yet row-message-pointer joined.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

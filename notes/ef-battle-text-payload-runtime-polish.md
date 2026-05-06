@@ -347,6 +347,11 @@ row `+4` EF message pointers are still unrecovered locally. Nearby EF explosive
 text at `EF:9A7E` and `EF:9A9E` remains candidate flavor evidence, not a
 proved action-row join.
 
+The same evidence-boundary section now covers PSI-side Lifeup rows `32..35`.
+Their C2 healing wrappers and HP recovery result lanes are documented, but their
+row `+4` action-presentation pointers still need local recovery before EF can
+claim exact row-message anchors.
+
 ## EGOODS2 Item-Use Follow-up
 
 The `EF:9EF4..A2FA` EGOODS2 include is now split into item-use payload anchors.

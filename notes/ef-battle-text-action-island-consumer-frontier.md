@@ -76,10 +76,10 @@ physical, special, item, and event rows (`99..102`, `104`, `117`, `118`,
 Rows whose C2 behavior bodies are known but whose row `+4` EF pointers are not
 locally recovered should stay out of the proved-join table. The current
 behavior-known frontier includes numeric-effect rows `95..98`, `48`, `49`,
-`96`, `233`, and `234`, projectile/explosive rows `64` and `65`, plus late
-no-op/flavor rows that return through `C2:9033` and neighboring tiny no-op
-tails. These are good C2 behavior notes, but not yet EF row-message naming
-evidence.
+`96`, `233`, and `234`, PSI-side healing rows `32..35`,
+projectile/explosive rows `64` and `65`, plus late no-op/flavor rows that
+return through `C2:9033` and neighboring tiny no-op tails. These are good C2
+behavior notes, but not yet EF row-message naming evidence.
 
 ## Direct Result Joins Adjacent To Action Islands
 

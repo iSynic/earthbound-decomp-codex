@@ -136,6 +136,20 @@ Modeling rule: keep the C8 amount scripts in the C2-focused notes. The EF
 action-row labels remain exact `MSG_BTL_*` anchors until the row `+4` pointers
 are known.
 
+### Behavior-Known Healing Rows
+
+The healing note proves the fixed-amount HP recovery wrappers, but the local
+evidence currently records the PSI metadata and row `+8` bodies, not the row
+`+4` presentation pointers for the PSI-side quartet.
+
+| Rows | Known row `+8` behavior | Known result-text lane | Missing join |
+| --- | --- | --- | --- |
+| `32..35` | `C2:9AC6`, `C2:9ACF`, `C2:9AD8`, `C2:9AE1` | HP recovery worker emits full-heal/direct or amount-bearing EF result scripts through `C2:7294` | Row `+4` action message for each Lifeup row |
+
+Modeling rule: do not fold rows `32..35` into the shared `EF:8543` PSI
+row-message bucket until their row `+4` pointers are recovered. Their behavior
+bodies are known; their presentation anchors are not yet locally joined.
+
 ### Behavior-Known No-Op And Flavor Rows
 
 The late flavor-tail note proves several no-op behavior tails, but these are

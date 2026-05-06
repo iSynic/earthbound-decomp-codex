@@ -223,4 +223,5 @@ This planning pass does not split EF source corridors or regenerate the bank.
   asleep/strange result payloads emitted by their C2 behavior bodies, and
   extended the non-EF C9 item lane to later bomb-family rows `310` and `311`.
   The same follow-up marks explosive rows `64` and `65` as behavior-known but
-  still blocked on exact row `+4` EF pointer recovery.
+  still blocked on exact row `+4` EF pointer recovery, and adds PSI-side Lifeup
+  rows `32..35` to the pointer-recovery frontier.
