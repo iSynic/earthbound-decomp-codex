@@ -11,10 +11,24 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C10084_CloseFocusWindow = $0084
+C1008E_CloseAndDrainAllWindows = $008E
 C10400_GetCurrentTextContextWorkmem = $0400
 C1042E_IncrementCurrentTextContextWorkmem = $042E
 C1045D_InstallPrimaryInteractionContextPointer = $045D
+C10A1D_HideHpppWindows_Internal = $0A1D
+C10FA3_ClearActiveWindowContent = $0FA3
 C11383_ClearLoadedTextStrings = $1383
+C12DD5_TickWindowTextSystem = $C12DD5
+C143C2_OpenTextWindowTextCommand = $43C2
+C143CC_SwitchFocusedTextWindowCommand = $43CC
+C14509_HandleTextCommand18ForceTextAlignment = $4509
+C1528D_CompareQueuedValueAgainstTextRegisterCommand = $528D
+C15529_RunWindowRelativeSelectionNoCancelTextCommand = $5529
+C1554E_RunWindowRelativeSelectionTextCommand = $554E
+C15B46_RunStatusWindowDisplayTextCommand = $5B46
+C1AA18_RefreshWalletOrStatusDisplay = $AA18
+C20A20_SnapshotManagedTextEventSlotState = $C20A20
 
 LoadedStringValueLo = $06
 LoadedStringValueByte1 = $07
@@ -105,48 +119,48 @@ C178F7_StartLoadedStringInlineCollector = CC_19_02
     beq C179A0_StartLoadedStringInlineCollector_L79A0
     bra C179A5_StartLoadedStringInlineCollector_L79A5
 C17954_StartLoadedStringInlineCollector_L7954:
-    jsr $0084
+    jsr C10084_CloseFocusWindow
     bra C179A5_StartLoadedStringInlineCollector_L79A5
 C17959_StartLoadedStringInlineCollector_L7959:
-    lda.w #$43C2
+    lda.w #C143C2_OpenTextWindowTextCommand
     bra C179A8_StartLoadedStringInlineCollector_L79A8
 C1795E_StartLoadedStringInlineCollector_L795E:
     tya
     clc
     adc.w #$0006
-    jsl $C20A20
+    jsl C20A20_SnapshotManagedTextEventSlotState
     lda.w #$0001
     ldy $0E
     sta $0004,Y
     bra C179A5_StartLoadedStringInlineCollector_L79A5
 C17971_StartLoadedStringInlineCollector_L7971:
-    lda.w #$43CC
+    lda.w #C143CC_SwitchFocusedTextWindowCommand
     bra C179A8_StartLoadedStringInlineCollector_L79A8
 C17976_StartLoadedStringInlineCollector_L7976:
-    jsr $008E
-    jsr $0A1D
-    jsl $C12DD5
+    jsr C1008E_CloseAndDrainAllWindows
+    jsr C10A1D_HideHpppWindows_Internal
+    jsl C12DD5_TickWindowTextSystem
     bra C179A5_StartLoadedStringInlineCollector_L79A5
 C17982_StartLoadedStringInlineCollector_L7982:
-    lda.w #$4509
+    lda.w #C14509_HandleTextCommand18ForceTextAlignment
     bra C179A8_StartLoadedStringInlineCollector_L79A8
 C17987_StartLoadedStringInlineCollector_L7987:
-    jsr $0FA3
+    jsr C10FA3_ClearActiveWindowContent
     bra C179A5_StartLoadedStringInlineCollector_L79A5
 C1798C_StartLoadedStringInlineCollector_L798C:
-    lda.w #$528D
+    lda.w #C1528D_CompareQueuedValueAgainstTextRegisterCommand
     bra C179A8_StartLoadedStringInlineCollector_L79A8
 C17991_StartLoadedStringInlineCollector_L7991:
-    lda.w #$5529
+    lda.w #C15529_RunWindowRelativeSelectionNoCancelTextCommand
     bra C179A8_StartLoadedStringInlineCollector_L79A8
 C17996_StartLoadedStringInlineCollector_L7996:
-    lda.w #$554E
+    lda.w #C1554E_RunWindowRelativeSelectionTextCommand
     bra C179A8_StartLoadedStringInlineCollector_L79A8
 C1799B_StartLoadedStringInlineCollector_L799B:
-    jsr $AA18
+    jsr C1AA18_RefreshWalletOrStatusDisplay
     bra C179A5_StartLoadedStringInlineCollector_L79A5
 C179A0_StartLoadedStringInlineCollector_L79A0:
-    lda.w #$5B46
+    lda.w #C15B46_RunStatusWindowDisplayTextCommand
     bra C179A8_StartLoadedStringInlineCollector_L79A8
 C179A5_StartLoadedStringInlineCollector_L79A5:
     lda.w #$0000

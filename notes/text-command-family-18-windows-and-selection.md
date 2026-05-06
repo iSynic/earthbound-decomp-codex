@@ -60,6 +60,15 @@ Parser/runtime cross-check now looks healthy:
 
 The window-relative comparison and selection leaves at `C1:528D`, `C1:5529`, and `C1:554E` are now decoded source in `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm`. The status-display tail at `C1:5B46` is also decoded in `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm`. That promotes the `0x18 07`, `0x18 08`, `0x18 09`, and `0x18 0D` local bodies from byte-preserved corridors into byte-equivalent checked-in source.
 
+Source polish follow-up (2026-05-06): the `C1:790B` dispatcher front inside
+`src/c1/c1_78f7_start_loaded_string_inline_collector.asm` now names its
+helper-call and callback-return edges directly. `0x18 00/04/06/0A` call the
+close-focus, close-and-drain, hide-HP/PP, text-tick, clear-active-window, and
+wallet/status refresh helpers by name; `0x18 02` names the `C20A20` managed
+slot snapshot helper before activating `slot + 4`; and `0x18 01/03/05/07/08/09/0D`
+return named callback low words for the open-window, switch-window,
+force-alignment, register-compare, window-selection, and status-display leaves.
+
 ## Best current case map
 
 ### `0x18 00`
@@ -108,6 +117,8 @@ Why:
 
 - local body `C1:795E` snapshots `current_callback_slot + 6` through `C20A20` and then writes `1` to `slot + 4`
 - this is the same timed-event slot infrastructure already mapped in [timed-event-slot-block-7440-and-c20abc.md](notes/timed-event-slot-block-7440-and-c20abc.md)
+- the source now names this helper edge as
+  `C20A20_SnapshotManagedTextEventSlotState`
 - exact parsed hits cluster in `ESHOP1/2/3` and `EDEBUG`, where later rendering/menu flows clearly rely on saved window context
 - community docs describe it as saving cursor position, font, color, and number-padding state for later restoration
 

@@ -131,6 +131,11 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   IQ/Guts/Speed/Vitality/Luck text-command leaves. See
   `notes/timed-delivery-row-index-command-1f-d3.md` and
   `notes/text-command-family-1e-stat-recovery.md`.
+- 2026-05-06: C1 `C1:78F7..7AE3` loaded-string/window-family dispatcher
+  follow-up named the `0x18` close/drain/clear/window-switch/status-display
+  helper surface plus the managed-slot snapshot edge shared with the timed
+  event slot notes. See `notes/text-command-family-18-windows-and-selection.md`
+  and `notes/text-command-load-string-pointer-c17796-c17889.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

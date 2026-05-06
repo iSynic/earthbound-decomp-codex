@@ -16,6 +16,14 @@ This cluster is now promoted as decoded source modules:
 - `src/c1/c1_7889_continue_loaded_string_inline_collector.asm` (`C1:7889..C1:78F7`)
 - `src/c1/c1_78f7_start_loaded_string_inline_collector.asm` (`C1:78F7..C1:7AE3`)
 
+Source polish follow-up (2026-05-06): the `C1:78F7..7AE3` source now names the
+adjacent `0x18` window-family dispatcher helpers and callback return targets
+that share this module. The loaded-string collector behavior is unchanged, but
+the module boundary is clearer: the first entry stages `0x19 02` bytes, while
+the later dispatcher front names close/drain/clear window helpers, managed-slot
+snapshotting through `C20A20`, and the open/switch/selection/status callback
+low words.
+
 ## Working Names
 
 - `C1:7796` = `FinalizeLoadedStringWithCompanionPointer`

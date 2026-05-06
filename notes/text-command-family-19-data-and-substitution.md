@@ -92,6 +92,14 @@ call the C4 registry, visual-type, and pose-descriptor facing-octant helpers by
 name; the condiment leaf calls the C1 condiment lookup helper; and the landing
 snapshot leaf calls `C2:30F3` by name after resolving its staged argument.
 
+Source polish follow-up (2026-05-06): the `C1:78F7..7AE3` dispatcher module now
+also names the shared `0x18` window-helper edge surface that lives beside the
+`0x19` loaded-string dispatcher. This does not change the `0x19` case map, but
+it makes the mixed module's two dispatcher roles explicit: `C1:78F7` remains
+the loaded-string collector entry for `0x19 02`, while the adjacent `C1:790B`
+window-family front now has named callback returns and named window/context
+helper calls.
+
 ## Best current case map
 
 ### `0x19 02`

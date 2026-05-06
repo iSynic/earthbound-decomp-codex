@@ -119,6 +119,10 @@ In the bank-`01` helper at `C1:795E`:
 - calls `C20A20`
 - then writes `#$0001` to `slot + 4`
 
+Source polish follow-up (2026-05-06): this `C1:795E` call edge is now named in
+`src/c1/c1_78f7_start_loaded_string_inline_collector.asm` as
+`C20A20_SnapshotManagedTextEventSlotState`.
+
 This is the cleanest local activation path found so far. It means the slot becomes active only after a state snapshot has been written into its back half.
 
 ## What `C20A20` does

@@ -85,9 +85,9 @@ Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`
 | `C1:7274` | `StageBankDepositAccumulatorTextValue` | `notes/bank-deposit-accumulator-98b9-98bb.md:15` |
 | `C1:7440` | `TimedDeliveryRowSelectorCallback` | `notes/timed-event-slot-block-7440-and-c20abc.md:16` |
 | `C1:7708` | `ClassifyEquippedItemOffensiveDefensive` | `notes/offensive-defensive-item-check-c17708.md:17` |
-| `C1:7796` | `FinalizeLoadedStringWithCompanionPointer` | `notes/text-command-load-string-pointer-c17796-c17889.md:21` |
-| `C1:7889` | `ContinueLoadedStringInlineCollector` | `notes/text-command-load-string-pointer-c17796-c17889.md:23` |
-| `C1:78F7` | `StartLoadedStringInlineCollector` | `notes/text-command-load-string-pointer-c17796-c17889.md:22` |
+| `C1:7796` | `FinalizeLoadedStringWithCompanionPointer` | `notes/text-command-load-string-pointer-c17796-c17889.md:29` |
+| `C1:7889` | `ContinueLoadedStringInlineCollector` | `notes/text-command-load-string-pointer-c17796-c17889.md:31` |
+| `C1:78F7` | `StartLoadedStringInlineCollector` | `notes/text-command-load-string-pointer-c17796-c17889.md:30` |
 | `C1:7AE3` | `LoadDisplayTextPointerSubstitutionSlot` | `notes/class2-c1-display-text-substitution-handler-7af3.md:30` |
 | `C1:7AF3` | `LoadDisplayTextByteSubstitutionSlot` | `notes/class2-c1-display-text-substitution-handler-7af3.md:31` |
 | `C1:7B0D` | `LoadDisplayTextMushroomizedSelectorByte` | `notes/class2-c1-display-text-substitution-handler-7af3.md:32` |

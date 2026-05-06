@@ -400,3 +400,12 @@ This planning pass is documentation-only.
   Luck. See `notes/timed-delivery-row-index-command-1f-d3.md`,
   `notes/timed-event-slot-block-7440-and-c20abc.md`, and
   `notes/text-command-family-1e-stat-recovery.md`.
+- 2026-05-06 follow-up: the `C1:78F7..7AE3` loaded-string/window-family
+  dispatcher bridge now has no raw helper-call or raw callback-return address
+  edges in its `0x18` front half. The source names close/drain/clear window
+  helpers, HP/PP hide and text tick helpers, the managed-slot snapshot helper,
+  wallet/status refresh, and the callback return targets for open/switch
+  window, force alignment, window-relative selection, register comparison, and
+  status-window display. See `notes/text-command-family-18-windows-and-selection.md`,
+  `notes/text-command-family-19-data-and-substitution.md`, and
+  `notes/text-command-load-string-pointer-c17796-c17889.md`.
