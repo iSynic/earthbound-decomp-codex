@@ -13,6 +13,21 @@
 
 ; No named external contracts were supplied or recognized.
 
+C4A279_OneHotTargetBitMaskTableLo = $A279
+C4A279_OneHotTargetBitMaskTableBank = $00C4
+CandidateRowBase = $9FAC
+CandidateRowSize = $004E
+CandidateRowActiveOffset = $000C
+CandidateRowTypeOffset = $000F
+CurrentTargetMaskLo = $A96C
+CurrentTargetMaskHi = $A96E
+CandidateBitIndex = $0E
+OneHotMaskLo = $0A
+OneHotMaskHi = $0C
+WorkingMaskLo = $06
+WorkingMaskHi = $08
+TargetMaskBitLimit = $0020
+
 ; ---------------------------------------------------------------------------
 ; C2:6E77
 
@@ -23,63 +38,63 @@ C26E77_MaskSet_RemoveActiveTypedCandidates = REMOVE_NPC_TARGETTING
     tdc
     adc.w #$FFF0
     tcd
-    ldx.w #$9FAC
+    ldx.w #CandidateRowBase
     lda.w #$0000
-    sta $0E
+    sta CandidateBitIndex
     bra C26EF1_MaskSet_RemoveActiveTypedCandidates_L6EF1
 C26E89_MaskSet_RemoveActiveTypedCandidates_L6E89:
-    lda $000C,X
+    lda CandidateRowActiveOffset,X
     and.w #$00FF
     beq C26EE6_MaskSet_RemoveActiveTypedCandidates_L6EE6
-    lda $000F,X
+    lda CandidateRowTypeOffset,X
     and.w #$00FF
     beq C26EE6_MaskSet_RemoveActiveTypedCandidates_L6EE6
-    lda.w #$A279
-    sta $06
-    lda.w #$00C4
-    sta $08
-    lda $0E
+    lda.w #C4A279_OneHotTargetBitMaskTableLo
+    sta WorkingMaskLo
+    lda.w #C4A279_OneHotTargetBitMaskTableBank
+    sta WorkingMaskHi
+    lda CandidateBitIndex
     asl A
     asl A
     clc
-    adc $06
-    sta $06
+    adc WorkingMaskLo
+    sta WorkingMaskLo
     ldy.w #$0002
-    lda [$06],Y
+    lda [WorkingMaskLo],Y
     tay
-    lda [$06]
-    sta $0A
-    sty $0C
-    lda $0A
+    lda [WorkingMaskLo]
+    sta OneHotMaskLo
+    sty OneHotMaskHi
+    lda OneHotMaskLo
     eor.w #$FFFF
-    sta $0A
-    lda $0C
+    sta OneHotMaskLo
+    lda OneHotMaskHi
     eor.w #$FFFF
-    sta $0C
-    lda $A96C
-    sta $06
-    lda $A96E
-    sta $08
-    lda $06
-    and $0A
-    sta $06
-    lda $08
-    and $0C
-    sta $08
-    lda $06
-    sta $A96C
-    lda $08
-    sta $A96E
+    sta OneHotMaskHi
+    lda CurrentTargetMaskLo
+    sta WorkingMaskLo
+    lda CurrentTargetMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    and OneHotMaskLo
+    sta WorkingMaskLo
+    lda WorkingMaskHi
+    and OneHotMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    sta CurrentTargetMaskLo
+    lda WorkingMaskHi
+    sta CurrentTargetMaskHi
 C26EE6_MaskSet_RemoveActiveTypedCandidates_L6EE6:
     txa
     clc
-    adc.w #$004E
+    adc.w #CandidateRowSize
     tax
-    lda $0E
+    lda CandidateBitIndex
     inc A
-    sta $0E
+    sta CandidateBitIndex
 C26EF1_MaskSet_RemoveActiveTypedCandidates_L6EF1:
-    cmp.w #$0020
+    cmp.w #TargetMaskBitLimit
     bcc C26E89_MaskSet_RemoveActiveTypedCandidates_L6E89
     pld
     rtl

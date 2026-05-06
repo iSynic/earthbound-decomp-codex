@@ -13,6 +13,19 @@
 
 ; No named external contracts were supplied or recognized.
 
+C4A279_OneHotTargetBitMaskTableLo = $A279
+C4A279_OneHotTargetBitMaskTableBank = $00C4
+CurrentTargetMaskLo = $A96C
+CurrentTargetMaskHi = $A96E
+MaskBitIndexArg = $0E
+OneHotMaskLo = $0A
+OneHotMaskHi = $0C
+WorkingMaskLo = $06
+WorkingMaskHi = $08
+NullMaskWord = $0000
+MaskBitAbsent = $0000
+MaskBitPresent = $0001
+
 ; ---------------------------------------------------------------------------
 ; C2:7029
 
@@ -25,46 +38,46 @@ C27029_MaskSet_TestBit = IS_CHAR_TARGETTED
     adc.w #$FFF0
     tcd
     pla
-    sta $0E
-    ldx.w #$0000
-    lda.w #$A279
-    sta $06
-    lda.w #$00C4
-    sta $08
-    lda $0E
+    sta MaskBitIndexArg
+    ldx.w #MaskBitAbsent
+    lda.w #C4A279_OneHotTargetBitMaskTableLo
+    sta WorkingMaskLo
+    lda.w #C4A279_OneHotTargetBitMaskTableBank
+    sta WorkingMaskHi
+    lda MaskBitIndexArg
     asl A
     asl A
     clc
-    adc $06
-    sta $06
+    adc WorkingMaskLo
+    sta WorkingMaskLo
     ldy.w #$0002
-    lda [$06],Y
+    lda [WorkingMaskLo],Y
     tay
-    lda [$06]
-    sta $0A
-    sty $0C
-    lda $A96C
-    sta $06
-    lda $A96E
-    sta $08
-    lda $06
-    and $0A
-    sta $06
-    lda $08
-    and $0C
-    sta $08
-    lda.w #$0000
-    sta $0A
-    lda.w #$0000
-    sta $0C
-    lda $08
-    cmp $0C
+    lda [WorkingMaskLo]
+    sta OneHotMaskLo
+    sty OneHotMaskHi
+    lda CurrentTargetMaskLo
+    sta WorkingMaskLo
+    lda CurrentTargetMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    and OneHotMaskLo
+    sta WorkingMaskLo
+    lda WorkingMaskHi
+    and OneHotMaskHi
+    sta WorkingMaskHi
+    lda.w #NullMaskWord
+    sta OneHotMaskLo
+    lda.w #NullMaskWord
+    sta OneHotMaskHi
+    lda WorkingMaskHi
+    cmp OneHotMaskHi
     bne C27081_MaskSet_TestBit_L7081
-    lda $06
-    cmp $0A
+    lda WorkingMaskLo
+    cmp OneHotMaskLo
 C27081_MaskSet_TestBit_L7081:
     beq C27086_MaskSet_TestBit_L7086
-    ldx.w #$0001
+    ldx.w #MaskBitPresent
 C27086_MaskSet_TestBit_L7086:
     txa
     pld

@@ -13,6 +13,16 @@
 
 ; No named external contracts were supplied or recognized.
 
+C4A279_OneHotTargetBitMaskTableLo = $A279
+C4A279_OneHotTargetBitMaskTableBank = $00C4
+CurrentTargetMaskLo = $A96C
+CurrentTargetMaskHi = $A96E
+MaskBitIndexArg = $0E
+OneHotMaskLo = $0A
+OneHotMaskHi = $0C
+WorkingMaskLo = $06
+WorkingMaskHi = $08
+
 ; ---------------------------------------------------------------------------
 ; C2:6FDC
 
@@ -25,36 +35,36 @@ C26FDC_MaskSet_AddBit = TARGET_BATTLER
     adc.w #$FFF0
     tcd
     pla
-    sta $0E
-    lda.w #$A279
-    sta $06
-    lda.w #$00C4
-    sta $08
-    lda $0E
+    sta MaskBitIndexArg
+    lda.w #C4A279_OneHotTargetBitMaskTableLo
+    sta WorkingMaskLo
+    lda.w #C4A279_OneHotTargetBitMaskTableBank
+    sta WorkingMaskHi
+    lda MaskBitIndexArg
     asl A
     asl A
     clc
-    adc $06
-    sta $06
+    adc WorkingMaskLo
+    sta WorkingMaskLo
     ldy.w #$0002
-    lda [$06],Y
+    lda [WorkingMaskLo],Y
     tay
-    lda [$06]
-    sta $0A
-    sty $0C
-    lda $A96C
-    sta $06
-    lda $A96E
-    sta $08
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
-    lda $06
-    sta $A96C
-    lda $08
-    sta $A96E
+    lda [WorkingMaskLo]
+    sta OneHotMaskLo
+    sty OneHotMaskHi
+    lda CurrentTargetMaskLo
+    sta WorkingMaskLo
+    lda CurrentTargetMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    ora OneHotMaskLo
+    sta WorkingMaskLo
+    lda WorkingMaskHi
+    ora OneHotMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    sta CurrentTargetMaskLo
+    lda WorkingMaskHi
+    sta CurrentTargetMaskHi
     pld
     rtl

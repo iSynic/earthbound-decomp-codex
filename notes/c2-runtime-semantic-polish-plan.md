@@ -356,6 +356,11 @@ contract notes for C0/C1/C3/C4 consumers.
   the current target mask, derived-action code lanes, candidate-row handoff
   offsets, `$A21C/$9FAC` payload target domains, and the shared `0x4E` row
   stride. See `notes/c2-action-dispatch-runtime-polish.md`.
+- 2026-05-05 fifty-fourth slice: carried the same target-mask vocabulary into
+  the C2 mask helper family. The promoted contracts name the `C4:A279` one-hot
+  bit table, `$A96C/$A96E` current target mask, `$9FAC` candidate row root,
+  active/phase/type/metadata row offsets, and `0x4E` stride in the add/test/
+  clear and build/remove helper sources. See `notes/class2-mask-helper-family.md`.
 
 ## Validation
 

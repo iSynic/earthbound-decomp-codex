@@ -13,6 +13,28 @@
 
 ; No named external contracts were supplied or recognized.
 
+C4A279_OneHotTargetBitMaskTableLo = $A279
+C4A279_OneHotTargetBitMaskTableBank = $00C4
+CandidateRowBase = $9FAC
+CandidateRowSize = $004E
+CandidateRowActiveOffset = $000C
+CandidateRowPhaseOffset = $000E
+CandidateRowMetadataOffset = $0010
+CurrentTargetMaskLo = $A96C
+CurrentTargetMaskHi = $A96E
+CandidateBitIndex = $0E
+MetadataMatchArg = $10
+OneHotMaskLo = $0A
+OneHotMaskHi = $0C
+WorkingMaskLo = $06
+WorkingMaskHi = $08
+TargetMaskBitLimit = $0020
+PhaseValueOrdinary = $0000
+PhaseValueOne = $0001
+MetadataMatchZero = $0000
+MetadataMatchOne = $0001
+MetadataMatchTwo = $0002
+
 ; ---------------------------------------------------------------------------
 ; C2:6C82
 
@@ -24,61 +46,61 @@ C26C82_MaskSet_BuildPhase1Candidates = TARGET_ALL_ENEMIES
     adc.w #$FFF0
     tcd
     lda.w #$0000
-    sta $A96C
+    sta CurrentTargetMaskLo
     lda.w #$0000
-    sta $A96E
-    ldx.w #$9FAC
+    sta CurrentTargetMaskHi
+    ldx.w #CandidateRowBase
     lda.w #$0000
-    sta $0E
+    sta CandidateBitIndex
     bra C26CFD_MaskSet_BuildPhase1Candidates_L6CFD
 C26CA0_MaskSet_BuildPhase1Candidates_L6CA0:
-    lda $000C,X
+    lda CandidateRowActiveOffset,X
     and.w #$00FF
     beq C26CF2_MaskSet_BuildPhase1Candidates_L6CF2
-    lda $000E,X
+    lda CandidateRowPhaseOffset,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #PhaseValueOne
     bne C26CF2_MaskSet_BuildPhase1Candidates_L6CF2
-    lda.w #$A279
-    sta $06
-    lda.w #$00C4
-    sta $08
-    lda $0E
+    lda.w #C4A279_OneHotTargetBitMaskTableLo
+    sta WorkingMaskLo
+    lda.w #C4A279_OneHotTargetBitMaskTableBank
+    sta WorkingMaskHi
+    lda CandidateBitIndex
     asl A
     asl A
     clc
-    adc $06
-    sta $06
+    adc WorkingMaskLo
+    sta WorkingMaskLo
     ldy.w #$0002
-    lda [$06],Y
+    lda [WorkingMaskLo],Y
     tay
-    lda [$06]
-    sta $0A
-    sty $0C
-    lda $A96C
-    sta $06
-    lda $A96E
-    sta $08
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
-    lda $06
-    sta $A96C
-    lda $08
-    sta $A96E
+    lda [WorkingMaskLo]
+    sta OneHotMaskLo
+    sty OneHotMaskHi
+    lda CurrentTargetMaskLo
+    sta WorkingMaskLo
+    lda CurrentTargetMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    ora OneHotMaskLo
+    sta WorkingMaskLo
+    lda WorkingMaskHi
+    ora OneHotMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    sta CurrentTargetMaskLo
+    lda WorkingMaskHi
+    sta CurrentTargetMaskHi
 C26CF2_MaskSet_BuildPhase1Candidates_L6CF2:
     txa
     clc
-    adc.w #$004E
+    adc.w #CandidateRowSize
     tax
-    lda $0E
+    lda CandidateBitIndex
     inc A
-    sta $0E
+    sta CandidateBitIndex
 C26CFD_MaskSet_BuildPhase1Candidates_L6CFD:
-    cmp.w #$0020
+    cmp.w #TargetMaskBitLimit
     bcc C26CA0_MaskSet_BuildPhase1Candidates_L6CA0
     pld
     rtl
@@ -92,118 +114,118 @@ C26D04_MaskSet_BuildMetadataMatchedCandidates = TARGET_ROW
     tcd
     pla
     tay
-    sty $10
+    sty MetadataMatchArg
     lda.w #$0000
-    sta $A96C
+    sta CurrentTargetMaskLo
     lda.w #$0000
-    sta $A96E
-    ldx.w #$9FAC
+    sta CurrentTargetMaskHi
+    ldx.w #CandidateRowBase
     lda.w #$0000
-    sta $0E
+    sta CandidateBitIndex
     jmp.w C26DF4_MaskSet_BuildPhase1Candidates_L6DF4
 C26D28_MaskSet_BuildPhase1Candidates_L6D28:
-    lda $000C,X
+    lda CandidateRowActiveOffset,X
     and.w #$00FF
     bne C26D33_MaskSet_BuildPhase1Candidates_L6D33
     jmp.w C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
 C26D33_MaskSet_BuildPhase1Candidates_L6D33:
-    ldy $10
+    ldy MetadataMatchArg
     tya
     beq C26D45_MaskSet_BuildPhase1Candidates_L6D45
-    cmp.w #$0001
+    cmp.w #MetadataMatchOne
     beq C26D91_MaskSet_BuildPhase1Candidates_L6D91
-    cmp.w #$0002
+    cmp.w #MetadataMatchTwo
     beq C26D91_MaskSet_BuildPhase1Candidates_L6D91
     jmp.w C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
 C26D45_MaskSet_BuildPhase1Candidates_L6D45:
-    lda $000E,X
+    lda CandidateRowPhaseOffset,X
     and.w #$00FF
     beq C26D50_MaskSet_BuildPhase1Candidates_L6D50
     jmp.w C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
 C26D50_MaskSet_BuildPhase1Candidates_L6D50:
-    lda.w #$A279
-    sta $06
-    lda.w #$00C4
-    sta $08
-    lda $0E
+    lda.w #C4A279_OneHotTargetBitMaskTableLo
+    sta WorkingMaskLo
+    lda.w #C4A279_OneHotTargetBitMaskTableBank
+    sta WorkingMaskHi
+    lda CandidateBitIndex
     asl A
     asl A
     clc
-    adc $06
-    sta $06
+    adc WorkingMaskLo
+    sta WorkingMaskLo
     ldy.w #$0002
-    lda [$06],Y
+    lda [WorkingMaskLo],Y
     tay
-    lda [$06]
-    sta $0A
-    sty $0C
-    lda $A96C
-    sta $06
-    lda $A96E
-    sta $08
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
-    lda $06
-    sta $A96C
-    lda $08
-    sta $A96E
+    lda [WorkingMaskLo]
+    sta OneHotMaskLo
+    sty OneHotMaskHi
+    lda CurrentTargetMaskLo
+    sta WorkingMaskLo
+    lda CurrentTargetMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    ora OneHotMaskLo
+    sta WorkingMaskLo
+    lda WorkingMaskHi
+    ora OneHotMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    sta CurrentTargetMaskLo
+    lda WorkingMaskHi
+    sta CurrentTargetMaskHi
     bra C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
 C26D91_MaskSet_BuildPhase1Candidates_L6D91:
-    lda $000E,X
+    lda CandidateRowPhaseOffset,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #PhaseValueOne
     bne C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
     tya
     dec A
     sta $02
-    lda $0010,X
+    lda CandidateRowMetadataOffset,X
     and.w #$00FF
     cmp $02
     bne C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
-    lda.w #$A279
-    sta $06
-    lda.w #$00C4
-    sta $08
-    lda $0E
+    lda.w #C4A279_OneHotTargetBitMaskTableLo
+    sta WorkingMaskLo
+    lda.w #C4A279_OneHotTargetBitMaskTableBank
+    sta WorkingMaskHi
+    lda CandidateBitIndex
     asl A
     asl A
     clc
-    adc $06
-    sta $06
+    adc WorkingMaskLo
+    sta WorkingMaskLo
     ldy.w #$0002
-    lda [$06],Y
+    lda [WorkingMaskLo],Y
     tay
-    lda [$06]
-    sta $0A
-    sty $0C
-    lda $A96C
-    sta $06
-    lda $A96E
-    sta $08
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
-    lda $06
-    sta $A96C
-    lda $08
-    sta $A96E
+    lda [WorkingMaskLo]
+    sta OneHotMaskLo
+    sty OneHotMaskHi
+    lda CurrentTargetMaskLo
+    sta WorkingMaskLo
+    lda CurrentTargetMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    ora OneHotMaskLo
+    sta WorkingMaskLo
+    lda WorkingMaskHi
+    ora OneHotMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    sta CurrentTargetMaskLo
+    lda WorkingMaskHi
+    sta CurrentTargetMaskHi
 C26DE9_MaskSet_BuildPhase1Candidates_L6DE9:
     txa
     clc
-    adc.w #$004E
+    adc.w #CandidateRowSize
     tax
-    lda $0E
+    lda CandidateBitIndex
     inc A
-    sta $0E
+    sta CandidateBitIndex
 C26DF4_MaskSet_BuildPhase1Candidates_L6DF4:
-    cmp.w #$0020
+    cmp.w #TargetMaskBitLimit
     bcs C26DFE_MaskSet_BuildPhase1Candidates_L6DFE
     beq C26DFE_MaskSet_BuildPhase1Candidates_L6DFE
     jmp.w C26D28_MaskSet_BuildPhase1Candidates_L6D28
@@ -216,57 +238,57 @@ C26DFE_MaskSet_BuildPhase1Candidates_L6DFE:
     adc.w #$FFF0
     tcd
     lda.w #$0000
-    sta $A96C
+    sta CurrentTargetMaskLo
     lda.w #$0000
-    sta $A96E
-    ldx.w #$9FAC
+    sta CurrentTargetMaskHi
+    ldx.w #CandidateRowBase
     lda.w #$0000
-    sta $0E
+    sta CandidateBitIndex
     bra C26E70_MaskSet_BuildPhase1Candidates_L6E70
 C26E1E_MaskSet_BuildPhase1Candidates_L6E1E:
-    lda $000C,X
+    lda CandidateRowActiveOffset,X
     and.w #$00FF
     beq C26E65_MaskSet_BuildPhase1Candidates_L6E65
-    lda.w #$A279
-    sta $06
-    lda.w #$00C4
-    sta $08
-    lda $0E
+    lda.w #C4A279_OneHotTargetBitMaskTableLo
+    sta WorkingMaskLo
+    lda.w #C4A279_OneHotTargetBitMaskTableBank
+    sta WorkingMaskHi
+    lda CandidateBitIndex
     asl A
     asl A
     clc
-    adc $06
-    sta $06
+    adc WorkingMaskLo
+    sta WorkingMaskLo
     ldy.w #$0002
-    lda [$06],Y
+    lda [WorkingMaskLo],Y
     tay
-    lda [$06]
-    sta $0A
-    sty $0C
-    lda $A96C
-    sta $06
-    lda $A96E
-    sta $08
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
-    lda $06
-    sta $A96C
-    lda $08
-    sta $A96E
+    lda [WorkingMaskLo]
+    sta OneHotMaskLo
+    sty OneHotMaskHi
+    lda CurrentTargetMaskLo
+    sta WorkingMaskLo
+    lda CurrentTargetMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    ora OneHotMaskLo
+    sta WorkingMaskLo
+    lda WorkingMaskHi
+    ora OneHotMaskHi
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    sta CurrentTargetMaskLo
+    lda WorkingMaskHi
+    sta CurrentTargetMaskHi
 C26E65_MaskSet_BuildPhase1Candidates_L6E65:
     txa
     clc
-    adc.w #$004E
+    adc.w #CandidateRowSize
     tax
-    lda $0E
+    lda CandidateBitIndex
     inc A
-    sta $0E
+    sta CandidateBitIndex
 C26E70_MaskSet_BuildPhase1Candidates_L6E70:
-    cmp.w #$0020
+    cmp.w #TargetMaskBitLimit
     bcc C26E1E_MaskSet_BuildPhase1Candidates_L6E1E
     pld
     rtl

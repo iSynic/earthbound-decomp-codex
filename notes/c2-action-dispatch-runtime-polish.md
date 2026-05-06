@@ -89,6 +89,11 @@ helper family:
 The important promoted contract is that `$A96C/$A96E` is the current 32-bit
 target mask for the derived action, not a generic scratch pair.
 
+Implementation update: the mask helper source family now mirrors that contract
+directly by naming `C4:A279` as the one-hot bit table, `$A96C/$A96E` as the
+current target mask, `$9FAC` as the candidate-row domain, and `0x4E` as the row
+stride in the core add/test/clear and build/remove passes.
+
 ## Second-Pointer Application
 
 `C2:40A4` is the consumer for the second pointer from a `D5:7B68` action

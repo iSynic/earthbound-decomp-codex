@@ -36,6 +36,16 @@ Current best reading:
 
 This is much stronger than the earlier generic "bitmask-oriented" description. The family is doing explicit set algebra over a 32-element domain.
 
+Implementation update: the promoted source modules now carry this vocabulary
+directly. `src/c2/c2_6bfb_mask_set_build_active_typed_candidates.asm`,
+`src/c2/c2_6c82_mask_set_build_phase1_candidates.asm`,
+`src/c2/c2_6e77_mask_set_remove_active_typed_candidates.asm`,
+`src/c2/c2_6fdc_mask_set_add_bit.asm`,
+`src/c2/c2_7029_mask_set_test_bit.asm`, and
+`src/c2/c2_7089_mask_set_clear_bit.asm` name the `C4:A279` one-hot table,
+`$A96C/$A96E` current target mask, `$9FAC` candidate rows, and the shared
+`0x4E` row stride at their local use sites.
+
 ## Confirmed helper roles
 
 ### `C2:6FDC` -> add one bit to the working set
