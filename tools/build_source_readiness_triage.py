@@ -188,7 +188,7 @@ def build_triage() -> list[BankTriage]:
                 "data-contract-ready",
                 3,
                 "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md` and the promoted CF contracts.",
-                ["variable-list subrecords still need semantic expansion before row-level source emission"],
+                ["door and sprite variable-list rows still need source-emission polish"],
                 ["door pointers", "door lists", "event music", "sprite placement", "NPC config", "audio tail"],
             ),
         ]
@@ -200,8 +200,8 @@ def build_triage() -> list[BankTriage]:
             "generated map/battle data",
             "data-contract-ready",
             3,
-            "Emit D0 as exact generated map/battle tables plus audio tail using `notes/d0-table-splits.md` and the promoted D0 contracts.",
-            ["variable-list tile-event, enemy-placement-group, and battle-group subrecords still need semantic expansion"],
+            "Emit D0 as exact generated map/battle tables plus audio tail using `notes/d0-table-splits.md`, the promoted D0 manifest contracts, and `notes/d0-variable-list-contracts.md`.",
+            ["MAP_TILE_EVENT_CONTROL_TABLE chains still need row-level semantic expansion"],
             ["door pointers", "screen transitions", "tile events", "enemy placement", "battle entry pointers", "audio tail"],
         )
     )
@@ -500,7 +500,7 @@ def render_markdown(payload: dict[str, object]) -> str:
             "",
             "### Data-contract splitters",
             "",
-            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; remaining work is subrecord semantics and source/data emission.",
+            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; D0 placement/battle variable lists and D8 collision rows now have promoted subrecord semantics, with remaining work concentrated in CF list source emission, D0 tile-event chains, and source/data emission.",
             "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 and DA now have promoted table/subrecord contracts; remaining work is smaller inferred table/pointer contract polish.",
             "",
             "### Script, text, and VM assets",

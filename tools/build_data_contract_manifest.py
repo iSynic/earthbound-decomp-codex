@@ -312,7 +312,13 @@ MAP_ENEMY_PLACEMENT_FIELDS = (
 )
 
 RAW_D0_ENEMY_PLACEMENT_GROUP_FIELDS = (
-    field("raw_group_lists", 0x00, 1, 0x0A61, "203 variable enemy placement group lists"),
+    field(
+        "raw_group_lists",
+        0x00,
+        1,
+        0x0A61,
+        "203 variable enemy placement group lists; see notes/d0-variable-list-contracts.json for decoded headers and weighted entries",
+    ),
 )
 
 BATTLE_ENTRY_POINTER_FIELDS = (
@@ -323,7 +329,13 @@ BATTLE_ENTRY_POINTER_FIELDS = (
 )
 
 RAW_D0_BATTLE_GROUP_FIELDS = (
-    field("raw_battle_groups", 0x00, 1, 0x0A87, "variable battle group payloads addressed by BTL_ENTRY_PTR_TABLE"),
+    field(
+        "raw_battle_groups",
+        0x00,
+        1,
+        0x0A87,
+        "consumer-visible battle group pointer slices; see notes/d0-variable-list-contracts.json for repeat-count enemy entries",
+    ),
 )
 
 RAW_D8_COLLISION_DATA_FIELDS = (
@@ -1345,10 +1357,11 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="enemy_placement_group_lists",
             confidence="exact-variable-lists",
-            note="203 variable enemy placement group lists.",
+            note="203 variable enemy placement group lists: event_flag_gate, primary_spawn_chance, flagged_spawn_chance, then selection_weight + battle_group_id entries consumed by C0:2668.",
             evidence=(
                 "refs/eb-decompile-4ef92/map_enemy_groups.yml",
                 "notes/d0-table-splits.md",
+                "notes/d0-variable-list-contracts.md",
             ),
             fields=RAW_D0_ENEMY_PLACEMENT_GROUP_FIELDS,
         ),
@@ -1376,10 +1389,11 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="enemy_battle_group_payloads",
             confidence="exact-variable-lists",
-            note="Variable battle group payloads addressed by BTL_ENTRY_PTR_TABLE.",
+            note="Consumer-visible suffix slices addressed by BTL_ENTRY_PTR_TABLE; entries are repeat_count + enemy_id until an FF terminator and are consumed by C2 battle setup, sprite loading, and call-for-help selection.",
             evidence=(
                 "refs/eb-decompile-4ef92/enemy_groups.yml",
                 "notes/d0-table-splits.md",
+                "notes/d0-variable-list-contracts.md",
             ),
             fields=RAW_D0_BATTLE_GROUP_FIELDS,
         ),

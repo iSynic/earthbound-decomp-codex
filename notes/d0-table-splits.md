@@ -36,10 +36,11 @@ The `D0:0000..D0:DFB3` generated map/battle-data region now reconciles exactly.
 ## Source Notes
 
 - `DOOR_POINTER_TABLE` is a 40x32 long-pointer grid into CF's door sector-list block.
-- `MAP_TILE_EVENT_CONTROL_TABLE`, `ENEMY_PLACEMENT_GROUPS_TABLE`, and `ENEMY_BATTLE_GROUPS_TABLE` are exact variable-length regions, but their subrecords still deserve row-level semantic expansion.
+- `ENEMY_PLACEMENT_GROUPS_TABLE` and `ENEMY_BATTLE_GROUPS_TABLE` now have consumer-backed row-level contracts in `notes/d0-variable-list-contracts.md` / `.json`.
+- `MAP_TILE_EVENT_CONTROL_TABLE` is still an exact variable-length region whose chains need row-level semantic expansion.
 - `MAP_ENEMY_PLACEMENT` is a 20480-row word table, matching `map_enemy_placement.yml`.
 - `BTL_ENTRY_PTR_TABLE` uses the ebsrc `battle_entry_ptr_entry` struct size of 8 bytes.
 
 ## Recommended next move
 
-Promote the stable D0 fixed tables into the data-contract manifest, then use D8 as the next splitter target for collision data.
+Keep the placement/battle variable-list contracts regression-tested, then decode the `MAP_TILE_EVENT_CONTROL_TABLE` chains when D0 needs the next subrecord-level source pass.

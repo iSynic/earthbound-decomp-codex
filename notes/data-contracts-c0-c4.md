@@ -881,12 +881,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `enemy_placement_group_lists`
 - confidence: `exact-variable-lists`
-- note: 203 variable enemy placement group lists.
-- evidence: `refs/eb-decompile-4ef92/map_enemy_groups.yml`, `notes/d0-table-splits.md`
+- note: 203 variable enemy placement group lists: event_flag_gate, primary_spawn_chance, flagged_spawn_chance, then selection_weight + battle_group_id entries consumed by C0:2668.
+- evidence: `refs/eb-decompile-4ef92/map_enemy_groups.yml`, `notes/d0-table-splits.md`, `notes/d0-variable-list-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_group_lists` | 1 | 2657 | 203 variable enemy placement group lists |
+| `0x0` | `raw_group_lists` | 1 | 2657 | 203 variable enemy placement group lists; see notes/d0-variable-list-contracts.json for decoded headers and weighted entries |
 
 ### BTL_ENTRY_PTR_TABLE
 
@@ -914,12 +914,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `enemy_battle_group_payloads`
 - confidence: `exact-variable-lists`
-- note: Variable battle group payloads addressed by BTL_ENTRY_PTR_TABLE.
-- evidence: `refs/eb-decompile-4ef92/enemy_groups.yml`, `notes/d0-table-splits.md`
+- note: Consumer-visible suffix slices addressed by BTL_ENTRY_PTR_TABLE; entries are repeat_count + enemy_id until an FF terminator and are consumed by C2 battle setup, sprite loading, and call-for-help selection.
+- evidence: `refs/eb-decompile-4ef92/enemy_groups.yml`, `notes/d0-table-splits.md`, `notes/d0-variable-list-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_battle_groups` | 1 | 2695 | variable battle group payloads addressed by BTL_ENTRY_PTR_TABLE |
+| `0x0` | `raw_battle_groups` | 1 | 2695 | consumer-visible battle group pointer slices; see notes/d0-variable-list-contracts.json for repeat-count enemy entries |
 
 ### D7_SECTOR_TILESET_PALETTE_TABLE
 

@@ -44,13 +44,15 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "id": "mixed_asset_tables",
         "label": "Mixed asset/table banks",
         "banks": ["CF", "D0"],
-        "maturity": "manifest-backed",
-        "proof": "table split manifests and source scaffolds account for bytes, but family semantics are still shallow",
+        "maturity": "contract-backed-with-known-followups",
+        "proof": "table split manifests, source scaffolds, CF sector-list contracts, and D0 placement/battle variable-list contracts account for bytes and the highest-risk variable-list subrecords",
         "docs": [
             "notes/bank-cf-asset-data-map.md",
             "notes/bank-d0-asset-data-map.md",
+            "notes/cf-sector-list-contracts.md",
+            "notes/d0-variable-list-contracts.md",
         ],
-        "next_contract": "Promote table splits into named contracts after caller/runtime context identifies field roles.",
+        "next_contract": "CF/D0 table contracts are now useful for source planning; remaining polish is CF row-source emission and D0 MAP_TILE_EVENT chain decoding.",
     },
     {
         "id": "overworld_sprites",
