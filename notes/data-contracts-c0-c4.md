@@ -45,26 +45,26 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | ENEMY_BATTLE_GROUPS_TABLE | rom-variable-table | `D0:D52D` | `0xA87` | 1 | `enemy_battle_group_payloads` | 1 | exact-variable-lists |
 | MAP_TILE_COLLISION_DATA | rom-table | `D8:0000` | `0x10` | 2293 | `map_tile_collision_record` | 16 | consumer-corroborated |
 | MAP_DATA_TILE_COLLISION_PTR_TABLE | rom-table | `EF:117B` | `0x4` | 20 | `far_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_0 | rom-table | `D8:8F50` | `0x2` | 832 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_1 | rom-table | `D8:95D0` | `0x2` | 845 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_2 | rom-table | `D8:9C6A` | `0x2` | 827 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_3 | rom-table | `D8:A2E0` | `0x2` | 524 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_4 | rom-table | `D8:A6F8` | `0x2` | 935 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_5 | rom-table | `D8:AE46` | `0x2` | 287 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_6 | rom-table | `D8:B084` | `0x2` | 875 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_7 | rom-table | `D8:B75A` | `0x2` | 749 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_8 | rom-table | `D8:BD34` | `0x2` | 628 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_9 | rom-table | `D8:C21C` | `0x2` | 933 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_10 | rom-table | `D8:C966` | `0x2` | 871 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_11 | rom-table | `D8:D034` | `0x2` | 713 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_12 | rom-table | `D8:D5C6` | `0x2` | 462 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_13 | rom-table | `D8:D962` | `0x2` | 882 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_14 | rom-table | `D8:E046` | `0x2` | 203 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_15 | rom-table | `D8:E1DC` | `0x2` | 143 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_16 | rom-table | `D8:E2FA` | `0x2` | 390 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_17 | rom-table | `D8:E606` | `0x2` | 343 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_18 | rom-table | `D8:E8B4` | `0x2` | 445 | `word_pointer` | 1 | exact |
-| MAP_DATA_TILE_COLLISION_POINTERS_19 | rom-table | `D8:EC2E` | `0x2` | 536 | `word_pointer` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_0 | rom-table | `D8:8F50` | `0x2` | 832 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_1 | rom-table | `D8:95D0` | `0x2` | 845 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_2 | rom-table | `D8:9C6A` | `0x2` | 827 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_3 | rom-table | `D8:A2E0` | `0x2` | 524 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_4 | rom-table | `D8:A6F8` | `0x2` | 935 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_5 | rom-table | `D8:AE46` | `0x2` | 287 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_6 | rom-table | `D8:B084` | `0x2` | 875 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_7 | rom-table | `D8:B75A` | `0x2` | 749 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_8 | rom-table | `D8:BD34` | `0x2` | 628 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_9 | rom-table | `D8:C21C` | `0x2` | 933 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_10 | rom-table | `D8:C966` | `0x2` | 871 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_11 | rom-table | `D8:D034` | `0x2` | 713 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_12 | rom-table | `D8:D5C6` | `0x2` | 462 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_13 | rom-table | `D8:D962` | `0x2` | 882 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_14 | rom-table | `D8:E046` | `0x2` | 203 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_15 | rom-table | `D8:E1DC` | `0x2` | 143 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_16 | rom-table | `D8:E2FA` | `0x2` | 390 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_17 | rom-table | `D8:E606` | `0x2` | 343 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_18 | rom-table | `D8:E8B4` | `0x2` | 445 | `map_tile_collision_record_offset` | 1 | exact |
+| MAP_DATA_TILE_COLLISION_POINTERS_19 | rom-table | `D8:EC2E` | `0x2` | 536 | `map_tile_collision_record_offset` | 1 | exact |
 | MAP_PALETTE_POINTER_TABLE | rom-table | `DA:FAA7` | `0x3` | 32 | `snes_long_pointer24` | 2 | verified |
 | PER_SECTOR_MUSIC_TABLE | rom-table | `DC:D637` | `0x2` | 1280 | `per_sector_music_options_index` | 1 | structural-corroborated |
 | LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE | rom-table | `DF:E4E1` | `0x4` | 31 | `far_pointer` | 1 | runtime-corroborated |
@@ -924,27 +924,27 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `2293`
 - struct: `map_tile_collision_record`
 - confidence: `consumer-corroborated`
-- note: Contiguous pool of 16-byte metatile collision records; every D8 pointer-table entry resolves to one 4x4 collision-byte grid.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`, `notes/map-collision-runtime-bit-contract.md`
+- note: Contiguous pool of 16-byte metatile collision records; every D8 pointer-table entry resolves to one 4x4 surface/collision flag grid.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`, `notes/map-collision-runtime-bit-contract.md`, `notes/d8-collision-subrecord-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `cell_0_0_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0x1` | `cell_0_1_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0x2` | `cell_0_2_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0x3` | `cell_0_3_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0x4` | `cell_1_0_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0x5` | `cell_1_1_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0x6` | `cell_1_2_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0x7` | `cell_1_3_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0x8` | `cell_2_0_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0x9` | `cell_2_1_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0xA` | `cell_2_2_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0xB` | `cell_2_3_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0xC` | `cell_3_0_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0xD` | `cell_3_1_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0xE` | `cell_3_2_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
-| `0xF` | `cell_3_3_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0x0` | `cell_r0_c0_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x1` | `cell_r0_c1_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x2` | `cell_r0_c2_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x3` | `cell_r0_c3_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x4` | `cell_r1_c0_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x5` | `cell_r1_c1_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x6` | `cell_r1_c2_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x7` | `cell_r1_c3_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x8` | `cell_r2_c0_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0x9` | `cell_r2_c1_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xA` | `cell_r2_c2_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xB` | `cell_r2_c3_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xC` | `cell_r3_c0_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xD` | `cell_r3_c1_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xE` | `cell_r3_c2_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
+| `0xF` | `cell_r3_c3_surface_collision_flags` | 1 | 1 | surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand these records into the .fts collision grid, and C0 runtime masks define 0x80 as observed high collision, 0x10 as special-surface coordinate latch, 0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved low surface modifiers with provisional gameplay labels |
 
 ### MAP_DATA_TILE_COLLISION_PTR_TABLE
 
@@ -967,14 +967,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:8F50`
 - stride: `0x2`
 - count: `832`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_1
 
@@ -982,14 +982,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:95D0`
 - stride: `0x2`
 - count: `845`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_2
 
@@ -997,14 +997,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:9C6A`
 - stride: `0x2`
 - count: `827`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_3
 
@@ -1012,14 +1012,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:A2E0`
 - stride: `0x2`
 - count: `524`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_4
 
@@ -1027,14 +1027,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:A6F8`
 - stride: `0x2`
 - count: `935`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_5
 
@@ -1042,14 +1042,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:AE46`
 - stride: `0x2`
 - count: `287`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_6
 
@@ -1057,14 +1057,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:B084`
 - stride: `0x2`
 - count: `875`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_7
 
@@ -1072,14 +1072,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:B75A`
 - stride: `0x2`
 - count: `749`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_8
 
@@ -1087,14 +1087,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:BD34`
 - stride: `0x2`
 - count: `628`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_9
 
@@ -1102,14 +1102,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:C21C`
 - stride: `0x2`
 - count: `933`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_10
 
@@ -1117,14 +1117,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:C966`
 - stride: `0x2`
 - count: `871`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_11
 
@@ -1132,14 +1132,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:D034`
 - stride: `0x2`
 - count: `713`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_12
 
@@ -1147,14 +1147,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:D5C6`
 - stride: `0x2`
 - count: `462`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_13
 
@@ -1162,14 +1162,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:D962`
 - stride: `0x2`
 - count: `882`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_14
 
@@ -1177,14 +1177,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:E046`
 - stride: `0x2`
 - count: `203`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_15
 
@@ -1192,14 +1192,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:E1DC`
 - stride: `0x2`
 - count: `143`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_16
 
@@ -1207,14 +1207,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:E2FA`
 - stride: `0x2`
 - count: `390`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_17
 
@@ -1222,14 +1222,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:E606`
 - stride: `0x2`
 - count: `343`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_18
 
@@ -1237,14 +1237,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:E8B4`
 - stride: `0x2`
 - count: `445`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_DATA_TILE_COLLISION_POINTERS_19
 
@@ -1252,14 +1252,14 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - address: `D8:EC2E`
 - stride: `0x2`
 - count: `536`
-- struct: `word_pointer`
+- struct: `map_tile_collision_record_offset`
 - confidence: `exact`
-- note: Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- note: 16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `pointer` | 2 | 1 |  |
+| `0x0` | `collision_record_offset` | 2 | 1 | 16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer |
 
 ### MAP_PALETTE_POINTER_TABLE
 

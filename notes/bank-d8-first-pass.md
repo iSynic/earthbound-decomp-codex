@@ -21,6 +21,7 @@ Primary artifacts:
 
 - `notes/bank-d8-asset-data-map.md`
 - `notes/d8-table-splits.md`
+- `notes/d8-collision-subrecord-contracts.md`
 - `build/asset-bank-d8.json`
 - `build/d8-table-splits.json`
 
@@ -78,19 +79,27 @@ High confidence:
 - `D8:0000..D8:F05D` is map collision data/pointers named by the bank config.
 - The collision data/pointer boundary and all 20 pointer-table spans are exact
   in `notes/d8-table-splits.md`.
+- `MAP_TILE_COLLISION_DATA` is a 2293-record pool of 16-byte 4x4 cell flag
+  records, and every pointer-table entry is a 16-byte-aligned offset into that
+  pool.
+- The collision cell byte is now named as `surface_collision_flags`; C0
+  runtime masks back the high-collision, special-surface latch, and
+  terrain-compatibility bit families in
+  `notes/d8-collision-subrecord-contracts.md`.
 - The warning assets and `AUDIO_PACK_61` have exact spans.
 - Only `23` bytes at the end of the bank are unclaimed slack.
 
 Still intentionally out of scope:
 
-- Tile collision format decoding.
-- Row-level semantic decoding of the pointed collision rows.
+- Final human gameplay labels for the preserved low surface modifier bits
+  `0x01/0x02`.
 - Rendering/decompressing the warning screen assets.
 - Audio-pack internals.
 
 ## Recommended next move
 
 Treat D8 as structurally complete and byte-protected for the current
-bank-coverage phase. For D8 itself, the next step is collision row semantics
-rather than boundary discovery. At the project level, the remaining priority-2
-non-source blocker is C3 script/actionscript separation.
+bank-coverage phase. For D8 itself, the next step is caller-side naming for the
+low surface modifier bits rather than boundary or row-shape discovery. At the
+project level, the remaining priority-2 non-source blocker is C3
+script/actionscript separation.

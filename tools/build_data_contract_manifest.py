@@ -297,15 +297,32 @@ RAW_D8_COLLISION_DATA_FIELDS = (
     field("raw_collision_data", 0x00, 1, 0x8F50, "raw tile collision data addressed by the D8 collision pointer tables"),
 )
 
+D8_SURFACE_COLLISION_FLAGS_NOTE = (
+    "surface/collision flags for one 4x4 metatile cell; D8 pointer tables expand "
+    "these records into the .fts collision grid, and C0 runtime masks define "
+    "0x80 as observed high collision, 0x10 as special-surface coordinate latch, "
+    "0x04/0x08 as entity terrain-compatibility class, and 0x01/0x02 as preserved "
+    "low surface modifiers with provisional gameplay labels"
+)
+
 MAP_TILE_COLLISION_ROW_FIELDS = tuple(
     field(
-        f"cell_{row}_{column}_collision_byte",
+        f"cell_r{row}_c{column}_surface_collision_flags",
         row * 4 + column,
         1,
-        note="one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid",
+        note=D8_SURFACE_COLLISION_FLAGS_NOTE,
     )
     for row in range(4)
     for column in range(4)
+)
+
+D8_COLLISION_RECORD_OFFSET_FIELDS = (
+    field(
+        "collision_record_offset",
+        0x00,
+        2,
+        note="16-byte-aligned offset into D8:0000 MAP_TILE_COLLISION_DATA; 0x0000 is a real collision record, not a null pointer",
+    ),
 )
 
 SNES_LONG_POINTER24_FIELDS = (
@@ -618,14 +635,15 @@ def d8_collision_pointer_contracts() -> list[Contract]:
             address=address,
             stride=0x02,
             count=count,
-            struct_name="word_pointer",
+            struct_name="map_tile_collision_record_offset",
             confidence="exact",
-            note="Word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.",
+            note="16-byte-aligned word offsets into MAP_TILE_COLLISION_DATA for one tileset/profile collision table.",
             evidence=(
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm",
                 "notes/d8-table-splits.md",
+                "notes/map-collision-pointer-contract.md",
             ),
-            fields=WORD_POINTER_FIELDS,
+            fields=D8_COLLISION_RECORD_OFFSET_FIELDS,
         )
         for index, address, count in specs
     ]
@@ -1249,12 +1267,13 @@ def extra_contracts() -> list[Contract]:
             count=2293,
             struct_name="map_tile_collision_record",
             confidence="consumer-corroborated",
-            note="Contiguous pool of 16-byte metatile collision records; every D8 pointer-table entry resolves to one 4x4 collision-byte grid.",
+            note="Contiguous pool of 16-byte metatile collision records; every D8 pointer-table entry resolves to one 4x4 surface/collision flag grid.",
             evidence=(
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm",
                 "notes/d8-table-splits.md",
                 "notes/map-collision-pointer-contract.md",
                 "notes/map-collision-runtime-bit-contract.md",
+                "notes/d8-collision-subrecord-contracts.md",
             ),
             fields=MAP_TILE_COLLISION_ROW_FIELDS,
         ),

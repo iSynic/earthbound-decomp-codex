@@ -34,6 +34,7 @@ STEPS: tuple[ContractStep, ...] = (
     ContractStep("map-collision-attribute", "build_map_collision_attribute_context.py"),
     ContractStep("map-collision-pointer", "build_map_collision_pointer_contract.py", accepts_rom=True),
     ContractStep("map-collision-runtime-bit", "build_map_collision_runtime_bit_contract.py", accepts_rom=True),
+    ContractStep("d8-collision-subrecords", "build_d8_collision_subrecord_contracts.py"),
     ContractStep("map-palette-command-usage", "build_map_palette_command_usage_contract.py", accepts_rom=True),
 )
 
