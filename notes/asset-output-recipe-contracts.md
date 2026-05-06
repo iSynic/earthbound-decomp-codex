@@ -12,6 +12,8 @@ Static preview geometry for PNG recipe outputs is tracked in `notes/asset-output
 
 The ROM-free typed output inventory is tracked in `notes/asset-output-index.md` and rebuildable via `tools/build_asset_output_index.py`.
 
+Output palette/graphics source-reference coverage is tracked in `notes/asset-output-source-refs.md` and rebuildable via `tools/build_asset_output_source_refs.py`.
+
 Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
 
 ## Snapshot

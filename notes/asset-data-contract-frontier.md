@@ -14,6 +14,8 @@ Static preview geometry is tracked in `notes/asset-output-preview-geometry.md`; 
 
 The typed output inventory is tracked in `notes/asset-output-index.md`; it joins every manifest output to bank/family/category, decoder/renderer contract, smoke coverage, and preview geometry status.
 
+Output source-reference coverage is tracked in `notes/asset-output-source-refs.md`; it proves palette/graphics refs resolve to manifest assets or to an explicit known runtime-source consumer boundary.
+
 Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
 
 ## Snapshot

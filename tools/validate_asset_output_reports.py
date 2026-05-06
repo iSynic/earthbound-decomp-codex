@@ -14,6 +14,7 @@ import build_asset_data_contract_frontier
 import build_asset_output_index
 import build_asset_output_preview_geometry
 import build_asset_output_recipe_contracts
+import build_asset_output_source_refs
 import build_asset_output_smoke_fixtures
 import validate_asset_output_codecs
 
@@ -97,6 +98,15 @@ def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[Ch
             build_asset_output_index.DEFAULT_MARKDOWN_OUT,
             build_asset_output_index.render_markdown(output_index),
             "python tools/build_asset_output_index.py",
+        )
+    )
+
+    source_refs = build_asset_output_source_refs.build_report(manifest_dir)
+    reports.append(
+        CheckedReport(
+            build_asset_output_source_refs.DEFAULT_MARKDOWN_OUT,
+            build_asset_output_source_refs.render_markdown(source_refs),
+            "python tools/build_asset_output_source_refs.py",
         )
     )
 
