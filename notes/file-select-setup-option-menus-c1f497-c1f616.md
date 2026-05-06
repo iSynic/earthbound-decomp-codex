@@ -48,6 +48,10 @@ Both routines:
 - restore cursor/window focus afterward
 - call `EF:0A4D(currentSlot - 1)` when a committed selection changes save-file setup state
 
+The source names that EF call as `EF0A4D_SaveGameSlot`, shared with ordinary
+save-game writes. In this setup context, C1 has already converted the visible
+slot number in `$B4A1` to EF's zero-based slot-pair index.
+
 This is the same renderer skeleton with only the state byte and menu builder changed.
 
 ## `C1:F497`: Text Speed Setter
@@ -98,6 +102,12 @@ The third setup stage is the named `C1:F6E3` window-style/flavour menu. It uses 
 - text speed: `$98B6`, menu window `0x18`, setter `C1:F497`
 - sound setting: `$98B7`, menu window `0x19`, setter `C1:F616`
 - window flavour: `$99CD`, menu window `0x32`, preview helper `C1:EC8F`
+
+The `C1:F616..FF2C` source now names the shared loop glue around this triad:
+the file-action menu at `C1:F07E`, copy menu at `C1:F14F`, delete confirmation
+at `C1:F2A8`, slot-choice menu at `C1:ED5B`, close/drain helpers at
+`C1:0084/008E`, and the C4 file-select pose/entity helpers used by the new-file
+flow.
 
 ## Working Names
 

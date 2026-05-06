@@ -26742,17 +26742,47 @@ org $C1F616
 !C08EFC_CommitTileBufferToStaging = $C08EFC
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C0B65F_SeedPlayerOverworldStartPosition = $C0B65F
+!C021E6_ResetActiveEntitySlots = $C021E6
+!C08F22_MeasureTerminatedTextLength = $C08F22
+!C091F4_ModuloOrRandomBoundedIndex = $C091F4
+!C10084_CloseFocusWindow = $0084
+!C1008E_CloseAndDrainAllWindows = $008E
 !C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C104EE_SetWindowFocus = $04EE
+!C10EFC_PrintTextFromPointerLocal = $0EFC
+!C10FEA_ClearOrPrepareWindowContent = $0FEA
+!C114B1_CreateTextEntryRecordWithDisplayMetadata = $14B1
+!C1153B_AddSelectionMenuItem = $153B
+!C1163C_FinalizeSelectionMenu = $163C
+!C11887_SelectActiveTextEntryByA = $1887
+!C1196A_OpenMenuSelectionLoop = $196A
+!C11F5A_SetMenuRowFormatterCallback = $1F5A
 !C12DD5_ResetTextWindowState = $C12DD5
 !C186B1_PrintTextFromPointer = $C186B1
+!C1931B_PrintSelectedFileCharacterSummary = $931B
 !C2165E_SetEventFlagOrState = $C2165E
 !C3E4D4_EnterWindowUpdateScope = $C3E4D4
 !C3E521_CloseWindow = $C3E521
+!C3EBCA_SyncPartyOverlayTrackedItemFamilyState = $C3EBCA
 !C438A5_SetTextCursorPosition = $C438A5
 !C43BB9_PrintTextFromPointer = $C43BB9
+!C44FF3_MeasureGlyphByteRunPixelWidth = $C44FF3
+!C46881_SetAllRegistryFlagsAndQueueCallerMovement = $C46881
 !C4D7D9_UpdateNameEntrySelection = $C4D7D9
+!C4D830_RunFileSelectPoseEntityScriptList = $C4D830
+!C4D8FA_SpawnFileSelectFixedEntityBatch = $C4D8FA
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
-!EF0A4D_SaveCurrentFileSetupState = $EF0A4D
+!C1EC04_CommitNamingBufferFieldWithPreview = $EC04
+!C1EC8F_PreviewWindowFlavourAndRedraw = $C1EC8F
+!C1ED5B_OpenFileSelectSlotChoiceMenu = $ED5B
+!C1F07E_OpenFileSelectActionMenu = $F07E
+!C1F14F_OpenCopyDestinationMenu = $F14F
+!C1F2A8_OpenDeleteFileConfirmationMenu = $F2A8
+!C1F3C2_OpenTextSpeedMenu = $C1F3C2
+!C1F497_OpenOrRefreshTextSpeedSelection = $C1F497
+!C1F568_OpenSoundSettingMenu = $F568
+!C1D8D0_RefreshCharacterBattleStartState = $D8D0
+!EF0A4D_SaveGameSlot = $EF0A4D
 C1F616_OpenOrRefreshSoundSettingSelection:
     rep #$31
     phd
@@ -26770,7 +26800,7 @@ C1F616_OpenOrRefreshSoundSettingSelection:
     bne C1F634_OpenOrRefreshSoundSettingSelection_LF634
     jmp.w C1F6C0_OpenOrRefreshSoundSettingSelection_LF6C0
 C1F634_OpenOrRefreshSoundSettingSelection_LF634:
-    jsr $F568
+    jsr !C1F568_OpenSoundSettingMenu
     lda $8958
     asl A
     tax
@@ -26802,7 +26832,7 @@ C1F662_OpenOrRefreshSoundSettingSelection_LF662:
 C1F674_OpenOrRefreshSoundSettingSelection_LF674:
     bne C1F662_OpenOrRefreshSoundSettingSelection_LF662
     lda.w #$0006
-    jsr $0FEA
+    jsr !C10FEA_ClearOrPrepareWindowContent
     ldy $14
     lda $000A,Y
     tax
@@ -26828,7 +26858,7 @@ C1F674_OpenOrRefreshSoundSettingSelection_LF674:
     lda.w #$FFFF
     jsl !C43BB9_PrintTextFromPointer
     lda.w #$0000
-    jsr $0FEA
+    jsr !C10FEA_ClearOrPrepareWindowContent
     lda $98B7
     and.w #$00FF
     tax
@@ -26836,7 +26866,7 @@ C1F674_OpenOrRefreshSoundSettingSelection_LF674:
     bra C1F6DE_OpenOrRefreshSoundSettingSelection_LF6DE
 C1F6C0_OpenOrRefreshSoundSettingSelection_LF6C0:
     lda.w #$0001
-    jsr $196A
+    jsr !C1196A_OpenMenuSelectionLoop
     tax
     stx $12
     beq C1F6D1_OpenOrRefreshSoundSettingSelection_LF6D1
@@ -26848,7 +26878,7 @@ C1F6D1_OpenOrRefreshSoundSettingSelection_LF6D1:
     lda $B4A1
     and.w #$00FF
     dec A
-    jsl !EF0A4D_SaveCurrentFileSetupState
+    jsl !EF0A4D_SaveGameSlot
 C1F6DE_OpenOrRefreshSoundSettingSelection_LF6DE:
     ldx $12
     txa
@@ -26862,14 +26892,14 @@ OPEN_FLAVOUR_MENU:
     adc.w #$FFE6
     tcd
     lda.w #$0032
-    jsr $04EE
+    jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_EnterWindowUpdateScope
     lda.w #$C128
     sta $0E
     lda.w #$00C4
     sta $10
     lda.w #$0025
-    jsr $0EFC
+    jsr !C10EFC_PrintTextFromPointerLocal
     lda.w #$0000
     sta $06
     lda.w #$0000
@@ -26884,7 +26914,7 @@ OPEN_FLAVOUR_MENU:
     sta $14
     ldx.w #$0002
     lda.w #$0000
-    jsr $14B1
+    jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #$C15A
     sta $0E
     lda.w #$00C4
@@ -26895,7 +26925,7 @@ OPEN_FLAVOUR_MENU:
     sta $14
     ldx.w #$0003
     lda.w #$0000
-    jsr $14B1
+    jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #$C166
     sta $0E
     lda.w #$00C4
@@ -26906,7 +26936,7 @@ OPEN_FLAVOUR_MENU:
     sta $14
     ldx.w #$0004
     lda.w #$0000
-    jsr $14B1
+    jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #$C178
     sta $0E
     lda.w #$00C4
@@ -26917,7 +26947,7 @@ OPEN_FLAVOUR_MENU:
     sta $14
     ldx.w #$0005
     lda.w #$0000
-    jsr $14B1
+    jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #$C186
     sta $0E
     lda.w #$00C4
@@ -26928,7 +26958,7 @@ OPEN_FLAVOUR_MENU:
     sta $14
     ldx.w #$0006
     lda.w #$0000
-    jsr $14B1
+    jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     ldx.w #$99CD
     lda $0000,X
     and.w #$00FF
@@ -26943,14 +26973,14 @@ C1F7A8_OpenOrRefreshSoundSettingSelection_LF7A8:
     lda $0000,X
     and.w #$00FF
     dec A
-    jsr $1887
+    jsr !C11887_SelectActiveTextEntryByA
     lda.w #$EC8F
     sta $0E
     lda.w #$00C1
     sta $10
-    jsr $1F5A
+    jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
-    jsr $196A
+    jsr !C1196A_OpenMenuSelectionLoop
     tay
     sty $16
     beq C1F7DB_OpenOrRefreshSoundSettingSelection_LF7DB
@@ -26969,13 +26999,13 @@ C1F7DB_OpenOrRefreshSoundSettingSelection_LF7DB:
     ora $A2,S
     ora ($00,X)
     txa
-    jsl $C1EC8F
+    jsl !C1EC8F_PreviewWindowFlavourAndRedraw
 C1F7F3_OpenOrRefreshSoundSettingSelection_LF7F3:
     rep #$20
     lda $B4A1
     and.w #$00FF
     dec A
-    jsl !EF0A4D_SaveCurrentFileSetupState
+    jsl !EF0A4D_SaveGameSlot
     ldy $16
     tya
     pld
@@ -26990,7 +27020,7 @@ FILE_MENU_LOOP:
 C1F80D_OpenOrRefreshSoundSettingSelection_LF80D:
     jsl !C3E4D4_EnterWindowUpdateScope
     lda.w #$0000
-    jsr $ED5B
+    jsr !C1ED5B_OpenFileSelectSlotChoiceMenu
     tax
     dex
     lda $B49E,X
@@ -26998,7 +27028,7 @@ C1F80D_OpenOrRefreshSoundSettingSelection_LF80D:
     bne C1F824_DispatchFileSelectActionMenuChoice
     jmp.w C1F8B9_RunNewFileSetupFlow
 C1F824_DispatchFileSelectActionMenuChoice:
-    jsr $F07E
+    jsr !C1F07E_OpenFileSelectActionMenu
     cmp.w #$0000
     beq C1F842_OpenOrRefreshSoundSettingSelection_LF842
     cmp.w #$0001
@@ -27011,7 +27041,7 @@ C1F824_DispatchFileSelectActionMenuChoice:
     beq C1F872_RunExistingFileSetupFlow
     bra C1F8B3_OpenOrRefreshSoundSettingSelection_LF8B3
 C1F842_OpenOrRefreshSoundSettingSelection_LF842:
-    jsr $0084
+    jsr !C10084_CloseFocusWindow
     bra C1F80D_OpenOrRefreshSoundSettingSelection_LF80D
 C1F847_OpenOrRefreshSoundSettingSelection_LF847:
     jsl !C064D4_LoadSelectedSaveGame
@@ -27022,27 +27052,27 @@ C1F847_OpenOrRefreshSoundSettingSelection_LF847:
     sta $9D21
     jmp.w C1FEC2_StartSelectedFileFromFileSelect
 C1F85E_OpenOrRefreshSoundSettingSelection_LF85E:
-    jsr $F14F
+    jsr !C1F14F_OpenCopyDestinationMenu
     cmp.w #$0000
     beq C1F824_DispatchFileSelectActionMenuChoice
     bra C1F8B3_OpenOrRefreshSoundSettingSelection_LF8B3
 C1F868_OpenOrRefreshSoundSettingSelection_LF868:
-    jsr $F2A8
+    jsr !C1F2A8_OpenDeleteFileConfirmationMenu
     cmp.w #$0000
     beq C1F824_DispatchFileSelectActionMenuChoice
     bra C1F8B3_OpenOrRefreshSoundSettingSelection_LF8B3
 C1F872_RunExistingFileSetupFlow:
-    jsl $C1F3C2
+    jsl !C1F3C2_OpenTextSpeedMenu
 C1F876_OpenOrRefreshSoundSettingSelection_LF876:
     lda.w #$0000
-    jsl $C1F497
+    jsl !C1F497_OpenOrRefreshTextSpeedSelection
     cmp.w #$0000
     bne C1F88B_OpenOrRefreshSoundSettingSelection_LF88B
     lda.w #$0018
     jsl !C3E521_CloseWindow
     bra C1F824_DispatchFileSelectActionMenuChoice
 C1F88B_OpenOrRefreshSoundSettingSelection_LF88B:
-    jsr $F568
+    jsr !C1F568_OpenSoundSettingMenu
 C1F88E_OpenOrRefreshSoundSettingSelection_LF88E:
     lda.w #$0000
     jsr.w C1F616_OpenOrRefreshSoundSettingSelection
@@ -27052,27 +27082,27 @@ C1F88E_OpenOrRefreshSoundSettingSelection_LF88E:
     jsl !C3E521_CloseWindow
     bra C1F876_OpenOrRefreshSoundSettingSelection_LF876
 C1F8A2_OpenOrRefreshSoundSettingSelection_LF8A2:
-    jsr.w OPEN_FLAVOUR_MENU
+    jsr.w !C1F6E3_OpenOrRefreshWindowFlavourSelection
     cmp.w #$0000
     bne C1F8B3_OpenOrRefreshSoundSettingSelection_LF8B3
     lda.w #$0032
     jsl !C3E521_CloseWindow
     bra C1F88E_OpenOrRefreshSoundSettingSelection_LF88E
 C1F8B3_OpenOrRefreshSoundSettingSelection_LF8B3:
-    jsr $008E
+    jsr !C1008E_CloseAndDrainAllWindows
     jmp.w C1F80D_OpenOrRefreshSoundSettingSelection_LF80D
 C1F8B9_RunNewFileSetupFlow:
-    jsl $C1F3C2
+    jsl !C1F3C2_OpenTextSpeedMenu
 C1F8BD_OpenOrRefreshSoundSettingSelection_LF8BD:
     lda.w #$0000
-    jsl $C1F497
+    jsl !C1F497_OpenOrRefreshTextSpeedSelection
     cmp.w #$0000
     bne C1F8D3_OpenOrRefreshSoundSettingSelection_LF8D3
     lda.w #$0018
     jsl !C3E521_CloseWindow
     jmp.w C1F80D_OpenOrRefreshSoundSettingSelection_LF80D
 C1F8D3_OpenOrRefreshSoundSettingSelection_LF8D3:
-    jsr $F568
+    jsr !C1F568_OpenSoundSettingMenu
 C1F8D6_OpenOrRefreshSoundSettingSelection_LF8D6:
     lda.w #$0000
     jsr.w C1F616_OpenOrRefreshSoundSettingSelection
@@ -27082,7 +27112,7 @@ C1F8D6_OpenOrRefreshSoundSettingSelection_LF8D6:
     jsl !C3E521_CloseWindow
     bra C1F8BD_OpenOrRefreshSoundSettingSelection_LF8BD
 C1F8EA_OpenOrRefreshSoundSettingSelection_LF8EA:
-    jsr.w OPEN_FLAVOUR_MENU
+    jsr.w !C1F6E3_OpenOrRefreshWindowFlavourSelection
     cmp.w #$0000
     bne C1F8FB_OpenOrRefreshSoundSettingSelection_LF8FB
     lda.w #$0032
@@ -27092,7 +27122,7 @@ C1F8FB_OpenOrRefreshSoundSettingSelection_LF8FB:
     lda.w #$0002
     jsl !C4FBBD_PlaySoundStoneMelody
 C1F902_OpenOrRefreshSoundSettingSelection_LF902:
-    jsr $008E
+    jsr !C1008E_CloseAndDrainAllWindows
     lda.w #$0000
     sta $04
     sta $24
@@ -27101,11 +27131,11 @@ C1F90F_ResumeFileSelectNamingOrSetupFlow:
     lda $04
     cmp.w #$FFFF
     bne C1F935_OpenOrRefreshSoundSettingSelection_LF935
-    jsr $008E
+    jsr !C1008E_CloseAndDrainAllWindows
     lda.w #$0001
-    jsr $ED5B
+    jsr !C1ED5B_OpenFileSelectSlotChoiceMenu
     lda.w #$0001
-    jsl $C1F497
+    jsl !C1F497_OpenOrRefreshTextSpeedSelection
     lda.w #$0001
     jsr.w C1F616_OpenOrRefreshSoundSettingSelection
     lda.w #$0003
@@ -27155,7 +27185,7 @@ C1F949_OpenOrRefreshSoundSettingSelection_LF949:
     tax
     lda.w #$0005
     ldy $22
-    jsr $EC04
+    jsr !C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #$0000
     beq C1F99B_OpenOrRefreshSoundSettingSelection_LF99B
     lda.w #$FFFF
@@ -27196,7 +27226,7 @@ C1F9A5_OpenOrRefreshSoundSettingSelection_LF9A5:
     ldy $04
     ldx.w #$9819
     lda.w #$0006
-    jsr $EC04
+    jsr !C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #$0000
     beq C1F9EF_OpenOrRefreshSoundSettingSelection_LF9EF
     lda.w #$FFFF
@@ -27237,7 +27267,7 @@ C1F9F9_OpenOrRefreshSoundSettingSelection_LF9F9:
     ldy $04
     ldx.w #$981F
     lda.w #$0006
-    jsr $EC04
+    jsr !C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #$0000
     beq C1FA42_OpenOrRefreshSoundSettingSelection_LFA42
     lda.w #$FFFF
@@ -27278,7 +27308,7 @@ C1FA4B_OpenOrRefreshSoundSettingSelection_LFA4B:
     ldy $04
     ldx.w #$9829
     lda.w #$0006
-    jsr $EC04
+    jsr !C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #$0000
     beq C1FA94_OpenOrRefreshSoundSettingSelection_LFA94
     lda.w #$FFFF
@@ -27291,7 +27321,7 @@ C1FA94_OpenOrRefreshSoundSettingSelection_LFA94:
     sta $20
 C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B:
     lda $04
-    jsl $C4D830
+    jsl !C4D830_RunFileSelectPoseEntityScriptList
     lda $20
     sta $02
     lda $04
@@ -27310,7 +27340,7 @@ C1FABB_OpenOrRefreshSoundSettingSelection_LFABB:
     bpl C1FAC0_OpenOrRefreshSoundSettingSelection_LFAC0
     jmp.w C1F90F_ResumeFileSelectNamingOrSetupFlow
 C1FAC0_OpenOrRefreshSoundSettingSelection_LFAC0:
-    jsr $008E
+    jsr !C1008E_CloseAndDrainAllWindows
     jsl !C3E4D4_EnterWindowUpdateScope
     ldx.w #$0000
     stx $24
@@ -27319,12 +27349,12 @@ C1FACE_OpenOrRefreshSoundSettingSelection_LFACE:
     txa
     clc
     adc.w #$001D
-    jsr $04EE
+    jsr !C104EE_SetWindowFocus
     ldx $24
     inx
     stx $24
     txa
-    jsr $931B
+    jsr !C1931B_PrintSelectedFileCharacterSummary
     ldx $24
     stx $24
 C1FAE3_OpenOrRefreshSoundSettingSelection_LFAE3:
@@ -27339,17 +27369,17 @@ C1FAF1_OpenOrRefreshSoundSettingSelection_LFAF1:
     bmi C1FACE_OpenOrRefreshSoundSettingSelection_LFACE
 C1FAF3_OpenOrRefreshSoundSettingSelection_LFAF3:
     lda.w #$0021
-    jsr $04EE
+    jsr !C104EE_SetWindowFocus
     lda.w #$0007
-    jsr $931B
+    jsr !C1931B_PrintSelectedFileCharacterSummary
     lda.w #$0022
-    jsr $04EE
+    jsr !C104EE_SetWindowFocus
     lda.w #$C2AC
     sta $0E
     lda.w #$00C4
     sta $10
     lda.w #$000E
-    jsr $0EFC
+    jsr !C10EFC_PrintTextFromPointerLocal
     lda.w #$981F
     sta $06
     phb
@@ -27362,7 +27392,7 @@ C1FAF3_OpenOrRefreshSoundSettingSelection_LFAF3:
     sta $0E
     lda $08
     sta $10
-    jsl $C08F22
+    jsl !C08F22_MeasureTerminatedTextLength
     sta $1E
     lda $06
     sta $0E
@@ -27370,7 +27400,7 @@ C1FAF3_OpenOrRefreshSoundSettingSelection_LFAF3:
     sta $10
     ldx.w #$0000
     lda $1E
-    jsl $C44FF3
+    jsl !C44FF3_MeasureGlyphByteRunPixelWidth
     tax
     asl A
     php
@@ -27385,7 +27415,7 @@ C1FB50_OpenOrRefreshSoundSettingSelection_LFB50:
     sta $24
     ldy.w #$0008
     txa
-    jsl $C091F4
+    jsl !C091F4_ModuloOrRandomBoundedIndex
     cmp.w #$0000
     bne C1FB66_OpenOrRefreshSoundSettingSelection_LFB66
     lda $24
@@ -27419,22 +27449,22 @@ C1FB69_OpenOrRefreshSoundSettingSelection_LFB69:
     sta $0E
     lda $08
     sta $10
-    jsl $C08F22
+    jsl !C08F22_MeasureTerminatedTextLength
     sta $24
     lda $06
     sta $0E
     lda $08
     sta $10
     lda $24
-    jsr $0EFC
+    jsr !C10EFC_PrintTextFromPointerLocal
     lda.w #$0023
-    jsr $04EE
+    jsr !C104EE_SetWindowFocus
     lda.w #$C2BA
     sta $0E
     lda.w #$00C4
     sta $10
     lda.w #$000E
-    jsr $0EFC
+    jsr !C10EFC_PrintTextFromPointerLocal
     lda.w #$9829
     sta $06
     phb
@@ -27447,7 +27477,7 @@ C1FB69_OpenOrRefreshSoundSettingSelection_LFB69:
     sta $0E
     lda $08
     sta $10
-    jsl $C08F22
+    jsl !C08F22_MeasureTerminatedTextLength
     sta $1E
     lda $06
     sta $0E
@@ -27455,7 +27485,7 @@ C1FB69_OpenOrRefreshSoundSettingSelection_LFB69:
     sta $10
     ldx.w #$0000
     lda $1E
-    jsl $C44FF3
+    jsl !C44FF3_MeasureGlyphByteRunPixelWidth
     tax
     asl A
     php
@@ -27470,7 +27500,7 @@ C1FC02_OpenOrRefreshSoundSettingSelection_LFC02:
     sta $24
     ldy.w #$0008
     txa
-    jsl $C091F4
+    jsl !C091F4_ModuloOrRandomBoundedIndex
     cmp.w #$0000
     bne C1FC18_OpenOrRefreshSoundSettingSelection_LFC18
     lda $24
@@ -27504,22 +27534,22 @@ C1FC1B_OpenOrRefreshSoundSettingSelection_LFC1B:
     sta $0E
     lda $08
     sta $10
-    jsl $C08F22
+    jsl !C08F22_MeasureTerminatedTextLength
     sta $24
     lda $06
     sta $0E
     lda $08
     sta $10
     lda $24
-    jsr $0EFC
+    jsr !C10EFC_PrintTextFromPointerLocal
     lda.w #$0024
-    jsr $04EE
+    jsr !C104EE_SetWindowFocus
     lda.w #$C2C8
     sta $0E
     lda.w #$00C4
     sta $10
     lda.w #$000D
-    jsr $0EFC
+    jsr !C10EFC_PrintTextFromPointerLocal
     lda.w #$0000
     sta $06
     lda.w #$0000
@@ -27535,7 +27565,7 @@ C1FC1B_OpenOrRefreshSoundSettingSelection_LFC1B:
     ldy.w #$0000
     ldx.w #$000E
     lda.w #$0001
-    jsr $153B
+    jsr !C1153B_AddSelectionMenuItem
     lda.w #$C2D9
     sta $0E
     lda.w #$00C4
@@ -27547,16 +27577,16 @@ C1FC1B_OpenOrRefreshSoundSettingSelection_LFC1B:
     ldy.w #$0000
     ldx.w #$0012
     tya
-    jsr $153B
-    jsr $163C
-    jsl $C4D8FA
+    jsr !C1153B_AddSelectionMenuItem
+    jsr !C1163C_FinalizeSelectionMenu
+    jsl !C4D8FA_SpawnFileSelectFixedEntityBatch
     lda.w #$00FF
     sta $5E6E
     lda.w #$0001
-    jsr $196A
+    jsr !C1196A_OpenMenuSelectionLoop
     tax
     bne C1FCDA_OpenOrRefreshSoundSettingSelection_LFCDA
-    jsl $C021E6
+    jsl !C021E6_ResetActiveEntitySlots
     jmp.w C1F902_OpenOrRefreshSoundSettingSelection_LF902
 C1FCDA_OpenOrRefreshSoundSettingSelection_LFCDA:
     lda.w #$009E
@@ -27581,7 +27611,7 @@ C1FCF5_OpenOrRefreshSoundSettingSelection_LFCF5:
 C1FD03_OpenOrRefreshSoundSettingSelection_LFD03:
     bmi C1FCEC_OpenOrRefreshSoundSettingSelection_LFCEC
 C1FD05_OpenOrRefreshSoundSettingSelection_LFD05:
-    jsl $C021E6
+    jsl !C021E6_ResetActiveEntitySlots
     stz $1E
     jmp.w C1FDE4_OpenOrRefreshSoundSettingSelection_LFDE4
 C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
@@ -27617,7 +27647,7 @@ C1FD0E_OpenOrRefreshSoundSettingSelection_LFD0E:
     tax
     lda $24
     sta $04
-    jsr $D8D0
+    jsr !C1D8D0_RefreshCharacterBattleStartState
     lda $02
     clc
     adc.w #$0008
@@ -27785,15 +27815,15 @@ C1FE81_OpenOrRefreshSoundSettingSelection_LFE81:
     sta $0E
     lda.w #$00C5
     sta $10
-    jsl $C46881
+    jsl !C46881_SetAllRegistryFlagsAndQueueCallerMovement
     ldx.w #$0001
     lda.w #$000B
     jsl !C2165E_SetEventFlagOrState
     lda.w #$0001
     sta $4A66
 C1FEC2_StartSelectedFileFromFileSelect:
-    jsr $008E
-    jsl $C3EBCA
+    jsr !C1008E_CloseAndDrainAllWindows
+    jsl !C3EBCA_SyncPartyOverlayTrackedItemFamilyState
     lda $98B6
     and.w #$00FF
     sta $20

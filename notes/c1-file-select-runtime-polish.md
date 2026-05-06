@@ -81,6 +81,10 @@ wrapper for `$98B7`. It persists through the same `EF:0A4D` setup-state helper.
 rows through `C1:EC8F`, commits `$99CD` on nonzero selection, and persists setup
 state through `EF:0A4D`.
 
+The source now names that persistence edge as `EF0A4D_SaveGameSlot`, matching
+the EF save/SRAM contract: C1 passes the visible one-based slot minus one, and
+EF expands it to the primary/backup save-block pair.
+
 The setup triad is therefore:
 
 | Setting | State byte | Window | Builder/wrapper |
@@ -95,6 +99,13 @@ The setup triad is therefore:
 the action menu; empty slots enter the new-file setup and naming flow. Continuing
 an existing save calls the C0/C7 setup path through `C0:64D4`, `C0:7213`, and
 the shared start-file tail at `C1:FEC2`.
+
+The `C1:F805` source now names the local action/copy/delete/setup helpers
+directly (`C1:F07E`, `C1:F14F`, `C1:F2A8`, `C1:F3C2`, `C1:F497`,
+`C1:F568`, and `C1:F6E3`). The new-file branch also calls the C4 file-select
+pose/entity helpers and C3 party-overlay sync by contract names, leaving only
+the still-provisional naming payload handoff at `C1:D9E9` as an intentionally
+raw edge in this pass.
 
 `C1:FF6B` is the bank-C1 file-select session wrapper. It clears `$5E6E`, sets
 `$B49D`, runs `C1:F805`, pumps post-loop display updates, clears `$B4B6/$B4A2`,
@@ -120,6 +131,9 @@ This slice makes the file-select path useful to future SRAM/setup work:
   and persistence paths
 - the bank-C1 session wrapper and transient redraw latch are separated from the
   larger menu loop
+- the main file-select loop now has named source edges for its submenu
+  dispatch, setup-menu backtracking, file-select pose/entity refresh, and final
+  party-overlay sync
 
 ## Remaining Soft Spots
 

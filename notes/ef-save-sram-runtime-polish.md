@@ -72,6 +72,10 @@ through `EF:0A4D(current_slot - 1)`. The action menu delete and copy paths call
 Those C1 callers use one-based visible file slots; the EF helpers use zero-based
 slot indices and expand each index to a primary/backup block pair.
 
+The C1 setup source now names the `EF:0A4D` edge as `EF0A4D_SaveGameSlot`,
+matching the EF source label. The C1-specific meaning is still "persist current
+file setup state"; the callee-level contract is the broader save-slot writer.
+
 ## Validation
 
 The source edit is byte-neutral:

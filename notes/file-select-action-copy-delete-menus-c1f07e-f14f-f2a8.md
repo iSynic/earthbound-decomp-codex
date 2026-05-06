@@ -47,6 +47,9 @@ The caller at `C1:F824` dispatches these return values in menu order:
 - `3`: delete file
 - `4`: setup
 
+The caller source in `C1:F805` now names this dispatch edge as
+`C1F07E_OpenFileSelectActionMenu` instead of a raw same-bank branch target.
+
 ## `C1:F14F`: Copy Destination Slot Menu
 
 `C1:F14F` first counts save slots whose `$B49E + slot` byte is zero.
@@ -60,6 +63,9 @@ If exactly one destination is available, it opens window `0x16`; otherwise it op
 - finalizes and runs `C1:196A(1)`
 
 On a nonzero selection, it calls `EF:0C15(currentSlot - 1, selectedRow - 1)`, which is the actual save-copy operation. It then clears `$5E6E`, closes the active window through `C1:0084`, and returns the selection.
+
+The file-select loop source now calls this helper by the
+`C1F14F_OpenCopyDestinationMenu` role when the action menu returns `2`.
 
 ## `C1:F2A8`: Delete Confirmation Menu
 
@@ -76,6 +82,9 @@ On a nonzero selection, it calls `EF:0C15(currentSlot - 1, selectedRow - 1)`, wh
 - finalizes and runs `C1:196A(1)`
 
 On a nonzero selection, it calls `EF:0BFA(currentSlot - 1)`, which is the actual delete-file operation. It then clears `$5E6E`, closes the window, and returns the menu result.
+
+The file-select loop source now calls this helper by the
+`C1F2A8_OpenDeleteFileConfirmationMenu` role when the action menu returns `3`.
 
 ## Working Names
 

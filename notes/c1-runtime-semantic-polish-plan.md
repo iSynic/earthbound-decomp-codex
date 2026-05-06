@@ -233,3 +233,11 @@ This planning pass is documentation-only.
   `EF:0A4D` save-slot index. See
   `notes/text-command-family-1f-deferred-callbacks.md` and
   `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
+- 2026-05-06: C1 file-select loop polish tightened the `F616..FF2C` setup and
+  new-file branch source. The promoted constants name the file-select action,
+  copy, delete, text-speed, sound, and window-flavour helpers; the C4
+  file-select pose/entity helpers; the C3 party-overlay sync tail; and the EF
+  `SaveGameSlot` setup-persistence edge. See
+  `notes/c1-file-select-runtime-polish.md`,
+  `notes/file-select-setup-option-menus-c1f497-c1f616.md`, and
+  `notes/ef-save-sram-runtime-polish.md`.
