@@ -13,13 +13,13 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 95,
-    "unique_selected_assets": 36,
-    "unique_selected_manifest_asset_pairs": 36,
-    "recipe_kinds_covered": 19,
+    "fixture_count": 101,
+    "unique_selected_assets": 39,
+    "unique_selected_manifest_asset_pairs": 39,
+    "recipe_kinds_covered": 22,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 23,
+    "family_decoder_pairs_covered": 26,
     "target_bank_output_fixture_policy_banks": 22,
     "bank_output_fixture_banks_covered": 22,
     "target_banks_without_typed_non_raw_outputs": [],
@@ -34,14 +34,14 @@
     },
     "fixture_type_counts": {
       "bank_output": 22,
-      "family_decoder": 23,
+      "family_decoder": 26,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 19,
+      "recipe_kind": 22,
       "recipe_option": 5
     },
     "fixture_family_counts": {
-      "battle_visual_assets": 38,
+      "battle_visual_assets": 44,
       "ef_debug_and_late_tail": 3,
       "map_tilesets_and_runtime_tables": 19,
       "overworld_sprites": 15,
@@ -86,7 +86,10 @@
   },
   "family_output_kind_counts": {
     "battle_visual_assets": {
+      "battle_bg_config_table_json": 1,
+      "battle_bg_distortion_table_json": 1,
       "battle_bg_pointer_table_json": 3,
+      "battle_bg_scrolling_table_json": 1,
       "battle_swirl_frame_json": 126,
       "battle_swirl_pointer_table_json": 1,
       "battle_swirl_sequence_table_json": 1,
@@ -137,6 +140,52 @@
   },
   "fixtures": [
     {
+      "id": "fixture.recipe_kind.battle_bg_config_table_json",
+      "type": "recipe_kind",
+      "key": "battle_bg_config_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "battle_visual_assets",
+      "bank": "CA",
+      "manifest_path": "asset-manifests/bank-ca-assets.json",
+      "asset_id": "table.ca.023_data_battle_backgrounds_config_table_asm",
+      "title": "data/battle/backgrounds/config_table.asm",
+      "category": "raw-table",
+      "bytes": 5559,
+      "target_output": {
+        "kind": "battle_bg_config_table_json",
+        "path": "ca/tables/023_data_battle_backgrounds_config_table_asm_decoded.json",
+        "decoder": "battle_background_config_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_bg_config_table_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.battle_bg_distortion_table_json",
+      "type": "recipe_kind",
+      "key": "battle_bg_distortion_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "battle_visual_assets",
+      "bank": "CA",
+      "manifest_path": "asset-manifests/bank-ca-assets.json",
+      "asset_id": "table.ca.025_data_battle_backgrounds_distortion_table_asm",
+      "title": "data/battle/backgrounds/distortion_table.asm",
+      "category": "raw-table",
+      "bytes": 2295,
+      "target_output": {
+        "kind": "battle_bg_distortion_table_json",
+        "path": "ca/tables/025_data_battle_backgrounds_distortion_table_asm_decoded.json",
+        "decoder": "battle_background_distortion_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_bg_distortion_table_json",
+        "raw"
+      ]
+    },
+    {
       "id": "fixture.recipe_kind.battle_bg_pointer_table_json",
       "type": "recipe_kind",
       "key": "battle_bg_pointer_table_json",
@@ -156,6 +205,29 @@
       },
       "all_output_kinds": [
         "battle_bg_pointer_table_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.battle_bg_scrolling_table_json",
+      "type": "recipe_kind",
+      "key": "battle_bg_scrolling_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "battle_visual_assets",
+      "bank": "CA",
+      "manifest_path": "asset-manifests/bank-ca-assets.json",
+      "asset_id": "table.ca.024_data_battle_backgrounds_scrolling_table_asm",
+      "title": "data/battle/backgrounds/scrolling_table.asm",
+      "category": "raw-table",
+      "bytes": 1200,
+      "target_output": {
+        "kind": "battle_bg_scrolling_table_json",
+        "path": "ca/tables/024_data_battle_backgrounds_scrolling_table_asm_decoded.json",
+        "decoder": "battle_background_scrolling_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_bg_scrolling_table_json",
         "raw"
       ]
     },
@@ -1944,6 +2016,52 @@
       }
     },
     {
+      "id": "fixture.family_decoder.battle_visual_assets_battle_background_config_table",
+      "type": "family_decoder",
+      "key": "battle_visual_assets.battle_background_config_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "battle_visual_assets",
+      "bank": "CA",
+      "manifest_path": "asset-manifests/bank-ca-assets.json",
+      "asset_id": "table.ca.023_data_battle_backgrounds_config_table_asm",
+      "title": "data/battle/backgrounds/config_table.asm",
+      "category": "raw-table",
+      "bytes": 5559,
+      "target_output": {
+        "kind": "battle_bg_config_table_json",
+        "path": "ca/tables/023_data_battle_backgrounds_config_table_asm_decoded.json",
+        "decoder": "battle_background_config_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_bg_config_table_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.family_decoder.battle_visual_assets_battle_background_distortion_table",
+      "type": "family_decoder",
+      "key": "battle_visual_assets.battle_background_distortion_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "battle_visual_assets",
+      "bank": "CA",
+      "manifest_path": "asset-manifests/bank-ca-assets.json",
+      "asset_id": "table.ca.025_data_battle_backgrounds_distortion_table_asm",
+      "title": "data/battle/backgrounds/distortion_table.asm",
+      "category": "raw-table",
+      "bytes": 2295,
+      "target_output": {
+        "kind": "battle_bg_distortion_table_json",
+        "path": "ca/tables/025_data_battle_backgrounds_distortion_table_asm_decoded.json",
+        "decoder": "battle_background_distortion_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_bg_distortion_table_json",
+        "raw"
+      ]
+    },
+    {
       "id": "fixture.family_decoder.battle_visual_assets_battle_background_pointer_table",
       "type": "family_decoder",
       "key": "battle_visual_assets.battle_background_pointer_table",
@@ -1963,6 +2081,29 @@
       },
       "all_output_kinds": [
         "battle_bg_pointer_table_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.family_decoder.battle_visual_assets_battle_background_scrolling_table",
+      "type": "family_decoder",
+      "key": "battle_visual_assets.battle_background_scrolling_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "battle_visual_assets",
+      "bank": "CA",
+      "manifest_path": "asset-manifests/bank-ca-assets.json",
+      "asset_id": "table.ca.024_data_battle_backgrounds_scrolling_table_asm",
+      "title": "data/battle/backgrounds/scrolling_table.asm",
+      "category": "raw-table",
+      "bytes": 1200,
+      "target_output": {
+        "kind": "battle_bg_scrolling_table_json",
+        "path": "ca/tables/024_data_battle_backgrounds_scrolling_table_asm_decoded.json",
+        "decoder": "battle_background_scrolling_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_bg_scrolling_table_json",
         "raw"
       ]
     },
@@ -2494,9 +2635,12 @@
       "asset_ids": [
         "asset.ca.battle_background_arr_100",
         "asset.ca.battle_background_gfx_38",
-        "table.ca.020_data_battle_backgrounds_graphics_pointers_asm"
+        "table.ca.020_data_battle_backgrounds_graphics_pointers_asm",
+        "table.ca.023_data_battle_backgrounds_config_table_asm",
+        "table.ca.024_data_battle_backgrounds_scrolling_table_asm",
+        "table.ca.025_data_battle_backgrounds_distortion_table_asm"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-ca-assets.json --asset-id asset.ca.battle_background_arr_100 --asset-id asset.ca.battle_background_gfx_38 --asset-id table.ca.020_data_battle_backgrounds_graphics_pointers_asm --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-ca-assets.json --asset-id asset.ca.battle_background_arr_100 --asset-id asset.ca.battle_background_gfx_38 --asset-id table.ca.020_data_battle_backgrounds_graphics_pointers_asm --asset-id table.ca.023_data_battle_backgrounds_config_table_asm --asset-id table.ca.024_data_battle_backgrounds_scrolling_table_asm --asset-id table.ca.025_data_battle_backgrounds_distortion_table_asm --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/bank-cb-assets.json",

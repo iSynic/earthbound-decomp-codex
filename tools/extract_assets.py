@@ -425,6 +425,181 @@ def write_battle_bg_pointer_table_json(data: bytes, path: Path, spec: dict[str, 
     }
 
 
+def read_u16_le(data: bytes, offset: int) -> int:
+    return data[offset] | (data[offset + 1] << 8)
+
+
+def read_s16_le(data: bytes, offset: int) -> int:
+    value = read_u16_le(data, offset)
+    return value - 0x10000 if value & 0x8000 else value
+
+
+def write_battle_bg_config_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    row_size = 17
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"Battle background config table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle background config table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    for offset in range(0, len(data), row_size):
+        row = data[offset : offset + row_size]
+        decoded = {
+            "index": offset // row_size,
+            "graphics_index": row[0],
+            "arrangement_index": row[0],
+            "palette_index": row[1],
+            "bits_per_pixel": row[2],
+            "unknown_palette_shift_style": row[3],
+            "palette_cycle_1_first": row[4],
+            "palette_cycle_1_last": row[5],
+            "palette_cycle_2_first": row[6],
+            "palette_cycle_2_last": row[7],
+            "palette_change_speed": row[8],
+            "scrolling_movements": list(row[9:13]),
+            "distortion_styles": list(row[13:17]),
+            "raw_bytes": list(row),
+        }
+        rows.append(decoded)
+
+    max_scrolling_movement = max(max(row["scrolling_movements"]) for row in rows)
+    max_distortion_style = max(max(row["distortion_styles"]) for row in rows)
+    payload = {
+        "schema": "earthbound-decomp.battle-bg-config-table.v1",
+        "decoder": "battle_background_config_table",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "max_graphics_index": max(row["graphics_index"] for row in rows),
+        "max_palette_index": max(row["palette_index"] for row in rows),
+        "max_scrolling_movement": max_scrolling_movement,
+        "max_distortion_style": max_distortion_style,
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "max_graphics_index": payload["max_graphics_index"],
+        "max_palette_index": payload["max_palette_index"],
+        "max_scrolling_movement": max_scrolling_movement,
+        "max_distortion_style": max_distortion_style,
+    }
+
+
+def write_battle_bg_scrolling_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    row_size = 10
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"Battle background scrolling table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle background scrolling table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    motion_vectors = set()
+    for offset in range(0, len(data), row_size):
+        row = data[offset : offset + row_size]
+        motion = (
+            read_s16_le(row, 2),
+            read_s16_le(row, 4),
+            read_s16_le(row, 6),
+            read_s16_le(row, 8),
+        )
+        motion_vectors.add(motion)
+        rows.append(
+            {
+                "index": offset // row_size,
+                "duration": read_u16_le(row, 0),
+                "horizontal_movement": motion[0],
+                "vertical_movement": motion[1],
+                "horizontal_acceleration": motion[2],
+                "vertical_acceleration": motion[3],
+                "raw_words": [read_u16_le(row, word_offset) for word_offset in range(0, row_size, 2)],
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.battle-bg-scrolling-table.v1",
+        "decoder": "battle_background_scrolling_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "max_duration": max(row["duration"] for row in rows),
+        "nonzero_duration_count": sum(1 for row in rows if row["duration"] != 0),
+        "distinct_motion_vectors": len(motion_vectors),
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "max_duration": payload["max_duration"],
+        "nonzero_duration_count": payload["nonzero_duration_count"],
+        "distinct_motion_vectors": payload["distinct_motion_vectors"],
+    }
+
+
+def write_battle_bg_distortion_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    row_size = 17
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"Battle background distortion table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle background distortion table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    distortion_types = set()
+    for offset in range(0, len(data), row_size):
+        row = data[offset : offset + row_size]
+        distortion_type = row[2]
+        distortion_types.add(distortion_type)
+        rows.append(
+            {
+                "index": offset // row_size,
+                "duration": read_u16_le(row, 0),
+                "distortion_type": distortion_type,
+                "ripple_frequency": read_s16_le(row, 3),
+                "ripple_amplitude": read_s16_le(row, 5),
+                "speed": row[7],
+                "compression_rate": read_s16_le(row, 8),
+                "ripple_frequency_acceleration": read_s16_le(row, 10),
+                "ripple_amplitude_acceleration": read_s16_le(row, 12),
+                "speed_acceleration": row[14],
+                "compression_rate_acceleration": read_s16_le(row, 15),
+                "raw_bytes": list(row),
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.battle-bg-distortion-table.v1",
+        "decoder": "battle_background_distortion_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "max_duration": max(row["duration"] for row in rows),
+        "nonzero_duration_count": sum(1 for row in rows if row["duration"] != 0),
+        "distinct_distortion_types": len(distortion_types),
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "max_duration": payload["max_duration"],
+        "nonzero_duration_count": payload["nonzero_duration_count"],
+        "distinct_distortion_types": payload["distinct_distortion_types"],
+    }
+
+
 def write_font_metric_widths_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
     font_id = int(spec["font_id"])
     entry_count = int(spec["entry_count"])
@@ -831,6 +1006,12 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_battle_swirl_sequence_table_json(data, path, spec))
     elif kind == "battle_bg_pointer_table_json":
         metadata.update(write_battle_bg_pointer_table_json(data, path, spec))
+    elif kind == "battle_bg_config_table_json":
+        metadata.update(write_battle_bg_config_table_json(data, path, spec))
+    elif kind == "battle_bg_scrolling_table_json":
+        metadata.update(write_battle_bg_scrolling_table_json(data, path, spec))
+    elif kind == "battle_bg_distortion_table_json":
+        metadata.update(write_battle_bg_distortion_table_json(data, path, spec))
     elif kind == "font_metric_widths_json":
         metadata.update(write_font_metric_widths_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":

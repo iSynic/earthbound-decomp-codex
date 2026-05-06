@@ -237,6 +237,92 @@ def output_cases() -> list[dict[str, Any]]:
             },
         },
         {
+            "id": "battle-bg-config-table",
+            "data": bytes(
+                [
+                    0x01,
+                    0x02,
+                    0x04,
+                    0x03,
+                    0x01,
+                    0x03,
+                    0x00,
+                    0x00,
+                    0x08,
+                    0x4C,
+                    0x00,
+                    0x00,
+                    0x00,
+                    0x3C,
+                    0x00,
+                    0x00,
+                    0x00,
+                ]
+            ),
+            "spec": {
+                "kind": "battle_bg_config_table_json",
+                "path": "battle_bg_config.json",
+                "row_count": 1,
+            },
+            "expected_metadata": {
+                "row_count": 1,
+                "max_graphics_index": 1,
+                "max_palette_index": 2,
+                "max_scrolling_movement": 0x4C,
+                "max_distortion_style": 0x3C,
+            },
+        },
+        {
+            "id": "battle-bg-scrolling-table",
+            "data": bytes([0xB4, 0x00, 0x00, 0xFF, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00]),
+            "spec": {
+                "kind": "battle_bg_scrolling_table_json",
+                "path": "battle_bg_scrolling.json",
+                "row_count": 1,
+            },
+            "expected_metadata": {
+                "row_count": 1,
+                "max_duration": 180,
+                "nonzero_duration_count": 1,
+                "distinct_motion_vectors": 1,
+            },
+        },
+        {
+            "id": "battle-bg-distortion-table",
+            "data": bytes(
+                [
+                    0x78,
+                    0x00,
+                    0x04,
+                    0x00,
+                    0x02,
+                    0x00,
+                    0x20,
+                    0x00,
+                    0x00,
+                    0x00,
+                    0x00,
+                    0x00,
+                    0x00,
+                    0x00,
+                    0x01,
+                    0x0A,
+                    0x00,
+                ]
+            ),
+            "spec": {
+                "kind": "battle_bg_distortion_table_json",
+                "path": "battle_bg_distortion.json",
+                "row_count": 1,
+            },
+            "expected_metadata": {
+                "row_count": 1,
+                "max_duration": 120,
+                "nonzero_duration_count": 1,
+                "distinct_distortion_types": 1,
+            },
+        },
+        {
             "id": "font-metric-widths",
             "data": bytes([2, 3, 4, 0xFF, 6, 7]),
             "spec": {

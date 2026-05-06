@@ -772,6 +772,25 @@ BATTLE_BG_POINTER_TABLES = {
 }
 
 
+BATTLE_BG_RUNTIME_TABLES = {
+    "data/battle/backgrounds/config_table.asm": {
+        "kind": "battle_bg_config_table_json",
+        "row_size": 17,
+        "description": "327-row battle background layer config table",
+    },
+    "data/battle/backgrounds/scrolling_table.asm": {
+        "kind": "battle_bg_scrolling_table_json",
+        "row_size": 10,
+        "description": "120-row battle background scrolling movement table",
+    },
+    "data/battle/backgrounds/distortion_table.asm": {
+        "kind": "battle_bg_distortion_table_json",
+        "row_size": 17,
+        "description": "135-row battle background distortion effect table",
+    },
+}
+
+
 def battle_bg_pointer_table_output(raw_path: str, include: str, size: int) -> dict[str, Any] | None:
     table = BATTLE_BG_POINTER_TABLES.get(include)
     if table is None or size % 4:
@@ -782,6 +801,20 @@ def battle_bg_pointer_table_output(raw_path: str, include: str, size: int) -> di
         "entry_count": size // 4,
         "table_id": table["table_id"],
         "table_role": table["table_role"],
+    }
+
+
+def battle_bg_runtime_table_output(raw_path: str, include: str, size: int) -> dict[str, Any] | None:
+    table = BATTLE_BG_RUNTIME_TABLES.get(include)
+    if table is None:
+        return None
+    row_size = int(table["row_size"])
+    if size % row_size:
+        return None
+    return {
+        "kind": table["kind"],
+        "path": sidecar_path(raw_path, "decoded", ".json"),
+        "row_count": size // row_size,
     }
 
 
@@ -884,6 +917,11 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
                 "Decoded as a 4-byte little-endian battle background pointer table "
                 f"for {table['description']} targets."
             )
+        battle_bg_runtime_output = battle_bg_runtime_table_output(raw_path, include, size)
+        if battle_bg_runtime_output is not None:
+            outputs.append(battle_bg_runtime_output)
+            table = BATTLE_BG_RUNTIME_TABLES[include]
+            notes.append(f"Decoded as the {table['description']}.")
 
     return {
         "id": f"table.{bank.lower()}.{int(entry['order']):03d}_{stable_name}",

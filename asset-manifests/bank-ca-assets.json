@@ -37,13 +37,16 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 27,
-    "output_recipe_count": 69,
-    "typed_output_kind_count": 6,
-    "decoder_output_recipe_count": 42,
+    "output_recipe_count": 72,
+    "typed_output_kind_count": 9,
+    "decoder_output_recipe_count": 45,
     "renderer_output_recipe_count": 19,
     "preview_png_recipe_count": 19,
     "output_kind_counts": {
+      "battle_bg_config_table_json": 1,
+      "battle_bg_distortion_table_json": 1,
       "battle_bg_pointer_table_json": 3,
+      "battle_bg_scrolling_table_json": 1,
       "earthbound_lzhal": 20,
       "earthbound_lzhal_battle_bg_arrangement_png": 5,
       "earthbound_lzhal_snes_4bpp_tiles_palette_png": 4,
@@ -51,7 +54,10 @@
       "raw": 27
     },
     "decoder_counts": {
+      "battle_background_config_table": 1,
+      "battle_background_distortion_table": 1,
       "battle_background_pointer_table": 3,
+      "battle_background_scrolling_table": 1,
       "earthbound_lzhal": 20,
       "earthbound_lzhal+snes_4bpp_tiles": 10,
       "earthbound_lzhal+snes_4bpp_tiles+snes_palette": 4,
@@ -62,21 +68,27 @@
       "grayscale_tile_sheet": 10,
       "palette_tile_sheet": 4
     },
-    "smoke_fixture_count": 18,
+    "smoke_fixture_count": 24,
     "smoke_fixture_asset_ids": [
       "asset.ca.battle_background_arr_100",
       "asset.ca.battle_background_gfx_38",
-      "table.ca.020_data_battle_backgrounds_graphics_pointers_asm"
+      "table.ca.020_data_battle_backgrounds_graphics_pointers_asm",
+      "table.ca.023_data_battle_backgrounds_config_table_asm",
+      "table.ca.024_data_battle_backgrounds_scrolling_table_asm",
+      "table.ca.025_data_battle_backgrounds_distortion_table_asm"
     ],
     "smoke_fixture_type_counts": {
       "bank_output": 1,
-      "family_decoder": 5,
+      "family_decoder": 8,
       "family_renderer": 3,
       "family_renderer_geometry": 3,
-      "recipe_kind": 6
+      "recipe_kind": 9
     },
     "smoke_fixture_target_kind_counts": {
+      "battle_bg_config_table_json": 2,
+      "battle_bg_distortion_table_json": 2,
       "battle_bg_pointer_table_json": 2,
+      "battle_bg_scrolling_table_json": 2,
       "earthbound_lzhal": 2,
       "earthbound_lzhal_battle_bg_arrangement_png": 5,
       "earthbound_lzhal_snes_4bpp_tiles_palette_png": 4,
@@ -924,11 +936,17 @@
         {
           "kind": "raw",
           "path": "ca/tables/023_data_battle_backgrounds_config_table_asm.bin"
+        },
+        {
+          "kind": "battle_bg_config_table_json",
+          "path": "ca/tables/023_data_battle_backgrounds_config_table_asm_decoded.json",
+          "row_count": 327
         }
       ],
       "notes": [
         "Source include from ebsrc: data/battle/backgrounds/config_table.asm",
-        "Original file offset: 0x0ADCA1"
+        "Original file offset: 0x0ADCA1",
+        "Decoded as the 327-row battle background layer config table."
       ]
     },
     {
@@ -945,11 +963,17 @@
         {
           "kind": "raw",
           "path": "ca/tables/024_data_battle_backgrounds_scrolling_table_asm.bin"
+        },
+        {
+          "kind": "battle_bg_scrolling_table_json",
+          "path": "ca/tables/024_data_battle_backgrounds_scrolling_table_asm_decoded.json",
+          "row_count": 120
         }
       ],
       "notes": [
         "Source include from ebsrc: data/battle/backgrounds/scrolling_table.asm",
-        "Original file offset: 0x0AF258"
+        "Original file offset: 0x0AF258",
+        "Decoded as the 120-row battle background scrolling movement table."
       ]
     },
     {
@@ -966,11 +990,17 @@
         {
           "kind": "raw",
           "path": "ca/tables/025_data_battle_backgrounds_distortion_table_asm.bin"
+        },
+        {
+          "kind": "battle_bg_distortion_table_json",
+          "path": "ca/tables/025_data_battle_backgrounds_distortion_table_asm_decoded.json",
+          "row_count": 135
         }
       ],
       "notes": [
         "Source include from ebsrc: data/battle/backgrounds/distortion_table.asm",
-        "Original file offset: 0x0AF708"
+        "Original file offset: 0x0AF708",
+        "Decoded as the 135-row battle background distortion effect table."
       ]
     },
     {

@@ -33,12 +33,12 @@ Generated asset-output and source-range reports are freshness-checked together w
 - manifests: `38`
 - assets/tables/gaps represented: `2219`
 - source bytes represented by manifests: `2490368`
-- output recipes: `6323`
+- output recipes: `6326`
 - assets with preview/swatch recipes: `1720`
-- assets with decoder recipes beyond raw extraction: `1982`
+- assets with decoder recipes beyond raw extraction: `1985`
 - manifests with typed output summaries: `38`
 - banks linked to smoke fixtures: `23`
-- smoke fixture links from manifests: `95`
+- smoke fixture links from manifests: `101`
 - coverage gap bytes still represented as raw gaps: `75549`
 - manifest-inferred payload metadata count: `5`
 - contract-covered inferred payload metadata count: `5`
@@ -64,7 +64,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 - proof: extraction manifests, decompression recipes, preview recipes, per-bank asset maps, generated battle visual contracts, battle-background scene-layer joins, PSI animation bundle joins, battle sprite graphics/palette usage joins, and swirl sequence joins
 - checked docs: `notes/battle-background-scene-bundles.md`, `notes/psi-animation-bundle-contracts.md`, `notes/battle-sprite-bundle-contracts.md`, `notes/swirl-sequence-bundle-contracts.md`, `notes/battle-visual-asset-contracts.md`, `notes/bank-ca-cf-asset-closure.md`, `notes/bank-ca-asset-data-map.md`, `notes/bank-cb-asset-data-map.md`, `notes/bank-cc-asset-data-map.md`, `notes/bank-cd-asset-data-map.md`, `notes/bank-ce-asset-data-map.md`
 - category mix: `graphics` 536, `binary-asset` 132, `raw-table` 13, `audio` 4, +1 more
-- output recipe mix: `raw` 689, `earthbound_lzhal` 361, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 234, `earthbound_lzhal_snes_4bpp_tiles_png` 202, +8 more
+- output recipe mix: `raw` 689, `earthbound_lzhal` 361, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 234, `earthbound_lzhal_snes_4bpp_tiles_png` 202, +11 more
 
 ### Mixed asset/table banks
 
@@ -118,7 +118,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 
 | Bank | Family | Maturity | Assets | Bytes | Recipes | Categories | Output mix | Gaps | Unresolved metadata |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- | ---: | ---: |
-| `CA` | `battle_visual_assets` | `contract-seeded` | 27 | 65536 | 69 | `graphics` 20, `raw-table` 6, `raw-gap` 1 | `raw` 27, `earthbound_lzhal` 20, `earthbound_lzhal_snes_4bpp_tiles_png` 10, +3 more | 1 | 0 |
+| `CA` | `battle_visual_assets` | `contract-seeded` | 27 | 65536 | 72 | `graphics` 20, `raw-table` 6, `raw-gap` 1 | `raw` 27, `earthbound_lzhal` 20, `earthbound_lzhal_snes_4bpp_tiles_png` 10, +6 more | 1 | 0 |
 | `CB` | `battle_visual_assets` | `contract-seeded` | 304 | 65536 | 960 | `graphics` 300, `audio` 2, `raw-gap` 1, +1 more | `raw` 304, `earthbound_lzhal` 186, `snes_palette_json` 114, +4 more | 28 | 0 |
 | `CC` | `battle_visual_assets` | `contract-seeded` | 83 | 65536 | 196 | `graphics` 72, `binary-asset` 6, `raw-table` 3, +2 more | `raw` 83, `earthbound_lzhal` 44, `snes_palette_json` 34, +2 more | 37 | 0 |
 | `CD` | `battle_visual_assets` | `contract-seeded` | 55 | 65536 | 319 | `graphics` 55 | `earthbound_lzhal_battle_sprite_png` 77, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 77, `earthbound_lzhal` 55, +2 more | 0 | 0 |
