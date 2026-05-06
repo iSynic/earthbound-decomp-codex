@@ -12,6 +12,8 @@
 ; External contracts used by this module
 
 PREPARE_VRAM_COPY = $C08616
+C086DE_AllocateTileBuffer = $C086DE
+EFDFC4_WriteDebugOverlayTileRowA = $EFDFC4
 
 ; ---------------------------------------------------------------------------
 ; C0:0E16
@@ -31,10 +33,10 @@ C00E16_Upload_VerticalMovementMapStrip:
     beq C00E31_Upload_VerticalMovementMapStrip_L0E31
     ldx $04
     tya
-    jsl $EFDFC4
+    jsl EFDFC4_WriteDebugOverlayTileRowA
 C00E31_Upload_VerticalMovementMapStrip_L0E31:
     lda.w #$0100
-    jsl $C086DE
+    jsl C086DE_AllocateTileBuffer
     sta $1E
     clc
     adc.w #$0080

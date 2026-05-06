@@ -529,6 +529,18 @@ That should tell us quickly whether visible diagonal stutter is dominated by:
 - `C0:A794` = `RefreshCompanionVisualProfile_PhaseBiased`
 - `C0:AA6E` = `Script_ApplyCurrentSlotVisualCountdownState`
 
+## Source Polish Follow-Up
+
+2026-05-06 source polish names the movement-strip and incremental-refresh call
+surface across `C0:0AC5..17EA`. The vertical/horizontal strip payload loaders
+now call `C0:A156` through the cached map-property lookup contract, the strip
+uploaders name the shared tile-buffer allocator and EF debug overlay row
+writers, and the `C0:1181`/`C0:1558` controllers now call the map-strip,
+HDMA-parameter, auxiliary-strip, and companion-spawn helpers by their established
+working names. The few remaining numeric calls in `C0:1181` are mixed-width
+decode artifacts inside the auxiliary uploader body, not newly promoted helper
+edges.
+
 
 
 

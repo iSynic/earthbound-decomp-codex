@@ -500,3 +500,14 @@ That should decide whether the remaining open layer is best described as tile-ro
 - `C4:B565` = `ClearAttachedChildForPoseDescriptorId`
 - `C4:B570` = `SpawnDefaultAttachedChildForBaseSlot18`
 - `C4:B57D` = `ClearDefaultAttachedChildForBaseSlot18`
+
+## Source Polish Follow-Up
+
+2026-05-06 source polish names the early C0 landing helper-call surface across
+`C0:030F`, `C0:0480`, `C0:08CF`, and `C0:097B`. The source now calls the
+profile sequencer payload installer, component-sum helper, packed-component
+ring adjuster, HDMA dispatch loader, profile action dispatcher, template reload
+and component snapshot helper, template/row-cache builders, C4 stream/child
+anchor initializer, animated graphics-strip installer, sequencer builder,
+debug-menu graphics refresh edge, and C4 palette mirror through named local
+contracts while preserving byte equivalence.

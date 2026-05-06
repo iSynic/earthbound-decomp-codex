@@ -94,6 +94,16 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   selection loop, HP/PP display shell, town-map display gate, and check/talk
   object handler. See `notes/debug-menu-reachability-c0-c1-ef.md` and
   `notes/open-menu-prelude-helpers-c1339e-c133b0.md`.
+- 2026-05-06 follow-up: the C0 landing/profile and movement-strip presentation
+  pass named helper-call surfaces across `C0:030F..097B` and
+  `C0:0AC5..17EA`. The pass covers landing profile template/row-cache builders,
+  HDMA dispatch reloads, C4 stream/child-anchor and palette mirror edges,
+  cached map-property lookups, vertical/horizontal map strip uploaders,
+  auxiliary strip controllers, companion spawn producers, camera-step refresh
+  calls, and transition/music context helpers. See
+  `notes/landing-display-assembly-cluster-c007b6-c4b26b.md`,
+  `notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md`, and
+  `notes/overworld-camera-step-accumulator-c017ea-c018f2.md`.
 
 ## Validation
 

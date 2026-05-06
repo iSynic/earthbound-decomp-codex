@@ -116,6 +116,13 @@ When the new camera position equals the previous one but `$02 & #$0080` is set, 
 
 So this routine contains both the ordinary incremental camera-step path and a separate aligned or snap-style refresh path.
 
+Source polish follow-up: `src/c0/c0_17ea_accumulate_overworld_camera_step.asm`
+now names the downstream helper-call surface for the ordinary and snap paths.
+The source calls `C0:1558` as the incremental refresh controller, `C0:13F6` as
+the load-map-at-position path, `C0:12ED` as the reload-map-at-position path,
+`C0:68F4/C0:69AF` as the current-position transition/music context pair, and
+`C0:3FA9` as post-transition entity placement refresh.
+
 ## Decomp-backed and locally consistent
 
 ### Why this matters for the judder question

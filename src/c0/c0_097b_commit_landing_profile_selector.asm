@@ -15,8 +15,16 @@ C0856B_WaitFramesOrTransitionDelay        = $C0856B
 C085B7_QueueChunkedVramDma                = $C085B7
 C08ED2_QueueOrTransferDynamicTileBlock    = $C08ED2
 C08EFC_CommitTileBufferToStaging          = $C08EFC
+C00085_Install_LandingAnimatedGraphicsStrip = $0085
+C0023F_Build_LandingProfileStepSequencer  = $023F
+C00480_Build_LandingPackedRowTable0200    = $C00480
+C00778_Build_LandingActiveRowCache0300    = $C00778
+C007B6_Install_LandingProfileTemplateBlock0240 = $C007B6
 C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+C496F9_MirrorCgramShadow0200To7f0000      = $C496F9
 C47F87_RefreshWindowFlavorPalette         = $C47F87
+C4B26B_InitializeLandingDisplayStreamsAndChildAnchors = $C4B26B
+EFD9F3_RefreshDebugMenuGraphicsIfNeeded   = $EFD9F3
 
 ; ---------------------------------------------------------------------------
 ; C0:097B
@@ -80,20 +88,20 @@ C009EE_Commit_LandingProfileSelector_L09EE:
     sed
     ldx $18
     lda $04
-    jsl $C007B6
-    jsl $C00480
-    jsl $C00778
+    jsl C007B6_Install_LandingProfileTemplateBlock0240
+    jsl C00480_Build_LandingPackedRowTable0200
+    jsl C00778_Build_LandingActiveRowCache0300
     lda $B4EF
     bne C00A15_Commit_LandingProfileSelector_L0A15
-    jsl $C4B26B
-    jsr $0085
-    jsr $023F
+    jsl C4B26B_InitializeLandingDisplayStreamsAndChildAnchors
+    jsr C00085_Install_LandingAnimatedGraphicsStrip
+    jsr C0023F_Build_LandingProfileStepSequencer
 C00A15_Commit_LandingProfileSelector_L0A15:
     lda $B4EF
     bne C00A30_Commit_LandingProfileSelector_L0A30
     lda $436C
     beq C00A25_Commit_LandingProfileSelector_L0A25
-    jsl $EFD9F3
+    jsl EFD9F3_RefreshDebugMenuGraphicsIfNeeded
     bra C00A29_Commit_LandingProfileSelector_L0A29
 C00A25_Commit_LandingProfileSelector_L0A25:
     jsl C47F87_RefreshWindowFlavorPalette
@@ -123,7 +131,7 @@ C00A30_Commit_LandingProfileSelector_L0A30:
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     lda $4676
     beq C00A75_Commit_LandingProfileSelector_L0A75
-    jsl $C496F9
+    jsl C496F9_MirrorCgramShadow0200To7f0000
     sep #$20
     lda.b #$FF
     sta $0E
@@ -135,7 +143,7 @@ C00A30_Commit_LandingProfileSelector_L0A30:
 C00A75_Commit_LandingProfileSelector_L0A75:
     lda $B4EF
     beq C00A8E_Commit_LandingProfileSelector_L0A8E
-    jsl $C496F9
+    jsl C496F9_MirrorCgramShadow0200To7f0000
     sep #$20
     stz $0E
     ldx.w #$01E0

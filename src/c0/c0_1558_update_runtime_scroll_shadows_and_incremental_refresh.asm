@@ -11,7 +11,18 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C00AC5_Load_VerticalMovementMapStripPayload = $0AC5
+C00BDC_Load_HorizontalMovementMapStripPayload = $0BDC
+C00CF3_Load_VerticalMovementCollisionStripPayload = $0CF3
+C00D7E_Assemble_LandingHdmaParameterBlock = $0D7E
+C00E16_Upload_VerticalMovementMapStrip = $0E16
+C00FCB_Upload_HorizontalMovementMapStrip = $0FCB
+C01181_Upload_AuxiliaryMovementMapStrip = $1181
+C0122A_Upload_AuxiliaryHorizontalMovementMapStrip = $122A
+C0255C_Run_VerticalCompanionSpawnProducer = $C0255C
+C025CF_Run_HorizontalCompanionSpawnProducer = $C025CF
+C02A6B_Spawn_Horizontal = $C02A6B
+C02B55_Spawn_Vertical = $C02B55
 
 ; ---------------------------------------------------------------------------
 ; C0:1558
@@ -84,24 +95,24 @@ C015B0_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L15B0:
     lda $10
     clc
     adc.w #$0029
-    jsr $0BDC
+    jsr C00BDC_Load_HorizontalMovementMapStripPayload
     ldy $0E
     tyx
     lda $4374
     clc
     adc.w #$0029
-    jsr $0D7E
+    jsr C00D7E_Assemble_LandingHdmaParameterBlock
     ldx $02
     lda $4374
     clc
     adc.w #$0020
-    jsr $0FCB
+    jsr C00FCB_Upload_HorizontalMovementMapStrip
     ldx $02
     dex
     lda $4374
     clc
     adc.w #$0022
-    jsl $C025CF
+    jsl C025CF_Run_HorizontalCompanionSpawnProducer
     lda $02
     sec
     sbc.w #$0008
@@ -109,7 +120,7 @@ C015B0_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L15B0:
     lda $4374
     clc
     adc.w #$0028
-    jsl $C02B55
+    jsl C02B55_Spawn_Vertical
     bra C0165D_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L165D
 C0160C_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L160C:
     lda $4374
@@ -125,24 +136,24 @@ C0160C_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L160C:
     lda $0E
     sec
     sbc.w #$0010
-    jsr $0BDC
+    jsr C00BDC_Load_HorizontalMovementMapStripPayload
     ldy $10
     tyx
     lda $4374
     sec
     sbc.w #$0010
-    jsr $0D7E
+    jsr C00D7E_Assemble_LandingHdmaParameterBlock
     ldx $02
     lda $4374
     dec A
-    jsr $0FCB
+    jsr C00FCB_Upload_HorizontalMovementMapStrip
     ldx $02
     dex
     lda $4374
     dec A
     dec A
     dec A
-    jsl $C025CF
+    jsl C025CF_Run_HorizontalCompanionSpawnProducer
     lda $02
     sec
     sbc.w #$0008
@@ -150,7 +161,7 @@ C0160C_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L160C:
     lda $4374
     sec
     sbc.w #$0008
-    jsl $C02B55
+    jsl C02B55_Spawn_Vertical
 C0165D_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L165D:
     lda $4374
     sec
@@ -176,26 +187,26 @@ C0166B_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L166B:
     adc.w #$0029
     tax
     tya
-    jsr $0AC5
+    jsr C00AC5_Load_VerticalMovementMapStripPayload
     lda $4376
     clc
     adc.w #$0029
     tax
     ldy $0E
     tya
-    jsr $0CF3
+    jsr C00CF3_Load_VerticalMovementCollisionStripPayload
     lda $4376
     clc
     adc.w #$001C
     tax
     lda $04
-    jsr $0E16
+    jsr C00E16_Upload_VerticalMovementMapStrip
     lda $4376
     clc
     adc.w #$001D
     tax
     lda $04
-    jsl $C0255C
+    jsl C0255C_Run_VerticalCompanionSpawnProducer
     lda $4376
     clc
     adc.w #$0024
@@ -203,7 +214,7 @@ C0166B_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L166B:
     lda $04
     sec
     sbc.w #$0008
-    jsl $C02A6B
+    jsl C02A6B_Spawn_Horizontal
     bra C0171A_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L171A
 C016CA_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L16CA:
     lda $4376
@@ -220,22 +231,22 @@ C016CA_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L16CA:
     sbc.w #$0010
     tax
     tya
-    jsr $0AC5
+    jsr C00AC5_Load_VerticalMovementMapStripPayload
     lda $4376
     sec
     sbc.w #$0010
     tax
     ldy $0E
     tya
-    jsr $0CF3
+    jsr C00CF3_Load_VerticalMovementCollisionStripPayload
     ldx $4376
     dex
     lda $04
-    jsr $0E16
+    jsr C00E16_Upload_VerticalMovementMapStrip
     ldx $4376
     dex
     lda $04
-    jsl $C0255C
+    jsl C0255C_Run_VerticalCompanionSpawnProducer
     lda $4376
     sec
     sbc.w #$0008
@@ -243,7 +254,7 @@ C016CA_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L16CA:
     lda $04
     sec
     sbc.w #$0008
-    jsl $C02A6B
+    jsl C02A6B_Spawn_Horizontal
 C0171A_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L171A:
     lda $4376
     sec
@@ -316,7 +327,7 @@ C01783_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L1783:
     ldx $02
     clc
     adc.w #$0020
-    jsr $122A
+    jsr C0122A_Upload_AuxiliaryHorizontalMovementMapStrip
     bra C017A7_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17A7
 C0179A_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L179A:
     lda $4374
@@ -324,7 +335,7 @@ C0179A_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L179A:
     sta $4374
     ldx $02
     dec A
-    jsr $122A
+    jsr C0122A_Upload_AuxiliaryHorizontalMovementMapStrip
 C017A7_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17A7:
     lda $4374
     sec
@@ -341,7 +352,7 @@ C017B1_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17B1:
     adc.w #$001C
     tax
     lda $0E
-    jsr $1181
+    jsr C01181_Upload_AuxiliaryMovementMapStrip
     bra C017D6_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17D6
 C017C9_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17C9:
     ldx $4376
@@ -349,7 +360,7 @@ C017C9_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17C9:
     stx $4376
     dex
     lda $0E
-    jsr $1181
+    jsr C01181_Upload_AuxiliaryMovementMapStrip
 C017D6_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17D6:
     lda $4376
     sec

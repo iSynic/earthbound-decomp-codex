@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C0A1F2_Copy_MapBufferPageToWorkBuffer = $C0A1F2
 
 ; ---------------------------------------------------------------------------
 ; C0:030F
@@ -47,7 +47,7 @@ C00337_Advance_LandingProfileStepSequencer_L0337:
     sta $445C
     ldx $0E
     lda $0000,X
-    jsl $C0A1F2
+    jsl C0A1F2_Copy_MapBufferPageToWorkBuffer
     ldx $0E
     lda $0000,X
     inc A

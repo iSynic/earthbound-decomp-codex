@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C0A156_Lookup_CachedMapPropertyNibble = $A156
 
 ; ---------------------------------------------------------------------------
 ; C0:0AC5
@@ -137,7 +137,7 @@ C00B7D_Load_VerticalMovementMapStripPayload_L0B7D:
     bne C00B9D_Load_VerticalMovementMapStripPayload_L0B9D
     ldx $04
     tya
-    jsr $A156
+    jsr C0A156_Lookup_CachedMapPropertyNibble
     sta $18
     lda $10
     sta $02

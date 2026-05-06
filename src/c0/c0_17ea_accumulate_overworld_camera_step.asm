@@ -16,8 +16,16 @@ C08744_OpenDisplayTransitionBracket          = $C08744
 C08D79_UpdateBgModeRegisterFromQueue         = $C08D79
 C08D92_UpdateObjSizeAndBaseRegister          = $C08D92
 C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+C08DDE_UpdateBg2ScreenBaseRegistersFromQueue = $C08DDE
 C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+C012ED_ReloadMapAtPosition                   = $C012ED
+C013F6_LoadMapAtPosition                     = $C013F6
+C01558_UpdateRuntimeScrollShadowsAndIncrementalRefresh = $1558
+C03FA9_Refresh_PostTransitionEntityPlacement = $C03FA9
+C068F4_RefreshCurrentPositionTransitionContext = $C068F4
+C069AF_ApplyCurrentPositionMusicAndSfx       = $C069AF
 C4FBBD_PlaySoundStoneMelody                  = $C4FBBD
+EFD9F3_RefreshDebugMenuGraphicsIfNeeded      = $EFD9F3
 
 ; ---------------------------------------------------------------------------
 ; C0:17EA
@@ -129,7 +137,7 @@ C01899_AccumulateOverworldCameraStep_L1899:
     lda $4380
     sec
     sbc.w #$0080
-    jsr $1558
+    jsr C01558_UpdateRuntimeScrollShadowsAndIncrementalRefresh
     bra C018E5_AccumulateOverworldCameraStep_L18E5
 C018AD_AccumulateOverworldCameraStep_L18AD:
     lda $02
@@ -154,7 +162,7 @@ C018AD_AccumulateOverworldCameraStep_L18AD:
     lsr A
     lsr A
     lsr A
-    jsl $C013F6
+    jsl C013F6_LoadMapAtPosition
     jsl C08744_OpenDisplayTransitionBracket
 C018E5_AccumulateOverworldCameraStep_L18E5:
     lda $4380
@@ -191,7 +199,7 @@ C018E5_AccumulateOverworldCameraStep_L18E5:
     ldx $04
     lda $0000,X
     ldx $10
-    jsl $C068F4
+    jsl C068F4_RefreshCurrentPositionTransitionContext
     lda.w #$0009
     jsl C08D79_UpdateBgModeRegisterFromQueue
     ldy.w #$0000
@@ -201,7 +209,7 @@ C018E5_AccumulateOverworldCameraStep_L18E5:
     ldy.w #$2000
     ldx.w #$5800
     lda.w #$0001
-    jsl $C08DDE
+    jsl C08DDE_UpdateBg2ScreenBaseRegistersFromQueue
     ldy.w #$6000
     ldx.w #$7C00
     lda.w #$0000
@@ -215,7 +223,7 @@ C018E5_AccumulateOverworldCameraStep_L18E5:
     ldx $04
     lda $0000,X
     ldx $0E
-    jsl $C012ED
+    jsl C012ED_ReloadMapAtPosition
     lda $9883
     cmp.w #$0003
     bne C01996_AccumulateOverworldCameraStep_L1996
@@ -223,7 +231,7 @@ C018E5_AccumulateOverworldCameraStep_L18E5:
     jsl C4FBBD_PlaySoundStoneMelody
     bra C0199A_AccumulateOverworldCameraStep_L199A
 C01996_AccumulateOverworldCameraStep_L1996:
-    jsl $C069AF
+    jsl C069AF_ApplyCurrentPositionMusicAndSfx
 C0199A_AccumulateOverworldCameraStep_L199A:
     sep #$20
     lda.b #$17
@@ -231,7 +239,7 @@ C0199A_AccumulateOverworldCameraStep_L199A:
     rep #$20
     lda $436C
     beq C019AC_AccumulateOverworldCameraStep_L19AC
-    jsl $EFD9F3
+    jsl EFD9F3_RefreshDebugMenuGraphicsIfNeeded
 C019AC_AccumulateOverworldCameraStep_L19AC:
     jsl C08744_OpenDisplayTransitionBracket
     pld
@@ -248,14 +256,14 @@ C019AC_AccumulateOverworldCameraStep_L19AC:
     sta $02
     ldx $04
     lda $02
-    jsl $C068F4
+    jsl C068F4_RefreshCurrentPositionTransitionContext
     ldx $04
     lda $02
-    jsl $C013F6
+    jsl C013F6_LoadMapAtPosition
     ldy $0E
     ldx $04
     lda $02
-    jsl $C03FA9
-    jsl $C069AF
+    jsl C03FA9_Refresh_PostTransitionEntityPlacement
+    jsl C069AF_ApplyCurrentPositionMusicAndSfx
     pld
     rtl

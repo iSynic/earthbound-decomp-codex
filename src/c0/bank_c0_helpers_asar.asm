@@ -445,6 +445,7 @@ C0030D_Build_LandingProfileStepSequencer_L030D:
 hirom
 org $C0030F
 
+!C0A1F2_Copy_MapBufferPageToWorkBuffer = $C0A1F2
 ANIMATE_PALETTE:
 !C0030F_Advance_LandingProfileStepSequencer = ANIMATE_PALETTE
     rep #$31
@@ -476,7 +477,7 @@ C00337_Advance_LandingProfileStepSequencer_L0337:
     sta $445C
     ldx $0E
     lda $0000,X
-    jsl $C0A1F2
+    jsl !C0A1F2_Copy_MapBufferPageToWorkBuffer
     ldx $0E
     lda $0000,X
     inc A
@@ -678,6 +679,8 @@ C0047E_Sum_LandingTemplateComponents_L047E:
 hirom
 org $C00480
 
+!C00391_Sum_LandingTemplateComponents = $0391
+!C00434_AdjustLandingPackedComponentRing = $0434
 !C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 !C09032_DivideUnsignedWordByIndex = $C09032
 !C0915B_DivideUnsignedWordByY = $C0915B
@@ -689,7 +692,7 @@ ADJUST_SPRITE_PALETTES_BY_AVERAGE:
     adc.w #$FFDE
     tcd
     lda.w #$0240
-    jsr $0391
+    jsr !C00391_Sum_LandingTemplateComponents
     ldy $43D6
     lda $43D0
     xba
@@ -813,7 +816,7 @@ C00582_Build_LandingPackedRowTable0200_L0582:
     tax
     ldy $14
     tya
-    jsr $0434
+    jsr !C00434_AdjustLandingPackedComponentRing
     tay
     sty $14
     lda $02
@@ -822,7 +825,7 @@ C00582_Build_LandingPackedRowTable0200_L0582:
     and.w #$001F
     tax
     lda $10
-    jsr $0434
+    jsr !C00434_AdjustLandingPackedComponentRing
     sta $02
     lda $04
     xba
@@ -830,7 +833,7 @@ C00582_Build_LandingPackedRowTable0200_L0582:
     and.w #$001F
     tax
     lda $0E
-    jsr $0434
+    jsr !C00434_AdjustLandingPackedComponentRing
     sta $0E
     lda $18
     asl A
@@ -882,7 +885,7 @@ C005E5_Build_LandingPackedRowTable0200_L05E5:
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     ldy $12
     tya
-    jsr $0391
+    jsr !C00391_Sum_LandingTemplateComponents
     lda $43D0
     sta $43D6
     lda $43D2
@@ -1308,6 +1311,9 @@ hirom
 org $C008CF
 
 !C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
+!C005E7_LoadLandingTemplateAndSnapshotComponentTotals = $C005E7
+!C0062A_Load_LandingHdmaDispatchBlock = $062A
+!C006F2_DispatchLandingProfileAction = $C006F2
 !C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 C008CF_Derive_LandingRegionProfileFromDestination:
     lda $438A
@@ -1382,11 +1388,11 @@ C008E9_Derive_LandingRegionProfileFromDestination_L08E9:
     jsl !C41A9E_GraphicsDecompressionRoutines_Main
     ldy $16
     tya
-    jsr $062A
+    jsr !C0062A_Load_LandingHdmaDispatchBlock
     ldy $16
     tya
-    jsl $C006F2
-    jsl $C005E7
+    jsl !C006F2_DispatchLandingProfileAction
+    jsl !C005E7_LoadLandingTemplateAndSnapshotComponentTotals
     lda.w #$0000
     sta $0E
     lda.w #$00C3
@@ -1421,8 +1427,16 @@ org $C0097B
 !C085B7_QueueChunkedVramDma = $C085B7
 !C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 !C08EFC_CommitTileBufferToStaging = $C08EFC
+!C00085_Install_LandingAnimatedGraphicsStrip = $0085
+!C0023F_Build_LandingProfileStepSequencer = $023F
+!C00480_Build_LandingPackedRowTable0200 = $C00480
+!C00778_Build_LandingActiveRowCache0300 = $C00778
+!C007B6_Install_LandingProfileTemplateBlock0240 = $C007B6
 !C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
+!C496F9_MirrorCgramShadow0200To7f0000 = $C496F9
 !C47F87_RefreshWindowFlavorPalette = $C47F87
+!C4B26B_InitializeLandingDisplayStreamsAndChildAnchors = $C4B26B
+!EFD9F3_RefreshDebugMenuGraphicsIfNeeded = $EFD9F3
 C0097B_Commit_LandingProfileSelector:
     sty $4372
     lda.w #$105B
@@ -1482,20 +1496,20 @@ C009EE_Commit_LandingProfileSelector_L09EE:
     sed
     ldx $18
     lda $04
-    jsl $C007B6
-    jsl $C00480
-    jsl $C00778
+    jsl !C007B6_Install_LandingProfileTemplateBlock0240
+    jsl !C00480_Build_LandingPackedRowTable0200
+    jsl !C00778_Build_LandingActiveRowCache0300
     lda $B4EF
     bne C00A15_Commit_LandingProfileSelector_L0A15
-    jsl $C4B26B
-    jsr $0085
-    jsr $023F
+    jsl !C4B26B_InitializeLandingDisplayStreamsAndChildAnchors
+    jsr !C00085_Install_LandingAnimatedGraphicsStrip
+    jsr !C0023F_Build_LandingProfileStepSequencer
 C00A15_Commit_LandingProfileSelector_L0A15:
     lda $B4EF
     bne C00A30_Commit_LandingProfileSelector_L0A30
     lda $436C
     beq C00A25_Commit_LandingProfileSelector_L0A25
-    jsl $EFD9F3
+    jsl !EFD9F3_RefreshDebugMenuGraphicsIfNeeded
     bra C00A29_Commit_LandingProfileSelector_L0A29
 C00A25_Commit_LandingProfileSelector_L0A25:
     jsl !C47F87_RefreshWindowFlavorPalette
@@ -1525,7 +1539,7 @@ C00A30_Commit_LandingProfileSelector_L0A30:
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     lda $4676
     beq C00A75_Commit_LandingProfileSelector_L0A75
-    jsl $C496F9
+    jsl !C496F9_MirrorCgramShadow0200To7f0000
     sep #$20
     lda.b #$FF
     sta $0E
@@ -1537,7 +1551,7 @@ C00A30_Commit_LandingProfileSelector_L0A30:
 C00A75_Commit_LandingProfileSelector_L0A75:
     lda $B4EF
     beq C00A8E_Commit_LandingProfileSelector_L0A8E
-    jsl $C496F9
+    jsl !C496F9_MirrorCgramShadow0200To7f0000
     sep #$20
     stz $0E
     ldx.w #$01E0
@@ -1615,6 +1629,7 @@ LOAD_SECTOR_ATTRS:
 hirom
 org $C00AC5
 
+!C0A156_Lookup_CachedMapPropertyNibble = $A156
 LOAD_MAP_ROW:
 !C00AC5_Load_VerticalMovementMapStripPayload = LOAD_MAP_ROW
     rep #$31
@@ -1736,7 +1751,7 @@ C00B7D_Load_VerticalMovementMapStripPayload_L0B7D:
     bne C00B9D_Load_VerticalMovementMapStripPayload_L0B9D
     ldx $04
     tya
-    jsr $A156
+    jsr !C0A156_Lookup_CachedMapPropertyNibble
     sta $18
     lda $10
     sta $02
@@ -1794,6 +1809,7 @@ C00BDA_Load_VerticalMovementMapStripPayload_L0BDA:
 hirom
 org $C00BDC
 
+!C0A156_Lookup_CachedMapPropertyNibble = $A156
 LOAD_MAP_COLUMN:
 !C00BDC_Load_HorizontalMovementMapStripPayload = LOAD_MAP_COLUMN
     rep #$31
@@ -1913,7 +1929,7 @@ C00C8D_Load_HorizontalMovementMapStripPayload_L0C8D:
     bne C00CAD_Load_HorizontalMovementMapStripPayload_L0CAD
     tyx
     lda $04
-    jsr $A156
+    jsr !C0A156_Lookup_CachedMapPropertyNibble
     sta $18
     lda $10
     sta $02
@@ -2158,6 +2174,8 @@ hirom
 org $C00E16
 
 !PREPARE_VRAM_COPY = $C08616
+!C086DE_AllocateTileBuffer = $C086DE
+!EFDFC4_WriteDebugOverlayTileRowA = $EFDFC4
 C00E16_Upload_VerticalMovementMapStrip:
     rep #$31
     phd
@@ -2173,10 +2191,10 @@ C00E16_Upload_VerticalMovementMapStrip:
     beq C00E31_Upload_VerticalMovementMapStrip_L0E31
     ldx $04
     tya
-    jsl $EFDFC4
+    jsl !EFDFC4_WriteDebugOverlayTileRowA
 C00E31_Upload_VerticalMovementMapStrip_L0E31:
     lda.w #$0100
-    jsl $C086DE
+    jsl !C086DE_AllocateTileBuffer
     sta $1E
     clc
     adc.w #$0080
@@ -2415,6 +2433,8 @@ hirom
 org $C00FCB
 
 !PREPARE_VRAM_COPY = $C08616
+!C086DE_AllocateTileBuffer = $C086DE
+!EFE07C_WriteDebugOverlayTileRowB = $EFE07C
 C00FCB_Upload_HorizontalMovementMapStrip:
     rep #$31
     phd
@@ -2430,10 +2450,10 @@ C00FCB_Upload_HorizontalMovementMapStrip:
     beq C00FE6_Upload_HorizontalMovementMapStrip_L0FE6
     tyx
     lda $04
-    jsl $EFE07C
+    jsl !EFE07C_WriteDebugOverlayTileRowB
 C00FE6_Upload_HorizontalMovementMapStrip_L0FE6:
     lda.w #$0080
-    jsl $C086DE
+    jsl !C086DE_AllocateTileBuffer
     sta $1E
     clc
     adc.w #$0040
@@ -2675,6 +2695,15 @@ org $C01181
 
 !PREPARE_VRAM_COPY = $C08616
 !C08EFC_CommitTileBufferToStaging = $C08EFC
+!C00013_SetupOverworldVramRegisters = $C00013
+!C008C3_LoadMapAtSector = $08C3
+!C00AC5_Load_VerticalMovementMapStripPayload = $0AC5
+!C00CF3_Load_VerticalMovementCollisionStripPayload = $0CF3
+!C00E16_Upload_VerticalMovementMapStrip = $0E16
+!C086DE_AllocateTileBuffer = $C086DE
+!C02194_Reset_AllEntitySlots = $C02194
+!C0255C_Run_VerticalCompanionSpawnProducer = $C0255C
+!C02A6B_Spawn_Horizontal = $C02A6B
 C01181_Upload_AuxiliaryMovementMapStrip:
     rep #$31
     phd
@@ -2685,7 +2714,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     pla
     stx $02
     lda.w #$0040
-    jsl $C086DE
+    jsl !C086DE_AllocateTileBuffer
     tay
     sty $12
     sep #$20
@@ -2770,7 +2799,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     pla
     sta $02
     lda.w #$0040
-    jsl $C086DE
+    jsl !C086DE_AllocateTileBuffer
     tay
     sty $12
     sep #$20
@@ -2896,7 +2925,7 @@ C012EB_Upload_AuxiliaryMovementMapStrip_L12EB:
     lsr A
     lsr A
     lsr A
-    jsr $08C3
+    jsr !C008C3_LoadMapAtSector
     ldy $14
     tya
     sec
@@ -2940,7 +2969,7 @@ C0136C_Upload_AuxiliaryMovementMapStrip_L136C:
     adc $02
     tax
     lda $04
-    jsr $0AC5
+    jsr !C00AC5_Load_VerticalMovementMapStripPayload
     ldy $14
     iny
     sty $14
@@ -2959,7 +2988,7 @@ C0138E_Upload_AuxiliaryMovementMapStrip_L138E:
     adc $02
     tax
     lda $04
-    jsr $0CF3
+    jsr !C00CF3_Load_VerticalMovementCollisionStripPayload
     ldy $14
     iny
     sty $14
@@ -2976,7 +3005,7 @@ C013B0_Upload_AuxiliaryMovementMapStrip_L13B0:
     adc $10
     tax
     lda $12
-    jsr $0E16
+    jsr !C00E16_Upload_VerticalMovementMapStrip
     ldy $14
     iny
     sty $14
@@ -3013,7 +3042,7 @@ C013C6_Upload_AuxiliaryMovementMapStrip_L13C6:
     pla
     stx $16
     sta $14
-    jsl $C02194
+    jsl !C02194_Reset_AllEntitySlots
     lda $14
     sta $4380
     sta $437C
@@ -3042,10 +3071,10 @@ C013C6_Upload_AuxiliaryMovementMapStrip_L13C6:
     lsr A
     lsr A
     lsr A
-    jsr $08C3
+    jsr !C008C3_LoadMapAtSector
     lda $B4EF
     bne C0143D_Upload_AuxiliaryMovementMapStrip_L143D
-    jsl $C00013
+    jsl !C00013_SetupOverworldVramRegisters
 C0143D_Upload_AuxiliaryMovementMapStrip_L143D:
     lda $02
     sec
@@ -3090,7 +3119,7 @@ C01481_Upload_AuxiliaryMovementMapStrip_L1481:
     adc $02
     tax
     lda $04
-    jsr $0AC5
+    jsr !C00AC5_Load_VerticalMovementMapStripPayload
     ldy $12
     iny
     sty $12
@@ -3109,7 +3138,7 @@ C014A3_Upload_AuxiliaryMovementMapStrip_L14A3:
     adc $02
     tax
     lda $04
-    jsr $0CF3
+    jsr !C00CF3_Load_VerticalMovementCollisionStripPayload
     ldy $12
     iny
     sty $12
@@ -3153,10 +3182,10 @@ C01502_Upload_AuxiliaryMovementMapStrip_L1502:
     sta $02
     ldx $02
     lda $10
-    jsr $0E16
+    jsr !C00E16_Upload_VerticalMovementMapStrip
     ldx $02
     lda $10
-    jsl $C0255C
+    jsl !C0255C_Run_VerticalCompanionSpawnProducer
     ldy $12
     iny
     sty $12
@@ -3174,7 +3203,7 @@ C01528_Upload_AuxiliaryMovementMapStrip_L1528:
     lda $10
     sec
     sbc.w #$0008
-    jsl $C02A6B
+    jsl !C02A6B_Spawn_Horizontal
     ldy $12
     iny
     sty $12
@@ -3201,6 +3230,18 @@ C0154C_Upload_AuxiliaryMovementMapStrip_L154C:
 hirom
 org $C01558
 
+!C00AC5_Load_VerticalMovementMapStripPayload = $0AC5
+!C00BDC_Load_HorizontalMovementMapStripPayload = $0BDC
+!C00CF3_Load_VerticalMovementCollisionStripPayload = $0CF3
+!C00D7E_Assemble_LandingHdmaParameterBlock = $0D7E
+!C00E16_Upload_VerticalMovementMapStrip = $0E16
+!C00FCB_Upload_HorizontalMovementMapStrip = $0FCB
+!C01181_Upload_AuxiliaryMovementMapStrip = $1181
+!C0122A_Upload_AuxiliaryHorizontalMovementMapStrip = $122A
+!C0255C_Run_VerticalCompanionSpawnProducer = $C0255C
+!C025CF_Run_HorizontalCompanionSpawnProducer = $C025CF
+!C02A6B_Spawn_Horizontal = $C02A6B
+!C02B55_Spawn_Vertical = $C02B55
 REFRESH_MAP_AT_POSITION:
 !C01558_UpdateRuntimeScrollShadowsAndIncrementalRefresh = REFRESH_MAP_AT_POSITION
     rep #$31
@@ -3269,24 +3310,24 @@ C015B0_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L15B0:
     lda $10
     clc
     adc.w #$0029
-    jsr $0BDC
+    jsr !C00BDC_Load_HorizontalMovementMapStripPayload
     ldy $0E
     tyx
     lda $4374
     clc
     adc.w #$0029
-    jsr $0D7E
+    jsr !C00D7E_Assemble_LandingHdmaParameterBlock
     ldx $02
     lda $4374
     clc
     adc.w #$0020
-    jsr $0FCB
+    jsr !C00FCB_Upload_HorizontalMovementMapStrip
     ldx $02
     dex
     lda $4374
     clc
     adc.w #$0022
-    jsl $C025CF
+    jsl !C025CF_Run_HorizontalCompanionSpawnProducer
     lda $02
     sec
     sbc.w #$0008
@@ -3294,7 +3335,7 @@ C015B0_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L15B0:
     lda $4374
     clc
     adc.w #$0028
-    jsl $C02B55
+    jsl !C02B55_Spawn_Vertical
     bra C0165D_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L165D
 C0160C_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L160C:
     lda $4374
@@ -3310,24 +3351,24 @@ C0160C_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L160C:
     lda $0E
     sec
     sbc.w #$0010
-    jsr $0BDC
+    jsr !C00BDC_Load_HorizontalMovementMapStripPayload
     ldy $10
     tyx
     lda $4374
     sec
     sbc.w #$0010
-    jsr $0D7E
+    jsr !C00D7E_Assemble_LandingHdmaParameterBlock
     ldx $02
     lda $4374
     dec A
-    jsr $0FCB
+    jsr !C00FCB_Upload_HorizontalMovementMapStrip
     ldx $02
     dex
     lda $4374
     dec A
     dec A
     dec A
-    jsl $C025CF
+    jsl !C025CF_Run_HorizontalCompanionSpawnProducer
     lda $02
     sec
     sbc.w #$0008
@@ -3335,7 +3376,7 @@ C0160C_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L160C:
     lda $4374
     sec
     sbc.w #$0008
-    jsl $C02B55
+    jsl !C02B55_Spawn_Vertical
 C0165D_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L165D:
     lda $4374
     sec
@@ -3361,26 +3402,26 @@ C0166B_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L166B:
     adc.w #$0029
     tax
     tya
-    jsr $0AC5
+    jsr !C00AC5_Load_VerticalMovementMapStripPayload
     lda $4376
     clc
     adc.w #$0029
     tax
     ldy $0E
     tya
-    jsr $0CF3
+    jsr !C00CF3_Load_VerticalMovementCollisionStripPayload
     lda $4376
     clc
     adc.w #$001C
     tax
     lda $04
-    jsr $0E16
+    jsr !C00E16_Upload_VerticalMovementMapStrip
     lda $4376
     clc
     adc.w #$001D
     tax
     lda $04
-    jsl $C0255C
+    jsl !C0255C_Run_VerticalCompanionSpawnProducer
     lda $4376
     clc
     adc.w #$0024
@@ -3388,7 +3429,7 @@ C0166B_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L166B:
     lda $04
     sec
     sbc.w #$0008
-    jsl $C02A6B
+    jsl !C02A6B_Spawn_Horizontal
     bra C0171A_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L171A
 C016CA_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L16CA:
     lda $4376
@@ -3405,22 +3446,22 @@ C016CA_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L16CA:
     sbc.w #$0010
     tax
     tya
-    jsr $0AC5
+    jsr !C00AC5_Load_VerticalMovementMapStripPayload
     lda $4376
     sec
     sbc.w #$0010
     tax
     ldy $0E
     tya
-    jsr $0CF3
+    jsr !C00CF3_Load_VerticalMovementCollisionStripPayload
     ldx $4376
     dex
     lda $04
-    jsr $0E16
+    jsr !C00E16_Upload_VerticalMovementMapStrip
     ldx $4376
     dex
     lda $04
-    jsl $C0255C
+    jsl !C0255C_Run_VerticalCompanionSpawnProducer
     lda $4376
     sec
     sbc.w #$0008
@@ -3428,7 +3469,7 @@ C016CA_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L16CA:
     lda $04
     sec
     sbc.w #$0008
-    jsl $C02A6B
+    jsl !C02A6B_Spawn_Horizontal
 C0171A_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L171A:
     lda $4376
     sec
@@ -3501,7 +3542,7 @@ C01783_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L1783:
     ldx $02
     clc
     adc.w #$0020
-    jsr $122A
+    jsr !C0122A_Upload_AuxiliaryHorizontalMovementMapStrip
     bra C017A7_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17A7
 C0179A_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L179A:
     lda $4374
@@ -3509,7 +3550,7 @@ C0179A_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L179A:
     sta $4374
     ldx $02
     dec A
-    jsr $122A
+    jsr !C0122A_Upload_AuxiliaryHorizontalMovementMapStrip
 C017A7_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17A7:
     lda $4374
     sec
@@ -3526,7 +3567,7 @@ C017B1_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17B1:
     adc.w #$001C
     tax
     lda $0E
-    jsr $1181
+    jsr !C01181_Upload_AuxiliaryMovementMapStrip
     bra C017D6_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17D6
 C017C9_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17C9:
     ldx $4376
@@ -3534,7 +3575,7 @@ C017C9_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17C9:
     stx $4376
     dex
     lda $0E
-    jsr $1181
+    jsr !C01181_Upload_AuxiliaryMovementMapStrip
 C017D6_UpdateRuntimeScrollShadowsAndIncrementalRefresh_L17D6:
     lda $4376
     sec
@@ -3560,8 +3601,16 @@ org $C017EA
 !C08D79_UpdateBgModeRegisterFromQueue = $C08D79
 !C08D92_UpdateObjSizeAndBaseRegister = $C08D92
 !C08D9E_UpdateBg1ScreenBaseRegistersFromQueue = $C08D9E
+!C08DDE_UpdateBg2ScreenBaseRegistersFromQueue = $C08DDE
 !C08E1C_UpdateBg2ScreenBaseRegistersFromQueue = $C08E1C
+!C012ED_ReloadMapAtPosition = $C012ED
+!C013F6_LoadMapAtPosition = $C013F6
+!C01558_UpdateRuntimeScrollShadowsAndIncrementalRefresh = $1558
+!C03FA9_Refresh_PostTransitionEntityPlacement = $C03FA9
+!C068F4_RefreshCurrentPositionTransitionContext = $C068F4
+!C069AF_ApplyCurrentPositionMusicAndSfx = $C069AF
 !C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!EFD9F3_RefreshDebugMenuGraphicsIfNeeded = $EFD9F3
 C017EA_AccumulateOverworldCameraStep:
     rep #$31
     phd
@@ -3669,7 +3718,7 @@ C01899_AccumulateOverworldCameraStep_L1899:
     lda $4380
     sec
     sbc.w #$0080
-    jsr $1558
+    jsr !C01558_UpdateRuntimeScrollShadowsAndIncrementalRefresh
     bra C018E5_AccumulateOverworldCameraStep_L18E5
 C018AD_AccumulateOverworldCameraStep_L18AD:
     lda $02
@@ -3694,7 +3743,7 @@ C018AD_AccumulateOverworldCameraStep_L18AD:
     lsr A
     lsr A
     lsr A
-    jsl $C013F6
+    jsl !C013F6_LoadMapAtPosition
     jsl !C08744_OpenDisplayTransitionBracket
 C018E5_AccumulateOverworldCameraStep_L18E5:
     lda $4380
@@ -3731,7 +3780,7 @@ C018E5_AccumulateOverworldCameraStep_L18E5:
     ldx $04
     lda $0000,X
     ldx $10
-    jsl $C068F4
+    jsl !C068F4_RefreshCurrentPositionTransitionContext
     lda.w #$0009
     jsl !C08D79_UpdateBgModeRegisterFromQueue
     ldy.w #$0000
@@ -3741,7 +3790,7 @@ C018E5_AccumulateOverworldCameraStep_L18E5:
     ldy.w #$2000
     ldx.w #$5800
     lda.w #$0001
-    jsl $C08DDE
+    jsl !C08DDE_UpdateBg2ScreenBaseRegistersFromQueue
     ldy.w #$6000
     ldx.w #$7C00
     lda.w #$0000
@@ -3755,7 +3804,7 @@ C018E5_AccumulateOverworldCameraStep_L18E5:
     ldx $04
     lda $0000,X
     ldx $0E
-    jsl $C012ED
+    jsl !C012ED_ReloadMapAtPosition
     lda $9883
     cmp.w #$0003
     bne C01996_AccumulateOverworldCameraStep_L1996
@@ -3763,7 +3812,7 @@ C018E5_AccumulateOverworldCameraStep_L18E5:
     jsl !C4FBBD_PlaySoundStoneMelody
     bra C0199A_AccumulateOverworldCameraStep_L199A
 C01996_AccumulateOverworldCameraStep_L1996:
-    jsl $C069AF
+    jsl !C069AF_ApplyCurrentPositionMusicAndSfx
 C0199A_AccumulateOverworldCameraStep_L199A:
     sep #$20
     lda.b #$17
@@ -3771,7 +3820,7 @@ C0199A_AccumulateOverworldCameraStep_L199A:
     rep #$20
     lda $436C
     beq C019AC_AccumulateOverworldCameraStep_L19AC
-    jsl $EFD9F3
+    jsl !EFD9F3_RefreshDebugMenuGraphicsIfNeeded
 C019AC_AccumulateOverworldCameraStep_L19AC:
     jsl !C08744_OpenDisplayTransitionBracket
     pld
@@ -3788,15 +3837,15 @@ C019AC_AccumulateOverworldCameraStep_L19AC:
     sta $02
     ldx $04
     lda $02
-    jsl $C068F4
+    jsl !C068F4_RefreshCurrentPositionTransitionContext
     ldx $04
     lda $02
-    jsl $C013F6
+    jsl !C013F6_LoadMapAtPosition
     ldy $0E
     ldx $04
     lda $02
-    jsl $C03FA9
-    jsl $C069AF
+    jsl !C03FA9_Refresh_PostTransitionEntityPlacement
+    jsl !C069AF_ApplyCurrentPositionMusicAndSfx
     pld
     rtl
 

@@ -12,6 +12,9 @@
 ; External contracts used by this module
 
 C08ED2_QueueOrTransferDynamicTileBlock    = $C08ED2
+C005E7_LoadLandingTemplateAndSnapshotComponentTotals = $C005E7
+C0062A_Load_LandingHdmaDispatchBlock      = $062A
+C006F2_DispatchLandingProfileAction       = $C006F2
 C41A9E_GraphicsDecompressionRoutines_Main = $C41A9E
 
 ; ---------------------------------------------------------------------------
@@ -90,11 +93,11 @@ C008E9_Derive_LandingRegionProfileFromDestination_L08E9:
     jsl C41A9E_GraphicsDecompressionRoutines_Main
     ldy $16
     tya
-    jsr $062A
+    jsr C0062A_Load_LandingHdmaDispatchBlock
     ldy $16
     tya
-    jsl $C006F2
-    jsl $C005E7
+    jsl C006F2_DispatchLandingProfileAction
+    jsl C005E7_LoadLandingTemplateAndSnapshotComponentTotals
     lda.w #$0000
     sta $0E
     lda.w #$00C3

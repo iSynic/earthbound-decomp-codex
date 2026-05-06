@@ -11,6 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C00391_Sum_LandingTemplateComponents    = $0391
+C00434_AdjustLandingPackedComponentRing = $0434
 C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 C09032_DivideUnsignedWordByIndex       = $C09032
 C0915B_DivideUnsignedWordByY           = $C0915B
@@ -26,7 +28,7 @@ C00480_Build_LandingPackedRowTable0200 = ADJUST_SPRITE_PALETTES_BY_AVERAGE
     adc.w #$FFDE
     tcd
     lda.w #$0240
-    jsr $0391
+    jsr C00391_Sum_LandingTemplateComponents
     ldy $43D6
     lda $43D0
     xba
@@ -150,7 +152,7 @@ C00582_Build_LandingPackedRowTable0200_L0582:
     tax
     ldy $14
     tya
-    jsr $0434
+    jsr C00434_AdjustLandingPackedComponentRing
     tay
     sty $14
     lda $02
@@ -159,7 +161,7 @@ C00582_Build_LandingPackedRowTable0200_L0582:
     and.w #$001F
     tax
     lda $10
-    jsr $0434
+    jsr C00434_AdjustLandingPackedComponentRing
     sta $02
     lda $04
     xba
@@ -167,7 +169,7 @@ C00582_Build_LandingPackedRowTable0200_L0582:
     and.w #$001F
     tax
     lda $0E
-    jsr $0434
+    jsr C00434_AdjustLandingPackedComponentRing
     sta $0E
     lda $18
     asl A
@@ -219,7 +221,7 @@ C005E5_Build_LandingPackedRowTable0200_L05E5:
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     ldy $12
     tya
-    jsr $0391
+    jsr C00391_Sum_LandingTemplateComponents
     lda $43D0
     sta $43D6
     lda $43D2

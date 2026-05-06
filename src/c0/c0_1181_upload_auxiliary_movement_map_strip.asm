@@ -13,6 +13,15 @@
 
 PREPARE_VRAM_COPY = $C08616
 C08EFC_CommitTileBufferToStaging      = $C08EFC
+C00013_SetupOverworldVramRegisters    = $C00013
+C008C3_LoadMapAtSector                = $08C3
+C00AC5_Load_VerticalMovementMapStripPayload = $0AC5
+C00CF3_Load_VerticalMovementCollisionStripPayload = $0CF3
+C00E16_Upload_VerticalMovementMapStrip = $0E16
+C086DE_AllocateTileBuffer             = $C086DE
+C02194_Reset_AllEntitySlots           = $C02194
+C0255C_Run_VerticalCompanionSpawnProducer = $C0255C
+C02A6B_Spawn_Horizontal               = $C02A6B
 
 ; ---------------------------------------------------------------------------
 ; C0:1181
@@ -27,7 +36,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     pla
     stx $02
     lda.w #$0040
-    jsl $C086DE
+    jsl C086DE_AllocateTileBuffer
     tay
     sty $12
     sep #$20
@@ -112,7 +121,7 @@ C01181_Upload_AuxiliaryMovementMapStrip:
     pla
     sta $02
     lda.w #$0040
-    jsl $C086DE
+    jsl C086DE_AllocateTileBuffer
     tay
     sty $12
     sep #$20
@@ -238,7 +247,7 @@ C012EB_Upload_AuxiliaryMovementMapStrip_L12EB:
     lsr A
     lsr A
     lsr A
-    jsr $08C3
+    jsr C008C3_LoadMapAtSector
     ldy $14
     tya
     sec
@@ -282,7 +291,7 @@ C0136C_Upload_AuxiliaryMovementMapStrip_L136C:
     adc $02
     tax
     lda $04
-    jsr $0AC5
+    jsr C00AC5_Load_VerticalMovementMapStripPayload
     ldy $14
     iny
     sty $14
@@ -301,7 +310,7 @@ C0138E_Upload_AuxiliaryMovementMapStrip_L138E:
     adc $02
     tax
     lda $04
-    jsr $0CF3
+    jsr C00CF3_Load_VerticalMovementCollisionStripPayload
     ldy $14
     iny
     sty $14
@@ -318,7 +327,7 @@ C013B0_Upload_AuxiliaryMovementMapStrip_L13B0:
     adc $10
     tax
     lda $12
-    jsr $0E16
+    jsr C00E16_Upload_VerticalMovementMapStrip
     ldy $14
     iny
     sty $14
@@ -355,7 +364,7 @@ C013C6_Upload_AuxiliaryMovementMapStrip_L13C6:
     pla
     stx $16
     sta $14
-    jsl $C02194
+    jsl C02194_Reset_AllEntitySlots
     lda $14
     sta $4380
     sta $437C
@@ -384,10 +393,10 @@ C013C6_Upload_AuxiliaryMovementMapStrip_L13C6:
     lsr A
     lsr A
     lsr A
-    jsr $08C3
+    jsr C008C3_LoadMapAtSector
     lda $B4EF
     bne C0143D_Upload_AuxiliaryMovementMapStrip_L143D
-    jsl $C00013
+    jsl C00013_SetupOverworldVramRegisters
 C0143D_Upload_AuxiliaryMovementMapStrip_L143D:
     lda $02
     sec
@@ -432,7 +441,7 @@ C01481_Upload_AuxiliaryMovementMapStrip_L1481:
     adc $02
     tax
     lda $04
-    jsr $0AC5
+    jsr C00AC5_Load_VerticalMovementMapStripPayload
     ldy $12
     iny
     sty $12
@@ -451,7 +460,7 @@ C014A3_Upload_AuxiliaryMovementMapStrip_L14A3:
     adc $02
     tax
     lda $04
-    jsr $0CF3
+    jsr C00CF3_Load_VerticalMovementCollisionStripPayload
     ldy $12
     iny
     sty $12
@@ -495,10 +504,10 @@ C01502_Upload_AuxiliaryMovementMapStrip_L1502:
     sta $02
     ldx $02
     lda $10
-    jsr $0E16
+    jsr C00E16_Upload_VerticalMovementMapStrip
     ldx $02
     lda $10
-    jsl $C0255C
+    jsl C0255C_Run_VerticalCompanionSpawnProducer
     ldy $12
     iny
     sty $12
@@ -516,7 +525,7 @@ C01528_Upload_AuxiliaryMovementMapStrip_L1528:
     lda $10
     sec
     sbc.w #$0008
-    jsl $C02A6B
+    jsl C02A6B_Spawn_Horizontal
     ldy $12
     iny
     sty $12

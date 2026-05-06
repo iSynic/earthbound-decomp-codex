@@ -177,6 +177,12 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   in the battle selection-menu setup, packed window-flavour preview, and
   new-file party setup lanes. C1's residual numeric-call map is now only the
   deferred local structural calls in the character-selection dispatcher.
+- 2026-05-06: C0 landing/movement presentation follow-up named helper-call
+  surfaces across the early landing profile builders and the movement-strip
+  refresh chain through the camera-step accumulator. The pass ties profile
+  template/row-cache setup, HDMA dispatch reloads, C4 landing display helpers,
+  cached map-property lookups, map-strip uploads, companion producers, and
+  transition/music refresh calls back to existing C0/C4/EF contracts.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source
