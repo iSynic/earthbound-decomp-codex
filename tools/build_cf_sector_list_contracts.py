@@ -494,7 +494,7 @@ def markdown(contract: dict[str, Any]) -> str:
             "## Remaining frontier",
             "",
             "- `DOOR_DATA` is still a packed payload family. The sector-list row contract should treat `trigger_payload_word` as type-specific until each trigger helper is joined to a payload variant.",
-            "- `OVERWORLD_EVENT_MUSIC_TABLE` remains a separate variable-length row family.",
+            "- `OVERWORLD_EVENT_MUSIC_TABLE` is decoded separately in `notes/cf-event-music-context-contracts.md`.",
         ]
     )
     return "\n".join(lines) + "\n"

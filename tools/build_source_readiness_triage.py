@@ -187,8 +187,8 @@ def build_triage() -> list[BankTriage]:
                 "generated map data",
                 "data-contract-ready",
                 3,
-                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md` and the complete decoded row artifact in `notes/cf-sector-list-contracts.json`.",
-                ["DOOR_DATA payload variants and OVERWORLD_EVENT_MUSIC_TABLE rows remain unresolved"],
+                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.json`, and the CF event-music context contract.",
+                ["DOOR_DATA payload variants remain unresolved"],
                 ["door pointers", "door lists", "event music", "sprite placement", "NPC config", "audio tail"],
             ),
         ]
@@ -291,8 +291,8 @@ def build_triage() -> list[BankTriage]:
             "map arrangement/music/audio data",
             "asset-and-table-ready",
             3,
-            "Extract arrangements and audio packs, and keep the per-sector music table contract regression-tested.",
-            ["per-sector music option list semantics live in the map-sector bundle contract"],
+            "Extract arrangements and audio packs, and keep the CF/DC event-music selector contract regression-tested.",
+            ["the second per-sector music byte plane and broader map_music option-list semantics remain intentionally unnamed"],
             ["compressed arrangements", "per-sector music table", "audio packs"],
         )
     )

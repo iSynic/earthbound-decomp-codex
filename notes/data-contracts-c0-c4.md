@@ -5,8 +5,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 ## Summary
 
 - schema: `earthbound-decomp.data-contracts.v1`
-- contracts: `167`
-- fields: `686`
+- contracts: `168`
+- fields: `687`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -70,6 +70,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | MAP_PALETTE_POINTER_TABLE | rom-table | `DA:FAA7` | `0x3` | 32 | `snes_long_pointer24` | 2 | verified |
 | DA_MAP_PALETTE_VARIANT_TABLE | rom-table | `DA:7CA7` | `0xC0` | 168 | `da_map_palette_variant` | 10 | tool-and-script-corroborated |
 | PER_SECTOR_MUSIC_TABLE | rom-table | `DC:D637` | `0x2` | 1280 | `per_sector_music_options_index` | 1 | structural-corroborated |
+| CURRENT_POSITION_EVENT_MUSIC_SELECTOR_TABLE | rom-table | `DC:D637` | `0x1` | 1280 | `current_position_event_music_context_selector` | 1 | consumer-corroborated |
 | LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE | rom-table | `DF:E4E1` | `0x4` | 31 | `far_pointer` | 1 | runtime-corroborated |
 | LANDING_PALETTE_ANIM_PROFILE_0 | rom-variable-table | `DF:E55D` | `0x9` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
 | LANDING_PALETTE_ANIM_PROFILE_1 | rom-variable-table | `DF:E566` | `0x9` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
@@ -127,8 +128,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | TOWN_MAP_ICON_PLACEMENT_LIST_3 | rom-variable-table | `E1:F524` | `0x5` | 7 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
 | TOWN_MAP_ICON_PLACEMENT_LIST_4 | rom-variable-table | `E1:F548` | `0x5` | 5 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
 | TOWN_MAP_ICON_PLACEMENT_LIST_5 | rom-variable-table | `E1:F562` | `0x5` | 6 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
-| OVERWORLD_EVENT_MUSIC_POINTER_TABLE | rom-table | `CF:58EF` | `0x2` | 165 | `word_pointer` | 1 | exact |
-| OVERWORLD_EVENT_MUSIC_TABLE | rom-variable-table | `CF:5A39` | `0x7A4` | 1 | `overworld_event_music_rows` | 1 | exact-boundary |
+| OVERWORLD_EVENT_MUSIC_POINTER_TABLE | rom-table | `CF:58EF` | `0x2` | 165 | `word_pointer` | 1 | consumer-corroborated |
+| OVERWORLD_EVENT_MUSIC_TABLE | rom-variable-table | `CF:5A39` | `0x7A4` | 1 | `overworld_event_music_rows` | 1 | consumer-corroborated |
 | CF_INLINE_EVENT_MUSIC_TRAILER | rom-block | `CF:61DD` | `0xA` | 1 | `inline_event_music_trailer` | 1 | exact |
 | SPRITE_PLACEMENT_POINTER_TABLE | rom-table | `CF:61E7` | `0x2` | 1280 | `sprite_placement_sector_pointer` | 1 | exact |
 | SPRITE_PLACEMENT_TABLE | rom-variable-table | `CF:6BE7` | `0x1D9E` | 1 | `sprite_placement_sector_list_block` | 1 | exact-variable-lists |
@@ -1344,12 +1345,27 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1280`
 - struct: `per_sector_music_options_index`
 - confidence: `structural-corroborated`
-- note: 40x32 sector-indexed music-options table used by the map sector bundle inventory.
+- note: 40x32 sector-indexed music-options table used by the map sector bundle inventory. The overlapping C0 byte-indexed selector plane is tracked separately as CURRENT_POSITION_EVENT_MUSIC_SELECTOR_TABLE.
 - evidence: `notes/bank-dc-asset-data-map.md`, `notes/map-sector-bundles.md`, `tools/build_map_sector_bundle_contract.py`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `music_options_index` | 2 | 1 | 40x32 sector-indexed word joined to map_music.yml option lists by the map sector bundle contract |
+
+### CURRENT_POSITION_EVENT_MUSIC_SELECTOR_TABLE
+
+- domain: `rom-table`
+- address: `DC:D637`
+- stride: `0x1`
+- count: `1280`
+- struct: `current_position_event_music_context_selector`
+- confidence: `consumer-corroborated`
+- note: The byte-indexed first plane of DC:D637..DC:E036. C0:68F4 computes sector_y*32 + sector_x, reads this byte, and uses it as the selector into CF:58EF.
+- evidence: `notes/cf-event-music-context-contracts.md`, `notes/c0-current-position-music-refresh-c068f4-c069af.md`, `src/c0/c0_65c2_probe_type6_door_candidate.asm`, `src/ef/ef_dcbc_de1a_debug_check_position_overlay.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `event_music_context_selector` | 1 | 1 | byte-indexed first plane at DC:D637; C0:68F4 and the EF debug overlay use this selector to index CF:58EF |
 
 ### LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE
 
@@ -2314,9 +2330,9 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - stride: `0x2`
 - count: `165`
 - struct: `word_pointer`
-- confidence: `exact`
-- note: Offsets into the CF overworld event-music table.
-- evidence: `refs/eb-decompile-4ef92/map_music.yml`, `notes/cf-table-splits.md`
+- confidence: `consumer-corroborated`
+- note: Selector-indexed low-word pointers into the CF current-position event-music context chains; selector 0 is null and selectors 1..164 target CF:5A39..CF:61DC.
+- evidence: `refs/eb-decompile-4ef92/map_music.yml`, `notes/cf-table-splits.md`, `notes/cf-event-music-context-contracts.md`, `src/c0/c0_65c2_probe_type6_door_candidate.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -2329,13 +2345,13 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - stride: `0x7A4`
 - count: `1`
 - struct: `overworld_event_music_rows`
-- confidence: `exact-boundary`
-- note: Variable-length event flag/music rows ending at the inline bank0f byte block.
-- evidence: `refs/eb-decompile-4ef92/map_music.yml`, `notes/cf-table-splits.md`
+- confidence: `consumer-corroborated`
+- note: Variable-length current-position event-music context chains ending at the inline bank0f byte block; each four-byte row is an event-condition/default row plus music-track and screen-transition-SFX bytes.
+- evidence: `refs/eb-decompile-4ef92/map_music.yml`, `notes/cf-table-splits.md`, `notes/cf-event-music-context-contracts.md`, `notes/c0-current-position-music-refresh-c068f4-c069af.md`, `src/c0/c0_65c2_probe_type6_door_candidate.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_event_music_rows` | 1 | 1956 | variable-length event-flag/music rows |
+| `0x0` | `raw_event_music_context_rows` | 1 | 1956 | 164 CF selector-addressed variable chains; see notes/cf-event-music-context-contracts.json for decoded event-flag condition/default rows and music/SFX bytes |
 
 ### CF_INLINE_EVENT_MUSIC_TRAILER
 

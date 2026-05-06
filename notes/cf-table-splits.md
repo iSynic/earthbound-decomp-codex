@@ -34,9 +34,10 @@ The `CF:0000..CF:F2B4` generated map-data region now reconciles exactly.
 
 - `D0:0000..D0:13FF` is the 1280-entry long-pointer table that anchors the CF door sector lists.
 - `DOOR_CONFIG_TABLE` and `SPRITE_PLACEMENT_TABLE` are variable-length counted sector lists.
+- `notes/cf-event-music-context-contracts.md` decodes `OVERWORLD_EVENT_MUSIC_POINTER_TABLE` and `OVERWORLD_EVENT_MUSIC_TABLE` as selector-addressed current-position music/SFX context chains.
 - `NPC_CONFIG_TABLE` uses the ebsrc `npc_config` struct size of 17 bytes and the eb-decompile row count of 1584.
 - `CF:F2B5` is the first audio-pack byte, so all generated map data ends exactly at `CF:F2B4`.
 
 ## Recommended next move
 
-Promote the stable CF table shapes into the data-contract manifest, then use the D0 door pointer table and late battle/enemy pointers to continue the D0 splitter.
+Use the stable CF table shapes and promoted row contracts for source emission planning, then continue with a consumer-backed `DOOR_DATA` payload variant.

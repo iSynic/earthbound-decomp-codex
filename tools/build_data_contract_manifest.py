@@ -251,7 +251,13 @@ WORD_POINTER_FIELDS = (
 )
 
 RAW_CF_EVENT_MUSIC_TABLE_FIELDS = (
-    field("raw_event_music_rows", 0x00, 1, 0x07A4, "variable-length event-flag/music rows"),
+    field(
+        "raw_event_music_context_rows",
+        0x00,
+        1,
+        0x07A4,
+        "164 CF selector-addressed variable chains; see notes/cf-event-music-context-contracts.json for decoded event-flag condition/default rows and music/SFX bytes",
+    ),
 )
 
 RAW_CF_INLINE_EVENT_MUSIC_TRAILER_FIELDS = (
@@ -401,6 +407,15 @@ SNES_LONG_POINTER24_FIELDS = (
 
 PER_SECTOR_MUSIC_FIELDS = (
     field("music_options_index", 0x00, 2, note="40x32 sector-indexed word joined to map_music.yml option lists by the map sector bundle contract"),
+)
+
+CURRENT_POSITION_EVENT_MUSIC_SELECTOR_FIELDS = (
+    field(
+        "event_music_context_selector",
+        0x00,
+        1,
+        note="byte-indexed first plane at DC:D637; C0:68F4 and the EF debug overlay use this selector to index CF:58EF",
+    ),
 )
 
 TEXT_WINDOW_FLAVOR_SELECTOR_FIELDS = (
@@ -1518,13 +1533,30 @@ def extra_contracts() -> list[Contract]:
             count=1280,
             struct_name="per_sector_music_options_index",
             confidence="structural-corroborated",
-            note="40x32 sector-indexed music-options table used by the map sector bundle inventory.",
+            note="40x32 sector-indexed music-options table used by the map sector bundle inventory. The overlapping C0 byte-indexed selector plane is tracked separately as CURRENT_POSITION_EVENT_MUSIC_SELECTOR_TABLE.",
             evidence=(
                 "notes/bank-dc-asset-data-map.md",
                 "notes/map-sector-bundles.md",
                 "tools/build_map_sector_bundle_contract.py",
             ),
             fields=PER_SECTOR_MUSIC_FIELDS,
+        ),
+        Contract(
+            id="CURRENT_POSITION_EVENT_MUSIC_SELECTOR_TABLE",
+            domain="rom-table",
+            address="DC:D637",
+            stride=0x01,
+            count=1280,
+            struct_name="current_position_event_music_context_selector",
+            confidence="consumer-corroborated",
+            note="The byte-indexed first plane of DC:D637..DC:E036. C0:68F4 computes sector_y*32 + sector_x, reads this byte, and uses it as the selector into CF:58EF.",
+            evidence=(
+                "notes/cf-event-music-context-contracts.md",
+                "notes/c0-current-position-music-refresh-c068f4-c069af.md",
+                "src/c0/c0_65c2_probe_type6_door_candidate.asm",
+                "src/ef/ef_dcbc_de1a_debug_check_position_overlay.asm",
+            ),
+            fields=CURRENT_POSITION_EVENT_MUSIC_SELECTOR_FIELDS,
         ),
         Contract(
             id="LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE",
@@ -1713,11 +1745,13 @@ def extra_contracts() -> list[Contract]:
             stride=0x02,
             count=165,
             struct_name="word_pointer",
-            confidence="exact",
-            note="Offsets into the CF overworld event-music table.",
+            confidence="consumer-corroborated",
+            note="Selector-indexed low-word pointers into the CF current-position event-music context chains; selector 0 is null and selectors 1..164 target CF:5A39..CF:61DC.",
             evidence=(
                 "refs/eb-decompile-4ef92/map_music.yml",
                 "notes/cf-table-splits.md",
+                "notes/cf-event-music-context-contracts.md",
+                "src/c0/c0_65c2_probe_type6_door_candidate.asm",
             ),
             fields=WORD_POINTER_FIELDS,
         ),
@@ -1728,11 +1762,14 @@ def extra_contracts() -> list[Contract]:
             stride=0x07A4,
             count=1,
             struct_name="overworld_event_music_rows",
-            confidence="exact-boundary",
-            note="Variable-length event flag/music rows ending at the inline bank0f byte block.",
+            confidence="consumer-corroborated",
+            note="Variable-length current-position event-music context chains ending at the inline bank0f byte block; each four-byte row is an event-condition/default row plus music-track and screen-transition-SFX bytes.",
             evidence=(
                 "refs/eb-decompile-4ef92/map_music.yml",
                 "notes/cf-table-splits.md",
+                "notes/cf-event-music-context-contracts.md",
+                "notes/c0-current-position-music-refresh-c068f4-c069af.md",
+                "src/c0/c0_65c2_probe_type6_door_candidate.asm",
             ),
             fields=RAW_CF_EVENT_MUSIC_TABLE_FIELDS,
         ),

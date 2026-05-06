@@ -9,6 +9,7 @@ music table, and two audio packs.
 Primary artifacts:
 
 - `notes/bank-dc-asset-data-map.md`
+- `notes/cf-event-music-context-contracts.md`
 - `build/asset-bank-dc.json`
 
 The generated map accounts for:
@@ -45,6 +46,17 @@ The checked-in source tree does not contain
 `DC:E037`. The manifest therefore safely infers the per-sector music table as
 `DC:D637..DC:E036`.
 
+The consumer-backed subshape now has a narrow contract:
+
+- `C0:68F4` computes `sector_index = sector_y * 32 + sector_x`, reads the byte
+  at `DC:D637 + sector_index`, and uses that value as a selector into the CF
+  event-music context pointer table at `CF:58EF`.
+- The first 1280 bytes are therefore a 32x40 current-position
+  `event_music_context_selector` plane. They reference selectors 1..164, use
+  84 unique selectors, and never reference selector 0.
+- The second 1280 bytes remain byte-accounted but intentionally unnamed here;
+  this pass did not find a cited C0/EF consumer for that plane.
+
 ## Current DC confidence boundary
 
 High confidence:
@@ -52,16 +64,19 @@ High confidence:
 - DC is data/assets, not executable code.
 - Arrangement, graphics, inferred per-sector music, and audio spans are exact
   for the US retail build.
+- The first per-sector music byte plane is tied to the CF event-music context
+  contract and C0/EF consumers.
 - Only `110` bytes at the end of the bank are unclaimed slack.
 
 Still intentionally out of scope:
 
-- Per-sector music table format and indexing.
+- The second per-sector music byte plane and human names for map_music option
+  lists.
 - Decompressing or rendering arrangements/tileset graphics.
 - Audio-pack internals.
 
 ## Recommended next move
 
-Proceed to `DD`. Its bank config appears to continue compressed map graphics
-payloads and audio data, so the manifest should likely close another bank
-quickly before we need a format-specific decoder.
+Keep the CF/DC event-music selector contract regression-tested while source
+emission work proceeds. The remaining DC semantic work is the unnamed second
+per-sector byte plane and optional arrangement/music cross-reference fixtures.

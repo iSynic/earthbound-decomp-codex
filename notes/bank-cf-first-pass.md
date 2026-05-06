@@ -22,6 +22,7 @@ Primary artifacts:
 - `notes/bank-cf-asset-data-map.md`
 - `notes/cf-table-splits.md`
 - `notes/cf-sector-list-contracts.md`
+- `notes/cf-event-music-context-contracts.md`
 - `build/asset-bank-cf.json`
 - `build/cf-table-splits.json`
 
@@ -96,6 +97,12 @@ High confidence:
   rows, and consumer-backed `npc_config_id`, `sector_local_y`, and
   `sector_local_x` field names. The checked-in JSON includes every decoded
   sector-list and placement row.
+- `OVERWORLD_EVENT_MUSIC_POINTER_TABLE` and `OVERWORLD_EVENT_MUSIC_TABLE` now
+  have a consumer-backed context contract: selector 0 is the null pointer row,
+  selectors 1..164 target 164 CF chains, and the chain parser decodes 489
+  four-byte rows through `CF:61DD`. The row fields are named only where C0
+  reads them: `event_flag_condition_word`, `music_track`, and
+  `screen_transition_sfx`.
 - The audio tail contains US retail `AUDIO_PACK_94` and `AUDIO_PACK_96`.
 - Only `CF:FFF9..CF:FFFF` remains unclaimed tail slack.
 
@@ -104,12 +111,12 @@ Still intentionally out of scope:
 - `DOOR_DATA` remains a packed payload family. The door-sector-list row
   contract names the final word as `trigger_payload_word` until each movement
   trigger helper is joined to its payload variant.
-- `OVERWORLD_EVENT_MUSIC_TABLE` remains a variable-length row family rather
-  than a fully expanded row contract.
+- Human names for event flags, track ids, and transition SFX ids remain
+  deferred; the event-music context contract keeps those values numeric.
 - Audio-pack internals remain opaque.
 
 ## Recommended next move
 
-Use the checked-in CF sector-list JSON for source emission planning. The next
-CF semantic pass should join a consumer-backed `DOOR_DATA` payload variant or
-expand `OVERWORLD_EVENT_MUSIC_TABLE` rows.
+Use the checked-in CF sector-list and event-music-context JSON artifacts for
+source emission planning. The next CF semantic pass should join a
+consumer-backed `DOOR_DATA` payload variant.
