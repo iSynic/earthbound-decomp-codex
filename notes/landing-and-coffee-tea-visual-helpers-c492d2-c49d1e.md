@@ -136,6 +136,14 @@ field offsets, dirty-range reset sentinel, scroll remainder mask, row-reveal
 bias, offset high-byte mask, tile-source plane/trailer offsets, work-bank value,
 and the visual tile transfer source/destination arguments.
 
+2026-05-06 source polish: the same tile-buffer source now documents side
+effects for the C2 visual-state starter, tile-buffer inversion, row-mask merge,
+token draw path, one-frame C2 updater, buffer initializer, visible-window
+upload, scroll-state advance, row cursor advance, compact-token renderer, and
+VRAM-offset/BG-scroll helper. The ownership boundary is intentionally narrow:
+C4 owns `$3492`, `$7DFE/$7E00`, `$9F2D/$9F2F/$9F31`, and `$3C14..$3C20`, while
+C0/C2 own the bracket, transfer, and battle-background callees.
+
 ## Flyover intro text runner
 
 `C4:9EA4` is an eight-entry long-pointer table for the flyover/intro text
@@ -168,6 +176,11 @@ the coffee/tea prompt token ids, initial window index, shared command bytes,
 script byte masks, flyover pointer-bank offset, display-bracket arguments,
 scene clear region, busy-complete sentinel, flyover wait count, display modes,
 and `$10E4` state-mask/restore contract.
+
+2026-05-06 interpreter polish: the source now states the side effects of the
+coffee/tea scene selector and flyover scene runner, and splits the flyover text
+pointer table into one long pointer per row with comments limiting the
+user-facing names to the three locally corroborated intro strings.
 
 The routine has no direct `JSL`/same-bank `JSR` callers in the split-bank scan,
 so the current best read is that it is reached through a pointer/script/event

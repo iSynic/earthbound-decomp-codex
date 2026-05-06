@@ -232,6 +232,13 @@ closure.
   starter. See
   `notes/c4-visual-frame-copy-and-footprint-tables-283f-2b0d.md` and
   `notes/secondary-visual-descriptor-contracts.md`.
+- 2026-05-06 coffee/tea interpreter follow-up: tightened side-effect comments
+  for the shared coffee/tea tile-buffer helpers and scene interpreters, naming
+  the local `$3492`, `$7DFE/$7E00`, `$9F2D/$9F2F/$9F31`, and `$3C14..$3C20`
+  ownership boundary while leaving C0/C2 transfer and battle-background callee
+  behavior to those banks. The flyover text pointer table is now row-split with
+  only the three locally corroborated intro-string roles called out. See
+  `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
 
 ## Validation
 
