@@ -75,6 +75,17 @@ source:
   names for PSI row, associated action word, targetting byte, and selected
   target byte
 
+The adjacent outer front end now carries the same source vocabulary:
+
+- `C1:B5B6..BB71` names the selected-user byte, single-user fast-path latch,
+  highlighted help-text row byte, PP guard, category-8 blocker/event branch,
+  and D5:8A50/D5:7B68 table joins.
+- Its ordinary success lane names the `$9FFA` battle selection snapshot root,
+  `$A972` active snapshot pointer, exported `+0x1D` state byte, and live
+  `$99DC` state mirror copyback.
+- The `C1:BB06` finalizer names the help-text window refresh path through
+  `C1:C8BC` and `D5:8A50 +0x0B`.
+
 ## Promotion Boundary
 
 This slice promotes source comments and local runtime wording only. It does not
@@ -90,6 +101,11 @@ Open followups:
 - cross-check D5:8A50 field names against CoilSnake PSI table schemas once more
   diff-confirmed probes exist
 - carry the same polish style into C1 text command leaves and file-select flows
+
+Completed followups:
+
+- `C1:B5B6..BB71` now has source-backed constants for the outer PSI
+  user-selection, snapshot export, action-text, and help-text refresh lane.
 
 ## Validation
 

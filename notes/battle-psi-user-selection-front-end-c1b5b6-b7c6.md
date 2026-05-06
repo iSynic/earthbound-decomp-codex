@@ -22,6 +22,15 @@ That is stronger than the older vague wording that treated `B5B6` as only a gene
 
 `C1:B5B6..BB71` is now promoted into byte-equivalent source at `src/c1/c1_b5b6_open_battle_psi_user_selection.asm`. The promoted interval includes the outer user-selection front end, the selected-action writeback path, the adjacent PSI snapshot/text lane, and the small finalizer at `C1:BB06`.
 
+2026-05-05 follow-up polish tightened the source vocabulary for this module:
+
+- `$9D16/$9D18/$9D19` are named as the selected PSI user byte, single-user fast-path latch, and highlighted PSI row byte.
+- `D5:8A50` PSI ability rows and `D5:7B68` battle action rows now carry the same field names used by the lower PSI controller and row formatter.
+- the PP guard names the action-row PP-cost byte, the chosen user's current PP word at `$9A19`, and the insufficient-PP text pointer.
+- the category-8 branch names the map-context, event-flag, region-blocker, C0:DD53 event branch, and blocked-text guard.
+- the ordinary success side names the `$9FFA` battle selection snapshot root, `$A972` active snapshot pointer, `+0x1D` exported state byte, and live `$99DC` state mirror copyback.
+- the `C1:BB06` finalizer names the help-text window refresh path through `C1:C8BC`, `D5:8A50 +0x0B`, and the generic text pointer printer.
+
 ## Direct caller bridge
 
 There is still only one pinned direct caller in the current ROM:
@@ -47,10 +56,10 @@ The front half is still the cleanest local gain.
 - when that count is `1`, `C1:C373` finds the first eligible user
 - the resulting party-member id is read from `$986F + X`
 - `C1:C853` is called with that user id
-- `$9D18` is set to `1`
-- and the chosen user id later lands in `$9D16`
+- the `BattlePsiSingleUserFastPathLatch` byte is set to `1`
+- and the chosen user id later lands in `BattlePsiSelectedUserByte`
 
-So the strongest current local read is that `$9D18` is a small auto-selected-user latch for this front end, while `$9D16` is the live chosen PSI user id.
+So the strongest current local read is that `BattlePsiSingleUserFastPathLatch` is a small auto-selected-user latch for this front end, while `BattlePsiSelectedUserByte` is the live chosen PSI user id.
 
 ### Multi-user selection path
 
@@ -61,7 +70,7 @@ It installs two callback pointers:
 - `$0E/$10 = C1:C853`
 - `$12/$14 = C1:C367`
 
-Then it calls the generic menu helper at `C1:27EF`, stores the resulting chosen user id in `$26`, and then writes that id into `$9D16`.
+Then it calls the generic menu helper at `C1:27EF`, stores the resulting chosen user id in `$26`, and then writes that id into `BattlePsiSelectedUserByte`.
 
 The strongest current local model is:
 
@@ -71,7 +80,7 @@ The strongest current local model is:
 
 ## Direct PSI-entry picker handoff
 
-After `$9D16` is staged, `B63C .. B67E` immediately drops into a second-stage PSI entry picker:
+After `BattlePsiSelectedUserByte` is staged, `B63C .. B67E` immediately drops into a second-stage PSI entry picker:
 
 - it installs callback pointer `C1:C8BC`
 - it calls the ordinary menu loop through `C1:1F5A / 196A / 1F8A`
@@ -148,18 +157,20 @@ So the safest current statement is:
 - category `8` bypasses ordinary targetting and uses the `DD53` event or transition path
 - ordinary categories stay on the shared PSI targetting and writeback side
 
-## `$9D16` and `$9D18`
+## `$9D16`, `$9D18`, and `$9D19`
 
-The local meanings of these two bytes are much healthier now:
+The local meanings of these front-end bytes are much healthier now:
 
-- `$9D16` = currently chosen PSI user id for this front end
-- `$9D18` = auto-selected-user latch or fast-path marker
+- `$9D16` / `BattlePsiSelectedUserByte` = currently chosen PSI user id for this front end
+- `$9D18` / `BattlePsiSingleUserFastPathLatch` = auto-selected-user latch or fast-path marker
+- `$9D19` / `BattlePsiHighlightedRowByte` = last highlighted PSI row used by the help-text refresh finalizer
 
 That fits the current access pattern well:
 
 - `B62F` writes `$9D16`
 - `CAAF` later reads `$9D16` and routes it back into `C1:C853`
 - `B5C9/B5F9/B681` use `$9D18` only inside this front end's fast path and refresh gating
+- `BB13/BB19/BB2F` use `$9D19` to skip redundant help-text redraws for the same highlighted row
 
 ## Safest current interpretation
 

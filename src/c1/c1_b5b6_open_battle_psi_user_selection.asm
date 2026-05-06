@@ -19,26 +19,97 @@
 ;   through C2:B930 and mirrors exported row state back into live party slots.
 
 C10084_CloseFocusWindow                    = $0084
+C1007E_SetFocusWindowOrContext             = $007E
 C104EE_SetWindowFocus                      = $04EE
+C1163C_RefreshTextEntryChainState          = $163C
 C1196A_RunSelectionMenu                    = $196A
 C11F5A_SetMenuRowFormatterCallback         = $1F5A
 C11F8A_ClearSelectionMenuState             = $1F8A
 C127EF_RunCallbackDrivenPartySelectionMenu = $27EF
+C193E7_OpenTargetSelectionPromptLabel      = $93E7
+C19437_CloseTargetSelectionPromptLabel     = $9437
 C1ACA1_BuildBattleTargetNameBuffer         = $ACA1
 C1ACF8_StageBattleTextSubstitutionByte     = $ACF8
 C1ADB4_DetermineBattleTargetting           = $ADB4
+C1AAFA_RunBattlePsiSpecialEventBranch      = $AAFA
+C1CA72_RefreshBattlePsiSelection           = $CA72
 C1C367_CheckBattlePsiUserEligibility       = $C367
 C1C373_FindFirstEligibleBattlePsiUser      = $C373
 C1C3B6_CountEligibleBattlePsiUsers         = $C3B6
 C1C853_BuildBattlePsiMenuMetadata          = $C853
+C1C853_BuildBattlePsiMenuMetadataLong      = $C1C853
 C1C8BC_FormatBattlePsiMenuEntryRow         = $C8BC
+C1C8BC_FormatBattlePsiMenuEntryRowLong     = $C1C8BC
 C08FF7_ResolveIndexedPointerOffset         = $C08FF7
+C00AA1_ReadMapPositionContext              = $C00AA1
+C0DD53_RunBattlePsiCategory8EventBranch    = $C0DD53
 C09279_DispatchTextPointer                 = $C09279
 C186B1_PrintTextFromPointer                = $C186B1
 C21628_CheckEventFlag                      = $C21628
 C2B930_ExportBattleSelectionSnapshot       = $C2B930
 C3E4CA_ExitWindowUpdateScope               = $C3E4CA
+C3E4E0_TickWindowWithoutInstantPrinting    = $C3E4E0
 C3E521_CloseWindow                         = $C3E521
+C3ED2C_PrepareBattlePsiSnapshotWindowState = $C3ED2C
+C3EE4D_RestoreBattleSelectionState         = $C3EE4D
+
+BattlePsiSelectedUserByte                  = $9D16
+BattlePsiSingleUserFastPathLatch           = $9D18
+BattlePsiHighlightedRowByte                = $9D19
+
+BattlePsiAbilityTableLo                    = $8A50
+BattlePsiAbilityTableBank                  = $00D5
+BattlePsiAbilityTableAbsoluteBase          = $D58A50
+BattlePsiAbilityRowSize                    = $000F
+BattlePsiAbilityPsiIdByte                  = $0000
+BattlePsiAbilityRankByte                   = $0001
+BattlePsiAbilityCategoryByte               = $0002
+BattlePsiAbilityTargetByte                 = $0003
+BattlePsiAbilityAssociatedActionWord       = $0004
+BattlePsiAbilityHelpTextPointerOffset      = $000B
+BattlePsiCategoryOtherTeleport             = $0008
+
+D57B68_BattleActionTableLo                 = $7B68
+D57B68_BattleActionTableBank               = $00D5
+D57B68_BattleActionTableAbsoluteBase       = $D57B68
+BattleActionTableRowSize                   = $000C
+BattleActionTableDirectionByte             = $0000
+BattleActionTablePpCostByte                = $0003
+BattleActionTablePrimaryTextPtrOffset      = $0004
+BattleActionTableSecondPayloadPtrOffset    = $0008
+
+PartyRecordStride                          = $005F
+ActivePartyRegistry                        = $986F
+ActivePartyCount                           = $98A4
+PartyCharacterTableBase                    = $99CE
+PartyRuntimeStateBase                      = $99DC
+PartyCurrentPpWordBase                     = $9A19
+
+BattleSelectionSnapshotBase                = $9FFA
+ActiveTargetSnapshotPointer                = $A972
+BattleSelectionSnapshotStateByte           = $001D
+PartyStateMirrorByteCount                  = $0007
+CurrentTextPointerLo                       = $00BC
+CurrentTextPointerBank                     = $00BE
+FarPointerBankOffset                       = $0002
+
+BattlePsiEntryWindowId                     = $0001
+BattlePsiNameCloseWindowId                 = $0004
+BattlePsiPpGuardWindowId                   = $000E
+BattlePsiHelpTextWindowId                  = $002F
+BattlePsiNoPpTextLo                        = $FAAA
+BattlePsiNoPpTextBank                      = $00C8
+BattlePsiCategory8BlockedTextLo            = $C850
+BattlePsiCategory8BlockedTextBank          = $00C7
+BattlePsiCategory8EventFlag                = $02F2
+BattlePsiCategory8BlockedMapContext        = $000A
+BattlePsiCategory8BlockedRegion7           = $0007
+BattlePsiCategory8BlockedRegion8           = $0008
+BattlePsiCategory8BlockedRegionC           = $000C
+BattlePsiCategory8BlockedRegionD           = $000D
+BattlePsiSnapshotMarkerByte                = $00AC
+BattlePsiSnapshotMarkerAbsoluteBase        = $A9708D
+BattlePsiSnapshotWindowMode                = $0001
 
 ; ---------------------------------------------------------------------------
 ; C1:B5B6
@@ -54,7 +125,7 @@ C1B5B6_OpenBattlePsiUserSelection:
     sta $01
     ldy.w #$0000
     sty $27
-    stz $9D18
+    stz BattlePsiSingleUserFastPathLatch
 C1B5CC_OpenBattlePsiUserSelection_LB5CC:
     jsr C1C3B6_CountEligibleBattlePsiUsers
     cmp.w #$0001
@@ -68,19 +139,19 @@ C1B5DE_OpenBattlePsiUserSelection_LB5DE:
     tax
     dex
     sep #$20
-    lda $986F,X
+    lda ActivePartyRegistry,X
     sta $26
     rep #$20
     lda $26
     and.w #$00FF
-    jsl $C1C853
+    jsl C1C853_BuildBattlePsiMenuMetadataLong
     sep #$20
     lda.b #$01
-    sta $9D18
+    sta BattlePsiSingleUserFastPathLatch
     bra C1B628_OpenBattlePsiUserSelection_LB628
 C1B5FE_OpenBattlePsiUserSelection_LB5FE:
     lda.w #$0000
-    jsr $93E7
+    jsr C193E7_OpenTargetSelectionPromptLabel
     lda.w #C1C853_BuildBattlePsiMenuMetadata
     sta $0E
     lda.w #$00C1
@@ -94,13 +165,13 @@ C1B5FE_OpenBattlePsiUserSelection_LB5FE:
     jsr C127EF_RunCallbackDrivenPartySelectionMenu
     sep #$20
     sta $26
-    jsr $9437
+    jsr C19437_CloseTargetSelectionPromptLabel
 C1B628_OpenBattlePsiUserSelection_LB628:
     rep #$20
     lda $26
     and.w #$00FF
-    sta $9D16
-    ; $9D16 is the chosen PSI user id shared with the refresh/metadata helpers.
+    sta BattlePsiSelectedUserByte
+    ; BattlePsiSelectedUserByte is shared with the refresh/metadata helpers.
     lda $26
     and.w #$00FF
     bne C1B63C_OpenBattlePsiUserSelection_LB63C
@@ -112,14 +183,14 @@ C1B63C_OpenBattlePsiUserSelection_LB63C:
 C1B642_OpenBattlePsiUserSelection_LB642:
     rep #$20
     lda.w #$0001
-    jsr $007E
+    jsr C1007E_SetFocusWindowOrContext
     lda $01
     and.w #$00FF
     cmp.w #$00FF
     beq C1B65D_OpenBattlePsiUserSelection_LB65D
     ldx.w #$0000
-    jsr $CA72
-    jsr $163C
+    jsr C1CA72_RefreshBattlePsiSelection
+    jsr C1163C_RefreshTextEntryChainState
 C1B65D_OpenBattlePsiUserSelection_LB65D:
     lda.w #C1C8BC_FormatBattlePsiMenuEntryRow
     sta $0E
@@ -136,17 +207,17 @@ C1B65D_OpenBattlePsiUserSelection_LB65D:
     bne C1B681_OpenBattlePsiUserSelection_LB681
     jmp.w C1B7A3_OpenBattlePsiUserSelection_LB7A3
 C1B681_OpenBattlePsiUserSelection_LB681:
-    lda $9D18
+    lda BattlePsiSingleUserFastPathLatch
     and.w #$00FF
     bne C1B694_OpenBattlePsiUserSelection_LB694
     ldx.w #$0006
     lda $01
     and.w #$00FF
-    jsr $CA72
+    jsr C1CA72_RefreshBattlePsiSelection
 C1B694_OpenBattlePsiUserSelection_LB694:
-    lda.w #$8A50
+    lda.w #BattlePsiAbilityTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #BattlePsiAbilityTableBank
     sta $08
     ; Resolve selected D5:8A50 row, then use word +4 to reach the associated
     ; D5:7B68 action row for PP cost and targetting behavior.
@@ -179,7 +250,7 @@ C1B694_OpenBattlePsiUserSelection_LB694:
     stx $22
     txa
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     pha
     lda $02
@@ -192,17 +263,17 @@ C1B694_OpenBattlePsiUserSelection_LB694:
     inx
     inx
     inx
-    lda $D57B68,X
+    lda.l D57B68_BattleActionTableAbsoluteBase,X
     and.w #$00FF
     plx
-    cmp $9A19,X
+    cmp PartyCurrentPpWordBase,X
     bcc C1B713_OpenBattlePsiUserSelection_LB713
     beq C1B713_OpenBattlePsiUserSelection_LB713
-    lda.w #$000E
+    lda.w #BattlePsiPpGuardWindowId
     jsr C104EE_SetWindowFocus
-    lda.w #$FAAA
+    lda.w #BattlePsiNoPpTextLo
     sta $0E
-    lda.w #$00C8
+    lda.w #BattlePsiNoPpTextBank
     sta $10
     jsl C186B1_PrintTextFromPointer
     jsr CLOSE_FOCUS_WINDOW
@@ -219,46 +290,46 @@ C1B713_OpenBattlePsiUserSelection_LB713:
     sta $06
     lda [$06]
     and.w #$00FF
-    cmp.w #$0008
+    cmp.w #BattlePsiCategoryOtherTeleport
     bne C1B796_OpenBattlePsiUserSelection_LB796
     ; Category 8 rows take the special OTHER/Teleport-style branch instead of
     ; the ordinary shared target resolver.
     lda $983A
     and.w #$00FF
-    cmp.w #$000A
+    cmp.w #BattlePsiCategory8BlockedMapContext
     beq C1B777_OpenBattlePsiUserSelection_LB777
     lda $983B
     and.w #$00FF
-    cmp.w #$000A
+    cmp.w #BattlePsiCategory8BlockedMapContext
     beq C1B777_OpenBattlePsiUserSelection_LB777
-    lda.w #$02F2
+    lda.w #BattlePsiCategory8EventFlag
     jsl C21628_CheckEventFlag
     cmp.w #$0000
     bne C1B777_OpenBattlePsiUserSelection_LB777
     ldx $9883
-    cpx.w #$0007
+    cpx.w #BattlePsiCategory8BlockedRegion7
     beq C1B777_OpenBattlePsiUserSelection_LB777
-    cpx.w #$0008
+    cpx.w #BattlePsiCategory8BlockedRegion8
     beq C1B777_OpenBattlePsiUserSelection_LB777
-    cpx.w #$000C
+    cpx.w #BattlePsiCategory8BlockedRegionC
     beq C1B777_OpenBattlePsiUserSelection_LB777
-    cpx.w #$000D
+    cpx.w #BattlePsiCategory8BlockedRegionD
     beq C1B777_OpenBattlePsiUserSelection_LB777
     ldx $987B
     lda $9877
-    jsl $C00AA1
+    jsl C00AA1_ReadMapPositionContext
     and.w #$0080
     bne C1B777_OpenBattlePsiUserSelection_LB777
-    jsr $AAFA
+    jsr C1AAFA_RunBattlePsiSpecialEventBranch
     sep #$20
     sta $00
     bra C1B7A9_OpenBattlePsiUserSelection_LB7A9
 C1B777_OpenBattlePsiUserSelection_LB777:
-    lda.w #$000E
+    lda.w #BattlePsiPpGuardWindowId
     jsr C104EE_SetWindowFocus
-    lda.w #$C850
+    lda.w #BattlePsiCategory8BlockedTextLo
     sta $0E
-    lda.w #$00C7
+    lda.w #BattlePsiCategory8BlockedTextBank
     sta $10
     jsl C186B1_PrintTextFromPointer
     jsr CLOSE_FOCUS_WINDOW
@@ -284,7 +355,7 @@ C1B7A9_OpenBattlePsiUserSelection_LB7A9:
     bne C1B7B5_OpenBattlePsiUserSelection_LB7B5
     jmp.w C1B642_OpenBattlePsiUserSelection_LB642
 C1B7B5_OpenBattlePsiUserSelection_LB7B5:
-    lda.w #$0004
+    lda.w #BattlePsiNameCloseWindowId
     jsl C3E521_CloseWindow
     lda $01
     and.w #$00FF
@@ -295,9 +366,9 @@ C1B7C6_WriteSelectedPsiActionIntoBattleSelection:
     and.w #$00FF
     sta $04
     sta $27
-    lda.w #$8A50
+    lda.w #BattlePsiAbilityTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #BattlePsiAbilityTableBank
     sta $08
     lda $01
     and.w #$00FF
@@ -309,7 +380,7 @@ C1B7C6_WriteSelectedPsiActionIntoBattleSelection:
     asl A
     adc $04
     sta $02
-    ldy.w #$0001
+    ldy.w #BattlePsiSnapshotWindowMode
     lda $02
     inc A
     inc A
@@ -332,12 +403,12 @@ C1B7C6_WriteSelectedPsiActionIntoBattleSelection:
     inx
     inx
     inx
-    lda $D57B68,X
+    lda.l D57B68_BattleActionTableAbsoluteBase,X
     and.w #$00FF
     tax
     lda $27
     sta $04
-    jsl $C3ED2C
+    jsl C3ED2C_PrepareBattlePsiSnapshotWindowState
     lda $02
     inc A
     inc A
@@ -350,7 +421,7 @@ C1B7C6_WriteSelectedPsiActionIntoBattleSelection:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    cmp.w #$0008
+    cmp.w #BattlePsiCategoryOtherTeleport
     bne C1B850_BuildPsiSelectionSnapshotAndText
     lda $02
     inc A
@@ -361,11 +432,11 @@ C1B7C6_WriteSelectedPsiActionIntoBattleSelection:
     lda [$06]
     sta $0E
     lda $00
-    jsl $C0DD53
+    jsl C0DD53_RunBattlePsiCategory8EventBranch
     jmp.w C1B8E7_OpenBattlePsiUserSelection_LB8E7
 C1B850_BuildPsiSelectionSnapshotAndText:
-    lda.b #$AC
-    sta $A9708D,X
+    lda.b #BattlePsiSnapshotMarkerByte
+    sta.l BattlePsiSnapshotMarkerAbsoluteBase,X
     tax
     ; Export the chosen user/target into the larger battle selection snapshot
     ; rooted around $9FFA before displaying the action text.
@@ -374,7 +445,7 @@ C1B850_BuildPsiSelectionSnapshotAndText:
     ldx.w #$0005
     lda $04
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
     adc.b #$CE
@@ -387,21 +458,21 @@ C1B850_BuildPsiSelectionSnapshotAndText:
     ldx.w #$0005
     tya
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #PartyCharacterTableBase
 C1B88C_BuildBattlePsiTargetChoiceText:
     jsr C1ACA1_BuildBattleTargetNameBuffer
 C1B88F_OpenBattlePsiUserSelection_LB88F:
     sep #$20
     lda $01
     jsr C1ACF8_StageBattleTextSubstitutionByte
-    lda.w #$0001
+    lda.w #BattlePsiEntryWindowId
     jsr C104EE_SetWindowFocus
-    lda.w #$7B68
+    lda.w #D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #D57B68_BattleActionTableBank
     sta $0C
     lda $01
     and.w #$00FF
@@ -417,7 +488,7 @@ C1B88F_OpenBattlePsiUserSelection_LB88F:
     inx
     inx
     inx
-    lda $D58A50,X
+    lda.l BattlePsiAbilityTableAbsoluteBase,X
     sta $04
     asl A
     adc $04
@@ -430,7 +501,7 @@ C1B88F_OpenBattlePsiUserSelection_LB88F:
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -442,17 +513,17 @@ C1B88F_OpenBattlePsiUserSelection_LB88F:
     sta $10
     jsl C186B1_PrintTextFromPointer
 C1B8E7_OpenBattlePsiUserSelection_LB8E7:
-    lda.w #$7B68
+    lda.w #D57B68_BattleActionTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #D57B68_BattleActionTableBank
     sta $08
     lda $06
     sta $1E
     lda $08
     sta $20
-    lda.w #$8A50
+    lda.w #BattlePsiAbilityTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #BattlePsiAbilityTableBank
     sta $0C
     lda $01
     and.w #$00FF
@@ -480,11 +551,11 @@ C1B8E7_OpenBattlePsiUserSelection_LB8E7:
     asl A
     asl A
     clc
-    adc.w #$0008
+    adc.w #BattleActionTableSecondPayloadPtrOffset
     clc
     adc $06
     sta $06
-    ldy.w #$0002
+    ldy.w #FarPointerBankOffset
     lda [$06],Y
     tay
     lda [$06]
@@ -503,8 +574,8 @@ C1B954_OpenBattlePsiUserSelection_LB954:
     bne C1B959_OpenBattlePsiUserSelection_LB959
     jmp.w C1BAF5_OpenBattlePsiUserSelection_LBAF5
 C1B959_OpenBattlePsiUserSelection_LB959:
-    ldx.w #$9FFA
-    stx $A972
+    ldx.w #BattleSelectionSnapshotBase
+    stx ActiveTargetSnapshotPointer
     lda $00
     and.w #$00FF
     tay
@@ -518,7 +589,7 @@ C1B96D_OpenBattlePsiUserSelection_LB96D:
 C1B975_OpenBattlePsiUserSelection_LB975:
     tya
     clc
-    adc.w #$986F
+    adc.w #ActivePartyRegistry
     sta $02
     ldx.w #$0005
     stx $18
@@ -526,23 +597,23 @@ C1B975_OpenBattlePsiUserSelection_LB975:
     lda $0000,X
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #PartyCharacterTableBase
     ldx $18
 C1B997_DisplayBattlePsiActionText:
     jsr C1ACA1_BuildBattleTargetNameBuffer
-    ldx.w #$9FFA
+    ldx.w #BattleSelectionSnapshotBase
     stx $18
     ldx $02
     lda $0000,X
     and.w #$00FF
     ldx $18
     jsl C2B930_ExportBattleSelectionSnapshot
-    lda.w #$7B68
+    lda.w #D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #D57B68_BattleActionTableBank
     sta $0C
     lda $01
     and.w #$00FF
@@ -558,18 +629,18 @@ C1B997_DisplayBattlePsiActionText:
     inx
     inx
     inx
-    lda $D58A50,X
+    lda.l BattlePsiAbilityTableAbsoluteBase,X
     sta $04
     asl A
     adc $04
     asl A
     asl A
     clc
-    adc.w #$0008
+    adc.w #BattleActionTableSecondPayloadPtrOffset
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -577,9 +648,9 @@ C1B997_DisplayBattlePsiActionText:
     sty $08
     pha
     lda $06
-    sta $00BC
+    sta CurrentTextPointerLo
     lda $08
-    sta $00BE
+    sta CurrentTextPointerBank
     pla
     jsl C09279_DispatchTextPointer
     lda.w #$0000
@@ -590,19 +661,19 @@ C1BA03_OpenBattlePsiUserSelection_LBA03:
     sta $02
     ldy $22
     tya
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99DC
+    adc.w #PartyRuntimeStateBase
     clc
     adc $02
     pha
     lda $16
     clc
-    adc $A972
+    adc ActiveTargetSnapshotPointer
     tax
     sep #$20
-    lda $001D,X
+    lda BattleSelectionSnapshotStateByte,X
     plx
     sta $0000,X
     rep #$20
@@ -611,7 +682,7 @@ C1BA03_OpenBattlePsiUserSelection_LBA03:
     sta $16
 C1BA30_OpenBattlePsiUserSelection_LBA30:
     sta $02
-    lda.w #$0007
+    lda.w #PartyStateMirrorByteCount
     clc
     sbc $02
     bvs C1BA3E_OpenBattlePsiUserSelection_LBA3E
@@ -625,7 +696,7 @@ C1BA40_OpenBattlePsiUserSelection_LBA40:
     sty $22
 C1BA45_OpenBattlePsiUserSelection_LBA45:
     sty $02
-    lda $98A4
+    lda ActivePartyCount
     and.w #$00FF
     clc
     sbc $02
@@ -651,7 +722,7 @@ C1BA5F_OpenBattlePsiUserSelection_LBA5F:
     asl A
     asl A
     clc
-    adc.w #$0008
+    adc.w #BattleActionTableSecondPayloadPtrOffset
     ldx $1E
     stx $06
     ldx $20
@@ -663,7 +734,7 @@ C1BA5F_OpenBattlePsiUserSelection_LBA5F:
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]
@@ -671,9 +742,9 @@ C1BA5F_OpenBattlePsiUserSelection_LBA5F:
     sty $08
     pha
     lda $06
-    sta $00BC
+    sta CurrentTextPointerLo
     lda $08
-    sta $00BE
+    sta CurrentTextPointerBank
     pla
     jsl C09279_DispatchTextPointer
     lda.w #$0000
@@ -685,19 +756,19 @@ C1BAB1_OpenBattlePsiUserSelection_LBAB1:
     lda $00
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99DC
+    adc.w #PartyRuntimeStateBase
     clc
     adc $02
     pha
     lda $22
     clc
-    adc $A972
+    adc ActiveTargetSnapshotPointer
     tax
     sep #$20
-    lda $001D,X
+    lda BattleSelectionSnapshotStateByte,X
     plx
     sta $0000,X
     rep #$20
@@ -706,7 +777,7 @@ C1BAB1_OpenBattlePsiUserSelection_LBAB1:
     sta $22
 C1BAE1_OpenBattlePsiUserSelection_LBAE1:
     sta $02
-    lda.w #$0007
+    lda.w #PartyStateMirrorByteCount
     clc
     sbc $02
     bvs C1BAEF_OpenBattlePsiUserSelection_LBAEF
@@ -715,12 +786,12 @@ C1BAE1_OpenBattlePsiUserSelection_LBAE1:
 C1BAEF_OpenBattlePsiUserSelection_LBAEF:
     bmi C1BAB1_OpenBattlePsiUserSelection_LBAB1
 C1BAF1_OpenBattlePsiUserSelection_LBAF1:
-    jsl $C3EE4D
+    jsl C3EE4D_RestoreBattleSelectionState
 C1BAF5_OpenBattlePsiUserSelection_LBAF5:
     ldy.w #$0001
     sty $27
 C1BAFA_OpenBattlePsiUserSelection_LBAFA:
-    lda.w #$0001
+    lda.w #BattlePsiEntryWindowId
     jsl C3E521_CloseWindow
     ldy $27
     tya
@@ -736,22 +807,22 @@ C1BB06_FinalizeBattlePsiSelectionState:
     pla
     tax
     stx $12
-    lda $9D19
+    lda BattlePsiHighlightedRowByte
     cmp.w #$00FF
     beq C1BB20_OpenBattlePsiUserSelection_LBB20
-    cpx $9D19
+    cpx BattlePsiHighlightedRowByte
     beq C1BB6F_OpenBattlePsiUserSelection_LBB6F
 C1BB20_OpenBattlePsiUserSelection_LBB20:
     txa
-    jsl $C1C8BC
-    lda.w #$002F
+    jsl C1C8BC_FormatBattlePsiMenuEntryRowLong
+    lda.w #BattlePsiHelpTextWindowId
     jsr C104EE_SetWindowFocus
-    jsl $C3E4E0
+    jsl C3E4E0_TickWindowWithoutInstantPrinting
     ldx $12
-    stx $9D19
-    lda.w #$8A50
+    stx BattlePsiHighlightedRowByte
+    lda.w #BattlePsiAbilityTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #BattlePsiAbilityTableBank
     sta $0C
     ; Highlight refresh displays the selected PSI row's help-text pointer
     ; from D5:8A50 +0x0B through the generic text pointer path.
@@ -764,11 +835,11 @@ C1BB20_OpenBattlePsiUserSelection_LBB20:
     asl A
     adc $04
     clc
-    adc.w #$000B
+    adc.w #BattlePsiAbilityHelpTextPointerOffset
     clc
     adc $0A
     sta $0A
-    ldy.w #$0002
+    ldy.w #FarPointerBankOffset
     lda [$0A],Y
     tay
     lda [$0A]

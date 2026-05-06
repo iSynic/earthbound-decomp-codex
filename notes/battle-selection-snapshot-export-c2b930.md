@@ -66,6 +66,15 @@ But `C2:B930` writes far beyond those first 6 bytes, so the healthiest current l
 - `$9FFA` starts with the ordinary `battle_menu_selection` header
 - some callers, including the outer PSI-user-selection front end, also treat the same base as the start of a larger adjacent battle snapshot block
 
+2026-05-05 C1 follow-up source polish makes that PSI-side use explicit in
+`src/c1/c1_b5b6_open_battle_psi_user_selection.asm`:
+
+- `BattleSelectionSnapshotBase = $9FFA` is staged before repeated `C2:B930`
+  exports.
+- `ActiveTargetSnapshotPointer = $A972` records the active exported block base.
+- `BattleSelectionSnapshotStateByte = +0x1D` is copied back into live
+  `PartyRuntimeStateBase = $99DC` state bytes after action text dispatch.
+
 ## Best current callers
 
 Pinned callers now include:

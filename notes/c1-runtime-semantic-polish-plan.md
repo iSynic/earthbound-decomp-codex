@@ -189,3 +189,12 @@ This planning pass is documentation-only.
   selection record offsets. See `notes/c1-battle-psi-runtime-polish.md`,
   `notes/battle-psi-menu-controller-c1cc39-ce73.md`, and
   `notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md`.
+- 2026-05-05: C1 outer battle PSI user-selection follow-up tightened
+  `C1:B5B6..BB71` after the lower controller vocabulary stabilized. The
+  promoted constants name `$9D16/$9D18/$9D19` as selected-user, fast-path, and
+  highlight-row bytes, the PP guard and category-8 blocker/event branch, the
+  `D5:8A50` ability-row to `D5:7B68` action-row joins, and the ordinary
+  `$9FFA/$A972` snapshot export plus `$99DC` state mirror copyback. See
+  `notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md`,
+  `notes/c1-battle-psi-runtime-polish.md`, and
+  `notes/battle-selection-snapshot-export-c2b930.md`.
