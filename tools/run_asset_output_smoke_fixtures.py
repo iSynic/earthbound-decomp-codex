@@ -13,11 +13,13 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import extract_assets
 import rom_tools
-from asset_output_recipe_contracts import OUTPUT_RECIPE_CONTRACTS
+from asset_output_recipe_contracts import OUTPUT_RECIPE_CONTRACTS, SOURCE_FIELDS, validate_output_spec
 from build_asset_output_preview_geometry import preview_geometry
+from build_asset_output_source_refs import KNOWN_EXTERNAL_SOURCE_REFS, build_asset_source_index, source_ref_key
 
 
 ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_MANIFEST_DIR = ROOT / "asset-manifests"
 DEFAULT_FIXTURES = ROOT / "notes" / "asset-output-smoke-fixtures.json"
 DEFAULT_OUT = ROOT / "build" / "asset-output-smoke-fixtures"
 REPORT_ZERO_OK_FIELDS = {"arrangement_id", "graphics_id", "max_tile", "palette_id", "sprite_id"}
@@ -76,12 +78,62 @@ def manifest_path(text: str) -> Path:
     return path
 
 
+def validate_target_source_refs(
+    fixture_id: str,
+    output: dict[str, Any],
+    asset_sources: dict[tuple[str, int, str], list[dict[str, Any]]],
+) -> dict[str, int]:
+    kind = str(output["kind"])
+    contract = OUTPUT_RECIPE_CONTRACTS[kind]
+    source_fields = sorted((set(contract.required_fields) | set(contract.optional_fields)) & SOURCE_FIELDS)
+    checked = 0
+    manifest_matches = 0
+    known_external = 0
+    errors: list[str] = []
+
+    for field in source_fields:
+        source = output.get(field)
+        if source is None:
+            continue
+        if not isinstance(source, dict):
+            errors.append(f"{fixture_id}: {kind}.{field} must be an object")
+            continue
+        key = source_ref_key(source)
+        if key is None:
+            errors.append(f"{fixture_id}: {kind}.{field} is not a complete rom-range source ref")
+            continue
+        checked += 1
+        if asset_sources.get(key):
+            manifest_matches += 1
+        elif KNOWN_EXTERNAL_SOURCE_REFS.get(key) is not None:
+            known_external += 1
+        else:
+            errors.append(
+                f"{fixture_id}: {kind}.{field} does not match a manifest source range "
+                "or known external source boundary"
+            )
+
+    if errors:
+        raise ValueError("\n".join(errors))
+
+    return {
+        "checked": checked,
+        "manifest_matches": manifest_matches,
+        "known_external": known_external,
+    }
+
+
 def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
     fixture_ids = set()
     fixture_count_by_type: dict[str, int] = {}
     selected_by_manifest: dict[str, set[str]] = {}
     fixtures_by_manifest: dict[str, list[dict[str, Any]]] = {}
     preview_geometries_checked = 0
+    target_output_specs_checked = 0
+    target_source_refs_checked = 0
+    target_source_refs_manifest_matches = 0
+    target_source_refs_known_external = 0
+    asset_sources = build_asset_source_index(DEFAULT_MANIFEST_DIR)
 
     for fixture in plan["fixtures"]:
         fixture_id = fixture.get("id")
@@ -148,6 +200,14 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
                     f"{fixture_id}: target output not found on {asset_id}: "
                     f"{target_kind} {target_path}"
                 )
+            spec_errors = validate_output_spec(matched_output, asset_id)
+            if spec_errors:
+                raise ValueError(f"{fixture_id}: target output spec is invalid:\n- " + "\n- ".join(spec_errors))
+            target_output_specs_checked += 1
+            source_ref_counts = validate_target_source_refs(fixture_id, matched_output, asset_sources)
+            target_source_refs_checked += source_ref_counts["checked"]
+            target_source_refs_manifest_matches += source_ref_counts["manifest_matches"]
+            target_source_refs_known_external += source_ref_counts["known_external"]
             expected_geometry = fixture.get("target_preview_geometry")
             if isinstance(expected_geometry, dict):
                 source = asset.get("source", {})
@@ -174,6 +234,10 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
         "fixture_type_counts": dict(sorted(fixture_count_by_type.items())),
         "manifest_asset_counts": manifest_asset_counts,
         "target_outputs_checked": len(fixture_ids),
+        "target_output_specs_checked": target_output_specs_checked,
+        "target_source_refs_checked": target_source_refs_checked,
+        "target_source_refs_manifest_matches": target_source_refs_manifest_matches,
+        "target_source_refs_known_external": target_source_refs_known_external,
         "preview_geometries_checked": preview_geometries_checked,
         "unique_selected_assets": len({asset_id for asset_ids in selected_by_manifest.values() for asset_id in asset_ids}),
     }
@@ -400,7 +464,11 @@ def main() -> int:
             "asset output smoke fixtures dry-run: "
             f"{selector_summary['fixture_count']} fixtures, "
             f"{selector_summary['target_outputs_checked']} target outputs, "
+            f"{selector_summary['target_output_specs_checked']} output specs, "
             f"{selector_summary['preview_geometries_checked']} preview geometries, "
+            f"{selector_summary['target_source_refs_checked']} source refs "
+            f"({selector_summary['target_source_refs_manifest_matches']} manifest, "
+            f"{selector_summary['target_source_refs_known_external']} known external), "
             f"{selector_summary['unique_selected_assets']} selected assets"
         )
         for manifest, count in selector_summary["manifest_asset_counts"].items():

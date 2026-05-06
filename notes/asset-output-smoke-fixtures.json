@@ -2284,6 +2284,16 @@
     "default_command": "python tools/run_asset_output_smoke_fixtures.py",
     "rom_command": "python tools/run_asset_output_smoke_fixtures.py --rom path/to/EarthBound.sfc",
     "report_schema": "earthbound-decomp.asset-output-smoke-fixtures-report.v1",
+    "dry_run_validation": [
+      "Every fixture id is unique.",
+      "Every command group matches the fixture-selected manifest asset ids.",
+      "Every selected manifest-qualified asset id exists.",
+      "Every fixture target output kind/path exists on the selected asset.",
+      "Every target output conforms to its typed recipe contract.",
+      "Every target output decoder/renderer label matches the typed recipe registry.",
+      "Every target output palette/graphics source ref matches a manifest source range or known external source boundary.",
+      "Every statically known target preview geometry is fresh."
+    ],
     "post_extract_validation": [
       "Every fixture target output appears in the extraction report.",
       "Every target output file exists and matches the reported byte count and SHA-1.",
