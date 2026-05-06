@@ -158,6 +158,19 @@ context reinstall sites now use the same `$0E/$10` text-context source pointer
 aliases used by the print/display and predicate leaves, keeping the dispatcher
 ABI readable across all high families.
 
+Source polish follow-up (2026-05-06): the top-level invoker/parser root at
+`C1:87CC..8B2C` now names its local callback ABI and lower-strip leaves. The
+source exposes `$1E` as the active same-bank callback low word, `$14` as the
+current callback argument or opcode byte, and `$12` as the managed text-event
+slot pointer. It also names the `0x15..17` compressed-bank pseudo-opcode
+resolver paths and the `0x11` selection-menu context installer, so the lower
+control strip now reads from the same source-facing contract vocabulary as the
+deferred `0x1F` callback leaves.
+
+The same pass replaced the root dispatcher's raw compare literals with
+`TextOpcode*` aliases through `0x1F`, including the `0x15..17` compressed-bank
+sentinels and the first literal-glyph cutoff at `0x20`.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

@@ -43,6 +43,12 @@ So the safest current local read is that `0x11` is a single selection-menu setup
 
 This is directionally consistent with the inherited parser name `CREATE_SELECTION_MENU`, but the local proof is stronger on "single menu-setup opcode" than on any broader subcommand-family interpretation.
 
+Source polish follow-up (2026-05-06): the parser root source now names this
+leaf as `C18A8F_TextCommand11CreateSelectionMenu`. The returned value from
+`C1:196A` is staged through the local working pointer pair, then installed via
+the shared `$0E/$10` text-context handoff consumed by `C1:045D`; no new
+subcommand-family boundary is introduced.
+
 ## `0x12` local behavior
 
 The `0x12` leaf at `C1:8AAA` is even smaller:

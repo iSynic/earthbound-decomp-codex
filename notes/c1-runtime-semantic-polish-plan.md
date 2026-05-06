@@ -665,3 +665,12 @@ This planning pass is documentation-only.
   queue, scripted-battle init, blinking-triangle state setter, movement-record
   enqueuer, hotspot activate/disable leaves, record-backed visual/pose script
   runners, and pose-descriptor attached-child spawn/clear leaves.
+- 2026-05-06 follow-up: the top-level text invoker at `C1:87CC..8B2C` now
+  names the central callback ABI and low-strip parser leaves. `$1E`, `$14`,
+  `$12`, `$02`, and `$00C0` are exposed as the active same-bank callback low
+  word, fetched opcode/argument byte, managed text-event slot pointer, RTS
+  low-word scratch, and preserved `A` argument scratch. The same pass names the
+  `0x15..17` compressed-bank pseudo-opcode resolver paths and the `0x11`
+  selection-menu context installer, and the dispatcher's `0x00..1F` compare
+  literals now use `TextOpcode*` aliases. This ties the ordinary parser root
+  back to the deferred callback family without touching C2/C4/EF.
