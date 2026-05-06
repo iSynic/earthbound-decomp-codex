@@ -11,6 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C1045D_InstallPrimaryInteractionContextPointer = $045D
+C10489_InstallSecondaryInteractionContextPointer = $0489
+C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
 C04279_ResolveInteractableAlongFacingTarget = $C04279
 
 ; ---------------------------------------------------------------------------
@@ -28,7 +31,7 @@ C1323B_ResolveSecondaryFacingInteractionOutput = CHECK
     lda.w #$0000
     sta $0C
     lda.w #$0001
-    jsr $04EE
+    jsr C104EE_CreateOrBindWindowDescriptorAndContext
     jsl C04279_ResolveInteractableAlongFacingTarget
     lda $5D62
     bne C1325F_ResolveSecondaryFacingInteractionOutput_L325F
@@ -100,7 +103,7 @@ C132C0_ResolveSecondaryFacingInteractionOutput_L32C0:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     bra C1332F_ResolveSecondaryFacingInteractionOutput_L332F
 C132EB_ResolveSecondaryFacingInteractionOutput_L32EB:
     lda $0A
@@ -111,7 +114,7 @@ C132EB_ResolveSecondaryFacingInteractionOutput_L32EB:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr C1045D_InstallPrimaryInteractionContextPointer
     lda $5D62
     sta $04
     asl A
@@ -137,7 +140,7 @@ C132EB_ResolveSecondaryFacingInteractionOutput_L32EB:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr C10489_InstallSecondaryInteractionContextPointer
 C1332F_ResolveSecondaryFacingInteractionOutput_L332F:
     lda.w #$8985
     sta $06

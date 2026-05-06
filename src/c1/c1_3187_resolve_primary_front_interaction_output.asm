@@ -11,6 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
 C042C2_PrepareClass1ActorInteraction = $C042C2
 C04452_ResolveFrontInteractionTarget = $C04452
 
@@ -29,7 +30,7 @@ C13187_ResolvePrimaryFrontInteractionOutput = TALK_TO
     lda.w #$0000
     sta $0C
     lda.w #$0001
-    jsr $04EE
+    jsr C104EE_CreateOrBindWindowDescriptorAndContext
     jsl C04452_ResolveFrontInteractionTarget
     lda $5D62
     bne C131AB_ResolvePrimaryFrontInteractionOutput_L31AB

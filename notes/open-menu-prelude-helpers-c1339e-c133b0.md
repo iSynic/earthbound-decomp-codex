@@ -113,23 +113,21 @@ open-menu tail starts that were previously buried inside the large source unit:
 
 ## Open-Menu Helper-Call Polish Follow-Up (2026-05-06)
 
-The same `C1:33B0..4103` source unit now names most of its evidence-backed
+The same `C1:33B0..4103` source unit now names its evidence-backed
 helper-call surface. The open-menu record rebuild, main selection loop, goods
 and status branches, target prompts, inventory/equipment row renderers, HP/PP
 focus helpers, party PSI/equipment/teleport branch calls, window cleanup, and
 debug tail ticks now call through local symbolic contracts instead of raw
-addresses.
+addresses. A follow-up closed the last four deferred edges by naming:
 
-This pass intentionally leaves only four raw helper edges in the source unit:
+- the direct `C1:AF74` body entry as the item-use battle/field bridge body,
+  immediately after the `C1:AF73` return stub.
+- the two post-`C1:4070` `C1:03DC` fallback reads as text-command argument
+  word reads.
+- the final `C1:0FEA` text-command wrapper edge as the active-window
+  tile-attribute setter, matching the `0x1C 00` local runtime note.
 
-- `C1:AF74`, used by the open-menu status/goods branch, still needs a local
-  contract read before promotion.
-- two `C1:03DC` command-argument/context reads in the tiny post-`C1:4070`
-  text-command wrappers remain raw because this file straddles multiple
-  existing `03DC` aliases.
-- `C1:0FEA` remains raw in the final tiny wrapper because C1 already uses
-  context-specific aliases for that helper, and this wrapper needs its own
-  precise wording.
+After this pass, the source unit has no raw `jsr/jsl $...` helper-call edges.
 
 Validation after the helper-call pass:
 

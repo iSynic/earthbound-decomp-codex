@@ -16,7 +16,7 @@
 ; - Record +08/+0A receive row/column or display-position metadata consumed by
 ;   active entry layout and selection rendering.
 
-; No named external contracts were supplied or recognized.
+C113D1_InstallTextEntryRecord = $13D1
 
 ; ---------------------------------------------------------------------------
 ; C1:14B1
@@ -60,7 +60,7 @@ C114B1_C114B1_CreateTextEntryRecordWithDisplayMetadata:
     sta $12
     lda $08
     sta $14
-    jsr $13D1
+    jsr C113D1_InstallTextEntryRecord
     sta $16
     clc
     adc.w #$002C

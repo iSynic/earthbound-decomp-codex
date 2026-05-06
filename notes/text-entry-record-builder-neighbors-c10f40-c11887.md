@@ -104,7 +104,10 @@ C4 record-marker/glyph-state/glyph-print helpers.
 Source polish: `src/c1/c1_134b_setup_text_display_with_wallet_status.asm`
 now names the adjacent text-display setup joins too: `SHOW_HPPP_WINDOWS`,
 the wallet/status display refresh helper at `C1:AA18`, and the C3 registered
-copy-chain cleanup helper called with the active focus id.
+copy-chain cleanup helper called with the active focus id. A later source pass
+also labels the hidden `C1:1354` free `$89D4` entry scanner and names the
+constructor chain edges from `C1:13D1 -> 1354`, `C1:14B1 -> 13D1`,
+`C1:153B -> 14B1`, and `C1:1596 -> 153B`.
 
 ## String Length Helper
 

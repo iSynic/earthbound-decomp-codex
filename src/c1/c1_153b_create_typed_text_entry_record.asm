@@ -13,7 +13,7 @@
 ; - Typed wrapper around C1:14B1. The incoming A value is stored at record +0C,
 ;   then record +00 is changed to type/active marker 2.
 
-; No named external contracts were supplied or recognized.
+C114B1_CreateTextEntryRecordWithDisplayMetadata = $14B1
 
 ; ---------------------------------------------------------------------------
 ; C1:153B
@@ -58,7 +58,7 @@ C1153B_C1153B_CreateTypedTextEntryRecord:
     sta $14
     tyx
     lda $02
-    jsr $14B1
+    jsr C114B1_CreateTextEntryRecordWithDisplayMetadata
     tax
     ; record +0C is the caller selector/value returned by many menu loops.
     lda $04

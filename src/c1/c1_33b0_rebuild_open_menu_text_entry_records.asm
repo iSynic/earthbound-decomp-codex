@@ -19,6 +19,7 @@ C1007E_SetFocusWindowOrContext                 = $007E
 C10084_CloseFocusWindow                        = $0084
 C1008E_CloseAndDrainAllWindows                 = $008E
 C10301_GetActiveInteractionContextRecord       = $0301
+C103DC_ReadTextCommandArgumentWord             = $03DC
 C1045D_InstallPrimaryInteractionContextPointer = $045D
 C10489_InstallSecondaryInteractionContextPointer = $0489
 C104EE_CreateOrBindWindowDescriptorAndContext  = $04EE
@@ -28,6 +29,7 @@ C10EB4_SetActiveWindowTextModeByte             = $0EB4
 C10EFC_PrintFixedString                        = $0EFC
 C10F40_ClearWindowContentByFocusIndex          = $0F40
 C10FA3_ClearActiveWindowContent                = $0FA3
+C10FEA_SetActiveWindowTileAttributes           = $0FEA
 C1101C_RunNumberSelectPrompt                   = $101C
 C1134B_SetupTextDisplayWithWalletStatus        = $134B
 C11596_CreateTypedTextEntryRecordWithExtraByte = $1596
@@ -55,6 +57,7 @@ C19437_CloseTargetSelectionPromptLabel         = $9437
 C198DE_RenderCharacterInventoryOrEquipmentRows = $98DE
 C19EE6_ClassifyItemCompactCategory             = $9EE6
 C1AA5D_RunPartyEquipmentMenuController         = $AA5D
+C1AF74_RunItemUseBattleOrFieldBridgeBody       = $AF74
 C1B5B6_OpenBattlePsiUserSelection              = $B5B6
 C1BB71_OpenFieldPsiDestinationMenu             = $BB71
 C1C373_FindFirstEligibleBattlePsiUser          = $C373
@@ -527,7 +530,7 @@ C13749_RebuildOpenMenuTextEntryRecords_L3749:
     lda $21
     sta $08
     lda $06
-    jsr $AF74
+    jsr C1AF74_RunItemUseBattleOrFieldBridgeBody
     cmp.w #$0000
     beq C1376C_RebuildOpenMenuTextEntryRecords_L376C
     jmp.w C13C16_FinalizeOpenMenuLoopIteration
@@ -1642,7 +1645,7 @@ C1409B_RebuildOpenMenuTextEntryRecords_L409B:
     txa
     bra C140C7_RebuildOpenMenuTextEntryRecords_L40C7
 C140C2_RebuildOpenMenuTextEntryRecords_L40C2:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C140C7_RebuildOpenMenuTextEntryRecords_L40C7:
     jsr C19249_PrintStatisticSelectorValue
@@ -1661,7 +1664,7 @@ C140C7_RebuildOpenMenuTextEntryRecords_L40C7:
     txa
     bra C140E6_RebuildOpenMenuTextEntryRecords_L40E6
 C140E1_RebuildOpenMenuTextEntryRecords_L40E1:
-    jsr $03DC
+    jsr C103DC_ReadTextCommandArgumentWord
     lda $06
 C140E6_RebuildOpenMenuTextEntryRecords_L40E6:
     jsl EF01D2_UpdateBattleSpriteFrameEffectState
@@ -1675,6 +1678,6 @@ C140E6_RebuildOpenMenuTextEntryRecords_L40E6:
     rts
     rep #$31
     txa
-    jsr $0FEA
+    jsr C10FEA_SetActiveWindowTileAttributes
     lda.w #$0000
     rts

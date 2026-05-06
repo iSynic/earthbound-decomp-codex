@@ -314,7 +314,13 @@ This planning pass is documentation-only.
   selection control, target prompts, inventory/equipment row renderers,
   HP/PP focus helpers, party PSI/equipment/teleport branch calls, item-transfer
   joins, window cleanup, debug tail ticks, statistic-selector printing, and
-  battle-sprite refresh helpers. Only `C1:AF74`, two tiny `C1:03DC` wrapper
-  reads, and a context-sensitive `C1:0FEA` wrapper edge remain raw pending a
-  narrower local contract read. See
+  battle-sprite refresh helpers. A follow-up names the final deferred
+  `C1:AF74`, `C1:03DC`, and `C1:0FEA` edges, leaving the source unit with no
+  raw helper-call edges. See
   `notes/open-menu-prelude-helpers-c1339e-c133b0.md`.
+- 2026-05-06 follow-up: small C1 text/window helper cleanup named the local
+  helper edges in the interaction-output selectors, the active-window
+  descriptor initializer, and the `$89D4` text-entry constructor chain. This
+  covers `C1:04B5`, `C1:13D1..1596`, `C1:3187`, and `C1:323B` without
+  changing bytes. See `notes/interaction-result-consumers.md` and
+  `notes/text-entry-record-builder-neighbors-c10f40-c11887.md`.

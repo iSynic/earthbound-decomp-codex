@@ -20,6 +20,7 @@
 ;   link, +0F companion pointer, and +13 copied NUL-terminated body text.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C11354_FindFreeTextEntryRecord      = $1354
 
 ; ---------------------------------------------------------------------------
 ; C1:13D1
@@ -53,7 +54,7 @@ C113F7_InstallTextEntryRecord_L13F7:
     clc
     adc.w #$8650
     sta $02
-    jsr $1354
+    jsr C11354_FindFreeTextEntryRecord
     sta $10
     cmp.w #$FFFF
     bne C1141C_InstallTextEntryRecord_L141C

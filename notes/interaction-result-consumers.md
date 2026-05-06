@@ -157,6 +157,11 @@ The combined C1 scaffold validates byte-for-byte after promotion:
 
 - `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+Source polish follow-up: the selector sources now name their local
+window/context helper edges. `C1:3187` binds the interaction output window
+through `C1:04EE`, and `C1:323B` names the same window bind plus the primary
+and secondary context-pointer installers at `C1:045D` and `C1:0489`.
+
 Working interpretation:
 
 - these selectors feed the player checking/talking pipeline

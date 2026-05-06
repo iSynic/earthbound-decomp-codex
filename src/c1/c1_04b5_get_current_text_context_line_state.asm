@@ -13,6 +13,7 @@
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C09032_MultiplyWords               = $C09032
+C10301_GetActiveInteractionContextRecord = $0301
 C11383_ClearActiveTextEntryChain   = $1383
 C3E4EF_AllocateWindowDescriptor    = $C3E4EF
 C44E4D_ReleaseNonBlankTextTileWord = $C44E4D
@@ -263,7 +264,7 @@ C105BB_RecordWindowLogicalSlotAndMapping:
     sty ActiveWindowFocus
 
 C10644_InitializeBoundWindowDescriptorState:
-    jsr $0301
+    jsr C10301_GetActiveInteractionContextRecord
     sta $12
     ldx $10
     stz $0010,X

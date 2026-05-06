@@ -79,9 +79,14 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   `notes/debug-menu-reachability-c0-c1-ef.md`.
 - 2026-05-06: C1 open-menu helper-call follow-up named the main
   `C1:33B0..4103` text-entry, selection, target-prompt, item-transfer,
-  HP/PP focus, PSI/equipment/teleport, tick, and cleanup helper edges, leaving
-  only four narrow local raw edges for a later micro-pass. See
+  HP/PP focus, PSI/equipment/teleport, tick, and cleanup helper edges, with a
+  follow-up closing the final AF74/03DC/0FEA raw edges. See
   `notes/open-menu-prelude-helpers-c1339e-c133b0.md`.
+- 2026-05-06: C1 small helper cleanup named local edges in the
+  interaction-output selectors, active-window descriptor initializer, and
+  `$89D4` text-entry constructor chain. See
+  `notes/interaction-result-consumers.md` and
+  `notes/text-entry-record-builder-neighbors-c10f40-c11887.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

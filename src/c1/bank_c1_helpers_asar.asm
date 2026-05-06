@@ -898,6 +898,7 @@ org $C104B5
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C09032_MultiplyWords = $C09032
+!C10301_GetActiveInteractionContextRecord = $0301
 !C11383_ClearActiveTextEntryChain = $1383
 !C3E4EF_AllocateWindowDescriptor = $C3E4EF
 !C44E4D_ReleaseNonBlankTextTileWord = $C44E4D
@@ -1117,7 +1118,7 @@ C105BB_RecordWindowLogicalSlotAndMapping:
     ldy $14
     sty !ActiveWindowFocus
 C10644_InitializeBoundWindowDescriptorState:
-    jsr $0301
+    jsr !C10301_GetActiveInteractionContextRecord
     sta $12
     ldx $10
     stz $0010,X
@@ -3145,6 +3146,7 @@ C1134B_C1134B_SetupTextDisplayWithWalletStatus:
     jsr !C10A04_ShowHpppWindowsInternal
     jsr !C1AA18_RefreshWalletOrStatusDisplay
     rts
+C11354_FindFreeTextEntryRecord:
     rep #$31
     phd
     tdc
@@ -3234,6 +3236,7 @@ hirom
 org $C113D1
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C11354_FindFreeTextEntryRecord = $1354
 C113D1_C113D1_InstallTextEntryRecord:
     rep #$31
     phd
@@ -3263,7 +3266,7 @@ C113F7_InstallTextEntryRecord_L13F7:
     clc
     adc.w #$8650
     sta $02
-    jsr $1354
+    jsr !C11354_FindFreeTextEntryRecord
     sta $10
     cmp.w #$FFFF
     bne C1141C_InstallTextEntryRecord_L141C
@@ -3350,6 +3353,7 @@ C114AF_InstallTextEntryRecord_L14AF:
 hirom
 org $C114B1
 
+!C113D1_InstallTextEntryRecord = $13D1
 C114B1_C114B1_CreateTextEntryRecordWithDisplayMetadata:
     rep #$31
     phd
@@ -3389,7 +3393,7 @@ C114B1_C114B1_CreateTextEntryRecordWithDisplayMetadata:
     sta $12
     lda $08
     sta $14
-    jsr $13D1
+    jsr !C113D1_InstallTextEntryRecord
     sta $16
     clc
     adc.w #$002C
@@ -3435,6 +3439,7 @@ C11526_CreateTextEntryRecordWithDisplayMetadata_L1526:
 hirom
 org $C1153B
 
+!C114B1_CreateTextEntryRecordWithDisplayMetadata = $14B1
 C1153B_C1153B_CreateTypedTextEntryRecord:
     rep #$31
     phd
@@ -3475,7 +3480,7 @@ C1153B_C1153B_CreateTypedTextEntryRecord:
     sta $14
     tyx
     lda $02
-    jsr $14B1
+    jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     tax
     lda $04
     sta $000C,X
@@ -3493,6 +3498,7 @@ C1153B_C1153B_CreateTypedTextEntryRecord:
 hirom
 org $C11596
 
+!C1153B_CreateTypedTextEntryRecord = $153B
 C11596_C11596_CreateTypedTextEntryRecordWithExtraByte:
     rep #$31
     phd
@@ -3535,7 +3541,7 @@ C11596_C11596_CreateTypedTextEntryRecordWithExtraByte:
     lda $08
     sta $14
     lda $1A
-    jsr $153B
+    jsr !C1153B_CreateTypedTextEntryRecord
     tax
     sep #$20
     lda $00
@@ -6282,6 +6288,7 @@ C13175_ToggleDebugMeterDisplayOverlay_L3175:
 hirom
 org $C13187
 
+!C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
 !C042C2_PrepareClass1ActorInteraction = $C042C2
 !C04452_ResolveFrontInteractionTarget = $C04452
 TALK_TO:
@@ -6296,7 +6303,7 @@ TALK_TO:
     lda.w #$0000
     sta $0C
     lda.w #$0001
-    jsr $04EE
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     jsl !C04452_ResolveFrontInteractionTarget
     lda $5D62
     bne C131AB_ResolvePrimaryFrontInteractionOutput_L31AB
@@ -6384,6 +6391,9 @@ C13231_ResolvePrimaryFrontInteractionOutput_L3231:
 hirom
 org $C1323B
 
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C10489_InstallSecondaryInteractionContextPointer = $0489
+!C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
 !C04279_ResolveInteractableAlongFacingTarget = $C04279
 CHECK:
 !C1323B_ResolveSecondaryFacingInteractionOutput = CHECK
@@ -6397,7 +6407,7 @@ CHECK:
     lda.w #$0000
     sta $0C
     lda.w #$0001
-    jsr $04EE
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     jsl !C04279_ResolveInteractableAlongFacingTarget
     lda $5D62
     bne C1325F_ResolveSecondaryFacingInteractionOutput_L325F
@@ -6469,7 +6479,7 @@ C132C0_ResolveSecondaryFacingInteractionOutput_L32C0:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C1332F_ResolveSecondaryFacingInteractionOutput_L332F
 C132EB_ResolveSecondaryFacingInteractionOutput_L32EB:
     lda $0A
@@ -6480,7 +6490,7 @@ C132EB_ResolveSecondaryFacingInteractionOutput_L32EB:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $5D62
     sta $04
     asl A
@@ -6506,7 +6516,7 @@ C132EB_ResolveSecondaryFacingInteractionOutput_L32EB:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
 C1332F_ResolveSecondaryFacingInteractionOutput_L332F:
     lda.w #$8985
     sta $06
@@ -6617,6 +6627,7 @@ org $C133B0
 !C10084_CloseFocusWindow = $0084
 !C1008E_CloseAndDrainAllWindows = $008E
 !C10301_GetActiveInteractionContextRecord = $0301
+!C103DC_ReadTextCommandArgumentWord = $03DC
 !C1045D_InstallPrimaryInteractionContextPointer = $045D
 !C10489_InstallSecondaryInteractionContextPointer = $0489
 !C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
@@ -6626,6 +6637,7 @@ org $C133B0
 !C10EFC_PrintFixedString = $0EFC
 !C10F40_ClearWindowContentByFocusIndex = $0F40
 !C10FA3_ClearActiveWindowContent = $0FA3
+!C10FEA_SetActiveWindowTileAttributes = $0FEA
 !C1101C_RunNumberSelectPrompt = $101C
 !C1134B_SetupTextDisplayWithWalletStatus = $134B
 !C11596_CreateTypedTextEntryRecordWithExtraByte = $1596
@@ -6653,6 +6665,7 @@ org $C133B0
 !C198DE_RenderCharacterInventoryOrEquipmentRows = $98DE
 !C19EE6_ClassifyItemCompactCategory = $9EE6
 !C1AA5D_RunPartyEquipmentMenuController = $AA5D
+!C1AF74_RunItemUseBattleOrFieldBridgeBody = $AF74
 !C1B5B6_OpenBattlePsiUserSelection = $B5B6
 !C1BB71_OpenFieldPsiDestinationMenu = $BB71
 !C1C373_FindFirstEligibleBattlePsiUser = $C373
@@ -7121,7 +7134,7 @@ C13749_RebuildOpenMenuTextEntryRecords_L3749:
     lda $21
     sta $08
     lda $06
-    jsr $AF74
+    jsr !C1AF74_RunItemUseBattleOrFieldBridgeBody
     cmp.w #$0000
     beq C1376C_RebuildOpenMenuTextEntryRecords_L376C
     jmp.w C13C16_FinalizeOpenMenuLoopIteration
@@ -8236,7 +8249,7 @@ C1409B_RebuildOpenMenuTextEntryRecords_L409B:
     txa
     bra C140C7_RebuildOpenMenuTextEntryRecords_L40C7
 C140C2_RebuildOpenMenuTextEntryRecords_L40C2:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C140C7_RebuildOpenMenuTextEntryRecords_L40C7:
     jsr !C19249_PrintStatisticSelectorValue
@@ -8255,7 +8268,7 @@ C140C7_RebuildOpenMenuTextEntryRecords_L40C7:
     txa
     bra C140E6_RebuildOpenMenuTextEntryRecords_L40E6
 C140E1_RebuildOpenMenuTextEntryRecords_L40E1:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C140E6_RebuildOpenMenuTextEntryRecords_L40E6:
     jsl !EF01D2_UpdateBattleSpriteFrameEffectState
@@ -8269,7 +8282,7 @@ C140E6_RebuildOpenMenuTextEntryRecords_L40E6:
     rts
     rep #$31
     txa
-    jsr $0FEA
+    jsr !C10FEA_SetActiveWindowTileAttributes
     lda.w #$0000
     rts
 

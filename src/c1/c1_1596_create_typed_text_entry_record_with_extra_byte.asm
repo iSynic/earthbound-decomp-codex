@@ -13,7 +13,7 @@
 ; - Typed record constructor with one extra caller byte. It delegates to
 ;   C1:153B, then stores the extra byte at record +0E.
 
-; No named external contracts were supplied or recognized.
+C1153B_CreateTypedTextEntryRecord = $153B
 
 ; ---------------------------------------------------------------------------
 ; C1:1596
@@ -60,7 +60,7 @@ C11596_C11596_CreateTypedTextEntryRecordWithExtraByte:
     lda $08
     sta $14
     lda $1A
-    jsr $153B
+    jsr C1153B_CreateTypedTextEntryRecord
     tax
     ; record +0E is the one-byte extra metadata used by selected typed entries.
     sep #$20

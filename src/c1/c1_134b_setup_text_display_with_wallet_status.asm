@@ -24,6 +24,7 @@ C1134B_C1134B_SetupTextDisplayWithWalletStatus:
     jsr C10A04_ShowHpppWindowsInternal
     jsr C1AA18_RefreshWalletOrStatusDisplay
     rts
+C11354_FindFreeTextEntryRecord:
     rep #$31
     phd
     tdc
