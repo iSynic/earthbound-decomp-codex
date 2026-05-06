@@ -119,6 +119,13 @@ split into the three C4-local suffix patch rows consumed by
 Master. The prep helper names the three patch source lows plus the C4 bank byte
 where it stages the local copy arguments for the C0 tilemap-patch callee.
 
+2026-05-06 cast-name tilemap prep follow-up: the preparation and print helpers
+now name the local row/template counts, C3:FDB5 party source table, current-bank
+template lows, E1:2EFA pointer-record offsets for dad/mom/Master, `$7F:4000`
+staging bank, BG3 `$7C00` row wrap math, and C0 transfer selector byte. These
+remain C4-local presentation-table contracts; C0 copy/VRAM queue internals and
+C3/E1 payload decoding stay external.
+
 `C4:EBAD..C4:EC6E` are small print wrappers that select the party/current-slot
 or entity-var0 source before entering the cast-name print path.
 

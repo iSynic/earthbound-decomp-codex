@@ -211,6 +211,12 @@ closure.
   E1/C3 low-word asset tuples, and final `$0030/$001A` display seeds while
   leaving C0/C4 callee internals as caller references. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 cast-name tilemap follow-up: tightened
+  `PrepareCastNameTilemap`/`PrintCastName` around local template row counts,
+  the C3:FDB5 source table, current-bank template lows, E1:2EFA pointer-record
+  offsets, `$7F:4000` staging, BG3 `$7C00` wrap math, and the C0 VRAM-transfer
+  selector byte without claiming C0/C3/E1 callee internals. See
+  `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
 - 2026-05-06 audio tail follow-up: tightened the final C4 audio block around
   the music dataset row fields, audio pack pointer row shape, US bank resolver
   mask reset, cold-start bootstrap shared pack, `ChangeMusic` primary,

@@ -18,16 +18,41 @@ C08F15_ClearVramOrRendererBuffer   = $C08F15
 Multiply16By8_ViaHardwareRegisters = $C08FF7
 
 ; Local C4 patch strings emitted at the tail of RenderCastNameText.
-CastNameTextTilemapPatchBank              = $00C4
-CastNameTextTilemapPatchPossessiveDadLow  = $E796
-CastNameTextTilemapPatchPossessiveMomLow  = $E79D
+CastNameTextTilemapPatchBank                = $00C4
+CastNameTextTilemapPatchPossessiveDadLow    = $E796
+CastNameTextTilemapPatchPossessiveMomLow    = $E79D
 CastNameTextTilemapPatchPossessiveMasterLow = $E7A4
+
+; Local row/template contracts used while preparing the cast-name tilemap.
+CastNamePrepScratchRowsOffset               = $0016
+CastNamePrepFillWords                       = $0010
+CastNamePartyEntryCount                     = $0004
+CastNamePartyTemplateStride                 = $005F
+CastNamePartyTemplateBaseLow                = $99CE
+CastNamePartySourceTable                    = $C3FDB5
+CastNameTemplateCopyRows                    = $0005
+CastNameSpecialTemplateCopyRows             = $0006
+CastNameRenderColumnCount                   = $0006
+CastNameSpecialTemplateBaseLow              = $9819
+CastNameSpecialTextSourceLow                = $01C0
+CastNameE1PointerRecordBaseLow              = $2EFA
+CastNameE1PointerRecordBank                 = $00E1
+CastNameDadPointerRecordOffset              = $0027
+CastNameMomPointerRecordOffset              = $0024
+CastNameMasterPointerRecordOffset           = $006C
+CastNameDadMomTemplateBaseLow               = $9A2D
+CastNameMasterTemplateBaseLow               = $9AEB
+CastNamePointerRecordBankByteOffset         = $0002
+CastNamePointerBankMask                     = $00FF
 
 ; ---------------------------------------------------------------------------
 ; C4:E7AE
 
 PREPARE_DYNAMIC_CAST_NAME_TEXT:
 C4E7AE_PrepareCastNameTilemap = PREPARE_DYNAMIC_CAST_NAME_TEXT
+    ; Build the $7F cast-name tilemap staging rows consumed by the loader and
+    ; live print helper. The constants here are local row/template contracts,
+    ; not global names for the C3/E1 text payload internals.
     rep #$31
     phd
     tdc
@@ -37,17 +62,19 @@ C4E7AE_PrepareCastNameTilemap = PREPARE_DYNAMIC_CAST_NAME_TEXT
     sta $02
     bra C4E826_PrepareCastNameTilemap_LE826
 C4E7BD_PrepareCastNameTilemap_LE7BD:
+    ; First four rows use the C3:FDB5 party/source table and the repeated local
+    ; template block at the current bank's 99CE stride.
     sep #$20
     stz $0E
-    ldx.w #$0010
+    ldx.w #CastNamePrepFillWords
     rep #$20
     tdc
     clc
-    adc.w #$0016
+    adc.w #CastNamePrepScratchRowsOffset
     jsl FillLocalBufferMaybe
     tdc
     clc
-    adc.w #$0016
+    adc.w #CastNamePrepScratchRowsOffset
     sta $06
     phb
     sep #$20
@@ -60,10 +87,10 @@ C4E7BD_PrepareCastNameTilemap_LE7BD:
     lda $08
     sta $10
     lda $02
-    ldy.w #$005F
+    ldy.w #CastNamePartyTemplateStride
     jsl Multiply16By8_ViaHardwareRegisters
     clc
-    adc.w #$99CE
+    adc.w #CastNamePartyTemplateBaseLow
     sta $06
     phb
     sep #$20
@@ -75,34 +102,34 @@ C4E7BD_PrepareCastNameTilemap_LE7BD:
     sta $12
     lda $08
     sta $14
-    lda.w #$0005
+    lda.w #CastNameTemplateCopyRows
     jsl CopyLocalRowsMaybe
     lda $02
     asl A
     tax
-    lda $C3FDB5,X
+    lda CastNamePartySourceTable,X
     tay
-    ldx.w #$0006
+    ldx.w #CastNameRenderColumnCount
     tdc
     clc
-    adc.w #$0016
+    adc.w #CastNamePrepScratchRowsOffset
     jsr $E583
     inc $02
 C4E826_PrepareCastNameTilemap_LE826:
     lda $02
-    cmp.w #$0004
+    cmp.w #CastNamePartyEntryCount
     bcc C4E7BD_PrepareCastNameTilemap_LE7BD
     sep #$20
     stz $0E
-    ldx.w #$0010
+    ldx.w #CastNamePrepFillWords
     rep #$20
     tdc
     clc
-    adc.w #$0016
+    adc.w #CastNamePrepScratchRowsOffset
     jsl FillLocalBufferMaybe
     tdc
     clc
-    adc.w #$0016
+    adc.w #CastNamePrepScratchRowsOffset
     sta $0A
     phb
     sep #$20
@@ -118,7 +145,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    lda.w #$9819
+    lda.w #CastNameSpecialTemplateBaseLow
     sta $06
     phb
     sep #$20
@@ -130,23 +157,26 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $12
     lda $08
     sta $14
-    lda.w #$0006
+    lda.w #CastNameSpecialTemplateCopyRows
     jsl CopyLocalRowsMaybe
-    ldy.w #$01C0
-    ldx.w #$0006
+    ldy.w #CastNameSpecialTextSourceLow
+    ldx.w #CastNameRenderColumnCount
     tdc
     clc
-    adc.w #$0016
+    adc.w #CastNamePrepScratchRowsOffset
     jsr $E583
-    lda.w #$2EFA
+    ; The three possessive rows read E1 pointer records, copy one local row
+    ; template, patch in the local suffix bytes, then render the referenced
+    ; source name beside that suffix.
+    lda.w #CastNameE1PointerRecordBaseLow
     sta $32
-    lda.w #$00E1
+    lda.w #CastNameE1PointerRecordBank
     sta $34
     lda $32
     sta $06
     lda $34
     sta $08
-    lda.w #$0027
+    lda.w #CastNameDadPointerRecordOffset
     clc
     adc $06
     sta $06
@@ -161,11 +191,11 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0010
+    ldx.w #CastNamePrepFillWords
     sep #$20
     lda.b #$00
     jsl C08F15_ClearVramOrRendererBuffer
-    lda.w #$9A2D
+    lda.w #CastNameDadMomTemplateBaseLow
     sta $06
     phb
     sep #$20
@@ -193,7 +223,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $12
     lda $08
     sta $14
-    lda.w #$0005
+    lda.w #CastNameTemplateCopyRows
     jsl CopyLocalRowsMaybe
     lda $0A
     sta $06
@@ -222,21 +252,21 @@ C4E826_PrepareCastNameTilemap_LE826:
     lda $30
     sta $08
     sep #$20
-    ldy.w #$0002
+    ldy.w #CastNamePointerRecordBankByteOffset
     lda [$06],Y
     rep #$20
-    and.w #$00FF
+    and.w #CastNamePointerBankMask
     tax
     tdc
     clc
-    adc.w #$0016
+    adc.w #CastNamePrepScratchRowsOffset
     ldy $28
     jsr $E583
     lda $32
     sta $06
     lda $34
     sta $08
-    lda.w #$0024
+    lda.w #CastNameMomPointerRecordOffset
     clc
     adc $06
     sta $06
@@ -251,7 +281,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0010
+    ldx.w #CastNamePrepFillWords
     sep #$20
     lda.b #$00
     jsl C08F15_ClearVramOrRendererBuffer
@@ -271,7 +301,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $12
     lda $08
     sta $14
-    lda.w #$0005
+    lda.w #CastNameTemplateCopyRows
     jsl CopyLocalRowsMaybe
     lda $0A
     sta $06
@@ -299,21 +329,21 @@ C4E826_PrepareCastNameTilemap_LE826:
     lda $30
     sta $08
     sep #$20
-    ldy.w #$0002
+    ldy.w #CastNamePointerRecordBankByteOffset
     lda [$06],Y
     rep #$20
-    and.w #$00FF
+    and.w #CastNamePointerBankMask
     tax
     tdc
     clc
-    adc.w #$0016
+    adc.w #CastNamePrepScratchRowsOffset
     ldy $28
     jsr $E583
     lda $32
     sta $06
     lda $34
     sta $08
-    lda.w #$006C
+    lda.w #CastNameMasterPointerRecordOffset
     clc
     adc $06
     sta $06
@@ -328,7 +358,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0010
+    ldx.w #CastNamePrepFillWords
     sep #$20
     lda.b #$00
     jsl C08F15_ClearVramOrRendererBuffer
@@ -340,7 +370,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $0E
     lda $08
     sta $10
-    lda.w #$9AEB
+    lda.w #CastNameMasterTemplateBaseLow
     sta $06
     phb
     sep #$20
@@ -352,7 +382,7 @@ C4E826_PrepareCastNameTilemap_LE826:
     sta $12
     lda $08
     sta $14
-    lda.w #$0005
+    lda.w #CastNameTemplateCopyRows
     jsl CopyLocalRowsMaybe
     lda $0A
     sta $06
@@ -380,14 +410,14 @@ C4E826_PrepareCastNameTilemap_LE826:
     tay
     sty $26
     sep #$20
-    ldy.w #$0002
+    ldy.w #CastNamePointerRecordBankByteOffset
     lda [$06],Y
     rep #$20
-    and.w #$00FF
+    and.w #CastNamePointerBankMask
     tax
     tdc
     clc
-    adc.w #$0016
+    adc.w #CastNamePrepScratchRowsOffset
     ldy $26
     jsr $E583
     pld

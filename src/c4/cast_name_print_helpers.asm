@@ -14,10 +14,14 @@
 QueueVramTransfer_FromDpSource = $C08616
 Bg3VerticalScrollShadow        = $003B
 CastNameStagingBuffer          = $4000
+CastNameStagingBank            = $007F
 CastNameTilemapBase            = $7C00
 CastBg3TilemapRowMask          = $001F
+CastBg3TilemapLastRow          = $001F
 CastBg3TilemapRowStride        = $0020
+CastBg3TilemapWrapBackOffset   = $03E0
 CastNameRowPlaneStride         = $0040
+CastNameTransferSelector       = $00
 
 ; ---------------------------------------------------------------------------
 ; C4:EB04
@@ -25,7 +29,8 @@ CastNameRowPlaneStride         = $0040
 COPY_CAST_NAME_TILEMAP:
 C4EB04_PrintCastName = COPY_CAST_NAME_TILEMAP
     ; Queue the two BG3 row transfers for one staged cast-name string. The live
-    ; BG3 scroll shadow selects the wrapped tilemap row.
+    ; BG3 scroll shadow selects the wrapped tilemap row; C4 supplies only the
+    ; C0 transfer parameter block here.
     rep #$31
     phd
     pha
@@ -66,7 +71,7 @@ C4EB04_PrintCastName = COPY_CAST_NAME_TILEMAP
     sta $04
     lda.w #CastNameStagingBuffer
     sta $06
-    lda.w #$007F
+    lda.w #CastNameStagingBank
     sta $08
     lda $16
     asl A
@@ -81,11 +86,11 @@ C4EB04_PrintCastName = COPY_CAST_NAME_TILEMAP
     asl A
     tax
     sep #$20
-    lda.b #$00
+    lda.b #CastNameTransferSelector
     jsl QueueVramTransfer_FromDpSource
     lda $14
     sta $02
-    cmp.w #$001F
+    cmp.w #CastBg3TilemapLastRow
     beq C4EB78_PrintCastName_LEB78
     lda $04
     clc
@@ -95,12 +100,12 @@ C4EB04_PrintCastName = COPY_CAST_NAME_TILEMAP
 C4EB78_PrintCastName_LEB78:
     lda $04
     sec
-    sbc.w #$03E0
+    sbc.w #CastBg3TilemapWrapBackOffset
     sta $12
 C4EB80_PrintCastName_LEB80:
     lda.w #CastNameStagingBuffer
     sta $06
-    lda.w #$007F
+    lda.w #CastNameStagingBank
     sta $08
     lda $16
     asl A
@@ -118,7 +123,7 @@ C4EB80_PrintCastName_LEB80:
     asl A
     tax
     sep #$20
-    lda.b #$00
+    lda.b #CastNameTransferSelector
     jsl QueueVramTransfer_FromDpSource
     pld
     rtl
