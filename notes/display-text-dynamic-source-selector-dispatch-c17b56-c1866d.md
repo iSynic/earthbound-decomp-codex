@@ -52,6 +52,9 @@ See also:
   absent `16` and parser-artifact `1C` gaps visible. Its inline `20` and `22`
   predicate bodies also name their boolean result staging, battle name-buffer
   comparison, current map-position inputs, map-class mask, and exit-mouse class.
+- The adjacent `0x1E` recovery/stat dispatcher now names its live `01..0E`
+  subselector ids, keeps `00` as the zero branch to HP-percent recovery, and
+  uses the shared no-follow-up return for anything outside the live range.
 - The later `1F` command corridor now names the text-context snapshot/restore,
   primary/secondary context loads and installs, text input lock/unlock, wait
   gate, transition music restore, interaction-flag helpers, save-current-game

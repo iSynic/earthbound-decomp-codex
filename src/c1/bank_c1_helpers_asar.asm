@@ -17629,6 +17629,20 @@ org $C17B56
 !TextCommand1E0CBoostSpeed = $75E5
 !TextCommand1E0DBoostVitality = $7646
 !TextCommand1E0EBoostLuck = $76A7
+!TextCommand1E01DepleteHpPercentSubcommand = $0001
+!TextCommand1E02RecoverHpAmountSubcommand = $0002
+!TextCommand1E03DepleteHpAmountSubcommand = $0003
+!TextCommand1E04RecoverPpPercentSubcommand = $0004
+!TextCommand1E05DepletePpPercentSubcommand = $0005
+!TextCommand1E06RecoverPpAmountSubcommand = $0006
+!TextCommand1E07DepletePpAmountSubcommand = $0007
+!TextCommand1E08SetCharacterLevelSubcommand = $0008
+!TextCommand1E09GiveExperienceSubcommand = $0009
+!TextCommand1E0ABoostIqSubcommand = $000A
+!TextCommand1E0BBoostGutsSubcommand = $000B
+!TextCommand1E0CBoostSpeedSubcommand = $000C
+!TextCommand1E0DBoostVitalitySubcommand = $000D
+!TextCommand1E0EBoostLuckSubcommand = $000E
 !TextCommand1F00QueueOrApplyMusicTrack = $4751
 !TextCommand1F01StopMusic = $47A0
 !TextCommand1F02PlaySound = $47AB
@@ -18432,33 +18446,33 @@ C1811D_DispatchDisplayTextDynamicSourceSelector_L811D:
     rep #$31
     txa
     beq C1816C_DispatchDisplayTextDynamicSourceSelector_L816C
-    cmp.w #$0001
+    cmp.w #!TextCommand1E01DepleteHpPercentSubcommand
     beq C18171_DispatchDisplayTextDynamicSourceSelector_L8171
-    cmp.w #$0002
+    cmp.w #!TextCommand1E02RecoverHpAmountSubcommand
     beq C18176_DispatchDisplayTextDynamicSourceSelector_L8176
-    cmp.w #$0003
+    cmp.w #!TextCommand1E03DepleteHpAmountSubcommand
     beq C1817B_DispatchDisplayTextDynamicSourceSelector_L817B
-    cmp.w #$0004
+    cmp.w #!TextCommand1E04RecoverPpPercentSubcommand
     beq C18180_DispatchDisplayTextDynamicSourceSelector_L8180
-    cmp.w #$0005
+    cmp.w #!TextCommand1E05DepletePpPercentSubcommand
     beq C18185_DispatchDisplayTextDynamicSourceSelector_L8185
-    cmp.w #$0006
+    cmp.w #!TextCommand1E06RecoverPpAmountSubcommand
     beq C1818A_DispatchDisplayTextDynamicSourceSelector_L818A
-    cmp.w #$0007
+    cmp.w #!TextCommand1E07DepletePpAmountSubcommand
     beq C1818F_DispatchDisplayTextDynamicSourceSelector_L818F
-    cmp.w #$0008
+    cmp.w #!TextCommand1E08SetCharacterLevelSubcommand
     beq C18194_DispatchDisplayTextDynamicSourceSelector_L8194
-    cmp.w #$0009
+    cmp.w #!TextCommand1E09GiveExperienceSubcommand
     beq C18199_DispatchDisplayTextDynamicSourceSelector_L8199
-    cmp.w #$000A
+    cmp.w #!TextCommand1E0ABoostIqSubcommand
     beq C1819E_DispatchDisplayTextDynamicSourceSelector_L819E
-    cmp.w #$000B
+    cmp.w #!TextCommand1E0BBoostGutsSubcommand
     beq C181A3_DispatchDisplayTextDynamicSourceSelector_L81A3
-    cmp.w #$000C
+    cmp.w #!TextCommand1E0CBoostSpeedSubcommand
     beq C181A8_DispatchDisplayTextDynamicSourceSelector_L81A8
-    cmp.w #$000D
+    cmp.w #!TextCommand1E0DBoostVitalitySubcommand
     beq C181AD_DispatchDisplayTextDynamicSourceSelector_L81AD
-    cmp.w #$000E
+    cmp.w #!TextCommand1E0EBoostLuckSubcommand
     beq C181B2_DispatchDisplayTextDynamicSourceSelector_L81B2
     bra C181B7_DispatchDisplayTextDynamicSourceSelector_L81B7
 C1816C_DispatchDisplayTextDynamicSourceSelector_L816C:
@@ -18507,7 +18521,7 @@ C181B2_DispatchDisplayTextDynamicSourceSelector_L81B2:
     lda.w #!TextCommand1E0EBoostLuck
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181B7_DispatchDisplayTextDynamicSourceSelector_L81B7:
-    lda.w #$0000
+    lda.w #!TextCommandNoFollowupCallback
 C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA:
     rts
     rep #$31

@@ -598,6 +598,11 @@ This planning pass is documentation-only.
   comparison, current map-position lookup, map-class mask, exit-mouse class,
   boolean scratch/result staging, `$0E/$10` text-context handoff, and
   no-follow-up return contract.
+- 2026-05-06 follow-up: the adjacent `0x1E` recovery/stat dispatcher in
+  `C1:811F..81BA` now names its live selector ids for `01..0E`, preserves
+  `00` as the zero-branch HP-percent recovery case, and returns the shared
+  no-follow-up value for anything outside the live range. This keeps the
+  parser-side high `0x1E` artifacts outside the runtime dispatcher contract.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments

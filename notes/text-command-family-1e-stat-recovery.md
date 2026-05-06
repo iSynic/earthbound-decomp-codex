@@ -106,6 +106,14 @@ queued-byte and callback vocabulary as the late stat tail. The eight
 `Y = 1` as percent versus amount adjustment modes before calling the shared
 HP/PP recovery/depletion workers.
 
+Source polish follow-up (2026-05-06): the live `C1:811F` family dispatcher now
+names its selector ladder directly in
+`src/c1/c1_7b56_dispatch_display_text_dynamic_source_selector.asm`. The source
+names the stable `0x1E 01..0E` subselector ids, keeps `0x1E 00` as the zero
+case through the existing branch, and returns the named no-follow-up value for
+anything outside the live `00..0E` range. This keeps the rare parser-side
+`0x1E 10/14/18/19/1F` hits visibly outside the runtime dispatcher contract.
+
 ### Early HP / PP recover-deplete block
 
 The eight early leaves form a very clean structured block:
