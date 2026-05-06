@@ -17,7 +17,7 @@ Generated from `notes/c3-source-data-map.md` via `tools/build_c3_actionscript_se
 - top first opcodes: `{'$42 EVENT_CALLROUTINE': 50, '$06 EVENT_PAUSE': 36, '$25 EVENT_SET_PHYSICS_CALLBACK': 24, '$1A EVENT_SHORTCALL': 14, '$0E EVENT_SET_VAR': 9, '$20 EVENT_WRITE_VAR_TO_TEMPVAR': 5, '$3B EVENT_SET_ANIMATION': 5, '$01 EVENT_LOOP': 5, '$23 EVENT_SET_POSITION_CHANGE_CALLBACK': 4, '$28 EVENT_SET_X': 3, '$07 EVENT_START_TASK': 3, '$40 EVENT_SET_Y_VELOCITY': 2}`
 - top native callback targets: `{'C0:A4BF': 29, 'C0:A685': 27, 'C0:A4B2': 26, 'C0:A4A8': 23, 'C0:AA6E': 17, 'C4:6E46': 12, 'C0:A65F': 10, 'C4:0015': 8, 'C0:9F82': 7, 'C0:20F1': 7, 'C0:A88D': 6, 'C0:C6B6': 6, 'C0:A864': 5, 'EF:0FF6': 5, 'C0:A82F': 4, 'C0:A841': 4}`
 - top installed callback targets: `{'C0:A37A': 17, 'C0:9FC8': 7, 'C0:A360': 5, 'C0:A039': 5, 'C4:8BE1': 4, 'C0:9FF0': 4, 'C4:8C2B': 2, 'C0:9FF1': 2, 'C0:5200': 2, 'C4:8C02': 2, 'C0:A055': 1, 'C0:A0A0': 1, 'C0:A384': 1, 'C0:A26B': 1, 'C0:4D78': 1, 'C0:D7F7': 1}`
-- callback semantic groups: `{'current-slot-state': 17, 'movement': 11, 'visual-profile': 10, 'timed-delivery': 9, 'overworld-runtime': 8, 'presentation-render': 8, 'text-presentation': 6, 'collision': 4, 'neighbor-cache': 2, 'event-flag': 2, 'battle-runtime': 2, 'world-state-restore': 2, 'entity-spawn': 1, 'proximity-gate': 1, 'party-facing': 1, 'intro-integrity': 1, 'other': 1}`
+- callback semantic groups: `{'current-slot-state': 13, 'movement': 12, 'visual-profile': 10, 'timed-delivery': 9, 'overworld-runtime': 7, 'presentation-render': 7, 'text-presentation': 5, 'neighbor-cache': 5, 'collision': 5, 'proximity-gate': 3, 'event-flag': 2, 'battle-runtime': 2, 'world-state-restore': 2, 'entity-spawn': 1, 'party-facing': 1, 'intro-integrity': 1, 'other': 1}`
 - installed callback semantic groups: `{'movement': 7, 'presentation-render': 7, 'overworld-runtime': 2, 'current-slot-state': 1}`
 - unknown callback targets: `{}`
 - top C3 script targets: `{'C3:AB59': 19, 'C3:A204': 19, 'C3:A111': 7, 'C3:AA38': 5, 'C3:A262': 5, 'C3:A0FE': 5, 'C3:AA1E': 5, 'C3:AB8A': 4, 'C3:A1F3': 4, 'C3:A11E': 4, 'C3:A3B7': 4, 'C3:A09F': 3, 'C3:AB44': 3, 'C3:0295': 3, 'C3:43DB': 3, 'C3:443E': 3}`
@@ -100,82 +100,82 @@ No syntactic decode frontiers at the current bounds.
 | `C0:A4A8` | `RefreshCurrentSlotVisualProfile_Mode0IfAligned` | `visual-profile` | 23 | 0 | `-` | refresh current slot visual profile when alignment allows | `byte-count-known` |
 | `C0:AA6E` | `Script_ApplyCurrentSlotVisualCountdownState` | `visual-profile` | 17 | 2 | `visual_state_byte, countdown_byte` | read countdown/state bytes and apply current slot visual countdown state | `byte-count-known` |
 | `C4:6E46` | `SetYieldToTextLatch9641` | `text-presentation` | 12 | 0 | `-` | set the yield-to-text latch used by event presentation handoff | `byte-count-known` |
-| `C0:A65F` | `SetCurrentSlotDirectionClassIfActive` | `movement` | 10 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:A65F` | `SetCurrentSlotDirectionClassIfActive` | `movement` | 10 | 0 | `-` | copy the tempvar direction/class into the current slot when the slot is active | `byte-count-known` |
 | `C4:0015` | `ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea` | `visual-profile` | 8 | 0 | `-` | clear current slot $10F2, refresh visual state, and test live-area status | `byte-count-known` |
-| `C0:9F82` | `ChooseRandomScriptWord` | `overworld-runtime` | 7 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:20F1` | `ScriptRelease_CurrentEntityVisualState` | `visual-profile` | 7 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:9F82` | `ChooseRandomScriptWord` | `overworld-runtime` | 7 | 0 | `choice_count_byte, choice_words[]` | read an inline choice count followed by that many words, choose one at random, and leave it in the tempvar/result latch | `byte-count-known` |
+| `C0:20F1` | `ScriptRelease_CurrentEntityVisualState` | `visual-profile` | 7 | 0 | `-` | release the current entity/visual slot state at the end of a script-controlled actor sequence | `byte-count-known` |
 | `C0:A88D` | `ActionScript_QueueTextPointer` | `text-presentation` | 6 | 4 | `text_pointer_low_word, text_pointer_bank_word` | read two script words as text pointer pieces and queue text record type #$0008 | `byte-count-known` |
-| `C0:C6B6` | `CheckCurrentSlotInsideLiveAreaWindow` | `text-presentation` | 6 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:C6B6` | `CheckCurrentSlotInsideLiveAreaWindow` | `proximity-gate` | 6 | 0 | `-` | test whether the current slot is inside the live-area/window bounds used by event scripts | `byte-count-known` |
 | `C0:A864` | `Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte` | `current-slot-state` | 5 | 1 | `registry_slot_byte` | read one script byte and copy that registry slot anchor to current slot state | `byte-count-known` |
 | `EF:0FF6` | `ResetDeliveryArrivalState` | `timed-delivery` | 5 | 0 | `-` | clear transient arrival state and restore/reset delivery controller latch | `byte-count-known` |
 | `C0:A82F` | `DisableCurrentSlotNeighborCache` | `neighbor-cache` | 4 | 0 | `-` | write #$8000 sentinel to current slot neighbor cache $289E | `byte-count-known` |
 | `C0:A841` | `Script_PlaySoundEffectParameter` | `text-presentation` | 4 | 2 | `sound_effect_id_word` | read one script word as a sound/effect id and play it through C0:ABE0 | `byte-count-known` |
 | `C0:A943` | `ActionScript_GetPositionOfPartyMember` | `current-slot-state` | 4 | 1 | `party_member_selector_byte` | read one party-member selector byte and copy that member position into script state | `byte-count-known` |
-| `C0:A68B` | `StoreAInCurrentSlotField2B32` | `current-slot-state` | 4 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:D98F` | `Export_CurrentSlotAttentionTarget` | `current-slot-state` | 4 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:6C87` | `RestoreCurrentSlotAnchorFromCachedTarget` | `current-slot-state` | 4 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:A68B` | `StoreAInCurrentSlotField2B32` | `current-slot-state` | 4 | 0 | `-` | store the accumulator value into current slot movement/visual field $2B32 | `byte-count-known` |
+| `C0:D98F` | `Export_CurrentSlotAttentionTarget` | `current-slot-state` | 4 | 0 | `-` | export the current slot attention target into the script-visible cached target fields | `byte-count-known` |
+| `C4:6C87` | `RestoreCurrentSlotAnchorFromCachedTarget` | `current-slot-state` | 4 | 0 | `-` | restore the current slot anchor from the cached target position fields | `byte-count-known` |
 | `C0:A84C` | `ActionScript_TestEventFlag_ReadWord` | `event-flag` | 3 | 2 | `event_flag_word` | read one script word and test it through C2:1628 | `byte-count-known` |
 | `C0:A8C6` | `StepCurrentSlotTowardCachedTarget` | `movement` | 3 | 0 | `-` | step current slot toward cached target through C4:7143 and report arrival | `byte-count-known` |
-| `C0:C7DB` | `UpdateCurrentSlotFootprintMask` | `collision` | 3 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:C7DB` | `UpdateCurrentSlotFootprintMask` | `collision` | 3 | 0 | `-` | refresh the current slot footprint/collision mask after position or visual-state changes | `byte-count-known` |
 | `C2:0000` | `RunEnemySunstrokeCheck` | `battle-runtime` | 3 | 0 | `-` | battle-runtime sunstroke/special controller helper; C3 intro use remains unusual | `byte-count-known` |
 | `C0:A6DA` | `ClearCurrentSlotNeighborCache` | `neighbor-cache` | 3 | 0 | `-` | write #$FFFF to current slot neighbor cache $289E | `byte-count-known` |
-| `C0:C83B` | `InstallScriptMovementVectorFromDirection` | `movement` | 3 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:CA4E` | `SetMovementTaskTimerFromActiveVector` | `movement` | 3 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:6ADB` | `ComputeCurrentSlotTargetDirectionOctant` | `movement` | 3 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:7044` | `ProjectAngleIntoCurrentSlotVectorWords` | `movement` | 3 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:6B0A` | `RoundAngleToOctantAndCacheCurrentSlot` | `current-slot-state` | 3 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:7B77` | `LoadIndexedWindowGfxAndReadVariantByte` | `text-presentation` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A691` | `GetCurrentSlotField2B32` | `current-slot-state` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:C83B` | `InstallScriptMovementVectorFromDirection` | `movement` | 3 | 0 | `-` | install current-slot movement vector words from the script direction and speed state | `byte-count-known` |
+| `C0:CA4E` | `SetMovementTaskTimerFromActiveVector` | `movement` | 3 | 0 | `-` | derive the movement task timer from the active movement vector and cache it for script waits | `byte-count-known` |
+| `C4:6ADB` | `ComputeCurrentSlotTargetDirectionOctant` | `movement` | 3 | 0 | `-` | compute the direction octant from the current slot toward its cached target | `byte-count-known` |
+| `C4:7044` | `ProjectAngleIntoCurrentSlotVectorWords` | `movement` | 3 | 0 | `-` | project the active angle into current-slot movement vector words | `byte-count-known` |
+| `C4:6B0A` | `RoundAngleToOctantAndCacheCurrentSlot` | `movement` | 3 | 0 | `-` | round the active angle to a direction octant and cache it on the current slot | `byte-count-known` |
+| `C4:7B77` | `LoadIndexedWindowGfxAndReadVariantByte` | `text-presentation` | 2 | 0 | `-` | load indexed window graphics and return the selected variant byte to the script | `byte-count-known` |
+| `C0:A691` | `GetCurrentSlotField2B32` | `current-slot-state` | 2 | 0 | `-` | return current slot movement/visual field $2B32 for script-side tests | `byte-count-known` |
 | `EF:0F60` | `CheckDeliveryServiceReadyForArrival` | `timed-delivery` | 2 | 0 | `-` | test delivery/service readiness against busy state and controller latches | `byte-count-known` |
 | `EF:0DFA` | `QueueCurrentDeliveryPointer2` | `timed-delivery` | 2 | 0 | `-` | queue current delivery row pointer 2 as deferred queue type #$000A | `byte-count-known` |
-| `C4:6EF8` | `CheckCurrentSlotWithinPlayerProximityThreshold` | `current-slot-state` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C4:6EF8` | `CheckCurrentSlotWithinPlayerProximityThreshold` | `proximity-gate` | 2 | 0 | `-` | test the current slot anchor against the player proximity threshold | `byte-count-known` |
 | `C0:A959` | `FacePoseDescriptorSlotTowardCurrentSlot_ReadWord` | `presentation-render` | 2 | 2 | `pose_descriptor_id_word` | read one pose-descriptor id word, resolve that slot, and face it toward the current slot | `byte-count-known` |
 | `C0:A98B` | `SpawnEntityAtCurrentSlotAnchor_ReadTwoWords` | `entity-spawn` | 2 | 4 | `entity_visual_type_word, entity_initializer_word` | read two entity initializer words and spawn or initialize an entity at the current slot anchor | `byte-count-known` |
 | `C0:A679` | `Script_SetCurrentSlotDisplayControlBits` | `current-slot-state` | 2 | 1 | `display_control_bits_byte` | read one display-control byte and store it to current slot field $2BAA | `byte-count-known` |
-| `C4:0023` | `StoreLowNibble1a42ToCurrentScriptField1372` | `presentation-render` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:A6E3` | `WatchAndRefreshCompanionVisualPhase` | `visual-profile` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:7269` | `ClassifyCurrentSlotAgainstAreaBounds` | `current-slot-state` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:6478` | `Update_CurrentSlotNeighborCache_Priority` | `current-slot-state` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:D5B0` | `Gate_NpcAttentionCoordinatorFromScript` | `overworld-runtime` | 2 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C4:0023` | `StoreLowNibble1a42ToCurrentScriptField1372` | `presentation-render` | 2 | 0 | `-` | copy the low nibble of display/script latch $1A42 into current script field $1372 | `byte-count-known` |
+| `C0:A6E3` | `WatchAndRefreshCompanionVisualPhase` | `visual-profile` | 2 | 0 | `-` | poll companion visual state and refresh the current slot phase while the watcher remains active | `byte-count-known` |
+| `C4:7269` | `ClassifyCurrentSlotAgainstAreaBounds` | `current-slot-state` | 2 | 0 | `-` | classify the current slot against the active area-bounds rectangle and return the result in the tempvar | `byte-count-known` |
+| `C0:6478` | `Update_CurrentSlotNeighborCache_Priority` | `neighbor-cache` | 2 | 0 | `-` | refresh current slot neighbor-cache priority before attention/collision routing | `byte-count-known` |
+| `C0:D5B0` | `Gate_NpcAttentionCoordinatorFromScript` | `overworld-runtime` | 2 | 0 | `-` | start or advance the NPC-attention coordinator and return whether the script should keep waiting | `byte-count-known` |
 | `C0:A8DC` | `StepCurrentSlotTowardCachedTarget_NoFacingRefresh` | `movement` | 2 | 0 | `-` | step current slot toward cached target without refreshing the current slot facing selector, and report arrival | `byte-count-known` |
 | `C4:6E74` | `CheckStagedPositionWithinPlayerProximityThreshold` | `proximity-gate` | 2 | 0 | `-` | test staged position against the player proximity threshold | `byte-count-known` |
 | `C4:8B3B` | `MakePartyLookAtActiveEntityCallback` | `party-facing` | 2 | 0 | `-` | make party members face or track the active entity | `byte-count-known` |
 | `C0:A907` | `ActionScript_PrepareNewEntityAtTeleportDestination` | `overworld-runtime` | 2 | 1 | `teleport_destination_selector_byte` | read one teleport-destination selector byte and prepare a new entity at that destination | `byte-count-known` |
 | `C0:9FBB` | `ActionScript_FadeOutWrapper` | `presentation-render` | 2 | 2 | `fadeout_effect_word` | read one fade-out effect word and pass it to C0:887A | `byte-count-known` |
-| `C0:A838` | `` | `overworld-runtime` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:7A9E` | `LoadCurrentEntityIndexedWindowGfxToVram` | `text-presentation` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:A838` | `MarkCurrentSlotCollisionStateFFFF` | `collision` | 1 | 0 | `-` | mark the current slot collision/neighbor state with the #$FFFF sentinel | `byte-count-known` |
+| `C4:7A9E` | `LoadCurrentEntityIndexedWindowGfxToVram` | `text-presentation` | 1 | 0 | `-` | load the current entity's indexed window graphics variant into VRAM | `byte-count-known` |
 | `C4:800B` | `UndrawFlyoverTextAndRestoreWorldDisplay` | `world-state-restore` | 1 | 0 | `-` | restore world display state after flyover/text presentation | `byte-count-known` |
-| `C4:68B5` | `TestValueLeftOfCurrentAnchorX` | `presentation-render` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:68DC` | `TestValueAboveCurrentAnchorY` | `presentation-render` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C4:68B5` | `TestValueLeftOfCurrentAnchorX` | `presentation-render` | 1 | 0 | `-` | compare a staged value against the current anchor X and report whether it is left of the anchor | `byte-count-known` |
+| `C4:68DC` | `TestValueAboveCurrentAnchorY` | `presentation-render` | 1 | 0 | `-` | compare a staged value against the current anchor Y and report whether it is above the anchor | `byte-count-known` |
 | `EF:0CA7` | `CheckCurrentDeliveryRetryThreshold` | `timed-delivery` | 1 | 0 | `-` | increment current row retry counter and compare against delivery record word 2 | `byte-count-known` |
 | `EF:0D23` | `GetCurrentDeliveryRetryWait` | `timed-delivery` | 1 | 0 | `-` | return current delivery row retry-wait word 3 | `byte-count-known` |
-| `C2:FF9A` | `CheckOverworldPositionHashThreshold3Of8` | `battle-runtime` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:C19B` | `CopyPathToLane_FromPartyMemberRequest` | `overworld-runtime` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C2:FF9A` | `CheckOverworldPositionHashThreshold3Of8` | `battle-runtime` | 1 | 0 | `-` | test the overworld position hash against the 3-of-8 threshold used by encounter/battle gating | `byte-count-known` |
+| `C0:C19B` | `CopyPathToLane_FromPartyMemberRequest` | `overworld-runtime` | 1 | 0 | `-` | copy a party-member path request into the active movement lane | `byte-count-known` |
 | `EF:0FDB` | `BeginDeliverySuccessArrivalState` | `timed-delivery` | 1 | 0 | `-` | arm success-side delivery arrival state and presentation side effects | `byte-count-known` |
 | `EF:0D8D` | `QueueCurrentDeliveryPointer1` | `timed-delivery` | 1 | 0 | `-` | queue current delivery row pointer 1 as immediate queue type #$0008 | `byte-count-known` |
-| `C0:C251` | `CopyPathToLane_FromCurrentEntityRequestReverse` | `overworld-runtime` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:C251` | `CopyPathToLane_FromCurrentEntityRequestReverse` | `overworld-runtime` | 1 | 0 | `-` | copy the current entity path request into the active movement lane in reverse order | `byte-count-known` |
 | `EF:0E8A` | `GetCurrentDeliveryExitSpeed` | `timed-delivery` | 1 | 0 | `-` | return current delivery row exit-speed word 9 | `byte-count-known` |
 | `EF:0E67` | `GetCurrentDeliveryEnterSpeed` | `timed-delivery` | 1 | 0 | `-` | return current delivery row enter-speed word 8 | `byte-count-known` |
-| `C4:ECE7` | `IsEntityStillOnCastScreen` | `presentation-render` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:D15C` | `HasUsableOverlapNeighborContext` | `overworld-runtime` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:681A` | `QueueCurrentVisualTypeMovementScript` | `visual-profile` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:6914` | `GetCurrentVisualTypeRecordByte03` | `visual-profile` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:6957` | `UpdateCurrentSlotFrameSelector` | `visual-profile` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C4:ECE7` | `IsEntityStillOnCastScreen` | `presentation-render` | 1 | 0 | `-` | test whether the current entity remains on the cast-screen presentation viewport | `byte-count-known` |
+| `C0:D15C` | `HasUsableOverlapNeighborContext` | `neighbor-cache` | 1 | 0 | `-` | test whether the current overlap/neighbor context can drive a scripted movement decision | `byte-count-known` |
+| `C4:681A` | `QueueCurrentVisualTypeMovementScript` | `visual-profile` | 1 | 0 | `-` | queue the movement script associated with the current slot visual type | `byte-count-known` |
+| `C4:6914` | `GetCurrentVisualTypeRecordByte03` | `visual-profile` | 1 | 0 | `-` | return byte $03 from the current visual-type record | `byte-count-known` |
+| `C4:6957` | `UpdateCurrentSlotFrameSelector` | `visual-profile` | 1 | 0 | `-` | update the current slot frame selector from visual-type animation state | `byte-count-known` |
 | `C1:FFD3` | `ComputeBankC1ChecksumTail` | `intro-integrity` | 1 | 0 | `-` | bank-local checksum/integrity tail used by intro control flow | `byte-count-known` |
-| `C3:0100` | `DisplayAntiPiracyScreen` | `other` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:3DAA` | `Sync_CurrentSlotToPartyCharacterRecord` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:4EF0` | `Restore_CurrentSlotFromSnapshotRecord` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C3:0100` | `DisplayAntiPiracyScreen` | `other` | 1 | 0 | `-` | display the anti-piracy screen and terminate the script path | `byte-count-known` |
+| `C0:3DAA` | `Sync_CurrentSlotToPartyCharacterRecord` | `current-slot-state` | 1 | 0 | `-` | sync current slot position/state into the matching party character record | `byte-count-known` |
+| `C0:4EF0` | `Restore_CurrentSlotFromSnapshotRecord` | `current-slot-state` | 1 | 0 | `-` | restore the current slot position/state from its saved snapshot record | `byte-count-known` |
 | `C0:5E76` | `Update_CurrentSlotCollisionCache` | `collision` | 1 | 4 | `collision_probe_mode_byte, neighbor_cache_callback_long` | refresh current slot collision cache using one script mode byte and a long neighbor-cache callback pointer | `byte-count-known` |
 | `C0:A964` | `SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords` | `movement` | 1 | 4 | `radius_x_word, radius_y_word` | read X/Y radius words and build an area-bounds rectangle around the current slot | `byte-count-known` |
-| `C0:A6B8` | `GetCurrentSlotHasNoCachedNeighborFlag` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:5E82` | `Update_CurrentSlotCollisionCache_WithTerrainCompatibility` | `collision` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:5ECE` | `Update_CurrentSlotCollisionCache_FromHorizontalEdges` | `collision` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C0:D59B` | `Check_NpcAttentionCoordinatorActive` | `overworld-runtime` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:6B37` | `RotateDirectionOctantHalfTurn` | `movement` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C0:A6B8` | `GetCurrentSlotHasNoCachedNeighborFlag` | `neighbor-cache` | 1 | 0 | `-` | test whether the current slot has no cached neighbor/attention target | `byte-count-known` |
+| `C0:5E82` | `Update_CurrentSlotCollisionCache_WithTerrainCompatibility` | `collision` | 1 | 0 | `-` | refresh current slot collision cache using terrain-compatibility rules | `byte-count-known` |
+| `C0:5ECE` | `Update_CurrentSlotCollisionCache_FromHorizontalEdges` | `collision` | 1 | 0 | `-` | refresh current slot collision cache from horizontal edge probes | `byte-count-known` |
+| `C0:D59B` | `Check_NpcAttentionCoordinatorActive` | `overworld-runtime` | 1 | 0 | `-` | test whether the NPC-attention coordinator is still active for the current script actor | `byte-count-known` |
+| `C4:6B37` | `RotateDirectionOctantHalfTurn` | `movement` | 1 | 0 | `-` | rotate the current direction octant by a half turn | `byte-count-known` |
 | `C0:A8D1` | `StepCurrentSlotTowardCachedTarget_WithHalfTurnFacing` | `movement` | 1 | 0 | `-` | step current slot toward cached target, applying the C4:7143 half-turn facing postprocess | `byte-count-known` |
 | `C0:A857` | `ActionScript_SetOrClearEventFlag_ReadWordPreserveMode` | `event-flag` | 1 | 2 | `event_flag_word` | preserve incoming mode in X, read one script word, and call C2:165E | `byte-count-known` |
-| `C4:7333` | `ReadActiveOverworldRegistryCount` | `presentation-render` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
-| `C4:6C45` | `SnapshotCurrentSlotAnchorToStagedPosition` | `current-slot-state` | 1 | 0 | `-` | no inline argument bytes | `byte-count-known` |
+| `C4:7333` | `ReadActiveOverworldRegistryCount` | `overworld-runtime` | 1 | 0 | `-` | read the active overworld registry count used by landing/profile scripts | `byte-count-known` |
+| `C4:6C45` | `SnapshotCurrentSlotAnchorToStagedPosition` | `current-slot-state` | 1 | 0 | `-` | copy the current slot anchor position into the staged position fields used by movement callbacks | `byte-count-known` |
 | `C0:A94E` | `FaceVisualTypeSlotTowardCurrentSlot_ReadWord` | `presentation-render` | 1 | 2 | `visual_type_id_word` | read one visual-type id word, resolve that slot, and face it toward the current slot | `byte-count-known` |
 | `C0:A86F` | `Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord` | `current-slot-state` | 1 | 2 | `pose_descriptor_slot_word` | read one script word and copy that pose-descriptor slot anchor to current slot state | `byte-count-known` |
 | `C0:A651` | `Script_SetDirectionClassAndField1A86` | `movement` | 1 | 1 | `direction_class_byte` | read one direction/visual class byte, apply it when active, and store it to current slot field $1A86 | `byte-count-known` |
@@ -200,7 +200,7 @@ No syntactic decode frontiers at the current bounds.
 | `C0:A384` | `UpdatePosition_WhenNoNeighbor` | `movement` | 1 | per-frame no-neighbor position updater that integrates movement without the footprint refresh tail |
 | `C0:A26B` | `PhysicsCallback_TargetComparisonAndProjection` | `movement` | 1 | physics callback that compares current slot against active target context and falls back to camera projection |
 | `C0:4D78` | `Tick_Event2SnapshotObjectReconcile` | `overworld-runtime` | 1 | intro/event snapshot tick callback that reconciles object state against saved coordinates |
-| `C0:D7F7` | `Consume_CurrentSlotAttentionPath` | `current-slot-state` | 1 | no inline argument bytes |
+| `C0:D7F7` | `Consume_CurrentSlotAttentionPath` | `current-slot-state` | 1 | consume the current slot attention path into live movement target state |
 | `C0:A03A` | `ProjectWorldToScreen_FromCamera31AndHeight` | `presentation-render` | 1 | project current slot world coordinates through camera $31 and height state into screen coordinates |
 
 ## Full script inventory

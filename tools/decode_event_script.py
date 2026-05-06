@@ -416,10 +416,46 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "neighbor-cache",
         "contract": "write #$8000 sentinel to current slot neighbor cache $289E",
     },
+    "C0:A65F": {
+        "name": "SetCurrentSlotDirectionClassIfActive",
+        "group": "movement",
+        "contract": "copy the tempvar direction/class into the current slot when the slot is active",
+    },
+    "C0:A68B": {
+        "name": "StoreAInCurrentSlotField2B32",
+        "group": "current-slot-state",
+        "contract": "store the accumulator value into current slot movement/visual field $2B32",
+    },
+    "C0:A691": {
+        "name": "GetCurrentSlotField2B32",
+        "group": "current-slot-state",
+        "contract": "return current slot movement/visual field $2B32 for script-side tests",
+    },
+    "C0:A6B8": {
+        "name": "GetCurrentSlotHasNoCachedNeighborFlag",
+        "group": "neighbor-cache",
+        "contract": "test whether the current slot has no cached neighbor/attention target",
+    },
+    "C0:A6E3": {
+        "name": "WatchAndRefreshCompanionVisualPhase",
+        "group": "visual-profile",
+        "contract": "poll companion visual state and refresh the current slot phase while the watcher remains active",
+    },
+    "C0:A838": {
+        "name": "MarkCurrentSlotCollisionStateFFFF",
+        "group": "collision",
+        "contract": "mark the current slot collision/neighbor state with the #$FFFF sentinel",
+    },
     "C0:9451": {
         "name": "RestoreSavedCoordinateState",
         "group": "world-state-restore",
         "contract": "restore saved coordinate/world state after transitions or script presentation",
+    },
+    "C0:9F82": {
+        "name": "ChooseRandomScriptWord",
+        "group": "overworld-runtime",
+        "contract": "read an inline choice count followed by that many words, choose one at random, and leave it in the tempvar/result latch",
+        "args": "choice_count_byte, choice_words[]",
     },
     "C0:AA6E": {
         "name": "Script_ApplyCurrentSlotVisualCountdownState",
@@ -437,6 +473,16 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "battle-runtime",
         "contract": "battle-runtime sunstroke/special controller helper; C3 intro use remains unusual",
     },
+    "C2:FF9A": {
+        "name": "CheckOverworldPositionHashThreshold3Of8",
+        "group": "battle-runtime",
+        "contract": "test the overworld position hash against the 3-of-8 threshold used by encounter/battle gating",
+    },
+    "C3:0100": {
+        "name": "DisplayAntiPiracyScreen",
+        "group": "other",
+        "contract": "display the anti-piracy screen and terminate the script path",
+    },
     "C4:0015": {
         "name": "ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea",
         "group": "visual-profile",
@@ -447,15 +493,105 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "text-presentation",
         "contract": "set the yield-to-text latch used by event presentation handoff",
     },
+    "C4:0023": {
+        "name": "StoreLowNibble1a42ToCurrentScriptField1372",
+        "group": "presentation-render",
+        "contract": "copy the low nibble of display/script latch $1A42 into current script field $1372",
+    },
+    "C4:681A": {
+        "name": "QueueCurrentVisualTypeMovementScript",
+        "group": "visual-profile",
+        "contract": "queue the movement script associated with the current slot visual type",
+    },
+    "C4:68B5": {
+        "name": "TestValueLeftOfCurrentAnchorX",
+        "group": "presentation-render",
+        "contract": "compare a staged value against the current anchor X and report whether it is left of the anchor",
+    },
+    "C4:68DC": {
+        "name": "TestValueAboveCurrentAnchorY",
+        "group": "presentation-render",
+        "contract": "compare a staged value against the current anchor Y and report whether it is above the anchor",
+    },
+    "C4:6914": {
+        "name": "GetCurrentVisualTypeRecordByte03",
+        "group": "visual-profile",
+        "contract": "return byte $03 from the current visual-type record",
+    },
+    "C4:6957": {
+        "name": "UpdateCurrentSlotFrameSelector",
+        "group": "visual-profile",
+        "contract": "update the current slot frame selector from visual-type animation state",
+    },
+    "C4:6ADB": {
+        "name": "ComputeCurrentSlotTargetDirectionOctant",
+        "group": "movement",
+        "contract": "compute the direction octant from the current slot toward its cached target",
+    },
+    "C4:6B0A": {
+        "name": "RoundAngleToOctantAndCacheCurrentSlot",
+        "group": "movement",
+        "contract": "round the active angle to a direction octant and cache it on the current slot",
+    },
+    "C4:6B37": {
+        "name": "RotateDirectionOctantHalfTurn",
+        "group": "movement",
+        "contract": "rotate the current direction octant by a half turn",
+    },
+    "C4:6C45": {
+        "name": "SnapshotCurrentSlotAnchorToStagedPosition",
+        "group": "current-slot-state",
+        "contract": "copy the current slot anchor position into the staged position fields used by movement callbacks",
+    },
+    "C4:6C87": {
+        "name": "RestoreCurrentSlotAnchorFromCachedTarget",
+        "group": "current-slot-state",
+        "contract": "restore the current slot anchor from the cached target position fields",
+    },
     "C4:6E74": {
         "name": "CheckStagedPositionWithinPlayerProximityThreshold",
         "group": "proximity-gate",
         "contract": "test staged position against the player proximity threshold",
     },
+    "C4:6EF8": {
+        "name": "CheckCurrentSlotWithinPlayerProximityThreshold",
+        "group": "proximity-gate",
+        "contract": "test the current slot anchor against the player proximity threshold",
+    },
+    "C4:7044": {
+        "name": "ProjectAngleIntoCurrentSlotVectorWords",
+        "group": "movement",
+        "contract": "project the active angle into current-slot movement vector words",
+    },
+    "C4:7269": {
+        "name": "ClassifyCurrentSlotAgainstAreaBounds",
+        "group": "current-slot-state",
+        "contract": "classify the current slot against the active area-bounds rectangle and return the result in the tempvar",
+    },
+    "C4:7333": {
+        "name": "ReadActiveOverworldRegistryCount",
+        "group": "overworld-runtime",
+        "contract": "read the active overworld registry count used by landing/profile scripts",
+    },
+    "C4:7A9E": {
+        "name": "LoadCurrentEntityIndexedWindowGfxToVram",
+        "group": "text-presentation",
+        "contract": "load the current entity's indexed window graphics variant into VRAM",
+    },
+    "C4:7B77": {
+        "name": "LoadIndexedWindowGfxAndReadVariantByte",
+        "group": "text-presentation",
+        "contract": "load indexed window graphics and return the selected variant byte to the script",
+    },
     "C4:800B": {
         "name": "UndrawFlyoverTextAndRestoreWorldDisplay",
         "group": "world-state-restore",
         "contract": "restore world display state after flyover/text presentation",
+    },
+    "C4:ECE7": {
+        "name": "IsEntityStillOnCastScreen",
+        "group": "presentation-render",
+        "contract": "test whether the current entity remains on the cast-screen presentation viewport",
     },
     "C4:8B3B": {
         "name": "MakePartyLookAtActiveEntityCallback",
@@ -532,6 +668,91 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "name": "StepCurrentSlotTowardCachedTarget_NoFacingRefresh",
         "group": "movement",
         "contract": "step current slot toward cached target without refreshing the current slot facing selector, and report arrival",
+    },
+    "C0:20F1": {
+        "name": "ScriptRelease_CurrentEntityVisualState",
+        "group": "visual-profile",
+        "contract": "release the current entity/visual slot state at the end of a script-controlled actor sequence",
+    },
+    "C0:3DAA": {
+        "name": "Sync_CurrentSlotToPartyCharacterRecord",
+        "group": "current-slot-state",
+        "contract": "sync current slot position/state into the matching party character record",
+    },
+    "C0:4EF0": {
+        "name": "Restore_CurrentSlotFromSnapshotRecord",
+        "group": "current-slot-state",
+        "contract": "restore the current slot position/state from its saved snapshot record",
+    },
+    "C0:5E82": {
+        "name": "Update_CurrentSlotCollisionCache_WithTerrainCompatibility",
+        "group": "collision",
+        "contract": "refresh current slot collision cache using terrain-compatibility rules",
+    },
+    "C0:5ECE": {
+        "name": "Update_CurrentSlotCollisionCache_FromHorizontalEdges",
+        "group": "collision",
+        "contract": "refresh current slot collision cache from horizontal edge probes",
+    },
+    "C0:6478": {
+        "name": "Update_CurrentSlotNeighborCache_Priority",
+        "group": "neighbor-cache",
+        "contract": "refresh current slot neighbor-cache priority before attention/collision routing",
+    },
+    "C0:C19B": {
+        "name": "CopyPathToLane_FromPartyMemberRequest",
+        "group": "overworld-runtime",
+        "contract": "copy a party-member path request into the active movement lane",
+    },
+    "C0:C251": {
+        "name": "CopyPathToLane_FromCurrentEntityRequestReverse",
+        "group": "overworld-runtime",
+        "contract": "copy the current entity path request into the active movement lane in reverse order",
+    },
+    "C0:C6B6": {
+        "name": "CheckCurrentSlotInsideLiveAreaWindow",
+        "group": "proximity-gate",
+        "contract": "test whether the current slot is inside the live-area/window bounds used by event scripts",
+    },
+    "C0:C7DB": {
+        "name": "UpdateCurrentSlotFootprintMask",
+        "group": "collision",
+        "contract": "refresh the current slot footprint/collision mask after position or visual-state changes",
+    },
+    "C0:C83B": {
+        "name": "InstallScriptMovementVectorFromDirection",
+        "group": "movement",
+        "contract": "install current-slot movement vector words from the script direction and speed state",
+    },
+    "C0:CA4E": {
+        "name": "SetMovementTaskTimerFromActiveVector",
+        "group": "movement",
+        "contract": "derive the movement task timer from the active movement vector and cache it for script waits",
+    },
+    "C0:D15C": {
+        "name": "HasUsableOverlapNeighborContext",
+        "group": "neighbor-cache",
+        "contract": "test whether the current overlap/neighbor context can drive a scripted movement decision",
+    },
+    "C0:D59B": {
+        "name": "Check_NpcAttentionCoordinatorActive",
+        "group": "overworld-runtime",
+        "contract": "test whether the NPC-attention coordinator is still active for the current script actor",
+    },
+    "C0:D5B0": {
+        "name": "Gate_NpcAttentionCoordinatorFromScript",
+        "group": "overworld-runtime",
+        "contract": "start or advance the NPC-attention coordinator and return whether the script should keep waiting",
+    },
+    "C0:D7F7": {
+        "name": "Consume_CurrentSlotAttentionPath",
+        "group": "current-slot-state",
+        "contract": "consume the current slot attention path into live movement target state",
+    },
+    "C0:D98F": {
+        "name": "Export_CurrentSlotAttentionTarget",
+        "group": "current-slot-state",
+        "contract": "export the current slot attention target into the script-visible cached target fields",
     },
     "C0:A907": {
         "name": "ActionScript_PrepareNewEntityAtTeleportDestination",
