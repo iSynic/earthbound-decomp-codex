@@ -5289,59 +5289,68 @@ db $15,$36,$92,$17,$14,$15,$03,$14,$02
 
 EF7A66_EBattle8MsgBtlLevelUp:
 
-; Original data gap before EF7A7D_EBattle8MsgBtlLevelOffenseUp:
+; Original data gap before EF7A7D_EBattle8MsgBtlLevelOffenseUpActionAmount:
 db $01,$70,$1C,$0E,$15,$39,$9C,$95,$A6,$95,$9C,$16,$00,$00,$50,$16
 db $8E,$50,$1C,$0F,$51,$14,$02
 
-EF7A7D_EBattle8MsgBtlLevelOffenseUp:
+; EBATTLE8: level-up offense gain amount text; consumes C1:AD0A/1C 0F.
+EF7A7D_EBattle8MsgBtlLevelOffenseUpActionAmount:
 
-; Original data gap before EF7A97_EBattle8MsgBtlLevelDefenseUp:
+; Original data gap before EF7A97_EBattle8MsgBtlLevelDefenseUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$7F,$96,$96,$95,$9E,$16,$C2,$A7,$16
 db $32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7A97_EBattle8MsgBtlLevelDefenseUp:
+; EBATTLE8: level-up defense gain amount text; consumes C1:AD0A/1C 0F.
+EF7A97_EBattle8MsgBtlLevelDefenseUpActionAmount:
 
-; Original data gap before EF7AB1_EBattle8MsgBtlLevelSpeedUp:
+; Original data gap before EF7AB1_EBattle8MsgBtlLevelSpeedUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$74,$95,$96,$95,$9E,$16,$C2,$A7,$16
 db $32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7AB1_EBattle8MsgBtlLevelSpeedUp:
+; EBATTLE8: level-up speed gain amount text; consumes C1:AD0A/1C 0F.
+EF7AB1_EBattle8MsgBtlLevelSpeedUpActionAmount:
 
-; Original data gap before EF7AC9_EBattle8MsgBtlLevelGutsUp:
+; Original data gap before EF7AC9_EBattle8MsgBtlLevelGutsUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$83,$A0,$95,$15,$57,$A7,$16,$32,$A5
 db $A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7AC9_EBattle8MsgBtlLevelGutsUp:
+; EBATTLE8: level-up guts gain amount text; consumes C1:AD0A/1C 0F.
+EF7AC9_EBattle8MsgBtlLevelGutsUpActionAmount:
 
-; Original data gap before EF7AE0_EBattle8MsgBtlLevelVitalityUp:
+; Original data gap before EF7AE0_EBattle8MsgBtlLevelVitalityUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$77,$A5,$17,$DA,$A7,$16,$32,$A5,$A0
 db $15,$F5,$1C,$0F,$51,$14,$02
 
-EF7AE0_EBattle8MsgBtlLevelVitalityUp:
+; EBATTLE8: level-up vitality gain amount text; consumes C1:AD0A/1C 0F.
+EF7AE0_EBattle8MsgBtlLevelVitalityUpActionAmount:
 
-; Original data gap before EF7AFB_EBattle8MsgBtlLevelIqUp:
+; Original data gap before EF7AFB_EBattle8MsgBtlLevelIqUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$86,$99,$A4,$91,$9C,$17,$C5,$50,$A7
 db $16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7AFB_EBattle8MsgBtlLevelIqUp:
+; EBATTLE8: level-up IQ gain amount text; consumes C1:AD0A/1C 0F.
+EF7AFB_EBattle8MsgBtlLevelIqUpActionAmount:
 
-; Original data gap before EF7B11_EBattle8MsgBtlLevelLuckUp:
+; Original data gap before EF7B11_EBattle8MsgBtlLevelLuckUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$79,$81,$50,$A7,$16,$32,$A5,$A0,$15
 db $F5,$1C,$0F,$51,$14,$02
 
-EF7B11_EBattle8MsgBtlLevelLuckUp:
+; EBATTLE8: level-up luck gain amount text; consumes C1:AD0A/1C 0F.
+EF7B11_EBattle8MsgBtlLevelLuckUpActionAmount:
 
-; Original data gap before EF7B28_EBattle8MsgBtlLevelMaxHpUp:
+; Original data gap before EF7B28_EBattle8MsgBtlLevelMaxHpUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$7C,$17,$D0,$50,$A7,$16,$32,$A5,$A0
 db $15,$F5,$1C,$0F,$51,$14,$02
 
-EF7B28_EBattle8MsgBtlLevelMaxHpUp:
+; EBATTLE8: level-up maximum HP gain amount text; consumes C1:AD0A/1C 0F.
+EF7B28_EBattle8MsgBtlLevelMaxHpUpActionAmount:
 
-; Original data gap before EF7B46_EBattle8MsgBtlLevelMaxPpUp:
+; Original data gap before EF7B46_EBattle8MsgBtlLevelMaxPpUpActionAmount:
 db $01,$70,$08,$83,$7B,$EF,$00,$7D,$91,$A8,$99,$9D,$A5,$9D,$50,$78
 db $80,$50,$A7,$16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7B46_EBattle8MsgBtlLevelMaxPpUp:
+; EBATTLE8: level-up maximum PP gain amount text; consumes C1:AD0A/1C 0F.
+EF7B46_EBattle8MsgBtlLevelMaxPpUpActionAmount:
 
 ; Original data gap before EF7B64_EBattle8MsgBtlLearnPsi:
 db $01,$70,$08,$A0,$7B,$EF,$00,$7D,$91,$A8,$99,$9D,$A5,$9D,$50,$80

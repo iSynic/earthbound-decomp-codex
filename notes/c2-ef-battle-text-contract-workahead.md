@@ -220,6 +220,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
 - 2026-05-06: EF amount-result suffix follow-up renamed the `EF:7755..77DB`
   PP-loss and periodic-damage result anchors with `ActionAmount` suffixes,
   matching their `C1:DC66 -> 1C 0F` payload consumption.
+- 2026-05-06: EF level-up amount suffix follow-up applied the same
+  `ActionAmount` naming contract to `EF:7A7D..7B46`, while documenting that
+  these are C1 level-up narration consumers staged through `C1:AD0A`, not C2
+  action-row messages.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

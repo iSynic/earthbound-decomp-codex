@@ -251,3 +251,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-06: EF amount-result suffix follow-up renamed `EF:7755..77DB`
   PP-loss and periodic damage anchors as `ActionAmount` scripts so their
   `DC66`/`1C 0F` payload contract is visible in source.
+- 2026-05-06: EF level-up amount suffix follow-up renamed `EF:7A7D..7B46`
+  stat-gain anchors as `ActionAmount` scripts and clarified that C1 level-up
+  leaves stage their deltas through `C1:AD0A` before `1C 0F`.

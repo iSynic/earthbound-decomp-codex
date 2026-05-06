@@ -17,7 +17,7 @@ Primary companions:
 | --- | --- | --- | --- | --- |
 | Row presentation | `C1:DD9F` | `C2:5C66` | `D5:7B68` row `+4` | Optional script-local commands such as PSI byte substitution |
 | Direct result | `C1:DC1C` | C2 behavior bodies | Hardcoded EF/C8/C9 pointer staged in `$0E/$10` | None beyond ordinary text context |
-| Amount result | `C1:DC66` | C2 behavior bodies | Hardcoded EF/C8/C9 pointer staged in `$0E/$10` | Secondary payload staged through `$9D12/$9D14`, commonly consumed by `PRINT_ACTION_AMOUNT (1C 0F)` |
+| Amount result | `C1:DC66` or direct C1 staging | C2 behavior bodies or C1 level-up leaves | Hardcoded EF/C8/C9 pointer staged in `$0E/$10`, or fixed EF level-up pointer | Secondary payload staged through `$9D12/$9D14`, commonly consumed by `PRINT_ACTION_AMOUNT (1C 0F)` |
 | Byte substitution | `C1:DD7C` then display | C2 setup/body code | Later `DC1C`/`DD9F` display target | `$9D11`, consumed by `LOAD_BYTE_SUBSTITUTION (19 1F)` |
 | Pointer substitution | Usually `C1:DC66` setup | C2 setup/body code | Later display target | `$9D12/$9D14`, consumed by `LOAD_POINTER_SUBSTITUTION (19 1E)` |
 
@@ -70,9 +70,11 @@ island remains an exact `MSG_BTL_*` anchor.
 
 ## Amount And Substitution Lanes
 
-`C1:DC66` stages a primary text pointer plus a secondary payload. EF anchors
-that consume this payload should keep the `ActionAmount` suffix when the script
-uses `PRINT_ACTION_AMOUNT (1C 0F)`.
+`C1:DC66` stages a primary text pointer plus a secondary payload. C1 level-up
+leaves can also stage the same `$9D12/$9D14` amount slot through `C1:AD0A`
+before dispatching a fixed EF script. EF anchors that consume this payload
+should keep the `ActionAmount` suffix when the script uses
+`PRINT_ACTION_AMOUNT (1C 0F)`.
 
 Examples:
 
@@ -82,6 +84,9 @@ Examples:
 - EF periodic damage and PP-loss scripts such as `EF:7755`, `EF:7768`,
   `EF:7787`, `EF:77B1`, and `EF:77DB` are `ActionAmount` result scripts when
   emitted through `DC66`.
+- EF level-up stat-gain scripts `EF:7A7D..7B46` are also `ActionAmount`
+  consumers, but they are C1 level-up narration scripts rather than C2
+  row-message or result emissions.
 - C8 amount scripts used by numeric-effect C2 bodies are result lanes, not EF
   row-message anchors.
 

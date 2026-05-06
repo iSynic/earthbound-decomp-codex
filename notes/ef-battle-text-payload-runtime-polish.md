@@ -26,10 +26,12 @@ callers.
 The EF source comments now separate the three battle-text payload lanes that
 C1/C2 callers depend on:
 
-- `ActionAmount` anchors are EF scripts that consume the `C1:DC66` secondary
-  payload through `C1:AD0A -> $9D12/$9D14 -> PRINT_ACTION_AMOUNT (1C 0F)`.
-  The C2 side should keep the staged value type explicit, such as delta HP,
-  delta PP, offense, defense, drained HP, or drained PP.
+- `ActionAmount` anchors are EF scripts that consume a staged `$9D12/$9D14`
+  amount payload through `PRINT_ACTION_AMOUNT (1C 0F)`. C2 action/result paths
+  usually stage that payload through `C1:DC66 -> C1:AD0A`; C1 level-up
+  narration stages the same slot through `C1:AD0A` before dispatching its fixed
+  EF scripts. Callers should keep the staged value type explicit, such as delta
+  HP, delta PP, offense, defense, drained HP, drained PP, or stat gain.
 - `ByteSubstitution` anchors are EF scripts that consume the `C1:DD7C` byte
   slot through `LOAD_BYTE_SUBSTITUTION (19 1F)`, including learned-PSI and
   Present/Check Present item-name text.
@@ -121,7 +123,9 @@ macros.
 - `EF:79D7..7A66` now splits ordinary/boss/forced player victory,
   monster-victory, homesick, and experience-gain text.
 - `EF:7A66..7B64` now splits the level-up and stat-gain amount text consumed
-  by the C1 level-up stat narration family.
+  by the C1 level-up stat narration family. The stat-gain anchors are now
+  named as `ActionAmount` consumers because C1 stages their deltas through
+  `C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
 - `EF:7B64` now marks the learned-PSI lead-in that falls through to the
   existing `EF:7B77` PSI-name byte-substitution text.
 - `EF:7B77`, `EF:7B85`, `EF:7BA2`, `EF:7BC1`, `EF:7BDF`, and `EF:7DD5` now
@@ -383,6 +387,11 @@ the shared no-effect fallback.
 The EBATTLE4 result tail now applies the same suffix contract to the PP-loss
 and periodic damage island: `EF:7755`, `EF:7768`, `EF:7787`, `EF:77B1`, and
 `EF:77DB` are `ActionAmount` result scripts, not row-message anchors.
+
+The EBATTLE8 level-up gain island now also carries `ActionAmount` suffixes for
+`EF:7A7D..7B46`. These are C1 level-up narration consumers rather than C2
+action-row result emissions, but they read the same staged amount slot through
+`1C 0F`.
 
 The EF source now also carries negative guardrails at the most tempting
 behavior-only anchors: Lifeup explanation text `EF:5173..51BB`,

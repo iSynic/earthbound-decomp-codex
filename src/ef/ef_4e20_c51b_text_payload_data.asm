@@ -17,8 +17,8 @@
 ; runtime joins and exact listing-visible payload boundaries.
 ;
 ; Naming convention for C1/C2 battle-text consumers:
-; - ActionAmount anchors consume the C1:DC66 secondary payload through
-;   C1:AD0A -> $9D12/$9D14 -> PRINT_ACTION_AMOUNT (1C 0F).
+; - ActionAmount anchors consume a staged $9D12/$9D14 amount payload through
+;   PRINT_ACTION_AMOUNT (1C 0F), usually staged by C1:DC66 or C1:AD0A.
 ; - ByteSubstitution anchors consume the C1:DD7C byte slot through
 ;   LOAD_BYTE_SUBSTITUTION (19 1F).
 ; - PointerSubstitution anchors consume the staged pointer payload through
@@ -1679,56 +1679,65 @@ EF7A66_EBattle8MsgBtlLevelUp:
 ; ---------------------------------------------------------------------------
 ; EF:7A7D
 
-; EBATTLE8: level-up offense gain amount text.
-EF7A7D_EBattle8MsgBtlLevelOffenseUp:
+; EBATTLE8: level-up offense gain text; C1 stages the delta through
+; C1:AD0A/$9D12/$9D14 before 1C 0F.
+EF7A7D_EBattle8MsgBtlLevelOffenseUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A97
 
-; EBATTLE8: level-up defense gain amount text.
-EF7A97_EBattle8MsgBtlLevelDefenseUp:
+; EBATTLE8: level-up defense gain text; C1 stages the delta through
+; C1:AD0A/$9D12/$9D14 before 1C 0F.
+EF7A97_EBattle8MsgBtlLevelDefenseUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AB1
 
-; EBATTLE8: level-up speed gain amount text.
-EF7AB1_EBattle8MsgBtlLevelSpeedUp:
+; EBATTLE8: level-up speed gain text; C1 stages the delta through
+; C1:AD0A/$9D12/$9D14 before 1C 0F.
+EF7AB1_EBattle8MsgBtlLevelSpeedUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AC9
 
-; EBATTLE8: level-up guts gain amount text.
-EF7AC9_EBattle8MsgBtlLevelGutsUp:
+; EBATTLE8: level-up guts gain text; C1 stages the delta through
+; C1:AD0A/$9D12/$9D14 before 1C 0F.
+EF7AC9_EBattle8MsgBtlLevelGutsUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AE0
 
-; EBATTLE8: level-up vitality gain amount text.
-EF7AE0_EBattle8MsgBtlLevelVitalityUp:
+; EBATTLE8: level-up vitality gain text; C1 stages the delta through
+; C1:AD0A/$9D12/$9D14 before 1C 0F.
+EF7AE0_EBattle8MsgBtlLevelVitalityUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AFB
 
-; EBATTLE8: level-up IQ gain amount text.
-EF7AFB_EBattle8MsgBtlLevelIqUp:
+; EBATTLE8: level-up IQ gain text; C1 stages the delta through
+; C1:AD0A/$9D12/$9D14 before 1C 0F.
+EF7AFB_EBattle8MsgBtlLevelIqUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B11
 
-; EBATTLE8: level-up luck gain amount text.
-EF7B11_EBattle8MsgBtlLevelLuckUp:
+; EBATTLE8: level-up luck gain text; C1 stages the delta through
+; C1:AD0A/$9D12/$9D14 before 1C 0F.
+EF7B11_EBattle8MsgBtlLevelLuckUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B28
 
-; EBATTLE8: level-up maximum HP gain amount text.
-EF7B28_EBattle8MsgBtlLevelMaxHpUp:
+; EBATTLE8: level-up maximum HP gain text; C1 stages the delta through
+; C1:AD0A/$9D12/$9D14 before 1C 0F.
+EF7B28_EBattle8MsgBtlLevelMaxHpUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B46
 
-; EBATTLE8: level-up maximum PP gain amount text.
-EF7B46_EBattle8MsgBtlLevelMaxPpUp:
+; EBATTLE8: level-up maximum PP gain text; C1 stages the delta through
+; C1:AD0A/$9D12/$9D14 before 1C 0F.
+EF7B46_EBattle8MsgBtlLevelMaxPpUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B64
