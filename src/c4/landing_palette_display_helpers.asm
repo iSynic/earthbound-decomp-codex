@@ -32,6 +32,7 @@ C491EE_ComputeSignedComponentStep             = $91EE
 ; WRAM / data contracts
 
 CGRAM_SHADOW_BUFFER                           = $0200
+CGRAM_SHADOW_COPY_BYTES                       = $0200
 SAVED_CGRAM_SHADOW_BUFFER                     = $4476
 LANDING_PALETTE_WORK_BASE                     = $0000
 LANDING_PALETTE_WORK_BANK                     = $007F
@@ -441,6 +442,7 @@ C496F0_InitLandingPalettePlanesFrom4476:
 
 ; Mirrors the live $0200 CGRAM shadow into the $7F:0000 landing palette work
 ; block. This is a staging/backup copy; visible upload is queued separately.
+; The $0200 address and $0200 byte count are intentionally named separately.
 C496F9_MirrorCgramShadow0200To7f0000:
     rep #$31
     phd
@@ -473,7 +475,7 @@ C496F9_MirrorCgramShadow0200To7f0000:
     sta $12
     lda $08
     sta $14
-    lda #CGRAM_SHADOW_BUFFER
+    lda #CGRAM_SHADOW_COPY_BYTES
     jsl C08EED_CopyBlockFromDpSourceToDpDest
     pld
     rtl
@@ -515,7 +517,7 @@ C49740_ExportLandingPaletteAndQueueCgramUpload:
     sta $12
     lda #LANDING_PALETTE_WORK_BANK
     sta $14
-    lda #CGRAM_SHADOW_BUFFER
+    lda #CGRAM_SHADOW_COPY_BYTES
     jsl C08EED_CopyBlockFromDpSourceToDpDest
     lda #LANDING_CGRAM_UPLOAD_SELECTOR
     jsl C0856B_WriteAtoDisplaySelector30
@@ -526,7 +528,8 @@ C49740_ExportLandingPaletteAndQueueCgramUpload:
 ; C4:978E
 
 ; Copies the live $0200 CGRAM shadow into the saved $4476 palette shadow through
-; the C0 dynamic block-copy helper.
+; the C0 dynamic block-copy helper. C4 supplies source, destination, and the
+; $0200-byte copy size; C0 owns the copy/queue semantics.
 C4978E_CopyCgramShadow0200To4476:
     rep #$31
     phd
@@ -547,7 +550,7 @@ C4978E_CopyCgramShadow0200To4476:
     sta $0E
     lda $08
     sta $10
-    ldx #CGRAM_SHADOW_BUFFER
+    ldx #CGRAM_SHADOW_COPY_BYTES
     lda #SAVED_CGRAM_SHADOW_BUFFER
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     pld
@@ -558,7 +561,8 @@ C4978E_CopyCgramShadow0200To4476:
 
 ; Builds a scaled target palette in $7F:0000, initializes the $0200-based
 ; interpolation planes, optionally steps them for caller A frames, then exports
-; $7F:0000 back to $0200 and queues the #$18 CGRAM upload selector.
+; $7F:0000 back to $0200. Count #$0001 is the no-step/immediate export case.
+; This wrapper writes selector #$18 after C49740 has already done the same.
 C497C0_RunLandingPaletteFadeToScaledBlock:
     rep #$31
     phd

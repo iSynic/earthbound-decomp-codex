@@ -2416,6 +2416,7 @@ org $C49496
 !C426ED_StepPaletteComponentInterpolation = $C426ED
 !C491EE_ComputeSignedComponentStep = $91EE
 !CGRAM_SHADOW_BUFFER = $0200
+!CGRAM_SHADOW_COPY_BYTES = $0200
 !SAVED_CGRAM_SHADOW_BUFFER = $4476
 !LANDING_PALETTE_WORK_BASE = $0000
 !LANDING_PALETTE_WORK_BANK = $007F
@@ -2805,7 +2806,7 @@ C496F9_MirrorCgramShadow0200To7f0000:
     sta $12
     lda $08
     sta $14
-    lda #!CGRAM_SHADOW_BUFFER
+    lda #!CGRAM_SHADOW_COPY_BYTES
     jsl !C08EED_CopyBlockFromDpSourceToDpDest
     pld
     rtl
@@ -2841,7 +2842,7 @@ C49740_ExportLandingPaletteAndQueueCgramUpload:
     sta $12
     lda #!LANDING_PALETTE_WORK_BANK
     sta $14
-    lda #!CGRAM_SHADOW_BUFFER
+    lda #!CGRAM_SHADOW_COPY_BYTES
     jsl !C08EED_CopyBlockFromDpSourceToDpDest
     lda #!LANDING_CGRAM_UPLOAD_SELECTOR
     jsl !C0856B_WriteAtoDisplaySelector30
@@ -2867,7 +2868,7 @@ C4978E_CopyCgramShadow0200To4476:
     sta $0E
     lda $08
     sta $10
-    ldx #!CGRAM_SHADOW_BUFFER
+    ldx #!CGRAM_SHADOW_COPY_BYTES
     lda #!SAVED_CGRAM_SHADOW_BUFFER
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     pld

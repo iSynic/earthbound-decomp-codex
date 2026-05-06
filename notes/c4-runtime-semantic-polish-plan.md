@@ -308,6 +308,12 @@ closure.
   and tilemap builders still treated as external callees. See
   `notes/landing-palette-interpolation-export-c4958e-c426ed.md` and
   `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-06 landing palette copy-size follow-up: split the `$0200`
+  CGRAM-shadow address from the `$0200` copy byte count in the C4 source,
+  corrected the palette note's old mirror-direction wording for `C4:9740`, and
+  documented the fade driver's count-`1` immediate-export case plus duplicate
+  selector `#$18` write. C0 display-selector behavior remains callee-owned.
+  See `notes/landing-palette-interpolation-export-c4958e-c426ed.md`.
 - 2026-05-06 gas-station intro visual follow-up: tightened side-effect comments
   for the CA:F038 selector, CA:D7A1/CA:D93D asset pointer-table walks,
   `$7F:0000` decompression staging, `$6000/$7C00` VRAM queue arguments,

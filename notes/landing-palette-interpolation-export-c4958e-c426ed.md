@@ -22,9 +22,11 @@ The current safest layered model is:
   - adds the deltas into the current values
   - saturates each component to the `0..31` range
   - repacks the three 5-bit channels into one 15-bit color word at `7E:0200`
+- `C4:96F9`
+  - mirrors the live `7E:0200` CGRAM shadow into C4-owned `$7F:0000` staging
 - `C4:9740`
-  - first mirrors that `7E:0200` export block out to `7F:0000` through `C08EED`
-  - no convincing landing-local readers of that `7F:0000` mirror are currently pinned in banks `C0` or `C4`
+  - copies the `$7F:0000` staging block back to the live `7E:0200` CGRAM shadow through `C08EED`
+  - writes selector `#$18` through the C0 display-selector helper
 - landing-local callers such as `C4:F20E`
   - arm `$0030 = #$18`, which the NMI-side handler at `C0:81C8` resolves through `DATA_C08F98` into a direct `CGRAM` DMA descriptor
   - for selector `#$18`, that descriptor uploads `size = 0x0200` from CPU address `$0200` to `CGRAM` address `0`
@@ -70,6 +72,12 @@ Source polish: `src/c4/landing_palette_display_helpers.asm` now names the
 selector bit that chooses the existing `$7F:0000` work word versus the source
 template word, along with the high-channel fixed-point normalization
 denominator and repack byte masks.
+
+2026-05-06 source contract follow-up: the source now splits the `$0200` CGRAM
+shadow address from the `$0200` copy byte count, so `C4:96F9`, `C4:9740`, and
+`C4:978E` no longer reuse an address name for C0 copy sizes. The fade driver
+comment also records the count-`1` immediate-export case and the duplicate
+selector `#$18` write after `C4:9740`; C0 still owns the selector behavior.
 
 I am still keeping the human-facing channel names slightly cautious, but the packed `BBBBBGGGGGRRRRR` style layout makes `low / middle / high` line up naturally with red / green / blue order.
 

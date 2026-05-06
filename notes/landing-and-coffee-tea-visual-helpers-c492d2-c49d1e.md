@@ -83,6 +83,12 @@ now similarly mark `C4:92D2` as the `$7F:7900..7E00 -> $0240` frame stepper and
 visible CGRAM upload claim remains limited to the `$0200` shadow plus selector
 `#$18`; the `$7F:0000` copy is still treated as C4 staging/backup work.
 
+2026-05-06 landing palette copy-size follow-up: the same source now gives the
+`$0200` CGRAM-shadow address and `$0200` copy byte count separate names in the
+mirror/export helpers. The fade driver comment also documents the count-`1`
+immediate-export case and the duplicate selector `#$18` write after `C4:9740`,
+leaving the C0 display-selector semantics callee-owned.
+
 2026-05-06 landing profile source follow-up: the adjacent
 `nearby_truffle_and_landing_profile_interpolation_helpers.asm` source now names
 the local landing-plane builder and stepper loop labels, marks
