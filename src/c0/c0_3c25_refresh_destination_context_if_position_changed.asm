@@ -11,7 +11,15 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08756_WaitOneFrameAndPollInput = $C08756
+C068F4_RefreshCurrentPositionTransitionContext = $C068F4
+C069AF_ApplyCurrentPositionMusicAndSfx         = $C069AF
+C08756_WaitOneFrameAndPollInput                = $C08756
+
+CurrentPlayerX                         = $9877
+CurrentPlayerY                         = $987B
+CurrentMapMusicTrack                   = $5DD6
+LatchedMapMusicTrackMirror             = $5DD4
+SuppressMusicChangeCueDuringRefresh    = $5DDA
 
 ; ---------------------------------------------------------------------------
 ; C0:3C25
@@ -19,15 +27,15 @@ C08756_WaitOneFrameAndPollInput = $C08756
 C03C25_Refresh_DestinationContextIfPositionChanged:
     rep #$31
     lda.w #$0001
-    sta $5DDA
-    ldx $987B
-    lda $9877
-    jsl $C068F4
-    lda $5DD6
-    cmp $5DD4
+    sta SuppressMusicChangeCueDuringRefresh
+    ldx CurrentPlayerY
+    lda CurrentPlayerX
+    jsl C068F4_RefreshCurrentPositionTransitionContext
+    lda CurrentMapMusicTrack
+    cmp LatchedMapMusicTrackMirror
     beq C03C47_Refresh_DestinationContextIfPositionChanged_L3C47
     jsl C08756_WaitOneFrameAndPollInput
-    jsl $C069AF
+    jsl C069AF_ApplyCurrentPositionMusicAndSfx
 C03C47_Refresh_DestinationContextIfPositionChanged_L3C47:
-    stz $5DDA
+    stz SuppressMusicChangeCueDuringRefresh
     rts

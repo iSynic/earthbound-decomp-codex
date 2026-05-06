@@ -11,17 +11,20 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+ApuIo1CommandPort       = $002141
+ApuPort1ToggleState     = $1ACB
+ApuCommandToggleBit     = $80
 
 ; ---------------------------------------------------------------------------
 ; C0:AC0C
 
 C0AC0C_ToggleAndSendApuPort1Command:
+    ; APUIO1 commands carry the low command bits ORed with a toggling $80 bit.
     sep #$20
-    ora $1ACB
-    sta $002141
-    lda.b #$80
-    eor $1ACB
-    sta $1ACB
+    ora ApuPort1ToggleState
+    sta ApuIo1CommandPort
+    lda.b #ApuCommandToggleBit
+    eor ApuPort1ToggleState
+    sta ApuPort1ToggleState
     rep #$30
     rtl

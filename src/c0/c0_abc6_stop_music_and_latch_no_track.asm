@@ -11,21 +11,28 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C0AC20_ReadApuPort0Byte = $C0AC20
+
+ApuIo0CommandPort      = $002140
+StopMusicCommand       = $00
+CurrentMusicTrack      = $B53B
+NoCurrentMusicTrack    = $FFFF
 
 ; ---------------------------------------------------------------------------
 ; C0:ABC6
 
 STOP_MUSIC:
 C0ABC6_StopMusicAndLatchNoTrack = STOP_MUSIC
+    ; Send command 0, wait for APUIO0 to acknowledge 0, then invalidate the
+    ; C4 ChangeMusic current-track latch.
     sep #$20
-    lda.b #$00
-    sta.l $002140
+    lda.b #StopMusicCommand
+    sta.l ApuIo0CommandPort
     rep #$30
 C0ABD0_StopMusicAndLatchNoTrack_LABD0:
-    jsl $C0AC20
-    cmp.w #$0000
+    jsl C0AC20_ReadApuPort0Byte
+    cmp.w #StopMusicCommand
     bne C0ABD0_StopMusicAndLatchNoTrack_LABD0
-    lda.w #$FFFF
-    sta $B53B
+    lda.w #NoCurrentMusicTrack
+    sta CurrentMusicTrack
     rtl

@@ -11,32 +11,41 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+SoundEffectQueueIndex       = $00CA
+SoundEffectQueueBase        = $1AC2
+SoundEffectQueueToggleState = $1ACA
+ApuIo3CuePort               = $002143
+
+SoundEffectQueueMask        = $07
+ApuCommandToggleBit         = $80
+ApuPort3DefaultCue          = $57
 
 ; ---------------------------------------------------------------------------
 ; C0:ABE0
 
 PLAY_SOUND:
 C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = PLAY_SOUND
+    ; Nonzero A queues a sound effect in the small toggled ring buffer. A == 0
+    ; sends the fixed APUIO3 cue used by ChangeMusic before most track changes.
     sep #$30
     cmp.b #$00
     beq PLAY_SOUND_UNKNOWN0
-    ldx $00CA
-    ora $1ACA
-    sta $1AC2,X
+    ldx SoundEffectQueueIndex
+    ora SoundEffectQueueToggleState
+    sta SoundEffectQueueBase,X
     txa
     inc A
-    and.b #$07
-    sta $00CA
-    lda.b #$80
-    eor $1ACA
-    sta $1ACA
+    and.b #SoundEffectQueueMask
+    sta SoundEffectQueueIndex
+    lda.b #ApuCommandToggleBit
+    eor SoundEffectQueueToggleState
+    sta SoundEffectQueueToggleState
     rep #$30
     rtl
 PLAY_SOUND_UNKNOWN0:
 C0AC01_QueueSoundEffectOrPlayApuPort3Cue_LAC01 = PLAY_SOUND_UNKNOWN0
     sep #$20
-    lda.b #$57
-    sta $002143
+    lda.b #ApuPort3DefaultCue
+    sta ApuIo3CuePort
     rep #$30
     rtl

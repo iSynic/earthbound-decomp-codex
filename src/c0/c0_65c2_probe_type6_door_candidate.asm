@@ -22,7 +22,7 @@ C0915B_DivideUnsignedWordByY                  = $C0915B
 C0943C_SaveCurrentCoordinateState             = $C0943C
 C09451_RestoreSavedCoordinateState            = $C09451
 C09466_RefreshActiveEntitySpriteState         = $C09466
-C0AC0C_QueuePresentationSfxOrCounter          = $C0AC0C
+C0AC0C_ToggleAndSendApuPort1Command           = $C0AC0C
 C21628_CheckEventFlag                         = $C21628
 C2EAAA_FinishBattleSwirlOverlay               = $C2EAAA
 C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
@@ -30,7 +30,23 @@ C4954C_SeedPaletteFadeWorkBuffer              = $C4954C
 C496E7_StartPaletteFadeFromWorkBuffer         = $C496E7
 C49740_FinishPaletteFadeWorkBuffer            = $C49740
 C4A7B0_StepBattleOverlayScriptState           = $C4A7B0
-C4FBBD_PlaySoundStoneMelody                   = $C4FBBD
+C4FBBD_ChangeMusic                            = $C4FBBD
+
+DoorDestinationEventFlagWordOffset            = $0000
+DoorDestinationMusicTrackOffset               = $0002
+DoorDestinationScreenTransitionSfxOffset      = $0003
+DoorDestinationEntryStride                    = $0004
+DoorDestinationPointerTable                   = $CF58EF
+DoorDestinationSectorTable                    = $DCD637
+DoorDestinationTableBaseLo                    = $1400
+DoorDestinationTableBaseBank                  = $00D0
+DoorDestinationPointerBank                    = $00CF
+CurrentMapMusicTrack                          = $5DD6
+LatchedMapMusicTrackMirror                    = $5DD4
+CurrentDoorDestinationPointerLo               = $5E38
+CurrentDoorDestinationPointerBank             = $5E3A
+SuppressMusicChangeCueDuringRefresh           = $5DDA
+ScreenTransitionSfxCue                        = $0002
 ; Entry at C0:65C2 is the front-interaction fallback for movement-trigger type
 ; `#$06`: probe nearby trigger cells through C0:7477, cache the CF destination
 ; pointer in `$5DDE/$5DE0`, copy side byte to `$5DDC`, and set `$5D62=#$FFFE`.
@@ -134,9 +150,9 @@ C06660_Probe_Type6DoorCandidate_L6660:
     txy
     sty $1F
     sta $1D
-    lda.w #$1400
+    lda.w #DoorDestinationTableBaseLo
     sta $06
-    lda.w #$00D0
+    lda.w #DoorDestinationTableBaseBank
     sta $08
     lda $1D
     sta $04
@@ -393,6 +409,8 @@ C068A3_Probe_Type6DoorCandidate_L68A3:
     stz $5DA8
     pld
     rtl
+
+C068AF_GetScreenTransitionSoundEffect:
     rep #$31
     phd
     pha
@@ -401,9 +419,9 @@ C068A3_Probe_Type6DoorCandidate_L68A3:
     tcd
     pla
     sta $0E
-    lda.w #$1400
+    lda.w #DoorDestinationTableBaseLo
     sta $06
-    lda.w #$00D0
+    lda.w #DoorDestinationTableBaseBank
     sta $08
     lda $0E
     sta $04
@@ -431,6 +449,8 @@ C068E6_Probe_Type6DoorCandidate_L68E6:
 C068F2_Probe_Type6DoorCandidate_L68F2:
     pld
     rtl
+
+C068F4_RefreshCurrentPositionTransitionContext:
     rep #$31
     phd
     pha
@@ -439,6 +459,9 @@ C068F2_Probe_Type6DoorCandidate_L68F2:
     tcd
     pla
     sta $10
+    ; Resolve the active door/destination record for the supplied position.
+    ; The selected record contributes the current map music track and a later
+    ; screen-transition SFX cue.
     lda $5DD8
     beq C06908_Probe_Type6DoorCandidate_L6908
     jmp.w C069AD_Probe_Type6DoorCandidate_L69AD
@@ -458,17 +481,17 @@ C06908_Probe_Type6DoorCandidate_L6908:
     clc
     adc $02
     tax
-    lda $DCD637,X
+    lda DoorDestinationSectorTable,X
     and.w #$00FF
     sta $10
     lda.w #$0000
     sta $0A
-    lda.w #$00CF
+    lda.w #DoorDestinationPointerBank
     sta $0C
     lda $10
     asl A
     tax
-    lda $CF58EF,X
+    lda DoorDestinationPointerTable,X
     and.w #$7FFF
     clc
     adc $0A
@@ -505,53 +528,59 @@ C0697A_Probe_Type6DoorCandidate_L697A:
     lda $0C
     sta $08
     lda $06
-    sta $5E38
+    sta CurrentDoorDestinationPointerLo
     lda $08
-    sta $5E3A
+    sta CurrentDoorDestinationPointerBank
     sep #$20
-    ldy.w #$0002
+    ldy.w #DoorDestinationMusicTrackOffset
     lda [$0A],Y
     rep #$20
     and.w #$00FF
     tax
-    stx $5DD6
-    lda $5DDA
+    stx CurrentMapMusicTrack
+    lda SuppressMusicChangeCueDuringRefresh
     bne C069AD_Probe_Type6DoorCandidate_L69AD
-    cpx $5DD4
+    cpx LatchedMapMusicTrackMirror
     beq C069AD_Probe_Type6DoorCandidate_L69AD
-    lda.w #$0002
-    jsl C0AC0C_QueuePresentationSfxOrCounter
+    lda.w #ScreenTransitionSfxCue
+    jsl C0AC0C_ToggleAndSendApuPort1Command
 C069AD_Probe_Type6DoorCandidate_L69AD:
     pld
     rtl
+
+C069AF_ApplyCurrentPositionMusicAndSfx:
     rep #$31
     phd
     tdc
     adc.w #$FFF2
     tcd
+    ; Commit the newly resolved track only when it changed, then send the
+    ; selected destination's transition SFX cue.
     lda $5DD8
     bne C069EB_Probe_Type6DoorCandidate_L69EB
-    lda $5E38
+    lda CurrentDoorDestinationPointerLo
     sta $06
-    lda $5E3A
+    lda CurrentDoorDestinationPointerBank
     sta $08
-    lda $5DD6
-    cmp $5DD4
+    lda CurrentMapMusicTrack
+    cmp LatchedMapMusicTrackMirror
     beq C069EB_Probe_Type6DoorCandidate_L69EB
-    lda $5DD6
-    sta $5DD4
-    lda $5DD6
-    jsl C4FBBD_PlaySoundStoneMelody
+    lda CurrentMapMusicTrack
+    sta LatchedMapMusicTrackMirror
+    lda CurrentMapMusicTrack
+    jsl C4FBBD_ChangeMusic
     sep #$20
-    ldy.w #$0003
+    ldy.w #DoorDestinationScreenTransitionSfxOffset
     lda [$06],Y
     rep #$20
     and.w #$00FF
-    jsl C0AC0C_QueuePresentationSfxOrCounter
+    jsl C0AC0C_ToggleAndSendApuPort1Command
 C069EB_Probe_Type6DoorCandidate_L69EB:
     pld
     rtl
+
+C069ED_ChangeMusicFromCurrentTrackLatch:
     rep #$31
-    lda $5DD6
-    jsl C4FBBD_PlaySoundStoneMelody
+    lda CurrentMapMusicTrack
+    jsl C4FBBD_ChangeMusic
     rtl

@@ -12,7 +12,11 @@
 ; External contracts used by this module
 
 C01E49_CreateEntityFromDescriptor = $C01E49
-C4FBBD_PlaySoundStoneMelody       = $C4FBBD
+C4FBBD_ChangeMusic                = $C4FBBD
+C4FD45_SetAutoSectorMusicChanges  = $C4FD45
+
+BicycleMusicTrack                  = $0052
+DisableAutoSectorMusicChanges      = $0000
 
 ; ---------------------------------------------------------------------------
 ; C0:3C5E
@@ -38,8 +42,8 @@ C03C74_Get_OnBicycle_L3C74:
 C03C82_Get_OnBicycle_L3C82:
     lda $5DD8
     bne C03C8E_Get_OnBicycle_L3C8E
-    lda.w #$0052
-    jsl C4FBBD_PlaySoundStoneMelody
+    lda.w #BicycleMusicTrack
+    jsl C4FBBD_ChangeMusic
 C03C8E_Get_OnBicycle_L3C8E:
     lda.w #$0018
     jsl $C02140
@@ -70,8 +74,8 @@ C03C8E_Get_OnBicycle_L3C8E:
     stz $1122
     lda $987F
     sta $2B26
-    lda.w #$0000
-    jsl $C4FD45
+    lda.w #DisableAutoSectorMusicChanges
+    jsl C4FD45_SetAutoSectorMusicChanges
     lda.w #$0001
     sta $9885
     sta $5DBA

@@ -145,6 +145,12 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   enqueue contract and final BG3 vertical-scroll commit, and replaced the stale
   decode-ambiguity note with command-handler roles for `01/02/03/04/FF`.
   See `notes/frame-callback-bodies.md`.
+- 2026-05-06 follow-up: the current-position music refresh pass named the
+  `C0:68F4..6A1B` track-resolution chain, `$5DD6` current map music track,
+  `$5DD4` latched mirror, `$5DDA` cue-suppression latch, `$B549` auto-sector
+  music-change gate, bicycle enable/disable calls into `C4:FD45`, and the C0
+  APUIO0/APUIO1/APUIO3 command leaves used by C4 `ChangeMusic`. See
+  `notes/c0-current-position-music-refresh-c068f4-c069af.md`.
 
 ## Validation
 

@@ -226,6 +226,11 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   `C0:2C3E..329F` tail entries, named the mushroomized movement swap,
   overworld party runtime reset, horizontal/vertical position adjust helpers,
   and clarified the `C0:449B` input/collision/trigger helper edges.
+- 2026-05-06: C0 current-position music refresh follow-up named the
+  `C0:68F4..6A1B` track-resolution chain, `$5DD6` current map music track,
+  `$5DD4` latched mirror, `$5DDA` cue-suppression latch, `$B549` auto-sector
+  music gate, bicycle `C4:FD45` enable/disable calls, and the C0 APU command
+  leaves used by C4 `ChangeMusic`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

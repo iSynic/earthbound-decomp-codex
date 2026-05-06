@@ -27,17 +27,19 @@ This pass expanded `tools/decode_snippet.py` with common indexed direct-page opc
 
 ## Music/Transition Wrappers
 
-`C0:69F7` is a current-position wrapper around `C0:68F4`:
+`C0:69F7` is a current-position music-track wrapper around `C0:68F4`:
 
 - loads current player position from `$9877/$987B`
 - calls `C0:68F4`
-- returns `$5DD6`
+- returns `$5DD6`, now strong as the current map music track
 
 Direct caller:
 
 - `C1:8428`
 
-`C0:6A07` is the sibling wrapper already referenced in older movement notes. It performs the same current-position `C0:68F4` call, then calls `C4:FBBD($5DD6)`.
+`C0:6A07` is the sibling wrapper already referenced in older movement notes.
+It performs the same current-position `C0:68F4` call, then calls
+`C4:FBBD ChangeMusic($5DD6)`.
 
 Direct callers:
 
@@ -47,8 +49,11 @@ Direct callers:
 
 ## Working Names
 
-- `C0:69F7` -> `Get_CurrentPositionMusicOrAreaId`
-- `C0:6A07` -> `Apply_CurrentPositionMusicOrAreaId`
+- `C0:69F7` -> `Get_CurrentPositionMusicTrack`
+- `C0:6A07` -> `Apply_CurrentPositionMusicTrack`
+
+The focused source follow-up lives in
+`notes/c0-current-position-music-refresh-c068f4-c069af.md`.
 
 ## Staged Movement Reset Helper
 

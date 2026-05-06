@@ -12,10 +12,15 @@
 ; External contracts used by this module
 
 C01E49_CreateEntityFromDescriptor     = $C01E49
+C06A07_Apply_CurrentPositionMusicTrack = $C06A07
 C08756_WaitOneFrameAndPollInput       = $C08756
 C088B1_ResetRendererFrameState        = $C088B1
 C08B26_FlushQueuedSpriteOrTileWork    = $C08B26
 C09466_RefreshActiveEntitySpriteState = $C09466
+C4FD45_SetAutoSectorMusicChanges      = $C4FD45
+
+EnableAutoSectorMusicChanges          = $0001
+BicycleTraversalMode                  = $0003
 
 ; ---------------------------------------------------------------------------
 ; C0:3CFD
@@ -27,17 +32,17 @@ C03CFD_Restore_LeaderEntityFromBicycleMode:
     adc.w #$FFEE
     tcd
     lda $9883
-    cmp.w #$0003
+    cmp.w #BicycleTraversalMode
     beq C03D10_Restore_LeaderEntityFromBicycleMode_L3D10
     jmp.w C03DA8_Restore_LeaderEntityFromBicycleMode_L3DA8
 C03D10_Restore_LeaderEntityFromBicycleMode_L3D10:
-    lda.w #$0001
-    jsl $C4FD45
+    lda.w #EnableAutoSectorMusicChanges
+    jsl C4FD45_SetAutoSectorMusicChanges
     lda $4DC2
     bne C03D25_Restore_LeaderEntityFromBicycleMode_L3D25
     lda $5D9A
     bne C03D25_Restore_LeaderEntityFromBicycleMode_L3D25
-    jsl $C06A07
+    jsl C06A07_Apply_CurrentPositionMusicTrack
 C03D25_Restore_LeaderEntityFromBicycleMode_L3D25:
     lda.w #$0018
     jsl $C02140

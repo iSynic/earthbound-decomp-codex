@@ -6,21 +6,27 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C0:6A07..C0:6A1B Apply_CurrentPositionMusicOrAreaId
+; - C0:6A07..C0:6A1B Apply_CurrentPositionMusicTrack
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C4FBBD_PlaySoundStoneMelody = $C4FBBD
+C068F4_RefreshCurrentPositionTransitionContext = $C068F4
+C4FBBD_ChangeMusic                            = $C4FBBD
+
+CurrentPlayerX       = $9877
+CurrentPlayerY       = $987B
+CurrentMapMusicTrack = $5DD6
 
 ; ---------------------------------------------------------------------------
 ; C0:6A07
 
-C06A07_Apply_CurrentPositionMusicOrAreaId:
+C06A07_Apply_CurrentPositionMusicTrack:
+C06A07_Apply_CurrentPositionMusicOrAreaId = C06A07_Apply_CurrentPositionMusicTrack
     rep #$31
-    ldx $987B
-    lda $9877
-    jsl $C068F4
-    lda $5DD6
-    jsl C4FBBD_PlaySoundStoneMelody
+    ldx CurrentPlayerY
+    lda CurrentPlayerX
+    jsl C068F4_RefreshCurrentPositionTransitionContext
+    lda CurrentMapMusicTrack
+    jsl C4FBBD_ChangeMusic
     rtl

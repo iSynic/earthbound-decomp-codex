@@ -11,13 +11,14 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+ApuIo0CommandPort = $002140
 
 ; ---------------------------------------------------------------------------
 ; C0:ABBD
 
 C0ABBD_SendApuPort0CommandByte:
+    ; Low byte of A is the music/driver command consumed on APUIO0.
     sep #$20
-    sta.l $002140
+    sta.l ApuIo0CommandPort
     rep #$30
     rtl

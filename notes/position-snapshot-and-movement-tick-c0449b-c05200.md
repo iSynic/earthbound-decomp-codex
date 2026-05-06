@@ -50,7 +50,12 @@ It first exits early if `$4DC2 != 0`. Otherwise it runs a few service hooks:
 - runs optional hooks at `C0:0172`, `C0:030F`, and `C4:8FC4`
 - calls `C0:4C45`
 
-After `C0:4C45`, it watches the high bytes of `$9877/$987B` against `$5D5C/$5D5E`. If the coarse position changed and `$B549 != 0`, it calls the previously documented `C0:3C25` refresh path.
+After `C0:4C45`, it watches the high bytes of `$9877/$987B` against
+`$5D5C/$5D5E`. If the coarse position changed and `$B549 != 0`, it calls the
+previously documented `C0:3C25` refresh path. The music-specific follow-up now
+names `$B549` as the auto-sector music-change latch and ties the `C0:3C25 ->
+C0:68F4 -> C0:69AF -> C4:FBBD` chain to the C4 `ChangeMusic` loader; see
+`notes/c0-current-position-music-refresh-c068f4-c069af.md`.
 
 The tail also:
 

@@ -8819,21 +8819,28 @@ C03C23_RefreshPositionDerivedVisualContextClass_L3C23:
 hirom
 org $C03C25
 
+!C068F4_RefreshCurrentPositionTransitionContext = $C068F4
+!C069AF_ApplyCurrentPositionMusicAndSfx = $C069AF
 !C08756_WaitOneFrameAndPollInput = $C08756
+!CurrentPlayerX = $9877
+!CurrentPlayerY = $987B
+!CurrentMapMusicTrack = $5DD6
+!LatchedMapMusicTrackMirror = $5DD4
+!SuppressMusicChangeCueDuringRefresh = $5DDA
 C03C25_Refresh_DestinationContextIfPositionChanged:
     rep #$31
     lda.w #$0001
-    sta $5DDA
-    ldx $987B
-    lda $9877
-    jsl $C068F4
-    lda $5DD6
-    cmp $5DD4
+    sta !SuppressMusicChangeCueDuringRefresh
+    ldx !CurrentPlayerY
+    lda !CurrentPlayerX
+    jsl !C068F4_RefreshCurrentPositionTransitionContext
+    lda !CurrentMapMusicTrack
+    cmp !LatchedMapMusicTrackMirror
     beq C03C47_Refresh_DestinationContextIfPositionChanged_L3C47
     jsl !C08756_WaitOneFrameAndPollInput
-    jsl $C069AF
+    jsl !C069AF_ApplyCurrentPositionMusicAndSfx
 C03C47_Refresh_DestinationContextIfPositionChanged_L3C47:
-    stz $5DDA
+    stz !SuppressMusicChangeCueDuringRefresh
     rts
 
 
@@ -8862,7 +8869,10 @@ hirom
 org $C03C5E
 
 !C01E49_CreateEntityFromDescriptor = $C01E49
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C4FBBD_ChangeMusic = $C4FBBD
+!C4FD45_SetAutoSectorMusicChanges = $C4FD45
+!BicycleMusicTrack = $0052
+!DisableAutoSectorMusicChanges = $0000
 GET_ON_BICYCLE:
 !C03C5E_Get_OnBicycle = GET_ON_BICYCLE
     rep #$31
@@ -8884,8 +8894,8 @@ C03C74_Get_OnBicycle_L3C74:
 C03C82_Get_OnBicycle_L3C82:
     lda $5DD8
     bne C03C8E_Get_OnBicycle_L3C8E
-    lda.w #$0052
-    jsl !C4FBBD_PlaySoundStoneMelody
+    lda.w #!BicycleMusicTrack
+    jsl !C4FBBD_ChangeMusic
 C03C8E_Get_OnBicycle_L3C8E:
     lda.w #$0018
     jsl $C02140
@@ -8916,8 +8926,8 @@ C03C8E_Get_OnBicycle_L3C8E:
     stz $1122
     lda $987F
     sta $2B26
-    lda.w #$0000
-    jsl $C4FD45
+    lda.w #!DisableAutoSectorMusicChanges
+    jsl !C4FD45_SetAutoSectorMusicChanges
     lda.w #$0001
     sta $9885
     sta $5DBA
@@ -8936,10 +8946,14 @@ hirom
 org $C03CFD
 
 !C01E49_CreateEntityFromDescriptor = $C01E49
+!C06A07_Apply_CurrentPositionMusicTrack = $C06A07
 !C08756_WaitOneFrameAndPollInput = $C08756
 !C088B1_ResetRendererFrameState = $C088B1
 !C08B26_FlushQueuedSpriteOrTileWork = $C08B26
 !C09466_RefreshActiveEntitySpriteState = $C09466
+!C4FD45_SetAutoSectorMusicChanges = $C4FD45
+!EnableAutoSectorMusicChanges = $0001
+!BicycleTraversalMode = $0003
 C03CFD_Restore_LeaderEntityFromBicycleMode:
     rep #$31
     phd
@@ -8947,17 +8961,17 @@ C03CFD_Restore_LeaderEntityFromBicycleMode:
     adc.w #$FFEE
     tcd
     lda $9883
-    cmp.w #$0003
+    cmp.w #!BicycleTraversalMode
     beq C03D10_Restore_LeaderEntityFromBicycleMode_L3D10
     jmp.w C03DA8_Restore_LeaderEntityFromBicycleMode_L3DA8
 C03D10_Restore_LeaderEntityFromBicycleMode_L3D10:
-    lda.w #$0001
-    jsl $C4FD45
+    lda.w #!EnableAutoSectorMusicChanges
+    jsl !C4FD45_SetAutoSectorMusicChanges
     lda $4DC2
     bne C03D25_Restore_LeaderEntityFromBicycleMode_L3D25
     lda $5D9A
     bne C03D25_Restore_LeaderEntityFromBicycleMode_L3D25
-    jsl $C06A07
+    jsl !C06A07_Apply_CurrentPositionMusicTrack
 C03D25_Restore_LeaderEntityFromBicycleMode_L3D25:
     lda.w #$0018
     jsl $C02140
@@ -11910,7 +11924,19 @@ C0522F_Tick_OverworldPlayerPositionAndCallbacks_L522F:
 hirom
 org $C05238
 
+!C03C25_Refresh_DestinationContextIfPositionChanged = $3C25
+!C04C45_Commit_PlayerPositionSnapshotTick = $C04C45
 !C08814_SetDisplayTransitionMode = $C08814
+!CurrentPlayerX = $9877
+!CurrentPlayerY = $987B
+!CachedAutoMusicSectorX = $5D5C
+!CachedAutoMusicSectorY = $5D5E
+!EnableAutoSectorMusicChanges = $B549
+!PositionHighByteMask = $00FF
+!OverworldPositionDirty = $9885
+!TraversalMode = $98A5
+!ExternalSlotSyncTraversalMode = $0002
+!OverworldTickMovedFlag = $0A34
 C05238_Tick_LandingProfileStepSequencerIfActive:
     lda $4474
     beq C05241_Tick_LandingProfileStepSequencerIfActive_L5241
@@ -11920,33 +11946,33 @@ C05241_Tick_LandingProfileStepSequencerIfActive_L5241:
     beq C0524A_Tick_LandingProfileStepSequencerIfActive_L524A
     jsl $C48FC4
 C0524A_Tick_LandingProfileStepSequencerIfActive_L524A:
-    jsl $C04C45
-    lda $9877
+    jsl !C04C45_Commit_PlayerPositionSnapshotTick
+    lda !CurrentPlayerX
     xba
-    and.w #$00FF
+    and.w #!PositionHighByteMask
     sta $0E
-    lda $987B
+    lda !CurrentPlayerY
     xba
-    and.w #$00FF
+    and.w #!PositionHighByteMask
     tax
     lda $0E
-    eor $5D5C
+    eor !CachedAutoMusicSectorX
     bne C0526C_Tick_LandingProfileStepSequencerIfActive_L526C
     txa
-    eor $5D5E
+    eor !CachedAutoMusicSectorY
     beq C0527C_Tick_LandingProfileStepSequencerIfActive_L527C
 C0526C_Tick_LandingProfileStepSequencerIfActive_L526C:
     lda $0E
-    sta $5D5C
-    stx $5D5E
-    lda $B549
+    sta !CachedAutoMusicSectorX
+    stx !CachedAutoMusicSectorY
+    lda !EnableAutoSectorMusicChanges
     beq C0527C_Tick_LandingProfileStepSequencerIfActive_L527C
-    jsr $3C25
+    jsr !C03C25_Refresh_DestinationContextIfPositionChanged
 C0527C_Tick_LandingProfileStepSequencerIfActive_L527C:
     lda $9E54
     bne C0528D_Tick_LandingProfileStepSequencerIfActive_L528D
-    lda $98A5
-    cmp.w #$0002
+    lda !TraversalMode
+    cmp.w #!ExternalSlotSyncTraversalMode
     beq C0528D_Tick_LandingProfileStepSequencerIfActive_L528D
     jsl $C0DCC6
 C0528D_Tick_LandingProfileStepSequencerIfActive_L528D:
@@ -11956,10 +11982,10 @@ C0528D_Tick_LandingProfileStepSequencerIfActive_L528D:
     lda $9889
     asl A
     sta $5D78
-    lda $9885
+    lda !OverworldPositionDirty
     beq C052A8_Tick_LandingProfileStepSequencerIfActive_L52A8
     lda.w #$0001
-    sta $0A34
+    sta !OverworldTickMovedFlag
 C052A8_Tick_LandingProfileStepSequencerIfActive_L52A8:
     pld
     rtl
@@ -14911,7 +14937,7 @@ org $C065C2
 !C0943C_SaveCurrentCoordinateState = $C0943C
 !C09451_RestoreSavedCoordinateState = $C09451
 !C09466_RefreshActiveEntitySpriteState = $C09466
-!C0AC0C_QueuePresentationSfxOrCounter = $C0AC0C
+!C0AC0C_ToggleAndSendApuPort1Command = $C0AC0C
 !C21628_CheckEventFlag = $C21628
 !C2EAAA_FinishBattleSwirlOverlay = $C2EAAA
 !C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
@@ -14919,7 +14945,22 @@ org $C065C2
 !C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
 !C4A7B0_StepBattleOverlayScriptState = $C4A7B0
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
+!C4FBBD_ChangeMusic = $C4FBBD
+!DoorDestinationEventFlagWordOffset = $0000
+!DoorDestinationMusicTrackOffset = $0002
+!DoorDestinationScreenTransitionSfxOffset = $0003
+!DoorDestinationEntryStride = $0004
+!DoorDestinationPointerTable = $CF58EF
+!DoorDestinationSectorTable = $DCD637
+!DoorDestinationTableBaseLo = $1400
+!DoorDestinationTableBaseBank = $00D0
+!DoorDestinationPointerBank = $00CF
+!CurrentMapMusicTrack = $5DD6
+!LatchedMapMusicTrackMirror = $5DD4
+!CurrentDoorDestinationPointerLo = $5E38
+!CurrentDoorDestinationPointerBank = $5E3A
+!SuppressMusicChangeCueDuringRefresh = $5DDA
+!ScreenTransitionSfxCue = $0002
 C065C2_Probe_Type6DoorCandidate:
     rep #$31
     phd
@@ -15013,9 +15054,9 @@ C06660_Probe_Type6DoorCandidate_L6660:
     txy
     sty $1F
     sta $1D
-    lda.w #$1400
+    lda.w #!DoorDestinationTableBaseLo
     sta $06
-    lda.w #$00D0
+    lda.w #!DoorDestinationTableBaseBank
     sta $08
     lda $1D
     sta $04
@@ -15272,6 +15313,7 @@ C068A3_Probe_Type6DoorCandidate_L68A3:
     stz $5DA8
     pld
     rtl
+C068AF_GetScreenTransitionSoundEffect:
     rep #$31
     phd
     pha
@@ -15280,9 +15322,9 @@ C068A3_Probe_Type6DoorCandidate_L68A3:
     tcd
     pla
     sta $0E
-    lda.w #$1400
+    lda.w #!DoorDestinationTableBaseLo
     sta $06
-    lda.w #$00D0
+    lda.w #!DoorDestinationTableBaseBank
     sta $08
     lda $0E
     sta $04
@@ -15310,6 +15352,7 @@ C068E6_Probe_Type6DoorCandidate_L68E6:
 C068F2_Probe_Type6DoorCandidate_L68F2:
     pld
     rtl
+C068F4_RefreshCurrentPositionTransitionContext:
     rep #$31
     phd
     pha
@@ -15337,17 +15380,17 @@ C06908_Probe_Type6DoorCandidate_L6908:
     clc
     adc $02
     tax
-    lda $DCD637,X
+    lda !DoorDestinationSectorTable,X
     and.w #$00FF
     sta $10
     lda.w #$0000
     sta $0A
-    lda.w #$00CF
+    lda.w #!DoorDestinationPointerBank
     sta $0C
     lda $10
     asl A
     tax
-    lda $CF58EF,X
+    lda !DoorDestinationPointerTable,X
     and.w #$7FFF
     clc
     adc $0A
@@ -15384,25 +15427,26 @@ C0697A_Probe_Type6DoorCandidate_L697A:
     lda $0C
     sta $08
     lda $06
-    sta $5E38
+    sta !CurrentDoorDestinationPointerLo
     lda $08
-    sta $5E3A
+    sta !CurrentDoorDestinationPointerBank
     sep #$20
-    ldy.w #$0002
+    ldy.w #!DoorDestinationMusicTrackOffset
     lda [$0A],Y
     rep #$20
     and.w #$00FF
     tax
-    stx $5DD6
-    lda $5DDA
+    stx !CurrentMapMusicTrack
+    lda !SuppressMusicChangeCueDuringRefresh
     bne C069AD_Probe_Type6DoorCandidate_L69AD
-    cpx $5DD4
+    cpx !LatchedMapMusicTrackMirror
     beq C069AD_Probe_Type6DoorCandidate_L69AD
-    lda.w #$0002
-    jsl !C0AC0C_QueuePresentationSfxOrCounter
+    lda.w #!ScreenTransitionSfxCue
+    jsl !C0AC0C_ToggleAndSendApuPort1Command
 C069AD_Probe_Type6DoorCandidate_L69AD:
     pld
     rtl
+C069AF_ApplyCurrentPositionMusicAndSfx:
     rep #$31
     phd
     tdc
@@ -15410,29 +15454,30 @@ C069AD_Probe_Type6DoorCandidate_L69AD:
     tcd
     lda $5DD8
     bne C069EB_Probe_Type6DoorCandidate_L69EB
-    lda $5E38
+    lda !CurrentDoorDestinationPointerLo
     sta $06
-    lda $5E3A
+    lda !CurrentDoorDestinationPointerBank
     sta $08
-    lda $5DD6
-    cmp $5DD4
+    lda !CurrentMapMusicTrack
+    cmp !LatchedMapMusicTrackMirror
     beq C069EB_Probe_Type6DoorCandidate_L69EB
-    lda $5DD6
-    sta $5DD4
-    lda $5DD6
-    jsl !C4FBBD_PlaySoundStoneMelody
+    lda !CurrentMapMusicTrack
+    sta !LatchedMapMusicTrackMirror
+    lda !CurrentMapMusicTrack
+    jsl !C4FBBD_ChangeMusic
     sep #$20
-    ldy.w #$0003
+    ldy.w #!DoorDestinationScreenTransitionSfxOffset
     lda [$06],Y
     rep #$20
     and.w #$00FF
-    jsl !C0AC0C_QueuePresentationSfxOrCounter
+    jsl !C0AC0C_ToggleAndSendApuPort1Command
 C069EB_Probe_Type6DoorCandidate_L69EB:
     pld
     rtl
+C069ED_ChangeMusicFromCurrentTrackLatch:
     rep #$31
-    lda $5DD6
-    jsl !C4FBBD_PlaySoundStoneMelody
+    lda !CurrentMapMusicTrack
+    jsl !C4FBBD_ChangeMusic
     rtl
 
 
@@ -15443,12 +15488,17 @@ C069EB_Probe_Type6DoorCandidate_L69EB:
 hirom
 org $C069F7
 
-C069F7_Get_CurrentPositionMusicOrAreaId:
+!C068F4_RefreshCurrentPositionTransitionContext = $C068F4
+!CurrentPlayerX = $9877
+!CurrentPlayerY = $987B
+!CurrentMapMusicTrack = $5DD6
+C069F7_Get_CurrentPositionMusicTrack:
+!C069F7_Get_CurrentPositionMusicOrAreaId = C069F7_Get_CurrentPositionMusicTrack
     rep #$31
-    ldx $987B
-    lda $9877
-    jsl $C068F4
-    lda $5DD6
+    ldx !CurrentPlayerY
+    lda !CurrentPlayerX
+    jsl !C068F4_RefreshCurrentPositionTransitionContext
+    lda !CurrentMapMusicTrack
     rtl
 
 
@@ -15459,14 +15509,19 @@ C069F7_Get_CurrentPositionMusicOrAreaId:
 hirom
 org $C06A07
 
-!C4FBBD_PlaySoundStoneMelody = $C4FBBD
-C06A07_Apply_CurrentPositionMusicOrAreaId:
+!C068F4_RefreshCurrentPositionTransitionContext = $C068F4
+!C4FBBD_ChangeMusic = $C4FBBD
+!CurrentPlayerX = $9877
+!CurrentPlayerY = $987B
+!CurrentMapMusicTrack = $5DD6
+C06A07_Apply_CurrentPositionMusicTrack:
+!C06A07_Apply_CurrentPositionMusicOrAreaId = C06A07_Apply_CurrentPositionMusicTrack
     rep #$31
-    ldx $987B
-    lda $9877
-    jsl $C068F4
-    lda $5DD6
-    jsl !C4FBBD_PlaySoundStoneMelody
+    ldx !CurrentPlayerY
+    lda !CurrentPlayerX
+    jsl !C068F4_RefreshCurrentPositionTransitionContext
+    lda !CurrentMapMusicTrack
+    jsl !C4FBBD_ChangeMusic
     rtl
 
 
@@ -26741,9 +26796,10 @@ C0ABAE_WaitForSpcReadyAndResetApuPorts_LABAE:
 hirom
 org $C0ABBD
 
+!ApuIo0CommandPort = $002140
 C0ABBD_SendApuPort0CommandByte:
     sep #$20
-    sta.l $002140
+    sta.l !ApuIo0CommandPort
     rep #$30
     rtl
 
@@ -26755,18 +26811,23 @@ C0ABBD_SendApuPort0CommandByte:
 hirom
 org $C0ABC6
 
+!C0AC20_ReadApuPort0Byte = $C0AC20
+!ApuIo0CommandPort = $002140
+!StopMusicCommand = $00
+!CurrentMusicTrack = $B53B
+!NoCurrentMusicTrack = $FFFF
 STOP_MUSIC:
 !C0ABC6_StopMusicAndLatchNoTrack = STOP_MUSIC
     sep #$20
-    lda.b #$00
-    sta.l $002140
+    lda.b #!StopMusicCommand
+    sta.l !ApuIo0CommandPort
     rep #$30
 C0ABD0_StopMusicAndLatchNoTrack_LABD0:
-    jsl $C0AC20
-    cmp.w #$0000
+    jsl !C0AC20_ReadApuPort0Byte
+    cmp.w #!StopMusicCommand
     bne C0ABD0_StopMusicAndLatchNoTrack_LABD0
-    lda.w #$FFFF
-    sta $B53B
+    lda.w #!NoCurrentMusicTrack
+    sta !CurrentMusicTrack
     rtl
 
 
@@ -26777,28 +26838,35 @@ C0ABD0_StopMusicAndLatchNoTrack_LABD0:
 hirom
 org $C0ABE0
 
+!SoundEffectQueueIndex = $00CA
+!SoundEffectQueueBase = $1AC2
+!SoundEffectQueueToggleState = $1ACA
+!ApuIo3CuePort = $002143
+!SoundEffectQueueMask = $07
+!ApuCommandToggleBit = $80
+!ApuPort3DefaultCue = $57
 PLAY_SOUND:
 !C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = PLAY_SOUND
     sep #$30
     cmp.b #$00
     beq PLAY_SOUND_UNKNOWN0
-    ldx $00CA
-    ora $1ACA
-    sta $1AC2,X
+    ldx !SoundEffectQueueIndex
+    ora !SoundEffectQueueToggleState
+    sta !SoundEffectQueueBase,X
     txa
     inc A
-    and.b #$07
-    sta $00CA
-    lda.b #$80
-    eor $1ACA
-    sta $1ACA
+    and.b #!SoundEffectQueueMask
+    sta !SoundEffectQueueIndex
+    lda.b #!ApuCommandToggleBit
+    eor !SoundEffectQueueToggleState
+    sta !SoundEffectQueueToggleState
     rep #$30
     rtl
 PLAY_SOUND_UNKNOWN0:
 !C0AC01_QueueSoundEffectOrPlayApuPort3Cue_LAC01 = PLAY_SOUND_UNKNOWN0
     sep #$20
-    lda.b #$57
-    sta $002143
+    lda.b #!ApuPort3DefaultCue
+    sta !ApuIo3CuePort
     rep #$30
     rtl
 
@@ -26810,13 +26878,16 @@ PLAY_SOUND_UNKNOWN0:
 hirom
 org $C0AC0C
 
+!ApuIo1CommandPort = $002141
+!ApuPort1ToggleState = $1ACB
+!ApuCommandToggleBit = $80
 C0AC0C_ToggleAndSendApuPort1Command:
     sep #$20
-    ora $1ACB
-    sta $002141
-    lda.b #$80
-    eor $1ACB
-    sta $1ACB
+    ora !ApuPort1ToggleState
+    sta !ApuIo1CommandPort
+    lda.b #!ApuCommandToggleBit
+    eor !ApuPort1ToggleState
+    sta !ApuPort1ToggleState
     rep #$30
     rtl
 

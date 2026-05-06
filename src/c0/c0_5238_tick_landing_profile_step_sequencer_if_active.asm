@@ -11,7 +11,20 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C08814_SetDisplayTransitionMode = $C08814
+C03C25_Refresh_DestinationContextIfPositionChanged = $3C25
+C04C45_Commit_PlayerPositionSnapshotTick           = $C04C45
+C08814_SetDisplayTransitionMode                    = $C08814
+
+CurrentPlayerX                         = $9877
+CurrentPlayerY                         = $987B
+CachedAutoMusicSectorX                 = $5D5C
+CachedAutoMusicSectorY                 = $5D5E
+EnableAutoSectorMusicChanges           = $B549
+PositionHighByteMask                   = $00FF
+OverworldPositionDirty                 = $9885
+TraversalMode                          = $98A5
+ExternalSlotSyncTraversalMode          = $0002
+OverworldTickMovedFlag                 = $0A34
 
 ; ---------------------------------------------------------------------------
 ; C0:5238
@@ -25,33 +38,33 @@ C05241_Tick_LandingProfileStepSequencerIfActive_L5241:
     beq C0524A_Tick_LandingProfileStepSequencerIfActive_L524A
     jsl $C48FC4
 C0524A_Tick_LandingProfileStepSequencerIfActive_L524A:
-    jsl $C04C45
-    lda $9877
+    jsl C04C45_Commit_PlayerPositionSnapshotTick
+    lda CurrentPlayerX
     xba
-    and.w #$00FF
+    and.w #PositionHighByteMask
     sta $0E
-    lda $987B
+    lda CurrentPlayerY
     xba
-    and.w #$00FF
+    and.w #PositionHighByteMask
     tax
     lda $0E
-    eor $5D5C
+    eor CachedAutoMusicSectorX
     bne C0526C_Tick_LandingProfileStepSequencerIfActive_L526C
     txa
-    eor $5D5E
+    eor CachedAutoMusicSectorY
     beq C0527C_Tick_LandingProfileStepSequencerIfActive_L527C
 C0526C_Tick_LandingProfileStepSequencerIfActive_L526C:
     lda $0E
-    sta $5D5C
-    stx $5D5E
-    lda $B549
+    sta CachedAutoMusicSectorX
+    stx CachedAutoMusicSectorY
+    lda EnableAutoSectorMusicChanges
     beq C0527C_Tick_LandingProfileStepSequencerIfActive_L527C
-    jsr $3C25
+    jsr C03C25_Refresh_DestinationContextIfPositionChanged
 C0527C_Tick_LandingProfileStepSequencerIfActive_L527C:
     lda $9E54
     bne C0528D_Tick_LandingProfileStepSequencerIfActive_L528D
-    lda $98A5
-    cmp.w #$0002
+    lda TraversalMode
+    cmp.w #ExternalSlotSyncTraversalMode
     beq C0528D_Tick_LandingProfileStepSequencerIfActive_L528D
     jsl $C0DCC6
 C0528D_Tick_LandingProfileStepSequencerIfActive_L528D:
@@ -61,10 +74,10 @@ C0528D_Tick_LandingProfileStepSequencerIfActive_L528D:
     lda $9889
     asl A
     sta $5D78
-    lda $9885
+    lda OverworldPositionDirty
     beq C052A8_Tick_LandingProfileStepSequencerIfActive_L52A8
     lda.w #$0001
-    sta $0A34
+    sta OverworldTickMovedFlag
 C052A8_Tick_LandingProfileStepSequencerIfActive_L52A8:
     pld
     rtl

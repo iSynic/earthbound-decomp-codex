@@ -45,7 +45,12 @@ Suggested local name:
 
 - `Refresh_DestinationContextIfPositionChanged`
 
-This routine sets `$5DDA = 1`, calls `C0:68F4` with the current `$9877/$987B` position pair, compares `$5DD6` against `$5DD4`, and if the value changed calls `C0:8756` and `C0:69AF`. It then clears `$5DDA` and returns.
+This routine sets `$5DDA = 1`, calls `C0:68F4` with the current `$9877/$987B`
+position pair, compares `$5DD6` against `$5DD4`, and if the value changed calls
+`C0:8756` and `C0:69AF`. It then clears `$5DDA` and returns. The later audio
+follow-up names `$5DD6` as the current map music track, `$5DD4` as its latched
+mirror, and `$5DDA` as the cue-suppression latch during guarded refreshes; see
+`notes/c0-current-position-music-refresh-c068f4-c069af.md`.
 
 The direct caller at `C0:5279` only runs it after detecting that the packed current-position pair changed from the cached pair at `$5D5C/$5D5E`, and only when `$B549` is nonzero. So this is best read as a guarded destination/music/context refresh after current position changes, not a general update tick.
 
@@ -77,7 +82,8 @@ This body only proceeds when the overworld entity registry has exactly one activ
 
 When accepted, it:
 
-- optionally plays sound `#$0052` through `C4:FBBD` when `$5DD8 == 0`
+- optionally plays music track `#$0052` through `C4:FBBD ChangeMusic` when
+  `$5DD8 == 0`
 - frees slot `$18` through `C0:2140`
 - sets `$9887 = 6`
 - sets `$9883 = 3`
@@ -87,7 +93,7 @@ When accepted, it:
 - sets high bits in slot-side words around `$10E6` and `$1032`
 - clears `$1122`
 - copies `$987F` to `$2B26`
-- calls `C4:FD45(0)`
+- calls `C4:FD45(0)` to disable auto-sector music changes
 - sets `$9885 = 1`, `$5DBA = 1`, and `$5D74 = 2`
 
 The safest read is that slot `$18` is rebuilt as the bicycle mode's special player entity, while the `$988x` and `$5Dxx` words latch the corresponding traversal/presentation state.
@@ -100,8 +106,9 @@ Suggested local name:
 
 This routine only does its main work when `$9883 == 3`, matching the bicycle-mode setup above. It:
 
-- calls `C4:FD45(1)`
-- if neither `$4DC2` nor `$5D9A` is set, calls `C0:6A07`
+- calls `C4:FD45(1)` to reenable auto-sector music changes
+- if neither `$4DC2` nor `$5D9A` is set, calls `C0:6A07` to reapply the
+  current-position music track
 - frees slot `$18`
 - clears `$9887`, `$9883`, `$9A0B`, and `$987D`
 - optionally runs several refresh helpers when `$5D9A == 0`
