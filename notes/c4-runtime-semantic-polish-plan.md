@@ -338,6 +338,11 @@ closure.
   The `C4:9EC4` runner now marks the C4-owned low-word/bank/padding pointer
   walk before handing control to the shared coffee/tea text command grammar.
   See `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-06 coffee/flyover interpreter follow-up: tightened side-effect
+  comments for the shared command-stream read points, coffee/tea page-drain
+  command, row-reveal byte, compact-token byte, direct-token fallback, flyover
+  window-index command, and both cleanup tails. See
+  `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
 - 2026-05-06 cast-name patch follow-up: split the inline C4:E796 tilemap patch
   bytes into the three local suffix rows used by `PrepareCastNameTilemap`, then
   replaced the raw E796/E79D/E7A4 source lows with row-specific constants and

@@ -194,6 +194,13 @@ coffee/tea scene selector and flyover scene runner, and splits the flyover text
 pointer table into one long pointer per row with comments limiting the
 user-facing names to the three locally corroborated intro strings.
 
+2026-05-06 interpreter side-effect follow-up: the shared source now marks the
+command-stream read points, coffee/tea command `09` page-drain loop, command
+`01` row-reveal byte, command `08` compact token-string byte, direct-token
+fallback, flyover command `02` window-index byte, and both cleanup tails. These
+comments keep the bytecode grammar local to C4 while treating tile rendering,
+display brackets, and C2 visual ticking as callee contracts.
+
 2026-05-06 flyover pointer follow-up: the `C4:9EA4` table rows now have
 address-stable labels for all eight entries. The first three retain the local
 `Year199X`, `Onett`, and `NessHouse` roles; entries `3..7` remain numbered
