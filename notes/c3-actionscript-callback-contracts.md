@@ -136,6 +136,8 @@ pilots:
   battle-bg presentation loader.
 - `C0:AA07` -> `ActionScript_FadeOutWithMosaic`: three display-transition
   words passed to the mosaic fade-out transition helper.
+- `C0:AA23` -> `Script_StageMosaicWh0Mask_ReadThreeWords`: left-X, Y, and
+  right-X words forwarded to the C4 WH0 mosaic/window-mask starter.
 
 These are byte-shape contracts only. Exact visual-effect naming can stay with
 the C0/C4 presentation notes; C3 pilots only need the operand widths and roles

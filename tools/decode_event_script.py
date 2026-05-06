@@ -881,6 +881,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read three display-transition words and pass them to the mosaic fade-out transition helper at C0:8814",
         "args": "display_transition_mode_word, display_transition_x_word, display_transition_y_word",
     },
+    "C0:AA23": {
+        "name": "Script_StageMosaicWh0Mask_ReadThreeWords",
+        "group": "presentation-render",
+        "contract": "read left-X, Y, and right-X words, then forward them as A/X/Y to the C4:7765 WH0 mosaic/window-mask starter",
+        "args": "mask_left_x_word, mask_y_word, mask_right_x_word",
+    },
     "EF:0CA7": {
         "name": "CheckCurrentDeliveryRetryThreshold",
         "group": "timed-delivery",
