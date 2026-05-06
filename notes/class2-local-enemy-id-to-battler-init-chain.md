@@ -6,6 +6,7 @@ See also [class2-battlers-table-layout-9f8a-9fac.md](notes/class2-battlers-table
 See also [class2-9f8c-upstream-verification.md](notes/class2-9f8c-upstream-verification.md).
 See also [class2-d59589-enemy-data-crosswalk.md](notes/class2-d59589-enemy-data-crosswalk.md).
 See also [class2-b6eb-caller-family-4dxx.md](notes/class2-b6eb-caller-family-4dxx.md).
+See also [class2-b6eb-caller-family-760c.md](notes/class2-b6eb-caller-family-760c.md).
 
 ## Working Names
 
@@ -104,9 +105,10 @@ The caller families no longer all look the same.
 Current safest split:
 
 - the `4Dxx -> 4Fxx` family now looks best as a battle-start enemy-group initialization path that later displays encounter text and enemy start-of-battle status lines
-- the `760C` caller family still looks different and is probably a separate battler-reinit case
+- the `760C` caller family is now source-backed as a separate selected-battler collapse/companion rebuild case that uses scratch battler base `$A180` and special enemy id `0xD5`
 
 See [class2-b6eb-caller-family-4dxx.md](notes/class2-b6eb-caller-family-4dxx.md) for the corrected `4Dxx` read.
+See [class2-b6eb-caller-family-760c.md](notes/class2-b6eb-caller-family-760c.md) for the corrected `760C` read.
 
 ## Why this upgrades the earlier RAM-layout note
 
@@ -129,9 +131,10 @@ The safest takeaway is:
 - local `C2:B6EB` is very likely `BATTLE_INIT_ENEMY_STATS`
 - at least one local caller path already shows the full chain `9F8C enemy id -> C2:B6EB -> 9FAC + 0x4E * n battler`
 - the `4Dxx` caller family now reads more like battle-start enemy-group setup than like a call-for-help helper
+- the `760C` caller is a separate selected-row companion rebuild route, not part of the battle-start family
 
 That is the strongest local confirmation yet for the battle RAM model.
 
 ## Best next target
 
-The best next move is to trace the setup that feeds `$4DBC` and `$1D` in the `4Dxx -> 4Fxx` family, or separately decode the unresolved `760C` reinit family so the two battler-init use cases stop sharing one temporary bucket.
+The best next move is to trace the setup that feeds `$4DBC` and `$1D` in the `4Dxx -> 4Fxx` family, or refine the exact gameplay identity of the `0xD5` companion rebuilt by the `760C` selected-row route.

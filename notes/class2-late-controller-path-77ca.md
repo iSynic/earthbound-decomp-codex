@@ -5,6 +5,7 @@ This note captures the first ROM-first pass over the alternate late branch reach
 See also `notes/class2-post-selection-controller-phases.md`.
 See also `notes/class2-second-stage-selector-a970.md`.
 See also `notes/class2-005e-record-domain.md`.
+See also `notes/class2-b6eb-caller-family-760c.md`.
 
 ## Working Names
 
@@ -49,11 +50,11 @@ The first half of the path scans the six-entry upstream source family.
 
 Current safest reading:
 
-- it iterates source indices `0..5` through the `0x4E`-stride candidate helper
-- it requires candidate enable byte `9FB8 != 0`
-- it requires candidate metadata byte `9FBA == 0`
-- it excludes entries whose candidate class byte `9FC9` is `1`
-- it requires marker byte `9FBB == 0`
+- it iterates source indices `0..5` through the `0x4E`-stride battler helper
+- it requires battler consciousness byte `9FB8 != 0`
+- it requires battler ally/enemy byte `9FBA == 0`
+- it excludes entries whose affliction/class byte `9FC9` is `1`
+- it requires npc-id/marker byte `9FBB == 0`
 - for each surviving source entry, it maps the linked value from `9FBC[index]` through selector `#$005F`
 - if the linked `9A13` marker is still clear, it sets source byte `9FBF = 1`, marks linked table `9A15`, and sets linked table `9A13 = 1`
 
@@ -103,6 +104,22 @@ Current safest reading:
 
 That makes `+0x4B` look much more like a row-selection or active-membership marker than a generic unknown byte.
 
+## D5 Companion Cleanup/Rebuild
+
+The late tail now has a clearer source-backed shape when selected-row
+`+0x0F == 0xD5`:
+
+- scan the six source entries with `0x4E` stride
+- clear one neighboring `+0x1E == 2` byte when found
+- continue scanning for another active, clear-npc source entry with
+  neighboring `+0x1E == 2`
+- rebuild scratch battler base `$A180` through `C2:B6EB` with enemy id `0xD5`
+- mirror the rebuilt companion route through `$A18D/$A18F`
+
+That resolves the former loose `C2:760C` `B6EB` call-site bucket as part of the
+selected-row collapse/companion route rather than the battle-start enemy-init
+family.
+
 ## `+0x0E`, `+0x0F`, and `+0x10` are getting clearer
 
 Current safest reading:
@@ -140,6 +157,8 @@ The safest current takeaway is:
 - row byte `+0x0E` is now strongly supported as a major controller-phase byte
 - row byte `+0x4B` is best read as an active-membership or selected-row marker
 - the late phase continues to use descriptor-backed pointers and source-entry bookkeeping after the initial selection work
+- the D5-tagged late tail can clean up and rebuild a companion scratch battler
+  record through the same local enemy-data initializer used elsewhere
 
 That gives us a much stronger foundation for naming the selected-row controller end to end.
 

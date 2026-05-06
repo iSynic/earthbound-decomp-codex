@@ -383,6 +383,16 @@ contract notes for C0/C1/C3/C4 consumers.
   Candidate wording is now reserved for the ranked `$AD7A/$AD82` lists in this
   slice. See `notes/c2-action-dispatch-runtime-polish.md` and
   `notes/class2-mask-helper-family.md`.
+- 2026-05-05 fifty-eighth slice: returned to the selected-row
+  collapse/late-controller route around `C2:7550/7680/77CA`. The promoted
+  contracts name the descriptor death-text pointer field, battler
+  consciousness/route/row/affliction fields, late active-marker byte `+0x4B`,
+  late visual flag `D5:9589 + 0x5A`, active attacker/target pointers, and the
+  D5-tagged companion scratch rebuild through `C2:B6EB` at `$A180`. This
+  resolves the old `760C` `B6EB` caller bucket as a selected-row companion
+  rebuild route, separate from the `4Dxx` battle-start initializer family. See
+  `notes/c2-late-selected-row-runtime-polish.md` and
+  `notes/class2-b6eb-caller-family-760c.md`.
 
 ## Validation
 

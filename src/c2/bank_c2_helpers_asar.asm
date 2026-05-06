@@ -257,13 +257,29 @@ org $C27680
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!BattlersTableBase = $9FAC
+!BattlerRowSize = $004E
+!BattlerIdWord = $0000
+!BattlerConsciousnessByte = $000C
+!BattlerNpcIdOrRouteByte = $000F
+!BattlerRowByte = $0010
+!BattlerHpWord = $0011
+!BattlerHpTargetWord = $0013
+!BattlerAfflictionsByte = $001D
+!BattlerAllyOrEnemyByte = $000E
+!EnemyDataRowSize = $005E
+!EnemyDataDeathTextPointerOffset = $0031
+!PartyCharacterRowSize = $005F
+!TargetBitLimit = $0020
+!HardCollapseScriptLo = $6C6B
+!HardCollapseScriptBank = $00EF
 C27680_DisplayEnemyDeathText:
     ldx $02
-    lda $0000,X
-    ldy.w #$005E
+    lda.w !BattlerIdWord,X
+    ldy.w #!EnemyDataRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$0031
+    adc.w #!EnemyDataDeathTextPointerOffset
     clc
     adc $0A
     sta $0A
@@ -280,7 +296,7 @@ C27680_DisplayEnemyDeathText:
     jsl !C1DC1C_DisplayBattleTextFromPointer
     ldx $02
     sep #$20
-    stz $000C,X
+    stz.w !BattlerConsciousnessByte,X
     ldx $22
     rep #$20
     lda $0000,X
@@ -293,7 +309,7 @@ C27680_DisplayEnemyDeathText:
 C276C9_DisplayEnemyDeathText_L76C9:
     lda $02
     clc
-    adc.w #$0010
+    adc.w #!BattlerRowByte
     tax
     stx $1E
     lda $0000,X
@@ -307,9 +323,9 @@ C276E4_DisplayEnemyDeathText_L76E4:
     sep #$20
     lda.b #$01
     ldx $02
-    sta $000C,X
+    sta.w !BattlerConsciousnessByte,X
     ldx $02
-    stz $001D,X
+    stz.w !BattlerAfflictionsByte,X
     ldx $1E
     rep #$20
     lda $0000,X
@@ -318,9 +334,9 @@ C276E4_DisplayEnemyDeathText_L76E4:
     tax
     lda $983C,X
     ldx $02
-    sta $0013,X
+    sta.w !BattlerHpTargetWord,X
     ldx $02
-    sta $0011,X
+    sta.w !BattlerHpWord,X
     ldx $1E
     lda $0000,X
     and.w #$00FF
@@ -328,7 +344,7 @@ C276E4_DisplayEnemyDeathText_L76E4:
     sep #$20
     lda $983A,X
     ldx $02
-    sta $000F,X
+    sta.w !BattlerNpcIdOrRouteByte,X
     rep #$20
     and.w #$00FF
     asl A
@@ -345,32 +361,32 @@ C27735_DisplayEnemyDeathText_L7735:
     bne C27740_DisplayEnemyDeathText_L7740
     jmp $7C92
 C27740_DisplayEnemyDeathText_L7740:
-    ldx.w #$9FAC
+    ldx.w #!BattlersTableBase
     ldy.w #$0000
     bra C27771_DisplayEnemyDeathText_L7771
 C27748_DisplayEnemyDeathText_L7748:
-    lda $000C,X
+    lda.w !BattlerConsciousnessByte,X
     and.w #$00FF
     beq C27768_DisplayEnemyDeathText_L7768
-    lda $000E,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C27768_DisplayEnemyDeathText_L7768
     sep #$20
-    lda $000F,X
+    lda.w !BattlerNpcIdOrRouteByte,X
     cmp $983A
     bne C27768_DisplayEnemyDeathText_L7768
-    stz $0010,X
+    stz.w !BattlerRowByte,X
     jmp $7C92
 C27768_DisplayEnemyDeathText_L7768:
     rep #$20
     txa
     clc
-    adc.w #$004E
+    adc.w #!BattlerRowSize
     tax
     iny
 C27771_DisplayEnemyDeathText_L7771:
     sty $02
-    lda.w #$0020
+    lda.w #!TargetBitLimit
     clc
     sbc $02
     bvs C2777F_DisplayEnemyDeathText_L777F
@@ -384,26 +400,26 @@ C27781_DisplayEnemyDeathText_L7781:
     stz $0013,X
     lda $02
     clc
-    adc.w #$0010
+    adc.w #!BattlerRowByte
     tax
     stx $1C
     lda $0000,X
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     stz $9A15,X
     ldx $1C
     lda $0000,X
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     lda.w #$0001
     sta $9A13,X
-    lda.w #$6C6B
+    lda.w #!HardCollapseScriptLo
     sta $0E
-    lda.w #$00EF
+    lda.w #!HardCollapseScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     jmp $7C92
@@ -3842,7 +3858,26 @@ org $C27550
 
 !C277CA_RunClass2LateSelectedRowController = $77CA
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
-!C2B6EB_ApplyCandidateRecordPayload = $C2B6EB
+!C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
+!BattlersTableBase = $9FAC
+!BattlerRowSize = $004E
+!BattlerAllyOrEnemyByte = $000E
+!BattlerRouteSelectorByte = $000F
+!BattlerAfflictionsByte = $001D
+!BattlerAfflictionsPlus1Byte = $001E
+!BattlerConsciousnessByteBase = $9FB8
+!BattlerNpcIdByteBase = $9FBB
+!BattlerAfflictionsByteBase = $9FC9
+!BattlerAfflictionsPlus1Offset = $0001
+!SourceScanLimit = $0006
+!CompanionScratchBattlerBase = $A180
+!CompanionBattlerSeedEnemyId = $00D5
+!CompanionSeedEnemyIdByte = $A18C
+!CompanionSeedActiveByte = $A18D
+!CompanionSeedEnemyIdMirrorByte = $A18F
+!ControllerExitFlag = $AA92
+!HardCollapsedAfflictionState = $0001
+!NeighborAfflictionValueTwo = $0002
 KO_TARGET:
 !C27550_StartSelectedBattlerCollapseAfflictionPath = KO_TARGET
     rep #$31
@@ -3853,17 +3888,17 @@ KO_TARGET:
     tcd
     pla
     sta $02
-    stz $AA92
+    stz !ControllerExitFlag
     ldx $02
-    lda $000E,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
     beq C2756C_StartSelectedBattlerCollapseAfflictionPath_L756C
     jmp !C277CA_RunClass2LateSelectedRowController
 C2756C_StartSelectedBattlerCollapseAfflictionPath_L756C:
     ldx $02
-    lda $001E,X
+    lda.w !BattlerAfflictionsPlus1Byte,X
     and.w #$00FF
-    cmp.w #$0002
+    cmp.w #!NeighborAfflictionValueTwo
     beq C2757C_StartSelectedBattlerCollapseAfflictionPath_L757C
     jmp.w C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
 C2757C_StartSelectedBattlerCollapseAfflictionPath_L757C:
@@ -3872,79 +3907,79 @@ C2757C_StartSelectedBattlerCollapseAfflictionPath_L757C:
     jmp.w C2762F_StartSelectedBattlerCollapseAfflictionPath_L762F
 C27584_StartSelectedBattlerCollapseAfflictionPath_L7584:
     tya
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     sta $20
     tax
-    lda $9FB8,X
+    lda.w !BattlerConsciousnessByteBase,X
     and.w #$00FF
     bne C2759A_StartSelectedBattlerCollapseAfflictionPath_L759A
     jmp.w C2762A_StartSelectedBattlerCollapseAfflictionPath_L762A
 C2759A_StartSelectedBattlerCollapseAfflictionPath_L759A:
     lda $20
     tax
-    lda $9FBB,X
+    lda.w !BattlerNpcIdByteBase,X
     and.w #$00FF
     beq C275A8_StartSelectedBattlerCollapseAfflictionPath_L75A8
     jmp.w C2762A_StartSelectedBattlerCollapseAfflictionPath_L762A
 C275A8_StartSelectedBattlerCollapseAfflictionPath_L75A8:
     lda $20
     clc
-    adc.w #$9FC9
+    adc.w #!BattlerAfflictionsByteBase
     tax
-    lda $0001,X
+    lda.w !BattlerAfflictionsPlus1Offset,X
     and.w #$00FF
-    cmp.w #$0002
+    cmp.w #!NeighborAfflictionValueTwo
     bne C2762A_StartSelectedBattlerCollapseAfflictionPath_L762A
     lda $20
     clc
-    adc.w #$9FAC
+    adc.w #!BattlersTableBase
     sta $04
     lda $02
     cmp $04
     bne C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
-    lda $A18F
+    lda !CompanionSeedEnemyIdMirrorByte
     and.w #$00FF
-    cmp.w #$00D5
+    cmp.w #!CompanionBattlerSeedEnemyId
     bne C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
     sep #$20
-    stz $A18C
+    stz !CompanionSeedEnemyIdByte
     bra C27621_StartSelectedBattlerCollapseAfflictionPath_L7621
 C275DA_StartSelectedBattlerCollapseAfflictionPath_L75DA:
     rep #$20
     tya
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FB8,X
+    lda.w !BattlerConsciousnessByteBase,X
     and.w #$00FF
     beq C2761C_StartSelectedBattlerCollapseAfflictionPath_L761C
-    lda $9FBB,X
+    lda.w !BattlerNpcIdByteBase,X
     and.w #$00FF
     bne C2761C_StartSelectedBattlerCollapseAfflictionPath_L761C
     txa
     clc
-    adc.w #$9FC9
+    adc.w #!BattlerAfflictionsByteBase
     tax
-    lda $0001,X
+    lda.w !BattlerAfflictionsPlus1Offset,X
     and.w #$00FF
-    cmp.w #$0002
+    cmp.w #!NeighborAfflictionValueTwo
     bne C2761C_StartSelectedBattlerCollapseAfflictionPath_L761C
-    ldx.w #$A180
-    lda.w #$00D5
-    jsl !C2B6EB_ApplyCandidateRecordPayload
+    ldx.w #!CompanionScratchBattlerBase
+    lda.w #!CompanionBattlerSeedEnemyId
+    jsl !C2B6EB_InitializeEnemyBattlerStatsFromEnemyId
     sep #$20
     lda.b #$D5
-    sta $A18F
+    sta !CompanionSeedEnemyIdMirrorByte
     lda.b #$01
-    sta $A18D
+    sta !CompanionSeedActiveByte
 C2761C_StartSelectedBattlerCollapseAfflictionPath_L761C:
     ldy $22
     iny
     sty $22
 C27621_StartSelectedBattlerCollapseAfflictionPath_L7621:
     ldy $22
-    cpy.w #$0006
+    cpy.w #!SourceScanLimit
     bcc C275DA_StartSelectedBattlerCollapseAfflictionPath_L75DA
     bra C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
 C2762A_StartSelectedBattlerCollapseAfflictionPath_L762A:
@@ -3952,7 +3987,7 @@ C2762A_StartSelectedBattlerCollapseAfflictionPath_L762A:
     iny
     sty $22
 C2762F_StartSelectedBattlerCollapseAfflictionPath_L762F:
-    cpy.w #$0006
+    cpy.w #!SourceScanLimit
     bcs C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
     beq C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
     jmp.w C27584_StartSelectedBattlerCollapseAfflictionPath_L7584
@@ -3960,7 +3995,7 @@ C27639_StartSelectedBattlerCollapseAfflictionPath_L7639:
     sep #$20
     lda.b #$01
     ldx $02
-    sta $001D,X
+    sta.w !BattlerAfflictionsByte,X
     ldx $02
     stz $0023,X
     ldx $02
@@ -3976,7 +4011,7 @@ C27639_StartSelectedBattlerCollapseAfflictionPath_L7639:
     rep #$20
     lda $02
     clc
-    adc.w #$000F
+    adc.w #!BattlerRouteSelectorByte
     tax
     stx $22
     lda $0000,X
@@ -4004,16 +4039,72 @@ org $C277CA
 !C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
 !C24477_BuildClass2DerivedActionCode = $C24477
 !C24703_DispatchClass2DerivedAction = $C24703
-!C2B6EB_ApplyCandidateRecordPayload = $C2B6EB
+!C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 !C2BAC5_CountRowsWithPhaseValue = $C2BAC5
 !D57B68_BattleActionTableLo = $7B68
 !D57B68_BattleActionTableBank = $00D5
 !BattleActionTableRowSize = $000C
 !BattleActionTablePrimaryTextPtrOffset = $0004
 !BattleActionTableSecondPayloadPtrOffset = $0008
+!CurrentIndexedByte = $0000
+!BattlersTableBase = $9FAC
+!ActorTargetBattlerBase = $A21C
+!BattlerRowSize = $004E
+!BattlerIdWord = $0000
+!BattlerCurrentActionWord = $0004
+!BattlerCurrentActionArgumentByte = $0008
+!BattlerConsciousnessByte = $000C
+!BattlerAllyOrEnemyByte = $000E
+!BattlerNpcIdOrRouteByte = $000F
+!BattlerRowByte = $0010
+!BattlerHpTargetWord = $0013
+!BattlerAfflictionsByte = $001D
+!BattlerAfflictionsPlus1Byte = $001E
+!BattlerShieldHpByte = $0025
+!BattlerSpeedWord = $002A
+!BattlerLuckWord = $002E
+!BattlerMoneyWord = $003D
+!BattlerExpDwordLo = $003F
+!BattlerExpDwordHi = $0041
+!BattlerVramSpriteIndexByte = $0043
+!BattlerActiveMarkerByte = $004B
+!BattlerConsciousnessByteBase = $9FB8
+!BattlerAllyOrEnemyByteBase = $9FBA
+!BattlerNpcIdByteBase = $9FBB
+!BattlerRowByteBase = $9FBC
+!BattlerHpTargetWordBase = $9FBF
+!BattlerAfflictionsByteBase = $9FC9
+!BattlerAfflictionsPlus1Offset = $0001
+!PartyCharacterRowSize = $005F
+!PartyHpTargetMirrorBase = $9A13
+!PartyHpMaxMirrorBase = $9A15
+!EnemyDataTableLo = $9589
+!EnemyDataTableBank = $00D5
+!EnemyDataRowSize = $005E
+!EnemyDataDeathTextPointerOffset = $0031
+!EnemyDataLateActionIdOffset = $004E
+!EnemyDataActionArgumentOffset = $0054
+!EnemyDataLateVisualFlagOffset = $005A
+!TargetMaskLo = $A96C
+!TargetMaskHi = $A96E
+!ActiveAttackerBattlerPointer = $A970
+!ActiveTargetBattlerPointer = $A972
+!NestedActionDispatchActiveFlag = $AA90
+!ControllerExitFlag = $AA92
+!LateVisualCompletionFlag = $AA0E
+!CompanionScratchBattlerBase = $A180
+!CompanionBattlerSeedEnemyId = $00D5
+!CompanionSeedActiveByte = $A18D
+!CompanionSeedEnemyIdMirrorByte = $A18F
+!SingleEnemySideRowValue = $0001
+!SourceScanLimit = $0006
+!ActorTargetStartBit = $0008
+!TargetBitLimit = $0020
+!HardCollapsedAfflictionState = $0001
+!NeighborAfflictionValueTwo = $0002
 C277CA_RunClass2LateSelectedRowController:
     ldx $02
-    lda $0000,X
+    lda.w !BattlerIdWord,X
     cmp.w #$00DA
     bne C277D7_RunClass2LateSelectedRowController_L77D7
     jmp.w C27C92_RunClass2LateSelectedRowController_L7C92
@@ -4030,7 +4121,7 @@ C277E7_RunClass2LateSelectedRowController_L77E7:
     bne C277EF_RunClass2LateSelectedRowController_L77EF
     jmp.w C27C92_RunClass2LateSelectedRowController_L7C92
 C277EF_RunClass2LateSelectedRowController_L77EF:
-    lda.w #$0001
+    lda.w #!SingleEnemySideRowValue
     jsl !C2BAC5_CountRowsWithPhaseValue
     cmp.w #$0001
     beq C277FE_RunClass2LateSelectedRowController_L77FE
@@ -4041,57 +4132,57 @@ C277FE_RunClass2LateSelectedRowController_L77FE:
     sta $22
     bra C27874_RunClass2LateSelectedRowController_L7874
 C27809_RunClass2LateSelectedRowController_L7809:
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     stx $1E
-    lda $9FB8,X
+    lda.w !BattlerConsciousnessByteBase,X
     and.w #$00FF
     beq C2786F_RunClass2LateSelectedRowController_L786F
-    lda $9FBA,X
+    lda.w !BattlerAllyOrEnemyByteBase,X
     and.w #$00FF
     bne C2786F_RunClass2LateSelectedRowController_L786F
-    lda $9FC9,X
+    lda.w !BattlerAfflictionsByteBase,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!HardCollapsedAfflictionState
     beq C2786F_RunClass2LateSelectedRowController_L786F
-    lda $9FBB,X
+    lda.w !BattlerNpcIdByteBase,X
     and.w #$00FF
     bne C2786F_RunClass2LateSelectedRowController_L786F
     txa
     clc
-    adc.w #$9FBC
+    adc.w #!BattlerRowByteBase
     tay
     sty $20
     lda $0000,Y
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9A13,X
+    lda.w !PartyHpTargetMirrorBase,X
     bne C2786F_RunClass2LateSelectedRowController_L786F
     lda.w #$0001
     ldx $1E
-    sta $9FBF,X
+    sta.w !BattlerHpTargetWordBase,X
     ldy $20
     lda $0000,Y
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #!PartyCharacterRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
     lda.w #$0001
-    sta $9A15,X
+    sta.w !PartyHpMaxMirrorBase,X
 C2786F_RunClass2LateSelectedRowController_L786F:
     lda $22
     inc A
     sta $22
 C27874_RunClass2LateSelectedRowController_L7874:
-    cmp.w #$0006
+    cmp.w #!SourceScanLimit
     bcc C27809_RunClass2LateSelectedRowController_L7809
 C27879_RunClass2LateSelectedRowController_L7879:
     lda $02
     clc
-    adc.w #$003F
+    adc.w #!BattlerExpDwordLo
     tay
     lda $0000,Y
     sta $0A
@@ -4113,7 +4204,7 @@ C27879_RunClass2LateSelectedRowController_L7879:
     lda $08
     sta $A976
     ldx $02
-    lda $003D,X
+    lda.w !BattlerMoneyWord,X
     clc
     adc $A978
     sta $A978
@@ -4122,57 +4213,57 @@ C27879_RunClass2LateSelectedRowController_L7879:
     lda.w #$00D5
     sta $1A
     ldx $02
-    lda $0000,X
-    ldy.w #$005E
+    lda.w !BattlerIdWord,X
+    ldy.w #!EnemyDataRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$004E
+    adc.w #!EnemyDataLateActionIdOffset
     tay
     lda [$18],Y
     bne C278D9_RunClass2LateSelectedRowController_L78D9
     jmp.w C27A07_RunClass2LateSelectedRowController_L7A07
 C278D9_RunClass2LateSelectedRowController_L78D9:
     lda.w #$0001
-    sta $AA90
-    ldx $A970
+    sta !NestedActionDispatchActiveFlag
+    ldx !ActiveAttackerBattlerPointer
     stx $1E
-    ldy $A972
+    ldy !ActiveTargetBattlerPointer
     sty $16
-    lda $A96C
+    lda !TargetMaskLo
     sta $06
-    lda $A96E
+    lda !TargetMaskHi
     sta $08
     lda $06
     sta $12
     lda $08
     sta $14
     lda $02
-    sta $A970
+    sta !ActiveAttackerBattlerPointer
     ldx $02
-    lda $0000,X
-    ldy.w #$005E
+    lda.w !BattlerIdWord,X
+    ldy.w #!EnemyDataRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$004E
+    adc.w #!EnemyDataLateActionIdOffset
     tay
     lda [$18],Y
     ldx $02
-    sta $0004,X
+    sta.w !BattlerCurrentActionWord,X
     ldx $02
-    lda $0000,X
-    ldy.w #$005E
+    lda.w !BattlerIdWord,X
+    ldy.w #!EnemyDataRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$0054
+    adc.w #!EnemyDataActionArgumentOffset
     tay
     sep #$20
     lda [$18],Y
     ldx $02
-    sta $0008,X
+    sta.w !BattlerCurrentActionArgumentByte,X
     rep #$20
-    lda $A970
+    lda !ActiveAttackerBattlerPointer
     jsl CHOOSE_TARGET
-    lda $A970
+    lda !ActiveAttackerBattlerPointer
     jsl !C24703_DispatchClass2DerivedAction
     lda.w #$0000
     jsl FIX_ATTACKER_NAME
@@ -4182,11 +4273,11 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     lda.w #!D57B68_BattleActionTableBank
     sta $0C
     ldx $02
-    lda $0000,X
-    ldy.w #$005E
+    lda.w !BattlerIdWord,X
+    ldy.w #!EnemyDataRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$004E
+    adc.w #!EnemyDataLateActionIdOffset
     tay
     lda [$18],Y
     sta $04
@@ -4217,11 +4308,11 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
     ldx $02
-    lda $0000,X
-    ldy.w #$005E
+    lda.w !BattlerIdWord,X
+    ldy.w #!EnemyDataRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$004E
+    adc.w #!EnemyDataLateActionIdOffset
     tay
     lda [$18],Y
     sta $04
@@ -4245,40 +4336,40 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     lda $08
     sta $10
     jsl !C240A4_ApplyBattleActionSecondPointerPayload
-    stz $AA90
+    stz !NestedActionDispatchActiveFlag
     ldx $1E
-    stx $A970
+    stx !ActiveAttackerBattlerPointer
     ldy $16
-    sty $A972
+    sty !ActiveTargetBattlerPointer
     lda $12
     sta $06
     lda $14
     sta $08
     lda $06
-    sta $A96C
+    sta !TargetMaskLo
     lda $08
-    sta $A96E
+    sta !TargetMaskHi
     lda.w #$0000
     jsl FIX_ATTACKER_NAME
     jsl FIX_TARGET_NAME
-    lda $AA0E
+    lda !LateVisualCompletionFlag
     beq C27A07_RunClass2LateSelectedRowController_L7A07
     jmp.w C27C92_RunClass2LateSelectedRowController_L7C92
 C27A07_RunClass2LateSelectedRowController_L7A07:
-    lda $AA92
+    lda !ControllerExitFlag
     beq C27A0F_RunClass2LateSelectedRowController_L7A0F
     jmp.w C27C92_RunClass2LateSelectedRowController_L7C92
 C27A0F_RunClass2LateSelectedRowController_L7A0F:
-    lda.w #$9589
+    lda.w #!EnemyDataTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #!EnemyDataTableBank
     sta $0C
     ldx $02
-    lda $0000,X
-    ldy.w #$005E
+    lda.w !BattlerIdWord,X
+    ldy.w #!EnemyDataRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$0031
+    adc.w #!EnemyDataDeathTextPointerOffset
     clc
     adc $0A
     sta $0A
@@ -4293,27 +4384,27 @@ C27A0F_RunClass2LateSelectedRowController_L7A0F:
     lda $08
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
-    lda.w #$9FAC
+    lda.w #!BattlersTableBase
     ldx.w #$0000
     stx $22
     bra C27A61_RunClass2LateSelectedRowController_L7A61
 C27A50_RunClass2LateSelectedRowController_L7A50:
     tax
     sep #$20
-    stz $004B,X
+    stz.w !BattlerActiveMarkerByte,X
     clc
     rep #$20
-    adc.w #$004E
+    adc.w #!BattlerRowSize
     ldx $22
     inx
     stx $22
 C27A61_RunClass2LateSelectedRowController_L7A61:
-    cpx.w #$0020
+    cpx.w #!TargetBitLimit
     bcc C27A50_RunClass2LateSelectedRowController_L7A50
     sep #$20
     lda.b #$01
     ldx $02
-    sta $004B,X
+    sta.w !BattlerActiveMarkerByte,X
     rep #$20
     lda.w #$000A
     jsl $C2FAD8
@@ -4327,7 +4418,7 @@ C27A7F_RunClass2LateSelectedRowController_L7A7F:
     tax
     stx $1E
     ldx $02
-    lda $0043,X
+    lda.w !BattlerVramSpriteIndexByte,X
     and.w #$00FF
     asl A
     asl A
@@ -4355,7 +4446,7 @@ C27ABA_RunClass2LateSelectedRowController_L7ABA:
     tyx
     stx $1E
     ldx $02
-    lda $0043,X
+    lda.w !BattlerVramSpriteIndexByte,X
     and.w #$00FF
     asl A
     asl A
@@ -4375,7 +4466,7 @@ C27AD9_RunClass2LateSelectedRowController_L7AD9:
     sep #$20
     lda.b #$01
     ldx $02
-    sta $001D,X
+    sta.w !BattlerAfflictionsByte,X
     ldx $02
     stz $0023,X
     ldx $02
@@ -4390,38 +4481,38 @@ C27AD9_RunClass2LateSelectedRowController_L7AD9:
     stz $001E,X
     ldx $02
     rep #$20
-    stz $0013,X
+    stz.w !BattlerHpTargetWord,X
     ldx $02
-    lda $0000,X
-    ldy.w #$005E
+    lda.w !BattlerIdWord,X
+    ldy.w #!EnemyDataRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$005A
+    adc.w #!EnemyDataLateVisualFlagOffset
     tax
     lda $D59589,X
     and.w #$00FF
     bne C27B31_RunClass2LateSelectedRowController_L7B31
     jmp.w C27BED_RunClass2LateSelectedRowController_L7BED
 C27B31_RunClass2LateSelectedRowController_L7B31:
-    ldx.w #$A21C
-    ldy.w #$0008
+    ldx.w #!ActorTargetBattlerBase
+    ldy.w #!ActorTargetStartBit
     bra C27B51_RunClass2LateSelectedRowController_L7B51
 C27B39_RunClass2LateSelectedRowController_L7B39:
-    lda $000C,X
+    lda.w !BattlerConsciousnessByte,X
     and.w #$00FF
     beq C27B48_RunClass2LateSelectedRowController_L7B48
     sep #$20
     lda.b #$01
-    sta $004B,X
+    sta.w !BattlerActiveMarkerByte,X
 C27B48_RunClass2LateSelectedRowController_L7B48:
     rep #$20
     txa
     clc
-    adc.w #$004E
+    adc.w #!BattlerRowSize
     tax
     iny
 C27B51_RunClass2LateSelectedRowController_L7B51:
-    cpy.w #$0020
+    cpy.w #!TargetBitLimit
     bcc C27B39_RunClass2LateSelectedRowController_L7B39
     lda.w #$0021
     jsl $C0ABE0
@@ -4470,34 +4561,34 @@ C27BB1_RunClass2LateSelectedRowController_L7BB1:
     bcc C27B9C_RunClass2LateSelectedRowController_L7B9C
     lda.w #$0014
     jsr $69BE
-    ldx.w #$A21C
-    ldy.w #$0008
+    ldx.w #!ActorTargetBattlerBase
+    ldy.w #!ActorTargetStartBit
     bra C27BDE_RunClass2LateSelectedRowController_L7BDE
 C27BC6_RunClass2LateSelectedRowController_L7BC6:
-    lda $000C,X
+    lda.w !BattlerConsciousnessByte,X
     and.w #$00FF
     beq C27BD5_RunClass2LateSelectedRowController_L7BD5
     sep #$20
     lda.b #$01
-    sta $001D,X
+    sta.w !BattlerAfflictionsByte,X
 C27BD5_RunClass2LateSelectedRowController_L7BD5:
     rep #$20
     txa
     clc
-    adc.w #$004E
+    adc.w #!BattlerRowSize
     tax
     iny
 C27BDE_RunClass2LateSelectedRowController_L7BDE:
-    cpy.w #$0020
+    cpy.w #!TargetBitLimit
     bcc C27BC6_RunClass2LateSelectedRowController_L7BC6
     jsl $C2F8F9
     lda.w #$0002
-    sta $AA0E
+    sta !LateVisualCompletionFlag
 C27BED_RunClass2LateSelectedRowController_L7BED:
     ldx $02
-    lda $000F,X
+    lda.w !BattlerNpcIdOrRouteByte,X
     and.w #$00FF
-    cmp.w #$00D5
+    cmp.w #!CompanionBattlerSeedEnemyId
     beq C27BFD_RunClass2LateSelectedRowController_L7BFD
     jmp.w C27C92_RunClass2LateSelectedRowController_L7C92
 C27BFD_RunClass2LateSelectedRowController_L7BFD:
@@ -4506,71 +4597,71 @@ C27BFD_RunClass2LateSelectedRowController_L7BFD:
     bra C27C3D_RunClass2LateSelectedRowController_L7C3D
 C27C04_RunClass2LateSelectedRowController_L7C04:
     tya
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FB8,X
+    lda !BattlerConsciousnessByteBase,X
     and.w #$00FF
     beq C27C38_RunClass2LateSelectedRowController_L7C38
-    lda $9FBB,X
+    lda !BattlerNpcIdByteBase,X
     and.w #$00FF
     bne C27C38_RunClass2LateSelectedRowController_L7C38
     txa
     clc
-    adc.w #$9FC9
+    adc.w #!BattlerAfflictionsByteBase
     tax
     inx
-    lda $0000,X
+    lda.w !CurrentIndexedByte,X
     and.w #$00FF
-    cmp.w #$0002
+    cmp.w #!NeighborAfflictionValueTwo
     bne C27C38_RunClass2LateSelectedRowController_L7C38
     sep #$20
     lda.b #$00
-    sta $0000,X
+    sta.w !CurrentIndexedByte,X
     bra C27C8B_RunClass2LateSelectedRowController_L7C8B
 C27C38_RunClass2LateSelectedRowController_L7C38:
     ldy $22
     iny
     sty $22
 C27C3D_RunClass2LateSelectedRowController_L7C3D:
-    cpy.w #$0006
+    cpy.w #!SourceScanLimit
     bcc C27C04_RunClass2LateSelectedRowController_L7C04
     bra C27C8B_RunClass2LateSelectedRowController_L7C8B
 C27C44_RunClass2LateSelectedRowController_L7C44:
     rep #$20
     tya
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FB8,X
+    lda !BattlerConsciousnessByteBase,X
     and.w #$00FF
     beq C27C86_RunClass2LateSelectedRowController_L7C86
-    lda $9FBB,X
+    lda !BattlerNpcIdByteBase,X
     and.w #$00FF
     bne C27C86_RunClass2LateSelectedRowController_L7C86
     txa
     clc
-    adc.w #$9FC9
+    adc.w #!BattlerAfflictionsByteBase
     tax
-    lda $0001,X
+    lda.w !BattlerAfflictionsPlus1Offset,X
     and.w #$00FF
-    cmp.w #$0002
+    cmp.w #!NeighborAfflictionValueTwo
     bne C27C86_RunClass2LateSelectedRowController_L7C86
-    ldx.w #$A180
-    lda.w #$00D5
-    jsl !C2B6EB_ApplyCandidateRecordPayload
+    ldx.w #!CompanionScratchBattlerBase
+    lda.w #!CompanionBattlerSeedEnemyId
+    jsl !C2B6EB_InitializeEnemyBattlerStatsFromEnemyId
     sep #$20
     lda.b #$D5
-    sta $A18F
+    sta !CompanionSeedEnemyIdMirrorByte
     lda.b #$01
-    sta $A18D
+    sta !CompanionSeedActiveByte
 C27C86_RunClass2LateSelectedRowController_L7C86:
     ldy $22
     iny
     sty $22
 C27C8B_RunClass2LateSelectedRowController_L7C8B:
     ldy $22
-    cpy.w #$0006
+    cpy.w #!SourceScanLimit
     bcc C27C44_RunClass2LateSelectedRowController_L7C44
 C27C92_RunClass2LateSelectedRowController_L7C92:
     rep #$20
@@ -4581,8 +4672,8 @@ SUCCESS_LUCK80:
     rep #$31
     lda.w #$0050
     jsr $6A2D
-    ldx $A972
-    cmp $002E,X
+    ldx !ActiveTargetBattlerPointer
+    cmp.w !BattlerLuckWord,X
     bcs C27CAB_RunClass2LateSelectedRowController_L7CAB
     lda.w #$0000
     bra C27CAE_RunClass2LateSelectedRowController_L7CAE
@@ -4600,13 +4691,13 @@ SUCCESS_SPEED:
     tcd
     pla
     tay
-    ldx $A972
-    lda $002A,X
+    ldx !ActiveTargetBattlerPointer
+    lda.w !BattlerSpeedWord,X
     asl A
     tax
     stx $10
-    ldx $A970
-    lda $002A,X
+    ldx !ActiveAttackerBattlerPointer
+    lda.w !BattlerSpeedWord,X
     sta $0E
     sta $02
     ldx $10

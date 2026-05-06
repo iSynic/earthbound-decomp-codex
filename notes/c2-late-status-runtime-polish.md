@@ -47,6 +47,10 @@ This slice extends the Flash-local map into the late action-table status rows.
 
 `C2:8BFD` also requires selected-row `+0x0E == 0` and may seed the
 `A18C/A18D/A18F` companion route through `C2:B6EB` after a successful write.
+The selected-row collapse pass now gives that companion route a concrete local
+neighbor: `C2:7550/77CA` can rebuild scratch battler base `$A180` with special
+enemy id `0xD5` after neighboring `+0x1E == 2` checks. See
+`notes/class2-b6eb-caller-family-760c.md`.
 
 ## Temporary Subgroup `+0x1F`
 

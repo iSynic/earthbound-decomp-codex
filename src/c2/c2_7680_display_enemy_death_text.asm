@@ -9,13 +9,14 @@
 ; - C2:7680..C2:77CA DisplayEnemyDeathText
 ;
 ; Runtime contract:
-; - Continues the `C2:7550` startup path with `$02` as selected-row base.
+; - Continues the `C2:7550` startup path with `$02` as selected battler row
+;   base.
 ; - Uses the selected row id and the `D5:9589` record field `+0x31` to load a
 ;   descriptor-backed battle text pointer, then dispatches it through `C1:DC1C`.
-; - Clears selected-row byte `+0x0C` after the text emission.
-; - Row `+0x0F` values `0x10/0x11` seed a follow-up active row from the
-;   `983A/983C` helper tables; other routes scan candidate rows and may clear
-;   matching row `+0x10` links.
+; - Clears selected battler `consciousness` (`+0x0C`) after the text emission.
+; - Row `npc_id/route` byte `+0x0F` values `0x10/0x11` seed a follow-up active
+;   row from the `983A/983C` helper tables; other routes scan battler rows and
+;   may clear matching `row` (`+0x10`) links.
 ; - The embedded `C2:7784` tail is the hardcoded collapse text route reached
 ;   from `C2:7550` when row `+0x0F == 0`.
 
@@ -25,17 +26,34 @@
 C08FF7_ResolveIndexedPointerOffset  = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 
+BattlersTableBase                   = $9FAC
+BattlerRowSize                      = $004E
+BattlerIdWord                       = $0000
+BattlerConsciousnessByte            = $000C
+BattlerNpcIdOrRouteByte             = $000F
+BattlerRowByte                      = $0010
+BattlerHpWord                       = $0011
+BattlerHpTargetWord                 = $0013
+BattlerAfflictionsByte              = $001D
+BattlerAllyOrEnemyByte              = $000E
+EnemyDataRowSize                    = $005E
+EnemyDataDeathTextPointerOffset     = $0031
+PartyCharacterRowSize               = $005F
+TargetBitLimit                       = $0020
+HardCollapseScriptLo                = $6C6B
+HardCollapseScriptBank              = $00EF
+
 ; ---------------------------------------------------------------------------
 ; C2:7680
 
 C27680_DisplayEnemyDeathText:
     ldx $02
-    lda $0000,X
-    ldy.w #$005E
+    lda.w BattlerIdWord,X
+    ldy.w #EnemyDataRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     ; Fetch row descriptor field `+0x31` as a battle text pointer.
     clc
-    adc.w #$0031
+    adc.w #EnemyDataDeathTextPointerOffset
     clc
     adc $0A
     sta $0A
@@ -52,8 +70,8 @@ C27680_DisplayEnemyDeathText:
     jsl C1DC1C_DisplayBattleTextFromPointer
     ldx $02
     sep #$20
-    ; Clear row occupancy/active gate after descriptor text emission.
-    stz $000C,X
+    ; Clear battler consciousness/active gate after descriptor text emission.
+    stz.w BattlerConsciousnessByte,X
     ldx $22
     rep #$20
     lda $0000,X
@@ -67,7 +85,7 @@ C276C9_DisplayEnemyDeathText_L76C9:
     ; Subtypes 0x10/0x11 can seed a new active row from 983A/983C tables.
     lda $02
     clc
-    adc.w #$0010
+    adc.w #BattlerRowByte
     tax
     stx $1E
     lda $0000,X
@@ -81,9 +99,9 @@ C276E4_DisplayEnemyDeathText_L76E4:
     sep #$20
     lda.b #$01
     ldx $02
-    sta $000C,X
+    sta.w BattlerConsciousnessByte,X
     ldx $02
-    stz $001D,X
+    stz.w BattlerAfflictionsByte,X
     ldx $1E
     rep #$20
     lda $0000,X
@@ -92,9 +110,9 @@ C276E4_DisplayEnemyDeathText_L76E4:
     tax
     lda $983C,X
     ldx $02
-    sta $0013,X
+    sta.w BattlerHpTargetWord,X
     ldx $02
-    sta $0011,X
+    sta.w BattlerHpWord,X
     ldx $1E
     lda $0000,X
     and.w #$00FF
@@ -102,7 +120,7 @@ C276E4_DisplayEnemyDeathText_L76E4:
     sep #$20
     lda $983A,X
     ldx $02
-    sta $000F,X
+    sta.w BattlerNpcIdOrRouteByte,X
     rep #$20
     and.w #$00FF
     asl A
@@ -119,33 +137,33 @@ C27735_DisplayEnemyDeathText_L7735:
     bne C27740_DisplayEnemyDeathText_L7740
     jmp $7C92
 C27740_DisplayEnemyDeathText_L7740:
-    ldx.w #$9FAC
+    ldx.w #BattlersTableBase
     ldy.w #$0000
     bra C27771_DisplayEnemyDeathText_L7771
 C27748_DisplayEnemyDeathText_L7748:
-    ; Otherwise scan candidate rows and clear matching `+0x10` links.
-    lda $000C,X
+    ; Otherwise scan battler rows and clear matching `row` links.
+    lda.w BattlerConsciousnessByte,X
     and.w #$00FF
     beq C27768_DisplayEnemyDeathText_L7768
-    lda $000E,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C27768_DisplayEnemyDeathText_L7768
     sep #$20
-    lda $000F,X
+    lda.w BattlerNpcIdOrRouteByte,X
     cmp $983A
     bne C27768_DisplayEnemyDeathText_L7768
-    stz $0010,X
+    stz.w BattlerRowByte,X
     jmp $7C92
 C27768_DisplayEnemyDeathText_L7768:
     rep #$20
     txa
     clc
-    adc.w #$004E
+    adc.w #BattlerRowSize
     tax
     iny
 C27771_DisplayEnemyDeathText_L7771:
     sty $02
-    lda.w #$0020
+    lda.w #TargetBitLimit
     clc
     sbc $02
     bvs C2777F_DisplayEnemyDeathText_L777F
@@ -160,26 +178,26 @@ C27781_DisplayEnemyDeathText_L7781:
     stz $0013,X
     lda $02
     clc
-    adc.w #$0010
+    adc.w #BattlerRowByte
     tax
     stx $1C
     lda $0000,X
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #PartyCharacterRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     stz $9A15,X
     ldx $1C
     lda $0000,X
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #PartyCharacterRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     lda.w #$0001
     sta $9A13,X
-    lda.w #$6C6B
+    lda.w #HardCollapseScriptLo
     sta $0E
-    lda.w #$00EF
+    lda.w #HardCollapseScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     jmp $7C92

@@ -15,21 +15,22 @@ Related evidence notes:
 - `notes/class2-descriptor-field-4e-and-d57b68.md`
 - `notes/class2-concrete-battle-text-call-paths.md`
 - `notes/c2-selected-row-controller-runtime-polish.md`
+- `notes/class2-b6eb-caller-family-760c.md`
 
 ## Descriptor Text Continuation
 
-`C2:7680` continues the `C2:7550` startup path with `$02` as the selected-row
-base.
+`C2:7680` continues the `C2:7550` startup path with `$02` as the selected
+battler row base.
 
 Promoted runtime contract:
 
-- selected row id maps through the `0x5E` descriptor domain
+- selected battler row id maps through the `0x5E` descriptor domain
 - `D5:9589 + 0x31` is read as a battle text pointer
 - the pointer is dispatched through `C1:DC1C`
-- selected-row byte `+0x0C` is cleared after the text emission
+- selected battler `consciousness` byte `+0x0C` is cleared after the text emission
 - row `+0x0F` values `0x10/0x11` seed a follow-up active row from the
   `983A/983C` helper tables
-- other routes scan candidate rows and may clear matching row `+0x10` links
+- other routes scan battler rows and may clear matching row `+0x10` links
 - the embedded `C2:7784` tail is the hardcoded collapse text route reached from
   `C2:7550` when row `+0x0F == 0`
 
@@ -79,13 +80,29 @@ the battle-action descriptor table and second-pointer payload path.
 The later part of `C2:77CA` repeats several selected-row controller motifs:
 
 - fallback text uses `D5:9589 + 0x31`
-- row marker `+0x4B` is reset across candidate rows and then set on the selected
+- row marker `+0x4B` is reset across battler rows and then set on the selected
   row
 - row `+0x1D = 1` is reinstalled with sibling state bytes `+0x1E..+0x23`
   cleared
 - optional descriptor field `+0x5A` can mark active rows in the `A21C` domain
 - `D5` subtype routes clean up or rebuild six-entry source metadata through
   `C2:B6EB`
+
+## Companion Rebuild Join
+
+The `C2:7550` startup body and the `C2:77CA` late body both contain the same
+source-entry companion pattern:
+
+- scan the six `0x4E`-stride source entries
+- require consciousness/active state and clear npc id markers
+- test neighboring affliction byte `+0x1E == 2`
+- clear the existing neighbor byte or rebuild scratch battler base `$A180`
+  through `C2:B6EB`
+- mirror special enemy id `0xD5` through `$A18D/$A18F`
+
+This resolves the old `C2:760C` direct `B6EB` caller as a selected-row
+collapse/companion rebuild route. It should stay separate from the `4Dxx`
+battle-start enemy initialization family.
 
 ## Decomp Value
 
@@ -97,11 +114,15 @@ This slice closes the immediate loop around `C2:7550`:
   nested action use is now source-commented too
 - the `+0x0E` major phase byte has a direct source boundary between startup and
   late behavior
+- the old unresolved `760C` battler-init call now has a local selected-row
+  companion rebuild contract
 
 ## Remaining Soft Spots
 
 - final gameplay names for row ids `0xDA`, `0xDB`, `0xDD`, and `0xE5`
 - exact names for `$A974/$A976/$A978`
 - precise gameplay meaning of descriptor field `D5:9589 + 0x5A`
+- exact gameplay identity of the special `0xD5` companion rebuilt through
+  scratch battler base `$A180`
 - whether the hardcoded `C2:7784` tail should be split into its own named source
   unit in a later scaffold pass

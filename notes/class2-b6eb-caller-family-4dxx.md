@@ -5,6 +5,7 @@ This note captures the current best read on the `C2:4D01` / `C2:4D54` caller fam
 See also [class2-local-enemy-id-to-battler-init-chain.md](notes/class2-local-enemy-id-to-battler-init-chain.md).
 See also [class2-battlers-table-layout-9f8a-9fac.md](notes/class2-battlers-table-layout-9f8a-9fac.md).
 See also [class2-concrete-battle-text-call-paths.md](notes/class2-concrete-battle-text-call-paths.md).
+See also [class2-b6eb-caller-family-760c.md](notes/class2-b6eb-caller-family-760c.md).
 
 ## Working Names
 
@@ -114,14 +115,14 @@ Those are still worth tracing, but they are no longer the same thing as proving 
 
 ## Why `760C` should still stay separate
 
-The newer caller trace still showed `C2:760C` as a `C2:B6EB` caller, but that family looks different.
+The newer caller trace still showed `C2:760C` as a `C2:B6EB` caller, but that family looks different. The source-backed pass over `C2:7550/7680/77CA` now confirms it should stay separate.
 
-The clearest reason to keep it separate is that the later `7600+` flow runs straight into the death-text-style pointer dispatch at `C2:7680+`, which still feels more like transformation, replacement, or scripted reinitialization than like ordinary battle-start group setup.
+The clearest reason to keep it separate is that the later `7600+` flow runs straight into the death-text-style pointer dispatch at `C2:7680+`, and the local `B6EB` call rebuilds companion scratch battler base `$A180` with special enemy id `0xD5` after affliction/substate checks. That is much closer to selected-row collapse or scripted companion reinitialization than ordinary battle-start group setup.
 
 So the clean split is now:
 
 - `4Dxx` -> likely battle-start enemy-group init family
-- `760C` -> still open, probably a different battler-reinit situation
+- `760C` -> selected-row collapse/companion rebuild route, with exact gameplay identity of the `0xD5` companion still open
 
 ## Current safest takeaway
 
@@ -131,7 +132,7 @@ The safest takeaway is:
 - the `4Dxx -> 4Fxx` family is best read as a battle-start enemy initialization and status-announcement path
 - the earlier `CALL_FOR_HELP_COMMON` comparison is now weaker than the `main_battle_routine` comparison
 - `EF:78D8` remains a real local clue, but it no longer defines the whole family
-- `760C` should still be treated as a separate unresolved reinit family
+- `760C` should still be treated as a separate selected-row companion rebuild family
 
 ## Best next target
 

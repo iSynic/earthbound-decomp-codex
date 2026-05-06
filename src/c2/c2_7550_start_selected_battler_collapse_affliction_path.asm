@@ -9,12 +9,14 @@
 ; - C2:7550..C2:7680 StartSelectedBattlerCollapseAfflictionPath
 ;
 ; Runtime contract:
-; - A = selected-row base for the collapse/affliction startup path.
-; - Clears controller flag `$AA92`, then routes nonzero row `+0x0E` into the
+; - A = selected battler row base for the collapse/affliction startup path.
+; - Clears controller flag `$AA92`, then routes nonzero battler `ally_or_enemy`
+;   (`+0x0E`) into the
 ;   late selected-row controller at `C2:77CA`.
 ; - Startup rows with `+0x1E == 2` scan the six upstream source entries and
-;   require enabled `9FB8`, clear `9FBB`, and neighboring metadata `9FCA == 2`.
-; - Seeds selected-row `+0x1D = 1` and clears `+0x1E..+0x23`, aligning this
+;   require active battlers, clear `npc_id`, and neighboring affliction byte
+;   `+0x1E == 2`.
+; - Seeds selected-row `afflictions[0] = 1` and clears `+0x1E..+0x23`, aligning this
 ;   entry with the hard/collapsed state consumed by recovery helpers.
 ; - Row `+0x0F` selects between the hardcoded collapse text tail and the
 ;   descriptor-backed `D5:9589 + 0x31` text pointer path.
@@ -24,7 +26,27 @@
 
 C277CA_RunClass2LateSelectedRowController = $77CA
 C08FF7_ResolveIndexedPointerOffset        = $C08FF7
-C2B6EB_ApplyCandidateRecordPayload        = $C2B6EB
+C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
+
+BattlersTableBase                         = $9FAC
+BattlerRowSize                            = $004E
+BattlerAllyOrEnemyByte                    = $000E
+BattlerRouteSelectorByte                  = $000F
+BattlerAfflictionsByte                    = $001D
+BattlerAfflictionsPlus1Byte               = $001E
+BattlerConsciousnessByteBase              = $9FB8
+BattlerNpcIdByteBase                      = $9FBB
+BattlerAfflictionsByteBase                = $9FC9
+BattlerAfflictionsPlus1Offset             = $0001
+SourceScanLimit                           = $0006
+CompanionScratchBattlerBase               = $A180
+CompanionBattlerSeedEnemyId               = $00D5
+CompanionSeedEnemyIdByte                  = $A18C
+CompanionSeedActiveByte                   = $A18D
+CompanionSeedEnemyIdMirrorByte            = $A18F
+ControllerExitFlag                        = $AA92
+HardCollapsedAfflictionState              = $0001
+NeighborAfflictionValueTwo                = $0002
 
 ; ---------------------------------------------------------------------------
 ; C2:7550
@@ -39,18 +61,18 @@ C27550_StartSelectedBattlerCollapseAfflictionPath = KO_TARGET
     tcd
     pla
     sta $02
-    stz $AA92
+    stz ControllerExitFlag
     ldx $02
-    lda $000E,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    ; Nonzero major phase resumes in the late selected-row controller.
+    ; Nonzero side/phase byte resumes in the late selected-row controller.
     beq C2756C_StartSelectedBattlerCollapseAfflictionPath_L756C
     jmp C277CA_RunClass2LateSelectedRowController
 C2756C_StartSelectedBattlerCollapseAfflictionPath_L756C:
     ldx $02
-    lda $001E,X
+    lda.w BattlerAfflictionsPlus1Byte,X
     and.w #$00FF
-    cmp.w #$0002
+    cmp.w #NeighborAfflictionValueTwo
     beq C2757C_StartSelectedBattlerCollapseAfflictionPath_L757C
     jmp.w C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
 C2757C_StartSelectedBattlerCollapseAfflictionPath_L757C:
@@ -59,80 +81,80 @@ C2757C_StartSelectedBattlerCollapseAfflictionPath_L757C:
     jmp.w C2762F_StartSelectedBattlerCollapseAfflictionPath_L762F
 C27584_StartSelectedBattlerCollapseAfflictionPath_L7584:
     tya
-    ldy.w #$004E
+    ldy.w #BattlerRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     sta $20
     tax
-    ; Startup scan accepts enabled source entries with clear source markers.
-    lda $9FB8,X
+    ; Startup scan accepts conscious battlers with clear NPC markers.
+    lda.w BattlerConsciousnessByteBase,X
     and.w #$00FF
     bne C2759A_StartSelectedBattlerCollapseAfflictionPath_L759A
     jmp.w C2762A_StartSelectedBattlerCollapseAfflictionPath_L762A
 C2759A_StartSelectedBattlerCollapseAfflictionPath_L759A:
     lda $20
     tax
-    lda $9FBB,X
+    lda.w BattlerNpcIdByteBase,X
     and.w #$00FF
     beq C275A8_StartSelectedBattlerCollapseAfflictionPath_L75A8
     jmp.w C2762A_StartSelectedBattlerCollapseAfflictionPath_L762A
 C275A8_StartSelectedBattlerCollapseAfflictionPath_L75A8:
     lda $20
     clc
-    adc.w #$9FC9
+    adc.w #BattlerAfflictionsByteBase
     tax
-    lda $0001,X
+    lda.w BattlerAfflictionsPlus1Offset,X
     and.w #$00FF
-    cmp.w #$0002
+    cmp.w #NeighborAfflictionValueTwo
     bne C2762A_StartSelectedBattlerCollapseAfflictionPath_L762A
     lda $20
     clc
-    adc.w #$9FAC
+    adc.w #BattlersTableBase
     sta $04
     lda $02
     cmp $04
     bne C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
-    lda $A18F
+    lda CompanionSeedEnemyIdMirrorByte
     and.w #$00FF
-    cmp.w #$00D5
+    cmp.w #CompanionBattlerSeedEnemyId
     bne C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
     sep #$20
-    stz $A18C
+    stz CompanionSeedEnemyIdByte
     bra C27621_StartSelectedBattlerCollapseAfflictionPath_L7621
 C275DA_StartSelectedBattlerCollapseAfflictionPath_L75DA:
     rep #$20
     tya
-    ldy.w #$004E
+    ldy.w #BattlerRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FB8,X
+    lda.w BattlerConsciousnessByteBase,X
     and.w #$00FF
     beq C2761C_StartSelectedBattlerCollapseAfflictionPath_L761C
-    lda $9FBB,X
+    lda.w BattlerNpcIdByteBase,X
     and.w #$00FF
     bne C2761C_StartSelectedBattlerCollapseAfflictionPath_L761C
     txa
     clc
-    adc.w #$9FC9
+    adc.w #BattlerAfflictionsByteBase
     tax
-    lda $0001,X
+    lda.w BattlerAfflictionsPlus1Offset,X
     and.w #$00FF
-    cmp.w #$0002
+    cmp.w #NeighborAfflictionValueTwo
     bne C2761C_StartSelectedBattlerCollapseAfflictionPath_L761C
-    ldx.w #$A180
-    lda.w #$00D5
-    jsl C2B6EB_ApplyCandidateRecordPayload
+    ldx.w #CompanionScratchBattlerBase
+    lda.w #CompanionBattlerSeedEnemyId
+    jsl C2B6EB_InitializeEnemyBattlerStatsFromEnemyId
     sep #$20
     lda.b #$D5
-    sta $A18F
+    sta CompanionSeedEnemyIdMirrorByte
     lda.b #$01
-    sta $A18D
+    sta CompanionSeedActiveByte
 C2761C_StartSelectedBattlerCollapseAfflictionPath_L761C:
     ldy $22
     iny
     sty $22
 C27621_StartSelectedBattlerCollapseAfflictionPath_L7621:
     ldy $22
-    cpy.w #$0006
+    cpy.w #SourceScanLimit
     bcc C275DA_StartSelectedBattlerCollapseAfflictionPath_L75DA
     bra C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
 C2762A_StartSelectedBattlerCollapseAfflictionPath_L762A:
@@ -140,7 +162,7 @@ C2762A_StartSelectedBattlerCollapseAfflictionPath_L762A:
     iny
     sty $22
 C2762F_StartSelectedBattlerCollapseAfflictionPath_L762F:
-    cpy.w #$0006
+    cpy.w #SourceScanLimit
     bcs C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
     beq C27639_StartSelectedBattlerCollapseAfflictionPath_L7639
     jmp.w C27584_StartSelectedBattlerCollapseAfflictionPath_L7584
@@ -149,7 +171,7 @@ C27639_StartSelectedBattlerCollapseAfflictionPath_L7639:
     lda.b #$01
     ldx $02
     ; Install hard/collapsed state and clear the sibling substate bytes.
-    sta $001D,X
+    sta.w BattlerAfflictionsByte,X
     ldx $02
     stz $0023,X
     ldx $02
@@ -165,13 +187,13 @@ C27639_StartSelectedBattlerCollapseAfflictionPath_L7639:
     rep #$20
     lda $02
     clc
-    adc.w #$000F
+    adc.w #BattlerRouteSelectorByte
     tax
     stx $22
     lda $0000,X
     and.w #$00FF
     bne C27676_StartSelectedBattlerCollapseAfflictionPath_L7676
-    ; `+0x0F == 0` uses the hardcoded collapse text tail in the next module.
+    ; `npc_id/route +0x0F == 0` uses the hardcoded collapse text tail in the next module.
     jmp $7784
 C27676_StartSelectedBattlerCollapseAfflictionPath_L7676:
     ; Nonzero `+0x0F` uses the descriptor-backed `+0x31` text pointer path.
