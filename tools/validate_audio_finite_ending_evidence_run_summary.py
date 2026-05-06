@@ -102,7 +102,9 @@ def validate(data: dict[str, Any]) -> None:
             require("public_exact_export_blocked" in reasons, f"{job_id}: missing public exact blocker")
             require("sequence_semantics_required" in reasons, f"{job_id}: missing sequence semantics blocker")
             require(run.get("nonzero_after_candidate_end") is True, f"{job_id}: expected nonzero PCM after candidate")
-            require(int(run.get("last_nonzero_sample_index", -1)) >= int(run.get("finite_end_sample", 0)), f"{job_id}: bad tail ordering")
+            require(int(run.get("last_nonzero_frame_index", -1)) >= int(run.get("finite_end_sample", 0)), f"{job_id}: bad tail ordering")
+            require(int(run.get("frames_after_candidate_end", -1)) >= 0, f"{job_id}: missing frame-normalized tail delta")
+            require(float(run.get("seconds_after_candidate_end", -1.0)) >= 0.0, f"{job_id}: missing tail seconds")
             require(run.get("public_exact_export_allowed") is False, f"{job_id}: public exact export should remain blocked")
             require(run.get("needs_sequence_semantics") is True, f"{job_id}: expected sequence semantics gate")
 

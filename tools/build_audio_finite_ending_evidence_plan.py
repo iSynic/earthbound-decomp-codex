@@ -16,6 +16,8 @@ DEFAULT_EXPORT_PLAN = ROOT / "manifests" / "audio-export-plan.json"
 DEFAULT_ORACLE_PLAN = ROOT / "manifests" / "audio-oracle-comparison-plan-all-tracks.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-finite-ending-evidence-plan.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-finite-ending-evidence-plan.md"
+ASSUMED_RENDER_CHANNELS = 2
+ASSUMED_RENDER_SAMPLE_RATE = 32000
 
 
 def parse_args() -> argparse.Namespace:
@@ -67,35 +69,59 @@ def render_tail_metrics(export_record: dict[str, Any], oracle_job: dict[str, Any
     finite = finite_metadata(export_record)
     metrics = oracle_job.get("source_render", {}).get("metrics", {})
     finite_end_sample = finite.get("finite_end_sample")
+    finite_end_seconds = finite.get("finite_end_seconds")
     last_nonzero = metrics.get("last_nonzero_sample_index")
     rendered_samples = metrics.get("rendered_samples")
+    last_nonzero_frame = last_nonzero // ASSUMED_RENDER_CHANNELS if isinstance(last_nonzero, int) else None
+    rendered_frames = rendered_samples // ASSUMED_RENDER_CHANNELS if isinstance(rendered_samples, int) else None
     nonzero_after_end = (
         isinstance(finite_end_sample, int)
-        and isinstance(last_nonzero, int)
-        and last_nonzero >= finite_end_sample
+        and isinstance(last_nonzero_frame, int)
+        and last_nonzero_frame >= finite_end_sample
     )
-    samples_after_candidate_end = (
-        last_nonzero - finite_end_sample
-        if isinstance(finite_end_sample, int) and isinstance(last_nonzero, int)
+    frames_after_candidate_end = (
+        last_nonzero_frame - finite_end_sample
+        if isinstance(finite_end_sample, int) and isinstance(last_nonzero_frame, int)
         else None
     )
-    render_tail_after_candidate = (
-        rendered_samples - finite_end_sample
-        if isinstance(finite_end_sample, int) and isinstance(rendered_samples, int)
+    seconds_after_candidate_end = (
+        round(frames_after_candidate_end / ASSUMED_RENDER_SAMPLE_RATE, 6)
+        if isinstance(frames_after_candidate_end, int)
+        else None
+    )
+    render_tail_frames_after_candidate = (
+        rendered_frames - finite_end_sample
+        if isinstance(finite_end_sample, int) and isinstance(rendered_frames, int)
+        else None
+    )
+    inferred_sample_rate = (
+        round(float(finite_end_sample) / float(finite_end_seconds))
+        if isinstance(finite_end_sample, int) and isinstance(finite_end_seconds, (float, int)) and finite_end_seconds
         else None
     )
     return {
+        "unit_policy": {
+            "finite_end_sample": "pcm_frame_32000hz",
+            "source_render_nonzero_index": "interleaved_pcm_sample_index",
+            "normalized_tail_index": "pcm_frame_32000hz",
+            "assumed_channels": ASSUMED_RENDER_CHANNELS,
+            "assumed_sample_rate": ASSUMED_RENDER_SAMPLE_RATE,
+            "inferred_sample_rate_from_finite_end": inferred_sample_rate,
+        },
         "peak_abs_sample": metrics.get("peak_abs_sample"),
         "rms_sample": metrics.get("rms_sample"),
         "nonzero_sample_count": metrics.get("nonzero_sample_count"),
         "first_nonzero_sample_index": metrics.get("first_nonzero_sample_index"),
         "last_nonzero_sample_index": last_nonzero,
+        "last_nonzero_frame_index": last_nonzero_frame,
         "rendered_samples": rendered_samples,
+        "rendered_frames": rendered_frames,
         "voice_count": metrics.get("voice_count"),
         "finite_end_sample": finite_end_sample,
         "nonzero_after_candidate_end": nonzero_after_end,
-        "samples_after_candidate_end": samples_after_candidate_end,
-        "render_tail_samples_after_candidate": render_tail_after_candidate,
+        "frames_after_candidate_end": frames_after_candidate_end,
+        "seconds_after_candidate_end": seconds_after_candidate_end,
+        "render_tail_frames_after_candidate": render_tail_frames_after_candidate,
         "warning": metrics.get("warning", ""),
     }
 
@@ -238,14 +264,15 @@ def build_plan(
 def render_markdown(data: dict[str, Any]) -> str:
     summary = data["summary"]
     rows = [
-        "| {order} | `{track_id:03d}` | `{track_name}` | `{focus}` | `{status}` | `{end}` | `{last}` | `{after}` |".format(
+        "| {order} | `{track_id:03d}` | `{track_name}` | `{focus}` | `{status}` | `{end}` | `{last_frame}` | `{tail_seconds}` | `{after}` |".format(
             order=job["execution_order"],
             track_id=job["track_id"],
             track_name=job["track_name"],
             focus=job["source_candidate"]["diagnostic_focus"],
             status=job["finite_gap"]["status"],
             end=job["finite_gap"]["current_finite_metadata"]["finite_end_sample"],
-            last=job["finite_gap"]["current_render_tail_metrics"]["last_nonzero_sample_index"],
+            last_frame=job["finite_gap"]["current_render_tail_metrics"]["last_nonzero_frame_index"],
+            tail_seconds=job["finite_gap"]["current_render_tail_metrics"]["seconds_after_candidate_end"],
             after=job["finite_gap"]["current_render_tail_metrics"]["nonzero_after_candidate_end"],
         )
         for job in data["jobs"]
@@ -274,8 +301,8 @@ def render_markdown(data: dict[str, Any]) -> str:
             "",
             "## Jobs",
             "",
-            "| Order | Track | Name | Oracle focus | Evidence status | Candidate end sample | Last nonzero sample | Nonzero after end |",
-            "| ---: | ---: | --- | --- | --- | ---: | ---: | --- |",
+            "| Order | Track | Name | Oracle focus | Evidence status | Candidate end frame | Last nonzero frame | Tail seconds | Nonzero after end |",
+            "| ---: | ---: | --- | --- | --- | ---: | ---: | ---: | --- |",
             *rows,
             "",
             "## Accepted Evidence Statuses",

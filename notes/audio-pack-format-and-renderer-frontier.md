@@ -116,6 +116,8 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate focused finite-ending evidence plan: `python tools/validate_audio_finite_ending_evidence_plan.py`.
 - Audit focused finite-ending evidence readiness: `python tools/run_audio_finite_ending_evidence_plan.py --mode audit-current-export`.
 - Validate focused finite-ending evidence run summary: `python tools/validate_audio_finite_ending_evidence_run_summary.py`.
+- Build frame-normalized finite-ending tail metrics: `python tools/build_audio_finite_ending_tail_metrics.py`.
+- Validate frame-normalized finite-ending tail metrics: `python tools/validate_audio_finite_ending_tail_metrics.py`.
 - Collect fused post-command timing metrics: `python tools/collect_audio_fusion_timing_metrics.py`.
 - Validate fused post-command timing metrics: `python tools/validate_audio_fusion_timing_metrics.py`.
 - Build ignored renderer fixtures: `python tools/build_audio_renderer_fixtures.py --tracks 46`.

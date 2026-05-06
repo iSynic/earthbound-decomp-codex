@@ -23,13 +23,13 @@ Status: finite-ending evidence plan is ready; current review-needed export behav
 
 ## Jobs
 
-| Order | Track | Name | Oracle focus | Evidence status | Candidate end sample | Last nonzero sample | Nonzero after end |
-| ---: | ---: | --- | --- | --- | ---: | ---: | --- |
-| 1 | `008` | `BATTLE_SWIRL1` | `finite_tail_or_transition_end` | `finite_tail_review_pending` | `129158` | `281969` | `True` |
-| 2 | `009` | `BATTLE_SWIRL2` | `general_playback_equivalence` | `finite_tail_review_pending` | `131027` | `1919995` | `True` |
-| 3 | `011` | `NEW_FRIEND` | `active_through_preview_or_loop_candidate` | `finite_tail_review_pending` | `253126` | `1919999` | `True` |
-| 4 | `123` | `SOMEONE_JOINS` | `finite_tail_or_transition_end` | `finite_tail_review_pending` | `83972` | `226232` | `True` |
-| 5 | `176` | `BATTLE_SWIRL4` | `active_through_preview_or_loop_candidate` | `finite_tail_review_pending` | `170468` | `1919999` | `True` |
+| Order | Track | Name | Oracle focus | Evidence status | Candidate end frame | Last nonzero frame | Tail seconds | Nonzero after end |
+| ---: | ---: | --- | --- | --- | ---: | ---: | ---: | --- |
+| 1 | `008` | `BATTLE_SWIRL1` | `finite_tail_or_transition_end` | `finite_tail_review_pending` | `129158` | `140984` | `0.369563` | `True` |
+| 2 | `009` | `BATTLE_SWIRL2` | `general_playback_equivalence` | `finite_tail_review_pending` | `131027` | `959997` | `25.905313` | `True` |
+| 3 | `011` | `NEW_FRIEND` | `active_through_preview_or_loop_candidate` | `finite_tail_review_pending` | `253126` | `959999` | `22.089781` | `True` |
+| 4 | `123` | `SOMEONE_JOINS` | `finite_tail_or_transition_end` | `finite_tail_review_pending` | `83972` | `113116` | `0.91075` | `True` |
+| 5 | `176` | `BATTLE_SWIRL4` | `active_through_preview_or_loop_candidate` | `finite_tail_review_pending` | `170468` | `959999` | `24.672844` | `True` |
 
 ## Accepted Evidence Statuses
 

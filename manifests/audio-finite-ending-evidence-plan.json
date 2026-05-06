@@ -121,17 +121,28 @@
           "measured_by": "audio_export_duration_measurement"
         },
         "current_render_tail_metrics": {
+          "unit_policy": {
+            "finite_end_sample": "pcm_frame_32000hz",
+            "source_render_nonzero_index": "interleaved_pcm_sample_index",
+            "normalized_tail_index": "pcm_frame_32000hz",
+            "assumed_channels": 2,
+            "assumed_sample_rate": 32000,
+            "inferred_sample_rate_from_finite_end": 32000
+          },
           "peak_abs_sample": 15632,
           "rms_sample": 1108.445182,
           "nonzero_sample_count": 273451,
           "first_nonzero_sample_index": 189,
           "last_nonzero_sample_index": 281969,
+          "last_nonzero_frame_index": 140984,
           "rendered_samples": 1920000,
+          "rendered_frames": 960000,
           "voice_count": 8,
           "finite_end_sample": 129158,
           "nonzero_after_candidate_end": true,
-          "samples_after_candidate_end": 152811,
-          "render_tail_samples_after_candidate": 1790842,
+          "frames_after_candidate_end": 11826,
+          "seconds_after_candidate_end": 0.369563,
+          "render_tail_frames_after_candidate": 830842,
           "warning": ""
         }
       },
@@ -219,17 +230,28 @@
           "measured_by": "audio_export_duration_measurement"
         },
         "current_render_tail_metrics": {
+          "unit_policy": {
+            "finite_end_sample": "pcm_frame_32000hz",
+            "source_render_nonzero_index": "interleaved_pcm_sample_index",
+            "normalized_tail_index": "pcm_frame_32000hz",
+            "assumed_channels": 2,
+            "assumed_sample_rate": 32000,
+            "inferred_sample_rate_from_finite_end": 32000
+          },
           "peak_abs_sample": 11579,
           "rms_sample": 448.855922,
           "nonzero_sample_count": 1242543,
           "first_nonzero_sample_index": 33,
           "last_nonzero_sample_index": 1919995,
+          "last_nonzero_frame_index": 959997,
           "rendered_samples": 1920000,
+          "rendered_frames": 960000,
           "voice_count": 8,
           "finite_end_sample": 131027,
           "nonzero_after_candidate_end": true,
-          "samples_after_candidate_end": 1788968,
-          "render_tail_samples_after_candidate": 1788973,
+          "frames_after_candidate_end": 828970,
+          "seconds_after_candidate_end": 25.905313,
+          "render_tail_frames_after_candidate": 828973,
           "warning": ""
         }
       },
@@ -317,17 +339,28 @@
           "measured_by": "audio_export_duration_measurement"
         },
         "current_render_tail_metrics": {
+          "unit_policy": {
+            "finite_end_sample": "pcm_frame_32000hz",
+            "source_render_nonzero_index": "interleaved_pcm_sample_index",
+            "normalized_tail_index": "pcm_frame_32000hz",
+            "assumed_channels": 2,
+            "assumed_sample_rate": 32000,
+            "inferred_sample_rate_from_finite_end": 32000
+          },
           "peak_abs_sample": 13849,
           "rms_sample": 1075.18693,
           "nonzero_sample_count": 1213764,
           "first_nonzero_sample_index": 1330,
           "last_nonzero_sample_index": 1919999,
+          "last_nonzero_frame_index": 959999,
           "rendered_samples": 1920000,
+          "rendered_frames": 960000,
           "voice_count": 8,
           "finite_end_sample": 253126,
           "nonzero_after_candidate_end": true,
-          "samples_after_candidate_end": 1666873,
-          "render_tail_samples_after_candidate": 1666874,
+          "frames_after_candidate_end": 706873,
+          "seconds_after_candidate_end": 22.089781,
+          "render_tail_frames_after_candidate": 706874,
           "warning": ""
         }
       },
@@ -415,17 +448,28 @@
           "measured_by": "audio_export_duration_measurement"
         },
         "current_render_tail_metrics": {
+          "unit_policy": {
+            "finite_end_sample": "pcm_frame_32000hz",
+            "source_render_nonzero_index": "interleaved_pcm_sample_index",
+            "normalized_tail_index": "pcm_frame_32000hz",
+            "assumed_channels": 2,
+            "assumed_sample_rate": 32000,
+            "inferred_sample_rate_from_finite_end": 32000
+          },
           "peak_abs_sample": 15794,
           "rms_sample": 754.838444,
           "nonzero_sample_count": 187584,
           "first_nonzero_sample_index": 53,
           "last_nonzero_sample_index": 226232,
+          "last_nonzero_frame_index": 113116,
           "rendered_samples": 1920000,
+          "rendered_frames": 960000,
           "voice_count": 8,
           "finite_end_sample": 83972,
           "nonzero_after_candidate_end": true,
-          "samples_after_candidate_end": 142260,
-          "render_tail_samples_after_candidate": 1836028,
+          "frames_after_candidate_end": 29144,
+          "seconds_after_candidate_end": 0.91075,
+          "render_tail_frames_after_candidate": 876028,
           "warning": ""
         }
       },
@@ -513,17 +557,28 @@
           "measured_by": "audio_export_duration_measurement"
         },
         "current_render_tail_metrics": {
+          "unit_policy": {
+            "finite_end_sample": "pcm_frame_32000hz",
+            "source_render_nonzero_index": "interleaved_pcm_sample_index",
+            "normalized_tail_index": "pcm_frame_32000hz",
+            "assumed_channels": 2,
+            "assumed_sample_rate": 32000,
+            "inferred_sample_rate_from_finite_end": 32000
+          },
           "peak_abs_sample": 8776,
           "rms_sample": 632.085969,
           "nonzero_sample_count": 1128448,
           "first_nonzero_sample_index": 34,
           "last_nonzero_sample_index": 1919999,
+          "last_nonzero_frame_index": 959999,
           "rendered_samples": 1920000,
+          "rendered_frames": 960000,
           "voice_count": 8,
           "finite_end_sample": 170468,
           "nonzero_after_candidate_end": true,
-          "samples_after_candidate_end": 1749531,
-          "render_tail_samples_after_candidate": 1749532,
+          "frames_after_candidate_end": 789531,
+          "seconds_after_candidate_end": 24.672844,
+          "render_tail_frames_after_candidate": 789532,
           "warning": ""
         }
       },
