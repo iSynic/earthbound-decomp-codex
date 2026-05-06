@@ -247,21 +247,36 @@ def validate_report_preview_geometry(output: dict[str, Any], fixture: dict[str, 
 
 
 def validate_smoke_report(plan: dict[str, Any], report: dict[str, Any], out_root: Path) -> dict[str, Any]:
-    assets_by_id = {str(asset["id"]): asset for asset in report["assets"]}
     errors: list[str] = []
-    verified_output_keys: set[tuple[str, str, str]] = set()
+    assets_by_key: dict[tuple[str, str], dict[str, Any]] = {}
+    for asset in report["assets"]:
+        if not isinstance(asset, dict):
+            continue
+        manifest = asset.get("manifest_path")
+        asset_id = asset.get("id")
+        if not isinstance(manifest, str) or not isinstance(asset_id, str):
+            errors.append(f"extracted report asset is missing manifest_path or id: {asset!r}")
+            continue
+        key = (manifest, asset_id)
+        if key in assets_by_key:
+            errors.append(f"extracted report has duplicate manifest-qualified asset: {manifest} {asset_id}")
+            continue
+        assets_by_key[key] = asset
+
+    verified_output_keys: set[tuple[str, str, str, str]] = set()
     metadata_field_checks = 0
     preview_geometry_field_checks = 0
 
     for fixture in plan["fixtures"]:
         fixture_id = str(fixture["id"])
+        manifest = str(fixture["manifest_path"])
         asset_id = str(fixture["asset_id"])
         target_output = fixture["target_output"]
         target_kind = str(target_output["kind"])
         target_path = str(target_output["path"])
-        asset = assets_by_id.get(asset_id)
+        asset = assets_by_key.get((manifest, asset_id))
         if asset is None:
-            errors.append(f"{fixture_id}: extracted report is missing asset {asset_id}")
+            errors.append(f"{fixture_id}: extracted report is missing asset {manifest} {asset_id}")
             continue
 
         matched_output = None
@@ -286,13 +301,14 @@ def validate_smoke_report(plan: dict[str, Any], report: dict[str, Any], out_root
         geometry_errors, geometry_checks = validate_report_preview_geometry(matched_output, fixture)
         errors.extend(geometry_errors)
         preview_geometry_field_checks += geometry_checks
-        verified_output_keys.add((asset_id, target_kind, target_path))
+        verified_output_keys.add((manifest, asset_id, target_kind, target_path))
 
     if errors:
         raise ValueError("Smoke fixture report validation failed:\n- " + "\n- ".join(errors))
 
     return {
         "fixture_targets_checked": len(plan["fixtures"]),
+        "manifest_qualified_assets_checked": len(assets_by_key),
         "unique_outputs_checked": len(verified_output_keys),
         "metadata_field_checks": metadata_field_checks,
         "preview_geometry_field_checks": preview_geometry_field_checks,
@@ -343,7 +359,13 @@ def run_plan(
         )
         reports.append(report)
 
-    merged_assets = [asset for report in reports for asset in report["assets"]]
+    merged_assets = []
+    for report in reports:
+        report_manifest = rel(Path(str(report["manifest"])))
+        for asset in report["assets"]:
+            merged_asset = dict(asset)
+            merged_asset["manifest_path"] = report_manifest
+            merged_assets.append(merged_asset)
     output_count = sum(len(asset["outputs"]) for asset in merged_assets)
     result = {
         "schema": "earthbound-decomp.asset-output-smoke-fixtures-report.v1",
