@@ -945,12 +945,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1280`
 - struct: `map_sector_context_word`
 - confidence: `consumer-corroborated-low3`
-- note: 40x32 sector context-word table. C0:0AA1 loads the full word to $438E; C0:2668 consumes the low three bits, which match map-sector Setting for every row.
-- evidence: `notes/d7-sector-metadata-contracts.md`, `notes/map-sector-bundles.md`, `src/c0/c0_0aa1_lookup_position_cell_context_word.asm`, `src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm`
+- note: 40x32 sector context-word table. C0:0AA1 loads the full word to $438E; C0:2668, C0:3A94, and path-lane callers consume the low three bits, which match map-sector Setting for every row.
+- evidence: `notes/d7-sector-metadata-contracts.md`, `notes/map-sector-bundles.md`, `src/c0/c0_0aa1_lookup_position_cell_context_word.asm`, `src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm`, `src/c0/c0_3a94_refresh_position_derived_visual_context_class.asm`, `src/c0/c0_c0b4_copy_path_to_lane_from_party_path.asm`, `src/c0/c0_c19b_copy_path_to_lane_from_party_member_request.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `sector_context_word` | 2 | 1 | per-sector context word loaded by C0:0AA1 into $438E; low three bits match map-sector Setting and are consumed by the C0:2668 spawn candidate resolver |
+| `0x0` | `sector_context_word` | 2 | 1 | per-sector context word loaded by C0:0AA1 into $438E; low three bits match map-sector Setting and feed spawn, visual-context, and path-lane gates |
 
 ### MAP_TILE_COLLISION_DATA
 

@@ -96,7 +96,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/df-landing-palette-animation-contracts.md",
             "notes/map-scene-composition-contract.md",
         ],
-        "next_contract": "Map contracts are phase-good-enough: D7 sector metadata and DA palette subrecords are contract-backed; collision low modifier labels, DA event-palette selector runtime behavior, DF profile names, and remaining D7 unresolved planes are bounded deferred semantic polish.",
+        "next_contract": "Map contracts are phase-good-enough: D7 sector metadata and DA palette subrecords are contract-backed, and D7 unresolved planes are value-bounded without promoted names; collision low modifier labels, DA event-palette selector runtime behavior, DF profile names, and remaining D7 high-bit semantics are deferred caller-evidence polish.",
     },
     {
         "id": "ui_font_town_map_assets",

@@ -245,9 +245,9 @@ def build_triage() -> list[BankTriage]:
             "map tiles/palette/arrangement",
             "asset-and-table-ready",
             3,
-            "Extract map tile chunks and keep the D7 sector metadata contracts regression-tested.",
-            ["two bounded D7 metadata planes and context-word high bits remain unnamed"],
-            ["map tile chunks", "palette/sector attributes", "compressed arrangement stream"],
+            "Extract map tile chunks and use `notes/d7-sector-metadata-contracts.md` for the consumer-backed sector tables and bounded unresolved-plane summaries.",
+            ["two bounded D7 metadata planes and context-word high bits remain unnamed until caller evidence proves them"],
+            ["map tile chunks", "consumer-backed sector metadata tables", "bounded unresolved metadata planes", "compressed arrangement stream"],
         )
     )
     rows.append(

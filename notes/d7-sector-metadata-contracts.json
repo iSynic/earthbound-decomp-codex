@@ -1,4 +1,54 @@
 {
+  "consumer_usage": {
+    "D7_SECTOR_CONTEXT_WORD_TABLE": [
+      {
+        "consumer": "src/c0/c0_0aa1_lookup_position_cell_context_word.asm",
+        "field_use": "loads the full 16-bit context word into $438E and returns it to callers"
+      },
+      {
+        "consumer": "src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm",
+        "field_use": "masks low three bits to select spawn-probe threshold behavior"
+      },
+      {
+        "consumer": "src/c0/c0_3a94_refresh_position_derived_visual_context_class.asm",
+        "field_use": "calls C0:0AA1, masks low three bits, and stores the position-derived visual context class in $9887"
+      },
+      {
+        "consumer": "src/c0/c0_c0b4_copy_path_to_lane_from_party_path.asm",
+        "field_use": "calls C0:0AA1, masks low three bits, and gates path-lane copying through C3:DFE8"
+      },
+      {
+        "consumer": "src/c0/c0_c19b_copy_path_to_lane_from_party_member_request.asm",
+        "field_use": "calls C0:0AA1, masks low three bits, and gates party-member path-lane copying through C3:DFE8"
+      }
+    ],
+    "D7_SECTOR_TILESET_PALETTE_TABLE": [
+      {
+        "consumer": "src/c0/c0_08cf_derive_landing_region_profile_from_destination.asm",
+        "field_use": "masks bits 0..2 and shifts bits 3..7 while deriving the landing/profile selector"
+      },
+      {
+        "consumer": "src/c0/c0_0ac5_load_vertical_movement_map_strip_payload.asm",
+        "field_use": "compares shifted tileset/profile id against cached $436E during vertical strip loading"
+      },
+      {
+        "consumer": "src/c0/c0_0bdc_load_horizontal_movement_map_strip_payload.asm",
+        "field_use": "compares shifted tileset/profile id against cached $436E during horizontal strip loading"
+      },
+      {
+        "consumer": "src/c0/c0_2291_test_secondary_descriptor_leading_piece_context.asm",
+        "field_use": "rejects secondary descriptors whose shifted tileset/profile id does not match $436E"
+      },
+      {
+        "consumer": "src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm",
+        "field_use": "uses the shifted tileset/profile id to validate table-backed spawn candidate lists"
+      },
+      {
+        "consumer": "src/c4/your_sanctuary_tile_arrangement_helpers.asm",
+        "field_use": "consumes the shifted tileset/profile id while choosing sanctuary tile-arrangement data"
+      }
+    ]
+  },
   "counts": {
     "packed_tileset_palette": {
       "0x0000": 31,
@@ -429,7 +479,125 @@
     "unique_palette_variants": 8,
     "unique_sector_context_words": 17,
     "unique_sector_setting_codes": 6,
-    "unique_tileset_ids": 28
+    "unique_tileset_ids": 28,
+    "unique_unresolved_byte_plane_values": 93,
+    "unique_unresolved_word_plane_values": 19
   },
-  "title": "D7 Sector Metadata Contracts"
+  "title": "D7 Sector Metadata Contracts",
+  "unresolved_plane_summaries": [
+    {
+      "row_shape": "1280 x 1",
+      "span": "D7:AD00..D7:B1FF",
+      "status": "bounded-but-unnamed",
+      "top_values": [
+        {
+          "count": 166,
+          "value": "0x40"
+        },
+        {
+          "count": 157,
+          "value": "0x10"
+        },
+        {
+          "count": 101,
+          "value": "0x18"
+        },
+        {
+          "count": 80,
+          "value": "0x33"
+        },
+        {
+          "count": 58,
+          "value": "0xF0"
+        },
+        {
+          "count": 39,
+          "value": "0x00"
+        },
+        {
+          "count": 38,
+          "value": "0x02"
+        },
+        {
+          "count": 33,
+          "value": "0xD3"
+        },
+        {
+          "count": 32,
+          "value": "0x11"
+        },
+        {
+          "count": 28,
+          "value": "0xA1"
+        },
+        {
+          "count": 26,
+          "value": "0xEB"
+        },
+        {
+          "count": 26,
+          "value": "0xE8"
+        }
+      ],
+      "unique_values": 93,
+      "zero_rows": 39
+    },
+    {
+      "row_shape": "1280 x 2",
+      "span": "D7:BC00..D7:C5FF",
+      "status": "bounded-but-unnamed",
+      "top_values": [
+        {
+          "count": 297,
+          "value": "0x0082"
+        },
+        {
+          "count": 231,
+          "value": "0x0000"
+        },
+        {
+          "count": 196,
+          "value": "0xB010"
+        },
+        {
+          "count": 101,
+          "value": "0x0018"
+        },
+        {
+          "count": 96,
+          "value": "0x00A1"
+        },
+        {
+          "count": 64,
+          "value": "0x0091"
+        },
+        {
+          "count": 60,
+          "value": "0xAF00"
+        },
+        {
+          "count": 38,
+          "value": "0x0085"
+        },
+        {
+          "count": 36,
+          "value": "0x00B1"
+        },
+        {
+          "count": 29,
+          "value": "0x008A"
+        },
+        {
+          "count": 24,
+          "value": "0x0028"
+        },
+        {
+          "count": 22,
+          "value": "0x0081"
+        }
+      ],
+      "unique_values": 19,
+      "zero_rows": 231
+    }
+  ]
 }
