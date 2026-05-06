@@ -26,13 +26,13 @@ The exact final symbolic names can still stay one notch cautious, but the roles 
 
 Pinned callers are exactly the first seven prayer rows:
 
-- `C2:C572`
-- `C2:C5D1`
-- `C2:C5FA`
-- `C2:C623`
-- `C2:C64C`
-- `C2:C675`
-- `C2:C69E`
+- `C2:C572` / `RunFinalPrayerOpeningTransition`
+- `C2:C5D1` / `RunFinalPrayerDamagePhase2`
+- `C2:C5FA` / `RunFinalPrayerDamagePhase3`
+- `C2:C623` / `RunFinalPrayerDamagePhase4`
+- `C2:C64C` / `RunFinalPrayerDamagePhase5`
+- `C2:C675` / `RunFinalPrayerDamagePhase6`
+- `C2:C69E` / `RunFinalPrayerDamagePhase7`
 
 Its local body does the same broad sequence every time:
 
@@ -59,12 +59,12 @@ So the safest current local read is:
 
 Pinned callers are exactly the damage-bearing prayer rows:
 
-- `C2:C5D1`
-- `C2:C5FA`
-- `C2:C623`
-- `C2:C64C`
-- `C2:C675`
-- `C2:C69E`
+- `C2:C5D1` / `RunFinalPrayerDamagePhase2`
+- `C2:C5FA` / `RunFinalPrayerDamagePhase3`
+- `C2:C623` / `RunFinalPrayerDamagePhase4`
+- `C2:C64C` / `RunFinalPrayerDamagePhase5`
+- `C2:C675` / `RunFinalPrayerDamagePhase6`
+- `C2:C69E` / `RunFinalPrayerDamagePhase7`
 - and the four repeated finale steps inside `C2:C6F0`
 
 Its body is much more focused than the transition helpers:
@@ -88,7 +88,7 @@ That makes the healthiest current local role:
 
 Pinned callers are only the late prayer rows:
 
-- `C2:C6D0`
+- `C2:C6D0` / `RunFinalPrayerNarrativePhase8`
 - the four staged text blocks inside `C2:C6F0`
 
 Its body is a different presentation path from `C2:C37A`:
@@ -124,6 +124,9 @@ The common helper layer is now in a usable state:
 - `C2:C37A` handles the early and middle prayer stage transitions
 - `C2:C3E2` handles the repeated prayer damage applications
 - `C2:C41F` handles the late-stage prayer narrative transitions
+- rows `291..299` now call those three helpers by source-facing contract names,
+  so the phase ladder reads as transition, damage, and narrative composition
+  rather than raw local-address plumbing
 
 ## What is still open
 

@@ -77,6 +77,11 @@ The damage rows are regular wrappers around `C2:C37A` followed by `C2:C3E2`.
 Phase 8 intentionally skips damage and advances through the late narrative
 helper only.
 
+Source follow-up: the phase 1-7 wrappers now call `C2:C37A` as
+`RunFinalPrayerStageTransition`, the phase 2-7 and finale damage sites call
+`C2:C3E2` as `ApplyFinalPrayerDamageStep`, and the phase 8/finale narrative
+sites call `C2:C41F` as `RunFinalPrayerNarrativeTransition`.
+
 ## Finale Opening
 
 `C2:C6F0` interleaves four late narrative text blocks with four larger damage
@@ -113,6 +118,9 @@ bodies into a runtime contract:
 - `$9643` is explicitly paused around prayer text presentation
 - the shared damage helper is now tied to amount setup, flash timing, and forced
   application
+- the phase ladder and finale now call the shared prayer transition, damage,
+  and narrative helpers by source-facing contract names instead of raw local
+  addresses
 - the finale is connected to battle-background distortion and overlay helpers
 - prayer transition and finale sources now use named C1 battle-presentation
   lifecycle joins instead of raw display/window helper calls

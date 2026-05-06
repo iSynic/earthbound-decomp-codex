@@ -17,7 +17,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C2C37A_RunFinalPrayerStageTransition = $C37A
+C2C3E2_ApplyFinalPrayerDamageStep    = $C3E2
 
 ; ---------------------------------------------------------------------------
 ; C2:C5FA
@@ -35,10 +36,10 @@ C2C5FA_RunFinalPrayerDamagePhase3 = BTLACT_GIYGAS_PRAYER_3
     sta $10
     ldx.w #$00B9
     lda.w #$01DF
-    jsr $C37A
+    jsr C2C37A_RunFinalPrayerStageTransition
     lda.w #$0064
     ; Second prayer damage tier: 100.
-    jsr $C3E2
+    jsr C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #$0007
     sta $A97A
     pld

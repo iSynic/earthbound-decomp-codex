@@ -25,6 +25,8 @@ C1DD59_WaitForBattleText       = $C1DD59
 C12DD5_WindowTick              = $C12DD5
 C2E8C4_StartBattleSwirlOverlayAndRecordMode = $C2E8C4
 C2E9C8_PollBattleTransitionComplete = $C2E9C8
+C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
+C2C41F_RunFinalPrayerNarrativeTransition = $C41F
 C4FBBD_ChangeMusic             = $C4FBBD
 C269BE_WaitFrames              = $69BE
 
@@ -51,37 +53,37 @@ C2C6F0_RunFinalPrayerFinaleOpeningSequence = BTLACT_GIYGAS_PRAYER_9
     lda.w #C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
-    jsr $C41F
+    jsr C2C41F_RunFinalPrayerNarrativeTransition
     lda.w #$0C80
     ; Finale damage tier: 3200.
-    jsr $C3E2
+    jsr C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #C9MSG_FinalPrayerFinale1
     sta $0E
     lda.w #C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
-    jsr $C41F
+    jsr C2C41F_RunFinalPrayerNarrativeTransition
     lda.w #$1900
     ; Finale damage tier: 6400.
-    jsr $C3E2
+    jsr C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #C9MSG_FinalPrayerFinale2
     sta $0E
     lda.w #C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
-    jsr $C41F
+    jsr C2C41F_RunFinalPrayerNarrativeTransition
     lda.w #$3200
     ; Finale damage tier: 12800.
-    jsr $C3E2
+    jsr C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #C9MSG_FinalPrayerFinale3
     sta $0E
     lda.w #C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
-    jsr $C41F
+    jsr C2C41F_RunFinalPrayerNarrativeTransition
     lda.w #$6400
     ; Finale damage tier: 25600.
-    jsr $C3E2
+    jsr C2C3E2_ApplyFinalPrayerDamageStep
     jsl C1DD59_WaitForBattleText
     stz $9643
     jsl $C1DD41

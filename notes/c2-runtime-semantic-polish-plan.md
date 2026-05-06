@@ -779,6 +779,14 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-psi-common-runtime-polish.md`,
   `notes/class2-psi-thunder-common-local-flow.md`, and
   `notes/class2-psi-thunder-reflection-branch.md`.
+- 2026-05-06 one hundred and second slice: tightened the Final Prayer phase
+  ladder helper joins. Rows `291..299` now call `C2:C37A` as
+  `RunFinalPrayerStageTransition`, `C2:C3E2` as
+  `ApplyFinalPrayerDamageStep`, and `C2:C41F` as
+  `RunFinalPrayerNarrativeTransition` across the opening, damage, phase-8,
+  and finale wrappers. See `notes/c2-final-prayer-runtime-polish.md`,
+  `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`, and
+  `notes/class2-final-prayer-family-c2c572-c2c6f0.md`.
 
 ## Validation
 

@@ -17,7 +17,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C2C37A_RunFinalPrayerStageTransition = $C37A
+C2C3E2_ApplyFinalPrayerDamageStep    = $C3E2
 
 ; ---------------------------------------------------------------------------
 ; C2:C69E
@@ -35,10 +36,10 @@ C2C69E_RunFinalPrayerDamagePhase7 = BTLACT_GIYGAS_PRAYER_7
     sta $10
     ldx.w #$00B9
     lda.w #$01DF
-    jsr $C37A
+    jsr C2C37A_RunFinalPrayerStageTransition
     lda.w #$0640
     ; Sixth prayer damage tier: 1600.
-    jsr $C3E2
+    jsr C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #$000B
     sta $A97A
     ldx.w #$004A

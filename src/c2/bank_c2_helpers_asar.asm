@@ -22800,6 +22800,7 @@ org $C2C572
 
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C269BE_WaitFrames = $69BE
+!C2C37A_RunFinalPrayerStageTransition = $C37A
 !C9_BattleTextScriptBank = $00C9
 !C9MSG_FinalPrayerDamagePhase1 = $F86A
 BTLACT_GIYGAS_PRAYER_1:
@@ -22815,7 +22816,7 @@ BTLACT_GIYGAS_PRAYER_1:
     sta $10
     ldx.w #$00B9
     lda.w #$01DE
-    jsr $C37A
+    jsr !C2C37A_RunFinalPrayerStageTransition
     lda.w #$0078
     jsr !C269BE_WaitFrames
     lda.w #$0040
@@ -22849,6 +22850,8 @@ BTLACT_GIYGAS_PRAYER_1:
 hirom
 org $C2C5D1
 
+!C2C37A_RunFinalPrayerStageTransition = $C37A
+!C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
 BTLACT_GIYGAS_PRAYER_2:
 !C2C5D1_RunFinalPrayerDamagePhase2 = BTLACT_GIYGAS_PRAYER_2
     rep #$31
@@ -22862,9 +22865,9 @@ BTLACT_GIYGAS_PRAYER_2:
     sta $10
     ldx.w #$00B9
     lda.w #$01DF
-    jsr $C37A
+    jsr !C2C37A_RunFinalPrayerStageTransition
     lda.w #$0032
-    jsr $C3E2
+    jsr !C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #$0006
     sta $A97A
     pld
@@ -22878,6 +22881,8 @@ BTLACT_GIYGAS_PRAYER_2:
 hirom
 org $C2C623
 
+!C2C37A_RunFinalPrayerStageTransition = $C37A
+!C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
 BTLACT_GIYGAS_PRAYER_4:
 !C2C623_RunFinalPrayerDamagePhase4 = BTLACT_GIYGAS_PRAYER_4
     rep #$31
@@ -22891,9 +22896,9 @@ BTLACT_GIYGAS_PRAYER_4:
     sta $10
     ldx.w #$00B9
     lda.w #$01DF
-    jsr $C37A
+    jsr !C2C37A_RunFinalPrayerStageTransition
     lda.w #$00C8
-    jsr $C3E2
+    jsr !C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #$0008
     sta $A97A
     pld
@@ -22907,6 +22912,8 @@ BTLACT_GIYGAS_PRAYER_4:
 hirom
 org $C2C5FA
 
+!C2C37A_RunFinalPrayerStageTransition = $C37A
+!C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
 BTLACT_GIYGAS_PRAYER_3:
 !C2C5FA_RunFinalPrayerDamagePhase3 = BTLACT_GIYGAS_PRAYER_3
     rep #$31
@@ -22920,9 +22927,9 @@ BTLACT_GIYGAS_PRAYER_3:
     sta $10
     ldx.w #$00B9
     lda.w #$01DF
-    jsr $C37A
+    jsr !C2C37A_RunFinalPrayerStageTransition
     lda.w #$0064
-    jsr $C3E2
+    jsr !C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #$0007
     sta $A97A
     pld
@@ -22936,6 +22943,8 @@ BTLACT_GIYGAS_PRAYER_3:
 hirom
 org $C2C64C
 
+!C2C37A_RunFinalPrayerStageTransition = $C37A
+!C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
 BTLACT_GIYGAS_PRAYER_5:
 !C2C64C_RunFinalPrayerDamagePhase5 = BTLACT_GIYGAS_PRAYER_5
     rep #$31
@@ -22949,9 +22958,9 @@ BTLACT_GIYGAS_PRAYER_5:
     sta $10
     ldx.w #$00B9
     lda.w #$01DF
-    jsr $C37A
+    jsr !C2C37A_RunFinalPrayerStageTransition
     lda.w #$0190
-    jsr $C3E2
+    jsr !C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #$0009
     sta $A97A
     pld
@@ -22965,6 +22974,8 @@ BTLACT_GIYGAS_PRAYER_5:
 hirom
 org $C2C675
 
+!C2C37A_RunFinalPrayerStageTransition = $C37A
+!C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
 BTLACT_GIYGAS_PRAYER_6:
 !C2C675_RunFinalPrayerDamagePhase6 = BTLACT_GIYGAS_PRAYER_6
     rep #$31
@@ -22978,9 +22989,9 @@ BTLACT_GIYGAS_PRAYER_6:
     sta $10
     ldx.w #$00B9
     lda.w #$01DF
-    jsr $C37A
+    jsr !C2C37A_RunFinalPrayerStageTransition
     lda.w #$0320
-    jsr $C3E2
+    jsr !C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #$000A
     sta $A97A
     pld
@@ -22994,6 +23005,8 @@ BTLACT_GIYGAS_PRAYER_6:
 hirom
 org $C2C69E
 
+!C2C37A_RunFinalPrayerStageTransition = $C37A
+!C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
 BTLACT_GIYGAS_PRAYER_7:
 !C2C69E_RunFinalPrayerDamagePhase7 = BTLACT_GIYGAS_PRAYER_7
     rep #$31
@@ -23007,9 +23020,9 @@ BTLACT_GIYGAS_PRAYER_7:
     sta $10
     ldx.w #$00B9
     lda.w #$01DF
-    jsr $C37A
+    jsr !C2C37A_RunFinalPrayerStageTransition
     lda.w #$0640
-    jsr $C3E2
+    jsr !C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #$000B
     sta $A97A
     ldx.w #$004A
@@ -23026,6 +23039,7 @@ BTLACT_GIYGAS_PRAYER_7:
 hirom
 org $C2C6D0
 
+!C2C41F_RunFinalPrayerNarrativeTransition = $C41F
 BTLACT_GIYGAS_PRAYER_8:
 !C2C6D0_RunFinalPrayerNarrativePhase8 = BTLACT_GIYGAS_PRAYER_8
     rep #$31
@@ -23038,7 +23052,7 @@ BTLACT_GIYGAS_PRAYER_8:
     lda.w #$00C9
     sta $10
     lda.w #$004A
-    jsr $C41F
+    jsr !C2C41F_RunFinalPrayerNarrativeTransition
     lda.w #$000C
     sta $A97A
     pld
@@ -26422,6 +26436,8 @@ org $C2C6F0
 !C12DD5_WindowTick = $C12DD5
 !C2E8C4_StartBattleSwirlOverlayAndRecordMode = $C2E8C4
 !C2E9C8_PollBattleTransitionComplete = $C2E9C8
+!C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
+!C2C41F_RunFinalPrayerNarrativeTransition = $C41F
 !C4FBBD_ChangeMusic = $C4FBBD
 !C269BE_WaitFrames = $69BE
 !C8_BattleTextScriptBank = $00C8
@@ -26443,33 +26459,33 @@ org $C2C6F0
     lda.w #!C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
-    jsr $C41F
+    jsr !C2C41F_RunFinalPrayerNarrativeTransition
     lda.w #$0C80
-    jsr $C3E2
+    jsr !C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #!C9MSG_FinalPrayerFinale1
     sta $0E
     lda.w #!C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
-    jsr $C41F
+    jsr !C2C41F_RunFinalPrayerNarrativeTransition
     lda.w #$1900
-    jsr $C3E2
+    jsr !C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #!C9MSG_FinalPrayerFinale2
     sta $0E
     lda.w #!C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
-    jsr $C41F
+    jsr !C2C41F_RunFinalPrayerNarrativeTransition
     lda.w #$3200
-    jsr $C3E2
+    jsr !C2C3E2_ApplyFinalPrayerDamageStep
     lda.w #!C9MSG_FinalPrayerFinale3
     sta $0E
     lda.w #!C9_BattleTextScriptBank
     sta $10
     lda.w #$004A
-    jsr $C41F
+    jsr !C2C41F_RunFinalPrayerNarrativeTransition
     lda.w #$6400
-    jsr $C3E2
+    jsr !C2C3E2_ApplyFinalPrayerDamageStep
     jsl !C1DD59_WaitForBattleText
     stz $9643
     jsl $C1DD41

@@ -19,6 +19,7 @@
 
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C269BE_WaitFrames                   = $69BE
+C2C37A_RunFinalPrayerStageTransition = $C37A
 
 C9_BattleTextScriptBank       = $00C9
 C9MSG_FinalPrayerDamagePhase1 = $F86A
@@ -39,7 +40,7 @@ C2C572_RunFinalPrayerOpeningTransition = BTLACT_GIYGAS_PRAYER_1
     sta $10
     ldx.w #$00B9
     lda.w #$01DE
-    jsr $C37A
+    jsr C2C37A_RunFinalPrayerStageTransition
     lda.w #$0078
     jsr C269BE_WaitFrames
     lda.w #$0040
