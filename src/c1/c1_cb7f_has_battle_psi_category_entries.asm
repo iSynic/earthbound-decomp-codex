@@ -19,6 +19,7 @@
 
 C10036_SetBattleTextDisplayMode            = $0036
 C1003C_ClearBattleTextDisplayMode          = $003C
+C1007E_SetFocusWindowOrContext             = $007E
 C10084_CloseFocusWindow                    = $0084
 C104EE_SetWindowFocus                      = $04EE
 C10FEA_PrintSignedOrStatusValue            = $0FEA
@@ -182,7 +183,7 @@ C1CC1B_HasBattlePsiCategoryEntries_LCC1B:
     jsr C1180D_LayoutActiveTextEntriesAndRefresh
 C1CC2A_HasBattlePsiCategoryEntries_LCC2A:
     lda.w #BattlePsiCategoryWindowId
-    jsr $007E
+    jsr C1007E_SetFocusWindowOrContext
     lda $1E
     bne C1CC37_HasBattlePsiCategoryEntries_LCC37
     jsr C1163C_FinalizeSelectionMenu

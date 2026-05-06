@@ -57,6 +57,12 @@ The adjacent `C1:AF73` item-use bridge now has named source-side joins as well:
 That bridge is now a better first-class member of the battle front-end slice
 instead of an unnamed tail after the targetting resolver.
 
+Source polish follow-up (2026-05-06): the shared targetting resolver source now
+names its remaining helper edges to the C2 second-stage row counter, C4 bounded
+random helper, and callback-driven character selection prompt. The
+`C1:ADB4..B5B6` source unit is raw-helper-call clean while preserving the
+existing D5 action-row and item-use bridge contracts.
+
 `C1:DC1C` remains a text-entry wrapper, not a text VM decoder. Its stable
 contract is pointer restaging and battle-text gate handling before dispatching
 through C1:86B1.

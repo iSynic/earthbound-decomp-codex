@@ -19,6 +19,12 @@ The strongest current local read is:
 The upstream shared PSI entry-list builder at `C1:C452..C853` is now source-backed at `src/c1/c1_c452_build_shared_battle_psi_entry_list.asm`, so this lane now has decoded source on both sides of the `C853` handoff.
 The `C1:C853..C8BC` metadata resolver and `C1:C8BC..CA06` row formatter are now both source-backed as well.
 
+Source polish follow-up (2026-05-06): `C1:C853` now names its
+`C3:E4E0` window tick edge, and `C1:CA72` now names the long `C1:C853` metadata
+refresh join used after clearing battle-sprite row effects. This keeps the
+outer PSI-user refresh lane tied directly to the same metadata resolver used by
+the second-stage menu family.
+
 ## Working Names
 
 - `C1:C853` = `ResolveBattlePsiTargetingMetadata`

@@ -16,8 +16,15 @@
 ;   prints the selected row's PSI family id from D5:8A50 +0.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C104D8_GetCurrentTextContextRowState = $04D8
+C10FEA_SetActiveWindowTileAttributes = $0FEA
+C1163C_FinalizeSelectionMenu       = $163C
+C1C403_PrintPsiFamilyName          = $C403
 C3E4CA_ExitWindowUpdateScope       = $C3E4CA
 C3E4D4_EnterWindowUpdateScope      = $C3E4D4
+C3E4E0_TickWindowWithoutInstantPrinting = $C3E4E0
+C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
+EF0115_ClearBattleSpriteRowEffects = $EF0115
 
 ; ---------------------------------------------------------------------------
 ; C1:CA72
@@ -49,22 +56,22 @@ C1CA72_RefreshBattlePsiSelection:
     tay
     sty $0E
     lda $8958
-    jsl $EF0115
-    jsl $C3E4E0
+    jsl EF0115_ClearBattleSpriteRowEffects
+    jsl C3E4E0_TickWindowWithoutInstantPrinting
     lda $9D16
     ; $9D16 is the chosen PSI user staged by the outer B5B6 front end.
-    jsl $C1C853
-    jsr $163C
+    jsl C1C853_ResolveBattlePsiTargetingMetadata
+    jsr C1163C_FinalizeSelectionMenu
     ldy $0E
     tya
     ldx $10
     sta $0000,X
-    jsr $04D8
+    jsr C104D8_GetCurrentTextContextRowState
     tax
     lda.w #$0000
-    jsl $C438A5
+    jsl C438A5_SetActiveWindowDescriptorCursorFields
     lda $02
-    jsr $0FEA
+    jsr C10FEA_SetActiveWindowTileAttributes
     lda $04
     sta $04
     asl A
@@ -77,9 +84,9 @@ C1CA72_RefreshBattlePsiSelection:
     ; Refresh the visible PSI family name for the selected ability row.
     lda $D58A50,X
     and.w #$00FF
-    jsr $C403
+    jsr C1C403_PrintPsiFamilyName
     lda.w #$0000
-    jsr $0FEA
+    jsr C10FEA_SetActiveWindowTileAttributes
     jsl C3E4CA_ExitWindowUpdateScope
     pld
     rts

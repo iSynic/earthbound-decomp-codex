@@ -445,3 +445,12 @@ This planning pass is documentation-only.
   `notes/c1-display-helper-runtime-polish.md`,
   `notes/c1-equipment-runtime-polish.md`, and
   `notes/equipment-menu-top-level-flow-c1a778-c1aa5d.md`.
+- 2026-05-06 follow-up: the battle targetting and battle PSI helper cluster now
+  names its remaining helper-call surface across `C1:ADB4`, `C1:C452`,
+  `C1:C853`, `C1:CA06`, `C1:CA72`, `C1:CAF5`, and `C1:CB7F`. The pass covers
+  C2 second-stage row counting, C4 random/print/cursor helpers, C3 window
+  update/tick helpers, EF battle-sprite row effect clearing, C1 category/menu
+  helpers, and the `CA72 -> C853` metadata refresh join. See
+  `notes/c1-battle-front-end-runtime-polish.md`,
+  `notes/c1-battle-psi-runtime-polish.md`, and
+  `notes/battle-psi-selection-refresh-c1ca72.md`.

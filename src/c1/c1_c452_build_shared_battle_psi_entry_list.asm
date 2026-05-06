@@ -18,9 +18,12 @@
 
 C1153B_AddSelectionMenuItem        = $153B
 C1163C_FinalizeSelectionMenu       = $163C
+C11383_ClearActiveTextEntryChain   = $1383
 C1C403_PrintPsiFamilyName          = $C403
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C3E4CA_ExitWindowUpdateScope       = $C3E4CA
+C3E4D4_EnterWindowUpdateScope      = $C3E4D4
+C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
 
 ; ---------------------------------------------------------------------------
 ; C1:C452
@@ -46,8 +49,8 @@ C1C452_BuildSharedBattlePsiEntryList = GENERATE_PSI_LIST
     dec A
     sta $04
     sta $21
-    jsl $C3E4D4
-    jsr $1383
+    jsl C3E4D4_EnterWindowUpdateScope
+    jsr C11383_ClearActiveTextEntryChain
     stz $1F
     lda $04
     cmp.w #$0003
@@ -92,7 +95,7 @@ C1C4AA_BuildSharedBattlePsiEntryList_LC4AA:
     and.w #$00FF
     tax
     lda.w #$0000
-    jsl $C438A5
+    jsl C438A5_SetActiveWindowDescriptorCursorFields
     lda [$06]
     and.w #$00FF
     jsr GET_PSI_NAME
@@ -293,7 +296,7 @@ C1C652_BuildSharedBattlePsiEntryList_LC652:
     and.w #$00FF
     tax
     lda.w #$0000
-    jsl $C438A5
+    jsl C438A5_SetActiveWindowDescriptorCursorFields
     lda [$0A]
     and.w #$00FF
     jsr GET_PSI_NAME
@@ -416,7 +419,7 @@ C1C743_BuildSharedBattlePsiEntryList_LC743:
     and.w #$00FF
     tax
     lda.w #$0000
-    jsl $C438A5
+    jsl C438A5_SetActiveWindowDescriptorCursorFields
     lda [$06]
     and.w #$00FF
     jsr GET_PSI_NAME

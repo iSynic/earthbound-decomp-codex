@@ -157,6 +157,12 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   helpers, and wallet/status printing. See
   `notes/c1-display-helper-runtime-polish.md` and
   `notes/c1-equipment-runtime-polish.md`.
+- 2026-05-06: C1 battle/PSI helper follow-up named the remaining helper-call
+  surface in `C1:ADB4`, `C1:C452`, `C1:C853`, `C1:CA06`, `C1:CA72`,
+  `C1:CAF5`, and `C1:CB7F`, covering target selection, PSI list/menu refresh,
+  window/cursor helpers, and battle-sprite row effect clearing. See
+  `notes/c1-battle-front-end-runtime-polish.md` and
+  `notes/c1-battle-psi-runtime-polish.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

@@ -15,6 +15,7 @@
 ;   selects the rank suffix through the 2-byte C3:F112 table.
 
 C1C403_PrintPsiFamilyName = $C403
+C447FB_PrintFixedStringWithWrapPreflight = $C447FB
 
 ; ---------------------------------------------------------------------------
 ; C1:CA06
@@ -78,6 +79,6 @@ C1CA06_BuildPsiRankName:
     lda $08
     sta $10
     lda.w #$FFFF
-    jsl $C447FB
+    jsl C447FB_PrintFixedStringWithWrapPreflight
     pld
     rts

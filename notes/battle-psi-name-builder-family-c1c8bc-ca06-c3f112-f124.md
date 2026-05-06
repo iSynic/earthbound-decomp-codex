@@ -16,6 +16,10 @@ The battle PSI menu now has two distinct local naming paths:
 
 Both local naming paths are now source-backed in `src/c1/c1_ca06_build_psi_rank_name.asm` and `src/c1/c1_c8bc_format_battle_psi_menu_entry_row.asm`.
 
+Source polish follow-up (2026-05-06): `C1:CA06` now names the C4 fixed-string
+rank suffix printer as `C447FB_PrintFixedStringWithWrapPreflight`, so the
+direct PSI-id-plus-rank path has no raw helper-call edges.
+
 That is stronger than the older wording that only said Thunder had some unexplained special case.
 
 ## `C3:F124` is fixed-width encoded menu-entry row data

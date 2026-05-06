@@ -28399,15 +28399,18 @@ org $C1ADB4
 !C10489_InstallSecondaryInteractionContextPointer = $0489
 !C104EE_SetWindowFocus = $04EE
 !C18C27_RemoveItemFromCharacterInventorySlot = $8C27
+!C127EF_RunCharacterSelectionPromptWithCallback = $27EF
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C03C4B_ProbeCurrentPositionHighCollisionBits = $C03C4B
 !C0923E_ShiftTargettingClassToFlags = $C0923E
 !C09279_DispatchTextPointer = $C09279
 !C186B1_PrintTextFromPointer = $C186B1
 !C2B930_ExportBattleSelectionSnapshot = $C2B930
+!C2BAC5_CountFilteredSecondStageRows = $C2BAC5
 !C3E521_CloseWindowAndReleaseTileState = $C3E521
 !C3E977_GetItemInCharacterInventorySlot = $C3E977
 !C3EE4D_RestoreBattleSelectionState = $C3EE4D
+!C45F7B_GetRandomLessThanA = $C45F7B
 !D57B68_BattleActionTableLo = $7B68
 !D57B68_BattleActionTableBank = $00D5
 !BattleActionTableRowSize = $000C
@@ -28552,9 +28555,9 @@ C1AE54_DetermineBattleTargetting_LAE54:
     sta $16
     rep #$20
     lda.w #$0001
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageRows
     dec A
-    jsl $C45F7B
+    jsl !C45F7B_GetRandomLessThanA
     sep #$20
     sta $01
     inc $01
@@ -28639,7 +28642,7 @@ C1AEDB_DetermineBattleTargetting_LAEDB:
     sta $14
     ldx.w #$0001
     txa
-    jsr $27EF
+    jsr !C127EF_RunCharacterSelectionPromptWithCallback
     sep #$20
     sta $01
     jsr !C19437_CloseCharacterSelectTargetPrompt
@@ -28655,9 +28658,9 @@ C1AF26_DetermineBattleTargetting_LAF26:
     sta $16
     rep #$20
     lda.w #$0000
-    jsl $C2BAC5
+    jsl !C2BAC5_CountFilteredSecondStageRows
     dec A
-    jsl $C45F7B
+    jsl !C45F7B_GetRandomLessThanA
     tax
     sep #$20
     lda !PartyStatusRegistry,X
@@ -31643,9 +31646,12 @@ org $C1C452
 
 !C1153B_AddSelectionMenuItem = $153B
 !C1163C_FinalizeSelectionMenu = $163C
+!C11383_ClearActiveTextEntryChain = $1383
 !C1C403_PrintPsiFamilyName = $C403
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C3E4CA_ExitWindowUpdateScope = $C3E4CA
+!C3E4D4_EnterWindowUpdateScope = $C3E4D4
+!C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
 GENERATE_PSI_LIST:
 !C1C452_BuildSharedBattlePsiEntryList = GENERATE_PSI_LIST
     rep #$31
@@ -31666,8 +31672,8 @@ GENERATE_PSI_LIST:
     dec A
     sta $04
     sta $21
-    jsl $C3E4D4
-    jsr $1383
+    jsl !C3E4D4_EnterWindowUpdateScope
+    jsr !C11383_ClearActiveTextEntryChain
     stz $1F
     lda $04
     cmp.w #$0003
@@ -31712,7 +31718,7 @@ C1C4AA_BuildSharedBattlePsiEntryList_LC4AA:
     and.w #$00FF
     tax
     lda.w #$0000
-    jsl $C438A5
+    jsl !C438A5_SetActiveWindowDescriptorCursorFields
     lda [$06]
     and.w #$00FF
     jsr GET_PSI_NAME
@@ -31910,7 +31916,7 @@ C1C652_BuildSharedBattlePsiEntryList_LC652:
     and.w #$00FF
     tax
     lda.w #$0000
-    jsl $C438A5
+    jsl !C438A5_SetActiveWindowDescriptorCursorFields
     lda [$0A]
     and.w #$00FF
     jsr GET_PSI_NAME
@@ -32031,7 +32037,7 @@ C1C743_BuildSharedBattlePsiEntryList_LC743:
     and.w #$00FF
     tax
     lda.w #$0000
-    jsl $C438A5
+    jsl !C438A5_SetActiveWindowDescriptorCursorFields
     lda [$06]
     and.w #$00FF
     jsr GET_PSI_NAME
@@ -32151,6 +32157,7 @@ org $C1CB7F
 
 !C10036_SetBattleTextDisplayMode = $0036
 !C1003C_ClearBattleTextDisplayMode = $003C
+!C1007E_SetFocusWindowOrContext = $007E
 !C10084_CloseFocusWindow = $0084
 !C104EE_SetWindowFocus = $04EE
 !C10FEA_PrintSignedOrStatusValue = $0FEA
@@ -32303,7 +32310,7 @@ C1CC1B_HasBattlePsiCategoryEntries_LCC1B:
     jsr !C1180D_LayoutActiveTextEntriesAndRefresh
 C1CC2A_HasBattlePsiCategoryEntries_LCC2A:
     lda.w #!BattlePsiCategoryWindowId
-    jsr $007E
+    jsr !C1007E_SetFocusWindowOrContext
     lda $1E
     bne C1CC37_HasBattlePsiCategoryEntries_LCC37
     jsr !C1163C_FinalizeSelectionMenu
@@ -36127,6 +36134,7 @@ org $C1C853
 !C1C452_BuildSharedBattlePsiEntryList = $C452
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C2032B_ResolveActorIdFromBattleSlot = $C2032B
+!C3E4E0_TickWindowWithoutInstantPrinting = $C3E4E0
 C1C853_ResolveBattlePsiTargetingMetadata:
     rep #$31
     phd
@@ -36139,7 +36147,7 @@ C1C853_ResolveBattlePsiTargetingMetadata:
     sty $12
     lda.w #$0001
     jsr !C104EE_SetWindowFocus
-    jsl $C3E4E0
+    jsl !C3E4E0_TickWindowWithoutInstantPrinting
     lda $98A4
     and.w #$00FF
     cmp.w #$0001
@@ -36189,6 +36197,7 @@ hirom
 org $C1CA06
 
 !C1C403_PrintPsiFamilyName = $C403
+!C447FB_PrintFixedStringWithWrapPreflight = $C447FB
 C1CA06_BuildPsiRankName:
     rep #$31
     phd
@@ -36246,7 +36255,7 @@ C1CA06_BuildPsiRankName:
     lda $08
     sta $10
     lda.w #$FFFF
-    jsl $C447FB
+    jsl !C447FB_PrintFixedStringWithWrapPreflight
     pld
     rts
 
@@ -36259,8 +36268,15 @@ hirom
 org $C1CA72
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C104D8_GetCurrentTextContextRowState = $04D8
+!C10FEA_SetActiveWindowTileAttributes = $0FEA
+!C1163C_FinalizeSelectionMenu = $163C
+!C1C403_PrintPsiFamilyName = $C403
 !C3E4CA_ExitWindowUpdateScope = $C3E4CA
 !C3E4D4_EnterWindowUpdateScope = $C3E4D4
+!C3E4E0_TickWindowWithoutInstantPrinting = $C3E4E0
+!C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
+!EF0115_ClearBattleSpriteRowEffects = $EF0115
 C1CA72_RefreshBattlePsiSelection:
     rep #$31
     phd
@@ -36288,21 +36304,21 @@ C1CA72_RefreshBattlePsiSelection:
     tay
     sty $0E
     lda $8958
-    jsl $EF0115
-    jsl $C3E4E0
+    jsl !EF0115_ClearBattleSpriteRowEffects
+    jsl !C3E4E0_TickWindowWithoutInstantPrinting
     lda $9D16
-    jsl $C1C853
-    jsr $163C
+    jsl C1C853_ResolveBattlePsiTargetingMetadata
+    jsr !C1163C_FinalizeSelectionMenu
     ldy $0E
     tya
     ldx $10
     sta $0000,X
-    jsr $04D8
+    jsr !C104D8_GetCurrentTextContextRowState
     tax
     lda.w #$0000
-    jsl $C438A5
+    jsl !C438A5_SetActiveWindowDescriptorCursorFields
     lda $02
-    jsr $0FEA
+    jsr !C10FEA_SetActiveWindowTileAttributes
     lda $04
     sta $04
     asl A
@@ -36314,9 +36330,9 @@ C1CA72_RefreshBattlePsiSelection:
     tax
     lda $D58A50,X
     and.w #$00FF
-    jsr $C403
+    jsr !C1C403_PrintPsiFamilyName
     lda.w #$0000
-    jsr $0FEA
+    jsr !C10FEA_SetActiveWindowTileAttributes
     jsl !C3E4CA_ExitWindowUpdateScope
     pld
     rts
@@ -36330,6 +36346,8 @@ hirom
 org $C1CAF5
 
 !C1C452_BuildSharedBattlePsiEntryList = $C452
+!C104EE_SetWindowFocus = $04EE
+!C3E4E0_TickWindowWithoutInstantPrinting = $C3E4E0
 C1CAF5_BuildBattlePsiCategoryEntryList:
     rep #$31
     phd
@@ -36346,8 +36364,8 @@ C1CAF5_BuildBattlePsiCategoryEntryList:
     tay
     sty $10
     lda.w #$0001
-    jsr $04EE
-    jsl $C3E4E0
+    jsr !C104EE_SetWindowFocus
+    jsl !C3E4E0_TickWindowWithoutInstantPrinting
     ldx $12
     txa
     cmp.w #$0001

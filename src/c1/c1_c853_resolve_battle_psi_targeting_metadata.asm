@@ -19,6 +19,7 @@ C104EE_SetWindowFocus                = $04EE
 C1C452_BuildSharedBattlePsiEntryList = $C452
 C08FF7_ResolveIndexedPointerOffset   = $C08FF7
 C2032B_ResolveActorIdFromBattleSlot  = $C2032B
+C3E4E0_TickWindowWithoutInstantPrinting = $C3E4E0
 
 ; ---------------------------------------------------------------------------
 ; C1:C853
@@ -35,7 +36,7 @@ C1C853_ResolveBattlePsiTargetingMetadata:
     sty $12
     lda.w #$0001
     jsr C104EE_SetWindowFocus
-    jsl $C3E4E0
+    jsl C3E4E0_TickWindowWithoutInstantPrinting
     lda $98A4
     and.w #$00FF
     cmp.w #$0001

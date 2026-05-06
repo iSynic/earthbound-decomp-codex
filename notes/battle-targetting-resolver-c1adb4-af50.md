@@ -28,6 +28,12 @@ rows, fixed C7 item-use failure text pointers, CF:8985 NPC-config fallback text,
 the `$9FFA` battle selection snapshot block, and the `$9FAC` handoff row used
 before `C2:B930`.
 
+Source polish follow-up (2026-05-06): `src/c1/c1_adb4_determine_battle_targetting.asm`
+now names the resolver's remaining target-selection helper edges:
+`C2BAC5_CountFilteredSecondStageRows`, `C45F7B_GetRandomLessThanA`, and
+`C127EF_RunCharacterSelectionPromptWithCallback`. The module now has no raw
+helper-call edges.
+
 ## Direct caller family
 
 Pinned direct callers are now:

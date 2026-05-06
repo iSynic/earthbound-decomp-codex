@@ -106,6 +106,11 @@ Completed followups:
 
 - `C1:B5B6..BB71` now has source-backed constants for the outer PSI
   user-selection, snapshot export, action-text, and help-text refresh lane.
+- `C1:C452`, `C1:C853`, `C1:CA06`, `C1:CA72`, `C1:CAF5`, and `C1:CB7F` now
+  name their remaining helper-call surface in source. The pass covers text-entry
+  chain clearing, window update/tick helpers, cursor positioning, fixed-string
+  PSI rank printing, battle-sprite row effect clearing, category focus, and the
+  `CA72 -> C853` metadata refresh join.
 
 ## Validation
 

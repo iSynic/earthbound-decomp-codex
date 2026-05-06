@@ -30,15 +30,18 @@ C1045D_InstallPrimaryInteractionContextPointer = $045D
 C10489_InstallSecondaryInteractionContextPointer = $0489
 C104EE_SetWindowFocus                   = $04EE
 C18C27_RemoveItemFromCharacterInventorySlot = $8C27
+C127EF_RunCharacterSelectionPromptWithCallback = $27EF
 C08FF7_ResolveIndexedPointerOffset      = $C08FF7
 C03C4B_ProbeCurrentPositionHighCollisionBits = $C03C4B
 C0923E_ShiftTargettingClassToFlags      = $C0923E
 C09279_DispatchTextPointer              = $C09279
 C186B1_PrintTextFromPointer             = $C186B1
 C2B930_ExportBattleSelectionSnapshot    = $C2B930
+C2BAC5_CountFilteredSecondStageRows     = $C2BAC5
 C3E521_CloseWindowAndReleaseTileState   = $C3E521
 C3E977_GetItemInCharacterInventorySlot  = $C3E977
 C3EE4D_RestoreBattleSelectionState      = $C3EE4D
+C45F7B_GetRandomLessThanA               = $C45F7B
 
 D57B68_BattleActionTableLo              = $7B68
 D57B68_BattleActionTableBank            = $00D5
@@ -197,9 +200,9 @@ C1AE54_DetermineBattleTargetting_LAE54:
     sta $16
     rep #$20
     lda.w #$0001
-    jsl $C2BAC5
+    jsl C2BAC5_CountFilteredSecondStageRows
     dec A
-    jsl $C45F7B
+    jsl C45F7B_GetRandomLessThanA
     sep #$20
     sta $01
     inc $01
@@ -286,7 +289,7 @@ C1AEDB_DetermineBattleTargetting_LAEDB:
     sta $14
     ldx.w #$0001
     txa
-    jsr $27EF
+    jsr C127EF_RunCharacterSelectionPromptWithCallback
     sep #$20
     sta $01
     jsr C19437_CloseCharacterSelectTargetPrompt
@@ -302,9 +305,9 @@ C1AF26_DetermineBattleTargetting_LAF26:
     sta $16
     rep #$20
     lda.w #$0000
-    jsl $C2BAC5
+    jsl C2BAC5_CountFilteredSecondStageRows
     dec A
-    jsl $C45F7B
+    jsl C45F7B_GetRandomLessThanA
     tax
     sep #$20
     lda PartyStatusRegistry,X

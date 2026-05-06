@@ -15,6 +15,8 @@
 ;   dispatch stages C1:C452 masks: 1 offense, 2 recover, 3 assist, 4 other.
 
 C1C452_BuildSharedBattlePsiEntryList = $C452
+C104EE_SetWindowFocus                = $04EE
+C3E4E0_TickWindowWithoutInstantPrinting = $C3E4E0
 
 ; ---------------------------------------------------------------------------
 ; C1:CAF5
@@ -35,8 +37,8 @@ C1CAF5_BuildBattlePsiCategoryEntryList:
     tay
     sty $10
     lda.w #$0001
-    jsr $04EE
-    jsl $C3E4E0
+    jsr C104EE_SetWindowFocus
+    jsl C3E4E0_TickWindowWithoutInstantPrinting
     ldx $12
     txa
     cmp.w #$0001

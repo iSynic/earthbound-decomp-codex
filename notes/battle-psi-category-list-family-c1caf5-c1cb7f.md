@@ -16,6 +16,12 @@ These are not generic menu helpers.
 `C1:CB7F..CE85` is also source-backed at `src/c1/c1_cb7f_has_battle_psi_category_entries.asm`, covering the category predicate and ordinary battle PSI controller strip above it.
 The predicate family underneath it, `C1:C165..C452`, is source-backed at `src/c1/c1_c165_current_character_knows_psi.asm`.
 
+Source polish follow-up (2026-05-06): the shared list builder and
+category/predicate helpers now name their remaining menu/window helper edges in
+source. `C1:C452` names the active text-entry chain clear, window update scope,
+and cursor-position helper calls; `C1:CAF5` names the focus/window tick calls;
+and `C1:CB7F` names the category-window focus setter.
+
 The strongest current local-plus-reference-backed read is:
 
 - `C1:CAF5` builds the second-stage battle PSI entry list for the currently chosen battle PSI category

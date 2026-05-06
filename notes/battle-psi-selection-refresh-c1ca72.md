@@ -41,6 +41,13 @@ It:
 
 The healthiest current name is "PSI selection refresh" rather than a generic row printer, because the helper recomputes both the active user-side metadata (`C1:C853`) and the selected PSI family name (`D5:8A50 + 0 -> C1:C403`).
 
+Source polish follow-up (2026-05-06): `src/c1/c1_ca72_refresh_battle_psi_selection.asm`
+now names all helper-call edges: `EF0115_ClearBattleSpriteRowEffects`,
+`C3E4E0_TickWindowWithoutInstantPrinting`,
+`C1C853_ResolveBattlePsiTargetingMetadata`, `C1163C_FinalizeSelectionMenu`,
+`C104D8_GetCurrentTextContextRowState`, `C438A5_SetActiveWindowDescriptorCursorFields`,
+`C10FEA_SetActiveWindowTileAttributes`, and `C1C403_PrintPsiFamilyName`.
+
 ## Fit With The Existing PSI Menu Model
 
 This fills a small gap between the already-documented pieces:
@@ -52,4 +59,3 @@ This fills a small gap between the already-documented pieces:
 - `C1:C403` prints the PSI family name
 
 So `C1:CA72` belongs to the battle PSI front-end display path, not to the lower category controller at `C1:CC39..CE73`.
-
