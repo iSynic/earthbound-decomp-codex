@@ -344,7 +344,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - struct: `telephone_contact`
 - confidence: `corroborated`
 - note: Phone contact rows with fixed-width name, event flag, and text pointer.
-- evidence: `refs/eb-decompile-4ef92/telephone_contacts_table.yml`, `notes/d5-table-splits.md`, CoilSnake `telephone-dad-text-pointer-probe`
+- evidence: `refs/eb-decompile-4ef92/telephone_contacts_table.yml`, `notes/d5-table-splits.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -507,7 +507,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - struct: `stats_growth_vars`
 - confidence: `corroborated`
 - note: Seven-byte per-character stat growth parameter rows.
-- evidence: `refs/eb-decompile-4ef92/stats_growth_vars.yml`, `notes/d5-table-splits.md`, CoilSnake `stats-growth-ness-offense-probe`
+- evidence: `refs/eb-decompile-4ef92/stats_growth_vars.yml`, `notes/d5-table-splits.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -587,7 +587,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - struct: `timed_item_transformation`
 - confidence: `corroborated`
 - note: Timed item conversion rows for delayed item changes and sound feedback.
-- evidence: `refs/eb-decompile-4ef92/timed_item_transformation_table.yml`, `notes/d5-table-splits.md`, CoilSnake `timed-item-transform-delay-probe`
+- evidence: `refs/eb-decompile-4ef92/timed_item_transformation_table.yml`, `notes/d5-table-splits.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -627,7 +627,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - struct: `initial_party_member_stats`
 - confidence: `corroborated`
 - note: Initial character setup rows with level, money, EXP, and starting inventory.
-- evidence: `refs/eb-decompile-4ef92/initial_stats.yml`, `notes/d5-table-splits.md`, CoilSnake `initial-stats-ness-money-probe`
+- evidence: `refs/eb-decompile-4ef92/initial_stats.yml`, `notes/d5-table-splits.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -645,18 +645,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `10`
 - struct: `timed_delivery`
 - confidence: `boundary-corroborated`
-- note: Timed delivery rows. Table boundary and row count are exact for the current split front door; subfield ordering is still conservative because local runtime helpers treat `D5:F645` as the effective row base.
-- evidence: `refs/eb-decompile-4ef92/timed_delivery_table.yml`, `notes/d5-table-splits.md`, CoilSnake `timed-delivery-first-timer-probe`
+- note: Timed delivery rows. Table boundary and row count are exact; subfield ordering remains intentionally raw pending consumer-code confirmation.
+- evidence: `refs/eb-decompile-4ef92/timed_delivery_table.yml`, `notes/d5-table-splits.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_row` | 1 | 20 | 20-byte delivery row; split boundaries are exact for this front door, field ordering still needs full source-code consumer reconciliation |
-
-Field caveat: CoilSnake `timed-delivery-first-timer-probe` changed `D5:F64D`,
-and `EF:0D46` reads `D5:F645 + row * 20 + 0x08` as the delivery countdown.
-That proves the row 0 timer byte at `D5:F64D`, but it also exposes a boundary
-tension with this older `D5:F649` split that should be resolved as a focused D5
-table-boundary correction rather than hidden in the schema.
+| `0x0` | `raw_row` | 1 | 20 | 20-byte delivery row; split boundaries are exact, field ordering still needs source-code consumer confirmation |
 
 ### CF_DOOR_DATA
 
