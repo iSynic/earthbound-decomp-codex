@@ -175,6 +175,7 @@ def validate(
     for command in (
         "python tools/run_audio_independent_oracle_campaign.py --limit 1 --mode dry-run-plan",
         "python tools/run_audio_independent_oracle_campaign.py --limit 1 --mode audit-existing-captures",
+        "python tools/run_audio_independent_oracle_campaign.py --mode audit-existing-captures",
         "python tools/validate_audio_independent_oracle_campaign_run_summary.py",
         "python tools/validate_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id 1 --allow-missing",
         "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",

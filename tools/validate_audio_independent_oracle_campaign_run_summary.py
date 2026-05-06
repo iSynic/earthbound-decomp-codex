@@ -48,6 +48,15 @@ def validate(data: dict[str, Any]) -> None:
     require(int(data.get("independent_capture_ready_count", -1)) == ready_count, "ready count mismatch")
     require(int(data.get("pending_independent_capture_count", -1)) == pending_count, "pending count mismatch")
     require(ready_count + pending_count == len(runs), "run status counts do not cover selected runs")
+    require(data.get("status_counts") == count_runs(runs, "status"), "status counts mismatch")
+    require(data.get("phase_counts") == count_runs(runs, "phase"), "phase counts mismatch")
+    require(data.get("diagnostic_focus_counts") == count_runs(runs, "diagnostic_focus"), "diagnostic focus counts mismatch")
+    require(data.get("primary_uncertainty_counts") == count_runs(runs, "primary_uncertainty"), "primary uncertainty counts mismatch")
+    expected_blocking_counts: Counter[str] = Counter()
+    for run in runs:
+        for reason in run.get("blocking_reasons", []):
+            expected_blocking_counts[str(reason)] += 1
+    require(data.get("blocking_reason_counts") == dict(sorted(expected_blocking_counts.items())), "blocking reason counts mismatch")
 
     seen_orders: set[int] = set()
     seen_job_ids: set[str] = set()
@@ -67,6 +76,14 @@ def validate(data: dict[str, Any]) -> None:
         require(status in VALID_STATUSES, f"{job_id}: unexpected status {status}")
         require(int(run.get("track_id", -1)) > 0, f"{job_id}: invalid track id")
         require(str(run.get("phase", "")).startswith("independent-"), f"{job_id}: unexpected phase")
+        require(run.get("diagnostic_focus"), f"{job_id}: missing diagnostic focus")
+        require(run.get("primary_uncertainty"), f"{job_id}: missing primary uncertainty")
+        blocking_reasons = run.get("blocking_reasons", [])
+        require(isinstance(blocking_reasons, list), f"{job_id}: blocking reasons must be a list")
+        if status == "independent_capture_ready":
+            require(not blocking_reasons, f"{job_id}: ready run has blocking reasons")
+        else:
+            require(bool(blocking_reasons), f"{job_id}: pending run lacks blocking reasons")
         require("import_audio_oracle_reference_capture.py" in str(run.get("import_command", "")), f"{job_id}: missing import command")
         require("validate_audio_oracle_reference_capture.py" in str(run.get("capture_validator_command", "")), f"{job_id}: missing capture validator")
         require("collect_audio_oracle_comparison_results.py" in str(run.get("collect_command", "")), f"{job_id}: missing collect command")
@@ -92,6 +109,7 @@ def validate(data: dict[str, Any]) -> None:
                 require(audit.get("duration_covers_planned") is True, f"{job_id}: ready capture too short")
         else:
             require(run.get("audit") == {}, f"{job_id}: dry-run should not include audit evidence")
+            require(blocking_reasons == ["independent_capture_not_audited"], f"{job_id}: dry-run blocking reason mismatch")
 
     require(data.get("selection") is not None, "missing selection")
     require(count_runs(runs, "status").get("pending_independent_capture", 0) == pending_count, "pending count mismatch")

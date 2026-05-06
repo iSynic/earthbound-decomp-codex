@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -188,6 +189,32 @@ def metadata_audit(job: dict[str, Any]) -> dict[str, Any]:
     return record
 
 
+def blocking_reasons(audit: dict[str, Any], *, mode: str) -> list[str]:
+    if mode == "dry-run-plan":
+        return ["independent_capture_not_audited"]
+    if audit.get("capture_metadata_exists") is not True:
+        return ["missing_capture_metadata"]
+    reasons: list[str] = []
+    checks = {
+        "independent_emulator_capture": "metadata_not_marked_independent",
+        "source_spc_sha1_matches": "source_spc_sha1_mismatch",
+        "spc_exists": "missing_reference_spc",
+        "spc_sha1_matches": "reference_spc_sha1_mismatch",
+        "spc_signature_ok": "reference_spc_signature_invalid",
+        "wav_exists": "missing_reference_wav",
+        "wav_sha1_matches": "reference_wav_sha1_mismatch",
+        "wav_metadata_matches": "reference_wav_metadata_mismatch",
+        "wav_format_matches_policy": "reference_wav_format_mismatch",
+        "duration_covers_planned": "reference_wav_too_short",
+    }
+    for field, reason in checks.items():
+        if audit.get(field) is not True:
+            reasons.append(reason)
+    if audit.get("missing_metadata_fields"):
+        reasons.append("missing_required_metadata_fields")
+    return reasons
+
+
 def run_one(job: dict[str, Any], *, mode: str) -> dict[str, Any]:
     audit = metadata_audit(job) if mode == "audit-existing-captures" else {}
     ready = (
@@ -206,6 +233,7 @@ def run_one(job: dict[str, Any], *, mode: str) -> dict[str, Any]:
         and audit.get("duration_covers_planned") is True
     )
     status = "independent_capture_ready" if ready else "pending_independent_capture"
+    reasons = [] if ready else blocking_reasons(audit, mode=mode)
     return {
         "execution_order": int(job["execution_order"]),
         "campaign_job_id": job["campaign_job_id"],
@@ -213,8 +241,11 @@ def run_one(job: dict[str, Any], *, mode: str) -> dict[str, Any]:
         "track_id": int(job["track_id"]),
         "track_name": job["track_name"],
         "phase": job["phase"],
+        "diagnostic_focus": job["diagnostic_focus"],
+        "primary_uncertainty": job["primary_uncertainty"],
         "mode": mode,
         "status": status,
+        "blocking_reasons": reasons,
         "import_command": job["import_command"],
         "capture_validator_command": job["capture_validator_command"],
         "collect_command": job["collect_command"],
@@ -228,6 +259,14 @@ def run_one(job: dict[str, Any], *, mode: str) -> dict[str, Any]:
 def write_summary(campaign: dict[str, Any], summary_path: Path, args: argparse.Namespace, runs: list[dict[str, Any]]) -> None:
     independent_ready_count = sum(1 for run in runs if run.get("status") == "independent_capture_ready")
     pending_count = sum(1 for run in runs if run.get("status") == "pending_independent_capture")
+    status_counts: Counter[str] = Counter(str(run.get("status")) for run in runs)
+    phase_counts: Counter[str] = Counter(str(run.get("phase")) for run in runs)
+    focus_counts: Counter[str] = Counter(str(run.get("diagnostic_focus")) for run in runs)
+    uncertainty_counts: Counter[str] = Counter(str(run.get("primary_uncertainty")) for run in runs)
+    blocking_reason_counts: Counter[str] = Counter()
+    for run in runs:
+        for reason in run.get("blocking_reasons", []):
+            blocking_reason_counts[str(reason)] += 1
     summary = {
         "schema": "earthbound-decomp.audio-independent-oracle-campaign-run.v1",
         "campaign_plan": "manifests/audio-independent-oracle-campaign-plan.json",
@@ -236,6 +275,11 @@ def write_summary(campaign: dict[str, Any], summary_path: Path, args: argparse.N
         "selected_count": len(runs),
         "independent_capture_ready_count": independent_ready_count,
         "pending_independent_capture_count": pending_count,
+        "status_counts": dict(sorted(status_counts.items())),
+        "phase_counts": dict(sorted(phase_counts.items())),
+        "diagnostic_focus_counts": dict(sorted(focus_counts.items())),
+        "primary_uncertainty_counts": dict(sorted(uncertainty_counts.items())),
+        "blocking_reason_counts": dict(sorted(blocking_reason_counts.items())),
         "promotion_allowed_by_run": False,
         "release_quality_claim_ready_by_run": False,
         "selection": {
