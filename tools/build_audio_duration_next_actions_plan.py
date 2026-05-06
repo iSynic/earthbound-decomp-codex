@@ -120,6 +120,8 @@ def build_plan(
             "track_refs": track_refs(independent_records),
             "job_ids": job_ids(independent_records),
             "commands": [
+                "python tools/build_audio_independent_oracle_capture_packet.py",
+                "python tools/validate_audio_independent_oracle_capture_packet.py",
                 "python tools/validate_audio_independent_oracle_coverage_report.py",
                 "python tools/run_audio_independent_oracle_campaign.py --mode audit-existing-captures",
                 "python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id <track-id> --spc <external-capture.spc> --wav <external-render.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings> --overwrite",
