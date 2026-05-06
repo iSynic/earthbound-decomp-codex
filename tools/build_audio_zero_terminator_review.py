@@ -66,6 +66,7 @@ def zero_walk_detail(pack_record: dict[str, Any]) -> dict[str, Any]:
                     }
                 )
 
+    tail_values = [int(item["bytes_before_segment_end"]) for item in zero_terminators]
     return {
         "sampled_root_count": root_count,
         "sampled_zero_terminating_roots": zero_terminating_roots,
@@ -73,7 +74,61 @@ def zero_walk_detail(pack_record: dict[str, Any]) -> dict[str, Any]:
         "sampled_blocked_roots": blocked_roots,
         "sampled_zero_terminators": zero_terminators,
         "zero_terminator_tail_byte_counts": dict(sorted(tail_counts.items(), key=lambda item: int(item[0]))),
+        "zero_at_segment_end_count": int(tail_counts.get("0", 0)),
+        "zero_with_trailing_bytes_count": sum(count for tail, count in tail_counts.items() if int(tail) > 0),
+        "minimum_tail_bytes": min(tail_values) if tail_values else None,
+        "maximum_tail_bytes": max(tail_values) if tail_values else None,
     }
+
+
+def post_proof_track_action(track: dict[str, Any]) -> str:
+    export_class = str(track.get("export_class"))
+    if export_class == "finite_trim_candidate":
+        return "corroborate_existing_pcm_trim"
+    if export_class == "finite_or_transition_review_candidate":
+        return "review_observed_silence_as_finite_or_transition"
+    if export_class == "loop_or_held_candidate":
+        return "decode_loop_points_before_exact_export"
+    if export_class == "unknown_active_preview":
+        return "classify_active_preview_before_exact_export"
+    return "keep_current_export_policy"
+
+
+def track_review_records(tracks: list[dict[str, Any]], *, ef_call_edges: int, zero_promotion_allowed: bool) -> list[dict[str, Any]]:
+    records = []
+    blockers = ["zero_runtime_effect_proof"]
+    if ef_call_edges > 0:
+        blockers.append("ef_return_stack_model")
+    for track in tracks:
+        action = post_proof_track_action(track)
+        records.append(
+            {
+                "track_id": int(track["track_id"]),
+                "track_name": track.get("track_name"),
+                "export_class": track.get("export_class"),
+                "recommended_mode": track.get("recommended_mode"),
+                "duration_seconds": track.get("duration_seconds"),
+                "pre_promotion_blockers": [] if zero_promotion_allowed else blockers,
+                "post_zero_proof_action": action,
+                "public_exact_export_after_zero_proof": action == "corroborate_existing_pcm_trim",
+            }
+        )
+    return records
+
+
+def priority_rank(record: dict[str, Any]) -> int:
+    classes = record.get("export_class_counts", {})
+    if record["ef_call_edges"] > 0 and "finite_or_transition_review_candidate" in classes:
+        return 5
+    if record["ef_call_edges"] > 0:
+        return 4
+    if "finite_trim_candidate" in classes:
+        return 4
+    if "finite_or_transition_review_candidate" in classes:
+        return 3
+    if "loop_or_held_candidate" in classes:
+        return 2
+    return 1
 
 
 def promotion_class(pack: dict[str, Any], zero_semantics: dict[str, Any]) -> str:
@@ -101,6 +156,8 @@ def build_review(
     records = []
     promotion_counts: Counter[str] = Counter()
     track_counts: Counter[str] = Counter()
+    action_track_counts: Counter[str] = Counter()
+    blocker_track_counts: Counter[str] = Counter()
 
     for triage_pack in triage_records:
         pack_id = int(triage_pack["pack_id"])
@@ -124,14 +181,24 @@ def build_review(
             ),
             "review_detail": zero_walk_detail(detail_source),
         }
+        record["track_review_actions"] = track_review_records(
+            record["tracks"],
+            ef_call_edges=record["ef_call_edges"],
+            zero_promotion_allowed=record["zero_exact_duration_promotion_allowed"],
+        )
         record["promotion_class"] = promotion_class(record, zero_semantics)
+        record["priority_rank"] = priority_rank(record)
         records.append(record)
         promotion_counts[record["promotion_class"]] += 1
         track_counts[record["promotion_class"]] += record["track_count"]
+        for track_action in record["track_review_actions"]:
+            action_track_counts[str(track_action["post_zero_proof_action"])] += 1
+            for blocker in track_action.get("pre_promotion_blockers", []):
+                blocker_track_counts[str(blocker)] += 1
 
     records.sort(
         key=lambda item: (
-            item["promotion_class"],
+            item["priority_rank"],
             item["track_count"],
             item["zero_terminator_candidates"],
             item["ef_call_edges"],
@@ -152,6 +219,8 @@ def build_review(
             "candidate_track_count": sum(record["track_count"] for record in records),
             "promotion_class_pack_counts": dict(sorted(promotion_counts.items())),
             "promotion_class_track_counts": dict(sorted(track_counts.items())),
+            "post_zero_proof_action_track_counts": dict(sorted(action_track_counts.items())),
+            "pre_promotion_blocker_track_counts": dict(sorted(blocker_track_counts.items())),
             "semantic_status": "zero_terminators_need_end_vs_return_proof",
             "zero_semantic_status": zero_semantics.get("semantic_status", "missing_command_semantics"),
             "zero_exact_duration_promotion_allowed": bool(zero_semantics.get("exact_duration_promotion_allowed")),
@@ -195,6 +264,14 @@ def render_markdown(data: dict[str, Any]) -> str:
         )
         for record in data["candidates"]
     ]
+    action_rows = [
+        "| `{action}` | {count} |".format(action=action, count=count)
+        for action, count in summary.get("post_zero_proof_action_track_counts", {}).items()
+    ]
+    blocker_rows = [
+        "| `{blocker}` | {count} |".format(blocker=blocker, count=count)
+        for blocker, count in summary.get("pre_promotion_blocker_track_counts", {}).items()
+    ]
     return "\n".join(
         [
             "# Audio 0x00 Terminator Review",
@@ -206,8 +283,20 @@ def render_markdown(data: dict[str, Any]) -> str:
             f"- candidate packs: `{summary['candidate_pack_count']}`",
             f"- candidate tracks: `{summary['candidate_track_count']}`",
             f"- promotion classes: `{summary['promotion_class_pack_counts']}`",
+            f"- post-zero-proof track actions: `{summary['post_zero_proof_action_track_counts']}`",
+            f"- pre-promotion blockers by track: `{summary['pre_promotion_blocker_track_counts']}`",
             f"- zero semantic status: `{summary['zero_semantic_status']}`",
             f"- zero exact-duration promotion allowed: `{summary['zero_exact_duration_promotion_allowed']}`",
+            "",
+            "## Track Action Triage",
+            "",
+            "| Action | Tracks |",
+            "| --- | ---: |",
+            *action_rows,
+            "",
+            "| Blocker | Tracks |",
+            "| --- | ---: |",
+            *blocker_rows,
             "",
             "## Candidates",
             "",

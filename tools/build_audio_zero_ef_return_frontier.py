@@ -72,6 +72,36 @@ def zero_walk_records(pack_record: dict[str, Any]) -> list[dict[str, Any]]:
     return records
 
 
+def trace_focus_for_pack(pack_class: str, export_class_counts: dict[str, Any]) -> str:
+    if pack_class == "needs_ef_return_stack_model":
+        return "trace_zero_reader_with_ef_stack_state"
+    if "finite_or_transition_review_candidate" in export_class_counts:
+        return "prove_zero_end_effect_then_review_finite_candidate"
+    if "loop_or_held_candidate" in export_class_counts:
+        return "prove_zero_effect_but_loop_points_remain_required"
+    if "unknown_active_preview" in export_class_counts:
+        return "prove_zero_effect_then_classify_active_preview"
+    return "prove_zero_effect_for_policy_corroboration"
+
+
+def runtime_probe_pc_plan(zero_trace: dict[str, Any], zero_reader_records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    records_by_pc = {str(record.get("pc")): record for record in zero_reader_records}
+    counts = zero_trace.get("control_reader_pc_counts", {})
+    plan = []
+    for pc, count in sorted(counts.items(), key=lambda item: int(item[1]), reverse=True):
+        reader = records_by_pc.get(str(pc), {})
+        plan.append(
+            {
+                "pc": pc,
+                "read_count": int(count),
+                "driver_offset": reader.get("driver_offset"),
+                "role": reader.get("role", "sequence_control_byte_reader_candidate"),
+                "required_observation": "record command pointer, EF stack/return state, voice slot, and post-read branch/effect for 0x00",
+            }
+        )
+    return plan
+
+
 def build_frontier(
     zero_review: dict[str, Any],
     walk_frontier: dict[str, Any],
@@ -92,6 +122,8 @@ def build_frontier(
 
     pack_records = []
     class_counts: Counter[str] = Counter()
+    trace_focus_counts: Counter[str] = Counter()
+    track_action_counts: Counter[str] = Counter()
     candidate_total = 0
     ambiguous_total = 0
     static_end_total = 0
@@ -109,7 +141,11 @@ def build_frontier(
             pack_class = "zero_phrase_end_candidate_runtime_pending"
         else:
             pack_class = "zero_candidates_outside_sample_detail"
+        trace_focus = trace_focus_for_pack(pack_class, candidate["export_class_counts"])
         class_counts[pack_class] += 1
+        trace_focus_counts[trace_focus] += 1
+        for action in candidate.get("track_review_actions", []):
+            track_action_counts[str(action.get("post_zero_proof_action"))] += 1
         pack_records.append(
             {
                 "pack_id": pack_id,
@@ -120,7 +156,9 @@ def build_frontier(
                 "ef_call_edges": candidate["ef_call_edges"],
                 "zero_terminator_candidates": candidate["zero_terminator_candidates"],
                 "pack_context_class": pack_class,
+                "trace_focus": trace_focus,
                 "zero_walk_context_class_counts": dict(sorted(walk_class_counts.items())),
+                "track_review_actions": candidate.get("track_review_actions", []),
                 "sampled_zero_walks": walks[:16],
                 "eligible_next_export_action": "keep_public_exact_promotion_blocked",
             }
@@ -145,6 +183,8 @@ def build_frontier(
                 "phrase_or_song_end_candidate_pending_runtime_proof": static_end_total,
             },
             "pack_context_class_counts": dict(sorted(class_counts.items())),
+            "trace_focus_pack_counts": dict(sorted(trace_focus_counts.items())),
+            "post_zero_proof_action_track_counts": dict(sorted(track_action_counts.items())),
             "zero_runtime_read_count": int(zero_trace.get("sequence_control_read_count", 0)),
             "zero_runtime_reader_pc_count": len(zero_reader_records),
             "sequence_promotion_allowed": False,
@@ -166,6 +206,18 @@ def build_frontier(
             "execution_fetch_control_read_count": int(zero_trace.get("execution_fetch_control_read_count", 0)),
             "control_reader_pc_counts": zero_trace.get("control_reader_pc_counts", {}),
             "reader_pc_records": zero_reader_records,
+        },
+        "runtime_probe_plan": {
+            "reader_pc_plan": runtime_probe_pc_plan(zero_trace, zero_reader_records),
+            "first_pack_focus": [
+                {
+                    "pack_id": pack["pack_id"],
+                    "track_ids": pack["track_ids"],
+                    "trace_focus": pack["trace_focus"],
+                    "pack_context_class": pack["pack_context_class"],
+                }
+                for pack in pack_records[:5]
+            ],
         },
         "packs": pack_records,
         "promotion_policy": [
@@ -190,16 +242,26 @@ def build_frontier(
 def render_markdown(data: dict[str, Any]) -> str:
     summary = data["summary"]
     rows = [
-        "| `{pack_id}` | `{tracks}` | `{classes}` | {zero} | {ef} | `{context}` | `{walks}` |".format(
+        "| `{pack_id}` | `{tracks}` | `{classes}` | {zero} | {ef} | `{context}` | `{focus}` | `{walks}` |".format(
             pack_id=pack["pack_id"],
             tracks=pack["track_ids"],
             classes=pack["export_class_counts"],
             zero=pack["zero_terminator_candidates"],
             ef=pack["ef_call_edges"],
             context=pack["pack_context_class"],
+            focus=pack["trace_focus"],
             walks=pack["zero_walk_context_class_counts"],
         )
         for pack in data["packs"]
+    ]
+    pc_rows = [
+        "| `{pc}` | {count} | `{offset}` | {observation} |".format(
+            pc=record["pc"],
+            count=record["read_count"],
+            offset=record.get("driver_offset"),
+            observation=record["required_observation"],
+        )
+        for record in data.get("runtime_probe_plan", {}).get("reader_pc_plan", [])[:8]
     ]
     return "\n".join(
         [
@@ -213,14 +275,22 @@ def render_markdown(data: dict[str, Any]) -> str:
             f"- sampled 0x00 walks: `{summary['sampled_zero_walk_count']}`",
             f"- sampled 0x00 walk classes: `{summary['sampled_zero_walk_class_counts']}`",
             f"- pack context classes: `{summary['pack_context_class_counts']}`",
+            f"- trace focus packs: `{summary['trace_focus_pack_counts']}`",
+            f"- post-zero-proof track actions: `{summary['post_zero_proof_action_track_counts']}`",
             f"- runtime 0x00 reads: `{summary['zero_runtime_read_count']}`",
             f"- runtime 0x00 reader PCs: `{summary['zero_runtime_reader_pc_count']}`",
             f"- sequence promotion allowed: `{summary['sequence_promotion_allowed']}`",
             "",
+            "## Runtime Probe Plan",
+            "",
+            "| Reader PC | 0x00 reads | Driver offset | Required observation |",
+            "| --- | ---: | --- | --- |",
+            *pc_rows,
+            "",
             "## Packs",
             "",
-            "| Pack | Tracks | Export classes | 0x00 candidates | EF edges | Context | Sampled walk classes |",
-            "| ---: | --- | --- | ---: | ---: | --- | --- |",
+            "| Pack | Tracks | Export classes | 0x00 candidates | EF edges | Context | Trace focus | Sampled walk classes |",
+            "| ---: | --- | --- | ---: | ---: | --- | --- | --- |",
             *rows,
             "",
             "## Promotion Policy",

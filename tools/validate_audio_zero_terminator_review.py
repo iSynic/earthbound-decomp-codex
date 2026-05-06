@@ -20,6 +20,13 @@ ALLOWED_PROMOTION_CLASSES = {
     "zero_present_but_loop_metadata_still_needed",
     "zero_runtime_effect_pending",
 }
+ALLOWED_TRACK_ACTIONS = {
+    "classify_active_preview_before_exact_export",
+    "corroborate_existing_pcm_trim",
+    "decode_loop_points_before_exact_export",
+    "keep_current_export_policy",
+    "review_observed_silence_as_finite_or_transition",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -44,6 +51,8 @@ def validate(data: dict[str, Any]) -> list[str]:
     seen: set[int] = set()
     pack_counts: Counter[str] = Counter()
     track_counts: Counter[str] = Counter()
+    action_counts: Counter[str] = Counter()
+    blocker_counts: Counter[str] = Counter()
     total_tracks = 0
     for record in candidates:
         pack_id = int(record.get("pack_id", -1))
@@ -68,6 +77,22 @@ def validate(data: dict[str, Any]) -> list[str]:
         detail = record.get("review_detail", {})
         if "zero_terminator_tail_byte_counts" not in detail:
             errors.append(f"pack {pack_id}: missing terminator tail-byte counts")
+        if "zero_at_segment_end_count" not in detail:
+            errors.append(f"pack {pack_id}: missing zero-at-segment-end count")
+        track_actions = record.get("track_review_actions", [])
+        if len(track_actions) != len(record.get("tracks", [])):
+            errors.append(f"pack {pack_id}: track action count does not match tracks")
+        if int(record.get("priority_rank", 0)) <= 0:
+            errors.append(f"pack {pack_id}: missing priority rank")
+        for action in track_actions:
+            action_name = str(action.get("post_zero_proof_action"))
+            if action_name not in ALLOWED_TRACK_ACTIONS:
+                errors.append(f"pack {pack_id}: unexpected track action {action_name}")
+            if action.get("public_exact_export_after_zero_proof") and action_name != "corroborate_existing_pcm_trim":
+                errors.append(f"pack {pack_id}: public exact export requires existing PCM trim action")
+            action_counts[action_name] += 1
+            for blocker in action.get("pre_promotion_blockers", []):
+                blocker_counts[str(blocker)] += 1
         pack_counts[promotion_class] += 1
         track_count = int(record.get("track_count", 0))
         track_counts[promotion_class] += track_count
@@ -79,6 +104,10 @@ def validate(data: dict[str, Any]) -> list[str]:
         errors.append("promotion_class_pack_counts does not match candidates")
     if dict(sorted(track_counts.items())) != summary.get("promotion_class_track_counts"):
         errors.append("promotion_class_track_counts does not match candidates")
+    if dict(sorted(action_counts.items())) != summary.get("post_zero_proof_action_track_counts"):
+        errors.append("post_zero_proof_action_track_counts does not match candidates")
+    if dict(sorted(blocker_counts.items())) != summary.get("pre_promotion_blocker_track_counts"):
+        errors.append("pre_promotion_blocker_track_counts does not match candidates")
     if len(data.get("promotion_rules", [])) < 3:
         errors.append("promotion_rules should describe review limits")
     command_semantics = data.get("command_semantics", {})
