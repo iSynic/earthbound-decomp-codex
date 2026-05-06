@@ -233,6 +233,13 @@ def build_fixture_plan(manifest_dir: Path) -> dict[str, Any]:
             "tool": "tools/run_asset_output_smoke_fixtures.py",
             "default_command": "python tools/run_asset_output_smoke_fixtures.py",
             "rom_command": "python tools/run_asset_output_smoke_fixtures.py --rom path/to/EarthBound.sfc",
+            "report_schema": "earthbound-decomp.asset-output-smoke-fixtures-report.v1",
+            "post_extract_validation": [
+                "Every fixture target output appears in the extraction report.",
+                "Every target output file exists and matches the reported byte count and SHA-1.",
+                "Every target output has positive bytes.",
+                "Every target output includes the report metadata required by its typed recipe contract.",
+            ],
         },
     }
 
@@ -261,6 +268,7 @@ def render_markdown(plan: dict[str, Any]) -> str:
         "- validate selectors without a ROM: `python tools/run_asset_output_smoke_fixtures.py --dry-run`",
         "- execute smoke fixtures with a ROM: `python tools/run_asset_output_smoke_fixtures.py --rom path/to/EarthBound.sfc`",
         "- default output root: `build/asset-output-smoke-fixtures`",
+        "- post-extraction validation checks that every fixture target output exists, is non-empty, matches reported SHA-1/size, and carries required typed report metadata",
         "",
         "## Recipe-Kind Fixtures",
         "",

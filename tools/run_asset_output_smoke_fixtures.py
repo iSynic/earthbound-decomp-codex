@@ -13,11 +13,13 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import extract_assets
 import rom_tools
+from asset_output_recipe_contracts import OUTPUT_RECIPE_CONTRACTS
 
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_FIXTURES = ROOT / "notes" / "asset-output-smoke-fixtures.json"
 DEFAULT_OUT = ROOT / "build" / "asset-output-smoke-fixtures"
+REPORT_ZERO_OK_FIELDS = {"arrangement_id", "graphics_id", "max_tile", "palette_id", "sprite_id"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -92,6 +94,15 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
         asset_id = fixture.get("asset_id")
         if not isinstance(manifest, str) or not isinstance(asset_id, str):
             raise ValueError(f"{fixture_id}: manifest_path and asset_id must be strings")
+        target_output = fixture.get("target_output")
+        if not isinstance(target_output, dict):
+            raise ValueError(f"{fixture_id}: target_output must be an object")
+        kind = target_output.get("kind")
+        path = target_output.get("path")
+        if not isinstance(kind, str) or kind not in OUTPUT_RECIPE_CONTRACTS:
+            raise ValueError(f"{fixture_id}: target_output.kind is unsupported: {kind!r}")
+        if not isinstance(path, str) or not path:
+            raise ValueError(f"{fixture_id}: target_output.path must be a non-empty string")
         selected_by_manifest.setdefault(manifest, set()).add(asset_id)
 
     manifest_asset_counts = {}
@@ -116,6 +127,101 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
         "fixture_type_counts": dict(sorted(fixture_count_by_type.items())),
         "manifest_asset_counts": manifest_asset_counts,
         "unique_selected_assets": len({asset_id for asset_ids in selected_by_manifest.values() for asset_id in asset_ids}),
+    }
+
+
+def report_output_relative_path(out_root: Path, output: dict[str, Any]) -> str:
+    output_path = Path(str(output["path"]))
+    if not output_path.is_absolute():
+        return output_path.as_posix()
+    resolved_root = out_root.resolve()
+    resolved_output = output_path.resolve()
+    try:
+        return resolved_output.relative_to(resolved_root).as_posix()
+    except ValueError:
+        return resolved_output.as_posix()
+
+
+def validate_report_output_file(output: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    path = Path(str(output["path"]))
+    if not path.is_file():
+        return [f"output file is missing: {path}"]
+    data = path.read_bytes()
+    if len(data) != int(output.get("bytes", -1)):
+        errors.append(f"{path}: reported byte count does not match file size")
+    sha1 = hashlib.sha1(data).hexdigest()
+    if sha1 != output.get("sha1"):
+        errors.append(f"{path}: reported SHA-1 does not match file content")
+    return errors
+
+
+def validate_report_metadata(output: dict[str, Any], fixture_id: str) -> list[str]:
+    errors: list[str] = []
+    kind = str(output.get("kind"))
+    contract = OUTPUT_RECIPE_CONTRACTS[kind]
+    for field in contract.report_required_fields:
+        if field not in output:
+            errors.append(f"{fixture_id}: {kind} report is missing {field!r}")
+            continue
+        value = output[field]
+        if field.endswith("_range"):
+            if not isinstance(value, str) or ":" not in value or ".." not in value:
+                errors.append(f"{fixture_id}: {kind}.{field} must be a source range string")
+        elif not isinstance(value, int):
+            errors.append(f"{fixture_id}: {kind}.{field} must be an integer")
+        elif field in REPORT_ZERO_OK_FIELDS and value < 0:
+            errors.append(f"{fixture_id}: {kind}.{field} must be non-negative")
+        elif field not in REPORT_ZERO_OK_FIELDS and value <= 0:
+            errors.append(f"{fixture_id}: {kind}.{field} must be positive")
+    return errors
+
+
+def validate_smoke_report(plan: dict[str, Any], report: dict[str, Any], out_root: Path) -> dict[str, Any]:
+    assets_by_id = {str(asset["id"]): asset for asset in report["assets"]}
+    errors: list[str] = []
+    verified_output_keys: set[tuple[str, str, str]] = set()
+    metadata_field_checks = 0
+
+    for fixture in plan["fixtures"]:
+        fixture_id = str(fixture["id"])
+        asset_id = str(fixture["asset_id"])
+        target_output = fixture["target_output"]
+        target_kind = str(target_output["kind"])
+        target_path = str(target_output["path"])
+        asset = assets_by_id.get(asset_id)
+        if asset is None:
+            errors.append(f"{fixture_id}: extracted report is missing asset {asset_id}")
+            continue
+
+        matched_output = None
+        for output in asset.get("outputs", []):
+            if not isinstance(output, dict):
+                continue
+            relative_path = report_output_relative_path(out_root, output)
+            if output.get("kind") == target_kind and relative_path == target_path:
+                matched_output = output
+                break
+        if matched_output is None:
+            errors.append(f"{fixture_id}: missing target output {target_kind} {target_path}")
+            continue
+
+        if int(matched_output.get("bytes", 0) or 0) <= 0:
+            errors.append(f"{fixture_id}: target output has no bytes: {target_path}")
+        errors.extend(validate_report_output_file(matched_output))
+        metadata_errors = validate_report_metadata(matched_output, fixture_id)
+        errors.extend(metadata_errors)
+        if not metadata_errors:
+            metadata_field_checks += len(OUTPUT_RECIPE_CONTRACTS[target_kind].report_required_fields)
+        verified_output_keys.add((asset_id, target_kind, target_path))
+
+    if errors:
+        raise ValueError("Smoke fixture report validation failed:\n- " + "\n- ".join(errors))
+
+    return {
+        "fixture_targets_checked": len(plan["fixtures"]),
+        "unique_outputs_checked": len(verified_output_keys),
+        "metadata_field_checks": metadata_field_checks,
     }
 
 
@@ -178,6 +284,7 @@ def run_plan(
         "output_count": output_count,
         "assets": merged_assets,
     }
+    result["fixture_validation"] = validate_smoke_report(plan, result, out_root)
     report_path = out_root / "asset-output-smoke-fixtures-report.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
@@ -217,7 +324,8 @@ def main() -> int:
         "asset output smoke fixtures: "
         f"{report['asset_count']} assets, "
         f"{report['output_count']} outputs, "
-        f"{report['manifest_groups']} manifest groups"
+        f"{report['manifest_groups']} manifest groups, "
+        f"{report['fixture_validation']['fixture_targets_checked']} fixture targets checked"
     )
     print(f"Wrote {Path(args.out).resolve() / 'asset-output-smoke-fixtures-report.json'}")
     return 0

@@ -14,6 +14,7 @@ class OutputRecipeContract:
     renderer: str | None
     required_fields: tuple[str, ...] = ()
     optional_fields: tuple[str, ...] = ()
+    report_required_fields: tuple[str, ...] = ()
     extension: str | None = None
 
 
@@ -29,6 +30,7 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         output_type="decompressed binary",
         decoder="earthbound_lzhal",
         renderer=None,
+        report_required_fields=("compressed_bytes_consumed", "decompressed_bytes"),
     ),
     "snes_2bpp_tiles_png": OutputRecipeContract(
         kind="snes_2bpp_tiles_png",
@@ -36,6 +38,7 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         decoder="snes_2bpp_tiles",
         renderer="grayscale_tile_sheet",
         required_fields=("columns",),
+        report_required_fields=("width", "height", "tiles"),
         extension=".png",
     ),
     "snes_4bpp_tiles_png": OutputRecipeContract(
@@ -44,6 +47,7 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         decoder="snes_4bpp_tiles",
         renderer="grayscale_tile_sheet",
         required_fields=("columns",),
+        report_required_fields=("width", "height", "tiles"),
         extension=".png",
     ),
     "earthbound_lzhal_snes_4bpp_tiles_png": OutputRecipeContract(
@@ -52,6 +56,7 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         decoder="earthbound_lzhal+snes_4bpp_tiles",
         renderer="grayscale_tile_sheet",
         required_fields=("columns",),
+        report_required_fields=("compressed_bytes_consumed", "decompressed_bytes", "width", "height", "tiles"),
         extension=".png",
     ),
     "snes_4bpp_tiles_palette_png": OutputRecipeContract(
@@ -61,6 +66,7 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         renderer="palette_tile_sheet",
         required_fields=("columns", "colors", "palette_source"),
         optional_fields=("sprite_id", "palette_id", "graphics_id"),
+        report_required_fields=("colors", "palette_source_range", "width", "height", "tiles"),
         extension=".png",
     ),
     "earthbound_lzhal_snes_4bpp_tiles_palette_png": OutputRecipeContract(
@@ -70,6 +76,15 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         renderer="palette_tile_sheet",
         required_fields=("columns", "colors", "palette_source"),
         optional_fields=("sprite_id", "palette_id", "graphics_id"),
+        report_required_fields=(
+            "compressed_bytes_consumed",
+            "decompressed_bytes",
+            "colors",
+            "palette_source_range",
+            "width",
+            "height",
+            "tiles",
+        ),
         extension=".png",
     ),
     "snes_palette_json": OutputRecipeContract(
@@ -77,6 +92,7 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         output_type="decoded SNES palette JSON",
         decoder="snes_palette",
         renderer=None,
+        report_required_fields=("colors",),
         extension=".json",
     ),
     "snes_palette_swatch_png": OutputRecipeContract(
@@ -85,6 +101,7 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         decoder="snes_palette",
         renderer="palette_swatch",
         required_fields=("per_row", "swatch"),
+        report_required_fields=("colors", "width", "height"),
         extension=".png",
     ),
     "earthbound_lzhal_snes_palette_json": OutputRecipeContract(
@@ -92,6 +109,7 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         output_type="decompressed SNES palette JSON",
         decoder="earthbound_lzhal+snes_palette",
         renderer=None,
+        report_required_fields=("compressed_bytes_consumed", "decompressed_bytes", "colors"),
         extension=".json",
     ),
     "earthbound_lzhal_snes_palette_swatch_png": OutputRecipeContract(
@@ -100,6 +118,7 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         decoder="earthbound_lzhal+snes_palette",
         renderer="palette_swatch",
         required_fields=("per_row", "swatch"),
+        report_required_fields=("compressed_bytes_consumed", "decompressed_bytes", "colors", "width", "height"),
         extension=".png",
     ),
     "earthbound_lzhal_battle_bg_arrangement_png": OutputRecipeContract(
@@ -118,6 +137,17 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
             "graphics_source",
             "palette_source",
         ),
+        report_required_fields=(
+            "compressed_bytes_consumed",
+            "decompressed_bytes",
+            "colors",
+            "graphics_source_range",
+            "palette_source_range",
+            "bpp",
+            "max_tile",
+            "width",
+            "height",
+        ),
         extension=".png",
     ),
     "earthbound_lzhal_battle_sprite_png": OutputRecipeContract(
@@ -126,6 +156,16 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         decoder="earthbound_lzhal+snes_4bpp_tiles+snes_palette",
         renderer="battle_sprite",
         required_fields=("width", "height", "colors", "sprite_id", "palette_id", "palette_source"),
+        report_required_fields=(
+            "compressed_bytes_consumed",
+            "decompressed_bytes",
+            "colors",
+            "palette_source_range",
+            "sprite_id",
+            "palette_id",
+            "width",
+            "height",
+        ),
         extension=".png",
     ),
 }

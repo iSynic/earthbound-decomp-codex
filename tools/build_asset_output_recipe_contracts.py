@@ -211,6 +211,7 @@ def build_contract(manifest_dir: Path) -> dict[str, Any]:
                 "renderer": contract.renderer,
                 "required_fields": list(contract.required_fields),
                 "optional_fields": list(contract.optional_fields),
+                "report_required_fields": list(contract.report_required_fields),
                 "extension": contract.extension,
                 "output_count": output_counts[kind],
                 "asset_count": output_asset_counts[kind],
@@ -336,8 +337,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
             "",
             "## Recipe Kinds",
             "",
-            "| Recipe kind | Recipes | Assets | Output type | Decoder | Renderer | Required fields | Example |",
-            "| --- | ---: | ---: | --- | --- | --- | --- | --- |",
+            "| Recipe kind | Recipes | Assets | Output type | Decoder | Renderer | Required fields | Report metadata | Example |",
+            "| --- | ---: | ---: | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for recipe in contract["recipe_kinds"]:
@@ -346,8 +347,9 @@ def render_markdown(contract: dict[str, Any]) -> str:
         if example:
             example_text = f"`{example['asset_id']}` -> `{example['path']}`"
         required = ", ".join(f"`{field}`" for field in recipe["required_fields"]) or "-"
+        report_required = ", ".join(f"`{field}`" for field in recipe["report_required_fields"]) or "-"
         lines.append(
-            "| {kind} | {recipes} | {assets} | {output_type} | {decoder} | {renderer} | {required} | {example} |".format(
+            "| {kind} | {recipes} | {assets} | {output_type} | {decoder} | {renderer} | {required} | {report_required} | {example} |".format(
                 kind=f"`{recipe['kind']}`",
                 recipes=recipe["output_count"],
                 assets=recipe["asset_count"],
@@ -355,6 +357,7 @@ def render_markdown(contract: dict[str, Any]) -> str:
                 decoder=f"`{recipe['decoder']}`" if recipe["decoder"] else "-",
                 renderer=f"`{recipe['renderer']}`" if recipe["renderer"] else "-",
                 required=required,
+                report_required=report_required,
                 example=example_text,
             )
         )

@@ -1142,6 +1142,13 @@
   "runner": {
     "tool": "tools/run_asset_output_smoke_fixtures.py",
     "default_command": "python tools/run_asset_output_smoke_fixtures.py",
-    "rom_command": "python tools/run_asset_output_smoke_fixtures.py --rom path/to/EarthBound.sfc"
+    "rom_command": "python tools/run_asset_output_smoke_fixtures.py --rom path/to/EarthBound.sfc",
+    "report_schema": "earthbound-decomp.asset-output-smoke-fixtures-report.v1",
+    "post_extract_validation": [
+      "Every fixture target output appears in the extraction report.",
+      "Every target output file exists and matches the reported byte count and SHA-1.",
+      "Every target output has positive bytes.",
+      "Every target output includes the report metadata required by its typed recipe contract."
+    ]
   }
 }
