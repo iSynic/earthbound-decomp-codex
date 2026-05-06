@@ -74,6 +74,8 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate the all-track playback/export handoff: `python tools/validate_audio_playback_export_manifest.py`.
 - Build targeted 0x00 runtime probe jobs: `python tools/build_audio_zero_runtime_probe_plan.py`.
 - Validate targeted 0x00 runtime probe jobs: `python tools/validate_audio_zero_runtime_probe_plan.py`.
+- Collect targeted 0x00 runtime probe results: `python tools/collect_audio_zero_runtime_probe_results.py`.
+- Validate targeted 0x00 runtime probe results: `python tools/validate_audio_zero_runtime_probe_results_summary.py`.
 - Collect fused post-command timing metrics: `python tools/collect_audio_fusion_timing_metrics.py`.
 - Validate fused post-command timing metrics: `python tools/validate_audio_fusion_timing_metrics.py`.
 - Build ignored renderer fixtures: `python tools/build_audio_renderer_fixtures.py --tracks 46`.
