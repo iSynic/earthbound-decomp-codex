@@ -12,30 +12,53 @@
 ; External contracts used by this module
 
 C018F3_CloseOrResetPresentationState        = $C018F3
+C0004B_InitializeOverworldVramState         = $C0004B
+C013F6_LoadMapAtPosition                    = $C013F6
 C01A69_ResetEntitySlotStateTables           = $C01A69
 C01A86_ResetEntityBytePool467E              = $C01A86
 C01C11_InitializeEntityStateMask            = $C01C11
 C02D29_ResetOverworldPartyRuntimeState      = $C02D29
+C039E5_RefreshMushroomizedEntryTargetPositions = $C039E5
+C03A24_RebuildMushroomizedWalkingController = $C03A24
+C04FFE_ProcessPartyObjectConditionDecayGate = $C04FFE
+C052AA_InitBattleCommon                     = $C052AA
 C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
+C075DD_ConsumeMovementRecordQueue           = $C075DD
 C07B52_RebuildPartyRecordsOrEntityState     = $C07B52
+C0851C_SetFrameCallbackPtr                  = $C0851C
 C08756_WaitOneFrameAndPollInput             = $C08756
 C0886C_SetDisplayTransitionState            = $C0886C
 C088B1_ResetRendererFrameState              = $C088B1
 C08B26_FlushQueuedSpriteOrTileWork          = $C08B26
 C08EFC_CommitTileBufferToStaging            = $C08EFC
+C08F42_SnapshotContinuationFrame            = $C08F42
 C08FF7_ResolveIndexedPointerOffset          = $C08FF7
+C0927C_InitDelayedActionPools               = $C0927C
+C09321_InitDelayedActionState               = $C09321
 C0943C_SaveCurrentCoordinateState           = $C0943C
 C09451_RestoreSavedCoordinateState          = $C09451
 C09466_RefreshActiveEntitySpriteState       = $C09466
+C0EA99_TeleportMainloopStateMachine         = $C0EA99
 C12E63_DebugMenuSelectionDispatcher         = $C12E63
 C134A7_RunOpenMenuSelectionLoop             = $C134A7
 C13C32_HandlePlayerCheckingObject           = $C13C32
 C13CA1_OpenHpppDisplay                      = $C13CA1
 C13CE5_ShowTownMap                          = $C13CE5
+C1BEC6_RunGetOffBicycleMessageAndExit       = $C1BEC6
+C261BD_InstantWinHandler                    = $C261BD
+C26634_InstantWinCheck                      = $C26634
+C43317_RebuildPartyCharacterRecordPointerTable4dc8 = $C43317
+C43F53_LoadMenuNameEntryMaskTableTo1ad6     = $C43F53
 C44963_ResetActiveTextGlyphRun              = $C44963
 C47C3F_ClearWindowOrMenuMaskState           = $C47C3F
 C47F87_RefreshWindowFlavorPalette           = $C47F87
+C490EE_GetNearbyMagicTruffleDirection       = $C490EE
 C4A7B0_StepBattleOverlayScriptState         = $C4A7B0
+C4DAD2_InitIntroFileSelectStateDispatcher   = $C4DAD2
+C4E366_TestYourSanctuaryDisplayStub         = $C4E366
+C4FD45_SetAutoSectorMusicChanges            = $C4FD45
+EFE708_CheckDebugModeExitRequested          = $EFE708
+EFE746_CheckDebugViewCharacterMode          = $EFE746
 
 ; ---------------------------------------------------------------------------
 ; C0:B67F
@@ -46,7 +69,7 @@ C0B67F_InitializeIntroOverworldScene:
     tdc
     adc.w #$FFF1
     tcd
-    jsl $C0927C
+    jsl C0927C_InitDelayedActionPools
     jsl C01A86_ResetEntityBytePool467E
     ldx.w #$0000
     lda.w #$8000
@@ -63,11 +86,11 @@ C0B67F_InitializeIntroOverworldScene:
     stz $5D60
     stz $5D9A
     lda.w #$0001
-    jsl $C4FD45
+    jsl C4FD45_SetAutoSectorMusicChanges
     lda.w #$0697
     sta $9E54
     lda.w #$DC4E
-    jsl $C0851C
+    jsl C0851C_SetFrameCallbackPtr
     stz $9F41
     stz $9F3F
     lda.w #$FFFF
@@ -79,9 +102,9 @@ C0B67F_InitializeIntroOverworldScene:
     ldy.w #$0000
     tyx
     lda.w #$0001
-    jsl $C09321
+    jsl C09321_InitDelayedActionState
     jsl C02D29_ResetOverworldPartyRuntimeState
-    jsl $C03A24
+    jsl C03A24_RebuildMushroomizedWalkingController
     sep #$20
     stz $0E
     ldx.w #$0200
@@ -89,15 +112,15 @@ C0B67F_InitializeIntroOverworldScene:
     lda.w #$0200
     jsl C08EFC_CommitTileBufferToStaging
     jsl C47F87_RefreshWindowFlavorPalette
-    jsl $C0004B
+    jsl C0004B_InitializeOverworldVramState
     ldx $987B
     lda $9877
-    jsl $C013F6
+    jsl C013F6_LoadMapAtPosition
     jsl C06B21_RunPostTransitionDeferredScriptQueue
     jsl C47C3F_ClearWindowOrMenuMaskState
     lda.w #$0001
     jsl C44963_ResetActiveTextGlyphRun
-    jsl $C039E5
+    jsl C039E5_RefreshMushroomizedEntryTargetPositions
     pld
     rts
 INIT_BATTLE_OVERWORLD:
@@ -113,18 +136,18 @@ C0B731_InitializeIntroOverworldScene_LB731 = INIT_BATTLE_OVERWORLD
 C0B741_InitializeIntroOverworldScene_LB741:
     lda $436C
     beq C0B74F_InitializeIntroOverworldScene_LB74F
-    jsl $EFE708
+    jsl EFE708_CheckDebugModeExitRequested
     cmp.w #$FFFF
     beq C0B798_InitializeIntroOverworldScene_LB798
 C0B74F_InitializeIntroOverworldScene_LB74F:
-    jsl $C26634
+    jsl C26634_InstantWinCheck
     cmp.w #$0000
     beq C0B761_InitializeIntroOverworldScene_LB761
-    jsl $C261BD
+    jsl C261BD_InstantWinHandler
     stz $4DC2
     bra C0B798_InitializeIntroOverworldScene_LB798
 C0B761_InitializeIntroOverworldScene_LB761:
-    jsl $C052AA
+    jsl C052AA_InitBattleCommon
     tax
     stx $10
     jsl C07B52_RebuildPartyRecordsOrEntityState
@@ -135,7 +158,7 @@ C0B761_InitializeIntroOverworldScene_LB761:
     beq C0B786_InitializeIntroOverworldScene_LB786
     lda $436C
     beq C0B7D6_InitializeIntroOverworldScene_LB7D6
-    jsl $EFE746
+    jsl EFE746_CheckDebugViewCharacterMode
     cmp.w #$0000
     bne C0B7D6_InitializeIntroOverworldScene_LB7D6
 C0B786_InitializeIntroOverworldScene_LB786:
@@ -145,7 +168,7 @@ C0B786_InitializeIntroOverworldScene_LB786:
     jsl C0886C_SetDisplayTransitionState
     bra C0B798_InitializeIntroOverworldScene_LB798
 C0B794_InitializeIntroOverworldScene_LB794:
-    jsl $C0EA99
+    jsl C0EA99_TeleportMainloopStateMachine
 C0B798_InitializeIntroOverworldScene_LB798:
     lda.w #$0000
     sta $0E
@@ -183,10 +206,10 @@ C0B7D6_InitializeIntroOverworldScene_LB7D6:
     tdc
     adc.w #$FFF0
     tcd
-    jsl $C43317
+    jsl C43317_RebuildPartyCharacterRecordPointerTable4dc8
     lda.w #$0A20
-    jsl $C08F42
-    jsl $C4DAD2
+    jsl C08F42_SnapshotContinuationFrame
+    jsl C4DAD2_InitIntroFileSelectStateDispatcher
     jsr $B525
     jsr.w C0B67F_InitializeIntroOverworldScene
     jsl C088B1_ResetRendererFrameState
@@ -196,8 +219,8 @@ C0B7D6_InitializeIntroOverworldScene_LB7D6:
     jsl C0886C_SetDisplayTransitionState
     jsl C08B26_FlushQueuedSpriteOrTileWork
     lda.w #$0A2A
-    jsl $C08F42
-    jsl $C43F53
+    jsl C08F42_SnapshotContinuationFrame
+    jsl C43F53_LoadMenuNameEntryMaskTableTo1ad6
 C0B814_InitializeIntroOverworldScene_LB814:
     jsl C088B1_ResetRendererFrameState
     jsl C09466_RefreshActiveEntitySpriteState
@@ -214,7 +237,7 @@ C0B814_InitializeIntroOverworldScene_LB814:
     bne C0B84A_InitializeIntroOverworldScene_LB84A
     lda $4DC2
     bne C0B84A_InitializeIntroOverworldScene_LB84A
-    jsl $C075DD
+    jsl C075DD_ConsumeMovementRecordQueue
     inc $5D74
     jmp.w C0B95E_InitializeIntroOverworldScene_LB95E
 C0B84A_InitializeIntroOverworldScene_LB84A:
@@ -244,7 +267,7 @@ C0B876_InitializeIntroOverworldScene_LB876:
     cpx.w #$0003
     bne C0B892_InitializeIntroOverworldScene_LB892
     jsl C0943C_SaveCurrentCoordinateState
-    jsl $C1BEC6
+    jsl C1BEC6_RunGetOffBicycleMessageAndExit
     jsl C09451_RestoreSavedCoordinateState
     jmp.w C0B814_InitializeIntroOverworldScene_LB814
 C0B892_InitializeIntroOverworldScene_LB892:
@@ -262,12 +285,12 @@ C0B8AE_InitializeIntroOverworldScene_LB8AE:
     lda $006F
     and.w #$0080
     beq C0B8BA_InitializeIntroOverworldScene_LB8BA
-    jsl $C490EE
+    jsl C490EE_GetNearbyMagicTruffleDirection
 C0B8BA_InitializeIntroOverworldScene_LB8BA:
     lda $006F
     and.w #$8000
     beq C0B8C6_InitializeIntroOverworldScene_LB8C6
-    jsl $C4E366
+    jsl C4E366_TestYourSanctuaryDisplayStub
 C0B8C6_InitializeIntroOverworldScene_LB8C6:
     lda $5D60
     beq C0B8CE_InitializeIntroOverworldScene_LB8CE
@@ -312,7 +335,7 @@ C0B920_InitializeIntroOverworldScene_LB920:
 C0B923_InitializeIntroOverworldScene_LB923:
     lda $9F3F
     beq C0B92C_InitializeIntroOverworldScene_LB92C
-    jsl $C0EA99
+    jsl C0EA99_TeleportMainloopStateMachine
 C0B92C_InitializeIntroOverworldScene_LB92C:
     lda $436C
     beq C0B95E_InitializeIntroOverworldScene_LB95E
@@ -337,6 +360,6 @@ C0B959_InitializeIntroOverworldScene_LB959:
     cmp.w #$0006
     bcc C0B940_InitializeIntroOverworldScene_LB940
 C0B95E_InitializeIntroOverworldScene_LB95E:
-    jsl $C04FFE
+    jsl C04FFE_ProcessPartyObjectConditionDecayGate
     cmp.w #$0000
     db $D0, $13

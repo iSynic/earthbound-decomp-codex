@@ -12,6 +12,7 @@ the game pans over Onett.
 - `C0:B65F` = `SeedPlayerOverworldStartPosition`
 - `C0:B67F` = `InitializeIntroOverworldScene`
 - `C0:2D29` = `ResetOverworldPartyRuntimeState`
+- `C0:8F42` = `SnapshotContinuationFrame`
 
 ## `C0:B65F`: seed player position/facing
 
@@ -60,3 +61,20 @@ The 2026-05-06 C0 source polish pass added a local source anchor for `C0:2D29`
 as the shared overworld party-runtime reset entry. `C0:B67F` now calls that
 entry by name before rebuilding the mushroomized-walking controller and display
 setup.
+
+The later 2026-05-06 helper-call pass extended the same source module through
+the `INIT_BATTLE_OVERWORLD` and main overworld loop surfaces. The initializer now
+names the delayed-action pool/state setup, auto-sector music change toggle,
+frame-callback install, overworld VRAM/map-load setup, deferred script queue,
+mushroomized target refresh, EF debug-mode predicates, C2 instant-win check and
+handler, battle common init, teleport mainloop state machine, C4 intro/file
+select and menu-name setup, movement-record consumption, get-off-bicycle text
+exit, Magic Truffle direction helper, Your Sanctuary test display stub, and
+party condition-decay gate.
+
+`C0:8F42` is named here as `SnapshotContinuationFrame`: it writes the current
+long-call return/processor/direct-page/stack state into the caller-selected
+buffer (`$0A20` or `$0A2A` in this module), while the already observed `C0:8F68`
+path restores that frame. The remaining raw `jsr $B525` is deliberately left
+unnamed because it targets the larger pre-`B67F` raw intro setup body inside the
+unpromoted `C0:B2FF..B65F` corridor.

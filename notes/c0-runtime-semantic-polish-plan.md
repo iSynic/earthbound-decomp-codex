@@ -120,6 +120,16 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   helper calls. See `notes/mushroomized-walking-builders-34de-37d0.md`,
   `notes/position-snapshot-and-movement-tick-c0449b-c05200.md`, and
   `notes/intro-overworld-position-init-c0b65f-c0b67f.md`.
+- 2026-05-06 follow-up: the C0 intro/battle-overworld initializer pass named
+  the helper-call surface in `src/c0/c0_b67f_initialize_intro_overworld_scene.asm`.
+  The pass covers delayed-action setup, overworld VRAM/map load setup, EF debug
+  predicates, C2 instant-win and battle-common joins, C4 intro/menu-name helpers,
+  the continuation-frame snapshot pair, movement-record consumption, the
+  get-off-bicycle text exit, Magic Truffle and Your Sanctuary debug helpers,
+  teleport mainloop calls, and the party condition-decay gate. The only raw call left in
+  the module is `jsr $B525`, which remains tied to the larger unpromoted
+  `C0:B2FF..B65F` intro setup corridor. See
+  `notes/intro-overworld-position-init-c0b65f-c0b67f.md`.
 
 ## Validation
 

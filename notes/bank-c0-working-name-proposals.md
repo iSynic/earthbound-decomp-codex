@@ -2,7 +2,7 @@
 
 Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`.
 
-- Proposals: `509`
+- Proposals: `510`
 
 | Address | Proposed Name | Evidence Notes |
 | --- | --- | --- |
@@ -206,6 +206,7 @@ Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`
 | `C0:8E1C` | `Update_Bg3ScreenBaseRegistersFromQueue` | `notes/landing-display-assembly-cluster-c007b6-c4b26b.md:484` |
 | `C0:8E5C` | `Update_Bg4ScreenBaseRegistersFromQueue` | `notes/landing-display-assembly-cluster-c007b6-c4b26b.md:485` |
 | `C0:8ED2` | `CopyWordsFromLongSource` | `notes/short-text-staging-buffer-9c9f.md:46` |
+| `C0:8F42` | `SnapshotContinuationFrame` | `notes/intro-overworld-position-init-c0b65f-c0b67f.md:15` |
 | `C0:8FC2` | `VRAMPortTripleTable_Tail` | `notes/actionscript-dispatch-task-frontier-c08fc2-c09ece.md:117` |
 | `C0:8FE6` | `Multiply8x8_ViaHardwareRegisters` | `notes/actionscript-dispatch-task-frontier-c08fc2-c09ece.md:118` |
 | `C0:8FF7` | `Multiply16By8_ViaHardwareRegisters` | `notes/actionscript-dispatch-task-frontier-c08fc2-c09ece.md:119` |

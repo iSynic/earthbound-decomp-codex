@@ -56,6 +56,13 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   source comments plus `notes/c0-presentation-queue-runtime-polish.md`.
 - 2026-04-30: C0 task allocator/runtime seventh slice landed as byte-neutral
   source comments plus `notes/c0-task-pool-runtime-polish.md`.
+- 2026-05-06: C0 intro/battle-overworld initializer follow-up named the
+  helper-call surface across `C0:B67F..B967`: delayed-action setup, map/VRAM
+  setup, EF debug predicates, C2 instant-win and battle-common joins, C4
+  intro/menu-name helpers, continuation-frame snapshots, movement queue
+  consumption, bicycle text exit, Magic Truffle/Sanctuary debug helpers,
+  teleport mainloop calls, and the party condition-decay gate. See
+  `notes/intro-overworld-position-init-c0b65f-c0b67f.md`.
 - 2026-04-30: C1 battle front-end first slice landed as byte-neutral source
   comments plus `notes/c1-battle-front-end-runtime-polish.md`.
 - 2026-04-30: C1 battle PSI second slice landed as byte-neutral source
