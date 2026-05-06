@@ -216,6 +216,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
 - 2026-05-06: EF status-result label follow-up extended that source contract
   across the proved EBATTLE5 status island (`EF:6AC7..6C55`) and shared
   EBATTLE4 no-effect fallback (`EF:766E`) with `StatusResultText` anchors.
+- 2026-05-06: EF recovery/removal label follow-up applied the same direct
+  result-lane contract to `EF:6E4A..6F64`, using `RecoveryResultText` and
+  `RemovalResultText` anchors for the C2 affliction-cleanup helper emissions.
 - 2026-05-06: EF negative-guardrail source follow-up marked Lifeup explanation
   and enemy-flavor anchors plus explosive `EF:9A7E/9A9E` candidates as not-yet
   row-message joins, preserving rows `32..35` and `64/65` for row `+4` pointer

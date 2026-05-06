@@ -63,6 +63,8 @@ Examples:
 - `StatusResultText` EF anchors such as `EF:6AC7..6C55` and `EF:766E` are
   direct-result lane names; they should not be promoted as row `+4` action
   messages without separate `D5:7B68` row-pointer evidence.
+- `RecoveryResultText` and `RemovalResultText` EF anchors such as
+  `EF:6E4A..6F64` are the cleanup side of the same direct-result lane.
 - `EF:72F7`, `EF:733D`, and `EF:743B` are special-event continuations emitted
   after rows `243` and `244` present their row messages.
 - `EF:7142` and queued `EF:7123` belong to normalization result flow, separate

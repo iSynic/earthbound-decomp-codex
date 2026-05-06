@@ -4535,77 +4535,77 @@ db $9D,$91,$9C,$51,$1F,$02,$21,$02
 
 EF6E31_EBattle5MsgBtlEnemyReturnedToDust:
 
-; Original data gap before EF6E4A_EBattle5MsgBtlDiamondizedRecovered:
+; Original data gap before EF6E4A_EBattle5DiamondizedRecoveryResultText:
 db $01,$70,$1C,$0E,$50,$16,$97,$95,$94,$15,$06,$94,$17,$E6,$15,$09
 db $15,$EA,$A4,$98,$51,$1F,$02,$21,$02
 
-EF6E4A_EBattle5MsgBtlDiamondizedRecovered:
+EF6E4A_EBattle5DiamondizedRecoveryResultText:
 
-; Original data gap before EF6E67_EBattle5MsgBtlParalysisRecovered:
+; Original data gap before EF6E67_EBattle5ParalysisRecoveryResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$00,$50,$50,$16,$97,$15
 db $33,$9E,$9F,$A2,$9D,$91,$9C,$51,$1F,$02,$25,$03,$02
 
-EF6E67_EBattle5MsgBtlParalysisRecovered:
+EF6E67_EBattle5ParalysisRecoveryResultText:
 
-; Original data gap before EF6E81_EBattle5MsgBtlFeelingSickRecovered:
+; Original data gap before EF6E81_EBattle5FeelingSickRecoveryResultText:
 db $01,$70,$1C,$0E,$57,$A3,$00,$50,$50,$9E,$A5,$9D,$92,$16,$09,$15
 db $21,$97,$15,$7E,$51,$1F,$02,$25,$03,$02
 
-EF6E81_EBattle5MsgBtlFeelingSickRecovered:
+EF6E81_EBattle5FeelingSickRecoveryResultText:
 
-; Original data gap before EF6E97_EBattle5MsgBtlPoisonRemoved:
+; Original data gap before EF6E97_EBattle5PoisonRemovalResultText:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$00,$50,$15,$62,$50,$16,$98
 db $51,$1F,$02,$25,$03,$02
 
-EF6E97_EBattle5MsgBtlPoisonRemoved:
+EF6E97_EBattle5PoisonRemovalResultText:
 
-; Original data gap before EF6EBC_EBattle5MsgBtlColdRecovered:
+; Original data gap before EF6EBC_EBattle5ColdRecoveryResultText:
 db $01,$15,$14,$A0,$9F,$99,$A3,$9F,$9E,$15,$C4,$A2,$95,$9D,$9F,$A6
 db $15,$57,$17,$A4,$00,$50,$50,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$51
 db $1F,$02,$25,$03,$02
 
-EF6EBC_EBattle5MsgBtlColdRecovered:
+EF6EBC_EBattle5ColdRecoveryResultText:
 
-; Original data gap before EF6ED1_EBattle5MsgBtlCryingRecovered:
+; Original data gap before EF6ED1_EBattle5CryingRecoveryResultText:
 db $01,$70,$1C,$0E,$16,$1B,$A4,$15,$CF,$00,$15,$95,$93,$17,$F9,$51
 db $1F,$02,$25,$03,$02
 
-EF6ED1_EBattle5MsgBtlCryingRecovered:
+EF6ED1_EBattle5CryingRecoveryResultText:
 
-; Original data gap before EF6EED_EBattle5MsgBtlImmobilizedRecovered:
+; Original data gap before EF6EED_EBattle5ImmobilizedRecoveryResultText:
 db $01,$70,$1C,$0E,$50,$96,$16,$63,$00,$50,$50,$17,$91,$A0,$15,$57
 db $93,$A2,$A9,$16,$44,$5E,$5E,$1F,$02,$25,$03,$02
 
-EF6EED_EBattle5MsgBtlImmobilizedRecovered:
+EF6EED_EBattle5ImmobilizedRecoveryResultText:
 
-; Original data gap before EF6F0B_EBattle5MsgBtlFrozenCanMove:
+; Original data gap before EF6F0B_EBattle5FrozenMovementRecoveryResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$00,$50,$15,$5B,$17,$6F
 db $A6,$15,$57,$96,$16,$FA,$9C,$A9,$51,$1F,$02,$25,$03,$02
 
-EF6F0B_EBattle5MsgBtlFrozenCanMove:
+EF6F0B_EBattle5FrozenMovementRecoveryResultText:
 
-; Original data gap before EF6F1E_EBattle5MsgBtlStrangeRecovered:
+; Original data gap before EF6F1E_EBattle5StrangeRecoveryResultText:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$15,$6F,$9D,$16,$61,$51,$1F,$02
 db $25,$03,$02
 
-EF6F1E_EBattle5MsgBtlStrangeRecovered:
+EF6F1E_EBattle5StrangeRecoveryResultText:
 
-; Original data gap before EF6F38_EBattle5MsgBtlSunstrokeCured:
+; Original data gap before EF6F38_EBattle5SunstrokeRecoveryResultText:
 db $01,$70,$1C,$0E,$50,$A7,$15,$9E,$00,$50,$15,$85,$15,$0C,$9E,$9F
 db $A2,$9D,$91,$9C,$51,$1F,$02,$25,$03,$02
 
-EF6F38_EBattle5MsgBtlSunstrokeCured:
+EF6F38_EBattle5SunstrokeRecoveryResultText:
 
-; Original data gap before EF6F54_EBattle5MsgBtlAsleepRecovered:
+; Original data gap before EF6F54_EBattle5AsleepRecoveryResultText:
 db $01,$70,$1C,$0E,$57,$A3,$00,$50,$17,$B3,$9E,$A3,$A4,$A2,$17,$09
 db $15,$C4,$93,$A5,$17,$45,$51,$1F,$02,$25,$03,$02
 
-EF6F54_EBattle5MsgBtlAsleepRecovered:
+EF6F54_EBattle5AsleepRecoveryResultText:
 
-; Original data gap before EF6F64_EBattle5MsgBtlPsiSealRecovered:
+; Original data gap before EF6F64_EBattle5PsiSealRecoveryResultText:
 db $01,$70,$1C,$0E,$50,$A7,$17,$09,$17,$B8,$51,$1F,$02,$25,$03,$02
 
-EF6F64_EBattle5MsgBtlPsiSealRecovered:
+EF6F64_EBattle5PsiSealRecoveryResultText:
 
 ; Original data gap before EF6F7C_EBattle5MsgBtlRevived:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$15,$6F,$16,$57,$93,$15,$9E,$A2

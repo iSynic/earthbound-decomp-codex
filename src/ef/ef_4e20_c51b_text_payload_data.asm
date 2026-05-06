@@ -25,6 +25,8 @@
 ;   LOAD_POINTER_SUBSTITUTION (19 1E).
 ; - StatusResult anchors are direct C1:DC1C result scripts selected by C2 row
 ;   +8 behavior bodies, not C1:DD9F row +4 presentation messages.
+; - RecoveryResult and RemovalResult anchors are the same direct-result lane
+;   for C2 cleanup helpers that clear or report affliction recovery.
 ; PSI explanation payload text: `MSG_EXPL_PSI_HISSATSU_ALFA`.
 EF4E20_EExplPsiMsgExplPsiHissatsuAlfa:
 
@@ -944,74 +946,74 @@ EF6E31_EBattle5MsgBtlEnemyReturnedToDust:
 ; ---------------------------------------------------------------------------
 ; EF:6E4A
 
-; EBATTLE5: diamondized/body hard-state recovery text.
-EF6E4A_EBattle5MsgBtlDiamondizedRecovered:
+; EBATTLE5: diamondized/body hard-state recovery direct-result text.
+EF6E4A_EBattle5DiamondizedRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6E67
 
-; EBATTLE5: paralysis/body-numb recovery text.
-EF6E67_EBattle5MsgBtlParalysisRecovered:
+; EBATTLE5: paralysis/body-numb recovery direct-result text.
+EF6E67_EBattle5ParalysisRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6E81
 
-; EBATTLE5: nausea/sickness recovery text.
-EF6E81_EBattle5MsgBtlFeelingSickRecovered:
+; EBATTLE5: nausea/sickness recovery direct-result text.
+EF6E81_EBattle5FeelingSickRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6E97
 
-; EBATTLE5: poison removed text used by C2 affliction recovery helpers.
-EF6E97_EBattle5MsgBtlPoisonRemoved:
+; EBATTLE5: poison removal direct-result text used by C2 recovery helpers.
+EF6E97_EBattle5PoisonRemovalResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6EBC
 
-; EBATTLE5: cold recovery text.
-EF6EBC_EBattle5MsgBtlColdRecovered:
+; EBATTLE5: cold recovery direct-result text.
+EF6EBC_EBattle5ColdRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6ED1
 
-; EBATTLE5: crying recovery text.
-EF6ED1_EBattle5MsgBtlCryingRecovered:
+; EBATTLE5: crying recovery direct-result text.
+EF6ED1_EBattle5CryingRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6EED
 
-; EBATTLE5: immobilized/body-state recovery text.
-EF6EED_EBattle5MsgBtlImmobilizedRecovered:
+; EBATTLE5: immobilized/body-state recovery direct-result text.
+EF6EED_EBattle5ImmobilizedRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6F0B
 
-; EBATTLE5: frozen/solidified movement recovery text.
-EF6F0B_EBattle5MsgBtlFrozenCanMove:
+; EBATTLE5: frozen/solidified movement recovery direct-result text.
+EF6F0B_EBattle5FrozenMovementRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6F1E
 
-; EBATTLE5: strange/confused recovery text.
-EF6F1E_EBattle5MsgBtlStrangeRecovered:
+; EBATTLE5: strange/confused recovery direct-result text.
+EF6F1E_EBattle5StrangeRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6F38
 
-; EBATTLE5: sunstroke cured text.
-EF6F38_EBattle5MsgBtlSunstrokeCured:
+; EBATTLE5: sunstroke cured direct-result text.
+EF6F38_EBattle5SunstrokeRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6F54
 
-; EBATTLE5: asleep/woke-up recovery text.
-EF6F54_EBattle5MsgBtlAsleepRecovered:
+; EBATTLE5: asleep/woke-up recovery direct-result text.
+EF6F54_EBattle5AsleepRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6F64
 
-; EBATTLE5: PSI-seal/concentration recovery text.
-EF6F64_EBattle5MsgBtlPsiSealRecovered:
+; EBATTLE5: PSI-seal/concentration recovery direct-result text.
+EF6F64_EBattle5PsiSealRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6F7C

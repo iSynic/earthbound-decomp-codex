@@ -266,3 +266,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `DC1C` status-result anchors across `EF:6AC7..6C55` and shared fallback
   `EF:766E` with `StatusResultText`, keeping them distinct from `DD9F` row
   `+4` presentation anchors.
+- 2026-05-06: EF recovery/removal result label follow-up renamed
+  `EF:6E4A..6F64` cleanup scripts with `RecoveryResultText` or
+  `RemovalResultText` so the C2 affliction-recovery direct-result lane is
+  visible in source.
