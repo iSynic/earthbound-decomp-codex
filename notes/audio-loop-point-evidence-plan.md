@@ -38,6 +38,8 @@ Status: loop-point evidence plan is ready; current loop-count/fade preview behav
 
 ## Post Evidence Validation
 
+- `python tools/run_audio_loop_point_evidence_plan.py --mode audit-current-export`
+- `python tools/validate_audio_loop_point_evidence_run_summary.py`
 - `python tools/validate_audio_loop_point_evidence_plan.py`
 - `python tools/validate_audio_export_plan.py`
 - `python tools/validate_audio_duration_uncertainty_register.py`

@@ -110,6 +110,8 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate independent external-emulator oracle campaign run summary: `python tools/validate_audio_independent_oracle_campaign_run_summary.py`.
 - Build focused loop-point evidence plan: `python tools/build_audio_loop_point_evidence_plan.py`.
 - Validate focused loop-point evidence plan: `python tools/validate_audio_loop_point_evidence_plan.py`.
+- Audit focused loop-point evidence readiness: `python tools/run_audio_loop_point_evidence_plan.py --mode audit-current-export`.
+- Validate focused loop-point evidence run summary: `python tools/validate_audio_loop_point_evidence_run_summary.py`.
 - Collect fused post-command timing metrics: `python tools/collect_audio_fusion_timing_metrics.py`.
 - Validate fused post-command timing metrics: `python tools/validate_audio_fusion_timing_metrics.py`.
 - Build ignored renderer fixtures: `python tools/build_audio_renderer_fixtures.py --tracks 46`.

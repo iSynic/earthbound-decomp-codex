@@ -98,6 +98,10 @@ def validate(data: dict[str, Any]) -> None:
         require(len(gap.get("required_evidence", [])) >= 3, f"{job_id}: required evidence too thin")
         require(len(job.get("evidence_questions", [])) >= 3, f"{job_id}: evidence questions too thin")
         require(len(job.get("required_runtime_evidence", [])) >= 4, f"{job_id}: runtime evidence too thin")
+        require("run_audio_loop_point_evidence_plan.py" in str(job.get("dry_run_command", "")), f"{job_id}: missing dry-run command")
+        require("--mode dry-run-plan" in str(job.get("dry_run_command", "")), f"{job_id}: bad dry-run command")
+        require("run_audio_loop_point_evidence_plan.py" in str(job.get("audit_command", "")), f"{job_id}: missing audit command")
+        require("--mode audit-current-export" in str(job.get("audit_command", "")), f"{job_id}: bad audit command")
         require(job.get("promotion_allowed_by_plan") is False, f"{job_id}: job must not allow promotion")
         for command in (
             "python tools/build_audio_export_plan.py",
@@ -112,6 +116,8 @@ def validate(data: dict[str, Any]) -> None:
     require("held_policy_no_exact_loop_points" in data.get("accepted_evidence_statuses", []), "missing held-policy status")
     require(data.get("decision_policy"), "missing decision policy")
     for command in (
+        "python tools/run_audio_loop_point_evidence_plan.py --mode audit-current-export",
+        "python tools/validate_audio_loop_point_evidence_run_summary.py",
         "python tools/validate_audio_loop_point_evidence_plan.py",
         "python tools/validate_audio_export_plan.py",
         "python tools/validate_audio_duration_uncertainty_register.py",

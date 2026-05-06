@@ -135,6 +135,8 @@ def build_jobs(
                     "rendered PCM repeat/hold evidence over at least the existing 120-second preview window",
                     "classification as exact_loop_points_available, held_policy_no_exact_loop_points, or unresolved",
                 ],
+                "dry_run_command": f"python tools/run_audio_loop_point_evidence_plan.py --job-id loop-point-track-{track_id:03d}-{str(record['track_name']).lower()} --mode dry-run-plan",
+                "audit_command": f"python tools/run_audio_loop_point_evidence_plan.py --job-id loop-point-track-{track_id:03d}-{str(record['track_name']).lower()} --mode audit-current-export",
                 "promotion_allowed_by_plan": False,
                 "post_evidence_commands": [
                     "python tools/build_audio_export_plan.py",
@@ -190,6 +192,8 @@ def build_plan(
             "unresolved_loop_or_hold_policy",
         ],
         "post_evidence_validation_commands": [
+            "python tools/run_audio_loop_point_evidence_plan.py --mode audit-current-export",
+            "python tools/validate_audio_loop_point_evidence_run_summary.py",
             "python tools/validate_audio_loop_point_evidence_plan.py",
             "python tools/validate_audio_export_plan.py",
             "python tools/validate_audio_duration_uncertainty_register.py",
