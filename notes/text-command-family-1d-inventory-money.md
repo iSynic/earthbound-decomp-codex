@@ -375,6 +375,11 @@ So the safest current read is: `0x18` is the queue-add side of the same service-
 
 This leaf is now source-backed in `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm` as `StageBankDepositAccumulatorTextValue`.
 
+Source polish follow-up (2026-05-06): that source now names the local
+bank-deposit staging ABI directly. The leaf exposes the `$98B9/$98BB`
+accumulator pointer, `$06/$08 -> $0E/$10` text-context handoff, command
+selector `2` clear path, and zeroing writes back into the cached accumulator.
+
 The local writer side is what corrected the old model. Bank-`C2` code at `C2:5F3D..5F7D` and `C2:6279..62B9` is doing real arithmetic on `$98B9/$98BB`, adding converted 16-bit amounts into it as a dword total. That is a much better fit for the `ESHOP3` script neighborhood too:
 
 - `0x24 01` gates the `deposited $... to your bank account` line

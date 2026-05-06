@@ -93,6 +93,12 @@ special-event dispatcher, wandering-photographer C4 helper, pose-descriptor
 attached-child spawn/clear helpers, battle visual effect token dispatcher, and
 shared context installers are all explicit in source.
 
+Source polish follow-up (2026-05-06): the same sibling source now names its
+local staging layer. `1F 40` exposes the one-byte special-event argument
+callback queue, `1F 41` exposes signed special-event result staging,
+`1F D2/07` name their direct-argument fallbacks, and `1F F3/F4` expose the
+pose-descriptor word assembly before the attached-child spawn/clear helpers.
+
 Source polish follow-up (2026-05-06): the adjacent `C1:7440` callback adapter
 now names its direct `EF:0EAD` call as the delivery row sprite/placeholder
 instantiator, so the `0x1F D3` callback handoff is explicit at the source edge.

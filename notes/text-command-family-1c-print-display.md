@@ -86,6 +86,11 @@ caller byte before falling back to the next text argument when that assembled
 value is zero; their callback low words are now source aliases rather than raw
 `C1:53AF` / `C1:5573` literals.
 
+Follow-up source polish now names the `0x1C 13` battle visual-effect staging
+leaf in `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm`. The
+source exposes the queued visual token, actor selector, blinking-prompt gate,
+`C3:FAC9` dispatch, and signed `$06/$08 -> $0E/$10` result installation.
+
 ## Best current interpretation
 
 The safest current interpretation is that `0x1C` is the bank-`01` print / display family, covering ordinary text substitution, item and character naming, numeric/stat printing, and a narrower battle-facing action / PSI display tail.
