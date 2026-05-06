@@ -167,6 +167,13 @@ closure.
   planes, `0x0240` template buffer, RGB555 masks, `EF:10FB` descriptor table,
   row stride, transfer blocks, wait selectors, display cache latch, and busy
   byte. See `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-06 truffle/landing profile follow-up: renamed the local decision
+  labels in `GetNearbyMagicTruffleDirection` around slot discovery, range
+  gates, absolute-delta normalization, too-close fallback, and octant return.
+  The adjacent landing-profile source now marks the $7F:7900..7E00 plane
+  initializer/stepper and descriptor runner side effects while keeping C0
+  transfer, display-row, tilemap, wait, and busy-byte behavior callee-owned.
+  See `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
 - 2026-05-01 coffee/tea tile buffer: promoted row-mask byte/pass counts,
   token metadata field offsets, dirty-range and scroll sentinels, row-reveal
   and high-byte masks, tile-source plane/trailer offsets, work-bank value, and

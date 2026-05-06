@@ -27437,10 +27437,10 @@ GET_DISTANCE_TO_MAGIC_TRUFFLE:
     jsl !C46028_FindEntitySlotByCachedPoseDescriptorId
     sta $04
     cmp.w #!MissingEntitySlotSentinel
-    bne C4910A_NearbyTruffleAndLandingProfileInterpolationHelpers_L910A
+    bne C4910A_GetNearbyMagicTruffleDirection_FoundSlot
     lda.w #!TruffleDirectionNoTruffle
-    jmp.w C491EC_NearbyTruffleAndLandingProfileInterpolationHelpers_L91EC
-C4910A_NearbyTruffleAndLandingProfileInterpolationHelpers_L910A:
+    jmp.w C491EC_GetNearbyMagicTruffleDirection_Return
+C4910A_GetNearbyMagicTruffleDirection_FoundSlot:
     lda $04
     asl A
     tax
@@ -27453,16 +27453,16 @@ C4910A_NearbyTruffleAndLandingProfileInterpolationHelpers_L910A:
     sta $02
     lda $12
     cmp $02
-    bcc C49154_NearbyTruffleAndLandingProfileInterpolationHelpers_L9154
+    bcc C49154_GetNearbyMagicTruffleDirection_OutOfRange
     tya
     clc
     adc.w #!MagicTruffleNearbyRadius
     sta $02
     lda $12
     cmp $02
-    beq C49132_NearbyTruffleAndLandingProfileInterpolationHelpers_L9132
-    bcs C49154_NearbyTruffleAndLandingProfileInterpolationHelpers_L9154
-C49132_NearbyTruffleAndLandingProfileInterpolationHelpers_L9132:
+    beq C49132_GetNearbyMagicTruffleDirection_CheckYRange
+    bcs C49154_GetNearbyMagicTruffleDirection_OutOfRange
+C49132_GetNearbyMagicTruffleDirection_CheckYRange:
     ldy !LiveEntityWorldYTable,X
     lda !PlayerWorldY
     sta $12
@@ -27471,19 +27471,19 @@ C49132_NearbyTruffleAndLandingProfileInterpolationHelpers_L9132:
     sta $02
     tya
     cmp $02
-    bcc C49154_NearbyTruffleAndLandingProfileInterpolationHelpers_L9154
+    bcc C49154_GetNearbyMagicTruffleDirection_OutOfRange
     lda $12
     clc
     adc.w #!MagicTruffleNearbyRadius
     sta $02
     tya
     cmp $02
-    bcc C4915A_NearbyTruffleAndLandingProfileInterpolationHelpers_L915A
-    beq C4915A_NearbyTruffleAndLandingProfileInterpolationHelpers_L915A
-C49154_NearbyTruffleAndLandingProfileInterpolationHelpers_L9154:
+    bcc C4915A_GetNearbyMagicTruffleDirection_InRange
+    beq C4915A_GetNearbyMagicTruffleDirection_InRange
+C49154_GetNearbyMagicTruffleDirection_OutOfRange:
     lda.w #!TruffleDirectionOutOfRange
-    jmp.w C491EC_NearbyTruffleAndLandingProfileInterpolationHelpers_L91EC
-C4915A_NearbyTruffleAndLandingProfileInterpolationHelpers_L915A:
+    jmp.w C491EC_GetNearbyMagicTruffleDirection_Return
+C4915A_GetNearbyMagicTruffleDirection_InRange:
     lda $12
     sta $02
     tya
@@ -27494,23 +27494,23 @@ C4915A_NearbyTruffleAndLandingProfileInterpolationHelpers_L915A:
     lda.w #!TruffleDirectionNoTruffle
     clc
     sbc $02
-    bvc C49172_NearbyTruffleAndLandingProfileInterpolationHelpers_L9172
-    bpl C49180_NearbyTruffleAndLandingProfileInterpolationHelpers_L9180
-    bra C49174_NearbyTruffleAndLandingProfileInterpolationHelpers_L9174
-C49172_NearbyTruffleAndLandingProfileInterpolationHelpers_L9172:
-    bmi C49180_NearbyTruffleAndLandingProfileInterpolationHelpers_L9180
-C49174_NearbyTruffleAndLandingProfileInterpolationHelpers_L9174:
+    bvc C49172_GetNearbyMagicTruffleDirection_CheckPositiveYDelta
+    bpl C49180_GetNearbyMagicTruffleDirection_UseRawYDelta
+    bra C49174_GetNearbyMagicTruffleDirection_InvertYDelta
+C49172_GetNearbyMagicTruffleDirection_CheckPositiveYDelta:
+    bmi C49180_GetNearbyMagicTruffleDirection_UseRawYDelta
+C49174_GetNearbyMagicTruffleDirection_InvertYDelta:
     lda $12
     eor.w #!SignedWordInvertMask
     inc A
     sta $02
     sta $10
-    bra C49186_NearbyTruffleAndLandingProfileInterpolationHelpers_L9186
-C49180_NearbyTruffleAndLandingProfileInterpolationHelpers_L9180:
+    bra C49186_GetNearbyMagicTruffleDirection_HaveAbsYDelta
+C49180_GetNearbyMagicTruffleDirection_UseRawYDelta:
     lda $12
     sta $02
     sta $10
-C49186_NearbyTruffleAndLandingProfileInterpolationHelpers_L9186:
+C49186_GetNearbyMagicTruffleDirection_HaveAbsYDelta:
     lda $04
     asl A
     tax
@@ -27522,19 +27522,19 @@ C49186_NearbyTruffleAndLandingProfileInterpolationHelpers_L9186:
     lda.w #!TruffleDirectionNoTruffle
     clc
     sbc $02
-    bvc C491A1_NearbyTruffleAndLandingProfileInterpolationHelpers_L91A1
-    bpl C491AB_NearbyTruffleAndLandingProfileInterpolationHelpers_L91AB
-    bra C491A3_NearbyTruffleAndLandingProfileInterpolationHelpers_L91A3
-C491A1_NearbyTruffleAndLandingProfileInterpolationHelpers_L91A1:
-    bmi C491AB_NearbyTruffleAndLandingProfileInterpolationHelpers_L91AB
-C491A3_NearbyTruffleAndLandingProfileInterpolationHelpers_L91A3:
+    bvc C491A1_GetNearbyMagicTruffleDirection_CheckPositiveXDelta
+    bpl C491AB_GetNearbyMagicTruffleDirection_UseRawXDelta
+    bra C491A3_GetNearbyMagicTruffleDirection_InvertXDelta
+C491A1_GetNearbyMagicTruffleDirection_CheckPositiveXDelta:
+    bmi C491AB_GetNearbyMagicTruffleDirection_UseRawXDelta
+C491A3_GetNearbyMagicTruffleDirection_InvertXDelta:
     lda $12
     eor.w #!SignedWordInvertMask
     inc A
-    bra C491AD_NearbyTruffleAndLandingProfileInterpolationHelpers_L91AD
-C491AB_NearbyTruffleAndLandingProfileInterpolationHelpers_L91AB:
+    bra C491AD_GetNearbyMagicTruffleDirection_HaveAbsXDelta
+C491AB_GetNearbyMagicTruffleDirection_UseRawXDelta:
     lda $12
-C491AD_NearbyTruffleAndLandingProfileInterpolationHelpers_L91AD:
+C491AD_GetNearbyMagicTruffleDirection_HaveAbsXDelta:
     ldx $10
     stx $02
     clc
@@ -27543,15 +27543,15 @@ C491AD_NearbyTruffleAndLandingProfileInterpolationHelpers_L91AD:
     lda.w #!MagicTruffleMinimumDirectionDistance
     clc
     sbc $02
-    bvc C491C2_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C2
-    bpl C491C9_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C9
-    bra C491C4_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C4
-C491C2_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C2:
-    bmi C491C9_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C9
-C491C4_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C4:
+    bvc C491C2_GetNearbyMagicTruffleDirection_CheckMinimumDistance
+    bpl C491C9_GetNearbyMagicTruffleDirection_ComputeDirection
+    bra C491C4_GetNearbyMagicTruffleDirection_TooClose
+C491C2_GetNearbyMagicTruffleDirection_CheckMinimumDistance:
+    bmi C491C9_GetNearbyMagicTruffleDirection_ComputeDirection
+C491C4_GetNearbyMagicTruffleDirection_TooClose:
     lda.w #!TruffleDirectionTooCloseFallback
-    bra C491EC_NearbyTruffleAndLandingProfileInterpolationHelpers_L91EC
-C491C9_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C9:
+    bra C491EC_GetNearbyMagicTruffleDirection_Return
+C491C9_GetNearbyMagicTruffleDirection_ComputeDirection:
     lda $04
     asl A
     tax
@@ -27567,7 +27567,7 @@ C491C9_NearbyTruffleAndLandingProfileInterpolationHelpers_L91C9:
     jsl !C0915B_DivideUnsignedWordByY
     inc A
     inc A
-C491EC_NearbyTruffleAndLandingProfileInterpolationHelpers_L91EC:
+C491EC_GetNearbyMagicTruffleDirection_Return:
     pld
     rtl
 GET_COLOUR_FADE_SLOPE:
@@ -27603,8 +27603,8 @@ INITIALIZE_MAP_PALETTE_FADE:
     lda.w #!LandingProfileWorkBank
     sta $08
     stz $14
-    jmp.w C492C4_NearbyTruffleAndLandingProfileInterpolationHelpers_L92C4
-C49223_NearbyTruffleAndLandingProfileInterpolationHelpers_L9223:
+    jmp.w C492C4_BuildLandingInterpolationPlanesFrom7f7800_CheckEntry
+C49223_BuildLandingInterpolationPlanesFrom7f7800_Entry:
     lda $14
     asl A
     sta $02
@@ -27680,13 +27680,13 @@ C49223_NearbyTruffleAndLandingProfileInterpolationHelpers_L9223:
     inc $06
     inc $06
     inc $14
-C492C4_NearbyTruffleAndLandingProfileInterpolationHelpers_L92C4:
+C492C4_BuildLandingInterpolationPlanesFrom7f7800_CheckEntry:
     lda $14
     cmp.w #!LandingProfileColorEntryCount
-    bcs C492D0_NearbyTruffleAndLandingProfileInterpolationHelpers_L92D0
-    beq C492D0_NearbyTruffleAndLandingProfileInterpolationHelpers_L92D0
-    jmp.w C49223_NearbyTruffleAndLandingProfileInterpolationHelpers_L9223
-C492D0_NearbyTruffleAndLandingProfileInterpolationHelpers_L92D0:
+    bcs C492D0_BuildLandingInterpolationPlanesFrom7f7800_Return
+    beq C492D0_BuildLandingInterpolationPlanesFrom7f7800_Return
+    jmp.w C49223_BuildLandingInterpolationPlanesFrom7f7800_Entry
+C492D0_BuildLandingInterpolationPlanesFrom7f7800_Return:
     pld
     rtl
 C492D2_StepLandingProfile7900ColorPlanesTo0240:
@@ -27699,8 +27699,8 @@ C492D2_StepLandingProfile7900ColorPlanesTo0240:
     sta $12
     lda.w #!ZeroWord
     sta $04
-    jmp.w C49387_NearbyTruffleAndLandingProfileInterpolationHelpers_L9387
-C492E7_NearbyTruffleAndLandingProfileInterpolationHelpers_L92E7:
+    jmp.w C49387_StepLandingProfile7900ColorPlanesTo0240_CheckEntry
+C492E7_StepLandingProfile7900ColorPlanesTo0240_Entry:
     lda $04
     asl A
     sta $10
@@ -27785,13 +27785,13 @@ C492E7_NearbyTruffleAndLandingProfileInterpolationHelpers_L92E7:
     inc $12
     inc $12
     inc $04
-C49387_NearbyTruffleAndLandingProfileInterpolationHelpers_L9387:
+C49387_StepLandingProfile7900ColorPlanesTo0240_CheckEntry:
     lda $04
     cmp.w #!LandingProfileColorEntryCount
-    bcs C49393_NearbyTruffleAndLandingProfileInterpolationHelpers_L9393
-    beq C49393_NearbyTruffleAndLandingProfileInterpolationHelpers_L9393
-    jmp.w C492E7_NearbyTruffleAndLandingProfileInterpolationHelpers_L92E7
-C49393_NearbyTruffleAndLandingProfileInterpolationHelpers_L9393:
+    bcs C49393_StepLandingProfile7900ColorPlanesTo0240_Wait
+    beq C49393_StepLandingProfile7900ColorPlanesTo0240_Wait
+    jmp.w C492E7_StepLandingProfile7900ColorPlanesTo0240_Entry
+C49393_StepLandingProfile7900ColorPlanesTo0240_Wait:
     lda.w #!LandingProfileStepWaitSelector
     jsl !C0856B_WaitFramesOrTransitionDelay
     pld
@@ -27841,7 +27841,7 @@ C4939C_RunLandingProfileDisplayBuildAndFade:
     sta $18
     lda $01
     and.w #!LowByteMask
-    bne C4940C_NearbyTruffleAndLandingProfileInterpolationHelpers_L940C
+    bne C4940C_RunLandingProfileDisplayBuildAndFade_FadeThroughSource
     lda $06
     sta $0E
     lda $08
@@ -27849,8 +27849,8 @@ C4939C_RunLandingProfileDisplayBuildAndFade:
     ldx.w #!LandingProfileTransferBlockSize
     lda.w #!LandingProfileTemplateBuffer
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
-    jmp.w C49494_NearbyTruffleAndLandingProfileInterpolationHelpers_L9494
-C4940C_NearbyTruffleAndLandingProfileInterpolationHelpers_L940C:
+    jmp.w C49494_RunLandingProfileDisplayBuildAndFade_Return
+C4940C_RunLandingProfileDisplayBuildAndFade_FadeThroughSource:
     lda.w #!LandingProfileSourceBuffer
     sta $0E
     lda.w #!LandingProfileWorkBank
@@ -27866,20 +27866,20 @@ C4940C_NearbyTruffleAndLandingProfileInterpolationHelpers_L940C:
     jsl INITIALIZE_MAP_PALETTE_FADE
     lda.w #!ZeroWord
     sta $1A
-    bra C49442_NearbyTruffleAndLandingProfileInterpolationHelpers_L9442
-C49435_NearbyTruffleAndLandingProfileInterpolationHelpers_L9435:
+    bra C49442_RunLandingProfileDisplayBuildAndFade_CheckFadeFrame
+C49435_RunLandingProfileDisplayBuildAndFade_FadeFrame:
     jsl !C08756_WaitOneFrameAndPollInput
     jsl C492D2_StepLandingProfile7900ColorPlanesTo0240
     lda $1A
     inc A
     sta $1A
-C49442_NearbyTruffleAndLandingProfileInterpolationHelpers_L9442:
+C49442_RunLandingProfileDisplayBuildAndFade_CheckFadeFrame:
     lda $01
     and.w #!LowByteMask
     sta $02
     lda $1A
     cmp $02
-    bcc C49435_NearbyTruffleAndLandingProfileInterpolationHelpers_L9435
+    bcc C49435_RunLandingProfileDisplayBuildAndFade_FadeFrame
     lda $16
     sta $06
     lda $18
@@ -27902,11 +27902,11 @@ C49442_NearbyTruffleAndLandingProfileInterpolationHelpers_L9442:
     jsl !C00778_BuildLandingDisplayTilemap
     lda.w #!LandingProfileDisplayBuildWaitSelector
     jsl !C0856B_WaitFramesOrTransitionDelay
-C4948C_NearbyTruffleAndLandingProfileInterpolationHelpers_L948C:
+C4948C_RunLandingProfileDisplayBuildAndFade_WaitForTransferIdle:
     lda !LandingProfileTransferBusyByte
     and.w #!LowByteMask
-    bne C4948C_NearbyTruffleAndLandingProfileInterpolationHelpers_L948C
-C49494_NearbyTruffleAndLandingProfileInterpolationHelpers_L9494:
+    bne C4948C_RunLandingProfileDisplayBuildAndFade_WaitForTransferIdle
+C49494_RunLandingProfileDisplayBuildAndFade_Return:
     pld
     rtl
 

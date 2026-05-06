@@ -83,6 +83,15 @@ now similarly mark `C4:92D2` as the `$7F:7900..7E00 -> $0240` frame stepper and
 visible CGRAM upload claim remains limited to the `$0200` shadow plus selector
 `#$18`; the `$7F:0000` copy is still treated as C4 staging/backup work.
 
+2026-05-06 landing profile source follow-up: the adjacent
+`nearby_truffle_and_landing_profile_interpolation_helpers.asm` source now names
+the local landing-plane builder and stepper loop labels, marks
+`C4:9208` as a `$7F:7900..7E00` plane initializer with no visible transfer by
+itself, and keeps `C4:92D2` bounded to the 7F component planes, `$0240`
+template repack, and selector-wait call surface. The `C4:939C` descriptor
+runner now explicitly separates C4-owned EF:10FB row selection and 7F/$0240
+staging from the C0 transfer, display-row, tilemap, and busy-byte callees.
+
 `C4:0BE8` is the shared blank source block immediately after the footstep sound
 table. The ROM bytes from `C4:0BE8..0DE7` are all zero, and the next named data
 family begins at `C4:0DE8`. Multiple setup paths use this as a fixed bank-`C4`
