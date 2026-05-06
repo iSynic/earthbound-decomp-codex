@@ -198,3 +198,13 @@ This planning pass is documentation-only.
   `notes/battle-psi-user-selection-front-end-c1b5b6-b7c6.md`,
   `notes/c1-battle-psi-runtime-polish.md`, and
   `notes/battle-selection-snapshot-export-c2b930.md`.
+- 2026-05-05: C1 battle text/equipment tail follow-up tightened
+  `C1:DD9F..E1A2`. The promoted constants name the `D5:7B68` Bash/Shoot
+  text and companion-payload offsets, selected-row item/equipment/stat and
+  resistance fields, party inventory and equipped-slot bases, C7 equip-ok and
+  cannot-use-weapon scripts, D5 item equipment flags, and the C1/C2/C3/C4
+  helper calls used to remove items, refresh equipment subtype caches, convert
+  resistance bytes, and redraw focused HP/PP rows. See
+  `notes/battle-text-entry-tail-dd82-dd9f.md`,
+  `notes/battle-text-entry-family-c1dc1c-dd7c.md`, and
+  `notes/c2-ef-battle-text-contract-workahead.md`.

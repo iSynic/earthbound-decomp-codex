@@ -23,6 +23,17 @@ Implementation update: the source now spells out that `C1:DD82` uses the same
 that `C1:DD9F` is the mode-1/no-prompt lane where the caller owns the
 follow-up wait/tick loop after the action-table row script is displayed.
 
+Implementation update: the `C1:DD9F..E1A2` source now also names the adjacent
+equipment/action-selection tail instead of leaving it as numeric selected-row
+plumbing. The source labels the `D5:7B68` Bash/Shoot primary and companion
+payload pointer offsets, the selected-row item/equipment/stat/resistance
+fields, the party inventory and equipped-slot bases, the `D5:5000` item-row
+equipment flags, the `C7:7E11` equip-ok and `C7:7E33` cannot-use-weapon
+scripts, and the C1/C2/C3/C4 helper calls that remove inventory, refresh
+equipment subtype caches, convert resistance bytes, and redraw focused HP/PP
+rows. The source keeps `$00BC/$00BE` distinct from the wrapper's `$0E/$10`
+dispatch staging so the action-table fallback branches remain byte-identical.
+
 ## Working Names
 
 - `C1:DD82` = `StageBattleTextPointerSubstitutionOnly`
@@ -113,6 +124,11 @@ The safest current summary is:
 - `C1:DD82` is a context-only pointer setter through `C1:AD0A`
 - `C1:DD9F` is best treated locally as `DISPLAY_CURRENT_ACTION_TABLE_TEXT_MODE1`: a one-pointer display wrapper parallel to `C1:DC1C`, but specifically used on the current-action table path and forcing an explicit pre-display mode write through `JSR $0036`
 - the adjacent `DDC6..DDDA` strip is a small redirect cluster before the broader selection-menu setup/print/selection body at `DDDA..E1A2`
+- the broader `DDDA..E1A2` body now reads as the battle selection-menu print
+  and item/equipment redirect tail: it can select action-table text/payloads
+  for Bash/Shoot, print equip-ok/cannot-use-weapon text, remove the consumed
+  item from party inventory, update equipped-slot subtype caches, refresh
+  selected-row stat mirrors and resistance mirrors, and redraw HP/PP focus rows
 - `C1:DD82` remains the real unresolved tail helper here: locally meaningful by body, but still without a pinned live caller family
 
 ## What is still open

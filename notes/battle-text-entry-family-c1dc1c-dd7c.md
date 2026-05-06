@@ -61,6 +61,13 @@ while `C1:DC66` is called out as the primary-script plus `$9D12/$9D14`
 payload lane whose EF consumers include `1C 0F` amount text and `19 1E`
 pointer substitution.
 
+Adjacent-tail update: `src/c1/c1_dd9f_display_current_action_table_text_mode1.asm`
+now carries the neighboring battle selection/equipment tail with named
+action-table pointer offsets, selected-row fields, C7 equip text scripts, and
+inventory/equipment/stat-refresh helper calls. That keeps the `DD82..DD9F`
+tail tied to the same battle-text ABI family without folding its equipment
+side effects into the simpler `DC1C/DC66/DD7C` display contracts.
+
 ## `C1:DC1C` as the main one-pointer battle-text wrapper
 
 The strongest locally proved behavior of `C1:DC1C` is:

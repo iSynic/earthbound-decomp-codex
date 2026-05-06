@@ -16,11 +16,18 @@ C1003C_ClearBattleTextDisplayMode  = $003C
 C1163C_FinalizeSelectionMenu       = $163C
 C1196A_OpenMenuSelectionLoop       = $196A
 C1242E_RunCharacterSelectionPrompt = $242E
+C18C27_RemoveItemFromCharacterInventorySlot = $8C27
+C19066_DispatchEquippedSlotSubtypeUpdate    = $9066
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C09279_DispatchTextPointer         = $C09279
 C186B1_PrintTextFromPointer        = $C186B1
 C1CBCD_OpenBattlePsiCategorySelectionStage = $CBCD
 C1CFC6_OpenBattleItemSelectionLoop         = $CFC6
+C2B608_ConvertElementalResistanceByte      = $C2B608
+C2B639_ConvertStatusResistanceByte         = $C2B639
+C3EE14_CheckItemEquipmentSlotCompatibility = $C3EE14
+C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow = $C3E6F8
+C43573_SelectFocusedPartyHpPpActorAndBlankRow = $C43573
 
 CallerFrameTextPointerLo                   = $20
 CallerFrameTextPointerHi                   = $22
@@ -28,8 +35,67 @@ LocalTextPointerLo                         = $06
 LocalTextPointerHi                         = $08
 TextDispatchPointerLo                      = $0E
 TextDispatchPointerHi                      = $10
+CurrentTextPointerLo                       = $00BC
+CurrentTextPointerBank                     = $00BE
 BattleTextModeCurrentActionNoPrompt        = $0001
 FarCallerFrameAliasOffset                  = $FFEE
+
+ActiveSelectedBattlerRowPointer             = $A970
+PartyRecordStride                           = $005F
+PartyCharacterTableBase                     = $99CE
+PartyInventoryBase                          = $99F1
+PartyEquippedWeaponSlotBase                 = $99FF
+
+SelectedRowActionUserId                     = $0000
+SelectedRowActionId                         = $0004
+SelectedRowTargetByte                       = $0007
+SelectedRowInventoryItemByte                = $0008
+SelectedRowEquipmentUserId                  = $0010
+SelectedRowOffenseWord                      = $0026
+SelectedRowDefenseWord                      = $0028
+SelectedRowSpeedWord                        = $002A
+SelectedRowGutsWord                         = $002C
+SelectedRowLuckWord                         = $002E
+SelectedRowOffenseMirrorByte                = $0032
+SelectedRowDefenseMirrorByte                = $0033
+SelectedRowSpeedMirrorByte                  = $0034
+SelectedRowGutsMirrorByte                   = $0035
+SelectedRowLuckMirrorByte                   = $0036
+SelectedRowParalysisResistByte              = $0037
+SelectedRowFreezeResistByte                 = $0038
+SelectedRowFlashResistByte                  = $0039
+SelectedRowFireResistByte                   = $003A
+SelectedRowBrainshockResistByte             = $003B
+SelectedRowHypnosisResistByte               = $003C
+
+PartyOffenseByte                            = $0015
+PartyDefenseByte                            = $0016
+PartySpeedByte                              = $0017
+PartyGutsByte                               = $0018
+PartyLuckByte                               = $0019
+PartyFireResistSourceByte                   = $0052
+PartyFreezeResistSourceByte                 = $0053
+PartyFlashResistSourceByte                  = $0054
+PartyParalysisResistSourceByte              = $0055
+PartyHypnosisBrainshockResistSourceByte     = $0056
+
+D55000_ItemTable                            = $D55000
+ItemRecordStride                            = $0027
+ItemEquipmentFlagsOffset                    = $0019
+ItemEquipmentClassMask                      = $0003
+ItemEquipmentClassWeapon                    = $0001
+
+D57B68_BattleActionTableLo                  = $7B68
+D57B68_BattleActionTableBank                = $00D5
+BattleActionBashPrimaryTextPtrOffset        = $0034
+BattleActionBashSecondPayloadPtrOffset      = $0038
+BattleActionShootPrimaryTextPtrOffset       = $0040
+BattleActionShootSecondPayloadPtrOffset     = $0044
+
+C7_BattleTextScriptBank                     = $00C7
+C7MSG_BattleEquipOk                         = $7E11
+C7MSG_BattleEquipCannotUseWeapon            = $7E33
+FarPointerBankOffset                        = $0002
 
 ; ---------------------------------------------------------------------------
 ; C1:DD9F
@@ -61,17 +127,17 @@ C1DD9F_DisplayCurrentActionTableTextMode1:
 REDIRECT_REMOVE_ITEM_FROM_INVENTORY:
 C1DDC6_RedirectRemoveItemFromInventory = REDIRECT_REMOVE_ITEM_FROM_INVENTORY
     rep #$31
-    jsr $8C27
+    jsr C18C27_RemoveItemFromCharacterInventorySlot
     rtl
 REDIRECT_C43573:
 C1DDCC_RedirectC43573Helper = REDIRECT_C43573
     rep #$31
-    jsl $C43573
+    jsl C43573_SelectFocusedPartyHpPpActorAndBlankRow
     rtl
 REDIRECT_C3E6F8:
 C1DDD3_RedirectC3E6F8Helper = REDIRECT_C3E6F8
     rep #$31
-    jsl $C3E6F8
+    jsl C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
     rtl
 SELECTION_MENU_ITEM_SETUP:
 C1DDDA_BuildSelectionMenuSetupAndRedirects = SELECTION_MENU_ITEM_SETUP
@@ -136,132 +202,132 @@ C1DDDA_BuildSelectionMenuSetupAndRedirects = SELECTION_MENU_ITEM_SETUP
     tdc
     adc.w #$FFE2
     tcd
-    ldx $A970
-    lda $0000,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowActionUserId,X
     sta $1C
     lda.w #$0001
     jsr C10036_SetBattleTextDisplayMode
-    ldx $A970
-    lda $0008,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowInventoryItemByte,X
     and.w #$00FF
     tax
     lda $1C
-    jsl $C3EE14
+    jsl C3EE14_CheckItemEquipmentSlotCompatibility
     cmp.w #$0000
     bne C1DE71_DisplayCurrentActionTableTextMode1_LDE71
     jmp.w C1DF13_DisplayCurrentActionTableTextMode1_LDF13
 C1DE71_DisplayCurrentActionTableTextMode1_LDE71:
     lda $1C
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #PartyCharacterTableBase
     tay
     sty $1A
-    ldx $A970
-    lda $0032,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowOffenseMirrorByte,X
     and.w #$00FF
     sta $04
-    ldx $A970
-    lda $0026,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowOffenseWord,X
     sec
     sbc $04
     sta $02
     sta $18
-    ldx $A970
-    lda $0035,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowGutsMirrorByte,X
     and.w #$00FF
     sta $02
-    ldx $A970
-    lda $002C,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowGutsWord,X
     sec
     sbc $02
     sta $04
-    ldx $A970
-    lda $0007,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowTargetByte,X
     and.w #$00FF
     tax
     lda $1C
-    jsr $9066
+    jsr C19066_DispatchEquippedSlotSubtypeUpdate
     ldy $1A
     sep #$20
-    lda $0015,Y
-    ldx $A970
-    sta $0032,X
+    lda PartyOffenseByte,Y
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowOffenseMirrorByte,X
     rep #$20
     lda $18
     sta $02
-    ldx $A970
-    lda $0032,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowOffenseMirrorByte,X
     and.w #$00FF
     clc
     adc $02
-    ldx $A970
-    sta $0026,X
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowOffenseWord,X
     sep #$20
-    lda $0018,Y
-    ldx $A970
-    sta $0035,X
-    ldx $A970
+    lda PartyGutsByte,Y
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowGutsMirrorByte,X
+    ldx ActiveSelectedBattlerRowPointer
     rep #$20
-    lda $0035,X
+    lda SelectedRowGutsMirrorByte,X
     and.w #$00FF
     clc
     adc $04
-    ldx $A970
-    sta $002C,X
-    lda.w #$7E11
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowGutsWord,X
+    lda.w #C7MSG_BattleEquipOk
     sta $0E
-    lda.w #$00C7
+    lda.w #C7_BattleTextScriptBank
     sta $10
     jsl C186B1_PrintTextFromPointer
     bra C1DF21_DisplayCurrentActionTableTextMode1_LDF21
 C1DF13_DisplayCurrentActionTableTextMode1_LDF13:
-    lda.w #$7E33
+    lda.w #C7MSG_BattleEquipCannotUseWeapon
     sta $0E
-    lda.w #$00C7
+    lda.w #C7_BattleTextScriptBank
     sta $10
     jsl C186B1_PrintTextFromPointer
 C1DF21_DisplayCurrentActionTableTextMode1_LDF21:
     lda $1C
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     sta $16
     tax
-    lda $99FF,X
+    lda PartyEquippedWeaponSlotBase,X
     and.w #$00FF
     dec A
     sta $02
     lda $16
     clc
-    adc.w #$99F1
+    adc.w #PartyInventoryBase
     clc
     adc $02
     tax
     lda $0000,X
     and.w #$00FF
     beq C1DFB8_DisplayCurrentActionTableTextMode1_LDFB8
-    ldy.w #$0027
+    ldy.w #ItemRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$0019
+    adc.w #ItemEquipmentFlagsOffset
     tax
-    lda $D55000,X
+    lda D55000_ItemTable,X
     and.w #$00FF
-    and.w #$0003
-    cmp.w #$0001
+    and.w #ItemEquipmentClassMask
+    cmp.w #ItemEquipmentClassWeapon
     bne C1DFB8_DisplayCurrentActionTableTextMode1_LDFB8
-    lda.w #$7B68
+    lda.w #D57B68_BattleActionTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #D57B68_BattleActionTableBank
     sta $08
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0040
+    ldy.w #BattleActionShootPrimaryTextPtrOffset
     lda [$06],Y
     pha
     iny
@@ -278,7 +344,7 @@ C1DF21_DisplayCurrentActionTableTextMode1_LDF21:
     sta $06
     lda $14
     sta $08
-    ldy.w #$0044
+    ldy.w #BattleActionShootSecondPayloadPtrOffset
     lda [$06],Y
     pha
     iny
@@ -289,22 +355,22 @@ C1DF21_DisplayCurrentActionTableTextMode1_LDF21:
     sta $06
     pha
     lda $06
-    sta $00BC
+    sta CurrentTextPointerLo
     lda $08
-    sta $00BE
+    sta CurrentTextPointerBank
     pla
     jsl C09279_DispatchTextPointer
     bra C1E00A_DisplayCurrentActionTableTextMode1_LE00A
 C1DFB8_DisplayCurrentActionTableTextMode1_LDFB8:
-    lda.w #$7B68
+    lda.w #D57B68_BattleActionTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #D57B68_BattleActionTableBank
     sta $08
     lda $06
     sta $12
     lda $08
     sta $14
-    ldy.w #$0034
+    ldy.w #BattleActionBashPrimaryTextPtrOffset
     lda [$06],Y
     pha
     iny
@@ -321,7 +387,7 @@ C1DFB8_DisplayCurrentActionTableTextMode1_LDFB8:
     sta $06
     lda $14
     sta $08
-    ldy.w #$0038
+    ldy.w #BattleActionBashSecondPayloadPtrOffset
     lda [$06],Y
     pha
     iny
@@ -332,9 +398,9 @@ C1DFB8_DisplayCurrentActionTableTextMode1_LDFB8:
     sta $06
     pha
     lda $06
-    sta $00BC
+    sta CurrentTextPointerLo
     lda $08
-    sta $00BE
+    sta CurrentTextPointerBank
     pla
     jsl C09279_DispatchTextPointer
 C1E00A_DisplayCurrentActionTableTextMode1_LE00A:
@@ -348,155 +414,155 @@ C1E00A_DisplayCurrentActionTableTextMode1_LE00A:
     tcd
     lda.w #$0001
     jsr C10036_SetBattleTextDisplayMode
-    ldx $A970
-    lda $0008,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowInventoryItemByte,X
     and.w #$00FF
     tax
     stx $1A
-    ldx $A970
-    lda $0000,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowActionUserId,X
     ldx $1A
-    jsl $C3EE14
+    jsl C3EE14_CheckItemEquipmentSlotCompatibility
     cmp.w #$0000
     bne C1E03D_DisplayCurrentActionTableTextMode1_LE03D
     jmp.w C1E18F_DisplayCurrentActionTableTextMode1_LE18F
 C1E03D_DisplayCurrentActionTableTextMode1_LE03D:
-    ldx $A970
-    lda $0010,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowEquipmentUserId,X
     and.w #$00FF
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #PartyCharacterTableBase
     tay
     sty $18
-    ldx $A970
-    lda $0033,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowDefenseMirrorByte,X
     and.w #$00FF
     sta $04
-    ldx $A970
-    lda $0028,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowDefenseWord,X
     sec
     sbc $04
     sta $02
     sta $16
-    ldx $A970
-    lda $0034,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowSpeedMirrorByte,X
     and.w #$00FF
     sta $02
-    ldx $A970
-    lda $002A,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowSpeedWord,X
     sec
     sbc $02
     sta $04
-    ldx $A970
-    lda C10036_SetBattleTextDisplayMode,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowLuckMirrorByte,X
     and.w #$00FF
     sta $02
-    ldx $A970
-    lda $002E,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowLuckWord,X
     sec
     sbc $02
     sta $14
-    ldx $A970
-    lda $0007,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowTargetByte,X
     and.w #$00FF
     tax
     stx $12
-    ldx $A970
-    lda $0000,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowActionUserId,X
     ldx $12
-    jsr $9066
-    lda.w #$7E11
+    jsr C19066_DispatchEquippedSlotSubtypeUpdate
+    lda.w #C7MSG_BattleEquipOk
     sta $0E
-    lda.w #$00C7
+    lda.w #C7_BattleTextScriptBank
     sta $10
     jsl C186B1_PrintTextFromPointer
     ldy $18
     sep #$20
-    lda $0016,Y
-    ldx $A970
-    sta $0033,X
+    lda PartyDefenseByte,Y
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowDefenseMirrorByte,X
     rep #$20
     lda $16
     sta $02
-    ldx $A970
-    lda $0033,X
+    ldx ActiveSelectedBattlerRowPointer
+    lda SelectedRowDefenseMirrorByte,X
     and.w #$00FF
     clc
     adc $02
-    ldx $A970
-    sta $0028,X
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowDefenseWord,X
     sep #$20
-    lda $0017,Y
-    ldx $A970
-    sta $0034,X
-    ldx $A970
+    lda PartySpeedByte,Y
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowSpeedMirrorByte,X
+    ldx ActiveSelectedBattlerRowPointer
     rep #$20
-    lda $0034,X
+    lda SelectedRowSpeedMirrorByte,X
     and.w #$00FF
     clc
     adc $04
-    ldx $A970
-    sta $002A,X
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowSpeedWord,X
     sep #$20
-    lda $0019,Y
-    ldx $A970
-    sta C10036_SetBattleTextDisplayMode,X
-    ldx $A970
+    lda PartyLuckByte,Y
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowLuckMirrorByte,X
+    ldx ActiveSelectedBattlerRowPointer
     rep #$20
-    lda C10036_SetBattleTextDisplayMode,X
+    lda SelectedRowLuckMirrorByte,X
     and.w #$00FF
     clc
     adc $14
-    ldx $A970
-    sta $002E,X
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowLuckWord,X
     sep #$20
-    lda $0052,Y
-    jsl $C2B608
-    ldx $A970
-    sta $003A,X
+    lda PartyFireResistSourceByte,Y
+    jsl C2B608_ConvertElementalResistanceByte
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowFireResistByte,X
     ldy $18
-    lda $0053,Y
-    jsl $C2B608
-    ldx $A970
-    sta $0038,X
+    lda PartyFreezeResistSourceByte,Y
+    jsl C2B608_ConvertElementalResistanceByte
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowFreezeResistByte,X
     ldy $18
-    lda $0054,Y
-    jsl $C2B639
-    ldx $A970
-    sta $0039,X
+    lda PartyFlashResistSourceByte,Y
+    jsl C2B639_ConvertStatusResistanceByte
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowFlashResistByte,X
     ldy $18
-    lda $0055,Y
-    jsl $C2B639
-    ldx $A970
-    sta $0037,X
+    lda PartyParalysisResistSourceByte,Y
+    jsl C2B639_ConvertStatusResistanceByte
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowParalysisResistByte,X
     ldy $18
     rep #$20
     tya
     clc
-    adc.w #$0056
+    adc.w #PartyHypnosisBrainshockResistSourceByte
     tax
     stx $14
     sep #$20
     lda $0000,X
-    jsl $C2B639
-    ldx $A970
-    sta C1003C_ClearBattleTextDisplayMode,X
+    jsl C2B639_ConvertStatusResistanceByte
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowHypnosisResistByte,X
     ldx $14
     lda $0000,X
     sta $00
     lda.b #$03
     sec
     sbc $00
-    jsl $C2B639
-    ldx $A970
-    sta $003B,X
+    jsl C2B639_ConvertStatusResistanceByte
+    ldx ActiveSelectedBattlerRowPointer
+    sta SelectedRowBrainshockResistByte,X
     bra C1E19D_DisplayCurrentActionTableTextMode1_LE19D
 C1E18F_DisplayCurrentActionTableTextMode1_LE18F:
-    lda.b #$33
-    ror $0E85,X
-    lda.w #$00C7
+    lda.w #C7MSG_BattleEquipCannotUseWeapon
+    sta $0E
+    lda.w #C7_BattleTextScriptBank
     sta $10
     jsl C186B1_PrintTextFromPointer
 C1E19D_DisplayCurrentActionTableTextMode1_LE19D:

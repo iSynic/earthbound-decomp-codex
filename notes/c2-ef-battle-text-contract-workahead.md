@@ -111,6 +111,12 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `notes/class2-d57b68-battle-action-table-match.md`: ordinary Bash/attack
   `EF:848C`, Spy/check `EF:8530`, and shared PSI text `EF:8543`, plus the
   adjacent PSI animation/effect dispatch branches.
+- 2026-05-05: C1-side DD9F tail follow-up named the source-side consumer of
+  the action-table Bash/Shoot text and companion payload offsets. The
+  `C1:DD9F..E1A2` source now keeps `$00BC/$00BE` current text pointers
+  distinct from wrapper dispatch staging, names the selected-row equipment and
+  stat/resistance mirrors, and ties the hardcoded `C7:7E11` / `C7:7E33`
+  equip-ok/fail scripts to the equipment redirect tail.
 - 2026-05-05: EF EBATTLE1 Thunder/effect follow-up split `EF:8814..89FE`
   around the C2 Thunder common text pointers (`EF:8814` small Thunder,
   `EF:8823` large Thunder), Thunder miss sound payload `EF:8837`, PBFX
