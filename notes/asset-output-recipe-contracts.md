@@ -16,6 +16,8 @@ Output palette/graphics source-reference coverage is tracked in `notes/asset-out
 
 Output path uniqueness and bank-root coverage are tracked in `notes/asset-output-path-audit.md` and rebuildable via `tools/build_asset_output_path_audit.py`.
 
+Extract-only asset pressure is tracked in `notes/asset-output-raw-only-audit.md` and rebuildable via `tools/build_asset_output_raw_only_audit.py`.
+
 Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
 
 ## Snapshot

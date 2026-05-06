@@ -30,6 +30,8 @@ SOURCE_REFS_JSON = ROOT / "build" / "asset-output-source-refs.json"
 SOURCE_REFS_MARKDOWN = ROOT / "notes" / "asset-output-source-refs.md"
 PATH_AUDIT_JSON = ROOT / "build" / "asset-output-path-audit.json"
 PATH_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-path-audit.md"
+RAW_ONLY_AUDIT_JSON = ROOT / "build" / "asset-output-raw-only-audit.json"
+RAW_ONLY_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-raw-only-audit.md"
 
 
 FAMILIES: list[dict[str, Any]] = [
@@ -322,6 +324,11 @@ def build_contract(manifest_dir: Path) -> dict[str, Any]:
             "tracked_markdown": rel(PATH_AUDIT_MARKDOWN),
             "runner": "tools/build_asset_output_path_audit.py",
         },
+        "raw_only_audit": {
+            "generated_json": rel(RAW_ONLY_AUDIT_JSON),
+            "tracked_markdown": rel(RAW_ONLY_AUDIT_MARKDOWN),
+            "runner": "tools/build_asset_output_raw_only_audit.py",
+        },
         "source_policy": {
             "contains_rom_derived_outputs": False,
             "validates_recipes_for_user_rom_extraction": True,
@@ -359,6 +366,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "Output palette/graphics source-reference coverage is tracked in `notes/asset-output-source-refs.md` and rebuildable via `tools/build_asset_output_source_refs.py`.",
         "",
         "Output path uniqueness and bank-root coverage are tracked in `notes/asset-output-path-audit.md` and rebuildable via `tools/build_asset_output_path_audit.py`.",
+        "",
+        "Extract-only asset pressure is tracked in `notes/asset-output-raw-only-audit.md` and rebuildable via `tools/build_asset_output_raw_only_audit.py`.",
         "",
         "Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
         "",
