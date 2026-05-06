@@ -5,8 +5,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 ## Summary
 
 - schema: `earthbound-decomp.data-contracts.v1`
-- contracts: `104`
-- fields: `485`
+- contracts: `117`
+- fields: `538`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -31,6 +31,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | DONT_CARE_NAMES | rom-table | `D5:F4CF` | `0x2A` | 7 | `default_name_set` | 7 | corroborated |
 | INITIAL_STATS | rom-table | `D5:F5F5` | `0x15` | 4 | `initial_party_member_stats` | 5 | corroborated |
 | TIMED_DELIVERY_TABLE | rom-table | `D5:F649` | `0x14` | 10 | `timed_delivery` | 1 | boundary-corroborated |
+| TIMED_DELIVERY_CONTROLLER_TABLE | rom-table | `D5:F645` | `0x14` | 10 | `timed_delivery_controller_row` | 11 | consumer-corroborated |
 | CF_DOOR_DATA | rom-block | `CF:0000` | `0x264F` | 1 | `cf_door_data_payload` | 1 | exact-boundary |
 | CF_DOOR_CONFIG_TABLE | rom-variable-table | `CF:264F` | `0x32A0` | 1 | `door_sector_list_block` | 1 | exact-variable-lists |
 | D0_DOOR_POINTER_TABLE | rom-table | `D0:0000` | `0x4` | 1280 | `far_pointer` | 1 | exact |
@@ -42,7 +43,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | ENEMY_PLACEMENT_GROUPS_TABLE | rom-variable-table | `D0:BBAC` | `0xA61` | 1 | `enemy_placement_group_lists` | 1 | exact-variable-lists |
 | BTL_ENTRY_PTR_TABLE | rom-table | `D0:C60D` | `0x8` | 484 | `battle_entry_ptr_entry` | 4 | corroborated |
 | ENEMY_BATTLE_GROUPS_TABLE | rom-variable-table | `D0:D52D` | `0xA87` | 1 | `enemy_battle_group_payloads` | 1 | exact-variable-lists |
-| MAP_TILE_COLLISION_DATA | rom-block | `D8:0000` | `0x8F50` | 1 | `raw_tile_collision_data` | 1 | exact-boundary |
+| MAP_TILE_COLLISION_DATA | rom-table | `D8:0000` | `0x10` | 2293 | `map_tile_collision_record` | 16 | consumer-corroborated |
 | MAP_DATA_TILE_COLLISION_PTR_TABLE | rom-table | `EF:117B` | `0x4` | 20 | `far_pointer` | 1 | exact |
 | MAP_DATA_TILE_COLLISION_POINTERS_0 | rom-table | `D8:8F50` | `0x2` | 832 | `word_pointer` | 1 | exact |
 | MAP_DATA_TILE_COLLISION_POINTERS_1 | rom-table | `D8:95D0` | `0x2` | 845 | `word_pointer` | 1 | exact |
@@ -64,6 +65,18 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | MAP_DATA_TILE_COLLISION_POINTERS_17 | rom-table | `D8:E606` | `0x2` | 343 | `word_pointer` | 1 | exact |
 | MAP_DATA_TILE_COLLISION_POINTERS_18 | rom-table | `D8:E8B4` | `0x2` | 445 | `word_pointer` | 1 | exact |
 | MAP_DATA_TILE_COLLISION_POINTERS_19 | rom-table | `D8:EC2E` | `0x2` | 536 | `word_pointer` | 1 | exact |
+| MAP_PALETTE_POINTER_TABLE | rom-table | `DA:FAA7` | `0x3` | 32 | `snes_long_pointer24` | 2 | verified |
+| PER_SECTOR_MUSIC_TABLE | rom-table | `DC:D637` | `0x2` | 1280 | `per_sector_music_options_index` | 1 | structural-corroborated |
+| TEXT_WINDOW_FLAVOR_SELECTOR_TABLE | rom-table | `E0:1FB9` | `0x3` | 5 | `text_window_flavor_selector` | 2 | runtime-corroborated |
+| TEXT_WINDOW_PALETTE_BLOCKS | rom-table | `E0:1FC8` | `0x40` | 7 | `text_window_palette_block` | 8 | runtime-corroborated |
+| MOVEMENT_TEXT_STRING_PALETTE | rom-table | `E0:2188` | `0x8` | 1 | `four_colour_palette_row` | 4 | structural-corroborated |
+| TOWN_MAP_GFX_POINTER_TABLE | rom-table | `E0:2190` | `0x4` | 6 | `far_pointer` | 1 | runtime-corroborated |
+| TITLE_SCREEN_LETTER_OAM_RECORDS | rom-table | `E1:CE08` | `0x2D` | 9 | `title_screen_letter_oam_record` | 1 | verified |
+| TITLE_SCREEN_LETTER_OAM_POINTER_TABLE | rom-table | `E1:CF9D` | `0x2` | 9 | `word_pointer` | 1 | verified |
+| TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_RECORDS | rom-table | `E1:F203` | `0x5` | 117 | `town_map_icon_graphic_descriptor` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_GRAPHIC_POINTER_TABLE | rom-table | `E1:F44C` | `0x2` | 23 | `word_pointer` | 1 | runtime-corroborated |
+| TOWN_MAP_BLINK_SUPPRESS_TABLE | rom-table | `E1:F47A` | `0x1` | 23 | `town_map_blink_suppress_flag` | 1 | runtime-corroborated |
+| TOWN_MAP_ICON_PLACEMENT_POINTER_TABLE | rom-table | `E1:F491` | `0x4` | 6 | `far_pointer` | 1 | runtime-corroborated |
 | OVERWORLD_EVENT_MUSIC_POINTER_TABLE | rom-table | `CF:58EF` | `0x2` | 165 | `word_pointer` | 1 | exact |
 | OVERWORLD_EVENT_MUSIC_TABLE | rom-variable-table | `CF:5A39` | `0x7A4` | 1 | `overworld_event_music_rows` | 1 | exact-boundary |
 | CF_INLINE_EVENT_MUSIC_TRAILER | rom-block | `CF:61DD` | `0xA` | 1 | `inline_event_music_trailer` | 1 | exact |
@@ -645,18 +658,37 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `10`
 - struct: `timed_delivery`
 - confidence: `boundary-corroborated`
-- note: Timed delivery rows. Table boundary and row count are exact for the current split front door; subfield ordering is still conservative because local runtime helpers treat `D5:F645` as the effective row base.
-- evidence: `refs/eb-decompile-4ef92/timed_delivery_table.yml`, `notes/d5-table-splits.md`, CoilSnake `timed-delivery-first-timer-probe`
+- note: Timed delivery rows for the current D5 split front door. Keep this boundary contract raw because the EF helper family treats D5:F645 as the effective row base.
+- evidence: `refs/eb-decompile-4ef92/timed_delivery_table.yml`, `notes/d5-table-splits.md`, `notes/delivery-row-helpers-ef0e67-ef0ead.md`, CoilSnake `timed-delivery-first-timer-probe`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_row` | 1 | 20 | 20-byte delivery row; split boundaries are exact for this front door, field ordering still needs full source-code consumer reconciliation |
+| `0x0` | `raw_row` | 1 | 20 | 20-byte delivery row; split boundaries are exact, field ordering still needs source-code consumer confirmation |
 
-Field caveat: CoilSnake `timed-delivery-first-timer-probe` changed `D5:F64D`,
-and `EF:0D46` reads `D5:F645 + row * 20 + 0x08` as the delivery countdown.
-That proves the row 0 timer byte at `D5:F64D`, but it also exposes a boundary
-tension with this older `D5:F649` split that should be resolved as a focused D5
-table-boundary correction rather than hidden in the schema.
+### TIMED_DELIVERY_CONTROLLER_TABLE
+
+- domain: `rom-table`
+- address: `D5:F645`
+- stride: `0x14`
+- count: `10`
+- struct: `timed_delivery_controller_row`
+- confidence: `consumer-corroborated`
+- note: Consumer-effective timed-delivery/service table base used by the EF:0CA7..0EE8 helper family and the C1 1F D3 row-selector callback.
+- evidence: `notes/delivery-row-helpers-ef0e67-ef0ead.md`, `notes/timed-delivery-controller-499-500-common.md`, `notes/timed-delivery-row-index-command-1f-d3.md`, `notes/selector-row-config-family-ef0ee8.md`, `src/ef/ef_0ca7_delivery_selector_helper_cluster.asm`, `notes/coilsnake-field-join-report.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `sprite_object_descriptor` | 2 | 1 | record word 0; EF:0EAD/EF:0EE8 pass this descriptor to C0:1E49, with a placeholder fallback when zero |
+| `0x2` | `event_flag_gate` | 2 | 1 | record word 1; EF:0EE8 tests this through C2:1628 before selecting the row |
+| `0x4` | `retry_threshold` | 2 | 1 | record word 2; EF:0CA7 compares the row-local retry counter against this threshold, with 0xFFFF as a special immediate-success value |
+| `0x6` | `retry_wait_seconds` | 2 | 1 | record word 3; EF:0D23 returns this to the 499+500_common one-second retry loop |
+| `0x8` | `delivery_time` | 2 | 1 | record word 4; EF:0D46 seeds the row-local countdown from this field |
+| `0xA` | `success_pointer_low_word` | 2 | 1 | low word of pointer 1; EF:0D8D queues this as staged queue type 0x0008 |
+| `0xC` | `success_pointer_bank` | 1 | 1 | bank byte of pointer 1 |
+| `0xD` | `failure_pointer_low_word` | 2 | 1 | low word of pointer 2; EF:0DFA queues this as staged queue type 0x000A |
+| `0xF` | `failure_pointer_bank` | 1 | 1 | bank byte of pointer 2 |
+| `0x10` | `enter_speed` | 2 | 1 | record word 8; EF:0E67 returns this for the arrival-side movement branch |
+| `0x12` | `exit_speed` | 2 | 1 | record word 9; EF:0E8A returns this for the departure-side movement branch |
 
 ### CF_DOOR_DATA
 
@@ -839,18 +871,33 @@ table-boundary correction rather than hidden in the schema.
 
 ### MAP_TILE_COLLISION_DATA
 
-- domain: `rom-block`
+- domain: `rom-table`
 - address: `D8:0000`
-- stride: `0x8F50`
-- count: `1`
-- struct: `raw_tile_collision_data`
-- confidence: `exact-boundary`
-- note: Raw tile collision data block before the 20 D8 collision pointer tables.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`
+- stride: `0x10`
+- count: `2293`
+- struct: `map_tile_collision_record`
+- confidence: `consumer-corroborated`
+- note: Contiguous pool of 16-byte metatile collision records; every D8 pointer-table entry resolves to one 4x4 collision-byte grid.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank18.asm`, `notes/d8-table-splits.md`, `notes/map-collision-pointer-contract.md`, `notes/map-collision-runtime-bit-contract.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_collision_data` | 1 | 36688 | raw tile collision data addressed by the D8 collision pointer tables |
+| `0x0` | `cell_0_0_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0x1` | `cell_0_1_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0x2` | `cell_0_2_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0x3` | `cell_0_3_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0x4` | `cell_1_0_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0x5` | `cell_1_1_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0x6` | `cell_1_2_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0x7` | `cell_1_3_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0x8` | `cell_2_0_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0x9` | `cell_2_1_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0xA` | `cell_2_2_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0xB` | `cell_2_3_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0xC` | `cell_3_0_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0xD` | `cell_3_1_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0xE` | `cell_3_2_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
+| `0xF` | `cell_3_3_collision_byte` | 1 | 1 | one metatile collision/behavior byte; D8 pointer tables expand these 16 cells into the .fts 4x4 arrangement collision grid |
 
 ### MAP_DATA_TILE_COLLISION_PTR_TABLE
 
@@ -1166,6 +1213,201 @@ table-boundary correction rather than hidden in the schema.
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `pointer` | 2 | 1 |  |
+
+### MAP_PALETTE_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `DA:FAA7`
+- stride: `0x3`
+- count: `32`
+- struct: `snes_long_pointer24`
+- confidence: `verified`
+- note: Thirty-two 24-bit pointers to the bank DA map-palette payloads; each entry matches the corresponding MAP_DATA_PALETTE_N asset.
+- evidence: `notes/bank-da-asset-data-map.md`, `notes/map-palette-pointer-table-contract.md`, `notes/map-palette-descriptor-context.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `target_low_word` | 2 | 1 |  |
+| `0x2` | `target_bank` | 1 | 1 |  |
+
+### PER_SECTOR_MUSIC_TABLE
+
+- domain: `rom-table`
+- address: `DC:D637`
+- stride: `0x2`
+- count: `1280`
+- struct: `per_sector_music_options_index`
+- confidence: `structural-corroborated`
+- note: 40x32 sector-indexed music-options table used by the map sector bundle inventory.
+- evidence: `notes/bank-dc-asset-data-map.md`, `notes/map-sector-bundles.md`, `tools/build_map_sector_bundle_contract.py`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `music_options_index` | 2 | 1 | 40x32 sector-indexed word joined to map_music.yml option lists by the map sector bundle contract |
+
+### TEXT_WINDOW_FLAVOR_SELECTOR_TABLE
+
+- domain: `rom-table`
+- address: `E0:1FB9`
+- stride: `0x3`
+- count: `5`
+- struct: `text_window_flavor_selector`
+- confidence: `runtime-corroborated`
+- note: Five selectable text-window flavour rows; C4:7F87 and C1:9D49 use the low word as an offset from E0:1FC8.
+- evidence: `notes/text-window-skin-bundle-contracts.md`, `notes/ui-font-town-map-asset-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `palette_block_offset` | 2 | 1 | offset from E0:1FC8 selected by C4:7F87/C1:9D49 for the current text-window flavour |
+| `0x2` | `selector_aux_byte` | 1 | 1 | third selector byte preserved by the checked E0 window-skin contract |
+
+### TEXT_WINDOW_PALETTE_BLOCKS
+
+- domain: `rom-table`
+- address: `E0:1FC8`
+- stride: `0x40`
+- count: `7`
+- struct: `text_window_palette_block`
+- confidence: `runtime-corroborated`
+- note: Seven 0x40-byte text-window palette blocks; blocks 0..4 are selectable, block 5 is the lead-entity override, and block 6 is preserved as nonselectable/extra.
+- evidence: `notes/text-window-skin-bundle-contracts.md`, `notes/ui-font-town-map-asset-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `palette_row_0` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x8` | `palette_row_1` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x10` | `palette_row_2` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x18` | `palette_row_3` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x20` | `palette_row_4` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x28` | `palette_row_5` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x30` | `palette_row_6` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+| `0x38` | `palette_row_7` | 2 | 4 | four SNES BGR555 colours copied as part of a 0x40-byte text-window palette block |
+
+### MOVEMENT_TEXT_STRING_PALETTE
+
+- domain: `rom-table`
+- address: `E0:2188`
+- stride: `0x8`
+- count: `1`
+- struct: `four_colour_palette_row`
+- confidence: `structural-corroborated`
+- note: Standalone four-colour movement-text palette row between the text-window palette blocks and the town-map pointer tail.
+- evidence: `notes/text-window-skin-bundle-contracts.md`, `notes/bank-e0-asset-data-map.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `colour_0` | 2 | 1 |  |
+| `0x2` | `colour_1` | 2 | 1 |  |
+| `0x4` | `colour_2` | 2 | 1 |  |
+| `0x6` | `colour_3` | 2 | 1 |  |
+
+### TOWN_MAP_GFX_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `E0:2190`
+- stride: `0x4`
+- count: `6`
+- struct: `far_pointer`
+- confidence: `runtime-corroborated`
+- note: Six long pointers consumed by C4:D553 to decompress the selected E0 town-map graphics payload.
+- evidence: `notes/text-window-skin-bundle-contracts.md`, `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 4 | 1 |  |
+
+### TITLE_SCREEN_LETTER_OAM_RECORDS
+
+- domain: `rom-table`
+- address: `E1:CE08`
+- stride: `0x2D`
+- count: `9`
+- struct: `title_screen_letter_oam_record`
+- confidence: `verified`
+- note: Nine animated letter OAM record rows for EARTHOUND; each row contains nine 5-byte OAM-ish entries.
+- evidence: `notes/title-screen-letter-oam-contracts.md`, `notes/intro-title-visual-bundle-contracts.md`, `notes/ui-font-town-map-asset-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `oam_entries` | 5 | 9 | nine OAM-ish entries: y, tile, attrs, x, control; terminal entries have bit 7 set in control |
+
+### TITLE_SCREEN_LETTER_OAM_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `E1:CF9D`
+- stride: `0x2`
+- count: `9`
+- struct: `word_pointer`
+- confidence: `verified`
+- note: Nine local pointers whose targets match the E1:CE08 title-screen letter OAM record starts.
+- evidence: `notes/title-screen-letter-oam-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_RECORDS
+
+- domain: `rom-table`
+- address: `E1:F203`
+- stride: `0x5`
+- count: `117`
+- struct: `town_map_icon_graphic_descriptor`
+- confidence: `runtime-corroborated-shape`
+- note: Five-byte town-map icon graphic descriptors split by the E1:F44C icon pointer table and consumed by C0:8C54/C0:8CD5.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `relative_y_offset` | 1 | 1 | signed Y offset consumed by C0:8C54/C0:8CD5 |
+| `0x1` | `tile_attribute_word` | 2 | 1 | tile/attribute word staged by the town-map icon renderer |
+| `0x3` | `relative_x_offset` | 1 | 1 | signed X offset consumed by C0:8C54/C0:8CD5 |
+| `0x4` | `control_flags` | 1 | 1 | bit 7 terminates the descriptor list; bit 0 feeds C0:8CD5's packed renderer mask/attribute bit |
+
+### TOWN_MAP_ICON_GRAPHIC_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `E1:F44C`
+- stride: `0x2`
+- count: `23`
+- struct: `word_pointer`
+- confidence: `runtime-corroborated`
+- note: Twenty-three local pointers mapping town-map icon ids to E1:F203 five-byte graphic descriptor lists.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 2 | 1 |  |
+
+### TOWN_MAP_BLINK_SUPPRESS_TABLE
+
+- domain: `rom-table`
+- address: `E1:F47A`
+- stride: `0x1`
+- count: `23`
+- struct: `town_map_blink_suppress_flag`
+- confidence: `runtime-corroborated`
+- note: Town-map icon blink/suppression flags checked before static icon drawing.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `value` | 1 | 1 |  |
+
+### TOWN_MAP_ICON_PLACEMENT_POINTER_TABLE
+
+- domain: `rom-table`
+- address: `E1:F491`
+- stride: `0x4`
+- count: `6`
+- struct: `far_pointer`
+- confidence: `runtime-corroborated`
+- note: Six long pointers from selected town-map id to variable icon placement lists in E1:F4A9..E1:F581.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `pointer` | 4 | 1 |  |
 
 ### OVERWORLD_EVENT_MUSIC_POINTER_TABLE
 
