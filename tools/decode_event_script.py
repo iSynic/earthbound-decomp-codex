@@ -416,10 +416,46 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "neighbor-cache",
         "contract": "write #$8000 sentinel to current slot neighbor cache $289E",
     },
+    "C0:A65F": {
+        "name": "SetCurrentSlotDirectionClassIfActive",
+        "group": "movement",
+        "contract": "copy the tempvar direction/class into the current slot when the slot is active",
+    },
+    "C0:A68B": {
+        "name": "StoreAInCurrentSlotField2B32",
+        "group": "current-slot-state",
+        "contract": "store the accumulator value into current slot movement/visual field $2B32",
+    },
+    "C0:A691": {
+        "name": "GetCurrentSlotField2B32",
+        "group": "current-slot-state",
+        "contract": "return current slot movement/visual field $2B32 for script-side tests",
+    },
+    "C0:A6B8": {
+        "name": "GetCurrentSlotHasNoCachedNeighborFlag",
+        "group": "neighbor-cache",
+        "contract": "test whether the current slot has no cached neighbor/attention target",
+    },
+    "C0:A6E3": {
+        "name": "WatchAndRefreshCompanionVisualPhase",
+        "group": "visual-profile",
+        "contract": "poll companion visual state and refresh the current slot phase while the watcher remains active",
+    },
+    "C0:A838": {
+        "name": "MarkCurrentSlotCollisionStateFFFF",
+        "group": "collision",
+        "contract": "mark the current slot collision/neighbor state with the #$FFFF sentinel",
+    },
     "C0:9451": {
         "name": "RestoreSavedCoordinateState",
         "group": "world-state-restore",
         "contract": "restore saved coordinate/world state after transitions or script presentation",
+    },
+    "C0:9F82": {
+        "name": "ChooseRandomScriptWord",
+        "group": "overworld-runtime",
+        "contract": "read an inline choice count followed by that many words, choose one at random, and leave it in the tempvar/result latch",
+        "args": "choice_count_byte, choice_words[]",
     },
     "C0:AA6E": {
         "name": "Script_ApplyCurrentSlotVisualCountdownState",
@@ -437,6 +473,16 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "battle-runtime",
         "contract": "battle-runtime sunstroke/special controller helper; C3 intro use remains unusual",
     },
+    "C2:FF9A": {
+        "name": "CheckOverworldPositionHashThreshold3Of8",
+        "group": "battle-runtime",
+        "contract": "test the overworld position hash against the 3-of-8 threshold used by encounter/battle gating",
+    },
+    "C3:0100": {
+        "name": "DisplayAntiPiracyScreen",
+        "group": "other",
+        "contract": "display the anti-piracy screen and terminate the script path",
+    },
     "C4:0015": {
         "name": "ClearCurrentSlot10f2RefreshVisualAndCheckLiveArea",
         "group": "visual-profile",
@@ -447,15 +493,105 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "text-presentation",
         "contract": "set the yield-to-text latch used by event presentation handoff",
     },
+    "C4:0023": {
+        "name": "StoreLowNibble1a42ToCurrentScriptField1372",
+        "group": "presentation-render",
+        "contract": "copy the low nibble of display/script latch $1A42 into current script field $1372",
+    },
+    "C4:681A": {
+        "name": "QueueCurrentVisualTypeMovementScript",
+        "group": "visual-profile",
+        "contract": "queue the movement script associated with the current slot visual type",
+    },
+    "C4:68B5": {
+        "name": "TestValueLeftOfCurrentAnchorX",
+        "group": "presentation-render",
+        "contract": "compare a staged value against the current anchor X and report whether it is left of the anchor",
+    },
+    "C4:68DC": {
+        "name": "TestValueAboveCurrentAnchorY",
+        "group": "presentation-render",
+        "contract": "compare a staged value against the current anchor Y and report whether it is above the anchor",
+    },
+    "C4:6914": {
+        "name": "GetCurrentVisualTypeRecordByte03",
+        "group": "visual-profile",
+        "contract": "return byte $03 from the current visual-type record",
+    },
+    "C4:6957": {
+        "name": "UpdateCurrentSlotFrameSelector",
+        "group": "visual-profile",
+        "contract": "update the current slot frame selector from visual-type animation state",
+    },
+    "C4:6ADB": {
+        "name": "ComputeCurrentSlotTargetDirectionOctant",
+        "group": "movement",
+        "contract": "compute the direction octant from the current slot toward its cached target",
+    },
+    "C4:6B0A": {
+        "name": "RoundAngleToOctantAndCacheCurrentSlot",
+        "group": "movement",
+        "contract": "round the active angle to a direction octant and cache it on the current slot",
+    },
+    "C4:6B37": {
+        "name": "RotateDirectionOctantHalfTurn",
+        "group": "movement",
+        "contract": "rotate the current direction octant by a half turn",
+    },
+    "C4:6C45": {
+        "name": "SnapshotCurrentSlotAnchorToStagedPosition",
+        "group": "current-slot-state",
+        "contract": "copy the current slot anchor position into the staged position fields used by movement callbacks",
+    },
+    "C4:6C87": {
+        "name": "RestoreCurrentSlotAnchorFromCachedTarget",
+        "group": "current-slot-state",
+        "contract": "restore the current slot anchor from the cached target position fields",
+    },
     "C4:6E74": {
         "name": "CheckStagedPositionWithinPlayerProximityThreshold",
         "group": "proximity-gate",
         "contract": "test staged position against the player proximity threshold",
     },
+    "C4:6EF8": {
+        "name": "CheckCurrentSlotWithinPlayerProximityThreshold",
+        "group": "proximity-gate",
+        "contract": "test the current slot anchor against the player proximity threshold",
+    },
+    "C4:7044": {
+        "name": "ProjectAngleIntoCurrentSlotVectorWords",
+        "group": "movement",
+        "contract": "project the active angle into current-slot movement vector words",
+    },
+    "C4:7269": {
+        "name": "ClassifyCurrentSlotAgainstAreaBounds",
+        "group": "current-slot-state",
+        "contract": "classify the current slot against the active area-bounds rectangle and return the result in the tempvar",
+    },
+    "C4:7333": {
+        "name": "ReadActiveOverworldRegistryCount",
+        "group": "overworld-runtime",
+        "contract": "read the active overworld registry count used by landing/profile scripts",
+    },
+    "C4:7A9E": {
+        "name": "LoadCurrentEntityIndexedWindowGfxToVram",
+        "group": "text-presentation",
+        "contract": "load the current entity's indexed window graphics variant into VRAM",
+    },
+    "C4:7B77": {
+        "name": "LoadIndexedWindowGfxAndReadVariantByte",
+        "group": "text-presentation",
+        "contract": "load indexed window graphics and return the selected variant byte to the script",
+    },
     "C4:800B": {
         "name": "UndrawFlyoverTextAndRestoreWorldDisplay",
         "group": "world-state-restore",
         "contract": "restore world display state after flyover/text presentation",
+    },
+    "C4:ECE7": {
+        "name": "IsEntityStillOnCastScreen",
+        "group": "presentation-render",
+        "contract": "test whether the current entity remains on the cast-screen presentation viewport",
     },
     "C4:8B3B": {
         "name": "MakePartyLookAtActiveEntityCallback",
@@ -532,6 +668,91 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "name": "StepCurrentSlotTowardCachedTarget_NoFacingRefresh",
         "group": "movement",
         "contract": "step current slot toward cached target without refreshing the current slot facing selector, and report arrival",
+    },
+    "C0:20F1": {
+        "name": "ScriptRelease_CurrentEntityVisualState",
+        "group": "visual-profile",
+        "contract": "release the current entity/visual slot state at the end of a script-controlled actor sequence",
+    },
+    "C0:3DAA": {
+        "name": "Sync_CurrentSlotToPartyCharacterRecord",
+        "group": "current-slot-state",
+        "contract": "sync current slot position/state into the matching party character record",
+    },
+    "C0:4EF0": {
+        "name": "Restore_CurrentSlotFromSnapshotRecord",
+        "group": "current-slot-state",
+        "contract": "restore the current slot position/state from its saved snapshot record",
+    },
+    "C0:5E82": {
+        "name": "Update_CurrentSlotCollisionCache_WithTerrainCompatibility",
+        "group": "collision",
+        "contract": "refresh current slot collision cache using terrain-compatibility rules",
+    },
+    "C0:5ECE": {
+        "name": "Update_CurrentSlotCollisionCache_FromHorizontalEdges",
+        "group": "collision",
+        "contract": "refresh current slot collision cache from horizontal edge probes",
+    },
+    "C0:6478": {
+        "name": "Update_CurrentSlotNeighborCache_Priority",
+        "group": "neighbor-cache",
+        "contract": "refresh current slot neighbor-cache priority before attention/collision routing",
+    },
+    "C0:C19B": {
+        "name": "CopyPathToLane_FromPartyMemberRequest",
+        "group": "overworld-runtime",
+        "contract": "copy a party-member path request into the active movement lane",
+    },
+    "C0:C251": {
+        "name": "CopyPathToLane_FromCurrentEntityRequestReverse",
+        "group": "overworld-runtime",
+        "contract": "copy the current entity path request into the active movement lane in reverse order",
+    },
+    "C0:C6B6": {
+        "name": "CheckCurrentSlotInsideLiveAreaWindow",
+        "group": "proximity-gate",
+        "contract": "test whether the current slot is inside the live-area/window bounds used by event scripts",
+    },
+    "C0:C7DB": {
+        "name": "UpdateCurrentSlotFootprintMask",
+        "group": "collision",
+        "contract": "refresh the current slot footprint/collision mask after position or visual-state changes",
+    },
+    "C0:C83B": {
+        "name": "InstallScriptMovementVectorFromDirection",
+        "group": "movement",
+        "contract": "install current-slot movement vector words from the script direction and speed state",
+    },
+    "C0:CA4E": {
+        "name": "SetMovementTaskTimerFromActiveVector",
+        "group": "movement",
+        "contract": "derive the movement task timer from the active movement vector and cache it for script waits",
+    },
+    "C0:D15C": {
+        "name": "HasUsableOverlapNeighborContext",
+        "group": "neighbor-cache",
+        "contract": "test whether the current overlap/neighbor context can drive a scripted movement decision",
+    },
+    "C0:D59B": {
+        "name": "Check_NpcAttentionCoordinatorActive",
+        "group": "overworld-runtime",
+        "contract": "test whether the NPC-attention coordinator is still active for the current script actor",
+    },
+    "C0:D5B0": {
+        "name": "Gate_NpcAttentionCoordinatorFromScript",
+        "group": "overworld-runtime",
+        "contract": "start or advance the NPC-attention coordinator and return whether the script should keep waiting",
+    },
+    "C0:D7F7": {
+        "name": "Consume_CurrentSlotAttentionPath",
+        "group": "current-slot-state",
+        "contract": "consume the current slot attention path into live movement target state",
+    },
+    "C0:D98F": {
+        "name": "Export_CurrentSlotAttentionTarget",
+        "group": "current-slot-state",
+        "contract": "export the current slot attention target into the script-visible cached target fields",
     },
     "C0:A907": {
         "name": "ActionScript_PrepareNewEntityAtTeleportDestination",
@@ -629,6 +850,87 @@ EVENT_TARGET_SEMANTICS: dict[str, str] = {
 
 SCRIPT_VAR_NAMES = {index: f"var{index}" for index in range(8)}
 
+ACTIONSCRIPT_DIRECTION_WORDS: dict[int, dict[str, str]] = {
+    0x0000: {
+        "name": "direction_down",
+        "contract": "down/south-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence",
+    },
+    0x0002: {
+        "name": "direction_right",
+        "contract": "right/east-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence",
+    },
+    0x0004: {
+        "name": "direction_up",
+        "contract": "up/north-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence",
+    },
+    0x0006: {
+        "name": "direction_left",
+        "contract": "left/west-facing direction class word, runtime-backed by C0:A65F/C0:C83B callback-boundary evidence",
+    },
+}
+
+ACTIONSCRIPT_ANIMATION_IDS: dict[int, dict[str, str]] = {
+    0x00: {
+        "name": "animation_frame0",
+        "contract": "default/first script animation frame selector; often alternated with $01 for pulses",
+    },
+    0x01: {
+        "name": "animation_frame1",
+        "contract": "alternate/second script animation frame selector; often paired with $00",
+    },
+    0xFF: {
+        "name": "animation_hidden_or_off",
+        "contract": "sentinel/off-frame animation selector used by blink or disappearance-style pulses",
+    },
+}
+
+ACTIONSCRIPT_FIELD2B32_WORDS: dict[int, dict[str, str]] = {
+    0x0040: {
+        "name": "field2b32_step_0040",
+        "contract": "small movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+    0x0060: {
+        "name": "field2b32_step_0060",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+    0x0080: {
+        "name": "field2b32_step_0080",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+    0x00C0: {
+        "name": "field2b32_step_00c0",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+    0x0100: {
+        "name": "field2b32_step_0100",
+        "contract": "standard movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+    0x0140: {
+        "name": "field2b32_step_0140",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+    0x0160: {
+        "name": "field2b32_step_0160",
+        "contract": "larger movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+    0x0180: {
+        "name": "field2b32_step_0180",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+    0x0200: {
+        "name": "field2b32_step_0200",
+        "contract": "large movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+    0x0280: {
+        "name": "field2b32_step_0280",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+    0x0600: {
+        "name": "field2b32_step_0600",
+        "contract": "very large movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+}
+
 BINOP_OPERATION_NAMES = {
     0x00: "AND",
     0x01: "OR",
@@ -642,18 +944,33 @@ WRAM_FIELD_NAMES = {
 
 OPCODE_ARG_FIELDS: dict[str, tuple[str, ...]] = {
     "EVENT_LOOP": ("count",),
+    "EVENT_LONGJUMP": ("jump_target",),
+    "EVENT_LONGCALL": ("call_target",),
     "EVENT_PAUSE": ("frames",),
+    "EVENT_START_TASK": ("task_script",),
+    "EVENT_SET_TICK_CALLBACK": ("tick_callback",),
+    "EVENT_SHORTCALL_CONDITIONAL": ("conditional_call_target",),
+    "EVENT_SHORTCALL_CONDITIONAL_NOT": ("inverted_conditional_call_target",),
     "EVENT_SET_VAR": ("script_var", "value_word"),
+    "EVENT_SWITCH_JUMP_TEMPVAR": ("switch_jump_targets",),
+    "EVENT_SWITCH_CALL_TEMPVAR": ("switch_call_targets",),
     "EVENT_WRITE_BYTE_WRAM": ("wram_addr", "value_byte"),
     "EVENT_BINOP": ("script_var", "operation_byte", "value_word"),
     "EVENT_WRITE_WORD_WRAM": ("wram_addr", "value_word"),
+    "EVENT_BREAK_IF_FALSE": ("break_target",),
+    "EVENT_BREAK_IF_TRUE": ("break_target",),
     "EVENT_BINOP_WRAM": ("wram_addr", "operation_byte", "script_var"),
+    "EVENT_SHORTJUMP": ("jump_target",),
+    "EVENT_SHORTCALL": ("call_target",),
     "EVENT_SET_ANIMATION_POINTER": ("animation_pointer",),
     "EVENT_WRITE_WORD_TEMPVAR": ("value_word",),
     "EVENT_WRITE_WRAM_TEMPVAR": ("wram_addr",),
     "EVENT_WRITE_TEMPVAR_TO_VAR": ("script_var",),
     "EVENT_WRITE_VAR_TO_TEMPVAR": ("script_var",),
     "EVENT_WRITE_VAR_TO_WAIT_TIMER": ("script_var",),
+    "EVENT_SET_DRAW_CALLBACK": ("draw_callback",),
+    "EVENT_SET_POSITION_CHANGE_CALLBACK": ("position_change_callback",),
+    "EVENT_SET_PHYSICS_CALLBACK": ("physics_callback",),
     "EVENT_SET_ANIMATION_FRAME_VAR": ("script_var",),
     "EVENT_BINOP_TEMPVAR": ("operation_byte", "value_word"),
     "EVENT_SET_X": ("x_word",),
@@ -781,6 +1098,20 @@ def format_operation_byte(value: int) -> str:
     return format_byte(value)
 
 
+def format_named_word(value: int, names: dict[int, dict[str, str]]) -> str:
+    item = names.get(value)
+    if item:
+        return f"{format_word(value)} <{item['name']}>"
+    return format_word(value)
+
+
+def format_named_byte(value: int, names: dict[int, dict[str, str]]) -> str:
+    item = names.get(value)
+    if item:
+        return f"{format_byte(value)} <{item['name']}>"
+    return format_byte(value)
+
+
 def semantic_field(opcode_name: str, index: int) -> str | None:
     fields = OPCODE_ARG_FIELDS.get(opcode_name)
     if not fields or index >= len(fields):
@@ -797,11 +1128,20 @@ def format_semantic_value(field: str | None, spec: str, value: int) -> str:
         return f"{field}={format_operation_byte(value)}"
     if field == "wram_addr":
         return f"{field}={format_wram_addr(value)}"
+    if field == "animation_id":
+        return f"{field}={format_named_byte(value, ACTIONSCRIPT_ANIMATION_IDS)}"
     if field.endswith("_velocity_word") or field.endswith("_delta_word"):
         return f"{field}={format_signed_word(value)}"
     if spec == "byte":
         return f"{field}={format_byte(value)}"
     return f"{field}={format_word(value)}"
+
+
+def format_pointer_value(field: str | None, target: Address, names: dict[str, list[str]]) -> str:
+    rendered = format_target(target, names)
+    if field is None:
+        return rendered
+    return f"{field}={rendered}"
 
 
 def call_arg_fields(target_key: str) -> list[str]:
@@ -829,9 +1169,14 @@ def format_call_arg_value(
     if width is None or cursor + width > len(raw_args):
         return None
     if width == 1:
-        return f"{field}={format_byte(raw_args[cursor])}", cursor + 1
+        value = raw_args[cursor]
+        if field == "direction_class_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_DIRECTION_WORDS)}", cursor + 1
+        return f"{field}={format_byte(value)}", cursor + 1
     if width == 2:
         value = raw_args[cursor] | (raw_args[cursor + 1] << 8)
+        if field == "field2b32_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_FIELD2B32_WORDS)}", cursor + 2
         return f"{field}={format_word(value)}", cursor + 2
     target = Address(raw_args[cursor + 2], raw_args[cursor] | (raw_args[cursor + 1] << 8))
     return f"{field}={format_target(target, names)}", cursor + 3
@@ -881,19 +1226,19 @@ def decode_args(
             if pos + 1 >= len(rom):
                 return args, pos, False
             target = Address(bank, read_u16(rom, pos))
-            args.append(format_target(target, names))
+            args.append(format_pointer_value(field, target, names))
             pos += 2
         elif spec == "callbackptr":
             if pos + 1 >= len(rom):
                 return args, pos, False
             target = Address(0xC0, read_u16(rom, pos))
-            args.append(format_target(target, names))
+            args.append(format_pointer_value(field, target, names))
             pos += 2
         elif spec == "ptr3":
             if pos + 2 >= len(rom):
                 return args, pos, False
             target = Address(rom[pos + 2], read_u16(rom, pos))
-            args.append(format_target(target, names))
+            args.append(format_pointer_value(field, target, names))
             pos += 3
         elif spec == "wordlist":
             if pos >= len(rom):
@@ -908,7 +1253,8 @@ def decode_args(
                 target = Address(bank, read_u16(rom, pos))
                 values.append(format_target(target, names))
                 pos += 2
-            args.append(f"count={count} [" + ", ".join(values) + "]")
+            field_prefix = f"{field}=" if field else ""
+            args.append(f"{field_prefix}count={count} [" + ", ".join(values) + "]")
         elif spec == "callroutine":
             if pos + 2 >= len(rom):
                 return args, pos, False

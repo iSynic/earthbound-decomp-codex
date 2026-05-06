@@ -24,6 +24,10 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_EVENT_FLAG`.
+
 ## Next Promotion Step
 
 Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; scripts 688-691 in the adjacent `C3:83BC..C3:8978` region are the natural semantic consumer of this helper.

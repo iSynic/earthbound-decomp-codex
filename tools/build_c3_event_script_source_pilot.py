@@ -12,6 +12,9 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from decode_event_script import (
+    ACTIONSCRIPT_ANIMATION_IDS,
+    ACTIONSCRIPT_DIRECTION_WORDS,
+    ACTIONSCRIPT_FIELD2B32_WORDS,
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
     OPCODES,
@@ -738,7 +741,7 @@ LABEL_OVERRIDES = {
     "C3:83A9": "SetAnimPortFlags11",
     "C3:8978": "LoopAnimPortDirectionFromVar4",
     "C3:898C": "UseDirectionRightWhenAnimPort0Clear",
-    "C3:8992": "UseDirectionDownWhenVar4Clear",
+    "C3:8992": "UseDirectionUpWhenVar4Clear",
     "C3:8995": "ApplyAnimPortDirectionAndLoop",
     "C3:899E": "LoopAnimPortBlinkAnimation",
     "C3:89BD": "Event715_BlinkThenRelease",
@@ -1485,6 +1488,72 @@ VAR_NAMES = {
     0x05: "!ACTIONSCRIPT_VARS_V5",
     0x06: "!ACTIONSCRIPT_VARS_V6",
     0x07: "!ACTIONSCRIPT_VARS_V7",
+}
+
+def call_arg_fields(target_key: str) -> tuple[str, ...]:
+    schema = CALL_TARGET_SEMANTICS.get(target_key, {}).get("args", "")
+    return tuple(field.strip() for field in schema.split(",") if field.strip())
+
+
+def call_arg_width(field: str) -> int | None:
+    if field.endswith("_byte"):
+        return 1
+    if field.endswith("_word"):
+        return 2
+    if field.endswith("_long"):
+        return 3
+    return None
+
+
+def callroutine_schema(target: Address, arg_count: int | None) -> tuple[str, ...] | None:
+    fields = call_arg_fields(target.key)
+    if not fields or any("[]" in field for field in fields):
+        return None
+    widths = [call_arg_width(field) for field in fields]
+    if any(width is None for width in widths):
+        return None
+    if sum(int(width) for width in widths) != (arg_count or 0):
+        return None
+    return fields
+
+
+def callroutine_schema_suffix(fields: tuple[str, ...]) -> str:
+    parts = []
+    for field in fields:
+        base = re.sub(r"_(?:byte|word|long)$", "", field)
+        text = re.sub(r"[^0-9A-Za-z_]+", "_", base)
+        text = re.sub(r"_+", "_", text).strip("_")
+        parts.append((text or "ARG").upper())
+    return "_".join(parts)
+
+
+CALLROUTINE_SCHEMA_MACROS: dict[str, tuple[str, ...]] = {}
+for address, count in CALL_ARG_COUNTS.items():
+    fields = call_arg_fields(address)
+    if not fields or any("[]" in field for field in fields):
+        continue
+    widths = [call_arg_width(field) for field in fields]
+    if any(width is None for width in widths):
+        continue
+    if sum(int(width) for width in widths) != count:
+        continue
+    CALLROUTINE_SCHEMA_MACROS[f"EVENT_CALLROUTINE_{callroutine_schema_suffix(fields)}"] = fields
+
+DIRECTION_TEMPVAR_CONSUMERS = {
+    "C0:A65F",  # SetCurrentSlotDirectionClassIfActive
+    "C0:C83B",  # InstallScriptMovementVectorFromDirection
+}
+
+TEMPVAR_REPLACING_OPCODES = {
+    "EVENT_WRITE_WORD_TEMPVAR",
+    "EVENT_WRITE_WRAM_TEMPVAR",
+    "EVENT_WRITE_VAR_TO_TEMPVAR",
+    "EVENT_WRITE_TEMPVAR_WAITTIMER",
+}
+
+TEMPVAR_MUTATING_OPCODES = {
+    "EVENT_BINOP_TEMPVAR",
+    "EVENT_LOOP_TEMPVAR",
 }
 
 FAMILY_DEFAULTS = {
@@ -3316,6 +3385,24 @@ def constant_name(address: Address, names: dict[str, list[str]]) -> str:
     return f"Target_{address.bank:02X}{address.offset:04X}"
 
 
+def catalog_constant(
+    value: int,
+    catalog: dict[int, dict[str, str]],
+    *,
+    prefix: str,
+    formatter: Any,
+    constants: dict[str, str],
+) -> str | None:
+    item = catalog.get(value)
+    if item is None:
+        return None
+    name = sanitize_symbol(item["name"]).upper()
+    suffix = name if name.startswith(f"{prefix}_") else f"{prefix}_{name}"
+    symbol = f"!ACTIONSCRIPT_{suffix}"
+    constants.setdefault(symbol, formatter(value))
+    return symbol
+
+
 def operand_expr(
     operand: Operand,
     *,
@@ -3324,9 +3411,20 @@ def operand_expr(
     labels: dict[str, str],
     names: dict[str, list[str]],
     constants: dict[str, str],
+    direction_tempvar_writes: set[str],
 ) -> str:
     if operand.kind == "byte":
         value = int(operand.value)
+        if instruction.opcode.name == "EVENT_SET_ANIMATION" and index == 0:
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_ANIMATION_IDS,
+                prefix="ANIMATION",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol
         var_slot_operands = {
             "EVENT_SET_VAR": {0},
             "EVENT_WRITE_VAR_TO_TEMPVAR": {0},
@@ -3340,6 +3438,21 @@ def operand_expr(
         return fmt_byte(value)
     if operand.kind in {"word", "call_arg_byte"}:
         value = int(operand.value)
+        if (
+            operand.kind == "word"
+            and instruction.opcode.name == "EVENT_WRITE_WORD_TEMPVAR"
+            and index == 0
+            and instruction.address.key in direction_tempvar_writes
+        ):
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_DIRECTION_WORDS,
+                prefix="DIRECTION",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol
         return fmt_byte(value) if operand.kind == "call_arg_byte" else fmt_word(value)
     if operand.kind in {"wordlist_count", "call_wordlist_count"}:
         return str(int(operand.value))
@@ -3362,23 +3475,143 @@ def operand_expr(
     return symbol
 
 
+def callroutine_target(instruction: Instruction) -> Address | None:
+    if instruction.opcode.name != "EVENT_CALLROUTINE":
+        return None
+    if not instruction.operands or not isinstance(instruction.operands[0].value, Address):
+        return None
+    return instruction.operands[0].value
+
+
+def collect_direction_tempvar_writes(rows: list[RowSource]) -> set[str]:
+    writes: set[str] = set()
+    for row in rows:
+        pending: list[str] = []
+        for instruction in row.instructions:
+            opcode_name = instruction.opcode.name
+            if (
+                opcode_name == "EVENT_WRITE_WORD_TEMPVAR"
+                and instruction.operands
+                and int(instruction.operands[0].value) in ACTIONSCRIPT_DIRECTION_WORDS
+            ):
+                pending.append(instruction.address.key)
+                continue
+            target = callroutine_target(instruction)
+            if target and target.key in DIRECTION_TEMPVAR_CONSUMERS:
+                writes.update(pending)
+                pending = []
+                continue
+            if (
+                opcode_name in TEMPVAR_REPLACING_OPCODES
+                or opcode_name in TEMPVAR_MUTATING_OPCODES
+                or target is not None
+            ):
+                pending = []
+    return writes
+
+
+def call_arg_expr(
+    field: str,
+    raw_args: list[int],
+    cursor: int,
+    *,
+    constants: dict[str, str],
+) -> tuple[str, int]:
+    width = call_arg_width(field)
+    if width is None or cursor + width > len(raw_args):
+        raise ValueError(f"cannot render call argument field {field!r}")
+    if width == 1:
+        value = raw_args[cursor]
+        if field == "direction_class_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_DIRECTION_WORDS,
+                prefix="DIRECTION",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
+        return fmt_byte(raw_args[cursor]), cursor + 1
+    if width == 2:
+        value = raw_args[cursor] | (raw_args[cursor + 1] << 8)
+        if field == "field2b32_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_FIELD2B32_WORDS,
+                prefix="FIELD2B32",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        return fmt_word(value), cursor + 2
+    value = raw_args[cursor] | (raw_args[cursor + 1] << 8) | (raw_args[cursor + 2] << 16)
+    return fmt_long(value), cursor + 3
+
+
 def macro_name(instruction: Instruction) -> str:
     if instruction.opcode.name == "EVENT_CALLROUTINE":
-        if (
-            instruction.operands
-            and isinstance(instruction.operands[0].value, Address)
-            and instruction.operands[0].value.key == "C0:9F82"
-        ):
+        target = callroutine_target(instruction)
+        if target and target.key == "C0:9F82":
             count = next(
                 int(operand.value)
                 for operand in instruction.operands
                 if operand.kind == "call_wordlist_count"
             )
             return f"EVENT_CHOOSE_RANDOM_SCRIPT_WORD_{count}"
+        if target:
+            fields = callroutine_schema(target, instruction.call_arg_count)
+            if fields:
+                return f"EVENT_CALLROUTINE_{callroutine_schema_suffix(fields)}"
         return f"EVENT_CALLROUTINE_{instruction.call_arg_count or 0}"
     if instruction.opcode.name in {"EVENT_SWITCH_JUMP_TEMPVAR", "EVENT_SWITCH_CALL_TEMPVAR"}:
         return f"{instruction.opcode.name}_{instruction.operands[0].value}"
     return instruction.opcode.name
+
+
+def rendered_operands(
+    instruction: Instruction,
+    *,
+    labels: dict[str, str],
+    names: dict[str, list[str]],
+    constants: dict[str, str],
+    direction_tempvar_writes: set[str],
+) -> list[str]:
+    target = callroutine_target(instruction)
+    fields = callroutine_schema(target, instruction.call_arg_count) if target else None
+    if target and fields:
+        target_expr = operand_expr(
+            instruction.operands[0],
+            instruction=instruction,
+            index=0,
+            labels=labels,
+            names=names,
+            constants=constants,
+            direction_tempvar_writes=direction_tempvar_writes,
+        )
+        raw_args = [int(operand.value) for operand in instruction.operands[1:]]
+        cursor = 0
+        rendered = [target_expr]
+        for field in fields:
+            value, cursor = call_arg_expr(field, raw_args, cursor, constants=constants)
+            rendered.append(value)
+        if cursor != len(raw_args):
+            raise ValueError(f"unused call arguments for {target.key}")
+        return rendered
+
+    return [
+        operand_expr(
+            operand,
+            instruction=instruction,
+            index=index,
+            labels=labels,
+            names=names,
+            constants=constants,
+            direction_tempvar_writes=direction_tempvar_writes,
+        )
+        for index, operand in enumerate(instruction.operands)
+    ]
 
 
 def render_instruction(
@@ -3387,19 +3620,17 @@ def render_instruction(
     labels: dict[str, str],
     names: dict[str, list[str]],
     constants: dict[str, str],
+    direction_tempvar_writes: set[str],
 ) -> str:
-    rendered_operands = [
-        operand_expr(
-            operand,
-            instruction=instruction,
-            index=index,
+    args = ", ".join(
+        rendered_operands(
+            instruction,
             labels=labels,
             names=names,
             constants=constants,
+            direction_tempvar_writes=direction_tempvar_writes,
         )
-        for index, operand in enumerate(instruction.operands)
-    ]
-    args = ", ".join(rendered_operands)
+    )
     raw = " ".join(f"{byte:02X}" for byte in instruction.raw)
     if args:
         return f"    %{macro_name(instruction)}({args}) ; {instruction.address.key}  {raw}"
@@ -3530,6 +3761,23 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
             *[f"    dw <target{i}>" for i in range(count)],
         ]
         args[name] = ", ".join(["count", *target_args])
+    for name in sorted(used_macros):
+        fields = CALLROUTINE_SCHEMA_MACROS.get(name)
+        if not fields:
+            continue
+        body = ["    db $42", "    dl <target>"]
+        for field in fields:
+            width = call_arg_width(field)
+            if width == 1:
+                body.append(f"    db <{field}>")
+            elif width == 2:
+                body.append(f"    dw <{field}>")
+            elif width == 3:
+                body.append(f"    dl <{field}>")
+            else:
+                raise ValueError(f"cannot emit schema macro for field {field!r}")
+        bodies[name] = body
+        args[name] = ", ".join(["target", *fields])
     missing = sorted(used_macros - bodies.keys())
     if missing:
         raise ValueError(f"missing macro definitions for: {', '.join(missing)}")
@@ -3554,6 +3802,7 @@ def render_source(
         for value, symbol in sorted(VAR_NAMES.items())
     }
     used_macros = {macro_name(instruction) for row in rows for instruction in row.instructions}
+    direction_tempvar_writes = collect_direction_tempvar_writes(rows)
 
     rendered_rows: list[str] = []
     for row in rows:
@@ -3565,7 +3814,13 @@ def render_source(
             if label and label != row.name:
                 rendered_rows.append(f"{label}:")
             rendered_rows.append(
-                render_instruction(instruction, labels=labels, names=names, constants=constants)
+                render_instruction(
+                    instruction,
+                    labels=labels,
+                    names=names,
+                    constants=constants,
+                    direction_tempvar_writes=direction_tempvar_writes,
+                )
             )
 
     constant_lines = ["; External constants and action-script variable slots."]
@@ -3602,6 +3857,9 @@ def render_report(
     next_step: str,
     output_path: Path,
     manifest_path: Path,
+    constants: dict[str, str],
+    used_macros: set[str],
+    direction_tempvar_write_count: int,
     mismatches: list[str],
 ) -> str:
     total_bytes = sum(row.size for row in rows)
@@ -3643,6 +3901,32 @@ def render_report(
             lines.append(f"- {mismatch}")
     else:
         lines.append("- Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.")
+    readability_lines = []
+    if any(symbol.startswith("!ACTIONSCRIPT_ANIMATION_") for symbol in constants):
+        readability_lines.append(
+            "- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants."
+        )
+    if any(symbol.startswith("!ACTIONSCRIPT_FIELD2B32_") for symbol in constants):
+        readability_lines.append(
+            "- `C0:A685` calls render through `%EVENT_CALLROUTINE_FIELD2B32(..., field2b32_word)`, preserving the same little-endian bytes with a word-shaped operand."
+        )
+    if any(symbol.startswith("!ACTIONSCRIPT_DIRECTION_") for symbol in constants):
+        readability_lines.append(
+            "- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants."
+        )
+    if direction_tempvar_write_count:
+        readability_lines.append(
+            "- Direction tempvar writes render as `!ACTIONSCRIPT_DIRECTION_*` constants only when a later direction/vector callback consumes them in the same emitted row, with no intervening tempvar rewrite or unrelated native callback."
+        )
+    schema_macros = sorted(macro for macro in used_macros if macro in CALLROUTINE_SCHEMA_MACROS)
+    if schema_macros:
+        visible = ", ".join(f"`%{macro}`" for macro in schema_macros[:4])
+        suffix = f", +{len(schema_macros) - 4}" if len(schema_macros) > 4 else ""
+        readability_lines.append(
+            f"- Known native callback argument schemas render as field-shaped macros: {visible}{suffix}."
+        )
+    if readability_lines:
+        lines.extend(["", "## Source Readability", "", *readability_lines])
     lines.extend(
         [
             "",
@@ -3693,6 +3977,8 @@ def main() -> int:
     rows.extend(load_spans(rom, list(family["spans"]), names))
     labels = collect_label_map(rows, names)
     source, constants = render_source(rows, labels, names, family_id=args.family)
+    used_macros = {macro_name(instruction) for row in rows for instruction in row.instructions}
+    direction_tempvar_writes = collect_direction_tempvar_writes(rows)
 
     mismatches: list[str] = []
     for row in rows:
@@ -3729,6 +4015,9 @@ def main() -> int:
             next_step=str(family["next"]),
             output_path=output_path,
             manifest_path=manifest_path,
+            constants=constants,
+            used_macros=used_macros,
+            direction_tempvar_write_count=len(direction_tempvar_writes),
             mismatches=mismatches,
         ),
         encoding="utf-8",

@@ -96,6 +96,14 @@ decode excerpts use `script_var=var4`, `frames=$08`, `animation_id=$01`, and
 named callback arguments such as `event_flag_word=$000C` or
 `neighbor_cache_callback_long=$C0:64A6 <...>`.
 
+Pointer-shaped operands are labeled too. Short branches/calls now distinguish
+`jump_target`, `call_target`, `conditional_call_target`, and
+`inverted_conditional_call_target`; task launchers use `task_script`; callback
+installers use `tick_callback`, `draw_callback`, `position_change_callback`,
+and `physics_callback`. The audit renders this as an opcode operand catalog so
+port/reassembler work can separate byte width from VM role without reading the
+Python decoder first.
+
 The decoder also applies a deliberately small value-symbol layer where the
 evidence is already bank-local or cross-referenced:
 
@@ -105,6 +113,13 @@ evidence is already bank-local or cross-referenced:
   queue and transient special-state notes
 - velocity and relative-position words show signed decimal meaning beside the
   raw hex value
+- the generated audit now has a direction callback boundary table: C3 tempvar
+  writes or `C0:9F82` random-choice word lists are counted as direction values
+  only when they reach `C0:A65F` and, for movement-vector cases, `C0:C83B`
+  inside the same decoded source-map span
+- the same audit now records `$2B32` movement magnitudes from `C0:A685` only
+  when the decoded span carries them into movement-vector or timer consumers
+  such as `C0:C83B`, `C0:CA4E`, `C0:A6A2`, `C0:A6AD`, or `C0:CBD3`
 
 This is intentionally a readability layer, not a new byte format. The raw bytes
 remain printed on every decoded line, and the source-pilot emitters still

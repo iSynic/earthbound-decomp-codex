@@ -11,10 +11,14 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from decode_event_script import (
+    ACTIONSCRIPT_ANIMATION_IDS,
+    ACTIONSCRIPT_DIRECTION_WORDS,
+    ACTIONSCRIPT_FIELD2B32_WORDS,
     Address,
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
     OPCODES,
+    OPCODE_ARG_FIELDS,
     decode_script,
     load_names,
     parse_address,
@@ -37,13 +41,42 @@ SCRIPT_CLASSES = {
 
 CALLROUTINE_RE = re.compile(r"EVENT_CALLROUTINE\s+\$([0-9A-F]{2}:[0-9A-F]{4})")
 INSTALLED_CALLBACK_RE = re.compile(
-    r"EVENT_SET_(?:TICK|DRAW|POSITION_CHANGE|PHYSICS)_CALLBACK\s+\$([0-9A-F]{2}:[0-9A-F]{4})"
+    r"EVENT_SET_(?:TICK|DRAW|POSITION_CHANGE|PHYSICS)_CALLBACK\s+(?:[a-z_]+=\s*)?\$([0-9A-F]{2}:[0-9A-F]{4})"
 )
 TARGET_RE = re.compile(r"\$([0-9A-F]{2}:[0-9A-F]{4})")
 UNKNOWN_OPCODE_RE = re.compile(r"^([0-9A-F]{2}:[0-9A-F]{4}).*unknown event opcode")
 UNKNOWN_CALL_TARGET_RE = re.compile(
     r"EVENT_CALLROUTINE\s+\$([0-9A-F]{2}:[0-9A-F]{4}).*args unknown"
 )
+ANIMATION_ID_RE = re.compile(r"EVENT_SET_ANIMATION\s+animation_id=\$([0-9A-F]{2})")
+FIELD2B32_WORD_RE = re.compile(r"field2b32_word=\$([0-9A-F]{4})")
+TEMPVAR_WORD_RE = re.compile(r"EVENT_WRITE_WORD_TEMPVAR\s+value_word=\$([0-9A-F]{4})")
+DECODED_ADDRESS_RE = re.compile(r"^([0-9A-F]{2}:[0-9A-F]{4})")
+RANDOM_CHOICES_RE = re.compile(r"EVENT_CALLROUTINE\s+\$C0:9F82\b.*choices=\d+\s+\[([^\]]+)\]")
+
+DIRECTION_TEMPVAR_CONSUMERS = {
+    "C0:A65F": "SetCurrentSlotDirectionClassIfActive",
+    "C0:C83B": "InstallScriptMovementVectorFromDirection",
+}
+
+FIELD2B32_CONSUMERS = {
+    "C0:C83B": "InstallScriptMovementVectorFromDirection",
+    "C0:CA4E": "SetMovementTaskTimerFromActiveVector",
+    "C0:A6A2": "Script_SetMovementStateCA4E",
+    "C0:A6AD": "Script_SetMovementStateCBD3",
+    "C0:CBD3": "SetMovementTaskTimerFromSpeedScale",
+}
+
+TEMPVAR_REPLACING_OPCODES = {
+    "EVENT_WRITE_WORD_TEMPVAR",
+    "EVENT_WRITE_WRAM_TEMPVAR",
+    "EVENT_WRITE_VAR_TO_TEMPVAR",
+}
+
+TEMPVAR_MUTATING_OPCODES = {
+    "EVENT_BINOP_TEMPVAR",
+    "EVENT_LOOP_TEMPVAR",
+}
 
 
 def rel(path: Path) -> str:
@@ -91,7 +124,302 @@ def first_opcode(rom: bytes, address: Address) -> dict[str, Any]:
         "name": opcode.name if opcode else "UNKNOWN_EVENT_OPCODE",
         "known": opcode is not None,
         "operands": list(opcode.args) if opcode else [],
+        "operand_fields": list(OPCODE_ARG_FIELDS.get(opcode.name, ())) if opcode else [],
         "terminal": bool(opcode.terminal) if opcode else False,
+    }
+
+
+def opcode_control_flow_role(opcode: Any) -> str:
+    if opcode.terminal:
+        return "terminal"
+    if opcode.name in {
+        "EVENT_LONGJUMP",
+        "EVENT_SHORTJUMP",
+        "EVENT_SWITCH_JUMP_TEMPVAR",
+        "EVENT_BREAK_IF_FALSE",
+        "EVENT_BREAK_IF_TRUE",
+    }:
+        return "branch"
+    if opcode.name in {
+        "EVENT_LONGCALL",
+        "EVENT_SHORTCALL",
+        "EVENT_SHORTCALL_CONDITIONAL",
+        "EVENT_SHORTCALL_CONDITIONAL_NOT",
+        "EVENT_SWITCH_CALL_TEMPVAR",
+    }:
+        return "script call"
+    if opcode.name in {
+        "EVENT_SET_TICK_CALLBACK",
+        "EVENT_SET_DRAW_CALLBACK",
+        "EVENT_SET_POSITION_CHANGE_CALLBACK",
+        "EVENT_SET_PHYSICS_CALLBACK",
+        "EVENT_CLEAR_TICK_CALLBACK",
+    }:
+        return "callback binding"
+    if opcode.name in {"EVENT_START_TASK", "EVENT_END_TASK", "EVENT_END_LAST_TASK"}:
+        return "task control"
+    if opcode.name in {"EVENT_LOOP", "EVENT_LOOP_END", "EVENT_LOOP_TEMPVAR"}:
+        return "loop control"
+    return "state/operand"
+
+
+def build_opcode_catalog() -> list[dict[str, Any]]:
+    catalog: list[dict[str, Any]] = []
+    for opcode_byte, opcode in sorted(OPCODES.items()):
+        fields = list(OPCODE_ARG_FIELDS.get(opcode.name, ()))
+        catalog.append(
+            {
+                "opcode": f"${opcode_byte:02X}",
+                "name": opcode.name,
+                "byte_shape": list(opcode.args),
+                "semantic_fields": fields,
+                "control_flow_role": opcode_control_flow_role(opcode),
+                "terminal": opcode.terminal,
+                "confidence": "high",
+            }
+        )
+    return catalog
+
+
+def collect_operand_value_signals(rows: list[dict[str, Any]]) -> dict[str, dict[str, int]]:
+    animation_ids: Counter[str] = Counter()
+    field2b32_words: Counter[str] = Counter()
+    tempvar_direction_word_candidates: Counter[str] = Counter()
+    direction_values = set(ACTIONSCRIPT_DIRECTION_WORDS)
+
+    for row in rows:
+        for line in row["decoded"]:
+            if match := ANIMATION_ID_RE.search(line):
+                animation_ids[f"${int(match.group(1), 16):02X}"] += 1
+            if match := FIELD2B32_WORD_RE.search(line):
+                field2b32_words[f"${int(match.group(1), 16):04X}"] += 1
+            if match := TEMPVAR_WORD_RE.search(line):
+                value = int(match.group(1), 16)
+                if value in direction_values:
+                    tempvar_direction_word_candidates[f"${value:04X}"] += 1
+
+    return {
+        "animation_ids": dict(animation_ids.most_common()),
+        "field2b32_words": dict(field2b32_words.most_common()),
+        "tempvar_direction_word_candidates": dict(
+            tempvar_direction_word_candidates.most_common()
+        ),
+    }
+
+
+def parse_choice_values(text: str) -> list[int]:
+    values: list[int] = []
+    for match in re.findall(r"\$([0-9A-F]{4})", text):
+        value = int(match, 16)
+        values.append(value)
+    return values
+
+
+def collect_direction_boundary_signals(
+    entries: list[dict[str, Any]],
+    rom: bytes,
+    names: dict[str, list[str]],
+    *,
+    max_instructions: int,
+    max_bytes: int,
+) -> dict[str, Any]:
+    events: dict[tuple[str, str, tuple[int, ...]], dict[str, Any]] = {}
+    direction_values = set(ACTIONSCRIPT_DIRECTION_WORDS)
+
+    for entry in entries:
+        address = parse_address(str(entry["address"]))
+        size = entry.get("size")
+        decode_bytes = min(size, max_bytes) if isinstance(size, int) and size > 0 else max_bytes
+        lines = decode_script(
+            rom,
+            address,
+            max_instructions=max_instructions,
+            max_bytes=decode_bytes,
+            stop_at_terminal=False,
+            names=names,
+        )
+        pending: list[dict[str, Any]] = []
+        for line in lines:
+            address_match = DECODED_ADDRESS_RE.match(line)
+            if not address_match:
+                continue
+            line_address = address_match.group(1)
+
+            if match := TEMPVAR_WORD_RE.search(line):
+                value = int(match.group(1), 16)
+                if value in direction_values:
+                    pending.append(
+                        {
+                            "producer_address": line_address,
+                            "source": "EVENT_WRITE_WORD_TEMPVAR",
+                            "values": [value],
+                        }
+                    )
+                else:
+                    pending = []
+                continue
+
+            if match := RANDOM_CHOICES_RE.search(line):
+                values = parse_choice_values(match.group(1))
+                if values and set(values).issubset(direction_values):
+                    pending.append(
+                        {
+                            "producer_address": line_address,
+                            "source": "C0:9F82 choices",
+                            "values": values,
+                        }
+                    )
+                else:
+                    pending = []
+                continue
+
+            target = CALLROUTINE_RE.search(line)
+            target_key = target.group(1) if target else None
+            if target_key in DIRECTION_TEMPVAR_CONSUMERS and pending:
+                for producer in pending:
+                    key = (
+                        str(producer["producer_address"]),
+                        str(producer["source"]),
+                        tuple(int(value) for value in producer["values"]),
+                    )
+                    event = events.setdefault(
+                        key,
+                        {
+                            "producer_address": producer["producer_address"],
+                            "source": producer["source"],
+                            "values": [f"${int(value):04X}" for value in producer["values"]],
+                            "value_names": [
+                                ACTIONSCRIPT_DIRECTION_WORDS[int(value)]["name"]
+                                for value in producer["values"]
+                            ],
+                            "consumers": [],
+                            "rows": [],
+                        },
+                    )
+                    consumer_label = f"{target_key} {DIRECTION_TEMPVAR_CONSUMERS[target_key]}"
+                    if consumer_label not in event["consumers"]:
+                        event["consumers"].append(consumer_label)
+                    row_label = f"{entry['address']} {entry.get('name') or ''}".strip()
+                    if row_label not in event["rows"]:
+                        event["rows"].append(row_label)
+                if target_key == "C0:C83B":
+                    pending = []
+                continue
+
+            opcode_name = next(
+                (opcode.name for opcode in OPCODES.values() if f" {opcode.name}" in line),
+                "",
+            )
+            if (
+                opcode_name in TEMPVAR_REPLACING_OPCODES
+                or opcode_name in TEMPVAR_MUTATING_OPCODES
+                or (target_key and target_key != "C0:9F82")
+            ):
+                pending = []
+
+    value_counts: Counter[str] = Counter()
+    consumer_counts: Counter[str] = Counter()
+    for event in events.values():
+        for value in event["values"]:
+            value_counts[value] += 1
+        for consumer in event["consumers"]:
+            consumer_counts[consumer.split()[0]] += 1
+
+    return {
+        "producer_count": len(events),
+        "value_counts": dict(value_counts.most_common()),
+        "consumer_counts": dict(consumer_counts.most_common()),
+        "events": sorted(
+            events.values(),
+            key=lambda item: address_sort_key(str(item["producer_address"])),
+        ),
+    }
+
+
+def collect_field2b32_boundary_signals(
+    entries: list[dict[str, Any]],
+    rom: bytes,
+    names: dict[str, list[str]],
+    *,
+    max_instructions: int,
+    max_bytes: int,
+) -> dict[str, Any]:
+    events: dict[tuple[str, int], dict[str, Any]] = {}
+
+    for entry in entries:
+        address = parse_address(str(entry["address"]))
+        size = entry.get("size")
+        decode_bytes = min(size, max_bytes) if isinstance(size, int) and size > 0 else max_bytes
+        lines = decode_script(
+            rom,
+            address,
+            max_instructions=max_instructions,
+            max_bytes=decode_bytes,
+            stop_at_terminal=False,
+            names=names,
+        )
+        pending: dict[str, Any] | None = None
+        for line in lines:
+            address_match = DECODED_ADDRESS_RE.match(line)
+            if not address_match:
+                continue
+            line_address = address_match.group(1)
+            target = CALLROUTINE_RE.search(line)
+            target_key = target.group(1) if target else None
+
+            if target_key == "C0:A685":
+                match = FIELD2B32_WORD_RE.search(line)
+                if match:
+                    pending = {
+                        "producer_address": line_address,
+                        "value": int(match.group(1), 16),
+                    }
+                else:
+                    pending = None
+                continue
+
+            if target_key == "C0:A68B":
+                pending = None
+                continue
+
+            if target_key in FIELD2B32_CONSUMERS and pending:
+                key = (str(pending["producer_address"]), int(pending["value"]))
+                event = events.setdefault(
+                    key,
+                    {
+                        "producer_address": pending["producer_address"],
+                        "source": "C0:A685 field2b32_word",
+                        "value": f"${int(pending['value']):04X}",
+                        "value_name": ACTIONSCRIPT_FIELD2B32_WORDS.get(
+                            int(pending["value"]),
+                            {"name": f"field2b32_step_{int(pending['value']):04x}"},
+                        )["name"],
+                        "consumers": [],
+                        "rows": [],
+                    },
+                )
+                consumer_label = f"{target_key} {FIELD2B32_CONSUMERS[target_key]}"
+                if consumer_label not in event["consumers"]:
+                    event["consumers"].append(consumer_label)
+                row_label = f"{entry['address']} {entry.get('name') or ''}".strip()
+                if row_label not in event["rows"]:
+                    event["rows"].append(row_label)
+
+    value_counts: Counter[str] = Counter()
+    consumer_counts: Counter[str] = Counter()
+    for event in events.values():
+        value_counts[event["value"]] += 1
+        for consumer in event["consumers"]:
+            consumer_counts[consumer.split()[0]] += 1
+
+    return {
+        "producer_count": len(events),
+        "value_counts": dict(value_counts.most_common()),
+        "consumer_counts": dict(consumer_counts.most_common()),
+        "events": sorted(
+            events.values(),
+            key=lambda item: address_sort_key(str(item["producer_address"])),
+        ),
     }
 
 
@@ -357,6 +685,7 @@ def build_audit(
     source_map = load_json(source_map_path)
     rom = load_rom(find_rom(rom_path))
     names = load_names(index_path)
+    entries = load_script_entries(source_map)
     rows = [
         audit_entry(
             entry,
@@ -365,7 +694,7 @@ def build_audit(
             max_instructions=max_instructions,
             max_bytes=max_bytes,
         )
-        for entry in load_script_entries(source_map)
+        for entry in entries
     ]
 
     by_class = Counter(str(row["primary_class"]) for row in rows)
@@ -415,6 +744,21 @@ def build_audit(
     installed_callback_groups = Counter(
         str(contract["semantic_group"]) for contract in installed_callback_contracts
     )
+    operand_value_signals = collect_operand_value_signals(rows)
+    field2b32_boundary_signals = collect_field2b32_boundary_signals(
+        entries,
+        rom,
+        names,
+        max_instructions=max_instructions,
+        max_bytes=max_bytes,
+    )
+    direction_boundary_signals = collect_direction_boundary_signals(
+        entries,
+        rom,
+        names,
+        max_instructions=max_instructions,
+        max_bytes=max_bytes,
+    )
 
     return {
         "schema": SCHEMA,
@@ -441,6 +785,10 @@ def build_audit(
             "installed_callback_contracts": len(installed_callback_contracts),
             "installed_callback_groups": dict(installed_callback_groups.most_common()),
         },
+        "opcode_catalog": build_opcode_catalog(),
+        "operand_value_catalog": operand_value_signals,
+        "field2b32_boundary_signals": field2b32_boundary_signals,
+        "direction_boundary_signals": direction_boundary_signals,
         "callback_contracts": callback_contracts,
         "installed_callback_contracts": installed_callback_contracts,
         "rows": rows,
@@ -459,10 +807,39 @@ def format_list(values: list[str], limit: int = 4) -> str:
     return ", ".join(f"`{value}`" for value in visible) + suffix
 
 
+def render_operand_rows(
+    catalog: dict[int, dict[str, str]],
+    counts: dict[str, int],
+    *,
+    width: int,
+) -> list[str]:
+    lines: list[str] = []
+    observed_values = {
+        int(value.strip("$"), 16)
+        for value in counts
+        if re.fullmatch(r"\$[0-9A-F]{2,4}", value)
+    }
+    for value in sorted(set(catalog) | observed_values):
+        key = f"${value:0{width}X}"
+        item = catalog.get(value)
+        lines.append(
+            "| `{value}` | `{name}` | {count} | {contract} |".format(
+                value=key,
+                name=markdown_escape(item["name"] if item else f"unknown_{key[1:].lower()}"),
+                count=counts.get(key, 0),
+                contract=markdown_escape(
+                    item["contract"] if item else "observed in current decode inventory; name not assigned yet"
+                ),
+            )
+        )
+    return lines
+
+
 def render_markdown(audit: dict[str, Any]) -> str:
     summary = audit["summary"]
     rows = audit["rows"]
     frontier_rows = [row for row in rows if row["decode_status"] != "complete"]
+    operand_values = audit["operand_value_catalog"]
 
     lines = [
         "# C3 actionscript semantics audit",
@@ -515,6 +892,178 @@ def render_markdown(audit: dict[str, Any]) -> str:
             )
     else:
         lines.append("No syntactic decode frontiers at the current bounds.")
+
+    lines.extend(
+        [
+            "",
+            "## Opcode operand catalog",
+            "",
+            "| Opcode | Name | Byte shape | Semantic fields | Role | Confidence |",
+            "| --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for opcode in audit["opcode_catalog"]:
+        shape = ", ".join(f"`{value}`" for value in opcode["byte_shape"]) or "-"
+        fields = ", ".join(f"`{value}`" for value in opcode["semantic_fields"]) or "-"
+        lines.append(
+            "| `{opcode}` | `{name}` | {shape} | {fields} | `{role}` | `{confidence}` |".format(
+                opcode=opcode["opcode"],
+                name=opcode["name"],
+                shape=shape,
+                fields=fields,
+                role=opcode["control_flow_role"],
+                confidence=opcode["confidence"],
+            )
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Operand value seed catalog",
+            "",
+            "These names are source-pilot readability seeds from recurring decoded C3 actionscript values. Direction-word names are promoted only at callback boundaries where the tempvar or random-choice result reaches the direction/vector runtime helpers.",
+            "",
+            "### Animation IDs",
+            "",
+            "| Value | Name | Decode count | Contract |",
+            "| --- | --- | ---: | --- |",
+        ]
+    )
+    lines.extend(
+        render_operand_rows(
+            ACTIONSCRIPT_ANIMATION_IDS,
+            operand_values["animation_ids"],
+            width=2,
+        )
+    )
+    lines.extend(
+        [
+            "",
+            "### Field $2B32 movement words",
+            "",
+            "| Value | Name | Observed count | Contract |",
+            "| --- | --- | ---: | --- |",
+        ]
+    )
+    field2b32_signals = audit.get("field2b32_boundary_signals", {})
+    field2b32_counts = dict(operand_values["field2b32_words"])
+    for value, count in field2b32_signals.get("value_counts", {}).items():
+        field2b32_counts[value] = max(int(field2b32_counts.get(value, 0)), int(count))
+    lines.extend(
+        render_operand_rows(
+            ACTIONSCRIPT_FIELD2B32_WORDS,
+            field2b32_counts,
+            width=4,
+        )
+    )
+
+    lines.extend(
+        [
+            "",
+            "### Field $2B32 movement boundary evidence",
+            "",
+            "`C0:A685` writes the inline `field2b32_word` into current-slot `$2B32`. The C0 movement-vector note shows `C0:C83B` deriving signed vector words from `$2B32`; timer wrappers such as `C0:A6A2`/`C0:A6AD` and direct `C0:CA4E`/`C0:CBD3` calls then consume the active vector or speed scale. The table records decoded C3 `$2B32` writes that reach one of those movement/timer consumers inside the same source-map span.",
+            "",
+            f"- boundary-confirmed producers: `{field2b32_signals.get('producer_count', 0)}`",
+            f"- value coverage: `{field2b32_signals.get('value_counts', {})}`",
+            f"- consumer coverage: `{field2b32_signals.get('consumer_counts', {})}`",
+            "",
+            "| Producer | Value | Consumers | Rows |",
+            "| --- | --- | --- | --- |",
+        ]
+    )
+    field2b32_events = list(field2b32_signals.get("events", []))
+    priority_events = [
+        event
+        for event in field2b32_events
+        if any(
+            str(consumer).startswith(("C0:C83B ", "C0:A6AD ", "C0:CBD3 "))
+            for consumer in event.get("consumers", [])
+        )
+    ]
+    sample_events = [
+        event
+        for event in field2b32_events
+        if event not in priority_events
+    ][:20]
+    visible_events = priority_events[:24] + sample_events
+    for event in visible_events:
+        value = f"{event.get('value')} <{event.get('value_name')}>"
+        lines.append(
+            "| `{producer}` | `{value}` | {consumers} | {rows} |".format(
+                producer=event["producer_address"],
+                value=markdown_escape(value),
+                consumers=format_list(event.get("consumers", []), limit=3),
+                rows=format_list(event.get("rows", []), limit=2),
+            )
+        )
+    if len(field2b32_events) > len(visible_events):
+        lines.append(
+            f"| `...` | - | - | `{len(field2b32_events) - len(visible_events)}` additional boundary-confirmed producer(s) in JSON output |"
+        )
+    lines.extend(
+        [
+            "",
+            "### Direction-class word candidates",
+            "",
+            "| Value | Name | Tempvar decode count | Contract |",
+            "| --- | --- | ---: | --- |",
+        ]
+    )
+    lines.extend(
+        render_operand_rows(
+            ACTIONSCRIPT_DIRECTION_WORDS,
+            operand_values["tempvar_direction_word_candidates"],
+            width=4,
+        )
+    )
+
+    direction_signals = audit.get("direction_boundary_signals", {})
+    lines.extend(
+        [
+            "",
+            "### Direction callback boundary evidence",
+            "",
+            "C3 direction-class words are backed by the runtime chain documented around `C0:A65F` and `C0:C83B`: `C0:A65F` stores the active direction/class in `$2AF6[current]` and returns it, while `C0:C83B` stores the direction/mode in `$1A86[current]` and derives signed movement vector words from it. The table below records decoded C3 producers that reach those consumers inside the same source-map span.",
+            "",
+            f"- boundary-confirmed producers: `{direction_signals.get('producer_count', 0)}`",
+            f"- value coverage: `{direction_signals.get('value_counts', {})}`",
+            f"- consumer coverage: `{direction_signals.get('consumer_counts', {})}`",
+            "",
+            "| Producer | Source | Values | Consumers | Rows |",
+            "| --- | --- | --- | --- | --- |",
+        ]
+    )
+    events = list(direction_signals.get("events", []))
+    vector_events = [
+        event
+        for event in events
+        if any(str(consumer).startswith("C0:C83B ") for consumer in event.get("consumers", []))
+    ]
+    sample_events = [
+        event
+        for event in events
+        if event not in vector_events
+    ][:24]
+    visible_events = vector_events + sample_events
+    for event in visible_events:
+        values = [
+            f"{value} <{name}>"
+            for value, name in zip(event.get("values", []), event.get("value_names", []))
+        ]
+        lines.append(
+            "| `{producer}` | `{source}` | {values} | {consumers} | {rows} |".format(
+                producer=event["producer_address"],
+                source=markdown_escape(event["source"]),
+                values=", ".join(f"`{markdown_escape(value)}`" for value in values) or "-",
+                consumers=format_list(event.get("consumers", []), limit=3),
+                rows=format_list(event.get("rows", []), limit=2),
+            )
+        )
+    if len(events) > len(visible_events):
+        lines.append(
+            f"| `...` | `summary` | - | - | `{len(events) - len(visible_events)}` additional boundary-confirmed producer(s) in JSON output |"
+        )
 
     lines.extend(
         [

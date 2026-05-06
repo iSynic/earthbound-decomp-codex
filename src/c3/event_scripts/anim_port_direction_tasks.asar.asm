@@ -4,6 +4,11 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_FRAME1 = $01
+!ACTIONSCRIPT_DIRECTION_LEFT = $06
+!ACTIONSCRIPT_DIRECTION_RIGHT = $02
+!ACTIONSCRIPT_DIRECTION_UP = $04
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -23,10 +28,10 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <event_flag_word>
 endmacro
 
 macro EVENT_PAUSE(frames)
@@ -60,27 +65,27 @@ endmacro
 org $C38978
 LoopAnimPortDirectionFromVar4:
     %EVENT_WRITE_VAR_TO_TEMPVAR(!ACTIONSCRIPT_VARS_V4) ; C3:8978  20 04
-    %EVENT_SHORTCALL_CONDITIONAL_NOT(UseDirectionDownWhenVar4Clear) ; C3:897A  0B 92 89
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $0A, $02) ; C3:897D  42 4C A8 C0 0A 02
+    %EVENT_SHORTCALL_CONDITIONAL_NOT(UseDirectionUpWhenVar4Clear) ; C3:897A  0B 92 89
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $020A) ; C3:897D  42 4C A8 C0 0A 02
     %EVENT_SHORTCALL_CONDITIONAL_NOT(UseDirectionRightWhenAnimPort0Clear) ; C3:8983  0B 8C 89
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:8986  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:8986  1D 06 00
     %EVENT_SHORTJUMP(ApplyAnimPortDirectionAndLoop) ; C3:8989  19 95 89
 UseDirectionRightWhenAnimPort0Clear:
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:898C  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:898C  1D 02 00
     %EVENT_SHORTJUMP(ApplyAnimPortDirectionAndLoop) ; C3:898F  19 95 89
-UseDirectionDownWhenVar4Clear:
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:8992  1D 04 00
+UseDirectionUpWhenVar4Clear:
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:8992  1D 04 00
 ApplyAnimPortDirectionAndLoop:
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:8995  42 5F A6 C0
     %EVENT_PAUSE($01) ; C3:8999  06 01
     %EVENT_SHORTJUMP(LoopAnimPortDirectionFromVar4) ; C3:899B  19 78 89
 LoopAnimPortBlinkAnimation:
-    %EVENT_SET_ANIMATION($00) ; C3:899E  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:899E  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:89A0  42 A8 A4 C0
     %EVENT_PAUSE($01) ; C3:89A4  06 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:89A6  42 A8 A4 C0
     %EVENT_PAUSE($01) ; C3:89AA  06 01
-    %EVENT_SET_ANIMATION($01) ; C3:89AC  3B 01
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME1) ; C3:89AC  3B 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:89AE  42 B2 A4 C0
     %EVENT_PAUSE($01) ; C3:89B2  06 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:89B4  42 B2 A4 C0

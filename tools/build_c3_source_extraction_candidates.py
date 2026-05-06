@@ -79,6 +79,8 @@ def subsystem_for(address: str, name: str) -> str:
         return "HP PP stat adjustment helpers"
     if start < 0xEF23:
         return "equipment and battle selector helpers"
+    if 0xF3C5 <= start < 0xF5F9:
+        return "file-select visual transition helper"
     if start < 0xF5F9:
         if "repair" in lower:
             return "Jeff repair and PSI menu helpers"

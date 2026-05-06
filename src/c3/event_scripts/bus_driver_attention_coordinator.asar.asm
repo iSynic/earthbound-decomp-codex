@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_DIRECTION_LEFT = $06
+!ACTIONSCRIPT_DIRECTION_RIGHT = $02
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -30,10 +32,10 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <direction_class_byte>
 endmacro
 
 macro EVENT_CHOOSE_RANDOM_SCRIPT_WORD_2(target, count, choice0, choice1)
@@ -154,12 +156,12 @@ ChooseEvent455_BusDriverHorizontalWander:
     %EVENT_CHOOSE_RANDOM_SCRIPT_WORD_2(!ChooseRandomScriptWord, 2, $0000, $0001) ; C3:DE43  42 82 9F C0 02 00 00 01 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(ChooseEvent455_BusDriverRightwardWander) ; C3:DE4C  0B 5E DE
 Local_C3DE4F:
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $06) ; C3:DE4F  42 51 A6 C0 06
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_LEFT) ; C3:DE4F  42 51 A6 C0 06
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:DE54  42 BF A4 C0
     %EVENT_SET_X_VELOCITY($FF00) ; C3:DE58  3F 00 FF
     %EVENT_SHORTJUMP(QueueEvent455_BusDriverHorizontalWait) ; C3:DE5B  19 6A DE
 ChooseEvent455_BusDriverRightwardWander:
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $02) ; C3:DE5E  42 51 A6 C0 02
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:DE5E  42 51 A6 C0 02
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:DE63  42 BF A4 C0
     %EVENT_SET_X_VELOCITY($0100) ; C3:DE67  3F 00 01
 QueueEvent455_BusDriverHorizontalWait:

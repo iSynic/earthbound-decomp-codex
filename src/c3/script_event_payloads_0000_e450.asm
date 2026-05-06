@@ -8,8 +8,11 @@
 ;
 ; Source units covered:
 ; - C3:0000..C3:0188 C30000Unmapped [unmapped-frontier]
-; - C3:0188..C3:0195 Event221PreludeData [raw-or-named-data]
-; - C3:0195..C3:0295 Event221To224PaulaMovementScripts [event-bytecode-asset]
+; - C3:0188..C3:0195 C30188MixedDataScriptRow [mixed-data-script-row]
+; - C3:0195..C3:0235 Event221PaulaFatherFarewellSequence [event-bytecode-asset]
+; - C3:0235..C3:024A Event222PaulaDoorExitMovementScript [event-bytecode-asset]
+; - C3:024A..C3:0260 Event223PaulaPorchExitMovementScript [event-bytecode-asset]
+; - C3:0260..C3:0295 Event224PaulaReturnMovementScript [event-bytecode-asset]
 ; - C3:0295..C3:098B MoveActiveEntityLeftToScriptVarsAndWait [event-bytecode-asset]
 ; - C3:098B..C3:0A1F C3098BEventScript [event-script-asset]
 ; - C3:0A1F..C3:0C55 C30A1FEventScript [event-script-asset]
@@ -37,21 +40,21 @@
 ; - C3:4392..C3:43AE C34392EventScript [event-script-asset]
 ; - C3:43AE..C3:43DB C343AEEventScript [event-script-asset]
 ; - C3:43DB..C3:43E8 LoopTimedDeliveryDeparturePulseUntilOffscreen [event-bytecode-label]
-; - C3:43E8..C3:443E LoopTimedDeliveryDeparturePulseUntilOffscreenPart43E8 [event-bytecode-label]
-; - C3:443E..C3:444D LoopTimedDeliveryDeparturePulseUntilOffscreenPart443E [event-bytecode-label]
-; - C3:444D..C3:4457 LoopTimedDeliveryDeparturePulseUntilOffscreenPart444D [event-bytecode-label]
-; - C3:4457..C3:447A LoopTimedDeliveryDeparturePulseUntilOffscreenPart4457 [event-bytecode-label]
-; - C3:447A..C3:447D LoopTimedDeliveryDeparturePulseUntilOffscreenPart447A [event-bytecode-label]
-; - C3:447D..C3:4488 LoopTimedDeliveryDeparturePulseUntilOffscreenPart447D [event-bytecode-label]
-; - C3:4488..C3:4499 LoopTimedDeliveryDeparturePulseUntilOffscreenPart4488 [event-bytecode-label]
-; - C3:4499..C3:44A7 LoopTimedDeliveryDeparturePulseUntilOffscreenPart4499 [event-bytecode-label]
-; - C3:44A7..C3:44A8 LoopTimedDeliveryDeparturePulseUntilOffscreenPart44A7 [event-bytecode-label]
-; - C3:44A8..C3:44C1 LoopTimedDeliveryDeparturePulseUntilOffscreenPart44A8 [event-bytecode-label]
-; - C3:44C1..C3:44D2 LoopTimedDeliveryDeparturePulseUntilOffscreenPart44C1 [event-bytecode-label]
-; - C3:44D2..C3:44DE LoopTimedDeliveryDeparturePulseUntilOffscreenPart44D2 [event-bytecode-label]
-; - C3:44DE..C3:44EE LoopTimedDeliveryDeparturePulseUntilOffscreenPart44DE [event-bytecode-label]
-; - C3:44EE..C3:44FF LoopTimedDeliveryDeparturePulseUntilOffscreenPart44EE [event-bytecode-label]
-; - C3:44FF..C3:48C4 LoopTimedDeliveryDeparturePulseUntilOffscreenPart44FF [event-bytecode-label]
+; - C3:43E8..C3:443E TimedDeliveryDeparturePulseAnimation0Half [event-bytecode-asset]
+; - C3:443E..C3:444D TimedDeliveryRetryWaitLoop [event-bytecode-asset]
+; - C3:444D..C3:4457 TimedDeliveryReadinessGate [event-bytecode-asset]
+; - C3:4457..C3:447A TimedDeliverySuccessGateAndPresentationSetup [event-bytecode-asset]
+; - C3:447A..C3:447D StartTimedDeliveryArrivalMovementTask [event-bytecode-label]
+; - C3:447D..C3:4488 TimedDeliveryFailureTeardown [event-bytecode-asset]
+; - C3:4488..C3:4499 PrepareTimedDeliveryActorForPresentation [event-bytecode-asset]
+; - C3:4499..C3:44A7 WaitTimedDeliveryActorPresentationPrep [event-bytecode-label]
+; - C3:44A7..C3:44A8 ReturnFromTimedDeliveryActorPrep [event-bytecode-label]
+; - C3:44A8..C3:44C1 RunTimedDeliveryDepartureMovement [event-bytecode-asset]
+; - C3:44C1..C3:44D2 LoopTimedDeliveryDepartureMovement [event-bytecode-label]
+; - C3:44D2..C3:44DE FinishTimedDeliveryDepartureAndYieldText [event-bytecode-label]
+; - C3:44DE..C3:44EE RunTimedDeliveryArrivalMovement [event-bytecode-asset]
+; - C3:44EE..C3:44FF LoopTimedDeliveryArrivalMovement [event-bytecode-label]
+; - C3:44FF..C3:48C4 HoldTimedDeliveryArrivalCompletion [event-bytecode-label]
 ; - C3:48C4..C3:4964 C348C4EventScript [event-script-asset]
 ; - C3:4964..C3:4A61 C34964EventScript [event-script-asset]
 ; - C3:4A61..C3:4B62 C34A61EventScript [event-script-asset]
@@ -85,19 +88,19 @@
 ; - C3:A026..C3:A02D IntroMovementPatternFFLoop [movement-pattern-data]
 ; - C3:A02D..C3:A038 IntroMovementPattern08LoopAlt [movement-pattern-data]
 ; - C3:A038..C3:A043 IntroMovementPattern04Loop [movement-pattern-data]
-; - C3:A043..C3:A04E IntroMovementPattern04LoopPartA043 [movement-pattern-data]
-; - C3:A04E..C3:A052 IntroMovementPattern04LoopPartA04E [movement-pattern-data]
-; - C3:A052..C3:A05E IntroMovementPattern04LoopPartA052 [movement-pattern-data]
-; - C3:A05E..C3:A076 IntroMovementPattern04LoopPartA05E [movement-pattern-data]
-; - C3:A076..C3:A07F IntroMovementPattern04LoopPartA076 [movement-pattern-data]
+; - C3:A043..C3:A04E IntroCutsceneCameraPanGate [event-bytecode-asset]
+; - C3:A04E..C3:A052 StartIntroCameraPanTickLoop [event-bytecode-label]
+; - C3:A052..C3:A05E LoopIntroCameraPanWaitAndC2Step [event-bytecode-label]
+; - C3:A05E..C3:A076 IntroCutsceneSpriteObjectSetup [event-bytecode-asset]
+; - C3:A076..C3:A07F LoopIntroCompanionVisualRefresh [event-bytecode-label]
 ; - C3:A07F..C3:A09F HaltEventScript [event-bytecode-asset]
 ; - C3:A09F..C3:A0B2 LoopActiveEntityWalkAnimationPulse [event-bytecode-label]
 ; - C3:A0B2..C3:A0C5 LoopActiveEntityWalkPulse24Frame [event-bytecode-label]
 ; - C3:A0C5..C3:A0D8 LoopActiveEntityWalkPulse12Frame [event-bytecode-label]
 ; - C3:A0D8..C3:A0EB LoopActiveEntityWalkPulse9FrameConditional [event-bytecode-label]
-; - C3:A0EB..C3:A0FE LoopActiveEntityWalkPulse9FrameConditionalPartA0EB [event-bytecode-label]
-; - C3:A0FE..C3:A111 LoopActiveEntityWalkPulse9FrameConditionalPartA0FE [event-bytecode-label]
-; - C3:A111..C3:A12E LoopActiveEntityWalkPulse9FrameConditionalPartA111 [event-bytecode-label]
+; - C3:A0EB..C3:A0FE LoopActiveEntityWalkPulse6FrameConditional [event-bytecode-label]
+; - C3:A0FE..C3:A111 LoopActiveEntityWalkPulse2FrameConditional [event-bytecode-label]
+; - C3:A111..C3:A12E LoopActiveEntityWalkPulseVar4Gate [event-bytecode-label]
 ; - C3:A12E..C3:A15E LoopActiveEntityWalkPulseVar4Countdown [event-bytecode-label]
 ; - C3:A15E..C3:A17B LoopC40015Var4GatedPulseUntilRelease [event-bytecode-label]
 ; - C3:A17B..C3:A18F LoopC40015SlowPulseUntilRelease [event-bytecode-label]
@@ -107,31 +110,31 @@
 ; - C3:A1CB..C3:A1DF C3A1CBEventScript [event-script-asset]
 ; - C3:A1DF..C3:A1F3 LoopActiveEntityWalkPulse2FrameC40015Branch [event-bytecode-label]
 ; - C3:A1F3..C3:A204 LoopC40015Pulse16FrameUntilRelease [event-bytecode-label]
-; - C3:A204..C3:A209 LoopC40015Pulse16FrameUntilReleasePartA204 [event-bytecode-label]
+; - C3:A204..C3:A209 ReleaseCurrentVisualEntityAndEnd [event-bytecode-asset]
 ; - C3:A209..C3:A20E DelayThenReleaseCurrentVisualEntity [event-bytecode-asset]
 ; - C3:A20E..C3:A22C LoopVar0SelectedAnimationUntilOffscreen [event-bytecode-label]
-; - C3:A22C..C3:A234 LoopVar0SelectedAnimationUntilOffscreenPartA22C [event-bytecode-label]
-; - C3:A234..C3:A23D LoopVar0SelectedAnimationUntilOffscreenPartA234 [event-bytecode-label]
-; - C3:A23D..C3:A24E LoopVar0SelectedAnimationUntilOffscreenPartA23D [event-bytecode-label]
-; - C3:A24E..C3:A25F LoopVar0SelectedAnimationUntilOffscreenPartA24E [event-bytecode-label]
-; - C3:A25F..C3:A262 LoopVar0SelectedAnimationUntilOffscreenPartA25F [event-bytecode-label]
+; - C3:A22C..C3:A234 Var0AnimationCase0Pulse8FrameOn [event-bytecode-asset]
+; - C3:A234..C3:A23D Var0AnimationCase1Pulse8FrameOff [event-bytecode-asset]
+; - C3:A23D..C3:A24E Var0AnimationCase2Pulse4Frame [event-bytecode-asset]
+; - C3:A24E..C3:A25F Var0AnimationCase3Pulse32Frame [event-bytecode-asset]
+; - C3:A25F..C3:A262 Var0AnimationCase4Wait16Frame [event-bytecode-asset]
 ; - C3:A262..C3:A271 LoopActiveEntityCollisionProbeRefresh [event-bytecode-label]
 ; - C3:A271..C3:A272 C3A271EventScript [event-script-asset]
 ; - C3:A272..C3:A2AA C3A272EventScript [event-script-asset]
-; - C3:A2AA..C3:A381 C3A272EventScriptPartA2AA [event-script-asset]
-; - C3:A381..C3:A3A1 C3A272EventScriptPartA381 [event-script-asset]
-; - C3:A3A1..C3:A3B7 C3A272EventScriptPartA3A1 [event-script-asset]
-; - C3:A3B7..C3:A3C9 C3A272EventScriptPartA3B7 [event-script-asset]
-; - C3:A3C9..C3:A3D6 C3A272EventScriptPartA3C9 [event-script-asset]
-; - C3:A3D6..C3:A3E7 C3A272EventScriptPartA3D6 [event-script-asset]
-; - C3:A3E7..C3:A401 C3A272EventScriptPartA3E7 [event-script-asset]
+; - C3:A2AA..C3:A381 TrafficLightWaitUntilOffscreenAndRelease [event-bytecode-asset]
+; - C3:A381..C3:A3A1 InitRandomWanderMovementWithCollisionProbe [event-bytecode-asset]
+; - C3:A3A1..C3:A3B7 InitC40015PulseWithCollisionProbe [event-bytecode-asset]
+; - C3:A3B7..C3:A3C9 LoopRandomDirectionMovementWithRandomWait [event-bytecode-label]
+; - C3:A3C9..C3:A3D6 ChooseRandomCardinalDirection [event-bytecode-asset]
+; - C3:A3D6..C3:A3E7 ApplyRandomDirectionAndMovementTimer [event-bytecode-asset]
+; - C3:A3E7..C3:A401 SetMovementTimerThenRandomWait [event-bytecode-asset]
 ; - C3:A401..C3:A426 InitNpcAttentionPathIfNoCachedNeighbor [event-bytecode-asset]
-; - C3:A426..C3:A42D InitNpcAttentionPathIfNoCachedNeighborPartA426 [event-bytecode-asset]
-; - C3:A42D..C3:A434 InitNpcAttentionPathIfNoCachedNeighborPartA42D [event-bytecode-asset]
-; - C3:A434..C3:A448 InitNpcAttentionPathIfNoCachedNeighborPartA434 [event-bytecode-asset]
-; - C3:A448..C3:A45C InitNpcAttentionPathIfNoCachedNeighborPartA448 [event-bytecode-asset]
-; - C3:A45C..C3:A47C InitNpcAttentionPathIfNoCachedNeighborPartA45C [event-bytecode-asset]
-; - C3:A47C..C3:AA1E InitNpcAttentionPathIfNoCachedNeighborPartA47C [event-bytecode-asset]
+; - C3:A426..C3:A42D StartNpcAttentionTerrainCollisionLoop [event-bytecode-label]
+; - C3:A42D..C3:A434 StartNpcAttentionHorizontalCollisionLoop [event-bytecode-label]
+; - C3:A434..C3:A448 LoopNpcAttentionTerrainCollision [event-bytecode-label]
+; - C3:A448..C3:A45C LoopNpcAttentionHorizontalCollision [event-bytecode-label]
+; - C3:A45C..C3:A47C FinishNpcAttentionAndReleaseActor [event-bytecode-label]
+; - C3:A47C..C3:AA1E ReleaseCurrentVisualEntityTail [event-bytecode-asset]
 ; - C3:AA1E..C3:AA2B C3AA1EEventScript [event-script-asset]
 ; - C3:AA2B..C3:AA38 C3AA2BEventScript [event-script-asset]
 ; - C3:AA38..C3:AA46 InitActionScriptMovementState [event-bytecode-asset]
@@ -193,11 +196,11 @@
 ; - C3:DF90..C3:DFB5 C3DF90EventScript [event-script-asset]
 ; - C3:DFB5..C3:DFD4 C3DFB5EventScript [event-script-asset]
 ; - C3:DFD4..C3:DFE8 C3DFD4EventScript [event-script-asset]
-; - C3:DFE8..C3:E12C C3DFE8RawData [raw-or-named-data]
-; - C3:E12C..C3:E148 C3DFE8RawDataPartE12C [raw-or-named-data]
+; - C3:DFE8..C3:E12C C3DFE8ContractBackedDataPrefix [contract-backed-data-prefix]
+; - C3:E12C..C3:E148 InputDirectionPermissionMaskTable [contract-backed-data]
 ; - C3:E148..C3:E158 InteractionProbeDirectionXOffsetTable [contract-backed-data]
 ; - C3:E158..C3:E168 InteractionProbeDirectionYOffsetTable [contract-backed-data]
-; - C3:E168..C3:E1D8 C3E168RawData [raw-or-named-data]
+; - C3:E168..C3:E1D8 C3E168ContractBackedDataPrefix [contract-backed-data-prefix]
 ; - C3:E1D8..C3:E1E0 MapEntityPlacementDirectionParamTable [contract-backed-data]
 ; - C3:E1E0..C3:E200 MapEntityPlacementDirectionParamTable_Page1 [contract-backed-data]
 ; - C3:E200..C3:E208 StagedMovementPrimaryDirectionParamTable [contract-backed-data]
@@ -206,17 +209,17 @@
 ; - C3:E218..C3:E220 StagedMovementSubtileOffsetSetA_Y [contract-backed-data]
 ; - C3:E220..C3:E228 StagedMovementSubtileOffsetSetB_X [contract-backed-data]
 ; - C3:E228..C3:E230 StagedMovementSubtileOffsetSetB_Y [contract-backed-data]
-; - C3:E230..C3:E240 DoorCandidateDirectionOffsetX [data-or-helper-frontier]
-; - C3:E240..C3:E3F8 DoorCandidateDirectionOffsetY [data-or-helper-frontier]
-; - C3:E3F8..C3:E406 MenuCursorTilePrefixTable [raw-or-named-data]
-; - C3:E406..C3:E40E MenuCursorTilePrefixTablePartE406 [raw-or-named-data]
+; - C3:E230..C3:E240 DoorCandidateDirectionOffsetX [contract-backed-data]
+; - C3:E240..C3:E3F8 DoorCandidateDirectionOffsetY [contract-backed-data-prefix]
+; - C3:E3F8..C3:E406 MenuCursorTilePrefixTable [contract-backed-data]
+; - C3:E406..C3:E40E AnimatedMenuCursorPointRightTiles [contract-backed-data]
 ; - C3:E40E..C3:E416 TitleNameBufferCursorTileRun [contract-backed-data]
-; - C3:E416..C3:E41C TitleNameBufferCursorTileRunPartE416 [contract-backed-data]
+; - C3:E416..C3:E41C BlinkingTriangleBaseTiles [contract-backed-data]
 ; - C3:E41C..C3:E424 BlinkingTriangleWaitFrame0Tiles [contract-backed-data]
-; - C3:E424..C3:E42C BlinkingTriangleWaitFrame0TilesPartE424 [contract-backed-data]
-; - C3:E42C..C3:E434 BlinkingTriangleWaitFrame0TilesPartE42C [contract-backed-data]
-; - C3:E434..C3:E43C BlinkingTriangleWaitFrame0TilesPartE434 [contract-backed-data]
-; - C3:E43C..C3:E44C BlinkingTriangleWaitFrame0TilesPartE43C [contract-backed-data]
+; - C3:E424..C3:E42C BlinkingTriangleWaitFrame1Tiles [source-adjacent-data]
+; - C3:E42C..C3:E434 BlinkingTriangleWaitFrame2Tiles [source-adjacent-data]
+; - C3:E434..C3:E43C BlinkingTriangleWaitFrame3Tiles [source-adjacent-data]
+; - C3:E43C..C3:E44C BlinkingTriangleWaitFramePointerTable [contract-backed-data]
 ; - C3:E44C..C3:E450 WindowTickTransferPreludeData [contract-backed-data]
 
 ; ---------------------------------------------------------------------------
@@ -225,13 +228,7 @@
 ; source: residual-synthesis
 ; evidence: build/c3-source-residual-map.json
 
-
-; ---------------------------------------------------------------------------
-; C3:0000
-
-SPRITE_GROUP_PALETTES:
-C30000_C30000Unmapped = SPRITE_GROUP_PALETTES
-C30000_PreservedEventScriptScaffoldGap = SPRITE_GROUP_PALETTES
+C30188_C30000UnmappedEnd:
     ; data bytes: C3:0000..C3:0188
     db $CE,$39,$DF,$7B,$37,$67,$33,$4E,$C0,$42,$40,$3A,$CA,$31,$55,$7B
     db $69,$52,$4B,$6F,$19,$50,$CF,$28,$DA,$2E,$37,$02,$D1,$51,$86,$10
@@ -259,38 +256,80 @@ C30000_PreservedEventScriptScaffoldGap = SPRITE_GROUP_PALETTES
     db $A9,$00,$40,$85,$12,$A9,$7F,$00,$85,$14,$22,$9E,$1A,$C4,$22,$75
     db $0B,$C4,$2B,$6B,$DB,$01,$ED,$02
 
-C30188_C30000UnmappedEnd:
-    ; data bytes: C3:0188..C3:0295
-    db $3C,$00,$44,$80,$00,$41,$3C,$00,$49,$3C,$00,$42,$00,$42,$4C,$A8
-    db $C0,$0C,$00,$0B,$AA,$A2,$42,$4C,$A8,$C0,$0D,$00,$0A,$AA,$A2,$1A
-    db $38,$AA,$3B,$FF,$42,$2F,$A8,$C0,$0E,$04,$01,$00,$0E,$00,$90,$1A
-    db $0E,$01,$60,$1E,$0E,$02,$08,$00,$0E,$03,$C0,$00,$1A,$8A,$AB,$28
-    db $E8,$1A,$29,$68,$1E,$3B,$00,$42,$38,$A8,$C0,$42,$6E,$AA,$C0,$06
-    db $00,$42,$41,$A8,$C0,$09,$00,$06,$01,$42,$8D,$A8,$C0,$C7,$00,$07
-    db $97,$06,$01,$42,$85,$A6,$C0,$00,$01,$0E,$04,$00,$00,$0E,$05,$01
-    db $00,$07,$A3,$AF,$42,$43,$A9,$C0,$FF,$14,$06,$02,$EE,$FF,$1A,$59
-    db $AB,$13,$13,$42,$46,$6E,$C4,$06,$01,$25,$60,$A3,$07,$9F,$A0,$07
-    db $62,$A2,$0E,$05,$15,$00,$42,$43,$A9,$C0,$FE,$1A,$44,$AB,$06,$01
-    db $39,$42,$43,$A9,$C0,$02,$42,$C6,$A8,$C0,$19,$26,$02,$15,$9A,$5D
-    db $01,$00,$0E,$06,$10,$1B,$0E,$07,$88,$01,$1A,$95,$02,$42,$46,$6E
-    db $C4,$09,$28,$E8,$1F,$29,$68,$00,$0E,$06,$18,$1F,$0E,$07,$68,$00
-    db $1A,$95,$02,$42,$46,$6E,$C4,$09,$28,$D0,$1D,$29,$D8,$00,$0E,$06
-    db $80,$1D,$0E,$07,$D8,$00,$1A,$95,$02,$42,$6E,$AA,$C0,$02,$00,$42
-    db $46,$6E,$C4,$06,$01,$15,$9A,$5D,$00,$00,$0E,$06,$D0,$1D,$1A,$59
-    db $AB,$13,$42,$6E,$AA,$C0,$06,$00,$42,$46,$6E,$C4,$09
-
-
 ; ---------------------------------------------------------------------------
-; C3:0188..C3:0295
+; C3:0188..C3:0195
 ; class: mixed-data-script-row
 ; source: data/unknown/C30188.asm
-; embedded labels:
-; - C3:0195 Event221PaulaFatherFarewellSequence
-; - C3:0235 Event222PaulaDoorExitMovementScript
-; - C3:024A Event223PaulaPorchExitMovementScript
-; - C3:0260 Event224PaulaReturnMovementScript
+; evidence: C3:0195 Event221PaulaFatherFarewellSequence
+; evidence: C3:0235 Event222PaulaDoorExitMovementScript
+; evidence: C3:024A Event223PaulaPorchExitMovementScript
+; evidence: C3:0260 Event224PaulaReturnMovementScript
 
-C30295_C30188RawDataEnd:
+C30195_C30188MixedDataScriptRowEnd:
+    ; data bytes: C3:0188..C3:0195
+    db $3C,$00,$44,$80,$00,$41,$3C,$00,$49,$3C,$00,$42,$00
+
+; ---------------------------------------------------------------------------
+; C3:0195..C3:0235
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:156
+
+C30235_Event221PaulaFatherFarewellSequenceEnd:
+    ; data bytes: C3:0195..C3:0235
+    db $42,$4C,$A8,$C0,$0C,$00,$0B,$AA,$A2,$42,$4C,$A8,$C0,$0D,$00,$0A
+    db $AA,$A2,$1A,$38,$AA,$3B,$FF,$42,$2F,$A8,$C0,$0E,$04,$01,$00,$0E
+    db $00,$90,$1A,$0E,$01,$60,$1E,$0E,$02,$08,$00,$0E,$03,$C0,$00,$1A
+    db $8A,$AB,$28,$E8,$1A,$29,$68,$1E,$3B,$00,$42,$38,$A8,$C0,$42,$6E
+    db $AA,$C0,$06,$00,$42,$41,$A8,$C0,$09,$00,$06,$01,$42,$8D,$A8,$C0
+    db $C7,$00,$07,$97,$06,$01,$42,$85,$A6,$C0,$00,$01,$0E,$04,$00,$00
+    db $0E,$05,$01,$00,$07,$A3,$AF,$42,$43,$A9,$C0,$FF,$14,$06,$02,$EE
+    db $FF,$1A,$59,$AB,$13,$13,$42,$46,$6E,$C4,$06,$01,$25,$60,$A3,$07
+    db $9F,$A0,$07,$62,$A2,$0E,$05,$15,$00,$42,$43,$A9,$C0,$FE,$1A,$44
+    db $AB,$06,$01,$39,$42,$43,$A9,$C0,$02,$42,$C6,$A8,$C0,$19,$26,$02
+
+; ---------------------------------------------------------------------------
+; C3:0235..C3:024A
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:157
+
+C3024A_Event222PaulaDoorExitMovementScriptEnd:
+    ; data bytes: C3:0235..C3:024A
+    db $15,$9A,$5D,$01,$00,$0E,$06,$10,$1B,$0E,$07,$88,$01,$1A,$95,$02
+    db $42,$46,$6E,$C4,$09
+
+; ---------------------------------------------------------------------------
+; C3:024A..C3:0260
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:158
+
+C30260_Event223PaulaPorchExitMovementScriptEnd:
+    ; data bytes: C3:024A..C3:0260
+    db $28,$E8,$1F,$29,$68,$00,$0E,$06,$18,$1F,$0E,$07,$68,$00,$1A,$95
+    db $02,$42,$46,$6E,$C4,$09
+
+; ---------------------------------------------------------------------------
+; C3:0260..C3:0295
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:159
+
+C30295_Event224PaulaReturnMovementScriptEnd:
+    ; data bytes: C3:0260..C3:0295
+    db $28,$D0,$1D,$29,$D8,$00,$0E,$06,$80,$1D,$0E,$07,$D8,$00,$1A,$95
+    db $02,$42,$6E,$AA,$C0,$02,$00,$42,$46,$6E,$C4,$06,$01,$15,$9A,$5D
+    db $00,$00,$0E,$06,$D0,$1D,$1A,$59,$AB,$13,$42,$6E,$AA,$C0,$06,$00
+    db $42,$46,$6E,$C4,$09
+
+; ---------------------------------------------------------------------------
+; C3:0295..C3:098B
+; class: event-bytecode-asset
+; source: data/events/C30295.asm
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:155
+
+C3098B_MoveActiveEntityLeftToScriptVarsAndWaitEnd:
     ; data bytes: C3:0295..C3:098B
     db $1A,$38,$AA,$42,$6E,$AA,$C0,$06,$00,$42,$85,$A6,$C0,$00,$01,$0E
     db $05,$01,$00,$1A,$59,$AB,$1B,$42,$64,$A8,$C0,$FF,$1A,$37,$AB,$0E
@@ -405,14 +444,12 @@ C30295_C30188RawDataEnd:
     db $46,$6E,$C4,$09,$1A,$38,$AA,$42,$85,$A6,$C0,$00,$01,$0E,$05,$01
     db $00,$42,$43,$A9,$C0,$09
 
-
 ; ---------------------------------------------------------------------------
-; C3:0295..C3:098B
-; class: event-bytecode-asset
-; source: data/events/C30295.asm
-; evidence: notes/c3-event-222-224-movement-helper-cluster.md:138
+; C3:098B..C3:0A1F
+; class: event-script-asset
+; source: data/events/C3098B.asm
 
-C3098B_MoveActiveEntityLeftToScriptVarsAndWaitEnd:
+C30A1F_C3098BEventScriptEnd:
     ; data bytes: C3:098B..C3:0A1F
     db $1A,$59,$AB,$42,$46,$6E,$C4,$09,$1A,$38,$AA,$42,$85,$A6,$C0,$00
     db $01,$0E,$05,$01,$00,$0E,$06,$F0,$01,$0E,$07,$E8,$08,$1A,$59,$AB
@@ -425,13 +462,12 @@ C3098B_MoveActiveEntityLeftToScriptVarsAndWaitEnd:
     db $0A,$41,$00,$FE,$06,$0C,$42,$41,$A8,$C0,$2E,$00,$39,$42,$46,$6E
     db $C4,$19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:098B..C3:0A1F
+; C3:0A1F..C3:0C55
 ; class: event-script-asset
-; source: data/events/C3098B.asm
+; source: data/events/C30A1F.asm
 
-C30A1F_C3098BEventScriptEnd:
+C30C55_C30A1FEventScriptEnd:
     ; data bytes: C3:0A1F..C3:0C55
     db $41,$00,$02,$06,$08,$41,$00,$00,$06,$04,$41,$00,$FF,$06,$06,$41
     db $00,$00,$0C,$42,$64,$A8,$C0,$FF,$23,$39,$A0,$25,$7A,$A3,$3B,$00
@@ -470,24 +506,22 @@ C30A1F_C3098BEventScriptEnd:
     db $0C,$19,$7F,$0C,$1A,$55,$0C,$19,$97,$0C,$1A,$55,$0C,$19,$AF,$0C
     db $1A,$55,$0C,$19,$C7,$0C
 
-
-; ---------------------------------------------------------------------------
-; C3:0A1F..C3:0C55
-; class: event-script-asset
-; source: data/events/C30A1F.asm
-
-C30C55_C30A1FEventScriptEnd:
-    ; data bytes: C3:0C55..C3:0C67
-    db $1A,$2B,$AA,$42,$85,$A6,$C0,$C0,$00,$0E,$05,$01,$00,$42,$BF,$A4
-    db $C0,$1B
-
-
 ; ---------------------------------------------------------------------------
 ; C3:0C55..C3:0C67
 ; class: event-script-asset
 ; source: data/events/C30C55.asm
 
 C30C67_C30C55EventScriptEnd:
+    ; data bytes: C3:0C55..C3:0C67
+    db $1A,$2B,$AA,$42,$85,$A6,$C0,$C0,$00,$0E,$05,$01,$00,$42,$BF,$A4
+    db $C0,$1B
+
+; ---------------------------------------------------------------------------
+; C3:0C67..C3:1D2D
+; class: event-script-asset
+; source: data/events/C30C67.asm
+
+C31D2D_C30C67EventScriptEnd:
     ; data bytes: C3:0C67..C3:1D2D
     db $06,$3C,$0E,$06,$10,$1E,$0E,$07,$E8,$08,$1A,$59,$AB,$0E,$06,$38
     db $1E,$0E,$07,$F0,$08,$1A,$59,$AB,$06,$3C,$0E,$06,$50,$1E,$0E,$07
@@ -759,25 +793,23 @@ C30C67_C30C55EventScriptEnd:
     db $AA,$42,$85,$A6,$C0,$00,$01,$1D,$04,$00,$1A,$1E,$AA,$06,$78,$42
     db $46,$6E,$C4,$19,$04,$A2
 
-
-; ---------------------------------------------------------------------------
-; C3:0C67..C3:1D2D
-; class: event-script-asset
-; source: data/events/C30C67.asm
-
-C31D2D_C30C67EventScriptEnd:
-    ; data bytes: C3:1D2D..C3:1D4F
-    db $20,$04,$0A,$4A,$1D,$3B,$01,$42,$B2,$A4,$C0,$21,$04,$20,$04,$0A
-    db $4A,$1D,$3B,$00,$42,$A8,$A4,$C0,$21,$04,$19,$2D,$1D,$06,$06,$19
-    db $2D,$1D
-
-
 ; ---------------------------------------------------------------------------
 ; C3:1D2D..C3:1D4F
 ; class: event-script-asset
 ; source: data/events/C31D2D.asm
 
 C31D4F_C31D2DEventScriptEnd:
+    ; data bytes: C3:1D2D..C3:1D4F
+    db $20,$04,$0A,$4A,$1D,$3B,$01,$42,$B2,$A4,$C0,$21,$04,$20,$04,$0A
+    db $4A,$1D,$3B,$00,$42,$A8,$A4,$C0,$21,$04,$19,$2D,$1D,$06,$06,$19
+    db $2D,$1D
+
+; ---------------------------------------------------------------------------
+; C3:1D4F..C3:1DF4
+; class: event-script-asset
+; source: data/events/C31D4F.asm
+
+C31DF4_C31D4FEventScriptEnd:
     ; data bytes: C3:1D4F..C3:1DF4
     db $25,$7A,$A3,$3B,$00,$07,$2D,$1D,$0E,$04,$18,$00,$39,$42,$BF,$A4
     db $C0,$1B,$42,$64,$A8,$C0,$FF,$3B,$FF,$39,$09,$25,$F0,$9F,$3B,$FF
@@ -791,26 +823,24 @@ C31D4F_C31D2DEventScriptEnd:
     db $1A,$59,$AB,$06,$01,$20,$02,$0A,$E2,$1D,$42,$8D,$A8,$C0,$C7,$00
     db $DC,$92,$19,$04,$A2
 
-
-; ---------------------------------------------------------------------------
-; C3:1D4F..C3:1DF4
-; class: event-script-asset
-; source: data/events/C31D4F.asm
-
-C31DF4_C31D4FEventScriptEnd:
-    ; data bytes: C3:1DF4..C3:1E2D
-    db $42,$64,$A8,$C0,$FF,$25,$C8,$9F,$3B,$FF,$08,$2B,$8C,$C4,$0E,$02
-    db $00,$00,$07,$14,$1E,$1A,$59,$AB,$06,$01,$20,$02,$0A,$0C,$1E,$1B
-    db $0E,$00,$00,$00,$21,$01,$01,$0F,$14,$00,$02,$FF,$FF,$42,$A8,$74
-    db $C4,$21,$01,$02,$0E,$02,$01,$00,$0C
-
-
 ; ---------------------------------------------------------------------------
 ; C3:1DF4..C3:1E2D
 ; class: event-script-asset
 ; source: data/events/C31DF4.asm
 
 C31E2D_C31DF4EventScriptEnd:
+    ; data bytes: C3:1DF4..C3:1E2D
+    db $42,$64,$A8,$C0,$FF,$25,$C8,$9F,$3B,$FF,$08,$2B,$8C,$C4,$0E,$02
+    db $00,$00,$07,$14,$1E,$1A,$59,$AB,$06,$01,$20,$02,$0A,$0C,$1E,$1B
+    db $0E,$00,$00,$00,$21,$01,$01,$0F,$14,$00,$02,$FF,$FF,$42,$A8,$74
+    db $C4,$21,$01,$02,$0E,$02,$01,$00,$0C
+
+; ---------------------------------------------------------------------------
+; C3:1E2D..C3:1EC1
+; class: event-script-asset
+; source: data/events/C31E2D.asm
+
+C31EC1_C31E2DEventScriptEnd:
     ; data bytes: C3:1E2D..C3:1EC1
     db $25,$C8,$9F,$3B,$FF,$08,$2B,$8C,$C4,$0E,$02,$00,$00,$07,$4D,$1E
     db $42,$43,$A9,$C0,$FF,$1A,$59,$AB,$06,$01,$20,$02,$0A,$45,$1E,$1B
@@ -823,28 +853,15 @@ C31E2D_C31DF4EventScriptEnd:
     db $98,$1E,$28,$E8,$1A,$29,$48,$21,$19,$98,$1E,$28,$18,$1B,$29,$48
     db $21,$19,$98,$1E
 
-
-; ---------------------------------------------------------------------------
-; C3:1E2D..C3:1EC1
-; class: event-script-asset
-; source: data/events/C31E2D.asm
-
-C31EC1_C31E2DEventScriptEnd:
-    ; data bytes: C3:1EC1..C3:1ED8
-    db $06,$30,$3F,$40,$00,$3B,$01,$42,$B2,$A4,$C0,$06,$16,$3B,$00,$42
-    db $A8,$A4,$C0,$06,$0A,$39,$1B
-
-
 ; ---------------------------------------------------------------------------
 ; C3:1EC1..C3:1ED8
 ; class: event-script-asset
 ; source: data/events/C31EC1.asm
 
 C31ED8_C31EC1EventScriptEnd:
-    ; data bytes: C3:1ED8..C3:1EEF
-    db $06,$30,$3F,$C0,$FF,$3B,$01,$42,$B2,$A4,$C0,$06,$16,$3B,$00,$42
+    ; data bytes: C3:1EC1..C3:1ED8
+    db $06,$30,$3F,$40,$00,$3B,$01,$42,$B2,$A4,$C0,$06,$16,$3B,$00,$42
     db $A8,$A4,$C0,$06,$0A,$39,$1B
-
 
 ; ---------------------------------------------------------------------------
 ; C3:1ED8..C3:1EEF
@@ -852,6 +869,16 @@ C31ED8_C31EC1EventScriptEnd:
 ; source: data/events/C31ED8.asm
 
 C31EEF_C31ED8EventScriptEnd:
+    ; data bytes: C3:1ED8..C3:1EEF
+    db $06,$30,$3F,$C0,$FF,$3B,$01,$42,$B2,$A4,$C0,$06,$16,$3B,$00,$42
+    db $A8,$A4,$C0,$06,$0A,$39,$1B
+
+; ---------------------------------------------------------------------------
+; C3:1EEF..C3:2138
+; class: event-script-asset
+; source: data/events/C31EEF.asm
+
+C32138_C31EEFEventScriptEnd:
     ; data bytes: C3:1EEF..C3:2138
     db $3F,$5B,$00,$42,$6E,$AA,$C0,$04,$00,$06,$16,$42,$6E,$AA,$C0,$06
     db $01,$06,$17,$42,$6E,$AA,$C0,$00,$00,$06,$16,$42,$6E,$AA,$C0,$02
@@ -891,13 +918,12 @@ C31EEF_C31ED8EventScriptEnd:
     db $1A,$38,$21,$1A,$38,$21,$39,$1A,$38,$21,$1A,$38,$21,$1A,$EF,$1E
     db $06,$16,$06,$3C,$06,$B4,$19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:1EEF..C3:2138
+; C3:2138..C3:2CD2
 ; class: event-script-asset
-; source: data/events/C31EEF.asm
+; source: data/events/C32138.asm
 
-C32138_C31EEFEventScriptEnd:
+C32CD2_C32138EventScriptEnd:
     ; data bytes: C3:2138..C3:2CD2
     db $3B,$00,$42,$A8,$A4,$C0,$06,$16,$3B,$01,$42,$B2,$A4,$C0,$06,$17
     db $1B,$28,$60,$1B,$29,$58,$21,$1A,$4F,$1D,$0E,$00,$00,$00,$0E,$04
@@ -1086,13 +1112,12 @@ C32138_C31EEFEventScriptEnd:
     db $04,$A2,$28,$A0,$12,$29,$68,$16,$1A,$38,$AA,$42,$6E,$AA,$C0,$02
     db $00,$0E,$04,$01,$00,$06,$4B,$19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:2138..C3:2CD2
+; C3:2CD2..C3:3399
 ; class: event-script-asset
-; source: data/events/C32138.asm
+; source: data/events/C32CD2.asm
 
-C32CD2_C32138EventScriptEnd:
+C33399_C32CD2EventScriptEnd:
     ; data bytes: C3:2CD2..C3:3399
     db $40,$00,$00,$01,$0F,$2F,$EF,$FF,$06,$02,$02,$01,$1E,$2F,$11,$00
     db $06,$02,$02,$01,$0F,$2F,$EF,$FF,$06,$02,$02,$19,$D2,$2C,$1A,$4F
@@ -1204,28 +1229,15 @@ C32CD2_C32138EventScriptEnd:
     db $28,$00,$42,$8C,$25,$C4,$42,$6E,$AA,$C0,$04,$00,$09,$1A,$4F,$1D
     db $0E,$04,$28,$00,$19,$88,$33
 
-
-; ---------------------------------------------------------------------------
-; C3:2CD2..C3:3399
-; class: event-script-asset
-; source: data/events/C32CD2.asm
-
-C33399_C32CD2EventScriptEnd:
-    ; data bytes: C3:3399..C3:33AA
-    db $42,$6E,$AA,$C0,$04,$01,$06,$16,$42,$6E,$AA,$C0,$04,$00,$06,$17
-    db $1B
-
-
 ; ---------------------------------------------------------------------------
 ; C3:3399..C3:33AA
 ; class: event-script-asset
 ; source: data/events/C33399.asm
 
 C333AA_C33399EventScriptEnd:
-    ; data bytes: C3:33AA..C3:33BB
-    db $42,$6E,$AA,$C0,$00,$01,$06,$16,$42,$6E,$AA,$C0,$00,$00,$06,$17
+    ; data bytes: C3:3399..C3:33AA
+    db $42,$6E,$AA,$C0,$04,$01,$06,$16,$42,$6E,$AA,$C0,$04,$00,$06,$17
     db $1B
-
 
 ; ---------------------------------------------------------------------------
 ; C3:33AA..C3:33BB
@@ -1233,10 +1245,9 @@ C333AA_C33399EventScriptEnd:
 ; source: data/events/C333AA.asm
 
 C333BB_C333AAEventScriptEnd:
-    ; data bytes: C3:33BB..C3:33CC
-    db $42,$6E,$AA,$C0,$06,$01,$06,$16,$42,$6E,$AA,$C0,$06,$00,$06,$17
+    ; data bytes: C3:33AA..C3:33BB
+    db $42,$6E,$AA,$C0,$00,$01,$06,$16,$42,$6E,$AA,$C0,$00,$00,$06,$17
     db $1B
-
 
 ; ---------------------------------------------------------------------------
 ; C3:33BB..C3:33CC
@@ -1244,10 +1255,9 @@ C333BB_C333AAEventScriptEnd:
 ; source: data/events/C333BB.asm
 
 C333CC_C333BBEventScriptEnd:
-    ; data bytes: C3:33CC..C3:33DD
-    db $42,$6E,$AA,$C0,$02,$01,$06,$16,$42,$6E,$AA,$C0,$02,$00,$06,$17
+    ; data bytes: C3:33BB..C3:33CC
+    db $42,$6E,$AA,$C0,$06,$01,$06,$16,$42,$6E,$AA,$C0,$06,$00,$06,$17
     db $1B
-
 
 ; ---------------------------------------------------------------------------
 ; C3:33CC..C3:33DD
@@ -1255,6 +1265,16 @@ C333CC_C333BBEventScriptEnd:
 ; source: data/events/C333CC.asm
 
 C333DD_C333CCEventScriptEnd:
+    ; data bytes: C3:33CC..C3:33DD
+    db $42,$6E,$AA,$C0,$02,$01,$06,$16,$42,$6E,$AA,$C0,$02,$00,$06,$17
+    db $1B
+
+; ---------------------------------------------------------------------------
+; C3:33DD..C3:3549
+; class: event-script-asset
+; source: data/events/C333DD.asm
+
+C33549_C333DDEventScriptEnd:
     ; data bytes: C3:33DD..C3:3549
     db $1A,$99,$33,$1A,$99,$33,$42,$6E,$AA,$C0,$04,$01,$06,$16,$42,$6E
     db $AA,$C0,$02,$00,$06,$0C,$42,$6E,$AA,$C0,$04,$01,$06,$0B,$42,$6E
@@ -1280,13 +1300,12 @@ C333DD_C333CCEventScriptEnd:
     db $C0,$C8,$00,$C7,$89,$19,$04,$A2,$28,$80,$12,$29,$68,$16,$1A,$4F
     db $1D,$0E,$04,$00,$00,$42,$6E,$AA,$C0,$00,$00,$09
 
-
 ; ---------------------------------------------------------------------------
-; C3:33DD..C3:3549
+; C3:3549..C3:3BFB
 ; class: event-script-asset
-; source: data/events/C333DD.asm
+; source: data/events/C33549.asm
 
-C33549_C333DDEventScriptEnd:
+C33BFB_C33549EventScriptEnd:
     ; data bytes: C3:3549..C3:3BFB
     db $42,$6E,$AA,$C0,$04,$00,$06,$02,$42,$6E,$AA,$C0,$04,$01,$06,$04
     db $42,$6E,$AA,$C0,$04,$00,$06,$02,$3B,$FF,$06,$2D,$42,$82,$9F,$C0
@@ -1397,27 +1416,15 @@ C33549_C333DDEventScriptEnd:
     db $03,$14,$01,$02,$01,$00,$02,$42,$0B,$80,$C4,$42,$46,$6E,$C4,$19
     db $04,$A2
 
-
-; ---------------------------------------------------------------------------
-; C3:3549..C3:3BFB
-; class: event-script-asset
-; source: data/events/C33549.asm
-
-C33BFB_C33549EventScriptEnd:
-    ; data bytes: C3:3BFB..C3:3C18
-    db $3B,$FF,$25,$C8,$9F,$42,$9E,$7A,$C4,$0E,$01,$00,$00,$42,$77,$7B
-    db $C4,$0A,$18,$3C,$44,$14,$01,$02,$01,$00,$19,$08,$3C
-
-
 ; ---------------------------------------------------------------------------
 ; C3:3BFB..C3:3C18
 ; class: event-script-asset
 ; source: data/events/C33BFB.asm
 
 C33C18_C33BFBEventScriptEnd:
-    ; data bytes: C3:3C18..C3:3C1D
-    db $42,$0B,$80,$C4,$1B
-
+    ; data bytes: C3:3BFB..C3:3C18
+    db $3B,$FF,$25,$C8,$9F,$42,$9E,$7A,$C4,$0E,$01,$00,$00,$42,$77,$7B
+    db $C4,$0A,$18,$3C,$44,$14,$01,$02,$01,$00,$19,$08,$3C
 
 ; ---------------------------------------------------------------------------
 ; C3:3C18..C3:3C1D
@@ -1425,6 +1432,15 @@ C33C18_C33BFBEventScriptEnd:
 ; source: data/events/C33C18.asm
 
 C33C1D_C33C18EventScriptEnd:
+    ; data bytes: C3:3C18..C3:3C1D
+    db $42,$0B,$80,$C4,$1B
+
+; ---------------------------------------------------------------------------
+; C3:3C1D..C3:3DBE
+; class: event-script-asset
+; source: data/events/C33C1D.asm
+
+C33DBE_C33C1DEventScriptEnd:
     ; data bytes: C3:3C1D..C3:3DBE
     db $20,$02,$24,$42,$77,$7B,$C4,$16,$2F,$3C,$21,$03,$14,$01,$02,$01
     db $00,$02,$1B,$25,$F0,$9F,$3B,$00,$39,$42,$DB,$C7,$C0,$42,$BF,$A4
@@ -1454,13 +1470,12 @@ C33C1D_C33C18EventScriptEnd:
     db $AB,$28,$20,$18,$29,$E8,$1B,$0F,$0E,$04,$01,$00,$42,$46,$6E,$C4
     db $09
 
-
 ; ---------------------------------------------------------------------------
-; C3:3C1D..C3:3DBE
+; C3:3DBE..C3:4392
 ; class: event-script-asset
-; source: data/events/C33C1D.asm
+; source: data/events/C33DBE.asm
 
-C33DBE_C33C1DEventScriptEnd:
+C34392_C33DBEEventScriptEnd:
     ; data bytes: C3:3DBE..C3:4392
     db $01,$1C,$06,$0A,$42,$91,$A6,$C0,$27,$02,$40,$00,$42,$8B,$A6,$C0
     db $02,$0E,$00,$01,$00,$0C,$42,$E6,$67,$C4,$2B,$07,$00,$1A,$26,$AB
@@ -1557,29 +1572,15 @@ C33DBE_C33C1DEventScriptEnd:
     db $0E,$00,$01,$00,$19,$92,$43,$25,$C8,$9F,$23,$BB,$A0,$0E,$00,$00
     db $00,$19,$92,$43
 
-
-; ---------------------------------------------------------------------------
-; C3:3DBE..C3:4392
-; class: event-script-asset
-; source: data/events/C33DBE.asm
-
-C34392_C33DBEEventScriptEnd:
-    ; data bytes: C3:4392..C3:43AE
-    db $07,$AE,$43,$3F,$00,$FF,$01,$05,$42,$6E,$AA,$C0,$06,$00,$06,$08
-    db $42,$6E,$AA,$C0,$06,$01,$06,$08,$02,$19,$04,$A2
-
-
 ; ---------------------------------------------------------------------------
 ; C3:4392..C3:43AE
 ; class: event-script-asset
 ; source: data/events/C34392.asm
 
 C343AE_C34392EventScriptEnd:
-    ; data bytes: C3:43AE..C3:43DB
-    db $06,$01,$1D,$00,$01,$42,$B5,$68,$C4,$0A,$C4,$43,$1D,$F4,$FF,$42
-    db $B5,$68,$C4,$0A,$D8,$43,$1D,$E0,$00,$42,$DC,$68,$C4,$0A,$AE,$43
-    db $1D,$F4,$FF,$42,$DC,$68,$C4,$0B,$AE,$43,$19,$04,$A2
-
+    ; data bytes: C3:4392..C3:43AE
+    db $07,$AE,$43,$3F,$00,$FF,$01,$05,$42,$6E,$AA,$C0,$06,$00,$06,$08
+    db $42,$6E,$AA,$C0,$06,$01,$06,$08,$02,$19,$04,$A2
 
 ; ---------------------------------------------------------------------------
 ; C3:43AE..C3:43DB
@@ -1587,9 +1588,10 @@ C343AE_C34392EventScriptEnd:
 ; source: data/events/C343AE.asm
 
 C343DB_C343AEEventScriptEnd:
-    ; data bytes: C3:43DB..C3:43E8
-    db $06,$08,$20,$04,$0B,$E8,$43,$3B,$01,$42,$B2,$A4,$C0
-
+    ; data bytes: C3:43AE..C3:43DB
+    db $06,$01,$1D,$00,$01,$42,$B5,$68,$C4,$0A,$C4,$43,$1D,$F4,$FF,$42
+    db $B5,$68,$C4,$0A,$D8,$43,$1D,$E0,$00,$42,$DC,$68,$C4,$0A,$AE,$43
+    db $1D,$F4,$FF,$42,$DC,$68,$C4,$0B,$AE,$43,$19,$04,$A2
 
 ; ---------------------------------------------------------------------------
 ; C3:43DB..C3:43E8
@@ -1598,6 +1600,16 @@ C343DB_C343AEEventScriptEnd:
 ; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
 
 C343E8_LoopTimedDeliveryDeparturePulseUntilOffscreenEnd:
+    ; data bytes: C3:43DB..C3:43E8
+    db $06,$08,$20,$04,$0B,$E8,$43,$3B,$01,$42,$B2,$A4,$C0
+
+; ---------------------------------------------------------------------------
+; C3:43E8..C3:443E
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:104
+
+C3443E_TimedDeliveryDeparturePulseAnimation0HalfEnd:
     ; data bytes: C3:43E8..C3:443E
     db $06,$08,$3B,$00,$42,$A8,$A4,$C0,$42,$B6,$C6,$C0,$0B,$DB,$43,$42
     db $F6,$0F,$EF,$42,$46,$6E,$C4,$19,$04,$A2,$42,$43,$A6,$C0,$1F,$05
@@ -1606,163 +1618,149 @@ C343E8_LoopTimedDeliveryDeparturePulseUntilOffscreenEnd:
     db $2F,$A8,$C0,$3B,$FF,$39,$42,$46,$0D,$EF,$06,$3C,$42,$73,$0D,$EF
     db $0B,$32,$44,$19,$4D,$44
 
-
 ; ---------------------------------------------------------------------------
-; C3:43E8..C3:443E
-; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; C3:443E..C3:444D
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:62
 
-C3443E_LoopTimedDeliveryDeparturePulseUntilOffscreenPart43E8End:
+C3444D_TimedDeliveryRetryWaitLoopEnd:
     ; data bytes: C3:443E..C3:444D
     db $42,$A7,$0C,$EF,$0A,$7D,$44,$42,$23,$0D,$EF,$24,$06,$3C,$02
 
-
 ; ---------------------------------------------------------------------------
-; C3:443E..C3:444D
-; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; C3:444D..C3:4457
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:63
 
-C3444D_LoopTimedDeliveryDeparturePulseUntilOffscreenPart443EEnd:
+C34457_TimedDeliveryReadinessGateEnd:
     ; data bytes: C3:444D..C3:4457
     db $42,$60,$0F,$EF,$0A,$57,$44,$19,$3E,$44
 
-
 ; ---------------------------------------------------------------------------
-; C3:444D..C3:4457
-; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; C3:4457..C3:447A
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:64
 
-C34457_LoopTimedDeliveryDeparturePulseUntilOffscreenPart444DEnd:
+C3447A_TimedDeliverySuccessGateAndPresentationSetupEnd:
     ; data bytes: C3:4457..C3:447A
     db $42,$9A,$FF,$C2,$0B,$7D,$44,$20,$00,$42,$9B,$C1,$C0,$0B,$3E,$44
     db $07,$7A,$44,$06,$01,$42,$DB,$0F,$EF,$1A,$88,$44,$42,$8D,$0D,$EF
     db $19,$A8,$44
 
-
-; ---------------------------------------------------------------------------
-; C3:4457..C3:447A
-; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
-
-C3447A_LoopTimedDeliveryDeparturePulseUntilOffscreenPart4457End:
-    ; data bytes: C3:447A..C3:447D
-    db $1A,$DE,$44
-
-
 ; ---------------------------------------------------------------------------
 ; C3:447A..C3:447D
 ; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:65
 
-C3447D_LoopTimedDeliveryDeparturePulseUntilOffscreenPart447AEnd:
-    ; data bytes: C3:447D..C3:4488
-    db $42,$F6,$0F,$EF,$42,$FA,$0D,$EF,$19,$04,$A2
-
+C3447D_StartTimedDeliveryArrivalMovementTaskEnd:
+    ; data bytes: C3:447A..C3:447D
+    db $1A,$DE,$44
 
 ; ---------------------------------------------------------------------------
 ; C3:447D..C3:4488
-; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:66
 
-C34488_LoopTimedDeliveryDeparturePulseUntilOffscreenPart447DEnd:
+C34488_TimedDeliveryFailureTeardownEnd:
+    ; data bytes: C3:447D..C3:4488
+    db $42,$F6,$0F,$EF,$42,$FA,$0D,$EF,$19,$04,$A2
+
+; ---------------------------------------------------------------------------
+; C3:4488..C3:4499
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:67
+
+C34499_PrepareTimedDeliveryActorForPresentationEnd:
     ; data bytes: C3:4488..C3:4499
     db $3B,$00,$07,$9F,$A0,$42,$BF,$A4,$C0,$0E,$02,$16,$00,$0E,$03,$16
     db $00
 
-
-; ---------------------------------------------------------------------------
-; C3:4488..C3:4499
-; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
-
-C34499_LoopTimedDeliveryDeparturePulseUntilOffscreenPart4488End:
-    ; data bytes: C3:4499..C3:44A7
-    db $06,$01,$20,$04,$0B,$A7,$44,$42,$F8,$6E,$C4,$0A,$99,$44
-
-
 ; ---------------------------------------------------------------------------
 ; C3:4499..C3:44A7
 ; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:68
 
-C344A7_LoopTimedDeliveryDeparturePulseUntilOffscreenPart4499End:
-    ; data bytes: C3:44A7..C3:44A8
-    db $1B
-
+C344A7_WaitTimedDeliveryActorPresentationPrepEnd:
+    ; data bytes: C3:4499..C3:44A7
+    db $06,$01,$20,$04,$0B,$A7,$44,$42,$F8,$6E,$C4,$0A,$99,$44
 
 ; ---------------------------------------------------------------------------
 ; C3:44A7..C3:44A8
 ; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:69
 
-C344A8_LoopTimedDeliveryDeparturePulseUntilOffscreenPart44A7End:
+C344A8_ReturnFromTimedDeliveryActorPrepEnd:
+    ; data bytes: C3:44A7..C3:44A8
+    db $1B
+
+; ---------------------------------------------------------------------------
+; C3:44A8..C3:44C1
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:70
+
+C344C1_RunTimedDeliveryDepartureMovementEnd:
     ; data bytes: C3:44A8..C3:44C1
     db $39,$06,$01,$13,$13,$07,$DB,$43,$20,$00,$42,$51,$C2,$C0,$0B,$D2
     db $44,$42,$8A,$0E,$EF,$42,$8B,$A6,$C0
 
-
 ; ---------------------------------------------------------------------------
-; C3:44A8..C3:44C1
+; C3:44C1..C3:44D2
 ; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:71
 
-C344C1_LoopTimedDeliveryDeparturePulseUntilOffscreenPart44A8End:
+C344D2_LoopTimedDeliveryDepartureMovementEnd:
     ; data bytes: C3:44C1..C3:44D2
     db $42,$8F,$D9,$C0,$0A,$D2,$44,$1A,$59,$AB,$42,$87,$6C,$C4,$19,$C1
     db $44
 
-
-; ---------------------------------------------------------------------------
-; C3:44C1..C3:44D2
-; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
-
-C344D2_LoopTimedDeliveryDeparturePulseUntilOffscreenPart44C1End:
-    ; data bytes: C3:44D2..C3:44DE
-    db $39,$42,$F6,$0F,$EF,$42,$46,$6E,$C4,$19,$04,$A2
-
-
 ; ---------------------------------------------------------------------------
 ; C3:44D2..C3:44DE
 ; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:72
 
-C344DE_LoopTimedDeliveryDeparturePulseUntilOffscreenPart44D2End:
-    ; data bytes: C3:44DE..C3:44EE
-    db $42,$67,$0E,$EF,$42,$8B,$A6,$C0,$0E,$05,$03,$00,$0E,$04,$00,$00
-
+C344DE_FinishTimedDeliveryDepartureAndYieldTextEnd:
+    ; data bytes: C3:44D2..C3:44DE
+    db $39,$42,$F6,$0F,$EF,$42,$46,$6E,$C4,$19,$04,$A2
 
 ; ---------------------------------------------------------------------------
 ; C3:44DE..C3:44EE
-; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:73
 
-C344EE_LoopTimedDeliveryDeparturePulseUntilOffscreenPart44DEEnd:
-    ; data bytes: C3:44EE..C3:44FF
-    db $42,$8F,$D9,$C0,$0A,$FF,$44,$1A,$59,$AB,$42,$87,$6C,$C4,$19,$EE
-    db $44
-
+C344EE_RunTimedDeliveryArrivalMovementEnd:
+    ; data bytes: C3:44DE..C3:44EE
+    db $42,$67,$0E,$EF,$42,$8B,$A6,$C0,$0E,$05,$03,$00,$0E,$04,$00,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:44EE..C3:44FF
 ; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:74
 
-C344FF_LoopTimedDeliveryDeparturePulseUntilOffscreenPart44EEEnd:
+C344FF_LoopTimedDeliveryArrivalMovementEnd:
+    ; data bytes: C3:44EE..C3:44FF
+    db $42,$8F,$D9,$C0,$0A,$FF,$44,$1A,$59,$AB,$42,$87,$6C,$C4,$19,$EE
+    db $44
+
+; ---------------------------------------------------------------------------
+; C3:44FF..C3:48C4
+; class: event-bytecode-label
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:75
+
+C348C4_HoldTimedDeliveryArrivalCompletionEnd:
     ; data bytes: C3:44FF..C3:48C4
     db $0E,$04,$01,$00,$06,$F0,$19,$FF,$44,$42,$64,$A8,$C0,$FF,$25,$C8
     db $9F,$3B,$FF,$08,$3E,$8C,$C4,$0E,$00,$00,$00,$0E,$01,$00,$00,$07
@@ -1826,14 +1824,12 @@ C344FF_LoopTimedDeliveryDeparturePulseUntilOffscreenPart44EEEnd:
     db $00,$0E,$06,$80,$01,$0E,$07,$C8,$1D,$1A,$59,$AB,$06,$1E,$42,$46
     db $6E,$C4,$19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:44FF..C3:48C4
-; class: event-bytecode-label
-; source: data/events/C343DB.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:103
+; C3:48C4..C3:4964
+; class: event-script-asset
+; source: data/events/C348C4.asm
 
-C348C4_LoopTimedDeliveryDeparturePulseUntilOffscreenPart44FFEnd:
+C34964_C348C4EventScriptEnd:
     ; data bytes: C3:48C4..C3:4964
     db $1D,$04,$00,$42,$5F,$A6,$C0,$42,$BF,$A4,$C0,$06,$14,$01,$03,$1D
     db $02,$00,$42,$5F,$A6,$C0,$42,$BF,$A4,$C0,$06,$0E,$1D,$06,$00,$42
@@ -1846,13 +1842,12 @@ C348C4_LoopTimedDeliveryDeparturePulseUntilOffscreenPart44FFEnd:
     db $04,$00,$1A,$62,$4B,$0E,$03,$02,$00,$1A,$62,$4B,$1A,$62,$4B,$42
     db $46,$6E,$C4,$0E,$03,$01,$00,$1A,$62,$4B,$1A,$62,$4B,$19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:48C4..C3:4964
+; C3:4964..C3:4A61
 ; class: event-script-asset
-; source: data/events/C348C4.asm
+; source: data/events/C34964.asm
 
-C34964_C348C4EventScriptEnd:
+C34A61_C34964EventScriptEnd:
     ; data bytes: C3:4964..C3:4A61
     db $42,$59,$A9,$C0,$02,$00,$42,$59,$A9,$C0,$01,$00,$06,$01,$19,$64
     db $49,$28,$90,$01,$29,$B0,$1D,$1A,$38,$AA,$0E,$04,$01,$00,$1A,$C4
@@ -1871,13 +1866,12 @@ C34964_C348C4EventScriptEnd:
     db $00,$42,$5F,$A6,$C0,$42,$BF,$A4,$C0,$13,$42,$46,$6E,$C4,$07,$62
     db $A2,$06,$05,$42,$B6,$C6,$C0,$0B,$55,$4A,$19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:4964..C3:4A61
+; C3:4A61..C3:4B62
 ; class: event-script-asset
-; source: data/events/C34964.asm
+; source: data/events/C34A61.asm
 
-C34A61_C34964EventScriptEnd:
+C34B62_C34A61EventScriptEnd:
     ; data bytes: C3:4A61..C3:4B62
     db $42,$59,$A9,$C0,$01,$00,$06,$01,$19,$61,$4A,$28,$A0,$01,$29,$C0
     db $1D,$1A,$38,$AA,$0E,$04,$01,$00,$42,$85,$A6,$C0,$80,$00,$0E,$05
@@ -1897,13 +1891,12 @@ C34A61_C34964EventScriptEnd:
     db $02,$00,$42,$5F,$A6,$C0,$42,$BF,$A4,$C0,$42,$46,$6E,$C4,$06,$03
     db $09
 
-
 ; ---------------------------------------------------------------------------
-; C3:4A61..C3:4B62
+; C3:4B62..C3:4D39
 ; class: event-script-asset
-; source: data/events/C34A61.asm
+; source: data/events/C34B62.asm
 
-C34B62_C34A61EventScriptEnd:
+C34D39_C34B62EventScriptEnd:
     ; data bytes: C3:4B62..C3:4D39
     db $42,$6E,$AA,$C0,$04,$01,$20,$03,$44,$42,$6E,$AA,$C0,$05,$01,$20
     db $03,$44,$42,$6E,$AA,$C0,$06,$01,$20,$03,$44,$42,$6E,$AA,$C0,$07
@@ -1936,13 +1929,12 @@ C34B62_C34A61EventScriptEnd:
     db $46,$6E,$C4,$06,$03,$0E,$06,$50,$08,$0E,$07,$90,$1B,$1A,$59,$AB
     db $42,$46,$6E,$C4,$19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:4B62..C3:4D39
+; C3:4D39..C3:4E73
 ; class: event-script-asset
-; source: data/events/C34B62.asm
+; source: data/events/C34D39.asm
 
-C34D39_C34B62EventScriptEnd:
+C34E73_C34D39EventScriptEnd:
     ; data bytes: C3:4D39..C3:4E73
     db $2A,$80,$00,$1A,$26,$AB,$41,$00,$FC,$42,$41,$A8,$C0,$11,$00,$06
     db $20,$39,$06,$02,$2D,$FF,$FF,$06,$02,$2D,$01,$00,$06,$02,$42,$46
@@ -1965,13 +1957,12 @@ C34D39_C34B62EventScriptEnd:
     db $C0,$00,$00,$00,$06,$3C,$42,$46,$6E,$C4,$19,$04,$A2,$42,$73,$A6
     db $C0,$42,$3B,$C8,$C0,$06,$01,$19,$66,$4E
 
-
 ; ---------------------------------------------------------------------------
-; C3:4D39..C3:4E73
+; C3:4E73..C3:5F8B
 ; class: event-script-asset
-; source: data/events/C34D39.asm
+; source: data/events/C34E73.asm
 
-C34E73_C34D39EventScriptEnd:
+C35F8B_C34E73EventScriptEnd:
     ; data bytes: C3:4E73..C3:5F8B
     db $42,$64,$A8,$C0,$FF,$23,$39,$A0,$25,$C8,$9F,$3B,$FF,$08,$E1,$8B
     db $C4,$1B,$1A,$73,$4E,$42,$85,$A6,$C0,$40,$01,$0E,$05,$02,$00,$0E
@@ -2248,29 +2239,16 @@ C34E73_C34D39EventScriptEnd:
     db $2C,$00,$16,$00,$1C,$00,$1D,$04,$00,$1A,$31,$52,$1D,$28,$00,$1A
     db $31,$52,$39,$42,$46,$6E,$C4,$00
 
-
-; ---------------------------------------------------------------------------
-; C3:4E73..C3:5F8B
-; class: event-script-asset
-; source: data/events/C34E73.asm
-
-C35F8B_C34E73EventScriptEnd:
-    ; data bytes: C3:5F8B..C3:5FB6
-    db $21,$03,$20,$04,$0B,$98,$5F,$3B,$01,$42,$B2,$A4,$C0,$21,$03,$42
-    db $E7,$EC,$C4,$0A,$B3,$5F,$20,$04,$0B,$AC,$5F,$3B,$00,$42,$A8,$A4
-    db $C0,$42,$E7,$EC,$C4,$0B,$8B,$5F,$19,$04,$A2
-
-
 ; ---------------------------------------------------------------------------
 ; C3:5F8B..C3:5FB6
 ; class: event-script-asset
 ; source: data/events/C35F8B.asm
 
 C35FB6_C35F8BEventScriptEnd:
-    ; data bytes: C3:5FB6..C3:5FCD
-    db $21,$00,$23,$55,$A0,$0E,$03,$10,$00,$25,$C8,$9F,$3B,$00,$07,$8B
-    db $5F,$39,$0E,$04,$00,$00,$1B
-
+    ; data bytes: C3:5F8B..C3:5FB6
+    db $21,$03,$20,$04,$0B,$98,$5F,$3B,$01,$42,$B2,$A4,$C0,$21,$03,$42
+    db $E7,$EC,$C4,$0A,$B3,$5F,$20,$04,$0B,$AC,$5F,$3B,$00,$42,$A8,$A4
+    db $C0,$42,$E7,$EC,$C4,$0B,$8B,$5F,$19,$04,$A2
 
 ; ---------------------------------------------------------------------------
 ; C3:5FB6..C3:5FCD
@@ -2278,6 +2256,16 @@ C35FB6_C35F8BEventScriptEnd:
 ; source: data/events/C35FB6.asm
 
 C35FCD_C35FB6EventScriptEnd:
+    ; data bytes: C3:5FB6..C3:5FCD
+    db $21,$00,$23,$55,$A0,$0E,$03,$10,$00,$25,$C8,$9F,$3B,$00,$07,$8B
+    db $5F,$39,$0E,$04,$00,$00,$1B
+
+; ---------------------------------------------------------------------------
+; C3:5FCD..C3:62C0
+; class: event-script-asset
+; source: data/events/C35FCD.asm
+
+C362C0_C35FCDEventScriptEnd:
     ; data bytes: C3:5FCD..C3:62C0
     db $0E,$03,$10,$00,$23,$A0,$A0,$25,$F1,$9F,$3B,$00,$07,$8B,$5F,$39
     db $0E,$04,$00,$00,$1B,$1A,$B6,$5F,$1D,$04,$00,$42,$5F,$A6,$C0,$42
@@ -2328,13 +2316,12 @@ C35FCD_C35FB6EventScriptEnd:
     db $06,$8C,$06,$8C,$06,$14,$06,$40,$42,$8B,$A9,$C0,$F0,$00,$3B,$03
     db $19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:5FCD..C3:62C0
+; C3:62C0..C3:6834
 ; class: event-script-asset
-; source: data/events/C35FCD.asm
+; source: data/events/C362C0.asm
 
-C362C0_C35FCDEventScriptEnd:
+C36834_C362C0EventScriptEnd:
     ; data bytes: C3:62C0..C3:6834
     db $42,$6E,$AA,$C0,$04,$00,$06,$05,$42,$6E,$AA,$C0,$06,$00,$06,$05
     db $42,$6E,$AA,$C0,$00,$00,$06,$05,$42,$6E,$AA,$C0,$02,$00,$06,$05
@@ -2425,13 +2412,12 @@ C362C0_C35FCDEventScriptEnd:
     db $02,$00,$1A,$1E,$AA,$06,$48,$39,$1D,$04,$00,$42,$5F,$A6,$C0,$42
     db $BF,$A4,$C0,$09
 
-
 ; ---------------------------------------------------------------------------
-; C3:62C0..C3:6834
+; C3:6834..C3:6A3E
 ; class: event-script-asset
-; source: data/events/C362C0.asm
+; source: data/events/C36834.asm
 
-C36834_C362C0EventScriptEnd:
+C36A3E_C36834EventScriptEnd:
     ; data bytes: C3:6834..C3:6A3E
     db $42,$8B,$A9,$C0,$27,$00,$22,$03,$19,$04,$A2,$1A,$B6,$5F,$1D,$04
     db $00,$42,$5F,$A6,$C0,$42,$BF,$A4,$C0,$06,$50,$19,$34,$68,$1A,$B6
@@ -2467,23 +2453,21 @@ C36834_C362C0EventScriptEnd:
     db $00,$5A,$03,$19,$04,$A2,$39,$42,$6C,$A0,$C0,$23,$BB,$A0,$25,$F0
     db $9F,$42,$6E,$AA,$C0,$04,$00,$06,$F0,$09
 
-
-; ---------------------------------------------------------------------------
-; C3:6834..C3:6A3E
-; class: event-script-asset
-; source: data/events/C36834.asm
-
-C36A3E_C36834EventScriptEnd:
-    ; data bytes: C3:6A3E..C3:6A41
-    db $19,$04,$A2
-
-
 ; ---------------------------------------------------------------------------
 ; C3:6A3E..C3:6A41
 ; class: event-script-asset
 ; source: data/events/C36A3E.asm
 
 C36A41_C36A3EEventScriptEnd:
+    ; data bytes: C3:6A3E..C3:6A41
+    db $19,$04,$A2
+
+; ---------------------------------------------------------------------------
+; C3:6A41..C3:6BB4
+; class: event-script-asset
+; source: data/events/C36A41.asm
+
+C36BB4_C36A41EventScriptEnd:
     ; data bytes: C3:6A41..C3:6BB4
     db $25,$84,$A3,$07,$F3,$A1,$07,$62,$A2,$3B,$00,$39,$42,$79,$A6,$C0
     db $03,$1B,$42,$4C,$A8,$C0,$78,$02,$0B,$04,$A2,$1A,$41,$6A,$42,$85
@@ -2510,26 +2494,24 @@ C36A41_C36A3EEventScriptEnd:
     db $18,$22,$1A,$59,$AB,$0E,$06,$E8,$04,$0E,$07,$18,$22,$1A,$59,$AB
     db $19,$04,$A2
 
-
-; ---------------------------------------------------------------------------
-; C3:6A41..C3:6BB4
-; class: event-script-asset
-; source: data/events/C36A41.asm
-
-C36BB4_C36A41EventScriptEnd:
-    ; data bytes: C3:6BB4..C3:6BEA
-    db $20,$03,$0B,$C1,$6B,$2C,$FF,$FF,$06,$02,$2C,$01,$00,$06,$02,$19
-    db $B4,$6B,$1A,$38,$AA,$3B,$FF,$0E,$04,$01,$00,$42,$45,$6C,$C4,$0E
-    db $02,$0C,$00,$0E,$03,$20,$00,$1A,$8A,$AB,$1A,$01,$9E,$42,$8D,$A8
-    db $C0,$C8,$00,$39,$87,$09
-
-
 ; ---------------------------------------------------------------------------
 ; C3:6BB4..C3:6BEA
 ; class: event-script-asset
 ; source: data/events/C36BB4.asm
 
 C36BEA_C36BB4EventScriptEnd:
+    ; data bytes: C3:6BB4..C3:6BEA
+    db $20,$03,$0B,$C1,$6B,$2C,$FF,$FF,$06,$02,$2C,$01,$00,$06,$02,$19
+    db $B4,$6B,$1A,$38,$AA,$3B,$FF,$0E,$04,$01,$00,$42,$45,$6C,$C4,$0E
+    db $02,$0C,$00,$0E,$03,$20,$00,$1A,$8A,$AB,$1A,$01,$9E,$42,$8D,$A8
+    db $C0,$C8,$00,$39,$87,$09
+
+; ---------------------------------------------------------------------------
+; C3:6BEA..C3:6D18
+; class: event-script-asset
+; source: data/events/C36BEA.asm
+
+C36D18_C36BEAEventScriptEnd:
     ; data bytes: C3:6BEA..C3:6D18
     db $00,$1A,$38,$AA,$3B,$FF,$0E,$04,$01,$00,$06,$1E,$42,$B6,$C6,$C0
     db $0B,$F4,$6B,$19,$04,$A2,$28,$10,$15,$29,$88,$25,$1A,$AA,$AA,$0E
@@ -2551,13 +2533,12 @@ C36BEA_C36BB4EventScriptEnd:
     db $00,$06,$04,$2D,$FE,$FF,$06,$04,$02,$42,$46,$6E,$C4,$06,$03,$41
     db $00,$06,$06,$10,$42,$46,$6E,$C4,$39,$42,$F1,$20,$C0,$00
 
-
 ; ---------------------------------------------------------------------------
-; C3:6BEA..C3:6D18
+; C3:6D18..C3:6E41
 ; class: event-script-asset
-; source: data/events/C36BEA.asm
+; source: data/events/C36D18.asm
 
-C36D18_C36BEAEventScriptEnd:
+C36E41_C36D18EventScriptEnd:
     ; data bytes: C3:6D18..C3:6E41
     db $06,$04,$42,$5C,$D1,$C0,$0A,$18,$6D,$1A,$01,$9E,$42,$1A,$68,$C4
     db $0C,$1A,$2B,$AA,$07,$18,$6D,$42,$BF,$A4,$C0,$42,$85,$A6,$C0,$00
@@ -2579,13 +2560,12 @@ C36D18_C36BEAEventScriptEnd:
     db $41,$6E,$19,$B8,$A2,$25,$F0,$9F,$3B,$00,$39,$42,$DB,$C7,$C0,$42
     db $BF,$A4,$C0,$07,$41,$6E,$19,$8F,$A1
 
-
 ; ---------------------------------------------------------------------------
-; C3:6D18..C3:6E41
+; C3:6E41..C3:7439
 ; class: event-script-asset
-; source: data/events/C36D18.asm
+; source: data/events/C36E41.asm
 
-C36E41_C36D18EventScriptEnd:
+C37439_C36E41EventScriptEnd:
     ; data bytes: C3:6E41..C3:7439
     db $42,$23,$00,$C4,$42,$14,$69,$C4,$42,$57,$69,$C4,$06,$50,$19,$45
     db $6E,$42,$4C,$A8,$C0,$78,$02,$0A,$E4,$A2,$19,$04,$A2,$42,$4C,$A8
@@ -2684,13 +2664,12 @@ C36E41_C36D18EventScriptEnd:
     db $1A,$59,$AB,$06,$78,$0E,$06,$D9,$0B,$1A,$59,$AB,$3B,$FF,$06,$F0
     db $28,$89,$0C,$3B,$00,$19,$14,$74
 
-
 ; ---------------------------------------------------------------------------
-; C3:6E41..C3:7439
+; C3:7439..C3:7545
 ; class: event-script-asset
-; source: data/events/C36E41.asm
+; source: data/events/C37439.asm
 
-C37439_C36E41EventScriptEnd:
+C37545_C37439EventScriptEnd:
     ; data bytes: C3:7439..C3:7545
     db $25,$7A,$A3,$3B,$00,$39,$42,$DB,$C7,$C0,$42,$A8,$A4,$C0,$42,$85
     db $A6,$C0,$60,$00,$0E,$05,$01,$00,$0E,$07,$16,$16,$1B,$42,$64,$A8
@@ -2710,24 +2689,22 @@ C37439_C36E41EventScriptEnd:
     db $00,$06,$0E,$05,$06,$00,$13,$07,$FE,$A0,$0E,$06,$88,$09,$0E,$07
     db $F8,$0E,$1A,$59,$AB,$42,$46,$6E,$C4,$19,$04,$A2
 
-
-; ---------------------------------------------------------------------------
-; C3:7439..C3:7545
-; class: event-script-asset
-; source: data/events/C37439.asm
-
-C37545_C37439EventScriptEnd:
-    ; data bytes: C3:7545..C3:7559
-    db $01,$02,$42,$6E,$AA,$C0,$02,$00,$06,$10,$42,$6E,$AA,$C0,$06,$00
-    db $06,$10,$02,$1B
-
-
 ; ---------------------------------------------------------------------------
 ; C3:7545..C3:7559
 ; class: event-script-asset
 ; source: data/events/C37545.asm
 
 C37559_C37545EventScriptEnd:
+    ; data bytes: C3:7545..C3:7559
+    db $01,$02,$42,$6E,$AA,$C0,$02,$00,$06,$10,$42,$6E,$AA,$C0,$06,$00
+    db $06,$10,$02,$1B
+
+; ---------------------------------------------------------------------------
+; C3:7559..C3:7A7C
+; class: event-script-asset
+; source: data/events/C37559.asm
+
+C37A7C_C37559EventScriptEnd:
     ; data bytes: C3:7559..C3:7A7C
     db $01,$02,$42,$6E,$AA,$C0,$06,$00,$06,$10,$42,$6E,$AA,$C0,$02,$00
     db $06,$10,$02,$1B,$28,$70,$0A,$29,$40,$0E,$1A,$82,$AA,$0E,$05,$02
@@ -2813,13 +2790,12 @@ C37559_C37545EventScriptEnd:
     db $C0,$FF,$2B,$30,$00,$2C,$20,$00,$1A,$B8,$AA,$1D,$06,$00,$42,$5F
     db $A6,$C0,$09
 
-
 ; ---------------------------------------------------------------------------
-; C3:7559..C3:7A7C
+; C3:7A7C..C3:835D
 ; class: event-script-asset
-; source: data/events/C37559.asm
+; source: data/events/C37A7C.asm
 
-C37A7C_C37559EventScriptEnd:
+C3835D_C37A7CEventScriptEnd:
     ; data bytes: C3:7A7C..C3:835D
     db $25,$7A,$A3,$3B,$00,$07,$5E,$A1,$0E,$04,$01,$00,$39,$1B,$42,$64
     db $A8,$C0,$FF,$2B,$80,$00,$1A,$AA,$AA,$0E,$04,$04,$00,$42,$85,$A6
@@ -2965,13 +2941,12 @@ C37A7C_C37559EventScriptEnd:
     db $67,$AB,$20,$01,$42,$5F,$A6,$C0,$42,$BF,$A4,$C0,$42,$46,$6E,$C4
     db $09
 
-
 ; ---------------------------------------------------------------------------
-; C3:7A7C..C3:835D
+; C3:835D..C3:83BC
 ; class: event-script-asset
-; source: data/events/C37A7C.asm
+; source: data/events/C3835D.asm
 
-C3835D_C37A7CEventScriptEnd:
+C383BC_C3835DEventScriptEnd:
     ; data bytes: C3:835D..C3:83BC
     db $10,$08,$70,$83,$70,$83,$83,$83,$83,$83,$96,$83,$96,$83,$A9,$83
     db $A9,$83,$1B,$1D,$00,$00,$42,$57,$A8,$C0,$0A,$02,$1D,$00,$00,$42
@@ -2980,13 +2955,12 @@ C3835D_C37A7CEventScriptEnd:
     db $0A,$02,$1D,$00,$00,$42,$57,$A8,$C0,$0B,$02,$1B,$1D,$01,$00,$42
     db $57,$A8,$C0,$0A,$02,$1D,$01,$00,$42,$57,$A8,$C0,$0B,$02,$1B
 
-
 ; ---------------------------------------------------------------------------
-; C3:835D..C3:83BC
+; C3:83BC..C3:8978
 ; class: event-script-asset
-; source: data/events/C3835D.asm
+; source: data/events/C383BC.asm
 
-C383BC_C3835DEventScriptEnd:
+C38978_C383BCEventScriptEnd:
     ; data bytes: C3:83BC..C3:8978
     db $42,$82,$9F,$C0,$08,$0A,$00,$0B,$00,$0C,$00,$0D,$00,$0E,$00,$0F
     db $00,$10,$00,$11,$00,$1B,$25,$F0,$9F,$3B,$00,$39,$42,$DB,$C7,$C0
@@ -3081,25 +3055,23 @@ C383BC_C3835DEventScriptEnd:
     db $06,$01,$42,$4C,$A8,$C0,$0A,$02,$0A,$50,$89,$42,$6F,$A8,$C0,$6A
     db $00,$2C,$F0,$FF,$2B,$F0,$FF,$06,$01,$19,$67,$89
 
-
-; ---------------------------------------------------------------------------
-; C3:83BC..C3:8978
-; class: event-script-asset
-; source: data/events/C383BC.asm
-
-C38978_C383BCEventScriptEnd:
-    ; data bytes: C3:8978..C3:899E
-    db $20,$04,$0B,$92,$89,$42,$4C,$A8,$C0,$0A,$02,$0B,$8C,$89,$1D,$06
-    db $00,$19,$95,$89,$1D,$02,$00,$19,$95,$89,$1D,$04,$00,$42,$5F,$A6
-    db $C0,$06,$01,$19,$78,$89
-
-
 ; ---------------------------------------------------------------------------
 ; C3:8978..C3:899E
 ; class: event-script-asset
 ; source: data/events/C38978.asm
 
 C3899E_C38978EventScriptEnd:
+    ; data bytes: C3:8978..C3:899E
+    db $20,$04,$0B,$92,$89,$42,$4C,$A8,$C0,$0A,$02,$0B,$8C,$89,$1D,$06
+    db $00,$19,$95,$89,$1D,$02,$00,$19,$95,$89,$1D,$04,$00,$42,$5F,$A6
+    db $C0,$06,$01,$19,$78,$89
+
+; ---------------------------------------------------------------------------
+; C3:899E..C3:9AC7
+; class: event-script-asset
+; source: data/events/C3899E.asm
+
+C39AC7_C3899EEventScriptEnd:
     ; data bytes: C3:899E..C3:9AC7
     db $3B,$00,$42,$A8,$A4,$C0,$06,$01,$42,$A8,$A4,$C0,$06,$01,$3B,$01
     db $42,$B2,$A4,$C0,$06,$01,$42,$B2,$A4,$C0,$06,$01,$19,$9E,$89,$42
@@ -3377,13 +3349,12 @@ C3899E_C38978EventScriptEnd:
     db $9A,$1A,$01,$9E,$42,$8D,$A8,$C0,$C6,$00,$3B,$89,$09,$06,$1E,$42
     db $B6,$C6,$C0,$0B,$BB,$9A,$19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:899E..C3:9AC7
+; C3:9AC7..C3:9E01
 ; class: event-script-asset
-; source: data/events/C3899E.asm
+; source: data/events/C39AC7.asm
 
-C39AC7_C3899EEventScriptEnd:
+C39E01_C39AC7EventScriptEnd:
     ; data bytes: C3:9AC7..C3:9E01
     db $25,$F0,$9F,$3B,$00,$39,$07,$BB,$9A,$42,$DB,$C7,$C0,$42,$BF,$A4
     db $C0,$1B,$42,$64,$A8,$C0,$FF,$25,$F0,$9F,$3B,$FF,$42,$BB,$9F,$C0
@@ -3438,13 +3409,12 @@ C39AC7_C3899EEventScriptEnd:
     db $0A,$1A,$59,$AB,$42,$46,$6E,$C4,$06,$01,$0E,$06,$27,$09,$0E,$07
     db $72,$0A,$1A,$59,$AB,$42,$46,$6E,$C4,$09
 
-
 ; ---------------------------------------------------------------------------
-; C3:9AC7..C3:9E01
+; C3:9E01..C3:9FF2
 ; class: event-script-asset
-; source: data/events/C39AC7.asm
+; source: data/events/C39E01.asm
 
-C39E01_C39AC7EventScriptEnd:
+C39FF2_C39E01EventScriptEnd:
     ; data bytes: C3:9E01..C3:9FF2
     db $1E,$60,$5D,$0B,$0E,$9E,$1E,$BA,$4D,$0B,$0E,$9E,$1B,$06,$01,$19
     db $01,$9E,$42,$64,$A8,$C0,$FF,$1D,$04,$00,$42,$5F,$A6,$C0,$19,$AA
@@ -3479,18 +3449,6 @@ C39E01_C39AC7EventScriptEnd:
     db $E0,$FF,$06,$80,$06,$80,$39,$06,$14,$3F,$20,$00,$06,$80,$19,$DB
     db $9F
 
-
-; ---------------------------------------------------------------------------
-; C3:9E01..C3:9FF2
-; class: event-script-asset
-; source: data/events/C39E01.asm
-
-C39FF2_C39E01EventScriptEnd:
-    ; data bytes: C3:9FF2..C3:A010
-    db $10,$A0,$10,$A0,$10,$A0,$1B,$A0,$26,$A0,$26,$A0,$26,$A0,$2D,$A0
-    db $2D,$A0,$26,$A0,$10,$A0,$26,$A0,$26,$A0,$10,$A0,$38,$A0
-
-
 ; ---------------------------------------------------------------------------
 ; C3:9FF2..C3:A010
 ; class: movement-pattern-data
@@ -3498,9 +3456,9 @@ C39FF2_C39E01EventScriptEnd:
 ; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:90
 
 C3A010_IntroMovementPatternPointerTableEnd:
-    ; data bytes: C3:A010..C3:A01B
-    db $02,$00,$01,$09,$02,$01,$01,$09,$03,$10,$A0
-
+    ; data bytes: C3:9FF2..C3:A010
+    db $10,$A0,$10,$A0,$10,$A0,$1B,$A0,$26,$A0,$26,$A0,$26,$A0,$2D,$A0
+    db $2D,$A0,$26,$A0,$10,$A0,$26,$A0,$26,$A0,$10,$A0,$38,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A010..C3:A01B
@@ -3509,9 +3467,8 @@ C3A010_IntroMovementPatternPointerTableEnd:
 ; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:91
 
 C3A01B_IntroMovementPattern09LoopEnd:
-    ; data bytes: C3:A01B..C3:A026
-    db $02,$00,$01,$08,$02,$01,$01,$08,$03,$1B,$A0
-
+    ; data bytes: C3:A010..C3:A01B
+    db $02,$00,$01,$09,$02,$01,$01,$09,$03,$10,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A01B..C3:A026
@@ -3520,9 +3477,8 @@ C3A01B_IntroMovementPattern09LoopEnd:
 ; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:92
 
 C3A026_IntroMovementPattern08LoopEnd:
-    ; data bytes: C3:A026..C3:A02D
-    db $02,$00,$01,$FF,$03,$26,$A0
-
+    ; data bytes: C3:A01B..C3:A026
+    db $02,$00,$01,$08,$02,$01,$01,$08,$03,$1B,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A026..C3:A02D
@@ -3531,9 +3487,8 @@ C3A026_IntroMovementPattern08LoopEnd:
 ; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:93
 
 C3A02D_IntroMovementPatternFFLoopEnd:
-    ; data bytes: C3:A02D..C3:A038
-    db $02,$00,$01,$08,$02,$01,$01,$08,$03,$2D,$A0
-
+    ; data bytes: C3:A026..C3:A02D
+    db $02,$00,$01,$FF,$03,$26,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A02D..C3:A038
@@ -3542,9 +3497,8 @@ C3A02D_IntroMovementPatternFFLoopEnd:
 ; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:94
 
 C3A038_IntroMovementPattern08LoopAltEnd:
-    ; data bytes: C3:A038..C3:A043
-    db $02,$00,$01,$04,$02,$01,$01,$04,$03,$38,$A0
-
+    ; data bytes: C3:A02D..C3:A038
+    db $02,$00,$01,$08,$02,$01,$01,$08,$03,$2D,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A038..C3:A043
@@ -3553,66 +3507,59 @@ C3A038_IntroMovementPattern08LoopAltEnd:
 ; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:95
 
 C3A043_IntroMovementPattern04LoopEnd:
-    ; data bytes: C3:A043..C3:A04E
-    db $42,$D3,$FF,$C1,$0A,$4E,$A0,$42,$00,$01,$C3
-
+    ; data bytes: C3:A038..C3:A043
+    db $02,$00,$01,$04,$02,$01,$01,$04,$03,$38,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A043..C3:A04E
-; class: movement-pattern-data
-; source: data/unknown/C3A038.asm
-; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:95
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:96
 
-C3A04E_IntroMovementPattern04LoopPartA043End:
-    ; data bytes: C3:A04E..C3:A052
-    db $08,$00,$52,$C0
-
+C3A04E_IntroCutsceneCameraPanGateEnd:
+    ; data bytes: C3:A043..C3:A04E
+    db $42,$D3,$FF,$C1,$0A,$4E,$A0,$42,$00,$01,$C3
 
 ; ---------------------------------------------------------------------------
 ; C3:A04E..C3:A052
-; class: movement-pattern-data
-; source: data/unknown/C3A038.asm
-; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:95
+; class: event-bytecode-label
+; source: script-payload
+; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:97
 
-C3A052_IntroMovementPattern04LoopPartA04EEnd:
-    ; data bytes: C3:A052..C3:A05E
-    db $01,$06,$06,$C8,$02,$42,$00,$00,$C2,$19,$52,$A0
-
+C3A052_StartIntroCameraPanTickLoopEnd:
+    ; data bytes: C3:A04E..C3:A052
+    db $08,$00,$52,$C0
 
 ; ---------------------------------------------------------------------------
 ; C3:A052..C3:A05E
-; class: movement-pattern-data
-; source: data/unknown/C3A038.asm
-; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:95
+; class: event-bytecode-label
+; source: script-payload
+; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:98
 
-C3A05E_IntroMovementPattern04LoopPartA052End:
+C3A05E_LoopIntroCameraPanWaitAndC2StepEnd:
+    ; data bytes: C3:A052..C3:A05E
+    db $01,$06,$06,$C8,$02,$42,$00,$00,$C2,$19,$52,$A0
+
+; ---------------------------------------------------------------------------
+; C3:A05E..C3:A076
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:99
+
+C3A076_IntroCutsceneSpriteObjectSetupEnd:
     ; data bytes: C3:A05E..C3:A076
     db $23,$39,$A0,$25,$6B,$A2,$3B,$00,$42,$AA,$3D,$C0,$42,$F0,$4E,$C0
     db $42,$DA,$A6,$C0,$08,$78,$4D,$C0
 
-
-; ---------------------------------------------------------------------------
-; C3:A05E..C3:A076
-; class: movement-pattern-data
-; source: data/unknown/C3A038.asm
-; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:95
-
-C3A076_IntroMovementPattern04LoopPartA05EEnd:
-    ; data bytes: C3:A076..C3:A07F
-    db $42,$E3,$A6,$C0,$06,$01,$19,$76,$A0
-
-
 ; ---------------------------------------------------------------------------
 ; C3:A076..C3:A07F
-; class: movement-pattern-data
-; source: data/unknown/C3A038.asm
-; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:95
+; class: event-bytecode-label
+; source: script-payload
+; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:100
 
-C3A07F_IntroMovementPattern04LoopPartA076End:
-    ; data bytes: C3:A07F..C3:A09F
-    db $09,$23,$39,$A0,$25,$6B,$A2,$3B,$00,$42,$7D,$02,$EF,$08,$1E,$03
-    db $EF,$42,$E3,$A6,$C0,$06,$01,$19,$90,$A0,$15,$AD,$00,$01,$00,$09
-
+C3A07F_LoopIntroCompanionVisualRefreshEnd:
+    ; data bytes: C3:A076..C3:A07F
+    db $42,$E3,$A6,$C0,$06,$01,$19,$76,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A07F..C3:A09F
@@ -3621,107 +3568,98 @@ C3A07F_IntroMovementPattern04LoopPartA076End:
 ; evidence: notes/c3-intro-script-frontier-9ff2-a07f.md:101
 
 C3A09F_HaltEventScriptEnd:
-    ; data bytes: C3:A09F..C3:A0B2
-    db $06,$08,$3B,$01,$42,$B2,$A4,$C0,$06,$08,$3B,$00,$42,$A8,$A4,$C0
-    db $19,$9F,$A0
-
+    ; data bytes: C3:A07F..C3:A09F
+    db $09,$23,$39,$A0,$25,$6B,$A2,$3B,$00,$42,$7D,$02,$EF,$08,$1E,$03
+    db $EF,$42,$E3,$A6,$C0,$06,$01,$19,$90,$A0,$15,$AD,$00,$01,$00,$09
 
 ; ---------------------------------------------------------------------------
 ; C3:A09F..C3:A0B2
 ; class: event-bytecode-label
 ; source: data/events/C3A09F.asm
-; evidence: notes/c3-event-222-224-movement-helper-cluster.md:143
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:164
 
 C3A0B2_LoopActiveEntityWalkAnimationPulseEnd:
-    ; data bytes: C3:A0B2..C3:A0C5
-    db $06,$18,$3B,$01,$42,$B2,$A4,$C0,$06,$18,$3B,$00,$42,$A8,$A4,$C0
-    db $19,$B2,$A0
-
+    ; data bytes: C3:A09F..C3:A0B2
+    db $06,$08,$3B,$01,$42,$B2,$A4,$C0,$06,$08,$3B,$00,$42,$A8,$A4,$C0
+    db $19,$9F,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A0B2..C3:A0C5
 ; class: event-bytecode-label
 ; source: data/events/C3A0B2.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:84
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:94
 
 C3A0C5_LoopActiveEntityWalkPulse24FrameEnd:
-    ; data bytes: C3:A0C5..C3:A0D8
-    db $06,$0C,$3B,$01,$42,$B2,$A4,$C0,$06,$0C,$3B,$00,$42,$A8,$A4,$C0
-    db $19,$C5,$A0
-
+    ; data bytes: C3:A0B2..C3:A0C5
+    db $06,$18,$3B,$01,$42,$B2,$A4,$C0,$06,$18,$3B,$00,$42,$A8,$A4,$C0
+    db $19,$B2,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A0C5..C3:A0D8
 ; class: event-bytecode-label
 ; source: data/events/C3A0C5.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:85
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:95
 
 C3A0D8_LoopActiveEntityWalkPulse12FrameEnd:
-    ; data bytes: C3:A0D8..C3:A0EB
-    db $06,$09,$3B,$01,$42,$B2,$A4,$C0,$06,$09,$3B,$00,$42,$A8,$A4,$C0
-    db $0B,$D8,$A0
-
+    ; data bytes: C3:A0C5..C3:A0D8
+    db $06,$0C,$3B,$01,$42,$B2,$A4,$C0,$06,$0C,$3B,$00,$42,$A8,$A4,$C0
+    db $19,$C5,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A0D8..C3:A0EB
 ; class: event-bytecode-label
 ; source: data/events/C3A0D8.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:86
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:96
 
 C3A0EB_LoopActiveEntityWalkPulse9FrameConditionalEnd:
-    ; data bytes: C3:A0EB..C3:A0FE
-    db $06,$06,$3B,$01,$42,$B2,$A4,$C0,$06,$06,$3B,$00,$42,$A8,$A4,$C0
-    db $0B,$EB,$A0
-
+    ; data bytes: C3:A0D8..C3:A0EB
+    db $06,$09,$3B,$01,$42,$B2,$A4,$C0,$06,$09,$3B,$00,$42,$A8,$A4,$C0
+    db $0B,$D8,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A0EB..C3:A0FE
 ; class: event-bytecode-label
-; source: data/events/C3A0D8.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:86
+; source: script-payload
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:97
 
-C3A0FE_LoopActiveEntityWalkPulse9FrameConditionalPartA0EBEnd:
-    ; data bytes: C3:A0FE..C3:A111
-    db $06,$02,$3B,$01,$42,$B2,$A4,$C0,$06,$02,$3B,$00,$42,$A8,$A4,$C0
-    db $0B,$FE,$A0
-
+C3A0FE_LoopActiveEntityWalkPulse6FrameConditionalEnd:
+    ; data bytes: C3:A0EB..C3:A0FE
+    db $06,$06,$3B,$01,$42,$B2,$A4,$C0,$06,$06,$3B,$00,$42,$A8,$A4,$C0
+    db $0B,$EB,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A0FE..C3:A111
 ; class: event-bytecode-label
-; source: data/events/C3A0D8.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:86
+; source: script-payload
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:98
 
-C3A111_LoopActiveEntityWalkPulse9FrameConditionalPartA0FEEnd:
-    ; data bytes: C3:A111..C3:A12E
-    db $06,$08,$20,$04,$0B,$1E,$A1,$3B,$01,$42,$B2,$A4,$C0,$06,$08,$20
-    db $04,$0B,$11,$A1,$3B,$00,$42,$A8,$A4,$C0,$19,$11,$A1
-
+C3A111_LoopActiveEntityWalkPulse2FrameConditionalEnd:
+    ; data bytes: C3:A0FE..C3:A111
+    db $06,$02,$3B,$01,$42,$B2,$A4,$C0,$06,$02,$3B,$00,$42,$A8,$A4,$C0
+    db $0B,$FE,$A0
 
 ; ---------------------------------------------------------------------------
 ; C3:A111..C3:A12E
 ; class: event-bytecode-label
-; source: data/events/C3A0D8.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:86
+; source: script-payload
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:99
 
-C3A12E_LoopActiveEntityWalkPulse9FrameConditionalPartA111End:
-    ; data bytes: C3:A12E..C3:A15E
-    db $20,$04,$0A,$59,$A1,$24,$06,$01,$20,$04,$16,$59,$A1,$02,$3B,$01
-    db $42,$B2,$A4,$C0,$20,$04,$0A,$59,$A1,$24,$06,$01,$20,$04,$16,$59
-    db $A1,$02,$3B,$00,$42,$A8,$A4,$C0,$19,$2E,$A1,$06,$01,$19,$2E,$A1
-
+C3A12E_LoopActiveEntityWalkPulseVar4GateEnd:
+    ; data bytes: C3:A111..C3:A12E
+    db $06,$08,$20,$04,$0B,$1E,$A1,$3B,$01,$42,$B2,$A4,$C0,$06,$08,$20
+    db $04,$0B,$11,$A1,$3B,$00,$42,$A8,$A4,$C0,$19,$11,$A1
 
 ; ---------------------------------------------------------------------------
 ; C3:A12E..C3:A15E
 ; class: event-bytecode-label
 ; source: data/events/C3A12E.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:90
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:100
 
 C3A15E_LoopActiveEntityWalkPulseVar4CountdownEnd:
-    ; data bytes: C3:A15E..C3:A17B
-    db $42,$23,$00,$C4,$06,$08,$20,$04,$0B,$6F,$A1,$3B,$01,$42,$B2,$A4
-    db $C0,$06,$08,$42,$15,$00,$C4,$0B,$62,$A1,$19,$04,$A2
-
+    ; data bytes: C3:A12E..C3:A15E
+    db $20,$04,$0A,$59,$A1,$24,$06,$01,$20,$04,$16,$59,$A1,$02,$3B,$01
+    db $42,$B2,$A4,$C0,$20,$04,$0A,$59,$A1,$24,$06,$01,$20,$04,$16,$59
+    db $A1,$02,$3B,$00,$42,$A8,$A4,$C0,$19,$2E,$A1,$06,$01,$19,$2E,$A1
 
 ; ---------------------------------------------------------------------------
 ; C3:A15E..C3:A17B
@@ -3730,10 +3668,9 @@ C3A15E_LoopActiveEntityWalkPulseVar4CountdownEnd:
 ; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:105
 
 C3A17B_LoopC40015Var4GatedPulseUntilReleaseEnd:
-    ; data bytes: C3:A17B..C3:A18F
-    db $06,$18,$3B,$01,$42,$B2,$A4,$C0,$06,$30,$42,$15,$00,$C4,$0B,$7B
-    db $A1,$19,$04,$A2
-
+    ; data bytes: C3:A15E..C3:A17B
+    db $42,$23,$00,$C4,$06,$08,$20,$04,$0B,$6F,$A1,$3B,$01,$42,$B2,$A4
+    db $C0,$06,$08,$42,$15,$00,$C4,$0B,$62,$A1,$19,$04,$A2
 
 ; ---------------------------------------------------------------------------
 ; C3:A17B..C3:A18F
@@ -3742,10 +3679,9 @@ C3A17B_LoopC40015Var4GatedPulseUntilReleaseEnd:
 ; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:106
 
 C3A18F_LoopC40015SlowPulseUntilReleaseEnd:
-    ; data bytes: C3:A18F..C3:A1A3
-    db $06,$18,$3B,$01,$42,$B2,$A4,$C0,$06,$18,$42,$15,$00,$C4,$0B,$8F
+    ; data bytes: C3:A17B..C3:A18F
+    db $06,$18,$3B,$01,$42,$B2,$A4,$C0,$06,$30,$42,$15,$00,$C4,$0B,$7B
     db $A1,$19,$04,$A2
-
 
 ; ---------------------------------------------------------------------------
 ; C3:A18F..C3:A1A3
@@ -3754,10 +3690,9 @@ C3A18F_LoopC40015SlowPulseUntilReleaseEnd:
 ; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:107
 
 C3A1A3_LoopC40015FastPulseUntilReleaseEnd:
-    ; data bytes: C3:A1A3..C3:A1B7
-    db $06,$0C,$3B,$01,$42,$B2,$A4,$C0,$06,$0C,$42,$15,$00,$C4,$0B,$A3
+    ; data bytes: C3:A18F..C3:A1A3
+    db $06,$18,$3B,$01,$42,$B2,$A4,$C0,$06,$18,$42,$15,$00,$C4,$0B,$8F
     db $A1,$19,$04,$A2
-
 
 ; ---------------------------------------------------------------------------
 ; C3:A1A3..C3:A1B7
@@ -3765,10 +3700,9 @@ C3A1A3_LoopC40015FastPulseUntilReleaseEnd:
 ; source: data/events/C3A1A3.asm
 
 C3A1B7_C3A1A3EventScriptEnd:
-    ; data bytes: C3:A1B7..C3:A1CB
-    db $06,$09,$3B,$01,$42,$B2,$A4,$C0,$06,$09,$42,$15,$00,$C4,$0B,$B7
+    ; data bytes: C3:A1A3..C3:A1B7
+    db $06,$0C,$3B,$01,$42,$B2,$A4,$C0,$06,$0C,$42,$15,$00,$C4,$0B,$A3
     db $A1,$19,$04,$A2
-
 
 ; ---------------------------------------------------------------------------
 ; C3:A1B7..C3:A1CB
@@ -3776,10 +3710,9 @@ C3A1B7_C3A1A3EventScriptEnd:
 ; source: data/events/C3A1B7.asm
 
 C3A1CB_C3A1B7EventScriptEnd:
-    ; data bytes: C3:A1CB..C3:A1DF
-    db $06,$06,$3B,$01,$42,$B2,$A4,$C0,$06,$06,$42,$15,$00,$C4,$0B,$CB
+    ; data bytes: C3:A1B7..C3:A1CB
+    db $06,$09,$3B,$01,$42,$B2,$A4,$C0,$06,$09,$42,$15,$00,$C4,$0B,$B7
     db $A1,$19,$04,$A2
-
 
 ; ---------------------------------------------------------------------------
 ; C3:A1CB..C3:A1DF
@@ -3787,22 +3720,20 @@ C3A1CB_C3A1B7EventScriptEnd:
 ; source: data/events/C3A1CB.asm
 
 C3A1DF_C3A1CBEventScriptEnd:
-    ; data bytes: C3:A1DF..C3:A1F3
-    db $06,$02,$3B,$01,$42,$B2,$A4,$C0,$06,$02,$42,$15,$00,$C4,$0B,$FE
-    db $A0,$19,$04,$A2
-
+    ; data bytes: C3:A1CB..C3:A1DF
+    db $06,$06,$3B,$01,$42,$B2,$A4,$C0,$06,$06,$42,$15,$00,$C4,$0B,$CB
+    db $A1,$19,$04,$A2
 
 ; ---------------------------------------------------------------------------
 ; C3:A1DF..C3:A1F3
 ; class: event-bytecode-label
 ; source: data/events/C3A1DF.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:91
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:101
 
 C3A1F3_LoopActiveEntityWalkPulse2FrameC40015BranchEnd:
-    ; data bytes: C3:A1F3..C3:A204
-    db $06,$10,$3B,$01,$42,$B2,$A4,$C0,$06,$10,$42,$15,$00,$C4,$0B,$F3
-    db $A1
-
+    ; data bytes: C3:A1DF..C3:A1F3
+    db $06,$02,$3B,$01,$42,$B2,$A4,$C0,$06,$02,$42,$15,$00,$C4,$0B,$FE
+    db $A0,$19,$04,$A2
 
 ; ---------------------------------------------------------------------------
 ; C3:A1F3..C3:A204
@@ -3811,20 +3742,19 @@ C3A1F3_LoopActiveEntityWalkPulse2FrameC40015BranchEnd:
 ; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:108
 
 C3A204_LoopC40015Pulse16FrameUntilReleaseEnd:
-    ; data bytes: C3:A204..C3:A209
-    db $42,$F1,$20,$C0,$00
-
+    ; data bytes: C3:A1F3..C3:A204
+    db $06,$10,$3B,$01,$42,$B2,$A4,$C0,$06,$10,$42,$15,$00,$C4,$0B,$F3
+    db $A1
 
 ; ---------------------------------------------------------------------------
 ; C3:A204..C3:A209
-; class: event-bytecode-label
-; source: data/events/C3A1F3.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:108
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:109
 
-C3A209_LoopC40015Pulse16FrameUntilReleasePartA204End:
-    ; data bytes: C3:A209..C3:A20E
-    db $06,$04,$19,$04,$A2
-
+C3A209_ReleaseCurrentVisualEntityAndEndEnd:
+    ; data bytes: C3:A204..C3:A209
+    db $42,$F1,$20,$C0,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:A209..C3:A20E
@@ -3833,10 +3763,8 @@ C3A209_LoopC40015Pulse16FrameUntilReleasePartA204End:
 ; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:110
 
 C3A20E_DelayThenReleaseCurrentVisualEntityEnd:
-    ; data bytes: C3:A20E..C3:A22C
-    db $3B,$00,$42,$A8,$A4,$C0,$20,$00,$11,$05,$2C,$A2,$34,$A2,$3D,$A2
-    db $4E,$A2,$5F,$A2,$42,$B6,$C6,$C0,$0B,$14,$A2,$19,$7C,$A4
-
+    ; data bytes: C3:A209..C3:A20E
+    db $06,$04,$19,$04,$A2
 
 ; ---------------------------------------------------------------------------
 ; C3:A20E..C3:A22C
@@ -3845,77 +3773,71 @@ C3A20E_DelayThenReleaseCurrentVisualEntityEnd:
 ; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:111
 
 C3A22C_LoopVar0SelectedAnimationUntilOffscreenEnd:
-    ; data bytes: C3:A22C..C3:A234
-    db $06,$08,$3B,$01,$42,$B2,$A4,$C0
-
+    ; data bytes: C3:A20E..C3:A22C
+    db $3B,$00,$42,$A8,$A4,$C0,$20,$00,$11,$05,$2C,$A2,$34,$A2,$3D,$A2
+    db $4E,$A2,$5F,$A2,$42,$B6,$C6,$C0,$0B,$14,$A2,$19,$7C,$A4
 
 ; ---------------------------------------------------------------------------
 ; C3:A22C..C3:A234
-; class: event-bytecode-label
-; source: data/events/C3A20E.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:111
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:112
 
-C3A234_LoopVar0SelectedAnimationUntilOffscreenPartA22CEnd:
-    ; data bytes: C3:A234..C3:A23D
-    db $06,$08,$3B,$00,$42,$A8,$A4,$C0,$1B
-
+C3A234_Var0AnimationCase0Pulse8FrameOnEnd:
+    ; data bytes: C3:A22C..C3:A234
+    db $06,$08,$3B,$01,$42,$B2,$A4,$C0
 
 ; ---------------------------------------------------------------------------
 ; C3:A234..C3:A23D
-; class: event-bytecode-label
-; source: data/events/C3A20E.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:111
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:113
 
-C3A23D_LoopVar0SelectedAnimationUntilOffscreenPartA234End:
+C3A23D_Var0AnimationCase1Pulse8FrameOffEnd:
+    ; data bytes: C3:A234..C3:A23D
+    db $06,$08,$3B,$00,$42,$A8,$A4,$C0,$1B
+
+; ---------------------------------------------------------------------------
+; C3:A23D..C3:A24E
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:114
+
+C3A24E_Var0AnimationCase2Pulse4FrameEnd:
     ; data bytes: C3:A23D..C3:A24E
     db $06,$04,$3B,$01,$42,$B2,$A4,$C0,$06,$04,$3B,$00,$42,$A8,$A4,$C0
     db $1B
 
-
 ; ---------------------------------------------------------------------------
-; C3:A23D..C3:A24E
-; class: event-bytecode-label
-; source: data/events/C3A20E.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:111
+; C3:A24E..C3:A25F
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:115
 
-C3A24E_LoopVar0SelectedAnimationUntilOffscreenPartA23DEnd:
+C3A25F_Var0AnimationCase3Pulse32FrameEnd:
     ; data bytes: C3:A24E..C3:A25F
     db $06,$20,$3B,$01,$42,$B2,$A4,$C0,$06,$20,$3B,$00,$42,$A8,$A4,$C0
     db $1B
 
-
-; ---------------------------------------------------------------------------
-; C3:A24E..C3:A25F
-; class: event-bytecode-label
-; source: data/events/C3A20E.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:111
-
-C3A25F_LoopVar0SelectedAnimationUntilOffscreenPartA24EEnd:
-    ; data bytes: C3:A25F..C3:A262
-    db $06,$10,$1B
-
-
 ; ---------------------------------------------------------------------------
 ; C3:A25F..C3:A262
-; class: event-bytecode-label
-; source: data/events/C3A20E.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:111
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:116
 
-C3A262_LoopVar0SelectedAnimationUntilOffscreenPartA25FEnd:
-    ; data bytes: C3:A262..C3:A271
-    db $42,$DA,$A6,$C0,$42,$76,$5E,$C0,$F1,$A6,$64,$C0,$19,$66,$A2
-
+C3A262_Var0AnimationCase4Wait16FrameEnd:
+    ; data bytes: C3:A25F..C3:A262
+    db $06,$10,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:A262..C3:A271
 ; class: event-bytecode-label
 ; source: data/events/C3A262.asm
-; evidence: notes/c3-event-222-224-movement-helper-cluster.md:144
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:165
 
 C3A271_LoopActiveEntityCollisionProbeRefreshEnd:
-    ; data bytes: C3:A271..C3:A272
-    db $0C
-
+    ; data bytes: C3:A262..C3:A271
+    db $42,$DA,$A6,$C0,$42,$76,$5E,$C0,$F1,$A6,$64,$C0,$19,$66,$A2
 
 ; ---------------------------------------------------------------------------
 ; C3:A271..C3:A272
@@ -3923,12 +3845,8 @@ C3A271_LoopActiveEntityCollisionProbeRefreshEnd:
 ; source: data/events/C3A271.asm
 
 C3A272_C3A271EventScriptEnd:
-    ; data bytes: C3:A272..C3:A2AA
-    db $0C,$23,$BB,$A0,$3B,$00,$07,$9F,$A0,$1E,$F8,$2A,$42,$5F,$A6,$C0
-    db $06,$1E,$19,$7B,$A2,$25,$F0,$9F,$3B,$00,$39,$42,$79,$A6,$C0,$00
-    db $42,$BF,$A4,$C0,$19,$B8,$A2,$25,$F0,$9F,$3B,$00,$39,$42,$DB,$C7
-    db $C0,$42,$53,$C3,$C0,$19,$B8,$A2
-
+    ; data bytes: C3:A271..C3:A272
+    db $0C
 
 ; ---------------------------------------------------------------------------
 ; C3:A272..C3:A2AA
@@ -3936,6 +3854,19 @@ C3A272_C3A271EventScriptEnd:
 ; source: data/events/C3A272.asm
 
 C3A2AA_C3A272EventScriptEnd:
+    ; data bytes: C3:A272..C3:A2AA
+    db $0C,$23,$BB,$A0,$3B,$00,$07,$9F,$A0,$1E,$F8,$2A,$42,$5F,$A6,$C0
+    db $06,$1E,$19,$7B,$A2,$25,$F0,$9F,$3B,$00,$39,$42,$79,$A6,$C0,$00
+    db $42,$BF,$A4,$C0,$19,$B8,$A2,$25,$F0,$9F,$3B,$00,$39,$42,$DB,$C7
+    db $C0,$42,$53,$C3,$C0,$19,$B8,$A2
+
+; ---------------------------------------------------------------------------
+; C3:A2AA..C3:A381
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:130
+
+C3A381_TrafficLightWaitUntilOffscreenAndReleaseEnd:
     ; data bytes: C3:A2AA..C3:A381
     db $25,$F0,$9F,$3B,$00,$39,$42,$DB,$C7,$C0,$42,$BF,$A4,$C0,$06,$08
     db $42,$B6,$C6,$C0,$0B,$B8,$A2,$42,$F1,$20,$C0,$00,$25,$F0,$9F,$3B
@@ -3952,83 +3883,70 @@ C3A2AA_C3A272EventScriptEnd:
     db $A9,$C0,$18,$00,$08,$00,$19,$B7,$A3,$1A,$A1,$A3,$42,$64,$A9,$C0
     db $18,$00,$08,$00,$19,$B7,$A3
 
-
 ; ---------------------------------------------------------------------------
-; C3:A2AA..C3:A381
-; class: event-script-asset
-; source: data/events/C3A272.asm
+; C3:A381..C3:A3A1
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:117
 
-C3A381_C3A272EventScriptPartA2AAEnd:
+C3A3A1_InitRandomWanderMovementWithCollisionProbeEnd:
     ; data bytes: C3:A381..C3:A3A1
     db $25,$60,$A3,$3B,$00,$07,$11,$A1,$07,$62,$A2,$42,$BF,$A4,$C0,$42
     db $85,$A6,$C0,$00,$01,$42,$64,$A9,$C0,$08,$00,$08,$00,$19,$B7,$A3
 
-
 ; ---------------------------------------------------------------------------
-; C3:A381..C3:A3A1
-; class: event-script-asset
-; source: data/events/C3A272.asm
+; C3:A3A1..C3:A3B7
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:118
 
-C3A3A1_C3A272EventScriptPartA381End:
+C3A3B7_InitC40015PulseWithCollisionProbeEnd:
     ; data bytes: C3:A3A1..C3:A3B7
     db $25,$60,$A3,$3B,$00,$07,$5E,$A1,$07,$62,$A2,$42,$BF,$A4,$C0,$42
     db $85,$A6,$C0,$00,$01,$1B
 
-
 ; ---------------------------------------------------------------------------
-; C3:A3A1..C3:A3B7
-; class: event-script-asset
-; source: data/events/C3A272.asm
+; C3:A3B7..C3:A3C9
+; class: event-bytecode-label
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:119
 
-C3A3B7_C3A272EventScriptPartA3A1End:
+C3A3C9_LoopRandomDirectionMovementWithRandomWaitEnd:
     ; data bytes: C3:A3B7..C3:A3C9
     db $0E,$04,$00,$00,$42,$69,$72,$C4,$0A,$C9,$A3,$27,$02,$FF,$FF,$19
     db $D6,$A3
 
-
 ; ---------------------------------------------------------------------------
-; C3:A3B7..C3:A3C9
-; class: event-script-asset
-; source: data/events/C3A272.asm
+; C3:A3C9..C3:A3D6
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:120
 
-C3A3C9_C3A272EventScriptPartA3B7End:
+C3A3D6_ChooseRandomCardinalDirectionEnd:
     ; data bytes: C3:A3C9..C3:A3D6
     db $42,$82,$9F,$C0,$04,$00,$00,$02,$00,$04,$00,$06,$00
 
-
 ; ---------------------------------------------------------------------------
-; C3:A3C9..C3:A3D6
-; class: event-script-asset
-; source: data/events/C3A272.asm
+; C3:A3D6..C3:A3E7
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:121
 
-C3A3D6_C3A272EventScriptPartA3C9End:
+C3A3E7_ApplyRandomDirectionAndMovementTimerEnd:
     ; data bytes: C3:A3D6..C3:A3E7
     db $42,$5F,$A6,$C0,$42,$3B,$C8,$C0,$42,$82,$9F,$C0,$02,$08,$00,$10
     db $00
 
-
 ; ---------------------------------------------------------------------------
-; C3:A3D6..C3:A3E7
-; class: event-script-asset
-; source: data/events/C3A272.asm
+; C3:A3E7..C3:A401
+; class: event-bytecode-asset
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:122
 
-C3A3E7_C3A272EventScriptPartA3D6End:
+C3A401_SetMovementTimerThenRandomWaitEnd:
     ; data bytes: C3:A3E7..C3:A401
     db $42,$4E,$CA,$C0,$39,$0E,$04,$01,$00,$42,$82,$9F,$C0,$04,$1E,$00
     db $3C,$00,$5A,$00,$78,$00,$44,$19,$B7,$A3
-
-
-; ---------------------------------------------------------------------------
-; C3:A3E7..C3:A401
-; class: event-script-asset
-; source: data/events/C3A272.asm
-
-C3A401_C3A272EventScriptPartA3E7End:
-    ; data bytes: C3:A401..C3:A426
-    db $25,$F0,$9F,$42,$DA,$A6,$C0,$06,$01,$42,$B8,$A6,$C0,$0B,$25,$A4
-    db $08,$F7,$D7,$C0,$25,$60,$A3,$3B,$00,$42,$BF,$A4,$C0,$0E,$00,$00
-    db $00,$07,$0E,$A2,$1B
-
 
 ; ---------------------------------------------------------------------------
 ; C3:A401..C3:A426
@@ -4037,64 +3955,71 @@ C3A401_C3A272EventScriptPartA3E7End:
 ; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:123
 
 C3A426_InitNpcAttentionPathIfNoCachedNeighborEnd:
-    ; data bytes: C3:A426..C3:A42D
-    db $1A,$01,$A4,$07,$34,$A4,$1B
-
+    ; data bytes: C3:A401..C3:A426
+    db $25,$F0,$9F,$42,$DA,$A6,$C0,$06,$01,$42,$B8,$A6,$C0,$0B,$25,$A4
+    db $08,$F7,$D7,$C0,$25,$60,$A3,$3B,$00,$42,$BF,$A4,$C0,$0E,$00,$00
+    db $00,$07,$0E,$A2,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:A426..C3:A42D
-; class: event-bytecode-asset
-; source: data/events/C3A401.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:123
+; class: event-bytecode-label
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:124
 
-C3A42D_InitNpcAttentionPathIfNoCachedNeighborPartA426End:
-    ; data bytes: C3:A42D..C3:A434
-    db $1A,$01,$A4,$07,$48,$A4,$1B
-
+C3A42D_StartNpcAttentionTerrainCollisionLoopEnd:
+    ; data bytes: C3:A426..C3:A42D
+    db $1A,$01,$A4,$07,$34,$A4,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:A42D..C3:A434
-; class: event-bytecode-asset
-; source: data/events/C3A401.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:123
+; class: event-bytecode-label
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:125
 
-C3A434_InitNpcAttentionPathIfNoCachedNeighborPartA42DEnd:
+C3A434_StartNpcAttentionHorizontalCollisionLoopEnd:
+    ; data bytes: C3:A42D..C3:A434
+    db $1A,$01,$A4,$07,$48,$A4,$1B
+
+; ---------------------------------------------------------------------------
+; C3:A434..C3:A448
+; class: event-bytecode-label
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:126
+
+C3A448_LoopNpcAttentionTerrainCollisionEnd:
     ; data bytes: C3:A434..C3:A448
     db $42,$78,$64,$C0,$42,$82,$5E,$C0,$42,$B0,$D5,$C0,$0B,$5C,$A4,$06
     db $01,$19,$34,$A4
 
-
 ; ---------------------------------------------------------------------------
-; C3:A434..C3:A448
-; class: event-bytecode-asset
-; source: data/events/C3A401.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:123
+; C3:A448..C3:A45C
+; class: event-bytecode-label
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:127
 
-C3A448_InitNpcAttentionPathIfNoCachedNeighborPartA434End:
+C3A45C_LoopNpcAttentionHorizontalCollisionEnd:
     ; data bytes: C3:A448..C3:A45C
     db $42,$78,$64,$C0,$42,$CE,$5E,$C0,$42,$B0,$D5,$C0,$0B,$5C,$A4,$06
     db $01,$19,$48,$A4
 
-
 ; ---------------------------------------------------------------------------
-; C3:A448..C3:A45C
-; class: event-bytecode-asset
-; source: data/events/C3A401.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:123
+; C3:A45C..C3:A47C
+; class: event-bytecode-label
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:128
 
-C3A45C_InitNpcAttentionPathIfNoCachedNeighborPartA448End:
+C3A47C_FinishNpcAttentionAndReleaseActorEnd:
     ; data bytes: C3:A45C..C3:A47C
     db $06,$01,$42,$9B,$D5,$C0,$0B,$5C,$A4,$3B,$00,$39,$25,$F0,$9F,$0E
     db $00,$01,$00,$06,$01,$01,$03,$3B,$FF,$06,$05,$3B,$00,$06,$05,$02
 
-
 ; ---------------------------------------------------------------------------
-; C3:A45C..C3:A47C
+; C3:A47C..C3:AA1E
 ; class: event-bytecode-asset
-; source: data/events/C3A401.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:123
+; source: script-payload
+; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:129
 
-C3A47C_InitNpcAttentionPathIfNoCachedNeighborPartA45CEnd:
+C3AA1E_ReleaseCurrentVisualEntityTailEnd:
     ; data bytes: C3:A47C..C3:AA1E
     db $42,$F1,$20,$C0,$00,$42,$BF,$A4,$C0,$3B,$00,$19,$5C,$A4,$1A,$26
     db $A4,$42,$B8,$A6,$C0,$0B,$7C,$A4,$42,$85,$A6,$C0,$00,$02,$42,$8F
@@ -4188,27 +4113,14 @@ C3A47C_InitNpcAttentionPathIfNoCachedNeighborPartA45CEnd:
     db $C6,$C0,$42,$44,$70,$C4,$42,$0A,$6B,$C4,$06,$3C,$39,$06,$0C,$19
     db $FF,$A9
 
-
-; ---------------------------------------------------------------------------
-; C3:A47C..C3:AA1E
-; class: event-bytecode-asset
-; source: data/events/C3A401.asm
-; evidence: notes/c3-temporary-actor-movement-and-release-scripts.md:123
-
-C3AA1E_InitNpcAttentionPathIfNoCachedNeighborPartA47CEnd:
-    ; data bytes: C3:AA1E..C3:AA2B
-    db $42,$5F,$A6,$C0,$42,$3B,$C8,$C0,$42,$BF,$A4,$C0,$1B
-
-
 ; ---------------------------------------------------------------------------
 ; C3:AA1E..C3:AA2B
 ; class: event-script-asset
 ; source: data/events/C3AA1E.asm
 
 C3AA2B_C3AA1EEventScriptEnd:
-    ; data bytes: C3:AA2B..C3:AA38
-    db $25,$60,$A3,$3B,$00,$07,$F3,$A1,$07,$62,$A2,$39,$1B
-
+    ; data bytes: C3:AA1E..C3:AA2B
+    db $42,$5F,$A6,$C0,$42,$3B,$C8,$C0,$42,$BF,$A4,$C0,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AA2B..C3:AA38
@@ -4216,91 +4128,83 @@ C3AA2B_C3AA1EEventScriptEnd:
 ; source: data/events/C3AA2B.asm
 
 C3AA38_C3AA2BEventScriptEnd:
-    ; data bytes: C3:AA38..C3:AA46
-    db $25,$7A,$A3,$3B,$00,$07,$11,$A1,$39,$0E,$04,$00,$00,$1B
-
+    ; data bytes: C3:AA2B..C3:AA38
+    db $25,$60,$A3,$3B,$00,$07,$F3,$A1,$07,$62,$A2,$39,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AA38..C3:AA46
 ; class: event-bytecode-asset
 ; source: data/events/C3AA38.asm
-; evidence: notes/c3-event-222-224-movement-helper-cluster.md:139
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:160
 
 C3AA46_InitActionScriptMovementStateEnd:
-    ; data bytes: C3:AA46..C3:AA5A
-    db $25,$7A,$A3,$3B,$00,$07,$B2,$A0,$39,$42,$BF,$A4,$C0,$42,$85,$A6
-    db $C0,$40,$00,$1B
-
+    ; data bytes: C3:AA38..C3:AA46
+    db $25,$7A,$A3,$3B,$00,$07,$11,$A1,$39,$0E,$04,$00,$00,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AA46..C3:AA5A
 ; class: event-bytecode-asset
 ; source: data/events/C3AA46.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:92
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:102
 
 C3AA5A_InitMovementPreset40_00Pulse24FrameEnd:
-    ; data bytes: C3:AA5A..C3:AA6E
-    db $25,$7A,$A3,$3B,$00,$07,$C5,$A0,$39,$42,$BF,$A4,$C0,$42,$85,$A6
-    db $C0,$00,$01,$1B
-
+    ; data bytes: C3:AA46..C3:AA5A
+    db $25,$7A,$A3,$3B,$00,$07,$B2,$A0,$39,$42,$BF,$A4,$C0,$42,$85,$A6
+    db $C0,$40,$00,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AA5A..C3:AA6E
 ; class: event-bytecode-asset
 ; source: data/events/C3AA5A.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:93
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:103
 
 C3AA6E_InitMovementPreset00_01Pulse12FrameEnd:
-    ; data bytes: C3:AA6E..C3:AA82
-    db $25,$7A,$A3,$3B,$00,$07,$D8,$A0,$39,$42,$BF,$A4,$C0,$42,$85,$A6
-    db $C0,$60,$01,$1B
-
+    ; data bytes: C3:AA5A..C3:AA6E
+    db $25,$7A,$A3,$3B,$00,$07,$C5,$A0,$39,$42,$BF,$A4,$C0,$42,$85,$A6
+    db $C0,$00,$01,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AA6E..C3:AA82
 ; class: event-bytecode-asset
 ; source: data/events/C3AA6E.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:94
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:104
 
 C3AA82_InitMovementPreset60_01Pulse9FrameEnd:
-    ; data bytes: C3:AA82..C3:AA96
-    db $25,$7A,$A3,$3B,$00,$07,$EB,$A0,$39,$42,$BF,$A4,$C0,$42,$85,$A6
-    db $C0,$00,$02,$1B
-
+    ; data bytes: C3:AA6E..C3:AA82
+    db $25,$7A,$A3,$3B,$00,$07,$D8,$A0,$39,$42,$BF,$A4,$C0,$42,$85,$A6
+    db $C0,$60,$01,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AA82..C3:AA96
 ; class: event-bytecode-asset
 ; source: data/events/C3AA82.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:95
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:105
 
 C3AA96_InitMovementPreset00_02Pulse6FrameEnd:
-    ; data bytes: C3:AA96..C3:AAAA
-    db $25,$7A,$A3,$3B,$00,$07,$FE,$A0,$39,$42,$BF,$A4,$C0,$42,$85,$A6
-    db $C0,$00,$06,$1B
-
+    ; data bytes: C3:AA82..C3:AA96
+    db $25,$7A,$A3,$3B,$00,$07,$EB,$A0,$39,$42,$BF,$A4,$C0,$42,$85,$A6
+    db $C0,$00,$02,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AA96..C3:AAAA
 ; class: event-bytecode-asset
 ; source: data/events/C3AA96.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:96
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:106
 
 C3AAAA_InitMovementPreset00_06Pulse2FrameEnd:
-    ; data bytes: C3:AAAA..C3:AAB8
-    db $25,$7A,$A3,$3B,$00,$07,$2E,$A1,$39,$0E,$04,$0C,$00,$1B
-
+    ; data bytes: C3:AA96..C3:AAAA
+    db $25,$7A,$A3,$3B,$00,$07,$FE,$A0,$39,$42,$BF,$A4,$C0,$42,$85,$A6
+    db $C0,$00,$06,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AAAA..C3:AAB8
 ; class: event-bytecode-asset
 ; source: data/events/C3AAAA.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:97
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:107
 
 C3AAB8_InitMovementPresetVar4CountdownEnd:
-    ; data bytes: C3:AAB8..C3:AAC2
-    db $25,$7A,$A3,$3B,$00,$07,$F3,$A1,$39,$1B
-
+    ; data bytes: C3:AAAA..C3:AAB8
+    db $25,$7A,$A3,$3B,$00,$07,$2E,$A1,$39,$0E,$04,$0C,$00,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AAB8..C3:AAC2
@@ -4308,10 +4212,8 @@ C3AAB8_InitMovementPresetVar4CountdownEnd:
 ; source: data/events/C3AAB8.asm
 
 C3AAC2_C3AAB8EventScriptEnd:
-    ; data bytes: C3:AAC2..C3:AAD6
-    db $25,$7A,$A3,$3B,$00,$07,$8F,$A1,$39,$42,$BF,$A4,$C0,$42,$85,$A6
-    db $C0,$40,$00,$1B
-
+    ; data bytes: C3:AAB8..C3:AAC2
+    db $25,$7A,$A3,$3B,$00,$07,$F3,$A1,$39,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AAC2..C3:AAD6
@@ -4319,10 +4221,9 @@ C3AAC2_C3AAB8EventScriptEnd:
 ; source: data/events/C3AAC2.asm
 
 C3AAD6_C3AAC2EventScriptEnd:
-    ; data bytes: C3:AAD6..C3:AAEA
-    db $25,$7A,$A3,$3B,$00,$07,$A3,$A1,$39,$42,$BF,$A4,$C0,$42,$85,$A6
-    db $C0,$00,$01,$1B
-
+    ; data bytes: C3:AAC2..C3:AAD6
+    db $25,$7A,$A3,$3B,$00,$07,$8F,$A1,$39,$42,$BF,$A4,$C0,$42,$85,$A6
+    db $C0,$40,$00,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AAD6..C3:AAEA
@@ -4330,10 +4231,9 @@ C3AAD6_C3AAC2EventScriptEnd:
 ; source: data/events/C3AAD6.asm
 
 C3AAEA_C3AAD6EventScriptEnd:
-    ; data bytes: C3:AAEA..C3:AAFE
-    db $25,$7A,$A3,$3B,$00,$07,$B7,$A1,$39,$42,$BF,$A4,$C0,$42,$85,$A6
-    db $C0,$60,$01,$1B
-
+    ; data bytes: C3:AAD6..C3:AAEA
+    db $25,$7A,$A3,$3B,$00,$07,$A3,$A1,$39,$42,$BF,$A4,$C0,$42,$85,$A6
+    db $C0,$00,$01,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AAEA..C3:AAFE
@@ -4341,10 +4241,9 @@ C3AAEA_C3AAD6EventScriptEnd:
 ; source: data/events/C3AAEA.asm
 
 C3AAFE_C3AAEAEventScriptEnd:
-    ; data bytes: C3:AAFE..C3:AB12
-    db $25,$7A,$A3,$3B,$00,$07,$CB,$A1,$39,$42,$BF,$A4,$C0,$42,$85,$A6
-    db $C0,$00,$02,$1B
-
+    ; data bytes: C3:AAEA..C3:AAFE
+    db $25,$7A,$A3,$3B,$00,$07,$B7,$A1,$39,$42,$BF,$A4,$C0,$42,$85,$A6
+    db $C0,$60,$01,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AAFE..C3:AB12
@@ -4352,33 +4251,31 @@ C3AAFE_C3AAEAEventScriptEnd:
 ; source: data/events/C3AAFE.asm
 
 C3AB12_C3AAFEEventScriptEnd:
-    ; data bytes: C3:AB12..C3:AB26
-    db $25,$7A,$A3,$3B,$00,$07,$DF,$A1,$39,$42,$BF,$A4,$C0,$42,$85,$A6
-    db $C0,$00,$06,$1B
-
+    ; data bytes: C3:AAFE..C3:AB12
+    db $25,$7A,$A3,$3B,$00,$07,$CB,$A1,$39,$42,$BF,$A4,$C0,$42,$85,$A6
+    db $C0,$00,$02,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AB12..C3:AB26
 ; class: event-bytecode-asset
 ; source: data/events/C3AB12.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:98
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:108
 
 C3AB26_InitMovementPreset00_06C40015BranchEnd:
-    ; data bytes: C3:AB26..C3:AB37
-    db $23,$3A,$A0,$25,$F1,$9F,$3B,$00,$07,$11,$A1,$39,$0E,$04,$00,$00
-    db $1B
-
+    ; data bytes: C3:AB12..C3:AB26
+    db $25,$7A,$A3,$3B,$00,$07,$DF,$A1,$39,$42,$BF,$A4,$C0,$42,$85,$A6
+    db $C0,$00,$06,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AB26..C3:AB37
 ; class: event-bytecode-asset
 ; source: data/events/C3AB26.asm
-; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:99
+; evidence: notes/c3-actionscript-movement-pulse-presets-a0b2-ab26.md:109
 
 C3AB37_InitAlternatePhysicsVar4WalkPulseEnd:
-    ; data bytes: C3:AB37..C3:AB44
-    db $23,$39,$A0,$25,$7A,$A3,$3B,$FF,$08,$E1,$8B,$C4,$1B
-
+    ; data bytes: C3:AB26..C3:AB37
+    db $23,$3A,$A0,$25,$F1,$9F,$3B,$00,$07,$11,$A1,$39,$0E,$04,$00,$00
+    db $1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AB37..C3:AB44
@@ -4386,34 +4283,29 @@ C3AB37_InitAlternatePhysicsVar4WalkPulseEnd:
 ; source: data/events/C3AB37.asm
 
 C3AB44_C3AB37EventScriptEnd:
-    ; data bytes: C3:AB44..C3:AB59
-    db $42,$DB,$6A,$C4,$42,$44,$70,$C4,$42,$0A,$6B,$C4,$42,$5F,$A6,$C0
-    db $42,$BF,$A4,$C0,$1B
-
+    ; data bytes: C3:AB37..C3:AB44
+    db $23,$39,$A0,$25,$7A,$A3,$3B,$FF,$08,$E1,$8B,$C4,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AB44..C3:AB59
 ; class: event-bytecode-asset
 ; source: data/events/C3AB44.asm
-; evidence: notes/c3-event-222-224-movement-helper-cluster.md:140
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:161
 
 C3AB59_RefreshActiveEntityDirectionAndVisualProfileEnd:
-    ; data bytes: C3:AB59..C3:AB67
-    db $1A,$44,$AB,$06,$01,$42,$DC,$A8,$C0,$0A,$5C,$AB,$39,$1B
-
+    ; data bytes: C3:AB44..C3:AB59
+    db $42,$DB,$6A,$C4,$42,$44,$70,$C4,$42,$0A,$6B,$C4,$42,$5F,$A6,$C0
+    db $42,$BF,$A4,$C0,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AB59..C3:AB67
 ; class: event-bytecode-label
 ; source: data/events/C3AB59.asm
-; evidence: notes/c3-event-222-224-movement-helper-cluster.md:141
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:162
 
 C3AB67_WaitForActiveEntityMovementToFinishEnd:
-    ; data bytes: C3:AB67..C3:AB8A
-    db $42,$DB,$6A,$C4,$42,$44,$70,$C4,$42,$0A,$6B,$C4,$42,$37,$6B,$C4
-    db $42,$5F,$A6,$C0,$42,$BF,$A4,$C0,$06,$01,$42,$D1,$A8,$C0,$0A,$7F
-    db $AB,$39,$1B
-
+    ; data bytes: C3:AB59..C3:AB67
+    db $1A,$44,$AB,$06,$01,$42,$DC,$A8,$C0,$0A,$5C,$AB,$39,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AB67..C3:AB8A
@@ -4421,20 +4313,20 @@ C3AB67_WaitForActiveEntityMovementToFinishEnd:
 ; source: data/events/C3AB67.asm
 
 C3AB8A_C3AB67EventScriptEnd:
-    ; data bytes: C3:AB8A..C3:AB94
-    db $06,$01,$42,$74,$6E,$C4,$0A,$8A,$AB,$1B
-
+    ; data bytes: C3:AB67..C3:AB8A
+    db $42,$DB,$6A,$C4,$42,$44,$70,$C4,$42,$0A,$6B,$C4,$42,$37,$6B,$C4
+    db $42,$5F,$A6,$C0,$42,$BF,$A4,$C0,$06,$01,$42,$D1,$A8,$C0,$0A,$7F
+    db $AB,$39,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AB8A..C3:AB94
 ; class: event-bytecode-label
 ; source: data/events/C3AB8A.asm
-; evidence: notes/c3-event-222-224-movement-helper-cluster.md:142
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:163
 
 C3AB94_WaitUntilPlayerLeavesActiveAreaEnd:
-    ; data bytes: C3:AB94..C3:AB9E
-    db $06,$01,$42,$74,$6E,$C4,$0B,$94,$AB,$1B
-
+    ; data bytes: C3:AB8A..C3:AB94
+    db $06,$01,$42,$74,$6E,$C4,$0A,$8A,$AB,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AB94..C3:AB9E
@@ -4442,13 +4334,8 @@ C3AB94_WaitUntilPlayerLeavesActiveAreaEnd:
 ; source: data/events/C3AB94.asm
 
 C3AB9E_C3AB94EventScriptEnd:
-    ; data bytes: C3:AB9E..C3:ABE0
-    db $42,$69,$72,$C4,$0A,$AC,$AB,$27,$02,$FF,$FF,$19,$B9,$AB,$42,$82
-    db $9F,$C0,$04,$00,$00,$02,$00,$04,$00,$06,$00,$42,$5F,$A6,$C0,$42
-    db $3B,$C8,$C0,$42,$82,$9F,$C0,$02,$08,$00,$10,$00,$42,$4E,$CA,$C0
-    db $39,$42,$82,$9F,$C0,$04,$1E,$00,$3C,$00,$5A,$00,$78,$00,$44,$19
-    db $9E,$AB
-
+    ; data bytes: C3:AB94..C3:AB9E
+    db $06,$01,$42,$74,$6E,$C4,$0B,$94,$AB,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:AB9E..C3:ABE0
@@ -4456,6 +4343,19 @@ C3AB9E_C3AB94EventScriptEnd:
 ; source: data/events/C3AB9E.asm
 
 C3ABE0_C3AB9EEventScriptEnd:
+    ; data bytes: C3:AB9E..C3:ABE0
+    db $42,$69,$72,$C4,$0A,$AC,$AB,$27,$02,$FF,$FF,$19,$B9,$AB,$42,$82
+    db $9F,$C0,$04,$00,$00,$02,$00,$04,$00,$06,$00,$42,$5F,$A6,$C0,$42
+    db $3B,$C8,$C0,$42,$82,$9F,$C0,$02,$08,$00,$10,$00,$42,$4E,$CA,$C0
+    db $39,$42,$82,$9F,$C0,$04,$1E,$00,$3C,$00,$5A,$00,$78,$00,$44,$19
+    db $9E,$AB
+
+; ---------------------------------------------------------------------------
+; C3:ABE0..C3:AFA3
+; class: event-script-asset
+; source: data/events/C3ABE0.asm
+
+C3AFA3_C3ABE0EventScriptEnd:
     ; data bytes: C3:ABE0..C3:AFA3
     db $06,$01,$1E,$28,$00,$27,$00,$FF,$00,$0B,$E0,$AB,$1B,$28,$24,$08
     db $29,$E8,$06,$23,$39,$A0,$25,$C8,$9F,$3B,$FF,$08,$E1,$8B,$C4,$42
@@ -4519,13 +4419,13 @@ C3ABE0_C3AB9EEventScriptEnd:
     db $AB,$0E,$06,$28,$08,$0E,$07,$28,$01,$1A,$59,$AB,$42,$46,$6E,$C4
     db $19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:ABE0..C3:AFA3
-; class: event-script-asset
-; source: data/events/C3ABE0.asm
+; C3:AFA3..C3:B0B6
+; class: event-bytecode-label
+; source: data/events/C3AFA3.asm
+; evidence: notes/c3-event-222-224-movement-helper-cluster.md:166
 
-C3AFA3_C3ABE0EventScriptEnd:
+C3B0B6_LoopPartyLooksAtActiveEntityEnd:
     ; data bytes: C3:AFA3..C3:B0B6
     db $42,$3B,$8B,$C4,$06,$03,$19,$A3,$AF,$25,$7A,$A3,$3B,$00,$07,$7B
     db $A1,$39,$42,$BF,$A4,$C0,$0E,$00,$50,$08,$0E,$01,$80,$00,$0E,$02
@@ -4546,14 +4446,12 @@ C3AFA3_C3ABE0EventScriptEnd:
     db $64,$A8,$C0,$FF,$42,$E7,$A8,$C0,$42,$0E,$73,$C4,$42,$2F,$A8,$C0
     db $19,$9B,$B0
 
-
 ; ---------------------------------------------------------------------------
-; C3:AFA3..C3:B0B6
-; class: event-bytecode-label
-; source: data/events/C3AFA3.asm
-; evidence: notes/c3-event-222-224-movement-helper-cluster.md:145
+; C3:B0B6..C3:B431
+; class: event-script-asset
+; source: data/events/C3B0B6.asm
 
-C3B0B6_LoopPartyLooksAtActiveEntityEnd:
+C3B431_C3B0B6EventScriptEnd:
     ; data bytes: C3:B0B6..C3:B431
     db $01,$10,$42,$91,$A6,$C0,$27,$02,$00,$01,$42,$8B,$A6,$C0,$06,$20
     db $02,$01,$08,$42,$91,$A6,$C0,$27,$02,$00,$FF,$42,$8B,$A6,$C0,$06
@@ -4612,13 +4510,12 @@ C3B0B6_LoopPartyLooksAtActiveEntityEnd:
     db $A4,$C0,$06,$86,$1D,$06,$00,$42,$5F,$A6,$C0,$42,$3B,$C8,$C0,$42
     db $BF,$A4,$C0,$06,$20,$39,$42,$46,$6E,$C4,$09
 
-
 ; ---------------------------------------------------------------------------
-; C3:B0B6..C3:B431
+; C3:B431..C3:B70C
 ; class: event-script-asset
-; source: data/events/C3B0B6.asm
+; source: data/events/C3B431.asm
 
-C3B431_C3B0B6EventScriptEnd:
+C3B70C_C3B431EventScriptEnd:
     ; data bytes: C3:B431..C3:B70C
     db $06,$08,$42,$B6,$C6,$C0,$0B,$31,$B4,$42,$57,$A8,$C0,$0A,$00,$42
     db $F1,$20,$C0,$00,$28,$A8,$08,$29,$E8,$1B,$25,$7A,$A3,$3B,$00,$07
@@ -4667,13 +4564,12 @@ C3B431_C3B0B6EventScriptEnd:
     db $C0,$42,$3B,$C8,$C0,$06,$20,$1D,$06,$00,$42,$5F,$A6,$C0,$42,$3B
     db $C8,$C0,$06,$30,$42,$46,$6E,$C4,$19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:B431..C3:B70C
+; C3:B70C..C3:BAA3
 ; class: event-script-asset
-; source: data/events/C3B431.asm
+; source: data/events/C3B70C.asm
 
-C3B70C_C3B431EventScriptEnd:
+C3BAA3_C3B70CEventScriptEnd:
     ; data bytes: C3:B70C..C3:BAA3
     db $23,$39,$A0,$25,$C8,$9F,$3B,$FF,$08,$E1,$8B,$C4,$0E,$05,$01,$00
     db $14,$07,$02,$FF,$FF,$42,$85,$A6,$C0,$C0,$00,$42,$DB,$6A,$C4,$42
@@ -4734,29 +4630,16 @@ C3B70C_C3B431EventScriptEnd:
     db $01,$20,$06,$42,$B5,$68,$C4,$0B,$9C,$BA,$1D,$06,$00,$19,$9F,$BA
     db $1D,$02,$00,$1A,$1E,$AA,$09
 
-
-; ---------------------------------------------------------------------------
-; C3:B70C..C3:BAA3
-; class: event-script-asset
-; source: data/events/C3B70C.asm
-
-C3BAA3_C3B70CEventScriptEnd:
-    ; data bytes: C3:BAA3..C3:BAC4
-    db $42,$2F,$A8,$C0,$1A,$5C,$BB,$1A,$73,$BB,$42,$8D,$A8,$C0,$C7,$00
-    db $12,$8F,$06,$01,$42,$43,$A9,$C0,$FF,$39,$42,$C6,$A8,$C0,$19,$B5
-    db $BA
-
-
 ; ---------------------------------------------------------------------------
 ; C3:BAA3..C3:BAC4
 ; class: event-script-asset
 ; source: data/events/C3BAA3.asm
 
 C3BAC4_C3BAA3EventScriptEnd:
-    ; data bytes: C3:BAC4..C3:BAD7
+    ; data bytes: C3:BAA3..C3:BAC4
     db $42,$2F,$A8,$C0,$1A,$5C,$BB,$1A,$73,$BB,$42,$8D,$A8,$C0,$C7,$00
-    db $4A,$8F,$09
-
+    db $12,$8F,$06,$01,$42,$43,$A9,$C0,$FF,$39,$42,$C6,$A8,$C0,$19,$B5
+    db $BA
 
 ; ---------------------------------------------------------------------------
 ; C3:BAC4..C3:BAD7
@@ -4764,6 +4647,16 @@ C3BAC4_C3BAA3EventScriptEnd:
 ; source: data/events/C3BAC4.asm
 
 C3BAD7_C3BAC4EventScriptEnd:
+    ; data bytes: C3:BAC4..C3:BAD7
+    db $42,$2F,$A8,$C0,$1A,$5C,$BB,$1A,$73,$BB,$42,$8D,$A8,$C0,$C7,$00
+    db $4A,$8F,$09
+
+; ---------------------------------------------------------------------------
+; C3:BAD7..C3:BB5C
+; class: event-script-asset
+; source: data/events/C3BAD7.asm
+
+C3BB5C_C3BAD7EventScriptEnd:
     ; data bytes: C3:BAD7..C3:BB5C
     db $42,$2F,$A8,$C0,$1A,$5C,$BB,$1A,$73,$BB,$42,$8D,$A8,$C0,$C7,$00
     db $CA,$8F,$09,$42,$7A,$A8,$C0,$00,$00,$50,$00,$42,$4C,$A8,$C0,$38
@@ -4775,24 +4668,22 @@ C3BAD7_C3BAC4EventScriptEnd:
     db $46,$6E,$C4,$39,$09,$42,$7A,$A8,$C0,$00,$00,$90,$00,$1A,$38,$AA
     db $1A,$73,$BB,$39,$09
 
-
-; ---------------------------------------------------------------------------
-; C3:BAD7..C3:BB5C
-; class: event-script-asset
-; source: data/events/C3BAD7.asm
-
-C3BB5C_C3BAD7EventScriptEnd:
-    ; data bytes: C3:BB5C..C3:BB73
-    db $1A,$B8,$AA,$42,$BF,$A4,$C0,$42,$45,$6C,$C4,$0E,$02,$50,$00,$0E
-    db $03,$50,$00,$1A,$8A,$AB,$1B
-
-
 ; ---------------------------------------------------------------------------
 ; C3:BB5C..C3:BB73
 ; class: event-script-asset
 ; source: data/events/C3BB5C.asm
 
 C3BB73_C3BB5CEventScriptEnd:
+    ; data bytes: C3:BB5C..C3:BB73
+    db $1A,$B8,$AA,$42,$BF,$A4,$C0,$42,$45,$6C,$C4,$0E,$02,$50,$00,$0E
+    db $03,$50,$00,$1A,$8A,$AB,$1B
+
+; ---------------------------------------------------------------------------
+; C3:BB73..C3:BD03
+; class: event-script-asset
+; source: data/events/C3BB73.asm
+
+C3BD03_C3BB73EventScriptEnd:
     ; data bytes: C3:BB73..C3:BD03
     db $0E,$05,$12,$00,$42,$43,$A9,$C0,$FF,$42,$85,$A6,$C0,$80,$01,$1A
     db $44,$AB,$06,$01,$42,$43,$A9,$C0,$FF,$42,$C6,$A8,$C0,$0A,$85,$BB
@@ -4820,13 +4711,12 @@ C3BB73_C3BB5CEventScriptEnd:
     db $20,$00,$42,$C6,$A8,$C0,$42,$4C,$A8,$C0,$3A,$01,$0A,$D9,$BC,$1D
     db $00,$1E,$42,$B5,$68,$C4,$0A,$D9,$BC,$1D,$06,$00,$1A,$1E,$AA,$09
 
-
 ; ---------------------------------------------------------------------------
-; C3:BB73..C3:BD03
+; C3:BD03..C3:BEA4
 ; class: event-script-asset
-; source: data/events/C3BB73.asm
+; source: data/events/C3BD03.asm
 
-C3BD03_C3BB73EventScriptEnd:
+C3BEA4_C3BD03EventScriptEnd:
     ; data bytes: C3:BD03..C3:BEA4
     db $1A,$B8,$AA,$42,$BF,$A4,$C0,$1A,$8A,$AB,$1B,$25,$60,$A3,$3B,$00
     db $07,$9F,$A0,$07,$62,$A2,$42,$BF,$A4,$C0,$42,$85,$A6,$C0,$00,$01
@@ -4856,25 +4746,23 @@ C3BD03_C3BB73EventScriptEnd:
     db $A6,$C0,$60,$01,$42,$43,$A9,$C0,$FF,$1A,$59,$AB,$42,$46,$6E,$C4
     db $09
 
-
-; ---------------------------------------------------------------------------
-; C3:BD03..C3:BEA4
-; class: event-script-asset
-; source: data/events/C3BD03.asm
-
-C3BEA4_C3BD03EventScriptEnd:
-    ; data bytes: C3:BEA4..C3:BED4
-    db $0E,$04,$00,$00,$1D,$00,$00,$1A,$1E,$AA,$06,$08,$0E,$05,$01,$00
-    db $0E,$06,$A8,$1D,$0E,$07,$E0,$1D,$42,$85,$A6,$C0,$00,$01,$1A,$59
-    db $AB,$0E,$04,$01,$00,$42,$6E,$AA,$C0,$00,$00,$42,$46,$6E,$C4,$1B
-
-
 ; ---------------------------------------------------------------------------
 ; C3:BEA4..C3:BED4
 ; class: event-script-asset
 ; source: data/events/C3BEA4.asm
 
 C3BED4_C3BEA4EventScriptEnd:
+    ; data bytes: C3:BEA4..C3:BED4
+    db $0E,$04,$00,$00,$1D,$00,$00,$1A,$1E,$AA,$06,$08,$0E,$05,$01,$00
+    db $0E,$06,$A8,$1D,$0E,$07,$E0,$1D,$42,$85,$A6,$C0,$00,$01,$1A,$59
+    db $AB,$0E,$04,$01,$00,$42,$6E,$AA,$C0,$00,$00,$42,$46,$6E,$C4,$1B
+
+; ---------------------------------------------------------------------------
+; C3:BED4..C3:C143
+; class: event-script-asset
+; source: data/events/C3BED4.asm
+
+C3C143_C3BED4EventScriptEnd:
     ; data bytes: C3:BED4..C3:C143
     db $0E,$04,$00,$00,$0E,$05,$02,$00,$0E,$06,$F0,$1D,$0E,$07,$E8,$1D
     db $42,$85,$A6,$C0,$40,$01,$1A,$59,$AB,$1B,$28,$E8,$1D,$29,$E8,$1D
@@ -4916,13 +4804,12 @@ C3BED4_C3BEA4EventScriptEnd:
     db $43,$C1,$06,$68,$39,$0E,$04,$01,$00,$09,$3B,$FF,$06,$48,$1A,$43
     db $C1,$06,$58,$39,$0E,$04,$01,$00,$06,$1E,$42,$46,$6E,$C4,$09
 
-
 ; ---------------------------------------------------------------------------
-; C3:BED4..C3:C143
+; C3:C143..C3:C1E0
 ; class: event-script-asset
-; source: data/events/C3BED4.asm
+; source: data/events/C3C143.asm
 
-C3C143_C3BED4EventScriptEnd:
+C3C1E0_C3C143EventScriptEnd:
     ; data bytes: C3:C143..C3:C1E0
     db $28,$F0,$11,$29,$68,$13,$1A,$38,$AA,$42,$85,$A6,$C0,$00,$01,$1D
     db $05,$00,$1A,$1E,$AA,$42,$41,$A8,$C0,$09,$00,$06,$16,$1D,$06,$00
@@ -4935,29 +4822,16 @@ C3C143_C3BED4EventScriptEnd:
     db $00,$1A,$44,$AB,$06,$01,$42,$38,$A9,$C0,$BB,$00,$42,$C6,$A8,$C0
     db $0A,$C7,$C1,$42,$46,$6E,$C4,$1A,$0F,$C2,$19,$04,$A2
 
-
-; ---------------------------------------------------------------------------
-; C3:C143..C3:C1E0
-; class: event-script-asset
-; source: data/events/C3C143.asm
-
-C3C1E0_C3C143EventScriptEnd:
-    ; data bytes: C3:C1E0..C3:C20F
-    db $1A,$38,$AA,$07,$27,$C2,$1D,$00,$00,$1A,$1E,$AA,$06,$08,$0E,$05
-    db $01,$00,$0E,$06,$60,$11,$0E,$07,$60,$13,$42,$85,$A6,$C0,$00,$01
-    db $1A,$59,$AB,$1D,$00,$00,$42,$5F,$A6,$C0,$42,$BF,$A4,$C0,$1B
-
-
 ; ---------------------------------------------------------------------------
 ; C3:C1E0..C3:C20F
 ; class: event-script-asset
 ; source: data/events/C3C1E0.asm
 
 C3C20F_C3C1E0EventScriptEnd:
-    ; data bytes: C3:C20F..C3:C227
-    db $0E,$06,$F0,$11,$0E,$07,$68,$13,$42,$85,$A6,$C0,$00,$01,$1A,$59
-    db $AB,$42,$41,$A8,$C0,$09,$00,$1B
-
+    ; data bytes: C3:C1E0..C3:C20F
+    db $1A,$38,$AA,$07,$27,$C2,$1D,$00,$00,$1A,$1E,$AA,$06,$08,$0E,$05
+    db $01,$00,$0E,$06,$60,$11,$0E,$07,$60,$13,$42,$85,$A6,$C0,$00,$01
+    db $1A,$59,$AB,$1D,$00,$00,$42,$5F,$A6,$C0,$42,$BF,$A4,$C0,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:C20F..C3:C227
@@ -4965,6 +4839,16 @@ C3C20F_C3C1E0EventScriptEnd:
 ; source: data/events/C3C20F.asm
 
 C3C227_C3C20FEventScriptEnd:
+    ; data bytes: C3:C20F..C3:C227
+    db $0E,$06,$F0,$11,$0E,$07,$68,$13,$42,$85,$A6,$C0,$00,$01,$1A,$59
+    db $AB,$42,$41,$A8,$C0,$09,$00,$1B
+
+; ---------------------------------------------------------------------------
+; C3:C227..C3:C35D
+; class: event-script-asset
+; source: data/events/C3C227.asm
+
+C3C35D_C3C227EventScriptEnd:
     ; data bytes: C3:C227..C3:C35D
     db $42,$3B,$8B,$C4,$42,$4E,$A9,$C0,$47,$03,$06,$03,$19,$27,$C2,$1A
     db $AA,$AA,$0E,$04,$12,$00,$42,$85,$A6,$C0,$80,$00,$1D,$02,$00,$1A
@@ -4987,13 +4871,12 @@ C3C227_C3C20FEventScriptEnd:
     db $C3,$28,$70,$15,$29,$D8,$16,$19,$57,$C3,$28,$88,$15,$29,$E8,$16
     db $1A,$5D,$C3,$19,$04,$A2
 
-
 ; ---------------------------------------------------------------------------
-; C3:C227..C3:C35D
+; C3:C35D..C3:C810
 ; class: event-script-asset
-; source: data/events/C3C227.asm
+; source: data/events/C3C35D.asm
 
-C3C35D_C3C227EventScriptEnd:
+C3C810_C3C35DEventScriptEnd:
     ; data bytes: C3:C35D..C3:C810
     db $1A,$38,$AA,$1D,$06,$00,$42,$5F,$A6,$C0,$42,$BF,$A4,$C0,$0E,$04
     db $01,$00,$06,$01,$42,$4C,$A8,$C0,$02,$00,$0A,$6F,$C3,$0E,$04,$00
@@ -5072,26 +4955,14 @@ C3C35D_C3C227EventScriptEnd:
     db $9F,$C0,$01,$01,$1A,$E0,$AB,$42,$07,$A9,$C0,$BB,$42,$46,$6E,$C4
     db $19,$04,$A2
 
-
-; ---------------------------------------------------------------------------
-; C3:C35D..C3:C810
-; class: event-script-asset
-; source: data/events/C3C35D.asm
-
-C3C810_C3C35DEventScriptEnd:
-    ; data bytes: C3:C810..C3:C81A
-    db $14,$01,$02,$FE,$FF,$06,$01,$19,$10,$C8
-
-
 ; ---------------------------------------------------------------------------
 ; C3:C810..C3:C81A
 ; class: event-script-asset
 ; source: data/events/C3C810.asm
 
 C3C81A_C3C810EventScriptEnd:
-    ; data bytes: C3:C81A..C3:C824
-    db $14,$01,$02,$02,$00,$06,$01,$19,$1A,$C8
-
+    ; data bytes: C3:C810..C3:C81A
+    db $14,$01,$02,$FE,$FF,$06,$01,$19,$10,$C8
 
 ; ---------------------------------------------------------------------------
 ; C3:C81A..C3:C824
@@ -5099,13 +4970,8 @@ C3C81A_C3C810EventScriptEnd:
 ; source: data/events/C3C81A.asm
 
 C3C824_C3C81AEventScriptEnd:
-    ; data bytes: C3:C824..C3:C871
-    db $06,$02,$0E,$02,$00,$00,$2B,$01,$00,$06,$02,$2B,$01,$00,$01,$02
-    db $06,$02,$2B,$FF,$FF,$02,$01,$02,$06,$02,$2B,$FF,$FF,$02,$01,$02
-    db $06,$02,$2B,$01,$00,$02,$01,$02,$06,$02,$2C,$01,$00,$02,$01,$02
-    db $06,$02,$2C,$FF,$FF,$02,$01,$02,$06,$02,$2C,$FF,$FF,$02,$01,$02
-    db $06,$02,$2C,$01,$00,$02,$0E,$02,$01,$00,$19,$24,$C8
-
+    ; data bytes: C3:C81A..C3:C824
+    db $14,$01,$02,$02,$00,$06,$01,$19,$1A,$C8
 
 ; ---------------------------------------------------------------------------
 ; C3:C824..C3:C871
@@ -5113,6 +4979,19 @@ C3C824_C3C81AEventScriptEnd:
 ; source: data/events/C3C824.asm
 
 C3C871_C3C824EventScriptEnd:
+    ; data bytes: C3:C824..C3:C871
+    db $06,$02,$0E,$02,$00,$00,$2B,$01,$00,$06,$02,$2B,$01,$00,$01,$02
+    db $06,$02,$2B,$FF,$FF,$02,$01,$02,$06,$02,$2B,$FF,$FF,$02,$01,$02
+    db $06,$02,$2B,$01,$00,$02,$01,$02,$06,$02,$2C,$01,$00,$02,$01,$02
+    db $06,$02,$2C,$FF,$FF,$02,$01,$02,$06,$02,$2C,$FF,$FF,$02,$01,$02
+    db $06,$02,$2C,$01,$00,$02,$0E,$02,$01,$00,$19,$24,$C8
+
+; ---------------------------------------------------------------------------
+; C3:C871..C3:C8FD
+; class: event-script-asset
+; source: data/events/C3C871.asm
+
+C3C8FD_C3C871EventScriptEnd:
     ; data bytes: C3:C871..C3:C8FD
     db $06,$02,$0E,$02,$00,$00,$06,$02,$01,$02,$06,$02,$02,$01,$02,$06
     db $02,$02,$01,$02,$06,$02,$02,$01,$02,$06,$02,$02,$01,$02,$06,$02
@@ -5124,30 +5003,14 @@ C3C871_C3C824EventScriptEnd:
     db $C9,$42,$07,$A9,$C0,$BE,$42,$46,$6E,$C4,$19,$04,$A2,$1A,$4E,$C9
     db $42,$07,$A9,$C0,$BA,$42,$46,$6E,$C4,$19,$04,$A2
 
-
-; ---------------------------------------------------------------------------
-; C3:C871..C3:C8FD
-; class: event-script-asset
-; source: data/events/C3C871.asm
-
-C3C8FD_C3C871EventScriptEnd:
-    ; data bytes: C3:C8FD..C3:C90C
-    db $1A,$4E,$C9,$42,$07,$A9,$C0,$C3,$42,$46,$6E,$C4,$19,$04,$A2
-
-
 ; ---------------------------------------------------------------------------
 ; C3:C8FD..C3:C90C
 ; class: event-script-asset
 ; source: data/events/C3C8FD.asm
 
 C3C90C_C3C8FDEventScriptEnd:
-    ; data bytes: C3:C90C..C3:C94E
-    db $42,$64,$A8,$C0,$FF,$1A,$26,$AB,$2A,$A0,$FF,$3B,$00,$08,$02,$8C
-    db $C4,$42,$BF,$A4,$C0,$42,$85,$A6,$C0,$00,$01,$1D,$06,$00,$1A,$1E
-    db $AA,$41,$00,$01,$06,$60,$41,$00,$00,$06,$C8,$06,$C8,$1D,$06,$00
-    db $1A,$1E,$AA,$41,$00,$FF,$06,$60,$42,$BB,$9F,$C0,$01,$01,$1A,$E0
-    db $AB,$1B
-
+    ; data bytes: C3:C8FD..C3:C90C
+    db $1A,$4E,$C9,$42,$07,$A9,$C0,$C3,$42,$46,$6E,$C4,$19,$04,$A2
 
 ; ---------------------------------------------------------------------------
 ; C3:C90C..C3:C94E
@@ -5155,6 +5018,19 @@ C3C90C_C3C8FDEventScriptEnd:
 ; source: data/events/C3C90C.asm
 
 C3C94E_C3C90CEventScriptEnd:
+    ; data bytes: C3:C90C..C3:C94E
+    db $42,$64,$A8,$C0,$FF,$1A,$26,$AB,$2A,$A0,$FF,$3B,$00,$08,$02,$8C
+    db $C4,$42,$BF,$A4,$C0,$42,$85,$A6,$C0,$00,$01,$1D,$06,$00,$1A,$1E
+    db $AA,$41,$00,$01,$06,$60,$41,$00,$00,$06,$C8,$06,$C8,$1D,$06,$00
+    db $1A,$1E,$AA,$41,$00,$FF,$06,$60,$42,$BB,$9F,$C0,$01,$01,$1A,$E0
+    db $AB,$1B
+
+; ---------------------------------------------------------------------------
+; C3:C94E..C3:CC24
+; class: event-script-asset
+; source: data/events/C3C94E.asm
+
+C3CC24_C3C94EEventScriptEnd:
     ; data bytes: C3:C94E..C3:CC24
     db $42,$64,$A8,$C0,$FF,$1A,$26,$AB,$2A,$A0,$FF,$3B,$00,$08,$02,$8C
     db $C4,$42,$BF,$A4,$C0,$42,$85,$A6,$C0,$00,$01,$1D,$02,$00,$1A,$1E
@@ -5203,32 +5079,17 @@ C3C94E_C3C90CEventScriptEnd:
     db $80,$42,$BB,$9F,$C0,$01,$01,$1A,$E0,$AB,$42,$07,$A9,$C0,$BB,$42
     db $46,$6E,$C4,$19,$04,$A2
 
-
-; ---------------------------------------------------------------------------
-; C3:C94E..C3:CC24
-; class: event-script-asset
-; source: data/events/C3C94E.asm
-
-C3CC24_C3C94EEventScriptEnd:
-    ; data bytes: C3:CC24..C3:CC5C
-    db $0E,$06,$A8,$14,$0E,$07,$10,$23,$1A,$59,$AB,$0E,$06,$58,$14,$0E
-    db $07,$98,$22,$1A,$59,$AB,$0E,$06,$58,$14,$0E,$07,$10,$22,$1A,$59
-    db $AB,$0E,$06,$A8,$14,$0E,$07,$98,$21,$1A,$59,$AB,$0E,$06,$60,$15
-    db $0E,$07,$00,$21,$1A,$59,$AB,$1B
-
-
 ; ---------------------------------------------------------------------------
 ; C3:CC24..C3:CC5C
 ; class: event-script-asset
 ; source: data/events/C3CC24.asm
 
 C3CC5C_C3CC24EventScriptEnd:
-    ; data bytes: C3:CC5C..C3:CC94
-    db $0E,$06,$A8,$14,$0E,$07,$40,$23,$1A,$59,$AB,$0E,$06,$58,$14,$0E
-    db $07,$C8,$22,$1A,$59,$AB,$0E,$06,$58,$14,$0E,$07,$40,$22,$1A,$59
-    db $AB,$0E,$06,$A8,$14,$0E,$07,$C8,$21,$1A,$59,$AB,$0E,$06,$60,$15
-    db $0E,$07,$30,$21,$1A,$59,$AB,$1B
-
+    ; data bytes: C3:CC24..C3:CC5C
+    db $0E,$06,$A8,$14,$0E,$07,$10,$23,$1A,$59,$AB,$0E,$06,$58,$14,$0E
+    db $07,$98,$22,$1A,$59,$AB,$0E,$06,$58,$14,$0E,$07,$10,$22,$1A,$59
+    db $AB,$0E,$06,$A8,$14,$0E,$07,$98,$21,$1A,$59,$AB,$0E,$06,$60,$15
+    db $0E,$07,$00,$21,$1A,$59,$AB,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:CC5C..C3:CC94
@@ -5236,10 +5097,11 @@ C3CC5C_C3CC24EventScriptEnd:
 ; source: data/events/C3CC5C.asm
 
 C3CC94_C3CC5CEventScriptEnd:
-    ; data bytes: C3:CC94..C3:CCA8
-    db $07,$24,$C8,$06,$64,$13,$06,$50,$07,$24,$C8,$06,$64,$13,$06,$50
-    db $07,$24,$C8,$09
-
+    ; data bytes: C3:CC5C..C3:CC94
+    db $0E,$06,$A8,$14,$0E,$07,$40,$23,$1A,$59,$AB,$0E,$06,$58,$14,$0E
+    db $07,$C8,$22,$1A,$59,$AB,$0E,$06,$58,$14,$0E,$07,$40,$22,$1A,$59
+    db $AB,$0E,$06,$A8,$14,$0E,$07,$C8,$21,$1A,$59,$AB,$0E,$06,$60,$15
+    db $0E,$07,$30,$21,$1A,$59,$AB,$1B
 
 ; ---------------------------------------------------------------------------
 ; C3:CC94..C3:CCA8
@@ -5247,6 +5109,16 @@ C3CC94_C3CC5CEventScriptEnd:
 ; source: data/events/C3CC94.asm
 
 C3CCA8_C3CC94EventScriptEnd:
+    ; data bytes: C3:CC94..C3:CCA8
+    db $07,$24,$C8,$06,$64,$13,$06,$50,$07,$24,$C8,$06,$64,$13,$06,$50
+    db $07,$24,$C8,$09
+
+; ---------------------------------------------------------------------------
+; C3:CCA8..C3:CEA2
+; class: event-script-asset
+; source: data/events/C3CCA8.asm
+
+C3CEA2_C3CCA8EventScriptEnd:
     ; data bytes: C3:CCA8..C3:CEA2
     db $2C,$F8,$FF,$06,$02,$2C,$08,$00,$06,$02,$19,$A8,$CC,$42,$64,$A8
     db $C0,$FF,$2C,$80,$FF,$42,$79,$A6,$C0,$00,$25,$C8,$9F,$07,$A2,$CE
@@ -5281,24 +5153,22 @@ C3CCA8_C3CC94EventScriptEnd:
     db $00,$01,$0E,$06,$48,$17,$0E,$07,$58,$21,$1A,$59,$AB,$06,$0F,$06
     db $3C,$06,$1E,$06,$20,$06,$04,$06,$1E,$09
 
-
-; ---------------------------------------------------------------------------
-; C3:CCA8..C3:CEA2
-; class: event-script-asset
-; source: data/events/C3CCA8.asm
-
-C3CEA2_C3CCA8EventScriptEnd:
-    ; data bytes: C3:CEA2..C3:CEB9
-    db $06,$78,$06,$78,$06,$78,$42,$8B,$A9,$C0,$A5,$01,$A3,$00,$06,$78
-    db $06,$78,$06,$78,$19,$A2,$CE
-
-
 ; ---------------------------------------------------------------------------
 ; C3:CEA2..C3:CEB9
 ; class: event-script-asset
 ; source: data/events/C3CEA2.asm
 
 C3CEB9_C3CEA2EventScriptEnd:
+    ; data bytes: C3:CEA2..C3:CEB9
+    db $06,$78,$06,$78,$06,$78,$42,$8B,$A9,$C0,$A5,$01,$A3,$00,$06,$78
+    db $06,$78,$06,$78,$19,$A2,$CE
+
+; ---------------------------------------------------------------------------
+; C3:CEB9..C3:D0A4
+; class: event-script-asset
+; source: data/events/C3CEB9.asm
+
+C3D0A4_C3CEB9EventScriptEnd:
     ; data bytes: C3:CEB9..C3:D0A4
     db $42,$6F,$A8,$C0,$D1,$00,$2C,$D8,$FF,$06,$01,$19,$B9,$CE,$42,$6F
     db $A8,$C0,$D1,$00,$2C,$D8,$FF,$25,$C8,$9F,$42,$79,$A6,$C0,$00,$39
@@ -5332,13 +5202,12 @@ C3CEB9_C3CEA2EventScriptEnd:
     db $0E,$07,$10,$0C,$1A,$59,$AB,$42,$85,$A6,$C0,$00,$01,$0E,$06,$C0
     db $13,$0E,$07,$48,$0C,$1A,$59,$AB,$06,$1E,$09
 
-
 ; ---------------------------------------------------------------------------
-; C3:CEB9..C3:D0A4
+; C3:D0A4..C3:D913
 ; class: event-script-asset
-; source: data/events/C3CEB9.asm
+; source: data/events/C3D0A4.asm
 
-C3D0A4_C3CEB9EventScriptEnd:
+C3D913_C3D0A4EventScriptEnd:
     ; data bytes: C3:D0A4..C3:D913
     db $42,$6E,$AA,$C0,$04,$00,$06,$05,$42,$6E,$AA,$C0,$06,$00,$06,$05
     db $42,$6E,$AA,$C0,$00,$00,$06,$05,$42,$6E,$AA,$C0,$02,$00,$06,$05
@@ -5476,13 +5345,12 @@ C3D0A4_C3CEB9EventScriptEnd:
     db $1A,$0E,$07,$60,$00,$1A,$59,$AB,$42,$07,$A9,$C0,$48,$42,$4C,$A8
     db $C0,$88,$00,$0B,$13,$D9,$42,$8D,$A8,$C0,$C8,$00,$AF,$88,$09
 
-
 ; ---------------------------------------------------------------------------
-; C3:D0A4..C3:D913
+; C3:D913..C3:DB7A
 ; class: event-script-asset
-; source: data/events/C3D0A4.asm
+; source: data/events/C3D913.asm
 
-C3D913_C3D0A4EventScriptEnd:
+C3DB7A_C3D913EventScriptEnd:
     ; data bytes: C3:D913..C3:DB7A
     db $42,$8D,$A8,$C0,$C7,$00,$79,$89,$09,$1A,$E0,$DB,$42,$85,$A6,$C0
     db $80,$02,$0E,$05,$03,$00,$0E,$06,$28,$05,$0E,$07,$30,$27,$1A,$59
@@ -5524,13 +5392,12 @@ C3D913_C3D0A4EventScriptEnd:
     db $08,$00,$1A,$8A,$AB,$42,$8D,$A8,$C0,$C7,$00,$A9,$87,$42,$FF,$A8
     db $C0,$1A,$94,$AB,$19,$65,$DB
 
-
 ; ---------------------------------------------------------------------------
-; C3:D913..C3:DB7A
+; C3:DB7A..C3:DBDB
 ; class: event-script-asset
-; source: data/events/C3D913.asm
+; source: data/events/C3DB7A.asm
 
-C3DB7A_C3D913EventScriptEnd:
+C3DBDB_C3DB7AEventScriptEnd:
     ; data bytes: C3:DB7A..C3:DBDB
     db $1A,$E0,$DB,$42,$85,$A6,$C0,$80,$02,$0E,$05,$03,$00,$0E,$06,$48
     db $10,$0E,$07,$30,$27,$1A,$59,$AB,$42,$07,$A9,$C0,$D0,$42,$8D,$A8
@@ -5540,13 +5407,12 @@ C3DB7A_C3D913EventScriptEnd:
     db $C0,$09,$42,$6F,$A8,$C0,$CD,$00,$2B,$10,$00,$2C,$F0,$FF,$19,$AC
     db $DB
 
-
 ; ---------------------------------------------------------------------------
-; C3:DB7A..C3:DBDB
+; C3:DBDB..C3:DF90
 ; class: event-script-asset
-; source: data/events/C3DB7A.asm
+; source: data/events/C3DBDB.asm
 
-C3DBDB_C3DB7AEventScriptEnd:
+C3DF90_C3DBDBEventScriptEnd:
     ; data bytes: C3:DBDB..C3:DF90
     db $42,$64,$A8,$C0,$FF,$23,$39,$A0,$25,$C8,$9F,$3B,$00,$42,$79,$A6
     db $C0,$03,$08,$E1,$8B,$C4,$1B,$28,$60,$0A,$29,$90,$13,$25,$7A,$A3
@@ -5609,29 +5475,16 @@ C3DBDB_C3DB7AEventScriptEnd:
     db $39,$01,$03,$3B,$FF,$06,$05,$3B,$00,$06,$05,$02,$42,$F1,$20,$C0
     db $42,$51,$94,$C0,$00
 
-
-; ---------------------------------------------------------------------------
-; C3:DBDB..C3:DF90
-; class: event-script-asset
-; source: data/events/C3DBDB.asm
-
-C3DF90_C3DBDBEventScriptEnd:
-    ; data bytes: C3:DF90..C3:DFB5
-    db $07,$B5,$DF,$42,$51,$A6,$C0,$02,$42,$BF,$A4,$C0,$3F,$40,$00,$06
-    db $0A,$42,$B6,$C6,$C0,$0B,$9F,$DF,$42,$F1,$20,$C0,$42,$46,$6E,$C4
-    db $42,$51,$94,$C0,$00
-
-
 ; ---------------------------------------------------------------------------
 ; C3:DF90..C3:DFB5
 ; class: event-script-asset
 ; source: data/events/C3DF90.asm
 
 C3DFB5_C3DF90EventScriptEnd:
-    ; data bytes: C3:DFB5..C3:DFD4
-    db $42,$82,$9F,$C0,$02,$00,$00,$01,$00,$0B,$D4,$DF,$41,$80,$FF,$42
-    db $82,$9F,$C0,$04,$1E,$00,$3C,$00,$5A,$00,$78,$00,$19,$E4,$DF
-
+    ; data bytes: C3:DF90..C3:DFB5
+    db $07,$B5,$DF,$42,$51,$A6,$C0,$02,$42,$BF,$A4,$C0,$3F,$40,$00,$06
+    db $0A,$42,$B6,$C6,$C0,$0B,$9F,$DF,$42,$F1,$20,$C0,$42,$46,$6E,$C4
+    db $42,$51,$94,$C0,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:DFB5..C3:DFD4
@@ -5639,10 +5492,9 @@ C3DFB5_C3DF90EventScriptEnd:
 ; source: data/events/C3DFB5.asm
 
 C3DFD4_C3DFB5EventScriptEnd:
-    ; data bytes: C3:DFD4..C3:DFE8
-    db $40,$20,$00,$42,$82,$9F,$C0,$04,$0F,$00,$1E,$00,$2D,$00,$3C,$00
-    db $44,$19,$B5,$DF
-
+    ; data bytes: C3:DFB5..C3:DFD4
+    db $42,$82,$9F,$C0,$02,$00,$00,$01,$00,$0B,$D4,$DF,$41,$80,$FF,$42
+    db $82,$9F,$C0,$04,$1E,$00,$3C,$00,$5A,$00,$78,$00,$19,$E4,$DF
 
 ; ---------------------------------------------------------------------------
 ; C3:DFD4..C3:DFE8
@@ -5650,6 +5502,16 @@ C3DFD4_C3DFB5EventScriptEnd:
 ; source: data/events/C3DFD4.asm
 
 C3DFE8_C3DFD4EventScriptEnd:
+    ; data bytes: C3:DFD4..C3:DFE8
+    db $40,$20,$00,$42,$82,$9F,$C0,$04,$0F,$00,$1E,$00,$2D,$00,$3C,$00
+    db $44,$19,$B5,$DF
+
+; ---------------------------------------------------------------------------
+; C3:DFE8..C3:E12C
+; class: contract-backed-data-prefix
+; source: data/unknown/C3DFE8.asm
+
+C3E12C_C3DFE8ContractBackedDataPrefixEnd:
     ; data bytes: C3:DFE8..C3:E12C
     db $01,$01,$01,$00,$01,$01,$00,$00,$01,$00,$02,$00,$03,$00,$04,$00
     db $05,$00,$06,$00,$07,$00,$08,$00,$09,$00,$0A,$00,$0B,$00,$0C,$00
@@ -5673,28 +5535,16 @@ C3DFE8_C3DFD4EventScriptEnd:
     db $00,$00,$00,$00,$82,$5A,$00,$00,$00,$00,$00,$00,$D0,$90,$00,$00
     db $D0,$90,$00,$00
 
-
 ; ---------------------------------------------------------------------------
-; C3:DFE8..C3:E12C
-; class: raw-or-named-data
-; source: data/unknown/C3DFE8.asm
+; C3:E12C..C3:E148
+; class: contract-backed-data
+; source: data-contract
+; evidence: notes/input-direction-and-interaction-probes-c0402b-c04116.md:25
 
-ALLOWED_INPUT_DIRECTIONS:
-C3E12C_C3DFE8RawDataEnd = ALLOWED_INPUT_DIRECTIONS
+C3E148_InputDirectionPermissionMaskTableEnd:
     ; data bytes: C3:E12C..C3:E148
     db $FF,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$00,$FF,$00,$11,$00
     db $11,$00,$FF,$00,$FF,$00,$FF,$00,$00,$00,$FF,$00
-
-
-; ---------------------------------------------------------------------------
-; C3:E12C..C3:E148
-; class: raw-or-named-data
-; source: data/unknown/C3DFE8.asm
-
-C3E148_C3DFE8RawDataPartE12CEnd:
-    ; data bytes: C3:E148..C3:E158
-    db $00,$00,$00,$00,$0A,$00,$00,$00,$00,$00,$00,$00,$F6,$FF,$00,$00
-
 
 ; ---------------------------------------------------------------------------
 ; C3:E148..C3:E158
@@ -5703,9 +5553,8 @@ C3E148_C3DFE8RawDataPartE12CEnd:
 ; evidence: notes/input-direction-and-interaction-probes-c0402b-c04116.md:26
 
 C3E158_InteractionProbeDirectionXOffsetTableEnd:
-    ; data bytes: C3:E158..C3:E168
-    db $FB,$FF,$FB,$FF,$00,$00,$05,$00,$05,$00,$05,$00,$00,$00,$FB,$FF
-
+    ; data bytes: C3:E148..C3:E158
+    db $00,$00,$00,$00,$0A,$00,$00,$00,$00,$00,$00,$00,$F6,$FF,$00,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:E158..C3:E168
@@ -5714,6 +5563,15 @@ C3E158_InteractionProbeDirectionXOffsetTableEnd:
 ; evidence: notes/input-direction-and-interaction-probes-c0402b-c04116.md:27
 
 C3E168_InteractionProbeDirectionYOffsetTableEnd:
+    ; data bytes: C3:E158..C3:E168
+    db $FB,$FF,$FB,$FF,$00,$00,$05,$00,$05,$00,$05,$00,$00,$00,$FB,$FF
+
+; ---------------------------------------------------------------------------
+; C3:E168..C3:E1D8
+; class: contract-backed-data-prefix
+; source: data/unknown/C3E168.asm
+
+C3E1D8_C3E168ContractBackedDataPrefixEnd:
     ; data bytes: C3:E168..C3:E1D8
     db $04,$00,$04,$00,$06,$00,$00,$00,$00,$00,$00,$00,$02,$00,$04,$00
     db $00,$00,$00,$04,$00,$08,$00,$0C,$00,$02,$00,$06,$00,$0A,$00,$0E
@@ -5723,17 +5581,6 @@ C3E168_InteractionProbeDirectionYOffsetTableEnd:
     db $00,$00,$00,$08,$00,$04,$00,$0C,$00,$01,$00,$09,$00,$05,$00,$0D
     db $00,$02,$00,$0A,$00,$06,$00,$0E,$00,$03,$00,$0B,$00,$07,$00,$0F
 
-
-; ---------------------------------------------------------------------------
-; C3:E168..C3:E1D8
-; class: raw-or-named-data
-; source: data/unknown/C3E168.asm
-
-C3E1D8_C3E168RawDataEnd:
-    ; data bytes: C3:E1D8..C3:E1E0
-    db $04,$00,$00,$00,$02,$00,$06,$00
-
-
 ; ---------------------------------------------------------------------------
 ; C3:E1D8..C3:E1E0
 ; class: contract-backed-data
@@ -5741,10 +5588,8 @@ C3E1D8_C3E168RawDataEnd:
 ; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:70
 
 C3E1E0_MapEntityPlacementDirectionParamTableEnd:
-    ; data bytes: C3:E1E0..C3:E200
-    db $00,$00,$00,$00,$04,$00,$00,$00,$00,$00,$00,$00,$FC,$FF,$00,$00
-    db $FC,$FF,$00,$00,$00,$00,$00,$00,$04,$00,$00,$00,$00,$00,$00,$00
-
+    ; data bytes: C3:E1D8..C3:E1E0
+    db $04,$00,$00,$00,$02,$00,$06,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:E1E0..C3:E200
@@ -5753,9 +5598,9 @@ C3E1E0_MapEntityPlacementDirectionParamTableEnd:
 ; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:71
 
 C3E200_MapEntityPlacementDirectionParamTable_Page1End:
-    ; data bytes: C3:E200..C3:E208
-    db $07,$00,$01,$00,$05,$00,$03,$00
-
+    ; data bytes: C3:E1E0..C3:E200
+    db $00,$00,$00,$00,$04,$00,$00,$00,$00,$00,$00,$00,$FC,$FF,$00,$00
+    db $FC,$FF,$00,$00,$00,$00,$00,$00,$04,$00,$00,$00,$00,$00,$00,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:E200..C3:E208
@@ -5764,9 +5609,8 @@ C3E200_MapEntityPlacementDirectionParamTable_Page1End:
 ; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:72
 
 C3E208_StagedMovementPrimaryDirectionParamTableEnd:
-    ; data bytes: C3:E208..C3:E210
-    db $02,$00,$06,$00,$02,$00,$06,$00
-
+    ; data bytes: C3:E200..C3:E208
+    db $07,$00,$01,$00,$05,$00,$03,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:E208..C3:E210
@@ -5775,9 +5619,8 @@ C3E208_StagedMovementPrimaryDirectionParamTableEnd:
 ; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:73
 
 C3E210_StagedMovementAlternateDirectionParamTableEnd:
-    ; data bytes: C3:E210..C3:E218
-    db $00,$00,$08,$00,$00,$00,$08,$00
-
+    ; data bytes: C3:E208..C3:E210
+    db $02,$00,$06,$00,$02,$00,$06,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:E210..C3:E218
@@ -5786,9 +5629,8 @@ C3E210_StagedMovementAlternateDirectionParamTableEnd:
 ; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:74
 
 C3E218_StagedMovementSubtileOffsetSetA_XEnd:
-    ; data bytes: C3:E218..C3:E220
-    db $00,$00,$00,$00,$08,$00,$08,$00
-
+    ; data bytes: C3:E210..C3:E218
+    db $00,$00,$08,$00,$00,$00,$08,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:E218..C3:E220
@@ -5797,9 +5639,8 @@ C3E218_StagedMovementSubtileOffsetSetA_XEnd:
 ; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:75
 
 C3E220_StagedMovementSubtileOffsetSetA_YEnd:
-    ; data bytes: C3:E220..C3:E228
-    db $08,$00,$00,$00,$08,$00,$00,$00
-
+    ; data bytes: C3:E218..C3:E220
+    db $00,$00,$00,$00,$08,$00,$08,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:E220..C3:E228
@@ -5808,9 +5649,8 @@ C3E220_StagedMovementSubtileOffsetSetA_YEnd:
 ; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:76
 
 C3E228_StagedMovementSubtileOffsetSetB_XEnd:
-    ; data bytes: C3:E228..C3:E230
-    db $08,$00,$08,$00,$00,$00,$00,$00
-
+    ; data bytes: C3:E220..C3:E228
+    db $08,$00,$00,$00,$08,$00,$00,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:E228..C3:E230
@@ -5819,17 +5659,26 @@ C3E228_StagedMovementSubtileOffsetSetB_XEnd:
 ; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:77
 
 C3E230_StagedMovementSubtileOffsetSetB_YEnd:
-    ; data bytes: C3:E230..C3:E240
-    db $00,$00,$01,$00,$01,$00,$01,$00,$00,$00,$FF,$FF,$FF,$FF,$FF,$FF
-
+    ; data bytes: C3:E228..C3:E230
+    db $08,$00,$08,$00,$00,$00,$00,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:E230..C3:E240
-; class: data-or-helper-frontier
+; class: contract-backed-data
 ; source: data/unknown/C3E230.asm
 ; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:78
 
 C3E240_DoorCandidateDirectionOffsetXEnd:
+    ; data bytes: C3:E230..C3:E240
+    db $00,$00,$01,$00,$01,$00,$01,$00,$00,$00,$FF,$FF,$FF,$FF,$FF,$FF
+
+; ---------------------------------------------------------------------------
+; C3:E240..C3:E3F8
+; class: contract-backed-data-prefix
+; source: data/unknown/C3E240.asm
+; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:79
+
+C3E3F8_DoorCandidateDirectionOffsetYEnd:
     ; data bytes: C3:E240..C3:E3F8
     db $FF,$FF,$FF,$FF,$00,$00,$01,$00,$01,$00,$01,$00,$00,$00,$FF,$FF
     db $01,$00,$01,$00,$0D,$00,$08,$00,$0C,$00,$01,$00,$13,$00,$08,$00
@@ -5860,122 +5709,102 @@ C3E240_DoorCandidateDirectionOffsetXEnd:
     db $0E,$00,$0B,$00,$0F,$00,$10,$00,$16,$00,$08,$00,$09,$00,$04,$00
     db $07,$00,$09,$00,$12,$00,$12,$00
 
-
 ; ---------------------------------------------------------------------------
-; C3:E240..C3:E3F8
-; class: data-or-helper-frontier
-; source: data/unknown/C3E240.asm
-; evidence: notes/c3-map-movement-parameter-table-e1d8-e240.md:79
+; C3:E3F8..C3:E406
+; class: contract-backed-data
+; source: data/unknown/C3E3F8.asm
+; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:76
 
-C3E3F8_DoorCandidateDirectionOffsetYEnd:
+C3E406_MenuCursorTilePrefixTableEnd:
     ; data bytes: C3:E3F8..C3:E406
     db $08,$09,$18,$19,$0A,$09,$1A,$19,$15,$24,$16,$24,$15,$64
 
-
-; ---------------------------------------------------------------------------
-; C3:E3F8..C3:E406
-; class: raw-or-named-data
-; source: data/unknown/C3E3F8.asm
-; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:67
-
-C3E406_MenuCursorTilePrefixTableEnd:
-    ; data bytes: C3:E406..C3:E40E
-    db $41,$24,$8D,$26,$51,$24,$9D,$26
-
-
 ; ---------------------------------------------------------------------------
 ; C3:E406..C3:E40E
-; class: raw-or-named-data
-; source: data/unknown/C3E3F8.asm
-; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:67
+; class: contract-backed-data
+; source: data-contract
+; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:77
 
-C3E40E_MenuCursorTilePrefixTablePartE406End:
-    ; data bytes: C3:E40E..C3:E416
-    db $69,$3A,$6A,$3A,$6B,$3A,$6C,$3A
-
+C3E40E_AnimatedMenuCursorPointRightTilesEnd:
+    ; data bytes: C3:E406..C3:E40E
+    db $41,$24,$8D,$26,$51,$24,$9D,$26
 
 ; ---------------------------------------------------------------------------
 ; C3:E40E..C3:E416
 ; class: contract-backed-data
 ; source: data/unknown/C3E40E.asm
-; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:69
+; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:78
 
-BLINKING_TRIANGLE_TILES:
-C3E416_TitleNameBufferCursorTileRunEnd = BLINKING_TRIANGLE_TILES
-    ; data bytes: C3:E416..C3:E41C
-    db $14,$3C,$15,$3C,$11,$BC
-
+C3E416_TitleNameBufferCursorTileRunEnd:
+    ; data bytes: C3:E40E..C3:E416
+    db $69,$3A,$6A,$3A,$6B,$3A,$6C,$3A
 
 ; ---------------------------------------------------------------------------
 ; C3:E416..C3:E41C
 ; class: contract-backed-data
-; source: data/unknown/C3E40E.asm
-; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:69
+; source: data-contract
+; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:79
 
-C3E41C_TitleNameBufferCursorTileRunPartE416End:
-    ; data bytes: C3:E41C..C3:E424
-    db $16,$3C,$6D,$2E,$6E,$2E,$16,$7C
-
+C3E41C_BlinkingTriangleBaseTilesEnd:
+    ; data bytes: C3:E416..C3:E41C
+    db $14,$3C,$15,$3C,$11,$BC
 
 ; ---------------------------------------------------------------------------
 ; C3:E41C..C3:E424
 ; class: contract-backed-data
 ; source: data/unknown/C3E41C.asm
-; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:71
+; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:80
 
 C3E424_BlinkingTriangleWaitFrame0TilesEnd:
-    ; data bytes: C3:E424..C3:E42C
-    db $16,$3C,$7D,$2E,$7E,$2E,$16,$7C
-
+    ; data bytes: C3:E41C..C3:E424
+    db $16,$3C,$6D,$2E,$6E,$2E,$16,$7C
 
 ; ---------------------------------------------------------------------------
 ; C3:E424..C3:E42C
-; class: contract-backed-data
-; source: data/unknown/C3E41C.asm
-; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:71
+; class: source-adjacent-data
+; source: working-name
+; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:81
 
-C3E42C_BlinkingTriangleWaitFrame0TilesPartE424End:
-    ; data bytes: C3:E42C..C3:E434
-    db $16,$3C,$6D,$2E,$40,$2C,$16,$7C
-
+C3E42C_BlinkingTriangleWaitFrame1TilesEnd:
+    ; data bytes: C3:E424..C3:E42C
+    db $16,$3C,$7D,$2E,$7E,$2E,$16,$7C
 
 ; ---------------------------------------------------------------------------
 ; C3:E42C..C3:E434
-; class: contract-backed-data
-; source: data/unknown/C3E41C.asm
-; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:71
+; class: source-adjacent-data
+; source: working-name
+; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:82
 
-C3E434_BlinkingTriangleWaitFrame0TilesPartE42CEnd:
-    ; data bytes: C3:E434..C3:E43C
-    db $16,$3C,$40,$2C,$6E,$2E,$16,$7C
-
+C3E434_BlinkingTriangleWaitFrame2TilesEnd:
+    ; data bytes: C3:E42C..C3:E434
+    db $16,$3C,$6D,$2E,$40,$2C,$16,$7C
 
 ; ---------------------------------------------------------------------------
 ; C3:E434..C3:E43C
-; class: contract-backed-data
-; source: data/unknown/C3E41C.asm
-; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:71
+; class: source-adjacent-data
+; source: working-name
+; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:83
 
-C3E43C_BlinkingTriangleWaitFrame0TilesPartE434End:
-    ; data bytes: C3:E43C..C3:E44C
-    db $1C,$E4,$C3,$00,$24,$E4,$C3,$00,$2C,$E4,$C3,$00,$34,$E4,$C3,$00
-
+C3E43C_BlinkingTriangleWaitFrame3TilesEnd:
+    ; data bytes: C3:E434..C3:E43C
+    db $16,$3C,$40,$2C,$6E,$2E,$16,$7C
 
 ; ---------------------------------------------------------------------------
 ; C3:E43C..C3:E44C
 ; class: contract-backed-data
-; source: data/unknown/C3E41C.asm
-; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:71
+; source: data-contract
+; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:84
 
-C3E44C_BlinkingTriangleWaitFrame0TilesPartE43CEnd:
-    ; data bytes: C3:E44C..C3:E450
-    db $A4,$A8,$66,$00
-
+C3E44C_BlinkingTriangleWaitFramePointerTableEnd:
+    ; data bytes: C3:E43C..C3:E44C
+    db $1C,$E4,$C3,$00,$24,$E4,$C3,$00,$2C,$E4,$C3,$00,$34,$E4,$C3,$00
 
 ; ---------------------------------------------------------------------------
 ; C3:E44C..C3:E450
 ; class: contract-backed-data
 ; source: data/unknown/C3E44C.asm
-; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:76
+; evidence: notes/c3-menu-cursor-tile-data-e3f8-e450.md:85
 
 C3E450_WindowTickTransferPreludeDataEnd:
+    ; data bytes: C3:E44C..C3:E450
+    db $A4,$A8,$66,$00

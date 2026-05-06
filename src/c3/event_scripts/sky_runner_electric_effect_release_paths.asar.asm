@@ -4,6 +4,10 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -18,9 +22,9 @@ hirom
 !InstallScriptMovementVectorFromDirection = $C0C83B
 !Integrate_XYVelocityOnly = $9FC8
 !LoopSkyRunnerElectricEffectRise = $CEB9
-!PositionChangeCallback_C0A039 = $A039
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
@@ -38,16 +42,47 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <display_control_bits_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FADEOUT_EFFECT(target, fadeout_effect_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <fadeout_effect_word>
+endmacro
+
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
+    db $42
+    dl <target>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
+    db $42
+    dl <target>
+    dw <pose_descriptor_slot_word>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
+    db $42
+    dl <target>
+    dw <sound_effect_id_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -119,37 +154,37 @@ endmacro
 
 org $C3CEC7
 Event163_SkyRunnerElectricEffectReflectRelease:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $D1, $00) ; C3:CEC7  42 6F A8 C0 D1 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00D1) ; C3:CEC7  42 6F A8 C0 D1 00
     %EVENT_SET_Y_RELATIVE($FFD8) ; C3:CECD  2C D8 FF
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:CED0  25 C8 9F
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:CED3  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:CED3  42 79 A6 C0 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:CED8  39
     %EVENT_START_TASK(!LoopSkyRunnerElectricEffectRise) ; C3:CED9  07 B9 CE
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $49, $00) ; C3:CEDC  42 41 A8 C0 49 00
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:CEE2  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $0049) ; C3:CEDC  42 41 A8 C0 49 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:CEE2  42 6E AA C0 04 00
     %EVENT_PAUSE($08) ; C3:CEE8  06 08
-    %EVENT_SET_ANIMATION($FF) ; C3:CEEA  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:CEEA  3B FF
     %EVENT_PAUSE($02) ; C3:CEEC  06 02
-    %EVENT_SET_ANIMATION($00) ; C3:CEEE  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:CEEE  3B 00
     %EVENT_PAUSE($1E) ; C3:CEF0  06 1E
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:CEF2  19 04 A2
 Event166_SkyRunnerEffectFadeOutRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CEF5  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CEF5  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitAlternatePhysicsVar4WalkPulse) ; C3:CEFA  1A 26 AB
     %EVENT_SET_Z($00C8) ; C3:CEFD  2A C8 00
-    %EVENT_SET_ANIMATION($00) ; C3:CF00  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:CF00  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:CF02  42 BF A4 C0
     %EVENT_SET_Z_VELOCITY($FF00) ; C3:CF06  41 00 FF
     %EVENT_PAUSE($A0) ; C3:CF09  06 A0
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $01) ; C3:CF0B  42 BB 9F C0 01 01
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, $0101) ; C3:CF0B  42 BB 9F C0 01 01
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:CF11  1A E0 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:CF14  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:CF18  19 04 A2
 Event167_SkyRunnerEffectRiseTextHalt:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CF1B  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CF1B  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitAlternatePhysicsVar4WalkPulse) ; C3:CF20  1A 26 AB
     %EVENT_SET_Z($00C8) ; C3:CF23  2A C8 00
-    %EVENT_SET_ANIMATION($00) ; C3:CF26  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:CF26  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:CF28  42 BF A4 C0
     %EVENT_SET_Z_VELOCITY($FF00) ; C3:CF2C  41 00 FF
     %EVENT_PAUSE($64) ; C3:CF2F  06 64
@@ -159,18 +194,18 @@ Event167_SkyRunnerEffectRiseTextHalt:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:CF37  42 46 6E C4
     %EVENT_HALT() ; C3:CF3B  09
 Event168_VisualCountdownHalt:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CF3C  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CF3C  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:CF41  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:CF44  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:CF44  42 6E AA C0 04 00
     %EVENT_HALT() ; C3:CF4A  09
 Event169_DownwardMoveTextRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CF4B  42 64 A8 C0 FF
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:CF50  23 39 A0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CF4B  42 64 A8 C0 FF
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:CF50  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:CF53  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:CF56  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:CF56  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:CF58  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:CF5C  42 85 A6 C0 80 00
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:CF62  1D 04 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:CF5C  42 85 A6 C0 80 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:CF62  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:CF65  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:CF69  42 3B C8 C0
     %EVENT_PAUSE($30) ; C3:CF6D  06 30

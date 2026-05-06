@@ -5,14 +5,14 @@ Generated from `build/c3-source-data-map.json`. This is the implementation queue
 ## Summary
 
 - schema: `earthbound-decomp.c3-source-extraction-candidates.v1`
-- source units: `26`
+- source units: `27`
 - include-start source units: `24`
-- embedded source units: `2`
+- embedded source units: `3`
 - internal source entry labels: `9`
 - orphan/source entry labels outside addressed source-helper rows: `2`
-- by subsystem: `{'HP PP stat adjustment helpers': 4, 'Jeff repair and PSI menu helpers': 1, 'battle visual effect helpers': 7, 'equipment and battle selector helpers': 3, 'inventory equipment and tracked items': 6, 'window and battle text helpers': 5}`
-- by readiness: `{'source-ready': 26}`
-- by priority: `{'1': 15, '2': 11}`
+- by subsystem: `{'HP PP stat adjustment helpers': 4, 'Jeff repair and PSI menu helpers': 1, 'battle visual effect helpers': 7, 'equipment and battle selector helpers': 3, 'file-select visual transition helper': 1, 'inventory equipment and tracked items': 6, 'window and battle text helpers': 5}`
+- by readiness: `{'source-ready': 27}`
+- by priority: `{'1': 15, '2': 11, '3': 1}`
 
 ## Priority Queue
 
@@ -44,6 +44,7 @@ Generated from `build/c3-source-data-map.json`. This is the implementation queue
 | 2 | `include-row` | `C3:F981` | 0x148 | battle visual effect helpers | `DispatchBattleVisualEffectToken` | `source-ready` |  |
 | 2 | `include-row` | `C3:FAC9` | 0x40 | battle visual effect helpers | `DispatchBattleActorVisualEffectToken` | `source-ready` |  |
 | 2 | `include-row` | `C3:FB09` | 0x16 | battle visual effect helpers | `CheckCurrentBattleActorVisualFlag` | `source-ready` |  |
+| 3 | `embedded-label` | `C3:F3C5` | 0x234 | file-select visual transition helper | `RunFileSelectVisualTransition` | `source-ready` |  |
 
 ## Source Units
 
@@ -253,6 +254,17 @@ Generated from `build/c3-source-data-map.json`. This is the implementation queue
 - priority: `2`
 - readiness: `source-ready`
 - notes: Jeff repair source contract now pairs this mutating inventory repair helper with C1:D038.
+
+### `C3:F3C5` `RunFileSelectVisualTransition`
+
+- include: `data/unknown/C3F2B1.asm#embedded`
+- unit kind: `embedded-label`
+- size: `0x234`
+- subsystem: `file-select visual transition helper`
+- priority: `3`
+- readiness: `source-ready`
+- containing include: `data/unknown/C3F2B1.asm`
+- notes: Mixed-row split plan provides standalone source-helper slice boundaries.; Contained by `data/unknown/C3F2B1.asm` at `C3:F2B1`.
 
 ### `C3:F5F9` `QueueVisualTileRowsLinear`
 

@@ -70,6 +70,17 @@ MODULE_POLICY: dict[str, dict[str, Any]] = {
             "C1:D038 MapBrokenItemToRepairedItem",
         ],
     },
+    "file-select visual transition helper": {
+        "source_path": "src/c3/file_select_visual_transition_helper.asm",
+        "phase": "build-candidate",
+        "strategy": "emit embedded C3:F3C5 helper as annotated 65816 source while preserving adjacent C3:F2B1..F3C5 tables as data",
+        "dependencies": [
+            "C3:F2B1 level-up stat growth variance table",
+            "C3:F2B5 visual selector pose row table",
+            "$9F75 transition mode argument latch",
+            "$9641 file-select/entity-script busy state",
+        ],
+    },
     "battle visual effect helpers": {
         "source_path": "src/c3/battle_visual_effect_helpers.asm",
         "phase": "build-candidate",
@@ -387,6 +398,12 @@ def render_markdown(manifest: dict[str, Any]) -> str:
             )
         lines.append("")
 
+    present_build_candidates = [
+        module["source_path"]
+        for module in manifest["modules"]
+        if module["artifact_status"] == "prototype-file-present"
+        and module.get("prototype_level") == "build-candidate"
+    ]
     lines.extend(
         [
             "## Prototype Status",
@@ -399,7 +416,9 @@ def render_markdown(manifest: dict[str, Any]) -> str:
             "- item-family lifecycle refresh hooks",
             "- one structured external table contract at `D5:F4BB`",
             "",
-            "All six planned C3 helper modules now have prototype artifacts, and all six are `build-candidate`: `src/c3/window_text_helpers.asm`, `src/c3/inventory_equipment_tracked_items.asm`, `src/c3/hp_pp_adjustment_helpers.asm`, `src/c3/equipment_battle_selector_helpers.asm`, `src/c3/jeff_repair_psi_helpers.asm`, and `src/c3/battle_visual_effect_helpers.asm`. The remaining C3 source work is broader build-candidate hardening: assembler syntax, byte matching, external symbol naming, and preserving adjacent visual/script data tables as separate source assets.",
+            f"`{len(present_build_candidates)}` planned C3 helper modules now have prototype artifacts at `build-candidate` level: "
+            + ", ".join(f"`{path}`" for path in present_build_candidates)
+            + ". The remaining C3 source work is broader build-candidate hardening: assembler syntax, byte matching, external symbol naming, and preserving adjacent visual/script data tables as separate source assets.",
         ]
     )
     return "\n".join(lines).rstrip() + "\n"

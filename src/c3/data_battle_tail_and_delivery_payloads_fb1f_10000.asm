@@ -7,21 +7,16 @@
 ;   C3 source-data-map boundaries for later event/actionscript decoding.
 ;
 ; Source units covered:
-; - C3:FB1F..C3:FDBD C3FB1FUnmapped [unmapped-frontier]
+; - C3:FB1F..C3:FDBD DATA_C3FB1F [working-label]
 ; - C3:FDBD..C3:10000 DeliveryPlaceholderSpriteTable [movement-pattern-data]
 
 ; ---------------------------------------------------------------------------
 ; C3:FB1F..C3:FDBD
-; class: unmapped-frontier
-; source: residual-synthesis
-; evidence: build/c3-source-residual-map.json
+; class: working-label
+; source: working-name
+; evidence: notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:91
 
-
-; ---------------------------------------------------------------------------
-; C3:FB1F
-
-HP_METER_SPEEDS:
-C3FB1F_C3FB1FUnmapped = HP_METER_SPEEDS
+C3FDBD_DATA_C3FB1FEnd:
     ; data bytes: C3:FB1F..C3:FDBD
     db $00,$20,$01,$00,$00,$18,$01,$00,$00,$10,$01,$00,$82,$95,$97,$99
     db $A3,$A4,$95,$A2,$50,$A9,$9F,$A5,$A2,$50,$9E,$91,$9D,$95,$5C,$50
@@ -66,8 +61,13 @@ C3FB1F_C3FB1FUnmapped = HP_METER_SPEEDS
     db $C5,$00,$75,$E6,$C5,$00,$91,$E6,$C5,$00,$AE,$E6,$C5,$00,$D7,$E6
     db $C5,$00,$F4,$E6,$C5,$00,$80,$01,$90,$01,$A0,$01,$B0,$01
 
-FOR_SALE_SIGN_SPRITE_TABLE:
-C3FDBD_C3FB1FUnmappedEnd = FOR_SALE_SIGN_SPRITE_TABLE
+; ---------------------------------------------------------------------------
+; C3:FDBD..C3:10000
+; class: movement-pattern-data
+; source: script-payload
+; evidence: notes/c3-timed-delivery-controller-working-names.md:76
+
+; DeliveryPlaceholderSpriteTable reaches the bank boundary.
     ; data bytes: C3:FDBD..C3:10000
     db $37,$00,$4E,$00,$4F,$00,$34,$00,$C2,$20,$A2,$33,$00,$A9,$00,$00
     db $18,$7F,$1C,$A1,$C0,$CA,$10,$F8,$38,$EF,$F2,$FD,$C3,$F0,$15,$E2
@@ -106,12 +106,3 @@ C3FDBD_C3FB1FUnmappedEnd = FOR_SALE_SIGN_SPRITE_TABLE
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00,$00
-
-
-; ---------------------------------------------------------------------------
-; C3:FDBD..C3:10000
-; class: movement-pattern-data
-; source: script-payload
-; evidence: notes/c3-timed-delivery-controller-working-names.md:61
-
-; DeliveryPlaceholderSpriteTable reaches the bank boundary.
