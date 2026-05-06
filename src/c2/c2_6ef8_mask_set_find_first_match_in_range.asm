@@ -13,6 +13,24 @@
 
 ; No named external contracts were supplied or recognized.
 
+C4A279_OneHotTargetBitMaskTableLo = $A279
+C4A279_OneHotTargetBitMaskTableBank = $00C4
+InputMaskLo = $24
+InputMaskHi = $26
+SelectedMaskLo = $1C
+SelectedMaskHi = $1E
+CandidateBitIndex = $10
+RetryCount = $0E
+InputMaskCopyLo = $12
+InputMaskCopyHi = $14
+OneHotMaskLo = $0A
+OneHotMaskHi = $0C
+WorkingMaskLo = $06
+WorkingMaskHi = $08
+NullMaskWord = $0000
+TargetMaskBitLimit = $0020
+RandomBitMask = $001F
+
 ; ---------------------------------------------------------------------------
 ; C2:6EF8
 
@@ -23,121 +41,121 @@ C26EF8_MaskSet_FindFirstMatchInRange = RANDOM_TARGETTING
     tdc
     adc.w #$FFEA
     tcd
-    lda $24
-    sta $0A
-    lda $26
-    sta $0C
-    lda $0A
-    sta $12
-    lda $0C
-    sta $14
-    lda.w #$0000
-    sta $06
-    lda.w #$0000
-    sta $08
-    lda $0C
-    cmp $08
+    lda InputMaskLo
+    sta OneHotMaskLo
+    lda InputMaskHi
+    sta OneHotMaskHi
+    lda OneHotMaskLo
+    sta InputMaskCopyLo
+    lda OneHotMaskHi
+    sta InputMaskCopyHi
+    lda.w #NullMaskWord
+    sta WorkingMaskLo
+    lda.w #NullMaskWord
+    sta WorkingMaskHi
+    lda OneHotMaskHi
+    cmp WorkingMaskHi
     bne C26F24_MaskSet_FindFirstMatchInRange_L6F24
-    lda $0A
-    cmp $06
+    lda OneHotMaskLo
+    cmp WorkingMaskLo
 C26F24_MaskSet_FindFirstMatchInRange_L6F24:
     bne C26F31_MaskSet_FindFirstMatchInRange_L6F31
-    lda $06
-    sta $1C
-    lda $08
-    sta $1E
+    lda WorkingMaskLo
+    sta SelectedMaskLo
+    lda WorkingMaskHi
+    sta SelectedMaskHi
     jmp.w C26FDA_MaskSet_FindFirstMatchInRange_L6FDA
 C26F31_MaskSet_FindFirstMatchInRange_L6F31:
     ldy.w #$0000
-    sty $10
+    sty CandidateBitIndex
     jsr $69EF
     rep #$20
     and.w #$00FF
-    and.w #$001F
+    and.w #RandomBitMask
     inc A
-    sta $0E
+    sta RetryCount
     bra C26FA7_MaskSet_FindFirstMatchInRange_L6FA7
 C26F46_MaskSet_FindFirstMatchInRange_L6F46:
-    ldy $10
+    ldy CandidateBitIndex
     iny
-    sty $10
-    cpy.w #$0020
+    sty CandidateBitIndex
+    cpy.w #TargetMaskBitLimit
     bne C26F55_MaskSet_FindFirstMatchInRange_L6F55
     ldy.w #$0000
-    sty $10
+    sty CandidateBitIndex
 C26F55_MaskSet_FindFirstMatchInRange_L6F55:
-    lda $12
-    sta $0A
-    lda $14
-    sta $0C
+    lda InputMaskCopyLo
+    sta OneHotMaskLo
+    lda InputMaskCopyHi
+    sta OneHotMaskHi
     pha
-    lda $0A
+    lda OneHotMaskLo
     pha
-    lda.w #$A279
-    sta $06
-    lda.w #$00C4
-    sta $08
+    lda.w #C4A279_OneHotTargetBitMaskTableLo
+    sta WorkingMaskLo
+    lda.w #C4A279_OneHotTargetBitMaskTableBank
+    sta WorkingMaskHi
     tya
     asl A
     asl A
     clc
-    adc $06
-    sta $06
+    adc WorkingMaskLo
+    sta WorkingMaskLo
     ldy.w #$0002
-    lda [$06],Y
+    lda [WorkingMaskLo],Y
     tay
-    lda [$06]
-    sta $0A
-    sty $0C
+    lda [WorkingMaskLo]
+    sta OneHotMaskLo
+    sty OneHotMaskHi
     pla
-    sta $06
+    sta WorkingMaskLo
     pla
-    sta $08
-    lda $06
-    and $0A
-    sta $06
-    lda $08
-    and $0C
-    sta $08
-    lda.w #$0000
-    sta $0A
-    lda.w #$0000
-    sta $0C
-    lda $08
-    cmp $0C
+    sta WorkingMaskHi
+    lda WorkingMaskLo
+    and OneHotMaskLo
+    sta WorkingMaskLo
+    lda WorkingMaskHi
+    and OneHotMaskHi
+    sta WorkingMaskHi
+    lda.w #NullMaskWord
+    sta OneHotMaskLo
+    lda.w #NullMaskWord
+    sta OneHotMaskHi
+    lda WorkingMaskHi
+    cmp OneHotMaskHi
     bne C26FA5_MaskSet_FindFirstMatchInRange_L6FA5
-    lda $06
-    cmp $0A
+    lda WorkingMaskLo
+    cmp OneHotMaskLo
 C26FA5_MaskSet_FindFirstMatchInRange_L6FA5:
     beq C26F46_MaskSet_FindFirstMatchInRange_L6F46
 C26FA7_MaskSet_FindFirstMatchInRange_L6FA7:
-    lda $0E
+    lda RetryCount
     tax
     dec A
-    sta $0E
+    sta RetryCount
     cpx.w #$0000
     bne C26F46_MaskSet_FindFirstMatchInRange_L6F46
-    lda.w #$A279
-    sta $0A
-    lda.w #$00C4
-    sta $0C
-    ldy $10
+    lda.w #C4A279_OneHotTargetBitMaskTableLo
+    sta OneHotMaskLo
+    lda.w #C4A279_OneHotTargetBitMaskTableBank
+    sta OneHotMaskHi
+    ldy CandidateBitIndex
     tya
     asl A
     asl A
     clc
-    adc $0A
-    sta $0A
+    adc OneHotMaskLo
+    sta OneHotMaskLo
     ldy.w #$0002
-    lda [$0A],Y
+    lda [OneHotMaskLo],Y
     tay
-    lda [$0A]
-    sta $06
-    sty $08
-    lda $06
-    sta $1C
-    lda $08
-    sta $1E
+    lda [OneHotMaskLo]
+    sta WorkingMaskLo
+    sty WorkingMaskHi
+    lda WorkingMaskLo
+    sta SelectedMaskLo
+    lda WorkingMaskHi
+    sta SelectedMaskHi
 C26FDA_MaskSet_FindFirstMatchInRange_L6FDA:
     pld
     rtl

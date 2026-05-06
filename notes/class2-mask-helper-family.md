@@ -46,6 +46,12 @@ directly. `src/c2/c2_6bfb_mask_set_build_active_typed_candidates.asm`,
 `$A96C/$A96E` current target mask, `$9FAC` candidate rows, and the shared
 `0x4E` row stride at their local use sites.
 
+Follow-up implementation update: `src/c2/c2_6ef8_mask_set_find_first_match_in_range.asm`
+and `src/c2/c2_70e4_mask_set_prune_flagged_candidates.asm` now use the same
+one-hot table, bit-index, candidate-row stride, and target-set helper names.
+That closes the currently documented `C2:6BFB..70E4` mask helper family for
+source-facing vocabulary.
+
 ## Confirmed helper roles
 
 ### `C2:6FDC` -> add one bit to the working set

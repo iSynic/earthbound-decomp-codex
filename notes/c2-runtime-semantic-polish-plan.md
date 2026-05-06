@@ -361,6 +361,10 @@ contract notes for C0/C1/C3/C4 consumers.
   bit table, `$A96C/$A96E` current target mask, `$9FAC` candidate row root,
   active/phase/type/metadata row offsets, and `0x4E` stride in the add/test/
   clear and build/remove helper sources. See `notes/class2-mask-helper-family.md`.
+- 2026-05-05 fifty-fifth slice: closed the adjacent `6EF8`/`70E4` mask-helper
+  tail with the same one-hot target bit, input/output mask, candidate-row
+  stride, and named test/clear helper contracts. See
+  `notes/class2-mask-helper-family.md`.
 
 ## Validation
 

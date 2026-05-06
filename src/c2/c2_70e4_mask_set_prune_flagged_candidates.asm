@@ -12,6 +12,14 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C27029_MaskSet_TestBit             = $C27029
+C27089_MaskSet_ClearBit            = $C27089
+
+CandidateBitIndex = $0E
+CandidateRowSize = $004E
+TargetMaskBitLimit = $0020
+CandidateRowStateByteBase = $9FC9
+CandidateRowFlaggedState = $0001
 
 ; ---------------------------------------------------------------------------
 ; C2:70E4
@@ -24,31 +32,31 @@ C270E4_MaskSet_PruneFlaggedCandidates = REMOVE_DEAD_TARGETTING
     adc.w #$FFF0
     tcd
     ldx.w #$0000
-    stx $0E
+    stx CandidateBitIndex
     bra C2711F_MaskSet_PruneFlaggedCandidates_L711F
 C270F3_MaskSet_PruneFlaggedCandidates_L70F3:
     txa
-    jsl $C27029
+    jsl C27029_MaskSet_TestBit
     cmp.w #$0000
     beq C2711A_MaskSet_PruneFlaggedCandidates_L711A
-    ldx $0E
+    ldx CandidateBitIndex
     txa
-    ldy.w #$004E
+    ldy.w #CandidateRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FC9,X
+    lda CandidateRowStateByteBase,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #CandidateRowFlaggedState
     bne C2711A_MaskSet_PruneFlaggedCandidates_L711A
-    ldx $0E
+    ldx CandidateBitIndex
     txa
-    jsl $C27089
+    jsl C27089_MaskSet_ClearBit
 C2711A_MaskSet_PruneFlaggedCandidates_L711A:
-    ldx $0E
+    ldx CandidateBitIndex
     inx
-    stx $0E
+    stx CandidateBitIndex
 C2711F_MaskSet_PruneFlaggedCandidates_L711F:
-    cpx.w #$0020
+    cpx.w #TargetMaskBitLimit
     bcc C270F3_MaskSet_PruneFlaggedCandidates_L70F3
     pld
     rts

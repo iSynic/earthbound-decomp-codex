@@ -94,6 +94,11 @@ directly by naming `C4:A279` as the one-hot bit table, `$A96C/$A96E` as the
 current target mask, `$9FAC` as the candidate-row domain, and `0x4E` as the row
 stride in the core add/test/clear and build/remove passes.
 
+Follow-up update: the remaining `6EF8` first-match finder and `70E4`
+flagged-candidate pruner now share the same one-hot table and bit-index
+vocabulary, with `70E4` explicitly calling the named `C2:7029` test and
+`C2:7089` clear helpers.
+
 ## Second-Pointer Application
 
 `C2:40A4` is the consumer for the second pointer from a `D5:7B68` action
