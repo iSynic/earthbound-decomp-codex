@@ -16,11 +16,7 @@
 ; evidence: C3:E977 ReadCharacterInventorySlotByte
 ; evidence: C3:E9A0 CheckEquippedInventorySlotReference
 
-
-; ---------------------------------------------------------------------------
-; C3:E84E
-
-C3E84E_C3E84EMixed:
+C3E977_C3E84EMixedEnd:
     ; data bytes: C3:E84E..C3:E977
     db $30,$01,$31,$01,$32,$01,$33,$01,$34,$01,$35,$01,$36,$01,$37,$01
     db $38,$01,$00,$00,$40,$01,$41,$01,$42,$01,$43,$01,$44,$01,$45,$01
@@ -41,7 +37,3 @@ C3E84E_C3E84EMixed:
     db $00,$00,$84,$75,$83,$84,$62,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00,$00,$00,$00,$00,$00,$00,$06,$00,$00,$01,$06,$01,$00,$02
     db $06,$02,$7F,$7E,$00,$7F,$76,$76,$00
-
-GET_CHARACTER_ITEM:
-C3E977_C3E84EMixedEnd = GET_CHARACTER_ITEM
-C3E977_ReadCharacterInventorySlotByte = GET_CHARACTER_ITEM

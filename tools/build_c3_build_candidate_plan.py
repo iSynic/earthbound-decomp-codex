@@ -91,7 +91,7 @@ def parse_instruction_line(line: str) -> tuple[str, str] | None:
     if code.endswith(":") or "=" in code:
         return None
     parts = code.split(None, 1)
-    mnemonic = parts[0].lower()
+    mnemonic = parts[0].lower().split(".", 1)[0]
     if mnemonic not in ASM_MNEMONICS:
         return None
     operand = parts[1].strip() if len(parts) > 1 else ""

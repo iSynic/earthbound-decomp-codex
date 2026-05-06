@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from add_source_bank_range import ROOT, build_entry, recalculate_summary
-from rom_tools import find_rom, load_rom
+from rom_tools import find_rom, hirom_to_file_offset, load_rom
 
 
 BANK = "C3"
@@ -113,6 +113,22 @@ def label_for(address: int, name: str) -> str:
     return f"C3{address:04X}_{safe}End"
 
 
+def rom_bytes(rom: bytes, start: int, end: int) -> bytes:
+    file_start = hirom_to_file_offset(0xC3, start, len(rom))
+    file_end_last = hirom_to_file_offset(0xC3, end - 1, len(rom))
+    file_end = None if file_end_last is None else file_end_last + 1
+    if file_start is None or file_end is None:
+        raise ValueError(f"could not map C3:{start:04X}..C3:{end:04X} to ROM offsets")
+    return rom[file_start:file_end]
+
+
+def render_db_bytes(data: bytes) -> list[str]:
+    return [
+        "    db " + ",".join(f"${byte:02X}" for byte in data[index : index + 16])
+        for index in range(0, len(data), 16)
+    ]
+
+
 def pascalize(raw: str) -> str:
     words = re.split(r"[^A-Za-z0-9]+", raw)
     result = "".join(word[:1].upper() + word[1:] for word in words if word)
@@ -189,12 +205,12 @@ def interval_is_protected(start: int, end: int, intervals: list[tuple[int, int]]
 
 
 def best_span_for_segment(start: int, end: int, spans: list[Span], supplemental: list[Span]) -> Span:
-    containing = [span for span in spans if span.start <= start and end <= span.end]
-    if containing:
-        return min(containing, key=lambda span: (span.end - span.start, span.start))
     starting_label = [span for span in supplemental if span.start == start]
     if starting_label:
         return starting_label[0]
+    containing = [span for span in spans if span.start <= start and end <= span.end]
+    if containing:
+        return min(containing, key=lambda span: (span.end - span.start, span.start))
     return Span(
         start=start,
         end=end,
@@ -249,7 +265,7 @@ def segments_for_plan(
     return segments
 
 
-def write_stub(path: Path, plan: ModulePlan, segments: list[Span], *, force: bool) -> None:
+def write_stub(path: Path, plan: ModulePlan, segments: list[Span], *, rom: bytes, force: bool) -> None:
     if path.exists() and not force:
         raise SystemExit(f"{path.relative_to(ROOT)} already exists; pass --force to replace it")
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -289,6 +305,9 @@ def write_stub(path: Path, plan: ModulePlan, segments: list[Span], *, force: boo
             seen_labels.add(terminal)
         elif not terminal:
             lines.extend(["", f"; {segment.name} reaches the bank boundary."])
+        data = rom_bytes(rom, segment.start, segment.end)
+        lines.append(f"    ; data bytes: {format_address(segment.start)}..{format_address(segment.end)}")
+        lines.extend(render_db_bytes(data))
         lines.append("")
 
     path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8", newline="\n")
@@ -308,18 +327,18 @@ def build_manifest_entry(plan: ModulePlan, segments: list[Span], rom: bytes) -> 
         start=format_address(segments[0].start),
         end=format_address(segments[-1].end),
         name=plan.name,
-        source_segment=[],
-        data_gap=[
+        source_segment=[
             f"{format_address(segment.start)},{format_address(segment.end)},{segment.name}"
             for segment in segments
         ],
+        data_gap=[],
         evidence=evidence,
         rom=None,
         manifest=None,
     )
     entry = build_entry(entry_args, rom)
-    for gap, segment in zip(entry["data_gaps"], segments):
-        gap["evidence"] = list(segment.evidence)
+    for source_segment, segment in zip(entry["source_segments"], segments):
+        source_segment["evidence"] = list(segment.evidence)
     return entry
 
 
@@ -350,7 +369,7 @@ def main() -> int:
         segments = segments_for_plan(plan, spans=spans, supplemental=supplemental, protected=protected)
         if not segments:
             continue
-        write_stub(ROOT / plan.source_path, plan, segments, force=args.force)
+        write_stub(ROOT / plan.source_path, plan, segments, rom=rom, force=args.force)
         new_entries.append(build_manifest_entry(plan, segments, rom))
 
     existing_by_path = {

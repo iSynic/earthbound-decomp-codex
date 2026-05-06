@@ -5,14 +5,14 @@ Generated from the source-ready C3 extraction queue. This is not source code yet
 ## Summary
 
 - schema: `earthbound-decomp.c3-source-emission-plan.v1`
-- modules: `6`
-- source units: `26`
-- source-ready queue units: `26`
+- modules: `7`
+- source units: `27`
+- source-ready queue units: `27`
 - prototype module: `src/c3/inventory_equipment_tracked_items.asm`
-- prototype modules present: `['src/c3/window_text_helpers.asm', 'src/c3/inventory_equipment_tracked_items.asm', 'src/c3/hp_pp_adjustment_helpers.asm', 'src/c3/equipment_battle_selector_helpers.asm', 'src/c3/jeff_repair_psi_helpers.asm', 'src/c3/battle_visual_effect_helpers.asm']`
-- by phase: `{'build-candidate': 6}`
-- by artifact status: `{'prototype-file-present': 6}`
-- by prototype level: `{'build-candidate': 6}`
+- prototype modules present: `['src/c3/window_text_helpers.asm', 'src/c3/inventory_equipment_tracked_items.asm', 'src/c3/hp_pp_adjustment_helpers.asm', 'src/c3/equipment_battle_selector_helpers.asm', 'src/c3/jeff_repair_psi_helpers.asm', 'src/c3/file_select_visual_transition_helper.asm', 'src/c3/battle_visual_effect_helpers.asm']`
+- by phase: `{'build-candidate': 7}`
+- by artifact status: `{'prototype-file-present': 7}`
+- by prototype level: `{'build-candidate': 7}`
 
 ## Module Queue
 
@@ -23,6 +23,7 @@ Generated from the source-ready C3 extraction queue. This is not source code yet
 | `build-candidate` | `prototype-file-present` | `build-candidate` | `src/c3/hp_pp_adjustment_helpers.asm` | `C3:EC1F..C3:EE14` | 4 | HP PP stat adjustment helpers | emit as small arithmetic helper quartet sharing the Y/direct-amount contract |
 | `build-candidate` | `prototype-file-present` | `build-candidate` | `src/c3/equipment_battle_selector_helpers.asm` | `C3:EE14..C3:EF23` | 3 | equipment and battle selector helpers | emit as selector/refresh helpers with external C1/C4 table contracts referenced |
 | `build-candidate` | `prototype-file-present` | `build-candidate` | `src/c3/jeff_repair_psi_helpers.asm` | `C3:F1EC..C3:F2B1` | 1 | Jeff repair and PSI menu helpers | emit Jeff repair helper with C1:D038 mapper contract kept as an external source dependency |
+| `build-candidate` | `prototype-file-present` | `build-candidate` | `src/c3/file_select_visual_transition_helper.asm` | `C3:F3C5..C3:F5F9` | 1 | file-select visual transition helper | emit embedded C3:F3C5 helper as annotated 65816 source while preserving adjacent C3:F2B1..F3C5 tables as data |
 | `build-candidate` | `prototype-file-present` | `build-candidate` | `src/c3/battle_visual_effect_helpers.asm` | `C3:F5F9..C3:FB1F` | 7 | battle visual effect helpers | emit transfer/effect dispatch helpers while preserving adjacent C3 effect tables as data |
 
 ## Modules
@@ -39,11 +40,11 @@ Generated from the source-ready C3 extraction queue. This is not source code yet
 
 | Address | Range | Size | Kind | Name | Labels | Evidence |
 | --- | --- | ---: | --- | --- | --- | --- |
-| `C3:E450` | `C3:E450..C3:E4EF` | 0x9F | `include-row` | `WindowTickTransferDynamicTileBlock` | `C3:E450` `WindowTickTransferDynamicTileBlock` (entry)<br>`C3:E4CA` `ClearInstantPrinting` (internal-callable-label)<br>`C3:E4D4` `SetInstantPrinting` (internal-callable-label)<br>`C3:E4E0` `TickWindowWithoutInstantPrinting` (internal-callable-label) | `notes/c3-menu-cursor-tile-data-e3f8-e450.md:77`<br>`notes/c3-window-text-source-helper-corridor-e450-e7e3.md:98` |
+| `C3:E450` | `C3:E450..C3:E4EF` | 0x9F | `include-row` | `WindowTickTransferDynamicTileBlock` | `C3:E450` `WindowTickTransferDynamicTileBlock` (entry)<br>`C3:E4CA` `ClearInstantPrinting` (internal-callable-label)<br>`C3:E4D4` `SetInstantPrinting` (internal-callable-label)<br>`C3:E4E0` `TickWindowWithoutInstantPrinting` (internal-callable-label) | `notes/c3-menu-cursor-tile-data-e3f8-e450.md:86`<br>`notes/c3-window-text-source-helper-corridor-e450-e7e3.md:98` |
 | `C3:E4EF` | `C3:E4EF..C3:E6F8` | 0x209 | `include-row` | `FindFirstFreeWindowSlot` | `C3:E4EF` `FindFirstFreeWindowSlot` (entry)<br>`C3:E521` `CloseWindowAndReleaseTileState` (internal-callable-label) | `notes/c3-shared-helper-working-name-promotion.md:77`<br>`notes/c3-window-lifecycle-source-contract-e4ef-e6f7.md:7`<br>`notes/c3-window-text-source-helper-corridor-e450-e7e3.md:102` |
 | `C3:E6F8` | `C3:E6F8..C3:E75D` | 0x65 | `include-row` | `ClearFocusedPartyHpPpActorAndBlankRow` | `C3:E6F8` `ClearFocusedPartyHpPpActorAndBlankRow` (entry) | `notes/c3-focused-party-hppp-actor-clear-e6f8.md:29` |
 | `C3:E75D` | `C3:E75D..C3:E7E3` | 0x86 | `include-row` | `ResolveReflectedHitSideArticleTokens` | `C3:E75D` `ResolveReflectedHitSideArticleTokens` (entry)<br>`C3:E773` `ClearFirstReflectedHitSideArticleTokenFlag` (internal-callable-label)<br>`C3:E78F` `ClearSecondReflectedHitSideArticleTokenFlag` (internal-callable-label) | `notes/c3-window-text-source-helper-corridor-e450-e7e3.md:104`<br>`notes/class2-reflected-hit-side-token-consumers.md:46` |
-| `C3:E7E3` | `C3:E7E3..C3:E84E` | 0x6B | `include-row` | `ClearWindowRegisteredCopyChain` | `C3:E7E3` `ClearWindowRegisteredCopyChain` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:76`<br>`notes/c3-window-text-source-helper-corridor-e450-e7e3.md:105` |
+| `C3:E7E3` | `C3:E7E3..C3:E84E` | 0x6B | `include-row` | `ClearWindowRegisteredCopyChain` | `C3:E7E3` `ClearWindowRegisteredCopyChain` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:83`<br>`notes/c3-window-text-source-helper-corridor-e450-e7e3.md:105` |
 
 ### `src/c3/inventory_equipment_tracked_items.asm`
 
@@ -111,6 +112,20 @@ Generated from the source-ready C3 extraction queue. This is not source code yet
 | --- | --- | ---: | --- | --- | --- | --- |
 | `C3:F1EC` | `C3:F1EC..C3:F2B1` | 0xC5 | `include-row` | `TryRepairJeffBrokenInventoryItem` | `C3:F1EC` `TryRepairJeffBrokenInventoryItem` (entry) | `notes/c3-jeff-repair-source-contract-f1ec.md:9`<br>`notes/c3-shared-helper-working-name-promotion.md:98` |
 
+### `src/c3/file_select_visual_transition_helper.asm`
+
+- subsystem: `file-select visual transition helper`
+- phase: `build-candidate`
+- artifact status: `prototype-file-present`
+- prototype level: `build-candidate`
+- range: `C3:F3C5..C3:F5F9`
+- strategy: emit embedded C3:F3C5 helper as annotated 65816 source while preserving adjacent C3:F2B1..F3C5 tables as data
+- dependencies: `C3:F2B1 level-up stat growth variance table`; `C3:F2B5 visual selector pose row table`; `$9F75 transition mode argument latch`; `$9641 file-select/entity-script busy state`
+
+| Address | Range | Size | Kind | Name | Labels | Evidence |
+| --- | --- | ---: | --- | --- | --- | --- |
+| `C3:F3C5` | `C3:F3C5..C3:F5F9` | 0x234 | `embedded-label` | `RunFileSelectVisualTransition` | `C3:F3C5` `RunFileSelectVisualTransition` (entry) | `notes/c3-battle-visual-data-and-file-select-transition-split.md:57` |
+
 ### `src/c3/battle_visual_effect_helpers.asm`
 
 - subsystem: `battle visual effect helpers`
@@ -123,13 +138,13 @@ Generated from the source-ready C3 extraction queue. This is not source code yet
 
 | Address | Range | Size | Kind | Name | Labels | Evidence |
 | --- | --- | ---: | --- | --- | --- | --- |
-| `C3:F5F9` | `C3:F5F9..C3:F67D` | 0x84 | `include-row` | `QueueVisualTileRowsLinear` | `C3:F5F9` `QueueVisualTileRowsLinear` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:77` |
-| `C3:F67D` | `C3:F67D..C3:F705` | 0x88 | `include-row` | `QueueVisualTileRowsWrapped` | `C3:F67D` `QueueVisualTileRowsWrapped` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:78` |
-| `C3:F705` | `C3:F705..C3:F7FB` | 0xF6 | `include-row` | `QueueVisualTileBlockFromStream` | `C3:F705` `QueueVisualTileBlockFromStream` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:79` |
-| `C3:F7FB` | `C3:F7FB..C3:F819` | 0x1E | `include-row` | `QueueFixedEfEb3dVisualTileBlock` | `C3:F7FB` `QueueFixedEfEb3dVisualTileBlock` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:80` |
-| `C3:F981` | `C3:F981..C3:FAC9` | 0x148 | `include-row` | `DispatchBattleVisualEffectToken` | `C3:F981` `DispatchBattleVisualEffectToken` (entry)<br>`C3:F9A2` `ApplyBattleVisualToken23To2dColourEffect` (internal-callable-label)<br>`C3:FA4A` `ApplyBattleVisualToken31To35ColourEffect` (internal-callable-label)<br>`C3:FAC7` `ReturnFromBattleVisualEffectTokenDispatch` (internal-callable-label) | `notes/c3-battle-visual-effect-dispatch-source-contract-f981.md:7`<br>`notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:81` |
-| `C3:FAC9` | `C3:FAC9..C3:FB09` | 0x40 | `include-row` | `DispatchBattleActorVisualEffectToken` | `C3:FAC9` `DispatchBattleActorVisualEffectToken` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:82` |
-| `C3:FB09` | `C3:FB09..C3:FB1F` | 0x16 | `include-row` | `CheckCurrentBattleActorVisualFlag` | `C3:FB09` `CheckCurrentBattleActorVisualFlag` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:83`<br>`refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:46125` |
+| `C3:F5F9` | `C3:F5F9..C3:F67D` | 0x84 | `include-row` | `QueueVisualTileRowsLinear` | `C3:F5F9` `QueueVisualTileRowsLinear` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:84` |
+| `C3:F67D` | `C3:F67D..C3:F705` | 0x88 | `include-row` | `QueueVisualTileRowsWrapped` | `C3:F67D` `QueueVisualTileRowsWrapped` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:85` |
+| `C3:F705` | `C3:F705..C3:F7FB` | 0xF6 | `include-row` | `QueueVisualTileBlockFromStream` | `C3:F705` `QueueVisualTileBlockFromStream` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:86` |
+| `C3:F7FB` | `C3:F7FB..C3:F819` | 0x1E | `include-row` | `QueueFixedEfEb3dVisualTileBlock` | `C3:F7FB` `QueueFixedEfEb3dVisualTileBlock` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:87` |
+| `C3:F981` | `C3:F981..C3:FAC9` | 0x148 | `include-row` | `DispatchBattleVisualEffectToken` | `C3:F981` `DispatchBattleVisualEffectToken` (entry)<br>`C3:F9A2` `ApplyBattleVisualToken23To2dColourEffect` (internal-callable-label)<br>`C3:FA4A` `ApplyBattleVisualToken31To35ColourEffect` (internal-callable-label)<br>`C3:FAC7` `ReturnFromBattleVisualEffectTokenDispatch` (internal-callable-label) | `notes/c3-battle-visual-effect-dispatch-source-contract-f981.md:7`<br>`notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:88` |
+| `C3:FAC9` | `C3:FAC9..C3:FB09` | 0x40 | `include-row` | `DispatchBattleActorVisualEffectToken` | `C3:FAC9` `DispatchBattleActorVisualEffectToken` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:89` |
+| `C3:FB09` | `C3:FB09..C3:FB1F` | 0x16 | `include-row` | `CheckCurrentBattleActorVisualFlag` | `C3:FB09` `CheckCurrentBattleActorVisualFlag` (entry) | `notes/c3-window-and-battle-visual-unknown-tail-e7e3-f981.md:90`<br>`refs/earthbound-disasm-legacy/Earthbound Decomp/EB/Routine_Macros_EB.asm:46125` |
 
 ## Prototype Status
 
@@ -141,4 +156,4 @@ Generated from the source-ready C3 extraction queue. This is not source code yet
 - item-family lifecycle refresh hooks
 - one structured external table contract at `D5:F4BB`
 
-All six planned C3 helper modules now have prototype artifacts, and all six are `build-candidate`: `src/c3/window_text_helpers.asm`, `src/c3/inventory_equipment_tracked_items.asm`, `src/c3/hp_pp_adjustment_helpers.asm`, `src/c3/equipment_battle_selector_helpers.asm`, `src/c3/jeff_repair_psi_helpers.asm`, and `src/c3/battle_visual_effect_helpers.asm`. The remaining C3 source work is broader build-candidate hardening: assembler syntax, byte matching, external symbol naming, and preserving adjacent visual/script data tables as separate source assets.
+`7` planned C3 helper modules now have prototype artifacts at `build-candidate` level: `src/c3/window_text_helpers.asm`, `src/c3/inventory_equipment_tracked_items.asm`, `src/c3/hp_pp_adjustment_helpers.asm`, `src/c3/equipment_battle_selector_helpers.asm`, `src/c3/jeff_repair_psi_helpers.asm`, `src/c3/file_select_visual_transition_helper.asm`, `src/c3/battle_visual_effect_helpers.asm`. The remaining C3 source work is broader build-candidate hardening: assembler syntax, byte matching, external symbol naming, and preserving adjacent visual/script data tables as separate source assets.

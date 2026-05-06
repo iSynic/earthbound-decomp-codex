@@ -16,9 +16,10 @@ DEFAULT_PLAN = ROOT / "build" / "c3-source-emission-plan.json"
 SCHEMA = "earthbound-decomp.c3-source-signature-validation.v1"
 
 ASM_MNEMONICS = {mnemonic for mnemonic, _mode in OPCODES.values()}
-LABEL_RE = re.compile(r"^C3([0-9A-F]{4})_[A-Za-z0-9_]+:$")
+LABEL_RE = re.compile(r"^C3([0-9A-F]{4})_[A-Za-z0-9_]+(?::|\s*=)")
 M16_RETURN_CALLS = {
     "$C08616",  # QueueVramTransfer_FromDpSource
+    "$C088B1",  # ResetRendererFrameState
     "$C3EAD0",  # tracked-item family present handler
     "$C3EB1C",  # tracked-item family absent handler
 }
@@ -68,7 +69,7 @@ def parse_instruction_line(line: str) -> tuple[str, str] | None:
     if not code or code.endswith(":") or "=" in code:
         return None
     parts = code.split(None, 1)
-    mnemonic = parts[0].lower()
+    mnemonic = parts[0].lower().split(".", 1)[0]
     if mnemonic not in ASM_MNEMONICS:
         return None
     return mnemonic, parts[1].strip() if len(parts) > 1 else ""
