@@ -84,6 +84,13 @@ It clears the fractional delta words, offsets caller X by `#$80`, calls the C0 s
 
 The three routines form a tidy movement/camera step: initialize direction-based deltas, advance the screen origin, then rebuild per-entity relative positions.
 
+2026-05-06 screen-position source follow-up: the source now marks the side
+effect boundary explicitly. `C4:2631` owns only the `$3C22..$3C30` fixed-point
+step staging and sign extension from the C0 projection helpers; `C4:268A` owns
+the screen-origin accumulator writes before handing the new origin to
+`C0:1731`; `C4:26C7` owns the live-slot screen-relative rebase from world
+coordinates.
+
 ## Palette interpolation export
 
 `C4:26ED` already has a strong local identity from the landing palette interpolation note. In this local run it belongs after the screen-position helpers, but its behavior is independent and much more palette-facing.
@@ -95,6 +102,13 @@ It reads three delta/current plane pairs:
 - `7F:0600 + 7F:0C00`
 
 For each packed color entry, it advances each current component, clamps each component to the 5-bit color range, clears finished deltas at the bounds, repacks the three components into a 15-bit SNES color word at `$0200,X`, and finally writes `$0030 = #$18`. The existing NMI/DMA notes identify `$0030 = #$18` as the selector for a full `CGRAM` upload from `$0200`.
+
+2026-05-06 palette-export source follow-up: the source now names the local
+direct-page frame size and zero component value in addition to the existing
+7F-plane, component-mask, `$0200` CGRAM shadow, byte-count, and `$0030` upload
+selector contracts. The unusual negative high-channel path still preserves the
+observed middle-delta clear exactly as byte-equivalence evidence, not as a
+broader semantic claim.
 
 ## Working Names
 

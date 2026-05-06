@@ -373,6 +373,12 @@ closure.
   signed RGB555 component clamps, saved/work palette row bases, row counts,
   current-slot signed magnitude reads, upload selector writes, and fixed-color
   math modes. See `notes/palette-brightness-row-adjusters-c473b2-c474a8.md`.
+- 2026-05-06 screen-origin/palette-export follow-up: tightened the tail of the
+  window/color note around `$3C22..$3C30` fixed-point screen-origin staging,
+  C0 projection/map-refresh caller joins, live-slot screen-relative rebasing,
+  7F palette interpolation planes, `$0200` CGRAM shadow export, and `$0030`
+  full-CGRAM upload selector writes. See
+  `notes/c4-window-color-math-and-palette-helpers-23dc-26ed.md`.
 
 ## Validation
 

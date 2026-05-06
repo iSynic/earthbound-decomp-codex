@@ -53,6 +53,9 @@ SIGN_EXTENSION_HIGH_BYTE             = $FF00
 ; Entry:
 ;   A = speed or magnitude input.
 ;   X = angle byte.
+; Side effects: seeds the $3C22..$3C30 fixed-point screen-origin step state
+; from the current screen origin. C0:B40B/C0:B400 provide the projection values;
+; C4 owns only the staging and sign extension here.
 C42631_InitScreenPositionInterpolationFromAngle:
     rep #$30
     stz SCREEN_STEP_X_FRAC_DELTA
@@ -97,6 +100,10 @@ C42677_InitScreenPositionInterpolationFromAngle_YPositive:
 ; C4:268A
 
 ; StepScreenPositionInterpolationAndApply
+;
+; Side effects: advances the fixed-point screen-origin accumulators, mirrors
+; the committed origins to $0035/$0037, then calls the C0 map-position refresh
+; helper with the new X/Y origin pair.
 C4268A_StepScreenPositionInterpolationAndApply:
     lda SCREEN_STEP_X_FRAC_DELTA
     clc
@@ -125,6 +132,9 @@ C4268A_StepScreenPositionInterpolationAndApply:
 ; C4:26C7
 
 ; RebaseLiveEntityPositionsToScreenOrigin
+;
+; Side effects: for each active live-entity slot in this compact table band,
+; rewrites screen-relative X/Y from live world X/Y minus the current origin.
 C426C7_RebaseLiveEntityPositionsToScreenOrigin:
     rep #$30
     ldx #$0000
