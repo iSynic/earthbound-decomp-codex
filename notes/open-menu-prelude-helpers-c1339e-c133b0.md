@@ -111,6 +111,32 @@ open-menu tail starts that were previously buried inside the large source unit:
   grant the selected item to a chosen character, including the equipment refresh
   path when the granted item is equippable.
 
+## Open-Menu Helper-Call Polish Follow-Up (2026-05-06)
+
+The same `C1:33B0..4103` source unit now names most of its evidence-backed
+helper-call surface. The open-menu record rebuild, main selection loop, goods
+and status branches, target prompts, inventory/equipment row renderers, HP/PP
+focus helpers, party PSI/equipment/teleport branch calls, window cleanup, and
+debug tail ticks now call through local symbolic contracts instead of raw
+addresses.
+
+This pass intentionally leaves only four raw helper edges in the source unit:
+
+- `C1:AF74`, used by the open-menu status/goods branch, still needs a local
+  contract read before promotion.
+- two `C1:03DC` command-argument/context reads in the tiny post-`C1:4070`
+  text-command wrappers remain raw because this file straddles multiple
+  existing `03DC` aliases.
+- `C1:0FEA` remains raw in the final tiny wrapper because C1 already uses
+  context-specific aliases for that helper, and this wrapper needs its own
+  precise wording.
+
+Validation after the helper-call pass:
+
+```text
+C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).
+```
+
 ## Practical Conclusion
 
 `C1:339E`, `C1:33A7`, and `C1:33B0` are now covered as open-menu prelude helpers: two fixed-argument calls into `C1:98DE`, plus a local menu-entry record rebuild over the debug/menu option tables. The adjacent `C1:34A7..4103` body is also source-backed now, tying those prepared records to the open-menu selection loop, the checking-object path at `C1:3C32`, and the small name-entry pointer helpers at `C1:4012`, `C1:4049`, and `C1:4070`.

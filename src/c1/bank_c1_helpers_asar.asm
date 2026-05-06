@@ -6613,14 +6613,25 @@ org $C133B0
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C0943C_SaveCurrentCoordinateState = $C0943C
 !C09451_RestoreSavedCoordinateState = $C09451
+!C1007E_SetFocusWindowOrContext = $007E
+!C10084_CloseFocusWindow = $0084
 !C1008E_CloseAndDrainAllWindows = $008E
+!C10301_GetActiveInteractionContextRecord = $0301
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C10489_InstallSecondaryInteractionContextPointer = $0489
 !C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
 !C10A1D_HideHpppWindowsInternal = $0A1D
 !C10DF6_PrintDecimalValueFromCallerPointer = $0DF6
 !C10EB4_SetActiveWindowTextModeByte = $0EB4
 !C10EFC_PrintFixedString = $0EFC
+!C10F40_ClearWindowContentByFocusIndex = $0F40
+!C10FA3_ClearActiveWindowContent = $0FA3
 !C1101C_RunNumberSelectPrompt = $101C
 !C1134B_SetupTextDisplayWithWalletStatus = $134B
+!C11596_CreateTypedTextEntryRecordWithExtraByte = $1596
+!C115F4_CreateTypedTextEntryRecordDirect = $15F4
+!C1163C_RefreshActiveTextEntryChain = $163C
+!C1196A_RunActiveTextEntrySelectionMenu = $196A
 !C127EF_RunCharacterSelectionPromptWithCallback = $27EF
 !C13187_ResolvePrimaryFrontInteractionOutput = $C13187
 !C1323B_ResolveSecondaryFacingInteractionOutput = $C1323B
@@ -6636,22 +6647,39 @@ org $C133B0
 !C19010_RecoverPpForCharacterOrActiveParty = $9010
 !C19066_DispatchEquippedSlotSubtypeUpdate = $9066
 !C19216_PrintItemNameFromConfigurationTable = $9216
+!C19249_PrintStatisticSelectorValue = $9249
+!C193E7_OpenTargetSelectionPromptLabel = $93E7
+!C19437_CloseTargetSelectionPromptLabel = $9437
+!C198DE_RenderCharacterInventoryOrEquipmentRows = $98DE
 !C19EE6_ClassifyItemCompactCategory = $9EE6
+!C1AA5D_RunPartyEquipmentMenuController = $AA5D
+!C1B5B6_OpenBattlePsiUserSelection = $B5B6
+!C1BB71_OpenFieldPsiDestinationMenu = $BB71
+!C1C373_FindFirstEligibleBattlePsiUser = $C373
+!C1C3B6_CountEligibleBattlePsiUsers = $C3B6
 !C1D8D0_RefreshCharacterBattleStartState = $D8D0
 !C0ABE0_PlaySoundEffect = $C0ABE0
 !C22351_FindFirstEmptyInventorySlotForCharacter = $C22351
+!C22A3A_TransferInventoryItemBetweenCharactersMaintainingEquipment = $C22A3A
 !C21628_CheckEventFlag = $C21628
 !C2165E_SetEventFlagOrState = $C2165E
+!C12DD5_TickWindowTextSystem = $C12DD5
 !C3E4CA_ClearInstantPrinting = $C3E4CA
 !C3E4D4_SetInstantPrinting = $C3E4D4
 !C3E521_CloseWindowById = $C3E521
+!C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow = $C3E6F8
+!C3E977_GetItemInCharacterInventorySlot = $C3E977
 !C3EE14_TestCharacterCanEquipItem = $C3EE14
+!C43573_SelectFocusedPartyHpPpActorAndBlankRow = $C43573
 !C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
 !C43CAA_AdvanceAnimatedGlyphTileStateOffset = $C43CAA
 !C43F77_PrintGlyphWithTileCleanupSoundDelay = $C43F77
+!C451FA_LayoutActiveTextEntryChainForWindow = $C451FA
 !C45683_FindPartyMemberWithItemWildcard = $C45683
 !C4572B_FindPartyMemberWithInventoryRoomWildcard = $C4572B
 !C4D681_DisplayCurrentPositionTownMap = $C4D681
+!EF01D2_UpdateBattleSpriteFrameEffectState = $EF01D2
+!EF016F_RefreshBattleSpriteScratchFromCurrentEnemy = $EF016F
 C133B0_RebuildOpenMenuTextEntryRecords:
     rep #$31
     phd
@@ -6670,7 +6698,7 @@ C133CB_RebuildOpenMenuTextEntryRecords_L33CB:
     lda $02
     cmp.w #$0003
     bne C133DD_RebuildOpenMenuTextEntryRecords_L33DD
-    jsr $C373
+    jsr !C1C373_FindFirstEligibleBattlePsiUser
     cmp.w #$0000
     bne C133DD_RebuildOpenMenuTextEntryRecords_L33DD
     jmp.w C1348F_RebuildOpenMenuTextEntryRecords_L348F
@@ -6691,7 +6719,7 @@ C133DD_RebuildOpenMenuTextEntryRecords_L33DD:
     ldx.w #$0001
     lda $986F
     and.w #$00FF
-    jsl $C3E977
+    jsl !C3E977_GetItemInCharacterInventorySlot
     cmp.w #$0000
     bne C13414_RebuildOpenMenuTextEntryRecords_L3414
 C1340F_RebuildOpenMenuTextEntryRecords_L340F:
@@ -6762,7 +6790,7 @@ C13417_RebuildOpenMenuTextEntryRecords_L3417:
     and.w #$00FF
     tax
     lda $02
-    jsr $1596
+    jsr !C11596_CreateTypedTextEntryRecordWithExtraByte
 C1348F_RebuildOpenMenuTextEntryRecords_L348F:
     inc $02
 C13491_RebuildOpenMenuTextEntryRecords_L3491:
@@ -6774,7 +6802,7 @@ C13491_RebuildOpenMenuTextEntryRecords_L3491:
 C1349D_RebuildOpenMenuTextEntryRecords_L349D:
     sep #$20
     stz $5E6C
-    jsr $163C
+    jsr !C1163C_RefreshActiveTextEntryChain
     pld
     rts
 OPEN_MENU_BUTTON:
@@ -6786,9 +6814,9 @@ OPEN_MENU_BUTTON:
     tcd
     jsl !C0943C_SaveCurrentCoordinateState
     lda.w #$0001
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     lda.w #$0000
-    jsr $04EE
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     sep #$20
     stz $5E6C
     jsr.w C133B0_RebuildOpenMenuTextEntryRecords
@@ -6797,9 +6825,9 @@ OPEN_MENU_BUTTON:
 C134CD_RebuildOpenMenuTextEntryRecords_L34CD:
     rep #$20
     lda.w #$0000
-    jsr $007E
+    jsr !C1007E_SetFocusWindowOrContext
     lda.w #$0001
-    jsr $196A
+    jsr !C1196A_RunActiveTextEntrySelectionMenu
     sta $06
     stz $08
     lda $06
@@ -6849,7 +6877,7 @@ C13532_RebuildOpenMenuTextEntryRecords_L3532:
     jsl !C186B1_PrintTextFromPointer
     jmp.w C13C16_FinalizeOpenMenuLoopIteration
 C13541_RebuildOpenMenuTextEntryRecords_L3541:
-    jsr $134B
+    jsr !C1134B_SetupTextDisplayWithWalletStatus
 C13544_RebuildOpenMenuTextEntryRecords_L3544:
     lda $98A4
     and.w #$00FF
@@ -6860,7 +6888,7 @@ C13544_RebuildOpenMenuTextEntryRecords_L3544:
     ldx.w #$0001
     lda $0000,Y
     and.w #$00FF
-    jsl $C3E977
+    jsl !C3E977_GetItemInCharacterInventorySlot
     cmp.w #$0000
     bne C13569_RebuildOpenMenuTextEntryRecords_L3569
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
@@ -6869,7 +6897,7 @@ C13569_RebuildOpenMenuTextEntryRecords_L3569:
     ldy $23
     lda $0000,Y
     and.w #$00FF
-    jsr $98DE
+    jsr !C198DE_RenderCharacterInventoryOrEquipmentRows
     ldy $23
     sep #$20
     lda $0000,Y
@@ -6883,11 +6911,11 @@ C13569_RebuildOpenMenuTextEntryRecords_L3569:
     lda $08
     sta $21
     lda.w #$0000
-    jsl $C43573
+    jsl !C43573_SelectFocusedPartyHpPpActorAndBlankRow
     bra C135C8_RebuildOpenMenuTextEntryRecords_L35C8
 C13599_RebuildOpenMenuTextEntryRecords_L3599:
     lda.w #$0000
-    jsr $93E7
+    jsr !C193E7_OpenTargetSelectionPromptLabel
     lda.w #$339E
     sta $0E
     lda.w #$00C1
@@ -6898,7 +6926,7 @@ C13599_RebuildOpenMenuTextEntryRecords_L3599:
     sta $14
     ldx.w #$0001
     lda.w #$0000
-    jsr $27EF
+    jsr !C127EF_RunCharacterSelectionPromptWithCallback
     sta $06
     stz $08
     lda $06
@@ -6919,26 +6947,26 @@ C135DC_RebuildOpenMenuTextEntryRecords_L35DC:
     bne C135EB_RebuildOpenMenuTextEntryRecords_L35EB
     lda.w #$0002
     jsl !C3E521_CloseWindowById
-    jsr $9437
+    jsr !C19437_CloseTargetSelectionPromptLabel
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C135EB_RebuildOpenMenuTextEntryRecords_L35EB:
     ldx.w #$0001
     lda $06
-    jsl $C3E977
+    jsl !C3E977_GetItemInCharacterInventorySlot
     cmp.w #$0000
     bne C135FC_RebuildOpenMenuTextEntryRecords_L35FC
     jmp.w C13544_RebuildOpenMenuTextEntryRecords_L3544
 C135FC_RebuildOpenMenuTextEntryRecords_L35FC:
     lda.w #$0001
-    jsr $93E7
+    jsr !C193E7_OpenTargetSelectionPromptLabel
     lda.w #$0002
-    jsr $007E
+    jsr !C1007E_SetFocusWindowOrContext
     lda.w #$0001
-    jsr $196A
+    jsr !C1196A_RunActiveTextEntrySelectionMenu
     sta $04
     sta $1D
-    jsl $EF016F
-    jsr $9437
+    jsl !EF016F_RefreshBattleSpriteScratchFromCurrentEnemy
+    jsr !C19437_CloseTargetSelectionPromptLabel
     lda $04
     bne C13652_RebuildOpenMenuTextEntryRecords_L3652
     lda $98A4
@@ -6950,19 +6978,19 @@ C1362B_RebuildOpenMenuTextEntryRecords_L362B:
     ldx.w #$0001
     lda $986F
     and.w #$00FF
-    jsl $C3E977
+    jsl !C3E977_GetItemInCharacterInventorySlot
     cmp.w #$0000
     beq C13648_RebuildOpenMenuTextEntryRecords_L3648
     lda.w #$001B
-    jsl $C0ABE0
-    jsl $C3E6F8
+    jsl !C0ABE0_PlaySoundEffect
+    jsl !C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
 C13648_RebuildOpenMenuTextEntryRecords_L3648:
     lda.w #$0002
     jsl !C3E521_CloseWindowById
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13652_RebuildOpenMenuTextEntryRecords_L3652:
     lda.w #$0003
-    jsr $04EE
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     lda $1F
     sta $06
     lda $21
@@ -7021,7 +7049,7 @@ C13699_RebuildOpenMenuTextEntryRecords_L3699:
     lda.w #$0000
     sta $14
     txa
-    jsr $15F4
+    jsr !C115F4_CreateTypedTextEntryRecordDirect
     ldx $1B
     txy
     sty $23
@@ -7032,7 +7060,7 @@ C136CC_RebuildOpenMenuTextEntryRecords_L36CC:
     ldy.w #$0000
     tyx
     lda.w #$0001
-    jsl $C451FA
+    jsl !C451FA_LayoutActiveTextEntryChainForWindow
     lda.w #$0000
     sta $02
 C136E3_RebuildOpenMenuTextEntryRecords_L36E3:
@@ -7040,7 +7068,7 @@ C136E3_RebuildOpenMenuTextEntryRecords_L36E3:
     lda $02
     beq C13703_RebuildOpenMenuTextEntryRecords_L3703
     lda.w #$0002
-    jsr $007E
+    jsr !C1007E_SetFocusWindowOrContext
     sep #$20
     lda $1A
     sta $00
@@ -7048,17 +7076,17 @@ C136E3_RebuildOpenMenuTextEntryRecords_L36E3:
     lda $00
     and.w #$00FF
     beq C1370C_RebuildOpenMenuTextEntryRecords_L370C
-    jsr $163C
+    jsr !C1163C_RefreshActiveTextEntryChain
     bra C1370C_RebuildOpenMenuTextEntryRecords_L370C
 C13703_RebuildOpenMenuTextEntryRecords_L3703:
     lda.w #$0003
-    jsr $007E
-    jsr $163C
+    jsr !C1007E_SetFocusWindowOrContext
+    jsr !C1163C_RefreshActiveTextEntryChain
 C1370C_RebuildOpenMenuTextEntryRecords_L370C:
     lda.w #$0003
-    jsr $007E
+    jsr !C1007E_SetFocusWindowOrContext
     lda.w #$0001
-    jsr $196A
+    jsr !C1196A_RunActiveTextEntrySelectionMenu
     sta $0A
     stz $0C
     lda $0A
@@ -7077,9 +7105,9 @@ C13732_RebuildOpenMenuTextEntryRecords_L3732:
 C1373A_RebuildOpenMenuTextEntryRecords_L373A:
     jmp.w C13C16_FinalizeOpenMenuLoopIteration
 C1373D_RebuildOpenMenuTextEntryRecords_L373D:
-    jsr $0084
+    jsr !C10084_CloseFocusWindow
     lda.w #$0002
-    jsr $007E
+    jsr !C1007E_SetFocusWindowOrContext
     jmp.w C135FC_RebuildOpenMenuTextEntryRecords_L35FC
 C13749_RebuildOpenMenuTextEntryRecords_L3749:
     lda.w #$0001
@@ -7105,15 +7133,15 @@ C1376C_RebuildOpenMenuTextEntryRecords_L376C:
     jmp.w C136E3_RebuildOpenMenuTextEntryRecords_L36E3
 C13777_HandleOpenMenuStatusChoice:
     lda.w #$0000
-    jsr $0F40
+    jsr !C10F40_ClearWindowContentByFocusIndex
     lda.w #$0002
-    jsr $0F40
+    jsr !C10F40_ClearWindowContentByFocusIndex
     sep #$20
     lda.b #$FF
     sta $5E79
     rep #$20
     lda.w #$0001
-    jsr $04EE
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     lda $1F
     sta $06
     lda $21
@@ -7125,7 +7153,7 @@ C13777_HandleOpenMenuStatusChoice:
     sta $04
     ldx $04
     tya
-    jsl $C3E977
+    jsl !C3E977_GetItemInCharacterInventorySlot
     sta $1D
     lda.w #$5000
     sta $0A
@@ -7153,7 +7181,7 @@ C13777_HandleOpenMenuStatusChoice:
     lda.w #$0001
     jsl !C3E521_CloseWindowById
     lda.w #$0000
-    jsr $007E
+    jsr !C1007E_SetFocusWindowOrContext
     sep #$20
     lda.b #$01
     sta $5E6C
@@ -7161,20 +7189,20 @@ C13777_HandleOpenMenuStatusChoice:
     ldx.w #$0002
     ldy $23
     tya
-    jsr $98DE
+    jsr !C198DE_RenderCharacterInventoryOrEquipmentRows
     lda.w #$0003
     jsl !C3E521_CloseWindowById
     lda.w #$0002
-    jsr $007E
+    jsr !C1007E_SetFocusWindowOrContext
     jmp.w C135FC_RebuildOpenMenuTextEntryRecords_L35FC
 C13810_HandleOpenMenuGoodsChoice:
     lda.w #$0002
-    jsr $007E
-    jsr $0FA3
+    jsr !C1007E_SetFocusWindowOrContext
+    jsr !C10FA3_ClearActiveWindowContent
     lda.w #$0001
     sta $02
     lda.w #$0003
-    jsr $93E7
+    jsr !C193E7_OpenTargetSelectionPromptLabel
     lda.w #$33A7
     sta $0E
     lda.w #$00C1
@@ -7185,9 +7213,9 @@ C13810_HandleOpenMenuGoodsChoice:
     sta $14
     ldx.w #$0001
     lda.w #$0002
-    jsr $27EF
+    jsr !C127EF_RunCharacterSelectionPromptWithCallback
     sta $18
-    jsr $9437
+    jsr !C19437_CloseTargetSelectionPromptLabel
     lda.w #$002C
     jsl !C3E521_CloseWindowById
     lda $18
@@ -7216,7 +7244,7 @@ C13874_RebuildOpenMenuTextEntryRecords_L3874:
     sta $04
     ldx $04
     lda $06
-    jsl $C3E977
+    jsl !C3E977_GetItemInCharacterInventorySlot
     ldy.w #$0027
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
@@ -7227,12 +7255,12 @@ C13874_RebuildOpenMenuTextEntryRecords_L3874:
     and.w #$0020
     beq C138DC_RebuildOpenMenuTextEntryRecords_L38DC
     lda.w #$0001
-    jsr $04EE
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $04
     sta $06
     stz $08
@@ -7240,7 +7268,7 @@ C13874_RebuildOpenMenuTextEntryRecords_L3874:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$C6C9
     sta $0E
     lda.w #$00C7
@@ -7312,8 +7340,8 @@ C13946_RebuildOpenMenuTextEntryRecords_L3946:
     stx $16
 C1394B_RebuildOpenMenuTextEntryRecords_L394B:
     lda.w #$0001
-    jsr $04EE
-    jsr $0301
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsr !C10301_GetActiveInteractionContextRecord
     sta $23
     clc
     adc.w #$0017
@@ -7395,7 +7423,7 @@ C139DF_RebuildOpenMenuTextEntryRecords_L39DF:
     lda $06
     tax
     lda $18
-    jsl $C22A3A
+    jsl !C22A3A_TransferInventoryItemBetweenCharactersMaintainingEquipment
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A03_RebuildOpenMenuTextEntryRecords_L3A03:
     lda.w #$E42C
@@ -7425,7 +7453,7 @@ C13A25_RebuildOpenMenuTextEntryRecords_L3A25:
     lda $06
     tax
     lda $18
-    jsl $C22A3A
+    jsl !C22A3A_TransferInventoryItemBetweenCharactersMaintainingEquipment
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A49_RebuildOpenMenuTextEntryRecords_L3A49:
     lda.w #$E4C3
@@ -7441,7 +7469,7 @@ C13A49_RebuildOpenMenuTextEntryRecords_L3A49:
     lda $06
     tax
     lda $18
-    jsl $C22A3A
+    jsl !C22A3A_TransferInventoryItemBetweenCharactersMaintainingEquipment
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A6D_RebuildOpenMenuTextEntryRecords_L3A6D:
     lda.w #$E4E9
@@ -7457,7 +7485,7 @@ C13A6D_RebuildOpenMenuTextEntryRecords_L3A6D:
     lda $06
     tax
     lda $18
-    jsl $C22A3A
+    jsl !C22A3A_TransferInventoryItemBetweenCharactersMaintainingEquipment
     bra C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A90_RebuildOpenMenuTextEntryRecords_L3A90:
     lda.w #$E51C
@@ -7487,7 +7515,7 @@ C13AB0_RebuildOpenMenuTextEntryRecords_L3AB0:
     lda $06
     tax
     lda $18
-    jsl $C22A3A
+    jsl !C22A3A_TransferInventoryItemBetweenCharactersMaintainingEquipment
     bra C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13AD3_RebuildOpenMenuTextEntryRecords_L3AD3:
     lda.w #$E5C2
@@ -7503,7 +7531,7 @@ C13AD3_RebuildOpenMenuTextEntryRecords_L3AD3:
     lda $06
     tax
     lda $18
-    jsl $C22A3A
+    jsl !C22A3A_TransferInventoryItemBetweenCharactersMaintainingEquipment
     bra C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13AF6_RebuildOpenMenuTextEntryRecords_L3AF6:
     bra C13AF6_RebuildOpenMenuTextEntryRecords_L3AF6
@@ -7517,7 +7545,7 @@ C13AF8_ReturnToOpenMenuLoopAfterFeedback:
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13B10_HandleOpenMenuTalkChoice:
     lda.w #$0001
-    jsr $04EE
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     lda $1F
     sta $06
     lda $21
@@ -7526,7 +7554,7 @@ C13B10_HandleOpenMenuTalkChoice:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $1D
     sta $04
     sta $06
@@ -7535,7 +7563,7 @@ C13B10_HandleOpenMenuTalkChoice:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$C609
     sta $0E
     lda.w #$00C7
@@ -7549,8 +7577,8 @@ C13B10_HandleOpenMenuTalkChoice:
     jsl !C3E521_CloseWindowById
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13B62_HandleOpenMenuGoodsOrEquipChoice:
-    jsr $134B
-    jsr $C373
+    jsr !C1134B_SetupTextDisplayWithWalletStatus
+    jsr !C1C373_FindFirstEligibleBattlePsiUser
     sta $06
     stz $08
     lda.w #$0000
@@ -7566,25 +7594,25 @@ C13B80_RebuildOpenMenuTextEntryRecords_L3B80:
     beq C13B89_RebuildOpenMenuTextEntryRecords_L3B89
     lda $06
     dec A
-    jsl $C43573
+    jsl !C43573_SelectFocusedPartyHpPpActorAndBlankRow
 C13B89_RebuildOpenMenuTextEntryRecords_L3B89:
-    jsr $B5B6
+    jsr !C1B5B6_OpenBattlePsiUserSelection
     cmp.w #$0000
     beq C13B94_RebuildOpenMenuTextEntryRecords_L3B94
     jmp.w C13C16_FinalizeOpenMenuLoopIteration
 C13B94_RebuildOpenMenuTextEntryRecords_L3B94:
-    jsr $C3B6
+    jsr !C1C3B6_CountEligibleBattlePsiUsers
     cmp.w #$0001
     beq C13B9F_RebuildOpenMenuTextEntryRecords_L3B9F
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13B9F_RebuildOpenMenuTextEntryRecords_L3B9F:
     lda.w #$001B
-    jsl $C0ABE0
-    jsl $C3E6F8
+    jsl !C0ABE0_PlaySoundEffect
+    jsl !C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13BAD_HandleOpenMenuPsiChoice:
-    jsr $134B
-    jsr $AA5D
+    jsr !C1134B_SetupTextDisplayWithWalletStatus
+    jsr !C1AA5D_RunPartyEquipmentMenuController
     lda $98A4
     and.w #$00FF
     cmp.w #$0001
@@ -7592,8 +7620,8 @@ C13BAD_HandleOpenMenuPsiChoice:
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13BC1_RebuildOpenMenuTextEntryRecords_L3BC1:
     lda.w #$001B
-    jsl $C0ABE0
-    jsl $C3E6F8
+    jsl !C0ABE0_PlaySoundEffect
+    jsl !C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13BCF_HandleOpenMenuCheckChoice:
     jsl CHECK
@@ -7620,20 +7648,20 @@ C13BF3_RebuildOpenMenuTextEntryRecords_L3BF3:
     jsl !C186B1_PrintTextFromPointer
     bra C13C16_FinalizeOpenMenuLoopIteration
 C13C01_HandleOpenMenuSpecialChoice:
-    jsr $134B
+    jsr !C1134B_SetupTextDisplayWithWalletStatus
     sep #$20
     lda.b #$01
     sta $5E71
-    jsr $BB71
+    jsr !C1BB71_OpenFieldPsiDestinationMenu
     sep #$20
     stz $5E71
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13C16_FinalizeOpenMenuLoopIteration:
     jsl !C3E4CA_ClearInstantPrinting
-    jsr $0A1D
-    jsr $008E
+    jsr !C10A1D_HideHpppWindowsInternal
+    jsr !C1008E_CloseAndDrainAllWindows
 C13C20_RebuildOpenMenuTextEntryRecords_L3C20:
-    jsl $C12DD5
+    jsl !C12DD5_TickWindowTextSystem
     lda $B4A8
     cmp.w #$FFFF
     bne C13C20_RebuildOpenMenuTextEntryRecords_L3C20
@@ -7649,7 +7677,7 @@ OPEN_MENU_BUTTON_CHECKTALK:
     tcd
     jsl !C0943C_SaveCurrentCoordinateState
     lda.w #$0001
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     jsl TALK_TO
     lda.w #$0000
     sta $0A
@@ -7684,7 +7712,7 @@ C13C79_RebuildOpenMenuTextEntryRecords_L3C79:
     jsr !C10A1D_HideHpppWindowsInternal
     jsr !C1008E_CloseAndDrainAllWindows
 C13C8F_RebuildOpenMenuTextEntryRecords_L3C8F:
-    jsl $C12DD5
+    jsl !C12DD5_TickWindowTextSystem
     lda $B4A8
     cmp.w #$FFFF
     bne C13C8F_RebuildOpenMenuTextEntryRecords_L3C8F
@@ -7699,7 +7727,7 @@ OPEN_HPPP_DISPLAY:
     jsl !C0ABE0_PlaySoundEffect
     jsr !C1134B_SetupTextDisplayWithWalletStatus
 C13CB1_RebuildOpenMenuTextEntryRecords_L3CB1:
-    jsl $C12DD5
+    jsl !C12DD5_TickWindowTextSystem
     lda $006D
     and.w #$00A0
     beq C13CC3_RebuildOpenMenuTextEntryRecords_L3CC3
@@ -7714,7 +7742,7 @@ C13CC3_RebuildOpenMenuTextEntryRecords_L3CC3:
     jsl !C3E4CA_ClearInstantPrinting
     jsr !C10A1D_HideHpppWindowsInternal
     jsr !C1008E_CloseAndDrainAllWindows
-    jsl $C12DD5
+    jsl !C12DD5_TickWindowTextSystem
     jsl !C09451_RestoreSavedCoordinateState
 C13CE4_RebuildOpenMenuTextEntryRecords_L3CE4:
     rtl
@@ -7779,7 +7807,7 @@ C13D5D_RebuildOpenMenuTextEntryRecords_L3D5D:
     lda.w #$0100
     jsr !C10EFC_PrintFixedString
     jsl !C3E4CA_ClearInstantPrinting
-    jsl $C12DD5
+    jsl !C12DD5_TickWindowTextSystem
     ldy $02
     sty $12
 C13D77_RebuildOpenMenuTextEntryRecords_L3D77:
@@ -7902,7 +7930,7 @@ C13E34_RebuildOpenMenuTextEntryRecords_L3E34:
     sta $10
     jsr !C10DF6_PrintDecimalValueFromCallerPointer
     jsl !C3E4CA_ClearInstantPrinting
-    jsl $C12DD5
+    jsl !C12DD5_TickWindowTextSystem
     bra C13E69_RebuildOpenMenuTextEntryRecords_L3E69
 C13E65_RebuildOpenMenuTextEntryRecords_L3E65:
     jsl !C08756_WaitOneFrameAndPollInput
@@ -7997,7 +8025,7 @@ C13EF4_RebuildOpenMenuTextEntryRecords_L3EF4:
     lda $04
     jsr !C19216_PrintItemNameFromConfigurationTable
     jsl !C3E4CA_ClearInstantPrinting
-    jsl $C12DD5
+    jsl !C12DD5_TickWindowTextSystem
     lda $04
     sta $02
 C13F3E_RebuildOpenMenuTextEntryRecords_L3F3E:
@@ -8211,7 +8239,7 @@ C140C2_RebuildOpenMenuTextEntryRecords_L40C2:
     jsr $03DC
     lda $06
 C140C7_RebuildOpenMenuTextEntryRecords_L40C7:
-    jsr $9249
+    jsr !C19249_PrintStatisticSelectorValue
     lda.w #$0000
     pld
     rts
@@ -8230,13 +8258,13 @@ C140E1_RebuildOpenMenuTextEntryRecords_L40E1:
     jsr $03DC
     lda $06
 C140E6_RebuildOpenMenuTextEntryRecords_L40E6:
-    jsl $EF01D2
+    jsl !EF01D2_UpdateBattleSpriteFrameEffectState
     lda.w #$0000
     pld
     rts
     rep #$31
     txa
-    jsr $0EB4
+    jsr !C10EB4_SetActiveWindowTextModeByte
     lda.w #$0000
     rts
     rep #$31

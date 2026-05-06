@@ -308,3 +308,13 @@ This planning pass is documentation-only.
   through named contracts. See
   `notes/open-menu-prelude-helpers-c1339e-c133b0.md` and
   `notes/debug-menu-reachability-c0-c1-ef.md`.
+- 2026-05-06 follow-up: the same `C1:33B0..4103` open-menu source now names
+  the evidence-backed helper-call surface inside the record rebuild and menu
+  loop. The pass covers text-entry creation/refresh/layout, open-menu
+  selection control, target prompts, inventory/equipment row renderers,
+  HP/PP focus helpers, party PSI/equipment/teleport branch calls, item-transfer
+  joins, window cleanup, debug tail ticks, statistic-selector printing, and
+  battle-sprite refresh helpers. Only `C1:AF74`, two tiny `C1:03DC` wrapper
+  reads, and a context-sensitive `C1:0FEA` wrapper edge remain raw pending a
+  narrower local contract read. See
+  `notes/open-menu-prelude-helpers-c1339e-c133b0.md`.
