@@ -550,8 +550,17 @@ This planning pass is documentation-only.
   their prompt/option pointer lows, C4 bank word, window/result ids, row/column
   positions, generated copy-destination label buffer, and setup option entry
   ids. The deeper new-file naming/body text pointer loads inside `C1:F616`
-  remain deferred. The scaffold was regenerated from source; exact
-  byte-equivalence remains pending on the same missing-ROM gate.
+  were left for the follow-up below. The scaffold was regenerated from source;
+  exact byte-equivalence remains pending on the same missing-ROM gate.
+- 2026-05-06 follow-up: the deferred new-file naming/confirmation tail inside
+  `C1:F616` now has caller-side source names. The pass names the `C4:C194`
+  prompt table and 0x28-byte prompt stride, party-character record
+  stride/base, fixed-width `$9819/$981F/$9829` pet/food/thing commit buffers,
+  confirmation windows `0x21..0x24`, centered food/thing display layout, the
+  `C4:C2AC..C2D9` confirmation labels/options, and the final yes/no menu
+  result contract. C4 data source remains untouched; the C1 scaffold was
+  regenerated from source, with exact byte-equivalence still blocked by the
+  missing local ROM/asar gates.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments

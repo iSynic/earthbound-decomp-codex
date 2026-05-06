@@ -91,8 +91,14 @@ The visible action/copy/delete/setup menu builders now also name their C4
 file-select text pointer lows and bank word in source. This covers the action
 labels, copy-destination prompt and generated slot-label buffer, delete
 confirmation prompt/options, text-speed prompt/options, sound prompt/options,
-and window-flavour prompt/options. The later new-file naming/body text pointer
-loads inside `C1:F616` remain intentionally deferred to a naming-flow pass.
+and window-flavour prompt/options.
+
+The new-file naming and confirmation branch inside `C1:F616` now names the
+same caller-side text contract. The source exposes the `C4:C194` 0x28-byte
+prompt table, character-record stride/base for the four party-name commits,
+the fixed `$9819/$981F/$9829` pet/food/thing commit buffers, and the
+confirmation-screen labels/options at `C4:C2AC..C2D9`. This keeps the C4 data
+source untouched while making the C1 text-entry caller contract explicit.
 
 The source now names that persistence edge as `EF0A4D_SaveGameSlot`, matching
 the EF save/SRAM contract: C1 passes the visible one-based slot minus one, and
@@ -148,7 +154,7 @@ This slice makes the file-select path useful to future SRAM/setup work:
   descriptor lookup, text-entry selected-row offsets, and window-flavour
   preview callback pointer as source names
 - visible C4 file-select menu text pointers now have local source names without
-  pulling the deeper new-file naming text tables into this slice
+  leaving the new-file naming confirmation tail as raw C4 pointer loads
 - the bank-C1 session wrapper and transient redraw latch are separated from the
   larger menu loop
 - the main file-select loop now has named source edges for its submenu
