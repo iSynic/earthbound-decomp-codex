@@ -200,6 +200,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `notes/ef-battle-text-consumer-lane-contracts.md`, consolidating the
   `DD9F`, `DC1C`, `DC66`, `DD7C`, pointer-substitution, and non-EF C7/C8/C9
   row-message lane rules used by the EF crosswalk.
+- 2026-05-06: EF row-pointer recovery triage follow-up expanded the inspector
+  command list and output buckets so recovered rows can be sorted into proved
+  EF row messages, non-EF row messages, result-only EF emissions, or still
+  behavior-only frontier rows before any EF anchor promotion.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

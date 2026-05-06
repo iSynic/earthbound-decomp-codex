@@ -28,19 +28,27 @@ than EF source renaming.
 Once a local ROM is available, run targeted row inspections first:
 
 ```powershell
+python tools\inspect_battle_action.py 10
+python tools\inspect_battle_action.py 31
 python tools\inspect_battle_action.py 32
 python tools\inspect_battle_action.py 35
 python tools\inspect_battle_action.py 48
+python tools\inspect_battle_action.py 49
 python tools\inspect_battle_action.py 64
+python tools\inspect_battle_action.py 65
 python tools\inspect_battle_action.py 95
+python tools\inspect_battle_action.py 98
 python tools\inspect_battle_action.py 119
+python tools\inspect_battle_action.py 134
 python tools\inspect_battle_action.py 251
+python tools\inspect_battle_action.py 258
 ```
 
 For a focused behavior-body scan, use the code-address selector:
 
 ```powershell
 python tools\inspect_battle_action.py C2:9AC6 --limit 8
+python tools\inspect_battle_action.py C2:9AD8 --limit 8
 python tools\inspect_battle_action.py C2:8F21 --limit 8
 python tools\inspect_battle_action.py C2:9033 --limit 24
 python tools\inspect_battle_action.py C2:A821 --limit 8
@@ -53,6 +61,21 @@ Record each recovered row as:
 - row `+4` message pointer and bank
 - row `+8` C2 behavior pointer
 - secondary result scripts emitted by the behavior body
+
+## Inspection Output Triage
+
+Sort each recovered row into exactly one row-message bucket before editing any
+EF source label:
+
+| Bucket | Condition | Follow-up |
+| --- | --- | --- |
+| Proved EF row message | Row `+4` points to `EF:*` and row `+8` is known | Add or update the concrete row table in `notes/ef-battle-text-row-message-crosswalk.md`. |
+| Non-EF row message | Row `+4` points to `C7:*`, `C8:*`, or `C9:*` | Add or update the non-EF row-message lane table; do not create EF anchors. |
+| Result-only EF emission | Row `+4` is unknown/non-EF, but row `+8` emits `EF:*` through `DC1C`/`DC66` | Document the EF script as a direct/amount result payload, not a row message. |
+| Still behavior-only | Row `+8` behavior is known, but row `+4` is not recovered | Keep the row in this frontier. |
+
+Use `notes/ef-battle-text-consumer-lane-contracts.md` as the lane decision
+table when a recovered row looks ambiguous.
 
 ## First Rows To Recover
 

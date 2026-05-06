@@ -233,3 +233,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `notes/ef-battle-text-consumer-lane-contracts.md`, a compact EF-side decision
   table for row presentation, direct result, amount, byte/pointer substitution,
   and non-EF row-message lanes.
+- 2026-05-06: EF row-pointer recovery triage follow-up expanded
+  `notes/ef-battle-text-row-pointer-recovery-frontier.md` with inspector
+  command coverage and output buckets for sorting recovered rows before EF
+  anchor promotion.

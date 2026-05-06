@@ -128,3 +128,6 @@ it in this order:
 2. If row `+4` is C7/C8/C9, add it to the non-EF lane table and do not create
    EF anchors for it.
 3. If only row `+8` behavior is known, keep it in the pointer-recovery frontier.
+
+The recovery frontier has the concrete command list and output buckets:
+`notes/ef-battle-text-row-pointer-recovery-frontier.md`.
