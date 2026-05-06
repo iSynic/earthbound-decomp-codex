@@ -5,8 +5,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 ## Summary
 
 - schema: `earthbound-decomp.data-contracts.v1`
-- contracts: `166`
-- fields: `676`
+- contracts: `167`
+- fields: `686`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -68,6 +68,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | MAP_DATA_TILE_COLLISION_POINTERS_18 | rom-table | `D8:E8B4` | `0x2` | 445 | `map_tile_collision_record_offset` | 1 | exact |
 | MAP_DATA_TILE_COLLISION_POINTERS_19 | rom-table | `D8:EC2E` | `0x2` | 536 | `map_tile_collision_record_offset` | 1 | exact |
 | MAP_PALETTE_POINTER_TABLE | rom-table | `DA:FAA7` | `0x3` | 32 | `snes_long_pointer24` | 2 | verified |
+| DA_MAP_PALETTE_VARIANT_TABLE | rom-table | `DA:7CA7` | `0xC0` | 168 | `da_map_palette_variant` | 10 | tool-and-script-corroborated |
 | PER_SECTOR_MUSIC_TABLE | rom-table | `DC:D637` | `0x2` | 1280 | `per_sector_music_options_index` | 1 | structural-corroborated |
 | LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE | rom-table | `DF:E4E1` | `0x4` | 31 | `far_pointer` | 1 | runtime-corroborated |
 | LANDING_PALETTE_ANIM_PROFILE_0 | rom-variable-table | `DF:E55D` | `0x9` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
@@ -1310,6 +1311,30 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `target_low_word` | 2 | 1 |  |
 | `0x2` | `target_bank` | 1 | 1 |  |
+
+### DA_MAP_PALETTE_VARIANT_TABLE
+
+- domain: `rom-table`
+- address: `DA:7CA7`
+- stride: `0xC0`
+- count: `168`
+- struct: `da_map_palette_variant`
+- confidence: `tool-and-script-corroborated`
+- note: Contiguous physical DA map-palette variant rows. Each row is six 16-colour SNES BGR555 subpalettes; the first words of subpalettes 0..3 carry raw-ROM metadata that matches map_palette_settings and is zeroed in .fts visual rows.
+- evidence: `notes/da-map-palette-subrecord-contracts.md`, `notes/map-fts-palette-variant-contract.md`, `notes/map-palette-pointer-table-contract.md`, `notes/map-palette-descriptor-context.md`, `notes/map-palette-command-usage-contract.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `event_flag` | 2 | 1 | raw ROM metadata word matching map_palette_settings; zeroed in .fts visual palette rows |
+| `0x0` | `map_subpalette_0_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 2 / CGRAM $0240..$025F; colour 0 overlaps event_flag in raw ROM |
+| `0x20` | `event_palette_selector_word` | 2 | 1 | raw ROM metadata word whose presence matches event-palette payload settings; runtime dispatch semantics remain deferred |
+| `0x20` | `map_subpalette_1_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 3 / CGRAM $0260..$027F; colour 0 overlaps event_palette_selector_word in raw ROM |
+| `0x40` | `sprite_palette` | 2 | 1 | raw ROM metadata word matching map_palette_settings Sprite Palette; zeroed in .fts visual palette rows |
+| `0x40` | `map_subpalette_2_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 4 / CGRAM $0280..$029F; colour 0 overlaps sprite_palette in raw ROM |
+| `0x60` | `flash_effect` | 2 | 1 | raw ROM metadata word matching map_palette_settings Flash Effect; zeroed in .fts visual palette rows |
+| `0x60` | `map_subpalette_3_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 5 / CGRAM $02A0..$02BF; colour 0 overlaps flash_effect in raw ROM |
+| `0x80` | `map_subpalette_4_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 6 / CGRAM $02C0..$02DF |
+| `0xA0` | `map_subpalette_5_colours` | 2 | 16 | 16 SNES BGR555 colours for arrangement descriptor palette 7 / CGRAM $02E0..$02FF |
 
 ### PER_SECTOR_MUSIC_TABLE
 

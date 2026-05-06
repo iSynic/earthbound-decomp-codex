@@ -408,6 +408,75 @@ PALETTE_ROW_4_FIELDS = (
     field("colour_3", 0x06, 2),
 )
 
+DA_MAP_PALETTE_VARIANT_FIELDS = (
+    field(
+        "event_flag",
+        0x00,
+        2,
+        note="raw ROM metadata word matching map_palette_settings; zeroed in .fts visual palette rows",
+    ),
+    field(
+        "map_subpalette_0_colours",
+        0x00,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 2 / CGRAM $0240..$025F; colour 0 overlaps event_flag in raw ROM",
+    ),
+    field(
+        "event_palette_selector_word",
+        0x20,
+        2,
+        note="raw ROM metadata word whose presence matches event-palette payload settings; runtime dispatch semantics remain deferred",
+    ),
+    field(
+        "map_subpalette_1_colours",
+        0x20,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 3 / CGRAM $0260..$027F; colour 0 overlaps event_palette_selector_word in raw ROM",
+    ),
+    field(
+        "sprite_palette",
+        0x40,
+        2,
+        note="raw ROM metadata word matching map_palette_settings Sprite Palette; zeroed in .fts visual palette rows",
+    ),
+    field(
+        "map_subpalette_2_colours",
+        0x40,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 4 / CGRAM $0280..$029F; colour 0 overlaps sprite_palette in raw ROM",
+    ),
+    field(
+        "flash_effect",
+        0x60,
+        2,
+        note="raw ROM metadata word matching map_palette_settings Flash Effect; zeroed in .fts visual palette rows",
+    ),
+    field(
+        "map_subpalette_3_colours",
+        0x60,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 5 / CGRAM $02A0..$02BF; colour 0 overlaps flash_effect in raw ROM",
+    ),
+    field(
+        "map_subpalette_4_colours",
+        0x80,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 6 / CGRAM $02C0..$02DF",
+    ),
+    field(
+        "map_subpalette_5_colours",
+        0xA0,
+        2,
+        16,
+        "16 SNES BGR555 colours for arrangement descriptor palette 7 / CGRAM $02E0..$02FF",
+    ),
+)
+
 LANDING_PALETTE_ANIM_PROFILE_BASE_FIELDS = (
     field("compressed_palette_payload_pointer", 0x00, 4, note="C0:023F decompresses this payload to 7E:B800"),
     field("step_count", 0x04, 1, note="C0:023F uses zero to skip loading the sequencer, otherwise bounds the step-duration copy"),
@@ -1400,6 +1469,24 @@ def extra_contracts() -> list[Contract]:
                 "notes/map-palette-descriptor-context.md",
             ),
             fields=SNES_LONG_POINTER24_FIELDS,
+        ),
+        Contract(
+            id="DA_MAP_PALETTE_VARIANT_TABLE",
+            domain="rom-table",
+            address="DA:7CA7",
+            stride=0xC0,
+            count=168,
+            struct_name="da_map_palette_variant",
+            confidence="tool-and-script-corroborated",
+            note="Contiguous physical DA map-palette variant rows. Each row is six 16-colour SNES BGR555 subpalettes; the first words of subpalettes 0..3 carry raw-ROM metadata that matches map_palette_settings and is zeroed in .fts visual rows.",
+            evidence=(
+                "notes/da-map-palette-subrecord-contracts.md",
+                "notes/map-fts-palette-variant-contract.md",
+                "notes/map-palette-pointer-table-contract.md",
+                "notes/map-palette-descriptor-context.md",
+                "notes/map-palette-command-usage-contract.md",
+            ),
+            fields=DA_MAP_PALETTE_VARIANT_FIELDS,
         ),
         Contract(
             id="PER_SECTOR_MUSIC_TABLE",

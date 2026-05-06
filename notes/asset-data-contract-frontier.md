@@ -24,7 +24,7 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 | Battle visual assets | `CA, CB, CC, CD, CE` | `contract-seeded` | 689 | 327680 | 152 | 0 | 0 | 0 | Major battle visual joins are covered for phase 4; remaining work is optional alias polish, the Evil Eye sprite-id-110 edge, and optional internal swirl payload decoding. |
 | Mixed asset/table banks | `CF, D0` | `manifest-backed` | 7 | 131072 | 95 | 0 | 0 | 0 | Promote table splits into named contracts after caller/runtime context identifies field roles. |
 | Overworld sprites | `D1, D2, D3, D4, D5` | `contract-backed` | 1148 | 327680 | 45056 | 0 | 0 | 0 | Only polish alias labels and unowned payload explanations as needed for contributor ergonomics. |
-| Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | `contract-backed-with-known-followups` | 130 | 655360 | 1456 | 0 | 0 | 0 | Map contracts are phase-good-enough: D7 sector metadata split is contract-backed; collision low modifier labels, DA palette metadata/event-selector runtime behavior, DF profile names, and remaining D7 unresolved planes are bounded deferred semantic polish. |
+| Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | `contract-backed-with-known-followups` | 130 | 655360 | 1456 | 0 | 0 | 0 | Map contracts are phase-good-enough: D7 sector metadata and DA palette subrecords are contract-backed; collision low modifier labels, DA event-palette selector runtime behavior, DF profile names, and remaining D7 unresolved planes are bounded deferred semantic polish. |
 | UI, fonts, and town-map assets | `E0, E1` | `contract-seeded` | 69 | 131072 | 91 | 5 | 5 | 0 | Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, landing/cast visual, and SRAM template shapes are split; remaining palette-row and renderer-control flag names are bounded semantic polish. |
 | Audio packs | `E2, E3, E4, E5, E6, E7, E8, E9, EA, EB, EC, ED, EE` | `raw-pack-manifest` | 171 | 851968 | 28699 | 0 | 0 | 0 | Split EBM/audio packs into pack, sample, sequence, and pointer contracts once the format boundary is selected. |
 | EF debug and late-tail data | `EF` | `seed-contract` | 5 | 65536 | 0 | 0 | 0 | 0 | Split EF front mixed data/code into save/debug/map/tile/sprite/text contracts as EF semantics are refined. |
@@ -58,8 +58,8 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 ### Map tilesets and runtime tables
 
 - maturity: `contract-backed-with-known-followups`
-- proof: map object, sector, D7 sector metadata, tileset, FTS, collision, palette, movement, sprite-usage, landing palette-animation, and scene-composition contracts exist
-- checked docs: `notes/map-milestone-closure.md`, `notes/map-object-bundles.md`, `notes/map-sector-bundles.md`, `notes/d7-sector-metadata-contracts.md`, `notes/map-tileset-bundles.md`, `notes/map-fts-format-audit.md`, `notes/map-collision-runtime-bit-contract.md`, `notes/map-palette-descriptor-context.md`, `notes/bank-df-first-pass.md`, `notes/map-scene-composition-contract.md`
+- proof: map object, sector, D7 sector metadata, DA palette subrecords, tileset, FTS, collision, palette, movement, sprite-usage, landing palette-animation, and scene-composition contracts exist
+- checked docs: `notes/map-milestone-closure.md`, `notes/map-object-bundles.md`, `notes/map-sector-bundles.md`, `notes/d7-sector-metadata-contracts.md`, `notes/map-tileset-bundles.md`, `notes/map-fts-format-audit.md`, `notes/da-map-palette-subrecord-contracts.md`, `notes/map-collision-runtime-bit-contract.md`, `notes/map-palette-descriptor-context.md`, `notes/bank-df-first-pass.md`, `notes/map-scene-composition-contract.md`
 - category mix: `graphics` 97, `binary-asset` 10, `audio` 9, `raw-gap` 9, +1 more
 - output recipe mix: `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, +1 more
 

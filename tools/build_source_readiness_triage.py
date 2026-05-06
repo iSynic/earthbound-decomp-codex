@@ -280,8 +280,8 @@ def build_triage() -> list[BankTriage]:
             "map arrangement/palette/audio assets",
             "asset-and-table-ready",
             3,
-            "Extract arrangements and palettes, then give the palette pointer table a named contract.",
-            ["palette pointer table is inferred and should be contract-backed"],
+            "Extract arrangements and palettes, and keep the DA palette pointer/variant contracts regression-tested.",
+            ["event-palette selector runtime dispatch semantics remain deferred"],
             ["compressed arrangements", "map palettes", "audio pack"],
         )
     )
@@ -291,8 +291,8 @@ def build_triage() -> list[BankTriage]:
             "map arrangement/music/audio data",
             "asset-and-table-ready",
             3,
-            "Extract arrangements and audio packs; promote the per-sector music table to a named data contract.",
-            ["per-sector music table is inferred"],
+            "Extract arrangements and audio packs, and keep the per-sector music table contract regression-tested.",
+            ["per-sector music option list semantics live in the map-sector bundle contract"],
             ["compressed arrangements", "per-sector music table", "audio packs"],
         )
     )
@@ -501,7 +501,7 @@ def render_markdown(payload: dict[str, object]) -> str:
             "### Data-contract splitters",
             "",
             "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; remaining work is subrecord semantics and source/data emission.",
-            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 now has sector metadata table contracts; remaining work is smaller inferred table/pointer contract polish.",
+            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 and DA now have promoted table/subrecord contracts; remaining work is smaller inferred table/pointer contract polish.",
             "",
             "### Script, text, and VM assets",
             "",
