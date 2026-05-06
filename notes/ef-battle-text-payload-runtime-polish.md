@@ -113,9 +113,10 @@ macros.
 - `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830` now mark the four
   call-for-help result scripts selected by the C2 reinforcement prefix/body:
   ordinary success, seed/sprout success, ordinary failure, and seed/sprout
-  failure. They are direct `C1:DC1C` text exits.
-- `EF:7843` now marks the Time Stop return text used by the C2 hit-resolution
-  cluster.
+  failure. They are direct `C1:DC1C` text exits and now carry `ResultText`
+  suffixes.
+- `EF:7843` now marks the Time Stop `ResultText` return used by the C2
+  hit-resolution cluster.
 - `EF:7858..790B` now splits the EBATTLE8 encounter-opening text variants:
   ordinary attack, blocked-way, came-after-you, trapped-you, final-encounter
   wording, and surprise-opening messages.
@@ -196,6 +197,11 @@ same EBATTLE8 neighborhood also contains the `EF:7843` Time Stop return script
 used by the C2 hit-resolution cluster. This split keeps those runtime-facing
 messages visible.
 
+Those five anchors now use `ResultText` suffixes in source:
+`EF:77FD..7830` for the call-for-help outcomes and `EF:7843` for Time Stop.
+That keeps the already-proved `DC1C` exits distinct from the encounter-opening
+text that begins at `EF:7858`.
+
 ## Encounter, Victory, And Level-Up Follow-up
 
 The `EF:7858..7B77` EBATTLE8 island is now split around exact encounter,
@@ -225,6 +231,13 @@ visible separately from the blocked-action text.
 The event half exposes guard, Fly Honey, homesick flavor, Runaway Five
 intervention, Poo/Starstorm, Pokey random talk branches, and companion text
 before the damage pipeline begins at `EF:75AB`.
+
+The guard/Fly Honey/homesick front of that event half now drops inherited
+`MsgBtl` prose in favor of payload-role anchors: `EF:7249` is guard-on flavor
+text, `EF:725A` is Fly Honey mind-loss event text, `EF:727F` is the homesick
+random-thought dispatcher, and `EF:72A0..72DB` are the thought-of-mom,
+craving-food, and lost-motivation branches. These remain event/flavor anchors,
+not row `+4` presentation joins.
 
 The row `243` and `244` special-event split now carries the lane in the source
 labels: `EF:72F6` and `EF:7415` are `RowPresentationText` anchors displayed by

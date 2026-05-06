@@ -151,6 +151,15 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:749D..7548` mark the individual talk branches, and `EF:7569..7593`
   marks the adjacent companion talk text without promoting those flavor/event
   anchors into row-message joins.
+- 2026-05-06: EF EBATTLE4 guard/Fly-Honey/homesick naming follow-up tightened
+  the front of the same event corridor: `EF:7249` now names guard-on flavor
+  text, `EF:725A` names Fly-Honey event text, and `EF:727F..72DB` names the
+  homesick random-thought dispatcher plus branches without claiming a row `+4`
+  join.
+- 2026-05-06: EF EBATTLE8 call-for-help/Time Stop naming follow-up tightened
+  the proved direct-result exits: `EF:77FD..7830` now carry call-for-help
+  `ResultText` names and `EF:7843` carries the Time Stop return `ResultText`
+  name before the encounter-opening island begins.
 - 2026-05-05: EF EBATTLE8 encounter/victory/level-up follow-up split the
   remaining `EF:7858..7B77` tail into encounter-opening variants, group-actor
   helper branches, ordinary/boss/forced victory text, monster-win text,

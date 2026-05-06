@@ -4769,45 +4769,45 @@ db $1F,$02,$1D
 
 EF7221_EBattle4PsiSealByteSubstitutionResultText:
 
-; Original data gap before EF7249_EBattle4MsgBtlGuardOn:
+; Original data gap before EF7249_EBattle4GuardOnFlavorText:
 db $70,$1C,$0D,$19,$1F,$1B,$04,$50,$A4,$17,$B0,$00,$50,$50,$1C,$12
 db $00,$51,$1F,$02,$57,$03,$00,$16,$DE,$15,$6C,$15,$CB,$16,$90,$9B
 db $15,$67,$A7,$16,$7F,$51,$03,$02
 
-EF7249_EBattle4MsgBtlGuardOn:
+EF7249_EBattle4GuardOnFlavorText:
 
-; Original data gap before EF725A_EBattle4MsgBtlFlyHoneyMindLost:
+; Original data gap before EF725A_EBattle4FlyHoneyMindLostEventText:
 db $01,$70,$1C,$0E,$16,$00,$00,$50,$16,$BC,$97,$A5,$16,$73,$51,$03
 db $02
 
-EF725A_EBattle4MsgBtlFlyHoneyMindLost:
+EF725A_EBattle4FlyHoneyMindLostEventText:
 
-; Original data gap before EF727F_EBattle4MsgBtlHomesickRandom:
+; Original data gap before EF727F_EBattle4HomesickRandomThoughtDispatcher:
 db $01,$70,$1C,$0D,$17,$53,$A3,$A4,$00,$50,$16,$D9,$17,$84,$94,$15
 db $F5,$A7,$9F,$9C,$96,$15,$1B,$17,$9F,$50,$6C,$76,$15,$9D,$78,$17
 db $3E,$6E,$51,$03,$02
 
-EF727F_EBattle4MsgBtlHomesickRandom:
+EF727F_EBattle4HomesickRandomThoughtDispatcher:
 
-; Original data gap before EF72A0_EBattle4MsgBtlHomesickThoughtMom:
+; Original data gap before EF72A0_EBattle4HomesickThoughtOfMomBranch:
 db $1D,$21,$03,$09,$03,$A0,$72,$EF,$00,$B9,$72,$EF,$00,$DB,$72,$EF
 db $00,$01,$70,$1C,$0D,$50,$9D,$99,$A3,$A3,$95,$A3,$16,$FF,$5E,$03
 db $02
 
-EF72A0_EBattle4MsgBtlHomesickThoughtMom:
+EF72A0_EBattle4HomesickThoughtOfMomBranch:
 
-; Original data gap before EF72B9_EBattle4MsgBtlHomesickCravingFood:
+; Original data gap before EF72B9_EBattle4HomesickCravingFoodBranch:
 db $01,$70,$1C,$0D,$17,$B3,$94,$94,$95,$9E,$9C,$A9,$15,$80,$15,$07
 db $16,$55,$50,$7D,$9F,$9D,$5E,$03,$02
 
-EF72B9_EBattle4MsgBtlHomesickCravingFood:
+EF72B9_EBattle4HomesickCravingFoodBranch:
 
-; Original data gap before EF72DB_EBattle4MsgBtlHomesickLostMotivation:
+; Original data gap before EF72DB_EBattle4HomesickLostMotivationBranch:
 db $01,$70,$1C,$0D,$15,$80,$15,$07,$95,$91,$16,$35,$15,$1C,$1C,$01
 db $04,$15,$04,$16,$9F,$A2,$16,$B6,$93,$A2,$91,$A6,$15,$1B,$17,$B5
 db $03,$02
 
-EF72DB_EBattle4MsgBtlHomesickLostMotivation:
+EF72DB_EBattle4HomesickLostMotivationBranch:
 
 ; Original data gap before EF72F6_EBattle4RunawayFiveBreakInRowPresentationText:
 db $01,$70,$1C,$0D,$50,$9C,$17,$62,$15,$BF,$9D,$9F,$A4,$99,$A6,$15
@@ -5091,35 +5091,35 @@ db $1C,$0F,$50,$78,$80,$15,$D6,$51,$03,$02
 ; EBATTLE4: cold periodic damage amount text; consumes C1:DC66/1C 0F.
 EF77DB_EBattle4MsgBtlColdDamageActionAmount:
 
-; Original data gap before EF77FD_EBattle8MsgBtlCallForHelpEnemyJoined:
+; Original data gap before EF77FD_EBattle8CallForHelpEnemyJoinedResultText:
 db $01,$70,$1C,$0E,$50,$A3,$9E,$95,$95,$AA,$95,$94,$00,$50,$15,$04
 db $A2,$95,$93,$95,$99,$A6,$15,$57,$1C,$0F,$50,$78,$80,$15,$D6,$51
 db $03,$02
 
-EF77FD_EBattle8MsgBtlCallForHelpEnemyJoined:
+EF77FD_EBattle8CallForHelpEnemyJoinedResultText:
 
-; Original data gap before EF7810_EBattle8MsgBtlCallForHelpSeedSprouted:
+; Original data gap before EF7810_EBattle8CallForHelpSeedSproutedResultText:
 db $01,$70,$1C,$0E,$50,$9A,$9F,$16,$B9,$94,$00,$50,$16,$76,$17,$14
 db $5E,$03,$02
 
-EF7810_EBattle8MsgBtlCallForHelpSeedSprouted:
+EF7810_EBattle8CallForHelpSeedSproutedResultText:
 
-; Original data gap before EF7824_EBattle8MsgBtlCallForHelpNoOneCame:
+; Original data gap before EF7824_EBattle8CallForHelpNoOneCameResultText:
 db $01,$70,$1C,$0E,$16,$51,$A2,$A4,$95,$94,$00,$50,$15,$0C,$97,$17
 db $5B,$5E,$03,$02
 
-EF7824_EBattle8MsgBtlCallForHelpNoOneCame:
+EF7824_EBattle8CallForHelpNoOneCameResultText:
 
-; Original data gap before EF7830_EBattle8MsgBtlCallForHelpSeedNoSprout:
+; Original data gap before EF7830_EBattle8CallForHelpSeedNoSproutResultText:
 db $01,$16,$DE,$17,$58,$16,$9B,$17,$76,$5E,$03,$02
 
-EF7830_EBattle8MsgBtlCallForHelpSeedNoSprout:
+EF7830_EBattle8CallForHelpSeedNoSproutResultText:
 
-; Original data gap before EF7843_EBattle8MsgBtlTimeStopReturn:
+; Original data gap before EF7843_EBattle8TimeStopReturnResultText:
 db $01,$16,$DE,$5C,$16,$26,$95,$95,$94,$15,$CB,$A3,$A0,$A2,$16,$17
 db $5E,$03,$02
 
-EF7843_EBattle8MsgBtlTimeStopReturn:
+EF7843_EBattle8TimeStopReturnResultText:
 
 ; Original data gap before EF7858_EBattle8MsgBtlAppearAttacked:
 db $1F,$00,$00,$62,$01,$70,$84,$99,$9D,$95,$16,$51,$A2,$A4,$95,$94

@@ -71,6 +71,9 @@ Examples:
 - EBATTLE4 action-blocking status anchors in `EF:7186..720C` explain a blocked
   turn; the adjacent PSI-seal result at `EF:7221` is a
   `ByteSubstitutionResultText` consumer, not a row presentation anchor.
+- `EF:7249..72DB` names the guard-on, Fly-Honey, and homesick branch front of
+  the EBATTLE4 event/flavor corridor. These labels are source anchors only
+  until caller evidence proves a row-presentation or direct-result lane.
 - `EF:72F6` and `EF:7415` are special-event row `+4` presentation anchors for
   rows `243` and `244`; `EF:72F7`, `EF:733D`, and `EF:743B` are the separate
   C2 behavior-emitted result continuations.
@@ -80,6 +83,9 @@ Examples:
   promotions until a caller proves that consumer shape.
 - `EF:7142` and queued `EF:7123` belong to normalization result flow, separate
   from the row `247`/`248` presentation messages.
+- `EF:77FD..7830` are the four call-for-help result exits and `EF:7843` is the
+  Time Stop return result. They are direct-result anchors, while the
+  encounter-opening text at `EF:7858+` remains a separate presentation island.
 
 Naming rule: direct-result scripts can receive gameplay-facing result names
 when their C2 caller proves the role, even if the surrounding action-message

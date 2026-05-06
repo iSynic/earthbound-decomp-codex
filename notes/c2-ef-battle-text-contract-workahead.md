@@ -169,6 +169,15 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   adjacent My Dog/Pickey/Tony/Balmon companion talk anchors through `EF:7593`.
   These remain flavor/event text islands until a C2 caller or row-pointer pass
   proves a stronger consumer lane.
+- 2026-05-06: EF EBATTLE4 guard/Fly-Honey/homesick naming follow-up renamed
+  `EF:7249..72DB` from inherited `MsgBtl` anchors into guard-on flavor,
+  Fly-Honey event, homesick dispatcher, and homesick branch labels. The pass
+  deliberately left them as event/flavor anchors rather than row-presentation
+  joins.
+- 2026-05-06: EF EBATTLE8 call-for-help/Time Stop naming follow-up renamed
+  the four proved call-for-help `DC1C` exits at `EF:77FD..7830` and the Time
+  Stop return at `EF:7843` with `ResultText` suffixes, leaving the encounter
+  opening island at `EF:7858+` separate.
 - 2026-05-06: EF action-island frontier follow-up documented the remaining
   `MSG_BTL_*` row-message islands separately from direct result payloads. The
   handoff note names the `C1:DD9F` row `+4` message lane, the row `+8`

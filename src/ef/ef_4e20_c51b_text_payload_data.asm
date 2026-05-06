@@ -1174,38 +1174,38 @@ EF7221_EBattle4PsiSealByteSubstitutionResultText:
 ; ---------------------------------------------------------------------------
 ; EF:7249
 
-; EBATTLE4: guard-on text.
-EF7249_EBattle4MsgBtlGuardOn:
+; EBATTLE4: guard-on event/flavor text.
+EF7249_EBattle4GuardOnFlavorText:
 
 ; ---------------------------------------------------------------------------
 ; EF:725A
 
-; EBATTLE4: Fly Honey mind-loss text.
-EF725A_EBattle4MsgBtlFlyHoneyMindLost:
+; EBATTLE4: Fly Honey mind-loss event text.
+EF725A_EBattle4FlyHoneyMindLostEventText:
 
 ; ---------------------------------------------------------------------------
 ; EF:727F
 
 ; EBATTLE4: homesick random branch dispatcher.
-EF727F_EBattle4MsgBtlHomesickRandom:
+EF727F_EBattle4HomesickRandomThoughtDispatcher:
 
 ; ---------------------------------------------------------------------------
 ; EF:72A0
 
 ; EBATTLE4: homesick thought-of-mom branch.
-EF72A0_EBattle4MsgBtlHomesickThoughtMom:
+EF72A0_EBattle4HomesickThoughtOfMomBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:72B9
 
 ; EBATTLE4: homesick craving-food branch.
-EF72B9_EBattle4MsgBtlHomesickCravingFood:
+EF72B9_EBattle4HomesickCravingFoodBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:72DB
 
 ; EBATTLE4: homesick lost-motivation branch.
-EF72DB_EBattle4MsgBtlHomesickLostMotivation:
+EF72DB_EBattle4HomesickLostMotivationBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:72F6
@@ -1473,31 +1473,31 @@ EF77DB_EBattle4MsgBtlColdDamageActionAmount:
 ; EF:77FD
 
 ; EBATTLE8: ordinary call-for-help success text.
-EF77FD_EBattle8MsgBtlCallForHelpEnemyJoined:
+EF77FD_EBattle8CallForHelpEnemyJoinedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7810
 
 ; EBATTLE8: seed/sprout-flavored call-for-help success text.
-EF7810_EBattle8MsgBtlCallForHelpSeedSprouted:
+EF7810_EBattle8CallForHelpSeedSproutedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7824
 
 ; EBATTLE8: ordinary call-for-help failure text.
-EF7824_EBattle8MsgBtlCallForHelpNoOneCame:
+EF7824_EBattle8CallForHelpNoOneCameResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7830
 
 ; EBATTLE8: seed/sprout-flavored call-for-help failure text.
-EF7830_EBattle8MsgBtlCallForHelpSeedNoSprout:
+EF7830_EBattle8CallForHelpSeedNoSproutResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7843
 
 ; EBATTLE8: Time Stop return text used by the C2 hit-resolution cluster.
-EF7843_EBattle8MsgBtlTimeStopReturn:
+EF7843_EBattle8TimeStopReturnResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7858
