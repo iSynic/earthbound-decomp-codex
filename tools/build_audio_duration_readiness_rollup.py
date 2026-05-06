@@ -15,6 +15,7 @@ DEFAULT_FINITE_TAIL = ROOT / "manifests" / "audio-finite-ending-tail-metrics.jso
 DEFAULT_LOOP_TAIL = ROOT / "manifests" / "audio-loop-point-tail-metrics.json"
 DEFAULT_ORACLE_REPORT = ROOT / "manifests" / "audio-oracle-verification-report-all-tracks.json"
 DEFAULT_INDEPENDENT_ORACLE = ROOT / "manifests" / "audio-independent-oracle-campaign-plan.json"
+DEFAULT_INDEPENDENT_ORACLE_COVERAGE = ROOT / "manifests" / "audio-independent-oracle-coverage-report.json"
 DEFAULT_PROBE_CAMPAIGN = ROOT / "manifests" / "audio-probe-campaign-plan.json"
 DEFAULT_NONZERO_COVERAGE = ROOT / "manifests" / "audio-nonzero-control-coverage-report.json"
 DEFAULT_ZERO_COVERAGE = ROOT / "manifests" / "audio-zero-runtime-coverage-report.json"
@@ -29,6 +30,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--loop-tail", default=str(DEFAULT_LOOP_TAIL), help="Loop-point tail metrics JSON.")
     parser.add_argument("--oracle-report", default=str(DEFAULT_ORACLE_REPORT), help="All-track oracle report JSON.")
     parser.add_argument("--independent-oracle", default=str(DEFAULT_INDEPENDENT_ORACLE), help="Independent oracle campaign JSON.")
+    parser.add_argument("--independent-oracle-coverage", default=str(DEFAULT_INDEPENDENT_ORACLE_COVERAGE), help="Independent oracle coverage report JSON.")
     parser.add_argument("--probe-campaign", default=str(DEFAULT_PROBE_CAMPAIGN), help="Probe campaign plan JSON.")
     parser.add_argument("--nonzero-coverage", default=str(DEFAULT_NONZERO_COVERAGE), help="Nonzero control coverage report JSON.")
     parser.add_argument("--zero-coverage", default=str(DEFAULT_ZERO_COVERAGE), help="0x00 runtime coverage report JSON.")
@@ -47,6 +49,7 @@ def build_rollup(
     loop_tail: dict[str, Any],
     oracle_report: dict[str, Any],
     independent_oracle: dict[str, Any],
+    independent_oracle_coverage: dict[str, Any],
     probe_campaign: dict[str, Any],
     nonzero_coverage: dict[str, Any],
     zero_coverage: dict[str, Any],
@@ -54,6 +57,7 @@ def build_rollup(
     uncertainty_summary = uncertainty.get("summary", {})
     oracle_gates = oracle_report.get("gate_results", {})
     independent_summary = independent_oracle.get("summary", {})
+    independent_coverage_summary = independent_oracle_coverage.get("summary", {})
     finite_summary = finite_tail.get("summary", {})
     loop_summary = loop_tail.get("summary", {})
     probe_summary = probe_campaign.get("summary", {})
@@ -97,6 +101,9 @@ def build_rollup(
             "independent_capture_count": int(independent_summary.get("independent_capture_count", 0)),
             "missing_independent_capture_count": int(independent_summary.get("missing_independent_capture_count", 0)),
             "representative_campaign_job_count": int(independent_summary.get("representative_campaign_job_count", 0)),
+            "representative_missing_independent_capture_count": int(
+                independent_coverage_summary.get("representative_missing_independent_capture_count", 0)
+            ),
         },
         "sequence_promotion_gate": {
             "passed": bool(uncertainty_summary.get("sequence_promotion_allowed")),
@@ -162,6 +169,7 @@ def build_rollup(
             "manifests/audio-loop-point-tail-metrics.json",
             "manifests/audio-oracle-verification-report-all-tracks.json",
             "manifests/audio-independent-oracle-campaign-plan.json",
+            "manifests/audio-independent-oracle-coverage-report.json",
             "manifests/audio-probe-campaign-plan.json",
             "manifests/audio-nonzero-control-coverage-report.json",
             "manifests/audio-zero-runtime-coverage-report.json",
@@ -173,6 +181,9 @@ def build_rollup(
             "primary_uncertainty_track_counts": primary_counts,
             "near_oracle_passed": bool(oracle_gates.get("all_track_oracle_gate_passed")),
             "independent_oracle_passed": bool(independent_summary.get("independent_emulator_gate_passed")),
+            "independent_oracle_representative_missing": int(
+                independent_coverage_summary.get("representative_missing_independent_capture_count", 0)
+            ),
             "finite_tail_records": int(finite_summary.get("record_count", 0)),
             "loop_tail_records": int(loop_summary.get("record_count", 0)),
             "probe_campaign_jobs": int(probe_summary.get("campaign_job_count", 0)),
@@ -190,6 +201,7 @@ def build_rollup(
         "decision_policy": [
             "This rollup is diagnostic only and does not promote sequence-derived durations or exact loop exports.",
             "Near-oracle equivalence is treated separately from independent external-emulator capture.",
+            "Independent oracle coverage records the representative campaign gap before all-track capture expansion.",
             "Finite and loop tail metrics prove current diagnostic activity patterns, not final exact-duration policy.",
             "Nonzero control coverage maps representative probe anchors but does not replace imported runtime probe outputs.",
             "Zero runtime coverage maps every current zero blocker to a probe job but still requires imported runtime classifications.",
@@ -231,6 +243,7 @@ def render_markdown(data: dict[str, Any]) -> str:
             f"- primary uncertainty counts: `{summary['primary_uncertainty_track_counts']}`",
             f"- near oracle passed: `{summary['near_oracle_passed']}`",
             f"- independent oracle passed: `{summary['independent_oracle_passed']}`",
+            f"- independent oracle representative missing: `{summary['independent_oracle_representative_missing']}`",
             f"- finite tail records: `{summary['finite_tail_records']}`",
             f"- loop tail records: `{summary['loop_tail_records']}`",
             f"- probe campaign jobs: `{summary['probe_campaign_jobs']}`",
@@ -274,6 +287,7 @@ def main() -> int:
         load_json(Path(args.loop_tail)),
         load_json(Path(args.oracle_report)),
         load_json(Path(args.independent_oracle)),
+        load_json(Path(args.independent_oracle_coverage)),
         load_json(Path(args.probe_campaign)),
         load_json(Path(args.nonzero_coverage)),
         load_json(Path(args.zero_coverage)),

@@ -7,6 +7,7 @@
     "manifests/audio-loop-point-tail-metrics.json",
     "manifests/audio-oracle-verification-report-all-tracks.json",
     "manifests/audio-independent-oracle-campaign-plan.json",
+    "manifests/audio-independent-oracle-coverage-report.json",
     "manifests/audio-probe-campaign-plan.json",
     "manifests/audio-nonzero-control-coverage-report.json",
     "manifests/audio-zero-runtime-coverage-report.json"
@@ -27,6 +28,7 @@
     },
     "near_oracle_passed": true,
     "independent_oracle_passed": false,
+    "independent_oracle_representative_missing": 16,
     "finite_tail_records": 5,
     "loop_tail_records": 5,
     "probe_campaign_jobs": 26,
@@ -73,7 +75,8 @@
       "passed": false,
       "independent_capture_count": 0,
       "missing_independent_capture_count": 190,
-      "representative_campaign_job_count": 16
+      "representative_campaign_job_count": 16,
+      "representative_missing_independent_capture_count": 16
     },
     "sequence_promotion_gate": {
       "passed": false,
@@ -136,6 +139,7 @@
   "decision_policy": [
     "This rollup is diagnostic only and does not promote sequence-derived durations or exact loop exports.",
     "Near-oracle equivalence is treated separately from independent external-emulator capture.",
+    "Independent oracle coverage records the representative campaign gap before all-track capture expansion.",
     "Finite and loop tail metrics prove current diagnostic activity patterns, not final exact-duration policy.",
     "Nonzero control coverage maps representative probe anchors but does not replace imported runtime probe outputs.",
     "Zero runtime coverage maps every current zero blocker to a probe job but still requires imported runtime classifications.",

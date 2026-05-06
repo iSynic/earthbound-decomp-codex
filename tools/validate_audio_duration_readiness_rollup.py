@@ -17,6 +17,7 @@ REQUIRED_REFERENCES = {
     "manifests/audio-loop-point-tail-metrics.json",
     "manifests/audio-oracle-verification-report-all-tracks.json",
     "manifests/audio-independent-oracle-campaign-plan.json",
+    "manifests/audio-independent-oracle-coverage-report.json",
     "manifests/audio-probe-campaign-plan.json",
     "manifests/audio-nonzero-control-coverage-report.json",
     "manifests/audio-zero-runtime-coverage-report.json",
@@ -63,6 +64,10 @@ def validate(data: dict[str, Any]) -> None:
     require(blocking_tracks == 192 - public_exact, "blocking track count mismatch")
     require(summary.get("near_oracle_passed") is True, "near-oracle gate should currently pass")
     require(summary.get("independent_oracle_passed") is False, "independent oracle gate should currently fail")
+    require(
+        int(summary.get("independent_oracle_representative_missing", -1)) == 16,
+        "expected 16 missing representative independent captures",
+    )
     require(int(summary.get("finite_tail_records", 0)) == 5, "expected 5 finite tail records")
     require(int(summary.get("loop_tail_records", 0)) == 5, "expected 5 loop tail records")
     require(int(summary.get("probe_campaign_jobs", 0)) == 26, "expected 26 probe campaign jobs")
@@ -101,6 +106,10 @@ def validate(data: dict[str, Any]) -> None:
     independent_gate = gates["independent_oracle_gate"]
     require(independent_gate.get("passed") is False, "independent oracle gate should fail")
     require(int(independent_gate.get("missing_independent_capture_count", 0)) == 190, "expected 190 missing independent captures")
+    require(
+        int(independent_gate.get("representative_missing_independent_capture_count", -1)) == 16,
+        "expected 16 missing representative independent captures",
+    )
     sequence_gate = gates["sequence_promotion_gate"]
     require(sequence_gate.get("passed") is False, "sequence promotion gate should fail")
     require(sequence_gate.get("uncertainty_register_allows_sequence_promotion") is False, "uncertainty sequence promotion should be blocked")
