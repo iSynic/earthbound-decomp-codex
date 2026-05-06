@@ -26,7 +26,7 @@ the stable pieces:
 
 - enemy records use stride `$005E`
 - enemy row `+0x5D` is the `mirror_success` byte
-- the roll gate uses the shared `C2:6A2D` random-threshold helper with limit
+- the roll gate uses the shared `C2:6A2D` / `GetRandomBelow` helper with limit
   `$0064`
 - the temporary battler staging block is `$AA14`, with `$AA12` carrying the
   selected battler id and `$AA62 = $0010` marking the staging mode

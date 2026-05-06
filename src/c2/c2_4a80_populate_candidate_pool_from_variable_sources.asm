@@ -16,6 +16,7 @@ C08E9A_GetRandom16                           = $C08E9A
 C08FF7_ResolveIndexedPointerOffset           = $C08FF7
 C21628_CheckEventFlag                        = $C21628
 C23BCF_BuildBattleAttackerTextContext        = $C23BCF
+C26A2D_GetRandomBelow                        = $6A2D
 C2B6EB_ApplyCandidateRecordPayload           = $C2B6EB
 C2B930_InitializeCandidateRecordFromSource   = $C2B930
 C2E116_AdvanceBattleVisualEffectOrSwirlState = $C2E116
@@ -376,7 +377,7 @@ C24D66_C24A8A_PopulateCandidatePoolFromVariableSources_L4D66:
 C24D6B_C24A8A_PopulateCandidatePoolFromVariableSources_L4D6B:
     jsl $C1DD3B
     lda $9F8A
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     asl A
     tax
     lda $9F8C,X
@@ -513,7 +514,7 @@ C24E52_C24A8A_PopulateCandidatePoolFromVariableSources_L4E52:
     cmp $9FAC,X
     bne C24EB4_C24A8A_PopulateCandidatePoolFromVariableSources_L4EB4
     lda.w #$0007
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     pha
     lda $02
     ply

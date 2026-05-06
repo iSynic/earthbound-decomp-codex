@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26A2D_RollRandomThreshold                    = $6A2D
+C26A2D_GetRandomBelow                         = $6A2D
 C27CAF_RollSelectedVsActiveRowOffsetGate      = $7CAF
 C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 C28125_ApplyDamageToSelectedTarget            = $8125
@@ -33,7 +33,7 @@ C2A89D_RunRandomDamageAndStatusItemActionPrefix = BTLACT_SNAKE
     cmp.w #$0000
     db $F0, $3A
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     ldx.w #$00FF
     inc A
     jsr C28125_ApplyDamageToSelectedTarget

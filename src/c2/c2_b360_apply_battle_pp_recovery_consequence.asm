@@ -19,7 +19,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C26A2D_GetRandomBelow = $6A2D
 
 ; ---------------------------------------------------------------------------
 ; C2:B360
@@ -67,7 +67,7 @@ C2B3A1_ApplyBattlePpRecoveryConsequence_LB3A1:
     jmp $B5E3
     ; Selector 3: random IQ/guts/speed/vitality/luck increase.
     lda.w #$0004
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     cmp.w #$0000
     db $F0, $23
     cmp.w #$0001

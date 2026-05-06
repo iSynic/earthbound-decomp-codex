@@ -12,8 +12,9 @@
 ; - Selects one stealable item candidate for the STEAL action.
 ; - Rebuilds `$A9D4` through `FIND_STEALABLE_ITEMS`; returns `0` when no
 ;   candidates exist or when the 50 percent random failure gate trips.
-; - On success, chooses one candidate with `RAND_LIMIT(count)` and returns the
-;   selected item id from `$A9D4[index]`.
+; - On success, chooses one candidate with `C2:6A2D` /
+;   `GetRandomBelow(count)` and returns the selected item id from
+;   `$A9D4[index]`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

@@ -95,7 +95,8 @@ The fallback scan is now decoded enough to describe mechanically:
 - it scans battler slots `8..31`
 - it ignores battlers whose `consciousness` byte at `+0x0C` is zero
 - it compares each live battler's id field at `+0x00` against a small hardcoded record table at `C2:3109`
-- on a match, it chooses one of eight follow-up bytes from that record with `JSR C2:6A2D`
+- on a match, it chooses one of eight follow-up bytes from that record with
+  `C2:6A2D` / `GetRandomBelow`
 - it stores that chosen byte back into `$AA10`
 - then it continues until either two records are checked or the fallback loop terminates
 

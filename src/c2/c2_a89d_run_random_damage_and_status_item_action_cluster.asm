@@ -15,7 +15,7 @@ C08FF7_ResolveIndexedPointerOffset              = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C240A4_ApplyBattleActionSecondPointerPayload    = $C240A4
-C26A2D_RollRandomThreshold                      = $6A2D
+C26A2D_GetRandomBelow                           = $6A2D
 C26A44_RollRandomAmount                         = $6A44
 C26AFD_RollDamageAmount                         = $6AFD
 C26BB8_RollActionChanceGate                     = $6BB8
@@ -70,7 +70,7 @@ C2A89D_RunRandomDamageAndStatusItemActionPrefix = BTLACT_SNAKE
     cmp.w #$0000
     beq C2A8F2_RunRandomDamageAndStatusItemActionCluster_LA8F2
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     ldx.w #$00FF
     inc A
     jsr C28125_ApplyDamageToSelectedTarget
@@ -429,7 +429,7 @@ C2AB8B_RunRandomDamageAndStatusItemActionCluster_LAB8B:
     lda $9643
     beq C2ABCF_RunRandomDamageAndStatusItemActionCluster_LABCF
     lda.w #$0064
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     sta $14
     ldx $A970
     lda $0008,X
@@ -626,7 +626,7 @@ C2AD1B_RunRandomItemSideEffectDispatcher = BTLACT_PRAY
     adc.w #$FFE8
     tcd
     lda.w #$0010
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     tax
     lda $C4A2F9,X
     and.w #$00FF

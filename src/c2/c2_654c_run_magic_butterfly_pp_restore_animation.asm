@@ -700,7 +700,8 @@ C269F8_RunMagicButterflyPpRestoreAnimation_L69F8 = TRUNCATE_16_TO_8
     pld
     rts
 RAND_LIMIT:
-C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D = RAND_LIMIT
+C26A2D_GetRandomBelow = RAND_LIMIT
+C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D = C26A2D_GetRandomBelow
     rep #$31
     phd
     pha

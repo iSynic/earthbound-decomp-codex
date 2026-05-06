@@ -4056,6 +4056,7 @@ org $C277CA
 !C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
 !C24477_BuildClass2DerivedActionCode = $C24477
 !C24703_DispatchClass2DerivedAction = $C24703
+!C26A2D_GetRandomBelow = $6A2D
 !C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 !C2BAC5_CountRowsWithPhaseValue = $C2BAC5
 !D57B68_BattleActionTableLo = $7B68
@@ -4688,7 +4689,7 @@ SUCCESS_LUCK80:
 !C27C96_RollSelectedRowThresholdGate = SUCCESS_LUCK80
     rep #$31
     lda.w #$0050
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     ldx !ActiveTargetBattlerPointer
     cmp.w !BattlerLuckWord,X
     bcs C27CAB_RunClass2LateSelectedRowController_L7CAB
@@ -4734,7 +4735,7 @@ C27CE2_RunClass2LateSelectedRowController_L7CE2:
     stx $10
 C27CE7_RunClass2LateSelectedRowController_L7CE7:
     tya
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     ldx $10
     stx $02
     cmp $02
@@ -5283,7 +5284,7 @@ C28D38_RunSolidifiedStatusAction_L8D38:
 hirom
 org $C28D3A
 
-!C26A2D_RollRandomThreshold = $6A2D
+!C26A2D_GetRandomBelow = $6A2D
 !C2A056_RunResistCheckedStrangeStatusAction = $C2A056
 REDIRECT_BTLACT_BRAINSHOCK_A:
 !C28D3A_RunStrangeStatusWrapperAction = REDIRECT_BTLACT_BRAINSHOCK_A
@@ -5294,7 +5295,7 @@ SUCCESS_LUCK40:
 !C28D41_CheckTargetField2eThresholdGate = SUCCESS_LUCK40
     rep #$31
     lda.w #$0028
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     ldx $A972
     cmp $002E,X
     bcs C28D56_RunStrangeStatusWrapperAction_L8D56
@@ -6673,7 +6674,7 @@ C295A9_RunPsiFireCommon_L95A9:
 hirom
 org $C295CF
 
-!C26A2D_RollRandomThreshold = $6A2D
+!C26A2D_GetRandomBelow = $6A2D
 !C26AFD_RollDamageAmount = $6AFD
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
@@ -6718,7 +6719,7 @@ PSI_FREEZE_COMMON:
     ldx $14
     beq C29642_RunPsiFreezeCommon_L9642
     lda.w #$0064
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     cmp.w #$0019
     bcs C29642_RunPsiFreezeCommon_L9642
     ldy.w #$0004
@@ -8181,7 +8182,7 @@ C29F55_RunResistCheckedAsleepStatusAction_L9F55:
 hirom
 org $C29F57
 
-!C26A2D_RollRandomThreshold = $6A2D
+!C26A2D_GetRandomBelow = $6A2D
 !C26BB8_RollActionChanceGate = $6BB8
 !C27191_ClampBattlerPpTargetDelta = $7191
 !C2721D_ReduceBattlerPpTarget = $721D
@@ -8216,11 +8217,11 @@ BTLACT_MAGNET_A:
     bra C29FDF_RunAsleepStatusWrapperAction_L9FDF
 C29F7E_RunAsleepStatusWrapperAction_L9F7E:
     lda.w #$0004
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     tax
     stx $16
     lda.w #$0004
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     sta $02
     ldx $16
     txa
@@ -8329,7 +8330,7 @@ REDIRECT_BTLACT_PARALYSIS_A:
 hirom
 org $C2A056
 
-!C26A2D_RollRandomThreshold = $6A2D
+!C26A2D_GetRandomBelow = $6A2D
 !C26AFD_RollDamageAmount = $6AFD
 !C26BB8_RollActionChanceGate = $6BB8
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
@@ -8402,7 +8403,7 @@ BTLACT_HP_RECOVERY_1D4:
 !C2A0AE_RunHpRecovery1d4Action = BTLACT_HP_RECOVERY_1D4
     rep #$31
     lda.w #$0004
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     tax
     inx
     lda $A972
@@ -8452,7 +8453,7 @@ BTLACT_IQ_UP_1D4:
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -8492,7 +8493,7 @@ BTLACT_GUTS_UP_1D4:
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -8530,7 +8531,7 @@ BTLACT_SPEED_UP_1D4:
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -8568,7 +8569,7 @@ BTLACT_VITALITY_UP_1D4:
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -8608,7 +8609,7 @@ BTLACT_LUCK_UP_1D4:
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -8655,7 +8656,7 @@ BTLACT_RANDOM_STAT_UP_1D4:
     adc.w #$FFE8
     tcd
     lda.w #$0007
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     cmp.w #$0000
     beq C2A2C2_RunRandomStatUpDefenseBranch
     cmp.w #$0001
@@ -8683,7 +8684,7 @@ C2A2BF_RunResistCheckedStrangeStatusAction_LA2BF:
     jmp.w C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A2C2_RunRandomStatUpDefenseBranch:
     lda.w #$0004
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -8714,7 +8715,7 @@ C2A2F4_RunResistCheckedStrangeStatusAction_LA2F4:
     bra C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A302_RunRandomStatUpOffenseBranch:
     lda.w #$0004
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -14383,6 +14384,7 @@ org $C26189
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C26A2D_GetRandomBelow = $6A2D
 !C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
 !C496E7_StartPaletteFadeFromWorkBuffer = $C496E7
 !C49740_FinishPaletteFadeWorkBuffer = $C49740
@@ -14717,7 +14719,7 @@ C2643D_FillInstantWinTileBufferAndUpload_L643D:
     cmp.w #$0020
     bcc C263EC_FillInstantWinTileBufferAndUpload_L63EC
     lda $9F8A
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     asl A
     tax
     lda $9F8C,X
@@ -15521,7 +15523,8 @@ TRUNCATE_16_TO_8:
     pld
     rts
 RAND_LIMIT:
-!C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D = RAND_LIMIT
+!C26A2D_GetRandomBelow = RAND_LIMIT
+!C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D = C26A2D_GetRandomBelow
     rep #$31
     phd
     pha
@@ -21405,6 +21408,7 @@ C2B357_ApplyBattleHpRecoveryConsequence_LB357:
 hirom
 org $C2B360
 
+!C26A2D_GetRandomBelow = $6A2D
 C2B360_ApplyBattlePpRecoveryConsequence:
     cpy.w #$0000
     beq C2B36C_ApplyBattlePpRecoveryConsequence_LB36C
@@ -21446,7 +21450,7 @@ C2B3A1_ApplyBattlePpRecoveryConsequence_LB3A1:
     jsr $7318
     jmp $B5E3
     lda.w #$0004
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     cmp.w #$0000
     db $F0, $23
     cmp.w #$0001
@@ -24303,7 +24307,7 @@ hirom
 org $C2A86B
 
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
-!C26A2D_RollRandomThreshold = $6A2D
+!C26A2D_GetRandomBelow = $6A2D
 !C27CAF_RollSelectedVsActiveRowOffsetGate = $7CAF
 !C28125_ApplyDamageToSelectedTarget = $8125
 !EFMSG_StatusNoEffect = $766E
@@ -24323,7 +24327,7 @@ BTLACT_YOGURT_DISPENSER:
     cmp.w #$0000
     beq C2A88D_C2A86B_RunRandomDamageItemAction_LA88D
     lda.w #!RandomDamageRollLimit
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     ldx.w #!DefaultDamageType
     inc A
     jsr !C28125_ApplyDamageToSelectedTarget
@@ -24486,6 +24490,7 @@ org $C2311B
 !C1DE37_RunCharacterSelectionPromptFar = $C1DE37
 !C1DE3D_OpenBattlePsiCategorySelectionStageFar = $C1DE3D
 !C2032B_WriteWindowTitleAndUpload = $C2032B
+!C26A2D_GetRandomBelow = $6A2D
 !C2B930_ExportBattleSelectionSnapshot = $C2B930
 !C2BAC5_CountFilteredSecondStageRows = $C2BAC5
 !C3E977_GetItemInCharacterInventorySlot = $C3E977
@@ -25009,7 +25014,7 @@ C2353D_C2311B_RunBattleStartPresentAndMessageController_L353D:
     lda $AD56
     clc
     adc $AD58
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     sep #$20
     inc A
     sta !BattleActionSelectionTargetActorByte
@@ -25727,6 +25732,7 @@ org $C24A8A
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C21628_CheckEventFlag = $C21628
 !C23BCF_BuildBattleAttackerTextContext = $C23BCF
+!C26A2D_GetRandomBelow = $6A2D
 !C2B6EB_ApplyCandidateRecordPayload = $C2B6EB
 !C2B930_InitializeCandidateRecordFromSource = $C2B930
 !C2E116_AdvanceBattleVisualEffectOrSwirlState = $C2E116
@@ -26082,7 +26088,7 @@ C24D66_C24A8A_PopulateCandidatePoolFromVariableSources_L4D66:
 C24D6B_C24A8A_PopulateCandidatePoolFromVariableSources_L4D6B:
     jsl $C1DD3B
     lda $9F8A
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     asl A
     tax
     lda $9F8C,X
@@ -26218,7 +26224,7 @@ C24E52_C24A8A_PopulateCandidatePoolFromVariableSources_L4E52:
     cmp $9FAC,X
     bne C24EB4_C24A8A_PopulateCandidatePoolFromVariableSources_L4EB4
     lda.w #$0007
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     pha
     lda $02
     ply
@@ -27743,6 +27749,7 @@ org $C25024
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
+!C26A2D_GetRandomBelow = $6A2D
 !D57B68_BattleActionTable = $D57B68
 !D57B68_BattleActionTableLo = $7B68
 !D57B68_BattleActionTableBank = $00D5
@@ -28445,7 +28452,7 @@ C255B8_RunBattleStartCandidateControllerFront_L55B8:
     cmp $04
     bcc C25604_RunBattleStartCandidateControllerFront_L5604
     lda.w #$0064
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     sta $27
     ldx $2F
     txa
@@ -28956,7 +28963,7 @@ C25A4F_RunBattleStartCandidateControllerFront_L5A4F:
     cmp.w #$0001
     bne C25A6D_RunBattleStartCandidateControllerFront_L5A6D
     lda.w #$0064
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     cmp.w #$0019
     bcc C25A7B_RunBattleStartCandidateControllerFront_L5A7B
 C25A6D_RunBattleStartCandidateControllerFront_L5A6D:
@@ -29040,6 +29047,7 @@ org $C25AFB
 !C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 !C1DD9F_DisplayCurrentActionTableTextMode1 = $C1DD9F
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C26A2D_GetRandomBelow = $6A2D
 !C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
 !D57B68_BattleActionTable = $D57B68
 !D57B68_BattleActionTableLo = $7B68
@@ -29464,7 +29472,7 @@ C25E40_RunBattleStartCandidateControllerBack_L5E40:
     bra C25E9A_RunBattleStartCandidateControllerBack_L5E9A
 C25E61_MaybeEmitSelectedRowAfflictionFeedback:
     lda.w #$0064
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     cmp.w #$0055
     bcs C25E9A_RunBattleStartCandidateControllerBack_L5E9A
     lda.w #!EFMSG_BodyStatusOff
@@ -29839,6 +29847,7 @@ org $C27EAF
 !C2698B_GetBattleActionType = $698B
 !C269BE_WaitFrames = $69BE
 !C269F8_Truncate16To8 = $69F8
+!C26A2D_GetRandomBelow = $6A2D
 !C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C26BB8_RollActionChanceGate = $6BB8
 !C26BDB_Success500 = $6BDB
@@ -30488,7 +30497,7 @@ C283B8_RunHitResolutionAndStatusActionCluster_L83B8:
     ldx $12
     beq C283F3_RunHitResolutionAndStatusActionCluster_L83F3
     lda.w #$0010
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     sta $02
     ldx $12
     txa
@@ -31140,7 +31149,7 @@ C288EA_RunHitResolutionAndStatusActionCluster_L88EA:
     tcd
     jsl $EF0256
     lda.w #$0004
-    jsr $6A2D
+    jsr !C26A2D_GetRandomBelow
     sta $02
     inc $02
     lda $A96C
@@ -31504,7 +31513,7 @@ org $C2A89D
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
-!C26A2D_RollRandomThreshold = $6A2D
+!C26A2D_GetRandomBelow = $6A2D
 !C26A44_RollRandomAmount = $6A44
 !C26AFD_RollDamageAmount = $6AFD
 !C26BB8_RollActionChanceGate = $6BB8
@@ -31552,7 +31561,7 @@ BTLACT_SNAKE:
     cmp.w #$0000
     beq C2A8F2_RunRandomDamageAndStatusItemActionCluster_LA8F2
     lda.w #$0004
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     ldx.w #$00FF
     inc A
     jsr !C28125_ApplyDamageToSelectedTarget
@@ -31911,7 +31920,7 @@ C2AB8B_RunRandomDamageAndStatusItemActionCluster_LAB8B:
     lda $9643
     beq C2ABCF_RunRandomDamageAndStatusItemActionCluster_LABCF
     lda.w #$0064
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     sta $14
     ldx $A970
     lda $0008,X
@@ -32108,7 +32117,7 @@ BTLACT_PRAY:
     adc.w #$FFE8
     tcd
     lda.w #$0010
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     tax
     lda $C4A2F9,X
     and.w #$00FF
@@ -33653,7 +33662,7 @@ org $C2AF1F
 !C08EED_CopyMemoryBlockLong = $C08EED
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
-!C26A2D_RollRandomThreshold = $6A2D
+!C26A2D_GetRandomBelow = $6A2D
 !EnemyConfigurationTableBase = $D59589
 !EnemyRecordStride = $005E
 !EnemyMirrorSuccessByte = $005D
@@ -33884,7 +33893,7 @@ C2B0C0_SnapshotRestoreBattlerNormalizationContext_LB0C0:
     jmp.w C2B162_SnapshotRestoreBattlerNormalizationContext_LB162
 C2B0CE_SnapshotRestoreBattlerNormalizationContext_LB0CE:
     lda.w #!PercentRollLimit
-    jsr !C26A2D_RollRandomThreshold
+    jsr !C26A2D_GetRandomBelow
     sta $16
     ldx $18
     txa

@@ -24,6 +24,7 @@ C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C1DD7C_SetBattleTextByteSubstitution          = $C1DD7C
 C1DD5F_WaitForTextOrMenuAcknowledge           = $C1DD5F
+C26A2D_GetRandomBelow                         = $6A2D
 C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
 C496E7_StartPaletteFadeFromWorkBuffer         = $C496E7
 C49740_FinishPaletteFadeWorkBuffer            = $C49740
@@ -363,7 +364,7 @@ C2643D_FillInstantWinTileBufferAndUpload_L643D:
     cmp.w #$0020
     bcc C263EC_FillInstantWinTileBufferAndUpload_L63EC
     lda $9F8A
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     asl A
     tax
     lda $9F8C,X

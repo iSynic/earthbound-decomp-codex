@@ -73,8 +73,9 @@ pair.
 
 `C2:A86B` is a compact random-damage item leaf. It gates through `C2:7CAF` /
 `RollSelectedVsActiveRowOffsetGate`, rolls a `1..4` damage amount with
-`C2:6A2D`, applies selected-target damage through `C2:8125` /
-`ApplyDamageToSelectedTarget`, and emits shared no-effect text on failure.
+`C2:6A2D` / `GetRandomBelow`, applies selected-target damage through
+`C2:8125` / `ApplyDamageToSelectedTarget`, and emits shared no-effect text on
+failure.
 
 ## Bomb Common
 

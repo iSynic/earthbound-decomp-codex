@@ -23,7 +23,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26A2D_RollRandomThreshold                      = $6A2D
+C26A2D_GetRandomBelow                           = $6A2D
 C26AFD_RollDamageAmount                         = $6AFD
 C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
@@ -74,7 +74,7 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     ldx $14
     beq C29642_RunPsiFreezeCommon_L9642
     lda.w #$0064
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     cmp.w #$0019
     bcs C29642_RunPsiFreezeCommon_L9642
     ldy.w #$0004

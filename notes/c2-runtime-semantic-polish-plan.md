@@ -540,6 +540,16 @@ contract notes for C0/C1/C3/C4 consumers.
   raw helper addresses. See `notes/c2-late-status-runtime-polish.md`,
   `notes/c2-hit-resolution-status-runtime-polish.md`, and
   `notes/c2-item-bomb-runtime-polish.md`.
+- 2026-05-06 seventy-fifth slice: normalized `C2:6A2D` as
+  `GetRandomBelow`, matching the inherited `RAND_LIMIT` body contract. Battle
+  action selection, candidate pools, battle-start front/back controllers,
+  instant-win present selection, late selected-row gates, hit-resolution rolls,
+  PSI/status/stat leaves, A89D item leaves, normalization, and stat-consequence
+  dispatch now use the same bounded-random helper name instead of raw `$6A2D`
+  or threshold-specific aliases. See
+  `notes/c2-steal-and-target-selection-helpers-c241dc-c24434.md`,
+  `notes/c2-item-bomb-runtime-polish.md`, and
+  `notes/c2-late-normalization-odor-runtime-polish.md`.
 
 ## Validation
 

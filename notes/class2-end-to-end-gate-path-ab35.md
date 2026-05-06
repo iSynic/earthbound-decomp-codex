@@ -40,7 +40,8 @@ After the `+0x56` gate, the path uses additional data derived from the descripto
 - it maps through bank `D5` again using selector `#$0027`
 - it reads byte `D5:5000 + 0x1F` for the selected value family
 - it converts that byte through a centered or signed comparison shape
-- it compares the result against a local threshold-style value produced through `C2:6A2D`
+- it compares the result against a local threshold-style value produced through
+  `C2:6A2D` / `GetRandomBelow`
 
 The exact gameplay meaning of that comparison is still open, but structurally it looks like a position, distance, or band-pass style test rather than a plain id lookup.
 

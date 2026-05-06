@@ -23,7 +23,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26A2D_RollRandomThreshold                    = $6A2D
+C26A2D_GetRandomBelow                         = $6A2D
 C26BB8_RollActionChanceGate                   = $6BB8
 C27191_ClampBattlerPpTargetDelta              = $7191
 C2721D_ReduceBattlerPpTarget                  = $721D
@@ -64,11 +64,11 @@ C29F5E_RunHpSuckerStylePpDrainAction = BTLACT_MAGNET_A
     bra C29FDF_RunAsleepStatusWrapperAction_L9FDF
 C29F7E_RunAsleepStatusWrapperAction_L9F7E:
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     tax
     stx $16
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     sta $02
     ; Drain amount is two small rolls plus two, capped by target current PP.
     ldx $16

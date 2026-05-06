@@ -22,6 +22,7 @@ C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 C1DD9F_DisplayCurrentActionTableTextMode1 = $C1DD9F
 C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+C26A2D_GetRandomBelow               = $6A2D
 C2EACF_PollBattleSwirlOverlayBusy   = $C2EACF
 D57B68_BattleActionTable            = $D57B68
 D57B68_BattleActionTableLo          = $7B68
@@ -459,7 +460,7 @@ C25E40_RunBattleStartCandidateControllerBack_L5E40:
     bra C25E9A_RunBattleStartCandidateControllerBack_L5E9A
 C25E61_MaybeEmitSelectedRowAfflictionFeedback:
     lda.w #$0064
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     cmp.w #$0055
     bcs C25E9A_RunBattleStartCandidateControllerBack_L5E9A
     lda.w #EFMSG_BodyStatusOff

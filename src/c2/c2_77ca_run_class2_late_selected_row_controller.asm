@@ -33,6 +33,7 @@ C23D05_BuildBattleTargetTextContext          = $C23D05
 C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
 C24477_BuildClass2DerivedActionCode          = $C24477
 C24703_DispatchClass2DerivedAction           = $C24703
+C26A2D_GetRandomBelow                        = $6A2D
 C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 C2BAC5_CountRowsWithPhaseValue               = $C2BAC5
 
@@ -687,7 +688,7 @@ SUCCESS_LUCK80:
 C27C96_RollSelectedRowThresholdGate = SUCCESS_LUCK80
     rep #$31
     lda.w #$0050
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     ldx ActiveTargetBattlerPointer
     cmp.w BattlerLuckWord,X
     bcs C27CAB_RunClass2LateSelectedRowController_L7CAB
@@ -733,7 +734,7 @@ C27CE2_RunClass2LateSelectedRowController_L7CE2:
     stx $10
 C27CE7_RunClass2LateSelectedRowController_L7CE7:
     tya
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     ldx $10
     stx $02
     cmp $02

@@ -31,7 +31,7 @@ The unknown files are not present in the local `refs/ebsrc-main` checkout, but t
 
 Accepted item ids are written one byte at a time into `$A9D4`, and the helper returns the count. That makes `$A9D4` a transient stealable-item candidate list.
 
-`C2:4316`, the reference `SELECT_STEALABLE_ITEM`, calls `C2:41DC`, returns zero if the candidate count is zero, otherwise gives the steal a 50 percent failure gate via `RAND & #$0080`; if that gate passes, it selects one candidate with `RAND_LIMIT(count)` and returns `$A9D4[index]`.
+`C2:4316`, the reference `SELECT_STEALABLE_ITEM`, calls `C2:41DC`, returns zero if the candidate count is zero, otherwise gives the steal a 50 percent failure gate via `RAND & #$0080`; if that gate passes, it selects one candidate with `C2:6A2D` / `GetRandomBelow(count)` and returns `$A9D4[index]`.
 
 Working names used below are collected again in the final section for the generated proposal table.
 
@@ -83,7 +83,7 @@ The local byte flow is:
 
 - read `NUM_BATTLERS_IN_FRONT_ROW` at `$AD56`
 - read `NUM_BATTLERS_IN_BACK_ROW` at `$AD58`
-- choose a random value in `0..front+back-1` with `C2:6A2D`
+- choose a random value in `0..front+back-1` with `C2:6A2D` / `GetRandomBelow`
 - store `random + 1` into `battler::current_target`
 - if the value falls in the front-row count, return `FRONT_ROW_BATTLERS[index]` from `$AD7A`
 - otherwise subtract the front-row count and return `BACK_ROW_BATTLERS[index]` from `$AD82`

@@ -22,7 +22,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26A2D_RollRandomThreshold                    = $6A2D
+C26A2D_GetRandomBelow                         = $6A2D
 C26AFD_RollDamageAmount                       = $6AFD
 C26BB8_RollActionChanceGate                   = $6BB8
 C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
@@ -103,7 +103,7 @@ BTLACT_HP_RECOVERY_1D4:
 C2A0AE_RunHpRecovery1d4Action = BTLACT_HP_RECOVERY_1D4
     rep #$31
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     tax
     inx
     lda $A972
@@ -153,7 +153,7 @@ C2A0FF_RunIqUp1d4Action = BTLACT_IQ_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -193,7 +193,7 @@ C2A14B_RunGutsUp1d4Action = BTLACT_GUTS_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -231,7 +231,7 @@ C2A193_RunSpeedUp1d4Action = BTLACT_SPEED_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -269,7 +269,7 @@ C2A1DB_RunVitalityUp1d4Action = BTLACT_VITALITY_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -309,7 +309,7 @@ C2A227_RunLuckUp1d4Action = BTLACT_LUCK_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -356,7 +356,7 @@ C2A27F_RunRandomStatUp1d4Action = BTLACT_RANDOM_STAT_UP_1D4
     adc.w #$FFE8
     tcd
     lda.w #$0007
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     cmp.w #$0000
     beq C2A2C2_RunRandomStatUpDefenseBranch
     cmp.w #$0001
@@ -384,7 +384,7 @@ C2A2BF_RunResistCheckedStrangeStatusAction_LA2BF:
     jmp.w C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A2C2_RunRandomStatUpDefenseBranch:
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972
@@ -415,7 +415,7 @@ C2A2F4_RunResistCheckedStrangeStatusAction_LA2F4:
     bra C2A35E_RunResistCheckedStrangeStatusAction_LA35E
 C2A302_RunRandomStatUpOffenseBranch:
     lda.w #$0004
-    jsr C26A2D_RollRandomThreshold
+    jsr C26A2D_GetRandomBelow
     inc A
     sta $16
     lda $A972

@@ -17,6 +17,7 @@ C0915B_DivideUnsignedWordByY       = $C0915B
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
+C26A2D_GetRandomBelow            = $6A2D
 D57B68_BattleActionTable           = $D57B68
 D57B68_BattleActionTableLo         = $7B68
 D57B68_BattleActionTableBank       = $00D5
@@ -724,7 +725,7 @@ C255B8_RunBattleStartCandidateControllerFront_L55B8:
     cmp $04
     bcc C25604_RunBattleStartCandidateControllerFront_L5604
     lda.w #$0064
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     sta $27
     ldx $2F
     txa
@@ -1242,7 +1243,7 @@ C25A4F_RunBattleStartCandidateControllerFront_L5A4F:
     cmp.w #$0001
     bne C25A6D_RunBattleStartCandidateControllerFront_L5A6D
     lda.w #$0064
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     cmp.w #$0019
     bcc C25A7B_RunBattleStartCandidateControllerFront_L5A7B
 C25A6D_RunBattleStartCandidateControllerFront_L5A6D:

@@ -21,6 +21,7 @@ C23D05_BuildBattleTargetTextContext             = $C23D05
 C2698B_GetBattleActionType                      = $698B
 C269BE_WaitFrames                               = $69BE
 C269F8_Truncate16To8                            = $69F8
+C26A2D_GetRandomBelow                           = $6A2D
 C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
 C26BB8_RollActionChanceGate                     = $6BB8
 C26BDB_Success500                               = $6BDB
@@ -677,7 +678,7 @@ C283B8_RunHitResolutionAndStatusActionCluster_L83B8:
     ldx $12
     beq C283F3_RunHitResolutionAndStatusActionCluster_L83F3
     lda.w #$0010
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     sta $02
     ldx $12
     txa
@@ -1332,7 +1333,7 @@ C288EA_RunHitResolutionAndStatusActionCluster_L88EA:
     tcd
     jsl $EF0256
     lda.w #$0004
-    jsr $6A2D
+    jsr C26A2D_GetRandomBelow
     sta $02
     inc $02
     lda $A96C

@@ -79,7 +79,7 @@ Later parts of the path branch through multiple local controller families, inclu
 
 - `C2:4477`
 - `C2:4703`
-- `C2:6A2D`
+- `C2:6A2D` / `GetRandomBelow`
 - `C2:7250` / `C2:7294` / `C2:7318`
 
 It also continues to emit hardcoded `C1:DC1C` script calls from several points, including script addresses in banks `EF` and `7x` regions.
