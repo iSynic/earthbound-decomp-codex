@@ -33,6 +33,13 @@ The strongest currently pinned `0x1B` leaves are:
 
 The branch pair `1B 02/03` is tied to the same three-byte destination builder at `C1:4103` that the lower control-flow strip uses for direct `JUMP`.
 
+The decoded source now carries this contract directly in the `C1:7C36` body.
+The dispatcher names the `1B 01..06` subselector ids, the zero-primary-context
+branch tests, the four-byte jump-target skip, the saved `$16` argument pointer,
+the primary and secondary context staging pairs at `$06/$08` and `$0A/$0C`,
+the temporary swap pair at `$12/$14`, and the scratch context snapshot slots at
+`$97CC..$97D4`.
+
 ## Why this family matters
 
 `0x1B` is the memory/context side that partners with the print/display family at `0x1C`.

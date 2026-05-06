@@ -35,6 +35,10 @@ See also:
   uncancellable `C1:196A` selection-loop mode values, the no-follow-up return
   value, and the local `$06/$08` menu result staging pair before it is installed
   as the primary text context.
+- The adjacent `0x1B` memory/context dispatcher now names its `1B 01..06`
+  subselector ids, null primary-context branch tests, four-byte jump-target
+  skip, saved parser argument pointer, primary/secondary context staging pairs,
+  swap temporaries, and `$97CC..$97D4` scratch context snapshot.
 - The battle-facing display leaves now name the `0x1C 0D/0E/0F` contract:
   reflected-hit side article-token setup, attacker/target name-buffer base
   reads, fixed-string preflight printing, and the `$9D12/$9D14` amount pointer

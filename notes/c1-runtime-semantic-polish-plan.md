@@ -577,6 +577,13 @@ This planning pass is documentation-only.
   staging pair before primary text-context installation. This tightens the
   menu/text-entry contract without expanding the pass into the later `0x1B`,
   `0x1C`, `0x1D`, or `0x1F` dispatcher bodies.
+- 2026-05-06 follow-up: the adjacent `0x1B` memory/context dispatcher in
+  `C1:7C36..7D8D` now names its subselector ids, null primary-context branch
+  tests, four-byte jump-target skip, saved parser argument pointer, primary and
+  secondary text-context staging pairs, swap temporaries, and `$97CC..$97D4`
+  scratch context snapshot. This keeps the source aligned with the existing
+  `text-command-family-1b-memory-context` contract while leaving the later
+  `0x1C`, `0x1D`, and `0x1F` bodies for separate fenced passes.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments

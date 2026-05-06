@@ -72,6 +72,26 @@ SelectionMenuAllowCancelMode       = $0001
 TextCommandNoFollowupCallback      = $0000
 MenuSelectionResultLo              = $06
 MenuSelectionResultBank            = $08
+TextCommand1B01RestoreContextSubcommand = $0001
+TextCommand1B02JumpIfFalseSubcommand = $0002
+TextCommand1B03JumpIfTrueSubcommand = $0003
+TextCommand1B04SwapWorkingArgContextSubcommand = $0004
+TextCommand1B05CopyActiveContextToScratchSubcommand = $0005
+TextCommand1B06RestoreActiveContextFromScratchSubcommand = $0006
+NullTextContextPointerWord         = $0000
+TextCommandJumpTargetByteLength    = $0004
+TextCommand1BArgumentPointer       = $16
+PrimaryContextPointerLo            = $06
+PrimaryContextPointerHi            = $08
+SecondaryContextPointerLo          = $0A
+SecondaryContextPointerHi          = $0C
+SavedPrimaryContextPointerLo       = $12
+SavedPrimaryContextPointerHi       = $14
+ScratchPrimaryContextPointerLo     = $97CC
+ScratchPrimaryContextPointerHi     = $97CE
+ScratchSecondaryContextPointerLo   = $97D0
+ScratchSecondaryContextPointerHi   = $97D2
+ScratchContextWorkmemByte          = $97D4
 LoadedBattleTextAmountPointerLo    = $06
 LoadedBattleTextAmountPointerHi    = $08
 TextContextSourcePointerLo         = $0E
@@ -327,24 +347,24 @@ C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34:
     tcd
     pla
     tay
-    sty $16
+    sty TextCommand1BArgumentPointer
     txa
     beq C17C70_DispatchDisplayTextDynamicSourceSelector_L7C70
-    cmp.w #$0001
+    cmp.w #TextCommand1B01RestoreContextSubcommand
     beq C17C76_DispatchDisplayTextDynamicSourceSelector_L7C76
-    cmp.w #$0002
+    cmp.w #TextCommand1B02JumpIfFalseSubcommand
     beq C17C7C_DispatchDisplayTextDynamicSourceSelector_L7C7C
-    cmp.w #$0003
+    cmp.w #TextCommand1B03JumpIfTrueSubcommand
     beq C17CBA_DispatchDisplayTextDynamicSourceSelector_L7CBA
-    cmp.w #$0004
+    cmp.w #TextCommand1B04SwapWorkingArgContextSubcommand
     bne C17C5D_DispatchDisplayTextDynamicSourceSelector_L7C5D
     jmp.w C17CF8_DispatchDisplayTextDynamicSourceSelector_L7CF8
 C17C5D_DispatchDisplayTextDynamicSourceSelector_L7C5D:
-    cmp.w #$0005
+    cmp.w #TextCommand1B05CopyActiveContextToScratchSubcommand
     bne C17C65_DispatchDisplayTextDynamicSourceSelector_L7C65
     jmp.w C17D36_DispatchDisplayTextDynamicSourceSelector_L7D36
 C17C65_DispatchDisplayTextDynamicSourceSelector_L7C65:
-    cmp.w #$0006
+    cmp.w #TextCommand1B06RestoreActiveContextFromScratchSubcommand
     bne C17C6D_DispatchDisplayTextDynamicSourceSelector_L7C6D
     jmp.w C17D5A_DispatchDisplayTextDynamicSourceSelector_L7D5A
 C17C6D_DispatchDisplayTextDynamicSourceSelector_L7C6D:
@@ -357,127 +377,127 @@ C17C76_DispatchDisplayTextDynamicSourceSelector_L7C76:
     jmp.w C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17C7C_DispatchDisplayTextDynamicSourceSelector_L7C7C:
     jsr C1040A_LoadPrimaryInteractionContextPointer
-    lda.w #$0000
-    sta $0A
-    lda.w #$0000
-    sta $0C
-    lda $08
-    cmp $0C
+    lda.w #NullTextContextPointerWord
+    sta SecondaryContextPointerLo
+    lda.w #NullTextContextPointerWord
+    sta SecondaryContextPointerHi
+    lda PrimaryContextPointerHi
+    cmp SecondaryContextPointerHi
     bne C17C93_DispatchDisplayTextDynamicSourceSelector_L7C93
-    lda $06
-    cmp $0A
+    lda PrimaryContextPointerLo
+    cmp SecondaryContextPointerLo
 C17C93_DispatchDisplayTextDynamicSourceSelector_L7C93:
     bne C17C9B_DispatchDisplayTextDynamicSourceSelector_L7C9B
     lda.w #TextCommand0A24BitJumpCallback
     jmp.w C17D92_DispatchDisplayTextDynamicSourceSelector_L7D92
 C17C9B_DispatchDisplayTextDynamicSourceSelector_L7C9B:
-    ldy $16
+    ldy TextCommand1BArgumentPointer
     lda $0000,Y
-    sta $06
+    sta PrimaryContextPointerLo
     lda $0002,Y
-    sta $08
-    lda.w #$0004
+    sta PrimaryContextPointerHi
+    lda.w #TextCommandJumpTargetByteLength
     clc
-    adc $06
-    sta $06
+    adc PrimaryContextPointerLo
+    sta PrimaryContextPointerLo
     sta $0000,Y
-    lda $08
+    lda PrimaryContextPointerHi
     sta $0002,Y
     jmp.w C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17CBA_DispatchDisplayTextDynamicSourceSelector_L7CBA:
     jsr C1040A_LoadPrimaryInteractionContextPointer
-    lda.w #$0000
-    sta $0A
-    lda.w #$0000
-    sta $0C
-    lda $08
-    cmp $0C
+    lda.w #NullTextContextPointerWord
+    sta SecondaryContextPointerLo
+    lda.w #NullTextContextPointerWord
+    sta SecondaryContextPointerHi
+    lda PrimaryContextPointerHi
+    cmp SecondaryContextPointerHi
     bne C17CD1_DispatchDisplayTextDynamicSourceSelector_L7CD1
-    lda $06
-    cmp $0A
+    lda PrimaryContextPointerLo
+    cmp SecondaryContextPointerLo
 C17CD1_DispatchDisplayTextDynamicSourceSelector_L7CD1:
     beq C17CD9_DispatchDisplayTextDynamicSourceSelector_L7CD9
     lda.w #TextCommand0A24BitJumpCallback
     jmp.w C17D92_DispatchDisplayTextDynamicSourceSelector_L7D92
 C17CD9_DispatchDisplayTextDynamicSourceSelector_L7CD9:
-    ldy $16
+    ldy TextCommand1BArgumentPointer
     lda $0000,Y
-    sta $06
+    sta PrimaryContextPointerLo
     lda $0002,Y
-    sta $08
-    lda.w #$0004
+    sta PrimaryContextPointerHi
+    lda.w #TextCommandJumpTargetByteLength
     clc
-    adc $06
-    sta $06
+    adc PrimaryContextPointerLo
+    sta PrimaryContextPointerLo
     sta $0000,Y
-    lda $08
+    lda PrimaryContextPointerHi
     sta $0002,Y
     jmp.w C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17CF8_DispatchDisplayTextDynamicSourceSelector_L7CF8:
     jsr C1040A_LoadPrimaryInteractionContextPointer
-    lda $06
-    sta $12
-    lda $08
-    sta $14
+    lda PrimaryContextPointerLo
+    sta SavedPrimaryContextPointerLo
+    lda PrimaryContextPointerHi
+    sta SavedPrimaryContextPointerHi
     jsr C103DC_LoadSecondaryInteractionContextPointer
-    lda $06
-    sta $0A
-    lda $08
-    sta $0C
-    lda $0A
-    sta $06
-    lda $0C
-    sta $08
-    lda $06
+    lda PrimaryContextPointerLo
+    sta SecondaryContextPointerLo
+    lda PrimaryContextPointerHi
+    sta SecondaryContextPointerHi
+    lda SecondaryContextPointerLo
+    sta PrimaryContextPointerLo
+    lda SecondaryContextPointerHi
+    sta PrimaryContextPointerHi
+    lda PrimaryContextPointerLo
     sta $0E
-    lda $08
+    lda PrimaryContextPointerHi
     sta $10
     jsr C1045D_InstallPrimaryInteractionContextPointer
-    lda $12
-    sta $06
-    lda $14
-    sta $08
-    lda $06
+    lda SavedPrimaryContextPointerLo
+    sta PrimaryContextPointerLo
+    lda SavedPrimaryContextPointerHi
+    sta PrimaryContextPointerHi
+    lda PrimaryContextPointerLo
     sta $0E
-    lda $08
+    lda PrimaryContextPointerHi
     sta $10
     jsr C10489_InstallSecondaryInteractionContextPointer
     bra C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17D36_DispatchDisplayTextDynamicSourceSelector_L7D36:
     jsr C1040A_LoadPrimaryInteractionContextPointer
-    lda $06
-    sta $97CC
-    lda $08
-    sta $97CE
+    lda PrimaryContextPointerLo
+    sta ScratchPrimaryContextPointerLo
+    lda PrimaryContextPointerHi
+    sta ScratchPrimaryContextPointerHi
     jsr C103DC_LoadSecondaryInteractionContextPointer
-    lda $06
-    sta $97D0
-    lda $08
-    sta $97D2
+    lda PrimaryContextPointerLo
+    sta ScratchSecondaryContextPointerLo
+    lda PrimaryContextPointerHi
+    sta ScratchSecondaryContextPointerHi
     jsr C10400_GetCurrentTextContextWorkmem
     sep #$20
-    sta $97D4
+    sta ScratchContextWorkmemByte
     bra C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17D5A_DispatchDisplayTextDynamicSourceSelector_L7D5A:
-    lda $97CC
-    sta $06
-    lda $97CE
-    sta $08
-    lda $06
+    lda ScratchPrimaryContextPointerLo
+    sta PrimaryContextPointerLo
+    lda ScratchPrimaryContextPointerHi
+    sta PrimaryContextPointerHi
+    lda PrimaryContextPointerLo
     sta $0E
-    lda $08
+    lda PrimaryContextPointerHi
     sta $10
     jsr C1045D_InstallPrimaryInteractionContextPointer
-    lda $97D0
-    sta $06
-    lda $97D2
-    sta $08
-    lda $06
+    lda ScratchSecondaryContextPointerLo
+    sta PrimaryContextPointerLo
+    lda ScratchSecondaryContextPointerHi
+    sta PrimaryContextPointerHi
+    lda PrimaryContextPointerLo
     sta $0E
-    lda $08
+    lda PrimaryContextPointerHi
     sta $10
     jsr C10489_InstallSecondaryInteractionContextPointer
-    lda $97D4
+    lda ScratchContextWorkmemByte
     and.b #$FF
     brk #$20
     eor $04,S
