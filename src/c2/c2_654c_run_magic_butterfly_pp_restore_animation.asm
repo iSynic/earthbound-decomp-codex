@@ -625,6 +625,9 @@ C2698B_LoadBattleActionTypeFromActionId = LOAD_BATTLE_ACTION_TYPE_FROM_ACTION_ID
     and.w #$00FF
     pld
     rts
+GET_ENEMY_CONFIG_SPRAY_VULNERABILITY_TYPE:
+C269A8_GetEnemyConfigSprayVulnerabilityType = GET_ENEMY_CONFIG_SPRAY_VULNERABILITY_TYPE
+    ; A is an enemy config id; return D5:9589 + 0x1B spray/type byte.
     rep #$31
     ldy.w #$005E
     jsl C08FF7_ResolveIndexedPointerOffset

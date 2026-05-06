@@ -18,6 +18,7 @@ C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C1DDC6_RedirectRemoveItemFromInventory          = $C1DDC6
 C240A4_ApplyBattleActionSecondPointerPayload    = $C240A4
+C269A8_GetEnemyConfigSprayVulnerabilityType     = $69A8
 C26A2D_GetRandomBelow                           = $6A2D
 C26A44_RollRandomAmount                         = $6A44
 C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
@@ -213,7 +214,7 @@ C2A9BD_RunTypedRandomDamageCommon = INSECT_SPRAY_COMMON
     bne C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC
     ldx $A972
     lda $0000,X
-    jsr $69A8
+    jsr C269A8_GetEnemyConfigSprayVulnerabilityType
     cmp.w #$0001
     bne C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC
     ldx $12
@@ -264,7 +265,7 @@ C2AA1E_RunTypedRandomDamageCommon2 = RUST_SPRAY_COMMON
     bne C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D
     ldx $A972
     lda $0000,X
-    jsr $69A8
+    jsr C269A8_GetEnemyConfigSprayVulnerabilityType
     cmp.w #$0002
     bne C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D
     ldx $12

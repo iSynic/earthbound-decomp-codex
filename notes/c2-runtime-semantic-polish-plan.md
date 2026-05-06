@@ -708,7 +708,7 @@ contract notes for C0/C1/C3/C4 consumers.
   Teleport Box-style tail. `C2:A89D..AF1F` now calls `C0:0AA1` as
   `LookupPositionCellContextWord`, `C1:DDC6` as
   `RedirectRemoveItemFromInventory`, and `C0:DD53` as
-  `SetTeleportStateSelectors`, leaving the still-local spray type helper and
+  `SetTeleportStateSelectors`, leaving the then-still-local spray type helper and
   Pray/table pass raw. See `notes/c2-item-bomb-runtime-polish.md`.
 - 2026-05-06 ninety-second slice: tightened the battler-row resistance
   conversion joins used by enemy initialization and player snapshot export.
@@ -756,6 +756,12 @@ contract notes for C0/C1/C3/C4 consumers.
   scan, and `C2:F121` uses it for balanced enemy-sprite x-position tie
   decisions. See `notes/class2-mask-helper-family.md` and
   `notes/c2-battle-sprite-render-and-palette-tail-c2eee7-c2ff9a.md`.
+- 2026-05-06 ninety-ninth slice: tightened item/bomb action leaf joins. Bomb
+  and Super Bomb wrappers now call `C2:A658` as `RunBombCommonSplashDamage`,
+  while A89D insect/rust spray commons call `C2:69A8` as
+  `GetEnemyConfigSprayVulnerabilityType` before gating enemy config `+0x1B`
+  values `1` and `2`. See `notes/c2-item-bomb-runtime-polish.md` and
+  `notes/class2-bomb-common-family-c2a658-c2a821.md`.
 
 ## Validation
 

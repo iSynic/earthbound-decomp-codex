@@ -96,6 +96,7 @@ The safest current interpretation is:
 - `C2:A658` is the shared explosive splash-damage worker
 - `C2:A818` and `C2:A821` are the small bomb-family wrappers over that worker
 - the exact wrapper constants and the reference `bomb.asm` or `super_bomb.asm` files now line up cleanly enough to promote those two wrapper identities
+- the wrapper sources now call `C2:A658` by the same `RunBombCommonSplashDamage` contract as the full bomb-common body
 - the secondary-target overlap check now shares named width-bucket vocabulary with the call-for-help sprite-width budget path
 
 ## What is still open
@@ -111,7 +112,7 @@ The safest current takeaway is:
 
 - `A658` is no longer an unresolved common worker
 - it is now best understood as the local `BOMB_COMMON` equivalent
-- `A818` and `A821` are the best current local fits for `BOMB` and `SUPER_BOMB`
+- `A818` and `A821` are the best current local fits for `BOMB` and `SUPER_BOMB`, and both source wrappers now name their common worker call
 
 ## Best next target
 

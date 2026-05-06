@@ -15477,6 +15477,8 @@ LOAD_BATTLE_ACTION_TYPE_FROM_ACTION_ID:
     and.w #$00FF
     pld
     rts
+GET_ENEMY_CONFIG_SPRAY_VULNERABILITY_TYPE:
+!C269A8_GetEnemyConfigSprayVulnerabilityType = GET_ENEMY_CONFIG_SPRAY_VULNERABILITY_TYPE
     rep #$31
     ldy.w #$005E
     jsl !C08FF7_ResolveIndexedPointerOffset
@@ -19221,11 +19223,12 @@ C2A80D_RunBombCommonSplashDamage_LA80D:
 hirom
 org $C2A818
 
+!C2A658_RunBombCommonSplashDamage = $A658
 BTLACT_BOMB:
 !C2A818_RunBombAction = BTLACT_BOMB
     rep #$31
     lda.w #$005A
-    jsr $A658
+    jsr !C2A658_RunBombCommonSplashDamage
     rtl
 
 
@@ -24336,11 +24339,12 @@ C2E8C2_C2E6B6_AdvancePsiAnimationFrameAndPaletteStateBody_LE8C2:
 hirom
 org $C2A821
 
+!C2A658_RunBombCommonSplashDamage = $A658
 BTLACT_SUPER_BOMB:
 !C2A821_RunSuperBombAction = BTLACT_SUPER_BOMB
     rep #$31
     lda.w #$010E
-    jsr $A658
+    jsr !C2A658_RunBombCommonSplashDamage
     rtl
 
 
@@ -31677,6 +31681,7 @@ org $C2A89D
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C1DDC6_RedirectRemoveItemFromInventory = $C1DDC6
 !C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
+!C269A8_GetEnemyConfigSprayVulnerabilityType = $69A8
 !C26A2D_GetRandomBelow = $6A2D
 !C26A44_RollRandomAmount = $6A44
 !C26AFD_ApplyTwentyFivePercentVariance = $6AFD
@@ -31865,7 +31870,7 @@ INSECT_SPRAY_COMMON:
     bne C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC
     ldx $A972
     lda $0000,X
-    jsr $69A8
+    jsr !C269A8_GetEnemyConfigSprayVulnerabilityType
     cmp.w #$0001
     bne C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC
     ldx $12
@@ -31916,7 +31921,7 @@ RUST_SPRAY_COMMON:
     bne C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D
     ldx $A972
     lda $0000,X
-    jsr $69A8
+    jsr !C269A8_GetEnemyConfigSprayVulnerabilityType
     cmp.w #$0002
     bne C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D
     ldx $12
