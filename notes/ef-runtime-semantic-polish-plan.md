@@ -262,3 +262,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:7B85/7BA2/7BC1` branch anchors so the lane noun leads the label, and
   documented that the adjacent `EF:7B83/7BA0/7BBF` anchors are branch-state
   separators rather than parsed `19 1E` consumer sites.
+- 2026-05-06: EF status-result label follow-up renamed the proved direct
+  `DC1C` status-result anchors across `EF:6AC7..6C55` and shared fallback
+  `EF:766E` with `StatusResultText`, keeping them distinct from `DD9F` row
+  `+4` presentation anchors.

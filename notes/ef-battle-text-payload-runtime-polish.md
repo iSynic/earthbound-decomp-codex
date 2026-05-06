@@ -58,16 +58,16 @@ macros.
   freeze, flash, paralysis, hypnosis, and Brain Shock. C2 gates these direct
   scripts from battler resistance bytes before issuing the `DC1C` display call.
 - `EF:6A99` and `EF:6AB3` now mark metamorphose success/failure text used by
-  the C2 normalization tail. `EF:6AC7` now marks the diamondized inflicted
-  text adjacent to the existing paralysis/status payload split.
+  the C2 normalization tail. `EF:6AC7` now marks the diamondized
+  `StatusResultText` adjacent to the existing paralysis/status payload split.
 - `EF:6AE0`, `EF:6B18`, `EF:6BEF`, `EF:6C3A`, and `EF:6C55` now mark
-  paralysis, poison, solidification, strange, and asleep inflicted text. The EF
-  decode shows `EF:6AE0` as the body-numb/paralysis message used by
-  `BTLACT_PARALYSIS_A`, while actual poison remains the separate `EF:6B18`
-  script used by the item/status cluster.
+  paralysis, poison, solidification, strange, and asleep `StatusResultText`
+  anchors. The EF decode shows `EF:6AE0` as the body-numb/paralysis message
+  used by `BTLACT_PARALYSIS_A`, while actual poison remains the separate
+  `EF:6B18` script used by the item/status cluster.
 - `EF:6AFB..6C0B` is now split around the adjacent sick/cold/mushroomized,
-  possessed, crying, immobilized, solidification, and PSI-seal status payloads
-  instead of one broad affliction corridor.
+  possessed, crying, immobilized, solidification, and PSI-seal
+  `StatusResultText` payloads instead of one broad affliction corridor.
 - `EF:6C6B..6E31` now splits the post-status EBATTLE5 death-result corridor:
   player collapse, Flying Man/teddy-bear NPC death payloads, and enemy defeat
   flavor text now have source anchors instead of one anonymous status tail.
@@ -390,7 +390,9 @@ in `EF:9C51..9DDA`.
 The adjacent direct-result comments now also mark the status/no-effect islands
 that C2 row `+8` behavior bodies emit through `DC1C`, not the row `+4`
 presentation lane: `EF:6B81..6C55` for status-result text and `EF:766E` for
-the shared no-effect fallback.
+the shared no-effect fallback. The source labels now carry the
+`StatusResultText` suffix across the proved EBATTLE5 status island
+(`EF:6AC7..6C55`) and the shared EBATTLE4 no-effect fallback (`EF:766E`).
 
 The EBATTLE4 result tail now applies the same suffix contract to the PP-loss
 and periodic damage island: `EF:7755`, `EF:7768`, `EF:7787`, `EF:77B1`, and

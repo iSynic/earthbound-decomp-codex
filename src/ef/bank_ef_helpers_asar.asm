@@ -4296,35 +4296,35 @@ db $EB,$9F,$00,$50,$50,$1C,$0E,$51,$03,$02
 
 EF6AB3_EBattle5MsgBtlMetamorphoseFailed:
 
-; Original data gap before EF6AC7_EBattle5MsgBtlDiamondized:
+; Original data gap before EF6AC7_EBattle5DiamondizedStatusResultText:
 db $01,$70,$1C,$0D,$15,$91,$16,$07,$50,$17,$3C,$00,$50,$16,$0B,$1C
 db $0E,$51,$03,$02
 
-EF6AC7_EBattle5MsgBtlDiamondized:
+EF6AC7_EBattle5DiamondizedStatusResultText:
 
-; Original data gap before EF6AE0_EBattle5MsgBtlParalysisInflicted:
+; Original data gap before EF6AE0_EBattle5ParalysisStatusResultText:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$16,$B1,$91,$9D,$9F,$9E,$94,$99
 db $AA,$95,$94,$51,$1F,$02,$53,$03,$02
 
-EF6AE0_EBattle5MsgBtlParalysisInflicted:
+EF6AE0_EBattle5ParalysisStatusResultText:
 
-; Original data gap before EF6AFB_EBattle5MsgBtlFeelingSickInflicted:
+; Original data gap before EF6AFB_EBattle5FeelingSickStatusResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$00,$50,$15,$BD,$17,$76
 db $50,$9E,$A5,$9D,$92,$51,$1F,$02,$53,$03,$02
 
-EF6AFB_EBattle5MsgBtlFeelingSickInflicted:
+EF6AFB_EBattle5FeelingSickStatusResultText:
 
-; Original data gap before EF6B18_EBattle5MsgBtlPoisonInflicted:
+; Original data gap before EF6B18_EBattle5PoisonStatusResultText:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$00,$50,$15,$D9,$A7,$15,$C6
 db $9E,$91,$16,$4B,$9F,$A5,$15,$53,$1F,$02,$53,$03,$02
 
-EF6B18_EBattle5MsgBtlPoisonInflicted:
+EF6B18_EBattle5PoisonStatusResultText:
 
-; Original data gap before EF6B2F_EBattle5MsgBtlColdInflicted:
+; Original data gap before EF6B2F_EBattle5ColdStatusResultText:
 db $01,$70,$1C,$0E,$16,$1B,$A4,$00,$50,$50,$A0,$9F,$99,$A3,$15,$7E
 db $94,$51,$1F,$02,$53,$03,$02
 
-EF6B2F_EBattle5MsgBtlColdInflicted:
+EF6B2F_EBattle5ColdStatusResultText:
 
 ; Original data gap before EF6B43_EBattle5ObjectPronounSubtext:
 db $01,$70,$1C,$0E,$17,$77,$A5,$97,$98,$17,$0D,$93,$17,$F9,$51,$1F
@@ -4332,7 +4332,7 @@ db $02,$53,$03,$02
 
 EF6B43_EBattle5ObjectPronounSubtext:
 
-; Original data gap before EF6B81_EBattle5MsgBtlMushroomizedInflicted:
+; Original data gap before EF6B81_EBattle5MushroomizedStatusResultText:
 db $1C,$15,$01,$09,$03,$54,$6B,$EF,$00,$59,$6B,$EF,$00,$5F,$6B,$EF
 db $00,$58,$98,$95,$59,$02,$58,$A3,$98,$95,$59,$02,$58,$99,$A4,$59
 db $02,$1C,$15,$02,$09,$03,$75,$6B,$EF,$00,$79,$6B,$EF,$00,$7D,$6B
@@ -4340,65 +4340,65 @@ db $EF,$00,$58,$61,$59,$02,$58,$62,$59,$02,$58,$63,$59,$02
 
 ; EBATTLE5: mushroomized/feeling strange mushroom direct-result text emitted by
 ; C2 row +8 behavior bodies, not a row +4 presentation message.
-EF6B81_EBattle5MsgBtlMushroomizedInflicted:
+EF6B81_EBattle5MushroomizedStatusResultText:
 
-; Original data gap before EF6B98_EBattle5MsgBtlPossessedInflicted:
+; Original data gap before EF6B98_EBattle5PossessedStatusResultText:
 db $01,$70,$1C,$0E,$15,$BD,$97,$15,$A2,$A4,$9F,$00,$50,$17,$20,$15
 db $B9,$51,$1F,$02,$53,$03,$02
 
 ; EBATTLE5: possessed/haunted-by-ghost direct-result text emitted by C2 row +8
 ; behavior bodies, not a row +4 presentation message.
-EF6B98_EBattle5MsgBtlPossessedInflicted:
+EF6B98_EBattle5PossessedStatusResultText:
 
-; Original data gap before EF6BBB_EBattle5MsgBtlCryingInflicted:
+; Original data gap before EF6BBB_EBattle5CryingStatusResultText:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$50,$17,$E9,$A3,$15,$DF,$95,$94
 db $15,$F5,$91,$50,$17,$84,$99,$5D,$97,$98,$9F,$A3,$A4,$51,$1F,$02
 db $53,$03,$02
 
 ; EBATTLE5: crying/tears direct-result text emitted by C2 row +8 behavior
 ; bodies, not a row +4 presentation message.
-EF6BBB_EBattle5MsgBtlCryingInflicted:
+EF6BBB_EBattle5CryingStatusResultText:
 
-; Original data gap before EF6BD3_EBattle5MsgBtlImmobilizedInflicted:
+; Original data gap before EF6BD3_EBattle5ImmobilizedStatusResultText:
 db $01,$70,$1C,$0E,$15,$91,$16,$07,$00,$50,$50,$17,$91,$50,$93,$A2
 db $A9,$17,$7D,$1F,$02,$53,$03,$02
 
 ; EBATTLE5: immobilized/tied-down direct-result text emitted by C2 row +8
 ; behavior bodies, not a row +4 presentation message.
-EF6BD3_EBattle5MsgBtlImmobilizedInflicted:
+EF6BD3_EBattle5ImmobilizedStatusResultText:
 
-; Original data gap before EF6BEF_EBattle5MsgBtlSolidificationInflicted:
+; Original data gap before EF6BEF_EBattle5SolidificationStatusResultText:
 db $01,$70,$1C,$0E,$17,$B3,$94,$94,$95,$9E,$9C,$A9,$00,$50,$15,$91
 db $16,$07,$50,$9D,$16,$61,$51,$1F,$02,$53,$03,$02
 
 ; EBATTLE5: solidified body direct-result text used by C2 item/status behavior
 ; bodies, not a row +4 presentation message.
-EF6BEF_EBattle5MsgBtlSolidificationInflicted:
+EF6BEF_EBattle5SolidificationStatusResultText:
 
-; Original data gap before EF6C0B_EBattle5MsgBtlPsiSealInflicted:
+; Original data gap before EF6C0B_EBattle5PsiSealStatusResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$00,$50,$16,$7C,$9C,$99
 db $94,$99,$96,$99,$95,$94,$51,$1F,$02,$53,$03,$02
 
 ; EBATTLE5: PSI-seal direct-result text emitted by C2 row +8 behavior bodies,
 ; not a row +4 presentation message.
-EF6C0B_EBattle5MsgBtlPsiSealInflicted:
+EF6C0B_EBattle5PsiSealStatusResultText:
 
-; Original data gap before EF6C3A_EBattle5MsgBtlStrangeInflicted:
+; Original data gap before EF6C3A_EBattle5StrangeStatusResultText:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$50,$16,$07,$15,$6F,$16,$57,$93
 db $15,$9E,$A2,$16,$66,$51,$1F,$02,$53,$03,$00,$70,$1C,$0E,$17,$B1
 db $00,$50,$50,$16,$07,$15,$6F,$17,$55,$80,$83,$79,$51,$03,$02
 
 ; EBATTLE5: strange-status direct-result text emitted by C2 row +8 behavior
 ; bodies, not a row +4 presentation message.
-EF6C3A_EBattle5MsgBtlStrangeInflicted:
+EF6C3A_EBattle5StrangeStatusResultText:
 
-; Original data gap before EF6C55_EBattle5MsgBtlAsleepInflicted:
+; Original data gap before EF6C55_EBattle5AsleepStatusResultText:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$00,$50,$50,$91,$15,$5F,$A3
 db $17,$35,$9E,$97,$15,$34,$1F,$02,$53,$03,$02
 
 ; EBATTLE5: asleep-status direct-result text emitted by C2 row +8 behavior
 ; bodies, not a row +4 presentation message.
-EF6C55_EBattle5MsgBtlAsleepInflicted:
+EF6C55_EBattle5AsleepStatusResultText:
 
 ; Original data gap before EF6C6B_EBattle5MsgBtlIncapacitated:
 db $01,$70,$1C,$0E,$50,$96,$16,$7F,$00,$50,$50,$91,$A3,$9C,$15,$C9
@@ -4991,13 +4991,13 @@ db $A1,$A5,$15,$FA,$9C,$A9,$51,$03,$02
 
 EF7655_EBattle4MsgBtlBashDodged:
 
-; Original data gap before EF766E_EBattle4MsgBtlStatusNoEffect:
+; Original data gap before EF766E_EBattle4StatusNoEffectResultText:
 db $01,$1F,$02,$23,$70,$1C,$0E,$16,$33,$94,$97,$95,$94,$00,$50,$50
 db $A1,$A5,$15,$FA,$9C,$A9,$51,$03,$02
 
 ; EBATTLE4: shared status no-effect direct-result text emitted by C2 row +8
 ; behavior bodies, not a row +4 presentation message.
-EF766E_EBattle4MsgBtlStatusNoEffect:
+EF766E_EBattle4StatusNoEffectResultText:
 
 ; Original data gap before EF7682_EBattle4AdjacentNoEffectText:
 db $01,$15,$DA,$94,$99,$94,$15,$81,$16,$90,$9B,$00,$50,$16,$BC,$1C

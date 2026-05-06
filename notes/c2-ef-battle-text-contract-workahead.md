@@ -213,6 +213,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:6B81..6C55` status payloads and `EF:766E` no-effect fallback as `DC1C`
   direct-result emissions from C2 row `+8` behavior, not row `+4` presentation
   messages.
+- 2026-05-06: EF status-result label follow-up extended that source contract
+  across the proved EBATTLE5 status island (`EF:6AC7..6C55`) and shared
+  EBATTLE4 no-effect fallback (`EF:766E`) with `StatusResultText` anchors.
 - 2026-05-06: EF negative-guardrail source follow-up marked Lifeup explanation
   and enemy-flavor anchors plus explosive `EF:9A7E/9A9E` candidates as not-yet
   row-message joins, preserving rows `32..35` and `64/65` for row `+4` pointer

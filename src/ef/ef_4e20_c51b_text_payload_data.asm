@@ -23,6 +23,8 @@
 ;   LOAD_BYTE_SUBSTITUTION (19 1F).
 ; - PointerSubstitution anchors consume the staged pointer payload through
 ;   LOAD_POINTER_SUBSTITUTION (19 1E).
+; - StatusResult anchors are direct C1:DC1C result scripts selected by C2 row
+;   +8 behavior bodies, not C1:DD9F row +4 presentation messages.
 ; PSI explanation payload text: `MSG_EXPL_PSI_HISSATSU_ALFA`.
 EF4E20_EExplPsiMsgExplPsiHissatsuAlfa:
 
@@ -711,32 +713,33 @@ EF6AB3_EBattle5MsgBtlMetamorphoseFailed:
 ; ---------------------------------------------------------------------------
 ; EF:6AC7
 
-; EBATTLE5: diamondized inflicted text used by the C2 late primary-status tail.
-EF6AC7_EBattle5MsgBtlDiamondized:
+; EBATTLE5: diamondized status-result text used by the C2 late primary-status
+; tail.
+EF6AC7_EBattle5DiamondizedStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6AE0
 
-; EBATTLE5: paralysis/body-numb inflicted text used by BTLACT_PARALYSIS_A.
-EF6AE0_EBattle5MsgBtlParalysisInflicted:
+; EBATTLE5: paralysis/body-numb status-result text used by BTLACT_PARALYSIS_A.
+EF6AE0_EBattle5ParalysisStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6AFB
 
-; EBATTLE5: nausea/sick-feeling inflicted text.
-EF6AFB_EBattle5MsgBtlFeelingSickInflicted:
+; EBATTLE5: nausea/sick-feeling status-result text.
+EF6AFB_EBattle5FeelingSickStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6B18
 
-; EBATTLE5: poison inflicted text.
-EF6B18_EBattle5MsgBtlPoisonInflicted:
+; EBATTLE5: poison status-result text.
+EF6B18_EBattle5PoisonStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6B2F
 
-; EBATTLE5: cold afflicted text.
-EF6B2F_EBattle5MsgBtlColdInflicted:
+; EBATTLE5: cold status-result text.
+EF6B2F_EBattle5ColdStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6B43
@@ -749,56 +752,56 @@ EF6B43_EBattle5ObjectPronounSubtext:
 
 ; EBATTLE5: mushroomized/feeling strange mushroom direct-result text emitted by
 ; C2 row +8 behavior bodies, not a row +4 presentation message.
-EF6B81_EBattle5MsgBtlMushroomizedInflicted:
+EF6B81_EBattle5MushroomizedStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6B98
 
 ; EBATTLE5: possessed/haunted-by-ghost direct-result text emitted by C2 row +8
 ; behavior bodies, not a row +4 presentation message.
-EF6B98_EBattle5MsgBtlPossessedInflicted:
+EF6B98_EBattle5PossessedStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6BBB
 
 ; EBATTLE5: crying/tears direct-result text emitted by C2 row +8 behavior
 ; bodies, not a row +4 presentation message.
-EF6BBB_EBattle5MsgBtlCryingInflicted:
+EF6BBB_EBattle5CryingStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6BD3
 
 ; EBATTLE5: immobilized/tied-down direct-result text emitted by C2 row +8
 ; behavior bodies, not a row +4 presentation message.
-EF6BD3_EBattle5MsgBtlImmobilizedInflicted:
+EF6BD3_EBattle5ImmobilizedStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6BEF
 
 ; EBATTLE5: solidified body direct-result text used by C2 item/status behavior
 ; bodies, not a row +4 presentation message.
-EF6BEF_EBattle5MsgBtlSolidificationInflicted:
+EF6BEF_EBattle5SolidificationStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6C0B
 
 ; EBATTLE5: PSI-seal direct-result text emitted by C2 row +8 behavior bodies,
 ; not a row +4 presentation message.
-EF6C0B_EBattle5MsgBtlPsiSealInflicted:
+EF6C0B_EBattle5PsiSealStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6C3A
 
 ; EBATTLE5: strange-status direct-result text emitted by C2 row +8 behavior
 ; bodies, not a row +4 presentation message.
-EF6C3A_EBattle5MsgBtlStrangeInflicted:
+EF6C3A_EBattle5StrangeStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6C55
 
 ; EBATTLE5: asleep-status direct-result text emitted by C2 row +8 behavior
 ; bodies, not a row +4 presentation message.
-EF6C55_EBattle5MsgBtlAsleepInflicted:
+EF6C55_EBattle5AsleepStatusResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6C6B
@@ -1375,7 +1378,7 @@ EF7655_EBattle4MsgBtlBashDodged:
 
 ; EBATTLE4: shared status no-effect direct-result text emitted by C2 row +8
 ; behavior bodies, not a row +4 presentation message.
-EF766E_EBattle4MsgBtlStatusNoEffect:
+EF766E_EBattle4StatusNoEffectResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7682
