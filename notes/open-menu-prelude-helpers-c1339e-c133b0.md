@@ -28,6 +28,12 @@ Source-scaffold promotion:
 - `C1:339E` = `BuildCheckMenuEntriesWrapper`
 - `C1:33A7` = `BuildOpenMenuEntriesWrapper`
 - `C1:33B0` = `RebuildOpenMenuTextEntryRecords`
+- `C1:3CA1` = `OpenHpppDisplay`
+- `C1:3CE5` = `ShowTownMap`
+- `C1:3D03` = `RunDebugEventFlagToggleViewer`
+- `C1:3E0E` = `RunDebugGuideEntryCountViewer`
+- `C1:3E7A` = `RunDebugSetCharacterLevelPrompt`
+- `C1:3EE7` = `RunDebugGoodsGrantViewer`
 
 - `C1:339E` is a tiny wrapper around `C1:98DE` with `X = 2`.
 - `C1:33A7` is the same wrapper with `X = $2C`.
@@ -84,6 +90,26 @@ The reference include order is the useful external corroboration:
 ```
 
 Mechanically, the code also matches that placement. It does not read controller state or run the open-menu state machine itself; it prepares the menu-visible records that the following open-menu routines consume.
+
+## Adjacent Open Menu And Debug Tail Follow-Up (2026-05-06)
+
+The adjacent `C1:34A7..4103` body now carries reference-backed labels for the
+open-menu tail starts that were previously buried inside the large source unit:
+
+- `OPEN_HPPP_DISPLAY` opens the HP/PP display shell, waits on `WINDOW_TICK`,
+  enters `OPEN_MENU_BUTTON` on A/L, or closes HP/PP windows on B/Select.
+- `SHOW_TOWN_MAP` checks for item `$00CA` through the party inventory wildcard
+  helper before calling the C4 town-map display routine.
+- `DEBUG_Y_BUTTON_FLAG` is the event-flag debug viewer. D-pad changes the flag
+  id, A/L toggles the current flag through the C2 event-flag helpers, and
+  B/Select closes the debug window.
+- `DEBUG_Y_BUTTON_GUIDE` counts nonempty entity-script table entries and shows
+  that count in the debug window.
+- `DEBUG_SET_CHAR_LEVEL` prompts for a level and character, refreshes the
+  character battle-state block, then restores HP/PP to 100 percent.
+- `DEBUG_Y_BUTTON_GOODS` browses item ids, prints the item name, and on A/L can
+  grant the selected item to a chosen character, including the equipment refresh
+  path when the granted item is equippable.
 
 ## Practical Conclusion
 

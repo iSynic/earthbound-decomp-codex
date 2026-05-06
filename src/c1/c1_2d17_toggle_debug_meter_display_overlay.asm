@@ -30,6 +30,9 @@ C10A1D_HideHpppWindowsInternal             = $0A1D
 C113D1_InstallTextEntryRecord              = $13D1
 C1180D_LayoutActiveTextEntriesAndRefresh   = $180D
 C1196A_RunActiveTextEntrySelectionMenu     = $196A
+C13D03_RunDebugEventFlagToggleViewer       = $C13D03
+C13E0E_RunDebugGuideEntryCountViewer       = $C13E0E
+C13EE7_RunDebugGoodsGrantViewer            = $C13EE7
 C1BCAB_ExecuteTeleportDestination          = $BCAB
 C1FF2C_UpdateLeadEntityTypeRedrawFlag      = $FF2C
 C186B1_PrintTextFromPointer                = $C186B1
@@ -374,10 +377,10 @@ C12F99_ToggleDebugMeterDisplayOverlay_L2F99:
 C12FA1_ToggleDebugMeterDisplayOverlay_L2FA1:
     jmp.w C13135_ToggleDebugMeterDisplayOverlay_L3135
 C12FA4_ToggleDebugMeterDisplayOverlay_L2FA4:
-    jsl $C13D03
+    jsl C13D03_RunDebugEventFlagToggleViewer
     jmp.w C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C12FAB_ToggleDebugMeterDisplayOverlay_L2FAB:
-    jsl $C13EE7
+    jsl C13EE7_RunDebugGoodsGrantViewer
     jmp.w C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C12FB2_ToggleDebugMeterDisplayOverlay_L2FB2:
 C12FB2_SaveCurrentGameDebugMenuCommand = C12FB2_ToggleDebugMeterDisplayOverlay_L2FB2
@@ -496,7 +499,7 @@ C130BF_ToggleDebugMeterDisplayOverlay_L30BF:
     jsl C4D744_RunTownMapBrowseViewer
     bra C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C130C5_ToggleDebugMeterDisplayOverlay_L30C5:
-    jsl $C13E0E
+    jsl C13E0E_RunDebugGuideEntryCountViewer
     bra C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C130CB_ToggleDebugMeterDisplayOverlay_L30CB:
     jsl C4ED0E_RunCastScene

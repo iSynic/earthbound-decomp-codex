@@ -28305,6 +28305,11 @@ org $C0B67F
 !C0943C_SaveCurrentCoordinateState = $C0943C
 !C09451_RestoreSavedCoordinateState = $C09451
 !C09466_RefreshActiveEntitySpriteState = $C09466
+!C12E63_DebugMenuSelectionDispatcher = $C12E63
+!C134A7_RunOpenMenuSelectionLoop = $C134A7
+!C13C32_HandlePlayerCheckingObject = $C13C32
+!C13CA1_OpenHpppDisplay = $C13CA1
+!C13CE5_ShowTownMap = $C13CE5
 !C44963_ResetActiveTextGlyphRun = $C44963
 !C47C3F_ClearWindowOrMenuMaskState = $C47C3F
 !C47F87_RefreshWindowFlavorPalette = $C47F87
@@ -28525,7 +28530,7 @@ C0B892_InitializeIntroOverworldScene_LB892:
     lda $006D
     and.w #$0010
     beq C0B8AE_InitializeIntroOverworldScene_LB8AE
-    jsl $C12E63
+    jsl !C12E63_DebugMenuSelectionDispatcher
     jmp.w C0B814_InitializeIntroOverworldScene_LB814
 C0B8AE_InitializeIntroOverworldScene_LB8AE:
     lda $006F
@@ -28553,7 +28558,7 @@ C0B8D6_InitializeIntroOverworldScene_LB8D6:
     lda $006D
     and.w #$0080
     beq C0B8EE_InitializeIntroOverworldScene_LB8EE
-    jsl $C134A7
+    jsl !C134A7_RunOpenMenuSelectionLoop
     bra C0B923_InitializeIntroOverworldScene_LB923
 C0B8EE_InitializeIntroOverworldScene_LB8EE:
     lda $006D
@@ -28562,19 +28567,19 @@ C0B8EE_InitializeIntroOverworldScene_LB8EE:
     lda $9883
     cmp.w #$0003
     beq C0B904_InitializeIntroOverworldScene_LB904
-    jsl $C13CA1
+    jsl !C13CA1_OpenHpppDisplay
     bra C0B923_InitializeIntroOverworldScene_LB923
 C0B904_InitializeIntroOverworldScene_LB904:
     lda $006D
     and.w #$0040
     beq C0B912_InitializeIntroOverworldScene_LB912
-    jsl $C13CE5
+    jsl !C13CE5_ShowTownMap
     bra C0B923_InitializeIntroOverworldScene_LB923
 C0B912_InitializeIntroOverworldScene_LB912:
     lda $006D
     and.w #$0020
     beq C0B923_InitializeIntroOverworldScene_LB923
-    jsl $C13C32
+    jsl !C13C32_HandlePlayerCheckingObject
     bra C0B923_InitializeIntroOverworldScene_LB923
 C0B920_InitializeIntroOverworldScene_LB920:
     dec $5D74

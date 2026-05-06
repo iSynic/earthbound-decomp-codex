@@ -68,6 +68,17 @@ The menu text is reference-backed in `refs/ebsrc-main/ebsrc-main/src/data/debug/
 
 `C1:2E63` builds menu entries from `C3:E874`, runs the shared C1 selection loop, and dispatches at least `0x17` menu results. The branch bodies call gameplay/debug helpers such as view-map/text pointers, battle setup, coffee/tea scene, name-entry prelude, town-map render, cast, Sound Stone, credits/photo, debug overlay toggle, and late EF debug helpers.
 
+## Overworld Menu Button Follow-Up (2026-05-06)
+
+The C0 main-loop button edges around `C0:B892..B91C` now use named C1
+contracts:
+
+- debug chord: `C0:B8A7 -> C1:2E63` / `DebugMenuSelectionDispatcher`
+- menu button: `C0:B8E8 -> C1:34A7` / `RunOpenMenuSelectionLoop`
+- HP/PP display button: `C0:B8FE -> C1:3CA1` / `OpenHpppDisplay`
+- town-map button: `C0:B90C -> C1:3CE5` / `ShowTownMap`
+- check/talk button: `C0:B91A -> C1:3C32` / `HandlePlayerCheckingObject`
+
 ## Current Interpretation
 
 The healthiest current model is:

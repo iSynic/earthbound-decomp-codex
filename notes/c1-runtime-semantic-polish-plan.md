@@ -296,6 +296,15 @@ This planning pass is documentation-only.
   debug text printing, active tile attributes, heavy/light window ticks, HP/PP
   redraw helpers, debug menu entry construction, selection-loop control,
   teleport setup, presentation scene launch helpers, debug playback view
-  entry/exit, and menu/window cleanup. The three raw `C1:3D03`, `C1:3EE7`,
-  and `C1:3E0E` dispatcher calls remain raw until separately documented. See
+  entry/exit, and menu/window cleanup. A later follow-up names the initially
+  deferred `C1:3D03`, `C1:3EE7`, and `C1:3E0E` dispatcher calls. See
   `notes/debug-menu-window-tick-helpers-c12bf3-c12d17.md`.
+- 2026-05-06 follow-up: the open-menu/debug tail in `C1:33B0..4103` now names
+  the reference-backed `OPEN_HPPP_DISPLAY`, `SHOW_TOWN_MAP`,
+  `DEBUG_Y_BUTTON_FLAG`, `DEBUG_Y_BUTTON_GUIDE`, `DEBUG_SET_CHAR_LEVEL`, and
+  `DEBUG_Y_BUTTON_GOODS` starts. The formerly raw debug dispatcher edges from
+  `C1:2E63..3187` now call the flag, guide-count, and goods-grant viewers by
+  name, and the C0 overworld button loop now calls the C1 menu/display entries
+  through named contracts. See
+  `notes/open-menu-prelude-helpers-c1339e-c133b0.md` and
+  `notes/debug-menu-reachability-c0-c1-ef.md`.

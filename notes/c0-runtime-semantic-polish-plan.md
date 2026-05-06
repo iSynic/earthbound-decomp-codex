@@ -88,6 +88,12 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   allocator/runtime core centered on `$0A50/$0A52/$0A54`, `$0A9E`, `$0ADA`,
   `$125A`, task-slot callbacks, and the C0:DB0F default dispatcher. The rollup
   lives in `notes/c0-task-pool-runtime-polish.md`.
+- 2026-05-06 follow-up: the overworld main-loop button edges in
+  `src/c0/c0_b67f_initialize_intro_overworld_scene.asm` now name their C1
+  menu/display contracts. The pass covers the debug-menu chord, open-menu
+  selection loop, HP/PP display shell, town-map display gate, and check/talk
+  object handler. See `notes/debug-menu-reachability-c0-c1-ef.md` and
+  `notes/open-menu-prelude-helpers-c1339e-c133b0.md`.
 
 ## Validation
 

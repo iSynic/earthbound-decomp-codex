@@ -72,6 +72,11 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
 - 2026-05-06: C1 debug/window tick follow-up landed as byte-neutral named
   helper-call polish plus
   `notes/debug-menu-window-tick-helpers-c12bf3-c12d17.md`.
+- 2026-05-06: C1 open-menu/debug tail follow-up named the reference-backed
+  `OPEN_HPPP_DISPLAY`, `SHOW_TOWN_MAP`, debug flag/guide/level/goods helpers,
+  and the C0 overworld button edges into those C1 contracts. See
+  `notes/open-menu-prelude-helpers-c1339e-c133b0.md` and
+  `notes/debug-menu-reachability-c0-c1-ef.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

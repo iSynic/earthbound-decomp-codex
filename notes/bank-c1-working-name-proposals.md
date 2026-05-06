@@ -2,7 +2,7 @@
 
 Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`.
 
-- Proposals: `225`
+- Proposals: `231`
 
 | Address | Proposed Name | Evidence Notes |
 | --- | --- | --- |
@@ -58,6 +58,12 @@ Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`
 | `C1:339E` | `BuildCheckMenuEntriesWrapper` | `notes/open-menu-prelude-helpers-c1339e-c133b0.md:28` |
 | `C1:33A7` | `BuildOpenMenuEntriesWrapper` | `notes/open-menu-prelude-helpers-c1339e-c133b0.md:29` |
 | `C1:33B0` | `RebuildOpenMenuTextEntryRecords` | `notes/open-menu-prelude-helpers-c1339e-c133b0.md:30` |
+| `C1:3CA1` | `OpenHpppDisplay` | `notes/open-menu-prelude-helpers-c1339e-c133b0.md:31` |
+| `C1:3CE5` | `ShowTownMap` | `notes/open-menu-prelude-helpers-c1339e-c133b0.md:32` |
+| `C1:3D03` | `RunDebugEventFlagToggleViewer` | `notes/open-menu-prelude-helpers-c1339e-c133b0.md:33` |
+| `C1:3E0E` | `RunDebugGuideEntryCountViewer` | `notes/open-menu-prelude-helpers-c1339e-c133b0.md:34` |
+| `C1:3E7A` | `RunDebugSetCharacterLevelPrompt` | `notes/open-menu-prelude-helpers-c1339e-c133b0.md:35` |
+| `C1:3EE7` | `RunDebugGoodsGrantViewer` | `notes/open-menu-prelude-helpers-c1339e-c133b0.md:36` |
 | `C1:4103` | `BuildTextCommand24BitJumpTarget` | `notes/text-command-0a-24bit-jump.md:22` |
 | `C1:41D0` | `HandleTextCommand09JumpMulti` | `notes/text-command-09-jump-multi.md:21` |
 | `C1:4265` | `HandleTextCommand04SetEventFlag` | `notes/text-command-04-set-event-flag.md:22` |

@@ -102,12 +102,13 @@ tile attributes, glyph printing, window/tick pumps, HP/PP redraw helpers,
 debug menu construction, text-entry selection, teleport setup, presentation
 scene launches, debug input playback view entry/exit, and file/menu cleanup.
 
-Three dispatcher presentation calls remain intentionally raw because the local
-notes do not yet identify a stable contract:
+The three dispatcher presentation calls that were left raw in the first
+follow-up pass are now named from the adjacent open-menu/debug source and the
+reference include order:
 
-- `C1:3031` calls `C1:3D03`
-- `C1:3034` calls `C1:3EE7`
-- `C1:30C5` calls `C1:3E0E`
+- `C1:3031` calls `C1:3D03` / `RunDebugEventFlagToggleViewer`
+- `C1:3034` calls `C1:3EE7` / `RunDebugGoodsGrantViewer`
+- `C1:30C5` calls `C1:3E0E` / `RunDebugGuideEntryCountViewer`
 
 ## Practical Conclusion
 

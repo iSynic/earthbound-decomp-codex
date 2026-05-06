@@ -15,11 +15,45 @@ C08756_WaitOneFrameAndPollInput                = $C08756
 C08FF7_ResolveIndexedPointerOffset             = $C08FF7
 C0943C_SaveCurrentCoordinateState              = $C0943C
 C09451_RestoreSavedCoordinateState             = $C09451
+C1008E_CloseAndDrainAllWindows                 = $008E
+C104EE_CreateOrBindWindowDescriptorAndContext  = $04EE
+C10A1D_HideHpppWindowsInternal                 = $0A1D
+C10DF6_PrintDecimalValueFromCallerPointer      = $0DF6
+C10EB4_SetActiveWindowTextModeByte             = $0EB4
+C10EFC_PrintFixedString                        = $0EFC
+C1101C_RunNumberSelectPrompt                   = $101C
+C1134B_SetupTextDisplayWithWalletStatus        = $134B
+C127EF_RunCharacterSelectionPromptWithCallback = $27EF
 C13187_ResolvePrimaryFrontInteractionOutput    = $C13187
 C1323B_ResolveSecondaryFacingInteractionOutput = $C1323B
+C13CA1_OpenHpppDisplay                         = $C13CA1
+C13CE5_ShowTownMap                             = $C13CE5
+C13D03_RunDebugEventFlagToggleViewer           = $C13D03
+C13E0E_RunDebugGuideEntryCountViewer           = $C13E0E
+C13E7A_RunDebugSetCharacterLevelPrompt         = $C13E7A
+C13EE7_RunDebugGoodsGrantViewer                = $C13EE7
 C186B1_PrintTextFromPointer                    = $C186B1
+C18BC6_InsertItemIntoCharacterInventory        = $C18BC6
+C18F64_RecoverHpForCharacterOrActiveParty      = $8F64
+C19010_RecoverPpForCharacterOrActiveParty      = $9010
+C19066_DispatchEquippedSlotSubtypeUpdate       = $9066
+C19216_PrintItemNameFromConfigurationTable     = $9216
+C19EE6_ClassifyItemCompactCategory             = $9EE6
+C1D8D0_RefreshCharacterBattleStartState        = $D8D0
+C0ABE0_PlaySoundEffect                         = $C0ABE0
+C22351_FindFirstEmptyInventorySlotForCharacter = $C22351
 C21628_CheckEventFlag                          = $C21628
 C2165E_SetEventFlagOrState                     = $C2165E
+C3E4CA_ClearInstantPrinting                    = $C3E4CA
+C3E4D4_SetInstantPrinting                      = $C3E4D4
+C3E521_CloseWindowById                         = $C3E521
+C3EE14_TestCharacterCanEquipItem               = $C3EE14
+C438A5_SetActiveWindowDescriptorCursorFields   = $C438A5
+C43CAA_AdvanceAnimatedGlyphTileStateOffset     = $C43CAA
+C43F77_PrintGlyphWithTileCleanupSoundDelay     = $C43F77
+C45683_FindPartyMemberWithItemWildcard         = $C45683
+C4572B_FindPartyMemberWithInventoryRoomWildcard = $C4572B
+C4D681_DisplayCurrentPositionTownMap           = $C4D681
 
 ; ---------------------------------------------------------------------------
 ; C1:33B0
@@ -290,7 +324,7 @@ C135C8_RebuildOpenMenuTextEntryRecords_L35C8:
 C135DC_RebuildOpenMenuTextEntryRecords_L35DC:
     bne C135EB_RebuildOpenMenuTextEntryRecords_L35EB
     lda.w #$0002
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     jsr $9437
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C135EB_RebuildOpenMenuTextEntryRecords_L35EB:
@@ -330,7 +364,7 @@ C1362B_RebuildOpenMenuTextEntryRecords_L362B:
     jsl $C3E6F8
 C13648_RebuildOpenMenuTextEntryRecords_L3648:
     lda.w #$0002
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13652_RebuildOpenMenuTextEntryRecords_L3652:
     lda.w #$0003
@@ -367,7 +401,7 @@ C1368C_RebuildOpenMenuTextEntryRecords_L368C:
     sty $23
     tyx
     lda.w #$0000
-    jsl $C438A5
+    jsl C438A5_SetActiveWindowDescriptorCursorFields
     bra C136CC_RebuildOpenMenuTextEntryRecords_L36CC
 C13699_RebuildOpenMenuTextEntryRecords_L3699:
     tyx
@@ -523,7 +557,7 @@ C13777_HandleOpenMenuStatusChoice:
     sta $10
     jsl C186B1_PrintTextFromPointer
     lda.w #$0001
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     lda.w #$0000
     jsr $007E
     sep #$20
@@ -535,7 +569,7 @@ C13777_HandleOpenMenuStatusChoice:
     tya
     jsr $98DE
     lda.w #$0003
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     lda.w #$0002
     jsr $007E
     jmp.w C135FC_RebuildOpenMenuTextEntryRecords_L35FC
@@ -561,7 +595,7 @@ C13810_HandleOpenMenuGoodsChoice:
     sta $18
     jsr $9437
     lda.w #$002C
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     lda $18
     bne C1385C_RebuildOpenMenuTextEntryRecords_L385C
     sep #$20
@@ -619,7 +653,7 @@ C13874_RebuildOpenMenuTextEntryRecords_L3874:
     sta $10
     jsl C186B1_PrintTextFromPointer
     lda.w #$0001
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     sep #$20
     lda.b #$01
     sta $00
@@ -658,7 +692,7 @@ C13912_RebuildOpenMenuTextEntryRecords_L3912:
     inx
     stx $16
     lda $18
-    jsl $C4572B
+    jsl C4572B_FindPartyMemberWithInventoryRoomWildcard
     cmp.w #$0000
     beq C1392A_RebuildOpenMenuTextEntryRecords_L392A
     ldx $16
@@ -881,11 +915,11 @@ C13AF6_RebuildOpenMenuTextEntryRecords_L3AF6:
     bra C13AF6_RebuildOpenMenuTextEntryRecords_L3AF6
 C13AF8_ReturnToOpenMenuLoopAfterFeedback:
     lda.w #$0001
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     lda.w #$0003
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     lda.w #$0002
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13B10_HandleOpenMenuTalkChoice:
     lda.w #$0001
@@ -914,11 +948,11 @@ C13B10_HandleOpenMenuTalkChoice:
     sta $10
     jsl C186B1_PrintTextFromPointer
     lda.w #$0001
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     lda.w #$0003
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     lda.w #$0002
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13B62_HandleOpenMenuGoodsOrEquipChoice:
     jsr $134B
@@ -1001,7 +1035,7 @@ C13C01_HandleOpenMenuSpecialChoice:
     stz $5E71
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13C16_FinalizeOpenMenuLoopIteration:
-    jsl $C3E4CA
+    jsl C3E4CA_ClearInstantPrinting
     jsr $0A1D
     jsr $008E
 C13C20_RebuildOpenMenuTextEntryRecords_L3C20:
@@ -1052,9 +1086,9 @@ C13C79_RebuildOpenMenuTextEntryRecords_L3C79:
     lda $08
     sta $10
     jsl C186B1_PrintTextFromPointer
-    jsl $C3E4CA
-    jsr $0A1D
-    jsr $008E
+    jsl C3E4CA_ClearInstantPrinting
+    jsr C10A1D_HideHpppWindowsInternal
+    jsr C1008E_CloseAndDrainAllWindows
 C13C8F_RebuildOpenMenuTextEntryRecords_L3C8F:
     jsl $C12DD5
     lda $B4A8
@@ -1063,11 +1097,13 @@ C13C8F_RebuildOpenMenuTextEntryRecords_L3C8F:
     jsl C09451_RestoreSavedCoordinateState
     pld
     rtl
+OPEN_HPPP_DISPLAY:
+C13CA1_OpenHpppDisplay = OPEN_HPPP_DISPLAY
     rep #$31
     jsl C0943C_SaveCurrentCoordinateState
     lda.w #$0001
-    jsl $C0ABE0
-    jsr $134B
+    jsl C0ABE0_PlaySoundEffect
+    jsr C1134B_SetupTextDisplayWithWalletStatus
 C13CB1_RebuildOpenMenuTextEntryRecords_L3CB1:
     jsl $C12DD5
     lda $006D
@@ -1080,25 +1116,29 @@ C13CC3_RebuildOpenMenuTextEntryRecords_L3CC3:
     and.w #$A000
     beq C13CB1_RebuildOpenMenuTextEntryRecords_L3CB1
     lda.w #$0002
-    jsl $C0ABE0
-    jsl $C3E4CA
-    jsr $0A1D
-    jsr $008E
+    jsl C0ABE0_PlaySoundEffect
+    jsl C3E4CA_ClearInstantPrinting
+    jsr C10A1D_HideHpppWindowsInternal
+    jsr C1008E_CloseAndDrainAllWindows
     jsl $C12DD5
     jsl C09451_RestoreSavedCoordinateState
 C13CE4_RebuildOpenMenuTextEntryRecords_L3CE4:
     rtl
+SHOW_TOWN_MAP:
+C13CE5_ShowTownMap = SHOW_TOWN_MAP
     rep #$31
     ldx.w #$00CA
     lda.w #$00FF
-    jsl $C45683
+    jsl C45683_FindPartyMemberWithItemWildcard
     cmp.w #$0000
     beq C13D02_RebuildOpenMenuTextEntryRecords_L3D02
     jsl C0943C_SaveCurrentCoordinateState
-    jsl $C4D681
+    jsl C4D681_DisplayCurrentPositionTownMap
     jsl C09451_RestoreSavedCoordinateState
 C13D02_RebuildOpenMenuTextEntryRecords_L3D02:
     rtl
+DEBUG_Y_BUTTON_FLAG:
+C13D03_RunDebugEventFlagToggleViewer = DEBUG_Y_BUTTON_FLAG
     rep #$31
     phd
     tdc
@@ -1107,11 +1147,11 @@ C13D02_RebuildOpenMenuTextEntryRecords_L3D02:
     ldx.w #$0001
     stx $02
 C13D10_RebuildOpenMenuTextEntryRecords_L3D10:
-    jsl $C3E4D4
+    jsl C3E4D4_SetInstantPrinting
     lda.w #$0014
-    jsr $04EE
+    jsr C104EE_CreateOrBindWindowDescriptorAndContext
     lda.w #$0003
-    jsr $0EB4
+    jsr C10EB4_SetActiveWindowTextModeByte
     lda $02
     sta $06
     stz $08
@@ -1119,10 +1159,10 @@ C13D10_RebuildOpenMenuTextEntryRecords_L3D10:
     sta $0E
     lda $08
     sta $10
-    jsr $0DF6
+    jsr C10DF6_PrintDecimalValueFromCallerPointer
     lda.w #$0020
-    jsl $C43F77
-    jsl $C43CAA
+    jsl C43F77_PrintGlyphWithTileCleanupSoundDelay
+    jsl C43CAA_AdvanceAnimatedGlyphTileStateOffset
     lda $02
     jsl C21628_CheckEventFlag
     cmp.w #$0000
@@ -1143,8 +1183,8 @@ C13D5D_RebuildOpenMenuTextEntryRecords_L3D5D:
     lda $08
     sta $10
     lda.w #$0100
-    jsr $0EFC
-    jsl $C3E4CA
+    jsr C10EFC_PrintFixedString
+    jsl C3E4CA_ClearInstantPrinting
     jsl $C12DD5
     ldy $02
     sty $12
@@ -1208,7 +1248,7 @@ C13DE4_RebuildOpenMenuTextEntryRecords_L3DE4:
     and.w #$A000
     beq C13D77_RebuildOpenMenuTextEntryRecords_L3D77
     lda.w #$0014
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     bra C13E0C_RebuildOpenMenuTextEntryRecords_L3E0C
 C13DF5_RebuildOpenMenuTextEntryRecords_L3DF5:
     ldy $12
@@ -1225,6 +1265,8 @@ C13E07_RebuildOpenMenuTextEntryRecords_L3E07:
 C13E0C_RebuildOpenMenuTextEntryRecords_L3E0C:
     pld
     rtl
+DEBUG_Y_BUTTON_GUIDE:
+C13E0E_RunDebugGuideEntryCountViewer = DEBUG_Y_BUTTON_GUIDE
     rep #$31
     phd
     tdc
@@ -1251,11 +1293,11 @@ C13E2F_RebuildOpenMenuTextEntryRecords_L3E2F:
 C13E34_RebuildOpenMenuTextEntryRecords_L3E34:
     cmp.w #$001E
     bcc C13E20_RebuildOpenMenuTextEntryRecords_L3E20
-    jsl $C3E4D4
+    jsl C3E4D4_SetInstantPrinting
     lda.w #$0014
-    jsr $04EE
+    jsr C104EE_CreateOrBindWindowDescriptorAndContext
     lda.w #$0003
-    jsr $0EB4
+    jsr C10EB4_SetActiveWindowTextModeByte
     ldx $14
     txa
     sta $06
@@ -1264,8 +1306,8 @@ C13E34_RebuildOpenMenuTextEntryRecords_L3E34:
     sta $0E
     lda $08
     sta $10
-    jsr $0DF6
-    jsl $C3E4CA
+    jsr C10DF6_PrintDecimalValueFromCallerPointer
+    jsl C3E4CA_ClearInstantPrinting
     jsl $C12DD5
     bra C13E69_RebuildOpenMenuTextEntryRecords_L3E69
 C13E65_RebuildOpenMenuTextEntryRecords_L3E65:
@@ -1275,19 +1317,21 @@ C13E69_RebuildOpenMenuTextEntryRecords_L3E69:
     and.w #$A000
     beq C13E65_RebuildOpenMenuTextEntryRecords_L3E65
     lda.w #$0014
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     pld
     rtl
+DEBUG_SET_CHAR_LEVEL:
+C13E7A_RunDebugSetCharacterLevelPrompt = DEBUG_SET_CHAR_LEVEL
     rep #$31
     phd
     tdc
     adc.w #$FFEA
     tcd
-    jsl $C3E4D4
+    jsl C3E4D4_SetInstantPrinting
     lda.w #$0014
-    jsr $04EE
+    jsr C104EE_CreateOrBindWindowDescriptorAndContext
     lda.w #$0002
-    jsr $101C
+    jsr C1101C_RunNumberSelectPrompt
     lda $06
     sta $04
     lda.w #$0000
@@ -1304,27 +1348,29 @@ C13E69_RebuildOpenMenuTextEntryRecords_L3E69:
     sta $14
     ldx.w #$0001
     txa
-    jsr $27EF
+    jsr C127EF_RunCharacterSelectionPromptWithCallback
     sta $02
     cmp.w #$0000
     beq C13EDE_RebuildOpenMenuTextEntryRecords_L3EDE
     ldy.w #$0001
     ldx $04
     lda $02
-    jsr $D8D0
+    jsr C1D8D0_RefreshCharacterBattleStartState
     ldy.w #$0000
     ldx.w #$0064
     lda $02
-    jsr $8F64
+    jsr C18F64_RecoverHpForCharacterOrActiveParty
     ldy.w #$0000
     ldx.w #$0064
     lda $02
-    jsr $9010
+    jsr C19010_RecoverPpForCharacterOrActiveParty
 C13EDE_RebuildOpenMenuTextEntryRecords_L3EDE:
     lda.w #$0014
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     pld
     rtl
+DEBUG_Y_BUTTON_GOODS:
+C13EE7_RunDebugGoodsGrantViewer = DEBUG_Y_BUTTON_GOODS
     rep #$31
     phd
     tdc
@@ -1333,16 +1379,16 @@ C13EDE_RebuildOpenMenuTextEntryRecords_L3EDE:
     ldx.w #$0000
     stx $04
 C13EF4_RebuildOpenMenuTextEntryRecords_L3EF4:
-    jsl $C3E4D4
+    jsl C3E4D4_SetInstantPrinting
     lda.w #$0014
-    jsr $04EE
+    jsr C104EE_CreateOrBindWindowDescriptorAndContext
     lda.w #$0002
-    jsr $0EB4
+    jsr C10EB4_SetActiveWindowTextModeByte
     lda.w #$0082
-    jsr $0EB4
+    jsr C10EB4_SetActiveWindowTextModeByte
     ldx.w #$0000
     txa
-    jsl $C438A5
+    jsl C438A5_SetActiveWindowDescriptorCursorFields
     lda $04
     sta $06
     stz $08
@@ -1350,13 +1396,13 @@ C13EF4_RebuildOpenMenuTextEntryRecords_L3EF4:
     sta $0E
     lda $08
     sta $10
-    jsr $0DF6
+    jsr C10DF6_PrintDecimalValueFromCallerPointer
     ldx.w #$0000
     lda.w #$0003
-    jsl $C438A5
+    jsl C438A5_SetActiveWindowDescriptorCursorFields
     lda $04
-    jsr $9216
-    jsl $C3E4CA
+    jsr C19216_PrintItemNameFromConfigurationTable
+    jsl C3E4CA_ClearInstantPrinting
     jsl $C12DD5
     lda $04
     sta $02
@@ -1411,35 +1457,35 @@ C13F84_RebuildOpenMenuTextEntryRecords_L3F84:
     sta $14
     ldx.w #$0001
     txa
-    jsr $27EF
+    jsr C127EF_RunCharacterSelectionPromptWithCallback
     tay
     sty $16
     beq C13FF8_RebuildOpenMenuTextEntryRecords_L3FF8
     tya
-    jsl $C4572B
+    jsl C4572B_FindPartyMemberWithInventoryRoomWildcard
     cmp.w #$0000
     beq C13FF8_RebuildOpenMenuTextEntryRecords_L3FF8
     ldx $04
     ldy $16
     tya
-    jsl $C18BC6
+    jsl C18BC6_InsertItemIntoCharacterInventory
     ldx $04
     ldy $16
     tya
-    jsl $C3EE14
+    jsl C3EE14_TestCharacterCanEquipItem
     cmp.w #$0000
     beq C14009_RebuildOpenMenuTextEntryRecords_L4009
     lda $04
-    jsr $9EE6
+    jsr C19EE6_ClassifyItemCompactCategory
     cmp.w #$0002
     bne C14009_RebuildOpenMenuTextEntryRecords_L4009
     ldy $16
     tya
-    jsl $C22351
+    jsl C22351_FindFirstEmptyInventorySlotForCharacter
     tax
     ldy $16
     tya
-    jsr $9066
+    jsr C19066_DispatchEquippedSlotSubtypeUpdate
     bra C14009_RebuildOpenMenuTextEntryRecords_L4009
 C13FED_RebuildOpenMenuTextEntryRecords_L3FED:
     lda $006D
@@ -1457,7 +1503,7 @@ C14002_RebuildOpenMenuTextEntryRecords_L4002:
     jmp.w C13EF4_RebuildOpenMenuTextEntryRecords_L3EF4
 C14009_RebuildOpenMenuTextEntryRecords_L4009:
     lda.w #$0014
-    jsl $C3E521
+    jsl C3E521_CloseWindowById
     pld
     rtl
 C14012_AdvanceNameEntryLetterBoxPointer:
