@@ -106,6 +106,14 @@ limited to its local presentation side effects: BG2 screen-base queue arguments,
 window graphics reload, glyph-run reset, palette refresh, and `$0030 = #$18`;
 the raw `C2:038B` cleanup callee remains owned by C2.
 
+2026-05-06 follow-up source polish: the window-mask source now carries local
+names for current-slot and base-slot indexes, live world coordinates, camera
+origin shadows, WH stream double buffers, box-mask toggle, `$CC:2DE1` indexed
+graphics record roots, VRAM destinations, transfer sizes, and the `$0030/$003B`
+presentation-refresh arguments. The C4-side contract is still intentionally
+limited to generating WH0/WH2 streams and staging upload arguments; HDMA register
+installation and renderer queue interpretation remain in their callee helpers.
+
 ## Working Names
 
 - `C4:74F6` = `WhWindowSpanRadiusRampTable`

@@ -353,6 +353,13 @@ closure.
   joins. The source keeps `$0ED6/$0F12` proximity-threshold aliases separate
   from their area-bound aliases. See
   `notes/movement-target-bounds-and-vector-refresh-c46ef8-c47369.md`.
+- 2026-05-06 window-mask/indexed-gfx follow-up: tightened the WH0/WH2 stream
+  builders and indexed window graphics loaders around current-slot/base-slot
+  indexes, camera-origin shadows, double-buffer roots, `$CC:2DE1` record roots,
+  VRAM destinations, block sizes, and `$0030/$003B` presentation-refresh
+  arguments. The source continues to treat HDMA install and renderer queue
+  behavior as callee-owned. See
+  `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`.
 
 ## Validation
 
