@@ -671,6 +671,13 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-battle-start-payload-join-runtime-polish.md`,
   `notes/c2-instant-win-and-magic-butterfly-helpers-c26189-c2654c.md`,
   and `notes/class2-local-enemy-id-to-battler-init-chain.md`.
+- 2026-05-06 eighty-seventh slice: tightened the hit-resolution result tail
+  around physical damage reduction and Time Stop retargeting. `C2:7EAF` now
+  calls `C0:925B` as `ShiftMaskedResistanceBits` at the defending and
+  shield/power-shield reduction sites, calls `C0:ABE0` as the queued
+  sound/effect dispatcher for the target-switch cue, and names the `EF:0256` /
+  `EF:026E` music pause/resume helpers around the Time Stop repeated-bash
+  loop. See `notes/c2-hit-resolution-status-runtime-polish.md`.
 
 ## Validation
 

@@ -116,6 +116,14 @@ the adjacent `C2:416F` / `FilterBattleActionTargetMaskByRowState` prune and
 prune the current target mask, pick the first surviving mask range, scan for
 the selected bit, rebuild target text context, and invoke the bash payload.
 
+Second result-corridor follow-up: the same Time Stop tail now brackets the
+retarget loop with the EF audio flag helpers by name: `EF:0256` /
+`PauseMusic` before the repeated bash applications and `EF:026E` /
+`ResumeMusic` before the `EF:7843` return text. The physical-hit damage path
+also names the shared `C0:925B` resistance-bit shifter at the defending and
+shield/power-shield reduction sites, while the target-switch cue calls
+`C0:ABE0` as the queued sound/effect dispatcher.
+
 ## Evidence Inputs
 
 - `refs/EB-M2-Listing-v1/US/bank02.txt` for helper names such as
