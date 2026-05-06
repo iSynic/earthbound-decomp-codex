@@ -241,3 +241,12 @@ This planning pass is documentation-only.
   `notes/c1-file-select-runtime-polish.md`,
   `notes/file-select-setup-option-menus-c1f497-c1f616.md`, and
   `notes/ef-save-sram-runtime-polish.md`.
+- 2026-05-06: C1 display-text dynamic source selector polish tightened
+  `C1:7B56..866D` source edges. The promoted constants cover the `0x1A`
+  menu/result staging leaves, `0x1C 0D/0E/0F` battle-name and action-amount
+  display payload consumers, text-context snapshot/restore helpers, text input
+  lock/wait gates, transition music restore, interaction-flag helpers, and
+  save-current-game wrapper. See
+  `notes/display-text-dynamic-source-selector-dispatch-c17b56-c1866d.md`,
+  `notes/text-command-family-1a-menus.md`, and
+  `notes/text-command-family-1c-print-display.md`.

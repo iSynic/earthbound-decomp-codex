@@ -27,8 +27,19 @@ See also:
 - The first local routine at `C1:7B56` is a narrow dispatcher that branches on
   small selector values and routes into a menu/selection-oriented helper set.
   The best current map is recorded in `notes/text-command-family-1a-menus.md`.
+- The source now names the shared menu/result staging edges inside that first
+  routine: the active text-entry selection loop, loaded-text-string clear,
+  Escargo storage, phone-contact, teleport-destination, and primary text-context
+  install helpers.
+- The battle-facing display leaves now name the `0x1C 0D/0E/0F` contract:
+  reflected-hit side article-token setup, attacker/target name-buffer base
+  reads, fixed-string preflight printing, and the `$9D12/$9D14` amount pointer
+  consumed by the decimal printer.
+- The later `1F` command corridor now names the text-context snapshot/restore,
+  primary/secondary context loads and installs, text input lock/unlock, wait
+  gate, transition music restore, interaction-flag helpers, save-current-game
+  wrapper, and teleport landing state refresh edges.
 - The broader corridor through `C1:866D` decodes cleanly as linear 65816 code
-  (no embedded tables required for byte-equivalence), but most internal helper
-  entry points remain intentionally conservatively named until more callers are
-  documented.
-
+  (no embedded tables required for byte-equivalence). A few late presentation
+  helpers remain intentionally raw until their local contracts are pinned with
+  the same confidence.

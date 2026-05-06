@@ -55,6 +55,11 @@ the handoff into `$0E/$10`, and the final `C1:0DF6` number printer. This
 matches the `C1:DC66` display wrapper contract used by C2 amount-result
 callers.
 
+Follow-up source polish also names the adjacent battle-name display pair. The
+`0x1C 0D/0E` leaves now show the `C3:E75D` reflected-hit side article-token
+setup, `C1:AC9B/C1:ACF2` attacker/target name-buffer base reads, and the
+`C4:47FB` fixed-string preflight printer by contract names.
+
 ## Best current interpretation
 
 The safest current interpretation is that `0x1C` is the bank-`01` print / display family, covering ordinary text substitution, item and character naming, numeric/stat printing, and a narrower battle-facing action / PSI display tail.

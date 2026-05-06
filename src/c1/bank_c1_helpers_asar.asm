@@ -16795,8 +16795,31 @@ org $C17B56
 
 !C0886C_SetDisplayTransitionState = $C0886C
 !C0887A_ClearDisplayTransitionState = $C0887A
+!C013F6_SetTeleportLandingDirection = $C013F6
+!C03FA9_UpdateTeleportLandingPosition = $C03FA9
 !C069F7_Get_CurrentPositionMusicOrAreaId = $C069F7
+!C0ABE0_PrepareTeleportVisualState = $C0ABE0
+!C100C7_LockTextInput = $00C7
+!C100D0_UnlockTextInput = $00D0
+!C102D0_WaitForTextStateFlag9641 = $02D0
+!C10324_SnapshotActiveInteractionContextSlots = $0324
+!C10380_RestoreActiveInteractionContextSlots = $0380
+!C103DC_LoadSecondaryInteractionContextPointer = $03DC
+!C10400_GetCurrentTextContextWorkmem = $0400
+!C1040A_LoadPrimaryInteractionContextPointer = $040A
+!C1045D_InstallPrimaryInteractionContextPointer = $045D
+!C10489_InstallSecondaryInteractionContextPointer = $0489
+!C10A04_ShowHpppWindowsInternal = $0A04
 !C10DF6_PrintNumber = $0DF6
+!C11383_ClearLoadedTextStrings = $1383
+!C1196A_RunActiveTextEntrySelectionMenu = $196A
+!C14070_ReadNameEntryLetterBoxPointer = $4070
+!C19441_BuildPhoneContactSelectionMenu = $9441
+!C19A43_BuildEscargoStorageSelectionMenu = $9A43
+!C1AAFA_RunTeleportDestinationSelectionMenu = $AAFA
+!C1AC00_OpenPhoneContactSelectionMenu = $AC00
+!C1AC9B_GetBattleAttackerNameBufferBase = $AC9B
+!C1ACF2_GetBattleTargetNameBufferBase = $ACF2
 !C1AD26_LoadBattleTextSubstitutionPointer = $AD26
 !C216AD_ApplyMusicTrackAndSyncMirror = $C216AD
 !C2165E_SetEventFlagOrState = $C2165E
@@ -16805,6 +16828,8 @@ org $C17B56
 !C22A2C_SaveCurrentGame = $C22A2C
 !C23008_SaveAndClearTemporaryPartySourceState = $C23008
 !C2307B_RestoreTemporaryPartySourceState = $C2307B
+!C3E75D_ResolveReflectedHitSideArticleTokens = $C3E75D
+!C447FB_PrintFixedStringWithWrapPreflight = $C447FB
 !LoadedBattleTextAmountPointerLo = $06
 !LoadedBattleTextAmountPointerHi = $08
 !TextContextSourcePointerLo = $0E
@@ -16851,15 +16876,15 @@ C17B9F_DispatchDisplayTextDynamicSourceSelector_L7B9F:
     jmp.w C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BA5_DispatchDisplayTextDynamicSourceSelector_L7BA5:
     lda.w #$0000
-    jsr $196A
+    jsr !C1196A_RunActiveTextEntrySelectionMenu
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
-    jsr $1383
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
+    jsr !C11383_ClearLoadedTextStrings
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17BBF_DispatchDisplayTextDynamicSourceSelector_L7BBF:
     lda.w #$549E
@@ -16868,56 +16893,56 @@ C17BC4_DispatchDisplayTextDynamicSourceSelector_L7BC4:
     lda.w #$4EB5
     bra C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BC9_DispatchDisplayTextDynamicSourceSelector_L7BC9:
-    jsr $9A43
+    jsr !C19A43_BuildEscargoStorageSelectionMenu
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17BDD_DispatchDisplayTextDynamicSourceSelector_L7BDD:
     lda.w #$0000
-    jsr $196A
+    jsr !C1196A_RunActiveTextEntrySelectionMenu
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17BF4_DispatchDisplayTextDynamicSourceSelector_L7BF4:
     lda.w #$0001
-    jsr $196A
+    jsr !C1196A_RunActiveTextEntrySelectionMenu
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17C0B_DispatchDisplayTextDynamicSourceSelector_L7C0B:
-    jsr $AC00
+    jsr !C1AC00_OpenPhoneContactSelectionMenu
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17C1F_DispatchDisplayTextDynamicSourceSelector_L7C1F:
-    jsr $AAFA
+    jsr !C1AAFA_RunTeleportDestinationSelectionMenu
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
 C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31:
     lda.w #$0000
 C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34:
@@ -16954,13 +16979,13 @@ C17C65_DispatchDisplayTextDynamicSourceSelector_L7C65:
 C17C6D_DispatchDisplayTextDynamicSourceSelector_L7C6D:
     jmp.w C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17C70_DispatchDisplayTextDynamicSourceSelector_L7C70:
-    jsr $0324
+    jsr !C10324_SnapshotActiveInteractionContextSlots
     jmp.w C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17C76_DispatchDisplayTextDynamicSourceSelector_L7C76:
-    jsr $0380
+    jsr !C10380_RestoreActiveInteractionContextSlots
     jmp.w C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17C7C_DispatchDisplayTextDynamicSourceSelector_L7C7C:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -16989,7 +17014,7 @@ C17C9B_DispatchDisplayTextDynamicSourceSelector_L7C9B:
     sta $0002,Y
     jmp.w C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17CBA_DispatchDisplayTextDynamicSourceSelector_L7CBA:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda.w #$0000
     sta $0A
     lda.w #$0000
@@ -17018,12 +17043,12 @@ C17CD9_DispatchDisplayTextDynamicSourceSelector_L7CD9:
     sta $0002,Y
     jmp.w C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17CF8_DispatchDisplayTextDynamicSourceSelector_L7CF8:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     sta $12
     lda $08
     sta $14
-    jsr $03DC
+    jsr !C103DC_LoadSecondaryInteractionContextPointer
     lda $06
     sta $0A
     lda $08
@@ -17036,7 +17061,7 @@ C17CF8_DispatchDisplayTextDynamicSourceSelector_L7CF8:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $12
     sta $06
     lda $14
@@ -17045,20 +17070,20 @@ C17CF8_DispatchDisplayTextDynamicSourceSelector_L7CF8:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     bra C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17D36_DispatchDisplayTextDynamicSourceSelector_L7D36:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     sta $97CC
     lda $08
     sta $97CE
-    jsr $03DC
+    jsr !C103DC_LoadSecondaryInteractionContextPointer
     lda $06
     sta $97D0
     lda $08
     sta $97D2
-    jsr $0400
+    jsr !C10400_GetCurrentTextContextWorkmem
     sep #$20
     sta $97D4
     bra C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
@@ -17071,7 +17096,7 @@ C17D5A_DispatchDisplayTextDynamicSourceSelector_L7D5A:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $97D0
     sta $06
     lda $97D2
@@ -17080,7 +17105,7 @@ C17D5A_DispatchDisplayTextDynamicSourceSelector_L7D5A:
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     lda $97D4
     and.b #$FF
     brk #$20
@@ -17196,7 +17221,7 @@ C17E59_DispatchDisplayTextDynamicSourceSelector_L7E59:
     lda.w #$488D
     jmp.w C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E5F_DispatchDisplayTextDynamicSourceSelector_L7E5F:
-    jsr $0A04
+    jsr !C10A04_ShowHpppWindowsInternal
     jmp.w C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17E65_DispatchDisplayTextDynamicSourceSelector_L7E65:
     lda.w #$46BF
@@ -17230,8 +17255,8 @@ C17E9A_DispatchDisplayTextDynamicSourceSelector_L7E9A:
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E9F_DispatchDisplayTextDynamicSourceSelector_L7E9F:
     lda.w #$0000
-    jsl $C3E75D
-    jsr $AC9B
+    jsl !C3E75D_ResolveReflectedHitSideArticleTokens
+    jsr !C1AC9B_GetBattleAttackerNameBufferBase
     sta $06
     phb
     sep #$20
@@ -17244,12 +17269,12 @@ C17E9F_DispatchDisplayTextDynamicSourceSelector_L7E9F:
     lda $08
     sta $10
     lda.w #$0050
-    jsl $C447FB
+    jsl !C447FB_PrintFixedStringWithWrapPreflight
     bra C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17EC6_DispatchDisplayTextDynamicSourceSelector_L7EC6:
     lda.w #$0001
-    jsl $C3E75D
-    jsr $ACF2
+    jsl !C3E75D_ResolveReflectedHitSideArticleTokens
+    jsr !C1ACF2_GetBattleTargetNameBufferBase
     sta $06
     phb
     sep #$20
@@ -17262,7 +17287,7 @@ C17EC6_DispatchDisplayTextDynamicSourceSelector_L7EC6:
     lda $08
     sta $10
     lda.w #$0050
-    jsl $C447FB
+    jsl !C447FB_PrintFixedStringWithWrapPreflight
     bra C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17EED_DispatchDisplayTextDynamicSourceSelector_L7EED:
     jsr !C1AD26_LoadBattleTextSubstitutionPointer
@@ -17492,12 +17517,12 @@ C1809C_DispatchDisplayTextDynamicSourceSelector_L809C:
 C180A2_DispatchDisplayTextDynamicSourceSelector_L80A2:
     ldy.w #$0000
     sty $14
-    jsr $ACF2
+    jsr !C1ACF2_GetBattleTargetNameBufferBase
     sta $12
-    jsr $AC9B
+    jsr !C1AC9B_GetBattleAttackerNameBufferBase
     tax
     lda $12
-    jsr $4070
+    jsr !C14070_ReadNameEntryLetterBoxPointer
     cmp.w #$0000
     bne C180BF_DispatchDisplayTextDynamicSourceSelector_L80BF
     ldy.w #$0001
@@ -17514,7 +17539,7 @@ C180CA_DispatchDisplayTextDynamicSourceSelector_L80CA:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C180D7_DispatchDisplayTextDynamicSourceSelector_L80D7:
     lda.w #$61F0
@@ -17542,7 +17567,7 @@ C18103_DispatchDisplayTextDynamicSourceSelector_L8103:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C18110_DispatchDisplayTextDynamicSourceSelector_L8110:
     lda.w #$7708
@@ -18032,10 +18057,10 @@ C184CE_DispatchDisplayTextDynamicSourceSelector_L84CE:
     lda.w #$72DA
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184D4_DispatchDisplayTextDynamicSourceSelector_L84D4:
-    jsr $00C7
+    jsr !C100C7_LockTextInput
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184DA_DispatchDisplayTextDynamicSourceSelector_L84DA:
-    jsr $00D0
+    jsr !C100D0_UnlockTextInput
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184E0_DispatchDisplayTextDynamicSourceSelector_L84E0:
     lda.w #$44A3
@@ -18044,7 +18069,7 @@ C184E6_DispatchDisplayTextDynamicSourceSelector_L84E6:
     lda.w #$5494
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184EC_DispatchDisplayTextDynamicSourceSelector_L84EC:
-    jsr $02D0
+    jsr !C102D0_WaitForTextStateFlag9641
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184F2_DispatchDisplayTextDynamicSourceSelector_L84F2:
     lda.w #$69F7
@@ -18091,19 +18116,19 @@ C1853B_DispatchDisplayTextDynamicSourceSelector_L853B:
     txa
     jsl !C0887A_ClearDisplayTransitionState
     lda.w #$0073
-    jsl $C0ABE0
+    jsl !C0ABE0_PrepareTeleportVisualState
     lda $98B2
     sta $04
     lda $98B4
     sta $02
     ldx $02
     lda $04
-    jsl $C013F6
+    jsl !C013F6_SetTeleportLandingDirection
     stz $2890
     ldy.w #$0004
     ldx $02
     lda $04
-    jsl $C03FA9
+    jsl !C03FA9_UpdateTeleportLandingPosition
     ldx.w #$0001
     txa
     jsl !C0886C_SetDisplayTransitionState
@@ -18120,14 +18145,14 @@ C1858E_DispatchDisplayTextDynamicSourceSelector_L858E:
     lda.w #$583D
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18594_DispatchDisplayTextDynamicSourceSelector_L8594:
-    jsr $9441
+    jsr !C19441_BuildPhoneContactSelectionMenu
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9:
 !C185A9_SetCurrentInteractionFlagTextCommand = C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9
@@ -18152,7 +18177,7 @@ C185CC_DispatchDisplayTextDynamicSourceSelector_L85CC:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185DA_DispatchDisplayTextDynamicSourceSelector_L85DA:
 !C185DA_SaveCurrentGameTextCommand = C185DA_DispatchDisplayTextDynamicSourceSelector_L85DA
@@ -18172,7 +18197,7 @@ C185ED_DispatchDisplayTextDynamicSourceSelector_L85ED:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18602_DispatchDisplayTextDynamicSourceSelector_L8602:
     lda.w #$7304
