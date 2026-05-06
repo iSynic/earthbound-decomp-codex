@@ -9,25 +9,27 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 ## Snapshot
 
 - status: `ok`
-- synthetic cases: `13`
+- synthetic cases: `14`
+- trim-trailing-bytes cases: `1`
 - output kinds covered: `13`
 - missing output kinds: `0`
 - output root: `build/asset-output-codec-validation`
 
 ## Cases
 
-| Case | Recipe kind | Bytes | Metadata keys |
-| --- | --- | ---: | --- |
-| `raw-bytes` | `raw` | 17 | - |
-| `earthbound-lzhal` | `earthbound_lzhal` | 26 | `compressed_bytes_consumed`, `decompressed_bytes` |
-| `snes-2bpp-tiles` | `snes_2bpp_tiles_png` | 90 | `height`, `tiles`, `width` |
-| `snes-4bpp-tiles` | `snes_4bpp_tiles_png` | 114 | `height`, `tiles`, `width` |
-| `earthbound-lzhal-snes-4bpp-tiles` | `earthbound_lzhal_snes_4bpp_tiles_png` | 114 | `compressed_bytes_consumed`, `decompressed_bytes`, `height`, `tiles`, `width` |
-| `snes-4bpp-palette-tiles` | `snes_4bpp_tiles_palette_png` | 158 | `colors`, `height`, `palette_source_range`, `tiles`, `width` |
-| `earthbound-lzhal-snes-4bpp-palette-tiles` | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | 158 | `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `height`, `palette_source_range`, `tiles`, `width` |
-| `snes-palette-json` | `snes_palette_json` | 3380 | `colors` |
-| `snes-palette-swatch` | `snes_palette_swatch_png` | 153 | `colors`, `height`, `width` |
-| `earthbound-lzhal-snes-palette-json` | `earthbound_lzhal_snes_palette_json` | 3380 | `colors`, `compressed_bytes_consumed`, `decompressed_bytes` |
-| `earthbound-lzhal-snes-palette-swatch` | `earthbound_lzhal_snes_palette_swatch_png` | 153 | `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `height`, `width` |
-| `earthbound-lzhal-battle-bg-arrangement` | `earthbound_lzhal_battle_bg_arrangement_png` | 166 | `bpp`, `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `graphics_source_range`, `height`, `max_tile`, `palette_source_range`, `width` |
-| `earthbound-lzhal-battle-sprite` | `earthbound_lzhal_battle_sprite_png` | 179 | `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `height`, `palette_id`, `palette_source_range`, `sprite_id`, `width` |
+| Case | Recipe kind | Bytes | Spec options | Metadata keys |
+| --- | --- | ---: | --- | --- |
+| `raw-bytes` | `raw` | 17 | - | - |
+| `earthbound-lzhal` | `earthbound_lzhal` | 26 | - | `compressed_bytes_consumed`, `decompressed_bytes` |
+| `snes-2bpp-tiles` | `snes_2bpp_tiles_png` | 90 | `columns` | `height`, `tiles`, `width` |
+| `snes-2bpp-tiles-trimmed` | `snes_2bpp_tiles_png` | 90 | `columns`, `trim_trailing_bytes` | `height`, `tiles`, `trimmed_source_bytes`, `width` |
+| `snes-4bpp-tiles` | `snes_4bpp_tiles_png` | 114 | `columns` | `height`, `tiles`, `width` |
+| `earthbound-lzhal-snes-4bpp-tiles` | `earthbound_lzhal_snes_4bpp_tiles_png` | 114 | `columns` | `compressed_bytes_consumed`, `decompressed_bytes`, `height`, `tiles`, `width` |
+| `snes-4bpp-palette-tiles` | `snes_4bpp_tiles_palette_png` | 158 | `colors`, `columns`, `palette_source` | `colors`, `height`, `palette_source_range`, `tiles`, `width` |
+| `earthbound-lzhal-snes-4bpp-palette-tiles` | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | 158 | `colors`, `columns`, `palette_source` | `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `height`, `palette_source_range`, `tiles`, `width` |
+| `snes-palette-json` | `snes_palette_json` | 3380 | `colors` | `colors` |
+| `snes-palette-swatch` | `snes_palette_swatch_png` | 153 | `per_row`, `swatch` | `colors`, `height`, `width` |
+| `earthbound-lzhal-snes-palette-json` | `earthbound_lzhal_snes_palette_json` | 3380 | `colors` | `colors`, `compressed_bytes_consumed`, `decompressed_bytes` |
+| `earthbound-lzhal-snes-palette-swatch` | `earthbound_lzhal_snes_palette_swatch_png` | 153 | `per_row`, `swatch` | `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `height`, `width` |
+| `earthbound-lzhal-battle-bg-arrangement` | `earthbound_lzhal_battle_bg_arrangement_png` | 166 | `arrangement_id`, `bpp`, `colors`, `graphics_id`, `graphics_source`, `height_tiles`, `palette_id`, `palette_source`, `width_tiles` | `bpp`, `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `graphics_source_range`, `height`, `max_tile`, `palette_source_range`, `width` |
+| `earthbound-lzhal-battle-sprite` | `earthbound_lzhal_battle_sprite_png` | 179 | `colors`, `height`, `palette_id`, `palette_source`, `sprite_id`, `width` | `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `height`, `palette_id`, `palette_source_range`, `sprite_id`, `width` |

@@ -143,6 +143,20 @@ def output_cases() -> list[dict[str, Any]]:
             "spec": {"kind": "snes_2bpp_tiles_png", "path": "tiles_2bpp.png", "columns": 2},
         },
         {
+            "id": "snes-2bpp-tiles-trimmed",
+            "data": graphics_2bpp + b"\x00",
+            "spec": {
+                "kind": "snes_2bpp_tiles_png",
+                "path": "tiles_2bpp_trimmed.png",
+                "columns": 2,
+                "trim_trailing_bytes": 1,
+            },
+            "expected_metadata": {
+                "tiles": 2,
+                "trimmed_source_bytes": len(graphics_2bpp),
+            },
+        },
+        {
             "id": "snes-4bpp-tiles",
             "data": graphics_4bpp,
             "spec": {"kind": "snes_4bpp_tiles_png", "path": "tiles_4bpp.png", "columns": 2},
@@ -243,6 +257,9 @@ def verify_case(case: dict[str, Any], result: dict[str, Any], out_root: Path) ->
     for field in contract.report_required_fields:
         if field not in result:
             errors.append(f"{case['id']}: missing report metadata field {field}")
+    for field, expected in case.get("expected_metadata", {}).items():
+        if result.get(field) != expected:
+            errors.append(f"{case['id']}: expected {field}={expected!r}, got {result.get(field)!r}")
     try:
         output_path.resolve().relative_to(out_root.resolve())
     except ValueError:
@@ -287,6 +304,11 @@ def run_validation(out_root: Path) -> dict[str, Any]:
                     for key, value in result.items()
                     if key not in {"kind", "path", "bytes", "sha1"}
                 },
+                "spec_options": {
+                    key: value
+                    for key, value in case["spec"].items()
+                    if key not in {"kind", "path"}
+                },
                 "errors": case_errors,
             }
         )
@@ -304,6 +326,9 @@ def run_validation(out_root: Path) -> dict[str, Any]:
         },
         "output_root": rel(out_root),
         "case_count": len(results),
+        "trim_trailing_bytes_case_count": sum(
+            1 for item in results if "trim_trailing_bytes" in item["spec_options"]
+        ),
         "covered_output_kinds": covered_kinds,
         "missing_output_kinds": missing_kinds,
         "status": "ok" if not errors else "invalid",
@@ -326,19 +351,21 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         f"- status: `{report['status']}`",
         f"- synthetic cases: `{report['case_count']}`",
+        f"- trim-trailing-bytes cases: `{report['trim_trailing_bytes_case_count']}`",
         f"- output kinds covered: `{len(report['covered_output_kinds'])}`",
         f"- missing output kinds: `{len(report['missing_output_kinds'])}`",
         f"- output root: `{report['output_root']}`",
         "",
         "## Cases",
         "",
-        "| Case | Recipe kind | Bytes | Metadata keys |",
-        "| --- | --- | ---: | --- |",
+        "| Case | Recipe kind | Bytes | Spec options | Metadata keys |",
+        "| --- | --- | ---: | --- | --- |",
     ]
     for case in report["cases"]:
         metadata_keys = ", ".join(f"`{key}`" for key in sorted(case["metadata"])) or "-"
+        spec_options = ", ".join(f"`{key}`" for key in sorted(case["spec_options"])) or "-"
         lines.append(
-            f"| `{case['id']}` | `{case['kind']}` | {case['bytes']} | {metadata_keys} |"
+            f"| `{case['id']}` | `{case['kind']}` | {case['bytes']} | {spec_options} | {metadata_keys} |"
         )
     if report["errors"]:
         lines.extend(["", "## Errors", ""])
