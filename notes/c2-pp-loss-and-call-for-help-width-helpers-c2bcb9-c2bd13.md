@@ -83,3 +83,9 @@ The C2 source now reflects this contract directly: `C2:BD13` calls
 `GetBattleSpriteWidthBucket`, and the `C2:BE6C` placement body calls
 `SumActiveEnemyBattleSpriteWidths` and `ApplyCallForHelpEnemySelectionPrefix`
 by name.
+
+Source follow-up (2026-05-06): the embedded call-for-help prefix inside the
+`BD13..BE6C` source unit now also names its failure text block as
+`DisplayCallForHelpFailureAndReturn` and the shared `C2:C13A` exit as
+`ReturnCallForHelpEnemySelectionBody`, matching the standalone `BD5E` prefix
+and the `BE6C` placement-body failure back-edges.

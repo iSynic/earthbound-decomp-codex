@@ -24,6 +24,7 @@
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0915B_DivideUnsignedWordByY       = $C0915B
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C2C13A_ReturnCallForHelpEnemySelectionBody = $C13A
 
 EF_BattleTextScriptBank       = $00EF
 EFMSG_CallForHelpNoOneCame    = $7824
@@ -90,6 +91,7 @@ C2BDB4_CallForHelpEnemySelectionAndMessageBody_LBDB4:
     cmp.w #$00FF
     bne C2BDA3_CallForHelpEnemySelectionAndMessageBody_LBDA3
 C2BDC6_CallForHelpEnemySelectionAndMessageBody_LBDC6:
+C2BDC6_DisplayCallForHelpFailureAndReturn = C2BDC6_CallForHelpEnemySelectionAndMessageBody_LBDC6
     lda $28
     beq C2BDDB_CallForHelpEnemySelectionAndMessageBody_LBDDB
     lda.w #EFMSG_CallForHelpSeedNoSprout
@@ -97,14 +99,14 @@ C2BDC6_CallForHelpEnemySelectionAndMessageBody_LBDC6:
     lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
-    jmp $C13A
+    jmp C2C13A_ReturnCallForHelpEnemySelectionBody
 C2BDDB_CallForHelpEnemySelectionAndMessageBody_LBDDB:
     lda.w #EFMSG_CallForHelpNoOneCame
     sta $0E
     lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
-    jmp $C13A
+    jmp C2C13A_ReturnCallForHelpEnemySelectionBody
 C2BDEC_CallForHelpEnemySelectionAndMessageBody_LBDEC:
     ldx.w #$9FAC
     lda.w #$0000

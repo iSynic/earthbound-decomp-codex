@@ -33291,6 +33291,7 @@ org $C2BD13
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C0915B_DivideUnsignedWordByY = $C0915B
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C2C13A_ReturnCallForHelpEnemySelectionBody = $C13A
 !C2EFFD_GetBattleSpriteWidthBucket = $EFFD
 !EF_BattleTextScriptBank = $00EF
 !EFMSG_CallForHelpNoOneCame = $7824
@@ -33390,6 +33391,7 @@ C2BDB4_SumActiveEnemyBattleSpriteWidths_LBDB4:
     cmp.w #$00FF
     bne C2BDA3_SumActiveEnemyBattleSpriteWidths_LBDA3
 C2BDC6_SumActiveEnemyBattleSpriteWidths_LBDC6:
+!C2BDC6_DisplayCallForHelpFailureAndReturn = C2BDC6_SumActiveEnemyBattleSpriteWidths_LBDC6
     lda $28
     beq C2BDDB_SumActiveEnemyBattleSpriteWidths_LBDDB
     lda.w #!EFMSG_CallForHelpSeedNoSprout
@@ -33397,14 +33399,14 @@ C2BDC6_SumActiveEnemyBattleSpriteWidths_LBDC6:
     lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
-    jmp $C13A
+    jmp !C2C13A_ReturnCallForHelpEnemySelectionBody
 C2BDDB_SumActiveEnemyBattleSpriteWidths_LBDDB:
     lda.w #!EFMSG_CallForHelpNoOneCame
     sta $0E
     lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
-    jmp $C13A
+    jmp !C2C13A_ReturnCallForHelpEnemySelectionBody
 C2BDEC_SumActiveEnemyBattleSpriteWidths_LBDEC:
     ldx.w #$9FAC
     lda.w #$0000
@@ -33482,6 +33484,7 @@ org $C2BE6C
 !C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 !C2BD13_SumActiveEnemyBattleSpriteWidths = $BD13
 !C2BD5E_ApplyCallForHelpEnemySelectionPrefix = $BD5E
+!C2BDC6_DisplayCallForHelpFailureAndReturn = $BDC6
 !C2EFFD_GetBattleSpriteWidthBucket = $EFFD
 !C2F09F_FindLoadedBattleSpriteSlotById = $F09F
 !EF_BattleTextScriptBank = $00EF
@@ -33492,7 +33495,7 @@ C2BE6C_RunCallForHelpEnemySelectionBody:
     jsr !C26BB8_RollActionChanceGate
     cmp.w #$0000
     bne C2BE79_RunCallForHelpEnemySelectionBody_LBE79
-    jmp $BDC6
+    jmp !C2BDC6_DisplayCallForHelpFailureAndReturn
 C2BE79_RunCallForHelpEnemySelectionBody_LBE79:
     ldx $22
     txa
@@ -33758,7 +33761,7 @@ C2C067_RunCallForHelpEnemySelectionBody_LC067:
     lda $02
     cmp.w #$0020
     bcc C2C004_RunCallForHelpEnemySelectionBody_LC004
-    jmp $BDC6
+    jmp !C2BDC6_DisplayCallForHelpFailureAndReturn
 C2C071_EmitCallForHelpSpawnMessage:
     jsr !C2BD13_SumActiveEnemyBattleSpriteWidths
     tax
@@ -33773,7 +33776,7 @@ C2C071_EmitCallForHelpSpawnMessage:
     cmp.w #$0020
     beq C2C08E_RunCallForHelpEnemySelectionBody_LC08E
     bcc C2C08E_RunCallForHelpEnemySelectionBody_LC08E
-    jmp $BDC6
+    jmp !C2BDC6_DisplayCallForHelpFailureAndReturn
 C2C08E_RunCallForHelpEnemySelectionBody_LC08E:
     lda.w #$A21C
     sta $22

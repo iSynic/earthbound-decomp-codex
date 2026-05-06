@@ -27,6 +27,7 @@ C26BB8_RollActionChanceGate         = $6BB8
 C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 C2BD13_SumActiveEnemyBattleSpriteWidths = $BD13
 C2BD5E_ApplyCallForHelpEnemySelectionPrefix = $BD5E
+C2BDC6_DisplayCallForHelpFailureAndReturn = $BDC6
 C2EFFD_GetBattleSpriteWidthBucket   = $EFFD
 C2F09F_FindLoadedBattleSpriteSlotById = $F09F
 
@@ -43,7 +44,7 @@ C2BE6C_RunCallForHelpEnemySelectionBody:
     cmp.w #$0000
     bne C2BE79_RunCallForHelpEnemySelectionBody_LBE79
     ; Probability failed: jump to the prefix failure text path.
-    jmp $BDC6
+    jmp C2BDC6_DisplayCallForHelpFailureAndReturn
 C2BE79_RunCallForHelpEnemySelectionBody_LBE79:
     ldx $22
     txa
@@ -313,7 +314,7 @@ C2C067_RunCallForHelpEnemySelectionBody_LC067:
     lda $02
     cmp.w #$0020
     bcc C2C004_RunCallForHelpEnemySelectionBody_LC004
-    jmp $BDC6
+    jmp C2BDC6_DisplayCallForHelpFailureAndReturn
 C2C071_EmitCallForHelpSpawnMessage:
     jsr C2BD13_SumActiveEnemyBattleSpriteWidths
     tax
@@ -328,7 +329,7 @@ C2C071_EmitCallForHelpSpawnMessage:
     cmp.w #$0020
     beq C2C08E_RunCallForHelpEnemySelectionBody_LC08E
     bcc C2C08E_RunCallForHelpEnemySelectionBody_LC08E
-    jmp $BDC6
+    jmp C2BDC6_DisplayCallForHelpFailureAndReturn
 C2C08E_RunCallForHelpEnemySelectionBody_LC08E:
     ; Find the first empty enemy battler slot.
     lda.w #$A21C

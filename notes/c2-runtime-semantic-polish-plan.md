@@ -787,6 +787,13 @@ contract notes for C0/C1/C3/C4 consumers.
   and finale wrappers. See `notes/c2-final-prayer-runtime-polish.md`,
   `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`, and
   `notes/class2-final-prayer-family-c2c572-c2c6f0.md`.
+- 2026-05-06 one hundred and third slice: tightened call-for-help failure and
+  return-tail joins. The `BD5E` prefix and embedded `BD13..BE6C` prefix now
+  label `C2:BDC6` as `DisplayCallForHelpFailureAndReturn` and jump to
+  `C2:C13A` as `ReturnCallForHelpEnemySelectionBody`; the `BE6C` placement
+  body also uses the named failure block for probability and width/placement
+  rejects. See `notes/c2-call-for-help-runtime-polish.md` and
+  `notes/c2-pp-loss-and-call-for-help-width-helpers-c2bcb9-c2bd13.md`.
 
 ## Validation
 
