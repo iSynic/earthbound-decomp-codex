@@ -205,6 +205,12 @@ closure.
   completion latch, and the C0 cleanup helper calls without assigning those
   per-slot tables a global meaning. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 cast loader presentation follow-up: tightened the C4:E369 loader's
+  local setup contract around `$9F2A`, live entity `$0A62`/`$116A` marking,
+  `$B4CE` cast-name glyph-width mode, `$7C00` BG3 clear/upload staging,
+  E1/C3 low-word asset tuples, and final `$0030/$001A` display seeds while
+  leaving C0/C4 callee internals as caller references. See
+  `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
 - 2026-05-06 audio tail follow-up: tightened the final C4 audio block around
   the music dataset row fields, audio pack pointer row shape, US bank resolver
   mask reset, cold-start bootstrap shared pack, `ChangeMusic` primary,

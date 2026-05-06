@@ -72,6 +72,13 @@ several `E1`/`C3` asset payloads through `C4:1A9E`, prepares the cast-name
 tilemap, refreshes the window-flavor palette, sets `$0030 = 0x18` and
 `$001A = 0x14`, clears `$B4CF/$B4D1`, and opens the display transition bracket.
 
+2026-05-06 cast loader presentation follow-up: the source now keeps these as
+loader-local contracts, naming the `$9F2A` presentation latch reset, live
+entity `$0A62` sentinel scan and `$116A/$8000` marker, cast-name glyph-width
+mode byte `$B4CE`, BG3 `$7C00` clear/upload size, E1/C3 low-word asset staging
+tuples, and final `$0030/$001A` display selector seeds. The C0/C4 callee names
+remain caller references only.
+
 `C4:E4DA` stores a BG3/cast-scroll threshold for the active cast slot. It is
 called by event 801's `WaitForCastScrollThreshold` short subroutine after the
 script writes a small spacing/delay value. The helper uses `$1A42` as the
