@@ -4,6 +4,10 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_FIELD2B32_STEP_0180 = $0180
+!ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -19,11 +23,11 @@ hirom
 !InitMovementPresetC40015Pulse16Frame = $AAB8
 !InstallScriptMovementVectorFromDirection = $C0C83B
 !Integrate_XYVelocityOnly = $9FC8
-!PositionChangeCallback_C0A039 = $A039
 !PrepareTunnelGhostAreaWaitAndMovement = $BD03
 !RefreshActiveEntityDirectionAndVisualProfile = $AB44
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallback = $C48BE1
@@ -44,16 +48,22 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
+    db $42
+    dl <target>
+    db <party_member_selector_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -124,21 +134,21 @@ PrepareTunnelGhostActiveAreaWindow:
     %EVENT_SHORT_RETURN() ; C3:BB72  1B
 TrackPartyMemberForTunnelGhost:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0012) ; C3:BB73  0E 05 12 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BB77  42 43 A9 C0 FF
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $01) ; C3:BB7C  42 85 A6 C0 80 01
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BB77  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0180) ; C3:BB7C  42 85 A6 C0 80 01
     %EVENT_SHORTCALL(!RefreshActiveEntityDirectionAndVisualProfile) ; C3:BB82  1A 44 AB
 LoopTrackPartyMemberForTunnelGhost:
     %EVENT_PAUSE($01) ; C3:BB85  06 01
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BB87  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BB87  42 43 A9 C0 FF
     %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:BB8C  42 C6 A8 C0
     %EVENT_SHORTCALL_CONDITIONAL(LoopTrackPartyMemberForTunnelGhost) ; C3:BB90  0A 85 BB
     %EVENT_SHORT_RETURN() ; C3:BB93  1B
 Event93_TunnelGhostDirectionMoveAndYield:
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:BB94  23 39 A0
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:BB94  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:BB97  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:BB9A  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:BB9A  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:BB9C  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:BBA0  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:BBA0  42 85 A6 C0 00 01
     %EVENT_CALLROUTINE_0(!GetCurrentSlotDirectionClass) ; C3:BBA6  42 73 A6 C0
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:BBAA  42 3B C8 C0
     %EVENT_PAUSE($60) ; C3:BBAE  06 60
@@ -150,17 +160,17 @@ Event103_TunnelGhostFollowerLeftOffset:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0060) ; C3:BBBF  0E 03 60 00
     %EVENT_SHORTCALL(!PrepareTunnelGhostAreaWaitAndMovement) ; C3:BBC3  1A 03 BD
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:BBC6  1A 94 AB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:BBC9  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:BBC9  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:BBCF  0E 05 02 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BBD3  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BBD3  42 43 A9 C0 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $FFE8) ; C3:BBD8  14 07 02 E8 FF
     %EVENT_SHORTCALL(!RefreshActiveEntityDirectionAndVisualProfile) ; C3:BBDD  1A 44 AB
 LoopEvent103_TunnelGhostFollowerLeftOffset:
     %EVENT_PAUSE($01) ; C3:BBE0  06 01
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BBE2  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BBE2  42 43 A9 C0 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $FFE8) ; C3:BBE7  14 07 02 E8 FF
     %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:BBEC  42 C6 A8 C0
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3A, $01) ; C3:BBF0  42 4C A8 C0 3A 01
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $013A) ; C3:BBF0  42 4C A8 C0 3A 01
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent103_TunnelGhostFollowerLeftOffset) ; C3:BBF6  0A E0 BB
     %EVENT_WRITE_WORD_TEMPVAR($1A00) ; C3:BBF9  1D 00 1A
     %EVENT_CALLROUTINE_0(!TestValueLeftOfCurrentAnchorX) ; C3:BBFC  42 B5 68 C4
@@ -174,17 +184,17 @@ Event104_TunnelGhostFollowerRightOffset:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0060) ; C3:BC12  0E 03 60 00
     %EVENT_SHORTCALL(!PrepareTunnelGhostAreaWaitAndMovement) ; C3:BC16  1A 03 BD
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:BC19  1A 94 AB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:BC1C  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:BC1C  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:BC22  0E 05 02 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BC26  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BC26  42 43 A9 C0 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $0018) ; C3:BC2B  14 07 02 18 00
     %EVENT_SHORTCALL(!RefreshActiveEntityDirectionAndVisualProfile) ; C3:BC30  1A 44 AB
 LoopEvent104_TunnelGhostFollowerRightOffset:
     %EVENT_PAUSE($01) ; C3:BC33  06 01
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BC35  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BC35  42 43 A9 C0 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $0018) ; C3:BC3A  14 07 02 18 00
     %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:BC3F  42 C6 A8 C0
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3A, $01) ; C3:BC43  42 4C A8 C0 3A 01
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $013A) ; C3:BC43  42 4C A8 C0 3A 01
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent104_TunnelGhostFollowerRightOffset) ; C3:BC49  0A 33 BC
     %EVENT_WRITE_WORD_TEMPVAR($1C80) ; C3:BC4C  1D 80 1C
     %EVENT_CALLROUTINE_0(!TestValueLeftOfCurrentAnchorX) ; C3:BC4F  42 B5 68 C4
@@ -198,17 +208,17 @@ Event105_TunnelGhostFollowerFarLeftOffset:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0060) ; C3:BC65  0E 03 60 00
     %EVENT_SHORTCALL(!PrepareTunnelGhostAreaWaitAndMovement) ; C3:BC69  1A 03 BD
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:BC6C  1A 94 AB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:BC6F  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:BC6F  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:BC75  0E 05 02 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BC79  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BC79  42 43 A9 C0 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $FFE0) ; C3:BC7E  14 07 02 E0 FF
     %EVENT_SHORTCALL(!RefreshActiveEntityDirectionAndVisualProfile) ; C3:BC83  1A 44 AB
 LoopEvent105_TunnelGhostFollowerFarLeftOffset:
     %EVENT_PAUSE($01) ; C3:BC86  06 01
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BC88  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BC88  42 43 A9 C0 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $FFE0) ; C3:BC8D  14 07 02 E0 FF
     %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:BC92  42 C6 A8 C0
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3A, $01) ; C3:BC96  42 4C A8 C0 3A 01
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $013A) ; C3:BC96  42 4C A8 C0 3A 01
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent105_TunnelGhostFollowerFarLeftOffset) ; C3:BC9C  0A 86 BC
     %EVENT_WRITE_WORD_TEMPVAR($1C80) ; C3:BC9F  1D 80 1C
     %EVENT_CALLROUTINE_0(!TestValueLeftOfCurrentAnchorX) ; C3:BCA2  42 B5 68 C4
@@ -222,17 +232,17 @@ Event106_TunnelGhostFollowerFarRightOffset:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0060) ; C3:BCB8  0E 03 60 00
     %EVENT_SHORTCALL(!PrepareTunnelGhostAreaWaitAndMovement) ; C3:BCBC  1A 03 BD
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:BCBF  1A 94 AB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:BCC2  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:BCC2  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:BCC8  0E 05 02 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BCCC  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BCCC  42 43 A9 C0 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $0020) ; C3:BCD1  14 07 02 20 00
     %EVENT_SHORTCALL(!RefreshActiveEntityDirectionAndVisualProfile) ; C3:BCD6  1A 44 AB
 LoopEvent106_TunnelGhostFollowerFarRightOffset:
     %EVENT_PAUSE($01) ; C3:BCD9  06 01
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BCDB  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BCDB  42 43 A9 C0 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $0020) ; C3:BCE0  14 07 02 20 00
     %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:BCE5  42 C6 A8 C0
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $3A, $01) ; C3:BCE9  42 4C A8 C0 3A 01
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $013A) ; C3:BCE9  42 4C A8 C0 3A 01
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent106_TunnelGhostFollowerFarRightOffset) ; C3:BCEF  0A D9 BC
     %EVENT_WRITE_WORD_TEMPVAR($1E00) ; C3:BCF2  1D 00 1E
     %EVENT_CALLROUTINE_0(!TestValueLeftOfCurrentAnchorX) ; C3:BCF5  42 B5 68 C4

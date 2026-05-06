@@ -899,6 +899,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read left-X, Y, and right-X words, then forward them as A/X/Y to the C4:7765 WH0 mosaic/window-mask starter",
         "args": "mask_left_x_word, mask_y_word, mask_right_x_word",
     },
+    "C0:AA3F": {
+        "name": "Script_SetVisualSetupBytesByMode",
+        "group": "presentation-render",
+        "contract": "read fixed-color red/green/blue bytes into $9E37-$9E39, then apply color math using the caller-supplied mode selector",
+        "args": "fixed_color_red_byte, fixed_color_green_byte, fixed_color_blue_byte",
+    },
     "C0:AAB5": {
         "name": "Script_RunLandingPaletteFade_ReadWordByteByte",
         "group": "presentation-render",

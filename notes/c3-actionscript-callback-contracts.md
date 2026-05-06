@@ -146,6 +146,9 @@ pilots:
   words passed to the mosaic fade-out transition helper.
 - `C0:AA23` -> `Script_StageMosaicWh0Mask_ReadThreeWords`: left-X, Y, and
   right-X words forwarded to the C4 WH0 mosaic/window-mask starter.
+- `C0:AA3F` -> `Script_SetVisualSetupBytesByMode`: fixed-color red, green,
+  and blue bytes loaded before the C4 color-math/fixed-color writer runs with
+  the caller-supplied mode selector.
 - `C0:AAB5` -> `Script_RunLandingPaletteFade_ReadWordByteByte`: a landing
   palette selector word, palette scale byte, and fade frame-count byte
   forwarded to the C4 landing/flyover palette fade driver.
