@@ -4221,29 +4221,29 @@ db $50,$77,$A9,$9F,$A2,$97,$51,$15,$03,$03,$18,$04,$02
 
 EF69A1_EBattle5MsgBtlHpMaxRecovered:
 
-; Original data gap before EF69BA_EBattle5MsgBtlHpRecoveredAmount:
+; Original data gap before EF69BA_EBattle5MsgBtlHpRecoveredActionAmount:
 db $01,$70,$1C,$0E,$15,$39,$78,$80,$17,$61,$00,$50,$17,$DF,$A8,$95
 db $94,$15,$93,$51,$1F,$02,$24,$03,$02
 
-EF69BA_EBattle5MsgBtlHpRecoveredAmount:
+EF69BA_EBattle5MsgBtlHpRecoveredActionAmount:
 
-; Original data gap before EF69D2_EBattle5MsgBtlPpRecoveredAmount:
+; Original data gap before EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
 db $01,$70,$1C,$0E,$50,$A2,$16,$88,$95,$94,$00,$50,$50,$1C,$0F,$50
 db $78,$80,$51,$1F,$02,$24,$03,$02
 
-EF69D2_EBattle5MsgBtlPpRecoveredAmount:
+EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
 
-; Original data gap before EF69EA_EBattle5MsgBtlCheckOffenseAmount:
+; Original data gap before EF69EA_EBattle5MsgBtlCheckOffenseActionAmount:
 db $01,$70,$1C,$0E,$50,$A2,$16,$88,$95,$94,$00,$50,$50,$1C,$0F,$50
 db $80,$80,$51,$1F,$02,$24,$03,$02
 
-EF69EA_EBattle5MsgBtlCheckOffenseAmount:
+EF69EA_EBattle5MsgBtlCheckOffenseActionAmount:
 
-; Original data gap before EF69FF_EBattle5MsgBtlCheckDefenseAmount:
+; Original data gap before EF69FF_EBattle5MsgBtlCheckDefenseActionAmount:
 db $01,$70,$1C,$0E,$57,$A3,$00,$50,$50,$7F,$96,$96,$17,$C7,$16,$46
 db $1C,$0F,$51,$03,$02
 
-EF69FF_EBattle5MsgBtlCheckDefenseAmount:
+EF69FF_EBattle5MsgBtlCheckDefenseActionAmount:
 
 ; Original data gap before EF6A0D_EBattle5MsgBtlCheckAntiFire:
 db $01,$70,$74,$95,$96,$17,$C7,$16,$46,$1C,$0F,$51,$03,$02
@@ -4914,35 +4914,35 @@ db $01,$02
 
 EF7593_EBattle4MsgBtlBalmonTalk:
 
-; Original data gap before EF75AB_EBattle4MsgBtlDamageAmount:
+; Original data gap before EF75AB_EBattle4MsgBtlDamageActionAmount:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$A3,$93,$A2,$91,$A4,$17,$97
 db $97,$16,$D9,$17,$29,$51,$03,$02
 
-EF75AB_EBattle4MsgBtlDamageAmount:
+EF75AB_EBattle4MsgBtlDamageActionAmount:
 
-; Original data gap before EF75C2_EBattle4MsgBtlMortalDamageAmount:
+; Original data gap before EF75C2_EBattle4MsgBtlMortalDamageActionAmount:
 db $01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75C2_EBattle4MsgBtlMortalDamageAmount:
+EF75C2_EBattle4MsgBtlMortalDamageActionAmount:
 
-; Original data gap before EF75D9_EBattle4MsgBtlSmashDamageAmount:
+; Original data gap before EF75D9_EBattle4MsgBtlSmashDamageActionAmount:
 db $01,$1F,$02,$1E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75D9_EBattle4MsgBtlSmashDamageAmount:
+EF75D9_EBattle4MsgBtlSmashDamageActionAmount:
 
-; Original data gap before EF75F0_EBattle4MsgBtlMortalSmashDamageAmount:
+; Original data gap before EF75F0_EBattle4MsgBtlMortalSmashDamageActionAmount:
 db $01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75F0_EBattle4MsgBtlMortalSmashDamageAmount:
+EF75F0_EBattle4MsgBtlMortalSmashDamageActionAmount:
 
-; Original data gap before EF7607_EBattle4MsgBtlDamageToDeathAmount:
+; Original data gap before EF7607_EBattle4MsgBtlDamageToDeathActionAmount:
 db $01,$1F,$02,$1E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF7607_EBattle4MsgBtlDamageToDeathAmount:
+EF7607_EBattle4MsgBtlDamageToDeathActionAmount:
 
 ; Original data gap before EF7624_EBattle4MsgBtlSmashPlayer:
 db $01,$1F,$02,$2F,$70,$1C,$0F,$50,$78,$80,$15,$4F,$9D,$9F,$A2,$A4
@@ -5015,17 +5015,17 @@ db $34,$03,$02
 
 EF7710_EBattle4MsgBtlHpSuckSelfDrain:
 
-; Original data gap before EF7729_EBattle4MsgBtlHpSuckAmount:
+; Original data gap before EF7729_EBattle4MsgBtlHpSuckActionAmount:
 db $01,$70,$1C,$0D,$50,$94,$A2,$16,$43,$15,$57,$08,$6E,$E6,$C7,$00
 db $50,$17,$F0,$50,$78,$80,$51,$03,$02
 
-EF7729_EBattle4MsgBtlHpSuckAmount:
+EF7729_EBattle4MsgBtlHpSuckActionAmount:
 
-; Original data gap before EF773F_EBattle4MsgBtlPpDrainAmount:
+; Original data gap before EF773F_EBattle4MsgBtlPpDrainActionAmount:
 db $01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F,$50,$78,$80,$00,$50,$15
 db $2B,$1C,$0E,$51,$03,$02
 
-EF773F_EBattle4MsgBtlPpDrainAmount:
+EF773F_EBattle4MsgBtlPpDrainActionAmount:
 
 ; Original data gap before EF7755_EBattle4MsgBtlPpDrainTarget:
 db $01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F,$50,$80,$80,$00,$50,$15
@@ -5317,21 +5317,21 @@ db $80,$50,$A7,$16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 EF7B64_EBattle8MsgBtlLearnPsi:
 
-; Original data gap before EF7B77_EBattle8ByteSubstitutionPsiNameText:
+; Original data gap before EF7B77_EBattle8PsiNameByteSubstitutionText:
 db $01,$1F,$02,$67,$70,$1C,$0E,$16,$C4,$9C,$99,$AA,$15,$4A,$16,$FE
 db $15,$86,$00
 
-EF7B77_EBattle8ByteSubstitutionPsiNameText:
+EF7B77_EBattle8PsiNameByteSubstitutionText:
 
 ; Original data gap before EF7B83_EBattle8PointerSubstitutionIntroState:
 db $19,$1F,$1B,$04,$50,$50,$1C,$12,$00,$5E,$14,$02
 
 EF7B83_EBattle8PointerSubstitutionIntroState:
 
-; Original data gap before EF7B85_EBattle8PointerSubstitutionSweetBranch:
+; Original data gap before EF7B85_EBattle8SweetPointerSubstitutionBranch:
 db $1B,$00
 
-EF7B85_EBattle8PointerSubstitutionSweetBranch:
+EF7B85_EBattle8SweetPointerSubstitutionBranch:
 
 ; Original data gap before EF7BA0_EBattle8PointerSubstitutionBranch2State:
 db $19,$1E,$18,$07,$14,$00,$00,$00,$00,$1B,$02,$9D,$7B,$EF,$00,$83
@@ -5339,10 +5339,10 @@ db $A7,$95,$95,$A4,$51,$00,$50,$50,$1B,$01,$02
 
 EF7BA0_EBattle8PointerSubstitutionBranch2State:
 
-; Original data gap before EF7BA2_EBattle8PointerSubstitutionTearsBranch:
+; Original data gap before EF7BA2_EBattle8TearsPointerSubstitutionBranch:
 db $1B,$00
 
-EF7BA2_EBattle8PointerSubstitutionTearsBranch:
+EF7BA2_EBattle8TearsPointerSubstitutionBranch:
 
 ; Original data gap before EF7BBF_EBattle8PointerSubstitutionBranch3State:
 db $19,$1E,$18,$07,$08,$00,$00,$00,$00,$1B,$02,$BC,$7B,$EF,$00,$84
@@ -5350,16 +5350,16 @@ db $15,$C6,$A2,$17,$5A,$A3,$51,$00,$50,$50,$1B,$01,$02
 
 EF7BBF_EBattle8PointerSubstitutionBranch3State:
 
-; Original data gap before EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
+; Original data gap before EF7BC1_EBattle8OhBabyPointerSubstitutionBranch:
 db $1B,$00
 
-EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
+EF7BC1_EBattle8OhBabyPointerSubstitutionBranch:
 
-; Original data gap before EF7BDF_EBattle8MsgBtlPresentByteSubstitution:
+; Original data gap before EF7BDF_EBattle8MsgBtlPresentItemByteSubstitutionText:
 db $19,$1E,$18,$07,$03,$00,$00,$00,$00,$1B,$02,$DC,$7B,$EF,$00,$7F
 db $98,$5C,$50,$92,$91,$92,$A9,$51,$00,$50,$50,$1B,$01,$02
 
-EF7BDF_EBattle8MsgBtlPresentByteSubstitution:
+EF7BDF_EBattle8MsgBtlPresentItemByteSubstitutionText:
 
 ; Original data gap before EF7C42_EBattle8PresentRecipientDeadText:
 db $01,$15,$7F,$15,$F3,$17,$EC,$96,$17,$0D,$16,$AF,$15,$9E,$51,$14
@@ -5432,11 +5432,11 @@ db $1D,$0E,$00,$00,$1F,$02,$74,$10,$01,$03,$02
 
 EF7DBE_EBattle8PresentDropForbiddenText:
 
-; Original data gap before EF7DD5_EBattle8MsgBtlCheckPresentGetByteSubstitution:
+; Original data gap before EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
 db $17,$94,$15,$81,$A4,$98,$17,$5B,$15,$18,$1C,$05,$00,$50,$16,$C9
 db $5E,$14,$0A,$0F,$7D,$EF,$00
 
-EF7DD5_EBattle8MsgBtlCheckPresentGetByteSubstitution:
+EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
 
 ; Original data gap before EF7E25_EBattle2MsgBtlPpDown:
 db $01,$70,$1C,$0D,$17,$CA,$A7,$00,$50,$15,$BC,$16,$AF,$16,$32,$92
@@ -7266,19 +7266,19 @@ db $91,$93,$95,$18,$05,$19,$06,$2F,$7F,$7B,$02
 
 EFA6A7_NameInputWindowSelectionLayout5:
 
-; Original data gap before EFA6EB_TextUnknown7EndBlockPayload:
+; Original data gap before EFA6EB_TextUnknown7EndBlockSentinel:
 db $18,$05,$00,$04,$2F,$73,$71,$80,$79,$84,$71,$7C,$18,$05,$07,$04
 db $2F,$A3,$9D,$91,$9C,$9C,$18,$05,$11,$06,$2F,$72,$91,$93,$9B,$A3
 db $A0,$91,$93,$95,$18,$05,$19,$06,$2F,$7F,$7B,$02,$60,$A4,$EF,$00
 db $E3,$A4,$EF,$00,$66,$A5,$EF,$00,$E9,$A5,$EF,$00,$6C,$A6,$EF,$00
 db $A7,$A6,$EF,$00
 
-EFA6EB_TextUnknown7EndBlockPayload:
+EFA6EB_TextUnknown7EndBlockSentinel:
 
-; Original data gap before EFA6EC_TextDebugUnknownMenu2:
+; Original data gap before EFA6EC_TextDebugMenuRuntimePayload:
 db $02
 
-EFA6EC_TextDebugUnknownMenu2:
+EFA6EC_TextDebugMenuRuntimePayload:
 
 ; Original data gap before EFC51B_EfTextPayloadDataEnd:
 db $18,$04,$1F,$15,$6A,$00,$63,$01,$01,$10,$01,$1F,$EF,$6A,$00,$1F

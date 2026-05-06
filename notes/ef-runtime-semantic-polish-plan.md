@@ -191,3 +191,9 @@ This planning pass does not split EF source corridors or regenerate the bank.
   debug cursor spritemap pointer/entries, and residual bank padding.
 - 2026-05-05: EF debug font-palette follow-up split `EF:EF70..EFB7` into the
   unknown `EFEF70` include and the `DEBUG_FONT_PALETTE` payload.
+- 2026-05-06: EF battle-text payload naming follow-up tightened the source
+  anchor suffixes for C1/C2 consumer joins: `ActionAmount` for
+  `C1:DC66`/`$9D12/$9D14`/`1C 0F` scripts, `ByteSubstitution` for
+  `C1:DD7C`/`$9D11`/`19 1F` scripts, and `PointerSubstitution` for `19 1E`
+  branches. This was an EF-only label/comment pass over ROM-preserved text
+  bytes.

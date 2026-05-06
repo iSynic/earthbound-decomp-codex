@@ -158,6 +158,12 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:6F1E`, sunstroke cured `EF:6F38`, asleep recovered `EF:6F54`, and
   PSI-seal recovered `EF:6F64`, plus adjacent collapse/death/revive result
   payloads in `EF:6C6B..6F9A`.
+- 2026-05-06: EF source-only naming follow-up tightened the payload anchor
+  suffixes used by C1/C2 joins. `ActionAmount` now names EF scripts that
+  consume `C1:DC66` secondary payloads through `$9D12/$9D14 -> 1C 0F`;
+  `ByteSubstitution` names `C1:DD7C -> $9D11 -> 19 1F` consumers; and
+  `PointerSubstitution` names the `19 1E` payload branches. No C2 source was
+  edited in this pass.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
@@ -473,6 +479,15 @@ These are the “contracts-first” names that should influence C2 source promot
   - acceptable narrower alias when used with `1C 0F`: `DisplayBattleTextWithActionAmount`
 - `C1:DD9F` → `DisplayCurrentActionTableTextMode1` (action-table message, mode `1`)
 - `C1:DD7C` / `C1:ACF8` → `SetBattleTextByteSubstitution` (set `$9D11`)
+
+EF payload anchor suffixes should mirror those wrapper contracts:
+
+- `ActionAmount`: EF script consumes the `C1:DC66` secondary payload through
+  `PRINT_ACTION_AMOUNT (1C 0F)`.
+- `ByteSubstitution`: EF script consumes the `C1:DD7C` byte slot through
+  `LOAD_BYTE_SUBSTITUTION (19 1F)`.
+- `PointerSubstitution`: EF script consumes the staged pointer payload through
+  `LOAD_POINTER_SUBSTITUTION (19 1E)`.
 
 And for the most actionable C2 call-site families:
 

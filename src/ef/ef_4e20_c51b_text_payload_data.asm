@@ -15,6 +15,14 @@
 ; Coarse text payload run. Interior labels below are zero-byte anchors used by
 ; the source-bank scaffold to split ROM-preserved text data around proved
 ; runtime joins and exact listing-visible payload boundaries.
+;
+; Naming convention for C1/C2 battle-text consumers:
+; - ActionAmount anchors consume the C1:DC66 secondary payload through
+;   C1:AD0A -> $9D12/$9D14 -> PRINT_ACTION_AMOUNT (1C 0F).
+; - ByteSubstitution anchors consume the C1:DD7C byte slot through
+;   LOAD_BYTE_SUBSTITUTION (19 1F).
+; - PointerSubstitution anchors consume the staged pointer payload through
+;   LOAD_POINTER_SUBSTITUTION (19 1E).
 ; PSI explanation payload text: `MSG_EXPL_PSI_HISSATSU_ALFA`.
 EF4E20_EExplPsiMsgExplPsiHissatsuAlfa:
 
@@ -627,26 +635,26 @@ EF69A1_EBattle5MsgBtlHpMaxRecovered:
 ; ---------------------------------------------------------------------------
 ; EF:69BA
 
-; EBATTLE5: amount-bearing HP recovery text, consumed through C1:DC66/1C 0F.
-EF69BA_EBattle5MsgBtlHpRecoveredAmount:
+; EBATTLE5: HP recovery text; C2 stages delta HP through C1:DC66/1C 0F.
+EF69BA_EBattle5MsgBtlHpRecoveredActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:69D2
 
-; EBATTLE5: amount-bearing PP recovery text, consumed through C1:DC66/1C 0F.
-EF69D2_EBattle5MsgBtlPpRecoveredAmount:
+; EBATTLE5: PP recovery text; C2 stages delta PP through C1:DC66/1C 0F.
+EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:69EA
 
-; EBATTLE5: Spy offense readout text, consumed through C1:DC66/1C 0F.
-EF69EA_EBattle5MsgBtlCheckOffenseAmount:
+; EBATTLE5: Spy offense readout text; C2 stages offense through C1:DC66/1C 0F.
+EF69EA_EBattle5MsgBtlCheckOffenseActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:69FF
 
-; EBATTLE5: Spy defense readout text, consumed through C1:DC66/1C 0F.
-EF69FF_EBattle5MsgBtlCheckDefenseAmount:
+; EBATTLE5: Spy defense readout text; C2 stages defense through C1:DC66/1C 0F.
+EF69FF_EBattle5MsgBtlCheckDefenseActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A0D
@@ -1293,32 +1301,32 @@ EF7593_EBattle4MsgBtlBalmonTalk:
 ; ---------------------------------------------------------------------------
 ; EF:75AB
 
-; EBATTLE4: ordinary amount-bearing damage text, consumed through C1:DC66/1C 0F.
-EF75AB_EBattle4MsgBtlDamageAmount:
+; EBATTLE4: ordinary damage text; C2 stages HP damage through C1:DC66/1C 0F.
+EF75AB_EBattle4MsgBtlDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:75C2
 
-; EBATTLE4: mortal amount-bearing damage text, consumed through C1:DC66/1C 0F.
-EF75C2_EBattle4MsgBtlMortalDamageAmount:
+; EBATTLE4: mortal damage text; C2 stages HP damage through C1:DC66/1C 0F.
+EF75C2_EBattle4MsgBtlMortalDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:75D9
 
-; EBATTLE4: SMAAAASH amount-bearing damage text, consumed through C1:DC66/1C 0F.
-EF75D9_EBattle4MsgBtlSmashDamageAmount:
+; EBATTLE4: SMAAAASH damage text; C2 stages HP damage through C1:DC66/1C 0F.
+EF75D9_EBattle4MsgBtlSmashDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:75F0
 
-; EBATTLE4: mortal SMAAAASH amount-bearing damage text.
-EF75F0_EBattle4MsgBtlMortalSmashDamageAmount:
+; EBATTLE4: mortal SMAAAASH damage text; C2 stages HP damage through C1:DC66/1C 0F.
+EF75F0_EBattle4MsgBtlMortalSmashDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7607
 
-; EBATTLE4: amount-bearing mortal damage-to-death text.
-EF7607_EBattle4MsgBtlDamageToDeathAmount:
+; EBATTLE4: mortal damage-to-death text; C2 stages HP damage through C1:DC66/1C 0F.
+EF7607_EBattle4MsgBtlDamageToDeathActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7624
@@ -1395,14 +1403,14 @@ EF7710_EBattle4MsgBtlHpSuckSelfDrain:
 ; ---------------------------------------------------------------------------
 ; EF:7729
 
-; EBATTLE4: amount-bearing HP-sucker drain text, consumed through C1:DC66/1C 0F.
-EF7729_EBattle4MsgBtlHpSuckAmount:
+; EBATTLE4: HP-sucker drain text; C2 stages drained HP through C1:DC66/1C 0F.
+EF7729_EBattle4MsgBtlHpSuckActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:773F
 
-; EBATTLE4: amount-bearing PP drain text, consumed through C1:DC66/1C 0F.
-EF773F_EBattle4MsgBtlPpDrainAmount:
+; EBATTLE4: PP drain text; C2 stages drained PP through C1:DC66/1C 0F.
+EF773F_EBattle4MsgBtlPpDrainActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7755
@@ -1707,8 +1715,8 @@ EF7B64_EBattle8MsgBtlLearnPsi:
 ; ---------------------------------------------------------------------------
 ; EF:7B77
 
-; EBATTLE8: byte-substitution PSI-name text.
-EF7B77_EBattle8ByteSubstitutionPsiNameText:
+; EBATTLE8: PSI-name text; consumes C1:DD7C byte slot through 19 1F.
+EF7B77_EBattle8PsiNameByteSubstitutionText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B83
@@ -1719,8 +1727,8 @@ EF7B83_EBattle8PointerSubstitutionIntroState:
 ; ---------------------------------------------------------------------------
 ; EF:7B85
 
-; EBATTLE8: pointer-substitution "Sweet!" branch, consumed through 19 1E.
-EF7B85_EBattle8PointerSubstitutionSweetBranch:
+; EBATTLE8: "Sweet!" branch; consumes staged pointer payload through 19 1E.
+EF7B85_EBattle8SweetPointerSubstitutionBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7BA0
@@ -1731,8 +1739,8 @@ EF7BA0_EBattle8PointerSubstitutionBranch2State:
 ; ---------------------------------------------------------------------------
 ; EF:7BA2
 
-; EBATTLE8: pointer-substitution tears branch, consumed through 19 1E.
-EF7BA2_EBattle8PointerSubstitutionTearsBranch:
+; EBATTLE8: tears branch; consumes staged pointer payload through 19 1E.
+EF7BA2_EBattle8TearsPointerSubstitutionBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7BBF
@@ -1743,14 +1751,14 @@ EF7BBF_EBattle8PointerSubstitutionBranch3State:
 ; ---------------------------------------------------------------------------
 ; EF:7BC1
 
-; EBATTLE8: pointer-substitution "Oh, baby!" branch, consumed through 19 1E.
-EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
+; EBATTLE8: "Oh, baby!" branch; consumes staged pointer payload through 19 1E.
+EF7BC1_EBattle8OhBabyPointerSubstitutionBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7BDF
 
-; EBATTLE8: present item byte-substitution text, consumed through 19 1F.
-EF7BDF_EBattle8MsgBtlPresentByteSubstitution:
+; EBATTLE8: present item text; consumes C1:DD7C item byte through 19 1F.
+EF7BDF_EBattle8MsgBtlPresentItemByteSubstitutionText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7C42
@@ -1809,8 +1817,8 @@ EF7DBE_EBattle8PresentDropForbiddenText:
 ; ---------------------------------------------------------------------------
 ; EF:7DD5
 
-; EBATTLE8: check-present-get byte-substitution text, consumed through 19 1F.
-EF7DD5_EBattle8MsgBtlCheckPresentGetByteSubstitution:
+; EBATTLE8: check-present-get text; consumes C1:DD7C item byte through 19 1F.
+EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7E25
@@ -3429,14 +3437,14 @@ EFA6A7_NameInputWindowSelectionLayout5:
 ; ---------------------------------------------------------------------------
 ; EF:A6EB
 
-; UNKNOWN7: one-byte end-block payload.
-EFA6EB_TextUnknown7EndBlockPayload:
+; UNKNOWN7: one-byte end-block sentinel separating keyboard data from debug text.
+EFA6EB_TextUnknown7EndBlockSentinel:
 
 ; ---------------------------------------------------------------------------
 ; EF:A6EC
 
-; UNKNOWN7: debug/menu runtime script payload.
-EFA6EC_TextDebugUnknownMenu2:
+; UNKNOWN7: debug/menu runtime text script payload after the end-block sentinel.
+EFA6EC_TextDebugMenuRuntimePayload:
 
 ; ---------------------------------------------------------------------------
 ; EF:C51B

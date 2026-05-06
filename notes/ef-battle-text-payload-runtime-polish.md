@@ -14,16 +14,35 @@ new labels are zero-byte scaffold anchors that split the coarse
 `EF:4E20..C51B` data gap around battle-text scripts already proved by C1/C2
 callers.
 
+## Payload Naming Contract
+
+The EF source comments now separate the three battle-text payload lanes that
+C1/C2 callers depend on:
+
+- `ActionAmount` anchors are EF scripts that consume the `C1:DC66` secondary
+  payload through `C1:AD0A -> $9D12/$9D14 -> PRINT_ACTION_AMOUNT (1C 0F)`.
+  The C2 side should keep the staged value type explicit, such as delta HP,
+  delta PP, offense, defense, drained HP, or drained PP.
+- `ByteSubstitution` anchors are EF scripts that consume the `C1:DD7C` byte
+  slot through `LOAD_BYTE_SUBSTITUTION (19 1F)`, including learned-PSI and
+  Present/Check Present item-name text.
+- `PointerSubstitution` anchors are EF branches that consume the staged pointer
+  payload through `LOAD_POINTER_SUBSTITUTION (19 1E)`.
+
+These are label/comment-only source anchors over ROM-preserved EB text
+bytecode. They do not change payload bytes or convert the scripts to text
+macros.
+
 ## Promoted Payload Anchors
 
 - `EF:4E20..69A1` now splits the front text-payload corridor into the
   `EEXPLPSI` PSI explanation scripts, the `E16DKFD` Dungeon Man/Deep Darkness
   payloads, and the `E07GPFT` Grapefruit Falls/Threed payloads before EBATTLE5.
 - `EF:69A1`, `EF:69BA`, and `EF:69D2` now mark HP maxed, HP recovered amount,
-  and PP recovered amount text. The two amount scripts are consumed through
-  `C1:DC66 -> C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
+  and PP recovered amount text. The two `ActionAmount` scripts are consumed
+  through `C1:DC66 -> C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
 - `EF:69EA` and `EF:69FF` now mark the Spy offense and defense amount
-  readouts. Both scripts are `1C 0F` amount consumers reached through the C2
+  readouts. Both scripts are `ActionAmount` consumers reached through the C2
   Spy setup and the `C1:DC66` amount-print contract.
 - `EF:6A0D`, `EF:6A24`, `EF:6A3C`, `EF:6A54`, `EF:6A6C`, and `EF:6A7F`
   now mark the Spy vulnerability/susceptibility direct readout text for fire,
@@ -66,8 +85,8 @@ callers.
   Runaway Five, Poo/Starstorm, Pokey, and companion event text before the
   central damage block.
 - `EF:75AB`, `EF:75C2`, `EF:75D9`, `EF:75F0`, and `EF:7607` now mark the
-  amount-bearing damage and SMAAAASH damage scripts selected by the C2
-  hit-resolution cluster. These are `1C 0F` amount consumers.
+  `ActionAmount` damage and SMAAAASH damage scripts selected by the C2
+  hit-resolution cluster. These consume staged HP damage through `1C 0F`.
 - `EF:7624`, `EF:7630`, `EF:763C`, and `EF:7655` now mark the player/monster
   SMAAAASH presentation scripts and shooting/physical dodge scripts used by the
   same C2 hit-resolution lane.
@@ -76,7 +95,7 @@ callers.
   consumer.
 - `EF:76B3`, `EF:76C7`, `EF:76D8`, `EF:76FD`, `EF:7710`, and `EF:7729`
   now split the adjacent EBATTLE4 no-effect/miss/target-gone/HP-sucker text
-  tail. `EF:7729` is an HP-sucker `1C 0F` amount consumer.
+  tail. `EF:7729` is an HP-sucker `ActionAmount` consumer.
 - `EF:7755`, `EF:7768`, `EF:7787`, `EF:77B1`, and `EF:77DB` now split the
   target-side PP drain and periodic status damage text before EBATTLE8.
 - `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830` now mark the four
@@ -98,7 +117,7 @@ callers.
   existing `EF:7B77` PSI-name byte-substitution text.
 - `EF:7B77`, `EF:7B85`, `EF:7BA2`, `EF:7BC1`, `EF:7BDF`, and `EF:7DD5` now
   mark the byte and pointer substitution examples in `EBATTLE8`: `19 1F` byte
-  substitution for present item names and `19 1E` pointer substitution branches.
+  substitution for PSI/item names and `19 1E` pointer substitution branches.
 - `EF:7C42`, `EF:7C73`, `EF:7C89`, `EF:7CB4`, `EF:7CED`, `EF:7CF8`,
   `EF:7D0F`, `EF:7D83`, and `EF:7DBE` now split the `MSG_BTL_PRESENT`
   result continuation into dead-recipient, full-inventory, abandon, drop, and
@@ -307,11 +326,17 @@ sound-menu option/version strings before the late debug/menu code begins.
 
 ## Validation
 
-This slice should validate both touched banks:
+For an EF-only label/comment pass, validate the EF scaffold and byte
+equivalence:
 
 ```powershell
 python tools\build_source_bank_scaffold.py --bank EF
 python tools\validate_source_bank_byte_equivalence.py --bank EF --module all --combined --scaffold src\ef\bank_ef_helpers_asar.asm --strict
+```
+
+If a follow-up also edits C2 consumers, validate C2 as well:
+
+```powershell
 python tools\build_source_bank_scaffold.py --bank C2
 python tools\validate_source_bank_byte_equivalence.py --bank C2 --module all --combined --scaffold src\c2\bank_c2_helpers_asar.asm --strict
 ```
