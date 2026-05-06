@@ -27,14 +27,14 @@ The stronger local model is:
 - `C2:9AD8` = passes `0x2710`
 - `C2:9AE1` = passes `0x0190`
 
-Those values are then routed through `C2:6AFD` and handed to `C2:7294`, which behaves like a battler HP-target recovery helper with the usual consciousness and collapse-side guards.
+Those values are then routed through `C2:6AFD` / `ApplyTwentyFivePercentVariance` and handed to `C2:7294`, which behaves like a battler HP-target recovery helper with the usual consciousness and collapse-side guards.
 
 ## Why `C2:9AB8` is a healing helper
 
 The body is compact and consistent:
 
 - incoming `A` is copied to `X`
-- `C2:6AFD` converts that fixed literal into the effective amount
+- `C2:6AFD` / `ApplyTwentyFivePercentVariance` converts that fixed literal into the effective amount
 - the current target row base from `$A972` is loaded into `A`
 - `C2:7294` is called with the target row plus the computed amount
 
@@ -104,7 +104,6 @@ The safest current interpretation is:
 
 Still open:
 
-- the exact role of `C2:6AFD` in shaping the incoming literal before the heal is applied
 - whether the later non-PSI reuses should be split into a distinct item-healing subfamily note later
 - the exact role of the fuel-supply flavored full-heal reuse at entry `99` inside the broader enemy-action taxonomy
 
@@ -119,4 +118,3 @@ The safest current takeaway is:
 ## Best next target
 
 The best next move is to identify the later non-PSI reuses of `9AC6 / 9AD8 / 9AE1`, especially entry `99`, so the shared healing core can be cleanly split into PSI-side and item-or-other-side presentation families.
-

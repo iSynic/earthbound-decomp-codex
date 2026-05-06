@@ -716,6 +716,7 @@ C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D = C26A2D_GetRandomBelow
     jsr.w TRUNCATE_16_TO_8
     pld
     rts
+C26A44_RollRandomAmount:
     rep #$31
     phd
     pha
@@ -828,6 +829,7 @@ C26AF9_RunMagicButterflyPpRestoreAnimation_L6AF9:
     lda $04
     pld
     rts
+C26AFD_ApplyTwentyFivePercentVariance:
     rep #$31
     phd
     pha

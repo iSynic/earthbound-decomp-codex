@@ -21,9 +21,10 @@ message constants without changing runtime bytes.
 - C2 helper ABIs:
   - `C2:3D05` target text-context rebuild.
   - `C2:69F8`, `C2:698B`, `C2:69BE`, `C2:6AFD`, `C2:6BB8`, and
-    `C2:6BDB` as shared math/probability helper joins. `C2:6BB8` is now
-    called by its generic action chance-gate role:
-    `RollActionChanceGate`.
+    `C2:6BDB` as shared math/probability helper joins. `C2:6AFD` is now
+    called by its amount-shaping role:
+    `ApplyTwentyFivePercentVariance`. `C2:6BB8` is now called by its generic
+    action chance-gate role: `RollActionChanceGate`.
   - `C2:6EF8` as the mask-set first-match finder used when the reflected or
     retargeted hit path needs to select a surviving target from the current
     working mask.

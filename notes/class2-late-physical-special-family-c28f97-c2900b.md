@@ -73,7 +73,7 @@ The quarantined reference file `bash_twice.asm` is an exact structural match, so
 
 The body:
 
-- seeds literal `0x015E` (`350`) into `C2:6AFD`
+- seeds literal `0x015E` (`350`) into `C2:6AFD` / `ApplyTwentyFivePercentVariance`
 - stores the resulting amount in local DP state
 - reads current target row byte `+0x3A`
 - uses that byte as the index argument for `C2:8125` /

@@ -15,6 +15,7 @@ C08FF7_ResolveIndexedPointerOffset     = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer    = $C1DC1C
 C1DD59_WaitForBattleText               = $C1DD59
 C23D05_BuildBattleTargetTextContext    = $C23D05
+C26A44_RollRandomAmount                = $6A44
 C2F917_BuildBattleSpriteRowRenderOrder = $C2F917
 
 ; ---------------------------------------------------------------------------
@@ -92,7 +93,7 @@ C24FE1_DisplayBattleStartStatusMessagesPrelude_L4FE1:
     adc.w #$0046
     sta $02
     lda $002A,Y
-    jsr $6A44
+    jsr C26A44_RollRandomAmount
     ldx $02
     sta $0000,X
     cmp.w #$0000

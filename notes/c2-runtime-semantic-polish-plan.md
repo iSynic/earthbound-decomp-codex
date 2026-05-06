@@ -550,6 +550,17 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-steal-and-target-selection-helpers-c241dc-c24434.md`,
   `notes/c2-item-bomb-runtime-polish.md`, and
   `notes/c2-late-normalization-odor-runtime-polish.md`.
+- 2026-05-06 seventy-sixth slice: split the adjacent amount-shaping helper
+  vocabulary after the bounded-random pass. `C2:6A44` now has a source-body
+  label and caller vocabulary as `RollRandomAmount`, while `C2:6AFD` is
+  normalized across damage, healing, PP recovery, stat recovery, bottle-rocket,
+  Final Prayer, and battle consequence callers as
+  `ApplyTwentyFivePercentVariance`. The pass also named the HP/PP recovery
+  feedback joins in the `B342/B360` consequence leaves so the shaped amount
+  handoff is visible end to end. See `notes/c2-psi-common-runtime-polish.md`,
+  `notes/c2-lifeup-healing-runtime-polish.md`,
+  `notes/c2-stat-consequence-runtime-polish.md`, and
+  `notes/c2-item-bomb-runtime-polish.md`.
 
 ## Validation
 

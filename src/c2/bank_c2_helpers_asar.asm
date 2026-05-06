@@ -5754,7 +5754,7 @@ REDIRECT_BTLACT_NULL:
 hirom
 org $C2900B
 
-!C26AFD_RollDamageAmount = $6AFD
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C28125_ApplyDamageToSelectedTarget = $8125
 BTLACT_350_FIRE_DAMAGE:
 !C2900B_RunFireDamageActionWrapper = BTLACT_350_FIRE_DAMAGE
@@ -5764,7 +5764,7 @@ BTLACT_350_FIRE_DAMAGE:
     adc.w #$FFF0
     tcd
     lda.w #$015E
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     sta $0E
     ldx $A972
     lda $003A,X
@@ -6224,7 +6224,7 @@ C292E9_RunRunawayFiveClumsyRobotSpecialEvent_L92E9:
 hirom
 org $C292EE
 
-!C26AFD_RollDamageAmount = $6AFD
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DD3B_RefreshBattlePresentationForSelectedRow = $C1DD3B
@@ -6351,7 +6351,7 @@ C293BA_RunMasterBarfPooStarstormSpecialEvent_L93BA:
     sta $A972
     jsl FIX_TARGET_NAME
     lda.w #$0168
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr $7EAF
@@ -6617,7 +6617,7 @@ C29554_RunPsiRockinCommon_L9554:
 hirom
 org $C2957A
 
-!C26AFD_RollDamageAmount = $6AFD
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C28125_ApplyDamageToSelectedTarget = $8125
 !C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 !C294CE_TickSelectedBattlerTimedSubstateCleanup = $94CE
@@ -6637,7 +6637,7 @@ PSI_FIRE_COMMON:
     bne C295A9_RunPsiFireCommon_L95A9
     ldx $0E
     txa
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     sta $0E
     ldx $A972
     lda $003A,X
@@ -6675,7 +6675,7 @@ hirom
 org $C295CF
 
 !C26A2D_GetRandomBelow = $6A2D
-!C26AFD_RollDamageAmount = $6AFD
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C28125_ApplyDamageToSelectedTarget = $8125
@@ -6701,7 +6701,7 @@ PSI_FREEZE_COMMON:
     bne C29645_RunPsiFreezeCommon_L9645
     ldx $14
     txa
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     sta $12
     ldx $A972
     lda $0038,X
@@ -7413,7 +7413,7 @@ C29A7F_RunPsiFlashOmegaAction_L9A7F:
 hirom
 org $C29A80
 
-!C26AFD_RollDamageAmount = $6AFD
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C28125_ApplyDamageToSelectedTarget = $8125
 !C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 !C294CE_TickSelectedBattlerTimedSubstateCleanup = $94CE
@@ -7433,7 +7433,7 @@ PSI_STARSTORM_COMMON:
     bne C29AA4_RunPsiStarstormCommon_L9AA4
     ldx $0E
     txa
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     ldx.w #$00FF
     jsr !C28125_ApplyDamageToSelectedTarget
     jsr WEAKEN_SHIELD
@@ -7461,13 +7461,13 @@ BTLACT_PSI_STARSTORM_O:
 hirom
 org $C29AB8
 
-!C26AFD_RollDamageAmount = $6AFD
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C27294_ApplyBattlerHpRecoveryFeedback = $7294
 LIFEUP_COMMON:
 !C29AB8_RunFixedAmountHealingCommon = LIFEUP_COMMON
     rep #$31
     tax
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -8331,7 +8331,7 @@ hirom
 org $C2A056
 
 !C26A2D_GetRandomBelow = $6A2D
-!C26AFD_RollDamageAmount = $6AFD
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C26BB8_RollActionChanceGate = $6BB8
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27294_ApplyBattlerHpRecoveryFeedback = $7294
@@ -8413,7 +8413,7 @@ BTLACT_HP_RECOVERY_50:
 !C2A0BF_RunHpRecovery50Action = BTLACT_HP_RECOVERY_50
     rep #$31
     lda.w #$0032
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -8422,7 +8422,7 @@ BTLACT_HP_RECOVERY_200:
 !C2A0CF_RunHpRecovery200Action = BTLACT_HP_RECOVERY_200
     rep #$31
     lda.w #$00C8
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -8431,7 +8431,7 @@ BTLACT_PP_RECOVERY_20:
 !C2A0DF_RunPpRecovery20Action = BTLACT_PP_RECOVERY_20
     rep #$31
     lda.w #$0014
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_PP
@@ -8440,7 +8440,7 @@ BTLACT_PP_RECOVERY_80:
 !C2A0EF_RunPpRecovery80Action = BTLACT_PP_RECOVERY_80
     rep #$31
     lda.w #$0050
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_PP
@@ -8643,7 +8643,7 @@ BTLACT_HP_RECOVERY_300:
 !C2A26F_RunHpRecovery300Action = BTLACT_HP_RECOVERY_300
     rep #$31
     lda.w #$012C
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -8765,7 +8765,7 @@ BTLACT_HP_RECOVERY_10:
 !C2A360_RunHpRecovery10Action = BTLACT_HP_RECOVERY_10
     rep #$31
     lda.w #$000A
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -8774,7 +8774,7 @@ BTLACT_HP_RECOVERY_100:
 !C2A370_RunHpRecovery100Action = BTLACT_HP_RECOVERY_100
     rep #$31
     lda.w #$0064
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -15539,6 +15539,7 @@ RAND_LIMIT:
     jsr.w TRUNCATE_16_TO_8
     pld
     rts
+C26A44_RollRandomAmount:
     rep #$31
     phd
     pha
@@ -15651,6 +15652,7 @@ C26AF9_RunMagicButterflyPpRestoreAnimation_L6AF9:
     lda $04
     pld
     rts
+C26AFD_ApplyTwentyFivePercentVariance:
     rep #$31
     phd
     pha
@@ -19442,6 +19444,7 @@ org $C2A3D1
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+!C26A44_RollRandomAmount = $6A44
 !C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27C96_RollSelectedRowThresholdGate = $7C96
@@ -19568,7 +19571,7 @@ C2A47E_RunItemSideConcentrationSealAction_LA47E:
 C2A49E_RunItemSideConcentrationSealAction_LA49E:
     ldx $A972
     lda !BattlerMaxHpWord,X
-    jsr $6A44
+    jsr !C26A44_RollRandomAmount
     lsr A
     lsr A
     lsr A
@@ -21382,6 +21385,8 @@ C20B63_RestoreManagedTextEventSlotState_L0B63:
 hirom
 org $C2B342
 
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
+!C27294_ApplyBattlerHpRecoveryFeedback = $7294
 C2B342_ApplyBattleHpRecoveryConsequence:
     cpy.w #$0000
     beq C2B354_ApplyBattleHpRecoveryConsequence_LB354
@@ -21390,14 +21395,14 @@ C2B342_ApplyBattleHpRecoveryConsequence:
     asl A
     adc $04
     asl A
-    jsr $6AFD
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     bra C2B357_ApplyBattleHpRecoveryConsequence_LB357
 C2B354_ApplyBattleHpRecoveryConsequence_LB354:
     ldx.w #$7530
 C2B357_ApplyBattleHpRecoveryConsequence_LB357:
     lda $A972
-    jsr $7294
+    jsr !C27294_ApplyBattlerHpRecoveryFeedback
     jmp $B5E3
 
 
@@ -21409,18 +21414,21 @@ hirom
 org $C2B360
 
 !C26A2D_GetRandomBelow = $6A2D
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
+!C27294_ApplyBattlerHpRecoveryFeedback = $7294
+!C27318_ApplyBattlerPpRecoveryFeedback = $7318
 C2B360_ApplyBattlePpRecoveryConsequence:
     cpy.w #$0000
     beq C2B36C_ApplyBattlePpRecoveryConsequence_LB36C
     tya
-    jsr $6AFD
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     bra C2B36F_ApplyBattlePpRecoveryConsequence_LB36F
 C2B36C_ApplyBattlePpRecoveryConsequence_LB36C:
     ldx.w #$7530
 C2B36F_ApplyBattlePpRecoveryConsequence_LB36F:
     lda $A972
-    jsr $7318
+    jsr !C27318_ApplyBattlerPpRecoveryFeedback
     jmp $B5E3
     cpy.w #$0000
     beq C2B38A_ApplyBattlePpRecoveryConsequence_LB38A
@@ -21429,25 +21437,25 @@ C2B36F_ApplyBattlePpRecoveryConsequence_LB36F:
     asl A
     adc $04
     asl A
-    jsr $6AFD
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     bra C2B38D_ApplyBattlePpRecoveryConsequence_LB38D
 C2B38A_ApplyBattlePpRecoveryConsequence_LB38A:
     ldx.w #$7530
 C2B38D_ApplyBattlePpRecoveryConsequence_LB38D:
     lda $A972
-    jsr $7294
+    jsr !C27294_ApplyBattlerHpRecoveryFeedback
     ldy $16
     beq C2B39E_ApplyBattlePpRecoveryConsequence_LB39E
     tya
-    jsr $6AFD
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     bra C2B3A1_ApplyBattlePpRecoveryConsequence_LB3A1
 C2B39E_ApplyBattlePpRecoveryConsequence_LB39E:
     ldx.w #$7530
 C2B3A1_ApplyBattlePpRecoveryConsequence_LB3A1:
     lda $A972
-    jsr $7318
+    jsr !C27318_ApplyBattlerPpRecoveryFeedback
     jmp $B5E3
     lda.w #$0004
     jsr !C26A2D_GetRandomBelow
@@ -21809,7 +21817,7 @@ org $C2C3E2
 
 !C23D05_BuildBattleTargetTextContext = $C23D05
 !C269BE_WaitFrames = $69BE
-!C26AFD_RollDamageAmount = $6AFD
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C28125_ApplyDamageToSelectedTarget = $8125
 GIYGAS_HURT_PRAYER:
 !C2C3E2_ApplyFinalPrayerDamageStep = GIYGAS_HURT_PRAYER
@@ -21833,7 +21841,7 @@ GIYGAS_HURT_PRAYER:
     sta $AA8E
     ldx $0E
     txa
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     ldx.w #$00FF
     jsr !C28125_ApplyDamageToSelectedTarget
     lda.w #$003C
@@ -27640,6 +27648,7 @@ org $C24F52
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DD59_WaitForBattleText = $C1DD59
 !C23D05_BuildBattleTargetTextContext = $C23D05
+!C26A44_RollRandomAmount = $6A44
 !C2F917_BuildBattleSpriteRowRenderOrder = $C2F917
 C24F52_DisplayBattleStartStatusMessagesPrelude:
     bra C24FBC_DisplayBattleStartStatusMessagesPrelude_L4FBC
@@ -27713,7 +27722,7 @@ C24FE1_DisplayBattleStartStatusMessagesPrelude_L4FE1:
     adc.w #$0046
     sta $02
     lda $002A,Y
-    jsr $6A44
+    jsr !C26A44_RollRandomAmount
     ldx $02
     sta $0000,X
     cmp.w #$0000
@@ -27750,6 +27759,7 @@ org $C25024
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C1DD7C_SetBattleTextByteSubstitution = $C1DD7C
 !C26A2D_GetRandomBelow = $6A2D
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !D57B68_BattleActionTable = $D57B68
 !D57B68_BattleActionTableLo = $7B68
 !D57B68_BattleActionTableBank = $00D5
@@ -28808,7 +28818,7 @@ C258BF_RunBattleStartCandidateControllerFront_L58BF:
     jmp.w C2598B_RunBattleStartCandidateControllerFront_L598B
 C258F5_RunBattleStartCandidateControllerFront_L58F5:
     lda.w #$0014
-    jsr $6AFD
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     stx $2F
     lda.w #$7768
@@ -28826,7 +28836,7 @@ C258F5_RunBattleStartCandidateControllerFront_L58F5:
     bra C2598B_RunBattleStartCandidateControllerFront_L598B
 C2591B_RunBattleStartCandidateControllerFront_L591B:
     lda.w #$0014
-    jsr $6AFD
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     stx $2F
     lda.w #$7787
@@ -28844,7 +28854,7 @@ C2591B_RunBattleStartCandidateControllerFront_L591B:
     bra C2598B_RunBattleStartCandidateControllerFront_L598B
 C25941_RunBattleStartCandidateControllerFront_L5941:
     lda.w #$0004
-    jsr $6AFD
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     stx $2F
     lda.w #$77B1
@@ -28862,7 +28872,7 @@ C25941_RunBattleStartCandidateControllerFront_L5941:
     bra C2598B_RunBattleStartCandidateControllerFront_L598B
 C25967_RunBattleStartCandidateControllerFront_L5967:
     lda.w #$0004
-    jsr $6AFD
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     tax
     stx $2F
     lda.w #$77DB
@@ -31515,7 +31525,7 @@ org $C2A89D
 !C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
 !C26A2D_GetRandomBelow = $6A2D
 !C26A44_RollRandomAmount = $6A44
-!C26AFD_RollDamageAmount = $6AFD
+!C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C26BB8_RollActionChanceGate = $6BB8
 !C26BFB_MaskSet_BuildActiveTypedBattlers = $C26BFB
 !C26C82_MaskSet_BuildEnemySideBattlers = $C26C82
@@ -31670,7 +31680,7 @@ BTLACT_BAG_OF_DRAGONITE:
     adc.w #$FFF0
     tcd
     lda.w #$0320
-    jsr !C26AFD_RollDamageAmount
+    jsr !C26AFD_ApplyTwentyFivePercentVariance
     sta $0E
     ldx $A972
     lda $003A,X

@@ -59,8 +59,13 @@ post-selection controller notes.
 - selector `2` applies both helpers in order
 
 When the amount is zero, the wrapper passes fixed fallback payload `0x7530`.
-Otherwise it maps the incoming amount through the existing `C2:6AFD` scaling
-path.
+Otherwise it maps the incoming amount through `C2:6AFD` /
+`ApplyTwentyFivePercentVariance` before handing X to the HP/PP feedback helper.
+
+The source leaves now name those joins directly: selector `0` calls
+`ApplyBattlerHpRecoveryFeedback`, selector `1` calls
+`ApplyBattlerPpRecoveryFeedback`, and selector `2` chains both after the same
+variance-shaped amount setup.
 
 ## Direct Stat Increase Selectors
 

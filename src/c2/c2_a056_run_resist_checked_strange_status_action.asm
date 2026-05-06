@@ -23,7 +23,7 @@
 ; External contracts used by this module
 
 C26A2D_GetRandomBelow                         = $6A2D
-C26AFD_RollDamageAmount                       = $6AFD
+C26AFD_ApplyTwentyFivePercentVariance         = $6AFD
 C26BB8_RollActionChanceGate                   = $6BB8
 C2724A_ApplySelectedRowAfflictionSlotValue    = $724A
 C27294_ApplyBattlerHpRecoveryFeedback         = $7294
@@ -113,7 +113,7 @@ BTLACT_HP_RECOVERY_50:
 C2A0BF_RunHpRecovery50Action = BTLACT_HP_RECOVERY_50
     rep #$31
     lda.w #$0032
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -122,7 +122,7 @@ BTLACT_HP_RECOVERY_200:
 C2A0CF_RunHpRecovery200Action = BTLACT_HP_RECOVERY_200
     rep #$31
     lda.w #$00C8
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -131,7 +131,7 @@ BTLACT_PP_RECOVERY_20:
 C2A0DF_RunPpRecovery20Action = BTLACT_PP_RECOVERY_20
     rep #$31
     lda.w #$0014
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_PP
@@ -140,7 +140,7 @@ BTLACT_PP_RECOVERY_80:
 C2A0EF_RunPpRecovery80Action = BTLACT_PP_RECOVERY_80
     rep #$31
     lda.w #$0050
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_PP
@@ -343,7 +343,7 @@ BTLACT_HP_RECOVERY_300:
 C2A26F_RunHpRecovery300Action = BTLACT_HP_RECOVERY_300
     rep #$31
     lda.w #$012C
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -465,7 +465,7 @@ BTLACT_HP_RECOVERY_10:
 C2A360_RunHpRecovery10Action = BTLACT_HP_RECOVERY_10
     rep #$31
     lda.w #$000A
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP
@@ -474,7 +474,7 @@ BTLACT_HP_RECOVERY_100:
 C2A370_RunHpRecovery100Action = BTLACT_HP_RECOVERY_100
     rep #$31
     lda.w #$0064
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     jsr RECOVER_HP

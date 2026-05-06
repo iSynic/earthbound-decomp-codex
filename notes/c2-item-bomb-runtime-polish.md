@@ -39,7 +39,8 @@ The same source unit also contains neighboring item-side helpers such as
 HP-sucker and bottle-rocket common paths. HP-sucker is now source-promoted far
 enough to name the `EF:7710` self-drain direct text, the `EF:7729`
 amount-bearing drain text, and the `C1:DC66` substitution-payload call that
-prints the drained HP amount.
+prints the drained HP amount. Its target-max-HP amount roll now calls
+`C2:6A44` / `RollRandomAmount` by name.
 
 The bottle-rocket family is now source-promoted as its own neighboring item
 slice. `C2:A57A` is the shared `BOTTLE_ROCKET_COMMON` helper; `C2:A5D1`,
@@ -81,7 +82,8 @@ failure.
 
 `C2:A658` is the shared bomb/explosive splash-damage worker. Input A is the base
 damage parameter. It applies full shaped damage to the primary target through
-`C2:6A44` and `C2:8125` / `ApplyDamageToSelectedTarget`.
+`C2:6A44` / `RollRandomAmount` and `C2:8125` /
+`ApplyDamageToSelectedTarget`.
 
 When the target is in the battler domain, the helper scans nearby same-side and
 same-row battlers, using sprite width and x-position overlap checks. Up to two
@@ -144,6 +146,8 @@ This slice tightens several item-side runtime contracts:
   the battle sprite layout/rendering lane
 - bottle-rocket wrappers now have durable reference-backed names and attempt
   counts, with the shared speed-gated damage path named locally
+- amount-shaping callers now distinguish `C2:6A44` / `RollRandomAmount` from
+  `C2:6AFD` / `ApplyTwentyFivePercentVariance`
 
 ## Remaining Soft Spots
 

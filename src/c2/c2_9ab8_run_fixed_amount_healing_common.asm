@@ -20,7 +20,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26AFD_RollDamageAmount               = $6AFD
+C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 C27294_ApplyBattlerHpRecoveryFeedback = $7294
 
 ; ---------------------------------------------------------------------------
@@ -31,7 +31,7 @@ C29AB8_RunFixedAmountHealingCommon = LIFEUP_COMMON
     rep #$31
     tax
     ; Convert the fixed literal into the effective recovered HP amount.
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
     ; A = selected row, X = effective recovered HP amount.

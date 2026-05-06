@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26AFD_RollDamageAmount                 = $6AFD
+C26AFD_ApplyTwentyFivePercentVariance   = $6AFD
 C28125_ApplyDamageToSelectedTarget      = $8125
 
 ; ---------------------------------------------------------------------------
@@ -25,7 +25,7 @@ C2900B_RunFireDamageActionWrapper = BTLACT_350_FIRE_DAMAGE
     adc.w #$FFF0
     tcd
     lda.w #$015E
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     sta $0E
     ldx $A972
     lda $003A,X

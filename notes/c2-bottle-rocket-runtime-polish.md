@@ -33,9 +33,9 @@ Stable promoted constants:
 
 After the loop, a zero-hit result emits the shared no-effect script `EF:766E`
 through `C1:DC1C`. A nonzero-hit result computes
-`successful_hits * 120`, applies the `C2:6AFD` 25-percent variance helper, and
-passes the result to `C2:8125` / `ApplyDamageToSelectedTarget` for the
-selected-target damage application.
+`successful_hits * 120`, applies `C2:6AFD` /
+`ApplyTwentyFivePercentVariance`, and passes the result to `C2:8125` /
+`ApplyDamageToSelectedTarget` for the selected-target damage application.
 
 ## Wrapper Names
 

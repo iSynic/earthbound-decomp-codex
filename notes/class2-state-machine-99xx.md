@@ -116,8 +116,8 @@ Two nearby helper families plug into the same controller logic.
 ### `C2:9A80`
 
 This helper gates through `C2:941D`, computes a per-slot parameter through
-`C2:6AFD`, runs `C2:8125` / `ApplyDamageToSelectedTarget`, then falls into
-`C2:94CE`.
+`C2:6AFD` / `ApplyTwentyFivePercentVariance`, runs `C2:8125` /
+`ApplyDamageToSelectedTarget`, then falls into `C2:94CE`.
 
 It has two tiny wrappers:
 
@@ -128,7 +128,7 @@ It has two tiny wrappers:
 
 This helper is no longer best read as timer- or duration-driven.
 
-It computes a fixed healing amount through `C2:6AFD`, then hands that amount to `C2:7294`, which now reads much more strongly as an HP recovery worker over battler `hp_target` and `hp_max`.
+It computes a fixed healing amount through `C2:6AFD` / `ApplyTwentyFivePercentVariance`, then hands that amount to `C2:7294`, which now reads much more strongly as an HP recovery worker over battler `hp_target` and `hp_max`.
 
 Its four tiny wrappers are:
 

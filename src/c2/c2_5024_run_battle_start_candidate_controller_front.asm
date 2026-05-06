@@ -18,6 +18,7 @@ C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
 C26A2D_GetRandomBelow            = $6A2D
+C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 D57B68_BattleActionTable           = $D57B68
 D57B68_BattleActionTableLo         = $7B68
 D57B68_BattleActionTableBank       = $00D5
@@ -1087,7 +1088,7 @@ C258BF_RunBattleStartCandidateControllerFront_L58BF:
     jmp.w C2598B_RunBattleStartCandidateControllerFront_L598B
 C258F5_RunBattleStartCandidateControllerFront_L58F5:
     lda.w #$0014
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     stx $2F
     lda.w #$7768
@@ -1105,7 +1106,7 @@ C258F5_RunBattleStartCandidateControllerFront_L58F5:
     bra C2598B_RunBattleStartCandidateControllerFront_L598B
 C2591B_RunBattleStartCandidateControllerFront_L591B:
     lda.w #$0014
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     stx $2F
     lda.w #$7787
@@ -1123,7 +1124,7 @@ C2591B_RunBattleStartCandidateControllerFront_L591B:
     bra C2598B_RunBattleStartCandidateControllerFront_L598B
 C25941_RunBattleStartCandidateControllerFront_L5941:
     lda.w #$0004
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     stx $2F
     lda.w #$77B1
@@ -1141,7 +1142,7 @@ C25941_RunBattleStartCandidateControllerFront_L5941:
     bra C2598B_RunBattleStartCandidateControllerFront_L598B
 C25967_RunBattleStartCandidateControllerFront_L5967:
     lda.w #$0004
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     stx $2F
     lda.w #$77DB

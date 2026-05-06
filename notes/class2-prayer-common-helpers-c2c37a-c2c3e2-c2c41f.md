@@ -73,7 +73,7 @@ Its body is much more focused than the transition helpers:
 - calls `C2:3D05`
 - writes `$AD9E = 0x3C`
 - writes `$AA8E = 1`
-- passes the stored amount into `C2:6AFD`
+- passes the stored amount into `C2:6AFD` / `ApplyTwentyFivePercentVariance`
 - then forces the actual amount application through `C2:8125` /
   `ApplyDamageToSelectedTarget` with `X = 0x00FF`
 - waits another `0x3C`

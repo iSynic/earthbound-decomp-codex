@@ -21,7 +21,7 @@
 
 C23D05_BuildBattleTargetTextContext = $C23D05
 C269BE_WaitFrames = $69BE
-C26AFD_RollDamageAmount = $6AFD
+C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 C28125_ApplyDamageToSelectedTarget = $8125
 
 ; ---------------------------------------------------------------------------
@@ -51,7 +51,7 @@ C2C3E2_ApplyFinalPrayerDamageStep = GIYGAS_HURT_PRAYER
     ldx $0E
     txa
     ; Prepare and apply the caller's staged damage amount.
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     ldx.w #$00FF
     jsr C28125_ApplyDamageToSelectedTarget
     lda.w #$003C

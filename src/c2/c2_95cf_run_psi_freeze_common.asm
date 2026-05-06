@@ -24,7 +24,7 @@
 ; External contracts used by this module
 
 C26A2D_GetRandomBelow                           = $6A2D
-C26AFD_RollDamageAmount                         = $6AFD
+C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
 C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
 C28125_ApplyDamageToSelectedTarget              = $8125
@@ -54,7 +54,7 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     bne C29645_RunPsiFreezeCommon_L9645
     ldx $14
     txa
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     sta $12
     ldx $A972
     lda $0038,X

@@ -37,7 +37,7 @@ That is strong enough to treat the current best local fits as:
 The local body has the same broad shape as the reference `BOMB_COMMON`:
 
 - incoming `A` is treated as the base damage parameter
-- `C2:6A44` shapes that parameter into the applied damage amount
+- `C2:6A44` / `RollRandomAmount` shapes that parameter into the applied damage amount
 - damage is routed through `C2:8125` / `ApplyDamageToSelectedTarget`
 - if the current target is in the ordinary battler domain, the helper then scans other battler rows rather than stopping at one target
 - it compares candidate rows against the current target's side, row, and spatial fields before deciding whether to include them

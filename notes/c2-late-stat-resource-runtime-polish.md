@@ -27,7 +27,7 @@ Promoted runtime contract:
 | target row | `$A972` |
 | current PP field | row word `+0x19` |
 | max PP field | row word `+0x1B` |
-| amount source | high nibble of `+0x1B`, rolled through `C2:6A44` |
+| amount source | high nibble of `+0x1B`, rolled through `C2:6A44` / `RollRandomAmount` |
 | reducer | `C2:721D` |
 | zero-current text | C8:FB05 |
 | zero-range/no-effect text | EF:766E |
@@ -73,7 +73,5 @@ fields and amount-bearing battle text.
 
 ## Remaining Soft Spots
 
-- `C2:6A44` should get a focused naming pass before the PP amount range is
-  described more aggressively.
 - The final player-facing names for later action-table reuses should wait for a
   row-by-row `D5:7B68` crosswalk pass.

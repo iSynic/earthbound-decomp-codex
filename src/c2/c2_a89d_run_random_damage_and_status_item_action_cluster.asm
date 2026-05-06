@@ -17,7 +17,7 @@ C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C240A4_ApplyBattleActionSecondPointerPayload    = $C240A4
 C26A2D_GetRandomBelow                           = $6A2D
 C26A44_RollRandomAmount                         = $6A44
-C26AFD_RollDamageAmount                         = $6AFD
+C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
 C26BB8_RollActionChanceGate                     = $6BB8
 C26BFB_MaskSet_BuildActiveTypedBattlers         = $C26BFB
 C26C82_MaskSet_BuildEnemySideBattlers           = $C26C82
@@ -179,7 +179,7 @@ C2A99C_RunRandomDamageRollBySlot3A = BTLACT_BAG_OF_DRAGONITE
     adc.w #$FFF0
     tcd
     lda.w #$0320
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     sta $0E
     ldx $A972
     lda $003A,X

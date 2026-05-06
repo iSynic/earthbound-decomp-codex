@@ -17,7 +17,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C26AFD_ApplyTwentyFivePercentVariance = $6AFD
+C27294_ApplyBattlerHpRecoveryFeedback = $7294
 
 ; ---------------------------------------------------------------------------
 ; C2:B342
@@ -30,12 +31,12 @@ C2B342_ApplyBattleHpRecoveryConsequence:
     asl A
     adc $04
     asl A
-    jsr $6AFD
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     bra C2B357_ApplyBattleHpRecoveryConsequence_LB357
 C2B354_ApplyBattleHpRecoveryConsequence_LB354:
     ldx.w #$7530
 C2B357_ApplyBattleHpRecoveryConsequence_LB357:
     lda $A972
-    jsr $7294
+    jsr C27294_ApplyBattlerHpRecoveryFeedback
     jmp $B5E3

@@ -27,6 +27,7 @@ C08FF7_ResolveIndexedPointerOffset              = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 
+C26A44_RollRandomAmount                         = $6A44
 C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
 C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 C27C96_RollSelectedRowThresholdGate             = $7C96
@@ -161,7 +162,7 @@ C2A47E_RunItemSideConcentrationSealAction_LA47E:
 C2A49E_RunItemSideConcentrationSealAction_LA49E:
     ldx $A972
     lda BattlerMaxHpWord,X
-    jsr $6A44
+    jsr C26A44_RollRandomAmount
     lsr A
     lsr A
     lsr A

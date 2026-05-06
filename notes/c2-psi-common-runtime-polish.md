@@ -78,10 +78,10 @@ single damage-like value in A to a shared helper.
 
 | Helper | Wrapper family | Core local behavior |
 | --- | --- | --- |
-| `C2:9516` | Rockin | blocker, random amount via `C2:6A44`, physical avoidance via `C2:84AD`, `EF:766E` on avoidance, type `0xFF` damage |
-| `C2:957A` | Fire | blocker, damage roll via `C2:6AFD`, selected-row `+0x3A` damage selector, damage apply |
-| `C2:95CF` | Freeze | default-target/NPC blocker, PSI blocker, damage roll via `C2:6AFD`, selected-row `+0x38` damage selector, chance-based subgroup status side effect, `EF:6BEF` on side-effect success |
-| `C2:9A80` | Starstorm | blocker, damage roll via `C2:6AFD`, type `0xFF` damage |
+| `C2:9516` | Rockin | blocker, random amount via `C2:6A44` / `RollRandomAmount`, physical avoidance via `C2:84AD`, `EF:766E` on avoidance, type `0xFF` damage |
+| `C2:957A` | Fire | blocker, amount via `C2:6AFD` / `ApplyTwentyFivePercentVariance`, selected-row `+0x3A` damage selector, damage apply |
+| `C2:95CF` | Freeze | default-target/NPC blocker, PSI blocker, amount via `C2:6AFD` / `ApplyTwentyFivePercentVariance`, selected-row `+0x38` damage selector, chance-based subgroup status side effect, `EF:6BEF` on side-effect success |
+| `C2:9A80` | Starstorm | blocker, amount via `C2:6AFD` / `ApplyTwentyFivePercentVariance`, type `0xFF` damage |
 
 All four finish successful action bodies through `C2:94CE`.
 
@@ -93,6 +93,9 @@ Source-vocabulary update: all one-parameter PSI damage helpers now call
 `C2:8125` by its selected-target damage role,
 `ApplyDamageToSelectedTarget`. A is the staged damage amount; X carries the
 damage/resistance selector, with `0xFF` used by default-damage callers.
+The adjacent amount-shaping helpers are now split by observed ABI:
+`C2:6A44` is `RollRandomAmount`, while the Fire/Freeze/Starstorm variance path
+uses `C2:6AFD` / `ApplyTwentyFivePercentVariance`.
 
 ## Thunder Common
 

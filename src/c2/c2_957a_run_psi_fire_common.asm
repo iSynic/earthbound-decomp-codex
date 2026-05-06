@@ -19,7 +19,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C26AFD_RollDamageAmount                         = $6AFD
+C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
 C28125_ApplyDamageToSelectedTarget              = $8125
 C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
 C294CE_TickSelectedBattlerTimedSubstateCleanup  = $94CE
@@ -44,7 +44,7 @@ C2957A_RunPsiFireCommon = PSI_FIRE_COMMON
     bne C295A9_RunPsiFireCommon_L95A9
     ldx $0E
     txa
-    jsr C26AFD_RollDamageAmount
+    jsr C26AFD_ApplyTwentyFivePercentVariance
     sta $0E
     ldx $A972
     lda $003A,X
