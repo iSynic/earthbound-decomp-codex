@@ -113,6 +113,49 @@ healing presentation wrapper, while row `247` uses the same row-message anchor
 with the normalization wrapper. The C2 row `+8` body is what separates those
 runtime roles.
 
+## Flavor-Only No-Op Row Messages
+
+These rows have no-op or tiny row `+8` behavior tails, so the row `+4` message
+is the gameplay-facing payload. Keep these labels presentation-oriented and do
+not collapse them into "no effect" result text.
+
+| Row | Row `+4` EF message | Row `+8` C2 body | Current consumer read |
+| ---: | --- | --- | --- |
+| `119` | `EF:8109` `DefiantSmileFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `120` | `EF:812B` `LoudSmileFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `121` | `EF:814F` `EdgeCloserFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `122` | `EF:81A5` `Mutter3FlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `123` | `EF:8186` `Mutter2FlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `124` | `EF:8167` `Mutter1FlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `125` | `EF:81C4` `FellDownFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `126` | `EF:81D7` `AbsentMindedFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `127` | `EF:81F1` `SteamCloudFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `128` | `EF:8211` `WobblyFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `129` | `EF:8226` `StaggerFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `130` | `EF:8239` `GrinFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `131` | `EF:825C` `DeepBreathFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `132` | `EF:8281` `GreetingFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `133` | `EF:8299` `RoarFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `134` | `EF:82BC` `TeethChatterFlavorRowPresentationText` | `C2:9033` | Flavor-only no-op tail |
+| `251` | `EF:727F` `HomesickRandomThoughtDispatcher` | `C2:904E` | Tiny no-op tail; existing EBATTLE4 homesick dispatcher label remains accurate |
+| `252` | `EF:7192` `ParalysisActionBlockedStatusText` | `C2:9042` | Tiny no-op tail; dual-use action-blocked status text |
+| `253` | `EF:71DF` `AsleepActionBlockedStatusText` | `C2:904B` | Tiny no-op tail; dual-use action-blocked status text |
+| `254` | `EF:71F6` `ImmobilizedActionBlockedStatusText` | `C2:903F` | Tiny no-op tail; dual-use action-blocked status text |
+| `255` | `EF:6F0B` `FrozenMovementRecoveryResultText` | `C2:9045` | Tiny no-op tail; dual-use recovery/result text |
+| `256` | `EF:720C` `PsiSealActionBlockedStatusText` | `C2:9048` | Tiny no-op tail; dual-use PSI-seal action-blocked text |
+| `257` | `EF:725A` `FlyHoneyMindLostEventText` | `C2:9033` | Flavor-only no-op tail; event/flavor row message |
+| `260` | `EF:745F` `PokeyRandomTalkDispatcher` | `C2:9033` | Flavor-only no-op tail; random-talk dispatcher |
+| `261` | `EF:749D` `PokeyRandomTalkPlayedDeadBranch` | `C2:9033` | Flavor-only no-op tail |
+| `262` | `EF:74B0` `PokeyRandomTalkPretendedCryBranch` | `C2:9033` | Flavor-only no-op tail |
+| `263` | `EF:74C9` `PokeyRandomTalkApologyBranch` | `C2:9033` | Flavor-only no-op tail |
+| `264` | `EF:7569` `CompanionMyDogHowlingText` | `C2:9033` | Flavor-only no-op tail |
+| `265` | `EF:7579` `CompanionPickeyTalkText` | `C2:9033` | Flavor-only no-op tail |
+| `266` | `EF:7591` `CompanionTonyTalkText` | `C2:9033` | Flavor-only no-op tail |
+
+Rows `251..257` and `260..266` prove `DD9F` row-message joins, but their source
+labels already encode useful event/status/result roles. Keep those labels until
+a narrower caller split proves that one role should dominate the other.
+
 ## Early Row-Message Anchors
 
 The early row-message joins remain the cleanest `DD9F` examples:
@@ -139,28 +182,10 @@ For future EF payload work:
 
 ## Next Crosswalk Frontier
 
-The immediate frontier has narrowed: Lifeup, numeric-effect, and explosive rows
-now have recovered EF row `+4` joins. The remaining row-pointer work is mostly
-late no-op/flavor rows whose C2 row `+8` bodies return without direct result
-text.
-
-### Behavior-Known No-Op And Flavor Rows
-
-The late flavor-tail note proves several no-op behavior tails, but these are
-especially easy to overname from English-looking `MSG_BTL_*` anchors. Treat the
-following as behavior-known only:
-
-| Rows | Known row `+8` behavior | Current read | Missing join |
-| --- | --- | --- | --- |
-| `119..134`, `186..188`, `257`, `260..266` | `C2:9033` | Shared flavor-only no-op tail | Row `+4` EF action message |
-| `0..3`, `258` and siblings | `C2:9039` | Default no-op tail | Row `+4` EF action message for each late reuse |
-| `9` | `C2:903C` | Isolated no-op row | Row `+4` EF action message |
-| `251..256` | `C2:903F`, `C2:9042`, `C2:9045`, `C2:9048`, `C2:904B`, `C2:904E` | Tiny no-op tails in the late run | Row `+4` EF action message |
-
-Modeling rule: a no-op row `+8` body can still have a meaningful row `+4`
-presentation message. Do not collapse those messages into "no effect" result
-text; the row message is consumed through `C1:DD9F` before the behavior body
-returns.
+The immediate frontier has narrowed again: Lifeup, numeric-effect, explosive,
+and the main no-op/flavor rows now have recovered row `+4` joins. The remaining
+work is a broader C2:9039 item-use/default sweep, where many row messages live
+in C7/C9 and should not drive EF battle-anchor renames.
 
 ### Remaining Special-Event Rows
 
@@ -184,6 +209,8 @@ mistaken for missing EF text splits.
 | `139`, `141` | `C9:7B6B` item-use wrapper | `C2:9AC6`, `C2:9AE1` | Item-side healing reuses; not EF row messages |
 | `166` | `C9:7F56` item strike wrapper | `C2:A5EC` | Damage-plus-solidification item action; success/failure results still emit `EF:6BEF` or `EF:766E` |
 | `167`, `168` | `C9:7EB7` item thrown/fired wrapper | `C2:A818`, `C2:A821` | Bomb-family item rows; not EF row messages |
+| `186..188` | `C9:FD82`, `C9:FDBB`, `C9:7F72` item/narrative wrappers | `C2:9033` | No-op item/flavor rows; not EF row messages |
+| `0..3`, `9`, `258` | `C7:*` or `C9:FEFD` default/no-op wrappers | `C2:9039` or `C2:903C` | Default and isolated no-op rows; not EF row messages |
 | `310`, `311` | `C9:7E9E` item fired wrapper | `C2:A818`, `C2:A821` | Bomb-family item rows; not EF row messages |
 | `291..299` | C9 prayer message family, including `C9:F0B8` and `C9:F3EC` | `C2:C572..C2:C6F0` | Final Prayer ladder; row presentation and C8/C9 narrative results stay outside EF action-anchor naming |
 

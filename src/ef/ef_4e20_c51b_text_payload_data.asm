@@ -2006,98 +2006,98 @@ EF80E4_EBattle2GiganticBlastRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:8109
 
-; EBATTLE2: `MSG_BTL_FUTEKI_SMILE` action-flavor text.
-EF8109_EBattle2MsgBtlFutekiSmile:
+; EBATTLE2: row 119 row +4 defiant-smile flavor presentation text.
+EF8109_EBattle2DefiantSmileFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:812B
 
-; EBATTLE2: `MSG_BTL_LOUD_SMILE` action-flavor text.
-EF812B_EBattle2MsgBtlLoudSmile:
+; EBATTLE2: row 120 row +4 loud-smile flavor presentation text.
+EF812B_EBattle2LoudSmileFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:814F
 
-; EBATTLE2: `MSG_BTL_NIJIRIYORU` action-flavor text.
-EF814F_EBattle2MsgBtlNijiriyoru:
+; EBATTLE2: row 121 row +4 edge-closer flavor presentation text.
+EF814F_EBattle2EdgeCloserFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8167
 
-; EBATTLE2: `MSG_BTL_TUBUYAKI1` action-flavor text.
-EF8167_EBattle2MsgBtlTubuyaki1:
+; EBATTLE2: row 124 row +4 mutter-1 flavor presentation text.
+EF8167_EBattle2Mutter1FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8186
 
-; EBATTLE2: `MSG_BTL_TUBUYAKI2` action-flavor text.
-EF8186_EBattle2MsgBtlTubuyaki2:
+; EBATTLE2: row 123 row +4 mutter-2 flavor presentation text.
+EF8186_EBattle2Mutter2FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:81A5
 
-; EBATTLE2: `MSG_BTL_TUBUYAKI3` action-flavor text.
-EF81A5_EBattle2MsgBtlTubuyaki3:
+; EBATTLE2: row 122 row +4 mutter-3 flavor presentation text.
+EF81A5_EBattle2Mutter3FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:81C4
 
-; EBATTLE2: `MSG_BTL_KOROBU` action-flavor text.
-EF81C4_EBattle2MsgBtlKorobu:
+; EBATTLE2: row 125 row +4 fell-down flavor presentation text.
+EF81C4_EBattle2FellDownFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:81D7
 
-; EBATTLE2: `MSG_BTL_BOOTTO` action-flavor text.
-EF81D7_EBattle2MsgBtlBootto:
+; EBATTLE2: row 126 row +4 absent-minded flavor presentation text.
+EF81D7_EBattle2AbsentMindedFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:81F1
 
-; EBATTLE2: `MSG_BTL_JYOUKI` action-flavor text.
-EF81F1_EBattle2MsgBtlJyouki:
+; EBATTLE2: row 127 row +4 steam-cloud flavor presentation text.
+EF81F1_EBattle2SteamCloudFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8211
 
-; EBATTLE2: `MSG_BTL_YOROYORO` action-flavor text.
-EF8211_EBattle2MsgBtlYoroyoro:
+; EBATTLE2: row 128 row +4 wobbly flavor presentation text.
+EF8211_EBattle2WobblyFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8226
 
-; EBATTLE2: `MSG_BTL_FURAFURA` action-flavor text.
-EF8226_EBattle2MsgBtlFurafura:
+; EBATTLE2: row 129 row +4 stagger flavor presentation text.
+EF8226_EBattle2StaggerFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8239
 
-; EBATTLE2: `MSG_BTL_NITANITA` action-flavor text.
-EF8239_EBattle2MsgBtlNitanita:
+; EBATTLE2: row 130 row +4 grin flavor presentation text.
+EF8239_EBattle2GrinFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:825C
 
-; EBATTLE2: `MSG_BTL_KOKYUU` action-flavor text.
-EF825C_EBattle2MsgBtlKokyuu:
+; EBATTLE2: row 131 row +4 deep-breath flavor presentation text.
+EF825C_EBattle2DeepBreathFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8281
 
-; EBATTLE2: `MSG_BTL_AISATU` action-flavor text.
-EF8281_EBattle2MsgBtlAisatu:
+; EBATTLE2: row 132 row +4 greeting flavor presentation text.
+EF8281_EBattle2GreetingFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8299
 
-; EBATTLE2: `MSG_BTL_UNARI` action-flavor text.
-EF8299_EBattle2MsgBtlUnari:
+; EBATTLE2: row 133 row +4 roar flavor presentation text.
+EF8299_EBattle2RoarFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:82BC
 
-; EBATTLE2: `MSG_BTL_KACHIKACHI` action-flavor text.
-EF82BC_EBattle2MsgBtlKachikachi:
+; EBATTLE2: row 134 row +4 teeth-chatter flavor presentation text.
+EF82BC_EBattle2TeethChatterFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:82D7

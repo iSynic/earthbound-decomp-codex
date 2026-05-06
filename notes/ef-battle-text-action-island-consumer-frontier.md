@@ -107,13 +107,17 @@ physical, special, item, and event rows (`99..102`, `104`, `117`, `118`,
 `140`, `228`, `232..234`, `243`, `244`, `247`, `248`, `273`, and `290`).
 It also now records the recovered Lifeup/offense PSI rows (`32..35`, `48`,
 `49`), numeric-effect rows (`95..98`, `233`, `234`), and explosive rows
-(`64`, `65`).
+(`64`, `65`). The latest pointer-recovery pass adds the no-op/flavor rows
+`119..134`, `251..257`, and `260..266`; the EBATTLE2 `119..134` anchors now
+carry source-level `FlavorRowPresentationText` names, while the EBATTLE4/status
+rows keep their event/status/result labels because several scripts are dual-use.
 
 Rows whose C2 behavior bodies are known but whose row `+4` EF pointers are not
 locally recovered should stay out of the proved-join table. The current
-behavior-known frontier has narrowed to late no-op/flavor rows that return
-through `C2:9033` and neighboring tiny no-op tails. These are good C2 behavior
-notes, but not yet EF row-message naming evidence.
+behavior-known frontier has narrowed to broader default/item-use rows around
+`C2:9039`, many of which resolve to C7/C9 row messages rather than EF anchors.
+These are useful C2 behavior notes, but not EF battle-anchor naming evidence
+unless row `+4` points back into EF.
 
 ## Direct Result Joins Adjacent To Action Islands
 
@@ -144,8 +148,7 @@ row `+4` pointer and row `+8` behavior body are joined:
 
 - `EF:7E25..843F` EBATTLE2: late physical, special, and message-only action
   row-message candidates. Promoted anchors now include rows `95..102`, `104`,
-  `117`, `118`, and `207`; promote the rest only with local row `+4/+8`
-  evidence.
+  `117..134`, and `207`; promote the rest only with local row `+4/+8` evidence.
 - `EF:89FE..8FAD` EBATTLE3: enemy-action text include. Promoted anchors include
   rows `140/247`, `159`, `228`, `232..234`, `248`, `273`, and `290`; the
   remaining labels should stay symbol-derived until specific `D5:7B68` rows
@@ -162,10 +165,9 @@ action island remains symbol-derived.
 
 ## Best Next Pass
 
-The highest-value next EF/C2 join is recovering local row `+4` pointer evidence
-for the remaining no-op/flavor rows recorded in
-`notes/ef-battle-text-row-pointer-recovery-frontier.md`. For each new row,
-record:
+The highest-value next EF/C2 join is classifying the broader default/item-use
+rows recorded in `notes/ef-battle-text-row-pointer-recovery-frontier.md`. For
+each new row, record:
 
 - row id and row `+0..+3` metadata
 - row `+4` EF message pointer

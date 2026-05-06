@@ -495,8 +495,17 @@ HP/C8 amount result lanes remain separate from that `DD9F` presentation text.
 
 The row-pointer recovery frontier now records the resolved set and the remaining
 local frontier. The ROM-backed inspector is available in this checkout, so the
-next EF pass can focus on late no-op/flavor rows rather than the already proved
-Lifeup, numeric-effect, and explosive joins.
+next EF pass can focus on broader default/item-use row classification rather
+than the already proved Lifeup, numeric-effect, explosive, and main
+no-op/flavor joins.
+
+That no-op/flavor pass now proves the main `C2:9033` and tiny-tail frontier:
+rows `119..134`, `251..257`, and `260..266` have exact EF row `+4`
+presentation pointers. The EBATTLE2 strip at `EF:8109..82D7` now promotes
+rows `119..134` from exact `MSG_BTL_*` shells into
+`FlavorRowPresentationText` labels. The EBATTLE4/status rows stay under their
+event/status/result labels because several recovered row messages are dual-use
+scripts rather than pure action flavor.
 
 The consumer-lane contract note now gives the compact decision table for these
 joins: `DD9F` row presentation, `DC1C` direct results, `DC66` amount payloads,

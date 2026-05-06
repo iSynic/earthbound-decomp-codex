@@ -5640,107 +5640,123 @@ db $50,$50,$91,$15,$90,$A2,$9E,$91,$94,$9F,$51,$1F,$02,$5A,$03,$02
 
 EF80E4_EBattle2GiganticBlastRowPresentationText:
 
-; Original data gap before EF8109_EBattle2MsgBtlFutekiSmile:
+; Original data gap before EF8109_EBattle2DefiantSmileFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$A2,$91,$A9,$15,$57,$91,$50
 db $97,$99,$97,$16,$DC,$99,$93,$50,$92,$9C,$91,$A3,$17,$1D,$A7,$16
 db $41,$51,$00,$03,$02
 
-EF8109_EBattle2MsgBtlFutekiSmile:
+; EBATTLE2: row 119 row +4 defiant-smile flavor presentation text.
+EF8109_EBattle2DefiantSmileFlavorRowPresentationText:
 
-; Original data gap before EF812B_EBattle2MsgBtlLoudSmile:
+; Original data gap before EF812B_EBattle2LoudSmileFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$96,$9C,$91,$A3,$98,$95,$94,$00
 db $50,$50,$91,$15,$B8,$9E,$91,$93,$15,$1B,$A3,$9D,$99,$9C,$95,$51
 db $03,$02
 
-EF812B_EBattle2MsgBtlLoudSmile:
+; EBATTLE2: row 120 row +4 loud-smile flavor presentation text.
+EF812B_EBattle2LoudSmileFlavorRowPresentationText:
 
-; Original data gap before EF814F_EBattle2MsgBtlNijiriyoru:
+; Original data gap before EF814F_EBattle2EdgeCloserFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$51,$A2,$A4,$95,$94,$00,$50,$50
 db $9C,$91,$A5,$97,$98,$15,$1B,$98,$A9,$A3,$16,$06,$99,$93,$15,$D8
 db $A9,$51,$03,$02
 
-EF814F_EBattle2MsgBtlNijiriyoru:
+; EBATTLE2: row 121 row +4 edge-closer flavor presentation text.
+EF814F_EBattle2EdgeCloserFlavorRowPresentationText:
 
-; Original data gap before EF8167_EBattle2MsgBtlTubuyaki1:
+; Original data gap before EF8167_EBattle2Mutter1FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$94,$97,$95,$94,$00,$50,$50
 db $93,$9C,$9F,$17,$AB,$51,$03,$02
 
-EF8167_EBattle2MsgBtlTubuyaki1:
+; EBATTLE2: row 124 row +4 mutter-1 flavor presentation text.
+EF8167_EBattle2Mutter1FlavorRowPresentationText:
 
-; Original data gap before EF8186_EBattle2MsgBtlTubuyaki2:
+; Original data gap before EF8186_EBattle2Mutter2FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$9D,$A5,$A4,$16,$06,$95,$94,$00
 db $1F,$04,$02,$50,$50,$6C,$61,$15,$03,$6E,$1F,$04,$01,$03,$02
 
-EF8186_EBattle2MsgBtlTubuyaki2:
+; EBATTLE2: row 123 row +4 mutter-2 flavor presentation text.
+EF8186_EBattle2Mutter2FlavorRowPresentationText:
 
-; Original data gap before EF81A5_EBattle2MsgBtlTubuyaki3:
+; Original data gap before EF81A5_EBattle2Mutter3FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$9D,$A5,$A2,$9D,$A5,$17,$45,$00
 db $1F,$04,$02,$50,$50,$6C,$62,$15,$03,$6E,$1F,$04,$01,$03,$02
 
-EF81A5_EBattle2MsgBtlTubuyaki3:
+; EBATTLE2: row 122 row +4 mutter-3 flavor presentation text.
+EF81A5_EBattle2Mutter3FlavorRowPresentationText:
 
-; Original data gap before EF81C4_EBattle2MsgBtlKorobu:
+; Original data gap before EF81C4_EBattle2FellDownFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A7,$16,$55,$16,$A1,$95,$94,$00
 db $1F,$04,$02,$50,$50,$6C,$63,$15,$03,$6E,$1F,$04,$01,$03,$02
 
-EF81C4_EBattle2MsgBtlKorobu:
+; EBATTLE2: row 125 row +4 fell-down flavor presentation text.
+EF81C4_EBattle2FellDownFlavorRowPresentationText:
 
-; Original data gap before EF81D7_EBattle2MsgBtlBootto:
+; Original data gap before EF81D7_EBattle2AbsentMindedFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$96,$17,$49,$17,$9F,$51,$1F,$02
 db $22,$03,$02
 
-EF81D7_EBattle2MsgBtlBootto:
+; EBATTLE2: row 126 row +4 absent-minded flavor presentation text.
+EF81D7_EBattle2AbsentMindedFlavorRowPresentationText:
 
-; Original data gap before EF81F1_EBattle2MsgBtlJyouki:
+; Original data gap before EF81F1_EBattle2SteamCloudFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$15,$21,$17,$13,$00,$50,$50,$91,$92
 db $A3,$15,$9E,$17,$84,$94,$16,$92,$03,$02
 
-EF81F1_EBattle2MsgBtlJyouki:
+; EBATTLE2: row 127 row +4 steam-cloud flavor presentation text.
+EF81F1_EBattle2SteamCloudFlavorRowPresentationText:
 
-; Original data gap before EF8211_EBattle2MsgBtlYoroyoro:
+; Original data gap before EF8211_EBattle2WobblyFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$95,$17,$E2,$16,$66,$94,$00
 db $50,$17,$33,$A5,$A2,$A3,$17,$1D,$A3,$A4,$95,$91,$9D,$51,$03,$02
 
-EF8211_EBattle2MsgBtlYoroyoro:
+; EBATTLE2: row 128 row +4 wobbly flavor presentation text.
+EF8211_EBattle2WobblyFlavorRowPresentationText:
 
-; Original data gap before EF8226_EBattle2MsgBtlFurafura:
+; Original data gap before EF8226_EBattle2StaggerFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$50,$A7,$9F,$92,$92
 db $9C,$A9,$5E,$03,$02
 
-EF8226_EBattle2MsgBtlFurafura:
+; EBATTLE2: row 129 row +4 stagger flavor presentation text.
+EF8226_EBattle2StaggerFlavorRowPresentationText:
 
-; Original data gap before EF8239_EBattle2MsgBtlNitanita:
+; Original data gap before EF8239_EBattle2GrinFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$17,$48,$95,$9C,$16
 db $44,$03,$02
 
-EF8239_EBattle2MsgBtlNitanita:
+; EBATTLE2: row 130 row +4 grin flavor presentation text.
+EF8239_EBattle2GrinFlavorRowPresentationText:
 
-; Original data gap before EF825C_EBattle2MsgBtlKokyuu:
+; Original data gap before EF825C_EBattle2DeepBreathFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$0C,$A3,$00,$50,$17,$33,$99,$97
 db $50,$97,$A2,$99,$9E,$16,$BC,$08,$6E,$E6,$C7,$00,$50,$96,$17,$87
 db $5E,$03,$02
 
-EF825C_EBattle2MsgBtlKokyuu:
+; EBATTLE2: row 131 row +4 deep-breath flavor presentation text.
+EF825C_EBattle2DeepBreathFlavorRowPresentationText:
 
-; Original data gap before EF8281_EBattle2MsgBtlAisatu:
+; Original data gap before EF8281_EBattle2GreetingFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$15,$21,$A4,$91,$15,$E9,$94,$15,$C9
 db $50,$92,$16,$82,$98,$A3,$15,$27,$17,$4C,$50,$17,$D1,$91,$A5,$9C
 db $A4,$5E,$00,$03,$02
 
-EF8281_EBattle2MsgBtlAisatu:
+; EBATTLE2: row 132 row +4 greeting flavor presentation text.
+EF8281_EBattle2GreetingFlavorRowPresentationText:
 
-; Original data gap before EF8299_EBattle2MsgBtlUnari:
+; Original data gap before EF8299_EBattle2RoarFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DB,$9E,$94,$A3,$00,$50,$15,$BC
 db $97,$16,$FA,$16,$35,$51,$03,$02
 
-EF8299_EBattle2MsgBtlUnari:
+; EBATTLE2: row 133 row +4 roar flavor presentation text.
+EF8299_EBattle2RoarFlavorRowPresentationText:
 
-; Original data gap before EF82BC_EBattle2MsgBtlKachikachi:
+; Original data gap before EF82BC_EBattle2TeethChatterFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$17,$DF,$9B,$16,$96
 db $9C,$9F,$A5,$94,$5C,$50,$A0,$99,$95,$A2,$93,$15,$1B,$17,$5D,$9C
 db $5E,$03,$02
 
-EF82BC_EBattle2MsgBtlKachikachi:
+; EBATTLE2: row 134 row +4 teeth-chatter flavor presentation text.
+EF82BC_EBattle2TeethChatterFlavorRowPresentationText:
 
 ; Original data gap before EF82D7_EBattle2MsgBtlMabusiiHikari:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$17,$CA,$16,$9D,$6C

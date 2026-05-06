@@ -300,6 +300,11 @@ This planning pass does not split EF source corridors or regenerate the bank.
   into the concrete EF row-message crosswalk. Source labels now carry
   `RowPresentationText` names for those anchors while C8/HP result lanes remain
   separate.
+- 2026-05-06: EF no-op/flavor row-pointer follow-up recovered rows
+  `119..134`, `251..257`, and `260..266` as EF row-message joins over
+  `C2:9033` or tiny no-op tails. Rows `119..134` now carry EBATTLE2
+  `FlavorRowPresentationText` source labels; the EBATTLE4/status dual-use
+  anchors stay named by event/status/result role.
 - 2026-05-06: EF consumer-lane contract follow-up added
   `notes/ef-battle-text-consumer-lane-contracts.md`, a compact EF-side decision
   table for row presentation, direct result, amount, byte/pointer substitution,

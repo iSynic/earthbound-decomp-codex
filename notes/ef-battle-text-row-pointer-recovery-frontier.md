@@ -82,15 +82,32 @@ table when a recovered row looks ambiguous.
 
 ## First Rows To Recover
 
-Rows `32..35`, `48`, `49`, `64`, `65`, `95..98`, `233`, and `234` are now
-recovered and moved into the concrete row-message crosswalk. Continue with the
-remaining rows before any broader action-table sweep:
+Rows `32..35`, `48`, `49`, `64`, `65`, `95..98`, `119..134`, `233`, `234`,
+`251..257`, and `260..266` are now recovered and moved into the concrete
+row-message crosswalk. Continue with the remaining rows before any broader
+action-table sweep:
 
 | Priority | Rows | Why they matter |
 | ---: | --- | --- |
-| `1` | `119..134`, `186..188`, `257`, `260..266` | `C2:9033` no-op flavor rows need row-message pointers to separate pure presentation from missing mechanics. |
-| `2` | `251..258` | Neighboring tiny no-op tails need row-message pointers and bank classification. |
-| `3` | `0..3`, `9`, `258` and siblings | Default or isolated no-op tails need row-message pointers before EF action anchors can be promoted. |
+| `1` | broader `C2:9039` rows such as `190..200` and item-use siblings | Many row messages live in C9 item/narrative scripts; classify bank first, then avoid EF anchor churn for non-EF rows. |
+| `2` | remaining exact `MSG_BTL_*` islands outside the recovered sets | These need the same row `+4/+8` proof before labels graduate from symbol-derived anchors. |
+
+## Recovered No-Op And Flavor Joins
+
+The no-op/flavor pass recovered the highest-risk behavior-only family:
+
+- rows `119..134` point at EBATTLE2 flavor text and share `C2:9033`;
+- rows `251..256` point at EF status/event/result text and use tiny no-op
+  tails `C2:903F..904E`;
+- row `257` and rows `260..266` point at EBATTLE4 event/flavor text and share
+  `C2:9033`;
+- rows `186..188`, `0..3`, `9`, and `258` prove non-EF row-message lanes
+  through C7/C9, so they belong in the crosswalk but should not rename EF
+  anchors.
+
+The EBATTLE2 `119..134` anchors now carry `FlavorRowPresentationText` names in
+source. The EBATTLE4/status rows keep their existing event/status/result labels
+because several are dual-use scripts rather than pure flavor strings.
 
 ## Recovered Lifeup Join
 

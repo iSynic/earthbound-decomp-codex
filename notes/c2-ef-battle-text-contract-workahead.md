@@ -157,6 +157,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   numeric-effect rows `95..98/233/234`, and explosive rows `64/65` as concrete
   EF row `+4` presentation joins. The EF source now promotes those anchors to
   `RowPresentationText` names while keeping C8/HP amount-result lanes separate.
+- 2026-05-06: EF no-op/flavor row-pointer follow-up proved rows `119..134`,
+  `251..257`, and `260..266` as EF row `+4` presentation joins over
+  `C2:9033` or tiny no-op tails. The EBATTLE2 `119..134` strip now uses
+  `FlavorRowPresentationText` source labels, while dual-use EBATTLE4/status
+  anchors remain named for their event/status/result roles.
 - 2026-05-05: EF EBATTLE9 field/graveyard follow-up split the complete
   `EF:8FAD..9A47` include into the `_SUB_SOREZORE` helper, Sanctuary
   field-monster payloads, graveyard/Paula branches, and the Guts tutorial
@@ -243,8 +248,8 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `notes/ef-battle-text-row-message-crosswalk.md`.
 - 2026-05-06: EF row-message frontier follow-up separated behavior-known rows
   from proved EF message joins. This initially kept numeric-effect and
-  no-op/flavor rows blocked on local row `+4` pointer recovery before EF
-  action-message labels were promoted.
+  no-op/flavor rows deferred until local row `+4` pointer recovery could prove
+  their EF action-message labels.
 - 2026-05-06: EF special-event row-message follow-up promoted rows `243` and
   `244` into the row-message crosswalk: `EF:72F6 -> C2:9298` and
   `EF:7415 -> C2:92EE`, with their behavior continuations kept as separate
@@ -262,7 +267,8 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `notes/ef-battle-text-row-pointer-recovery-frontier.md`, documenting the
   original local blocker for new row `+4` joins: D5 source preserves the table
   as a data gap and the inspector needs a local ROM. The local ROM is now
-  present, so the note tracks recovered joins and the remaining no-op frontier.
+  present, so the note tracks recovered joins and the remaining default/item-use
+  classification frontier.
 - 2026-05-06: EF consumer-lane contract follow-up added
   `notes/ef-battle-text-consumer-lane-contracts.md`, consolidating the
   `DD9F`, `DC1C`, `DC66`, `DD7C`, pointer-substitution, and non-EF C7/C8/C9
