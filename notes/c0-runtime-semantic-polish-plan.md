@@ -113,6 +113,13 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   `notes/early-entity-map-reset-family-c019e2-c01a86.md`,
   `notes/c0-entity-visual-runtime-polish.md`, and
   `notes/entity-placement-probe-c0263d-c02668.md`.
+- 2026-05-06 follow-up: the C0 movement adjustment and mushroomized tail pass
+  added local anchors for the merged `C0:2C3E..329F` entries and named caller
+  edges into `C0:2C89`, `C0:2D29`, `C0:2D8F`, and `C0:3017`. The pass also
+  clarified `C0:449B`'s input, collision, overlap, trigger, and boundary
+  helper calls. See `notes/mushroomized-walking-builders-34de-37d0.md`,
+  `notes/position-snapshot-and-movement-tick-c0449b-c05200.md`, and
+  `notes/intro-overworld-position-init-c0b65f-c0b67f.md`.
 
 ## Validation
 

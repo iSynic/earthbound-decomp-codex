@@ -251,6 +251,8 @@ These are working names, not final symbols:
 - `C0:5200` -> `Tick_OverworldPlayerPositionAndCallbacks`
 - `C0:4C45` -> `Commit_PlayerPositionSnapshotTick`
 - `C0:449B` -> `Step_PlayerFromDirectionalInput`
+- `C0:2D8F` -> `AdjustPositionHorizontal`
+- `C0:3017` -> `AdjustPositionVertical`
 - `C0:476D` -> `Sync_PlayerGlobalsFromActiveSlot`
 - `C0:47CF` -> `Step_ScriptedMode0C`
 - `C0:48D3` -> `Step_BicycleTraversalMode`
@@ -269,6 +271,15 @@ These are working names, not final symbols:
 - Some offset tables used by `C0:48D3` and `$98A5 == 1` are addressed inside ranges that `ebsrc-main` also treats as code chunks. That may be deliberate code-byte-as-data reuse or a sign that older chunk boundaries are too coarse. The behavior is clear enough to document the call flow, but the table names should stay cautious.
 - Object fields `+$45/+47` in `C0:4FFE` still need a stronger gameplay label.
 - `$4DBA`, `$4DC2`, and `$4DD4` are now clearly movement/snapshot gates, but their final names should wait for stronger caller-side context rather than the neighboring `C0:52D4+` cluster. That next cluster is now decoded enough to identify `C0:52D4` as the party trail/snapshot-ring initializer and `C0:54C9-C0:5E82` as the collision/surface probe layer.
+
+## Source Polish Follow-Up
+
+The 2026-05-06 C0 source polish pass named the movement-step helper-call edges
+in `C0:449B`: mushroomized movement swap, input-to-direction mapping,
+horizontal/vertical position adjustment, movement surface/collision resolution,
+centered collision tile reads, overlap search, movement-trigger dispatch, and
+movement-boundary trigger checks. The same pass named the `C0:52D4` trail-ring
+calls into the horizontal and vertical adjustment helpers.
 
 ## Follow-up From The Neighboring Seam
 

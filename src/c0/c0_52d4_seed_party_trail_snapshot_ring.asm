@@ -11,6 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C02D8F_AdjustPositionHorizontal = $2D8F
+C03017_AdjustPositionVertical = $3017
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 
 ; ---------------------------------------------------------------------------
@@ -56,7 +58,7 @@ C052D4_Seed_PartyTrailSnapshotRing:
     sta $10
     ldx $04
     lda $02
-    jsr $2D8F
+    jsr C02D8F_AdjustPositionHorizontal
     ldy $1C
     lda $0000,Y
     sta $0A
@@ -85,7 +87,7 @@ C052D4_Seed_PartyTrailSnapshotRing:
     sta $10
     ldx $04
     lda $02
-    jsr $3017
+    jsr C03017_AdjustPositionVertical
     ldy $1C
     lda $0000,Y
     sta $0A

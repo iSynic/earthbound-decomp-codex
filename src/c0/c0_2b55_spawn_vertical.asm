@@ -14,7 +14,10 @@
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0263D_Lookup_PlacementTileWord_D01880 = $C0263D
 C02668_Resolve_SpawnProbeCandidateList = $2668
+C03CFD_Restore_LeaderEntityFromBicycleMode = $C03CFD
+C09086_MultiplyLongByLong_ViaHardwareRegisters = $C09086
 C21628_CheckEventFlag              = $C21628
+C430EC_InitializePartyTickCallbackTables = $C430EC
 
 ; ---------------------------------------------------------------------------
 ; C0:2B55
@@ -151,6 +154,7 @@ C02C3A_Spawn_Vertical_L2C3A:
 C02C3C_Spawn_Vertical_L2C3C:
     pld
     rtl
+C02C3E_RefreshSpecialTraversalModeState:
     rep #$31
     lda $9891
     and.w #$00FF
@@ -174,15 +178,17 @@ C02C71_Spawn_Vertical_L2C71:
     lda $9883
     cmp.w #$0003
     bne C02C82_Spawn_Vertical_L2C82
-    jsl $C03CFD
+    jsl C03CFD_Restore_LeaderEntityFromBicycleMode
     bra C02C82_Spawn_Vertical_L2C82
 C02C7F_Spawn_Vertical_L2C7F:
     stz $5DA0
 C02C82_Spawn_Vertical_L2C82:
     rtl
+C02C83_ResetMushroomizedWalking:
     rep #$31
     stz $5DA0
     rtl
+C02C89_MushroomizationMovementSwap:
     rep #$31
     phd
     tdc
@@ -264,6 +270,7 @@ C02CAC_Spawn_Vertical_L2CAC:
 C02D27_Spawn_Vertical_L2D27:
     pld
     rts
+C02D29_ResetOverworldPartyRuntimeState:
     rep #$31
     phd
     tdc
@@ -303,12 +310,13 @@ C02D6F_Spawn_Vertical_L2D6F:
     lda.b #$00
     sta $98A4
     sta $98A3
-    jsl $C430EC
+    jsl C430EC_InitializePartyTickCallbackTables
     lda $C30186
     jsl C21628_CheckEventFlag
     sta $9F71
     pld
     rtl
+C02D8F_AdjustPositionHorizontal:
     rep #$31
     phd
     pha
@@ -376,7 +384,7 @@ C02DED_Spawn_Vertical_L2DED:
     sta $0A
     lda.w #$0000
     sta $0C
-    jsl $C09086
+    jsl C09086_MultiplyLongByLong_ViaHardwareRegisters
     lda $06
     sta $0A
     lda $08
@@ -460,7 +468,7 @@ C02E88_Spawn_Vertical_L2E88:
     sta $0A
     lda.w #$0000
     sta $0C
-    jsl $C09086
+    jsl C09086_MultiplyLongByLong_ViaHardwareRegisters
     lda $06
     sta $0A
     lda $08
@@ -589,7 +597,7 @@ C02F76_Spawn_Vertical_L2F76:
     sta $0A
     lda.w #$0001
     sta $0C
-    jsl $C09086
+    jsl C09086_MultiplyLongByLong_ViaHardwareRegisters
     lda $06
     sta $0A
     lda $08
@@ -665,6 +673,7 @@ C02FE1_Spawn_Vertical_L2FE1:
 C03015_Spawn_Vertical_L3015:
     pld
     rts
+C03017_AdjustPositionVertical:
     rep #$31
     phd
     pha
@@ -732,7 +741,7 @@ C03075_Spawn_Vertical_L3075:
     sta $0A
     lda.w #$0000
     sta $0C
-    jsl $C09086
+    jsl C09086_MultiplyLongByLong_ViaHardwareRegisters
     lda $06
     sta $0A
     lda $08
@@ -816,7 +825,7 @@ C03110_Spawn_Vertical_L3110:
     sta $0A
     lda.w #$0000
     sta $0C
-    jsl $C09086
+    jsl C09086_MultiplyLongByLong_ViaHardwareRegisters
     lda $06
     sta $0A
     lda $08
@@ -945,7 +954,7 @@ C031FE_Spawn_Vertical_L31FE:
     sta $0A
     lda.w #$0001
     sta $0C
-    jsl $C09086
+    jsl C09086_MultiplyLongByLong_ViaHardwareRegisters
     lda $06
     sta $0A
     lda $08

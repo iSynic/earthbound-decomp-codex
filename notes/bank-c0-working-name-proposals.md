@@ -2,7 +2,7 @@
 
 Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`.
 
-- Proposals: `503`
+- Proposals: `509`
 
 | Address | Proposed Name | Evidence Notes |
 | --- | --- | --- |
@@ -49,19 +49,25 @@ Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`
 | `C0:2547` | `Seed_SpawnCandidateDirectionClass` | `notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:518` |
 | `C0:255C` | `Run_VerticalCompanionSpawnProducer` | `notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:519` |
 | `C0:25CF` | `Run_HorizontalCompanionSpawnProducer` | `notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:520` |
-| `C0:263D` | `Lookup_PlacementTileWord_D01880` | `notes/entity-placement-probe-c0263d-c02668.md:160` |
-| `C0:2668` | `Resolve_SpawnProbeCandidateList` | `notes/entity-placement-probe-c0263d-c02668.md:161` |
-| `C0:28E7` | `TryPlaceSpawnCandidateFromListEntry` | `notes/entity-placement-probe-c0263d-c02668.md:162`<br>`notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:521` |
+| `C0:263D` | `Lookup_PlacementTileWord_D01880` | `notes/entity-placement-probe-c0263d-c02668.md:167` |
+| `C0:2668` | `Resolve_SpawnProbeCandidateList` | `notes/entity-placement-probe-c0263d-c02668.md:168` |
+| `C0:28E7` | `TryPlaceSpawnCandidateFromListEntry` | `notes/entity-placement-probe-c0263d-c02668.md:169`<br>`notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:521` |
 | `C0:2957` | `InitializeSpawnedCandidateEntitySlot` | `notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:522` |
-| `C0:2A50` | `Iterate_SpawnCandidateList` | `notes/entity-placement-probe-c0263d-c02668.md:163`<br>`notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:523` |
-| `C0:2A6B` | `Spawn_Horizontal` | `notes/entity-placement-probe-c0263d-c02668.md:164`<br>`notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:524` |
-| `C0:2B55` | `Spawn_Vertical` | `notes/entity-placement-probe-c0263d-c02668.md:165`<br>`notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:525` |
+| `C0:2A50` | `Iterate_SpawnCandidateList` | `notes/entity-placement-probe-c0263d-c02668.md:170`<br>`notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:523` |
+| `C0:2A6B` | `Spawn_Horizontal` | `notes/entity-placement-probe-c0263d-c02668.md:171`<br>`notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:524` |
+| `C0:2B55` | `Spawn_Vertical` | `notes/entity-placement-probe-c0263d-c02668.md:172`<br>`notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md:525` |
+| `C0:2C3E` | `RefreshSpecialTraversalModeState` | `notes/mushroomized-walking-builders-34de-37d0.md:12` |
+| `C0:2C83` | `ResetMushroomizedWalking` | `notes/mushroomized-walking-builders-34de-37d0.md:13` |
+| `C0:2C89` | `MushroomizationMovementSwap` | `notes/mushroomized-walking-builders-34de-37d0.md:14` |
+| `C0:2D29` | `ResetOverworldPartyRuntimeState` | `notes/intro-overworld-position-init-c0b65f-c0b67f.md:14` |
+| `C0:2D8F` | `AdjustPositionHorizontal` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:254` |
+| `C0:3017` | `AdjustPositionVertical` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:255` |
 | `C0:329F` | `Clear_CharacterAfflictionBytes` | `notes/character-affliction-clear-c0329f.md:13` |
-| `C0:34D6` | `SortAndExport_MushroomizedWalkingEntries` | `notes/mushroomized-walking-builders-34de-37d0.md:12` |
-| `C0:369B` | `Insert_MushroomizedWalkingActiveEntry` | `notes/mushroomized-walking-builders-34de-37d0.md:13` |
-| `C0:37D0` | `AppendMushroomizedEntryAndRefreshController` | `notes/mushroomized-walking-builders-34de-37d0.md:14` |
-| `C0:39E5` | `RefreshMushroomizedEntryTargetPositions` | `notes/mushroomized-walking-builders-34de-37d0.md:15` |
-| `C0:3A24` | `Rebuild_MushroomizedWalkingController` | `notes/mushroomized-walking-builders-34de-37d0.md:16` |
+| `C0:34D6` | `SortAndExport_MushroomizedWalkingEntries` | `notes/mushroomized-walking-builders-34de-37d0.md:15` |
+| `C0:369B` | `Insert_MushroomizedWalkingActiveEntry` | `notes/mushroomized-walking-builders-34de-37d0.md:16` |
+| `C0:37D0` | `AppendMushroomizedEntryAndRefreshController` | `notes/mushroomized-walking-builders-34de-37d0.md:17` |
+| `C0:39E5` | `RefreshMushroomizedEntryTargetPositions` | `notes/mushroomized-walking-builders-34de-37d0.md:18` |
+| `C0:3A24` | `Rebuild_MushroomizedWalkingController` | `notes/mushroomized-walking-builders-34de-37d0.md:19` |
 | `C0:3A94` | `RefreshPositionDerivedVisualContextClass` | `notes/position-derived-visual-context-class-9887.md:29` |
 | `C0:3C25` | `Refresh_DestinationContextIfPositionChanged` | `notes/bicycle-transition-and-party-registry-c03c25-c03f1e.md:259` |
 | `C0:3C4B` | `Probe_CurrentPositionHighCollisionBits` | `notes/bicycle-transition-and-party-registry-c03c25-c03f1e.md:260` |
@@ -84,19 +90,19 @@ Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`
 | `C0:43BC` | `Resolve_InteractionFacingRotation` | `notes/front-interaction-flow.md:10` |
 | `C0:4452` | `Resolve_FrontInteractionTarget` | `notes/front-interaction-flow.md:11` |
 | `C0:449B` | `Step_PlayerFromDirectionalInput` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:253` |
-| `C0:476D` | `Sync_PlayerGlobalsFromActiveSlot` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:254` |
-| `C0:47CF` | `Step_ScriptedMode0C` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:255` |
-| `C0:48D3` | `Step_BicycleTraversalMode` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:256` |
-| `C0:4A7B` | `Restore_TemporaryMovementMode` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:259` |
-| `C0:4A88` | `Enter_TemporaryPartyFacingRefreshMode` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:257` |
-| `C0:4AAD` | `Tick_TemporaryPartyFacingRefreshMode` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:258` |
-| `C0:4B53` | `Dispatch_TemporaryMovementMode98A5` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:260` |
+| `C0:476D` | `Sync_PlayerGlobalsFromActiveSlot` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:256` |
+| `C0:47CF` | `Step_ScriptedMode0C` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:257` |
+| `C0:48D3` | `Step_BicycleTraversalMode` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:258` |
+| `C0:4A7B` | `Restore_TemporaryMovementMode` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:261` |
+| `C0:4A88` | `Enter_TemporaryPartyFacingRefreshMode` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:259` |
+| `C0:4AAD` | `Tick_TemporaryPartyFacingRefreshMode` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:260` |
+| `C0:4B53` | `Dispatch_TemporaryMovementMode98A5` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:262` |
 | `C0:4C45` | `Commit_PlayerPositionSnapshotTick` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:252` |
-| `C0:4D78` | `Tick_Event2SnapshotObjectReconcile` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:261` |
-| `C0:4EF0` | `Restore_CurrentSlotFromSnapshotRecord` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:262` |
-| `C0:4F60` | `Queue_PartyObjectConditionDecayCallback` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:263` |
-| `C0:4F9F` | `Update_PartyObjectConditionThresholdLatch` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:265` |
-| `C0:4FFE` | `Process_PartyObjectConditionDecayGate` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:264` |
+| `C0:4D78` | `Tick_Event2SnapshotObjectReconcile` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:263` |
+| `C0:4EF0` | `Restore_CurrentSlotFromSnapshotRecord` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:264` |
+| `C0:4F60` | `Queue_PartyObjectConditionDecayCallback` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:265` |
+| `C0:4F9F` | `Update_PartyObjectConditionThresholdLatch` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:267` |
+| `C0:4FFE` | `Process_PartyObjectConditionDecayGate` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:266` |
 | `C0:5200` | `Tick_OverworldPlayerPositionAndCallbacks` | `notes/position-snapshot-and-movement-tick-c0449b-c05200.md:251` |
 | `C0:5238` | `Tick_LandingProfileStepSequencerIfActive` | `notes/landing-profile-cache-436e-4474.md:198` |
 | `C0:52D4` | `Seed_PartyTrailSnapshotRing` | `notes/collision-surface-probes-c052d4-c05e3a.md:427` |

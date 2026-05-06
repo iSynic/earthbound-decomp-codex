@@ -187,6 +187,10 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   surfaces from the map-strip refresh wrappers through sprite-pose entity
   initialization, visual release, movement-adjacent spawn producers, placement
   tile probes, spawn-list resolution, and candidate placement probes.
+- 2026-05-06: C0 movement-adjustment follow-up anchored the merged
+  `C0:2C3E..329F` tail entries, named the mushroomized movement swap,
+  overworld party runtime reset, horizontal/vertical position adjust helpers,
+  and clarified the `C0:449B` input/collision/trigger helper edges.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

@@ -11,6 +11,16 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C02C89_MushroomizationMovementSwap = $2C89
+C02D8F_AdjustPositionHorizontal = $2D8F
+C03017_AdjustPositionVertical = $3017
+C0404F_MapInputToDirection = $C0404F
+C05B7B_Resolve_MovementSurfaceCollision = $C05B7B
+C05FD1_Read_CenteredCollisionTile = $5FD1
+C05FF6_Find_OverlappingEntitySlot = $C05FF6
+C073C0_Check_MovementBoundaryTrigger = $C073C0
+C07526_Dispatch_MovementHelperFromLookup = $C07526
+
 ; Runtime contract anchors:
 ; - C0:404F maps the current traversal mode plus live input to a direction or
 ;   #$FFFF when no direction is accepted.
@@ -31,13 +41,13 @@ C0449B_Step_PlayerFromDirectionalInput:
     stz $9885
     lda $5DA0
     beq C044AE_Step_PlayerFromDirectionalInput_L44AE
-    jsr $2C89
+    jsr C02C89_MushroomizationMovementSwap
 C044AE_Step_PlayerFromDirectionalInput_L44AE:
     ldx.w #$9883
     stx $24
     lda $0000,X
     ; Resolve live input against the current traversal/movement mode.
-    jsl $C0404F
+    jsl C0404F_MapInputToDirection
     sta $02
     lda $5D60
     beq C044E3_Step_PlayerFromDirectionalInput_L44E3
@@ -48,7 +58,7 @@ C044AE_Step_PlayerFromDirectionalInput_L44AE:
     ldy $9889
     ldx $987B
     lda $9877
-    jsl $C05FF6
+    jsl C05FF6_Find_OverlappingEntitySlot
     jmp.w C0476B_Step_PlayerFromDirectionalInput_L476B
 C044DA_Step_PlayerFromDirectionalInput_L44DA:
     lda.w #$FFFF
@@ -62,7 +72,7 @@ C044E3_Step_PlayerFromDirectionalInput_L44E3:
     ldy $9889
     ldx $987B
     lda $9877
-    jsl $C05FF6
+    jsl C05FF6_Find_OverlappingEntitySlot
     jmp.w C0476B_Step_PlayerFromDirectionalInput_L476B
 C044FA_Step_PlayerFromDirectionalInput_L44FA:
     ldx $24
@@ -164,7 +174,7 @@ C04568_Step_PlayerFromDirectionalInput_L4568:
     sta $10
     ldx $22
     lda $02
-    jsr $2D8F
+    jsr C02D8F_AdjustPositionHorizontal
     lda $06
     sta $12
     lda $08
@@ -179,7 +189,7 @@ C04568_Step_PlayerFromDirectionalInput_L4568:
     sta $10
     ldx $22
     lda $02
-    jsr $3017
+    jsr C03017_AdjustPositionVertical
     lda $06
     sta $16
     lda $08
@@ -194,7 +204,7 @@ C04568_Step_PlayerFromDirectionalInput_L4568:
     ldy $9889
     ldx $18
     lda $14
-    jsl $C05B7B
+    jsl C05B7B_Resolve_MovementSurfaceCollision
     sta $04
     lda $02
     cmp $5DA6
@@ -210,7 +220,7 @@ C04568_Step_PlayerFromDirectionalInput_L4568:
     sta $10
     ldx $22
     lda $5DA6
-    jsr $2D8F
+    jsr C02D8F_AdjustPositionHorizontal
     lda $06
     sta $12
     lda $08
@@ -226,7 +236,7 @@ C04568_Step_PlayerFromDirectionalInput_L4568:
     sta $10
     ldx $22
     lda $5DA6
-    jsr $3017
+    jsr C03017_AdjustPositionVertical
     lda $06
     sta $16
     lda $08
@@ -238,7 +248,7 @@ C04662_Step_PlayerFromDirectionalInput_L4662:
     ldy $9889
     ldx $18
     lda $14
-    jsr $5FD1
+    jsr C05FD1_Read_CenteredCollisionTile
     and.w #$003F
     sta $04
     bra C0467D_Step_PlayerFromDirectionalInput_L467D
@@ -253,7 +263,7 @@ C0467D_Step_PlayerFromDirectionalInput_L467D:
     ldy $9889
     ldx $18
     lda $14
-    jsl $C05FF6
+    jsl C05FF6_Find_OverlappingEntitySlot
     lda $28CC
     cmp.w #$FFFF
     beq C0469F_Step_PlayerFromDirectionalInput_L469F
@@ -271,7 +281,7 @@ C046AB_Step_PlayerFromDirectionalInput_L46AB:
     beq C046C1_Step_PlayerFromDirectionalInput_L46C1
     ldx $5DAA
     lda $5DA8
-    jsl $C07526
+    jsl C07526_Dispatch_MovementHelperFromLookup
     sta $02
     bra C046D1_Step_PlayerFromDirectionalInput_L46D1
 C046C1_Step_PlayerFromDirectionalInput_L46C1:
@@ -312,7 +322,7 @@ C046FE_Step_PlayerFromDirectionalInput_L46FE:
     lda $5E3C
     beq C04715_Step_PlayerFromDirectionalInput_L4715
     lda.w #$0000
-    jsl $C073C0
+    jsl C073C0_Check_MovementBoundaryTrigger
 C04715_Step_PlayerFromDirectionalInput_L4715:
     lda $0002
     and.w #$00FF
@@ -321,7 +331,7 @@ C04715_Step_PlayerFromDirectionalInput_L4715:
     lda $5E4A
     beq C0472C_Step_PlayerFromDirectionalInput_L472C
     lda.w #$0001
-    jsl $C073C0
+    jsl C073C0_Check_MovementBoundaryTrigger
 C0472C_Step_PlayerFromDirectionalInput_L472C:
     ldx $9883
     cpx.w #$0007

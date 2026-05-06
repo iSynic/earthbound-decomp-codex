@@ -11,6 +11,7 @@ the game pans over Onett.
 
 - `C0:B65F` = `SeedPlayerOverworldStartPosition`
 - `C0:B67F` = `InitializeIntroOverworldScene`
+- `C0:2D29` = `ResetOverworldPartyRuntimeState`
 
 ## `C0:B65F`: seed player position/facing
 
@@ -52,3 +53,10 @@ The pair gives a useful top-level boot contract for porting:
 - `C0:B67F` can lift as `initializeIntroOverworldScene()`, with the callback
   at `C0:DC4E` treated as the intro camera/pan driver until that later main
   loop region is named.
+
+## Source Polish Follow-Up
+
+The 2026-05-06 C0 source polish pass added a local source anchor for `C0:2D29`
+as the shared overworld party-runtime reset entry. `C0:B67F` now calls that
+entry by name before rebuilding the mushroomized-walking controller and display
+setup.

@@ -9,6 +9,9 @@ See also [class2-cc19-20-eshop2-single-use.md](notes/class2-cc19-20-eshop2-singl
 
 ## Working Names
 
+- `C0:2C3E` = `RefreshSpecialTraversalModeState`
+- `C0:2C83` = `ResetMushroomizedWalking`
+- `C0:2C89` = `MushroomizationMovementSwap`
 - `C0:34D6` = `SortAndExport_MushroomizedWalkingEntries`
 - `C0:369B` = `Insert_MushroomizedWalkingActiveEntry`
 - `C0:37D0` = `AppendMushroomizedEntryAndRefreshController`
@@ -91,6 +94,15 @@ After sorting, the routine exports:
 It then copies the first word in `$9897` to `$9889` and calls `C0:32EC`, `C0:2C3E`, and `C4:7F87`.
 
 That is much closer to refresh controller exports for downstream movement / overlay code than to swap directions in place.
+
+## Source Polish Follow-Up
+
+The 2026-05-06 C0 source polish pass added local source anchors for the merged
+post-`SPAWN_VERTICAL` tail entries: `C0:2C3E` refreshes the special traversal
+mode state and can restore the leader from bicycle mode, `C0:2C83` clears the
+mushroomized-walking latch, and `C0:2C89` is the reference-named movement swap
+body used by the player stepper when `$5DA0` is active. The same pass also
+named `C0:34D6`'s call into `C0:2C3E`.
 
 ## `C0:39E5` looks like shared per-entry target-position refresh
 

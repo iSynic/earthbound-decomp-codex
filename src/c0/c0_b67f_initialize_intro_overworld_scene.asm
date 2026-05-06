@@ -15,6 +15,7 @@ C018F3_CloseOrResetPresentationState        = $C018F3
 C01A69_ResetEntitySlotStateTables           = $C01A69
 C01A86_ResetEntityBytePool467E              = $C01A86
 C01C11_InitializeEntityStateMask            = $C01C11
+C02D29_ResetOverworldPartyRuntimeState      = $C02D29
 C06B21_RunPostTransitionDeferredScriptQueue = $C06B21
 C07B52_RebuildPartyRecordsOrEntityState     = $C07B52
 C08756_WaitOneFrameAndPollInput             = $C08756
@@ -79,7 +80,7 @@ C0B67F_InitializeIntroOverworldScene:
     tyx
     lda.w #$0001
     jsl $C09321
-    jsl $C02D29
+    jsl C02D29_ResetOverworldPartyRuntimeState
     jsl $C03A24
     sep #$20
     stz $0E

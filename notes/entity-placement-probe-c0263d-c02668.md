@@ -155,6 +155,13 @@ checks and `Resolve_SpawnProbeCandidateList` for accepted probe windows. The
 candidate commit path in `C0:2957` now also names its footprint, terrain
 compatibility, and failed-placement release helpers.
 
+The later 2026-05-06 follow-up added source anchors for the merged routines
+after `SPAWN_VERTICAL` without splitting the source file yet. The reference
+`adjust_position_horizontal.asm` and `adjust_position_vertical.asm` entries are
+now locally anchored as `AdjustPositionHorizontal` and `AdjustPositionVertical`,
+and their repeated long-multiply helper calls are named through the local
+hardware-multiply contract.
+
 ## Working Names
 
 - `C0:263D` = `Lookup_PlacementTileWord_D01880`

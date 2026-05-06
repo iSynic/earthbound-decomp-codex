@@ -11,6 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C02C3E_RefreshSpecialTraversalModeState = $C02C3E
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C47F87_RefreshWindowFlavorPalette  = $C47F87
 
@@ -253,7 +254,7 @@ C03683_SortAndExport_MushroomizedWalkingEntries_L3683:
     lda $9897
     sta $9889
     jsl $C032EC
-    jsl $C02C3E
+    jsl C02C3E_RefreshSpecialTraversalModeState
     jsl C47F87_RefreshWindowFlavorPalette
     pld
     rtl
