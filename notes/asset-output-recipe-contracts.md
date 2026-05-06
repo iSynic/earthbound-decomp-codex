@@ -14,6 +14,8 @@ The ROM-free typed output inventory is tracked in `notes/asset-output-index.md` 
 
 Output palette/graphics source-reference coverage is tracked in `notes/asset-output-source-refs.md` and rebuildable via `tools/build_asset_output_source_refs.py`.
 
+Output path uniqueness and bank-root coverage are tracked in `notes/asset-output-path-audit.md` and rebuildable via `tools/build_asset_output_path_audit.py`.
+
 Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
 
 ## Snapshot

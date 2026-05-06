@@ -16,6 +16,8 @@ The typed output inventory is tracked in `notes/asset-output-index.md`; it joins
 
 Output source-reference coverage is tracked in `notes/asset-output-source-refs.md`; it proves palette/graphics refs resolve to manifest assets or to an explicit known runtime-source consumer boundary.
 
+Output path uniqueness is tracked in `notes/asset-output-path-audit.md`; it proves every typed recipe lands at one relative bank-rooted destination before extraction writes ignored local outputs.
+
 Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
 
 ## Snapshot

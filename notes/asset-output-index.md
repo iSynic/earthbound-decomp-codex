@@ -6,6 +6,8 @@ This is a ROM-free inventory of typed asset outputs. The machine-readable record
 
 Palette and graphics source-reference coverage for these outputs is tracked in `notes/asset-output-source-refs.md`.
 
+Output path uniqueness and bank-root coverage for these records are tracked in `notes/asset-output-path-audit.md`.
+
 Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
 
 ## Snapshot

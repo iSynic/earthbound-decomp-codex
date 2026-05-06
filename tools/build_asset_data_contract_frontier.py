@@ -17,6 +17,7 @@ OUTPUT_CODEC_VALIDATION_MARKDOWN = ROOT / "notes" / "asset-output-codec-validati
 OUTPUT_PREVIEW_GEOMETRY_MARKDOWN = ROOT / "notes" / "asset-output-preview-geometry.md"
 OUTPUT_INDEX_MARKDOWN = ROOT / "notes" / "asset-output-index.md"
 OUTPUT_SOURCE_REFS_MARKDOWN = ROOT / "notes" / "asset-output-source-refs.md"
+OUTPUT_PATH_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-path-audit.md"
 
 CONTRACT_COVERED_INFERRED_PAYLOAD_METADATA_BY_BANK = {
     "E0": 1,
@@ -344,6 +345,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             "output_preview_geometry": rel(OUTPUT_PREVIEW_GEOMETRY_MARKDOWN),
             "output_index": rel(OUTPUT_INDEX_MARKDOWN),
             "output_source_refs": rel(OUTPUT_SOURCE_REFS_MARKDOWN),
+            "output_path_audit": rel(OUTPUT_PATH_AUDIT_MARKDOWN),
             "output_report_freshness_validator": "tools/validate_asset_output_reports.py",
             "rom_outputs_policy": "Generated ROM-derived outputs remain under ignored build/assets and are not required to build this report.",
         },
@@ -407,6 +409,8 @@ def render_markdown(frontier: dict[str, Any]) -> str:
         "The typed output inventory is tracked in `notes/asset-output-index.md`; it joins every manifest output to bank/family/category, decoder/renderer contract, smoke coverage, and preview geometry status.",
         "",
         "Output source-reference coverage is tracked in `notes/asset-output-source-refs.md`; it proves palette/graphics refs resolve to manifest assets or to an explicit known runtime-source consumer boundary.",
+        "",
+        "Output path uniqueness is tracked in `notes/asset-output-path-audit.md`; it proves every typed recipe lands at one relative bank-rooted destination before extraction writes ignored local outputs.",
         "",
         "Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
         "",

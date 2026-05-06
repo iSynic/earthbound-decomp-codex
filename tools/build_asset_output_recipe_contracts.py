@@ -28,6 +28,8 @@ OUTPUT_INDEX_JSON = ROOT / "build" / "asset-output-index.json"
 OUTPUT_INDEX_MARKDOWN = ROOT / "notes" / "asset-output-index.md"
 SOURCE_REFS_JSON = ROOT / "build" / "asset-output-source-refs.json"
 SOURCE_REFS_MARKDOWN = ROOT / "notes" / "asset-output-source-refs.md"
+PATH_AUDIT_JSON = ROOT / "build" / "asset-output-path-audit.json"
+PATH_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-path-audit.md"
 
 
 FAMILIES: list[dict[str, Any]] = [
@@ -315,6 +317,11 @@ def build_contract(manifest_dir: Path) -> dict[str, Any]:
             "tracked_markdown": rel(SOURCE_REFS_MARKDOWN),
             "runner": "tools/build_asset_output_source_refs.py",
         },
+        "path_audit": {
+            "generated_json": rel(PATH_AUDIT_JSON),
+            "tracked_markdown": rel(PATH_AUDIT_MARKDOWN),
+            "runner": "tools/build_asset_output_path_audit.py",
+        },
         "source_policy": {
             "contains_rom_derived_outputs": False,
             "validates_recipes_for_user_rom_extraction": True,
@@ -350,6 +357,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "The ROM-free typed output inventory is tracked in `notes/asset-output-index.md` and rebuildable via `tools/build_asset_output_index.py`.",
         "",
         "Output palette/graphics source-reference coverage is tracked in `notes/asset-output-source-refs.md` and rebuildable via `tools/build_asset_output_source_refs.py`.",
+        "",
+        "Output path uniqueness and bank-root coverage are tracked in `notes/asset-output-path-audit.md` and rebuildable via `tools/build_asset_output_path_audit.py`.",
         "",
         "Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
         "",
