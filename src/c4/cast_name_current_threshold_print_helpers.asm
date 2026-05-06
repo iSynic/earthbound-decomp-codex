@@ -13,7 +13,10 @@
 
 PrintCastNameParty        = $C4EBAD
 CurrentEntitySlot         = $1A42
-CastScrollThresholdTable  = $0E5E
+
+; In this wrapper family `$0E5E + slot*2` is the cast-name row/source selector
+; previously staged by the event-801 driver, not a fresh global table meaning.
+CastNameCurrentSlotSelectorTable = $0E5E
 
 ; ---------------------------------------------------------------------------
 ; C4:EC52
@@ -21,7 +24,7 @@ CastScrollThresholdTable  = $0E5E
 PRINT_CAST_NAME_ENTITY_VAR0:
 C4EC52_PrintCastNameCurrentThreshold = PRINT_CAST_NAME_ENTITY_VAR0
     ; Use the current slot's cast-scroll threshold as the cast-name row/source
-    ; selector before entering the shared print wrapper.
+    ; selector before entering the shared E1-record print wrapper.
     rep #$31
     phd
     pha
@@ -33,7 +36,7 @@ C4EC52_PrintCastNameCurrentThreshold = PRINT_CAST_NAME_ENTITY_VAR0
     lda CurrentEntitySlot
     asl A
     tax
-    lda CastScrollThresholdTable,X
+    lda CastNameCurrentSlotSelectorTable,X
     ldx $0E
     jsl PrintCastNameParty
     pld

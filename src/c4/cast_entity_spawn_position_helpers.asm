@@ -17,7 +17,9 @@ CastEntitySpawnXTable       = $0E5E
 CastEntitySpawnYTable       = $0E9A
 Bg3VerticalScrollShadow     = $003B
 CastSpawnVariantCounter     = $B4D3
+CastSpawnVariantArgument    = $0A38
 CastSpawnVariantMask        = $0003
+CastSpawnDefaultParent      = $FFFF
 
 ; ---------------------------------------------------------------------------
 ; C4:ECAD
@@ -35,9 +37,11 @@ C4ECAD_CreateEntityAtV01PlusBg3Y = CREATE_ENTITY_AT_V01_PLUS_BG3Y
     pla
     stx $02
     sta $12
+    ; Pass a rotating 0..3 variant through the C0 spawn argument field; C0 owns
+    ; the entity creation internals.
     lda CastSpawnVariantCounter
     and.w #CastSpawnVariantMask
-    sta $0A38
+    sta CastSpawnVariantArgument
     inc CastSpawnVariantCounter
     lda CurrentEntitySlot
     asl A
@@ -48,7 +52,7 @@ C4ECAD_CreateEntityAtV01PlusBg3Y = CREATE_ENTITY_AT_V01_PLUS_BG3Y
     clc
     adc Bg3VerticalScrollShadow
     sta $10
-    ldy.w #$FFFF
+    ldy.w #CastSpawnDefaultParent
     ldx $02
     lda $12
     jsl CreateEntityAtPositionMaybe

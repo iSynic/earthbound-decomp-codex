@@ -140,6 +140,13 @@ staged cast X/Y fields from `$0E5E/$0E9A` and adds the live BG3 Y scroll at
 `$003B`; the onscreen check compares `$003B - 8` against the current slot's
 live Y at `$0BCA`.
 
+2026-05-06 cast palette/spawn follow-up: the current-slot print wrapper now
+keeps `$0E5E + slot*2` local to the cast-name selector role, the special palette
+helper names its `$7F:7000 + index*$20 -> $0380` transfer and `$0030 = #$10`
+selector, and the spawn/onscreen helpers name the `$0A38` rotating spawn
+variant, `$FFFF` default parent argument, and word-indexed live-Y comparison.
+The entity constructor and palette transfer callees remain external contracts.
+
 `C4:ED0E..C4:EDA3` is the promoted `PlayCastScene` controller. It brackets cast
 scene loading, transition state, event-801 driver allocation (`#$0321`),
 per-frame updates until `$9641` is set, final driver cleanup, and restoration

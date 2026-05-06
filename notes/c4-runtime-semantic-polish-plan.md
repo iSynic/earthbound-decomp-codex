@@ -223,6 +223,12 @@ closure.
   adjustment, E1:2EFA three-byte pointer rows, C3:FDB5 party lookup, and the
   special source-selector `7 -> 01C0`. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 cast palette/spawn follow-up: tightened the remaining
+  `C4:EC52..ED0E` cast presentation helpers around the local `$0E5E` cast-name
+  selector role, `$7F:7000 + index*$20 -> $0380` palette transfer,
+  `$0030 = #$10` display selector, `$0A38` rotating spawn variant, `$FFFF`
+  default parent argument, and word-indexed live-Y onscreen comparison. See
+  `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
 - 2026-05-06 audio tail follow-up: tightened the final C4 audio block around
   the music dataset row fields, audio pack pointer row shape, US bank resolver
   mask reset, cold-start bootstrap shared pack, `ChangeMusic` primary,
