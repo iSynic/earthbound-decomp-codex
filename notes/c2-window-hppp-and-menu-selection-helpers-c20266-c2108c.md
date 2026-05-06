@@ -134,6 +134,18 @@ cluster without changing runtime bytes:
   HP/PP digit tile-buffer bases, digit tile source offsets, blank/visible digit
   tile offsets, and the HP/PP wrapper entries at `C2:0F08/0F26`.
 
+2026-05-06 follow-up source polish tightened the central composer and its
+battle-presentation callers:
+
+- `C2:03C3` now names the party-slot-to-character-id table, character record
+  stride/base, HP/PP window option word, current HP/PP and dirty/status fields,
+  focused party HP/PP window id, tilemap base, HP/PP tile-buffer row bases, the
+  `C0:8F22` text-length helper, and the local `C2:0F08/0F26` HP/PP tile-buffer
+  wrappers.
+- `C2:DB3F` and `C2:E0E7` now call `C2:07E1` and `C2:07B6` by their HP/PP
+  window roles while naming `$ADA4/$ADA6` as the HP/PP box blink
+  duration/target pair.
+
 ## Working Names
 
 These are proposed local names, intentionally phrased as behavior names until we have source-level integration:

@@ -77,6 +77,12 @@ documented as one shared visual update body:
 - run screen brightness flashes, HP/PP box blink, and overlay script stepping
 - animate letterbox bounds and rebuild the HDMA table when requested
 
+The HP/PP box blink sublane now has source-facing names for its shared window
+joins: `$ADA4/$ADA6` are the HP/PP box blink duration/target pair, and the
+per-frame update alternates the target through `C2:07E1`
+`ClearPartyHpPpWindowTiles` and `C2:07B6`
+`MarkAndRedrawPartyHpPpWindow`.
+
 This routine is the frame-time consumer of the runtime structs initialized by
 `LOAD_BATTLE_BG`; it is not merely a palette updater.
 

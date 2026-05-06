@@ -26,8 +26,13 @@ C08ED2_QueueOrTransferDynamicTileBlock = $C08ED2
 C0915B_DivideUnsignedWordByY           = $C0915B
 C09231_ModUnsignedWordByIndex          = $C09231
 C0AFCD_SetPresentationFadeOrMode       = $C0AFCD
+C207B6_MarkAndRedrawPartyHpPpWindow    = $C207B6
+C207E1_ClearPartyHpPpWindowTiles       = $C207E1
 C2C92D_QueueOrApplyBattleVisualScript  = $C2C92D
 C4A7B0_StepBattleOverlayScriptState    = $C4A7B0
+
+HpPpBoxBlinkDuration                   = $ADA4
+HpPpBoxBlinkTarget                     = $ADA6
 
 ; ---------------------------------------------------------------------------
 ; C2:DB14
@@ -314,21 +319,21 @@ C2DD6F_RunBattleBgPerFrameUpdateBody_LDD6F:
     lda $AD8A
     jsl C0AFCD_SetPresentationFadeOrMode
 C2DD7F_UpdateBattleBgAnimationResourceTimer:
-    lda $ADA4
+    lda HpPpBoxBlinkDuration
     beq C2DDA7_RunBattleBgPerFrameTail
-    lda $ADA4
+    lda HpPpBoxBlinkDuration
     dec A
-    sta $ADA4
+    sta HpPpBoxBlinkDuration
     ldy.w #$0003
     jsl C0915B_DivideUnsignedWordByY
     and.w #$0001
     beq C2DDA0_RunBattleBgPerFrameUpdateBody_LDDA0
-    lda $ADA6
-    jsl $C207E1
+    lda HpPpBoxBlinkTarget
+    jsl C207E1_ClearPartyHpPpWindowTiles
     bra C2DDA7_RunBattleBgPerFrameTail
 C2DDA0_RunBattleBgPerFrameUpdateBody_LDDA0:
-    lda $ADA6
-    jsl $C207B6
+    lda HpPpBoxBlinkTarget
+    jsl C207B6_MarkAndRedrawPartyHpPpWindow
 C2DDA7_RunBattleBgPerFrameTail:
     jsl C4A7B0_StepBattleOverlayScriptState
     jsl $C2FD99

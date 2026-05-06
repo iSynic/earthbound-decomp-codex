@@ -20423,9 +20423,26 @@ hirom
 org $C203C3
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C08F22_MeasureTerminatedTextLength = $C08F22
 !C09032_DivideUnsignedWordByY = $C09032
 !C223D9_LookupStatusTileValueForHpPpWindow = $C223D9
 !C22474_LookupStatusTileWidthOrOffsetForHpPpWindow = $C22474
+!C20F08_FillCharacterHpTileBuffer = $0F08
+!C20F26_FillCharacterPpTileBuffer = $0F26
+!PartySlotCharacterIdTable = $986F
+!CharacterStatsTableBase = $99CE
+!CharacterRecordSize = $005F
+!CharacterStatusBaseOffset = $000E
+!CharacterHpPpWindowOptionsOffset = $004F
+!CharacterHpDirtyStatusOffset = $0043
+!CharacterCurrentHpOffset = $0045
+!CharacterPpDirtyStatusOffset = $0049
+!CharacterCurrentPpOffset = $004B
+!FocusedPartyHpPpWindowId = $89CA
+!PlayerControlledPartyCount = $98A4
+!HpPpWindowTilemapBase = $7DFE
+!HpTileBufferRowBase = $8969
+!PpTileBufferRowBase = $8975
 DRAW_HP_PP_WINDOW:
 !C203C3_ComposePartyMemberHpPpWindowTiles = DRAW_HP_PP_WINDOW
     rep #$31
@@ -20436,17 +20453,17 @@ DRAW_HP_PP_WINDOW:
     tcd
     pla
     sta $26
-    ldy.w #$986F
+    ldy.w #!PartySlotCharacterIdTable
     lda ($26),Y
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #!CharacterRecordSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #!CharacterStatsTableBase
     sta $24
     clc
-    adc.w #$000E
+    adc.w #!CharacterStatusBaseOffset
     sta $02
     ldx.w #$0001
     lda $02
@@ -20463,7 +20480,7 @@ DRAW_HP_PP_WINDOW:
     clc
     adc $04
     sta $20
-    ldy.w #$004F
+    ldy.w #!CharacterHpPpWindowOptionsOffset
     lda ($24),Y
     sta $04
     sta $1E
@@ -20488,7 +20505,7 @@ C2042D_ComposePartyMemberHpPpWindowTiles_L042D:
     sta $22
     stz $1A
 C20445_ComposePartyMemberHpPpWindowTiles_L0445:
-    lda $89CA
+    lda !FocusedPartyHpPpWindowId
     cmp $26
     bne C20453_ComposePartyMemberHpPpWindowTiles_L0453
     lda.w #$0012
@@ -20505,7 +20522,7 @@ C20458_ComposePartyMemberHpPpWindowTiles_L0458:
     asl A
     adc $04
     pha
-    lda $98A4
+    lda !PlayerControlledPartyCount
     and.w #$00FF
     sta $04
     asl A
@@ -20536,7 +20553,7 @@ C20458_ComposePartyMemberHpPpWindowTiles_L0458:
     clc
     adc $02
     clc
-    adc.w #$7DFE
+    adc.w #!HpPpWindowTilemapBase
     tax
     lda $1E
     sta $04
@@ -20575,7 +20592,7 @@ C204B4_ComposePartyMemberHpPpWindowTiles_L04B4:
     inc A
     inc A
     sta $16
-    ldy.w #$986F
+    ldy.w #!PartySlotCharacterIdTable
     lda ($26),Y
     and.w #$00FF
     dec A
@@ -20597,7 +20614,7 @@ C204B4_ComposePartyMemberHpPpWindowTiles_L04B4:
     sta $0E
     lda $08
     sta $10
-    jsl $C08F22
+    jsl !C08F22_MeasureTerminatedTextLength
     sta $04
     asl A
     adc $04
@@ -20670,7 +20687,7 @@ C20542_ComposePartyMemberHpPpWindowTiles_L0542:
     inc A
     inc A
     sta $16
-    ldy.w #$986F
+    ldy.w #!PartySlotCharacterIdTable
     lda ($26),Y
     and.w #$00FF
     dec A
@@ -20692,7 +20709,7 @@ C20542_ComposePartyMemberHpPpWindowTiles_L0542:
     sta $0E
     lda $08
     sta $10
-    jsl $C08F22
+    jsl !C08F22_MeasureTerminatedTextLength
     sta $04
     asl A
     adc $04
@@ -20753,16 +20770,16 @@ C205E0_ComposePartyMemberHpPpWindowTiles_L05E0:
     clc
     adc.w #$0032
     sta $02
-    ldy.w #$0043
+    ldy.w #!CharacterHpDirtyStatusOffset
     lda ($24),Y
     tay
     sty $14
-    ldy.w #$0045
+    ldy.w #!CharacterCurrentHpOffset
     lda ($24),Y
     tax
     lda $26
     ldy $14
-    jsr $0F08
+    jsr !C20F08_FillCharacterHpTileBuffer
     lda.w #$E3F8
     sta $06
     lda.w #$00C3
@@ -20775,7 +20792,7 @@ C205E0_ComposePartyMemberHpPpWindowTiles_L05E0:
     asl A
     asl A
     clc
-    adc.w #$8969
+    adc.w #!HpTileBufferRowBase
     tay
     ldx.w #$0002
     stx $12
@@ -20843,18 +20860,18 @@ C20690_ComposePartyMemberHpPpWindowTiles_L0690:
     stx $12
 C206AC_ComposePartyMemberHpPpWindowTiles_L06AC:
     bne C2063D_ComposePartyMemberHpPpWindowTiles_L063D
-    ldy.w #$0049
+    ldy.w #!CharacterPpDirtyStatusOffset
     lda ($24),Y
     sta $0E
-    ldy.w #$004B
+    ldy.w #!CharacterCurrentPpOffset
     lda ($24),Y
     tay
     lda $24
     clc
-    adc.w #$000E
+    adc.w #!CharacterStatusBaseOffset
     tax
     lda $26
-    jsr $0F26
+    jsr !C20F26_FillCharacterPpTileBuffer
     lda $26
     sta $04
     asl A
@@ -20863,7 +20880,7 @@ C206AC_ComposePartyMemberHpPpWindowTiles_L06AC:
     asl A
     asl A
     clc
-    adc.w #$8975
+    adc.w #!PpTileBufferRowBase
     tay
     ldx.w #$0002
     stx $12
@@ -32228,7 +32245,9 @@ org $C2E0E7
 
 !C0AFCD_ApplyScreenStateFlag = $C0AFCD
 !C0B01A_SetScreenBrightness = $C0B01A
-!C207B6_UnregisterBattleBgAnimationResource = $C207B6
+!C207B6_MarkAndRedrawPartyHpPpWindow = $C207B6
+!HpPpBoxBlinkDuration = $ADA4
+!HpPpBoxBlinkTarget = $ADA6
 C2E0E7_ClearBattleVisualFlashStateAndLayerConfig:
     rep #$31
     stz $AD9E
@@ -32236,11 +32255,11 @@ C2E0E7_ClearBattleVisualFlashStateAndLayerConfig:
     sep #$20
     stz $AEC2
     rep #$20
-    lda $ADA4
+    lda !HpPpBoxBlinkDuration
     beq C2E105_ClearBattleVisualFlashStateAndLayerConfig_LE105
-    lda $ADA6
-    jsl !C207B6_UnregisterBattleBgAnimationResource
-    stz $ADA4
+    lda !HpPpBoxBlinkTarget
+    jsl !C207B6_MarkAndRedrawPartyHpPpWindow
+    stz !HpPpBoxBlinkDuration
 C2E105_ClearBattleVisualFlashStateAndLayerConfig_LE105:
     ldy.w #$0000
     tyx
@@ -34103,8 +34122,12 @@ org $C2DB14
 !C0915B_DivideUnsignedWordByY = $C0915B
 !C09231_ModUnsignedWordByIndex = $C09231
 !C0AFCD_SetPresentationFadeOrMode = $C0AFCD
+!C207B6_MarkAndRedrawPartyHpPpWindow = $C207B6
+!C207E1_ClearPartyHpPpWindowTiles = $C207E1
 !C2C92D_QueueOrApplyBattleVisualScript = $C2C92D
 !C4A7B0_StepBattleOverlayScriptState = $C4A7B0
+!HpPpBoxBlinkDuration = $ADA4
+!HpPpBoxBlinkTarget = $ADA6
 C2DB14_CopyBattleBgDistortionBufferToWorkingState:
     rep #$31
     phd
@@ -34377,21 +34400,21 @@ C2DD6F_RunBattleBgPerFrameUpdateBody_LDD6F:
     lda $AD8A
     jsl !C0AFCD_SetPresentationFadeOrMode
 C2DD7F_UpdateBattleBgAnimationResourceTimer:
-    lda $ADA4
+    lda !HpPpBoxBlinkDuration
     beq C2DDA7_RunBattleBgPerFrameTail
-    lda $ADA4
+    lda !HpPpBoxBlinkDuration
     dec A
-    sta $ADA4
+    sta !HpPpBoxBlinkDuration
     ldy.w #$0003
     jsl !C0915B_DivideUnsignedWordByY
     and.w #$0001
     beq C2DDA0_RunBattleBgPerFrameUpdateBody_LDDA0
-    lda $ADA6
-    jsl $C207E1
+    lda !HpPpBoxBlinkTarget
+    jsl !C207E1_ClearPartyHpPpWindowTiles
     bra C2DDA7_RunBattleBgPerFrameTail
 C2DDA0_RunBattleBgPerFrameUpdateBody_LDDA0:
-    lda $ADA6
-    jsl $C207B6
+    lda !HpPpBoxBlinkTarget
+    jsl !C207B6_MarkAndRedrawPartyHpPpWindow
 C2DDA7_RunBattleBgPerFrameTail:
     jsl !C4A7B0_StepBattleOverlayScriptState
     jsl $C2FD99

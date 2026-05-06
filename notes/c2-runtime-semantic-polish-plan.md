@@ -426,6 +426,17 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-item-bomb-runtime-polish.md`,
   `notes/c2-hit-resolution-status-runtime-polish.md`, and
   `notes/c2-action-dispatch-runtime-polish.md`.
+- 2026-05-06 sixty-second slice: returned to the early HP/PP window composer
+  and its battle-presentation blink callers. `C2:03C3` now names the
+  party-slot map, character record base/stride, HP/PP window option word,
+  current HP/PP and dirty/status fields, focused HP/PP window id, tilemap
+  base, HP/PP tile-buffer row bases, `C0:8F22` text-length helper, and local
+  `C2:0F08/0F26` HP/PP tile-buffer wrappers. The battle-background per-frame
+  and cleanup helpers now call `C2:07E1/07B6` by their HP/PP clear/redraw
+  roles while naming `$ADA4/$ADA6` as the HP/PP box blink duration/target pair.
+  See `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`,
+  `notes/c2-battle-bg-load-update-runtime-polish.md`, and
+  `notes/c2-battlebg-load-and-palette-effect-corridor-c2cfe5-c2e0e7.md`.
 
 ## Validation
 

@@ -13,7 +13,10 @@
 
 C0AFCD_ApplyScreenStateFlag                = $C0AFCD
 C0B01A_SetScreenBrightness                 = $C0B01A
-C207B6_UnregisterBattleBgAnimationResource = $C207B6
+C207B6_MarkAndRedrawPartyHpPpWindow        = $C207B6
+
+HpPpBoxBlinkDuration                       = $ADA4
+HpPpBoxBlinkTarget                         = $ADA6
 
 ; ---------------------------------------------------------------------------
 ; C2:E0E7
@@ -25,11 +28,11 @@ C2E0E7_ClearBattleVisualFlashStateAndLayerConfig:
     sep #$20
     stz $AEC2
     rep #$20
-    lda $ADA4
+    lda HpPpBoxBlinkDuration
     beq C2E105_ClearBattleVisualFlashStateAndLayerConfig_LE105
-    lda $ADA6
-    jsl C207B6_UnregisterBattleBgAnimationResource
-    stz $ADA4
+    lda HpPpBoxBlinkTarget
+    jsl C207B6_MarkAndRedrawPartyHpPpWindow
+    stz HpPpBoxBlinkDuration
 C2E105_ClearBattleVisualFlashStateAndLayerConfig_LE105:
     ldy.w #$0000
     tyx

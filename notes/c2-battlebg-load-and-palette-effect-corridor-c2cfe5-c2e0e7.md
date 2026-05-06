@@ -240,7 +240,7 @@ Observed behavior:
 - clears `RED_FLASH_DURATION`
 - clears `$AEC2`, a nearby battle visual/sprite-effect byte outside the named `loaded_bg_data` structs
 - if `HP_PP_BOX_BLINK_DURATION` is nonzero:
-  - calls `C2:07B6` with `HP_PP_BOX_BLINK_TARGET`
+  - calls `C2:07B6` / `MarkAndRedrawPartyHpPpWindow` with `HP_PP_BOX_BLINK_TARGET`
   - clears `HP_PP_BOX_BLINK_DURATION`
 - calls C0 layer/palette helpers with zeroed arguments
 - sets `CURRENT_LAYER_CONFIG` to `1`
@@ -262,6 +262,12 @@ The following battle-background helpers are now represented as durable source mo
 - `src/c2/c2_e08e_apply_loaded_battle_bg_palette_step_across_layers.asm` covers `C2:E08E..E0E7`.
 - `src/c2/c2_e0e7_clear_battle_visual_flash_state_and_layer_config.asm` covers `C2:E0E7..E116`.
 - `src/c2/c2_e116_run_battle_visual_flash_and_bg_effect_body.asm` covers `C2:E116..E6B3`.
+
+Follow-up source polish names the per-frame HP/PP blink joins in
+`C2:DB3F..DE0F` as the same `$ADA4/$ADA6`
+`HP_PP_BOX_BLINK_DURATION/TARGET` pair documented above. The source now calls
+`C2:07E1` as `ClearPartyHpPpWindowTiles` during the blink-off phase and
+`C2:07B6` as `MarkAndRedrawPartyHpPpWindow` during the blink-on/cleanup phase.
 
 Validation after promotion:
 
