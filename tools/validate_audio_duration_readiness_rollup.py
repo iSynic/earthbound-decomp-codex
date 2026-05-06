@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""Validate the consolidated audio exact-duration readiness rollup."""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+from typing import Any
+
+
+ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_ROLLUP = ROOT / "manifests" / "audio-duration-readiness-rollup.json"
+REQUIRED_REFERENCES = {
+    "manifests/audio-duration-uncertainty-register.json",
+    "manifests/audio-finite-ending-tail-metrics.json",
+    "manifests/audio-loop-point-tail-metrics.json",
+    "manifests/audio-oracle-verification-report-all-tracks.json",
+    "manifests/audio-independent-oracle-campaign-plan.json",
+    "manifests/audio-probe-campaign-plan.json",
+}
+REQUIRED_GATES = {
+    "public_exact_duration_gate",
+    "finite_ending_tail_gate",
+    "loop_point_tail_gate",
+    "near_oracle_gate",
+    "independent_oracle_gate",
+    "sequence_promotion_gate",
+}
+REQUIRED_LANES = {
+    "non_zero_control_semantics",
+    "zero_runtime_probe",
+    "finite_transition_review",
+    "loop_point_metadata",
+    "independent_oracle",
+}
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Validate audio duration readiness rollup.")
+    parser.add_argument("rollup", nargs="?", default=str(DEFAULT_ROLLUP))
+    return parser.parse_args()
+
+
+def require(condition: bool, message: str) -> None:
+    if not condition:
+        raise ValueError(message)
+
+
+def validate(data: dict[str, Any]) -> None:
+    require(data.get("schema") == "earthbound-decomp.audio-duration-readiness-rollup.v1", "unexpected schema")
+    require(data.get("status") == "audio_duration_readiness_blocked_policy_preserved", "unexpected status")
+    require(REQUIRED_REFERENCES <= set(data.get("references", [])), "missing references")
+    summary = data.get("summary", {})
+    require(int(summary.get("track_count", 0)) == 192, "expected 192 tracks")
+    public_exact = int(summary.get("public_exact_duration_track_count", -1))
+    blocking_tracks = int(summary.get("blocking_track_count", -1))
+    require(0 <= public_exact < 192, "public exact duration count should be incomplete")
+    require(blocking_tracks == 192 - public_exact, "blocking track count mismatch")
+    require(summary.get("near_oracle_passed") is True, "near-oracle gate should currently pass")
+    require(summary.get("independent_oracle_passed") is False, "independent oracle gate should currently fail")
+    require(int(summary.get("finite_tail_records", 0)) == 5, "expected 5 finite tail records")
+    require(int(summary.get("loop_tail_records", 0)) == 5, "expected 5 loop tail records")
+    require(int(summary.get("probe_campaign_jobs", 0)) == 26, "expected 26 probe campaign jobs")
+    require(summary.get("release_ready") is False, "release readiness should remain blocked")
+    require(summary.get("current_playback_export_behavior_preserved") is True, "behavior preservation flag missing")
+    primary_counts = summary.get("primary_uncertainty_track_counts", {})
+    for key in (
+        "non_zero_control_semantics_pending",
+        "zero_runtime_probe_pending",
+        "finite_transition_review_pending",
+        "loop_point_metadata_pending",
+    ):
+        require(int(primary_counts.get(key, 0)) > 0, f"missing primary uncertainty count {key}")
+
+    gates = data.get("gates", {})
+    require(set(gates) == REQUIRED_GATES, "gate coverage mismatch")
+    public_gate = gates["public_exact_duration_gate"]
+    require(public_gate.get("passed") is False, "public exact duration gate should fail")
+    require(int(public_gate.get("blocking_track_count", -1)) == blocking_tracks, "public gate blocking count mismatch")
+    finite_gate = gates["finite_ending_tail_gate"]
+    require(finite_gate.get("passed") is False, "finite tail gate should fail")
+    require(int(finite_gate.get("records", 0)) == 5, "finite gate record count mismatch")
+    require(int(finite_gate.get("nonzero_after_candidate_end_count", 0)) == 5, "finite gate should see five post-candidate tails")
+    loop_gate = gates["loop_point_tail_gate"]
+    require(loop_gate.get("passed") is False, "loop tail gate should fail")
+    require(int(loop_gate.get("records", 0)) == 5, "loop gate record count mismatch")
+    require(int(loop_gate.get("missing_exact_loop_field_count", 0)) == 20, "loop gate missing field count mismatch")
+    require(gates["near_oracle_gate"].get("passed") is True, "near oracle gate should pass")
+    independent_gate = gates["independent_oracle_gate"]
+    require(independent_gate.get("passed") is False, "independent oracle gate should fail")
+    require(int(independent_gate.get("missing_independent_capture_count", 0)) == 190, "expected 190 missing independent captures")
+    sequence_gate = gates["sequence_promotion_gate"]
+    require(sequence_gate.get("passed") is False, "sequence promotion gate should fail")
+    require(sequence_gate.get("uncertainty_register_allows_sequence_promotion") is False, "uncertainty sequence promotion should be blocked")
+    require(sequence_gate.get("probe_campaign_allows_sequence_promotion") is False, "probe campaign sequence promotion should be blocked")
+
+    lanes = data.get("blocker_lanes", [])
+    require({str(lane.get("lane")) for lane in lanes} == REQUIRED_LANES, "blocker lane coverage mismatch")
+    for lane in lanes:
+        require(int(lane.get("blocking_count", -1)) >= 0, f"{lane.get('lane')}: invalid blocker count")
+        require(lane.get("current_contract"), f"{lane.get('lane')}: missing current contract")
+        require(lane.get("next_action"), f"{lane.get('lane')}: missing next action")
+    require(data.get("decision_policy"), "missing decision policy")
+
+
+def main() -> int:
+    args = parse_args()
+    data = json.loads(Path(args.rollup).read_text(encoding="utf-8"))
+    validate(data)
+    print(
+        "Audio duration readiness rollup validation OK: "
+        f"{data['summary']['blocking_track_count']} blocking tracks, "
+        f"release_ready={data['summary']['release_ready']}"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
