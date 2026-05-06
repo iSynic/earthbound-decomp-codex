@@ -11,7 +11,10 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C10D60_PrintGlyphAndMarkWindowRedraw = $0D60
+C10FEA_SetActiveWindowTileAttributes = $0FEA
+C12DD5_TickWindowTextSystem          = $C12DD5
+C12E42_TickWindowInputState          = $C12E42
 
 ; ---------------------------------------------------------------------------
 ; C1:2C36
@@ -23,7 +26,7 @@ C12C36_C12C36_PrintDebugMenuFixedWordGroups:
     adc.w #$FFEE
     tcd
     lda.w #$0003
-    jsr $0FEA
+    jsr C10FEA_SetActiveWindowTileAttributes
     lda.w #$E862
     sta $06
     lda.w #$00C3
@@ -35,12 +38,12 @@ C12C55_PrintDebugMenuFixedWordGroups_L2C55:
     lda [$06]
     inc $06
     inc $06
-    jsr $0D60
+    jsr C10D60_PrintGlyphAndMarkWindowRedraw
     ldx.w #$0001
     stx $0E
     bra C12C69_PrintDebugMenuFixedWordGroups_L2C69
 C12C65_PrintDebugMenuFixedWordGroups_L2C65:
-    jsl $C12DD5
+    jsl C12DD5_TickWindowTextSystem
 C12C69_PrintDebugMenuFixedWordGroups_L2C69:
     ldx $0E
     txa
@@ -58,7 +61,7 @@ C12C79_PrintDebugMenuFixedWordGroups_L2C79:
     stx $0E
     bra C12C89_PrintDebugMenuFixedWordGroups_L2C89
 C12C85_PrintDebugMenuFixedWordGroups_L2C85:
-    jsl $C12E42
+    jsl C12E42_TickWindowInputState
 C12C89_PrintDebugMenuFixedWordGroups_L2C89:
     ldx $0E
     txa
@@ -73,12 +76,12 @@ C12C9B_PrintDebugMenuFixedWordGroups_L2C9B:
     lda [$06]
     inc $06
     inc $06
-    jsr $0D60
+    jsr C10D60_PrintGlyphAndMarkWindowRedraw
     ldx.w #$0001
     stx $0E
     bra C12CAF_PrintDebugMenuFixedWordGroups_L2CAF
 C12CAB_PrintDebugMenuFixedWordGroups_L2CAB:
-    jsl $C12DD5
+    jsl C12DD5_TickWindowTextSystem
 C12CAF_PrintDebugMenuFixedWordGroups_L2CAF:
     ldx $0E
     txa
@@ -93,6 +96,6 @@ C12CBF_PrintDebugMenuFixedWordGroups_L2CBF:
     cpy.w #$0005
     bcc C12C9B_PrintDebugMenuFixedWordGroups_L2C9B
     lda.w #$0000
-    jsr $0FEA
+    jsr C10FEA_SetActiveWindowTileAttributes
     pld
     rtl

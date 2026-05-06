@@ -5505,6 +5505,9 @@ C12426_RunSimpleSideSelectionPrompt_L2426:
 hirom
 org $C12BF3
 
+!C10D60_PrintGlyphAndMarkWindowRedraw = $0D60
+!C10FEA_SetActiveWindowTileAttributes = $0FEA
+!C12DD5_TickWindowTextSystem = $C12DD5
 C12BF3_C12BF3_PrintDebugMenuTitleWordsWithTicks:
     rep #$31
     phd
@@ -5512,7 +5515,7 @@ C12BF3_C12BF3_PrintDebugMenuTitleWordsWithTicks:
     adc.w #$FFF0
     tcd
     lda.w #$0003
-    jsr $0FEA
+    jsr !C10FEA_SetActiveWindowTileAttributes
     lda.w #$E84E
     sta $06
     lda.w #$00C3
@@ -5521,12 +5524,12 @@ C12BF3_C12BF3_PrintDebugMenuTitleWordsWithTicks:
 C12C0D_PrintDebugMenuTitleWordsWithTicks_L2C0D:
     inc $06
     inc $06
-    jsr $0D60
+    jsr !C10D60_PrintGlyphAndMarkWindowRedraw
     ldx.w #$0001
     stx $0E
     bra C12C1F_PrintDebugMenuTitleWordsWithTicks_L2C1F
 C12C1B_PrintDebugMenuTitleWordsWithTicks_L2C1B:
-    jsl $C12DD5
+    jsl !C12DD5_TickWindowTextSystem
 C12C1F_PrintDebugMenuTitleWordsWithTicks_L2C1F:
     ldx $0E
     txa
@@ -5538,7 +5541,7 @@ C12C2A_PrintDebugMenuTitleWordsWithTicks_L2C2A:
     lda [$06]
     bne C12C0D_PrintDebugMenuTitleWordsWithTicks_L2C0D
     lda.w #$0000
-    jsr $0FEA
+    jsr !C10FEA_SetActiveWindowTileAttributes
     pld
     rtl
 
@@ -5550,6 +5553,10 @@ C12C2A_PrintDebugMenuTitleWordsWithTicks_L2C2A:
 hirom
 org $C12C36
 
+!C10D60_PrintGlyphAndMarkWindowRedraw = $0D60
+!C10FEA_SetActiveWindowTileAttributes = $0FEA
+!C12DD5_TickWindowTextSystem = $C12DD5
+!C12E42_TickWindowInputState = $C12E42
 C12C36_C12C36_PrintDebugMenuFixedWordGroups:
     rep #$31
     phd
@@ -5557,7 +5564,7 @@ C12C36_C12C36_PrintDebugMenuFixedWordGroups:
     adc.w #$FFEE
     tcd
     lda.w #$0003
-    jsr $0FEA
+    jsr !C10FEA_SetActiveWindowTileAttributes
     lda.w #$E862
     sta $06
     lda.w #$00C3
@@ -5569,12 +5576,12 @@ C12C55_PrintDebugMenuFixedWordGroups_L2C55:
     lda [$06]
     inc $06
     inc $06
-    jsr $0D60
+    jsr !C10D60_PrintGlyphAndMarkWindowRedraw
     ldx.w #$0001
     stx $0E
     bra C12C69_PrintDebugMenuFixedWordGroups_L2C69
 C12C65_PrintDebugMenuFixedWordGroups_L2C65:
-    jsl $C12DD5
+    jsl !C12DD5_TickWindowTextSystem
 C12C69_PrintDebugMenuFixedWordGroups_L2C69:
     ldx $0E
     txa
@@ -5592,7 +5599,7 @@ C12C79_PrintDebugMenuFixedWordGroups_L2C79:
     stx $0E
     bra C12C89_PrintDebugMenuFixedWordGroups_L2C89
 C12C85_PrintDebugMenuFixedWordGroups_L2C85:
-    jsl $C12E42
+    jsl !C12E42_TickWindowInputState
 C12C89_PrintDebugMenuFixedWordGroups_L2C89:
     ldx $0E
     txa
@@ -5607,12 +5614,12 @@ C12C9B_PrintDebugMenuFixedWordGroups_L2C9B:
     lda [$06]
     inc $06
     inc $06
-    jsr $0D60
+    jsr !C10D60_PrintGlyphAndMarkWindowRedraw
     ldx.w #$0001
     stx $0E
     bra C12CAF_PrintDebugMenuFixedWordGroups_L2CAF
 C12CAB_PrintDebugMenuFixedWordGroups_L2CAB:
-    jsl $C12DD5
+    jsl !C12DD5_TickWindowTextSystem
 C12CAF_PrintDebugMenuFixedWordGroups_L2CAF:
     ldx $0E
     txa
@@ -5627,7 +5634,7 @@ C12CBF_PrintDebugMenuFixedWordGroups_L2CBF:
     cpy.w #$0005
     bcc C12C9B_PrintDebugMenuFixedWordGroups_L2C9B
     lda.w #$0000
-    jsr $0FEA
+    jsr !C10FEA_SetActiveWindowTileAttributes
     pld
     rtl
 
@@ -5697,12 +5704,43 @@ org $C12D17
 !C0887A_ClearDisplayTransitionState = $C0887A
 !C08E9A_GetRandom16 = $C08E9A
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C013F6_SetTeleportLandingDirection = $C013F6
+!C03FA9_UpdateTeleportLandingPosition = $C03FA9
 !C0943C_SaveCurrentCoordinateState = $C0943C
 !C09451_RestoreSavedCoordinateState = $C09451
+!C10084_CloseFocusWindow = $0084
+!C1008E_CloseAndDrainAllWindows = $008E
 !C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
+!C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
+!C1078D_InitializeTextWindowTilemapStaging = $078D
+!C107AF_BuildWindowTilemapFromDescriptor = $C107AF
+!C10A04_ShowHpppWindowsInternal = $0A04
+!C10A1D_HideHpppWindowsInternal = $0A1D
+!C113D1_InstallTextEntryRecord = $13D1
+!C1180D_LayoutActiveTextEntriesAndRefresh = $180D
+!C1196A_RunActiveTextEntrySelectionMenu = $196A
+!C1BCAB_ExecuteTeleportDestination = $BCAB
+!C1FF2C_UpdateLeadEntityTypeRedrawFlag = $FF2C
 !C186B1_PrintTextFromPointer = $C186B1
+!C0ABE0_PlaySoundEffect = $C0ABE0
+!C2038B_ResetHpPpTilemapBuffers = $C2038B
+!C207B6_MarkAndRedrawPartyHpPpWindow = $C207B6
+!C207E1_ClearPartyHpPpWindowTiles = $C207E1
+!C2087C_RefreshDirtyHpPpAndOpenTextWindows = $C2087C
+!C2109F_RunHpPpRoller = $C2109F
+!C213AC_UpdateHpPpMeterTiles = $C213AC
 !C22A2C_SaveCurrentGame = $C22A2C
+!C227C8_MarkPartyCodeBitIn9839 = $C227C8
+!C1EAA6_RunNameEntrySpecialEventPrelude = $C1EAA6
+!C49D6A_RunCoffeeOrTeaScene = $C49D6A
+!C4ACCE_RunSoundStoneScene = $C4ACCE
+!C4D744_RunTownMapBrowseViewer = $C4D744
+!C4ED0E_RunCastScene = $C4ED0E
+!C4F554_RunCreditsOrPhotoScene = $C4F554
 !C47F87_RefreshWindowFlavorPalette = $C47F87
+!EF026E_ResumeMusic = $EF026E
+!EFEA4A_EnterDebugInputPlaybackView = $EFEA4A
+!EFEA9E_ClearDebugInputPlaybackViewFlag = $EFEA9E
 C12D17_ToggleDebugMeterDisplayOverlay:
     rep #$31
     phd
@@ -5799,7 +5837,7 @@ C12DC8_ToggleDebugMeterDisplayOverlay_L2DC8:
 C12DCA_ToggleDebugMeterDisplayOverlay_L2DCA:
     lda $04
     sta $9698
-    jsl $EF026E
+    jsl !EF026E_ResumeMusic
     pld
     rts
 WINDOW_TICK:
@@ -5823,43 +5861,43 @@ C12DEA_ToggleDebugMeterDisplayOverlay_L2DEA:
     cmp.w #$FFFF
     beq C12E14_ToggleDebugMeterDisplayOverlay_L2E14
     lda $88E2
-    jsl $C107AF
+    jsl !C107AF_BuildWindowTilemapFromDescriptor
     bra C12E14_ToggleDebugMeterDisplayOverlay_L2E14
 C12E0B_ToggleDebugMeterDisplayOverlay_L2E0B:
-    jsl $C2087C
+    jsl !C2087C_RefreshDirtyHpPpAndOpenTextWindows
     sep #$20
     stz $9623
 C12E14_ToggleDebugMeterDisplayOverlay_L2E14:
-    jsl $C2109F
+    jsl !C2109F_RunHpPpRoller
     sep #$20
     lda.b #$01
     sta $9624
-    jsl $C213AC
+    jsl !C213AC_UpdateHpPpMeterTiles
     lda $B4B6
     bne C12E34_ToggleDebugMeterDisplayOverlay_L2E34
-    jsr $FF2C
+    jsr !C1FF2C_UpdateLeadEntityTypeRedrawFlag
     cmp.w #$0000
     beq C12E34_ToggleDebugMeterDisplayOverlay_L2E34
     jsl !C47F87_RefreshWindowFlavorPalette
 C12E34_ToggleDebugMeterDisplayOverlay_L2E34:
     stz $9649
-    jsl $C2038B
+    jsl !C2038B_ResetHpPpTilemapBuffers
     jsl !C1004E_WaitWhileFileSelectEntityScriptBusy
 C12E3F_ToggleDebugMeterDisplayOverlay_L2E3F:
     rep #$20
     rtl
 C12E42_LightWindowTick:
     rep #$31
-    jsl $C2109F
+    jsl !C2109F_RunHpPpRoller
     lda $9649
     beq C12E5A_ToggleDebugMeterDisplayOverlay_L2E5A
-    jsr $078D
+    jsr !C1078D_InitializeTextWindowTilemapStaging
     stz $9649
     sep #$20
     lda.b #$01
     sta $9624
 C12E5A_ToggleDebugMeterDisplayOverlay_L2E5A:
-    jsl $C213AC
+    jsl !C213AC_UpdateHpPpMeterTiles
     jsl !C1004E_WaitWhileFileSelectEntityScriptBusy
     rtl
 DEBUG_Y_BUTTON_MENU:
@@ -5871,8 +5909,8 @@ DEBUG_Y_BUTTON_MENU:
     tcd
     jsl !C0943C_SaveCurrentCoordinateState
     lda.w #$0001
-    jsl $C0ABE0
-    jsr $0A04
+    jsl !C0ABE0_PlaySoundEffect
+    jsr !C10A04_ShowHpppWindowsInternal
 C12E79_ToggleDebugMeterDisplayOverlay_L2E79:
     lda.w #$0000
     sta $06
@@ -5883,7 +5921,7 @@ C12E79_ToggleDebugMeterDisplayOverlay_L2E79:
     lda $08
     sta $1C
     lda.w #$0005
-    jsr $04EE
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     lda.w #$0000
     sta $18
     bra C12EBA_ToggleDebugMeterDisplayOverlay_L2EBA
@@ -5900,7 +5938,7 @@ C12E98_ToggleDebugMeterDisplayOverlay_L2E98:
     sta $12
     lda.w #$0000
     sta $14
-    jsr $13D1
+    jsr !C113D1_InstallTextEntryRecord
     lda $18
     inc A
     sta $18
@@ -5924,9 +5962,9 @@ C12EBA_ToggleDebugMeterDisplayOverlay_L2EBA:
     ldy.w #$0000
     tyx
     lda.w #$0001
-    jsr $180D
+    jsr !C1180D_LayoutActiveTextEntriesAndRefresh
     lda.w #$0001
-    jsr $196A
+    jsr !C1196A_RunActiveTextEntrySelectionMenu
     cmp.w #$0001
     bne C12EF1_ToggleDebugMeterDisplayOverlay_L2EF1
     jmp.w C12FA4_ToggleDebugMeterDisplayOverlay_L2FA4
@@ -6080,11 +6118,11 @@ C13019_ToggleDebugMeterDisplayOverlay_L3019:
     bra C13043_ToggleDebugMeterDisplayOverlay_L3043
 C13020_ToggleDebugMeterDisplayOverlay_L3020:
     lda.w #$0000
-    jsl $C207E1
+    jsl !C207E1_ClearPartyHpPpWindowTiles
     jsl C12E42_LightWindowTick
     jsl C12E42_LightWindowTick
     lda.w #$0000
-    jsl $C207B6
+    jsl !C207B6_MarkAndRedrawPartyHpPpWindow
     jsl C12E42_LightWindowTick
     jsl C12E42_LightWindowTick
     ldx $16
@@ -6102,11 +6140,11 @@ C13043_ToggleDebugMeterDisplayOverlay_L3043:
     jsl !C0887A_ClearDisplayTransitionState
     ldx $02
     lda $04
-    jsl $C013F6
+    jsl !C013F6_SetTeleportLandingDirection
     ldy.w #$0000
     ldx $02
     lda $04
-    jsl $C03FA9
+    jsl !C03FA9_UpdateTeleportLandingPosition
     ldx.w #$0001
     txa
     jsl !C0886C_SetDisplayTransitionState
@@ -6114,49 +6152,49 @@ C13043_ToggleDebugMeterDisplayOverlay_L3043:
 C13078_ToggleDebugMeterDisplayOverlay_L3078:
     jsl !C08E9A_GetRandom16
     and.w #$0001
-    jsl $C49D6A
+    jsl !C49D6A_RunCoffeeOrTeaScene
     jmp.w C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C13086_ToggleDebugMeterDisplayOverlay_L3086:
     lda.w #$0001
-    jsl $C227C8
+    jsl !C227C8_MarkPartyCodeBitIn9839
     jmp.w C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C13090_ToggleDebugMeterDisplayOverlay_L3090:
     lda.w #$0002
-    jsl $C227C8
+    jsl !C227C8_MarkPartyCodeBitIn9839
     jmp.w C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C1309A_ToggleDebugMeterDisplayOverlay_L309A:
     lda.w #$0003
-    jsl $C227C8
+    jsl !C227C8_MarkPartyCodeBitIn9839
     lda.w #$0004
-    jsl $C227C8
+    jsl !C227C8_MarkPartyCodeBitIn9839
     jmp.w C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C130AB_ToggleDebugMeterDisplayOverlay_L30AB:
     lda.w #$0000
-    jsl $C1EAA6
+    jsl !C1EAA6_RunNameEntrySpecialEventPrelude
     jmp.w C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C130B5_ToggleDebugMeterDisplayOverlay_L30B5:
     lda.w #$0001
-    jsl $C1EAA6
+    jsl !C1EAA6_RunNameEntrySpecialEventPrelude
     jmp.w C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C130BF_ToggleDebugMeterDisplayOverlay_L30BF:
-    jsl $C4D744
+    jsl !C4D744_RunTownMapBrowseViewer
     bra C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C130C5_ToggleDebugMeterDisplayOverlay_L30C5:
     jsl $C13E0E
     bra C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C130CB_ToggleDebugMeterDisplayOverlay_L30CB:
-    jsl $C4ED0E
+    jsl !C4ED0E_RunCastScene
     lda.w #$0001
-    jsr $BCAB
+    jsr !C1BCAB_ExecuteTeleportDestination
     bra C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C130D7_ToggleDebugMeterDisplayOverlay_L30D7:
     lda.w #$0001
-    jsl $C4ACCE
+    jsl !C4ACCE_RunSoundStoneScene
     bra C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C130E0_ToggleDebugMeterDisplayOverlay_L30E0:
-    jsl $C4F554
+    jsl !C4F554_RunCreditsOrPhotoScene
     lda.w #$0001
-    jsr $BCAB
+    jsr !C1BCAB_ExecuteTeleportDestination
     bra C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C130EC_ToggleDebugMeterDisplayOverlay_L30EC:
     ldx.w #$0000
@@ -6168,7 +6206,7 @@ C130F7_ToggleDebugMeterDisplayOverlay_L30F7:
     jsr.w C12D17_ToggleDebugMeterDisplayOverlay
     bra C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C130FD_ToggleDebugMeterDisplayOverlay_L30FD:
-    jsl $EFEA4A
+    jsl !EFEA4A_EnterDebugInputPlaybackView
     bra C1316F_ToggleDebugMeterDisplayOverlay_L316F
 C13103_ToggleDebugMeterDisplayOverlay_L3103:
     lda.w #$F70C
@@ -6185,8 +6223,8 @@ C13117_ToggleDebugMeterDisplayOverlay_L3117:
     sta $06
     lda.w #$00C9
     sta $08
-    jsr $008E
-    jsr $0A1D
+    jsr !C1008E_CloseAndDrainAllWindows
+    jsr !C10A1D_HideHpppWindowsInternal
     lda $06
     sta $0E
     lda $08
@@ -6194,7 +6232,7 @@ C13117_ToggleDebugMeterDisplayOverlay_L3117:
     jsl !C186B1_PrintTextFromPointer
     bra C1316F_ToggleDebugMeterDisplayOverlay_L316F
 C13135_ToggleDebugMeterDisplayOverlay_L3135:
-    jsl $EFEA9E
+    jsl !EFEA9E_ClearDebugInputPlaybackViewFlag
     bra C1316F_ToggleDebugMeterDisplayOverlay_L316F
 C1313B_ToggleDebugMeterDisplayOverlay_L313B:
     lda.w #$0000
@@ -6213,17 +6251,17 @@ C13155_ToggleDebugMeterDisplayOverlay_L3155:
     bne C1315A_ToggleDebugMeterDisplayOverlay_L315A
     jmp.w C12E79_ToggleDebugMeterDisplayOverlay_L2E79
 C1315A_ToggleDebugMeterDisplayOverlay_L315A:
-    jsr $0084
+    jsr !C10084_CloseFocusWindow
     lda.w #$0001
-    jsr $04EE
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     lda $06
     sta $0E
     lda $08
     sta $10
     jsl !C186B1_PrintTextFromPointer
 C1316F_ToggleDebugMeterDisplayOverlay_L316F:
-    jsr $008E
-    jsr $0A1D
+    jsr !C1008E_CloseAndDrainAllWindows
+    jsr !C10A1D_HideHpppWindowsInternal
 C13175_ToggleDebugMeterDisplayOverlay_L3175:
     jsl WINDOW_TICK
     lda $B4A8

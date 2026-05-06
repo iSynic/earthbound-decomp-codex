@@ -93,6 +93,22 @@ The combined C1 scaffold validates byte-for-byte after promotion:
 
 - `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+## Source Polish Follow-Up (2026-05-06)
+
+The source-backed debug-window island now names the evidence-backed helper-call
+surface used by the fixed debug text printers, `WINDOW_TICK`, `C1:2E42`, and
+the `C1:2E63..3187` debug menu dispatcher. The promoted calls cover active
+tile attributes, glyph printing, window/tick pumps, HP/PP redraw helpers,
+debug menu construction, text-entry selection, teleport setup, presentation
+scene launches, debug input playback view entry/exit, and file/menu cleanup.
+
+Three dispatcher presentation calls remain intentionally raw because the local
+notes do not yet identify a stable contract:
+
+- `C1:3031` calls `C1:3D03`
+- `C1:3034` calls `C1:3EE7`
+- `C1:30C5` calls `C1:3E0E`
+
 ## Practical Conclusion
 
 The unknown starts here are no longer free-floating. They are debug-menu presentation helpers adjacent to `WINDOW_TICK`: two fixed text printers, one fixed-width decimal formatter, one overlay snapshot/restore toggle, two window-tick variants, and a debug-menu selection dispatcher.

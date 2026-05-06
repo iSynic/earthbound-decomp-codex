@@ -291,3 +291,11 @@ This planning pass is documentation-only.
   terminal text-entry chain counter. The mixed internal local jumps/calls stay
   raw until the corridor is structurally split. See
   `notes/character-selection-prompt-dispatch-c1242e-c12bf3.md`.
+- 2026-05-06 follow-up: the adjacent `C1:2BF3..3187` debug/window tick island
+  now names its evidence-backed helper-call surface. The pass covers fixed
+  debug text printing, active tile attributes, heavy/light window ticks, HP/PP
+  redraw helpers, debug menu entry construction, selection-loop control,
+  teleport setup, presentation scene launch helpers, debug playback view
+  entry/exit, and menu/window cleanup. The three raw `C1:3D03`, `C1:3EE7`,
+  and `C1:3E0E` dispatcher calls remain raw until separately documented. See
+  `notes/debug-menu-window-tick-helpers-c12bf3-c12d17.md`.

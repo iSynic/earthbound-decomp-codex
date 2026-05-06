@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C10D60_PrintGlyphAndMarkWindowRedraw = $0D60
+C10FEA_SetActiveWindowTileAttributes = $0FEA
+C12DD5_TickWindowTextSystem          = $C12DD5
 
 ; ---------------------------------------------------------------------------
 ; C1:2BF3
@@ -23,7 +25,7 @@ C12BF3_C12BF3_PrintDebugMenuTitleWordsWithTicks:
     adc.w #$FFF0
     tcd
     lda.w #$0003
-    jsr $0FEA
+    jsr C10FEA_SetActiveWindowTileAttributes
     lda.w #$E84E
     sta $06
     lda.w #$00C3
@@ -32,12 +34,12 @@ C12BF3_C12BF3_PrintDebugMenuTitleWordsWithTicks:
 C12C0D_PrintDebugMenuTitleWordsWithTicks_L2C0D:
     inc $06
     inc $06
-    jsr $0D60
+    jsr C10D60_PrintGlyphAndMarkWindowRedraw
     ldx.w #$0001
     stx $0E
     bra C12C1F_PrintDebugMenuTitleWordsWithTicks_L2C1F
 C12C1B_PrintDebugMenuTitleWordsWithTicks_L2C1B:
-    jsl $C12DD5
+    jsl C12DD5_TickWindowTextSystem
 C12C1F_PrintDebugMenuTitleWordsWithTicks_L2C1F:
     ldx $0E
     txa
@@ -49,6 +51,6 @@ C12C2A_PrintDebugMenuTitleWordsWithTicks_L2C2A:
     lda [$06]
     bne C12C0D_PrintDebugMenuTitleWordsWithTicks_L2C0D
     lda.w #$0000
-    jsr $0FEA
+    jsr C10FEA_SetActiveWindowTileAttributes
     pld
     rtl
