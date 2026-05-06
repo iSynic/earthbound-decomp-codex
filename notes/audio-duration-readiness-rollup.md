@@ -15,6 +15,8 @@ Status: exact-duration readiness remains blocked; current playback/export behavi
 - probe campaign jobs: `26`
 - nonzero coverage probe jobs: `7`
 - nonzero blocker tracks without source candidate: `146`
+- zero coverage probe jobs: `19`
+- zero runtime reader PC targets: `10`
 - release ready: `False`
 
 ## Gates
@@ -28,6 +30,7 @@ Status: exact-duration readiness remains blocked; current playback/export behavi
 | `independent_oracle_gate` | `False` | `{'independent_capture_count': 0, 'missing_independent_capture_count': 190, 'representative_campaign_job_count': 16}` |
 | `sequence_promotion_gate` | `False` | `{'uncertainty_register_allows_sequence_promotion': False, 'probe_campaign_allows_sequence_promotion': False}` |
 | `nonzero_control_coverage_gate` | `False` | `{'blocker_track_count': 155, 'probe_job_count': 7, 'source_candidate_record_count': 56, 'unique_source_candidate_track_count': 10, 'blocker_tracks_without_source_candidate_count': 146}` |
+| `zero_runtime_coverage_gate` | `False` | `{'blocker_track_count': 19, 'probe_job_count': 19, 'job_track_coverage_exact': True, 'reader_pc_target_count': 10, 'runtime_zero_read_count': 5931, 'pre_promotion_blocker_counts': {'ef_return_stack_model': 15, 'zero_runtime_effect_proof': 19}}` |
 
 ## Blocker Lanes
 
@@ -45,6 +48,7 @@ Status: exact-duration readiness remains blocked; current playback/export behavi
 - Near-oracle equivalence is treated separately from independent external-emulator capture.
 - Finite and loop tail metrics prove current diagnostic activity patterns, not final exact-duration policy.
 - Nonzero control coverage maps representative probe anchors but does not replace imported runtime probe outputs.
+- Zero runtime coverage maps every current zero blocker to a probe job but still requires imported runtime classifications.
 - Release-quality exact-duration readiness requires public exact duration coverage plus independent oracle and lane-specific runtime evidence.
 
 ## Remaining Uncertainty

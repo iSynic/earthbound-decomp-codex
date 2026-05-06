@@ -19,6 +19,7 @@ REQUIRED_REFERENCES = {
     "manifests/audio-independent-oracle-campaign-plan.json",
     "manifests/audio-probe-campaign-plan.json",
     "manifests/audio-nonzero-control-coverage-report.json",
+    "manifests/audio-zero-runtime-coverage-report.json",
 }
 REQUIRED_GATES = {
     "public_exact_duration_gate",
@@ -28,6 +29,7 @@ REQUIRED_GATES = {
     "independent_oracle_gate",
     "sequence_promotion_gate",
     "nonzero_control_coverage_gate",
+    "zero_runtime_coverage_gate",
 }
 REQUIRED_LANES = {
     "non_zero_control_semantics",
@@ -69,6 +71,8 @@ def validate(data: dict[str, Any]) -> None:
         int(summary.get("nonzero_blocker_tracks_without_source_candidate", 0)) == 146,
         "expected 146 nonzero blockers without source candidate",
     )
+    require(int(summary.get("zero_coverage_probe_jobs", 0)) == 19, "expected 19 zero coverage probe jobs")
+    require(int(summary.get("zero_runtime_reader_pc_targets", 0)) == 10, "expected 10 zero runtime reader PC targets")
     require(summary.get("release_ready") is False, "release readiness should remain blocked")
     require(summary.get("current_playback_export_behavior_preserved") is True, "behavior preservation flag missing")
     primary_counts = summary.get("primary_uncertainty_track_counts", {})
@@ -110,6 +114,17 @@ def validate(data: dict[str, Any]) -> None:
     require(
         int(nonzero_gate.get("blocker_tracks_without_source_candidate_count", 0)) == 146,
         "nonzero coverage missing-source count mismatch",
+    )
+    zero_gate = gates["zero_runtime_coverage_gate"]
+    require(zero_gate.get("passed") is False, "zero runtime coverage gate should fail")
+    require(int(zero_gate.get("blocker_track_count", 0)) == 19, "zero runtime blocker count mismatch")
+    require(int(zero_gate.get("probe_job_count", 0)) == 19, "zero runtime probe job count mismatch")
+    require(zero_gate.get("job_track_coverage_exact") is True, "zero runtime should exactly cover blockers")
+    require(int(zero_gate.get("reader_pc_target_count", 0)) == 10, "zero runtime reader target count mismatch")
+    require(int(zero_gate.get("runtime_zero_read_count", 0)) == 5931, "zero runtime read count mismatch")
+    require(
+        zero_gate.get("pre_promotion_blocker_counts") == {"ef_return_stack_model": 15, "zero_runtime_effect_proof": 19},
+        "zero runtime blocker counts mismatch",
     )
 
     lanes = data.get("blocker_lanes", [])
