@@ -7,6 +7,7 @@ and the C2 action-table consumers that are already source-backed.
 
 Concrete crosswalk follow-up:
 
+- `notes/ef-battle-text-consumer-lane-contracts.md`
 - `notes/ef-battle-text-row-message-crosswalk.md`
 - `notes/ef-battle-text-row-pointer-recovery-frontier.md`
 

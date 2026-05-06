@@ -14,6 +14,7 @@ Scope:
 
 Pointer-recovery follow-up:
 
+- `notes/ef-battle-text-consumer-lane-contracts.md`
 - `notes/ef-battle-text-row-pointer-recovery-frontier.md`
 
 This is a consumer crosswalk, not an EB text macro decode. Exact `MSG_BTL_*`

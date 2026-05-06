@@ -196,6 +196,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   current local blocker for new row `+4` joins: D5 source preserves the table
   as a data gap, the ROM-backed inspector has no local ROM, and the older
   `eb-decompile-4ef92` table reference is absent from this worktree.
+- 2026-05-06: EF consumer-lane contract follow-up added
+  `notes/ef-battle-text-consumer-lane-contracts.md`, consolidating the
+  `DD9F`, `DC1C`, `DC66`, `DD7C`, pointer-substitution, and non-EF C7/C8/C9
+  row-message lane rules used by the EF crosswalk.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

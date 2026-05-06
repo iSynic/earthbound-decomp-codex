@@ -229,3 +229,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `notes/ef-battle-text-row-pointer-recovery-frontier.md`, pinning the exact
   local blocker and recovery commands for remaining row `+4` joins before any
   further EF action-anchor promotion.
+- 2026-05-06: EF consumer-lane contract follow-up added
+  `notes/ef-battle-text-consumer-lane-contracts.md`, a compact EF-side decision
+  table for row presentation, direct result, amount, byte/pointer substitution,
+  and non-EF row-message lanes.
