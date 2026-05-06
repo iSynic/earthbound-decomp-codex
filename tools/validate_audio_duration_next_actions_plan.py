@@ -134,7 +134,16 @@ def validate(data: dict[str, Any]) -> None:
     require(len(nonzero.get("job_ids", [])) == 7, "nonzero lane should list seven coverage jobs")
     require(len(nonzero.get("campaign_job_ids", [])) == 7, "nonzero lane should list seven campaign jobs")
     require(track_ids(nonzero, "source_candidate_track_refs") == {1, 17, 83, 84, 109, 110, 133, 137, 138, 139}, "nonzero source candidate tracks mismatch")
-    require_commands(nonzero, ["run_audio_probe_campaign.py --lane nonzero", "run_audio_nonzero_control_probe_batch.py", "collect_audio_nonzero_control_probe_results.py"])
+    require_commands(
+        nonzero,
+        [
+            "build_audio_nonzero_control_probe_packet.py",
+            "validate_audio_nonzero_control_probe_packet.py",
+            "run_audio_probe_campaign.py --lane nonzero",
+            "run_audio_nonzero_control_probe_batch.py",
+            "collect_audio_nonzero_control_probe_results.py",
+        ],
+    )
 
     zero = by_id["zero_runtime_probe_import"]
     require(int(zero["counts"].get("blocker_track_count", 0)) == 19, "zero blocker count mismatch")

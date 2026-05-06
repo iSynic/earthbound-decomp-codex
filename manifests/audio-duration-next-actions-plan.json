@@ -216,6 +216,8 @@
         "nonzero-probe-fe-pc-0847"
       ],
       "commands": [
+        "python tools/build_audio_nonzero_control_probe_packet.py",
+        "python tools/validate_audio_nonzero_control_probe_packet.py",
         "python tools/validate_audio_nonzero_control_coverage_report.py",
         "python tools/validate_audio_nonzero_control_probe_plan.py",
         "python tools/run_audio_probe_campaign.py --lane nonzero --mode dry-run-stub --force",

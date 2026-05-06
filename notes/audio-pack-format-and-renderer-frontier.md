@@ -124,6 +124,8 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate audio duration readiness rollup: `python tools/validate_audio_duration_readiness_rollup.py`.
 - Build nonzero control coverage report: `python tools/build_audio_nonzero_control_coverage_report.py`.
 - Validate nonzero control coverage report: `python tools/validate_audio_nonzero_control_coverage_report.py`.
+- Build nonzero control probe packet: `python tools/build_audio_nonzero_control_probe_packet.py`.
+- Validate nonzero control probe packet: `python tools/validate_audio_nonzero_control_probe_packet.py`.
 - Build 0x00 runtime coverage report: `python tools/build_audio_zero_runtime_coverage_report.py`.
 - Validate 0x00 runtime coverage report: `python tools/validate_audio_zero_runtime_coverage_report.py`.
 - Build independent oracle coverage report: `python tools/build_audio_independent_oracle_coverage_report.py`.

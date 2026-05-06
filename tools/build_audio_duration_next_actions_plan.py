@@ -159,6 +159,8 @@ def build_plan(
             "job_ids": job_ids(nonzero_jobs),
             "campaign_job_ids": nonzero_campaign_jobs,
             "commands": [
+                "python tools/build_audio_nonzero_control_probe_packet.py",
+                "python tools/validate_audio_nonzero_control_probe_packet.py",
                 "python tools/validate_audio_nonzero_control_coverage_report.py",
                 "python tools/validate_audio_nonzero_control_probe_plan.py",
                 "python tools/run_audio_probe_campaign.py --lane nonzero --mode dry-run-stub --force",
