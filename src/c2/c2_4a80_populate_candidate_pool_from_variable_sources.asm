@@ -20,6 +20,7 @@ C1DD3B_RefreshBattlePresentationForSelectedRow = $C1DD3B
 C1DD47_OpenBattleTextWindow                  = $C1DD47
 C1E1A5_RunEnemySelectMode                    = $C1E1A5
 C26A2D_GetRandomBelow                        = $6A2D
+C248E0_ResetBattleStartVisualStateAndCandidateBuffers = $48E0
 C2B6EB_ApplyCandidateRecordPayload           = $C2B6EB
 C2B930_InitializeCandidateRecordFromSource   = $C2B930
 C2DB3F_RunBattleBgPerFrameUpdateBody         = $C2DB3F
@@ -128,6 +129,7 @@ C24B45_C24A8A_PopulateCandidatePoolFromVariableSources_L4B45:
     ldy $31
     iny
     sty $31
+C24B4A_CheckVariableSourceScanComplete:
     cpy.w #$0006
     bcs C24B54_C24A8A_PopulateCandidatePoolFromVariableSources_L4B54
     beq C24B54_C24A8A_PopulateCandidatePoolFromVariableSources_L4B54
@@ -313,7 +315,7 @@ C24CC9_C24A8A_PopulateCandidatePoolFromVariableSources_L4CC9:
 C24CCD_C24A8A_PopulateCandidatePoolFromVariableSources_L4CCD:
     cpx.w #$0006
     bcc C24CC9_C24A8A_PopulateCandidatePoolFromVariableSources_L4CC9
-    jmp $48E0
+    jmp C248E0_ResetBattleStartVisualStateAndCandidateBuffers
 C24CD5_C24A8A_PopulateCandidatePoolFromVariableSources_L4CD5:
     lda $9F8C
     ldy.w #$005E
@@ -551,6 +553,7 @@ C24EC3_C24A8A_PopulateCandidatePoolFromVariableSources_L4EC3:
     jmp.w C24E4B_C24A8A_PopulateCandidatePoolFromVariableSources_L4E4B
 C24ECD_C24A8A_PopulateCandidatePoolFromVariableSources_L4ECD:
     stz $1D
+C24CEF_BeginBattleStartRewardPresentSetup:
     lda $4DBC
     beq C24EEC_C24A8A_PopulateCandidatePoolFromVariableSources_L4EEC
     cmp.w #$0001

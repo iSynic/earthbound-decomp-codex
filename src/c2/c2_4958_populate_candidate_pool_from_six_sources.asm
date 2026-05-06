@@ -23,6 +23,8 @@ C2F121_RebuildCandidateRankOutputs         = $C2F121
 C2F8F9_RefreshClass2CandidateRanking       = $C2F8F9
 C47F87_RefreshWindowFlavorPalette          = $C47F87
 C4FBBD_ChangeMusic                         = $C4FBBD
+C24B4A_CheckVariableSourceScanComplete     = $4B4A
+C24CEF_BeginBattleStartRewardPresentSetup  = $4CEF
 
 ; ---------------------------------------------------------------------------
 ; C2:4958
@@ -156,7 +158,7 @@ C24A2D_PopulateCandidatePoolFromSixSources_L4A2D:
     jsl C0886C_SetDisplayTransitionState
     lda $4DC2
     beq C24A79_PopulateCandidatePoolFromSixSources_L4A79
-    jmp $4CEF
+    jmp C24CEF_BeginBattleStartRewardPresentSetup
 C24A79_PopulateCandidatePoolFromSixSources_L4A79:
     lda $35
     jsl C1DCCB_DisplayBattleTextOrPromptByIndex
@@ -164,4 +166,4 @@ C24A79_PopulateCandidatePoolFromSixSources_L4A79:
     sta $02
     tay
     sty $31
-    jmp $4B4A
+    jmp C24B4A_CheckVariableSourceScanComplete

@@ -34,6 +34,9 @@ C20293_ClearDefaultTitleUploadTiles  = $C20293
 C20F9A_ClampHpPpRollTargetsToLiveValues = $C20F9A
 C2108C_ClearHpPpRollDirtyLatchIfSettled = $C2108C
 C2281D_DepositIntoAtm                = $C2281D
+C248E0_ResetBattleStartVisualStateAndCandidateBuffers = $48E0
+C24FCF_SeedBattleStartStatusRowsAndRenderOrder = $4FCF
+C25619_PromoteBattleStartSelectedRow = $5619
 C26A2D_GetRandomBelow               = $6A2D
 C27029_MaskSet_TestBit               = $C27029
 C2437E_ApplyPendingStolenItemSlotIfStillValid = $C2437E
@@ -381,14 +384,14 @@ C25D69_RunBattleStartCandidateControllerBack_L5D69:
     bra C25D95_RunBattleStartCandidateControllerBack_L5D95
 C25D7D_RunBattleStartCandidateControllerBack_L5D7D:
     stz $17
-    jmp.w C26093_RunBattleStartCandidateControllerBack_L6093
+    jmp.w C26093_ClampHpPpRollTargetsAndWaitSettled
 C25D82_RunBattleStartCandidateControllerBack_L5D82:
     jsl C2437E_ApplyPendingStolenItemSlotIfStillValid
     jmp.w C25F2E_RunBattleStartCandidateControllerBack_L5F2E
 C25D89_RunBattleStartCandidateControllerBack_L5D89:
     lda.w #$0002
     sta $17
-    jmp.w C26093_RunBattleStartCandidateControllerBack_L6093
+    jmp.w C26093_ClampHpPpRollTargetsAndWaitSettled
 C25D91_RunBattleStartCandidateControllerBack_L5D91:
     jsl C12DD5_WindowTick
 C25D95_RunBattleStartCandidateControllerBack_L5D95:
@@ -716,16 +719,19 @@ C26075_RunBattleStartCandidateControllerBack_L6075:
     bcc C26024_RunBattleStartCandidateControllerBack_L6024
     lda.w #$0001
     sta $23
+C26081_ContinueBattleStartResultOrPromoteNextRow:
 C26081_RunBattleStartCandidateControllerBack_L6081:
     lda $23
     bne C26088_RunBattleStartCandidateControllerBack_L6088
-    jmp $5619
+    jmp C25619_PromoteBattleStartSelectedRow
+C26088_WaitForBattleTextBeforeControllerTail:
 C26088_RunBattleStartCandidateControllerBack_L6088:
     jsl C1DD59_WaitForBattleText
 C2608C_BattleStartCandidateControllerTail:
     lda $23
-    bne C26093_RunBattleStartCandidateControllerBack_L6093
-    jmp $4FCF
+    bne C26093_ClampHpPpRollTargetsAndWaitSettled
+    jmp C24FCF_SeedBattleStartStatusRowsAndRenderOrder
+C26093_ClampHpPpRollTargetsAndWaitSettled:
 C26093_RunBattleStartCandidateControllerBack_L6093:
     jsl C20F9A_ClampHpPpRollTargetsToLiveValues
 C26097_RunBattleStartCandidateControllerBack_L6097:
@@ -819,7 +825,7 @@ C26145_RunBattleStartCandidateControllerBack_L6145:
     stz $9643
     lda $4DC2
     bne C2615B_RunBattleStartCandidateControllerBack_L615B
-    jmp $48E0
+    jmp C248E0_ResetBattleStartVisualStateAndCandidateBuffers
 C2615B_RunBattleStartCandidateControllerBack_L615B:
     ldx.w #$0001
     txa

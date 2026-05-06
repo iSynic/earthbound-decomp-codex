@@ -135,6 +135,18 @@ calls `C2:0F9A` as `ClampHpPpRollTargetsToLiveValues` at the monsters-win,
 player-win, and cleanup-tail completion branches, keeping battle-start result
 flow tied to the HP/PP roller target contract.
 
+Cross-module tail follow-up: the battle-start sources now expose the main
+controller re-entry points that earlier appeared only as raw local jumps.
+`C2:48E0` is the shared battle-start visual-state and candidate-buffer reset
+after the battle group resource pointers have been staged, `C2:4B4A` is the
+variable-source scan completion check, `C2:4CEF` begins the reward/present
+setup path, and `C2:4FCF` seeds the status-row/render-order prelude. The front
+controller now jumps to the back-half result tails by name: `C2:5EF7` resolves
+battle-start completion, `C2:6081` either continues result flow or promotes the
+next selected row, `C2:6088` waits for text before the shared tail, and
+`C2:6093` clamps HP/PP roll targets before waiting for the dirty latch to
+settle.
+
 Present/menu follow-up: the `C2:311B` controller now names the EF meter/audio
 helpers and C2 title-tile setup it already depended on. Menu entry calls
 `EF:0262` as `SetHalfHpPpMeterSpeed`, menu exits call `EF:026E` as

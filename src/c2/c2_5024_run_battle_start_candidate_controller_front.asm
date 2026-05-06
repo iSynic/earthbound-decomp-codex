@@ -22,6 +22,11 @@ C1DD59_WaitForBattleText                        = $C1DD59
 C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
 C1DDCC_SelectPartyMemberPresentation            = $C1DDCC
 C1DDD3_ClearFocusedPartyHpPpActorAndBlankRow    = $C1DDD3
+C248E0_ResetBattleStartVisualStateAndCandidateBuffers = $48E0
+C25EF7_ResolveBattleStartCandidateCompletion = $5EF7
+C26081_ContinueBattleStartResultOrPromoteNextRow = $6081
+C26088_WaitForBattleTextBeforeControllerTail = $6088
+C26093_ClampHpPpRollTargetsAndWaitSettled = $6093
 C26A2D_GetRandomBelow            = $6A2D
 C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
@@ -84,7 +89,7 @@ C2504F_RunBattleStartCandidateControllerFront_L504F:
     bne C25069_RunBattleStartCandidateControllerFront_L5069
     lda.w #$000E
     jsl C1DD47_OpenBattleTextWindow
-    jmp $5EF7
+    jmp C25EF7_ResolveBattleStartCandidateCompletion
 C25069_RunBattleStartCandidateControllerFront_L5069:
     ldx $02
     lda $986F,X
@@ -158,7 +163,7 @@ C250E6_RunBattleStartCandidateControllerFront_L50E6:
     cmp.w #$FFFF
     bne C25110_RunBattleStartCandidateControllerFront_L5110
     stz $17
-    jmp $6093
+    jmp C26093_ClampHpPpRollTargetsAndWaitSettled
 C25110_RunBattleStartCandidateControllerFront_L5110:
     lda $1F
     cmp.w #$0117
@@ -181,7 +186,7 @@ C25134_RunBattleStartCandidateControllerFront_L5134:
     lda $1F
     cmp.w #$FFFF
     bne C2513E_RunBattleStartCandidateControllerFront_L513E
-    jmp $48E0
+    jmp C248E0_ResetBattleStartVisualStateAndCandidateBuffers
 C2513E_RunBattleStartCandidateControllerFront_L513E:
     cmp.w #$0000
     bne C25158_RunBattleStartCandidateControllerFront_L5158
@@ -763,7 +768,7 @@ C255F1_RunBattleStartCandidateControllerFront_L55F1:
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
     stz $17
-    jmp $6093
+    jmp C26093_ClampHpPpRollTargetsAndWaitSettled
 C25604_RunBattleStartCandidateControllerFront_L5604:
     stz $27
     lda.w #EFMSG_PlayerFleeFailed
@@ -773,20 +778,20 @@ C25604_RunBattleStartCandidateControllerFront_L5604:
     jsl C1DC1C_DisplayBattleTextFromPointer
 C25614_RunBattleStartCandidateControllerFront_L5614:
     stz $1D
-    jmp $6081
+    jmp C26081_ContinueBattleStartResultOrPromoteNextRow
 C25619_PromoteBattleStartSelectedRow:
     jsl C2BB18_PromoteSourceEntryToCollapseAfflictionController
     lda.w #$0000
     jsl C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     bne C2562C_RunBattleStartCandidateControllerFront_L562C
-    jmp $5EF7
+    jmp C25EF7_ResolveBattleStartCandidateCompletion
 C2562C_RunBattleStartCandidateControllerFront_L562C:
     lda.w #$0001
     jsl C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     bne C2563B_RunBattleStartCandidateControllerFront_L563B
-    jmp $5EF7
+    jmp C25EF7_ResolveBattleStartCandidateCompletion
 C2563B_RunBattleStartCandidateControllerFront_L563B:
     lda.w #$FFFF
     sta $04
@@ -825,7 +830,7 @@ C25679_RunBattleStartCandidateControllerFront_L5679:
     lda $04
     cmp.w #$FFFF
     bne C25688_RunBattleStartCandidateControllerFront_L5688
-    jmp $6088
+    jmp C26088_WaitForBattleTextBeforeControllerTail
 C25688_RunBattleStartCandidateControllerFront_L5688:
     jsl C1DD53_RedirectTextEntryHelper0FA3
     lda $04
@@ -845,11 +850,11 @@ C25688_RunBattleStartCandidateControllerFront_L5688:
     tax
     cpx.w #$0001
     bne C256B8_RunBattleStartCandidateControllerFront_L56B8
-    jmp $6081
+    jmp C26081_ContinueBattleStartResultOrPromoteNextRow
 C256B8_RunBattleStartCandidateControllerFront_L56B8:
     cpx.w #$0002
     bne C256C0_RunBattleStartCandidateControllerFront_L56C0
-    jmp $6081
+    jmp C26081_ContinueBattleStartResultOrPromoteNextRow
 C256C0_RunBattleStartCandidateControllerFront_L56C0:
     cpx.w #$0003
     beq C256D6_RunBattleStartCandidateControllerFront_L56D6
@@ -1190,15 +1195,15 @@ C2598B_RunBattleStartCandidateControllerFront_L598B:
     jsl C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     bne C259B2_RunBattleStartCandidateControllerFront_L59B2
-    jmp $5EF7
+    jmp C25EF7_ResolveBattleStartCandidateCompletion
 C259B2_RunBattleStartCandidateControllerFront_L59B2:
     lda.w #$0001
     jsl C2BAC5_CountFilteredSecondStageBattlerRows
     cmp.w #$0000
     beq C259C1_RunBattleStartCandidateControllerFront_L59C1
-    jmp $6081
+    jmp C26081_ContinueBattleStartResultOrPromoteNextRow
 C259C1_RunBattleStartCandidateControllerFront_L59C1:
-    jmp $5EF7
+    jmp C25EF7_ResolveBattleStartCandidateCompletion
 C259C4_RunBattleStartCandidateControllerFront_L59C4:
     ldx $A970
     lda $000E,X

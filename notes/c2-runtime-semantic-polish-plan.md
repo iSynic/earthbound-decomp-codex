@@ -802,6 +802,15 @@ contract notes for C0/C1/C3/C4 consumers.
   `C2:DAE3` layer-1 battle-bg distortion priming joins by established
   source-facing contracts. See `notes/c2-final-prayer-runtime-polish.md` and
   `notes/class2-final-prayer-family-c2c572-c2c6f0.md`.
+- 2026-05-06 one hundred and fifth slice: tightened battle-start
+  cross-module controller tails. The setup/action-dispatch source now exposes
+  `C2:48E0` as the shared visual-state and candidate-buffer reset entry; the
+  variable-source and status-prelude modules expose `C2:4B4A`, `C2:4CEF`, and
+  `C2:4FCF` by their scan/reward/status-prelude roles; and the front/back
+  battle-start controllers now jump to `C2:5EF7`, `C2:6081`, `C2:6088`, and
+  `C2:6093` by result-tail contract names instead of raw local addresses. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md` and
+  `notes/c2-action-dispatch-runtime-polish.md`.
 
 ## Validation
 

@@ -284,6 +284,7 @@ C2489D_DispatchClass2DerivedAction_L489D:
     lda $D0C60D,X
     and.w #$00FF
     sta $29
+C248E0_ResetBattleStartVisualStateAndCandidateBuffers:
     rep #$20
     stz $AA12
     stz $27

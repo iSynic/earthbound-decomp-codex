@@ -17,6 +17,7 @@ C1DD59_WaitForBattleText               = $C1DD59
 C23D05_BuildBattleTargetTextContext    = $C23D05
 C26A44_RollRandomAmount                = $6A44
 C2F917_BuildBattleSpriteRowRenderOrder = $C2F917
+C2608C_BattleStartCandidateControllerTail = $608C
 
 ; ---------------------------------------------------------------------------
 ; C2:4F52
@@ -72,7 +73,8 @@ C24FBC_DisplayBattleStartStatusMessagesPrelude_L4FBC:
     stz $23
     lda $23
     sta $AA0E
-    jmp $608C
+    jmp C2608C_BattleStartCandidateControllerTail
+C24FCF_SeedBattleStartStatusRowsAndRenderOrder:
     inc $25
     jsl C2F917_BuildBattleSpriteRowRenderOrder
     ldy.w #$9FAC

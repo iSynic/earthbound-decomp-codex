@@ -194,6 +194,12 @@ builds the current target mask from the active attacker's action-targeting
 byte before row-state pruning. The battle-start front controller now calls both
 entries by those roles instead of raw local addresses.
 
+Battle-start tail follow-up: the adjacent `C2:4703..4958` source now exposes
+`C2:48E0` as the shared battle-start visual-state and candidate-buffer reset
+entry used by variable source rebuilds, action cancellation, and battle-end
+cleanup paths. This keeps the action dispatcher source aligned with the
+battle-start controller tails that jump back into the setup lane.
+
 ## Battle Text Context Join
 
 The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local
