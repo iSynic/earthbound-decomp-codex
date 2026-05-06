@@ -31,6 +31,10 @@ See also:
   routine: the active text-entry selection loop, loaded-text-string clear,
   Escargo storage, phone-contact, teleport-destination, and primary text-context
   install helpers.
+- A follow-up pass also names the `0x1A` subselector ids, the cancellable versus
+  uncancellable `C1:196A` selection-loop mode values, the no-follow-up return
+  value, and the local `$06/$08` menu result staging pair before it is installed
+  as the primary text context.
 - The battle-facing display leaves now name the `0x1C 0D/0E/0F` contract:
   reflected-hit side article-token setup, attacker/target name-buffer base
   reads, fixed-string preflight printing, and the `$9D12/$9D14` amount pointer

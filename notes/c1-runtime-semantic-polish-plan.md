@@ -571,6 +571,12 @@ This planning pass is documentation-only.
   table pointer, `$9625/$9627/$9629/$964B` timing state, and final C7
   start-file text pointer. The scaffold was regenerated from source; exact
   byte-equivalence remains pending on the same missing-ROM/asar gates.
+- 2026-05-06 follow-up: the front `0x1A` menu dispatcher in
+  `C1:7B56..7C34` now names its subselector ids, cancellable/uncancellable
+  selection-loop modes, no-follow-up return value, and `$06/$08` menu result
+  staging pair before primary text-context installation. This tightens the
+  menu/text-entry contract without expanding the pass into the later `0x1B`,
+  `0x1C`, `0x1D`, or `0x1F` dispatcher bodies.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments

@@ -58,6 +58,20 @@ C4FD45_SetAutoSectorMusicChanges  = $C4FD45
 DisableAutoSectorMusicChanges     = $0000
 EnableAutoSectorMusicChanges      = $0001
 
+TextCommand1A01PartySelectionSubcommand = $0001
+TextCommand1A04SelectionMenuNoCancelSubcommand = $0004
+TextCommand1A05DisplayInventorySubcommand = $0005
+TextCommand1A06DisplayShopSubcommand = $0006
+TextCommand1A07EscargoStorageSubcommand = $0007
+TextCommand1A08PersistentSelectionNoCancelSubcommand = $0008
+TextCommand1A09PersistentSelectionSubcommand = $0009
+TextCommand1A0APhoneContactSubcommand = $000A
+TextCommand1A0BTeleportDestinationSubcommand = $000B
+SelectionMenuNoCancelMode          = $0000
+SelectionMenuAllowCancelMode       = $0001
+TextCommandNoFollowupCallback      = $0000
+MenuSelectionResultLo              = $06
+MenuSelectionResultBank            = $08
 LoadedBattleTextAmountPointerLo    = $06
 LoadedBattleTextAmountPointerHi    = $08
 TextContextSourcePointerLo         = $0E
@@ -202,25 +216,25 @@ C17B56_DispatchDisplayTextDynamicSourceSelector = CC_1A_TREE
     pla
     txa
     beq C17B99_DispatchDisplayTextDynamicSourceSelector_L7B99
-    cmp.w #$0001
+    cmp.w #TextCommand1A01PartySelectionSubcommand
     beq C17B9F_DispatchDisplayTextDynamicSourceSelector_L7B9F
-    cmp.w #$0004
+    cmp.w #TextCommand1A04SelectionMenuNoCancelSubcommand
     beq C17BA5_DispatchDisplayTextDynamicSourceSelector_L7BA5
-    cmp.w #$0005
+    cmp.w #TextCommand1A05DisplayInventorySubcommand
     beq C17BBF_DispatchDisplayTextDynamicSourceSelector_L7BBF
-    cmp.w #$0006
+    cmp.w #TextCommand1A06DisplayShopSubcommand
     beq C17BC4_DispatchDisplayTextDynamicSourceSelector_L7BC4
-    cmp.w #$0007
+    cmp.w #TextCommand1A07EscargoStorageSubcommand
     beq C17BC9_DispatchDisplayTextDynamicSourceSelector_L7BC9
-    cmp.w #$0008
+    cmp.w #TextCommand1A08PersistentSelectionNoCancelSubcommand
     beq C17BDD_DispatchDisplayTextDynamicSourceSelector_L7BDD
-    cmp.w #$0009
+    cmp.w #TextCommand1A09PersistentSelectionSubcommand
     beq C17BF4_DispatchDisplayTextDynamicSourceSelector_L7BF4
-    cmp.w #$000A
+    cmp.w #TextCommand1A0APhoneContactSubcommand
     bne C17B8E_DispatchDisplayTextDynamicSourceSelector_L7B8E
     jmp.w C17C0B_DispatchDisplayTextDynamicSourceSelector_L7C0B
 C17B8E_DispatchDisplayTextDynamicSourceSelector_L7B8E:
-    cmp.w #$000B
+    cmp.w #TextCommand1A0BTeleportDestinationSubcommand
     bne C17B96_DispatchDisplayTextDynamicSourceSelector_L7B96
     jmp.w C17C1F_DispatchDisplayTextDynamicSourceSelector_L7C1F
 C17B96_DispatchDisplayTextDynamicSourceSelector_L7B96:
@@ -232,13 +246,13 @@ C17B9F_DispatchDisplayTextDynamicSourceSelector_L7B9F:
     lda.w #TextCommand1A01PartySelectionMenu
     jmp.w C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BA5_DispatchDisplayTextDynamicSourceSelector_L7BA5:
-    lda.w #$0000
+    lda.w #SelectionMenuNoCancelMode
     jsr C1196A_RunActiveTextEntrySelectionMenu
-    sta $06
-    stz $08
-    lda $06
+    sta MenuSelectionResultLo
+    stz MenuSelectionResultBank
+    lda MenuSelectionResultLo
     sta $0E
-    lda $08
+    lda MenuSelectionResultBank
     sta $10
     jsr C1045D_InstallPrimaryInteractionContextPointer
     jsr C11383_ClearLoadedTextStrings
@@ -251,57 +265,57 @@ C17BC4_DispatchDisplayTextDynamicSourceSelector_L7BC4:
     bra C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BC9_DispatchDisplayTextDynamicSourceSelector_L7BC9:
     jsr C19A43_BuildEscargoStorageSelectionMenu
-    sta $06
-    stz $08
-    lda $06
+    sta MenuSelectionResultLo
+    stz MenuSelectionResultBank
+    lda MenuSelectionResultLo
     sta $0E
-    lda $08
+    lda MenuSelectionResultBank
     sta $10
     jsr C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17BDD_DispatchDisplayTextDynamicSourceSelector_L7BDD:
-    lda.w #$0000
+    lda.w #SelectionMenuNoCancelMode
     jsr C1196A_RunActiveTextEntrySelectionMenu
-    sta $06
-    stz $08
-    lda $06
+    sta MenuSelectionResultLo
+    stz MenuSelectionResultBank
+    lda MenuSelectionResultLo
     sta $0E
-    lda $08
+    lda MenuSelectionResultBank
     sta $10
     jsr C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17BF4_DispatchDisplayTextDynamicSourceSelector_L7BF4:
-    lda.w #$0001
+    lda.w #SelectionMenuAllowCancelMode
     jsr C1196A_RunActiveTextEntrySelectionMenu
-    sta $06
-    stz $08
-    lda $06
+    sta MenuSelectionResultLo
+    stz MenuSelectionResultBank
+    lda MenuSelectionResultLo
     sta $0E
-    lda $08
+    lda MenuSelectionResultBank
     sta $10
     jsr C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17C0B_DispatchDisplayTextDynamicSourceSelector_L7C0B:
     jsr C1AC00_OpenPhoneContactSelectionMenu
-    sta $06
-    stz $08
-    lda $06
+    sta MenuSelectionResultLo
+    stz MenuSelectionResultBank
+    lda MenuSelectionResultLo
     sta $0E
-    lda $08
+    lda MenuSelectionResultBank
     sta $10
     jsr C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17C1F_DispatchDisplayTextDynamicSourceSelector_L7C1F:
     jsr C1AAFA_RunTeleportDestinationSelectionMenu
-    sta $06
-    stz $08
-    lda $06
+    sta MenuSelectionResultLo
+    stz MenuSelectionResultBank
+    lda MenuSelectionResultLo
     sta $0E
-    lda $08
+    lda MenuSelectionResultBank
     sta $10
     jsr C1045D_InstallPrimaryInteractionContextPointer
 C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31:
-    lda.w #$0000
+    lda.w #TextCommandNoFollowupCallback
 C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34:
     pld
     rts

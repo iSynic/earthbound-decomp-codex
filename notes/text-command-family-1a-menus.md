@@ -70,6 +70,13 @@ keeps the menu contract aligned with the surrounding queued text-command
 leaves: one byte is staged before the inventory rows are rendered, and the
 current active menu/window context is restored before returning to the VM.
 
+Source polish follow-up (2026-05-06): the front `C1:7B56` dispatcher now names
+the local `0x1A` subselector comparisons, selection-loop cancel modes, and the
+`$06/$08 -> $0E/$10` primary text-context staging used by the generic
+selection, Escargo, phone-contact, and teleport-destination menu leaves. This
+keeps the menu family source-facing without changing the existing helper
+boundaries.
+
 ## Best current case map
 
 ### `0x1A 00`
