@@ -641,3 +641,8 @@ This planning pass is documentation-only.
   `0x1D 0C` Escargo storage-status classifier. The latter now exposes its
   queued selector, storage-full bit, selected inventory item lookup, item
   storage flag mask, and final two-bit status result path.
+- 2026-05-06 follow-up: the adjacent `C1:6FD1..7058` strip now names
+  `1F 23` scripted-battle init staging and the `19 26` transition-landing
+  snapshot adapter. The source exposes the queued high-byte selector, zero
+  fallback to direct text argument, signed result staging, and the explicit
+  `C1:7037 -> C2:30F3` handoff label.

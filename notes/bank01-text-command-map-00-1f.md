@@ -132,6 +132,11 @@ condiment helper and Escargo storage-status classifier both install their
 outputs through the shared text-context result pair instead of bare direct-page
 scratch names.
 
+Source polish follow-up (2026-05-06): the same corridor now names `1F 23` and
+`19 26` staging. The scripted-battle init leaf shows its queued selector and
+signed result install, while the transition-landing snapshot leaf is labeled at
+`C1:7037` with its direct-argument fallback into `C2:30F3`.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

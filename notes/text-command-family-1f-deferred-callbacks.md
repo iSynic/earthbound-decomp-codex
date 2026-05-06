@@ -130,6 +130,12 @@ the C1-side payload assembly behind `1F 63`, `1F 66`, `1F F1`, and `1F F2`.
 five-byte packed payload before `C0:72CF`; and `1F F1/F2` expose the paired
 visual-type or pose-descriptor script selectors before their C4 script runners.
 
+Source polish follow-up (2026-05-06): the adjacent `1F 23` leaf now names its
+scripted-battle init selector staging. The source shows the queued high byte,
+fallback to a direct text argument when the packed selector is zero, the
+`C2:2F38` handoff, and the signed result installation through the shared text
+context result pair.
+
 Source polish follow-up (2026-05-06): the lower deferred-callback siblings in
 `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` now match
 that naming too. `1F 83` uses the one-byte item-use compatibility selector

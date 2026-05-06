@@ -104,6 +104,12 @@ incoming food-item byte or the next text argument, calls the condiment lookup
 helper, and installs the result through the shared `$06/$08 -> $0E/$10`
 text-context result path.
 
+Source polish follow-up (2026-05-06): the adjacent `0x19 26` leaf now has an
+explicit source label at `C1:7037` and names its one-word argument fallback
+before the `C2:30F3` snapshot handoff. This keeps the local transition-landing
+snapshot adapter visible without promoting the broader respawn/warp wording
+into the C1 source name.
+
 Source polish follow-up (2026-05-06): the `C1:78F7..7AE3` dispatcher module now
 also names the shared `0x18` window-helper edge surface that lives beside the
 `0x19` loaded-string dispatcher. This does not change the `0x19` case map, but
@@ -589,4 +595,3 @@ The cleanest next move is probably the success-side branch of `0x19 26` or the s
 
 - `0x19 26` is no longer structurally mysterious; the remaining gap is the exact meaning of `$9F3F` and the landing modes in `$9F41`
 - the statistics tail now has a real shared local anchor and a partial late-table crosswalk, so the next gain there is to name the remaining early and middle `C4:550F` selectors
-

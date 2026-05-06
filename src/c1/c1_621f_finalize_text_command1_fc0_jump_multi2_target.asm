@@ -91,6 +91,7 @@ TenWord                          = $000A
 FourByteCallbackFrameOffset                  = $FFEC
 ThreeByteCallbackFrameOffset                 = $FFEE
 FiveByteCallbackFrameOffset                  = $FFEB
+SingleWordArgumentFrameOffset                = $FFF2
 PackedDwordCurrentByte                       = $12
 PackedDwordLo                                = $06
 PackedDwordHi                                = $08
@@ -122,6 +123,8 @@ InventorySlotItemRecordStride                = $0027
 ItemTableStorageFlagsOffset                  = $001C
 ItemCannotBeStoredMask                       = $0040
 StorageFullResultBit                         = $0002
+ScriptedBattleSelectorHighByte               = $12
+ScriptedBattleSelectorWordScratch            = $02
 
 TextCommand1FC0JumpMulti2FinalizerCallback    = $621F
 TextCommand1FC0JumpMulti2Callback             = $6308
@@ -2060,70 +2063,72 @@ C16FD1_HandleTextCommand1F23 = CC_1F_23
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #FourByteCallbackFrameOffset
     tcd
     pla
     txa
-    sta $12
+    sta ScriptedBattleSelectorHighByte
     lda DeferredCommandQueueCount
-    bne C16FF7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FF7
-    lda $12
+    bne C16FF7_ApplyQueuedScriptedBattleInit
+    lda ScriptedBattleSelectorHighByte
     sep #$20
     ldx DeferredCommandQueueCount
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
     lda.w #TextCommand1F23Callback
-    bra C17035_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7035
-C16FF7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FF7:
+    bra C17035_ReturnFromScriptedBattleInitTextCommand
+C16FF7_ApplyQueuedScriptedBattleInit:
     sep #$10
-    ldy.b #$08
-    lda $12
+    ldy.b #EightBitShift
+    lda ScriptedBattleSelectorHighByte
     jsl C0923E_ShiftWordLeftByY
-    sta $02
+    sta ScriptedBattleSelectorWordScratch
     lda DeferredCommandByteQueue
     and.w #LowByteMask
-    ora $02
-    beq C17013_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7013
-    sta $06
-    stz $08
-    bra C17016_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7016
-C17013_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7013:
+    ora ScriptedBattleSelectorWordScratch
+    beq C17013_ReadScriptedBattleArgumentWord
+    sta TextCommandResultLo
+    stz TextCommandResultHi
+    bra C17016_InitResolvedScriptedBattle
+C17013_ReadScriptedBattleArgumentWord:
     jsr C103DC_ReadTextCommandArgumentWord
-C17016_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7016:
-    lda $06
+C17016_InitResolvedScriptedBattle:
+    lda TextCommandResultLo
     jsl C22F38_InitBattleScripted
     cmp.w #ZeroWord
-    sta $06
-    stz $08
-    bpl C17027_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7027
-    dec $08
-C17027_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7027:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta TextCommandResultLo
+    stz TextCommandResultHi
+    bpl C17027_InstallScriptedBattleInitResult
+    dec TextCommandResultHi
+C17027_InstallScriptedBattleInitResult:
+    lda TextCommandResultLo
+    sta TextContextSourcePointerLo
+    lda TextCommandResultHi
+    sta TextContextSourcePointerHi
     jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #ZeroWord
-C17035_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7035:
+C17035_ReturnFromScriptedBattleInitTextCommand:
     pld
     rts
+CC_19_26:
+C17037_SnapshotRespawnWarpTargetTextCommand = CC_19_26
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #SingleWordArgumentFrameOffset
     tcd
     pla
     txa
-    beq C1704A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704A
-    sta $06
-    stz $08
-    bra C1704D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704D
-C1704A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704A:
+    beq C1704A_ReadRespawnWarpSnapshotArgument
+    sta TextCommandResultLo
+    stz TextCommandResultHi
+    bra C1704D_SnapshotResolvedRespawnWarpTarget
+C1704A_ReadRespawnWarpSnapshotArgument:
     jsr C103DC_ReadTextCommandArgumentWord
-C1704D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704D:
-    lda $06
+C1704D_SnapshotResolvedRespawnWarpTarget:
+    lda TextCommandResultLo
     jsl C230F3_SnapshotRespawnWarpTargetState
     lda.w #ZeroWord
     pld
