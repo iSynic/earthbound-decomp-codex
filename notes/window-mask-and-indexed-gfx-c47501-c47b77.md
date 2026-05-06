@@ -86,6 +86,26 @@ current slot's `$0E9A`, and copies a `#$0700`-byte graphics block to `$7C00`.
 It then reads the small metadata bytes at offsets `+6/+7` and returns a
 variant/frame-like byte selected against `$0E9A`.
 
+## 2026-05-06 source polish
+
+The source comments now keep the window-mask stream contracts local to
+`src/c4/window_mask_and_indexed_gfx_helpers.asm`. `$0E5E` is deliberately named
+as a slot-local toggle-or-index field rather than a global animation variable:
+`C4:76A5/C4:7705` use it for alternating WH0/WH2 stream buffers, while
+`C4:7A9E/C4:7B77` use it as part of the indexed graphics record selection.
+
+The adjacent `src/c4/window_gfx_load_and_flyover_undraw_helpers.asm` now carries
+the same conservative boundary. `LOAD_WINDOW_GFX` is documented as a C4-owned
+window-graphics cache rebuild that decompresses E0 assets into bank `$7F`,
+stages/copies the tile blocks, rebuilds compact rows through the shared `$3492`
+glyph scratch contract, and refreshes the palette/tile work used by later
+window draws. `C4:7F87` is scoped to the `$0200` window-flavour palette block:
+the lead-entity override source is `E0:2108` unless `$B4B6` suppresses it,
+otherwise `$99CD` selects an `E0:1FB9` flavour row. `UNDRAW_FLYOVER_TEXT` is
+limited to its local presentation side effects: BG2 screen-base queue arguments,
+window graphics reload, glyph-run reset, palette refresh, and `$0030 = #$18`;
+the raw `C2:038B` cleanup callee remains owned by C2.
+
 ## Working Names
 
 - `C4:74F6` = `WhWindowSpanRadiusRampTable`
@@ -122,3 +142,4 @@ variant/frame-like byte selected against `$0E9A`.
 - the precise structure of the `$CC:2DE1` graphics metadata records
 - whether `$0E5E` is purely a stream-buffer toggle in this family or also an
   animation/variant index for the graphics loaders
+- the full C2-side cleanup behavior behind the raw flyover-undraw callee

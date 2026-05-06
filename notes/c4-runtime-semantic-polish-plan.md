@@ -239,6 +239,14 @@ closure.
   behavior to those banks. The flyover text pointer table is now row-split with
   only the three locally corroborated intro-string roles called out. See
   `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
+- 2026-05-06 window mask / indexed graphics follow-up: tightened the
+  C4-local contracts for generated WH0/WH2 mask streams, the `$0E5E`
+  toggle-versus-index boundary, the `CC:2DE1` indexed graphics loaders, the
+  window graphics cache rebuild, the `$0200` window-flavour palette refresh,
+  and the flyover-undraw return-to-world presentation side effects. C0/C2
+  transfer and cleanup callees remain documented only as caller joins where C4
+  writes their local arguments. See
+  `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`.
 
 ## Validation
 
