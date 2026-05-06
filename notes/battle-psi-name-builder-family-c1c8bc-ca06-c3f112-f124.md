@@ -70,6 +70,13 @@ The offset math is now locally pinned:
 - second selector byte contributes `selector1 * 20`
 - the resulting sum is added to base `C3:F124`
 
+The source now carries these as explicit formatter constants:
+
+- `EncodedPsiMenuDirectionStride = 0x64`
+- `EncodedPsiMenuEntryRowSize = 0x14`
+- `EncodedPsiMenuFixedTailSize = 0x08`
+- `BattleActionTablePpCostByte = 0x03`
+
 So the ordinary path is not directly keyed by `PSI_ID`. It is keyed by the associated action row.
 
 ## Thunder bypass in `C1:C8BC`

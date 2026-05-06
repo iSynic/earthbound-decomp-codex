@@ -27,6 +27,34 @@ C3E4E0_TickWindowWithoutInstantPrinting = $C3E4E0
 C438A5_SetTextPosition                  = $C438A5
 C43D75_StageGlyphVariantTileState       = $C43D75
 
+BattlePsiAbilityTableLo                 = $8A50
+BattlePsiAbilityTableBank               = $00D5
+BattlePsiAbilityTableAbsoluteBase       = $D58A50
+BattlePsiAbilityRowSize                 = $000F
+BattlePsiAbilityPsiIdByte               = $0000
+BattlePsiAbilityAssociatedActionWord    = $0004
+PsiIdThunder                            = $0004
+
+D57B68_BattleActionTableLo              = $7B68
+D57B68_BattleActionTableBank            = $00D5
+D57B68_BattleActionTableAbsoluteBase    = $D57B68
+BattleActionTableRowSize                = $000C
+BattleActionTableDirectionByte          = $0000
+BattleActionTableTargetShapeByte        = $0001
+BattleActionTablePpCostByte             = $0003
+
+BattlePsiMenuWindowId                   = $0004
+EncodedPsiMenuEntryRowsLo               = $F124
+EncodedPsiMenuEntryRowsBank             = $00C3
+EncodedPsiMenuEntryRowSize              = $0014
+EncodedPsiMenuDirectionStride           = $0064
+EncodedPsiMenuFixedTailLo               = $F11C
+EncodedPsiMenuFixedTailBank             = $00C3
+EncodedPsiMenuFixedTailSize             = $0008
+PpLabelGlyph                            = $0050
+PpCostNumberBufferMode                  = $0081
+PpCostGlyphVariantTile                  = $0028
+
 ; ---------------------------------------------------------------------------
 ; C1:C8BC
 
@@ -40,13 +68,13 @@ C1C8BC_FormatBattlePsiMenuEntryRow:
     pla
     tay
     sty $14
-    lda.w #$0004
+    lda.w #BattlePsiMenuWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4E0_TickWindowWithoutInstantPrinting
     stz $5E6E
-    lda.w #$8A50
+    lda.w #BattlePsiAbilityTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #BattlePsiAbilityTableBank
     sta $08
     ldy $14
     tya
@@ -67,19 +95,19 @@ C1C8BC_FormatBattlePsiMenuEntryRow:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    cmp.w #$0004
+    cmp.w #PsiIdThunder
     bne C1C913_FormatBattlePsiMenuEntryRow_LC913
     ; PSI id 4 (Thunder) bypasses the coarse action-row-derived selector and
     ; uses direct C3:F124 row selection.
-    lda.w #$F124
+    lda.w #EncodedPsiMenuEntryRowsLo
     sta $06
-    lda.w #$00C3
+    lda.w #EncodedPsiMenuEntryRowsBank
     sta $08
     bra C1C97F_FormatBattlePsiMenuEntryRow_LC97F
 C1C913_FormatBattlePsiMenuEntryRow_LC913:
-    lda.w #$7B68
+    lda.w #D57B68_BattleActionTableLo
     sta $0A
-    lda.w #$00D5
+    lda.w #D57B68_BattleActionTableBank
     sta $0C
     ; Ordinary rows derive the encoded name-row selector from the associated
     ; D5:7B68 action row's leading selector bytes.
@@ -125,14 +153,14 @@ C1C913_FormatBattlePsiMenuEntryRow_LC913:
     sta $06
     lda [$06]
     and.w #$00FF
-    ldy.w #$0064
+    ldy.w #EncodedPsiMenuDirectionStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
     adc $02
     pha
-    lda.w #$F124
+    lda.w #EncodedPsiMenuEntryRowsLo
     sta $06
-    lda.w #$00C3
+    lda.w #EncodedPsiMenuEntryRowsBank
     sta $08
     pla
     clc
@@ -143,26 +171,26 @@ C1C97F_FormatBattlePsiMenuEntryRow_LC97F:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0014
+    lda.w #EncodedPsiMenuEntryRowSize
     jsr C10EFC_PrintTextFromPointerLocal
     lda.w #$00FF
     sta $5E6E
     ldx.w #$0001
     lda.w #$0000
     jsl C438A5_SetTextPosition
-    lda.w #$F11C
+    lda.w #EncodedPsiMenuFixedTailLo
     sta $0E
-    lda.w #$00C3
+    lda.w #EncodedPsiMenuFixedTailBank
     sta $10
     ; Append the fixed encoded tail and then print the action-row PP cost.
-    lda.w #$0008
+    lda.w #EncodedPsiMenuFixedTailSize
     jsr C10EFC_PrintTextFromPointerLocal
-    lda.w #$0050
+    lda.w #PpLabelGlyph
     jsr PRINT_LETTER
-    lda.w #$0081
+    lda.w #PpCostNumberBufferMode
     jsr C10EB4_ClearOrPrepareWindowContent
     ldx.w #$0001
-    lda.w #$0028
+    lda.w #PpCostGlyphVariantTile
     jsl C43D75_StageGlyphVariantTileState
     ldy $14
     tya
@@ -178,7 +206,7 @@ C1C97F_FormatBattlePsiMenuEntryRow_LC97F:
     inx
     inx
     inx
-    lda $D58A50,X
+    lda.l BattlePsiAbilityTableAbsoluteBase,X
     sta $04
     asl A
     adc $04
@@ -189,7 +217,7 @@ C1C97F_FormatBattlePsiMenuEntryRow_LC97F:
     inx
     inx
     sep #$20
-    lda $D57B68,X
+    lda.l D57B68_BattleActionTableAbsoluteBase,X
     sta $06
     stz $07
     stz $08

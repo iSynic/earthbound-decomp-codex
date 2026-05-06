@@ -181,3 +181,11 @@ This planning pass is documentation-only.
   `notes/battle-targetting-resolver-c1adb4-af50.md`,
   `notes/battle-item-action-selection-c1ce85-c1cfc6.md`, and
   `notes/battle-choice-text-family-c1b2ec-b997.md`.
+- 2026-05-05: C1 battle PSI controller/formatter follow-up aligned
+  `C1:C8BC` and `C1:CB7F..CE73` with the same D5 action-table vocabulary. The
+  promoted constants name `D5:8A50` PSI ability rows, `D5:7B68` action rows,
+  action row `+0x03` PP cost, encoded `C3:F124` menu-entry rows, the fixed
+  `C3:F11C` tail, the PP guard current-PP mirror, and final battle-menu
+  selection record offsets. See `notes/c1-battle-psi-runtime-polish.md`,
+  `notes/battle-psi-menu-controller-c1cc39-ce73.md`, and
+  `notes/battle-psi-name-builder-family-c1c8bc-ca06-c3f112-f124.md`.

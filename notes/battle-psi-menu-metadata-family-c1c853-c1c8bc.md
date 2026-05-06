@@ -59,6 +59,14 @@ The ordinary path in `C1:C8BC`:
 - copies a fixed `0x08`-byte companion tail from `C3:F11C`
 - and appends the action-row PP-cost byte through `C1:C9D6 -> C1:0DF6`
 
+The source now names the concrete table and row contracts:
+
+- `D5:8A50` = `BattlePsiAbilityTable`, stride `0x0F`
+- `D5:7B68` = `BattleActionTable`, stride `0x0C`
+- `C3:F124` = encoded PSI menu-entry rows, stride `0x14`
+- `C3:F11C` = fixed encoded menu-entry tail, size `0x08`
+- action row byte `+0x03` = PP cost byte appended at the end of the row
+
 The special path is now sharper too:
 
 - `C1:C8BC` first checks `D5:8A50 + 0`

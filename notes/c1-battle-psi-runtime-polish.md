@@ -61,6 +61,20 @@ controller. It first chooses the PSI user, stages `$9D16`, and handles the
 direct PSI-entry picker and snapshot/text side effects used by the battle command
 path.
 
+Follow-up source polish now pins the lower controller/formatter vocabulary in
+source:
+
+- `C1:C8BC` names `D5:8A50` as the 15-byte PSI ability table and `D5:7B68` as
+  the associated action table used for coarse menu-entry row selection and PP
+  cost display
+- `C1:C8BC` names the fixed encoded `C3:F124` 20-byte menu-entry rows and the
+  fixed `C3:F11C` 8-byte companion tail
+- `C1:CB7F..CE73` names the PP guard as `D5:7B68 + 0x03` compared against the
+  acting party member's current PP target word
+- the final six-byte battle menu selection writes now carry explicit field
+  names for PSI row, associated action word, targetting byte, and selected
+  target byte
+
 ## Promotion Boundary
 
 This slice promotes source comments and local runtime wording only. It does not

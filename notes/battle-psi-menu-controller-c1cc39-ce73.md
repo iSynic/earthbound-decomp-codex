@@ -69,6 +69,12 @@ After a PSI row is chosen, `CC9B .. CD1E` validates the acting character's curre
 - that action id is converted into the associated `D5:7B68` row
 - `CCD3 .. CCF2` compares the associated action-row PP cost byte against `char_struct::current_pp_target`
 
+The source now names that shape directly:
+
+- `D5:8A50 + 0x04` = associated battle action id
+- `D5:7B68 + 0x03` = PP cost byte
+- `$9A1B + party_offset` = current PP target word used by the guard
+
 When current PP is too low:
 
 - `CCF6 .. CD13` opens a small battle text window
@@ -120,6 +126,11 @@ The current best local-plus-reference-backed field map for those final writes is
 - `+2..+3` = associated `D5:8A50 + 4` battle action id
 - `+4` = resolved targetting class
 - `+5` = resolved selected target
+
+The source constants now name those exact output offsets as
+`BattleMenuSelectionPsiRowByte`, `BattleMenuSelectionActionWord`,
+`BattleMenuSelectionTargettingByte`, and
+`BattleMenuSelectionSelectedTargetByte`.
 
 That matches the reference `battle_menu_selection` struct unusually well:
 

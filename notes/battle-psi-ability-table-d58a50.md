@@ -55,6 +55,8 @@ The currently strongest row map is:
   - it is also the field used when the menu compares against the associated `D5:7B68` row for PP-availability and targeting behavior
   - `C1:C8BC` normally uses this field to reach the ordinary action-row-derived menu-entry naming path
   - the controller at `C1:CC39 .. CE73` also uses this field to drive its PP guard and final targetting-resolution handoff
+  - source constants in `C1:C8BC` and `C1:CB7F` now name this field as
+    `BattlePsiAbilityAssociatedActionWord`
 - bytes `+6..+8` = Ness, Paula, and Poo learn levels
   - the raw values line up exactly with the reference battle PSI ability rows
   - this is also reinforced by the parallel field usage in `refs/ebsrc-main/.../src/battle/generate_psi_list.asm`

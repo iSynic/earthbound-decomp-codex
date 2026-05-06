@@ -41,6 +41,43 @@ C1CAF5_BuildBattlePsiCategoryEntryListLong = $C1CAF5
 C3E4D4_WindowScopedUpdate                  = $C3E4D4
 C3E521_OpenWindowFocus                     = $C3E521
 
+BattlePsiAbilityTableLo                    = $8A50
+BattlePsiAbilityTableBank                  = $00D5
+BattlePsiAbilityTableAbsoluteBase          = $D58A50
+BattlePsiAbilityRowSize                    = $000F
+BattlePsiAbilityCategoryByte               = $0002
+BattlePsiAbilityTargetByte                 = $0003
+BattlePsiAbilityAssociatedActionWord       = $0004
+
+D57B68_BattleActionTableLo                 = $7B68
+D57B68_BattleActionTableBank               = $00D5
+D57B68_BattleActionTableAbsoluteBase       = $D57B68
+BattleActionTableRowSize                   = $000C
+BattleActionTableDirectionByte             = $0000
+BattleActionTablePpCostByte                = $0003
+
+BattlePsiCategoryMaskOffense               = $0001
+BattlePsiCategoryMaskRecover               = $0002
+BattlePsiCategoryMaskAssist                = $0004
+BattlePsiCategoryCount                     = $0003
+BattlePsiCategoryWindowId                  = $0010
+BattlePsiEntryWindowId                     = $0001
+BattlePsiNameRefreshWindowId               = $0026
+BattlePsiNameCloseWindowId                 = $0004
+BattlePsiPpGuardWindowId                   = $000E
+BattlePsiChoiceWindowGroupId               = $0026
+
+PartyRecordStride                          = $005F
+PartyCurrentPpTargetWordBase               = $9A1B
+BattlePsiNoPpTextLo                        = $FAAA
+BattlePsiNoPpTextBank                      = $00C8
+
+BattleMenuSelectionPsiRowByte              = $0001
+BattleMenuSelectionActionWord              = $0002
+BattleMenuSelectionTargettingByte          = $0004
+BattleMenuSelectionSelectedTargetByte      = $0005
+TargettingByteArgumentOffset               = $0008
+
 ; ---------------------------------------------------------------------------
 ; C1:CB7F
 
@@ -63,15 +100,15 @@ C1CB7F_HasBattlePsiCategoryEntries:
     beq C1CBBA_HasBattlePsiCategoryEntries_LCBBA
     bra C1CBC8_HasBattlePsiCategoryEntries_LCBC8
 C1CB9C_HasBattlePsiCategoryEntries_LCB9C:
-    ldy.w #$0001
-    ldx.w #$0002
+    ldy.w #BattlePsiCategoryMaskOffense
+    ldx.w #BattlePsiCategoryMaskRecover
     lda $02
     jsr C1C1BA_HasPsiEntryForCategoryMask
     tay
     sty $0E
     bra C1CBC8_HasBattlePsiCategoryEntries_LCBC8
 C1CBAC_HasBattlePsiCategoryEntries_LCBAC:
-    ldy.w #$0002
+    ldy.w #BattlePsiCategoryMaskRecover
     tyx
     lda $02
     jsr C1C1BA_HasPsiEntryForCategoryMask
@@ -79,8 +116,8 @@ C1CBAC_HasBattlePsiCategoryEntries_LCBAC:
     sty $0E
     bra C1CBC8_HasBattlePsiCategoryEntries_LCBC8
 C1CBBA_HasBattlePsiCategoryEntries_LCBBA:
-    ldy.w #$0004
-    ldx.w #$0002
+    ldy.w #BattlePsiCategoryMaskAssist
+    ldx.w #BattlePsiCategoryMaskRecover
     lda $02
     jsr C1C1BA_HasPsiEntryForCategoryMask
     tay
@@ -104,7 +141,7 @@ C1CBCD_OpenBattlePsiCategorySelectionStage = BATTLE_PSI_MENU
     sta $20
     stz $1E
 C1CBDD_HasBattlePsiCategoryEntries_LCBDD:
-    lda.w #$0010
+    lda.w #BattlePsiCategoryWindowId
     jsr C104EE_SetWindowFocus
     lda.w #$0000
     sta $1C
@@ -137,14 +174,14 @@ C1CBEA_HasBattlePsiCategoryEntries_LCBEA:
     txa
     sta $1C
 C1CC1B_HasBattlePsiCategoryEntries_LCC1B:
-    cmp.w #$0003
+    cmp.w #BattlePsiCategoryCount
     bcc C1CBEA_HasBattlePsiCategoryEntries_LCBEA
     ldy.w #$0000
     tyx
     lda.w #$0001
     jsr C1180D_LayoutActiveTextEntriesAndRefresh
 C1CC2A_HasBattlePsiCategoryEntries_LCC2A:
-    lda.w #$0010
+    lda.w #BattlePsiCategoryWindowId
     jsr $007E
     lda $1E
     bne C1CC37_HasBattlePsiCategoryEntries_LCC37
@@ -178,7 +215,7 @@ C1CC58_HasBattlePsiCategoryEntries_LCC58:
     cmp.w #$0000
     beq C1CC2A_HasBattlePsiCategoryEntries_LCC2A
 C1CC6F_HasBattlePsiCategoryEntries_LCC6F:
-    lda.w #$0001
+    lda.w #BattlePsiEntryWindowId
     jsr C104EE_SetWindowFocus
     lda $02
     jsl C1CAF5_BuildBattlePsiCategoryEntryListLong
@@ -198,9 +235,9 @@ C1CC6F_HasBattlePsiCategoryEntries_LCC6F:
     bne C1CC9B_HasBattlePsiCategoryEntries_LCC9B
     jmp.w C1CE03_HasBattlePsiCategoryEntries_LCE03
 C1CC9B_HasBattlePsiCategoryEntries_LCC9B:
-    lda.w #$7B68
+    lda.w #D57B68_BattleActionTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #D57B68_BattleActionTableBank
     sta $08
     ; PP guard compares current PP against the associated D5:7B68 action row,
     ; not against the D5:8A50 PSI metadata row itself.
@@ -217,7 +254,7 @@ C1CC9B_HasBattlePsiCategoryEntries_LCC9B:
     inx
     inx
     inx
-    lda $D58A50,X
+    lda.l BattlePsiAbilityTableAbsoluteBase,X
     sta $04
     asl A
     adc $04
@@ -230,7 +267,7 @@ C1CC9B_HasBattlePsiCategoryEntries_LCC9B:
     lda $0000,X
     and.w #$00FF
     dec A
-    ldy.w #$005F
+    ldy.w #PartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
     lda $18
@@ -246,16 +283,16 @@ C1CC9B_HasBattlePsiCategoryEntries_LCC9B:
     sta $0A
     lda [$0A]
     and.w #$00FF
-    cmp $9A1B,X
+    cmp.w PartyCurrentPpTargetWordBase,X
     bcc C1CD1E_HasBattlePsiCategoryEntries_LCD1E
     beq C1CD1E_HasBattlePsiCategoryEntries_LCD1E
-    lda.w #$000E
+    lda.w #BattlePsiPpGuardWindowId
     jsr C104EE_SetWindowFocus
     lda.w #$0002
     jsr C10036_SetBattleTextDisplayMode
-    lda.w #$FAAA
+    lda.w #BattlePsiNoPpTextLo
     sta $0E
-    lda.w #$00C8
+    lda.w #BattlePsiNoPpTextBank
     sta $10
     jsl C186B1_PrintTextFromPointer
     jsr C1003C_ClearBattleTextDisplayMode
@@ -291,23 +328,23 @@ C1CD36_HasBattlePsiCategoryEntries_LCD36:
     inx
     inx
     inx
-    lda $D58A50,X
+    lda.l BattlePsiAbilityTableAbsoluteBase,X
     sta $04
     asl A
     adc $04
     asl A
     asl A
     tax
-    lda $D57B68,X
+    lda.l D57B68_BattleActionTableAbsoluteBase,X
     and.w #$00FF
     bne C1CD8F_HasBattlePsiCategoryEntries_LCD8F
-    lda.w #$0010
+    lda.w #BattlePsiCategoryWindowId
     jsl C3E521_OpenWindowFocus
-    lda.w #$0004
+    lda.w #BattlePsiNameCloseWindowId
     jsl C3E521_OpenWindowFocus
-    lda.w #$0001
+    lda.w #BattlePsiEntryWindowId
     jsl C3E521_OpenWindowFocus
-    lda.w #$0026
+    lda.w #BattlePsiNameRefreshWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4D4_WindowScopedUpdate
     lda.w #$0006
@@ -318,9 +355,9 @@ C1CD36_HasBattlePsiCategoryEntries_LCD36:
     lda.w #$0000
     jsr C10FEA_PrintSignedOrStatusValue
 C1CD8F_HasBattlePsiCategoryEntries_LCD8F:
-    lda.w #$8A50
+    lda.w #BattlePsiAbilityTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #BattlePsiAbilityTableBank
     sta $08
     ; Final target resolution uses D5:8A50 +4 as the action id passed to the
     ; shared C1:ADB4 battle targetting resolver.
@@ -357,18 +394,18 @@ C1CD8F_HasBattlePsiCategoryEntries_LCD8F:
     asl A
     asl A
     tax
-    lda $D57B68,X
+    lda.l D57B68_BattleActionTableAbsoluteBase,X
     and.w #$00FF
     bne C1CDE1_HasBattlePsiCategoryEntries_LCDE1
-    lda.w #$0026
+    lda.w #BattlePsiChoiceWindowGroupId
     jsl C3E521_OpenWindowFocus
     bra C1CDF6_HasBattlePsiCategoryEntries_LCDF6
 C1CDE1_HasBattlePsiCategoryEntries_LCDE1:
-    lda.w #$0010
+    lda.w #BattlePsiCategoryWindowId
     jsl C3E521_OpenWindowFocus
-    lda.w #$0004
+    lda.w #BattlePsiNameCloseWindowId
     jsl C3E521_OpenWindowFocus
-    lda.w #$0001
+    lda.w #BattlePsiEntryWindowId
     jsl C3E521_OpenWindowFocus
 C1CDF6_HasBattlePsiCategoryEntries_LCDF6:
     ldx $16
@@ -386,7 +423,7 @@ C1CE08_HasBattlePsiCategoryEntries_LCE08:
     bne C1CE10_HasBattlePsiCategoryEntries_LCE10
     jmp.w C1CC6F_HasBattlePsiCategoryEntries_LCC6F
 C1CE10_HasBattlePsiCategoryEntries_LCE10:
-    lda.w #$0004
+    lda.w #BattlePsiNameCloseWindowId
     jsl C3E521_OpenWindowFocus
     ldy $1C
     bne C1CE1E_HasBattlePsiCategoryEntries_LCE1E
@@ -397,7 +434,7 @@ C1CE1E_HasBattlePsiCategoryEntries_LCE1E:
     ldx $20
     stx $04
     ; Write final battle_menu_selection fields for the chosen PSI entry.
-    sta $0001,X
+    sta.w BattleMenuSelectionPsiRowByte,X
     rep #$20
     tya
     sta $04
@@ -412,12 +449,12 @@ C1CE1E_HasBattlePsiCategoryEntries_LCE1E:
     inx
     inx
     inx
-    lda $D58A50,X
+    lda.l BattlePsiAbilityTableAbsoluteBase,X
     ldx $20
     stx $04
-    sta $0002,X
+    sta.w BattleMenuSelectionActionWord,X
     sep #$20
-    lda.b #$08
+    lda.b #TargettingByteArgumentOffset
     pha
     ldx $16
     rep #$20
@@ -428,20 +465,20 @@ C1CE1E_HasBattlePsiCategoryEntries_LCE1E:
     sep #$20
     rep #$10
     ldx $04
-    sta $0004,X
+    sta.w BattleMenuSelectionTargettingByte,X
     ldx $16
     rep #$20
     txa
     sep #$20
     ldx $04
-    sta $0005,X
+    sta.w BattleMenuSelectionSelectedTargetByte,X
     rep #$20
     lda.w #$0001
     sta $02
 C1CE73_ExitBattlePsiMenuController:
-    lda.w #$0001
+    lda.w #BattlePsiEntryWindowId
     jsl C3E521_OpenWindowFocus
-    lda.w #$0010
+    lda.w #BattlePsiCategoryWindowId
     jsl C3E521_OpenWindowFocus
     lda $02
     pld
