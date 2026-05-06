@@ -52,6 +52,16 @@ FLYOVER_TEXT_POINTER_TABLE                   = $C49EA4
 FLYOVER_TEXT_POINTER_TABLE_BANK              = $00C4
 FLYOVER_TEXT_POINTER_ROW_SIZE                = $0004
 FLYOVER_TEXT_POINTER_COUNT                   = $0008
+FLYOVER_TEXT_POINTER_BANK_BYTE               = $E1
+FLYOVER_TEXT_POINTER_PADDING_BYTE            = $00
+FLYOVER_TEXT_YEAR199X_LOW                    = $0B86
+FLYOVER_TEXT_ONETT_LOW                       = $0B9C
+FLYOVER_TEXT_NESS_HOUSE_LOW                  = $0BC2
+FLYOVER_TEXT_POINTER3_LOW                    = $0BD2
+FLYOVER_TEXT_POINTER4_LOW                    = $0BFD
+FLYOVER_TEXT_POINTER5_LOW                    = $0C1B
+FLYOVER_TEXT_POINTER6_LOW                    = $0C38
+FLYOVER_TEXT_POINTER7_LOW                    = $0C61
 
 COFFEE_TEA_TILE_WINDOW_INDEX                 = $9F2D
 COFFEE_TEA_ROW_TILE_LIMIT                    = $2000
@@ -271,29 +281,29 @@ C49EA4_FlyoverIntroTextPointerTable:
     ; locally corroborated Year 199X, Onett, and Ness house intro strings.
     ; The runner indexes these as low word + bank byte + padding byte.
 C49EA4_FlyoverIntroTextYear199xPointer:
-    dw $0B86
-    db $E1,$00
+    dw FLYOVER_TEXT_YEAR199X_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EA8_FlyoverIntroTextOnettPointer:
-    dw $0B9C
-    db $E1,$00
+    dw FLYOVER_TEXT_ONETT_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EAC_FlyoverIntroTextNessHousePointer:
-    dw $0BC2
-    db $E1,$00
+    dw FLYOVER_TEXT_NESS_HOUSE_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EB0_FlyoverIntroTextPointer3:
-    dw $0BD2
-    db $E1,$00
+    dw FLYOVER_TEXT_POINTER3_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EB4_FlyoverIntroTextPointer4:
-    dw $0BFD
-    db $E1,$00
+    dw FLYOVER_TEXT_POINTER4_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EB8_FlyoverIntroTextPointer5:
-    dw $0C1B
-    db $E1,$00
+    dw FLYOVER_TEXT_POINTER5_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EBC_FlyoverIntroTextPointer6:
-    dw $0C38
-    db $E1,$00
+    dw FLYOVER_TEXT_POINTER6_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EC0_FlyoverIntroTextPointer7:
-    dw $0C61
-    db $E1,$00
+    dw FLYOVER_TEXT_POINTER7_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 
 ; Entry:
 ;   A = index into FlyoverIntroTextPointerTable.

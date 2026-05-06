@@ -379,6 +379,11 @@ closure.
   7F palette interpolation planes, `$0200` CGRAM shadow export, and `$0030`
   full-CGRAM upload selector writes. See
   `notes/c4-window-color-math-and-palette-helpers-23dc-26ed.md`.
+- 2026-05-06 flyover pointer table follow-up: tightened the C4:9EA4 flyover
+  intro text pointer table around its eight low-word payload constants, shared
+  E1 bank byte, padding byte, and row shape consumed by `C4:9EC4`, while
+  keeping later E1 payload names out of scope. See
+  `notes/landing-and-coffee-tea-visual-helpers-c492d2-c49d1e.md`.
 
 ## Validation
 

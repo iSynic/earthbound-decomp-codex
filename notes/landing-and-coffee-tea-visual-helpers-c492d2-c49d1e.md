@@ -201,6 +201,12 @@ until the E1 text payload names are settled. The source also makes the row
 shape explicit as low word plus bank byte plus padding byte, matching the
 `C4:9EC4` indexed pointer walk.
 
+2026-05-06 flyover pointer table follow-up: the same source now names the E1
+low-word payload addresses, shared bank byte, and padding byte as row constants.
+This keeps the C4-owned table shape stable while leaving the underlying E1 text
+payload identities outside this pass, except for the three locally corroborated
+intro strings.
+
 The routine has no direct `JSL`/same-bank `JSR` callers in the split-bank scan,
 so the current best read is that it is reached through a pointer/script/event
 path rather than a direct code reference.
