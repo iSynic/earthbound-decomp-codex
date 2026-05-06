@@ -1,4 +1,4 @@
-; EarthBound C2 mask-set phase-1 and metadata-matched candidate builders.
+; EarthBound C2 mask-set phase-1 and metadata-matched battler builders.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:6C82..C2:6E77 MaskSet_BuildPhase1Candidates
+; - C2:6C82..C2:6E77 MaskSet_BuildPhase1Battlers
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -15,22 +15,22 @@
 
 C4A279_OneHotTargetBitMaskTableLo = $A279
 C4A279_OneHotTargetBitMaskTableBank = $00C4
-CandidateRowBase = $9FAC
-CandidateRowSize = $004E
-CandidateRowActiveOffset = $000C
-CandidateRowPhaseOffset = $000E
-CandidateRowMetadataOffset = $0010
+BattlersTableBase = $9FAC
+BattlerRowSize = $004E
+BattlerConsciousnessByte = $000C
+BattlerAllyOrEnemyByte = $000E
+BattlerRowByte = $0010
 CurrentTargetMaskLo = $A96C
 CurrentTargetMaskHi = $A96E
-CandidateBitIndex = $0E
+TargetBitIndex = $0E
 MetadataMatchArg = $10
 OneHotMaskLo = $0A
 OneHotMaskHi = $0C
 WorkingMaskLo = $06
 WorkingMaskHi = $08
 TargetMaskBitLimit = $0020
-PhaseValueOrdinary = $0000
-PhaseValueOne = $0001
+PartyBattlerSide = $0000
+EnemyBattlerSide = $0001
 MetadataMatchZero = $0000
 MetadataMatchOne = $0001
 MetadataMatchTwo = $0002
@@ -49,23 +49,23 @@ C26C82_MaskSet_BuildPhase1Candidates = TARGET_ALL_ENEMIES
     sta CurrentTargetMaskLo
     lda.w #$0000
     sta CurrentTargetMaskHi
-    ldx.w #CandidateRowBase
+    ldx.w #BattlersTableBase
     lda.w #$0000
-    sta CandidateBitIndex
+    sta TargetBitIndex
     bra C26CFD_MaskSet_BuildPhase1Candidates_L6CFD
 C26CA0_MaskSet_BuildPhase1Candidates_L6CA0:
-    lda CandidateRowActiveOffset,X
+    lda.w BattlerConsciousnessByte,X
     and.w #$00FF
     beq C26CF2_MaskSet_BuildPhase1Candidates_L6CF2
-    lda CandidateRowPhaseOffset,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #PhaseValueOne
+    cmp.w #EnemyBattlerSide
     bne C26CF2_MaskSet_BuildPhase1Candidates_L6CF2
     lda.w #C4A279_OneHotTargetBitMaskTableLo
     sta WorkingMaskLo
     lda.w #C4A279_OneHotTargetBitMaskTableBank
     sta WorkingMaskHi
-    lda CandidateBitIndex
+    lda TargetBitIndex
     asl A
     asl A
     clc
@@ -94,11 +94,11 @@ C26CA0_MaskSet_BuildPhase1Candidates_L6CA0:
 C26CF2_MaskSet_BuildPhase1Candidates_L6CF2:
     txa
     clc
-    adc.w #CandidateRowSize
+    adc.w #BattlerRowSize
     tax
-    lda CandidateBitIndex
+    lda TargetBitIndex
     inc A
-    sta CandidateBitIndex
+    sta TargetBitIndex
 C26CFD_MaskSet_BuildPhase1Candidates_L6CFD:
     cmp.w #TargetMaskBitLimit
     bcc C26CA0_MaskSet_BuildPhase1Candidates_L6CA0
@@ -119,12 +119,12 @@ C26D04_MaskSet_BuildMetadataMatchedCandidates = TARGET_ROW
     sta CurrentTargetMaskLo
     lda.w #$0000
     sta CurrentTargetMaskHi
-    ldx.w #CandidateRowBase
+    ldx.w #BattlersTableBase
     lda.w #$0000
-    sta CandidateBitIndex
+    sta TargetBitIndex
     jmp.w C26DF4_MaskSet_BuildPhase1Candidates_L6DF4
 C26D28_MaskSet_BuildPhase1Candidates_L6D28:
-    lda CandidateRowActiveOffset,X
+    lda.w BattlerConsciousnessByte,X
     and.w #$00FF
     bne C26D33_MaskSet_BuildPhase1Candidates_L6D33
     jmp.w C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
@@ -138,7 +138,7 @@ C26D33_MaskSet_BuildPhase1Candidates_L6D33:
     beq C26D91_MaskSet_BuildPhase1Candidates_L6D91
     jmp.w C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
 C26D45_MaskSet_BuildPhase1Candidates_L6D45:
-    lda CandidateRowPhaseOffset,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
     beq C26D50_MaskSet_BuildPhase1Candidates_L6D50
     jmp.w C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
@@ -147,7 +147,7 @@ C26D50_MaskSet_BuildPhase1Candidates_L6D50:
     sta WorkingMaskLo
     lda.w #C4A279_OneHotTargetBitMaskTableBank
     sta WorkingMaskHi
-    lda CandidateBitIndex
+    lda TargetBitIndex
     asl A
     asl A
     clc
@@ -175,14 +175,14 @@ C26D50_MaskSet_BuildPhase1Candidates_L6D50:
     sta CurrentTargetMaskHi
     bra C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
 C26D91_MaskSet_BuildPhase1Candidates_L6D91:
-    lda CandidateRowPhaseOffset,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #PhaseValueOne
+    cmp.w #EnemyBattlerSide
     bne C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
     tya
     dec A
     sta $02
-    lda CandidateRowMetadataOffset,X
+    lda.w BattlerRowByte,X
     and.w #$00FF
     cmp $02
     bne C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
@@ -190,7 +190,7 @@ C26D91_MaskSet_BuildPhase1Candidates_L6D91:
     sta WorkingMaskLo
     lda.w #C4A279_OneHotTargetBitMaskTableBank
     sta WorkingMaskHi
-    lda CandidateBitIndex
+    lda TargetBitIndex
     asl A
     asl A
     clc
@@ -219,11 +219,11 @@ C26D91_MaskSet_BuildPhase1Candidates_L6D91:
 C26DE9_MaskSet_BuildPhase1Candidates_L6DE9:
     txa
     clc
-    adc.w #CandidateRowSize
+    adc.w #BattlerRowSize
     tax
-    lda CandidateBitIndex
+    lda TargetBitIndex
     inc A
-    sta CandidateBitIndex
+    sta TargetBitIndex
 C26DF4_MaskSet_BuildPhase1Candidates_L6DF4:
     cmp.w #TargetMaskBitLimit
     bcs C26DFE_MaskSet_BuildPhase1Candidates_L6DFE
@@ -241,19 +241,19 @@ C26DFE_MaskSet_BuildPhase1Candidates_L6DFE:
     sta CurrentTargetMaskLo
     lda.w #$0000
     sta CurrentTargetMaskHi
-    ldx.w #CandidateRowBase
+    ldx.w #BattlersTableBase
     lda.w #$0000
-    sta CandidateBitIndex
+    sta TargetBitIndex
     bra C26E70_MaskSet_BuildPhase1Candidates_L6E70
 C26E1E_MaskSet_BuildPhase1Candidates_L6E1E:
-    lda CandidateRowActiveOffset,X
+    lda.w BattlerConsciousnessByte,X
     and.w #$00FF
     beq C26E65_MaskSet_BuildPhase1Candidates_L6E65
     lda.w #C4A279_OneHotTargetBitMaskTableLo
     sta WorkingMaskLo
     lda.w #C4A279_OneHotTargetBitMaskTableBank
     sta WorkingMaskHi
-    lda CandidateBitIndex
+    lda TargetBitIndex
     asl A
     asl A
     clc
@@ -282,11 +282,11 @@ C26E1E_MaskSet_BuildPhase1Candidates_L6E1E:
 C26E65_MaskSet_BuildPhase1Candidates_L6E65:
     txa
     clc
-    adc.w #CandidateRowSize
+    adc.w #BattlerRowSize
     tax
-    lda CandidateBitIndex
+    lda TargetBitIndex
     inc A
-    sta CandidateBitIndex
+    sta TargetBitIndex
 C26E70_MaskSet_BuildPhase1Candidates_L6E70:
     cmp.w #TargetMaskBitLimit
     bcc C26E1E_MaskSet_BuildPhase1Candidates_L6E1E

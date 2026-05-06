@@ -1,4 +1,4 @@
-; EarthBound C2 class-2 derived action dispatcher and visual candidate setup.
+; EarthBound C2 class-2 derived action dispatcher and visual battler setup.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -9,10 +9,10 @@
 ; - C2:4703..C2:4958 DispatchClass2DerivedAction
 ;
 ; Runtime contract:
-; - A = candidate row base.
+; - A = battler row base.
 ; - Clears the current 32-bit target mask `$A96C/$A96E`.
-; - Dispatches on row byte `+0x09`, consuming row byte `+0x0A` as a
-;   per-action target parameter where needed.
+; - Dispatches on battler action_targeting `+0x09`, consuming battler
+;   current_target `+0x0A` as a per-action target parameter where needed.
 ; - Builds/prunes the current target mask through the class-2 mask helper
 ;   family, then returns to the caller that will apply the selected action or
 ;   presentation payload.
@@ -39,19 +39,23 @@ C47C3F_ClearWindowOrMenuMaskState             = $C47C3F
 
 CurrentTargetMaskLo                           = $A96C
 CurrentTargetMaskHi                           = $A96E
-CandidateRowActionIdOffset                    = $0004
-CandidateRowPhaseOffset                       = $000E
-CandidateRowDerivedActionCodeOffset           = $0009
-CandidateRowDerivedActionParamOffset          = $000A
-CandidateRowSize                              = $004E
+BattlersTableBase                             = $9FAC
+BattlerCurrentActionWord                       = $0004
+BattlerAllyOrEnemyByte                         = $000E
+BattlerActionTargetingByte                     = $0009
+BattlerCurrentTargetByte                       = $000A
+BattlerRowSize                                 = $004E
+BattlerConsciousnessByteBase                   = $9FB8
+BattlerAfflictionsByteBase                     = $9FC9
+EnemyBattlerSide                               = $0001
 DerivedAction_TargetParamBattler              = $0001
 DerivedAction_TargetAlliesAndMaybeNpcFilter   = $0002
 DerivedAction_TargetAllies                    = $0004
 DerivedAction_TargetRankedListMember          = $0011
-DerivedAction_TargetCandidateRow              = $0012
+DerivedAction_TargetMetadataMatchedBattlers    = $0012
 DerivedAction_TargetAllEnemies                = $0014
 SpecialRetargetActionId                       = $0027
-CandidateScanStartBit                         = $0008
+ActorTargetScanStartBit                        = $0008
 TargetMaskBitLimit                            = $0020
 
 ; ---------------------------------------------------------------------------
@@ -71,7 +75,7 @@ C24703_DispatchClass2DerivedAction:
     sta CurrentTargetMaskLo
     lda.w #$0000
     sta CurrentTargetMaskHi
-    lda CandidateRowDerivedActionCodeOffset,X
+    lda.w BattlerActionTargetingByte,X
     and.w #$00FF
     ; Derived action code from C2:4477 selects target-mask construction.
     cmp.w #DerivedAction_TargetParamBattler
@@ -82,7 +86,7 @@ C24703_DispatchClass2DerivedAction:
     beq C24757_DispatchClass2DerivedAction_L4757
     cmp.w #DerivedAction_TargetRankedListMember
     beq C2477E_DispatchClass2DerivedAction_L477E
-    cmp.w #DerivedAction_TargetCandidateRow
+    cmp.w #DerivedAction_TargetMetadataMatchedBattlers
     bne C2473E_DispatchClass2DerivedAction_L473E
     jmp.w C247F5_DispatchClass2DerivedAction_L47F5
 C2473E_DispatchClass2DerivedAction_L473E:
@@ -92,23 +96,23 @@ C2473E_DispatchClass2DerivedAction_L473E:
 C24746_DispatchClass2DerivedAction_L4746:
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C24749_DispatchClass2DerivedAction_L4749:
-    ; Code 1 consumes row +0x0A as a 1-based battler target ordinal.
-    lda CandidateRowDerivedActionParamOffset,X
+    ; Code 1 consumes battler.current_target (+0x0A) as a 1-based battler target ordinal.
+    lda.w BattlerCurrentTargetByte,X
     and.w #$00FF
     dec A
     jsl TARGET_BATTLER
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C24757_DispatchClass2DerivedAction_L4757:
     ; Codes 2/4 begin with all active allies, then prune NPC/blocked rows when
-    ; the action is not a special-case row and the actor is ordinary phase 0.
+    ; the action is not a special-case row and the actor is party-side.
     jsl TARGET_ALLIES
     ldx $0E
-    lda CandidateRowActionIdOffset,X
+    lda.w BattlerCurrentActionWord,X
     jsl C23FEA_CheckBattleActionSpecialCase
     cmp.w #$0000
     bne C24777_DispatchClass2DerivedAction_L4777
     ldx $0E
-    lda CandidateRowPhaseOffset,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C24777_DispatchClass2DerivedAction_L4777
     jsl REMOVE_NPC_TARGETTING
@@ -116,8 +120,8 @@ C24777_DispatchClass2DerivedAction_L4777:
     jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C2477E_DispatchClass2DerivedAction_L477E:
-    ; Code 0x11 consumes row +0x0A as a ranked-list ordinal spanning AD7A/AD82.
-    lda CandidateRowDerivedActionParamOffset,X
+    ; Code 0x11 consumes battler.current_target (+0x0A) as a ranked-list ordinal spanning AD7A/AD82.
+    lda.w BattlerCurrentTargetByte,X
     and.w #$00FF
     cmp $AD56
     bcc C2479D_DispatchClass2DerivedAction_L479D
@@ -138,21 +142,21 @@ C2479D_DispatchClass2DerivedAction_L479D:
     jsl TARGET_BATTLER
 C247A9_DispatchClass2DerivedAction_L47A9:
     ldx $0E
-    lda CandidateRowActionIdOffset,X
+    lda.w BattlerCurrentActionWord,X
     cmp.w #SpecialRetargetActionId
     bne C2481F_DispatchClass2DerivedAction_L481F
-    ; Action 0x27 can retarget to the first active phase-1 row from bit 8 up.
-    lda.w #CandidateScanStartBit
+    ; Action 0x27 can retarget to the first active enemy-side battler from bit 8 up.
+    lda.w #ActorTargetScanStartBit
     sta $0E
     bra C247EE_DispatchClass2DerivedAction_L47EE
 C247BA_DispatchClass2DerivedAction_L47BA:
-    ldy.w #$004E
+    ldy.w #BattlerRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FB8,X
+    lda.w BattlerConsciousnessByteBase,X
     and.w #$00FF
     beq C247E9_DispatchClass2DerivedAction_L47E9
-    lda $9FC9,X
+    lda.w BattlerAfflictionsByteBase,X
     and.w #$00FF
     cmp.w #$0001
     bne C247E9_DispatchClass2DerivedAction_L47E9
@@ -172,8 +176,8 @@ C247EE_DispatchClass2DerivedAction_L47EE:
     bcc C247BA_DispatchClass2DerivedAction_L47BA
     bra C2481F_DispatchClass2DerivedAction_L481F
 C247F5_DispatchClass2DerivedAction_L47F5:
-    ; Code 0x12 consumes row +0x0A as direct metadata for TARGET_ROW.
-    lda CandidateRowDerivedActionParamOffset,X
+    ; Code 0x12 consumes battler.current_target (+0x0A) as direct metadata for TARGET_ROW.
+    lda.w BattlerCurrentTargetByte,X
     and.w #$00FF
     jsl TARGET_ROW
     jsl REMOVE_NPC_TARGETTING
@@ -182,7 +186,7 @@ C247F5_DispatchClass2DerivedAction_L47F5:
 C24809_DispatchClass2DerivedAction_L4809:
     jsl TARGET_ALL_ENEMIES
     ldx $0E
-    lda CandidateRowPhaseOffset,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C2481B_DispatchClass2DerivedAction_L481B
     jsl REMOVE_NPC_TARGETTING
@@ -310,13 +314,13 @@ C2489D_DispatchClass2DerivedAction_L489D:
 C2492D_DispatchClass2DerivedAction_L492D:
     sep #$20
     stz $0E
-    ldx.w #$004E
+    ldx.w #BattlerRowSize
     rep #$20
     tya
     txy
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9FAC
+    adc.w #BattlersTableBase
     jsl C08EFC_CommitTileBufferToStaging
     ldy $31
     iny

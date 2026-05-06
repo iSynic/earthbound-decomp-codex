@@ -1,4 +1,4 @@
-; EarthBound C2 mask-set active typed candidate builder.
+; EarthBound C2 mask-set active typed battler builder.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:6BFB..C2:6C82 MaskSet_BuildActiveTypedCandidates
+; - C2:6BFB..C2:6C82 MaskSet_BuildActiveTypedBattlers
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -15,14 +15,14 @@
 
 C4A279_OneHotTargetBitMaskTableLo = $A279
 C4A279_OneHotTargetBitMaskTableBank = $00C4
-CandidateRowBase = $9FAC
-CandidateRowSize = $004E
-CandidateRowActiveOffset = $000C
-CandidateRowPhaseOffset = $000E
-CandidateRowTypeOffset = $000F
+BattlersTableBase = $9FAC
+BattlerRowSize = $004E
+BattlerConsciousnessByte = $000C
+BattlerAllyOrEnemyByte = $000E
+BattlerNpcIdByte = $000F
 CurrentTargetMaskLo = $A96C
 CurrentTargetMaskHi = $A96E
-CandidateBitIndex = $0E
+TargetBitIndex = $0E
 OneHotMaskLo = $0A
 OneHotMaskHi = $0C
 WorkingMaskLo = $06
@@ -43,18 +43,18 @@ C26BFB_MaskSet_BuildActiveTypedCandidates = TARGET_ALLIES
     sta CurrentTargetMaskLo
     lda.w #$0000
     sta CurrentTargetMaskHi
-    ldx.w #CandidateRowBase
+    ldx.w #BattlersTableBase
     lda.w #$0000
-    sta CandidateBitIndex
+    sta TargetBitIndex
     bra C26C7B_MaskSet_BuildActiveTypedCandidates_L6C7B
 C26C19_MaskSet_BuildActiveTypedCandidates_L6C19:
-    lda CandidateRowActiveOffset,X
+    lda.w BattlerConsciousnessByte,X
     and.w #$00FF
     beq C26C70_MaskSet_BuildActiveTypedCandidates_L6C70
-    lda CandidateRowPhaseOffset,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
     beq C26C31_MaskSet_BuildActiveTypedCandidates_L6C31
-    lda CandidateRowTypeOffset,X
+    lda.w BattlerNpcIdByte,X
     and.w #$00FF
     beq C26C70_MaskSet_BuildActiveTypedCandidates_L6C70
 C26C31_MaskSet_BuildActiveTypedCandidates_L6C31:
@@ -62,7 +62,7 @@ C26C31_MaskSet_BuildActiveTypedCandidates_L6C31:
     sta WorkingMaskLo
     lda.w #C4A279_OneHotTargetBitMaskTableBank
     sta WorkingMaskHi
-    lda CandidateBitIndex
+    lda TargetBitIndex
     asl A
     asl A
     clc
@@ -91,11 +91,11 @@ C26C31_MaskSet_BuildActiveTypedCandidates_L6C31:
 C26C70_MaskSet_BuildActiveTypedCandidates_L6C70:
     txa
     clc
-    adc.w #CandidateRowSize
+    adc.w #BattlerRowSize
     tax
-    lda CandidateBitIndex
+    lda TargetBitIndex
     inc A
-    sta CandidateBitIndex
+    sta TargetBitIndex
 C26C7B_MaskSet_BuildActiveTypedCandidates_L6C7B:
     cmp.w #TargetMaskBitLimit
     bcc C26C19_MaskSet_BuildActiveTypedCandidates_L6C19

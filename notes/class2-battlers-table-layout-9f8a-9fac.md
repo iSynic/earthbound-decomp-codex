@@ -130,6 +130,25 @@ That makes the `$A970/$A972` active-battler interpretation source-backed in the
 same battle-text cluster that previously provided some of the strongest field
 crosswalk evidence.
 
+## Source-backed action/mask update
+
+The action-dispatch and target-mask sources now carry the same correction:
+
+- `C2:4477` names battler `current_action` (`+0x04`), `action_targeting`
+  (`+0x09`), `current_target` (`+0x0A`), and `ally_or_enemy` (`+0x0E`) while
+  deriving target-mask instructions from the `D5:7B68` action table.
+- `C2:4703` consumes those battler fields while dispatching into the mask
+  helper family.
+- `C2:40A4` names `$9FAC` as the battler target domain for the second-pointer
+  payload pass and prunes by `consciousness` / `afflictions`.
+- `C2:6BFB..70E4` now names the `$9FAC` root and `0x4E` stride as
+  `BattlersTableBase` and `BattlerRowSize`, with field names replacing the
+  older generic candidate-row offsets.
+
+That lets the remaining "candidate" language stay focused on ranked target
+lists such as `$AD7A/$AD82`, instead of blurring the underlying battler table
+itself.
+
 ## Current safest interpretation
 
 The safest current interpretation is:

@@ -15,8 +15,8 @@ contract notes for C0/C1/C3/C4 consumers.
 
 - Action dispatch: class-2 derived action code construction, action row
   dispatch, second-pointer payloads, item-side and bomb/action continuations.
-- Target selection: candidate pool population, row ranking, steal targets,
-  random battler selection, front/back row behavior.
+- Target selection: battler-table population, ranked target lists, steal
+  targets, random battler selection, front/back row behavior.
 - Status/effect families: affliction mutation, derived stat consequences,
   HP/PP rollers, status tile lookups, solidification and PP-loss handlers.
 - PSI/common handlers: PSI menu joins, PSI animation setup, common target/result
@@ -81,9 +81,9 @@ contract notes for C0/C1/C3/C4 consumers.
   cleanup.
 - 2026-04-30 fourth slice: promoted C2 action-dispatch contracts into
   byte-neutral source comments plus `notes/c2-action-dispatch-runtime-polish.md`.
-  The promoted contracts cover `D5:7B68` descriptor metadata use, candidate row
-  `+0x09/+0x0A` derived action bytes, `$A96C/$A96E` as the current 32-bit target
-  mask, and `C2:40A4` as the second-pointer payload applicator.
+  The promoted contracts cover `D5:7B68` descriptor metadata use, battler
+  `+0x09/+0x0A` derived action/target bytes, `$A96C/$A96E` as the current
+  32-bit target mask, and `C2:40A4` as the second-pointer payload applicator.
 - 2026-04-30 fifth slice: promoted C2 stat-consequence contracts into
   byte-neutral source comments plus `notes/c2-stat-consequence-runtime-polish.md`.
   The promoted contracts cover the `C2:B2E0` selector map, HP/PP feedback helper
@@ -348,21 +348,22 @@ contract notes for C0/C1/C3/C4 consumers.
   text display, and the separate companion payload pointer. See
   `notes/c2-battle-start-payload-join-runtime-polish.md`.
 - 2026-05-05 fifty-second slice: carried the same `D5:7B68` action-row
-  vocabulary upstream into `C2:4477`, where candidate row `+0x04` selects the
-  table row and row bytes `+0/+1` produce candidate row `+0x09/+0x0A` for
-  `C2:4703`. See `notes/c2-action-dispatch-runtime-polish.md`.
+  vocabulary upstream into `C2:4477`, where battler `current_action` (`+0x04`)
+  selects the table row and row bytes `+0/+1` produce battler
+  `action_targeting/current_target` (`+0x09/+0x0A`) for `C2:4703`. See
+  `notes/c2-action-dispatch-runtime-polish.md`.
 - 2026-05-05 fifty-third slice: tightened the `C2:4703` target-mask dispatcher
   and `C2:40A4` second-pointer payload consumer. The promoted contracts name
-  the current target mask, derived-action code lanes, candidate-row handoff
-  offsets, `$A21C/$9FAC` payload target domains, and the shared `0x4E` row
+  the current target mask, derived-action code lanes, battler handoff offsets,
+  `$A21C/$9FAC` payload target domains, and the shared `0x4E` row
   stride. See `notes/c2-action-dispatch-runtime-polish.md`.
 - 2026-05-05 fifty-fourth slice: carried the same target-mask vocabulary into
   the C2 mask helper family. The promoted contracts name the `C4:A279` one-hot
-  bit table, `$A96C/$A96E` current target mask, `$9FAC` candidate row root,
-  active/phase/type/metadata row offsets, and `0x4E` stride in the add/test/
+  bit table, `$A96C/$A96E` current target mask, `$9FAC` battler-table root,
+  consciousness/side/type/row/affliction offsets, and `0x4E` stride in the add/test/
   clear and build/remove helper sources. See `notes/class2-mask-helper-family.md`.
 - 2026-05-05 fifty-fifth slice: closed the adjacent `6EF8`/`70E4` mask-helper
-  tail with the same one-hot target bit, input/output mask, candidate-row
+  tail with the same one-hot target bit, input/output mask, battler-row
   stride, and named test/clear helper contracts. See
   `notes/class2-mask-helper-family.md`.
 - 2026-05-05 fifty-sixth slice: promoted the active battler text-context
@@ -374,6 +375,14 @@ contract notes for C0/C1/C3/C4 consumers.
   `$A96C/$A96E -> 9FAC + 0x4E * n` target-mask-to-battler rebuild. See
   `notes/c2-action-dispatch-runtime-polish.md` and
   `notes/class2-battlers-table-layout-9f8a-9fac.md`.
+- 2026-05-05 fifty-seventh slice: normalized the C2 action/mask source
+  vocabulary after the `$9FAC == BATTLERS_TABLE` correction. The affected
+  source now names `$9FAC` as `BattlersTableBase`, `0x4E` as `BattlerRowSize`,
+  `+0x04/+0x09/+0x0A/+0x0E` as battler action/target/side fields, and the
+  mask-helper row tests as consciousness, npc id, row, and affliction bytes.
+  Candidate wording is now reserved for the ranked `$AD7A/$AD82` lists in this
+  slice. See `notes/c2-action-dispatch-runtime-polish.md` and
+  `notes/class2-mask-helper-family.md`.
 
 ## Validation
 

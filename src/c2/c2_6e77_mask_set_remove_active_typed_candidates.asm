@@ -1,4 +1,4 @@
-; EarthBound C2 mask-set active typed candidate remover.
+; EarthBound C2 mask-set active typed battler remover.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -6,7 +6,7 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:6E77..C2:6EF8 MaskSet_RemoveActiveTypedCandidates
+; - C2:6E77..C2:6EF8 MaskSet_RemoveActiveTypedBattlers
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
@@ -15,13 +15,13 @@
 
 C4A279_OneHotTargetBitMaskTableLo = $A279
 C4A279_OneHotTargetBitMaskTableBank = $00C4
-CandidateRowBase = $9FAC
-CandidateRowSize = $004E
-CandidateRowActiveOffset = $000C
-CandidateRowTypeOffset = $000F
+BattlersTableBase = $9FAC
+BattlerRowSize = $004E
+BattlerConsciousnessByte = $000C
+BattlerNpcIdByte = $000F
 CurrentTargetMaskLo = $A96C
 CurrentTargetMaskHi = $A96E
-CandidateBitIndex = $0E
+TargetBitIndex = $0E
 OneHotMaskLo = $0A
 OneHotMaskHi = $0C
 WorkingMaskLo = $06
@@ -38,22 +38,22 @@ C26E77_MaskSet_RemoveActiveTypedCandidates = REMOVE_NPC_TARGETTING
     tdc
     adc.w #$FFF0
     tcd
-    ldx.w #CandidateRowBase
+    ldx.w #BattlersTableBase
     lda.w #$0000
-    sta CandidateBitIndex
+    sta TargetBitIndex
     bra C26EF1_MaskSet_RemoveActiveTypedCandidates_L6EF1
 C26E89_MaskSet_RemoveActiveTypedCandidates_L6E89:
-    lda CandidateRowActiveOffset,X
+    lda.w BattlerConsciousnessByte,X
     and.w #$00FF
     beq C26EE6_MaskSet_RemoveActiveTypedCandidates_L6EE6
-    lda CandidateRowTypeOffset,X
+    lda.w BattlerNpcIdByte,X
     and.w #$00FF
     beq C26EE6_MaskSet_RemoveActiveTypedCandidates_L6EE6
     lda.w #C4A279_OneHotTargetBitMaskTableLo
     sta WorkingMaskLo
     lda.w #C4A279_OneHotTargetBitMaskTableBank
     sta WorkingMaskHi
-    lda CandidateBitIndex
+    lda TargetBitIndex
     asl A
     asl A
     clc
@@ -88,11 +88,11 @@ C26E89_MaskSet_RemoveActiveTypedCandidates_L6E89:
 C26EE6_MaskSet_RemoveActiveTypedCandidates_L6EE6:
     txa
     clc
-    adc.w #CandidateRowSize
+    adc.w #BattlerRowSize
     tax
-    lda CandidateBitIndex
+    lda TargetBitIndex
     inc A
-    sta CandidateBitIndex
+    sta TargetBitIndex
 C26EF1_MaskSet_RemoveActiveTypedCandidates_L6EF1:
     cmp.w #TargetMaskBitLimit
     bcc C26E89_MaskSet_RemoveActiveTypedCandidates_L6E89

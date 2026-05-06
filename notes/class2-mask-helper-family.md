@@ -6,14 +6,14 @@ See also `notes/class2-handoff-4477-4703.md`.
 
 ## Working Names
 
-- `C2:6BFB` = `MaskSet_BuildActiveTypedCandidates`
-- `C2:6C82` = `MaskSet_BuildPhase1Candidates`
-- `C2:6E77` = `MaskSet_RemoveActiveTypedCandidates`
+- `C2:6BFB` = `MaskSet_BuildActiveTypedBattlers`
+- `C2:6C82` = `MaskSet_BuildPhase1Battlers`
+- `C2:6E77` = `MaskSet_RemoveActiveTypedBattlers`
 - `C2:6EF8` = `MaskSet_FindFirstMatchInRange`
 - `C2:6FDC` = `MaskSet_AddBit`
 - `C2:7029` = `MaskSet_TestBit`
 - `C2:7089` = `MaskSet_ClearBit`
-- `C2:70E4` = `MaskSet_PruneFlaggedCandidates`
+- `C2:70E4` = `MaskSet_PruneFlaggedBattlers`
 
 ## `C4:A279` is a 32-entry one-hot bitmask table
 
@@ -43,14 +43,20 @@ directly. `src/c2/c2_6bfb_mask_set_build_active_typed_candidates.asm`,
 `src/c2/c2_6fdc_mask_set_add_bit.asm`,
 `src/c2/c2_7029_mask_set_test_bit.asm`, and
 `src/c2/c2_7089_mask_set_clear_bit.asm` name the `C4:A279` one-hot table,
-`$A96C/$A96E` current target mask, `$9FAC` candidate rows, and the shared
+`$A96C/$A96E` current target mask, `$9FAC` battler rows, and the shared
 `0x4E` row stride at their local use sites.
 
 Follow-up implementation update: `src/c2/c2_6ef8_mask_set_find_first_match_in_range.asm`
 and `src/c2/c2_70e4_mask_set_prune_flagged_candidates.asm` now use the same
-one-hot table, bit-index, candidate-row stride, and target-set helper names.
+one-hot table, bit-index, battler-row stride, and target-set helper names.
 That closes the currently documented `C2:6BFB..70E4` mask helper family for
 source-facing vocabulary.
+
+Second follow-up update: the source modules above now reserve "candidate" for
+the ranked front/back selection lists where it is still useful. The `$9FAC`
+domain itself is named as `BattlersTableBase` / `BattlerRowSize`, with field
+names such as `consciousness`, `ally_or_enemy`, `npc_id`, `row`, and
+`afflictions` replacing the older generic row/metadata wording.
 
 ## Confirmed helper roles
 
@@ -107,50 +113,50 @@ Current best working name:
 
 - `MaskSet_ClearBit`
 
-### `C2:6E77` -> subtract a family of bits from the working set
+### `C2:6E77` -> subtract a family of battler bits from the working set
 
 Behavior:
 
-- iterates over the 32 candidate slots rooted at `9FAC`
-- for each slot with nonzero `+0C` and nonzero `+0F`, loads the one-hot mask for that candidate index
+- iterates over the 32 battler slots rooted at `9FAC`
+- for each slot with nonzero `consciousness` (`+0x0C`) and nonzero `npc_id` (`+0x0F`), loads the one-hot mask for that battler index
 - inverts that mask
 - ANDs it into `$A96C/$A96E`
 
-So this is not a generic intersection helper. It is a set-subtraction pass that removes a family of occupied or blocked candidate bits from the current working set.
+So this is not a generic intersection helper. It is a set-subtraction pass that removes a family of occupied or blocked battler bits from the current working set.
 
 Current best working name:
 
-- `MaskSet_RemoveActiveTypedCandidates`
+- `MaskSet_RemoveActiveTypedBattlers`
 
-### `C2:6BFB` -> build a union of active typed candidates
+### `C2:6BFB` -> build a union of active typed battlers
 
 Behavior:
 
 - clears `$A96C/$A96E`
-- iterates the same 32 candidate slots rooted at `9FAC`
-- for each slot with nonzero `+0C`, nonzero `+0E`, and nonzero `+0F`, ORs in the candidate bit
+- iterates the same 32 battler slots rooted at `9FAC`
+- for each slot with nonzero `consciousness` (`+0x0C`), nonzero `ally_or_enemy` (`+0x0E`), and nonzero `npc_id` (`+0x0F`), ORs in the battler bit
 
 Current best working name:
 
-- `MaskSet_BuildActiveTypedCandidates`
+- `MaskSet_BuildActiveTypedBattlers`
 
-### `C2:6C82` -> build a union of phase-1 candidates
+### `C2:6C82` -> build a union of enemy-side battlers
 
 Behavior:
 
 - clears `$A96C/$A96E`
-- iterates the 32 candidate slots rooted at `9FAC`
-- for each slot with nonzero `+0C` and `+0E == 1`, ORs in the candidate bit
+- iterates the 32 battler slots rooted at `9FAC`
+- for each slot with nonzero `consciousness` (`+0x0C`) and `ally_or_enemy == 1` (`+0x0E`), ORs in the battler bit
 
 Current best working name:
 
-- `MaskSet_BuildPhase1Candidates`
+- `MaskSet_BuildPhase1Battlers`
 
 ## Higher-level helper roles
 
 ### `C2:70E4`
 
-This routine iterates candidate indices `0..31`, tests each bit with `C2:7029`, and for matching candidates checks metadata at `9FC9`.
+This routine iterates target bits `0..31`, tests each bit with `C2:7029`, and for matching battlers checks the affliction byte at `9FC9`.
 
 When that metadata byte is `1`, it clears the bit through `C2:7089`.
 
@@ -160,15 +166,15 @@ Current best reading:
 
 Current best working name:
 
-- `MaskSet_PruneFlaggedCandidates`
+- `MaskSet_PruneFlaggedBattlers`
 
 ### `C2:6EF8`
 
-This routine takes a candidate range in `$24/$26`, walks bit indices, intersects each with the working set, and returns the first matching index through `$1C/$1E`.
+This routine takes an input mask in `$24/$26`, walks target bit indices, intersects each with the working set, and returns the first matching one-hot bit through `$1C/$1E`.
 
 Current best reading:
 
-- it finds the first surviving candidate inside a requested range
+- it finds the first surviving target bit inside a requested mask
 
 Current best working name:
 
@@ -179,23 +185,33 @@ Current best working name:
 The family is now much more concrete:
 
 - `C2:4477` derives a compact action code and parameter
-- `C2:4703` dispatches into a helper family that builds and filters a 32-bit candidate set
-- the candidate set is represented by `$A96C/$A96E`
-- candidates are addressed by one-hot bits from `C4:A279`
-- multiple passes build unions, subtract blocked candidates, test membership, and prune metadata-marked candidates
+- `C2:4703` dispatches into a helper family that builds and filters a 32-bit target set
+- the target set is represented by `$A96C/$A96E`
+- battlers are addressed by one-hot bits from `C4:A279`
+- multiple passes build unions, subtract blocked battlers, test membership, and prune affliction-marked battlers
 
-This strongly suggests the family is selecting from a bounded 32-entry neighborhood, candidate list, or adjacency graph rather than merely toggling a timer or message branch.
+This now lines up with the broader `BATTLERS_TABLE` correction: the mask family is selecting and pruning battlers, not an abstract adjacency graph.
 
-## Candidate-domain note
+## Battler-domain note
 
-See `notes/class2-candidate-table-9fac.md` for the current WRAM candidate-pool model. The strongest new gain there is that the domain is backed by live runtime entries with parallel fields like `9FB8`, `9FBA`, `9FBB`, `9FBC`, `9FBF`, and `9FC9`, not just anonymous bits.
+See `notes/class2-battlers-table-layout-9f8a-9fac.md` for the corrected WRAM
+model. The strongest new gain is that the domain is the live `BATTLERS_TABLE`:
+addresses like `9FB8`, `9FBA`, `9FBB`, `9FBC`, and `9FC9` are battler-field
+offsets (`consciousness`, `ally_or_enemy`, `npc_id`, `row`, and `afflictions`),
+not anonymous parallel candidate arrays.
 
 ## Remaining unknowns
 
-- what the 32 candidate entries rooted near `9FAC` represent in gameplay terms
-- what linked value is stored in the candidate-side arrays mapped through selector `#$005F`
-- whether the domain is best interpreted as neighboring tiles, nearby nodes, exits, or local object links
+- whether the remaining helper names should be globally renamed from
+  candidate-style labels once downstream docs are fully updated
+- the exact gameplay enum names for the action-targeting modes that feed these
+  battler-mask builders
+- whether every `+0x1D`/`9FC9` pruning use should be described as a specific
+  affliction group or kept as a broad affliction/state byte
 
 ## Best next target
 
-- See `notes/class2-candidate-population-and-ranking.md` for the current setup-versus-ranking split. The best next move is to trace where the source values in the `986F` family come from, or decode the linked candidate-side bytes near `9FAE` and `9FF0`, so the 32-bit domain can be named from actual gameplay structure rather than just bitset behavior.
+- See `notes/class2-battlers-table-layout-9f8a-9fac.md` for the corrected
+  battler-table model. The best next move is to trace another `C2:B6EB` caller
+  family or to continue retiring stale candidate wording in the second-stage
+  selector docs now that the mask helper source is aligned.

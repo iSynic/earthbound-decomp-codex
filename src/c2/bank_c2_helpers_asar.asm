@@ -920,13 +920,19 @@ org $C240A4
 !LocalSecondPayloadPointerHi = $08
 !NullPointerWord = $0000
 !ActorTargetRowDomainBase = $A21C
-!CandidateTargetRowDomainBase = $9FAC
+!BattlerTargetRowDomainBase = $9FAC
 !CurrentTargetRowPointer = $A972
-!CandidateRowSize = $004E
+!BattlerRowSize = $004E
 !ActorTargetStartBit = $0008
 !TargetMaskBitLimit = $0020
-!CandidateTargetStartBit = $0000
-!CandidateTargetLimit = $0008
+!BattlerTargetStartBit = $0000
+!BattlerTargetLimit = $0008
+!ActiveAttackerBattlerPointer = $A970
+!BattlerCurrentActionWord = $0004
+!BattlerConsciousnessByteBase = $9FB8
+!BattlerAfflictionsByteBase = $9FC9
+!BattlerAfflictionFlaggedState = $0001
+!BattlerAfflictionBlockedState = $0002
 C240A4_ApplyBattleActionSecondPointerPayload:
     rep #$31
     phd
@@ -976,7 +982,7 @@ C240F2_ApplyBattleActionSecondPointerPayload_L40F2:
 C24104_ApplyBattleActionSecondPointerPayload_L4104:
     lda !CurrentTargetRowPointer
     clc
-    adc.w #!CandidateRowSize
+    adc.w #!BattlerRowSize
     sta !CurrentTargetRowPointer
     ldx $0E
     inx
@@ -984,9 +990,9 @@ C24104_ApplyBattleActionSecondPointerPayload_L4104:
 C24113_ApplyBattleActionSecondPointerPayload_L4113:
     cpx.w #!TargetMaskBitLimit
     bcc C240D0_ApplyBattleActionSecondPointerPayload_L40D0
-    lda.w #!CandidateTargetRowDomainBase
+    lda.w #!BattlerTargetRowDomainBase
     sta !CurrentTargetRowPointer
-    ldx.w #!CandidateTargetStartBit
+    ldx.w #!BattlerTargetStartBit
     stx $0E
     bra C24168_ApplyBattleActionSecondPointerPayload_L4168
 C24125_ApplyBattleActionSecondPointerPayload_L4125:
@@ -1016,13 +1022,13 @@ C24147_ApplyBattleActionSecondPointerPayload_L4147:
 C24159_ApplyBattleActionSecondPointerPayload_L4159:
     lda !CurrentTargetRowPointer
     clc
-    adc.w #!CandidateRowSize
+    adc.w #!BattlerRowSize
     sta !CurrentTargetRowPointer
     ldx $0E
     inx
     stx $0E
 C24168_ApplyBattleActionSecondPointerPayload_L4168:
-    cpx.w #!CandidateTargetLimit
+    cpx.w #!BattlerTargetLimit
     bcc C24125_ApplyBattleActionSecondPointerPayload_L4125
     pld
     rtl
@@ -1037,8 +1043,8 @@ REMOVE_STATUS_UNTARGETTABLE_TARGETS:
     stx $0E
     bra C2418B_ApplyBattleActionSecondPointerPayload_L418B
 C2417E_ApplyBattleActionSecondPointerPayload_L417E:
-    ldx $A970
-    cmp $0004,X
+    ldx !ActiveAttackerBattlerPointer
+    cmp.w !BattlerCurrentActionWord,X
     beq C241DA_ApplyBattleActionSecondPointerPayload_L41DA
     ldx $0E
     inx
@@ -1059,18 +1065,18 @@ C2419B_ApplyBattleActionSecondPointerPayload_L419B:
     beq C241D0_ApplyBattleActionSecondPointerPayload_L41D0
     ldy $0E
     tya
-    ldy.w #!CandidateRowSize
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FB8,X
+    lda.w !BattlerConsciousnessByteBase,X
     and.w #$00FF
     beq C241C9_ApplyBattleActionSecondPointerPayload_L41C9
-    lda $9FC9,X
+    lda.w !BattlerAfflictionsByteBase,X
     and.w #$00FF
     tax
-    cpx.w #$0001
+    cpx.w #!BattlerAfflictionFlaggedState
     beq C241C9_ApplyBattleActionSecondPointerPayload_L41C9
-    cpx.w #$0002
+    cpx.w #!BattlerAfflictionBlockedState
     bne C241D0_ApplyBattleActionSecondPointerPayload_L41D0
 C241C9_ApplyBattleActionSecondPointerPayload_L41C9:
     ldy $0E
@@ -1499,9 +1505,13 @@ org $C24477
 !BattleActionTableRowSize = $000C
 !BattleActionTableDirectionClassOffset = $0000
 !BattleActionTableTargetShapeOffset = $0001
-!CandidateRowActionIdOffset = $0004
-!CandidateRowDerivedActionCodeOffset = $0009
-!CandidateRowDerivedActionParamOffset = $000A
+!BattlerCurrentActionWord = $0004
+!BattlerActionTargetingByte = $0009
+!BattlerCurrentTargetByte = $000A
+!BattlerAllyOrEnemyByte = $000E
+!BattlerRowSize = $004E
+!BattlersTableBase = $9FAC
+!EnemyBattlerSide = $0001
 CHOOSE_TARGET:
 !C24477_BuildClass2DerivedActionCode = CHOOSE_TARGET
     rep #$31
@@ -1545,7 +1555,7 @@ C244BE_BuildClass2DerivedActionCode_L44BE:
     jsl !C2F917_RebuildClass2CandidateRanking
 C244C7_BuildClass2DerivedActionCode_L44C7:
     ldx $02
-    lda $0004,X
+    lda.w !BattlerCurrentActionWord,X
     sta $04
     asl A
     adc $04
@@ -1556,35 +1566,35 @@ C244C7_BuildClass2DerivedActionCode_L44C7:
     and.w #$00FF
     bne C244FE_BuildClass2DerivedActionCode_L44FE
     ldx $02
-    lda $000E,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     bne C244F3_BuildClass2DerivedActionCode_L44F3
     ldx $02
     sep #$20
-    stz $0009,X
+    stz.w !BattlerActionTargetingByte,X
     bra C2451D_BuildClass2DerivedActionCode_L451D
 C244F3_BuildClass2DerivedActionCode_L44F3:
     sep #$20
     lda.b #$10
     ldx $02
-    sta $0009,X
+    sta.w !BattlerActionTargetingByte,X
     bra C2451D_BuildClass2DerivedActionCode_L451D
 C244FE_BuildClass2DerivedActionCode_L44FE:
     ldx $02
-    lda $000E,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     bne C24516_BuildClass2DerivedActionCode_L4516
     sep #$20
     lda.b #$10
     ldx $02
-    sta $0009,X
+    sta.w !BattlerActionTargetingByte,X
     bra C2451D_BuildClass2DerivedActionCode_L451D
 C24516_BuildClass2DerivedActionCode_L4516:
     ldx $02
     sep #$20
-    stz $0009,X
+    stz.w !BattlerActionTargetingByte,X
 C2451D_BuildClass2DerivedActionCode_L451D:
     rep #$20
     lda.w #!D57B68_BattleActionTableLo
@@ -1630,7 +1640,7 @@ C2456A_BuildClass2DerivedActionCode_L456A:
 C2456D_BuildClass2DerivedActionCode_L456D:
     lda $02
     clc
-    adc.w #!CandidateRowDerivedActionCodeOffset
+    adc.w #!BattlerActionTargetingByte
     tax
     sep #$20
     lda $0000,X
@@ -1638,34 +1648,34 @@ C2456D_BuildClass2DerivedActionCode_L456D:
     sta $0000,X
     ldx $02
     rep #$20
-    lda $000E,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     bne C245A4_BuildClass2DerivedActionCode_L45A4
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     lda $02
     sec
-    sbc.w #$9FAC
+    sbc.w #!BattlersTableBase
     jsl !C0915B_DivideUnsignedWordByY
     tax
     lda $02
     jsl !C4A228_StoreRankedBattlerTargetOrdinal
     jmp.w C246FF_BuildClass2DerivedActionCode_L46FF
 C245A4_BuildClass2DerivedActionCode_L45A4:
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     lda $02
     sec
-    sbc.w #$9FAC
+    sbc.w #!BattlersTableBase
     jsl !C0915B_DivideUnsignedWordByY
     sep #$20
     inc A
     ldx $02
-    sta $000A,X
+    sta.w !BattlerCurrentTargetByte,X
     jmp.w C246FF_BuildClass2DerivedActionCode_L46FF
 C245BC_BuildClass2DerivedActionCode_L45BC:
     lda $02
     clc
-    adc.w #!CandidateRowDerivedActionCodeOffset
+    adc.w #!BattlerActionTargetingByte
     tay
     sep #$20
     lda $0000,Y
@@ -1673,9 +1683,9 @@ C245BC_BuildClass2DerivedActionCode_L45BC:
     sta $0000,Y
     ldx $02
     rep #$20
-    lda $000E,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     bne C24640_BuildClass2DerivedActionCode_L4640
     ldx $0E
     lda $0000,X
@@ -1693,7 +1703,7 @@ C245BC_BuildClass2DerivedActionCode_L45BC:
     jsl $C23F6C
     sep #$20
     ldx $02
-    sta $000A,X
+    sta.w !BattlerCurrentTargetByte,X
     rep #$20
     and.w #$00FF
     beq C24609_BuildClass2DerivedActionCode_L4609
@@ -1704,7 +1714,7 @@ C24609_BuildClass2DerivedActionCode_L4609:
     and.b #$07
     inc A
     ldx $02
-    sta $000A,X
+    sta.w !BattlerCurrentTargetByte,X
     rep #$20
     and.w #$00FF
     dec A
@@ -1754,7 +1764,7 @@ C2466D_BuildClass2DerivedActionCode_L466D:
     and.b #$07
     inc A
     ldx $02
-    sta $000A,X
+    sta.w !BattlerCurrentTargetByte,X
     rep #$20
     and.w #$00FF
     dec A
@@ -1765,7 +1775,7 @@ C2466D_BuildClass2DerivedActionCode_L466D:
 C2468C_BuildClass2DerivedActionCode_L468C:
     lda $02
     clc
-    adc.w #!CandidateRowDerivedActionCodeOffset
+    adc.w #!BattlerActionTargetingByte
     tax
     sep #$20
     lda $0000,X
@@ -1773,14 +1783,14 @@ C2468C_BuildClass2DerivedActionCode_L468C:
     sta $0000,X
     ldx $02
     rep #$20
-    lda $000E,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #!EnemyBattlerSide
     bne C246B7_BuildClass2DerivedActionCode_L46B7
     sep #$20
     lda.b #$01
     ldx $02
-    sta $000A,X
+    sta.w !BattlerCurrentTargetByte,X
     bra C246FF_BuildClass2DerivedActionCode_L46FF
 C246B7_BuildClass2DerivedActionCode_L46B7:
     lda $AD56
@@ -1788,7 +1798,7 @@ C246B7_BuildClass2DerivedActionCode_L46B7:
     sep #$20
     lda.b #$02
     ldx $02
-    sta $000A,X
+    sta.w !BattlerCurrentTargetByte,X
     bra C246FF_BuildClass2DerivedActionCode_L46FF
 C246C7_BuildClass2DerivedActionCode_L46C7:
     lda $AD58
@@ -1796,7 +1806,7 @@ C246C7_BuildClass2DerivedActionCode_L46C7:
     sep #$20
     lda.b #$01
     ldx $02
-    sta $000A,X
+    sta.w !BattlerCurrentTargetByte,X
     bra C246FF_BuildClass2DerivedActionCode_L46FF
 C246D7_BuildClass2DerivedActionCode_L46D7:
     jsl !C08E9A_GetRandom16
@@ -1804,12 +1814,12 @@ C246D7_BuildClass2DerivedActionCode_L46D7:
     and.b #$01
     inc A
     ldx $02
-    sta $000A,X
+    sta.w !BattlerCurrentTargetByte,X
     bra C246FF_BuildClass2DerivedActionCode_L46FF
 C246E7_BuildClass2DerivedActionCode_L46E7:
     lda $02
     clc
-    adc.w #!CandidateRowDerivedActionCodeOffset
+    adc.w #!BattlerActionTargetingByte
     tax
     sep #$20
     lda $0000,X
@@ -1817,7 +1827,7 @@ C246E7_BuildClass2DerivedActionCode_L46E7:
     sta $0000,X
     lda.b #$01
     ldx $02
-    sta $000A,X
+    sta.w !BattlerCurrentTargetByte,X
 C246FF_BuildClass2DerivedActionCode_L46FF:
     rep #$20
     pld
@@ -1849,19 +1859,23 @@ org $C24703
 !C47C3F_ClearWindowOrMenuMaskState = $C47C3F
 !CurrentTargetMaskLo = $A96C
 !CurrentTargetMaskHi = $A96E
-!CandidateRowActionIdOffset = $0004
-!CandidateRowPhaseOffset = $000E
-!CandidateRowDerivedActionCodeOffset = $0009
-!CandidateRowDerivedActionParamOffset = $000A
-!CandidateRowSize = $004E
+!BattlersTableBase = $9FAC
+!BattlerCurrentActionWord = $0004
+!BattlerAllyOrEnemyByte = $000E
+!BattlerActionTargetingByte = $0009
+!BattlerCurrentTargetByte = $000A
+!BattlerRowSize = $004E
+!BattlerConsciousnessByteBase = $9FB8
+!BattlerAfflictionsByteBase = $9FC9
+!EnemyBattlerSide = $0001
 !DerivedAction_TargetParamBattler = $0001
 !DerivedAction_TargetAlliesAndMaybeNpcFilter = $0002
 !DerivedAction_TargetAllies = $0004
 !DerivedAction_TargetRankedListMember = $0011
-!DerivedAction_TargetCandidateRow = $0012
+!DerivedAction_TargetMetadataMatchedBattlers = $0012
 !DerivedAction_TargetAllEnemies = $0014
 !SpecialRetargetActionId = $0027
-!CandidateScanStartBit = $0008
+!ActorTargetScanStartBit = $0008
 !TargetMaskBitLimit = $0020
 C24703_DispatchClass2DerivedAction:
     rep #$31
@@ -1877,7 +1891,7 @@ C24703_DispatchClass2DerivedAction:
     sta !CurrentTargetMaskLo
     lda.w #$0000
     sta !CurrentTargetMaskHi
-    lda !CandidateRowDerivedActionCodeOffset,X
+    lda.w !BattlerActionTargetingByte,X
     and.w #$00FF
     cmp.w #!DerivedAction_TargetParamBattler
     beq C24749_DispatchClass2DerivedAction_L4749
@@ -1887,7 +1901,7 @@ C24703_DispatchClass2DerivedAction:
     beq C24757_DispatchClass2DerivedAction_L4757
     cmp.w #!DerivedAction_TargetRankedListMember
     beq C2477E_DispatchClass2DerivedAction_L477E
-    cmp.w #!DerivedAction_TargetCandidateRow
+    cmp.w #!DerivedAction_TargetMetadataMatchedBattlers
     bne C2473E_DispatchClass2DerivedAction_L473E
     jmp.w C247F5_DispatchClass2DerivedAction_L47F5
 C2473E_DispatchClass2DerivedAction_L473E:
@@ -1897,7 +1911,7 @@ C2473E_DispatchClass2DerivedAction_L473E:
 C24746_DispatchClass2DerivedAction_L4746:
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C24749_DispatchClass2DerivedAction_L4749:
-    lda !CandidateRowDerivedActionParamOffset,X
+    lda.w !BattlerCurrentTargetByte,X
     and.w #$00FF
     dec A
     jsl TARGET_BATTLER
@@ -1905,12 +1919,12 @@ C24749_DispatchClass2DerivedAction_L4749:
 C24757_DispatchClass2DerivedAction_L4757:
     jsl TARGET_ALLIES
     ldx $0E
-    lda !CandidateRowActionIdOffset,X
+    lda.w !BattlerCurrentActionWord,X
     jsl !C23FEA_CheckBattleActionSpecialCase
     cmp.w #$0000
     bne C24777_DispatchClass2DerivedAction_L4777
     ldx $0E
-    lda !CandidateRowPhaseOffset,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C24777_DispatchClass2DerivedAction_L4777
     jsl REMOVE_NPC_TARGETTING
@@ -1918,7 +1932,7 @@ C24777_DispatchClass2DerivedAction_L4777:
     jsl REMOVE_STATUS_UNTARGETTABLE_TARGETS
     jmp.w C2481F_DispatchClass2DerivedAction_L481F
 C2477E_DispatchClass2DerivedAction_L477E:
-    lda !CandidateRowDerivedActionParamOffset,X
+    lda.w !BattlerCurrentTargetByte,X
     and.w #$00FF
     cmp $AD56
     bcc C2479D_DispatchClass2DerivedAction_L479D
@@ -1939,20 +1953,20 @@ C2479D_DispatchClass2DerivedAction_L479D:
     jsl TARGET_BATTLER
 C247A9_DispatchClass2DerivedAction_L47A9:
     ldx $0E
-    lda !CandidateRowActionIdOffset,X
+    lda.w !BattlerCurrentActionWord,X
     cmp.w #!SpecialRetargetActionId
     bne C2481F_DispatchClass2DerivedAction_L481F
-    lda.w #!CandidateScanStartBit
+    lda.w #!ActorTargetScanStartBit
     sta $0E
     bra C247EE_DispatchClass2DerivedAction_L47EE
 C247BA_DispatchClass2DerivedAction_L47BA:
-    ldy.w #$004E
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FB8,X
+    lda.w !BattlerConsciousnessByteBase,X
     and.w #$00FF
     beq C247E9_DispatchClass2DerivedAction_L47E9
-    lda $9FC9,X
+    lda.w !BattlerAfflictionsByteBase,X
     and.w #$00FF
     cmp.w #$0001
     bne C247E9_DispatchClass2DerivedAction_L47E9
@@ -1972,7 +1986,7 @@ C247EE_DispatchClass2DerivedAction_L47EE:
     bcc C247BA_DispatchClass2DerivedAction_L47BA
     bra C2481F_DispatchClass2DerivedAction_L481F
 C247F5_DispatchClass2DerivedAction_L47F5:
-    lda !CandidateRowDerivedActionParamOffset,X
+    lda.w !BattlerCurrentTargetByte,X
     and.w #$00FF
     jsl TARGET_ROW
     jsl REMOVE_NPC_TARGETTING
@@ -1981,7 +1995,7 @@ C247F5_DispatchClass2DerivedAction_L47F5:
 C24809_DispatchClass2DerivedAction_L4809:
     jsl TARGET_ALL_ENEMIES
     ldx $0E
-    lda !CandidateRowPhaseOffset,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
     bne C2481B_DispatchClass2DerivedAction_L481B
     jsl REMOVE_NPC_TARGETTING
@@ -2109,13 +2123,13 @@ C2489D_DispatchClass2DerivedAction_L489D:
 C2492D_DispatchClass2DerivedAction_L492D:
     sep #$20
     stz $0E
-    ldx.w #$004E
+    ldx.w #!BattlerRowSize
     rep #$20
     tya
     txy
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$9FAC
+    adc.w #!BattlersTableBase
     jsl !C08EFC_CommitTileBufferToStaging
     ldy $31
     iny
@@ -2343,13 +2357,13 @@ org $C26E77
 
 !C4A279_OneHotTargetBitMaskTableLo = $A279
 !C4A279_OneHotTargetBitMaskTableBank = $00C4
-!CandidateRowBase = $9FAC
-!CandidateRowSize = $004E
-!CandidateRowActiveOffset = $000C
-!CandidateRowTypeOffset = $000F
+!BattlersTableBase = $9FAC
+!BattlerRowSize = $004E
+!BattlerConsciousnessByte = $000C
+!BattlerNpcIdByte = $000F
 !CurrentTargetMaskLo = $A96C
 !CurrentTargetMaskHi = $A96E
-!CandidateBitIndex = $0E
+!TargetBitIndex = $0E
 !OneHotMaskLo = $0A
 !OneHotMaskHi = $0C
 !WorkingMaskLo = $06
@@ -2362,22 +2376,22 @@ REMOVE_NPC_TARGETTING:
     tdc
     adc.w #$FFF0
     tcd
-    ldx.w #!CandidateRowBase
+    ldx.w #!BattlersTableBase
     lda.w #$0000
-    sta !CandidateBitIndex
+    sta !TargetBitIndex
     bra C26EF1_MaskSet_RemoveActiveTypedCandidates_L6EF1
 C26E89_MaskSet_RemoveActiveTypedCandidates_L6E89:
-    lda !CandidateRowActiveOffset,X
+    lda.w !BattlerConsciousnessByte,X
     and.w #$00FF
     beq C26EE6_MaskSet_RemoveActiveTypedCandidates_L6EE6
-    lda !CandidateRowTypeOffset,X
+    lda.w !BattlerNpcIdByte,X
     and.w #$00FF
     beq C26EE6_MaskSet_RemoveActiveTypedCandidates_L6EE6
     lda.w #!C4A279_OneHotTargetBitMaskTableLo
     sta !WorkingMaskLo
     lda.w #!C4A279_OneHotTargetBitMaskTableBank
     sta !WorkingMaskHi
-    lda !CandidateBitIndex
+    lda !TargetBitIndex
     asl A
     asl A
     clc
@@ -2412,11 +2426,11 @@ C26E89_MaskSet_RemoveActiveTypedCandidates_L6E89:
 C26EE6_MaskSet_RemoveActiveTypedCandidates_L6EE6:
     txa
     clc
-    adc.w #!CandidateRowSize
+    adc.w #!BattlerRowSize
     tax
-    lda !CandidateBitIndex
+    lda !TargetBitIndex
     inc A
-    sta !CandidateBitIndex
+    sta !TargetBitIndex
 C26EF1_MaskSet_RemoveActiveTypedCandidates_L6EF1:
     cmp.w #!TargetMaskBitLimit
     bcc C26E89_MaskSet_RemoveActiveTypedCandidates_L6E89
@@ -2433,22 +2447,22 @@ org $C26C82
 
 !C4A279_OneHotTargetBitMaskTableLo = $A279
 !C4A279_OneHotTargetBitMaskTableBank = $00C4
-!CandidateRowBase = $9FAC
-!CandidateRowSize = $004E
-!CandidateRowActiveOffset = $000C
-!CandidateRowPhaseOffset = $000E
-!CandidateRowMetadataOffset = $0010
+!BattlersTableBase = $9FAC
+!BattlerRowSize = $004E
+!BattlerConsciousnessByte = $000C
+!BattlerAllyOrEnemyByte = $000E
+!BattlerRowByte = $0010
 !CurrentTargetMaskLo = $A96C
 !CurrentTargetMaskHi = $A96E
-!CandidateBitIndex = $0E
+!TargetBitIndex = $0E
 !MetadataMatchArg = $10
 !OneHotMaskLo = $0A
 !OneHotMaskHi = $0C
 !WorkingMaskLo = $06
 !WorkingMaskHi = $08
 !TargetMaskBitLimit = $0020
-!PhaseValueOrdinary = $0000
-!PhaseValueOne = $0001
+!PartyBattlerSide = $0000
+!EnemyBattlerSide = $0001
 !MetadataMatchZero = $0000
 !MetadataMatchOne = $0001
 !MetadataMatchTwo = $0002
@@ -2463,23 +2477,23 @@ TARGET_ALL_ENEMIES:
     sta !CurrentTargetMaskLo
     lda.w #$0000
     sta !CurrentTargetMaskHi
-    ldx.w #!CandidateRowBase
+    ldx.w #!BattlersTableBase
     lda.w #$0000
-    sta !CandidateBitIndex
+    sta !TargetBitIndex
     bra C26CFD_MaskSet_BuildPhase1Candidates_L6CFD
 C26CA0_MaskSet_BuildPhase1Candidates_L6CA0:
-    lda !CandidateRowActiveOffset,X
+    lda.w !BattlerConsciousnessByte,X
     and.w #$00FF
     beq C26CF2_MaskSet_BuildPhase1Candidates_L6CF2
-    lda !CandidateRowPhaseOffset,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #!PhaseValueOne
+    cmp.w #!EnemyBattlerSide
     bne C26CF2_MaskSet_BuildPhase1Candidates_L6CF2
     lda.w #!C4A279_OneHotTargetBitMaskTableLo
     sta !WorkingMaskLo
     lda.w #!C4A279_OneHotTargetBitMaskTableBank
     sta !WorkingMaskHi
-    lda !CandidateBitIndex
+    lda !TargetBitIndex
     asl A
     asl A
     clc
@@ -2508,11 +2522,11 @@ C26CA0_MaskSet_BuildPhase1Candidates_L6CA0:
 C26CF2_MaskSet_BuildPhase1Candidates_L6CF2:
     txa
     clc
-    adc.w #!CandidateRowSize
+    adc.w #!BattlerRowSize
     tax
-    lda !CandidateBitIndex
+    lda !TargetBitIndex
     inc A
-    sta !CandidateBitIndex
+    sta !TargetBitIndex
 C26CFD_MaskSet_BuildPhase1Candidates_L6CFD:
     cmp.w #!TargetMaskBitLimit
     bcc C26CA0_MaskSet_BuildPhase1Candidates_L6CA0
@@ -2533,12 +2547,12 @@ TARGET_ROW:
     sta !CurrentTargetMaskLo
     lda.w #$0000
     sta !CurrentTargetMaskHi
-    ldx.w #!CandidateRowBase
+    ldx.w #!BattlersTableBase
     lda.w #$0000
-    sta !CandidateBitIndex
+    sta !TargetBitIndex
     jmp.w C26DF4_MaskSet_BuildPhase1Candidates_L6DF4
 C26D28_MaskSet_BuildPhase1Candidates_L6D28:
-    lda !CandidateRowActiveOffset,X
+    lda.w !BattlerConsciousnessByte,X
     and.w #$00FF
     bne C26D33_MaskSet_BuildPhase1Candidates_L6D33
     jmp.w C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
@@ -2552,7 +2566,7 @@ C26D33_MaskSet_BuildPhase1Candidates_L6D33:
     beq C26D91_MaskSet_BuildPhase1Candidates_L6D91
     jmp.w C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
 C26D45_MaskSet_BuildPhase1Candidates_L6D45:
-    lda !CandidateRowPhaseOffset,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
     beq C26D50_MaskSet_BuildPhase1Candidates_L6D50
     jmp.w C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
@@ -2561,7 +2575,7 @@ C26D50_MaskSet_BuildPhase1Candidates_L6D50:
     sta !WorkingMaskLo
     lda.w #!C4A279_OneHotTargetBitMaskTableBank
     sta !WorkingMaskHi
-    lda !CandidateBitIndex
+    lda !TargetBitIndex
     asl A
     asl A
     clc
@@ -2589,14 +2603,14 @@ C26D50_MaskSet_BuildPhase1Candidates_L6D50:
     sta !CurrentTargetMaskHi
     bra C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
 C26D91_MaskSet_BuildPhase1Candidates_L6D91:
-    lda !CandidateRowPhaseOffset,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #!PhaseValueOne
+    cmp.w #!EnemyBattlerSide
     bne C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
     tya
     dec A
     sta $02
-    lda !CandidateRowMetadataOffset,X
+    lda.w !BattlerRowByte,X
     and.w #$00FF
     cmp $02
     bne C26DE9_MaskSet_BuildPhase1Candidates_L6DE9
@@ -2604,7 +2618,7 @@ C26D91_MaskSet_BuildPhase1Candidates_L6D91:
     sta !WorkingMaskLo
     lda.w #!C4A279_OneHotTargetBitMaskTableBank
     sta !WorkingMaskHi
-    lda !CandidateBitIndex
+    lda !TargetBitIndex
     asl A
     asl A
     clc
@@ -2633,11 +2647,11 @@ C26D91_MaskSet_BuildPhase1Candidates_L6D91:
 C26DE9_MaskSet_BuildPhase1Candidates_L6DE9:
     txa
     clc
-    adc.w #!CandidateRowSize
+    adc.w #!BattlerRowSize
     tax
-    lda !CandidateBitIndex
+    lda !TargetBitIndex
     inc A
-    sta !CandidateBitIndex
+    sta !TargetBitIndex
 C26DF4_MaskSet_BuildPhase1Candidates_L6DF4:
     cmp.w #!TargetMaskBitLimit
     bcs C26DFE_MaskSet_BuildPhase1Candidates_L6DFE
@@ -2655,19 +2669,19 @@ C26DFE_MaskSet_BuildPhase1Candidates_L6DFE:
     sta !CurrentTargetMaskLo
     lda.w #$0000
     sta !CurrentTargetMaskHi
-    ldx.w #!CandidateRowBase
+    ldx.w #!BattlersTableBase
     lda.w #$0000
-    sta !CandidateBitIndex
+    sta !TargetBitIndex
     bra C26E70_MaskSet_BuildPhase1Candidates_L6E70
 C26E1E_MaskSet_BuildPhase1Candidates_L6E1E:
-    lda !CandidateRowActiveOffset,X
+    lda.w !BattlerConsciousnessByte,X
     and.w #$00FF
     beq C26E65_MaskSet_BuildPhase1Candidates_L6E65
     lda.w #!C4A279_OneHotTargetBitMaskTableLo
     sta !WorkingMaskLo
     lda.w #!C4A279_OneHotTargetBitMaskTableBank
     sta !WorkingMaskHi
-    lda !CandidateBitIndex
+    lda !TargetBitIndex
     asl A
     asl A
     clc
@@ -2696,11 +2710,11 @@ C26E1E_MaskSet_BuildPhase1Candidates_L6E1E:
 C26E65_MaskSet_BuildPhase1Candidates_L6E65:
     txa
     clc
-    adc.w #!CandidateRowSize
+    adc.w #!BattlerRowSize
     tax
-    lda !CandidateBitIndex
+    lda !TargetBitIndex
     inc A
-    sta !CandidateBitIndex
+    sta !TargetBitIndex
 C26E70_MaskSet_BuildPhase1Candidates_L6E70:
     cmp.w #!TargetMaskBitLimit
     bcc C26E1E_MaskSet_BuildPhase1Candidates_L6E1E
@@ -2717,14 +2731,14 @@ org $C26BFB
 
 !C4A279_OneHotTargetBitMaskTableLo = $A279
 !C4A279_OneHotTargetBitMaskTableBank = $00C4
-!CandidateRowBase = $9FAC
-!CandidateRowSize = $004E
-!CandidateRowActiveOffset = $000C
-!CandidateRowPhaseOffset = $000E
-!CandidateRowTypeOffset = $000F
+!BattlersTableBase = $9FAC
+!BattlerRowSize = $004E
+!BattlerConsciousnessByte = $000C
+!BattlerAllyOrEnemyByte = $000E
+!BattlerNpcIdByte = $000F
 !CurrentTargetMaskLo = $A96C
 !CurrentTargetMaskHi = $A96E
-!CandidateBitIndex = $0E
+!TargetBitIndex = $0E
 !OneHotMaskLo = $0A
 !OneHotMaskHi = $0C
 !WorkingMaskLo = $06
@@ -2741,18 +2755,18 @@ TARGET_ALLIES:
     sta !CurrentTargetMaskLo
     lda.w #$0000
     sta !CurrentTargetMaskHi
-    ldx.w #!CandidateRowBase
+    ldx.w #!BattlersTableBase
     lda.w #$0000
-    sta !CandidateBitIndex
+    sta !TargetBitIndex
     bra C26C7B_MaskSet_BuildActiveTypedCandidates_L6C7B
 C26C19_MaskSet_BuildActiveTypedCandidates_L6C19:
-    lda !CandidateRowActiveOffset,X
+    lda.w !BattlerConsciousnessByte,X
     and.w #$00FF
     beq C26C70_MaskSet_BuildActiveTypedCandidates_L6C70
-    lda !CandidateRowPhaseOffset,X
+    lda.w !BattlerAllyOrEnemyByte,X
     and.w #$00FF
     beq C26C31_MaskSet_BuildActiveTypedCandidates_L6C31
-    lda !CandidateRowTypeOffset,X
+    lda.w !BattlerNpcIdByte,X
     and.w #$00FF
     beq C26C70_MaskSet_BuildActiveTypedCandidates_L6C70
 C26C31_MaskSet_BuildActiveTypedCandidates_L6C31:
@@ -2760,7 +2774,7 @@ C26C31_MaskSet_BuildActiveTypedCandidates_L6C31:
     sta !WorkingMaskLo
     lda.w #!C4A279_OneHotTargetBitMaskTableBank
     sta !WorkingMaskHi
-    lda !CandidateBitIndex
+    lda !TargetBitIndex
     asl A
     asl A
     clc
@@ -2789,11 +2803,11 @@ C26C31_MaskSet_BuildActiveTypedCandidates_L6C31:
 C26C70_MaskSet_BuildActiveTypedCandidates_L6C70:
     txa
     clc
-    adc.w #!CandidateRowSize
+    adc.w #!BattlerRowSize
     tax
-    lda !CandidateBitIndex
+    lda !TargetBitIndex
     inc A
-    sta !CandidateBitIndex
+    sta !TargetBitIndex
 C26C7B_MaskSet_BuildActiveTypedCandidates_L6C7B:
     cmp.w #!TargetMaskBitLimit
     bcc C26C19_MaskSet_BuildActiveTypedCandidates_L6C19
@@ -2814,7 +2828,7 @@ org $C26EF8
 !InputMaskHi = $26
 !SelectedMaskLo = $1C
 !SelectedMaskHi = $1E
-!CandidateBitIndex = $10
+!TargetBitIndex = $10
 !RetryCount = $0E
 !InputMaskCopyLo = $12
 !InputMaskCopyHi = $14
@@ -2858,7 +2872,7 @@ C26F24_MaskSet_FindFirstMatchInRange_L6F24:
     jmp.w C26FDA_MaskSet_FindFirstMatchInRange_L6FDA
 C26F31_MaskSet_FindFirstMatchInRange_L6F31:
     ldy.w #$0000
-    sty !CandidateBitIndex
+    sty !TargetBitIndex
     jsr $69EF
     rep #$20
     and.w #$00FF
@@ -2867,13 +2881,13 @@ C26F31_MaskSet_FindFirstMatchInRange_L6F31:
     sta !RetryCount
     bra C26FA7_MaskSet_FindFirstMatchInRange_L6FA7
 C26F46_MaskSet_FindFirstMatchInRange_L6F46:
-    ldy !CandidateBitIndex
+    ldy !TargetBitIndex
     iny
-    sty !CandidateBitIndex
+    sty !TargetBitIndex
     cpy.w #!TargetMaskBitLimit
     bne C26F55_MaskSet_FindFirstMatchInRange_L6F55
     ldy.w #$0000
-    sty !CandidateBitIndex
+    sty !TargetBitIndex
 C26F55_MaskSet_FindFirstMatchInRange_L6F55:
     lda !InputMaskCopyLo
     sta !OneHotMaskLo
@@ -2930,7 +2944,7 @@ C26FA7_MaskSet_FindFirstMatchInRange_L6FA7:
     sta !OneHotMaskLo
     lda.w #!C4A279_OneHotTargetBitMaskTableBank
     sta !OneHotMaskHi
-    ldy !CandidateBitIndex
+    ldy !TargetBitIndex
     tya
     asl A
     asl A
@@ -3088,11 +3102,11 @@ org $C270E4
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C27029_MaskSet_TestBit = $C27029
 !C27089_MaskSet_ClearBit = $C27089
-!CandidateBitIndex = $0E
-!CandidateRowSize = $004E
+!TargetBitIndex = $0E
+!BattlerRowSize = $004E
 !TargetMaskBitLimit = $0020
-!CandidateRowStateByteBase = $9FC9
-!CandidateRowFlaggedState = $0001
+!BattlerAfflictionsByteBase = $9FC9
+!BattlerAfflictionFlaggedState = $0001
 REMOVE_DEAD_TARGETTING:
 !C270E4_MaskSet_PruneFlaggedCandidates = REMOVE_DEAD_TARGETTING
     rep #$31
@@ -3101,29 +3115,29 @@ REMOVE_DEAD_TARGETTING:
     adc.w #$FFF0
     tcd
     ldx.w #$0000
-    stx !CandidateBitIndex
+    stx !TargetBitIndex
     bra C2711F_MaskSet_PruneFlaggedCandidates_L711F
 C270F3_MaskSet_PruneFlaggedCandidates_L70F3:
     txa
     jsl !C27029_MaskSet_TestBit
     cmp.w #$0000
     beq C2711A_MaskSet_PruneFlaggedCandidates_L711A
-    ldx !CandidateBitIndex
+    ldx !TargetBitIndex
     txa
-    ldy.w #!CandidateRowSize
+    ldy.w #!BattlerRowSize
     jsl !C08FF7_ResolveIndexedPointerOffset
     tax
-    lda !CandidateRowStateByteBase,X
+    lda.w !BattlerAfflictionsByteBase,X
     and.w #$00FF
-    cmp.w #!CandidateRowFlaggedState
+    cmp.w #!BattlerAfflictionFlaggedState
     bne C2711A_MaskSet_PruneFlaggedCandidates_L711A
-    ldx !CandidateBitIndex
+    ldx !TargetBitIndex
     txa
     jsl !C27089_MaskSet_ClearBit
 C2711A_MaskSet_PruneFlaggedCandidates_L711A:
-    ldx !CandidateBitIndex
+    ldx !TargetBitIndex
     inx
-    stx !CandidateBitIndex
+    stx !TargetBitIndex
 C2711F_MaskSet_PruneFlaggedCandidates_L711F:
     cpx.w #!TargetMaskBitLimit
     bcc C270F3_MaskSet_PruneFlaggedCandidates_L70F3

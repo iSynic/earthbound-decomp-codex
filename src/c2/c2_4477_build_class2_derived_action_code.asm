@@ -9,11 +9,11 @@
 ; - C2:4477..C2:4703 BuildClass2DerivedActionCode
 ;
 ; Runtime contract:
-; - A = candidate row base, normally in the `$9FAC + 0x4E * n` domain.
+; - A = battler row base, normally in the `$9FAC + 0x4E * n` domain.
 ; - Consults ranked candidate lists `$AD7A/$AD82` and the `D5:7B68`
-;   battle-action descriptor table selected by row byte `+0x04`.
-; - Writes a compact derived action code to row byte `+0x09` and an action
-;   parameter/index to row byte `+0x0A`.
+;   battle-action descriptor table selected by battler current_action `+0x04`.
+; - Writes a compact derived action code to battler action_targeting `+0x09`
+;   and an action parameter/index to battler current_target `+0x0A`.
 ; - `C2:4703` consumes those two bytes to build the current target mask
 ;   `$A96C/$A96E`.
 
@@ -32,9 +32,13 @@ D57B68_BattleActionTableBank           = $00D5
 BattleActionTableRowSize               = $000C
 BattleActionTableDirectionClassOffset  = $0000
 BattleActionTableTargetShapeOffset     = $0001
-CandidateRowActionIdOffset             = $0004
-CandidateRowDerivedActionCodeOffset    = $0009
-CandidateRowDerivedActionParamOffset   = $000A
+BattlerCurrentActionWord                = $0004
+BattlerActionTargetingByte              = $0009
+BattlerCurrentTargetByte                = $000A
+BattlerAllyOrEnemyByte                  = $000E
+BattlerRowSize                          = $004E
+BattlersTableBase                       = $9FAC
+EnemyBattlerSide                        = $0001
 
 ; ---------------------------------------------------------------------------
 ; C2:4477
@@ -82,48 +86,48 @@ C244BE_BuildClass2DerivedActionCode_L44BE:
     jsl C2F917_RebuildClass2CandidateRanking
 C244C7_BuildClass2DerivedActionCode_L44C7:
     ldx $02
-    lda $0004,X
+    lda.w BattlerCurrentActionWord,X
     sta $04
     asl A
     adc $04
     asl A
     asl A
     tax
-    ; Candidate row +4 selects a 0x0C-byte D5:7B68 action table row.
+    ; Battler current_action (+4) selects a 0x0C-byte D5:7B68 action row.
     lda D57B68_BattleActionTable,X
     and.w #$00FF
     ; D5:7B68 byte +0 is the action direction/class selector used here.
     bne C244FE_BuildClass2DerivedActionCode_L44FE
     ldx $02
-    lda $000E,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #EnemyBattlerSide
     bne C244F3_BuildClass2DerivedActionCode_L44F3
     ldx $02
     sep #$20
-    stz $0009,X
+    stz.w BattlerActionTargetingByte,X
     bra C2451D_BuildClass2DerivedActionCode_L451D
 C244F3_BuildClass2DerivedActionCode_L44F3:
     sep #$20
     lda.b #$10
     ldx $02
-    sta $0009,X
+    sta.w BattlerActionTargetingByte,X
     bra C2451D_BuildClass2DerivedActionCode_L451D
 C244FE_BuildClass2DerivedActionCode_L44FE:
     ldx $02
-    lda $000E,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #EnemyBattlerSide
     bne C24516_BuildClass2DerivedActionCode_L4516
     sep #$20
     lda.b #$10
     ldx $02
-    sta $0009,X
+    sta.w BattlerActionTargetingByte,X
     bra C2451D_BuildClass2DerivedActionCode_L451D
 C24516_BuildClass2DerivedActionCode_L4516:
     ldx $02
     sep #$20
-    stz $0009,X
+    stz.w BattlerActionTargetingByte,X
 C2451D_BuildClass2DerivedActionCode_L451D:
     rep #$20
     lda.w #D57B68_BattleActionTableLo
@@ -138,7 +142,7 @@ C2451D_BuildClass2DerivedActionCode_L451D:
     stx $0E
     lda $0000,X
     sta $04
-    ; Candidate row +4 again selects the action row; the single INC advances
+    ; Battler current_action (+4) again selects the action row; the single INC advances
     ; from the row base to target-shape selector byte +1.
     asl A
     adc $04
@@ -172,7 +176,7 @@ C2456A_BuildClass2DerivedActionCode_L456A:
 C2456D_BuildClass2DerivedActionCode_L456D:
     lda $02
     clc
-    adc.w #CandidateRowDerivedActionCodeOffset
+    adc.w #BattlerActionTargetingByte
     tax
     sep #$20
     lda $0000,X
@@ -180,34 +184,34 @@ C2456D_BuildClass2DerivedActionCode_L456D:
     sta $0000,X
     ldx $02
     rep #$20
-    lda $000E,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #EnemyBattlerSide
     bne C245A4_BuildClass2DerivedActionCode_L45A4
-    ldy.w #$004E
+    ldy.w #BattlerRowSize
     lda $02
     sec
-    sbc.w #$9FAC
+    sbc.w #BattlersTableBase
     jsl C0915B_DivideUnsignedWordByY
     tax
     lda $02
     jsl C4A228_StoreRankedBattlerTargetOrdinal
     jmp.w C246FF_BuildClass2DerivedActionCode_L46FF
 C245A4_BuildClass2DerivedActionCode_L45A4:
-    ldy.w #$004E
+    ldy.w #BattlerRowSize
     lda $02
     sec
-    sbc.w #$9FAC
+    sbc.w #BattlersTableBase
     jsl C0915B_DivideUnsignedWordByY
     sep #$20
     inc A
     ldx $02
-    sta $000A,X
+    sta.w BattlerCurrentTargetByte,X
     jmp.w C246FF_BuildClass2DerivedActionCode_L46FF
 C245BC_BuildClass2DerivedActionCode_L45BC:
     lda $02
     clc
-    adc.w #CandidateRowDerivedActionCodeOffset
+    adc.w #BattlerActionTargetingByte
     tay
     sep #$20
     lda $0000,Y
@@ -215,9 +219,9 @@ C245BC_BuildClass2DerivedActionCode_L45BC:
     sta $0000,Y
     ldx $02
     rep #$20
-    lda $000E,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #EnemyBattlerSide
     bne C24640_BuildClass2DerivedActionCode_L4640
     ldx $0E
     lda $0000,X
@@ -235,7 +239,7 @@ C245BC_BuildClass2DerivedActionCode_L45BC:
     jsl $C23F6C
     sep #$20
     ldx $02
-    sta $000A,X
+    sta.w BattlerCurrentTargetByte,X
     rep #$20
     and.w #$00FF
     beq C24609_BuildClass2DerivedActionCode_L4609
@@ -246,7 +250,7 @@ C24609_BuildClass2DerivedActionCode_L4609:
     and.b #$07
     inc A
     ldx $02
-    sta $000A,X
+    sta.w BattlerCurrentTargetByte,X
     rep #$20
     and.w #$00FF
     dec A
@@ -296,7 +300,7 @@ C2466D_BuildClass2DerivedActionCode_L466D:
     and.b #$07
     inc A
     ldx $02
-    sta $000A,X
+    sta.w BattlerCurrentTargetByte,X
     rep #$20
     and.w #$00FF
     dec A
@@ -307,7 +311,7 @@ C2466D_BuildClass2DerivedActionCode_L466D:
 C2468C_BuildClass2DerivedActionCode_L468C:
     lda $02
     clc
-    adc.w #CandidateRowDerivedActionCodeOffset
+    adc.w #BattlerActionTargetingByte
     tax
     sep #$20
     lda $0000,X
@@ -315,14 +319,14 @@ C2468C_BuildClass2DerivedActionCode_L468C:
     sta $0000,X
     ldx $02
     rep #$20
-    lda $000E,X
+    lda.w BattlerAllyOrEnemyByte,X
     and.w #$00FF
-    cmp.w #$0001
+    cmp.w #EnemyBattlerSide
     bne C246B7_BuildClass2DerivedActionCode_L46B7
     sep #$20
     lda.b #$01
     ldx $02
-    sta $000A,X
+    sta.w BattlerCurrentTargetByte,X
     bra C246FF_BuildClass2DerivedActionCode_L46FF
 C246B7_BuildClass2DerivedActionCode_L46B7:
     lda $AD56
@@ -330,7 +334,7 @@ C246B7_BuildClass2DerivedActionCode_L46B7:
     sep #$20
     lda.b #$02
     ldx $02
-    sta $000A,X
+    sta.w BattlerCurrentTargetByte,X
     bra C246FF_BuildClass2DerivedActionCode_L46FF
 C246C7_BuildClass2DerivedActionCode_L46C7:
     lda $AD58
@@ -338,7 +342,7 @@ C246C7_BuildClass2DerivedActionCode_L46C7:
     sep #$20
     lda.b #$01
     ldx $02
-    sta $000A,X
+    sta.w BattlerCurrentTargetByte,X
     bra C246FF_BuildClass2DerivedActionCode_L46FF
 C246D7_BuildClass2DerivedActionCode_L46D7:
     jsl C08E9A_GetRandom16
@@ -346,12 +350,12 @@ C246D7_BuildClass2DerivedActionCode_L46D7:
     and.b #$01
     inc A
     ldx $02
-    sta $000A,X
+    sta.w BattlerCurrentTargetByte,X
     bra C246FF_BuildClass2DerivedActionCode_L46FF
 C246E7_BuildClass2DerivedActionCode_L46E7:
     lda $02
     clc
-    adc.w #CandidateRowDerivedActionCodeOffset
+    adc.w #BattlerActionTargetingByte
     tax
     sep #$20
     lda $0000,X
@@ -359,7 +363,7 @@ C246E7_BuildClass2DerivedActionCode_L46E7:
     sta $0000,X
     lda.b #$01
     ldx $02
-    sta $000A,X
+    sta.w BattlerCurrentTargetByte,X
 C246FF_BuildClass2DerivedActionCode_L46FF:
     rep #$20
     pld

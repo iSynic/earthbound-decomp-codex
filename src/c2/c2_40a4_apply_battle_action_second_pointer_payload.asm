@@ -12,8 +12,8 @@
 ; - Caller provides the second pointer from a `D5:7B68` action descriptor in
 ;   direct-page fields `$1E/$20`; this routine copies it to local `$06/$08`.
 ; - Waits until the current battle effect step is ready, then iterates two
-;   candidate domains using the current mask-set bit tests:
-;   `$A21C` entries first, then `$9FAC` candidate rows.
+;   target domains using the current mask-set bit tests:
+;   `$A21C` entries first, then `$9FAC` battler rows.
 ; - For each targeted bit, rebuilds target text context and dispatches the same
 ;   fixed second-pointer payload through `C0:9279`.
 ; - The sibling `C2:416F` helper prunes the current target mask by row state.
@@ -35,13 +35,19 @@ LocalSecondPayloadPointerLo         = $06
 LocalSecondPayloadPointerHi         = $08
 NullPointerWord                     = $0000
 ActorTargetRowDomainBase            = $A21C
-CandidateTargetRowDomainBase        = $9FAC
+BattlerTargetRowDomainBase          = $9FAC
 CurrentTargetRowPointer             = $A972
-CandidateRowSize                    = $004E
+BattlerRowSize                      = $004E
 ActorTargetStartBit                 = $0008
 TargetMaskBitLimit                  = $0020
-CandidateTargetStartBit             = $0000
-CandidateTargetLimit                = $0008
+BattlerTargetStartBit               = $0000
+BattlerTargetLimit                  = $0008
+ActiveAttackerBattlerPointer        = $A970
+BattlerCurrentActionWord            = $0004
+BattlerConsciousnessByteBase        = $9FB8
+BattlerAfflictionsByteBase          = $9FC9
+BattlerAfflictionFlaggedState       = $0001
+BattlerAfflictionBlockedState       = $0002
 
 ; ---------------------------------------------------------------------------
 ; C2:40A4
@@ -96,7 +102,7 @@ C240F2_ApplyBattleActionSecondPointerPayload_L40F2:
 C24104_ApplyBattleActionSecondPointerPayload_L4104:
     lda CurrentTargetRowPointer
     clc
-    adc.w #CandidateRowSize
+    adc.w #BattlerRowSize
     sta CurrentTargetRowPointer
     ldx $0E
     inx
@@ -104,10 +110,10 @@ C24104_ApplyBattleActionSecondPointerPayload_L4104:
 C24113_ApplyBattleActionSecondPointerPayload_L4113:
     cpx.w #TargetMaskBitLimit
     bcc C240D0_ApplyBattleActionSecondPointerPayload_L40D0
-    ; Second pass: selected entries in the ordinary `$9FAC` candidate domain.
-    lda.w #CandidateTargetRowDomainBase
+    ; Second pass: selected entries in the ordinary `$9FAC` battler domain.
+    lda.w #BattlerTargetRowDomainBase
     sta CurrentTargetRowPointer
-    ldx.w #CandidateTargetStartBit
+    ldx.w #BattlerTargetStartBit
     stx $0E
     bra C24168_ApplyBattleActionSecondPointerPayload_L4168
 C24125_ApplyBattleActionSecondPointerPayload_L4125:
@@ -137,13 +143,13 @@ C24147_ApplyBattleActionSecondPointerPayload_L4147:
 C24159_ApplyBattleActionSecondPointerPayload_L4159:
     lda CurrentTargetRowPointer
     clc
-    adc.w #CandidateRowSize
+    adc.w #BattlerRowSize
     sta CurrentTargetRowPointer
     ldx $0E
     inx
     stx $0E
 C24168_ApplyBattleActionSecondPointerPayload_L4168:
-    cpx.w #CandidateTargetLimit
+    cpx.w #BattlerTargetLimit
     bcc C24125_ApplyBattleActionSecondPointerPayload_L4125
     pld
     rtl
@@ -158,8 +164,8 @@ C2416F_FilterBattleActionTargetMaskByRowState = REMOVE_STATUS_UNTARGETTABLE_TARG
     stx $0E
     bra C2418B_ApplyBattleActionSecondPointerPayload_L418B
 C2417E_ApplyBattleActionSecondPointerPayload_L417E:
-    ldx $A970
-    cmp $0004,X
+    ldx ActiveAttackerBattlerPointer
+    cmp.w BattlerCurrentActionWord,X
     beq C241DA_ApplyBattleActionSecondPointerPayload_L41DA
     ldx $0E
     inx
@@ -181,18 +187,18 @@ C2419B_ApplyBattleActionSecondPointerPayload_L419B:
     ; Remove targeted rows that are inactive or in blocked row states.
     ldy $0E
     tya
-    ldy.w #CandidateRowSize
+    ldy.w #BattlerRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda $9FB8,X
+    lda.w BattlerConsciousnessByteBase,X
     and.w #$00FF
     beq C241C9_ApplyBattleActionSecondPointerPayload_L41C9
-    lda $9FC9,X
+    lda.w BattlerAfflictionsByteBase,X
     and.w #$00FF
     tax
-    cpx.w #$0001
+    cpx.w #BattlerAfflictionFlaggedState
     beq C241C9_ApplyBattleActionSecondPointerPayload_L41C9
-    cpx.w #$0002
+    cpx.w #BattlerAfflictionBlockedState
     bne C241D0_ApplyBattleActionSecondPointerPayload_L41D0
 C241C9_ApplyBattleActionSecondPointerPayload_L41C9:
     ldy $0E

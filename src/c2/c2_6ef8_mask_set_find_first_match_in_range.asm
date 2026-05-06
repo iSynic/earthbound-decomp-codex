@@ -1,4 +1,4 @@
-; EarthBound C2 mask-set first matching candidate finder.
+; EarthBound C2 mask-set first matching target-bit finder.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -19,7 +19,7 @@ InputMaskLo = $24
 InputMaskHi = $26
 SelectedMaskLo = $1C
 SelectedMaskHi = $1E
-CandidateBitIndex = $10
+TargetBitIndex = $10
 RetryCount = $0E
 InputMaskCopyLo = $12
 InputMaskCopyHi = $14
@@ -67,7 +67,7 @@ C26F24_MaskSet_FindFirstMatchInRange_L6F24:
     jmp.w C26FDA_MaskSet_FindFirstMatchInRange_L6FDA
 C26F31_MaskSet_FindFirstMatchInRange_L6F31:
     ldy.w #$0000
-    sty CandidateBitIndex
+    sty TargetBitIndex
     jsr $69EF
     rep #$20
     and.w #$00FF
@@ -76,13 +76,13 @@ C26F31_MaskSet_FindFirstMatchInRange_L6F31:
     sta RetryCount
     bra C26FA7_MaskSet_FindFirstMatchInRange_L6FA7
 C26F46_MaskSet_FindFirstMatchInRange_L6F46:
-    ldy CandidateBitIndex
+    ldy TargetBitIndex
     iny
-    sty CandidateBitIndex
+    sty TargetBitIndex
     cpy.w #TargetMaskBitLimit
     bne C26F55_MaskSet_FindFirstMatchInRange_L6F55
     ldy.w #$0000
-    sty CandidateBitIndex
+    sty TargetBitIndex
 C26F55_MaskSet_FindFirstMatchInRange_L6F55:
     lda InputMaskCopyLo
     sta OneHotMaskLo
@@ -139,7 +139,7 @@ C26FA7_MaskSet_FindFirstMatchInRange_L6FA7:
     sta OneHotMaskLo
     lda.w #C4A279_OneHotTargetBitMaskTableBank
     sta OneHotMaskHi
-    ldy CandidateBitIndex
+    ldy TargetBitIndex
     tya
     asl A
     asl A

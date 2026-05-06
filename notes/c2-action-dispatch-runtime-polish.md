@@ -1,8 +1,8 @@
 # C2 Action Dispatch Runtime Polish
 
 This note records the byte-neutral C2 action-dispatch polish slice. It promotes
-the local contract between the `D5:7B68` battle-action descriptor table, derived
-candidate-row action bytes, target-mask construction, battle text-context
+the local contract between the `D5:7B68` battle-action descriptor table, battler
+action/target bytes, target-mask construction, battle text-context
 refresh, and second-pointer payload application.
 
 Primary source modules:
@@ -25,19 +25,19 @@ Related evidence notes:
 
 ## Derived Action Bytes
 
-`C2:4477` accepts a candidate row base in A, usually from the
+`C2:4477` accepts a battler row base in A, usually from the
 `$9FAC + 0x4E * n` row domain. It consults:
 
 - ranked candidate lists `$AD7A/$AD82`
-- row byte `+0x04`
+- battler `current_action` at `+0x04`
 - the `D5:7B68` battle-action descriptor table
 
 The routine writes:
 
-| Candidate row byte | Role |
+| Battler byte | Role |
 | --- | --- |
-| `+0x09` | compact derived action code |
-| `+0x0A` | action parameter, target index, or ranked-list index |
+| `+0x09 action_targeting` | compact derived action code |
+| `+0x0A current_target` | action parameter, target index, or ranked-list index |
 
 The source comment deliberately keeps this mechanical. The current local proof
 is strongest for the fact that `C2:4703` consumes these bytes as action code and
@@ -63,20 +63,23 @@ second-pointer path.
 
 Implementation update: `src/c2/c2_4477_build_class2_derived_action_code.asm`
 now carries the same local `D5:7B68` row root/bank constants, `0x0C` row-size
-constant, and candidate-row `+0x04/+0x09/+0x0A` names used by the battle-start
-and late selected-row action-table text passes. This keeps the action-row
-producer aligned with the C1/C2 text and payload consumers.
+constant, and battler `current_action` / `action_targeting` / `current_target`
+names used by the battle-start and late selected-row action-table text passes.
+This keeps the action-row producer aligned with the C1/C2 text and payload
+consumers.
 
 ## Target-Mask Dispatch
 
-`C2:4703` accepts a candidate row base in A, clears `$A96C/$A96E`, then
-dispatches on row byte `+0x09`. Several branches consume row byte `+0x0A`.
+`C2:4703` accepts a battler row base in A, clears `$A96C/$A96E`, then
+dispatches on battler byte `+0x09`. Several branches consume battler byte
+`+0x0A`.
 
 Implementation update: `src/c2/c2_4703_dispatch_class2_derived_action.asm`
-now names `$A96C/$A96E` as the current target mask, candidate row
-`+0x04/+0x09/+0x0A/+0x0E` offsets, and the observed derived-action code lanes:
+now names `$A96C/$A96E` as the current target mask, battler
+`current_action/action_targeting/current_target/ally_or_enemy` offsets, and the
+observed derived-action code lanes:
 single parameter battler (`1`), allied target sets (`2/4`), ranked-list member
-(`0x11`), direct candidate-row metadata (`0x12`), and all enemies (`0x14`).
+(`0x11`), direct metadata-matched battlers (`0x12`), and all enemies (`0x14`).
 
 The dispatch branches build, prune, or target bits through the class-2 mask
 helper family:
@@ -95,13 +98,20 @@ target mask for the derived action, not a generic scratch pair.
 
 Implementation update: the mask helper source family now mirrors that contract
 directly by naming `C4:A279` as the one-hot bit table, `$A96C/$A96E` as the
-current target mask, `$9FAC` as the candidate-row domain, and `0x4E` as the row
+current target mask, `$9FAC` as the battler-table domain, and `0x4E` as the row
 stride in the core add/test/clear and build/remove passes.
 
 Follow-up update: the remaining `6EF8` first-match finder and `70E4`
-flagged-candidate pruner now share the same one-hot table and bit-index
+flagged-battler pruner now share the same one-hot table and bit-index
 vocabulary, with `70E4` explicitly calling the named `C2:7029` test and
 `C2:7089` clear helpers.
+
+Source-vocabulary update: the action builder/dispatcher, second-pointer
+applicator, and mask-helper sources now reserve candidate wording for the
+ranked `$AD7A/$AD82` lists. Their `$9FAC` constants and local field offsets use
+`BattlersTableBase`, `BattlerRowSize`, and named battler fields such as
+`current_action`, `action_targeting`, `current_target`, `consciousness`,
+`ally_or_enemy`, `npc_id`, `row`, and `afflictions`.
 
 ## Second-Pointer Application
 
@@ -113,7 +123,7 @@ Runtime shape:
 
 1. wait for `C2:EACF` to report that the battle effect step is ready
 2. iterate targeted bits in the `$A21C` domain
-3. iterate targeted bits in the `$9FAC` candidate-row domain
+3. iterate targeted bits in the `$9FAC` battler-row domain
 4. for each targeted bit, rebuild target text context through `C2:3D05`
 5. dispatch the same fixed payload pointer through `C0:9279`
 
@@ -121,13 +131,13 @@ That makes `C2:40A4` an action-payload applicator over the current target mask.
 It is not just a passive animation or data-stream routine.
 
 `C2:416F` is the sibling mask-pruning helper in the same source module. It
-removes currently targeted rows from `$A96C/$A96E` when their candidate row is
-inactive or in blocked row states.
+removes currently targeted rows from `$A96C/$A96E` when their battler row is
+inactive or in blocked affliction/state bytes.
 
 Implementation update: `src/c2/c2_40a4_apply_battle_action_second_pointer_payload.asm`
 now names the caller-frame second-payload pointer, the local payload pointer,
-the `$A21C` actor-target domain, the `$9FAC` candidate-target domain, the
-shared `0x4E` candidate-row stride, and the bit ranges used by the two payload
+the `$A21C` actor-target domain, the `$9FAC` battler-target domain, the
+shared `0x4E` battler-row stride, and the bit ranges used by the two payload
 passes.
 
 ## Battle Text Context Join
@@ -169,7 +179,7 @@ This slice makes the selected-row controller more actionable:
 
 - `D5:7B68` is now tied to source-commented consumers for metadata bytes and the
   second action pointer.
-- candidate row bytes `+0x09/+0x0A` are documented as the handoff between action
+- battler bytes `+0x09/+0x0A` are documented as the handoff between action
   derivation and target-mask construction.
 - `$A96C/$A96E` is explicitly documented as the current target mask.
 - `C2:40A4` is documented as a per-target action-payload applicator, which is a

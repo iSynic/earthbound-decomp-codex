@@ -1,4 +1,4 @@
-; EarthBound C2 mask-set flagged candidate pruner.
+; EarthBound C2 mask-set flagged battler pruner.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -15,11 +15,11 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C27029_MaskSet_TestBit             = $C27029
 C27089_MaskSet_ClearBit            = $C27089
 
-CandidateBitIndex = $0E
-CandidateRowSize = $004E
+TargetBitIndex = $0E
+BattlerRowSize = $004E
 TargetMaskBitLimit = $0020
-CandidateRowStateByteBase = $9FC9
-CandidateRowFlaggedState = $0001
+BattlerAfflictionsByteBase = $9FC9
+BattlerAfflictionFlaggedState = $0001
 
 ; ---------------------------------------------------------------------------
 ; C2:70E4
@@ -32,29 +32,29 @@ C270E4_MaskSet_PruneFlaggedCandidates = REMOVE_DEAD_TARGETTING
     adc.w #$FFF0
     tcd
     ldx.w #$0000
-    stx CandidateBitIndex
+    stx TargetBitIndex
     bra C2711F_MaskSet_PruneFlaggedCandidates_L711F
 C270F3_MaskSet_PruneFlaggedCandidates_L70F3:
     txa
     jsl C27029_MaskSet_TestBit
     cmp.w #$0000
     beq C2711A_MaskSet_PruneFlaggedCandidates_L711A
-    ldx CandidateBitIndex
+    ldx TargetBitIndex
     txa
-    ldy.w #CandidateRowSize
+    ldy.w #BattlerRowSize
     jsl C08FF7_ResolveIndexedPointerOffset
     tax
-    lda CandidateRowStateByteBase,X
+    lda.w BattlerAfflictionsByteBase,X
     and.w #$00FF
-    cmp.w #CandidateRowFlaggedState
+    cmp.w #BattlerAfflictionFlaggedState
     bne C2711A_MaskSet_PruneFlaggedCandidates_L711A
-    ldx CandidateBitIndex
+    ldx TargetBitIndex
     txa
     jsl C27089_MaskSet_ClearBit
 C2711A_MaskSet_PruneFlaggedCandidates_L711A:
-    ldx CandidateBitIndex
+    ldx TargetBitIndex
     inx
-    stx CandidateBitIndex
+    stx TargetBitIndex
 C2711F_MaskSet_PruneFlaggedCandidates_L711F:
     cpx.w #TargetMaskBitLimit
     bcc C270F3_MaskSet_PruneFlaggedCandidates_L70F3
