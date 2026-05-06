@@ -101,6 +101,15 @@ the prepared-entity consumers of `$9E2D/$9E2F/$9E31`, `$10B6/$116A` flag-word
 families, visual-type movement pointer queueing, and current-slot facing
 helpers.
 
+2026-05-06 source polish follow-up:
+`src/c4/entity_slot_resolver_frame_selector_helpers.asm` now names the resolver
+tables for `$2CD6`, `$2C9A`, and `$988B/$9897`, the missing-slot sentinel and
+slot-scan bounds, the staged new-entity scratch words filled by the fixed
+script runners, the `C4:C4D4` three-byte dispatch records, selector-mode ids,
+octant rounding constants, frame-selector update table, registry broadcast
+cutoff, and the `$116A/$8000` marker path. C0 script, refresh, and renderer
+internals remain external callees.
+
 ## Working Names
 
 - `C4:60CE` = `RunVisualTypeEntityScriptWithCachedPose`

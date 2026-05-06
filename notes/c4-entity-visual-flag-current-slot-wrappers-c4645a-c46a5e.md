@@ -8,6 +8,11 @@ helpers bridge C4's entity-slot resolver families, staged new-entity argument
 words, registry flag toggles, movement-script queue records, and small
 current-slot presentation tests.
 
+The resolver/script side of the same contract is covered in
+`notes/entity-resolver-script-and-direction-wrappers-c460ce-c4645a.md`; that
+source now names the producer-side `$9E2D/$9E2F/$9E31` fills, resolver tables,
+frame-selector updates, and `$116A/$8000` marker path used here.
+
 ## Main Result
 
 `C4:645A..C4:6698` now carries local names for the two flag-word families that

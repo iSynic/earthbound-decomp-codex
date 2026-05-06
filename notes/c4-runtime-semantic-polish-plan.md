@@ -334,6 +334,12 @@ closure.
   movement-pointer queueing, and current-slot facing/frame-selector refresh
   helpers. See
   `notes/c4-entity-visual-flag-current-slot-wrappers-c4645a-c46a5e.md`.
+- 2026-05-06 resolver/frame-selector follow-up: tightened the upstream C4
+  resolver and script-runner band around `$2C9A/$2CD6`, the compact
+  `$988B/$9897` registry, staged new-entity scratch fills, `C4:C4D4`
+  three-byte dispatch records, selector-mode octant helpers, `$2AF6`
+  frame-selector updates, registry broadcast cutoff, and `$116A/$8000` marker
+  path. See `notes/entity-resolver-script-and-direction-wrappers-c460ce-c4645a.md`.
 
 ## Validation
 
