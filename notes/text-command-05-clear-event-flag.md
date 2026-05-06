@@ -51,6 +51,10 @@ The strongest local flow is:
 
 So the local structure is very straightforward: queue low byte, combine with high byte, clear one event flag.
 
+Source polish follow-up (2026-05-06): `src/c1/c1_42ad_handle_text_command05_clear_event_flag.asm`
+now names the queued flag low byte, queue count, callback self-return low word,
+low-byte mask, and clear-mode value used for the `C2:165E` call.
+
 ## Shared helper at `C2:165E`
 
 `C2:165E` is the live flag-write helper already visible elsewhere in the project.

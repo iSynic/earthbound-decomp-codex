@@ -108,6 +108,12 @@ uses the same vocabulary for the next dense strip. This covers `0x1D
 71/83` callback leaves, including the shared money-byte assemblers and the
 wallet/ATM comparison state.
 
+Source polish follow-up (2026-05-06): the lower control strip now has matching
+consumer-side names too. The `0x04..0x08`, `0x0A`, and adjacent `0x18 05`
+callback bodies name their queued-byte slots, queue count, callback self-return
+low words, 24-bit assembly scratch, event-flag staging, and call-text or
+forced-alignment output slots.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

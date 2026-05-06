@@ -512,3 +512,10 @@ This planning pass is documentation-only.
   party utility, delivery/pickup queue, party-count, and random-number leaves.
   The scaffold was regenerated from source; exact byte-equivalence remains
   pending on the same missing-ROM gate.
+- 2026-05-06 follow-up: the lower control strip at `C1:4103..4558` now uses
+  the same deferred-byte ABI vocabulary inside the callback leaves themselves.
+  The source names `$97BA..$97BC/$97CA`, self-return callback low words,
+  24-bit target assembly scratch, flag low-byte staging, call-text pointer
+  staging, the number-select cancel sentinel, and the `0x18 05` forced
+  alignment single-byte queue. The scaffold was regenerated from source; exact
+  byte-equivalence remains pending on the same missing-ROM gate.

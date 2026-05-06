@@ -14,12 +14,22 @@
 C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 C2165E_SetEventFlagOrState = $C2165E
 
+EventFlagLowByte = $97BA
+DeferredCommandQueueCount = $97CA
+ProcessorStatus16BitAIndexCarryClear = $31
+AccumulatorWidthFlag = $20
+IndexWidthFlag = $10
+EventFlagClearValue = $0000
+LowByteMask = $00FF
+ClearEventFlagCallback = $42AD
+ZeroWord = $0000
+
 ; ---------------------------------------------------------------------------
 ; C1:42AD
 
 CC_05:
 C142AD_HandleTextCommand05ClearEventFlag = CC_05
-    rep #$31
+    rep #ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -28,29 +38,29 @@ C142AD_HandleTextCommand05ClearEventFlag = CC_05
     pla
     txa
     sta $0E
-    lda $97CA
+    lda DeferredCommandQueueCount
     bne C142D3_HandleTextCommand05ClearEventFlag_L42D3
     lda $0E
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$42AD
+    sep #AccumulatorWidthFlag
+    ldx DeferredCommandQueueCount
+    sta EventFlagLowByte,X
+    rep #AccumulatorWidthFlag
+    inc DeferredCommandQueueCount
+    lda.w #ClearEventFlagCallback
     bra C142F3_HandleTextCommand05ClearEventFlag_L42F3
 C142D3_HandleTextCommand05ClearEventFlag_L42D3:
-    sep #$10
+    sep #IndexWidthFlag
     ldy.b #$08
     lda $0E
     jsl C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda EventFlagLowByte
+    and.w #LowByteMask
     ora $02
-    rep #$10
-    ldx.w #$0000
+    rep #IndexWidthFlag
+    ldx.w #EventFlagClearValue
     jsl C2165E_SetEventFlagOrState
-    lda.w #$0000
+    lda.w #ZeroWord
 C142F3_HandleTextCommand05ClearEventFlag_L42F3:
     pld
     rts

@@ -8295,9 +8295,25 @@ hirom
 org $C14103
 
 !C09246_ShiftLeft32ByY = $C09246
+!WorkValueLo = $06
+!WorkValueHi = $08
+!PointerWritebackLo = $0E
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandByte1 = $97BB
+!DeferredCommandByte2 = $97BC
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!DeferredThreeByteArgumentLimit = $0003
+!ShiftByEightBits = $08
+!ShiftBySixteenBits = $10
+!ShiftByTwentyFourBits = $18
+!BuildTextCommand24BitJumpTargetCallback = $4103
+!ZeroWord = $0000
 CC_0A:
 !C14103_BuildTextCommand24BitJumpTarget = CC_0A
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8305,10 +8321,10 @@ CC_0A:
     tcd
     pla
     tay
-    sty $0E
-    lda.w #$0003
+    sty !PointerWritebackLo
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C1411D_BuildTextCommand24BitJumpTarget_L411D
     bpl C14133_BuildTextCommand24BitJumpTarget_L4133
     bra C1411F_BuildTextCommand24BitJumpTarget_L411F
@@ -8316,90 +8332,90 @@ C1411D_BuildTextCommand24BitJumpTarget_L411D:
     bmi C14133_BuildTextCommand24BitJumpTarget_L4133
 C1411F_BuildTextCommand24BitJumpTarget_L411F:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4103
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!BuildTextCommand24BitJumpTargetCallback
     jmp.w C141CE_BuildTextCommand24BitJumpTarget_L41CE
 C14133_BuildTextCommand24BitJumpTarget_L4133:
     txa
-    sta $06
-    stz $08
-    sep #$10
-    ldy.b #$18
+    sta !WorkValueLo
+    stz !WorkValueHi
+    sep #!IndexWidthFlag
+    ldy.b #!ShiftByTwentyFourBits
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !WorkValueHi
     pha
-    lda $06
+    lda !WorkValueLo
     pha
-    ldy.b #$10
-    sep #$20
-    lda $97BC
-    sta $06
+    ldy.b #!ShiftBySixteenBits
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !WorkValueHi
     pha
-    lda $06
+    lda !WorkValueLo
     pha
-    ldy.b #$08
-    sep #$20
-    lda $97BB
-    sta $06
+    ldy.b #!ShiftByEightBits
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
-    lda $06
+    lda !WorkValueLo
     sta $0A
-    lda $08
+    lda !WorkValueHi
     sta $0C
-    sep #$20
-    lda $97BA
-    sta $06
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
-    lda $06
+    rep #!AccumulatorWidthFlag
+    lda !WorkValueLo
     ora $0A
-    sta $06
-    lda $08
+    sta !WorkValueLo
+    lda !WorkValueHi
     ora $0C
-    sta $08
-    pla
-    sta $0A
-    pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta !WorkValueHi
     pla
     sta $0A
     pla
     sta $0C
-    lda $06
+    lda !WorkValueLo
     ora $0A
-    sta $06
-    lda $08
+    sta !WorkValueLo
+    lda !WorkValueHi
     ora $0C
-    sta $08
-    rep #$10
-    ldy $0E
-    lda $06
+    sta !WorkValueHi
+    pla
+    sta $0A
+    pla
+    sta $0C
+    lda !WorkValueLo
+    ora $0A
+    sta !WorkValueLo
+    lda !WorkValueHi
+    ora $0C
+    sta !WorkValueHi
+    rep #!IndexWidthFlag
+    ldy !PointerWritebackLo
+    lda !WorkValueLo
     sta $0000,Y
-    lda $08
+    lda !WorkValueHi
     sta $0002,Y
-    lda.w #$0000
+    lda.w #!ZeroWord
 C141CE_BuildTextCommand24BitJumpTarget_L41CE:
     pld
     rts
@@ -8507,9 +8523,18 @@ org $C14265
 
 !C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 !C2165E_SetEventFlagOrState = $C2165E
+!EventFlagLowByte = $97BA
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!EventFlagSetValue = $0001
+!LowByteMask = $00FF
+!SetEventFlagCallback = $4265
+!ZeroWord = $0000
 CC_04:
 !C14265_HandleTextCommand04SetEventFlag = CC_04
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8518,29 +8543,29 @@ CC_04:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C1428B_HandleTextCommand04SetEventFlag_L428B
     lda $0E
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4265
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !EventFlagLowByte,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!SetEventFlagCallback
     bra C142AB_HandleTextCommand04SetEventFlag_L42AB
 C1428B_HandleTextCommand04SetEventFlag_L428B:
-    sep #$10
+    sep #!IndexWidthFlag
     ldy.b #$08
     lda $0E
     jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !EventFlagLowByte
+    and.w #!LowByteMask
     ora $02
-    rep #$10
-    ldx.w #$0001
+    rep #!IndexWidthFlag
+    ldx.w #!EventFlagSetValue
     jsl !C2165E_SetEventFlagOrState
-    lda.w #$0000
+    lda.w #!ZeroWord
 C142AB_HandleTextCommand04SetEventFlag_L42AB:
     pld
     rts
@@ -8555,9 +8580,18 @@ org $C142AD
 
 !C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 !C2165E_SetEventFlagOrState = $C2165E
+!EventFlagLowByte = $97BA
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!EventFlagClearValue = $0000
+!LowByteMask = $00FF
+!ClearEventFlagCallback = $42AD
+!ZeroWord = $0000
 CC_05:
 !C142AD_HandleTextCommand05ClearEventFlag = CC_05
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8566,29 +8600,29 @@ CC_05:
     pla
     txa
     sta $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C142D3_HandleTextCommand05ClearEventFlag_L42D3
     lda $0E
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$42AD
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !EventFlagLowByte,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!ClearEventFlagCallback
     bra C142F3_HandleTextCommand05ClearEventFlag_L42F3
 C142D3_HandleTextCommand05ClearEventFlag_L42D3:
-    sep #$10
+    sep #!IndexWidthFlag
     ldy.b #$08
     lda $0E
     jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !EventFlagLowByte
+    and.w #!LowByteMask
     ora $02
-    rep #$10
-    ldx.w #$0000
+    rep #!IndexWidthFlag
+    ldx.w #!EventFlagClearValue
     jsl !C2165E_SetEventFlagOrState
-    lda.w #$0000
+    lda.w #!ZeroWord
 C142F3_HandleTextCommand05ClearEventFlag_L42F3:
     pld
     rts
@@ -8603,9 +8637,19 @@ org $C142F5
 
 !C0923E_ShiftEventFlagHighByteIntoWord = $C0923E
 !C21628_CheckEventFlag = $C21628
+!EventFlagLowByte = $97BA
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!LowByteMask = $00FF
+!JumpIfFlagSetCallback = $42F5
+!BuildTextCommand24BitJumpTargetCallback = $4103
+!ZeroWord = $0000
+!BranchOperandByteCount = $0004
 CC_06:
 !C142F5_HandleTextCommand06JumpIfFlagSet = CC_06
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8614,30 +8658,30 @@ CC_06:
     pla
     tay
     sty $0E
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C1431A_HandleTextCommand06JumpIfFlagSet_L431A
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$42F5
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !EventFlagLowByte,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!JumpIfFlagSetCallback
     bra C1435D_HandleTextCommand06JumpIfFlagSet_L435D
 C1431A_HandleTextCommand06JumpIfFlagSet_L431A:
     txa
-    sep #$10
+    sep #!IndexWidthFlag
     ldy.b #$08
     jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !EventFlagLowByte
+    and.w #!LowByteMask
     ora $02
     jsl !C21628_CheckEventFlag
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     beq C1433E_HandleTextCommand06JumpIfFlagSet_L433E
-    stz $97CA
-    lda.w #$4103
+    stz !DeferredCommandQueueCount
+    lda.w #!BuildTextCommand24BitJumpTargetCallback
     bra C1435D_HandleTextCommand06JumpIfFlagSet_L435D
 C1433E_HandleTextCommand06JumpIfFlagSet_L433E:
     ldy $0E
@@ -8645,14 +8689,14 @@ C1433E_HandleTextCommand06JumpIfFlagSet_L433E:
     sta $06
     lda $0002,Y
     sta $08
-    lda.w #$0004
+    lda.w #!BranchOperandByteCount
     clc
     adc $06
     sta $06
     sta $0000,Y
     lda $08
     sta $0002,Y
-    lda.w #$0000
+    lda.w #!ZeroWord
 C1435D_HandleTextCommand06JumpIfFlagSet_L435D:
     pld
     rts
@@ -8671,9 +8715,17 @@ org $C1435F
 !C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
 !C10EE3_DispatchDebugMenuPrintMode = $0EE3
 !C21628_CheckEventFlag = $C21628
+!EventFlagLowByte = $97BA
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!LowByteMask = $00FF
+!CheckEventFlagCallback = $435F
+!ZeroWord = $0000
 CC_07:
 !C1435F_HandleTextCommand07CheckEventFlag = CC_07
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8682,27 +8734,27 @@ CC_07:
     pla
     txa
     sta $12
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C14385_HandleTextCommand07CheckEventFlag_L4385
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$435F
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !EventFlagLowByte,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!CheckEventFlagCallback
     bra C143B6_HandleTextCommand07CheckEventFlag_L43B6
 C14385_HandleTextCommand07CheckEventFlag_L4385:
-    sep #$10
+    sep #!IndexWidthFlag
     ldy.b #$08
     lda $12
     jsl !C0923E_ShiftEventFlagHighByteIntoWord
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !EventFlagLowByte
+    and.w #!LowByteMask
     ora $02
     jsl !C21628_CheckEventFlag
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     sta $06
     stz $08
     bpl C143A8_HandleTextCommand07CheckEventFlag_L43A8
@@ -8713,24 +8765,24 @@ C143A8_HandleTextCommand07CheckEventFlag_L43A8:
     lda $08
     sta $10
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C143B6_HandleTextCommand07CheckEventFlag_L43B6:
     pld
     rts
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     txa
     jsr !C10EE3_DispatchDebugMenuPrintMode
-    lda.w #$0000
+    lda.w #!ZeroWord
     rts
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     txa
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
-    lda.w #$0000
+    lda.w #!ZeroWord
     rts
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     txa
     jsr !C1007E_SetFocusWindowOrContext
-    lda.w #$0000
+    lda.w #!ZeroWord
     rts
 
 
@@ -8748,9 +8800,31 @@ org $C143D6
 !C186B1_PrintTextFromPointer = $C186B1
 !C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
 !C43D75_StageGlyphVariantTileState = $C43D75
+!WorkValueLo = $06
+!WorkValueHi = $08
+!TextContextSourcePointerLo = $0E
+!TextContextSourcePointerHi = $10
+!ForcedAlignmentOperand = $0E
+!DeferredCommandByteQueue = $97BA
+!DeferredCommandByte1 = $97BB
+!DeferredCommandByte2 = $97BC
+!DeferredCommandQueueCount = $97CA
+!ProcessorStatus16BitAIndexCarryClear = $31
+!AccumulatorWidthFlag = $20
+!IndexWidthFlag = $10
+!DeferredSingleByteArgumentLimit = $0001
+!DeferredThreeByteArgumentLimit = $0003
+!LowByteMask = $00FF
+!ShiftByEightBits = $08
+!ShiftBySixteenBits = $10
+!ShiftByTwentyFourBits = $18
+!CallTextFarPointerCallback = $43D6
+!ForceTextAlignmentCallback = $4509
+!NumberSelectCancelSentinel = $FFFF
+!ZeroWord = $0000
 CC_08:
 !C143D6_BuildCallTextFarPointerAndDispatch = CC_08
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8759,9 +8833,9 @@ CC_08:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C143F0_BuildCallTextFarPointerAndDispatch_L43F0
     bpl C14407_BuildCallTextFarPointerAndDispatch_L4407
     bra C143F2_BuildCallTextFarPointerAndDispatch_L43F2
@@ -8769,95 +8843,95 @@ C143F0_BuildCallTextFarPointerAndDispatch_L43F0:
     bmi C14407_BuildCallTextFarPointerAndDispatch_L4407
 C143F2_BuildCallTextFarPointerAndDispatch_L43F2:
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$43D6
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!CallTextFarPointerCallback
     jmp.w C144A1_BuildCallTextFarPointerAndDispatch_L44A1
 C14407_BuildCallTextFarPointerAndDispatch_L4407:
-    sep #$10
-    ldy.b #$18
+    sep #!IndexWidthFlag
+    ldy.b #!ShiftByTwentyFourBits
     lda $12
-    sta $06
-    stz $08
+    sta !WorkValueLo
+    stz !WorkValueHi
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !WorkValueHi
     pha
-    lda $06
+    lda !WorkValueLo
     pha
-    ldy.b #$10
-    sep #$20
-    lda $97BC
-    sta $06
+    ldy.b #!ShiftBySixteenBits
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !WorkValueHi
     pha
-    lda $06
+    lda !WorkValueLo
     pha
-    ldy.b #$08
-    sep #$20
-    lda $97BB
-    sta $06
+    ldy.b #!ShiftByEightBits
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
-    lda $06
+    lda !WorkValueLo
     sta $0A
-    lda $08
+    lda !WorkValueHi
     sta $0C
-    sep #$20
-    lda $97BA
-    sta $06
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
+    sta !WorkValueLo
     stz $07
-    stz $08
+    stz !WorkValueHi
     stz $09
-    rep #$20
-    lda $06
+    rep #!AccumulatorWidthFlag
+    lda !WorkValueLo
     ora $0A
-    sta $06
-    lda $08
+    sta !WorkValueLo
+    lda !WorkValueHi
     ora $0C
-    sta $08
-    pla
-    sta $0A
-    pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta !WorkValueHi
     pla
     sta $0A
     pla
     sta $0C
-    lda $06
+    lda !WorkValueLo
     ora $0A
-    sta $06
-    lda $08
+    sta !WorkValueLo
+    lda !WorkValueHi
     ora $0C
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !WorkValueHi
+    pla
+    sta $0A
+    pla
+    sta $0C
+    lda !WorkValueLo
+    ora $0A
+    sta !WorkValueLo
+    lda !WorkValueHi
+    ora $0C
+    sta !WorkValueHi
+    lda !WorkValueLo
+    sta !TextContextSourcePointerLo
+    lda !WorkValueHi
+    sta !TextContextSourcePointerHi
     jsl !C186B1_PrintTextFromPointer
-    lda.w #$0000
+    lda.w #!ZeroWord
 C144A1_BuildCallTextFarPointerAndDispatch_L44A1:
     pld
     rts
 CC_1F_52:
 !C144A3_CreateNumberSelectorFromTextCommand = CC_1F_52
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -8866,62 +8940,62 @@ CC_1F_52:
     pla
     txa
     jsr !C1101C_RunNumberSelectPrompt
-    lda.w #$FFFF
+    lda.w #!NumberSelectCancelSentinel
     sta $0A
-    lda.w #$FFFF
+    lda.w #!NumberSelectCancelSentinel
     sta $0C
-    lda $08
+    lda !WorkValueHi
     cmp $0C
     bne C144C5_BuildCallTextFarPointerAndDispatch_L44C5
-    lda $06
+    lda !WorkValueLo
     cmp $0A
 C144C5_BuildCallTextFarPointerAndDispatch_L44C5:
     bne C144F9_BuildCallTextFarPointerAndDispatch_L44F9
-    lda.w #$0000
-    sta $06
-    lda.w #$0000
-    sta $08
-    lda $06
+    lda.w #!ZeroWord
+    sta !WorkValueLo
+    lda.w #!ZeroWord
+    sta !WorkValueHi
+    lda !WorkValueLo
     sta $12
-    lda $08
+    lda !WorkValueHi
     sta $14
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !WorkValueLo
+    sta !TextContextSourcePointerLo
+    lda !WorkValueHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $12
-    sta $06
+    sta !WorkValueLo
     lda $14
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !WorkValueHi
+    lda !WorkValueLo
+    sta !TextContextSourcePointerLo
+    lda !WorkValueHi
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     bra C14504_BuildCallTextFarPointerAndDispatch_L4504
 C144F9_BuildCallTextFarPointerAndDispatch_L44F9:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !WorkValueLo
+    sta !TextContextSourcePointerLo
+    lda !WorkValueHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
 C14504_BuildCallTextFarPointerAndDispatch_L4504:
-    lda.w #$0000
+    lda.w #!ZeroWord
     pld
     rts
 CC_18_05:
 !C14509_HandleTextCommand18ForceTextAlignment = CC_18_05
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFF0
     tcd
     pla
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C14520_BuildCallTextFarPointerAndDispatch_L4520
     bpl C14535_BuildCallTextFarPointerAndDispatch_L4535
     bra C14522_BuildCallTextFarPointerAndDispatch_L4522
@@ -8929,28 +9003,28 @@ C14520_BuildCallTextFarPointerAndDispatch_L4520:
     bmi C14535_BuildCallTextFarPointerAndDispatch_L4535
 C14522_BuildCallTextFarPointerAndDispatch_L4522:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$4509
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!ForceTextAlignmentCallback
     bra C14556_BuildCallTextFarPointerAndDispatch_L4556
 C14535_BuildCallTextFarPointerAndDispatch_L4535:
-    lda $97BA
-    and.w #$00FF
-    sta $0E
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
+    sta !ForcedAlignmentOperand
     lda $5E71
-    and.w #$00FF
+    and.w #!LowByteMask
     beq C1454D_BuildCallTextFarPointerAndDispatch_L454D
-    lda $0E
+    lda !ForcedAlignmentOperand
     jsl !C43D75_StageGlyphVariantTileState
     bra C14553_BuildCallTextFarPointerAndDispatch_L4553
 C1454D_BuildCallTextFarPointerAndDispatch_L454D:
-    lda $0E
+    lda !ForcedAlignmentOperand
     jsl !C438A5_SetActiveWindowDescriptorCursorFields
 C14553_BuildCallTextFarPointerAndDispatch_L4553:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C14556_BuildCallTextFarPointerAndDispatch_L4556:
     pld
     rts

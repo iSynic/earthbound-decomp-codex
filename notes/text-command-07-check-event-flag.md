@@ -51,6 +51,10 @@ The strongest local flow is:
 
 So the plain local shape is: queue low byte, combine with high byte, test one event flag, stage the result.
 
+Source polish follow-up (2026-05-06): `src/c1/c1_435f_handle_text_command07_check_event_flag.asm`
+now names the queued flag low byte, queue count, callback self-return low word,
+and low-byte mask before staging the predicate result through `C1:045D`.
+
 ## Shared helper at `C2:1628`
 
 `C2:1628` is the live event-flag test helper already seen elsewhere in the bank-`01` command families.
