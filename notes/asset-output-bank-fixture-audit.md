@@ -24,7 +24,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `CB` | `ok` | 656 | `renderer` 356, `decoder_only` 300 | `asset.cb.battle_background_arr_0` | `earthbound_lzhal_battle_bg_arrangement_png` | `cb/battle_bgs/arrangements/0_composed_preview.png` |
 | `CC` | `ok` | 113 | `decoder_only` 78, `renderer` 35 | `asset.cc.psi_anim_gfx_set_3` | `earthbound_lzhal_snes_4bpp_tiles_png` | `cc/psianims/gfx/2_4bpp_preview.png` |
 | `CD` | `ok` | 264 | `renderer` 209, `decoder_only` 55 | `asset.cd.battle_sprite_10` | `earthbound_lzhal_snes_4bpp_tiles_png` | `cd/battle_sprites/10_4bpp_preview.png` |
-| `CE` | `ok` | 482 | `renderer` 267, `decoder_only` 215 | `asset.ce.battle_sprite_0` | `earthbound_lzhal_snes_4bpp_tiles_png` | `ce/battle_sprites/0_4bpp_preview.png` |
+| `CE` | `ok` | 484 | `renderer` 267, `decoder_only` 217 | `asset.ce.battle_sprite_0` | `earthbound_lzhal_snes_4bpp_tiles_png` | `ce/battle_sprites/0_4bpp_preview.png` |
 | `D1` | `ok` | 246 | `renderer` 246 | `asset.d1.sprite_0000` | `snes_4bpp_tiles_png` | `d1/overworld_sprites/gfx/0000_4bpp_preview.png` |
 | `D2` | `ok` | 462 | `renderer` 462 | `asset.d2.sprite_0123` | `snes_4bpp_tiles_png` | `d2/overworld_sprites/gfx/0123_4bpp_preview.png` |
 | `D3` | `ok` | 678 | `renderer` 678 | `asset.d3.sprite_0354` | `snes_4bpp_tiles_png` | `d3/overworld_sprites/gfx/0354_4bpp_preview.png` |

@@ -13,13 +13,13 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 89,
-    "unique_selected_assets": 33,
-    "unique_selected_manifest_asset_pairs": 33,
-    "recipe_kinds_covered": 16,
+    "fixture_count": 93,
+    "unique_selected_assets": 35,
+    "unique_selected_manifest_asset_pairs": 35,
+    "recipe_kinds_covered": 18,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 20,
+    "family_decoder_pairs_covered": 22,
     "target_bank_output_fixture_policy_banks": 22,
     "bank_output_fixture_banks_covered": 22,
     "target_banks_without_typed_non_raw_outputs": [],
@@ -34,14 +34,14 @@
     },
     "fixture_type_counts": {
       "bank_output": 22,
-      "family_decoder": 20,
+      "family_decoder": 22,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 16,
+      "recipe_kind": 18,
       "recipe_option": 5
     },
     "fixture_family_counts": {
-      "battle_visual_assets": 32,
+      "battle_visual_assets": 36,
       "ef_debug_and_late_tail": 3,
       "map_tilesets_and_runtime_tables": 19,
       "overworld_sprites": 15,
@@ -87,6 +87,8 @@
   "family_output_kind_counts": {
     "battle_visual_assets": {
       "battle_swirl_frame_json": 126,
+      "battle_swirl_pointer_table_json": 1,
+      "battle_swirl_sequence_table_json": 1,
       "earthbound_lzhal": 361,
       "earthbound_lzhal_battle_bg_arrangement_png": 103,
       "earthbound_lzhal_battle_sprite_png": 166,
@@ -153,6 +155,52 @@
       },
       "all_output_kinds": [
         "battle_swirl_frame_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.battle_swirl_pointer_table_json",
+      "type": "recipe_kind",
+      "key": "battle_swirl_pointer_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "battle_visual_assets",
+      "bank": "CE",
+      "manifest_path": "asset-manifests/bank-ce-assets.json",
+      "asset_id": "table.ce.214_data_battle_swirl_pointers_asm",
+      "title": "data/battle/swirl_pointers.asm",
+      "category": "raw-table",
+      "bytes": 252,
+      "target_output": {
+        "kind": "battle_swirl_pointer_table_json",
+        "path": "ce/tables/214_data_battle_swirl_pointers_asm_decoded.json",
+        "decoder": "battle_swirl_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_swirl_pointer_table_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.battle_swirl_sequence_table_json",
+      "type": "recipe_kind",
+      "key": "battle_swirl_sequence_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "battle_visual_assets",
+      "bank": "CE",
+      "manifest_path": "asset-manifests/bank-ce-assets.json",
+      "asset_id": "table.ce.215_inline_swirl_primary_table",
+      "title": "inline:SWIRL_PRIMARY_TABLE",
+      "category": "raw-table",
+      "bytes": 28,
+      "target_output": {
+        "kind": "battle_swirl_sequence_table_json",
+        "path": "ce/tables/215_inline_swirl_primary_table_decoded.json",
+        "decoder": "battle_swirl_sequence_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_swirl_sequence_table_json",
         "raw"
       ]
     },
@@ -1895,6 +1943,52 @@
       ]
     },
     {
+      "id": "fixture.family_decoder.battle_visual_assets_battle_swirl_pointer_table",
+      "type": "family_decoder",
+      "key": "battle_visual_assets.battle_swirl_pointer_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "battle_visual_assets",
+      "bank": "CE",
+      "manifest_path": "asset-manifests/bank-ce-assets.json",
+      "asset_id": "table.ce.214_data_battle_swirl_pointers_asm",
+      "title": "data/battle/swirl_pointers.asm",
+      "category": "raw-table",
+      "bytes": 252,
+      "target_output": {
+        "kind": "battle_swirl_pointer_table_json",
+        "path": "ce/tables/214_data_battle_swirl_pointers_asm_decoded.json",
+        "decoder": "battle_swirl_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_swirl_pointer_table_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.family_decoder.battle_visual_assets_battle_swirl_sequence_table",
+      "type": "family_decoder",
+      "key": "battle_visual_assets.battle_swirl_sequence_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "battle_visual_assets",
+      "bank": "CE",
+      "manifest_path": "asset-manifests/bank-ce-assets.json",
+      "asset_id": "table.ce.215_inline_swirl_primary_table",
+      "title": "inline:SWIRL_PRIMARY_TABLE",
+      "category": "raw-table",
+      "bytes": 28,
+      "target_output": {
+        "kind": "battle_swirl_sequence_table_json",
+        "path": "ce/tables/215_inline_swirl_primary_table_decoded.json",
+        "decoder": "battle_swirl_sequence_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "battle_swirl_sequence_table_json",
+        "raw"
+      ]
+    },
+    {
       "id": "fixture.family_decoder.battle_visual_assets_earthbound_lzhal",
       "type": "family_decoder",
       "key": "battle_visual_assets.earthbound_lzhal",
@@ -2382,9 +2476,11 @@
       "manifest_path": "asset-manifests/bank-ce-assets.json",
       "asset_ids": [
         "asset.ce.battle_sprite_0",
-        "asset.ce.swirl_data_0"
+        "asset.ce.swirl_data_0",
+        "table.ce.214_data_battle_swirl_pointers_asm",
+        "table.ce.215_inline_swirl_primary_table"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-ce-assets.json --asset-id asset.ce.battle_sprite_0 --asset-id asset.ce.swirl_data_0 --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-ce-assets.json --asset-id asset.ce.battle_sprite_0 --asset-id asset.ce.swirl_data_0 --asset-id table.ce.214_data_battle_swirl_pointers_asm --asset-id table.ce.215_inline_swirl_primary_table --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/bank-d1-assets.json",

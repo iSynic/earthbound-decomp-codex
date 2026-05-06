@@ -172,6 +172,38 @@ def output_cases() -> list[dict[str, Any]]:
             },
         },
         {
+            "id": "battle-swirl-pointer-table",
+            "data": bytes([0x14, 0x69, 0x1C, 0x69, 0x33, 0x69]),
+            "spec": {
+                "kind": "battle_swirl_pointer_table_json",
+                "path": "battle_swirl_pointers.json",
+                "entry_count": 3,
+                "pointer_bank": 0xCE,
+            },
+            "expected_metadata": {
+                "entry_count": 3,
+                "pointer_bank": 0xCE,
+                "min_pointer": 0x6914,
+                "max_pointer": 0x6933,
+                "distinct_pointers": 3,
+            },
+        },
+        {
+            "id": "battle-swirl-sequence-table",
+            "data": bytes([0, 0, 0, 0, 2, 0, 3, 0, 4, 3, 2, 0]),
+            "spec": {
+                "kind": "battle_swirl_sequence_table_json",
+                "path": "battle_swirl_sequences.json",
+                "row_count": 3,
+            },
+            "expected_metadata": {
+                "row_count": 3,
+                "visible_sequence_count": 2,
+                "total_frame_count": 5,
+                "max_sequence_speed": 4,
+            },
+        },
+        {
             "id": "font-metric-widths",
             "data": bytes([2, 3, 4, 0xFF, 6, 7]),
             "spec": {

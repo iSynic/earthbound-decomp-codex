@@ -39,13 +39,15 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 220,
-    "output_recipe_count": 702,
-    "typed_output_kind_count": 8,
-    "decoder_output_recipe_count": 482,
+    "output_recipe_count": 704,
+    "typed_output_kind_count": 10,
+    "decoder_output_recipe_count": 484,
     "renderer_output_recipe_count": 267,
     "preview_png_recipe_count": 267,
     "output_kind_counts": {
       "battle_swirl_frame_json": 126,
+      "battle_swirl_pointer_table_json": 1,
+      "battle_swirl_sequence_table_json": 1,
       "earthbound_lzhal": 56,
       "earthbound_lzhal_battle_sprite_png": 89,
       "earthbound_lzhal_snes_4bpp_tiles_palette_png": 89,
@@ -56,6 +58,8 @@
     },
     "decoder_counts": {
       "battle_swirl_frame_metadata": 126,
+      "battle_swirl_pointer_table": 1,
+      "battle_swirl_sequence_table": 1,
       "earthbound_lzhal": 56,
       "earthbound_lzhal+snes_4bpp_tiles": 56,
       "earthbound_lzhal+snes_4bpp_tiles+snes_palette": 178,
@@ -67,18 +71,22 @@
       "palette_swatch": 33,
       "palette_tile_sheet": 89
     },
-    "smoke_fixture_count": 3,
+    "smoke_fixture_count": 7,
     "smoke_fixture_asset_ids": [
       "asset.ce.battle_sprite_0",
-      "asset.ce.swirl_data_0"
+      "asset.ce.swirl_data_0",
+      "table.ce.214_data_battle_swirl_pointers_asm",
+      "table.ce.215_inline_swirl_primary_table"
     ],
     "smoke_fixture_type_counts": {
       "bank_output": 1,
-      "family_decoder": 1,
-      "recipe_kind": 1
+      "family_decoder": 3,
+      "recipe_kind": 3
     },
     "smoke_fixture_target_kind_counts": {
       "battle_swirl_frame_json": 2,
+      "battle_swirl_pointer_table_json": 2,
+      "battle_swirl_sequence_table_json": 2,
       "earthbound_lzhal_snes_4bpp_tiles_png": 1
     }
   },
@@ -9385,11 +9393,18 @@
         {
           "kind": "raw",
           "path": "ce/tables/214_data_battle_swirl_pointers_asm.bin"
+        },
+        {
+          "kind": "battle_swirl_pointer_table_json",
+          "path": "ce/tables/214_data_battle_swirl_pointers_asm_decoded.json",
+          "entry_count": 126,
+          "pointer_bank": 206
         }
       ],
       "notes": [
         "Source include from ebsrc: data/battle/swirl_pointers.asm",
-        "Original file offset: 0x0EDC45"
+        "Original file offset: 0x0EDC45",
+        "Decoded as the 126-entry little-endian pointer table for CE SWIRL_DATA payload frames."
       ]
     },
     {
@@ -9406,11 +9421,17 @@
         {
           "kind": "raw",
           "path": "ce/tables/215_inline_swirl_primary_table.bin"
+        },
+        {
+          "kind": "battle_swirl_sequence_table_json",
+          "path": "ce/tables/215_inline_swirl_primary_table_decoded.json",
+          "row_count": 7
         }
       ],
       "notes": [
         "Source include from ebsrc: inline:SWIRL_PRIMARY_TABLE",
-        "Original file offset: 0x0EDD41"
+        "Original file offset: 0x0EDD41",
+        "Decoded as the seven-row primary battle swirl sequence table; rows preserve speed, first payload, and frame count."
       ]
     },
     {

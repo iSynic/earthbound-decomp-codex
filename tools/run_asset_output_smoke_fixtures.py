@@ -27,6 +27,7 @@ REPORT_ZERO_OK_FIELDS = {
     "font_id",
     "graphics_id",
     "max_tile",
+    "min_tile_id",
     "palette_id",
     "sequence_frame_index",
     "sentinel_ff_count",

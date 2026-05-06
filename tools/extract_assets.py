@@ -269,6 +269,97 @@ def write_battle_swirl_frame_json(data: bytes, path: Path, spec: dict[str, Any])
     }
 
 
+def write_battle_swirl_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    entry_count = int(spec["entry_count"])
+    pointer_bank = int(spec["pointer_bank"])
+    expected_bytes = entry_count * 2
+    if entry_count <= 0:
+        raise ValueError(f"Battle swirl pointer table entry_count must be positive, got {entry_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle swirl pointer table expected {expected_bytes} bytes, got {len(data)}")
+
+    values = [data[offset] | (data[offset + 1] << 8) for offset in range(0, len(data), 2)]
+    payload = {
+        "schema": "earthbound-decomp.battle-swirl-pointer-table.v1",
+        "decoder": "battle_swirl_pointer_table",
+        "byte_order": "little",
+        "pointer_bank": pointer_bank,
+        "entry_size_bytes": 2,
+        "entry_count": entry_count,
+        "min_pointer": min(values),
+        "max_pointer": max(values),
+        "distinct_pointers": len(set(values)),
+        "pointers": [
+            {
+                "swirl_id": index,
+                "address": f"{pointer_bank:02X}:{value:04X}",
+                "offset_in_bank": value,
+            }
+            for index, value in enumerate(values)
+        ],
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "entry_count": entry_count,
+        "pointer_bank": pointer_bank,
+        "min_pointer": payload["min_pointer"],
+        "max_pointer": payload["max_pointer"],
+        "distinct_pointers": payload["distinct_pointers"],
+    }
+
+
+def write_battle_swirl_sequence_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    expected_bytes = row_count * 4
+    if row_count <= 0:
+        raise ValueError(f"Battle swirl sequence table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle swirl sequence table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    visible_sequence_count = 0
+    total_frame_count = 0
+    max_sequence_speed = 0
+    for offset in range(0, len(data), 4):
+        sequence_id = offset // 4
+        speed, first_payload_index, frame_count, reserved_zero = data[offset : offset + 4]
+        if frame_count:
+            visible_sequence_count += 1
+            total_frame_count += frame_count
+            max_sequence_speed = max(max_sequence_speed, speed)
+        rows.append(
+            {
+                "sequence_id": sequence_id,
+                "speed": speed,
+                "first_payload_index": first_payload_index,
+                "frame_count": frame_count,
+                "reserved_zero": reserved_zero,
+                "last_payload_index": first_payload_index + frame_count - 1 if frame_count else None,
+                "status": "visible" if frame_count else "disabled",
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.battle-swirl-sequence-table.v1",
+        "decoder": "battle_swirl_sequence_table",
+        "row_size_bytes": 4,
+        "row_count": row_count,
+        "visible_sequence_count": visible_sequence_count,
+        "total_frame_count": total_frame_count,
+        "max_sequence_speed": max_sequence_speed,
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "visible_sequence_count": visible_sequence_count,
+        "total_frame_count": total_frame_count,
+        "max_sequence_speed": max_sequence_speed,
+    }
+
+
 def write_font_metric_widths_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
     font_id = int(spec["font_id"])
     entry_count = int(spec["entry_count"])
@@ -599,6 +690,7 @@ def write_battle_bg_arrangement_png(
         "max_tile": max_tile,
         "width": width_tiles * 8,
         "height": height_tiles * 8,
+        "tiles": width_tiles * height_tiles,
     }
 
 
@@ -668,6 +760,10 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_map_tile_chunk_index_json(data, path, spec))
     elif kind == "battle_swirl_frame_json":
         metadata.update(write_battle_swirl_frame_json(data, path, spec))
+    elif kind == "battle_swirl_pointer_table_json":
+        metadata.update(write_battle_swirl_pointer_table_json(data, path, spec))
+    elif kind == "battle_swirl_sequence_table_json":
+        metadata.update(write_battle_swirl_sequence_table_json(data, path, spec))
     elif kind == "font_metric_widths_json":
         metadata.update(write_font_metric_widths_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":

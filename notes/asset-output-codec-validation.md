@@ -9,9 +9,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 ## Snapshot
 
 - status: `ok`
-- synthetic cases: `17`
+- synthetic cases: `19`
 - trim-trailing-bytes cases: `1`
-- output kinds covered: `16`
+- output kinds covered: `18`
 - missing output kinds: `0`
 - output root: `build/asset-output-codec-validation`
 
@@ -23,6 +23,8 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `earthbound-lzhal` | `earthbound_lzhal` | 26 | - | `compressed_bytes_consumed`, `decompressed_bytes` |
 | `map-tile-chunk-index` | `map_tile_chunk_index_json` | 347 | `chunk_index` | `chunk_index`, `distinct_tile_ids`, `entry_count`, `max_tile_id`, `min_tile_id` |
 | `battle-swirl-frame-metadata` | `battle_swirl_frame_json` | 405 | `sequence_frame_count`, `sequence_frame_index`, `sequence_id`, `sequence_speed`, `swirl_id` | `first_opcode`, `payload_bytes`, `sequence_frame_count`, `sequence_frame_index`, `sequence_id`, `sequence_speed`, `swirl_id` |
+| `battle-swirl-pointer-table` | `battle_swirl_pointer_table_json` | 601 | `entry_count`, `pointer_bank` | `distinct_pointers`, `entry_count`, `max_pointer`, `min_pointer`, `pointer_bank` |
+| `battle-swirl-sequence-table` | `battle_swirl_sequence_table_json` | 876 | `row_count` | `max_sequence_speed`, `row_count`, `total_frame_count`, `visible_sequence_count` |
 | `font-metric-widths` | `font_metric_widths_json` | 706 | `entry_count`, `first_character_code`, `font_id` | `distinct_widths`, `entry_count`, `first_character_code`, `font_id`, `max_width`, `sentinel_ff_count` |
 | `snes-2bpp-tiles` | `snes_2bpp_tiles_png` | 90 | `columns` | `height`, `tiles`, `width` |
 | `snes-2bpp-tiles-trimmed` | `snes_2bpp_tiles_png` | 90 | `columns`, `trim_trailing_bytes` | `height`, `tiles`, `trimmed_source_bytes`, `width` |
@@ -34,5 +36,5 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `snes-palette-swatch` | `snes_palette_swatch_png` | 153 | `per_row`, `swatch` | `colors`, `height`, `width` |
 | `earthbound-lzhal-snes-palette-json` | `earthbound_lzhal_snes_palette_json` | 3380 | `colors` | `colors`, `compressed_bytes_consumed`, `decompressed_bytes` |
 | `earthbound-lzhal-snes-palette-swatch` | `earthbound_lzhal_snes_palette_swatch_png` | 153 | `per_row`, `swatch` | `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `height`, `width` |
-| `earthbound-lzhal-battle-bg-arrangement` | `earthbound_lzhal_battle_bg_arrangement_png` | 166 | `arrangement_id`, `bpp`, `colors`, `graphics_id`, `graphics_source`, `height_tiles`, `palette_id`, `palette_source`, `width_tiles` | `bpp`, `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `graphics_source_range`, `height`, `max_tile`, `palette_source_range`, `width` |
+| `earthbound-lzhal-battle-bg-arrangement` | `earthbound_lzhal_battle_bg_arrangement_png` | 166 | `arrangement_id`, `bpp`, `colors`, `graphics_id`, `graphics_source`, `height_tiles`, `palette_id`, `palette_source`, `width_tiles` | `bpp`, `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `graphics_source_range`, `height`, `max_tile`, `palette_source_range`, `tiles`, `width` |
 | `earthbound-lzhal-battle-sprite` | `earthbound_lzhal_battle_sprite_png` | 179 | `colors`, `height`, `palette_id`, `palette_source`, `sprite_id`, `width` | `colors`, `compressed_bytes_consumed`, `decompressed_bytes`, `height`, `palette_id`, `palette_source_range`, `sprite_id`, `width` |

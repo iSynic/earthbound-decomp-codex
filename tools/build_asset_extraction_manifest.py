@@ -813,17 +813,43 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
     if entry.get("inferred_from_next_asset"):
         notes.append("Size was inferred from the next known binary asset boundary.")
 
+    raw_path = f"{bank.lower()}/tables/{int(entry['order']):03d}_{stable_name}.bin"
+    outputs = [
+        {
+            "kind": "raw",
+            "path": raw_path,
+        }
+    ]
+    if bank.upper() == "CE" and include == "data/battle/swirl_pointers.asm" and size == 252:
+        outputs.append(
+            {
+                "kind": "battle_swirl_pointer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "entry_count": 126,
+                "pointer_bank": 0xCE,
+            }
+        )
+        notes.append(
+            "Decoded as the 126-entry little-endian pointer table for CE SWIRL_DATA payload frames."
+        )
+    if bank.upper() == "CE" and include == "inline:SWIRL_PRIMARY_TABLE" and size == 28:
+        outputs.append(
+            {
+                "kind": "battle_swirl_sequence_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "row_count": 7,
+            }
+        )
+        notes.append(
+            "Decoded as the seven-row primary battle swirl sequence table; rows preserve speed, first payload, and frame count."
+        )
+
     return {
         "id": f"table.{bank.lower()}.{int(entry['order']):03d}_{stable_name}",
         "title": include,
         "category": "raw-table",
         "source": make_source(entry, rom),
-        "outputs": [
-            {
-                "kind": "raw",
-                "path": f"{bank.lower()}/tables/{int(entry['order']):03d}_{stable_name}.bin",
-            }
-        ],
+        "outputs": outputs,
         "notes": notes,
     }
 
