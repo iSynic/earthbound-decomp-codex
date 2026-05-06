@@ -5,8 +5,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 ## Summary
 
 - schema: `earthbound-decomp.data-contracts.v1`
-- contracts: `164`
-- fields: `674`
+- contracts: `166`
+- fields: `676`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -43,6 +43,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | ENEMY_PLACEMENT_GROUPS_TABLE | rom-variable-table | `D0:BBAC` | `0xA61` | 1 | `enemy_placement_group_lists` | 1 | exact-variable-lists |
 | BTL_ENTRY_PTR_TABLE | rom-table | `D0:C60D` | `0x8` | 484 | `battle_entry_ptr_entry` | 4 | corroborated |
 | ENEMY_BATTLE_GROUPS_TABLE | rom-variable-table | `D0:D52D` | `0xA87` | 1 | `enemy_battle_group_payloads` | 1 | exact-variable-lists |
+| D7_SECTOR_TILESET_PALETTE_TABLE | rom-table | `D7:A800` | `0x1` | 1280 | `map_sector_tileset_palette` | 1 | consumer-corroborated |
+| D7_SECTOR_CONTEXT_WORD_TABLE | rom-table | `D7:B200` | `0x2` | 1280 | `map_sector_context_word` | 1 | consumer-corroborated-low3 |
 | MAP_TILE_COLLISION_DATA | rom-table | `D8:0000` | `0x10` | 2293 | `map_tile_collision_record` | 16 | consumer-corroborated |
 | MAP_DATA_TILE_COLLISION_PTR_TABLE | rom-table | `EF:117B` | `0x4` | 20 | `far_pointer` | 1 | exact |
 | MAP_DATA_TILE_COLLISION_POINTERS_0 | rom-table | `D8:8F50` | `0x2` | 832 | `map_tile_collision_record_offset` | 1 | exact |
@@ -917,6 +919,36 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `raw_battle_groups` | 1 | 2695 | variable battle group payloads addressed by BTL_ENTRY_PTR_TABLE |
+
+### D7_SECTOR_TILESET_PALETTE_TABLE
+
+- domain: `rom-table`
+- address: `D7:A800`
+- stride: `0x1`
+- count: `1280`
+- struct: `map_sector_tileset_palette`
+- confidence: `consumer-corroborated`
+- note: 40x32 sector table whose packed byte is bits 3..7 tileset_id and bits 0..2 palette_variant; every row matches map-sector metadata and multiple C0/C4 consumers.
+- evidence: `notes/d7-sector-metadata-contracts.md`, `notes/map-sector-bundles.md`, `src/c0/c0_08cf_derive_landing_region_profile_from_destination.asm`, `src/c0/c0_0ac5_load_vertical_movement_map_strip_payload.asm`, `src/c0/c0_0bdc_load_horizontal_movement_map_strip_payload.asm`, `src/c4/your_sanctuary_tile_arrangement_helpers.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `packed_tileset_palette` | 1 | 1 | bits 3..7 are tileset_id and bits 0..2 are palette_variant; exact join to map-sector metadata and D7A800 consumers |
+
+### D7_SECTOR_CONTEXT_WORD_TABLE
+
+- domain: `rom-table`
+- address: `D7:B200`
+- stride: `0x2`
+- count: `1280`
+- struct: `map_sector_context_word`
+- confidence: `consumer-corroborated-low3`
+- note: 40x32 sector context-word table. C0:0AA1 loads the full word to $438E; C0:2668 consumes the low three bits, which match map-sector Setting for every row.
+- evidence: `notes/d7-sector-metadata-contracts.md`, `notes/map-sector-bundles.md`, `src/c0/c0_0aa1_lookup_position_cell_context_word.asm`, `src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `sector_context_word` | 2 | 1 | per-sector context word loaded by C0:0AA1 into $438E; low three bits match map-sector Setting and are consumed by the C0:2668 spawn candidate resolver |
 
 ### MAP_TILE_COLLISION_DATA
 

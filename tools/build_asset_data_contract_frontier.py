@@ -72,11 +72,12 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "label": "Map tilesets and runtime tables",
         "banks": ["D6", "D7", "D8", "D9", "DA", "DB", "DC", "DD", "DE", "DF"],
         "maturity": "contract-backed-with-known-followups",
-        "proof": "map object, sector, tileset, FTS, collision, palette, movement, sprite-usage, landing palette-animation, and scene-composition contracts exist",
+        "proof": "map object, sector, D7 sector metadata, tileset, FTS, collision, palette, movement, sprite-usage, landing palette-animation, and scene-composition contracts exist",
         "docs": [
             "notes/map-milestone-closure.md",
             "notes/map-object-bundles.md",
             "notes/map-sector-bundles.md",
+            "notes/d7-sector-metadata-contracts.md",
             "notes/map-tileset-bundles.md",
             "notes/map-fts-format-audit.md",
             "notes/map-collision-runtime-bit-contract.md",
@@ -84,7 +85,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/bank-df-first-pass.md",
             "notes/map-scene-composition-contract.md",
         ],
-        "next_contract": "Map contracts are phase-good-enough: D7 generated map metadata split, collision low modifier labels, DA palette metadata/event-selector runtime behavior, and DF profile names are bounded deferred semantic polish.",
+        "next_contract": "Map contracts are phase-good-enough: D7 sector metadata split is contract-backed; collision low modifier labels, DA palette metadata/event-selector runtime behavior, DF profile names, and remaining D7 unresolved planes are bounded deferred semantic polish.",
     },
     {
         "id": "ui_font_town_map_assets",

@@ -245,8 +245,8 @@ def build_triage() -> list[BankTriage]:
             "map tiles/palette/arrangement",
             "asset-and-table-ready",
             3,
-            "Extract map tile chunks and start a cross-bank arrangement/palette inventory.",
-            ["palette/sector attribute region should get a table contract"],
+            "Extract map tile chunks and keep the D7 sector metadata contracts regression-tested.",
+            ["two bounded D7 metadata planes and context-word high bits remain unnamed"],
             ["map tile chunks", "palette/sector attributes", "compressed arrangement stream"],
         )
     )
@@ -501,7 +501,7 @@ def render_markdown(payload: dict[str, object]) -> str:
             "### Data-contract splitters",
             "",
             "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; remaining work is subrecord semantics and source/data emission.",
-            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: smaller inferred table/pointer contract promotions.",
+            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 now has sector metadata table contracts; remaining work is smaller inferred table/pointer contract polish.",
             "",
             "### Script, text, and VM assets",
             "",

@@ -9,6 +9,8 @@ compressed map arrangement stream.
 Primary artifacts:
 
 - `notes/bank-d7-asset-data-map.md`
+- `notes/d7-sector-metadata-contracts.md`
+- `notes/d7-sector-metadata-contracts.json`
 - `notes/bank-d7-source-scaffold-handoff.md`
 - `build/asset-bank-d7.json`
 - `build/d7-build-candidate-ranges.json`
@@ -48,9 +50,21 @@ arrangement payload:
 - `data/map/per-sector_attributes.asm`
 
 Those source files are absent from the checked-in reference tree. The next known
-binary asset starts at `D7:C600`, so the manifest safely treats the combined
-`D7:A800..D7:C5FF` span as generated map metadata. The exact split between
-global tileset palette data and per-sector attributes remains unresolved.
+binary asset starts at `D7:C600`, so the asset manifest still treats the combined
+`D7:A800..D7:C5FF` span as generated map metadata. The consumer-backed semantic
+split is now:
+
+- `D7:A800..D7:ACFF`: `D7_SECTOR_TILESET_PALETTE_TABLE`, 1280 one-byte rows.
+  Bits `3..7` are `tileset_id`; bits `0..2` are `palette_variant`. This matches
+  `notes/map-sector-bundles.json` for all 1280 sectors and is consumed by C0/C4
+  map/landing/tile-arrangement helpers.
+- `D7:AD00..D7:B1FF`: bounded 1280-byte metadata plane. No field names are
+  promoted yet.
+- `D7:B200..D7:BBFF`: `D7_SECTOR_CONTEXT_WORD_TABLE`, 1280 two-byte rows. The
+  full word is loaded by `C0:0AA1`; the low three bits match map-sector
+  `Setting` for all 1280 sectors and are consumed by `C0:2668`.
+- `D7:BC00..D7:C5FF`: bounded 1280-word metadata plane. No field names are
+  promoted yet.
 
 ## Current D7 confidence boundary
 
@@ -59,20 +73,24 @@ High confidence:
 - D7 is data/assets, not executable code.
 - `D7:0000..D7:A7FF` completes map tile chunks `7` through `10`.
 - `D7:A800..D7:C5FF` is generated map metadata named by the bank config.
+- `D7:A800..D7:ACFF` and `D7:B200..D7:BBFF` now have consumer-backed table
+  contracts with 1280/1280 sector-bundle matches.
 - `D7:C600..D7:FBE7` is compressed map arrangement payload `0`.
 - `src/d7/bank_d7_helpers_asar.asm` protects the full bank through the reusable
   source-bank scaffold pipeline.
 
 Still intentionally out of scope:
 
-- Internal split of the generated metadata span.
+- Field naming for `D7:AD00..D7:B1FF`, `D7:BC00..D7:C5FF`, and the high bits of
+  the `D7:B200` context words.
 - Decoding/rendering map tile chunks.
 - Decompressing or interpreting arrangement payload `0`.
 - Explaining the `1048` bytes of tail slack.
 
 ## Recommended next move
 
-D7 is now closed for byte-preserving scaffold purposes. The remaining D7 work is
-semantic: split the generated metadata span when the palette/sector-attribute
-contract is stronger, and optionally connect the map tile and arrangement
-payloads to render fixtures.
+D7 is now closed for byte-preserving scaffold purposes, and the strongest
+consumer-backed sector metadata fields are promoted. The remaining D7 work is
+narrow semantic polish: identify the two bounded unresolved metadata planes,
+decode the high bits of the sector context words if a consumer proves them, and
+optionally connect the map tile and arrangement payloads to render fixtures.

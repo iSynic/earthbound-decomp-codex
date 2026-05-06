@@ -358,6 +358,24 @@ D8_COLLISION_RECORD_OFFSET_FIELDS = (
     ),
 )
 
+D7_SECTOR_TILESET_PALETTE_FIELDS = (
+    field(
+        "packed_tileset_palette",
+        0x00,
+        1,
+        note="bits 3..7 are tileset_id and bits 0..2 are palette_variant; exact join to map-sector metadata and D7A800 consumers",
+    ),
+)
+
+D7_SECTOR_CONTEXT_WORD_FIELDS = (
+    field(
+        "sector_context_word",
+        0x00,
+        2,
+        note="per-sector context word loaded by C0:0AA1 into $438E; low three bits match map-sector Setting and are consumed by the C0:2668 spawn candidate resolver",
+    ),
+)
+
 SNES_LONG_POINTER24_FIELDS = (
     field("target_low_word", 0x00, 2),
     field("target_bank", 0x02, 1),
@@ -1295,6 +1313,42 @@ def extra_contracts() -> list[Contract]:
                 "notes/d0-table-splits.md",
             ),
             fields=RAW_D0_BATTLE_GROUP_FIELDS,
+        ),
+        Contract(
+            id="D7_SECTOR_TILESET_PALETTE_TABLE",
+            domain="rom-table",
+            address="D7:A800",
+            stride=0x01,
+            count=1280,
+            struct_name="map_sector_tileset_palette",
+            confidence="consumer-corroborated",
+            note="40x32 sector table whose packed byte is bits 3..7 tileset_id and bits 0..2 palette_variant; every row matches map-sector metadata and multiple C0/C4 consumers.",
+            evidence=(
+                "notes/d7-sector-metadata-contracts.md",
+                "notes/map-sector-bundles.md",
+                "src/c0/c0_08cf_derive_landing_region_profile_from_destination.asm",
+                "src/c0/c0_0ac5_load_vertical_movement_map_strip_payload.asm",
+                "src/c0/c0_0bdc_load_horizontal_movement_map_strip_payload.asm",
+                "src/c4/your_sanctuary_tile_arrangement_helpers.asm",
+            ),
+            fields=D7_SECTOR_TILESET_PALETTE_FIELDS,
+        ),
+        Contract(
+            id="D7_SECTOR_CONTEXT_WORD_TABLE",
+            domain="rom-table",
+            address="D7:B200",
+            stride=0x02,
+            count=1280,
+            struct_name="map_sector_context_word",
+            confidence="consumer-corroborated-low3",
+            note="40x32 sector context-word table. C0:0AA1 loads the full word to $438E; C0:2668 consumes the low three bits, which match map-sector Setting for every row.",
+            evidence=(
+                "notes/d7-sector-metadata-contracts.md",
+                "notes/map-sector-bundles.md",
+                "src/c0/c0_0aa1_lookup_position_cell_context_word.asm",
+                "src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm",
+            ),
+            fields=D7_SECTOR_CONTEXT_WORD_FIELDS,
         ),
         Contract(
             id="MAP_TILE_COLLISION_DATA",
