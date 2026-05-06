@@ -129,6 +129,15 @@ money assemblers now call the C0 shift/multiply helpers by name, and the
 wallet/ATM mutations call locally named C2 contracts while preserving the
 existing byte-equivalence gate.
 
+Source polish follow-up (2026-05-06): the same `C1:575D..621F` continuation
+now names the deferred-byte and state ABI used by those leaves. `0x1D
+10/11/12/13` share the one-byte character/source selector queue, `0x1D
+14/06/07/17` share the three-byte amount queue, `0x1D 14` compares against
+`$9831/$9833` as the wallet balance, `0x1D 17` compares against `$9835/$9837`
+as the ATM balance, and `0x1D 19` names `$98A4` as the active-party count.
+Each staged leaf now returns through a named callback alias instead of a raw
+low-word literal.
+
 Source polish follow-up (2026-05-06): the front queued-argument source now
 names its callback-leaf ABI directly. `0x1D 08/09` queue the caller byte in
 `$97BA` before combining it with the high byte of the next text argument for
@@ -362,4 +371,3 @@ The remaining uncertainty is now very small:
 ## Best current interpretation
 
 The safest current read is still that `0x1D` is the text engine's inventory / money / possession-check family, with shop/storage and battle-adjunct tails. The difference now is that most of the family is locally anchored to the true `C1:7F11` dispatcher: the money checks, give/take helpers, possession and room searches, equipped-item tests, storage classifier, bank-deposit fetch, party-count check, exit-mouse predicate, random-number helper, and the small service-side pending-item subfamily all sit on real bank-`01` leaves instead of inherited guesses from neighboring families.
-

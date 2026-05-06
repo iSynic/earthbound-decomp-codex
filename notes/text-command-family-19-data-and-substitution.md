@@ -86,6 +86,12 @@ read/removal, delivery queue store, and primary/secondary context staging
 contracts directly, which makes this loaded-string/inventory bridge easier to
 carry into the next bank joins.
 
+Source polish follow-up (2026-05-06): the same module now names the
+consumer-side queued-byte ABI for `0x19 19/1C/1D`. The character inventory-slot
+reader, delivery/pickup queue writer, and delivery/pickup queue reader all
+stage one byte through `$97BA/$97CA` and now return named callback low words,
+so the `0x19` queue helpers match the surrounding `0x1D` source vocabulary.
+
 Source polish follow-up (2026-05-06): the `C1:621F..7274` module now names the
 helper edges for `0x19 22/23/24/25/26` directly. The three direction helpers
 call the C4 registry, visual-type, and pose-descriptor facing-octant helpers by
@@ -577,6 +583,5 @@ The cleanest next move is probably the success-side branch of `0x19 26` or the s
 
 - `0x19 26` is no longer structurally mysterious; the remaining gap is the exact meaning of `$9F3F` and the landing modes in `$9F41`
 - the statistics tail now has a real shared local anchor and a partial late-table crosswalk, so the next gain there is to name the remaining early and middle `C4:550F` selectors
-
 
 

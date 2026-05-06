@@ -505,3 +505,10 @@ This planning pass is documentation-only.
   window-register comparison, print-number/money, inventory display, give-item
   B, and remove-slot leaves. The C1 scaffold was regenerated from source with
   the local ROM still absent from the exact byte-equivalence gate.
+- 2026-05-06 follow-up: the `C1:575D..621F` continuation now follows the same
+  queued-byte style. The source names `$97BA..$97BC/$97CA`, callback low words,
+  wallet/ATM balance words, and active-party count for equipped-item,
+  inventory-usability, Escargo transfer, wallet/ATM amount, status-window,
+  party utility, delivery/pickup queue, party-count, and random-number leaves.
+  The scaffold was regenerated from source; exact byte-equivalence remains
+  pending on the same missing-ROM gate.

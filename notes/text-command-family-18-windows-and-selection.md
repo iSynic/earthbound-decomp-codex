@@ -75,6 +75,12 @@ itself. The source reads `$97BA..$97BD` as the four assembled comparison bytes,
 then compares the result against either the active text-context value, the next
 text argument, or current work memory depending on the caller selector.
 
+Source polish follow-up (2026-05-06): the `0x18 0D` status-window body at
+`C1:5B46` now names its one-byte deferred character selector and callback
+return inside the leaf. The body still leaves the submode split cautious, but
+the staged selector and status-window display handoff now use the same source
+vocabulary as the adjacent inventory/money callback leaves.
+
 ## Best current case map
 
 ### `0x18 00`
@@ -306,4 +312,4 @@ The safest current interpretation is:
 
 ## Best next target
 
-The best next move is to flatten `C1:528D` enough to promote `0x18 07` from a doc-backed label into a real local register-comparison note, or else to pin the exact user-facing semantics of `0x18 0D` from one concrete status-window caller.
+The best next move is to pin the exact user-facing semantics of `0x18 0D` from one concrete status-window caller, since both `0x18 07` and `0x18 0D` now have source-backed queued-byte bodies.

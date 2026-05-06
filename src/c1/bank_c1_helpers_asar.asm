@@ -11837,27 +11837,49 @@ org $C1575D
 !InventorySlotSelector = $12
 !EscargoStorageItemBytes = $984B
 !DeferredCommandByteQueue = $97BA
+!DeferredCommandByte1 = $97BB
+!DeferredCommandByte2 = $97BC
 !DeferredCommandQueueCount = $97CA
 !DeliveryQueueEntryBase = $97F5
 !DeliveryQueueOwnerOffset = $00B6
 !DeliveryQueueItemOffset = $00B9
 !DeliveryQueueSlotCount = $0003
 !DeferredSingleByteArgumentLimit = $0001
+!DeferredThreeByteArgumentLimit = $0003
 !EscargoStorageSourceSelector = $00FF
+!WalletBalanceLo = $9831
+!WalletBalanceHi = $9833
+!AtmBalanceLo = $9835
+!AtmBalanceHi = $9837
+!ActivePartyMemberCount = $98A4
 !ProcessorStatus16BitAIndexCarryClear = $31
 !AccumulatorWidthFlag = $20
 !TextCommandFarFrameOffset = $FFEE
 !TextCommandTwoArgumentFrameOffset = $FFEA
 !InventorySlotItemFrameOffset = $FFEC
 !DeliveryQueueHelperFrameOffset = $FFF0
+!TestEquippedItemPresenceCallback = $575D
+!CheckInventoryItemUsabilityCallback = $57CD
+!CheckDeferredItemUseCompatibilityCallback = $583D
+!StoreInventoryItemWithEscargoCallback = $58A5
+!WithdrawEscargoItemToInventoryCallback = $58FE
+!ReadCharacterInventorySlotItemCallback = $597F
+!HaveEnoughMoneyCallback = $59F9
+!RunStatusWindowDisplayCallback = $5B46
+!PutValueInArgmemCallback = $5BCA
+!PartyUtilityCallback = $5C58
+!AddToAtmCallback = $5C85
+!TakeFromAtmCallback = $5D6B
+!HaveEnoughMoneyInAtmCallback = $5E5C
 !QueueDeliveryOrPickupItemCallback = $5FF7
 !ReadDeliveryOrPickupItemInfoCallback = $6080
 !ZeroWord = $0000
+!OneWord = $0001
 !ZeroByte = $00
 !LowByteMask = $00FF
 CC_1D_10:
 !C1575D_TestEquippedItemPresenceForTextCommand = CC_1D_10
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -11866,9 +11888,9 @@ CC_1D_10:
     pla
     txy
     sty $12
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15777_C1575D_TestEquippedItemPresenceForTextCommand_L5777
     bpl C1578C_C1575D_TestEquippedItemPresenceForTextCommand_L578C
     bra C15779_C1575D_TestEquippedItemPresenceForTextCommand_L5779
@@ -11876,16 +11898,16 @@ C15777_C1575D_TestEquippedItemPresenceForTextCommand_L5777:
     bmi C1578C_C1575D_TestEquippedItemPresenceForTextCommand_L578C
 C15779_C1575D_TestEquippedItemPresenceForTextCommand_L5779:
     tya
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$575D
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!TestEquippedItemPresenceCallback
     bra C157CB_C1575D_TestEquippedItemPresenceForTextCommand_L57CB
 C1578C_C1575D_TestEquippedItemPresenceForTextCommand_L578C:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C15798_C1575D_TestEquippedItemPresenceForTextCommand_L5798
     txa
@@ -11923,7 +11945,7 @@ C157CB_C1575D_TestEquippedItemPresenceForTextCommand_L57CB:
     rts
 CC_1D_11:
 !C157CD_CheckInventoryItemUsabilityTextCommand = CC_1D_11
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -11932,9 +11954,9 @@ CC_1D_11:
     pla
     txy
     sty $12
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C157E7_C1575D_TestEquippedItemPresenceForTextCommand_L57E7
     bpl C157FC_C1575D_TestEquippedItemPresenceForTextCommand_L57FC
     bra C157E9_C1575D_TestEquippedItemPresenceForTextCommand_L57E9
@@ -11942,16 +11964,16 @@ C157E7_C1575D_TestEquippedItemPresenceForTextCommand_L57E7:
     bmi C157FC_C1575D_TestEquippedItemPresenceForTextCommand_L57FC
 C157E9_C1575D_TestEquippedItemPresenceForTextCommand_L57E9:
     tya
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$57CD
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!CheckInventoryItemUsabilityCallback
     bra C1583B_C1575D_TestEquippedItemPresenceForTextCommand_L583B
 C157FC_C1575D_TestEquippedItemPresenceForTextCommand_L57FC:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C15808_C1575D_TestEquippedItemPresenceForTextCommand_L5808
     txa
@@ -11988,7 +12010,7 @@ C1583B_C1575D_TestEquippedItemPresenceForTextCommand_L583B:
     rts
 CC_1F_83:
 !C1583D_CheckDeferredItemUseCompatibilityTextCommand = CC_1F_83
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -11997,9 +12019,9 @@ CC_1F_83:
     pla
     txy
     sty $12
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15857_C1575D_TestEquippedItemPresenceForTextCommand_L5857
     bpl C1586C_C1575D_TestEquippedItemPresenceForTextCommand_L586C
     bra C15859_C1575D_TestEquippedItemPresenceForTextCommand_L5859
@@ -12007,16 +12029,16 @@ C15857_C1575D_TestEquippedItemPresenceForTextCommand_L5857:
     bmi C1586C_C1575D_TestEquippedItemPresenceForTextCommand_L586C
 C15859_C1575D_TestEquippedItemPresenceForTextCommand_L5859:
     tya
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$583D
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!CheckDeferredItemUseCompatibilityCallback
     bra C158A3_C1575D_TestEquippedItemPresenceForTextCommand_L58A3
 C1586C_C1575D_TestEquippedItemPresenceForTextCommand_L586C:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C15878_C1575D_TestEquippedItemPresenceForTextCommand_L5878
     txa
@@ -12050,7 +12072,7 @@ C158A3_C1575D_TestEquippedItemPresenceForTextCommand_L58A3:
     rts
 CC_1D_12:
 !C158A5_StoreInventoryItemWithEscargoTextCommand = CC_1D_12
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12059,9 +12081,9 @@ CC_1D_12:
     pla
     txy
     sty $0E
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C158BF_C1575D_TestEquippedItemPresenceForTextCommand_L58BF
     bpl C158D4_C1575D_TestEquippedItemPresenceForTextCommand_L58D4
     bra C158C1_C1575D_TestEquippedItemPresenceForTextCommand_L58C1
@@ -12069,16 +12091,16 @@ C158BF_C1575D_TestEquippedItemPresenceForTextCommand_L58BF:
     bmi C158D4_C1575D_TestEquippedItemPresenceForTextCommand_L58D4
 C158C1_C1575D_TestEquippedItemPresenceForTextCommand_L58C1:
     tya
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$58A5
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!StoreInventoryItemWithEscargoCallback
     bra C158FC_C1575D_TestEquippedItemPresenceForTextCommand_L58FC
 C158D4_C1575D_TestEquippedItemPresenceForTextCommand_L58D4:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C158E0_C1575D_TestEquippedItemPresenceForTextCommand_L58E0
     txa
@@ -12105,16 +12127,16 @@ C158FC_C1575D_TestEquippedItemPresenceForTextCommand_L58FC:
     rts
 CC_1D_13:
 !C158FE_WithdrawEscargoItemToInventoryTextCommand = CC_1D_13
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
     adc.w #$FFE8
     tcd
     pla
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15915_C1575D_TestEquippedItemPresenceForTextCommand_L5915
     bpl C1592A_C1575D_TestEquippedItemPresenceForTextCommand_L592A
     bra C15917_C1575D_TestEquippedItemPresenceForTextCommand_L5917
@@ -12122,16 +12144,16 @@ C15915_C1575D_TestEquippedItemPresenceForTextCommand_L5915:
     bmi C1592A_C1575D_TestEquippedItemPresenceForTextCommand_L592A
 C15917_C1575D_TestEquippedItemPresenceForTextCommand_L5917:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$58FE
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!WithdrawEscargoItemToInventoryCallback
     bra C1597D_C1575D_TestEquippedItemPresenceForTextCommand_L597D
 C1592A_C1575D_TestEquippedItemPresenceForTextCommand_L592A:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     sta $16
     cpx.w #$0000
     beq C1593B_C1575D_TestEquippedItemPresenceForTextCommand_L593B
@@ -12200,7 +12222,7 @@ C1599B_QueueInventoryCharacterSelectorArgument:
     sta !DeferredCommandByteQueue,X
     rep #!AccumulatorWidthFlag
     inc !DeferredCommandQueueCount
-    lda.w #$597F
+    lda.w #!ReadCharacterInventorySlotItemCallback
     bra C159F7_ReturnReadCharacterInventorySlotItem
 C159AE_ReadCharacterInventorySlotItem:
     lda !DeferredCommandByteQueue
@@ -12246,7 +12268,7 @@ C159F7_ReturnReadCharacterInventorySlotItem:
     rts
 CC_1D_14:
 !C159F9_HaveEnoughMoneyTextCommand = CC_1D_14
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12255,9 +12277,9 @@ CC_1D_14:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15A13_C1575D_TestEquippedItemPresenceForTextCommand_L5A13
     bpl C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A
     bra C15A15_C1575D_TestEquippedItemPresenceForTextCommand_L5A15
@@ -12265,12 +12287,12 @@ C15A13_C1575D_TestEquippedItemPresenceForTextCommand_L5A13:
     bmi C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A
 C15A15_C1575D_TestEquippedItemPresenceForTextCommand_L5A15:
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$59F9
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!HaveEnoughMoneyCallback
     jmp.w C15B0C_C1575D_TestEquippedItemPresenceForTextCommand_L5B0C
 C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A:
     sep #$10
@@ -12284,38 +12306,38 @@ C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A:
     lda $06
     pha
     ldy.b #$10
-    sep #$20
-    lda $97BC
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
     pha
     ldy.b #$08
-    sep #$20
-    lda $97BB
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
     sta $0C
-    sep #$20
-    lda $97BA
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $06
     ora $0A
     sta $06
@@ -12361,16 +12383,16 @@ C15AD3_C1575D_TestEquippedItemPresenceForTextCommand_L5AD3:
     sta $0A
     lda $08
     sta $0C
-    lda $9831
+    lda !WalletBalanceLo
     sta $06
-    lda $9833
+    lda !WalletBalanceHi
     sta $08
     lda $06
     cmp $0A
     lda $08
     sbc $0C
     bcs C15AF4_C1575D_TestEquippedItemPresenceForTextCommand_L5AF4
-    lda.w #$0001
+    lda.w #!OneWord
     sta $12
 C15AF4_C1575D_TestEquippedItemPresenceForTextCommand_L5AF4:
     lda $12
@@ -12424,7 +12446,7 @@ C15B25_ReadEscargoStorageItemByte:
     rts
 CC_18_0D:
 !C15B46_RunStatusWindowDisplayTextCommand = CC_18_0D
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12433,9 +12455,9 @@ CC_18_0D:
     pla
     txy
     sty $0E
-    lda.w #$0001
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15B60_C1575D_TestEquippedItemPresenceForTextCommand_L5B60
     bpl C15B75_C1575D_TestEquippedItemPresenceForTextCommand_L5B75
     bra C15B62_C1575D_TestEquippedItemPresenceForTextCommand_L5B62
@@ -12443,16 +12465,16 @@ C15B60_C1575D_TestEquippedItemPresenceForTextCommand_L5B60:
     bmi C15B75_C1575D_TestEquippedItemPresenceForTextCommand_L5B75
 C15B62_C1575D_TestEquippedItemPresenceForTextCommand_L5B62:
     tya
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5B46
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!RunStatusWindowDisplayCallback
     bra C15BA5_C1575D_TestEquippedItemPresenceForTextCommand_L5BA5
 C15B75_C1575D_TestEquippedItemPresenceForTextCommand_L5B75:
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     tax
     beq C15B81_C1575D_TestEquippedItemPresenceForTextCommand_L5B81
     txa
@@ -12483,7 +12505,7 @@ C15BA5_C1575D_TestEquippedItemPresenceForTextCommand_L5BA5:
     rts
 CC_1C_0C:
 !C15BA7_PrintVerticalTextStringCommand = CC_1C_0C
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12506,7 +12528,7 @@ C15BBE_C1575D_TestEquippedItemPresenceForTextCommand_L5BBE:
     rts
 CC_1D_15:
 !C15BCA_PutValueInArgmemTextCommand = CC_1D_15
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12515,27 +12537,27 @@ CC_1D_15:
     pla
     txa
     sta $14
-    lda $97CA
+    lda !DeferredCommandQueueCount
     bne C15BF0_C1575D_TestEquippedItemPresenceForTextCommand_L5BF0
     lda $14
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5BCA
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!PutValueInArgmemCallback
     bra C15C34_C1575D_TestEquippedItemPresenceForTextCommand_L5C34
 C15BF0_C1575D_TestEquippedItemPresenceForTextCommand_L5BF0:
-    sep #$20
+    sep #!AccumulatorWidthFlag
     lda.b #$08
     sep #$10
     tay
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $14
     jsl !C0923E_ShiftWordLeftByY
     sta $02
-    lda $97BA
-    and.w #$00FF
+    lda !DeferredCommandByteQueue
+    and.w #!LowByteMask
     ora $02
     rep #$10
     tax
@@ -12583,10 +12605,10 @@ CC_19_1B:
     rts
 CC_1F_71:
 !C15C58_RunTextCommand1F71PartyUtility = CC_1F_71
-    rep #$31
-    lda.w #$0001
+    rep #!ProcessorStatus16BitAIndexCarryClear
+    lda.w #!DeferredSingleByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15C67_C1575D_TestEquippedItemPresenceForTextCommand_L5C67
     bpl C15C7C_C1575D_TestEquippedItemPresenceForTextCommand_L5C7C
     bra C15C69_C1575D_TestEquippedItemPresenceForTextCommand_L5C69
@@ -12594,12 +12616,12 @@ C15C67_C1575D_TestEquippedItemPresenceForTextCommand_L5C67:
     bmi C15C7C_C1575D_TestEquippedItemPresenceForTextCommand_L5C7C
 C15C69_C1575D_TestEquippedItemPresenceForTextCommand_L5C69:
     txa
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5C58
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!PartyUtilityCallback
     bra C15C84_C1575D_TestEquippedItemPresenceForTextCommand_L5C84
 C15C7C_C1575D_TestEquippedItemPresenceForTextCommand_L5C7C:
     txa
@@ -12609,7 +12631,7 @@ C15C84_C1575D_TestEquippedItemPresenceForTextCommand_L5C84:
     rts
 CC_1D_06:
 !C15C85_AddToAtmTextCommand = CC_1D_06
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12618,9 +12640,9 @@ CC_1D_06:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15C9F_C1575D_TestEquippedItemPresenceForTextCommand_L5C9F
     bpl C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6
     bra C15CA1_C1575D_TestEquippedItemPresenceForTextCommand_L5CA1
@@ -12628,12 +12650,12 @@ C15C9F_C1575D_TestEquippedItemPresenceForTextCommand_L5C9F:
     bmi C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6
 C15CA1_C1575D_TestEquippedItemPresenceForTextCommand_L5CA1:
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5C85
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!AddToAtmCallback
     jmp.w C15D69_C1575D_TestEquippedItemPresenceForTextCommand_L5D69
 C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6:
     sep #$10
@@ -12647,38 +12669,38 @@ C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6:
     lda $06
     pha
     ldy.b #$10
-    sep #$20
-    lda $97BC
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
     pha
     ldy.b #$08
-    sep #$20
-    lda $97BB
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
     sta $0C
-    sep #$20
-    lda $97BA
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $06
     ora $0A
     sta $06
@@ -12729,7 +12751,7 @@ C15D69_C1575D_TestEquippedItemPresenceForTextCommand_L5D69:
     rts
 CC_1D_07:
 !C15D6B_TakeFromAtmTextCommand = CC_1D_07
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12738,9 +12760,9 @@ CC_1D_07:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15D85_C1575D_TestEquippedItemPresenceForTextCommand_L5D85
     bpl C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C
     bra C15D87_C1575D_TestEquippedItemPresenceForTextCommand_L5D87
@@ -12748,12 +12770,12 @@ C15D85_C1575D_TestEquippedItemPresenceForTextCommand_L5D85:
     bmi C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C
 C15D87_C1575D_TestEquippedItemPresenceForTextCommand_L5D87:
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5D6B
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!TakeFromAtmCallback
     jmp.w C15E5A_C1575D_TestEquippedItemPresenceForTextCommand_L5E5A
 C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C:
     sep #$10
@@ -12767,38 +12789,38 @@ C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C:
     lda $06
     pha
     ldy.b #$10
-    sep #$20
-    lda $97BC
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
     pha
     ldy.b #$08
-    sep #$20
-    lda $97BB
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
     sta $0C
-    sep #$20
-    lda $97BA
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $06
     ora $0A
     sta $06
@@ -12854,7 +12876,7 @@ C15E5A_C1575D_TestEquippedItemPresenceForTextCommand_L5E5A:
     rts
 CC_1D_17:
 !C15E5C_HaveEnoughMoneyInAtmTextCommand = CC_1D_17
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -12863,9 +12885,9 @@ CC_1D_17:
     pla
     txa
     sta $12
-    lda.w #$0003
+    lda.w #!DeferredThreeByteArgumentLimit
     clc
-    sbc $97CA
+    sbc !DeferredCommandQueueCount
     bvc C15E76_C1575D_TestEquippedItemPresenceForTextCommand_L5E76
     bpl C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D
     bra C15E78_C1575D_TestEquippedItemPresenceForTextCommand_L5E78
@@ -12873,12 +12895,12 @@ C15E76_C1575D_TestEquippedItemPresenceForTextCommand_L5E76:
     bmi C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D
 C15E78_C1575D_TestEquippedItemPresenceForTextCommand_L5E78:
     lda $12
-    sep #$20
-    ldx $97CA
-    sta $97BA,X
-    rep #$20
-    inc $97CA
-    lda.w #$5E5C
+    sep #!AccumulatorWidthFlag
+    ldx !DeferredCommandQueueCount
+    sta !DeferredCommandByteQueue,X
+    rep #!AccumulatorWidthFlag
+    inc !DeferredCommandQueueCount
+    lda.w #!HaveEnoughMoneyInAtmCallback
     jmp.w C15F6F_C1575D_TestEquippedItemPresenceForTextCommand_L5F6F
 C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D:
     sep #$10
@@ -12892,38 +12914,38 @@ C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D:
     lda $06
     pha
     ldy.b #$10
-    sep #$20
-    lda $97BC
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte2
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
     pha
     ldy.b #$08
-    sep #$20
-    lda $97BB
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByte1
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
     sta $0C
-    sep #$20
-    lda $97BA
+    sep #!AccumulatorWidthFlag
+    lda !DeferredCommandByteQueue
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $06
     ora $0A
     sta $06
@@ -12969,16 +12991,16 @@ C15F31_C1575D_TestEquippedItemPresenceForTextCommand_L5F31:
     sta $0A
     lda $08
     sta $0C
-    lda $9835
+    lda !AtmBalanceLo
     sta $06
-    lda $9837
+    lda !AtmBalanceHi
     sta $08
     lda $06
     cmp $0A
     lda $08
     sbc $0C
     bcs C15F57_C1575D_TestEquippedItemPresenceForTextCommand_L5F57
-    lda.w #$0001
+    lda.w #!OneWord
     sta $12
 C15F57_C1575D_TestEquippedItemPresenceForTextCommand_L5F57:
     lda $12
@@ -12998,7 +13020,7 @@ C15F6F_C1575D_TestEquippedItemPresenceForTextCommand_L5F6F:
     rts
 CC_1F_11:
 !C15F71_AddToWalletTextCommand = CC_1F_11
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13019,7 +13041,7 @@ C15F88_C1575D_TestEquippedItemPresenceForTextCommand_L5F88:
     rts
 CC_1F_12:
 !C15F91_TakeFromWalletTextCommand = CC_1F_12
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13059,7 +13081,7 @@ C15FC4_CheckDeliveryQueueSlot:
     adc.w #!DeliveryQueueOwnerOffset
     tax
     lda $0000,X
-    and.w #$00FF
+    and.w #!LowByteMask
     bne C15FED_AdvanceDeliveryQueueSlot
     lda !QueuedItemOwnerOrSource
     sep #!AccumulatorWidthFlag
@@ -13109,7 +13131,7 @@ C16012_QueueDeliverySourceSelectorArgument:
     bra C1607E_ReturnQueueDeliveryOrPickupItem
 C16025_ResolveQueuedDeliveryOrPickupItem:
     lda !DeferredCommandByteQueue
-    and.w #$00FF
+    and.w #!LowByteMask
     beq C1603C_LoadDeliverySourceSelectorFromTextContext
     sep #!AccumulatorWidthFlag
     lda !DeferredCommandByteQueue
@@ -13187,7 +13209,7 @@ C1609B_QueueDeliveryReadIndexArgument:
     bra C16122_ReturnReadDeliveryOrPickupItemInfo
 C160AF_ReadDeliveryOrPickupQueueEntry:
     lda !DeferredCommandByteQueue
-    and.w #$00FF
+    and.w #!LowByteMask
     tax
     beq C160BB_LoadDeliveryQueueIndexFromTextContext
     txa
@@ -13249,7 +13271,7 @@ C16122_ReturnReadDeliveryOrPickupItemInfo:
     rts
 CC_1D_18:
 !C16124_AddItemToEscargoStorageTextCommand = CC_1D_18
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13270,7 +13292,7 @@ C1613B_C1575D_TestEquippedItemPresenceForTextCommand_L613B:
     rts
 CC_19_21:
 !C16143_ClassifyFoodItemTextCommand = CC_19_21
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13298,7 +13320,7 @@ C1615A_C1575D_TestEquippedItemPresenceForTextCommand_L615A:
     rts
 CC_1D_19:
 !C16172_HaveXPartyMembersTextCommand = CC_1D_19
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13320,13 +13342,13 @@ C16190_C1575D_TestEquippedItemPresenceForTextCommand_L6190:
     sta $0A
     lda $08
     sta $0C
-    sep #$20
-    lda $98A4
+    sep #!AccumulatorWidthFlag
+    lda !ActivePartyMemberCount
     sta $06
     stz $07
     stz $08
     stz $09
-    rep #$20
+    rep #!AccumulatorWidthFlag
     lda $06
     cmp $0A
     lda $08
@@ -13352,7 +13374,7 @@ C161C1_C1575D_TestEquippedItemPresenceForTextCommand_L61C1:
     rts
 CC_1C_12:
 !C161D1_PrintPsiNameTextCommand = CC_1C_12
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
@@ -13373,7 +13395,7 @@ C161E8_C1575D_TestEquippedItemPresenceForTextCommand_L61E8:
     rts
 CC_1D_21:
 !C161F0_GenerateRandomNumberTextCommand = CC_1D_21
-    rep #$31
+    rep #!ProcessorStatus16BitAIndexCarryClear
     phd
     pha
     tdc
