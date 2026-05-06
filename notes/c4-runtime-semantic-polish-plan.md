@@ -320,6 +320,11 @@ closure.
   local constants for open/close delays, initial X/Y seeds, size sentinels,
   signed deltas, delta-step words, and zero terminators. See
   `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`.
+- 2026-05-06 overlay stepper side-effect follow-up: tightened comments in
+  `StepBattleOverlayScriptState` around size-delta accumulation, zero-crossing
+  clamps, zero-size long-script completion, `animation parity + 3` frame-tile
+  selector, reverse frame-table walking, and the special-mode `CE:DD41` reseed.
+  See `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`.
 - 2026-05-06 Sound Stone presentation follow-up: converted the C4:AC57 EF
   payload pointer prefix into nine explicit 4-byte row labels and added
   side-effect comments around the Sound Stone controller's setup, Sanctuary
