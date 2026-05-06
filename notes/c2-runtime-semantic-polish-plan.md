@@ -769,6 +769,16 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/class2-local-enemy-id-to-battler-init-chain.md`,
   `notes/c2-action-dispatch-runtime-polish.md`, and
   `notes/c2-affliction-recovery-runtime-polish.md`.
+- 2026-05-06 one hundred and first slice: tightened the PSI Thunder wrapper and
+  loop-tail contracts. `C2:9871/987D/9889/9895` are now labeled as
+  Thunder Alpha/Beta/Gamma/Omega wrappers over `RunPsiThunderCommon`, while
+  the cross-module edges name `C2:96CB` as `RunPsiThunderNextStrike`,
+  `C2:9821` as `DisplayPsiThunderMissPresentation`, `C2:985A` as
+  `CheckPsiThunderRequestedHitCountOrContinue`, and `C2:9863` as
+  `ClearPsiThunderTargetMaskAndReturn`. See
+  `notes/c2-psi-common-runtime-polish.md`,
+  `notes/class2-psi-thunder-common-local-flow.md`, and
+  `notes/class2-psi-thunder-reflection-branch.md`.
 
 ## Validation
 

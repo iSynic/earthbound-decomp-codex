@@ -6791,6 +6791,9 @@ org $C2966B
 !C12DD5_RunThunderPresentationEffect = $C12DD5
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C23D05_BuildBattleTargetTextContext = $C23D05
+!C29821_DisplayPsiThunderMissPresentation = $9821
+!C2985A_CheckPsiThunderRequestedHitCountOrContinue = $985A
+!C29863_ClearPsiThunderTargetMaskAndReturn = $9863
 !C2416F_FilterBattleActionTargetMaskByRowState = $C2416F
 !C26EF8_MaskSetFindFirstMatchInRange = $C26EF8
 !C27029_MaskSetTestBit = $C27029
@@ -6850,7 +6853,9 @@ C296B1_RunPsiThunderCommon_L96B1:
     sta $14
     ldy.w #$0000
     sty $18
-    jmp $985A
+    jmp !C2985A_CheckPsiThunderRequestedHitCountOrContinue
+PSI_THUNDER_NEXT_STRIKE:
+!C296CB_RunPsiThunderNextStrike = PSI_THUNDER_NEXT_STRIKE
     lda $12
     sta $06
     lda $14
@@ -6874,7 +6879,7 @@ C296B1_RunPsiThunderCommon_L96B1:
     cmp $06
 C296FD_RunPsiThunderCommon_L96FD:
     bne C29702_RunPsiThunderCommon_L9702
-    jmp $9863
+    jmp !C29863_ClearPsiThunderTargetMaskAndReturn
 C29702_RunPsiThunderCommon_L9702:
     lda $A96C
     sta $06
@@ -6925,7 +6930,7 @@ C2974D_RunPsiThunderCommon_L974D:
     jsr !C26BB8_RollActionChanceGate
     cmp.w #$0000
     bne C29771_RunPsiThunderCommon_L9771
-    jmp $9821
+    jmp !C29821_DisplayPsiThunderMissPresentation
 C29771_RunPsiThunderCommon_L9771:
     lda $04
     cmp.w #$0078
@@ -6959,6 +6964,8 @@ hirom
 org $C297A5
 
 !C26A44_RollRandomAmount = $6A44
+!C2966B_RunPsiThunderCommon = $966B
+!C296CB_RunPsiThunderNextStrike = $96CB
 !C27E8A_SwapReflectedHitBattleTextContexts = $7E8A
 !C28125_ApplyDamageToSelectedTarget = $8125
 !C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
@@ -7023,6 +7030,8 @@ C29809_HandlePsiThunderFranklinBadgeReflection_L9809:
 C2981C_HandlePsiThunderFranklinBadgeReflection_L981C:
     jsr WEAKEN_SHIELD
     bra C2983D_HandlePsiThunderFranklinBadgeReflection_L983D
+PSI_THUNDER_MISS_PRESENTATION:
+!C29821_DisplayPsiThunderMissPresentation = PSI_THUNDER_MISS_PRESENTATION
     lda.w #!EFMSG_ThunderMiss
     sta $0E
     lda.w #!EF_BattleTextScriptBank
@@ -7045,36 +7054,46 @@ C2983D_HandlePsiThunderFranklinBadgeReflection_L983D:
     ldy $18
     iny
     sty $18
+C2985A_CheckPsiThunderRequestedHitCountOrContinue:
     cpy $1A
     bcs C29863_HandlePsiThunderFranklinBadgeReflection_L9863
     beq C29863_HandlePsiThunderFranklinBadgeReflection_L9863
-    jmp $96CB
+    jmp !C296CB_RunPsiThunderNextStrike
 C29863_HandlePsiThunderFranklinBadgeReflection_L9863:
+!C29863_ClearPsiThunderTargetMaskAndReturn = C29863_HandlePsiThunderFranklinBadgeReflection_L9863
     lda.w #$0000
     sta $A96C
     lda.w #$0000
     sta $A96E
     pld
     rts
+BTLACT_PSI_THUNDER_ALPHA:
+!C29871_RunPsiThunderAlpha = BTLACT_PSI_THUNDER_ALPHA
     rep #$31
     ldx.w #$0001
     lda.w #$0078
-    jsr $966B
+    jsr !C2966B_RunPsiThunderCommon
     rtl
+BTLACT_PSI_THUNDER_BETA:
+!C2987D_RunPsiThunderBeta = BTLACT_PSI_THUNDER_BETA
     rep #$31
     ldx.w #$0002
     lda.w #$0078
-    jsr $966B
+    jsr !C2966B_RunPsiThunderCommon
     rtl
+BTLACT_PSI_THUNDER_GAMMA:
+!C29889_RunPsiThunderGamma = BTLACT_PSI_THUNDER_GAMMA
     rep #$31
     ldx.w #$0003
     lda.w #$00C8
-    jsr $966B
+    jsr !C2966B_RunPsiThunderCommon
     rtl
+BTLACT_PSI_THUNDER_OMEGA:
+!C29895_RunPsiThunderOmega = BTLACT_PSI_THUNDER_OMEGA
     rep #$31
     ldx.w #$0004
     lda.w #$00C8
-    jsr $966B
+    jsr !C2966B_RunPsiThunderCommon
     rtl
 
 

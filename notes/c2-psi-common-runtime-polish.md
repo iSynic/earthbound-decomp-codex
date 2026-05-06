@@ -108,6 +108,13 @@ uses `C2:6AFD` / `ApplyTwentyFivePercentVariance`.
 | `C2:9889` | `3` | `0x00C8` |
 | `C2:9895` | `4` | `0x00C8` |
 
+Source follow-up: the wrapper bodies are now labeled as
+`RunPsiThunderAlpha/Beta/Gamma/Omega` and call `C2:966B` by the shared
+`RunPsiThunderCommon` contract. The cross-module loop edges are also named:
+`C2:96CB` is the next-strike entry, `C2:9821` is the miss presentation tail,
+`C2:985A` is the requested-hit-count continuation gate, and `C2:9863` clears
+the target mask before returning.
+
 Promoted local flow:
 
 - count active bits in the current 32-entry target mask
@@ -159,6 +166,8 @@ runtime-helpful action helpers:
 - Fire and Freeze now identify their selected-row damage selector bytes
 - Thunder has a documented target-mask loop, per-strike selection, presentation
   branch, reflection tail, and loop termination shape
+- Thunder wrapper and loop-tail labels now keep the common helper, miss path,
+  continuation gate, and cleanup return readable without raw local jumps
 
 ## Remaining Soft Spots
 

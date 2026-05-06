@@ -24,6 +24,8 @@
 ; External contracts used by this module
 
 C26A44_RollRandomAmount                         = $6A44
+C2966B_RunPsiThunderCommon                      = $966B
+C296CB_RunPsiThunderNextStrike                  = $96CB
 C27E8A_SwapReflectedHitBattleTextContexts       = $7E8A
 C28125_ApplyDamageToSelectedTarget              = $8125
 C2941D_CheckSelectedBattlerTimedSubstateBlocker = $941D
@@ -96,6 +98,8 @@ C29809_HandlePsiThunderFranklinBadgeReflection_L9809:
 C2981C_HandlePsiThunderFranklinBadgeReflection_L981C:
     jsr WEAKEN_SHIELD
     bra C2983D_HandlePsiThunderFranklinBadgeReflection_L983D
+PSI_THUNDER_MISS_PRESENTATION:
+C29821_DisplayPsiThunderMissPresentation = PSI_THUNDER_MISS_PRESENTATION
     ; Thunder miss presentation path.
     lda.w #EFMSG_ThunderMiss
     sta $0E
@@ -119,35 +123,45 @@ C2983D_HandlePsiThunderFranklinBadgeReflection_L983D:
     ldy $18
     iny
     sty $18
+C2985A_CheckPsiThunderRequestedHitCountOrContinue:
     ; Continue until the requested hit count is reached or a side is exhausted.
     cpy $1A
     bcs C29863_HandlePsiThunderFranklinBadgeReflection_L9863
     beq C29863_HandlePsiThunderFranklinBadgeReflection_L9863
-    jmp $96CB
+    jmp C296CB_RunPsiThunderNextStrike
 C29863_HandlePsiThunderFranklinBadgeReflection_L9863:
+C29863_ClearPsiThunderTargetMaskAndReturn = C29863_HandlePsiThunderFranklinBadgeReflection_L9863
     lda.w #$0000
     sta $A96C
     lda.w #$0000
     sta $A96E
     pld
     rts
+BTLACT_PSI_THUNDER_ALPHA:
+C29871_RunPsiThunderAlpha = BTLACT_PSI_THUNDER_ALPHA
     rep #$31
     ldx.w #$0001
     lda.w #$0078
-    jsr $966B
+    jsr C2966B_RunPsiThunderCommon
     rtl
+BTLACT_PSI_THUNDER_BETA:
+C2987D_RunPsiThunderBeta = BTLACT_PSI_THUNDER_BETA
     rep #$31
     ldx.w #$0002
     lda.w #$0078
-    jsr $966B
+    jsr C2966B_RunPsiThunderCommon
     rtl
+BTLACT_PSI_THUNDER_GAMMA:
+C29889_RunPsiThunderGamma = BTLACT_PSI_THUNDER_GAMMA
     rep #$31
     ldx.w #$0003
     lda.w #$00C8
-    jsr $966B
+    jsr C2966B_RunPsiThunderCommon
     rtl
+BTLACT_PSI_THUNDER_OMEGA:
+C29895_RunPsiThunderOmega = BTLACT_PSI_THUNDER_OMEGA
     rep #$31
     ldx.w #$0004
     lda.w #$00C8
-    jsr $966B
+    jsr C2966B_RunPsiThunderCommon
     rtl
