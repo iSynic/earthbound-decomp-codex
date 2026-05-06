@@ -18,6 +18,11 @@ Source-scaffold promotion:
 - `C1:8F0E..8F64`, `C1:8F64..8FBA`, `C1:8FBA..9010`, and `C1:9010..9066` are now decoded source in their matching `src/c1/c1_8f*_*.asm` modules.
 - The combined C1 scaffold validates byte-for-byte after promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+Source polish follow-up (2026-05-06): the four C1 wrappers now call the C3
+workers by their local source names instead of raw long addresses:
+`C3EC1F_DepleteCharacterHp`, `C3EC8B_RecoverCharacterHp`,
+`C3ED2C_DepleteCharacterPp`, and `C3ED98_RecoverCharacterPp`.
+
 - `C1:8F0E -> C3:EC1F` = HP depletion helper family
 - `C1:8F64 -> C3:EC8B` = HP recovery helper family
 - `C1:8FBA -> C3:ED2C` = PP depletion helper family

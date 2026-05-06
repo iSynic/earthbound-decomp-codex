@@ -17,7 +17,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C3EC8B_RecoverCharacterHp = $C3EC8B
 
 ; ---------------------------------------------------------------------------
 ; C1:8F64
@@ -49,7 +49,7 @@ C18F80_c1_8f64_recover_hp_for_character_or_active_party_L8F80:
     lda $986F,X
     and.w #$00FF
     ldx $0E
-    jsl $C3EC8B
+    jsl C3EC8B_RecoverCharacterHp
     inc $02
     lda $02
     sta $10
@@ -66,7 +66,7 @@ C18F9E_c1_8f64_recover_hp_for_character_or_active_party_L8F9E:
 C18FB0_c1_8f64_recover_hp_for_character_or_active_party_L8FB0:
     ldy $12
     ldx $04
-    jsl $C3EC8B
+    jsl C3EC8B_RecoverCharacterHp
 C18FB8_c1_8f64_recover_hp_for_character_or_active_party_L8FB8:
     pld
     rts

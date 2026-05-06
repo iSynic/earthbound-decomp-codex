@@ -21193,6 +21193,8 @@ hirom
 org $C18B2C
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C216DB_ArbitratePartyOverlayEntityPresence = $C216DB
+!C3EAD0_RefreshEggFamilyLifecycleOnInsert = $C3EAD0
 GIVE_ITEM_TO_SPECIFIC_CHARACTER:
 !C18B2C_InsertItemIntoFirstEmptyInventorySlot = GIVE_ITEM_TO_SPECIFIC_CHARACTER
     rep #$31
@@ -21237,7 +21239,7 @@ C18B44_c1_8b2c_insert_item_into_first_empty_inventory_slot_L8B44:
     and.w #$00FF
     cmp.w #$0004
     bne C18B84_c1_8b2c_insert_item_into_first_empty_inventory_slot_L8B84
-    jsl $C216DB
+    jsl !C216DB_ArbitratePartyOverlayEntityPresence
 C18B84_c1_8b2c_insert_item_into_first_empty_inventory_slot_L8B84:
     ldy $0E
     tya
@@ -21253,7 +21255,7 @@ C18B84_c1_8b2c_insert_item_into_first_empty_inventory_slot_L8B84:
     ldy $0E
     tya
     sep #$20
-    jsl $C3EAD0
+    jsl !C3EAD0_RefreshEggFamilyLifecycleOnInsert
 C18BA8_c1_8b2c_insert_item_into_first_empty_inventory_slot_L8BA8:
     lda $04
     inc A
@@ -21349,6 +21351,13 @@ hirom
 org $C18C27
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C216DB_ArbitratePartyOverlayEntityPresence = $C216DB
+!C229BB_RemovePartyOverlayTrackedItemId = $C229BB
+!C3EB1C_RefreshEggFamilyLifecycleOnRemove = $C3EB1C
+!C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats = $C4577D
+!C457CA_InstallBodySlotIndexAndRefreshDerivedStats = $C457CA
+!C45815_InstallArmsSlotIndexAndRefreshDerivedStats = $C45815
+!C45860_InstallOtherSlotIndexAndRefreshDerivedStats = $C45860
 REMOVE_ITEM_FROM_INVENTORY:
 !C18C27_RemoveItemFromCharacterInventorySlot = REMOVE_ITEM_FROM_INVENTORY
     rep #$31
@@ -21376,7 +21385,7 @@ REMOVE_ITEM_FROM_INVENTORY:
     ldx.w #$0000
     lda $02
     inc A
-    jsl $C4577D
+    jsl !C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats
     bra C18CA4_c1_8c27_remove_item_from_character_inventory_slot_L8CA4
 C18C5B_c1_8c27_remove_item_from_character_inventory_slot_L8C5B:
     lda $9A00,X
@@ -21388,7 +21397,7 @@ C18C5B_c1_8c27_remove_item_from_character_inventory_slot_L8C5B:
     ldx.w #$0000
     lda $02
     inc A
-    jsl $C457CA
+    jsl !C457CA_InstallBodySlotIndexAndRefreshDerivedStats
     bra C18CA4_c1_8c27_remove_item_from_character_inventory_slot_L8CA4
 C18C74_c1_8c27_remove_item_from_character_inventory_slot_L8C74:
     lda $9A01,X
@@ -21400,7 +21409,7 @@ C18C74_c1_8c27_remove_item_from_character_inventory_slot_L8C74:
     ldx.w #$0000
     lda $02
     inc A
-    jsl $C45815
+    jsl !C45815_InstallArmsSlotIndexAndRefreshDerivedStats
     bra C18CA4_c1_8c27_remove_item_from_character_inventory_slot_L8CA4
 C18C8D_c1_8c27_remove_item_from_character_inventory_slot_L8C8D:
     lda $9A02,X
@@ -21412,7 +21421,7 @@ C18C8D_c1_8c27_remove_item_from_character_inventory_slot_L8C8D:
     ldx.w #$0000
     lda $02
     inc A
-    jsl $C45860
+    jsl !C45860_InstallOtherSlotIndexAndRefreshDerivedStats
 C18CA4_c1_8c27_remove_item_from_character_inventory_slot_L8CA4:
     lda $02
     ldy.w #$005F
@@ -21607,8 +21616,8 @@ C18DBB_c1_8c27_remove_item_from_character_inventory_slot_L8DBB:
     and.w #$00FF
     sbc.w #$0080
     eor.w #$FF80
-    jsl $C229BB
-    jsl $C216DB
+    jsl !C229BB_RemovePartyOverlayTrackedItemId
+    jsl !C216DB_ArbitratePartyOverlayEntityPresence
 C18E31_c1_8c27_remove_item_from_character_inventory_slot_L8E31:
     lda $00
     and.w #$00FF
@@ -21623,7 +21632,7 @@ C18E31_c1_8c27_remove_item_from_character_inventory_slot_L8E31:
     beq C18E56_c1_8c27_remove_item_from_character_inventory_slot_L8E56
     sep #$20
     lda $00
-    jsl $C3EB1C
+    jsl !C3EB1C_RefreshEggFamilyLifecycleOnRemove
 C18E56_c1_8c27_remove_item_from_character_inventory_slot_L8E56:
     lda $02
     inc A
@@ -21764,6 +21773,7 @@ C18F0C_c1_8ead_search_and_remove_item_from_active_inventories_L8F0C:
 hirom
 org $C18F0E
 
+!C3EC1F_DepleteCharacterHp = $C3EC1F
 REDUCE_HP_AMTPERCENT:
 !C18F0E_DepleteHpForCharacterOrActiveParty = REDUCE_HP_AMTPERCENT
     rep #$31
@@ -21791,7 +21801,7 @@ C18F2A_c1_8f0e_deplete_hp_for_character_or_active_party_L8F2A:
     lda $986F,X
     and.w #$00FF
     ldx $0E
-    jsl $C3EC1F
+    jsl !C3EC1F_DepleteCharacterHp
     inc $02
     lda $02
     sta $10
@@ -21808,7 +21818,7 @@ C18F48_c1_8f0e_deplete_hp_for_character_or_active_party_L8F48:
 C18F5A_c1_8f0e_deplete_hp_for_character_or_active_party_L8F5A:
     ldy $12
     ldx $04
-    jsl $C3EC1F
+    jsl !C3EC1F_DepleteCharacterHp
 C18F62_c1_8f0e_deplete_hp_for_character_or_active_party_L8F62:
     pld
     rts
@@ -21821,6 +21831,7 @@ C18F62_c1_8f0e_deplete_hp_for_character_or_active_party_L8F62:
 hirom
 org $C18F64
 
+!C3EC8B_RecoverCharacterHp = $C3EC8B
 RECOVER_HP_AMTPERCENT:
 !C18F64_RecoverHpForCharacterOrActiveParty = RECOVER_HP_AMTPERCENT
     rep #$31
@@ -21848,7 +21859,7 @@ C18F80_c1_8f64_recover_hp_for_character_or_active_party_L8F80:
     lda $986F,X
     and.w #$00FF
     ldx $0E
-    jsl $C3EC8B
+    jsl !C3EC8B_RecoverCharacterHp
     inc $02
     lda $02
     sta $10
@@ -21865,7 +21876,7 @@ C18F9E_c1_8f64_recover_hp_for_character_or_active_party_L8F9E:
 C18FB0_c1_8f64_recover_hp_for_character_or_active_party_L8FB0:
     ldy $12
     ldx $04
-    jsl $C3EC8B
+    jsl !C3EC8B_RecoverCharacterHp
 C18FB8_c1_8f64_recover_hp_for_character_or_active_party_L8FB8:
     pld
     rts
@@ -21878,6 +21889,7 @@ C18FB8_c1_8f64_recover_hp_for_character_or_active_party_L8FB8:
 hirom
 org $C18FBA
 
+!C3ED2C_DepleteCharacterPp = $C3ED2C
 REDUCE_PP_AMTPERCENT:
 !C18FBA_DepletePpForCharacterOrActiveParty = REDUCE_PP_AMTPERCENT
     rep #$31
@@ -21905,7 +21917,7 @@ C18FD6_c1_8fba_deplete_pp_for_character_or_active_party_L8FD6:
     lda $986F,X
     and.w #$00FF
     ldx $0E
-    jsl $C3ED2C
+    jsl !C3ED2C_DepleteCharacterPp
     inc $02
     lda $02
     sta $10
@@ -21922,7 +21934,7 @@ C18FF4_c1_8fba_deplete_pp_for_character_or_active_party_L8FF4:
 C19006_c1_8fba_deplete_pp_for_character_or_active_party_L9006:
     ldy $12
     ldx $04
-    jsl $C3ED2C
+    jsl !C3ED2C_DepleteCharacterPp
 C1900E_c1_8fba_deplete_pp_for_character_or_active_party_L900E:
     pld
     rts
@@ -21935,6 +21947,7 @@ C1900E_c1_8fba_deplete_pp_for_character_or_active_party_L900E:
 hirom
 org $C19010
 
+!C3ED98_RecoverCharacterPp = $C3ED98
 RECOVER_PP_AMTPERCENT:
 !C19010_RecoverPpForCharacterOrActiveParty = RECOVER_PP_AMTPERCENT
     rep #$31
@@ -21962,7 +21975,7 @@ C1902C_c1_9010_recover_pp_for_character_or_active_party_L902C:
     lda $986F,X
     and.w #$00FF
     ldx $0E
-    jsl $C3ED98
+    jsl !C3ED98_RecoverCharacterPp
     inc $02
     lda $02
     sta $10
@@ -21979,7 +21992,7 @@ C1904A_c1_9010_recover_pp_for_character_or_active_party_L904A:
 C1905C_c1_9010_recover_pp_for_character_or_active_party_L905C:
     ldy $12
     ldx $04
-    jsl $C3ED98
+    jsl !C3ED98_RecoverCharacterPp
 C19064_c1_9010_recover_pp_for_character_or_active_party_L9064:
     pld
     rts
@@ -21993,6 +22006,10 @@ hirom
 org $C19066
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats = $C4577D
+!C457CA_InstallBodySlotIndexAndRefreshDerivedStats = $C457CA
+!C45815_InstallArmsSlotIndexAndRefreshDerivedStats = $C45815
+!C45860_InstallOtherSlotIndexAndRefreshDerivedStats = $C45860
 EQUIP_ITEM:
 !C19066_DispatchEquippedSlotSubtypeUpdate = EQUIP_ITEM
     rep #$31
@@ -22037,22 +22054,22 @@ EQUIP_ITEM:
 C190B9_c1_9066_dispatch_equipped_slot_subtype_update_L90B9:
     ldx $10
     lda $0E
-    jsl $C4577D
+    jsl !C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats
     bra C190E4_c1_9066_dispatch_equipped_slot_subtype_update_L90E4
 C190C3_c1_9066_dispatch_equipped_slot_subtype_update_L90C3:
     ldx $10
     lda $0E
-    jsl $C457CA
+    jsl !C457CA_InstallBodySlotIndexAndRefreshDerivedStats
     bra C190E4_c1_9066_dispatch_equipped_slot_subtype_update_L90E4
 C190CD_c1_9066_dispatch_equipped_slot_subtype_update_L90CD:
     ldx $10
     lda $0E
-    jsl $C45815
+    jsl !C45815_InstallArmsSlotIndexAndRefreshDerivedStats
     bra C190E4_c1_9066_dispatch_equipped_slot_subtype_update_L90E4
 C190D7_c1_9066_dispatch_equipped_slot_subtype_update_L90D7:
     ldx $10
     lda $0E
-    jsl $C45860
+    jsl !C45860_InstallOtherSlotIndexAndRefreshDerivedStats
     bra C190E4_c1_9066_dispatch_equipped_slot_subtype_update_L90E4
 C190E1_c1_9066_dispatch_equipped_slot_subtype_update_L90E1:
     lda.w #$0000

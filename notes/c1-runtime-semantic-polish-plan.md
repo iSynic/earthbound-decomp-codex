@@ -419,3 +419,13 @@ This planning pass is documentation-only.
   `notes/nested-text-pointer-and-callback-invoker-c186b1-c18b2c.md`,
   `notes/bank01-text-command-map-00-1f.md`, and
   `notes/timed-event-callback-invoker-c187cc.md`.
+- 2026-05-06 follow-up: the adjacent `C1:8B2C..90E6` inventory/recovery helper
+  cluster now names its cross-bank side-effect and mutation workers. The source
+  names C2 party-overlay/Teddy Bear hooks, C3 Fresh Egg/Chick/Chicken
+  lifecycle hooks, the C3 HP/PP recover/deplete workers, and the C4 equipped
+  slot index installers used by insertion/removal and equipment subtype
+  dispatch. See `notes/c1-inventory-recovery-runtime-polish.md`,
+  `notes/inventory-slot-insertion-helper-c18bc6.md`,
+  `notes/inventory-slot-removal-helper-c18c27.md`,
+  `notes/equipment-slot-subtype-dispatch-c19066-c4577d.md`, and
+  `notes/hp-pp-adjust-helper-quartet-c18f0e-c19010.md`.

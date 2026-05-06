@@ -20,6 +20,8 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C216DB_ArbitratePartyOverlayEntityPresence = $C216DB
+C3EAD0_RefreshEggFamilyLifecycleOnInsert = $C3EAD0
 
 ; ---------------------------------------------------------------------------
 ; C1:8B2C
@@ -68,7 +70,7 @@ C18B44_c1_8b2c_insert_item_into_first_empty_inventory_slot_L8B44:
     and.w #$00FF
     cmp.w #$0004
     bne C18B84_c1_8b2c_insert_item_into_first_empty_inventory_slot_L8B84
-    jsl $C216DB
+    jsl C216DB_ArbitratePartyOverlayEntityPresence
 C18B84_c1_8b2c_insert_item_into_first_empty_inventory_slot_L8B84:
     ldy $0E
     tya
@@ -84,7 +86,7 @@ C18B84_c1_8b2c_insert_item_into_first_empty_inventory_slot_L8B84:
     ldy $0E
     tya
     sep #$20
-    jsl $C3EAD0
+    jsl C3EAD0_RefreshEggFamilyLifecycleOnInsert
 C18BA8_c1_8b2c_insert_item_into_first_empty_inventory_slot_L8BA8:
     lda $04
     inc A

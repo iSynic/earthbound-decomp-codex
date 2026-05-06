@@ -17,7 +17,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C3ED98_RecoverCharacterPp = $C3ED98
 
 ; ---------------------------------------------------------------------------
 ; C1:9010
@@ -49,7 +49,7 @@ C1902C_c1_9010_recover_pp_for_character_or_active_party_L902C:
     lda $986F,X
     and.w #$00FF
     ldx $0E
-    jsl $C3ED98
+    jsl C3ED98_RecoverCharacterPp
     inc $02
     lda $02
     sta $10
@@ -66,7 +66,7 @@ C1904A_c1_9010_recover_pp_for_character_or_active_party_L904A:
 C1905C_c1_9010_recover_pp_for_character_or_active_party_L905C:
     ldy $12
     ldx $04
-    jsl $C3ED98
+    jsl C3ED98_RecoverCharacterPp
 C19064_c1_9010_recover_pp_for_character_or_active_party_L9064:
     pld
     rts

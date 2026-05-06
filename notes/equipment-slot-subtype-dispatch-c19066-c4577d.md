@@ -26,6 +26,11 @@ Source-scaffold promotion:
 - `C1:9066..90E6` is now decoded source in `src/c1/c1_9066_dispatch_equipped_slot_subtype_update.asm`.
 - The combined C1 scaffold validates byte-for-byte after promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+Source polish follow-up (2026-05-06): `C1:9066` now calls the four C4 slot
+installers by their derived-state refresh contract names instead of raw
+addresses. The same names are now also used by the `C1:8C27` inventory removal
+slot-index maintenance path.
+
 ## Dispatch Role
 
 So this is no longer just a loose side effect family reached from inventory removal. It looks like the shared subtype-to-equipped-slot bridge behind several menu/text/equipment flows, and the subtype groups are now strong enough to describe in item-family terms instead of only as slot `0/1/2/3`.
@@ -45,6 +50,12 @@ The body at `C1:9066`:
    - `0x08 -> C4:5815`
    - `0x0C -> C4:5860`
    - anything else -> `0`
+
+The four source names are
+`C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats`,
+`C457CA_InstallBodySlotIndexAndRefreshDerivedStats`,
+`C45815_InstallArmsSlotIndexAndRefreshDerivedStats`, and
+`C45860_InstallOtherSlotIndexAndRefreshDerivedStats`.
 
 That lines up exactly with the packed-slot reading from [item-byte-19-packed-class-and-slot.md](notes/item-byte-19-packed-class-and-slot.md): bits `2-3` of item byte `+0x19` are the four-way equipped-slot subtype selector.
 

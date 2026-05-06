@@ -23,6 +23,10 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats = $C4577D
+C457CA_InstallBodySlotIndexAndRefreshDerivedStats = $C457CA
+C45815_InstallArmsSlotIndexAndRefreshDerivedStats = $C45815
+C45860_InstallOtherSlotIndexAndRefreshDerivedStats = $C45860
 
 ; ---------------------------------------------------------------------------
 ; C1:9066
@@ -72,22 +76,22 @@ C19066_DispatchEquippedSlotSubtypeUpdate = EQUIP_ITEM
 C190B9_c1_9066_dispatch_equipped_slot_subtype_update_L90B9:
     ldx $10
     lda $0E
-    jsl $C4577D
+    jsl C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats
     bra C190E4_c1_9066_dispatch_equipped_slot_subtype_update_L90E4
 C190C3_c1_9066_dispatch_equipped_slot_subtype_update_L90C3:
     ldx $10
     lda $0E
-    jsl $C457CA
+    jsl C457CA_InstallBodySlotIndexAndRefreshDerivedStats
     bra C190E4_c1_9066_dispatch_equipped_slot_subtype_update_L90E4
 C190CD_c1_9066_dispatch_equipped_slot_subtype_update_L90CD:
     ldx $10
     lda $0E
-    jsl $C45815
+    jsl C45815_InstallArmsSlotIndexAndRefreshDerivedStats
     bra C190E4_c1_9066_dispatch_equipped_slot_subtype_update_L90E4
 C190D7_c1_9066_dispatch_equipped_slot_subtype_update_L90D7:
     ldx $10
     lda $0E
-    jsl $C45860
+    jsl C45860_InstallOtherSlotIndexAndRefreshDerivedStats
     bra C190E4_c1_9066_dispatch_equipped_slot_subtype_update_L90E4
 C190E1_c1_9066_dispatch_equipped_slot_subtype_update_L90E1:
     lda.w #$0000

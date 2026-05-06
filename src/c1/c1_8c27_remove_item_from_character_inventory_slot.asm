@@ -22,6 +22,13 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C216DB_ArbitratePartyOverlayEntityPresence = $C216DB
+C229BB_RemovePartyOverlayTrackedItemId = $C229BB
+C3EB1C_RefreshEggFamilyLifecycleOnRemove = $C3EB1C
+C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats = $C4577D
+C457CA_InstallBodySlotIndexAndRefreshDerivedStats = $C457CA
+C45815_InstallArmsSlotIndexAndRefreshDerivedStats = $C45815
+C45860_InstallOtherSlotIndexAndRefreshDerivedStats = $C45860
 
 ; ---------------------------------------------------------------------------
 ; C1:8C27
@@ -53,7 +60,7 @@ C18C27_RemoveItemFromCharacterInventorySlot = REMOVE_ITEM_FROM_INVENTORY
     ldx.w #$0000
     lda $02
     inc A
-    jsl $C4577D
+    jsl C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats
     bra C18CA4_c1_8c27_remove_item_from_character_inventory_slot_L8CA4
 C18C5B_c1_8c27_remove_item_from_character_inventory_slot_L8C5B:
     lda $9A00,X
@@ -65,7 +72,7 @@ C18C5B_c1_8c27_remove_item_from_character_inventory_slot_L8C5B:
     ldx.w #$0000
     lda $02
     inc A
-    jsl $C457CA
+    jsl C457CA_InstallBodySlotIndexAndRefreshDerivedStats
     bra C18CA4_c1_8c27_remove_item_from_character_inventory_slot_L8CA4
 C18C74_c1_8c27_remove_item_from_character_inventory_slot_L8C74:
     lda $9A01,X
@@ -77,7 +84,7 @@ C18C74_c1_8c27_remove_item_from_character_inventory_slot_L8C74:
     ldx.w #$0000
     lda $02
     inc A
-    jsl $C45815
+    jsl C45815_InstallArmsSlotIndexAndRefreshDerivedStats
     bra C18CA4_c1_8c27_remove_item_from_character_inventory_slot_L8CA4
 C18C8D_c1_8c27_remove_item_from_character_inventory_slot_L8C8D:
     lda $9A02,X
@@ -89,7 +96,7 @@ C18C8D_c1_8c27_remove_item_from_character_inventory_slot_L8C8D:
     ldx.w #$0000
     lda $02
     inc A
-    jsl $C45860
+    jsl C45860_InstallOtherSlotIndexAndRefreshDerivedStats
 C18CA4_c1_8c27_remove_item_from_character_inventory_slot_L8CA4:
     lda $02
     ldy.w #$005F
@@ -284,8 +291,8 @@ C18DBB_c1_8c27_remove_item_from_character_inventory_slot_L8DBB:
     and.w #$00FF
     sbc.w #$0080
     eor.w #$FF80
-    jsl $C229BB
-    jsl $C216DB
+    jsl C229BB_RemovePartyOverlayTrackedItemId
+    jsl C216DB_ArbitratePartyOverlayEntityPresence
 C18E31_c1_8c27_remove_item_from_character_inventory_slot_L8E31:
     lda $00
     and.w #$00FF
@@ -300,7 +307,7 @@ C18E31_c1_8c27_remove_item_from_character_inventory_slot_L8E31:
     beq C18E56_c1_8c27_remove_item_from_character_inventory_slot_L8E56
     sep #$20
     lda $00
-    jsl $C3EB1C
+    jsl C3EB1C_RefreshEggFamilyLifecycleOnRemove
 C18E56_c1_8c27_remove_item_from_character_inventory_slot_L8E56:
     lda $02
     inc A

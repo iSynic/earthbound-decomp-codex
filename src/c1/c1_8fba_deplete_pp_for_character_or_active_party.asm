@@ -17,7 +17,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C3ED2C_DepleteCharacterPp = $C3ED2C
 
 ; ---------------------------------------------------------------------------
 ; C1:8FBA
@@ -49,7 +49,7 @@ C18FD6_c1_8fba_deplete_pp_for_character_or_active_party_L8FD6:
     lda $986F,X
     and.w #$00FF
     ldx $0E
-    jsl $C3ED2C
+    jsl C3ED2C_DepleteCharacterPp
     inc $02
     lda $02
     sta $10
@@ -66,7 +66,7 @@ C18FF4_c1_8fba_deplete_pp_for_character_or_active_party_L8FF4:
 C19006_c1_8fba_deplete_pp_for_character_or_active_party_L9006:
     ldy $12
     ldx $04
-    jsl $C3ED2C
+    jsl C3ED2C_DepleteCharacterPp
 C1900E_c1_8fba_deplete_pp_for_character_or_active_party_L900E:
     pld
     rts

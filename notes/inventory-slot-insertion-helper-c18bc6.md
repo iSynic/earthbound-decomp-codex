@@ -17,6 +17,11 @@ Source-scaffold promotion:
 - `C1:8BC6..8C27` is now decoded source in `src/c1/c1_8bc6_insert_item_into_character_inventory.asm`.
 - The combined C1 scaffold validates byte-for-byte after promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+Source polish follow-up (2026-05-06): `C1:8B2C` now names the Teddy Bear-family
+party-overlay hook as `C216DB_ArbitratePartyOverlayEntityPresence` and the
+Fresh Egg / Chick / Chicken insertion hook as
+`C3EAD0_RefreshEggFamilyLifecycleOnInsert`.
+
 ## Matched Helper Pair
 
 - `C1:8BC6` = insert one item into a character inventory slot, with item-family-specific side effects
@@ -61,6 +66,9 @@ The item-table cross-check shows that this type is the Teddy Bear family:
 
 So insertion of a Teddy Bear-family item triggers a Teddy-Bear-specific side-system update.
 
+That call edge is now named in source as
+`C216DB_ArbitratePartyOverlayEntityPresence`.
+
 ### Fresh Egg / Chick / Chicken family
 
 If item byte `+0x1C` bit `0x10` is set, the helper calls `C3:EAD0`.
@@ -72,6 +80,9 @@ The only items with that bit set are:
 - `169 = Chicken`
 
 So this now reads best as the insertion-side refresh for the same tracked Fresh-Egg / Chick / Chicken family whose removal-side helper is `C3:EB1C`; see [teddy-bear-and-egg-item-cleanup-branches.md](notes/teddy-bear-and-egg-item-cleanup-branches.md).
+
+That call edge is now named in source as
+`C3EAD0_RefreshEggFamilyLifecycleOnInsert`.
 
 ## Best current interpretation
 

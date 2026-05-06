@@ -11,6 +11,11 @@ Source-scaffold promotion:
 - `C1:8C27..8E5B` is now decoded source in `src/c1/c1_8c27_remove_item_from_character_inventory_slot.asm`.
 - The combined C1 scaffold validates byte-for-byte after promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+Source polish follow-up (2026-05-06): this source now names its cross-bank
+equipment and item-family side-effect edges directly: the four C4 equipped-slot
+index installers, the C2 party-overlay/Teddy Bear removal/arbitration helpers,
+and the C3 Fresh Egg / Chick / Chicken removal lifecycle refresh.
+
 ## Why this interpretation fits
 
 The strongest local structural clue is the `0x5F`-stride record rooted at `C3:99F1`:
@@ -53,6 +58,12 @@ If one matches exactly, it calls one of four bank-`C4` helpers:
 
 Those helpers now have their own structural note at [equipment-slot-subtype-dispatch-c19066-c4577d.md](notes/equipment-slot-subtype-dispatch-c19066-c4577d.md). The important shared behavior here is that each one writes the current inventory-slot index back into the matched equipped-slot byte, runs a small bank-`C2` refresh family, and returns the previous byte value.
 
+In source those calls are now named
+`C4577D_InstallWeaponSlotIndexAndRefreshDerivedStats`,
+`C457CA_InstallBodySlotIndexAndRefreshDerivedStats`,
+`C45815_InstallArmsSlotIndexAndRefreshDerivedStats`, and
+`C45860_InstallOtherSlotIndexAndRefreshDerivedStats`.
+
 After the exact-match checks, `C1:8C27` revisits those same four bytes and decrements any value that is strictly greater than the removed slot index. That is exactly what you would do if those bytes were 1-based indices into the inventory list and one entry was being removed.
 
 ### 2. Remove one entry from the 14-byte list at `99F1`
@@ -74,6 +85,11 @@ The helper then resolves the removed byte as an item id through the `D5:5000` it
 - if that byte equals `4`, it runs a Teddy-Bear-family cleanup branch through `C2:29BB` and `C2:16DB`
 - it also checks item byte `+0x1C` bit `0x10`
 - if that bit is set, it calls `C3:EB1C`, which now reads much more like a Fresh-Egg / Chick / Chicken family refresh
+
+The source now names those side-effect calls as
+`C229BB_RemovePartyOverlayTrackedItemId`,
+`C216DB_ArbitratePartyOverlayEntityPresence`, and
+`C3EB1C_RefreshEggFamilyLifecycleOnRemove`.
 
 See [teddy-bear-and-egg-item-cleanup-branches.md](notes/teddy-bear-and-egg-item-cleanup-branches.md) for the stronger local breakdown. So the removed item can trigger additional side effects depending on its type/flags, and those side effects now look tied to real item families rather than generic post-delete housekeeping.
 

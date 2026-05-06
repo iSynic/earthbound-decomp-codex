@@ -141,6 +141,11 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   halt/selection, compressed-bank pseudo-opcode, and `00..1F` callback-root
   surfaces. See `notes/nested-text-pointer-and-callback-invoker-c186b1-c18b2c.md`
   and `notes/bank01-text-command-map-00-1f.md`.
+- 2026-05-06: C1 `C1:8B2C..90E6` inventory/recovery follow-up named the C2
+  party-overlay item hooks, C3 egg-family and HP/PP workers, and C4 equipped
+  slot index installers used by inventory mutation and subtype dispatch. See
+  `notes/c1-inventory-recovery-runtime-polish.md` and
+  `notes/equipment-slot-subtype-dispatch-c19066-c4577d.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

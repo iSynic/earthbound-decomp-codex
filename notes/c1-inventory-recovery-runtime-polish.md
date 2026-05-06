@@ -25,6 +25,13 @@ Related evidence notes:
 - `notes/inventory-slot-search-removal-helper-c18e5b-c18ead.md`
 - `notes/hp-pp-adjust-helper-quartet-c18f0e-c19010.md`
 
+Source polish follow-up (2026-05-06): the primary inventory/recovery helpers
+now name their cross-bank worker edges directly. `C1:8B2C` and `C1:8C27` call
+the C2 party-overlay/Teddy Bear hooks and C3 egg-family lifecycle hooks by
+name; `C1:8C27` and `C1:9066` call the four C4 equipped-slot index installers
+by name; and the HP/PP quartet now calls the C3 recover/deplete workers by
+name. The combined C1 scaffold remains byte-equivalent.
+
 ## Inventory Helpers
 
 `C1:8B2C` is the single-character insertion worker. It accepts a 1-based
@@ -37,6 +44,10 @@ The insertion worker also runs item-family side effects:
 
 - item byte `+0x19 == 4`: Teddy Bear-family insertion hook
 - item byte `+0x1C & 0x10`: Fresh Egg / Chick / Chicken-family hook
+
+Those edges are now explicit in source as
+`C216DB_ArbitratePartyOverlayEntityPresence` and
+`C3EAD0_RefreshEggFamilyLifecycleOnInsert`.
 
 `C1:8BC6` wraps insertion with active-party wildcard handling. A contains either
 a 1-based character id or `0x00FF`; X contains the item id. For wildcard input,
@@ -53,6 +64,12 @@ entries left, and clears the final vacated byte.
 The removal worker runs the mirror cleanup side effects for Teddy Bear-family
 and Fresh Egg / Chick / Chicken-family items before returning the source
 character id.
+
+The removal side now names `C229BB_RemovePartyOverlayTrackedItemId`,
+`C216DB_ArbitratePartyOverlayEntityPresence`, and
+`C3EB1C_RefreshEggFamilyLifecycleOnRemove`. Its equipment-slot exact-match
+clear paths also use the same four C4 slot-index installer contracts as the
+equip dispatcher.
 
 `C1:8E5B` searches one selected character inventory for an item id and removes
 the first matching slot through `C1:8C27`. `C1:8EAD` wraps that with the same
@@ -76,6 +93,10 @@ from `$986F` up to `$98A4`.
 | `C1:8F64` | `C3:EC8B` | HP recovery |
 | `C1:8FBA` | `C3:ED2C` | PP depletion |
 | `C1:9010` | `C3:ED98` | PP recovery |
+
+The source names these workers as `C3EC1F_DepleteCharacterHp`,
+`C3EC8B_RecoverCharacterHp`, `C3ED2C_DepleteCharacterPp`, and
+`C3ED98_RecoverCharacterPp`.
 
 The text-command dispatcher leaves choose percent versus direct amount by the Y
 mode passed into these workers. The C3 workers own the actual stat arithmetic

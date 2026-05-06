@@ -17,7 +17,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C3EC1F_DepleteCharacterHp = $C3EC1F
 
 ; ---------------------------------------------------------------------------
 ; C1:8F0E
@@ -49,7 +49,7 @@ C18F2A_c1_8f0e_deplete_hp_for_character_or_active_party_L8F2A:
     lda $986F,X
     and.w #$00FF
     ldx $0E
-    jsl $C3EC1F
+    jsl C3EC1F_DepleteCharacterHp
     inc $02
     lda $02
     sta $10
@@ -66,7 +66,7 @@ C18F48_c1_8f0e_deplete_hp_for_character_or_active_party_L8F48:
 C18F5A_c1_8f0e_deplete_hp_for_character_or_active_party_L8F5A:
     ldy $12
     ldx $04
-    jsl $C3EC1F
+    jsl C3EC1F_DepleteCharacterHp
 C18F62_c1_8f0e_deplete_hp_for_character_or_active_party_L8F62:
     pld
     rts

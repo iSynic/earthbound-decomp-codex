@@ -6,6 +6,14 @@ These are the two item-sensitive cleanup branches reached from [inventory-slot-r
 
 - `C2:29BB` = `RemovePartyOverlayTrackedItemId`
 
+Source polish follow-up (2026-05-06): the C1 inventory insertion/removal source
+now names these hooks directly. The insertion path calls
+`C216DB_ArbitratePartyOverlayEntityPresence` and
+`C3EAD0_RefreshEggFamilyLifecycleOnInsert`; the removal path calls
+`C229BB_RemovePartyOverlayTrackedItemId`,
+`C216DB_ArbitratePartyOverlayEntityPresence`, and
+`C3EB1C_RefreshEggFamilyLifecycleOnRemove`.
+
 ## Main result
 
 The extra cleanup in `C1:8C27` is no longer just a vague item-type side effect.
