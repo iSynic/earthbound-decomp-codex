@@ -276,3 +276,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-06: EF EBATTLE4 action-blocked status follow-up renamed
   `EF:7186..720C` with `ActionBlockedStatusText` and marked `EF:7221` as the
   PSI-seal `ByteSubstitutionResultText` consumer behind the player-side branch.
+- 2026-05-06: EF special-event lane label follow-up renamed row `243/244`
+  anchors so `EF:72F6/7415` are `RowPresentationText` and
+  `EF:72F7/733D/743B` are behavior-emitted `ResultText` continuations.

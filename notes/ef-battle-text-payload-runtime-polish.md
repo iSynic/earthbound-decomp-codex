@@ -226,6 +226,11 @@ The event half exposes guard, Fly Honey, homesick flavor, Runaway Five
 intervention, Poo/Starstorm, Pokey random talk branches, and companion text
 before the damage pipeline begins at `EF:75AB`.
 
+The row `243` and `244` special-event split now carries the lane in the source
+labels: `EF:72F6` and `EF:7415` are `RowPresentationText` anchors displayed by
+`DD9F`, while `EF:72F7`, `EF:733D`, and `EF:743B` are behavior-emitted
+`ResultText` continuations.
+
 ## Recovery And Death Follow-up
 
 The C2 affliction-recovery source and notes repeatedly dispatch into the

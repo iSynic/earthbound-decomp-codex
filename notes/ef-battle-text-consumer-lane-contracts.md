@@ -71,8 +71,9 @@ Examples:
 - EBATTLE4 action-blocking status anchors in `EF:7186..720C` explain a blocked
   turn; the adjacent PSI-seal result at `EF:7221` is a
   `ByteSubstitutionResultText` consumer, not a row presentation anchor.
-- `EF:72F7`, `EF:733D`, and `EF:743B` are special-event continuations emitted
-  after rows `243` and `244` present their row messages.
+- `EF:72F6` and `EF:7415` are special-event row `+4` presentation anchors for
+  rows `243` and `244`; `EF:72F7`, `EF:733D`, and `EF:743B` are the separate
+  C2 behavior-emitted result continuations.
 - `EF:7142` and queued `EF:7123` belong to normalization result flow, separate
   from the row `247`/`248` presentation messages.
 

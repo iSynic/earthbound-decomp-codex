@@ -226,6 +226,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
 - 2026-05-06: EF EBATTLE4 status-block label follow-up renamed
   `EF:7186..720C` as `ActionBlockedStatusText` anchors and kept the PSI-seal
   `EF:7221` branch as `ByteSubstitutionResultText`.
+- 2026-05-06: EF special-event lane label follow-up renamed row `243/244`
+  event anchors so `EF:72F6/7415` carry `RowPresentationText` and
+  `EF:72F7/733D/743B` carry `ResultText` continuation semantics.
 - 2026-05-06: EF negative-guardrail source follow-up marked Lifeup explanation
   and enemy-flavor anchors plus explosive `EF:9A7E/9A9E` candidates as not-yet
   row-message joins, preserving rows `32..35` and `64/65` for row `+4` pointer

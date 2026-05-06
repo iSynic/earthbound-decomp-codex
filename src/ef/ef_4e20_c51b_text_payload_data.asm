@@ -1210,38 +1210,36 @@ EF72DB_EBattle4MsgBtlHomesickLostMotivation:
 ; ---------------------------------------------------------------------------
 ; EF:72F6
 
-; EBATTLE4: Runaway Five break-in root text; D5:7B68 row 243 uses this as the
-; row +4 `DD9F` presentation message before the C2 event body selects a
-; continuation.
-EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
+; EBATTLE4: Runaway Five break-in row +4 `DD9F` presentation text for row 243.
+EF72F6_EBattle4RunawayFiveBreakInRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:72F7
 
 ; EBATTLE4: Runaway Five break-in failure text; direct-result continuation
 ; emitted by the row 243 C2 behavior body, not a row +4 presentation anchor.
-EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
+EF72F7_EBattle4RunawayFiveBreakInFailureResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:733D
 
 ; EBATTLE4: Runaway Five break-in success text; direct-result continuation
 ; emitted by the row 243 C2 behavior body, not a row +4 presentation anchor.
-EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
+EF733D_EBattle4RunawayFiveBreakInSuccessResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7415
 
 ; EBATTLE4: Poo break-in PSI realization text; D5:7B68 row 244 uses this as
 ; the row +4 `DD9F` presentation message before the C2 event result.
-EF7415_EBattle4MsgBtlPooBreakIn:
+EF7415_EBattle4PooBreakInRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:743B
 
 ; EBATTLE4: Poo Starstorm reveal text; direct-result continuation emitted by
 ; the row 244 C2 behavior body, not a row +4 presentation anchor.
-EF743B_EBattle4MsgBtlPooStarstormReveal:
+EF743B_EBattle4PooStarstormRevealResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:745F

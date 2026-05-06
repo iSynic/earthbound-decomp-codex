@@ -4809,20 +4809,20 @@ db $03,$02
 
 EF72DB_EBattle4MsgBtlHomesickLostMotivation:
 
-; Original data gap before EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
+; Original data gap before EF72F6_EBattle4RunawayFiveBreakInRowPresentationText:
 db $01,$70,$1C,$0D,$50,$9C,$17,$62,$15,$BF,$9D,$9F,$A4,$99,$A6,$15
 db $5E,$00,$50,$15,$3F,$92,$17,$14,$5E,$03,$02
 
 ; EBATTLE4: row 243 `DD9F` presentation; C2 behavior selects the continuation.
-EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
+EF72F6_EBattle4RunawayFiveBreakInRowPresentationText:
 
-; Original data gap before EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
+; Original data gap before EF72F7_EBattle4RunawayFiveBreakInFailureResultText:
 db $02
 
 ; EBATTLE4: row 243 direct-result continuation, not row +4 presentation text.
-EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
+EF72F7_EBattle4RunawayFiveBreakInFailureResultText:
 
-; Original data gap before EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
+; Original data gap before EF733D_EBattle4RunawayFiveBreakInSuccessResultText:
 db $01,$70,$72,$9C,$17,$16,$50,$A3,$9D,$17,$09,$50,$A0,$9F,$A5,$17
 db $7C,$17,$A4,$00,$50,$50,$1C,$0D,$15,$39,$92,$9F,$94,$A9,$51,$14
 db $00,$70,$08,$D7,$E6,$C7,$00,$17,$B1,$00,$50,$15,$CF,$15,$9C,$92
@@ -4830,9 +4830,9 @@ db $A9,$16,$26,$9D,$17,$09,$51,$14,$00,$70,$89,$15,$6E,$A3,$95,$17
 db $99,$15,$9B,$51,$14,$02
 
 ; EBATTLE4: row 243 direct-result continuation, not row +4 presentation text.
-EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
+EF733D_EBattle4RunawayFiveBreakInSuccessResultText:
 
-; Original data gap before EF7415_EBattle4MsgBtlPooBreakIn:
+; Original data gap before EF7415_EBattle4PooBreakInRowPresentationText:
 db $01,$70,$71,$9C,$9C,$15,$4F,$91,$17,$B3,$94,$94,$95,$9E,$5C,$00
 db $50,$15,$1C,$97,$A5,$A9,$A3,$50,$A2,$A5,$A3,$98,$95,$94,$16,$0B
 db $15,$68,$16,$71,$51,$14,$1F,$00,$00,$95,$10,$3C,$01,$70,$79,$15
@@ -4849,15 +4849,15 @@ db $A5,$15,$FA,$50,$15,$B1,$17,$7D,$6E,$14,$10,$3C,$1F,$62,$01,$18
 db $00,$18,$01,$0E,$04,$3E,$01,$02
 
 ; EBATTLE4: row 244 `DD9F` presentation before the Poo/Starstorm event result.
-EF7415_EBattle4MsgBtlPooBreakIn:
+EF7415_EBattle4PooBreakInRowPresentationText:
 
-; Original data gap before EF743B_EBattle4MsgBtlPooStarstormReveal:
+; Original data gap before EF743B_EBattle4PooStarstormRevealResultText:
 db $1F,$71,$04,$02,$01,$70,$83,$A5,$94,$94,$95,$9E,$9C,$A9,$5C,$50
 db $1C,$02,$04,$50,$A3,$A7,$9F,$9F,$A0,$15,$57,$17,$9F,$00,$50,$15
 db $52,$A3,$9B,$A9,$51,$02
 
 ; EBATTLE4: row 244 direct-result continuation, not row +4 presentation text.
-EF743B_EBattle4MsgBtlPooStarstormReveal:
+EF743B_EBattle4PooStarstormRevealResultText:
 
 ; Original data gap before EF745F_EBattle4MsgBtlPokeyTalkRandom:
 db $01,$70,$1C,$02,$04,$16,$AC,$16,$55,$50,$9E,$95,$A7,$50,$16,$FE
