@@ -120,9 +120,16 @@ Examples:
 
 `C1:DD7C` stages `$9D11` for `LOAD_BYTE_SUBSTITUTION (19 1F)`. EF anchors that
 consume that byte should keep the `ByteSubstitution` suffix. Present/item-name
-and PSI-name examples are the current high-confidence cases: `EF:7BDF` and
-`EF:7DD5` for present item names, `EF:7B77` and shared row text `EF:8543` for
-PSI names, plus shield PSI-name result scripts `EF:70D2` and `EF:70FA`.
+and PSI-name examples are the current high-confidence cases:
+`EF:7BDF_EBattle8PresentItemByteSubstitutionText` and
+`EF:7DD5_EBattle8CheckPresentGetItemByteSubstitutionText` for present item
+names, `EF:7B77` and shared row text `EF:8543` for PSI names, plus shield
+PSI-name result scripts `EF:70D2` and `EF:70FA`.
+
+The present continuation at `EF:7C42..7DBE` is downstream result/prompt flow
+after the present item byte has been consumed. Its result and prompt labels
+should not be promoted as row `+4` presentation text without separate row
+evidence.
 
 `LOAD_POINTER_SUBSTITUTION (19 1E)` consumes `$9D12/$9D14`; EF branches that
 depend on that pointer should keep the `PointerSubstitution` suffix. Current

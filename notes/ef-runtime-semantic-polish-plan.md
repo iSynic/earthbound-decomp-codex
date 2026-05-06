@@ -137,10 +137,14 @@ This planning pass does not split EF source corridors or regenerate the bank.
   shield-adjacent recovery payload anchors.
 - 2026-05-05: EF EBATTLE8 present-result follow-up split the
   `EF:7C42..7DD5` continuation behind `MSG_BTL_PRESENT` into
-  dead-recipient, full-inventory, throw-away prompt, abandon confirmation,
-  drop-selection, drop-confirmed, and forbidden-drop text anchors. This extends
-  the C2/C1 present byte-substitution bridge without converting EB text bytes
-  to macro source.
+  recipient-cannot-receive, full-inventory, throw-away prompt, abandon
+  confirmation, drop-selection, drop-confirmed, and forbidden-drop text
+  anchors. This extends the C2/C1 present byte-substitution bridge without
+  converting EB text bytes to macro source.
+- 2026-05-06: EF EBATTLE8 present-item naming follow-up tightened those source
+  anchors: `EF:7BDF/7DD5` now name present item `ByteSubstitutionText`
+  consumers directly, and `EF:7C42..7DBE` separates result text from prompt
+  text inside the present continuation.
 - 2026-05-05: EF EBATTLE4 status/event prelude follow-up split the
   `EF:7186..75AB` corridor into action-blocking status text, PSI-seal result
   branches, guard/Fly-Honey/homesick flavor, Runaway Five and Poo/Starstorm

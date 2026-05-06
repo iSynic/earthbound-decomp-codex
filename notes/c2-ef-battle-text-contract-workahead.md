@@ -659,6 +659,10 @@ And for the most actionable C2 call-site families:
   forbidden-drop text anchors. The C2 side still treats `$AA10` as
   `BattlePresentItemByte`; EF now exposes the downstream result branches that
   run after `EF:7BDF` consumes that byte through `19 1F`.
+- 2026-05-06: EF present-item naming follow-up removed inherited `MsgBtl`
+  prose from the `EF:7BDF` and `EF:7DD5` item `ByteSubstitutionText` anchors
+  and split the `EF:7C42..7DBE` continuation labels into present result versus
+  prompt text roles. No C1/C2 source was edited in this pass.
 - 2026-05-01: `src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm`
   now names the Spy readout target battler offsets for offense, defense, fire/
   freeze/flash/paralysis resistance, hypnosis resistance, brainshock

@@ -5396,13 +5396,13 @@ db $1B,$00
 
 EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
 
-; Original data gap before EF7BDF_EBattle8MsgBtlPresentItemByteSubstitutionText:
+; Original data gap before EF7BDF_EBattle8PresentItemByteSubstitutionText:
 db $19,$1E,$18,$07,$03,$00,$00,$00,$00,$1B,$02,$DC,$7B,$EF,$00,$7F
 db $98,$5C,$50,$92,$91,$92,$A9,$51,$00,$50,$50,$1B,$01,$02
 
-EF7BDF_EBattle8MsgBtlPresentItemByteSubstitutionText:
+EF7BDF_EBattle8PresentItemByteSubstitutionText:
 
-; Original data gap before EF7C42_EBattle8PresentRecipientDeadText:
+; Original data gap before EF7C42_EBattle8PresentRecipientCannotReceiveResultText:
 db $01,$15,$7F,$15,$F3,$17,$EC,$96,$17,$0D,$16,$AF,$15,$9E,$51,$14
 db $00,$1F,$02,$10,$10,$01,$70,$79,$9E,$A3,$99,$94,$15,$15,$16,$AF
 db $15,$9E,$5C,$00,$19,$1F,$1B,$04,$50,$15,$79,$A7,$91,$16,$F5,$1C
@@ -5411,49 +5411,49 @@ db $08,$85,$DC,$C7,$00,$1B,$03,$42,$7C,$EF,$00,$1B,$01,$1B,$04,$70
 db $1C,$02,$00,$1B,$04,$16,$40,$9B,$17,$8F,$1D,$0E,$00,$00,$1F,$02
 db $74,$14,$02
 
-EF7C42_EBattle8PresentRecipientDeadText:
+EF7C42_EBattle8PresentRecipientCannotReceiveResultText:
 
-; Original data gap before EF7C73_EBattle8PresentInventoryFullText:
+; Original data gap before EF7C73_EBattle8PresentInventoryFullResultText:
 db $19,$10,$01,$1B,$04,$01,$70,$1C,$02,$00,$50,$91,$94,$94,$95,$94
 db $1B,$01,$15,$18,$1C,$05,$00,$15,$90,$00,$50,$50,$1B,$04,$1C,$02
 db $00,$57,$A3,$15,$C8,$5E,$1B,$04,$1D,$0E,$00,$00,$1F,$02,$74,$14
 db $02
 
-EF7C73_EBattle8PresentInventoryFullText:
+EF7C73_EBattle8PresentInventoryFullResultText:
 
-; Original data gap before EF7C89_EBattle8PresentThrowAwayPrompt:
+; Original data gap before EF7C89_EBattle8PresentThrowAwayPromptText:
 db $16,$DE,$5C,$50,$08,$D7,$E6,$C7,$00,$15,$C0,$16,$AB,$17,$BF,$17
 db $0B,$15,$C8,$5E,$14,$00
 
-EF7C89_EBattle8PresentThrowAwayPrompt:
+EF7C89_EBattle8PresentThrowAwayPromptText:
 
-; Original data gap before EF7CB4_EBattle8PresentAbandonPrompt:
+; Original data gap before EF7CB4_EBattle8PresentAbandonPromptText:
 db $15,$1E,$A4,$98,$17,$5B,$00,$50,$15,$0A,$16,$C9,$6F,$14,$00,$19
 db $02,$89,$95,$A3,$02,$50,$50,$19,$02,$7E,$9F,$02,$1C,$07,$02,$11
 db $12,$09,$02,$0F,$7D,$EF,$00,$B4,$7C,$EF,$00
 
-EF7CB4_EBattle8PresentAbandonPrompt:
+EF7CB4_EBattle8PresentAbandonPromptText:
 
-; Original data gap before EF7CED_EBattle8PresentAbandonRetryText:
+; Original data gap before EF7CED_EBattle8PresentAbandonRetryPromptText:
 db $19,$1F,$1B,$04,$15,$7F,$9E,$5C,$50,$A7,$99,$15,$C5,$9C,$17,$AE
 db $00,$15,$95,$1C,$05,$00,$15,$BD,$98,$99,$9E,$94,$6F,$14,$00,$19
 db $02,$89,$95,$A3,$02,$19,$02,$7E,$9F,$02,$1C,$07,$02,$11,$12,$09
 db $02,$F8,$7C,$EF,$00,$ED,$7C,$EF,$00
 
-EF7CED_EBattle8PresentAbandonRetryText:
+EF7CED_EBattle8PresentAbandonRetryPromptText:
 
-; Original data gap before EF7CF8_EBattle8PresentAbandonConfirmedText:
+; Original data gap before EF7CF8_EBattle8PresentAbandonConfirmedResultText:
 db $15,$7F,$9E,$5C,$14,$00,$0A,$89,$7C,$EF,$00
 
-EF7CF8_EBattle8PresentAbandonConfirmedText:
+EF7CF8_EBattle8PresentAbandonConfirmedResultText:
 
-; Original data gap before EF7D0F_EBattle8PresentDropSelectionPrompt:
+; Original data gap before EF7D0F_EBattle8PresentDropSelectionPromptText:
 db $70,$08,$4E,$E7,$C7,$00,$50,$91,$92,$16,$EA,$15,$7E,$94,$00,$15
 db $95,$1C,$05,$00,$5E,$14,$02
 
-EF7D0F_EBattle8PresentDropSelectionPrompt:
+EF7D0F_EBattle8PresentDropSelectionPromptText:
 
-; Original data gap before EF7D83_EBattle8PresentDropConfirmedText:
+; Original data gap before EF7D83_EBattle8PresentDropConfirmedResultText:
 db $01,$15,$7B,$94,$9F,$15,$26,$A4,$98,$17,$5B,$50,$16,$C9,$6F,$14
 db $08,$C3,$E4,$C5,$00,$01,$1B,$02,$B4,$7C,$EF,$00,$1B,$00,$19,$19
 db $00,$00,$1D,$0B,$00,$1B,$02,$BE,$7D,$EF,$00,$1B,$01,$19,$19,$00
@@ -5463,21 +5463,21 @@ db $A9,$02,$19,$02,$74,$9F,$9E,$57,$A4,$50,$94,$9F,$50,$99,$A4,$02
 db $1C,$07,$02,$11,$12,$09,$02,$83,$7D,$EF,$00,$B4,$7C,$EF,$00,$0A
 db $B4,$7C,$EF,$00
 
-EF7D83_EBattle8PresentDropConfirmedText:
+EF7D83_EBattle8PresentDropConfirmedResultText:
 
-; Original data gap before EF7DBE_EBattle8PresentDropForbiddenText:
+; Original data gap before EF7DBE_EBattle8PresentDropForbiddenResultText:
 db $1B,$01,$1D,$0F,$00,$00,$1B,$04,$70,$1C,$02,$00,$1B,$04,$50,$A4
 db $98,$A2,$95,$A7,$15,$18,$1C,$05,$00,$50,$16,$C9,$14,$00,$1B,$04
 db $19,$1F,$1B,$04,$70,$16,$4F,$A4,$17,$37,$15,$18,$1C,$05,$00,$5E
 db $1D,$0E,$00,$00,$1F,$02,$74,$10,$01,$03,$02
 
-EF7DBE_EBattle8PresentDropForbiddenText:
+EF7DBE_EBattle8PresentDropForbiddenResultText:
 
-; Original data gap before EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
+; Original data gap before EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionText:
 db $17,$94,$15,$81,$A4,$98,$17,$5B,$15,$18,$1C,$05,$00,$50,$16,$C9
 db $5E,$14,$0A,$0F,$7D,$EF,$00
 
-EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
+EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionText:
 
 ; Original data gap before EF7E25_EBattle2MsgBtlPpDown:
 db $01,$70,$1C,$0D,$17,$CA,$A7,$00,$50,$15,$BC,$16,$AF,$16,$32,$92

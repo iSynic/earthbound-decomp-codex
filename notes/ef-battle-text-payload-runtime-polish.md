@@ -133,14 +133,15 @@ macros.
   existing `EF:7B77` PSI-name byte-substitution text.
 - `EF:7B77`, `EF:7B85`, `EF:7BA2`, `EF:7BC1`, `EF:7BDF`, and `EF:7DD5` now
   mark the byte and pointer substitution examples in `EBATTLE8`: `19 1F` byte
-  substitution for PSI/item names and `19 1E` pointer substitution branches.
+  substitution for PSI/present item names and `19 1E` pointer substitution
+  branches.
   The `EF:7B85/7BA2/7BC1` branch labels now keep the lane noun first
   (`PointerSubstitutionSweet/Tears/OhBabyBranch`), while `EF:7B83/7BA0/7BBF`
   remain the small branch-state separators around those consumers.
 - `EF:7C42`, `EF:7C73`, `EF:7C89`, `EF:7CB4`, `EF:7CED`, `EF:7CF8`,
   `EF:7D0F`, `EF:7D83`, and `EF:7DBE` now split the `MSG_BTL_PRESENT`
-  result continuation into dead-recipient, full-inventory, abandon, drop, and
-  forbidden-drop text paths.
+  continuation into present result text, yes/no prompt text, drop-selection
+  prompt text, and forbidden-drop result text paths.
 - `EF:7E25..843F` now splits EBATTLE2 action-flavor narration into
   symbol-derived `MSG_BTL_*` anchors, covering enemy attack descriptions,
   guard/flavor actions, gases/breath/light/sound effects, and the last
@@ -288,10 +289,12 @@ also consume the `C1:DD7C -> $9D11 -> 19 1F` byte slot.
 
 The C2 battle-start and Check Present notes already prove the `$AA10 ->
 C1:DD7C -> $9D11 -> 19 1F` byte-substitution bridge into `EF:7BDF` and
-`EF:7DD5`. Splitting `EF:7C42..7DD5` exposes the internal `MSG_BTL_PRESENT`
-continuations named by the EBATTLE8 listing: recipient-dead fallback,
-inventory-full throw-away prompts, abandon confirmation branches, selected-item
-drop confirmation, and the no-drop retry path. This keeps the present family
+`EF:7DD5`. Those source anchors now use present-item and check-present-get
+`ByteSubstitutionText` names without inherited `MsgBtl` prose. Splitting
+`EF:7C42..7DD5` exposes the internal present continuation as result and prompt
+anchors: recipient-cannot-receive and inventory-full results, throw-away and
+abandon prompts, abandon-confirmed and drop-confirmed results, drop-selection
+prompt text, and forbidden-drop result text. This keeps the present family
 readable without decoding the EB text bytecode into macro source yet.
 
 ## EBATTLE2 Action-Flavor Follow-up
