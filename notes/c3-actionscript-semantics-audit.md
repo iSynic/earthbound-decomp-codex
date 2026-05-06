@@ -300,7 +300,7 @@ C3 direction-class words are backed by the runtime chain documented around `C0:A
 | `C0:A055` | `ProjectWorldToScreen_FromCamera39` | `presentation-render` | 1 | project current slot world X/Y through camera $39/$3B |
 | `C0:A0A0` | `ProjectWorldToScreen_FromCamera39AndHeight` | `presentation-render` | 1 | project current slot world X/Y through camera $39/$3B and subtract height from screen Y |
 | `C0:A384` | `UpdatePosition_WhenNoNeighbor` | `movement` | 1 | per-frame no-neighbor position updater that integrates movement without the footprint refresh tail |
-| `C0:A26B` | `PhysicsCallback_TargetComparisonAndProjection` | `movement` | 1 | physics callback that compares current slot against active target context and falls back to camera projection |
+| `C0:A26B` | `PhysicsCallback_TargetContextCompareAndProject` | `movement` | 1 | physics callback that compares current slot in active target context and otherwise falls back to camera projection |
 | `C0:4D78` | `Tick_Event2SnapshotObjectReconcile` | `overworld-runtime` | 1 | intro/event snapshot tick callback that reconciles object state against saved coordinates |
 | `C0:D7F7` | `Consume_CurrentSlotAttentionPath` | `current-slot-state` | 1 | consume the current slot attention path into live movement target state |
 | `C0:A03A` | `ProjectWorldToScreen_FromCamera31AndHeight` | `presentation-render` | 1 | project current slot world coordinates through camera $31 and height state into screen coordinates |
@@ -923,7 +923,7 @@ C3:A05B  19 52 A0             EVENT_SHORTJUMP jump_target=$C3:A052 <LoopIntroCam
 
 ```text
 C3:A05E  23 39 A0             EVENT_SET_POSITION_CHANGE_CALLBACK position_change_callback=$C0:A039 <ReturnFromPositionChangeCallback_NoProjection>
-C3:A061  25 6B A2             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A26B <PhysicsCallback_TargetComparisonAndProjection>
+C3:A061  25 6B A2             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A26B <PhysicsCallback_TargetContextCompareAndProject>
 C3:A064  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A066  42 AA 3D C0          EVENT_CALLROUTINE $C0:3DAA <Sync_CurrentSlotToPartyCharacterRecord>
 C3:A06A  42 F0 4E C0          EVENT_CALLROUTINE $C0:4EF0 <Restore_CurrentSlotFromSnapshotRecord>

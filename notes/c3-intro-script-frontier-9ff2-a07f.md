@@ -47,14 +47,14 @@ The self-pointers at the end of each record strongly suggest loopable movement/a
 `C3:A043` is the intro camera-pan gate. In the verified ROM it contains:
 
 ```text
-C3:A043  42 D3 FF C1          EVENT_CALLROUTINE $C1:FFD3 <label_C1FFD3>
+C3:A043  42 D3 FF C1          EVENT_CALLROUTINE $C1:FFD3 <ComputeBankC1ChecksumTail>
 C3:A047  0A 4E A0             EVENT_SHORTCALL_CONDITIONAL $C3:A04E <DATA_C3A04E>
 C3:A04A  42 00 01 C3          EVENT_CALLROUTINE $C3:0100
 C3:A04E  08 00 52 C0          EVENT_SET_TICK_CALLBACK $C0:5200 <Tick_OverworldPlayerPositionAndCallbacks>
 C3:A052  01 06                EVENT_LOOP $06
 C3:A054  06 C8                EVENT_PAUSE $C8
 C3:A056  02                   EVENT_LOOP_END
-C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <label_C20000>
+C3:A057  42 00 00 C2          EVENT_CALLROUTINE $C2:0000 <RunEnemySunstrokeCheck>
 C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <DATA_C3A052>
 ```
 
@@ -66,11 +66,11 @@ C3:A05B  19 52 A0             EVENT_SHORTJUMP $C3:A052 <DATA_C3A052>
 
 ```text
 C3:A05E  23 39 A0             EVENT_SET_POSITION_CHANGE_CALLBACK $C0:A039 <ReturnFromPositionChangeCallback_NoProjection>
-C3:A061  25 6B A2             EVENT_SET_PHYSICS_CALLBACK $C0:A26B <PhysicsCallback_TargetComparisonAndProjection>
+C3:A061  25 6B A2             EVENT_SET_PHYSICS_CALLBACK $C0:A26B <PhysicsCallback_TargetContextCompareAndProject>
 C3:A064  3B 00                EVENT_SET_ANIMATION $00
 C3:A066  42 AA 3D C0          EVENT_CALLROUTINE $C0:3DAA <Sync_CurrentSlotToPartyCharacterRecord>
 C3:A06A  42 F0 4E C0          EVENT_CALLROUTINE $C0:4EF0 <Restore_CurrentSlotFromSnapshotRecord>
-C3:A06E  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <label_C0A6DA>
+C3:A06E  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
 C3:A072  08 78 4D C0          EVENT_SET_TICK_CALLBACK $C0:4D78 <Tick_Event2SnapshotObjectReconcile>
 C3:A076  42 E3 A6 C0          EVENT_CALLROUTINE $C0:A6E3 <WatchAndRefreshCompanionVisualPhase>
 C3:A07A  06 01                EVENT_PAUSE $01

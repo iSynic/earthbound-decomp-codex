@@ -16249,7 +16249,7 @@ LoopEvent784_LeftRightWander:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
-!PhysicsCallback_TargetComparisonAndProjection = $A26B
+!PhysicsCallback_TargetContextCompareAndProject = $A26B
 !RefreshOverworldEntitySnapshotState = $EF031E
 !SeedOverworldEntitySnapshotCoordinates = $EF027D
 !WatchAndRefreshCompanionVisualPhase = $C0A6E3
@@ -16268,7 +16268,7 @@ LoopEvent784_LeftRightWander:
 org $C3A080
 Event3_OverworldSnapshotSeedLoop:
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:A080  23 39 A0
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_TargetComparisonAndProjection) ; C3:A083  25 6B A2
+    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_TargetContextCompareAndProject) ; C3:A083  25 6B A2
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A086  3B 00
     %EVENT_CALLROUTINE_0(!SeedOverworldEntitySnapshotCoordinates) ; C3:A088  42 7D 02 EF
     %EVENT_SET_TICK_CALLBACK(!RefreshOverworldEntitySnapshotState) ; C3:A08C  08 1E 03 EF

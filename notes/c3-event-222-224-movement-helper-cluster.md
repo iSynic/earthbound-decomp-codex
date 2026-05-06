@@ -68,7 +68,7 @@ C3:AB58  1B                   EVENT_SHORT_RETURN
 ```text
 C3:AB59  1A 44 AB             EVENT_SHORTCALL $C3:AB44 <RefreshActiveEntityDirectionAndVisualProfile>
 C3:AB5C  06 01                EVENT_PAUSE $01
-C3:AB5E  42 DC A8 C0          EVENT_CALLROUTINE $C0:A8DC <ScriptWrapper_C47143_Mode01>
+C3:AB5E  42 DC A8 C0          EVENT_CALLROUTINE $C0:A8DC <StepCurrentSlotTowardCachedTarget_NoFacingRefresh>
 C3:AB62  0A 5C AB             EVENT_SHORTCALL_CONDITIONAL $C3:AB5C <DATA_C3AB5C>
 C3:AB65  39                   EVENT_SET_VELOCITIES_ZERO
 C3:AB66  1B                   EVENT_SHORT_RETURN
@@ -78,7 +78,7 @@ C3:AB66  1B                   EVENT_SHORT_RETURN
 
 ```text
 C3:AB8A  06 01                EVENT_PAUSE $01
-C3:AB8C  42 74 6E C4          EVENT_CALLROUTINE $C4:6E74 <label_C46E74>
+C3:AB8C  42 74 6E C4          EVENT_CALLROUTINE $C4:6E74 <CheckStagedPositionWithinPlayerProximityThreshold>
 C3:AB90  0A 8A AB             EVENT_SHORTCALL_CONDITIONAL $C3:AB8A <WaitUntilPlayerLeavesActiveArea>
 C3:AB93  1B                   EVENT_SHORT_RETURN
 ```
@@ -98,7 +98,7 @@ C3:A0AF  19 9F A0             EVENT_SHORTJUMP $C3:A09F <LoopActiveEntityWalkAnim
 `C3:A262`:
 
 ```text
-C3:A262  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <label_C0A6DA>
+C3:A262  42 DA A6 C0          EVENT_CALLROUTINE $C0:A6DA <ClearCurrentSlotNeighborCache>
 C3:A266  42 76 5E C0 F1 A6 64 C0 EVENT_CALLROUTINE $C0:5E76 <Update_CurrentSlotCollisionCache>, $F1, $A6, $64, $C0
 C3:A26E  19 66 A2             EVENT_SHORTJUMP $C3:A266 <DATA_C3A266>
 ```

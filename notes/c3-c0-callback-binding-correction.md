@@ -40,8 +40,8 @@ C3:A386  07 11 A1             EVENT_START_TASK $C3:A111 <LoopActiveEntityWalkPul
 C3:A389  07 62 A2             EVENT_START_TASK $C3:A262 <LoopActiveEntityCollisionProbeRefresh>
 C3:A38C  42 BF A4 C0          EVENT_CALLROUTINE $C0:A4BF <RefreshCurrentSlotVisualProfile_Mode0>
 C3:A390  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, $00, $01
-C3:A396  42 64 A9 C0 08 00 08 00 EVENT_CALLROUTINE $C0:A964 <ScriptWrapper_C47225_ReadTwoWords>, $08, $00, $08, $00
-C3:A39E  19 B7 A3             EVENT_SHORTJUMP $C3:A3B7 <UNKNOWN_C3A3B7>
+C3:A396  42 64 A9 C0 08 00 08 00 EVENT_CALLROUTINE $C0:A964 <SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords>, $08, $00, $08, $00
+C3:A39E  19 B7 A3             EVENT_SHORTJUMP $C3:A3B7 <LoopRandomDirectionMovementWithRandomWait>
 ```
 
 ## Cross-bank contract

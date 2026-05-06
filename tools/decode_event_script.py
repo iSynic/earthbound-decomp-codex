@@ -329,9 +329,9 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "project current slot world coordinates through camera $31 and height state into screen coordinates",
     },
     "C0:A26B": {
-        "name": "PhysicsCallback_TargetComparisonAndProjection",
+        "name": "PhysicsCallback_TargetContextCompareAndProject",
         "group": "movement",
-        "contract": "physics callback that compares current slot against active target context and falls back to camera projection",
+        "contract": "physics callback that compares current slot in active target context and otherwise falls back to camera projection",
     },
     "C0:5200": {
         "name": "Tick_OverworldPlayerPositionAndCallbacks",
