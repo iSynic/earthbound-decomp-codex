@@ -6256,12 +6256,12 @@ db $16,$12,$A7,$16,$73,$51,$03,$02
 
 EF8BC0_EBattle3MsgBtlSkateboard:
 
-; Original data gap before EF8BE8_EBattle3MsgBtlKamitsukiDiamond:
+; Original data gap before EF8BE8_EBattle3DiamondizeBiteRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F5,$17,$45,$94,$95,$94,$00,$50
 db $50,$96,$99,$95,$A2,$93,$95,$9C,$A9,$16,$BC,$91,$50,$A3,$9B,$16
 db $66,$92,$9F,$16,$73,$51,$03,$02
 
-EF8BE8_EBattle3MsgBtlKamitsukiDiamond:
+EF8BE8_EBattle3DiamondizeBiteRowPresentationText:
 
 ; Original data gap before EF8BFB_EBattle3MsgBtlKudamaki:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$92,$99,$17,$2B,$00,$50,$17,$2F
@@ -6282,11 +6282,11 @@ db $9C,$16,$A5,$A5,$A2,$16,$1F,$51,$1F,$02,$54,$03,$02
 
 EF8C3A_EBattle3MsgBtlShikaritsuke:
 
-; Original data gap before EF8C58_EBattle3MsgBtlBadSmell:
+; Original data gap before EF8C58_EBattle3BadSmellOdorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$9F,$A7,$9C,$95,$94,$00
 db $50,$17,$F5,$91,$A2,$A0,$9C,$A9,$51,$1F,$02,$54,$03,$02
 
-EF8C58_EBattle3MsgBtlBadSmell:
+EF8C58_EBattle3BadSmellOdorRowPresentationText:
 
 ; Original data gap before EF8C75_EBattle3MsgBtlLoudVoice:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$16,$F6,$95,$94,$00,$50,$15,$BC
@@ -6350,12 +6350,12 @@ db $08,$A1,$69,$EF,$00,$02
 
 EF8D72_EBattle3MsgBtlNebieBeam:
 
-; Original data gap before EF8D9F_EBattle3MsgBtlNeutralizeSparkle:
+; Original data gap before EF8D9F_EBattle3NeutralizeSparkleRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DF,$A4,$50,$91,$00,$50,$15,$BD
 db $91,$9D,$90,$A4,$16,$E9,$90,$93,$91,$16,$4B,$A3,$90,$16,$E2,$5D
 db $16,$7A,$90,$17,$E5,$96,$96,$99,$16,$09,$51,$03,$02
 
-EF8D9F_EBattle3MsgBtlNeutralizeSparkle:
+EF8D9F_EBattle3NeutralizeSparkleRowPresentationText:
 
 ; Original data gap before EF8DC1_EBattle3MsgBtlMakitsuki:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$9D,$99,$A4,$A4,$95,$94,$00
@@ -6364,14 +6364,14 @@ db $03,$02
 
 EF8DC1_EBattle3MsgBtlMakitsuki:
 
-; Original data gap before EF8DDE_EBattle3MsgBtlToDiamondDog:
+; Original data gap before EF8DDE_EBattle3RainbowColorsEventRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$93,$9F,$99,$9C,$95,$94,$00,$50
 db $15,$AB,$15,$6A,$16,$B8,$15,$DB,$95,$94,$51,$03,$02
 
-; EBATTLE3: row 290 row +4 rainbow-colors / Master Belch-side event text.
-EF8DDE_EBattle3MsgBtlToDiamondDog:
+; EBATTLE3: row 290 row +4 rainbow-colors event presentation text.
+EF8DDE_EBattle3RainbowColorsEventRowPresentationText:
 
-; Original data gap before EF8E27_EBattle3MsgBtlWarpNear:
+; Original data gap before EF8E27_EBattle3SharedNamedItemRowPresentationText:
 db $01,$70,$71,$9C,$9C,$15,$4F,$91,$17,$B3,$94,$94,$95,$9E,$5C,$03
 db $00,$70,$1C,$0D,$50,$97,$17,$40,$17,$3B,$00,$50,$15,$BC,$A2,$16
 db $43,$92,$9F,$A7,$15,$4F,$93,$9F,$9C,$9F,$A2,$A3,$51,$1F,$02,$41
@@ -6380,13 +6380,13 @@ db $02,$41,$1C,$13,$28,$00,$10,$1E,$02
 
 ; EBATTLE3: rows 140 and 247 intentionally reuse this row +4 anchor with
 ; different C2 behavior bodies.
-EF8E27_EBattle3MsgBtlWarpNear:
+EF8E27_EBattle3SharedNamedItemRowPresentationText:
 
-; Original data gap before EF8E3C_EBattle3MsgBtlAntipsi:
+; Original data gap before EF8E3C_EBattle3ConcentrationPsiSealRowPresentationText:
 db $01,$70,$1C,$0D,$19,$1F,$1B,$04,$16,$AC,$16,$47,$00,$50,$50,$1C
 db $05,$00,$51,$03,$02
 
-EF8E3C_EBattle3MsgBtlAntipsi:
+EF8E3C_EBattle3ConcentrationPsiSealRowPresentationText:
 
 ; Original data gap before EF8E5E_EBattle3MsgBtlHpsuck:
 db $01,$70,$1C,$0D,$19,$1F,$1B,$04,$16,$AC,$16,$47,$00,$50,$50,$1C
@@ -6407,11 +6407,11 @@ db $05,$00,$51,$10,$1E,$1F,$02,$3B,$1C,$13,$00,$1E,$10,$3C,$03,$02
 
 EF8E9E_EBattle3MsgBtlShieldkill:
 
-; Original data gap before EF8EBE_EBattle3MsgBtlBadSmellGas:
+; Original data gap before EF8EBE_EBattle3BadSmellGasRowPresentationText:
 db $01,$70,$1C,$0D,$19,$1F,$1B,$04,$16,$AC,$16,$47,$00,$50,$50,$1C
 db $05,$00,$51,$10,$1E,$1F,$02,$63,$1C,$13,$00,$1B,$10,$3C,$03,$02
 
-EF8EBE_EBattle3MsgBtlBadSmellGas:
+EF8EBE_EBattle3BadSmellGasRowPresentationText:
 
 ; Original data gap before EF8EE2_EBattle3MsgBtlLightning:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$A3,$93,$98,$91,$A2,$97,$95

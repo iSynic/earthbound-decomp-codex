@@ -136,6 +136,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:89FE..8FAD` include into exact `MSG_BTL_*` anchors, from
   `MSG_BTL_JIHIBIKI` through `MSG_BTL_GYIYYIG_3`, ready for a later C2
   action-table consumer pass.
+- 2026-05-06: EF EBATTLE3 proved-row naming follow-up promoted the row-message
+  anchors for rows `159`, `228`, `232`, `248`, `273`, and `290`, plus shared
+  rows `140/247`, into `RowPresentationText` labels while leaving unproved
+  EBATTLE3 action-flavor payloads symbol-derived.
 - 2026-05-05: EF EBATTLE9 field/graveyard follow-up split the complete
   `EF:8FAD..9A47` include into the `_SUB_SOREZORE` helper, Sanctuary
   field-monster payloads, graveyard/Paula branches, and the Guts tutorial

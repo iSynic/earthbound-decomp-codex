@@ -165,7 +165,9 @@ macros.
   row presentation text at `EF:89E0`.
 - `EF:89FE..8FAD` now splits the complete EBATTLE3 enemy-action text include,
   from `MSG_BTL_JIHIBIKI` through `MSG_BTL_GYIYYIG_3`, before the next
-  EBATTLE9 include begins.
+  EBATTLE9 include begins. Proved EBATTLE3 row-message consumers now carry
+  `RowPresentationText` names for rows `159`, `228`, `232`, `248`, `273`,
+  and `290`, plus the shared named-item anchor used by rows `140` and `247`.
 - `EF:8FAD..9A47` now splits the complete EBATTLE9 field-monster/graveyard
   include: the party-size helper branch, Sanctuary field-monster payloads,
   Paula/graveyard branches, signpost/boss/girl text, and the Guts tutorial
@@ -407,9 +409,14 @@ scripts, and the late lightning/Giygas-flavor scripts. The split keeps the
 runtime payloads visible for a later C2 action-table consumer pass while still
 leaving the EB text bytecode ROM-preserved.
 
-No row-specific C2 consumer has been promoted for this island yet, so its labels
-should remain exact `MSG_BTL_*` anchors rather than gameplay-facing action
-names.
+The proved C2 row joins now split out the EBATTLE3 row-presentation subset:
+`EF:8BE8` is the diamondize-bite row message, `EF:8C58/8EBE` are the
+bad-smell odor/gas row messages, `EF:8D9F` is the Neutralizer sparkle row
+message, `EF:8DDE` is the rainbow-colors event presentation, `EF:8E27` is the
+shared named-item row message reused by rows `140` and `247`, and `EF:8E3C`
+is the concentration/PSI-seal row message. The rest of the EBATTLE3 include
+should remain exact `MSG_BTL_*` anchors until specific `D5:7B68` rows are
+mapped.
 
 ## EBATTLE9 Field-Monster And Graveyard Follow-up
 

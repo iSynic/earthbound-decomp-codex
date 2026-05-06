@@ -52,7 +52,7 @@ body, success text, and fallback text are all visible.
 | `86` | `EF:9DBD` `MSG_BTL_TACHIBA_THINK` | `C2:8DBB` | Direct strange/affliction+3 value `1`; emits `EF:6C3A` or `EF:766E` |
 | `87` | `EF:9DDA` `MSG_BTL_KOGEPPU_IKI` | `C2:8DFC` | All-target crying-family sibling; grouped with the affliction+2 crying body |
 | `90` | `EF:9E47` `MSG_BTL_MUSIC` | `C2:9F57 -> C2:9F06` | Asleep/affliction+2 value `1`; emits `EF:6C55` or `EF:766E` |
-| `159` | `EF:8E3C` `MSG_BTL_ANTIPSI` | `C2:A3D1` | Item-side concentration/PSI-seal; emits `EF:6C0B` or `EF:766E` |
+| `159` | `EF:8E3C` `ConcentrationPsiSealRowPresentationText` | `C2:A3D1` | Item-side concentration/PSI-seal; emits `EF:6C0B` or `EF:766E` |
 | `207` | `EF:83A8` `MSG_BTL_LAUGH_HEN` | `C2:8D3A -> C2:A056` | Strange-status wrapper reuse; emits `EF:6C3A` or `EF:766E` |
 
 Important modeling point: the row `+4` message is the action presentation text
@@ -74,19 +74,19 @@ writes.
 | `104` | `EF:7F32` `FlamingFireballRowPresentationText` | `C2:900B` | One-target fire-damage wrapper |
 | `117` | `EF:80C4` `TornadoRowPresentationText` | `C2:902C` | All-target physical wrapper over `C2:8651` |
 | `118` | `EF:80E4` `GiganticBlastRowPresentationText` | `C2:902C` | Same all-target physical wrapper reuse |
-| `140` | `EF:8E27` `MSG_BTL_WARP_NEAR` | `C2:9AD8` | Item-side full-heal reuse over the fixed-amount healing core; named-item presentation wrapper |
-| `228` | `EF:8BE8` `MSG_BTL_KAMITSUKI_DIAMOND` | `C2:916E` | One-target diamondize action; emits `EF:6AC7` or `EF:7655` |
-| `232` | `EF:8C58` `MSG_BTL_BAD_SMELL` | `C2:9254` | Odor/offense-reduction family; reports amount through C8 text via `DC66` |
+| `140` | `EF:8E27` `SharedNamedItemRowPresentationText` | `C2:9AD8` | Item-side full-heal reuse over the fixed-amount healing core; named-item presentation wrapper |
+| `228` | `EF:8BE8` `DiamondizeBiteRowPresentationText` | `C2:916E` | One-target diamondize action; emits `EF:6AC7` or `EF:7655` |
+| `232` | `EF:8C58` `BadSmellOdorRowPresentationText` | `C2:9254` | Odor/offense-reduction family; reports amount through C8 text via `DC66` |
 | `243` | `EF:72F6` | `C2:9298` | Runaway Five / Clumsy Robot special-event controller; branches to `EF:72F7` or `EF:733D` |
 | `244` | `EF:7415` | `C2:92EE` | Master Barf defeat / Poo Starstorm event result; later emits `EF:743B` |
-| `247` | `EF:8E27` `MSG_BTL_WARP_NEAR` | `C2:90C6` | Battler normalization wrapper; can emit `EF:7142` and queue `EF:7123` |
-| `248` | `EF:8D9F` `MSG_BTL_NEUTRALIZE_SPARKLE` | `C2:90C6` | Same normalization wrapper reuse |
-| `273` | `EF:8EBE` `MSG_BTL_BAD_SMELL_GAS` | `C2:9254` | Odor/offense-reduction family reuse |
-| `290` | `EF:8DDE` `MSG_BTL_TO_DIAMOND_DOG` | `C2:C14E` | Rainbow-colors / Master Belch-side special-event family |
+| `247` | `EF:8E27` `SharedNamedItemRowPresentationText` | `C2:90C6` | Battler normalization wrapper; can emit `EF:7142` and queue `EF:7123` |
+| `248` | `EF:8D9F` `NeutralizeSparkleRowPresentationText` | `C2:90C6` | Same normalization wrapper reuse |
+| `273` | `EF:8EBE` `BadSmellGasRowPresentationText` | `C2:9254` | Odor/offense-reduction family reuse |
+| `290` | `EF:8DDE` `RainbowColorsEventRowPresentationText` | `C2:C14E` | Rainbow-colors / Master Belch-side special-event family |
 
 Rows whose behavior body emits C8/C9 scripts should not force EF result names.
-Keep the EF row-message labels as exact `MSG_BTL_*` anchors and document the
-secondary script bank in the C2-focused note.
+Keep the EF row-message labels presentation-oriented and document the secondary
+script bank in the C2-focused note.
 
 `EF:8E27` is intentionally listed twice: row `140` uses it as a named-item
 healing presentation wrapper, while row `247` uses the same row-message anchor

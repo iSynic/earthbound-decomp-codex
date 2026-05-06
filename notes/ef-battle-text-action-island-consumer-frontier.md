@@ -114,9 +114,9 @@ row `+4` pointer and row `+8` behavior body are joined:
 
 - `EF:7E25..843F` EBATTLE2: late physical, special, and message-only action
   row-message candidates. Promote only the rows with local C2 body evidence.
-- `EF:89FE..8FAD` EBATTLE3: enemy-action text include. It is currently
-  symbol-derived and should stay that way until specific `D5:7B68` rows are
-  mapped.
+- `EF:89FE..8FAD` EBATTLE3: enemy-action text include. Promoted anchors include
+  rows `140/247`, `159`, `228`, `232`, `248`, `273`, and `290`; the remaining
+  labels should stay symbol-derived until specific `D5:7B68` rows are mapped.
 - `EF:9A47..9EF4` EBATTLE1 tail: status, flavor, item, and special action
   row-message candidates. Promote in small families, such as concentration
   seal, Time Stop, call-for-help, or breath/status-flavor, only after C2 bodies

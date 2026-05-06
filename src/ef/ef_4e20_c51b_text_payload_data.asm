@@ -2621,9 +2621,8 @@ EF8BC0_EBattle3MsgBtlSkateboard:
 ; ---------------------------------------------------------------------------
 ; EF:8BE8
 
-; EBATTLE3: `MSG_BTL_KAMITSUKI_DIAMOND` enemy-action text; D5:7B68 row 228
-; uses this as the one-target diamondize row message.
-EF8BE8_EBattle3MsgBtlKamitsukiDiamond:
+; EBATTLE3: row 228 row +4 diamondize-bite presentation text.
+EF8BE8_EBattle3DiamondizeBiteRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8BFB
@@ -2646,9 +2645,8 @@ EF8C3A_EBattle3MsgBtlShikaritsuke:
 ; ---------------------------------------------------------------------------
 ; EF:8C58
 
-; EBATTLE3: `MSG_BTL_BAD_SMELL` enemy-action text; D5:7B68 row 232 uses this
-; as an odor/offense-reduction row message.
-EF8C58_EBattle3MsgBtlBadSmell:
+; EBATTLE3: row 232 row +4 bad-smell odor presentation text.
+EF8C58_EBattle3BadSmellOdorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8C75
@@ -2714,8 +2712,8 @@ EF8D72_EBattle3MsgBtlNebieBeam:
 ; ---------------------------------------------------------------------------
 ; EF:8D9F
 
-; EBATTLE3: `MSG_BTL_NEUTRALIZE_SPARKLE` enemy-action text.
-EF8D9F_EBattle3MsgBtlNeutralizeSparkle:
+; EBATTLE3: row 248 row +4 neutralizer-sparkle presentation text.
+EF8D9F_EBattle3NeutralizeSparkleRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8DC1
@@ -2726,23 +2724,20 @@ EF8DC1_EBattle3MsgBtlMakitsuki:
 ; ---------------------------------------------------------------------------
 ; EF:8DDE
 
-; EBATTLE3: `MSG_BTL_TO_DIAMOND_DOG` enemy-action text; D5:7B68 row 290 uses
-; this as the row +4 rainbow-colors / Master Belch-side event presentation.
-EF8DDE_EBattle3MsgBtlToDiamondDog:
+; EBATTLE3: row 290 row +4 rainbow-colors event presentation text.
+EF8DDE_EBattle3RainbowColorsEventRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8E27
 
-; EBATTLE3: `MSG_BTL_WARP_NEAR` enemy-action text; D5:7B68 rows 140 and 247
-; intentionally reuse this row +4 anchor with different C2 behavior bodies.
-EF8E27_EBattle3MsgBtlWarpNear:
+; EBATTLE3: rows 140 and 247 row +4 shared named-item presentation text.
+EF8E27_EBattle3SharedNamedItemRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8E3C
 
-; EBATTLE3: `MSG_BTL_ANTIPSI` enemy-action text; D5:7B68 row 159 uses this as
-; the item-side concentration/PSI-seal row message.
-EF8E3C_EBattle3MsgBtlAntipsi:
+; EBATTLE3: row 159 row +4 concentration/PSI-seal presentation text.
+EF8E3C_EBattle3ConcentrationPsiSealRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8E5E
@@ -2765,8 +2760,8 @@ EF8E9E_EBattle3MsgBtlShieldkill:
 ; ---------------------------------------------------------------------------
 ; EF:8EBE
 
-; EBATTLE3: `MSG_BTL_BAD_SMELL_GAS` enemy-action text.
-EF8EBE_EBattle3MsgBtlBadSmellGas:
+; EBATTLE3: row 273 row +4 bad-smell gas presentation text.
+EF8EBE_EBattle3BadSmellGasRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8EE2
