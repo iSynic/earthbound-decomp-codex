@@ -209,6 +209,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   row presentation versus direct continuations, shared PSI row text, reused
   `EF:8E27`, healing/explosive row messages, row `290`, and the late status
   row-message cluster.
+- 2026-05-06: EF status-result source-comment follow-up marked the nearby
+  `EF:6B81..6C55` status payloads and `EF:766E` no-effect fallback as `DC1C`
+  direct-result emissions from C2 row `+8` behavior, not row `+4` presentation
+  messages.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

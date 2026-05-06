@@ -743,49 +743,57 @@ EF6B43_EBattle5ObjectPronounSubtext:
 ; ---------------------------------------------------------------------------
 ; EF:6B81
 
-; EBATTLE5: mushroomized/feeling strange mushroom text.
+; EBATTLE5: mushroomized/feeling strange mushroom direct-result text emitted by
+; C2 row +8 behavior bodies, not a row +4 presentation message.
 EF6B81_EBattle5MsgBtlMushroomizedInflicted:
 
 ; ---------------------------------------------------------------------------
 ; EF:6B98
 
-; EBATTLE5: possessed/haunted-by-ghost text.
+; EBATTLE5: possessed/haunted-by-ghost direct-result text emitted by C2 row +8
+; behavior bodies, not a row +4 presentation message.
 EF6B98_EBattle5MsgBtlPossessedInflicted:
 
 ; ---------------------------------------------------------------------------
 ; EF:6BBB
 
-; EBATTLE5: crying/tears inflicted text.
+; EBATTLE5: crying/tears direct-result text emitted by C2 row +8 behavior
+; bodies, not a row +4 presentation message.
 EF6BBB_EBattle5MsgBtlCryingInflicted:
 
 ; ---------------------------------------------------------------------------
 ; EF:6BD3
 
-; EBATTLE5: immobilized/tied-down inflicted text.
+; EBATTLE5: immobilized/tied-down direct-result text emitted by C2 row +8
+; behavior bodies, not a row +4 presentation message.
 EF6BD3_EBattle5MsgBtlImmobilizedInflicted:
 
 ; ---------------------------------------------------------------------------
 ; EF:6BEF
 
-; EBATTLE5: solidified body text used by C2 item/status actions.
+; EBATTLE5: solidified body direct-result text used by C2 item/status behavior
+; bodies, not a row +4 presentation message.
 EF6BEF_EBattle5MsgBtlSolidificationInflicted:
 
 ; ---------------------------------------------------------------------------
 ; EF:6C0B
 
-; EBATTLE5: PSI-seal inflicted text.
+; EBATTLE5: PSI-seal direct-result text emitted by C2 row +8 behavior bodies,
+; not a row +4 presentation message.
 EF6C0B_EBattle5MsgBtlPsiSealInflicted:
 
 ; ---------------------------------------------------------------------------
 ; EF:6C3A
 
-; EBATTLE5: strange-status inflicted text.
+; EBATTLE5: strange-status direct-result text emitted by C2 row +8 behavior
+; bodies, not a row +4 presentation message.
 EF6C3A_EBattle5MsgBtlStrangeInflicted:
 
 ; ---------------------------------------------------------------------------
 ; EF:6C55
 
-; EBATTLE5: asleep-status inflicted text.
+; EBATTLE5: asleep-status direct-result text emitted by C2 row +8 behavior
+; bodies, not a row +4 presentation message.
 EF6C55_EBattle5MsgBtlAsleepInflicted:
 
 ; ---------------------------------------------------------------------------
@@ -1361,7 +1369,8 @@ EF7655_EBattle4MsgBtlBashDodged:
 ; ---------------------------------------------------------------------------
 ; EF:766E
 
-; EBATTLE4: shared status no-effect text.
+; EBATTLE4: shared status no-effect direct-result text emitted by C2 row +8
+; behavior bodies, not a row +4 presentation message.
 EF766E_EBattle4MsgBtlStatusNoEffect:
 
 ; ---------------------------------------------------------------------------

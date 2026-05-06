@@ -373,6 +373,11 @@ named-item/normalization presentation (`EF:8E27`), row `290` event
 presentation (`EF:8DDE`), and the late status row-message cluster in
 `EF:9C51..9DDA`.
 
+The adjacent direct-result comments now also mark the status/no-effect islands
+that C2 row `+8` behavior bodies emit through `DC1C`, not the row `+4`
+presentation lane: `EF:6B81..6C55` for status-result text and `EF:766E` for
+the shared no-effect fallback.
+
 ## EGOODS2 Item-Use Follow-up
 
 The `EF:9EF4..A2FA` EGOODS2 include is now split into item-use payload anchors.

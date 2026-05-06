@@ -241,3 +241,6 @@ This planning pass does not split EF source corridors or regenerate the bank.
   the proved row-message anchors so the EF source distinguishes `DD9F`
   presentation text from `DC1C` continuations and behavior-emitted result
   payloads without requiring a notes lookup.
+- 2026-05-06: EF status-result source-comment follow-up added byte-neutral
+  comments at `EF:6B81..6C55` and `EF:766E` to keep C2 row `+8` `DC1C`
+  result emissions separate from row `+4` presentation messages in the source.
