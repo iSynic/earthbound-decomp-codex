@@ -83,6 +83,8 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate targeted 0x00 runtime probe results: `python tools/validate_audio_zero_runtime_probe_results_summary.py`.
 - Build duration uncertainty register: `python tools/build_audio_duration_uncertainty_register.py`.
 - Validate duration uncertainty register: `python tools/validate_audio_duration_uncertainty_register.py`.
+- Build non-0x00 control-semantics frontier: `python tools/build_audio_nonzero_control_semantics_frontier.py`.
+- Validate non-0x00 control-semantics frontier: `python tools/validate_audio_nonzero_control_semantics_frontier.py`.
 - Collect fused post-command timing metrics: `python tools/collect_audio_fusion_timing_metrics.py`.
 - Validate fused post-command timing metrics: `python tools/validate_audio_fusion_timing_metrics.py`.
 - Build ignored renderer fixtures: `python tools/build_audio_renderer_fixtures.py --tracks 46`.
