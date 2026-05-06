@@ -117,17 +117,18 @@ macros.
   suffixes.
 - `EF:7843` now marks the Time Stop `ResultText` return used by the C2
   hit-resolution cluster.
-- `EF:7858..790B` now splits the EBATTLE8 encounter-opening text variants:
-  ordinary attack, blocked-way, came-after-you, trapped-you, final-encounter
-  wording, and surprise-opening messages.
+- `EF:7858..790B` now splits the EBATTLE8 encounter-opening presentation text
+  variants: ordinary attack, blocked-way, came-after-you, trapped-you,
+  final-encounter wording, surprise-opening messages, and their group-actor
+  helpers.
 - `EF:790B..79D7` now splits the group-actor helper branches used by those
   encounter-opening messages.
 - `EF:79D7..7A66` now splits ordinary/boss/forced player victory,
-  monster-victory, homesick, and experience-gain text.
-- `EF:7A66..7B64` now splits the level-up and stat-gain amount text consumed
-  by the C1 level-up stat narration family. The stat-gain anchors are now
-  named as `ActionAmount` consumers because C1 stages their deltas through
-  `C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
+  monster-victory, homesick, experience-gain, and level-up announcement text.
+- `EF:7A7D..7B64` now splits the level-up stat-gain amount text and the
+  learned-PSI lead-in consumed by the C1 level-up narration family. The
+  stat-gain anchors are named as `ActionAmount` consumers because C1 stages
+  their deltas through `C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
 - `EF:7B64` now marks the learned-PSI lead-in that falls through to the
   existing `EF:7B77` PSI-name byte-substitution text.
 - `EF:7B77`, `EF:7B85`, `EF:7BA2`, `EF:7BC1`, `EF:7BDF`, and `EF:7DD5` now
@@ -207,11 +208,20 @@ text that begins at `EF:7858`.
 The `EF:7858..7B77` EBATTLE8 island is now split around exact encounter,
 group-actor, victory, and level-up labels. This exposes the encounter-opening
 message variants and their `LOAD_SPECIAL 2` group-name helper branches, then
-the ordinary/boss/forced victory text and monster-win text. The stat-gain tail
-at `EF:7A66..7B64` now lines up directly with the C1 level-up narration note:
-each stat leaf stages an amount through `C1:AD0A` before dispatching one of
-these `PRINT_ACTION_AMOUNT` scripts, while learned PSI falls through into the
-existing `EF:7B77` PSI-name byte-substitution payload.
+the ordinary/boss/forced victory text and monster-win text. The level-up
+announcement starts at `EF:7A66`, while the stat-gain tail at
+`EF:7A7D..7B46` lines up directly with the C1 level-up narration note: each
+stat leaf stages an amount through `C1:AD0A` before dispatching one of these
+`PRINT_ACTION_AMOUNT` scripts. Learned PSI then falls through into the existing
+`EF:7B77` PSI-name byte-substitution payload.
+
+The source names now carry that split directly. `EF:7858..78F7` are
+`OpeningText` anchors for encounter and surprise presentation variants, while
+the `EF:790B..79C6` group-actor helpers stay helper/branch labels rather than
+display-lane promotions. `EF:79D7..7A4D` now uses victory/loss narration names,
+`EF:7A66` is the level-up announcement, `EF:7A7D..7B46` are C1-staged
+`ActionAmount` stat-gain scripts, and `EF:7B64` is the learned-PSI lead-in
+before the PSI-name `ByteSubstitution` text at `EF:7B77`.
 
 ## Damage And Miss Follow-up
 
@@ -442,7 +452,7 @@ The EBATTLE4 result tail now applies the same suffix contract to the PP-loss
 and periodic damage island: `EF:7755`, `EF:7768`, `EF:7787`, `EF:77B1`, and
 `EF:77DB` are `ActionAmount` result scripts, not row-message anchors.
 
-The EBATTLE8 level-up gain island now also carries `ActionAmount` suffixes for
+The EBATTLE8 level-up gain island carries `ActionAmount` suffixes for
 `EF:7A7D..7B46`. These are C1 level-up narration consumers rather than C2
 action-row result emissions, but they read the same staged amount slot through
 `1C 0F`.

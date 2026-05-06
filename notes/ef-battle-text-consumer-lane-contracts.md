@@ -86,6 +86,11 @@ Examples:
 - `EF:77FD..7830` are the four call-for-help result exits and `EF:7843` is the
   Time Stop return result. They are direct-result anchors, while the
   encounter-opening text at `EF:7858+` remains a separate presentation island.
+- `EF:7858..78F7` names EBATTLE8 encounter and surprise `OpeningText`
+  presentation variants, with group-actor helper branches at `EF:790B..79C6`.
+- `EF:79D7..7A66` names EBATTLE8 victory/loss and level-up narration text.
+  The adjacent stat-gain scripts at `EF:7A7D..7B46` are `ActionAmount`
+  consumers staged by C1 level-up leaves, not C2 action rows.
 
 Naming rule: direct-result scripts can receive gameplay-facing result names
 when their C2 caller proves the role, even if the surrounding action-message

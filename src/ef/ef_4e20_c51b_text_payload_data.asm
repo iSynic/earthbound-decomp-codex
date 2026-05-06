@@ -1503,61 +1503,61 @@ EF7843_EBattle8TimeStopReturnResultText:
 ; EF:7858
 
 ; EBATTLE8: enemy attacked encounter-opening text.
-EF7858_EBattle8MsgBtlAppearAttacked:
+EF7858_EBattle8EncounterAttackedOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7866
 
 ; EBATTLE8: enemy blocked-the-way encounter-opening text.
-EF7866_EBattle8MsgBtlAppearBlockedWay:
+EF7866_EBattle8EncounterBlockedWayOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7879
 
 ; EBATTLE8: enemy came-after-you encounter-opening text.
-EF7879_EBattle8MsgBtlAppearCameAfterYou:
+EF7879_EBattle8EncounterCameAfterYouOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:788B
 
 ; EBATTLE8: enemy trapped-you encounter-opening text.
-EF788B_EBattle8MsgBtlAppearTrappedYou:
+EF788B_EBattle8EncounterTrappedYouOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:789C
 
 ; EBATTLE8: final-encounter wording variant 4.
-EF789C_EBattle8MsgBtlFinalEncounter4:
+EF789C_EBattle8FinalEncounterVariant4OpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:78AB
 
 ; EBATTLE8: final-encounter wording variant 5.
-EF78AB_EBattle8MsgBtlFinalEncounter5:
+EF78AB_EBattle8FinalEncounterVariant5OpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:78B8
 
 ; EBATTLE8: final-encounter wording variant 6.
-EF78B8_EBattle8MsgBtlFinalEncounter6:
+EF78B8_EBattle8FinalEncounterVariant6OpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:78C7
 
 ; EBATTLE8: final-encounter wording variant 7.
-EF78C7_EBattle8MsgBtlFinalEncounter7:
+EF78C7_EBattle8FinalEncounterVariant7OpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:78D8
 
 ; EBATTLE8: player-side surprise opening attack text.
-EF78D8_EBattle8MsgBtlSurpriseOpeningPlayer:
+EF78D8_EBattle8PlayerSurpriseOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:78F7
 
 ; EBATTLE8: monster-side surprise opening attack text.
-EF78F7_EBattle8MsgBtlSurpriseOpeningMonster:
+EF78F7_EBattle8MonsterSurpriseOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:790B
@@ -1635,118 +1635,118 @@ EF79C6_EBattle8GroupActorPossessiveCohorts:
 ; EF:79D7
 
 ; EBATTLE8: ordinary player-victory text.
-EF79D7_EBattle8MsgBtlPlayerWin:
+EF79D7_EBattle8PlayerVictoryText:
 
 ; ---------------------------------------------------------------------------
 ; EF:79E6
 
 ; EBATTLE8: player-victory event/homesick branch.
-EF79E6_EBattle8PlayerWinEventBranch:
+EF79E6_EBattle8PlayerVictoryEventBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:79EF
 
 ; EBATTLE8: player-victory experience gain text.
-EF79EF_EBattle8PlayerWinExperienceText:
+EF79EF_EBattle8PlayerVictoryExperienceText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A0A
 
 ; EBATTLE8: player-victory homesick branch.
-EF7A0A_EBattle8PlayerWinHomesickBranch:
+EF7A0A_EBattle8PlayerVictoryHomesickBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A14
 
 ; EBATTLE8: boss player-victory text.
-EF7A14_EBattle8MsgBtlPlayerWinBoss:
+EF7A14_EBattle8BossVictoryText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A28
 
 ; EBATTLE8: forced player-victory text.
-EF7A28_EBattle8MsgBtlPlayerWinForce:
+EF7A28_EBattle8ForcedVictoryText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A4D
 
 ; EBATTLE8: monster-victory text.
-EF7A4D_EBattle8MsgBtlMonsterWin:
+EF7A4D_EBattle8MonsterVictoryText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A66
 
 ; EBATTLE8: level-up announcement text.
-EF7A66_EBattle8MsgBtlLevelUp:
+EF7A66_EBattle8LevelUpAnnouncementText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A7D
 
 ; EBATTLE8: level-up offense gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7A7D_EBattle8MsgBtlLevelOffenseUpActionAmount:
+EF7A7D_EBattle8LevelOffenseUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A97
 
 ; EBATTLE8: level-up defense gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7A97_EBattle8MsgBtlLevelDefenseUpActionAmount:
+EF7A97_EBattle8LevelDefenseUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AB1
 
 ; EBATTLE8: level-up speed gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7AB1_EBattle8MsgBtlLevelSpeedUpActionAmount:
+EF7AB1_EBattle8LevelSpeedUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AC9
 
 ; EBATTLE8: level-up guts gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7AC9_EBattle8MsgBtlLevelGutsUpActionAmount:
+EF7AC9_EBattle8LevelGutsUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AE0
 
 ; EBATTLE8: level-up vitality gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7AE0_EBattle8MsgBtlLevelVitalityUpActionAmount:
+EF7AE0_EBattle8LevelVitalityUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AFB
 
 ; EBATTLE8: level-up IQ gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7AFB_EBattle8MsgBtlLevelIqUpActionAmount:
+EF7AFB_EBattle8LevelIqUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B11
 
 ; EBATTLE8: level-up luck gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7B11_EBattle8MsgBtlLevelLuckUpActionAmount:
+EF7B11_EBattle8LevelLuckUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B28
 
 ; EBATTLE8: level-up maximum HP gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7B28_EBattle8MsgBtlLevelMaxHpUpActionAmount:
+EF7B28_EBattle8LevelMaxHpUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B46
 
 ; EBATTLE8: level-up maximum PP gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7B46_EBattle8MsgBtlLevelMaxPpUpActionAmount:
+EF7B46_EBattle8LevelMaxPpUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B64
 
 ; EBATTLE8: learned-PSI announcement leading into 19 1F PSI-name text.
-EF7B64_EBattle8MsgBtlLearnPsi:
+EF7B64_EBattle8LearnedPsiLeadInText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B77

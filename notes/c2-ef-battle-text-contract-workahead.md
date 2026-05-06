@@ -178,6 +178,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   the four proved call-for-help `DC1C` exits at `EF:77FD..7830` and the Time
   Stop return at `EF:7843` with `ResultText` suffixes, leaving the encounter
   opening island at `EF:7858+` separate.
+- 2026-05-06: EF EBATTLE8 encounter/victory naming follow-up tightened the
+  `EF:7858..7B64` tail: encounter and surprise variants now carry
+  `OpeningText`, victory/loss and level-up announcement labels drop inherited
+  `MsgBtl` prose, and `EF:7A7D..7B46` keep C1 level-up `ActionAmount`
+  semantics before the learned-PSI lead-in.
 - 2026-05-06: EF action-island frontier follow-up documented the remaining
   `MSG_BTL_*` row-message islands separately from direct result payloads. The
   handoff note names the `C1:DD9F` row `+4` message lane, the row `+8`

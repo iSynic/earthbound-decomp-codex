@@ -5121,61 +5121,61 @@ db $5E,$03,$02
 
 EF7843_EBattle8TimeStopReturnResultText:
 
-; Original data gap before EF7858_EBattle8MsgBtlAppearAttacked:
+; Original data gap before EF7858_EBattle8EncounterAttackedOpeningText:
 db $1F,$00,$00,$62,$01,$70,$84,$99,$9D,$95,$16,$51,$A2,$A4,$95,$94
 db $15,$5B,$5E,$03,$02
 
-EF7858_EBattle8MsgBtlAppearAttacked:
+EF7858_EBattle8EncounterAttackedOpeningText:
 
-; Original data gap before EF7866_EBattle8MsgBtlAppearBlockedWay:
+; Original data gap before EF7866_EBattle8EncounterBlockedWayOpeningText:
 db $01,$70,$08,$0B,$79,$EF,$00,$15,$DB,$95,$94,$51,$03,$02
 
-EF7866_EBattle8MsgBtlAppearBlockedWay:
+EF7866_EBattle8EncounterBlockedWayOpeningText:
 
-; Original data gap before EF7879_EBattle8MsgBtlAppearCameAfterYou:
+; Original data gap before EF7879_EBattle8EncounterCameAfterYouOpeningText:
 db $01,$70,$08,$0B,$79,$EF,$00,$50,$92,$9C,$17,$5A,$15,$4A,$16,$B0
 db $51,$03,$02
 
-EF7879_EBattle8MsgBtlAppearCameAfterYou:
+EF7879_EBattle8EncounterCameAfterYouOpeningText:
 
-; Original data gap before EF788B_EBattle8MsgBtlAppearTrappedYou:
+; Original data gap before EF788B_EBattle8EncounterTrappedYouOpeningText:
 db $01,$70,$08,$0B,$79,$EF,$00,$50,$17,$76,$50,$17,$2D,$15,$23,$51
 db $03,$02
 
-EF788B_EBattle8MsgBtlAppearTrappedYou:
+EF788B_EBattle8EncounterTrappedYouOpeningText:
 
-; Original data gap before EF789C_EBattle8MsgBtlFinalEncounter4:
+; Original data gap before EF789C_EBattle8FinalEncounterVariant4OpeningText:
 db $01,$70,$08,$0B,$79,$EF,$00,$16,$EF,$16,$56,$94,$15,$23,$51,$03
 db $02
 
-EF789C_EBattle8MsgBtlFinalEncounter4:
+EF789C_EBattle8FinalEncounterVariant4OpeningText:
 
-; Original data gap before EF78AB_EBattle8MsgBtlFinalEncounter5:
+; Original data gap before EF78AB_EBattle8FinalEncounterVariant5OpeningText:
 db $15,$11,$95,$9E,$17,$22,$15,$E0,$08,$4B,$79,$EF,$00,$03,$02
 
-EF78AB_EBattle8MsgBtlFinalEncounter5:
+EF78AB_EBattle8FinalEncounterVariant5OpeningText:
 
-; Original data gap before EF78B8_EBattle8MsgBtlFinalEncounter6:
+; Original data gap before EF78B8_EBattle8FinalEncounterVariant6OpeningText:
 db $15,$11,$9D,$95,$17,$85,$08,$4B,$79,$EF,$00,$03,$02
 
-EF78B8_EBattle8MsgBtlFinalEncounter6:
+EF78B8_EBattle8FinalEncounterVariant6OpeningText:
 
-; Original data gap before EF78C7_EBattle8MsgBtlFinalEncounter7:
+; Original data gap before EF78C7_EBattle8FinalEncounterVariant7OpeningText:
 db $15,$11,$95,$9E,$97,$16,$01,$50,$08,$4B,$79,$EF,$00,$03,$02
 
-EF78C7_EBattle8MsgBtlFinalEncounter7:
+EF78C7_EBattle8FinalEncounterVariant7OpeningText:
 
-; Original data gap before EF78D8_EBattle8MsgBtlSurpriseOpeningPlayer:
+; Original data gap before EF78D8_EBattle8PlayerSurpriseOpeningText:
 db $15,$11,$16,$57,$96,$A2,$9F,$9E,$A4,$50,$08,$4B,$79,$EF,$00,$03
 db $02
 
-EF78D8_EBattle8MsgBtlSurpriseOpeningPlayer:
+EF78D8_EBattle8PlayerSurpriseOpeningText:
 
-; Original data gap before EF78F7_EBattle8MsgBtlSurpriseOpeningMonster:
+; Original data gap before EF78F7_EBattle8MonsterSurpriseOpeningText:
 db $01,$17,$A7,$16,$46,$91,$17,$EF,$17,$01,$00,$50,$15,$4C,$A3,$A5
 db $A2,$A0,$A2,$99,$16,$C2,$17,$59,$16,$50,$15,$DB,$51,$03,$02
 
-EF78F7_EBattle8MsgBtlSurpriseOpeningMonster:
+EF78F7_EBattle8MonsterSurpriseOpeningText:
 
 ; Original data gap before EF790B_EBattle8GroupActorOpeningHelper:
 db $01,$17,$A7,$16,$46,$08,$8F,$79,$EF,$00,$50,$17,$59,$16,$50,$15
@@ -5243,120 +5243,120 @@ db $1C,$0D,$15,$04,$99,$17,$DA,$93,$9F,$98,$9F,$A2,$A4,$57,$A3,$02
 
 EF79C6_EBattle8GroupActorPossessiveCohorts:
 
-; Original data gap before EF79D7_EBattle8MsgBtlPlayerWin:
+; Original data gap before EF79D7_EBattle8PlayerVictoryText:
 db $1C,$0D,$15,$04,$99,$17,$DA,$93,$9F,$98,$9F,$A2,$A4,$A3,$57,$A3
 db $02
 
-EF79D7_EBattle8MsgBtlPlayerWin:
+EF79D7_EBattle8PlayerVictoryText:
 
-; Original data gap before EF79E6_EBattle8PlayerWinEventBranch:
+; Original data gap before EF79E6_EBattle8PlayerVictoryEventBranch:
 db $18,$06,$1F,$00,$00,$05,$00,$15,$1D,$1C,$08,$02,$00,$10,$78
 
-EF79E6_EBattle8PlayerWinEventBranch:
+EF79E6_EBattle8PlayerVictoryEventBranch:
 
-; Original data gap before EF79EF_EBattle8PlayerWinExperienceText:
+; Original data gap before EF79EF_EBattle8PlayerVictoryExperienceText:
 db $1F,$41,$11,$1B,$03,$0A,$7A,$EF,$00
 
-EF79EF_EBattle8PlayerWinExperienceText:
+EF79EF_EBattle8PlayerVictoryExperienceText:
 
-; Original data gap before EF7A0A_EBattle8PlayerWinHomesickBranch:
+; Original data gap before EF7A0A_EBattle8PlayerVictoryHomesickBranch:
 db $03,$00,$70,$08,$D7,$E6,$C7,$00,$50,$97,$16,$43,$15,$57,$1C,$0F
 db $50,$95,$A8,$A0,$08,$AD,$8F,$EF,$00,$14,$02
 
-EF7A0A_EBattle8PlayerWinHomesickBranch:
+EF7A0A_EBattle8PlayerVictoryHomesickBranch:
 
-; Original data gap before EF7A14_EBattle8MsgBtlPlayerWinBoss:
+; Original data gap before EF7A14_EBattle8BossVictoryText:
 db $19,$05,$01,$06,$02,$0A,$EF,$79,$EF,$00
 
-EF7A14_EBattle8MsgBtlPlayerWinBoss:
+EF7A14_EBattle8BossVictoryText:
 
-; Original data gap before EF7A28_EBattle8MsgBtlPlayerWinForce:
+; Original data gap before EF7A28_EBattle8ForcedVictoryText:
 db $18,$06,$1F,$00,$00,$B8,$00,$15,$1D,$1C,$08,$02,$00,$10,$78,$0A
 db $E6,$79,$EF,$00
 
-EF7A28_EBattle8MsgBtlPlayerWinForce:
+EF7A28_EBattle8ForcedVictoryText:
 
-; Original data gap before EF7A4D_EBattle8MsgBtlMonsterWin:
+; Original data gap before EF7A4D_EBattle8MonsterVictoryText:
 db $18,$06,$00,$15,$1D,$1C,$08,$02,$00,$10,$5A,$00,$70,$08,$D7,$E6
 db $C7,$00,$50,$97,$16,$43,$15,$57,$1C,$0F,$50,$95,$A8,$A0,$08,$AD
 db $8F,$EF,$00,$14,$02
 
-EF7A4D_EBattle8MsgBtlMonsterWin:
+EF7A4D_EBattle8MonsterVictoryText:
 
-; Original data gap before EF7A66_EBattle8MsgBtlLevelUp:
+; Original data gap before EF7A66_EBattle8LevelUpAnnouncementText:
 db $01,$10,$0A,$1F,$00,$00,$07,$70,$08,$D7,$E6,$C7,$00,$17,$53,$A3
 db $15,$36,$92,$17,$14,$15,$03,$14,$02
 
-EF7A66_EBattle8MsgBtlLevelUp:
+EF7A66_EBattle8LevelUpAnnouncementText:
 
-; Original data gap before EF7A7D_EBattle8MsgBtlLevelOffenseUpActionAmount:
+; Original data gap before EF7A7D_EBattle8LevelOffenseUpActionAmount:
 db $01,$70,$1C,$0E,$15,$39,$9C,$95,$A6,$95,$9C,$16,$00,$00,$50,$16
 db $8E,$50,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up offense gain amount text; consumes C1:AD0A/1C 0F.
-EF7A7D_EBattle8MsgBtlLevelOffenseUpActionAmount:
+EF7A7D_EBattle8LevelOffenseUpActionAmount:
 
-; Original data gap before EF7A97_EBattle8MsgBtlLevelDefenseUpActionAmount:
+; Original data gap before EF7A97_EBattle8LevelDefenseUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$7F,$96,$96,$95,$9E,$16,$C2,$A7,$16
 db $32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up defense gain amount text; consumes C1:AD0A/1C 0F.
-EF7A97_EBattle8MsgBtlLevelDefenseUpActionAmount:
+EF7A97_EBattle8LevelDefenseUpActionAmount:
 
-; Original data gap before EF7AB1_EBattle8MsgBtlLevelSpeedUpActionAmount:
+; Original data gap before EF7AB1_EBattle8LevelSpeedUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$74,$95,$96,$95,$9E,$16,$C2,$A7,$16
 db $32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up speed gain amount text; consumes C1:AD0A/1C 0F.
-EF7AB1_EBattle8MsgBtlLevelSpeedUpActionAmount:
+EF7AB1_EBattle8LevelSpeedUpActionAmount:
 
-; Original data gap before EF7AC9_EBattle8MsgBtlLevelGutsUpActionAmount:
+; Original data gap before EF7AC9_EBattle8LevelGutsUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$83,$A0,$95,$15,$57,$A7,$16,$32,$A5
 db $A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up guts gain amount text; consumes C1:AD0A/1C 0F.
-EF7AC9_EBattle8MsgBtlLevelGutsUpActionAmount:
+EF7AC9_EBattle8LevelGutsUpActionAmount:
 
-; Original data gap before EF7AE0_EBattle8MsgBtlLevelVitalityUpActionAmount:
+; Original data gap before EF7AE0_EBattle8LevelVitalityUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$77,$A5,$17,$DA,$A7,$16,$32,$A5,$A0
 db $15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up vitality gain amount text; consumes C1:AD0A/1C 0F.
-EF7AE0_EBattle8MsgBtlLevelVitalityUpActionAmount:
+EF7AE0_EBattle8LevelVitalityUpActionAmount:
 
-; Original data gap before EF7AFB_EBattle8MsgBtlLevelIqUpActionAmount:
+; Original data gap before EF7AFB_EBattle8LevelIqUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$86,$99,$A4,$91,$9C,$17,$C5,$50,$A7
 db $16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up IQ gain amount text; consumes C1:AD0A/1C 0F.
-EF7AFB_EBattle8MsgBtlLevelIqUpActionAmount:
+EF7AFB_EBattle8LevelIqUpActionAmount:
 
-; Original data gap before EF7B11_EBattle8MsgBtlLevelLuckUpActionAmount:
+; Original data gap before EF7B11_EBattle8LevelLuckUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$79,$81,$50,$A7,$16,$32,$A5,$A0,$15
 db $F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up luck gain amount text; consumes C1:AD0A/1C 0F.
-EF7B11_EBattle8MsgBtlLevelLuckUpActionAmount:
+EF7B11_EBattle8LevelLuckUpActionAmount:
 
-; Original data gap before EF7B28_EBattle8MsgBtlLevelMaxHpUpActionAmount:
+; Original data gap before EF7B28_EBattle8LevelMaxHpUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$7C,$17,$D0,$50,$A7,$16,$32,$A5,$A0
 db $15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up maximum HP gain amount text; consumes C1:AD0A/1C 0F.
-EF7B28_EBattle8MsgBtlLevelMaxHpUpActionAmount:
+EF7B28_EBattle8LevelMaxHpUpActionAmount:
 
-; Original data gap before EF7B46_EBattle8MsgBtlLevelMaxPpUpActionAmount:
+; Original data gap before EF7B46_EBattle8LevelMaxPpUpActionAmount:
 db $01,$70,$08,$83,$7B,$EF,$00,$7D,$91,$A8,$99,$9D,$A5,$9D,$50,$78
 db $80,$50,$A7,$16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up maximum PP gain amount text; consumes C1:AD0A/1C 0F.
-EF7B46_EBattle8MsgBtlLevelMaxPpUpActionAmount:
+EF7B46_EBattle8LevelMaxPpUpActionAmount:
 
-; Original data gap before EF7B64_EBattle8MsgBtlLearnPsi:
+; Original data gap before EF7B64_EBattle8LearnedPsiLeadInText:
 db $01,$70,$08,$A0,$7B,$EF,$00,$7D,$91,$A8,$99,$9D,$A5,$9D,$50,$80
 db $80,$50,$A7,$16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7B64_EBattle8MsgBtlLearnPsi:
+EF7B64_EBattle8LearnedPsiLeadInText:
 
 ; Original data gap before EF7B77_EBattle8PsiNameByteSubstitutionText:
 db $01,$1F,$02,$67,$70,$1C,$0E,$16,$C4,$9C,$99,$AA,$15,$4A,$16,$FE

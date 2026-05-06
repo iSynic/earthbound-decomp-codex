@@ -160,6 +160,11 @@ This planning pass does not split EF source corridors or regenerate the bank.
   the proved direct-result exits: `EF:77FD..7830` now carry call-for-help
   `ResultText` names and `EF:7843` carries the Time Stop return `ResultText`
   name before the encounter-opening island begins.
+- 2026-05-06: EF EBATTLE8 encounter/victory naming follow-up tightened
+  `EF:7858..7B64`: encounter/surprise variants now use `OpeningText`, the
+  victory/loss and level-up announcement labels no longer inherit `MsgBtl`,
+  the level-up stat leaves keep C1-staged `ActionAmount` suffixes, and the
+  learned-PSI lead-in is separate from the `EF:7B77` byte-substitution text.
 - 2026-05-05: EF EBATTLE8 encounter/victory/level-up follow-up split the
   remaining `EF:7858..7B77` tail into encounter-opening variants, group-actor
   helper branches, ordinary/boss/forced victory text, monster-win text,
