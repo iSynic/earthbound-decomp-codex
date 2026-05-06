@@ -247,6 +247,14 @@ closure.
   transfer and cleanup callees remain documented only as caller joins where C4
   writes their local arguments. See
   `notes/window-mask-and-indexed-gfx-c47501-c47b77.md`.
+- 2026-05-06 Event 353 reveal follow-up: tightened the event-specific tile
+  reveal contract around the `$3492` glyph scratch rows, `$7F:0000/$0002`
+  transfer staging, `$7F:1000/$4000` reveal maps, `$0E5E/$0E9A` current-slot
+  reveal state, and the C3 visual-transfer queue arguments. The adjacent Event
+  670 landing helper now documents only its C4-owned `$9F41 = 5` and
+  `$987F = 2` seeds, leaving destination staging and transition interpretation
+  to the owning banks. See
+  `notes/event353-message-tile-builders-c4810e-c48a6d.md`.
 
 ## Validation
 

@@ -21,6 +21,43 @@ C44B3A_MergeGlyphSpanIntoTileBuffer = $C44B3A
 ; ---------------------------------------------------------------------------
 ; C4:810E
 
+; ---------------------------------------------------------------------------
+; WRAM / data contracts
+;
+; This family owns the Event 353 reveal tile build in C4. It uses the shared
+; $3492 glyph scratch rows as an intermediate text renderer, expands the result
+; into bank $7F tile work blocks, then asks the C3 visual-transfer helper to
+; upload the staged block. Keep $0E5E/$0E9A local here: they are the current
+; slot's reveal limit and reveal frame cursor for this event-specific stepper.
+
+CurrentEntitySlotIndex                    = $1A42
+Event353RevealFrameCursorTable            = $0E9A
+Event353RevealFrameLimitTable             = $0E5E
+Event353GlyphScratchRowsBase              = $3492
+Event353GlyphScratchNextRowBase           = $34B2
+Event353GlyphBitCursor                    = $9E23
+Event353GlyphRowCursor                    = $9E25
+Event353TextSourcePointerLow              = $99CE
+Event353GlyphWidthVariantOffset           = $5E6D
+Event353PayloadBase                       = $C48037
+Event353FontRecordTableLow                = $F054
+Event353FontRecordTableBank               = $00C3
+
+Event353WorkBank                          = $007F
+Event353TransferHeaderBase                = $0000
+Event353TransferPayloadBase               = $0002
+Event353RevealTileMapA                    = $1000
+Event353RevealTileMapB                    = $4000
+Event353TileCellSourceBase                = $0000
+Event353InitialHeaderRows                 = $0008
+Event353VisibleColumns                    = $001E
+Event353TileTransferSource                = $0000
+Event353TileTransferVramArg               = $0328
+Event353TileTransferQueueArg              = $024C
+
+; Expands one packed tile-cell index from the $7F tile source into word rows at
+; the caller's long output pointer in $0E/$10, returning the advanced pointer in
+; the same caller-visible direct-page slots.
 C4810E_ExpandEvent353TileCellTo7fRows:
     rep #$31
     phd
@@ -207,6 +244,8 @@ C48271_Event353MessageTileRevealHelpers_L8271:
     sta $1D
     pld
     rtl
+; Draws one encoded message byte into the shared $3492 glyph scratch rows using
+; C3:F054 font records, the $5E6D width/variant offset, and C4:4B3A span merge.
 C4827B_DrawEvent353EncodedGlyphTo3492:
     rep #$31
     phd
@@ -354,6 +393,9 @@ C48371_Event353MessageTileRevealHelpers_L8371:
     jsl C44B3A_MergeGlyphSpanIntoTileBuffer
     pld
     rtl
+; Builds the custom Event 353 message buffer in $3492, renders the local
+; C4:8037 payload plus the caller-visible $99CE string source, and stages the
+; generated row strips into $7F work RAM for the initializer.
 C4838A_BuildEvent353MessageTileBuffer:
     rep #$31
     phd
@@ -953,6 +995,9 @@ C48808_Event353MessageTileRevealHelpers_L8808:
     asl A
     pld
     rtl
+; Initializes the Event 353 reveal: builds the message buffer, expands tile
+; cells into the two $7F reveal maps, writes the $7F:0000 transfer header, and
+; stores the current-slot reveal frame limit in $0E5E[current].
 C4880C_InitEvent353MessageTileReveal:
     rep #$31
     phd
@@ -1270,6 +1315,9 @@ C48A42_Event353MessageTileRevealHelpers_L8A42:
     rep #$20
     pld
     rtl
+; Advances the Event 353 reveal by copying the next 8x30 word window from the
+; alternating $7F reveal maps into $7F:0002, queues the visual tile transfer via
+; C3:F705, increments $0E9A[current], and returns 1 when the reveal is complete.
 C48A6D_StepEvent353MessageTileReveal:
     rep #$31
     phd
