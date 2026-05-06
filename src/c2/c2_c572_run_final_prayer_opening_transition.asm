@@ -17,6 +17,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C269BE_WaitFrames                   = $69BE
 C2C37A_RunFinalPrayerStageTransition = $C37A
@@ -44,7 +45,7 @@ C2C572_RunFinalPrayerOpeningTransition = BTLACT_GIYGAS_PRAYER_1
     lda.w #$0078
     jsr C269BE_WaitFrames
     lda.w #$0040
-    jsl $C0ABE0
+    jsl C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
     lda.w #$001E
     jsr C269BE_WaitFrames
     lda.w #$003C

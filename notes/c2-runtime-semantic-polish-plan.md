@@ -794,6 +794,14 @@ contract notes for C0/C1/C3/C4 consumers.
   body also uses the named failure block for probability and width/placement
   rejects. See `notes/c2-call-for-help-runtime-polish.md` and
   `notes/c2-pp-loss-and-call-for-help-width-helpers-c2bcb9-c2bd13.md`.
+- 2026-05-06 one hundred and fourth slice: tightened Final Prayer finale
+  presentation/visual joins. The phase-1 opening cue now calls `C0:ABE0` as
+  `QueueSoundEffectOrPlayApuPort3Cue`; the finale opener now names the
+  `C2:0F9A` HP/PP roll-target clamp, `C1:DD41` battle-presentation prep,
+  repeated `C0:ABE0` cue dispatches, `C2:F8F9` sprite-row commits, and
+  `C2:DAE3` layer-1 battle-bg distortion priming joins by established
+  source-facing contracts. See `notes/c2-final-prayer-runtime-polish.md` and
+  `notes/class2-final-prayer-family-c2c572-c2c6f0.md`.
 
 ## Validation
 

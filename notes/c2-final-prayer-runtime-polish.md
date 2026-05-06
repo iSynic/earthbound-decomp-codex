@@ -80,7 +80,9 @@ helper only.
 Source follow-up: the phase 1-7 wrappers now call `C2:C37A` as
 `RunFinalPrayerStageTransition`, the phase 2-7 and finale damage sites call
 `C2:C3E2` as `ApplyFinalPrayerDamageStep`, and the phase 8/finale narrative
-sites call `C2:C41F` as `RunFinalPrayerNarrativeTransition`.
+sites call `C2:C41F` as `RunFinalPrayerNarrativeTransition`. The opening
+transition also names its `C0:ABE0` presentation cue dispatch as
+`QueueSoundEffectOrPlayApuPort3Cue`.
 
 ## Finale Opening
 
@@ -98,6 +100,10 @@ through `C2:E8C4`, waits on the overlay busy predicate, and hands off into the
 terminal battle visual state. Its fixed pauses now use the same
 `C2:69BE` / `WaitFrames` helper as the shared prayer damage worker, and its
 per-frame presentation loops now call `C1:2DD5` / `WindowTick` by name.
+The finale opening also names the initial `C2:0F9A` HP/PP roll-target clamp,
+the `C1:DD41` battle-presentation prep, the repeated `C0:ABE0` cue dispatches,
+the `C2:F8F9` sprite-row commits, and the `C2:DAE3` layer-1 distortion priming
+join by their established source contracts.
 The final overlay loop now names `C2:E8C4` as
 `StartBattleSwirlOverlayAndRecordMode` and `C2:E9C8` as
 `PollBattleTransitionComplete`, matching the adjacent special-event transition
@@ -122,6 +128,8 @@ bodies into a runtime contract:
   and narrative helpers by source-facing contract names instead of raw local
   addresses
 - the finale is connected to battle-background distortion and overlay helpers
+- opening and finale cue/sprite/presentation joins now reuse existing
+  source-facing presentation contracts instead of raw cross-call addresses
 - prayer transition and finale sources now use named C1 battle-presentation
   lifecycle joins instead of raw display/window helper calls
 - the terminal overlay wait now names the overlay start and completion poll

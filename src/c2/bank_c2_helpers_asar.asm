@@ -22798,6 +22798,7 @@ C207B6_MarkAndRedrawPartyHpPpWindow:
 hirom
 org $C2C572
 
+!C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C269BE_WaitFrames = $69BE
 !C2C37A_RunFinalPrayerStageTransition = $C37A
@@ -22820,7 +22821,7 @@ BTLACT_GIYGAS_PRAYER_1:
     lda.w #$0078
     jsr !C269BE_WaitFrames
     lda.w #$0040
-    jsl $C0ABE0
+    jsl !C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
     lda.w #$001E
     jsr !C269BE_WaitFrames
     lda.w #$003C
@@ -26431,13 +26432,18 @@ hirom
 org $C2C6F0
 
 !C0ABC6_ClearPresentationQueues = $C0ABC6
+!C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C1DD41_PrepareBattlePresentationState = $C1DD41
 !C1DD59_WaitForBattleText = $C1DD59
 !C12DD5_WindowTick = $C12DD5
+!C20F9A_ClampHpPpRollTargetsToLiveValues = $C20F9A
 !C2E8C4_StartBattleSwirlOverlayAndRecordMode = $C2E8C4
 !C2E9C8_PollBattleTransitionComplete = $C2E9C8
 !C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
 !C2C41F_RunFinalPrayerNarrativeTransition = $C41F
+!C2DAE3_PrimeLayer1BattleBgDistortionSwap = $C2DAE3
+!C2F8F9_RenderAndCommitBattleSpriteRows = $C2F8F9
 !C4FBBD_ChangeMusic = $C4FBBD
 !C269BE_WaitFrames = $69BE
 !C8_BattleTextScriptBank = $00C8
@@ -26453,7 +26459,7 @@ org $C2C6F0
     tdc
     adc.w #$FFE6
     tcd
-    jsl $C20F9A
+    jsl !C20F9A_ClampHpPpRollTargetsToLiveValues
     lda.w #!C9MSG_FinalPrayerBackToPc9
     sta $0E
     lda.w #!C9_BattleTextScriptBank
@@ -26488,7 +26494,7 @@ org $C2C6F0
     jsr !C2C3E2_ApplyFinalPrayerDamageStep
     jsl !C1DD59_WaitForBattleText
     stz $9643
-    jsl $C1DD41
+    jsl !C1DD41_PrepareBattlePresentationState
     lda.w #$0001
     sta $9643
     jsl !C12DD5_WindowTick
@@ -26518,7 +26524,7 @@ C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B:
     iny
     sty $18
     txa
-    jsl $C0ABE0
+    jsl !C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
     ldy $18
     tya
     clc
@@ -26544,7 +26550,7 @@ C2C7BC_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC7BC:
     sep #$20
     lda.b #$01
     sta $0000,X
-    jsl $C2F8F9
+    jsl !C2F8F9_RenderAndCommitBattleSpriteRows
     lda.w #!C8MSG_PokeyRunAway
     sta $0E
     lda.w #!C8_BattleTextScriptBank
@@ -26554,7 +26560,7 @@ C2C7BC_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC7BC:
     lda.b #$00
     ldx $16
     sta $0000,X
-    jsl $C2F8F9
+    jsl !C2F8F9_RenderAndCommitBattleSpriteRows
     lda.w #$003C
     jsr !C269BE_WaitFrames
     ldy.w #$0002
@@ -26599,7 +26605,7 @@ C2C842_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC842:
     lda $18
     cmp $C4A331,X
     bcc C2C81E_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC81E
-    jsl $C2DAE3
+    jsl !C2DAE3_PrimeLayer1BattleBgDistortionSwap
     ldy $14
     tya
     jsl $C0AC3A
@@ -26627,7 +26633,7 @@ C2C872_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC872:
     lda.w #$0258
     jsr !C269BE_WaitFrames
     lda.w #$003F
-    jsl $C0ABE0
+    jsl !C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
     jsl !C0ABC6_ClearPresentationQueues
     ldy.w #$0005
     ldx.w #$0000
