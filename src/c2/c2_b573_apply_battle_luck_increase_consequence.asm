@@ -86,13 +86,15 @@ C2B573_ApplyBattleLuckIncreaseConsequence:
     lda $08
     sta $14
     jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
-    bra C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3
+    bra C2B5E3_RunBattleStatChangeConsequenceEpilogue
+C2B5D9_TryRecoverSelectedBattlerNarrowAfflictionConsequence:
     ; Selector 9: narrow affliction-recovery tail.
     jsl C29AEA_TryRecoverSelectedBattlerNarrowAffliction
-    bra C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3
+    bra C2B5E3_RunBattleStatChangeConsequenceEpilogue
+C2B5DF_TryRecoverSelectedBattlerPoisonOnlyConsequence:
     ; Selector 0x0A: poison-only item-side recovery tail.
     jsl C2A39D_TryRecoverSelectedBattlerPoisonOnly
-C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3:
+C2B5E3_RunBattleStatChangeConsequenceEpilogue:
     lda $18
     sta $06
     lda $1A

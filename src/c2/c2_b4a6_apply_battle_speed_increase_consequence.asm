@@ -20,6 +20,7 @@
 C08FF7_ResolveIndexedPointerOffset                = $C08FF7
 C1DC66_DisplayBattleTextWithSubstitutionPayload   = $C1DC66
 C21AEB_RecalculateCharacterDerivedSpeed           = $C21AEB
+C2B5E3_RunBattleStatChangeConsequenceEpilogue     = $B5E3
 
 SelectedRowSpeedByte                              = $002A
 PartyRecordStride                                 = $005F
@@ -80,4 +81,4 @@ C2B4A6_ApplyBattleSpeedIncreaseConsequence:
     lda $08
     sta $14
     jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
-    jmp $B5E3
+    jmp C2B5E3_RunBattleStatChangeConsequenceEpilogue

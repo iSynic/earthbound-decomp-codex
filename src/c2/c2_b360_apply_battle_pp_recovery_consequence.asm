@@ -23,6 +23,11 @@ C26A2D_GetRandomBelow = $6A2D
 C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 C27294_ApplyBattlerHpRecoveryFeedback = $7294
 C27318_ApplyBattlerPpRecoveryFeedback = $7318
+C2B43F_ApplyBattleGutsIncreaseConsequence = $B43F
+C2B4A6_ApplyBattleSpeedIncreaseConsequence = $B4A6
+C2B50D_ApplyBattleVitalityIncreaseConsequence = $B50D
+C2B573_ApplyBattleLuckIncreaseConsequence = $B573
+C2B5E3_RunBattleStatChangeConsequenceEpilogue = $B5E3
 
 ; ---------------------------------------------------------------------------
 ; C2:B360
@@ -39,7 +44,8 @@ C2B36C_ApplyBattlePpRecoveryConsequence_LB36C:
 C2B36F_ApplyBattlePpRecoveryConsequence_LB36F:
     lda $A972
     jsr C27318_ApplyBattlerPpRecoveryFeedback
-    jmp $B5E3
+    jmp C2B5E3_RunBattleStatChangeConsequenceEpilogue
+C2B378_ApplyBattleHpPpRecoveryConsequence:
     ; Selector 2: chained HP-side then PP-side bounded feedback.
     cpy.w #$0000
     beq C2B38A_ApplyBattlePpRecoveryConsequence_LB38A
@@ -67,7 +73,8 @@ C2B39E_ApplyBattlePpRecoveryConsequence_LB39E:
 C2B3A1_ApplyBattlePpRecoveryConsequence_LB3A1:
     lda $A972
     jsr C27318_ApplyBattlerPpRecoveryFeedback
-    jmp $B5E3
+    jmp C2B5E3_RunBattleStatChangeConsequenceEpilogue
+C2B3AA_PickRandomBattleStatIncreaseConsequence:
     ; Selector 3: random IQ/guts/speed/vitality/luck increase.
     lda.w #$0004
     jsr C26A2D_GetRandomBelow
@@ -75,18 +82,18 @@ C2B3A1_ApplyBattlePpRecoveryConsequence_LB3A1:
     db $F0, $23
     cmp.w #$0001
     bne C2B3BD_ApplyBattlePpRecoveryConsequence_LB3BD
-    jmp $B43F
+    jmp C2B43F_ApplyBattleGutsIncreaseConsequence
 C2B3BD_ApplyBattlePpRecoveryConsequence_LB3BD:
     cmp.w #$0002
     bne C2B3C5_ApplyBattlePpRecoveryConsequence_LB3C5
-    jmp $B4A6
+    jmp C2B4A6_ApplyBattleSpeedIncreaseConsequence
 C2B3C5_ApplyBattlePpRecoveryConsequence_LB3C5:
     cmp.w #$0003
     bne C2B3CD_ApplyBattlePpRecoveryConsequence_LB3CD
-    jmp $B50D
+    jmp C2B50D_ApplyBattleVitalityIncreaseConsequence
 C2B3CD_ApplyBattlePpRecoveryConsequence_LB3CD:
     cmp.w #$0004
     bne C2B3D5_ApplyBattlePpRecoveryConsequence_LB3D5
-    jmp $B573
+    jmp C2B573_ApplyBattleLuckIncreaseConsequence
 C2B3D5_ApplyBattlePpRecoveryConsequence_LB3D5:
-    jmp $B5E3
+    jmp C2B5E3_RunBattleStatChangeConsequenceEpilogue

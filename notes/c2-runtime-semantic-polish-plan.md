@@ -744,6 +744,12 @@ contract notes for C0/C1/C3/C4 consumers.
   text route and shared late-controller return explicit. See
   `notes/c2-late-selected-row-runtime-polish.md` and
   `notes/c2-selected-row-controller-runtime-polish.md`.
+- 2026-05-06 ninety-seventh slice: tightened the stat-consequence selector
+  surface. `C2:B2E0` now dispatches selector `2`, selector `3`, direct stat
+  leaves, affliction-recovery tails, and the common `C2:B5E3` epilogue by
+  behavior names; the HP/PP wrapper and direct stat leaves also target
+  `RunBattleStatChangeConsequenceEpilogue` instead of raw `$B5E3`. See
+  `notes/c2-stat-consequence-runtime-polish.md`.
 
 ## Validation
 

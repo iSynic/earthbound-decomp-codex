@@ -20,6 +20,7 @@
 C08FF7_ResolveIndexedPointerOffset                = $C08FF7
 C1DC66_DisplayBattleTextWithSubstitutionPayload   = $C1DC66
 C21D7D_RecalculateCharacterDerivedIq              = $C21D7D
+C2B5E3_RunBattleStatChangeConsequenceEpilogue     = $B5E3
 
 SelectedRowIqByte                                 = $0031
 PartyRecordStride                                 = $005F
@@ -80,4 +81,4 @@ C2B3D8_ApplyBattleIqIncreaseConsequence:
     lda $08
     sta $14
     jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
-    jmp $B5E3
+    jmp C2B5E3_RunBattleStatChangeConsequenceEpilogue
