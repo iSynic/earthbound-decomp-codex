@@ -65,6 +65,14 @@ script commands. All 168 palette-setting row keys match, all raw-ROM versus
 visual-row differences are explained by metadata-word zeroing, and descriptor
 palettes `2..7` map to DA subpalettes with zero overflow cells.
 
+The DA palette report now also carries the row-level metadata distributions
+needed for source emission without over-naming runtime behavior: 14 physical
+rows carry an event-palette selector/payload pair, all 14 payload shapes match
+the palette-setting model, 23 rows carry a nonzero sprite-palette metadata word,
+and 8 rows carry a nonzero flash-effect metadata word. The parsed script usage
+join covers 33 `CHANGE_MAP_PALETTE` hits across 15 palette variants; 5 of those
+script-referenced variants are event-palette rows.
+
 ## Current DA confidence boundary
 
 High confidence:
@@ -74,6 +82,8 @@ High confidence:
   the US retail build.
 - The palette pointer table and 192-byte palette variant subrecords are now
   contract-backed.
+- Metadata-word distributions and script-side palette variant usage are
+  summarized for source-emission targeting.
 - Only `18` bytes at the end of the bank are unclaimed slack.
 
 Still intentionally out of scope:

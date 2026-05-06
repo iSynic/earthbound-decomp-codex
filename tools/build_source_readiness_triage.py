@@ -280,9 +280,9 @@ def build_triage() -> list[BankTriage]:
             "map arrangement/palette/audio assets",
             "asset-and-table-ready",
             3,
-            "Extract arrangements and palettes, and keep the DA palette pointer/variant contracts regression-tested.",
+            "Extract arrangements and palettes using `notes/da-map-palette-subrecord-contracts.md` for the pointer/variant rows, metadata-word distributions, and script-side palette usage joins.",
             ["event-palette selector runtime dispatch semantics remain deferred"],
-            ["compressed arrangements", "map palettes", "audio pack"],
+            ["compressed arrangements", "map palette pointer/variant rows", "metadata-word and script-usage summaries", "audio pack"],
         )
     )
     rows.append(
@@ -501,7 +501,7 @@ def render_markdown(payload: dict[str, object]) -> str:
             "### Data-contract splitters",
             "",
             "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF trigger/door/event-music rows, D0 tile-event and placement/battle variable lists, D5 timed-delivery controller rows, and D8 collision rows now have promoted subrecord semantics, with remaining work concentrated in source/data emission and optional gameplay labels.",
-            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 and DA now have promoted table/subrecord contracts; remaining work is smaller inferred table/pointer contract polish.",
+            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 and DA now have promoted table/subrecord contracts; DA also has metadata-word and script-usage summaries for palette source emission. Remaining work is smaller inferred table/pointer contract polish.",
             "",
             "### Script, text, and VM assets",
             "",

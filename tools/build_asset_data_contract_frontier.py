@@ -78,7 +78,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "label": "Map tilesets and runtime tables",
         "banks": ["D6", "D7", "D8", "D9", "DA", "DB", "DC", "DD", "DE", "DF"],
         "maturity": "contract-backed-with-known-followups",
-        "proof": "map object, sector, D7 sector metadata, DA palette subrecords, DC current-position music selector and bounded second-plane summaries, tileset, FTS, D8 collision subrecords, palette, movement, sprite-usage, DF landing palette-animation profile/payload, and scene-composition contracts exist",
+        "proof": "map object, sector, D7 sector metadata, DA palette subrecords plus metadata/script usage summaries, DC current-position music selector and bounded second-plane summaries, tileset, FTS, D8 collision subrecords, palette, movement, sprite-usage, DF landing palette-animation profile/payload, and scene-composition contracts exist",
         "docs": [
             "notes/map-milestone-closure.md",
             "notes/map-object-bundles.md",
@@ -96,7 +96,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/df-landing-palette-animation-contracts.md",
             "notes/map-scene-composition-contract.md",
         ],
-        "next_contract": "Map contracts are phase-good-enough: D7 sector metadata, DA palette subrecords, and the DC current-position event-music selector are contract-backed, while D7/DC unresolved planes are value-bounded without promoted names; collision low modifier labels, DA event-palette selector runtime behavior, DF profile names, and remaining D7 high-bit/DC second-plane semantics are deferred caller-evidence polish.",
+        "next_contract": "Map contracts are phase-good-enough: D7 sector metadata, DA palette subrecords/script joins, and the DC current-position event-music selector are contract-backed, while D7/DC unresolved planes are value-bounded without promoted names; collision low modifier labels, DA event-palette selector runtime behavior, DF profile names, and remaining D7 high-bit/DC second-plane semantics are deferred caller-evidence polish.",
     },
     {
         "id": "ui_font_town_map_assets",
@@ -349,7 +349,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             {
                 "rank": 3,
                 "family": "map_tilesets_and_runtime_tables",
-                "why": "The map milestone is phase-good-enough; low-bit/palette metadata followups are bounded runtime-semantics polish.",
+                "why": "The map milestone is phase-good-enough; D7/DC unresolved planes and DA event-palette selector dispatch are bounded runtime-semantics polish.",
             },
             {
                 "rank": 4,

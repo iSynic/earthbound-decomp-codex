@@ -1,10 +1,306 @@
 {
+  "event_palette_rows": [
+    {
+      "event_flag": 422,
+      "event_palette_selector_word": 32871,
+      "palette_id": 1,
+      "payload_shape_matches": true,
+      "row_id": "10",
+      "sprite_palette": 0,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 0
+    },
+    {
+      "event_flag": 32781,
+      "event_palette_selector_word": 33639,
+      "palette_id": 2,
+      "payload_shape_matches": true,
+      "row_id": "21",
+      "sprite_palette": 5,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 1
+    },
+    {
+      "event_flag": 32839,
+      "event_palette_selector_word": 34215,
+      "palette_id": 3,
+      "payload_shape_matches": true,
+      "row_id": "30",
+      "sprite_palette": 0,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 0
+    },
+    {
+      "event_flag": 288,
+      "event_palette_selector_word": 36711,
+      "palette_id": 6,
+      "payload_shape_matches": true,
+      "row_id": "63",
+      "sprite_palette": 4,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 3
+    },
+    {
+      "event_flag": 33140,
+      "event_palette_selector_word": 47655,
+      "palette_id": 11,
+      "payload_shape_matches": true,
+      "row_id": "b7",
+      "sprite_palette": 0,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 7
+    },
+    {
+      "event_flag": 517,
+      "event_palette_selector_word": 43815,
+      "palette_id": 12,
+      "payload_shape_matches": true,
+      "row_id": "c6",
+      "sprite_palette": 4,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 6
+    },
+    {
+      "event_flag": 287,
+      "event_palette_selector_word": 43623,
+      "palette_id": 13,
+      "payload_shape_matches": true,
+      "row_id": "d0",
+      "sprite_palette": 5,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 0
+    },
+    {
+      "event_flag": 32781,
+      "event_palette_selector_word": 45351,
+      "palette_id": 14,
+      "payload_shape_matches": true,
+      "row_id": "e6",
+      "sprite_palette": 0,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 6
+    },
+    {
+      "event_flag": 32781,
+      "event_palette_selector_word": 46887,
+      "palette_id": 15,
+      "payload_shape_matches": true,
+      "row_id": "f4",
+      "sprite_palette": 0,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 4
+    },
+    {
+      "event_flag": 517,
+      "event_palette_selector_word": 43815,
+      "palette_id": 16,
+      "payload_shape_matches": true,
+      "row_id": "g3",
+      "sprite_palette": 5,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 3
+    },
+    {
+      "event_flag": 33323,
+      "event_palette_selector_word": 62823,
+      "palette_id": 17,
+      "payload_shape_matches": true,
+      "row_id": "h4",
+      "sprite_palette": 0,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 4
+    },
+    {
+      "event_flag": 33323,
+      "event_palette_selector_word": 62631,
+      "palette_id": 20,
+      "payload_shape_matches": true,
+      "row_id": "k1",
+      "sprite_palette": 0,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 1
+    },
+    {
+      "event_flag": 33323,
+      "event_palette_selector_word": 62823,
+      "palette_id": 24,
+      "payload_shape_matches": true,
+      "row_id": "o4",
+      "sprite_palette": 0,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 4
+    },
+    {
+      "event_flag": 32838,
+      "event_palette_selector_word": 59559,
+      "palette_id": 27,
+      "payload_shape_matches": true,
+      "row_id": "r3",
+      "sprite_palette": 0,
+      "status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "variant": 3
+    }
+  ],
   "generator": "tools/build_da_palette_subrecord_contracts.py",
   "interpretation_boundary": [
     "The 168 DA rows are physical contiguous palette variants; use the pointer contract to map palette_id and variant to a physical row.",
     "The four reserved metadata words are field-named because they match map_palette_settings and explain all raw-ROM versus `.fts` visual-row differences.",
     "The event_palette_selector_word is only named as a selector/presence word here; its runtime dispatch semantics remain deferred.",
     "Descriptor palettes 0 and 1 belong to text/common palette memory, not the DA map palette variant rows."
+  ],
+  "metadata_word_summaries": [
+    {
+      "field": "event_flag",
+      "nonzero_rows": 14,
+      "rows": 168,
+      "top_nonzero_values": [
+        {
+          "count": 3,
+          "value": 32781
+        },
+        {
+          "count": 3,
+          "value": 33323
+        },
+        {
+          "count": 2,
+          "value": 517
+        },
+        {
+          "count": 1,
+          "value": 422
+        },
+        {
+          "count": 1,
+          "value": 32839
+        },
+        {
+          "count": 1,
+          "value": 288
+        },
+        {
+          "count": 1,
+          "value": 33140
+        },
+        {
+          "count": 1,
+          "value": 287
+        }
+      ],
+      "unique_nonzero_values": 9,
+      "zero_rows": 154
+    },
+    {
+      "field": "event_palette_selector_word",
+      "nonzero_rows": 14,
+      "rows": 168,
+      "top_nonzero_values": [
+        {
+          "count": 2,
+          "value": 43815
+        },
+        {
+          "count": 2,
+          "value": 62823
+        },
+        {
+          "count": 1,
+          "value": 32871
+        },
+        {
+          "count": 1,
+          "value": 33639
+        },
+        {
+          "count": 1,
+          "value": 34215
+        },
+        {
+          "count": 1,
+          "value": 36711
+        },
+        {
+          "count": 1,
+          "value": 47655
+        },
+        {
+          "count": 1,
+          "value": 43623
+        }
+      ],
+      "unique_nonzero_values": 12,
+      "zero_rows": 154
+    },
+    {
+      "field": "sprite_palette",
+      "nonzero_rows": 23,
+      "rows": 168,
+      "top_nonzero_values": [
+        {
+          "count": 9,
+          "value": 4
+        },
+        {
+          "count": 6,
+          "value": 5
+        },
+        {
+          "count": 4,
+          "value": 2
+        },
+        {
+          "count": 3,
+          "value": 6
+        },
+        {
+          "count": 1,
+          "value": 3
+        }
+      ],
+      "unique_nonzero_values": 5,
+      "zero_rows": 145
+    },
+    {
+      "field": "flash_effect",
+      "nonzero_rows": 8,
+      "rows": 168,
+      "top_nonzero_values": [
+        {
+          "count": 1,
+          "value": 2
+        },
+        {
+          "count": 1,
+          "value": 6
+        },
+        {
+          "count": 1,
+          "value": 4
+        },
+        {
+          "count": 1,
+          "value": 1
+        },
+        {
+          "count": 1,
+          "value": 3
+        },
+        {
+          "count": 1,
+          "value": 5
+        },
+        {
+          "count": 1,
+          "value": 8
+        },
+        {
+          "count": 1,
+          "value": 7
+        }
+      ],
+      "unique_nonzero_values": 8,
+      "zero_rows": 160
+    }
   ],
   "physical_row_samples": [
     {
@@ -247,6 +543,373 @@
     ],
     "macro": "CHANGE_MAP_PALETTE"
   },
+  "script_usage_top_variants": [
+    {
+      "durations": [
+        {
+          "count": 6,
+          "duration": 60
+        }
+      ],
+      "event_flag": 0,
+      "flash_effect": 0,
+      "has_event_palette": false,
+      "hit_count": 6,
+      "palette_contract_status": "exact_rom_palette_variant_match",
+      "palette_id": 5,
+      "row_id": "50",
+      "segments": [
+        {
+          "count": 6,
+          "segment": "E18MGKT"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 0
+    },
+    {
+      "durations": [
+        {
+          "count": 1,
+          "duration": 0
+        },
+        {
+          "count": 3,
+          "duration": 1
+        },
+        {
+          "count": 1,
+          "duration": 30
+        }
+      ],
+      "event_flag": 33323,
+      "flash_effect": 0,
+      "has_event_palette": true,
+      "hit_count": 5,
+      "palette_contract_status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "palette_id": 20,
+      "row_id": "k1",
+      "segments": [
+        {
+          "count": 3,
+          "segment": "EEVENT2"
+        },
+        {
+          "count": 2,
+          "segment": "UNKNOWN_C9992F"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 1
+    },
+    {
+      "durations": [
+        {
+          "count": 1,
+          "duration": 0
+        },
+        {
+          "count": 4,
+          "duration": 1
+        }
+      ],
+      "event_flag": 0,
+      "flash_effect": 0,
+      "has_event_palette": false,
+      "hit_count": 5,
+      "palette_contract_status": "exact_rom_palette_variant_match",
+      "palette_id": 31,
+      "row_id": "v0",
+      "segments": [
+        {
+          "count": 4,
+          "segment": "EEVENT2"
+        },
+        {
+          "count": 1,
+          "segment": "UNKNOWN_C9992F"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 0
+    },
+    {
+      "durations": [
+        {
+          "count": 3,
+          "duration": 60
+        }
+      ],
+      "event_flag": 0,
+      "flash_effect": 0,
+      "has_event_palette": false,
+      "hit_count": 3,
+      "palette_contract_status": "exact_rom_palette_variant_match",
+      "palette_id": 31,
+      "row_id": "v6",
+      "segments": [
+        {
+          "count": 3,
+          "segment": "E18MGKT"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 6
+    },
+    {
+      "durations": [
+        {
+          "count": 2,
+          "duration": 60
+        }
+      ],
+      "event_flag": 0,
+      "flash_effect": 0,
+      "has_event_palette": false,
+      "hit_count": 2,
+      "palette_contract_status": "exact_rom_palette_variant_match",
+      "palette_id": 31,
+      "row_id": "v3",
+      "segments": [
+        {
+          "count": 2,
+          "segment": "E18MGKT"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 3
+    },
+    {
+      "durations": [
+        {
+          "count": 2,
+          "duration": 60
+        }
+      ],
+      "event_flag": 0,
+      "flash_effect": 0,
+      "has_event_palette": false,
+      "hit_count": 2,
+      "palette_contract_status": "exact_rom_palette_variant_match",
+      "palette_id": 31,
+      "row_id": "v5",
+      "segments": [
+        {
+          "count": 2,
+          "segment": "E18MGKT"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 5
+    },
+    {
+      "durations": [
+        {
+          "count": 2,
+          "duration": 60
+        }
+      ],
+      "event_flag": 0,
+      "flash_effect": 0,
+      "has_event_palette": false,
+      "hit_count": 2,
+      "palette_contract_status": "exact_rom_palette_variant_match",
+      "palette_id": 31,
+      "row_id": "v7",
+      "segments": [
+        {
+          "count": 2,
+          "segment": "E18MGKT"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 7
+    },
+    {
+      "durations": [
+        {
+          "count": 1,
+          "duration": 255
+        }
+      ],
+      "event_flag": 422,
+      "flash_effect": 0,
+      "has_event_palette": true,
+      "hit_count": 1,
+      "palette_contract_status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "palette_id": 1,
+      "row_id": "10",
+      "segments": [
+        {
+          "count": 1,
+          "segment": "UNKNOWN_C9992F"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 0
+    },
+    {
+      "durations": [
+        {
+          "count": 1,
+          "duration": 120
+        }
+      ],
+      "event_flag": 288,
+      "flash_effect": 0,
+      "has_event_palette": true,
+      "hit_count": 1,
+      "palette_contract_status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "palette_id": 6,
+      "row_id": "63",
+      "segments": [
+        {
+          "count": 1,
+          "segment": "EEVENT3"
+        }
+      ],
+      "sprite_palette": 4,
+      "variant": 3
+    },
+    {
+      "durations": [
+        {
+          "count": 1,
+          "duration": 120
+        }
+      ],
+      "event_flag": 287,
+      "flash_effect": 0,
+      "has_event_palette": true,
+      "hit_count": 1,
+      "palette_contract_status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "palette_id": 13,
+      "row_id": "d0",
+      "segments": [
+        {
+          "count": 1,
+          "segment": "UNKNOWN_C9992F"
+        }
+      ],
+      "sprite_palette": 5,
+      "variant": 0
+    },
+    {
+      "durations": [
+        {
+          "count": 1,
+          "duration": 30
+        }
+      ],
+      "event_flag": 517,
+      "flash_effect": 0,
+      "has_event_palette": true,
+      "hit_count": 1,
+      "palette_contract_status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "palette_id": 16,
+      "row_id": "g3",
+      "segments": [
+        {
+          "count": 1,
+          "segment": "UNKNOWN_C9992F"
+        }
+      ],
+      "sprite_palette": 5,
+      "variant": 3
+    },
+    {
+      "durations": [
+        {
+          "count": 1,
+          "duration": 60
+        }
+      ],
+      "event_flag": 0,
+      "flash_effect": 4,
+      "has_event_palette": false,
+      "hit_count": 1,
+      "palette_contract_status": "matches_rom_variant_after_reserved_metadata_zeroing",
+      "palette_id": 26,
+      "row_id": "q2",
+      "segments": [
+        {
+          "count": 1,
+          "segment": "EEVENT4"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 2
+    },
+    {
+      "durations": [
+        {
+          "count": 1,
+          "duration": 180
+        }
+      ],
+      "event_flag": 0,
+      "flash_effect": 0,
+      "has_event_palette": false,
+      "hit_count": 1,
+      "palette_contract_status": "exact_rom_palette_variant_match",
+      "palette_id": 27,
+      "row_id": "r4",
+      "segments": [
+        {
+          "count": 1,
+          "segment": "EEVENT3"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 4
+    },
+    {
+      "durations": [
+        {
+          "count": 1,
+          "duration": 60
+        }
+      ],
+      "event_flag": 0,
+      "flash_effect": 0,
+      "has_event_palette": false,
+      "hit_count": 1,
+      "palette_contract_status": "exact_rom_palette_variant_match",
+      "palette_id": 31,
+      "row_id": "v2",
+      "segments": [
+        {
+          "count": 1,
+          "segment": "E18MGKT"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 2
+    },
+    {
+      "durations": [
+        {
+          "count": 1,
+          "duration": 60
+        }
+      ],
+      "event_flag": 0,
+      "flash_effect": 0,
+      "has_event_palette": false,
+      "hit_count": 1,
+      "palette_contract_status": "exact_rom_palette_variant_match",
+      "palette_id": 31,
+      "row_id": "v4",
+      "segments": [
+        {
+          "count": 1,
+          "segment": "E18MGKT"
+        }
+      ],
+      "sprite_palette": 0,
+      "variant": 4
+    }
+  ],
   "source_policy": "Derived from checked-in palette pointer, FTS palette variant, descriptor-context, and script-command usage contracts. This records row shapes, offsets, counts, hashes/statuses, and interpretation boundaries only; it does not commit raw palette bytes.",
   "sources": {
     "fts_palette_variant_contract": "notes/map-fts-palette-variant-contract.json",
@@ -259,6 +922,8 @@
     "da_map_palette_fit_overflow_cells": 0,
     "descriptor_palettes_0_1_text_palette_cells": 291628,
     "descriptor_palettes_2_7_map_palette_cells": 681172,
+    "event_palette_payload_shape_matches": 14,
+    "event_palette_selector_rows": 14,
     "exact_pointer_asset_matches": 32,
     "exact_rom_palette_variant_matches": 129,
     "fts_row_key_matches": 168,
@@ -285,6 +950,7 @@
       "matches_rom_variant_after_reserved_metadata_zeroing": 10
     },
     "script_palette_command_hits": 33,
+    "script_referenced_event_palette_rows": 5,
     "script_referenced_palette_variants": 15,
     "subpalettes_per_variant": 6,
     "unexplained_mismatches": 0
