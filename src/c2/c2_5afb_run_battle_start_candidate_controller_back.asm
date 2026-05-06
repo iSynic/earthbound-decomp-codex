@@ -24,16 +24,22 @@ C1DD9F_DisplayCurrentActionTableTextMode1 = $C1DD9F
 C1DD3B_RefreshBattlePresentationForSelectedRow = $C1DD3B
 C1DD59_WaitForBattleText            = $C1DD59
 C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+C1DDCC_SelectPartyMemberPresentation = $C1DDCC
 C12DD5_WindowTick                   = $C12DD5
 C09279_DispatchBattleActionPayload   = $C09279
 C23D05_BuildBattleTargetTextContext  = $C23D05
+C20293_ClearDefaultTitleUploadTiles  = $C20293
+C2108C_ClearHpPpRollDirtyLatchIfSettled = $C2108C
 C26A2D_GetRandomBelow               = $6A2D
 C27029_MaskSet_TestBit               = $C27029
+C2437E_ApplyPendingStolenItemSlotIfStillValid = $C2437E
+C2AF1F_SnapshotRestoreBattlerNormalizationContext = $C2AF1F
 C2BAC5_CountFilteredSecondStageBattlerRows = $C2BAC5
 C2BB18_PromoteSourceEntryToCollapseAfflictionController = $C2BB18
 C2BCB9_ApplyBattlerPpTargetLoss      = $C2BCB9
 C2BC5C_ClearInactiveSourceEntryLiveSlotTransientFields = $C2BC5C
 C2DB3F_RunBattleBgPerFrameUpdateBody = $C2DB3F
+C2E0E7_ClearBattleVisualFlashStateAndLayerConfig = $C2E0E7
 C2EACF_PollBattleSwirlOverlayBusy   = $C2EACF
 C2FEF9_LoadOrDimBattlePaletteSet    = $C2FEF9
 D57B68_BattleActionTable            = $D57B68
@@ -88,7 +94,7 @@ C25B1A_RunBattleStartCandidateControllerBack_L5B1A:
     cmp $02
     bne C25B35_RunBattleStartCandidateControllerBack_L5B35
     txa
-    jsl $C1DDCC
+    jsl C1DDCC_SelectPartyMemberPresentation
     bra C25B3D_RunBattleStartCandidateControllerBack_L5B3D
 C25B35_RunBattleStartCandidateControllerBack_L5B35:
     inx
@@ -358,7 +364,7 @@ C25D2B_RunBattleStartCandidateControllerBack_L5D2B:
     cmp.w #$0000
     bne C25D69_RunBattleStartCandidateControllerBack_L5D69
 C25D62_RunBattleStartCandidateControllerBack_L5D62:
-    jsl $C2437E
+    jsl C2437E_ApplyPendingStolenItemSlotIfStillValid
     jmp.w C25EF7_ResolveBattleStartCandidateCompletion
 C25D69_RunBattleStartCandidateControllerBack_L5D69:
     lda $AA0E
@@ -373,7 +379,7 @@ C25D7D_RunBattleStartCandidateControllerBack_L5D7D:
     stz $17
     jmp.w C26093_RunBattleStartCandidateControllerBack_L6093
 C25D82_RunBattleStartCandidateControllerBack_L5D82:
-    jsl $C2437E
+    jsl C2437E_ApplyPendingStolenItemSlotIfStillValid
     jmp.w C25F2E_RunBattleStartCandidateControllerBack_L5F2E
 C25D89_RunBattleStartCandidateControllerBack_L5D89:
     lda.w #$0002
@@ -398,7 +404,7 @@ C25DA9_RunBattleStartCandidateControllerBack_L5DA9:
     lda $000E,X
     and.w #$00FF
     bne C25E18_RunBattleStartCandidateControllerBack_L5E18
-    jsl $C2437E
+    jsl C2437E_ApplyPendingStolenItemSlotIfStillValid
     lda $AA12
     beq C25E14_RunBattleStartCandidateControllerBack_L5E14
     ldx $A970
@@ -434,7 +440,7 @@ C25DA9_RunBattleStartCandidateControllerBack_L5DA9:
     sta $12
     lda $08
     sta $14
-    jsl $C2AF1F
+    jsl C2AF1F_SnapshotRestoreBattlerNormalizationContext
     lda.w #EFMSG_NeutralizeMetamorph
     sta $0E
     lda.w #EF_BattleTextScriptBank
@@ -720,7 +726,7 @@ C26093_RunBattleStartCandidateControllerBack_L6093:
     jsl $C20F9A
 C26097_RunBattleStartCandidateControllerBack_L6097:
     jsl C12DD5_WindowTick
-    jsl $C2108C
+    jsl C2108C_ClearHpPpRollDirtyLatchIfSettled
     cmp.w #$0000
     beq C26097_RunBattleStartCandidateControllerBack_L6097
     lda $AA12
@@ -781,7 +787,7 @@ C260B9_RunBattleStartCandidateControllerBack_L60B9:
     sta $12
     lda $08
     sta $14
-    jsl $C2AF1F
+    jsl C2AF1F_SnapshotRestoreBattlerNormalizationContext
     lda $04
     sep #$20
     ldx $25
@@ -822,10 +828,10 @@ C2616D_RunBattleStartCandidateControllerBack_L616D:
     lda $0028
     and.w #$00FF
     bne C26165_RunBattleStartCandidateControllerBack_L6165
-    jsl $C20293
+    jsl C20293_ClearDefaultTitleUploadTiles
     jsl C08726_BlankWaitAndDisableHdma
     jsl C1DD5F_WaitForTextOrMenuAcknowledge
-    jsl $C2E0E7
+    jsl C2E0E7_ClearBattleVisualFlashStateAndLayerConfig
     lda $17
     pld
     rtl

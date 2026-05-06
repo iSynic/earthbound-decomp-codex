@@ -35,11 +35,20 @@ Accepted item ids are written one byte at a time into `$A9D4`, and the helper re
 
 Working names used below are collected again in the final section for the generated proposal table.
 
+Source follow-up (2026-05-06): the battle-start front controller now calls
+`C2:4316` by the `SelectStealableItemCandidate` contract at both STEAL action
+argument setup sites. This makes row `0x42`'s selected-row `+8` byte read as a
+pending stolen item id instead of an opaque action argument.
+
 ## `C2:4348`: validate a pending steal item
 
 `C2:4348` takes an item id in `A`, rebuilds the `$A9D4` stealable candidate list through `C2:41DC`, then linearly scans the returned candidate count. It returns `1` if any candidate equals the input item id and `0` otherwise.
 
 The only direct caller is the STEAL action cleanup path at `C2:5AD1`. That caller checks the active battler's `current_action == #$0042`, loads `current_action_argument` from offset `+8`, calls `C2:4348`, and clears `current_action_argument` if the helper returns zero.
+
+The source callsite now uses `IsPendingStealItemStillStealable`, matching this
+guard role at the point where battle-start is about to stage the selected-row
+`+8` byte for text/payload consumption.
 
 `inspect_battle_action.py 66` corroborates table row `0x42` as the STEAL action:
 
@@ -74,6 +83,11 @@ The item configuration table at `D5:5000` is then checked at item record field `
 If all gates pass, `C2:437E` calls `C1:DDC6` with the battler id and slot number. Given the context, this looks like a battle-end or special-fallout path that applies the pending stolen item to the original character slot only if the inventory still agrees with the action record.
 
 Working name used below: `ApplyPendingStolenItemSlotIfStillValid`.
+
+Source follow-up (2026-05-06): the battle-start back half now calls
+`ApplyPendingStolenItemSlotIfStillValid` by name at the three end-state cleanup
+edges. That keeps the helper tied to committing a pending STEAL action fallout
+rather than reading like a generic inventory updater.
 
 ## `C2:4434`: random front/back target-row picker
 

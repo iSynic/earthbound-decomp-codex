@@ -18,12 +18,15 @@ C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C1DD47_OpenBattleTextWindow                     = $C1DD47
 C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
+C1DDCC_SelectPartyMemberPresentation            = $C1DDCC
 C26A2D_GetRandomBelow            = $6A2D
 C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 C23BCF_BuildBattleAttackerTextContext = $C23BCF
 C23D05_BuildBattleTargetTextContext = $C23D05
 C2416F_FilterBattleActionTargetMaskByRowState = $C2416F
+C24316_SelectStealableItemCandidate = $C24316
+C24348_IsPendingStealItemStillStealable = $C24348
 C24477_BuildClass2DerivedActionCode = $C24477
 C24703_DispatchClass2DerivedAction = $C24703
 C2BAC5_CountFilteredSecondStageBattlerRows = $C2BAC5
@@ -134,7 +137,7 @@ C250D9_RunBattleStartCandidateControllerFront_L50D9:
     jmp.w C25171_ApplyBattleStartCandidateResultRows
 C250E6_RunBattleStartCandidateControllerFront_L50E6:
     lda $02
-    jsl $C1DDCC
+    jsl C1DDCC_SelectPartyMemberPresentation
     ldy $19
     tyx
     lda $04
@@ -584,7 +587,7 @@ C2548A_RunBattleStartCandidateControllerFront_L548A:
 C2549A_RunBattleStartCandidateControllerFront_L549A:
     cmp.w #$0042
     bne C254B1_RunBattleStartCandidateControllerFront_L54B1
-    jsl $C24316
+    jsl C24316_SelectStealableItemCandidate
     sep #$20
     ldx $31
     sta $0000,X
@@ -1201,7 +1204,7 @@ C259C4_RunBattleStartCandidateControllerFront_L59C4:
     lda $0004,X
     cmp.w #$0042
     bne C259F0_RunBattleStartCandidateControllerFront_L59F0
-    jsl $C24316
+    jsl C24316_SelectStealableItemCandidate
     sep #$20
     ldx $A970
     sta $0008,X
@@ -1304,7 +1307,7 @@ C25ABD_RunBattleStartCandidateControllerFront_L5ABD:
     ldx $A970
     lda $0008,X
     and.w #$00FF
-    jsl $C24348
+    jsl C24348_IsPendingStealItemStillStealable
     cmp.w #$0000
     bne C25AE2_RunBattleStartCandidateControllerFront_L5AE2
     ldx $A970

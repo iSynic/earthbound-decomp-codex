@@ -167,6 +167,10 @@ battle-presentation callers:
   `PlaySoundAndTickLightWindow` source label for the text-command sound/effect
   wrapper that queues the sound through `C0:ABE0` and immediately runs the
   shared `C1:2E42` light window tick.
+- The battle-start back-half completion loop now calls `C2:108C` by its
+  `ClearHpPpRollDirtyLatchIfSettled` contract while waiting for HP/PP rolls to
+  settle, then calls `C2:0293` as `ClearDefaultTitleUploadTiles` during the
+  display cleanup tail.
 
 ## Working Names
 

@@ -648,6 +648,16 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/class2-candidate-population-and-ranking.md`,
   `notes/class2-special-event-results-c29298-c2c14e.md`, and
   `notes/c2-final-prayer-runtime-polish.md`.
+- 2026-05-06 eighty-fifth slice: tightened the battle-start STEAL and cleanup
+  helper joins. The front/back controllers now call the source-backed
+  `C2:4316` stealable-candidate selector, `C2:4348` pending steal guard,
+  `C2:437E` pending stolen-slot applicator, `C1:DDCC` party-member
+  presentation selector, `C2:AF1F` battler normalization snapshot/restore,
+  `C2:108C` HP/PP roll latch clearer, `C2:0293` title-tile clearer, and
+  `C2:E0E7` battle visual flash/layer reset by contract names instead of raw
+  long-call addresses. See `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/c2-steal-and-target-selection-helpers-c241dc-c24434.md`, and
+  `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
 
 ## Validation
 

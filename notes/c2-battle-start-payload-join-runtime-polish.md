@@ -48,6 +48,15 @@ and comments while preserving byte-equivalence.
   `C1:DD47`. The `C2:311B` menu/present controller now names its opening
   `C2:FEF9` palette load/dim call as the same `LoadOrDimBattlePaletteSet`
   contract.
+- STEAL/result-cleanup follow-up now names the battle-start front/back helper
+  joins that were already source-backed elsewhere: `C2:4316` selects a
+  stealable candidate for action `0x42`, `C2:4348` guards the pending stolen
+  item byte at selected-row `+8`, `C2:437E` applies the pending stolen item slot
+  when the end-state route still permits it, `C1:DDCC` selects the party-member
+  presentation, `C2:AF1F` snapshots/restores battler normalization context,
+  `C2:108C` clears the HP/PP roll dirty latch once settled, and the completion
+  cleanup calls `C2:0293` / `C2:E0E7` by their title-tile and visual-flash
+  reset contracts.
 
 ## Payload Joins
 
@@ -102,6 +111,12 @@ vocabulary when the generated party/enemy candidate pool reaches the
 interactive selection frame. This keeps the pool producer, enemy-select C1
 join, and post-selection present text setup tied to one battle-start contract
 instead of leaving those calls as raw display helpers.
+
+The STEAL row (`0x42`) now reads as a full argument lifecycle in the
+battle-start front/back sources: select a candidate item into the action
+argument, validate that argument against the current stealable-item list before
+text/payload work, and run the end-state stolen-slot applicator only on the
+cleanup paths that can still commit it.
 
 ## Evidence Inputs
 
