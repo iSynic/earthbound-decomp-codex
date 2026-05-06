@@ -67,6 +67,11 @@ label printer, decimal and right-aligned money printers, special-selector
 context installers, party-count checks, and text-event snapshot helper edges,
 leaving that corridor byte-equivalent and free of raw helper calls.
 
+The adjacent `C1:575D..621F` source unit now names the `0x1C 0C` vertical text
+layout helper and the `0x1C 12` PSI-name printer edge directly. This keeps the
+front display-family source readable while the broader `0x1D/0x19` inventory
+and queue helpers continue to carry most of the module's behavior.
+
 ## Best current interpretation
 
 The safest current interpretation is that `0x1C` is the bank-`01` print / display family, covering ordinary text substitution, item and character naming, numeric/stat printing, and a narrower battle-facing action / PSI display tail.

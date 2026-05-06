@@ -121,6 +121,14 @@ and C1 inventory-slot remover. The shared decimal/right-aligned printers and
 context-pointer installs are named as future readers' implementation gates,
 with C1 byte-equivalence still green.
 
+Source polish follow-up (2026-05-06): the `C1:575D..621F` continuation now
+names the helper-call surface for the equipped-item and inventory usability
+checks, Escargo store/withdraw paths, wallet and ATM amount helpers, party-count
+tests, pending-item queue movement, and random-number staging. The three-byte
+money assemblers now call the C0 shift/multiply helpers by name, and the
+wallet/ATM mutations call locally named C2 contracts while preserving the
+existing byte-equivalence gate.
+
 ### Item give/take and possession checks
 
 The front half of the family is now split by confidence.

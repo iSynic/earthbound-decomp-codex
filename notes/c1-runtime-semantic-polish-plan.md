@@ -364,3 +364,17 @@ This planning pass is documentation-only.
   `notes/text-command-family-1d-inventory-money.md`,
   `notes/text-command-family-19-data-and-substitution.md`, and
   `notes/jeff-repair-item-name-bridge.md`.
+- 2026-05-06 follow-up: the adjacent `C1:575D..621F` inventory, money, and
+  delivery-helper corridor now has no raw helper-call edges. The pass names
+  equipped-item reference checks, inventory-slot item reads, compatibility and
+  equipment-subtype dispatch, pending-item queue store/withdraw helpers,
+  Escargo storage staging, three-byte money amount assembly, wallet/ATM
+  add/take/check helpers, status-window and vertical-string display joins,
+  loaded-string count staging, party utility/party-count checks, delivery queue
+  removal and info reads, storage enqueue, food/equipment classification, PSI
+  name printing, and random-number generation. See
+  `notes/text-command-family-1d-inventory-money.md`,
+  `notes/text-command-family-19-data-and-substitution.md`,
+  `notes/text-command-family-1c-print-display.md`,
+  `notes/pending-item-queue-984b.md`, and
+  `notes/equipped-item-presence-predicate-c3e9a0.md`.

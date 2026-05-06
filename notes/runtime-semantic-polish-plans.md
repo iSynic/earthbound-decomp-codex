@@ -109,6 +109,14 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   inventory-slot removal. See `notes/text-command-10-parameterized-pause.md`,
   `notes/text-command-family-1c-print-display.md`, and
   `notes/text-command-family-1d-inventory-money.md`.
+- 2026-05-06: C1 `C1:575D..621F` inventory/money/delivery corridor follow-up
+  named the helper-call surface for equipped-item checks, Escargo pending-item
+  queue movement, wallet/ATM amount assembly and mutation, delivery/pickup
+  queue storage and reads, food/equipment classification, PSI-name printing,
+  and random-number staging. See
+  `notes/text-command-family-1d-inventory-money.md`,
+  `notes/text-command-family-19-data-and-substitution.md`, and
+  `notes/pending-item-queue-984b.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

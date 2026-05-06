@@ -11758,14 +11758,36 @@ C1575B_C14EAB_HandleTextCommand10ParameterizedPause_L575B:
 hirom
 org $C1575D
 
+!C09086_Multiply32 = $C09086
+!C0923E_ShiftWordLeftByY = $C0923E
+!C09246_ShiftLeft32ByY = $C09246
 !C103DC_ReadTextCommandArgumentWord = $03DC
 !C1040A_LoadPrimaryInteractionContextPointer = $040A
 !C1045D_InstallPrimaryInteractionContextPointer = $045D
 !C10489_InstallSecondaryInteractionContextPointer = $0489
+!C1180D_LayoutActiveTextEntriesAndRefresh = $180D
 !C18C27_RemoveItemFromCharacterInventory = $8C27
+!C19066_DispatchEquippedSlotSubtypeUpdate = $9066
+!C1913D_EnqueuePendingItemId = $913D
+!C19183_StoreInventorySlotItemInPendingQueue = $9183
 !C191B0_RemovePendingItemIdAtIndex = $91B0
+!C191F8_WithdrawPendingItemToInventory = $91F8
+!C1952F_RenderCharacterStatusWindowBlock = $C1952F
+!C1CA06_BuildPsiRankName = $CA06
 !C12BD5_GetLoadedStringCountForWindow = $2BD5
+!C22351_FindFirstEmptyInventorySlotForCharacter = $C22351
+!C22524_ClassifyGroupedEquipmentSlotOrdinal = $C22524
+!C226F0_FindFirstPartySlotWithStateOne = $C226F0
+!C227C8_MarkPartyCodeBitIn9839 = $C227C8
+!C2281D_DepositIntoAtm = $C2281D
+!C228B7_WithdrawFromAtm = $C228B7
+!C228F8_AddToWallet = $C228F8
+!C229BB_TakeFromWallet = $C229BB
 !C3E977_ReadCharacterInventorySlotByte = $C3E977
+!C3E9A0_CheckEquippedInventorySlotReference = $C3E9A0
+!C3EE14_CheckItemEquipmentSlotCompatibility = $C3EE14
+!C3EF23_NullStub = $C3EF23
+!C45F7B_GetRandomLessThanA = $C45F7B
 !WorkValueLo = $06
 !WorkValueByte1 = $07
 !WorkValueHi = $08
@@ -11834,7 +11856,7 @@ C1578C_C1575D_TestEquippedItemPresenceForTextCommand_L578C:
     txa
     bra C1579D_C1575D_TestEquippedItemPresenceForTextCommand_L579D
 C15798_C1575D_TestEquippedItemPresenceForTextCommand_L5798:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C1579D_C1575D_TestEquippedItemPresenceForTextCommand_L579D:
     sta $02
@@ -11843,12 +11865,12 @@ C1579D_C1575D_TestEquippedItemPresenceForTextCommand_L579D:
     tya
     bra C157AB_C1575D_TestEquippedItemPresenceForTextCommand_L57AB
 C157A6_C1575D_TestEquippedItemPresenceForTextCommand_L57A6:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C157AB_C1575D_TestEquippedItemPresenceForTextCommand_L57AB:
     tax
     lda $02
-    jsl $C3E9A0
+    jsl !C3E9A0_CheckEquippedInventorySlotReference
     cmp.w #$0000
     sta $06
     stz $08
@@ -11859,7 +11881,7 @@ C157BD_C1575D_TestEquippedItemPresenceForTextCommand_L57BD:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C157CB_C1575D_TestEquippedItemPresenceForTextCommand_L57CB:
     pld
@@ -11900,7 +11922,7 @@ C157FC_C1575D_TestEquippedItemPresenceForTextCommand_L57FC:
     txa
     bra C1580D_C1575D_TestEquippedItemPresenceForTextCommand_L580D
 C15808_C1575D_TestEquippedItemPresenceForTextCommand_L5808:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C1580D_C1575D_TestEquippedItemPresenceForTextCommand_L580D:
     sta $02
@@ -11909,22 +11931,22 @@ C1580D_C1575D_TestEquippedItemPresenceForTextCommand_L580D:
     tya
     bra C1581B_C1575D_TestEquippedItemPresenceForTextCommand_L581B
 C15816_C1575D_TestEquippedItemPresenceForTextCommand_L5816:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C1581B_C1575D_TestEquippedItemPresenceForTextCommand_L581B:
     tax
     lda $02
-    jsl $C3E977
+    jsl !C3E977_ReadCharacterInventorySlotByte
     tax
     lda $02
-    jsl $C3EE14
+    jsl !C3EE14_CheckItemEquipmentSlotCompatibility
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C1583B_C1575D_TestEquippedItemPresenceForTextCommand_L583B:
     pld
@@ -11965,7 +11987,7 @@ C1586C_C1575D_TestEquippedItemPresenceForTextCommand_L586C:
     txa
     bra C1587D_C1575D_TestEquippedItemPresenceForTextCommand_L587D
 C15878_C1575D_TestEquippedItemPresenceForTextCommand_L5878:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C1587D_C1575D_TestEquippedItemPresenceForTextCommand_L587D:
     sta $02
@@ -11974,19 +11996,19 @@ C1587D_C1575D_TestEquippedItemPresenceForTextCommand_L587D:
     tya
     bra C1588B_C1575D_TestEquippedItemPresenceForTextCommand_L588B
 C15886_C1575D_TestEquippedItemPresenceForTextCommand_L5886:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C1588B_C1575D_TestEquippedItemPresenceForTextCommand_L588B:
     tax
     lda $02
-    jsr $9066
+    jsr !C19066_DispatchEquippedSlotSubtypeUpdate
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$0000
 C158A3_C1575D_TestEquippedItemPresenceForTextCommand_L58A3:
     pld
@@ -12027,7 +12049,7 @@ C158D4_C1575D_TestEquippedItemPresenceForTextCommand_L58D4:
     txa
     bra C158E5_C1575D_TestEquippedItemPresenceForTextCommand_L58E5
 C158E0_C1575D_TestEquippedItemPresenceForTextCommand_L58E0:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C158E5_C1575D_TestEquippedItemPresenceForTextCommand_L58E5:
     sta $02
@@ -12036,12 +12058,12 @@ C158E5_C1575D_TestEquippedItemPresenceForTextCommand_L58E5:
     tya
     bra C158F3_C1575D_TestEquippedItemPresenceForTextCommand_L58F3
 C158EE_C1575D_TestEquippedItemPresenceForTextCommand_L58EE:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C158F3_C1575D_TestEquippedItemPresenceForTextCommand_L58F3:
     tax
     lda $02
-    jsr $9183
+    jsr !C19183_StoreInventorySlotItemInPendingQueue
     lda.w #$0000
 C158FC_C1575D_TestEquippedItemPresenceForTextCommand_L58FC:
     pld
@@ -12081,29 +12103,29 @@ C1592A_C1575D_TestEquippedItemPresenceForTextCommand_L592A:
     stx $14
     bra C15943_C1575D_TestEquippedItemPresenceForTextCommand_L5943
 C1593B_C1575D_TestEquippedItemPresenceForTextCommand_L593B:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
     tax
     stx $14
 C15943_C1575D_TestEquippedItemPresenceForTextCommand_L5943:
     lda $16
     bne C1594C_C1575D_TestEquippedItemPresenceForTextCommand_L594C
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C1594C_C1575D_TestEquippedItemPresenceForTextCommand_L594C:
     ldx $14
-    jsr $91F8
+    jsr !C191F8_WithdrawPendingItemToInventory
     tax
     stx $12
     txa
-    jsl $C22351
+    jsl !C22351_FindFirstEmptyInventorySlotForCharacter
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $0489
+    jsr !C10489_InstallSecondaryInteractionContextPointer
     ldx $12
     txa
     sta $06
@@ -12112,7 +12134,7 @@ C1594C_C1575D_TestEquippedItemPresenceForTextCommand_L594C:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C1597D_C1575D_TestEquippedItemPresenceForTextCommand_L597D:
     pld
@@ -12221,7 +12243,7 @@ C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A:
     lda $12
     sta $06
     stz $08
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -12234,7 +12256,7 @@ C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -12247,7 +12269,7 @@ C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -12298,7 +12320,7 @@ C15A2A_C1575D_TestEquippedItemPresenceForTextCommand_L5A2A:
     cmp $0A
 C15ACE_C1575D_TestEquippedItemPresenceForTextCommand_L5ACE:
     bne C15AD3_C1575D_TestEquippedItemPresenceForTextCommand_L5AD3
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C15AD3_C1575D_TestEquippedItemPresenceForTextCommand_L5AD3:
     lda $06
     sta $0A
@@ -12326,7 +12348,7 @@ C15AFE_C1575D_TestEquippedItemPresenceForTextCommand_L5AFE:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15B0C_C1575D_TestEquippedItemPresenceForTextCommand_L5B0C:
     pld
@@ -12401,7 +12423,7 @@ C15B75_C1575D_TestEquippedItemPresenceForTextCommand_L5B75:
     txa
     bra C15B86_C1575D_TestEquippedItemPresenceForTextCommand_L5B86
 C15B81_C1575D_TestEquippedItemPresenceForTextCommand_L5B81:
-    jsr $040A
+    jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
 C15B86_C1575D_TestEquippedItemPresenceForTextCommand_L5B86:
     tax
@@ -12414,11 +12436,11 @@ C15B86_C1575D_TestEquippedItemPresenceForTextCommand_L5B86:
     bra C15BA2_C1575D_TestEquippedItemPresenceForTextCommand_L5BA2
 C15B96_C1575D_TestEquippedItemPresenceForTextCommand_L5B96:
     txa
-    jsl $C1952F
+    jsl !C1952F_RenderCharacterStatusWindowBlock
     bra C15BA2_C1575D_TestEquippedItemPresenceForTextCommand_L5BA2
 C15B9D_C1575D_TestEquippedItemPresenceForTextCommand_L5B9D:
     txa
-    jsl $C3EF23
+    jsl !C3EF23_NullStub
 C15BA2_C1575D_TestEquippedItemPresenceForTextCommand_L5BA2:
     lda.w #$0000
 C15BA5_C1575D_TestEquippedItemPresenceForTextCommand_L5BA5:
@@ -12438,12 +12460,12 @@ CC_1C_0C:
     txa
     bra C15BBE_C1575D_TestEquippedItemPresenceForTextCommand_L5BBE
 C15BB9_C1575D_TestEquippedItemPresenceForTextCommand_L5BB9:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C15BBE_C1575D_TestEquippedItemPresenceForTextCommand_L5BBE:
     ldy.w #$0000
     tyx
-    jsr $180D
+    jsr !C1180D_LayoutActiveTextEntriesAndRefresh
     lda.w #$0000
     pld
     rts
@@ -12475,7 +12497,7 @@ C15BF0_C1575D_TestEquippedItemPresenceForTextCommand_L5BF0:
     tay
     rep #$20
     lda $14
-    jsl $C0923E
+    jsl !C0923E_ShiftWordLeftByY
     sta $02
     lda $97BA
     and.w #$00FF
@@ -12484,21 +12506,21 @@ C15BF0_C1575D_TestEquippedItemPresenceForTextCommand_L5BF0:
     tax
     stx $12
     bne C15C13_C1575D_TestEquippedItemPresenceForTextCommand_L5C13
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C15C13_C1575D_TestEquippedItemPresenceForTextCommand_L5C13:
-    jsl $C226F0
+    jsl !C226F0_FindFirstPartySlotWithStateOne
     sta $0A
     stz $0C
     ldx $12
     txa
     sta $06
     stz $08
-    jsl $C09086
+    jsl !C09086_Multiply32
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15C34_C1575D_TestEquippedItemPresenceForTextCommand_L5C34:
     pld
@@ -12546,7 +12568,7 @@ C15C69_C1575D_TestEquippedItemPresenceForTextCommand_L5C69:
     bra C15C84_C1575D_TestEquippedItemPresenceForTextCommand_L5C84
 C15C7C_C1575D_TestEquippedItemPresenceForTextCommand_L5C7C:
     txa
-    jsl $C227C8
+    jsl !C227C8_MarkPartyCodeBitIn9839
     lda.w #$0000
 C15C84_C1575D_TestEquippedItemPresenceForTextCommand_L5C84:
     rts
@@ -12584,7 +12606,7 @@ C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6:
     lda $12
     sta $06
     stz $08
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -12597,7 +12619,7 @@ C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -12610,7 +12632,7 @@ C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -12659,13 +12681,13 @@ C15CB6_C1575D_TestEquippedItemPresenceForTextCommand_L5CB6:
     cmp $0A
 C15D55_C1575D_TestEquippedItemPresenceForTextCommand_L5D55:
     bne C15D5A_C1575D_TestEquippedItemPresenceForTextCommand_L5D5A
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C15D5A_C1575D_TestEquippedItemPresenceForTextCommand_L5D5A:
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsl $C2281D
+    jsl !C2281D_DepositIntoAtm
     lda.w #$0000
 C15D69_C1575D_TestEquippedItemPresenceForTextCommand_L5D69:
     pld
@@ -12704,7 +12726,7 @@ C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C:
     lda $12
     sta $06
     stz $08
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -12717,7 +12739,7 @@ C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -12730,7 +12752,7 @@ C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -12779,18 +12801,18 @@ C15D9C_C1575D_TestEquippedItemPresenceForTextCommand_L5D9C:
     cmp $0A
 C15E3B_C1575D_TestEquippedItemPresenceForTextCommand_L5E3B:
     bne C15E40_C1575D_TestEquippedItemPresenceForTextCommand_L5E40
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C15E40_C1575D_TestEquippedItemPresenceForTextCommand_L5E40:
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsl $C228B7
+    jsl !C228B7_WithdrawFromAtm
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15E5A_C1575D_TestEquippedItemPresenceForTextCommand_L5E5A:
     pld
@@ -12829,7 +12851,7 @@ C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D:
     lda $12
     sta $06
     stz $08
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -12842,7 +12864,7 @@ C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $08
     pha
     lda $06
@@ -12855,7 +12877,7 @@ C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D:
     stz $08
     stz $09
     rep #$20
-    jsl $C09246
+    jsl !C09246_ShiftLeft32ByY
     lda $06
     sta $0A
     lda $08
@@ -12904,7 +12926,7 @@ C15E8D_C1575D_TestEquippedItemPresenceForTextCommand_L5E8D:
     cmp $0A
 C15F2C_C1575D_TestEquippedItemPresenceForTextCommand_L5F2C:
     bne C15F31_C1575D_TestEquippedItemPresenceForTextCommand_L5F31
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C15F31_C1575D_TestEquippedItemPresenceForTextCommand_L5F31:
     lda.w #$0000
     sta $12
@@ -12934,7 +12956,7 @@ C15F61_C1575D_TestEquippedItemPresenceForTextCommand_L5F61:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15F6F_C1575D_TestEquippedItemPresenceForTextCommand_L5F6F:
     pld
@@ -12953,10 +12975,10 @@ CC_1F_11:
     txa
     bra C15F88_C1575D_TestEquippedItemPresenceForTextCommand_L5F88
 C15F83_C1575D_TestEquippedItemPresenceForTextCommand_L5F83:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C15F88_C1575D_TestEquippedItemPresenceForTextCommand_L5F88:
-    jsl $C228F8
+    jsl !C228F8_AddToWallet
     lda.w #$0000
     pld
     rts
@@ -12974,10 +12996,10 @@ CC_1F_12:
     txa
     bra C15FA8_C1575D_TestEquippedItemPresenceForTextCommand_L5FA8
 C15FA3_C1575D_TestEquippedItemPresenceForTextCommand_L5FA3:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C15FA8_C1575D_TestEquippedItemPresenceForTextCommand_L5FA8:
-    jsl $C229BB
+    jsl !C229BB_TakeFromWallet
     lda.w #$0000
     pld
     rts
@@ -13204,10 +13226,10 @@ CC_1D_18:
     txa
     bra C1613B_C1575D_TestEquippedItemPresenceForTextCommand_L613B
 C16136_C1575D_TestEquippedItemPresenceForTextCommand_L6136:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C1613B_C1575D_TestEquippedItemPresenceForTextCommand_L613B:
-    jsr $913D
+    jsr !C1913D_EnqueuePendingItemId
     lda.w #$0000
     pld
     rts
@@ -13225,17 +13247,17 @@ CC_19_21:
     txa
     bra C1615A_C1575D_TestEquippedItemPresenceForTextCommand_L615A
 C16155_C1575D_TestEquippedItemPresenceForTextCommand_L6155:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C1615A_C1575D_TestEquippedItemPresenceForTextCommand_L615A:
-    jsl $C22524
+    jsl !C22524_ClassifyGroupedEquipmentSlotOrdinal
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -13257,7 +13279,7 @@ CC_1D_19:
     stz $08
     bra C16190_C1575D_TestEquippedItemPresenceForTextCommand_L6190
 C1618D_C1575D_TestEquippedItemPresenceForTextCommand_L618D:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
 C16190_C1575D_TestEquippedItemPresenceForTextCommand_L6190:
     lda $06
     sta $0A
@@ -13289,7 +13311,7 @@ C161C1_C1575D_TestEquippedItemPresenceForTextCommand_L61C1:
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts
@@ -13307,10 +13329,10 @@ CC_1C_12:
     txa
     bra C161E8_C1575D_TestEquippedItemPresenceForTextCommand_L61E8
 C161E3_C1575D_TestEquippedItemPresenceForTextCommand_L61E3:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C161E8_C1575D_TestEquippedItemPresenceForTextCommand_L61E8:
-    jsr $CA06
+    jsr !C1CA06_BuildPsiRankName
     lda.w #$0000
     pld
     rts
@@ -13328,17 +13350,17 @@ CC_1D_21:
     txa
     bra C16207_C1575D_TestEquippedItemPresenceForTextCommand_L6207
 C16202_C1575D_TestEquippedItemPresenceForTextCommand_L6202:
-    jsr $03DC
+    jsr !C103DC_ReadTextCommandArgumentWord
     lda $06
 C16207_C1575D_TestEquippedItemPresenceForTextCommand_L6207:
-    jsl $C45F7B
+    jsl !C45F7B_GetRandomLessThanA
     sta $06
     stz $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsr $045D
+    jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
     rts

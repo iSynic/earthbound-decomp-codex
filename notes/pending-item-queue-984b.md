@@ -18,6 +18,13 @@ Source-scaffold promotion:
 - `C2:2351..239D` is now decoded source in `src/c2/c2_2351_find_first_empty_inventory_slot_for_character.asm`, the destination-inventory capacity helper used by the withdraw path.
 - The combined C1 scaffold validates byte-for-byte after promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
+Source polish follow-up (2026-05-06): `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm`
+now calls the pending-item queue helpers by name from the `0x1D 12/13/18` and
+`0x19 1C/1D` text-command leaves. The source now makes the split explicit:
+Escargo store/withdraw use the packed `$984B` queue helpers, while delivery and
+pickup queue entries either remove from that queue or remove from character
+inventory before staging item/owner data.
+
 ## Why this interpretation fits
 
 The core helpers around it are now fairly direct.
