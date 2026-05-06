@@ -55,6 +55,9 @@ See also:
 - The adjacent `0x1E` recovery/stat dispatcher now names its live `01..0E`
   subselector ids, keeps `00` as the zero branch to HP-percent recovery, and
   uses the shared no-follow-up return for anything outside the live range.
+- The `0x1F` deferred-callback/event dispatcher now names its wide selector
+  ladder from the low music/sound strip through the `F4` tail, including
+  callback leaves, immediate helper leaves, and the shared no-follow-up return.
 - The later `1F` command corridor now names the text-context snapshot/restore,
   primary/secondary context loads and installs, text input lock/unlock, wait
   gate, transition music restore, interaction-flag helpers, save-current-game

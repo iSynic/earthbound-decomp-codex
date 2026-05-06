@@ -301,6 +301,79 @@ TextCommand1FF1Callback                   = $6EBF
 TextCommand1FF2Callback                   = $6F2F
 TextCommand1FF3Callback                   = $7325
 TextCommand1FF4Callback                   = $737D
+TextCommand1F01StopMusicSubcommand = $0001
+TextCommand1F02PlaySoundSubcommand = $0002
+TextCommand1F03RestoreCurrentMapMusicSubcommand = $0003
+TextCommand1F04CallbackSubcommand = $0004
+TextCommand1F05DisableSectorMusicChangeSubcommand = $0005
+TextCommand1F06EnableSectorMusicChangeSubcommand = $0006
+TextCommand1F07CallbackSubcommand = $0007
+TextCommand1F11AddToWalletSubcommand = $0011
+TextCommand1F12TakeFromWalletSubcommand = $0012
+TextCommand1F13CallbackSubcommand = $0013
+TextCommand1F14CallbackSubcommand = $0014
+TextCommand1F15CallbackSubcommand = $0015
+TextCommand1F16CallbackSubcommand = $0016
+TextCommand1F17CallbackSubcommand = $0017
+TextCommand1F18CallbackSubcommand = $0018
+TextCommand1F19CallbackSubcommand = $0019
+TextCommand1F1ACallbackSubcommand = $001A
+TextCommand1F1BCallbackSubcommand = $001B
+TextCommand1F1CCallbackSubcommand = $001C
+TextCommand1F1DCallbackSubcommand = $001D
+TextCommand1F1ECallbackSubcommand = $001E
+TextCommand1F1FCallbackSubcommand = $001F
+TextCommand1F20UseItemOnCharacterSubcommand = $0020
+TextCommand1F21TeleportToPresetLocationSubcommand = $0021
+TextCommand1F23CallbackSubcommand = $0023
+TextCommand1F30SetActiveWindowGlyphModeSubcommand = $0030
+TextCommand1F31SetActiveWindowGlyphModeSubcommand = $0031
+TextCommand1F40StageSpecialEventArgumentSubcommand = $0040
+TextCommand1F41SpecialEventDispatchSubcommand = $0041
+TextCommand1F50LockTextInputSubcommand = $0050
+TextCommand1F51UnlockTextInputSubcommand = $0051
+TextCommand1F52CreateNumberSelectorSubcommand = $0052
+TextCommand1F60WaitForTextPromptOrInputGateSubcommand = $0060
+TextCommand1F61WaitForTextStateFlagSubcommand = $0061
+TextCommand1F62CallbackSubcommand = $0062
+TextCommand1F63CallbackSubcommand = $0063
+TextCommand1F64SaveAndClearTemporaryPartySourceStateSubcommand = $0064
+TextCommand1F65RestoreTemporaryPartySourceStateSubcommand = $0065
+TextCommand1F66CallbackSubcommand = $0066
+TextCommand1F67CallbackSubcommand = $0067
+TextCommand1F68SnapshotTeleportLandingPositionSubcommand = $0068
+TextCommand1F69RefreshTeleportLandingStateSubcommand = $0069
+TextCommand1F71PartyUtilitySubcommand = $0071
+TextCommand1F81CheckDirectItemUseCompatibilitySubcommand = $0081
+TextCommand1F83CheckDeferredItemUseCompatibilitySubcommand = $0083
+TextCommand1F90BuildPhoneContactSelectionMenuSubcommand = $0090
+TextCommand1FA0SetCurrentInteractionFlagSubcommand = $00A0
+TextCommand1FA1ClearCurrentInteractionFlagSubcommand = $00A1
+TextCommand1FA2GetCurrentInteractionFlagSubcommand = $00A2
+TextCommand1FB0SaveCurrentGameSubcommand = $00B0
+TextCommand1FC0JumpMulti2Subcommand = $00C0
+TextCommand1FD0JeffRepairBrokenItemSubcommand = $00D0
+TextCommand1FD1NearbyMagicTruffleDirectionSubcommand = $00D1
+TextCommand1FD2WanderingPhotographerSubcommand = $00D2
+TextCommand1FD3TimedDeliveryRowSelectorSubcommand = $00D3
+TextCommand1FE1CallbackSubcommand = $00E1
+TextCommand1FE4CallbackSubcommand = $00E4
+TextCommand1FE5CallbackSubcommand = $00E5
+TextCommand1FE6CallbackSubcommand = $00E6
+TextCommand1FE7CallbackSubcommand = $00E7
+TextCommand1FE8CallbackSubcommand = $00E8
+TextCommand1FE9CallbackSubcommand = $00E9
+TextCommand1FEACallbackSubcommand = $00EA
+TextCommand1FEBCallbackSubcommand = $00EB
+TextCommand1FECCallbackSubcommand = $00EC
+TextCommand1FEDClearSelectedModeSlotSubcommand = $00ED
+TextCommand1FEECallbackSubcommand = $00EE
+TextCommand1FEFCallbackSubcommand = $00EF
+TextCommand1FF0GetOnBicycleSubcommand = $00F0
+TextCommand1FF1CallbackSubcommand = $00F1
+TextCommand1FF2CallbackSubcommand = $00F2
+TextCommand1FF3CallbackSubcommand = $00F3
+TextCommand1FF4CallbackSubcommand = $00F4
 
 ; ---------------------------------------------------------------------------
 ; C1:7B56
@@ -1144,295 +1217,295 @@ C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA:
     bne C181CB_DispatchDisplayTextDynamicSourceSelector_L81CB
     jmp.w C18416_DispatchDisplayTextDynamicSourceSelector_L8416
 C181CB_DispatchDisplayTextDynamicSourceSelector_L81CB:
-    cmp.w #$0001
+    cmp.w #TextCommand1F01StopMusicSubcommand
     bne C181D3_DispatchDisplayTextDynamicSourceSelector_L81D3
     jmp.w C1841C_DispatchDisplayTextDynamicSourceSelector_L841C
 C181D3_DispatchDisplayTextDynamicSourceSelector_L81D3:
-    cmp.w #$0002
+    cmp.w #TextCommand1F02PlaySoundSubcommand
     bne C181DB_DispatchDisplayTextDynamicSourceSelector_L81DB
     jmp.w C18422_DispatchDisplayTextDynamicSourceSelector_L8422
 C181DB_DispatchDisplayTextDynamicSourceSelector_L81DB:
-    cmp.w #$0003
+    cmp.w #TextCommand1F03RestoreCurrentMapMusicSubcommand
     bne C181E3_DispatchDisplayTextDynamicSourceSelector_L81E3
     jmp.w C18428_DispatchDisplayTextDynamicSourceSelector_L8428
 C181E3_DispatchDisplayTextDynamicSourceSelector_L81E3:
-    cmp.w #$0004
+    cmp.w #TextCommand1F04CallbackSubcommand
     bne C181EB_DispatchDisplayTextDynamicSourceSelector_L81EB
     jmp.w C18436_DispatchDisplayTextDynamicSourceSelector_L8436
 C181EB_DispatchDisplayTextDynamicSourceSelector_L81EB:
-    cmp.w #$0005
+    cmp.w #TextCommand1F05DisableSectorMusicChangeSubcommand
     bne C181F3_DispatchDisplayTextDynamicSourceSelector_L81F3
     jmp.w C1843C_DispatchDisplayTextDynamicSourceSelector_L843C
 C181F3_DispatchDisplayTextDynamicSourceSelector_L81F3:
-    cmp.w #$0006
+    cmp.w #TextCommand1F06EnableSectorMusicChangeSubcommand
     bne C181FB_DispatchDisplayTextDynamicSourceSelector_L81FB
     jmp.w C18446_DispatchDisplayTextDynamicSourceSelector_L8446
 C181FB_DispatchDisplayTextDynamicSourceSelector_L81FB:
-    cmp.w #$0007
+    cmp.w #TextCommand1F07CallbackSubcommand
     bne C18203_DispatchDisplayTextDynamicSourceSelector_L8203
     jmp.w C18450_DispatchDisplayTextDynamicSourceSelector_L8450
 C18203_DispatchDisplayTextDynamicSourceSelector_L8203:
-    cmp.w #$0011
+    cmp.w #TextCommand1F11AddToWalletSubcommand
     bne C1820B_DispatchDisplayTextDynamicSourceSelector_L820B
     jmp.w C18456_DispatchDisplayTextDynamicSourceSelector_L8456
 C1820B_DispatchDisplayTextDynamicSourceSelector_L820B:
-    cmp.w #$0012
+    cmp.w #TextCommand1F12TakeFromWalletSubcommand
     bne C18213_DispatchDisplayTextDynamicSourceSelector_L8213
     jmp.w C1845C_DispatchDisplayTextDynamicSourceSelector_L845C
 C18213_DispatchDisplayTextDynamicSourceSelector_L8213:
-    cmp.w #$0013
+    cmp.w #TextCommand1F13CallbackSubcommand
     bne C1821B_DispatchDisplayTextDynamicSourceSelector_L821B
     jmp.w C18462_DispatchDisplayTextDynamicSourceSelector_L8462
 C1821B_DispatchDisplayTextDynamicSourceSelector_L821B:
-    cmp.w #$0014
+    cmp.w #TextCommand1F14CallbackSubcommand
     bne C18223_DispatchDisplayTextDynamicSourceSelector_L8223
     jmp.w C18468_DispatchDisplayTextDynamicSourceSelector_L8468
 C18223_DispatchDisplayTextDynamicSourceSelector_L8223:
-    cmp.w #$0015
+    cmp.w #TextCommand1F15CallbackSubcommand
     bne C1822B_DispatchDisplayTextDynamicSourceSelector_L822B
     jmp.w C1846E_DispatchDisplayTextDynamicSourceSelector_L846E
 C1822B_DispatchDisplayTextDynamicSourceSelector_L822B:
-    cmp.w #$0016
+    cmp.w #TextCommand1F16CallbackSubcommand
     bne C18233_DispatchDisplayTextDynamicSourceSelector_L8233
     jmp.w C18474_DispatchDisplayTextDynamicSourceSelector_L8474
 C18233_DispatchDisplayTextDynamicSourceSelector_L8233:
-    cmp.w #$0017
+    cmp.w #TextCommand1F17CallbackSubcommand
     bne C1823B_DispatchDisplayTextDynamicSourceSelector_L823B
     jmp.w C1847A_DispatchDisplayTextDynamicSourceSelector_L847A
 C1823B_DispatchDisplayTextDynamicSourceSelector_L823B:
-    cmp.w #$0018
+    cmp.w #TextCommand1F18CallbackSubcommand
     bne C18243_DispatchDisplayTextDynamicSourceSelector_L8243
     jmp.w C18480_DispatchDisplayTextDynamicSourceSelector_L8480
 C18243_DispatchDisplayTextDynamicSourceSelector_L8243:
-    cmp.w #$0019
+    cmp.w #TextCommand1F19CallbackSubcommand
     bne C1824B_DispatchDisplayTextDynamicSourceSelector_L824B
     jmp.w C18486_DispatchDisplayTextDynamicSourceSelector_L8486
 C1824B_DispatchDisplayTextDynamicSourceSelector_L824B:
-    cmp.w #$001A
+    cmp.w #TextCommand1F1ACallbackSubcommand
     bne C18253_DispatchDisplayTextDynamicSourceSelector_L8253
     jmp.w C1848C_DispatchDisplayTextDynamicSourceSelector_L848C
 C18253_DispatchDisplayTextDynamicSourceSelector_L8253:
-    cmp.w #$001B
+    cmp.w #TextCommand1F1BCallbackSubcommand
     bne C1825B_DispatchDisplayTextDynamicSourceSelector_L825B
     jmp.w C18492_DispatchDisplayTextDynamicSourceSelector_L8492
 C1825B_DispatchDisplayTextDynamicSourceSelector_L825B:
-    cmp.w #$001C
+    cmp.w #TextCommand1F1CCallbackSubcommand
     bne C18263_DispatchDisplayTextDynamicSourceSelector_L8263
     jmp.w C18498_DispatchDisplayTextDynamicSourceSelector_L8498
 C18263_DispatchDisplayTextDynamicSourceSelector_L8263:
-    cmp.w #$001D
+    cmp.w #TextCommand1F1DCallbackSubcommand
     bne C1826B_DispatchDisplayTextDynamicSourceSelector_L826B
     jmp.w C1849E_DispatchDisplayTextDynamicSourceSelector_L849E
 C1826B_DispatchDisplayTextDynamicSourceSelector_L826B:
-    cmp.w #$001E
+    cmp.w #TextCommand1F1ECallbackSubcommand
     bne C18273_DispatchDisplayTextDynamicSourceSelector_L8273
     jmp.w C184A4_DispatchDisplayTextDynamicSourceSelector_L84A4
 C18273_DispatchDisplayTextDynamicSourceSelector_L8273:
-    cmp.w #$001F
+    cmp.w #TextCommand1F1FCallbackSubcommand
     bne C1827B_DispatchDisplayTextDynamicSourceSelector_L827B
     jmp.w C184AA_DispatchDisplayTextDynamicSourceSelector_L84AA
 C1827B_DispatchDisplayTextDynamicSourceSelector_L827B:
-    cmp.w #$0020
+    cmp.w #TextCommand1F20UseItemOnCharacterSubcommand
     bne C18283_DispatchDisplayTextDynamicSourceSelector_L8283
     jmp.w C184B0_DispatchDisplayTextDynamicSourceSelector_L84B0
 C18283_DispatchDisplayTextDynamicSourceSelector_L8283:
-    cmp.w #$0021
+    cmp.w #TextCommand1F21TeleportToPresetLocationSubcommand
     bne C1828B_DispatchDisplayTextDynamicSourceSelector_L828B
     jmp.w C184B6_DispatchDisplayTextDynamicSourceSelector_L84B6
 C1828B_DispatchDisplayTextDynamicSourceSelector_L828B:
-    cmp.w #$0023
+    cmp.w #TextCommand1F23CallbackSubcommand
     bne C18293_DispatchDisplayTextDynamicSourceSelector_L8293
     jmp.w C184BC_DispatchDisplayTextDynamicSourceSelector_L84BC
 C18293_DispatchDisplayTextDynamicSourceSelector_L8293:
-    cmp.w #$0030
+    cmp.w #TextCommand1F30SetActiveWindowGlyphModeSubcommand
     bne C1829B_DispatchDisplayTextDynamicSourceSelector_L829B
     jmp.w C184C2_DispatchDisplayTextDynamicSourceSelector_L84C2
 C1829B_DispatchDisplayTextDynamicSourceSelector_L829B:
-    cmp.w #$0031
+    cmp.w #TextCommand1F31SetActiveWindowGlyphModeSubcommand
     bne C182A3_DispatchDisplayTextDynamicSourceSelector_L82A3
     jmp.w C184C2_DispatchDisplayTextDynamicSourceSelector_L84C2
 C182A3_DispatchDisplayTextDynamicSourceSelector_L82A3:
-    cmp.w #$0040
+    cmp.w #TextCommand1F40StageSpecialEventArgumentSubcommand
     bne C182AB_DispatchDisplayTextDynamicSourceSelector_L82AB
     jmp.w C184C8_DispatchDisplayTextDynamicSourceSelector_L84C8
 C182AB_DispatchDisplayTextDynamicSourceSelector_L82AB:
-    cmp.w #$0041
+    cmp.w #TextCommand1F41SpecialEventDispatchSubcommand
     bne C182B3_DispatchDisplayTextDynamicSourceSelector_L82B3
     jmp.w C184CE_DispatchDisplayTextDynamicSourceSelector_L84CE
 C182B3_DispatchDisplayTextDynamicSourceSelector_L82B3:
-    cmp.w #$0050
+    cmp.w #TextCommand1F50LockTextInputSubcommand
     bne C182BB_DispatchDisplayTextDynamicSourceSelector_L82BB
     jmp.w C184D4_DispatchDisplayTextDynamicSourceSelector_L84D4
 C182BB_DispatchDisplayTextDynamicSourceSelector_L82BB:
-    cmp.w #$0051
+    cmp.w #TextCommand1F51UnlockTextInputSubcommand
     bne C182C3_DispatchDisplayTextDynamicSourceSelector_L82C3
     jmp.w C184DA_DispatchDisplayTextDynamicSourceSelector_L84DA
 C182C3_DispatchDisplayTextDynamicSourceSelector_L82C3:
-    cmp.w #$0052
+    cmp.w #TextCommand1F52CreateNumberSelectorSubcommand
     bne C182CB_DispatchDisplayTextDynamicSourceSelector_L82CB
     jmp.w C184E0_DispatchDisplayTextDynamicSourceSelector_L84E0
 C182CB_DispatchDisplayTextDynamicSourceSelector_L82CB:
-    cmp.w #$0060
+    cmp.w #TextCommand1F60WaitForTextPromptOrInputGateSubcommand
     bne C182D3_DispatchDisplayTextDynamicSourceSelector_L82D3
     jmp.w C184E6_DispatchDisplayTextDynamicSourceSelector_L84E6
 C182D3_DispatchDisplayTextDynamicSourceSelector_L82D3:
-    cmp.w #$0061
+    cmp.w #TextCommand1F61WaitForTextStateFlagSubcommand
     bne C182DB_DispatchDisplayTextDynamicSourceSelector_L82DB
     jmp.w C184EC_DispatchDisplayTextDynamicSourceSelector_L84EC
 C182DB_DispatchDisplayTextDynamicSourceSelector_L82DB:
-    cmp.w #$0062
+    cmp.w #TextCommand1F62CallbackSubcommand
     bne C182E3_DispatchDisplayTextDynamicSourceSelector_L82E3
     jmp.w C184F2_DispatchDisplayTextDynamicSourceSelector_L84F2
 C182E3_DispatchDisplayTextDynamicSourceSelector_L82E3:
-    cmp.w #$0063
+    cmp.w #TextCommand1F63CallbackSubcommand
     bne C182EB_DispatchDisplayTextDynamicSourceSelector_L82EB
     jmp.w C184F8_DispatchDisplayTextDynamicSourceSelector_L84F8
 C182EB_DispatchDisplayTextDynamicSourceSelector_L82EB:
-    cmp.w #$0064
+    cmp.w #TextCommand1F64SaveAndClearTemporaryPartySourceStateSubcommand
     bne C182F3_DispatchDisplayTextDynamicSourceSelector_L82F3
     jmp.w C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE
 C182F3_DispatchDisplayTextDynamicSourceSelector_L82F3:
-    cmp.w #$0065
+    cmp.w #TextCommand1F65RestoreTemporaryPartySourceStateSubcommand
     bne C182FB_DispatchDisplayTextDynamicSourceSelector_L82FB
     jmp.w C18505_DispatchDisplayTextDynamicSourceSelector_L8505
 C182FB_DispatchDisplayTextDynamicSourceSelector_L82FB:
-    cmp.w #$0066
+    cmp.w #TextCommand1F66CallbackSubcommand
     bne C18303_DispatchDisplayTextDynamicSourceSelector_L8303
     jmp.w C1850C_DispatchDisplayTextDynamicSourceSelector_L850C
 C18303_DispatchDisplayTextDynamicSourceSelector_L8303:
-    cmp.w #$0067
+    cmp.w #TextCommand1F67CallbackSubcommand
     bne C1830B_DispatchDisplayTextDynamicSourceSelector_L830B
     jmp.w C18512_DispatchDisplayTextDynamicSourceSelector_L8512
 C1830B_DispatchDisplayTextDynamicSourceSelector_L830B:
-    cmp.w #$0068
+    cmp.w #TextCommand1F68SnapshotTeleportLandingPositionSubcommand
     bne C18313_DispatchDisplayTextDynamicSourceSelector_L8313
     jmp.w C18518_DispatchDisplayTextDynamicSourceSelector_L8518
 C18313_DispatchDisplayTextDynamicSourceSelector_L8313:
-    cmp.w #$0069
+    cmp.w #TextCommand1F69RefreshTeleportLandingStateSubcommand
     bne C1831B_DispatchDisplayTextDynamicSourceSelector_L831B
     jmp.w C18527_DispatchDisplayTextDynamicSourceSelector_L8527
 C1831B_DispatchDisplayTextDynamicSourceSelector_L831B:
-    cmp.w #$0071
+    cmp.w #TextCommand1F71PartyUtilitySubcommand
     bne C18323_DispatchDisplayTextDynamicSourceSelector_L8323
     jmp.w C18582_DispatchDisplayTextDynamicSourceSelector_L8582
 C18323_DispatchDisplayTextDynamicSourceSelector_L8323:
-    cmp.w #$0081
+    cmp.w #TextCommand1F81CheckDirectItemUseCompatibilitySubcommand
     bne C1832B_DispatchDisplayTextDynamicSourceSelector_L832B
     jmp.w C18588_DispatchDisplayTextDynamicSourceSelector_L8588
 C1832B_DispatchDisplayTextDynamicSourceSelector_L832B:
-    cmp.w #$0083
+    cmp.w #TextCommand1F83CheckDeferredItemUseCompatibilitySubcommand
     bne C18333_DispatchDisplayTextDynamicSourceSelector_L8333
     jmp.w C1858E_DispatchDisplayTextDynamicSourceSelector_L858E
 C18333_DispatchDisplayTextDynamicSourceSelector_L8333:
-    cmp.w #$0090
+    cmp.w #TextCommand1F90BuildPhoneContactSelectionMenuSubcommand
     bne C1833B_DispatchDisplayTextDynamicSourceSelector_L833B
     jmp.w C18594_DispatchDisplayTextDynamicSourceSelector_L8594
 C1833B_DispatchDisplayTextDynamicSourceSelector_L833B:
-    cmp.w #$00A0
+    cmp.w #TextCommand1FA0SetCurrentInteractionFlagSubcommand
     bne C18343_DispatchDisplayTextDynamicSourceSelector_L8343
     jmp.w C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9
 C18343_DispatchDisplayTextDynamicSourceSelector_L8343:
-    cmp.w #$00A1
+    cmp.w #TextCommand1FA1ClearCurrentInteractionFlagSubcommand
     bne C1834B_DispatchDisplayTextDynamicSourceSelector_L834B
     jmp.w C185B3_DispatchDisplayTextDynamicSourceSelector_L85B3
 C1834B_DispatchDisplayTextDynamicSourceSelector_L834B:
-    cmp.w #$00A2
+    cmp.w #TextCommand1FA2GetCurrentInteractionFlagSubcommand
     bne C18353_DispatchDisplayTextDynamicSourceSelector_L8353
     jmp.w C185BD_DispatchDisplayTextDynamicSourceSelector_L85BD
 C18353_DispatchDisplayTextDynamicSourceSelector_L8353:
-    cmp.w #$00B0
+    cmp.w #TextCommand1FB0SaveCurrentGameSubcommand
     bne C1835B_DispatchDisplayTextDynamicSourceSelector_L835B
     jmp.w C185DA_DispatchDisplayTextDynamicSourceSelector_L85DA
 C1835B_DispatchDisplayTextDynamicSourceSelector_L835B:
-    cmp.w #$00C0
+    cmp.w #TextCommand1FC0JumpMulti2Subcommand
     bne C18363_DispatchDisplayTextDynamicSourceSelector_L8363
     jmp.w C185E1_DispatchDisplayTextDynamicSourceSelector_L85E1
 C18363_DispatchDisplayTextDynamicSourceSelector_L8363:
-    cmp.w #$00D0
+    cmp.w #TextCommand1FD0JeffRepairBrokenItemSubcommand
     bne C1836B_DispatchDisplayTextDynamicSourceSelector_L836B
     jmp.w C185E7_DispatchDisplayTextDynamicSourceSelector_L85E7
 C1836B_DispatchDisplayTextDynamicSourceSelector_L836B:
-    cmp.w #$00D1
+    cmp.w #TextCommand1FD1NearbyMagicTruffleDirectionSubcommand
     bne C18373_DispatchDisplayTextDynamicSourceSelector_L8373
     jmp.w C185ED_DispatchDisplayTextDynamicSourceSelector_L85ED
 C18373_DispatchDisplayTextDynamicSourceSelector_L8373:
-    cmp.w #$00D2
+    cmp.w #TextCommand1FD2WanderingPhotographerSubcommand
     bne C1837B_DispatchDisplayTextDynamicSourceSelector_L837B
     jmp.w C18602_DispatchDisplayTextDynamicSourceSelector_L8602
 C1837B_DispatchDisplayTextDynamicSourceSelector_L837B:
-    cmp.w #$00D3
+    cmp.w #TextCommand1FD3TimedDeliveryRowSelectorSubcommand
     bne C18383_DispatchDisplayTextDynamicSourceSelector_L8383
     jmp.w C18607_DispatchDisplayTextDynamicSourceSelector_L8607
 C18383_DispatchDisplayTextDynamicSourceSelector_L8383:
-    cmp.w #$00E1
+    cmp.w #TextCommand1FE1CallbackSubcommand
     bne C1838B_DispatchDisplayTextDynamicSourceSelector_L838B
     jmp.w C1860C_DispatchDisplayTextDynamicSourceSelector_L860C
 C1838B_DispatchDisplayTextDynamicSourceSelector_L838B:
-    cmp.w #$00E4
+    cmp.w #TextCommand1FE4CallbackSubcommand
     bne C18393_DispatchDisplayTextDynamicSourceSelector_L8393
     jmp.w C18611_DispatchDisplayTextDynamicSourceSelector_L8611
 C18393_DispatchDisplayTextDynamicSourceSelector_L8393:
-    cmp.w #$00E5
+    cmp.w #TextCommand1FE5CallbackSubcommand
     bne C1839B_DispatchDisplayTextDynamicSourceSelector_L839B
     jmp.w C18616_DispatchDisplayTextDynamicSourceSelector_L8616
 C1839B_DispatchDisplayTextDynamicSourceSelector_L839B:
-    cmp.w #$00E6
+    cmp.w #TextCommand1FE6CallbackSubcommand
     bne C183A3_DispatchDisplayTextDynamicSourceSelector_L83A3
     jmp.w C1861B_DispatchDisplayTextDynamicSourceSelector_L861B
 C183A3_DispatchDisplayTextDynamicSourceSelector_L83A3:
-    cmp.w #$00E7
+    cmp.w #TextCommand1FE7CallbackSubcommand
     bne C183AB_DispatchDisplayTextDynamicSourceSelector_L83AB
     jmp.w C18620_DispatchDisplayTextDynamicSourceSelector_L8620
 C183AB_DispatchDisplayTextDynamicSourceSelector_L83AB:
-    cmp.w #$00E8
+    cmp.w #TextCommand1FE8CallbackSubcommand
     bne C183B3_DispatchDisplayTextDynamicSourceSelector_L83B3
     jmp.w C18625_DispatchDisplayTextDynamicSourceSelector_L8625
 C183B3_DispatchDisplayTextDynamicSourceSelector_L83B3:
-    cmp.w #$00E9
+    cmp.w #TextCommand1FE9CallbackSubcommand
     bne C183BB_DispatchDisplayTextDynamicSourceSelector_L83BB
     jmp.w C1862A_DispatchDisplayTextDynamicSourceSelector_L862A
 C183BB_DispatchDisplayTextDynamicSourceSelector_L83BB:
-    cmp.w #$00EA
+    cmp.w #TextCommand1FEACallbackSubcommand
     bne C183C3_DispatchDisplayTextDynamicSourceSelector_L83C3
     jmp.w C1862F_DispatchDisplayTextDynamicSourceSelector_L862F
 C183C3_DispatchDisplayTextDynamicSourceSelector_L83C3:
-    cmp.w #$00EB
+    cmp.w #TextCommand1FEBCallbackSubcommand
     bne C183CB_DispatchDisplayTextDynamicSourceSelector_L83CB
     jmp.w C18634_DispatchDisplayTextDynamicSourceSelector_L8634
 C183CB_DispatchDisplayTextDynamicSourceSelector_L83CB:
-    cmp.w #$00EC
+    cmp.w #TextCommand1FECCallbackSubcommand
     bne C183D3_DispatchDisplayTextDynamicSourceSelector_L83D3
     jmp.w C18639_DispatchDisplayTextDynamicSourceSelector_L8639
 C183D3_DispatchDisplayTextDynamicSourceSelector_L83D3:
-    cmp.w #$00ED
+    cmp.w #TextCommand1FEDClearSelectedModeSlotSubcommand
     bne C183DB_DispatchDisplayTextDynamicSourceSelector_L83DB
     jmp.w C1863E_DispatchDisplayTextDynamicSourceSelector_L863E
 C183DB_DispatchDisplayTextDynamicSourceSelector_L83DB:
-    cmp.w #$00EE
+    cmp.w #TextCommand1FEECallbackSubcommand
     bne C183E3_DispatchDisplayTextDynamicSourceSelector_L83E3
     jmp.w C18644_DispatchDisplayTextDynamicSourceSelector_L8644
 C183E3_DispatchDisplayTextDynamicSourceSelector_L83E3:
-    cmp.w #$00EF
+    cmp.w #TextCommand1FEFCallbackSubcommand
     bne C183EB_DispatchDisplayTextDynamicSourceSelector_L83EB
     jmp.w C18649_DispatchDisplayTextDynamicSourceSelector_L8649
 C183EB_DispatchDisplayTextDynamicSourceSelector_L83EB:
-    cmp.w #$00F0
+    cmp.w #TextCommand1FF0GetOnBicycleSubcommand
     bne C183F3_DispatchDisplayTextDynamicSourceSelector_L83F3
     jmp.w C1864E_DispatchDisplayTextDynamicSourceSelector_L864E
 C183F3_DispatchDisplayTextDynamicSourceSelector_L83F3:
-    cmp.w #$00F1
+    cmp.w #TextCommand1FF1CallbackSubcommand
     bne C183FB_DispatchDisplayTextDynamicSourceSelector_L83FB
     jmp.w C18654_DispatchDisplayTextDynamicSourceSelector_L8654
 C183FB_DispatchDisplayTextDynamicSourceSelector_L83FB:
-    cmp.w #$00F2
+    cmp.w #TextCommand1FF2CallbackSubcommand
     bne C18403_DispatchDisplayTextDynamicSourceSelector_L8403
     jmp.w C18659_DispatchDisplayTextDynamicSourceSelector_L8659
 C18403_DispatchDisplayTextDynamicSourceSelector_L8403:
-    cmp.w #$00F3
+    cmp.w #TextCommand1FF3CallbackSubcommand
     bne C1840B_DispatchDisplayTextDynamicSourceSelector_L840B
     jmp.w C1865E_DispatchDisplayTextDynamicSourceSelector_L865E
 C1840B_DispatchDisplayTextDynamicSourceSelector_L840B:
-    cmp.w #$00F4
+    cmp.w #TextCommand1FF4CallbackSubcommand
     bne C18413_DispatchDisplayTextDynamicSourceSelector_L8413
     jmp.w C18663_DispatchDisplayTextDynamicSourceSelector_L8663
 C18413_DispatchDisplayTextDynamicSourceSelector_L8413:
@@ -1739,7 +1812,7 @@ C18663_DispatchDisplayTextDynamicSourceSelector_L8663:
     lda.w #TextCommand1FF4Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18668_DispatchDisplayTextDynamicSourceSelector_L8668:
-    lda.w #$0000
+    lda.w #TextCommandNoFollowupCallback
 C1866B_DispatchDisplayTextDynamicSourceSelector_L866B:
     pld
     rts

@@ -603,6 +603,12 @@ This planning pass is documentation-only.
   `00` as the zero-branch HP-percent recovery case, and returns the shared
   no-follow-up value for anything outside the live range. This keeps the
   parser-side high `0x1E` artifacts outside the runtime dispatcher contract.
+- 2026-05-06 follow-up: the adjacent `0x1F` deferred-callback/event dispatcher
+  in `C1:81BB..866D` now names its wide selector ladder from the low
+  music/sound strip through `11..23`, `30/31`, `40/41`, `50..69`, `71`,
+  `81/83`, `90`, `A0..A2`, `B0`, `C0`, `D0..D3`, `E1`, `E4..F4`, and the
+  shared no-follow-up return. The pass leaves the downstream callback and
+  immediate helper bodies on their existing contracts.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments

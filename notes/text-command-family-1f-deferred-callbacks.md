@@ -97,6 +97,12 @@ source-facing aliases instead of raw `$xxxx` literals. The immediate helper
 leaves in the same dispatcher, including `1F 03`, `64/65`, `A0/A1/A2`, `B0`,
 `D1`, `ED`, and `F0`, keep their direct helper-call contracts.
 
+Source polish follow-up (2026-05-06): the same `C1:81BB` dispatcher now names
+its wide selector ladder directly. The source exposes the live `1F` selector ids
+from the low music/sound strip through `11..23`, `30/31`, `40/41`, `50..69`,
+`71`, `81/83`, `90`, `A0..A2`, `B0`, `C0`, `D0..D3`, `E1`, `E4..F4`, and the
+shared no-follow-up return for immediate helper leaves or unsupported cases.
+
 Source polish follow-up (2026-05-06): the callback leaves in
 `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` and
 `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm` now name the
