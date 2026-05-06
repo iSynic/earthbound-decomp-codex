@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_DIRECTION_UP = $04
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -30,10 +32,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <event_flag_word>
+endmacro
+
+macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
+    db $42
+    dl <target>
+    dw <pose_descriptor_slot_word>
 endmacro
 
 macro EVENT_HALT()
@@ -112,59 +120,59 @@ endmacro
 
 org $C34138
 PoseAnchorYOffsetMinus8Loop:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $FC, $00) ; C3:4138  42 6F A8 C0 FC 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00FC) ; C3:4138  42 6F A8 C0 FC 00
     %EVENT_SET_Y_RELATIVE($FFF8) ; C3:413E  2C F8 FF
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:4141  1A AA AA
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:4144  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:4144  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:4147  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:414B  42 BF A4 C0
 LoopPoseAnchorYOffsetMinus8:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $FC, $00) ; C3:414F  42 6F A8 C0 FC 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00FC) ; C3:414F  42 6F A8 C0 FC 00
     %EVENT_SET_Y_RELATIVE($FFF8) ; C3:4155  2C F8 FF
     %EVENT_PAUSE($01) ; C3:4158  06 01
     %EVENT_SHORTJUMP(LoopPoseAnchorYOffsetMinus8) ; C3:415A  19 4F 41
 PoseAnchorYOffsetPlus8Loop:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $FC, $00) ; C3:415D  42 6F A8 C0 FC 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00FC) ; C3:415D  42 6F A8 C0 FC 00
     %EVENT_SET_Y_RELATIVE($0008) ; C3:4163  2C 08 00
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:4166  1A AA AA
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:4169  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:4169  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:416C  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:4170  42 BF A4 C0
 LoopPoseAnchorYOffsetPlus8:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $FC, $00) ; C3:4174  42 6F A8 C0 FC 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00FC) ; C3:4174  42 6F A8 C0 FC 00
     %EVENT_SET_Y_RELATIVE($0008) ; C3:417A  2C 08 00
     %EVENT_PAUSE($01) ; C3:417D  06 01
     %EVENT_SHORTJUMP(LoopPoseAnchorYOffsetPlus8) ; C3:417F  19 74 41
 PoseAnchorYOffsetPlus16Loop:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $FC, $00) ; C3:4182  42 6F A8 C0 FC 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00FC) ; C3:4182  42 6F A8 C0 FC 00
     %EVENT_SET_Y_RELATIVE($0010) ; C3:4188  2C 10 00
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:418B  1A AA AA
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:418E  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:418E  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:4191  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:4195  42 BF A4 C0
 LoopPoseAnchorYOffsetPlus16:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $FC, $00) ; C3:4199  42 6F A8 C0 FC 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00FC) ; C3:4199  42 6F A8 C0 FC 00
     %EVENT_SET_Y_RELATIVE($0010) ; C3:419F  2C 10 00
     %EVENT_PAUSE($01) ; C3:41A2  06 01
     %EVENT_SHORTJUMP(LoopPoseAnchorYOffsetPlus16) ; C3:41A4  19 99 41
 PoseAnchorYOffsetPlus32Loop:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $FC, $00) ; C3:41A7  42 6F A8 C0 FC 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00FC) ; C3:41A7  42 6F A8 C0 FC 00
     %EVENT_SET_Y_RELATIVE($0020) ; C3:41AD  2C 20 00
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:41B0  1A AA AA
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:41B3  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:41B3  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:41B6  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:41BA  42 BF A4 C0
 LoopPoseAnchorYOffsetPlus32:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $FC, $00) ; C3:41BE  42 6F A8 C0 FC 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00FC) ; C3:41BE  42 6F A8 C0 FC 00
     %EVENT_SET_Y_RELATIVE($0020) ; C3:41C4  2C 20 00
     %EVENT_PAUSE($01) ; C3:41C7  06 01
     %EVENT_SHORTJUMP(LoopPoseAnchorYOffsetPlus32) ; C3:41C9  19 BE 41
     %EVENT_SET_PRIORITY($00) ; C3:41CC  43 00
-    %EVENT_SET_ANIMATION($00) ; C3:41CE  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:41CE  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:41D0  39
 RandomCameraRelativePlacementRelease:
     %EVENT_CALLROUTINE_0(!PlaceCurrentSlotAtRandomCameraXPlus70Y) ; C3:41D1  42 23 6D C4
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:41D5  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:41D5  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:41D8  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:41DC  42 BF A4 C0
     %EVENT_START_TASK(TaskWaitUntilPlayerAboveYThreshold) ; C3:41E0  07 33 42
@@ -195,7 +203,7 @@ RunRandomCameraArcMovement:
     %EVENT_SET_Y_VELOCITY($0400) ; C3:4221  40 00 04
     %EVENT_CALLROUTINE_0(!RandomDelayBiasedByCurrentDrawY) ; C3:4224  42 C2 67 C4
     %EVENT_WRITE_TEMPVAR_WAITTIMER() ; C3:4228  44
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $58, $01) ; C3:4229  42 4C A8 C0 58 01
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0158) ; C3:4229  42 4C A8 C0 58 01
     %EVENT_SHORTCALL_CONDITIONAL_NOT(RunRandomCameraArcMovement) ; C3:422F  0B E9 41
     %EVENT_SHORT_RETURN() ; C3:4232  1B
 TaskWaitUntilPlayerAboveYThreshold:
@@ -204,5 +212,5 @@ TaskWaitUntilPlayerAboveYThreshold:
     %EVENT_CALLROUTINE_0(!TestValueBelowPlayerY) ; C3:4238  42 03 69 C4
     %EVENT_SHORTCALL_CONDITIONAL(TaskWaitUntilPlayerAboveYThreshold) ; C3:423C  0A 33 42
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:423F  1D 00 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $58, $01) ; C3:4242  42 57 A8 C0 58 01
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0158) ; C3:4242  42 57 A8 C0 58 01
     %EVENT_HALT() ; C3:4248  09

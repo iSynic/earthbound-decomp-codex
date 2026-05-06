@@ -4,6 +4,12 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_DOWN = $00
+!ACTIONSCRIPT_DIRECTION_LEFT = $06
+!ACTIONSCRIPT_DIRECTION_RIGHT = $02
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -18,13 +24,13 @@ hirom
 !LoopActiveEntityCollisionProbeRefresh = $A262
 !LoopC40015SlowPulseUntilRelease = $A17B
 !LoopC40015Var4GatedPulseUntilRelease = $A15E
-!PhysicsCallback_C09FF0 = $9FF0
 !PrepareAlignedMovementToY1616 = $7439
 !QueueCurrentVisualTypeMovementScript = $C4681A
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
 !RefreshCurrentSlotVisualProfile_Mode1IfAligned = $C0A4B2
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_PlaySoundEffectParameter = $C0A841
 !Script_SetCurrentSlotDisplayControlBits = $C0A679
@@ -41,16 +47,29 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <display_control_bits_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
+    db $42
+    dl <target>
+    dw <sound_effect_id_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -134,42 +153,42 @@ endmacro
 
 org $C37276
 OnettDoorCloseDisplayResetLoop:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:7276  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:7279  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:7276  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:7279  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:727B  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:727C  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7280  42 BF A4 C0
     %EVENT_SHORTJUMP(!LoopC40015SlowPulseUntilRelease) ; C3:7284  19 7B A1
 OnettDoorCloseLiveAreaDisplayResetRelease:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:7287  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:728A  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:7287  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:728A  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:728C  39
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:728D  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:728D  42 79 A6 C0 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7292  42 BF A4 C0
 LoopOnettDoorCloseLiveAreaDisplayReset:
     %EVENT_PAUSE($18) ; C3:7296  06 18
-    %EVENT_SET_ANIMATION($00) ; C3:7298  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:7298  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:729A  42 B2 A4 C0
     %EVENT_PAUSE($30) ; C3:729E  06 30
-    %EVENT_SET_ANIMATION($FF) ; C3:72A0  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:72A0  3B FF
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:72A2  42 A8 A4 C0
     %EVENT_CALLROUTINE_0(!CheckCurrentSlotInsideLiveAreaWindow) ; C3:72A6  42 B6 C6 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopOnettDoorCloseLiveAreaDisplayReset) ; C3:72AA  0B 96 72
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:72AD  19 04 A2
 OnettDoorCloseRecurringWalkLoop:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:72B0  25 60 A3
-    %EVENT_SET_ANIMATION($00) ; C3:72B3  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:72B3  3B 00
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:72B5  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:72B9  42 BF A4 C0
     %EVENT_START_TASK(!LoopC40015Var4GatedPulseUntilRelease) ; C3:72BD  07 5E A1
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:72C0  07 62 A2
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:72C3  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:72C3  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:72C9  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0858) ; C3:72CD  0E 06 58 08
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $00F2) ; C3:72D1  0E 07 F2 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:72D5  1A 59 AB
 LoopOnettDoorCloseRecurringWalkCycle:
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:72D8  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:72D8  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:72DB  42 5F A6 C0
     %EVENT_SET_VELOCITIES_ZERO() ; C3:72DF  39
     %EVENT_PAUSE($3C) ; C3:72E0  06 3C
@@ -183,7 +202,7 @@ LoopOnettDoorCloseRecurringWalkCycle:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0118) ; C3:72F8  0E 07 18 01
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:72FC  1A 59 AB
     %EVENT_PAUSE($01) ; C3:72FF  06 01
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:7301  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:7301  1D 02 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7304  42 5F A6 C0
     %EVENT_PAUSE($3C) ; C3:7308  06 3C
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $00F2) ; C3:730A  0E 07 F2 00
@@ -197,7 +216,7 @@ LoopOnettDoorCloseRecurringWalkCycle:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7321  1A 59 AB
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0842) ; C3:7324  0E 06 42 08
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7328  1A 59 AB
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:732B  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:732B  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:732E  42 5F A6 C0
     %EVENT_PAUSE($3C) ; C3:7332  06 3C
     %EVENT_LOOP($02) ; C3:7334  01 02
@@ -240,7 +259,7 @@ BounceOnettDoorCloseRecurringActor:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:739A  39
     %EVENT_PAUSE($06) ; C3:739B  06 06
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:739D  0E 04 00 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:73A1  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:73A1  42 85 A6 C0 00 01
     %EVENT_SHORT_RETURN() ; C3:73A7  1B
 LoopOnettDoorCloseOverlapMovementQueue:
     %EVENT_PAUSE($1E) ; C3:73A8  06 1E
@@ -252,18 +271,18 @@ LoopOnettDoorCloseOverlapMovementQueue:
     %EVENT_PAUSE($78) ; C3:73BD  06 78
     %EVENT_SHORTJUMP(LoopOnettDoorCloseOverlapMovementQueue) ; C3:73BF  19 A8 73
 OnettDoorCloseFlashSoundHalt:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:73C2  25 F0 9F
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:73C5  42 6E AA C0 06 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:73C2  25 F0 9F
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:73C5  42 6E AA C0 06 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:73CB  39
     %EVENT_PAUSE($04) ; C3:73CC  06 04
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:73CE  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:73CE  42 6E AA C0 00 00
     %EVENT_PAUSE($04) ; C3:73D4  06 04
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:73D6  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:73D6  42 6E AA C0 02 00
     %EVENT_PAUSE($04) ; C3:73DC  06 04
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:73DE  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:73DE  42 6E AA C0 04 00
     %EVENT_PAUSE($04) ; C3:73E4  06 04
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $01) ; C3:73E6  42 6E AA C0 06 01
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $1E, $00) ; C3:73EC  42 41 A8 C0 1E 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $01) ; C3:73E6  42 6E AA C0 06 01
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, $001E) ; C3:73EC  42 41 A8 C0 1E 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $000C) ; C3:73F2  0E 00 0C 00
     %EVENT_CALLROUTINE_0(!ApplyCurrentSlot0e5eFixedColorMath) ; C3:73F6  42 A8 74 C4
     %EVENT_PAUSE($07) ; C3:73FA  06 07
@@ -285,8 +304,8 @@ LoopOnettDoorCloseSharedMovementRoute:
     %EVENT_PAUSE($78) ; C3:7424  06 78
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0BD9) ; C3:7426  0E 06 D9 0B
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:742A  1A 59 AB
-    %EVENT_SET_ANIMATION($FF) ; C3:742D  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:742D  3B FF
     %EVENT_PAUSE($F0) ; C3:742F  06 F0
     %EVENT_SET_X($0C89) ; C3:7431  28 89 0C
-    %EVENT_SET_ANIMATION($00) ; C3:7434  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:7434  3B 00
     %EVENT_SHORTJUMP(LoopOnettDoorCloseSharedMovementRoute) ; C3:7436  19 14 74

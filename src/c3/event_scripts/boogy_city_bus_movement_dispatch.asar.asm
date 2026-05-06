@@ -4,6 +4,12 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_DIRECTION_LEFT = $06
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -25,8 +31,8 @@ hirom
 !LoopVar0SelectedAnimationUntilOffscreen = $A20E
 !LoopVisualTypeFrameSelectorTask = $6E41
 !LoopWaitForUsableOverlapNeighborContext = $6D18
-!PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RunBusDriverAttentionReleaseLoop = $A553
 !RunNpcAttentionRoundWalkReleaseLoop = $A4D9
 !RunNpcAttentionTightArcDistanceRoute = $A884
@@ -45,16 +51,22 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <direction_class_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <event_flag_word>
+endmacro
+
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
+    db $42
+    dl <target>
+    dw <field2b32_word>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -110,21 +122,21 @@ Event597_ArcMovementTargetRelease:
     %EVENT_SHORTCALL(!InitMovementWithDefaultPhysicsPulseAndCollisionProbe) ; C3:6D29  1A 2B AA
     %EVENT_START_TASK(!LoopWaitForUsableOverlapNeighborContext) ; C3:6D2C  07 18 6D
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6D2F  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:6D33  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:6D33  42 85 A6 C0 00 01
     %EVENT_CALLROUTINE_0(!InitializeArcMovementTargetState) ; C3:6D39  42 CC CC C0
     %EVENT_SHORTJUMP(!LoopNpcAttentionArcPhaseGate) ; C3:6D3D  19 15 A8
 Event598_CityBusMovementDispatch:
     %EVENT_SHORTCALL(!InitMovementWithDefaultPhysicsPulseAndCollisionProbe) ; C3:6D40  1A 2B AA
     %EVENT_START_TASK(!LoopWaitForUsableOverlapNeighborContext) ; C3:6D43  07 18 6D
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6D46  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:6D4A  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:6D4A  42 85 A6 C0 00 01
     %EVENT_SHORTJUMP(!RunBusDriverAttentionReleaseLoop) ; C3:6D50  19 53 A5
 Event599_600_CommonSpeedDispatch:
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $20, $01) ; C3:6D53  42 85 A6 C0 20 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0120) ; C3:6D53  42 85 A6 C0 20 01
     %EVENT_SHORTJUMP(RunEvent599_600_CommonMovementDispatch) ; C3:6D59  19 62 6D
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:6D5C  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:6D5C  42 85 A6 C0 00 02
 RunEvent599_600_CommonMovementDispatch:
-    %EVENT_SET_ANIMATION($00) ; C3:6D62  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:6D62  3B 00
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:6D64  25 60 A3
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0004) ; C3:6D67  0E 00 04 00
     %EVENT_START_TASK(!LoopVar0SelectedAnimationUntilOffscreen) ; C3:6D6B  07 0E A2
@@ -133,9 +145,9 @@ RunEvent599_600_CommonMovementDispatch:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6D74  42 BF A4 C0
     %EVENT_SHORTJUMP(!RunNpcAttentionRoundWalkReleaseLoop) ; C3:6D78  19 D9 A4
 Event601_LeftFacingMovementDispatch:
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $04) ; C3:6D7B  42 51 A6 C0 04
-    %EVENT_SET_ANIMATION($00) ; C3:6D80  3B 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:6D82  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_UP) ; C3:6D7B  42 51 A6 C0 04
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:6D80  3B 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:6D82  42 85 A6 C0 00 02
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:6D88  25 60 A3
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0004) ; C3:6D8B  0E 00 04 00
     %EVENT_START_TASK(!LoopVar0SelectedAnimationUntilOffscreen) ; C3:6D8F  07 0E A2
@@ -144,8 +156,8 @@ Event601_LeftFacingMovementDispatch:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6D98  42 BF A4 C0
     %EVENT_SHORTJUMP(!LoopNpcAttentionFinalWideDistanceGate) ; C3:6D9C  19 F3 A9
 Event602_MovementDispatch:
-    %EVENT_SET_ANIMATION($00) ; C3:6D9F  3B 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:6DA1  42 85 A6 C0 80 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:6D9F  3B 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:6DA1  42 85 A6 C0 80 00
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:6DA7  25 60 A3
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0003) ; C3:6DAA  0E 00 03 00
     %EVENT_START_TASK(!LoopVar0SelectedAnimationUntilOffscreen) ; C3:6DAE  07 0E A2
@@ -154,18 +166,18 @@ Event602_MovementDispatch:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6DB7  42 BF A4 C0
     %EVENT_SHORTJUMP(!LoopNpcAttentionArcPlayerDistanceGate) ; C3:6DBB  19 E6 A8
 Event603_MovementDispatch:
-    %EVENT_SET_ANIMATION($00) ; C3:6DBE  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:6DBE  3B 00
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:6DC0  25 60 A3
     %EVENT_START_TASK(!LoopVar0SelectedAnimationUntilOffscreen) ; C3:6DC3  07 0E A2
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:6DC6  07 62 A2
     %EVENT_START_TASK(!LoopWaitForUsableOverlapNeighborContext) ; C3:6DC9  07 18 6D
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6DCC  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $C0, $02) ; C3:6DD0  42 85 A6 C0 C0 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $02C0) ; C3:6DD0  42 85 A6 C0 C0 02
     %EVENT_SHORTJUMP(!RunNpcAttentionTightArcDistanceRoute) ; C3:6DD6  19 84 A8
 Event604_CoordinateChoiceTextRelease:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:6DD9  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:6DDC  42 85 A6 C0 00 02
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $0A, $02) ; C3:6DE2  42 4C A8 C0 0A 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:6DDC  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $020A) ; C3:6DE2  42 4C A8 C0 0A 02
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event604_AlternateCoordinateChoice) ; C3:6DE8  0B F6 6D
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1ED8) ; C3:6DEB  0E 06 D8 1E
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1EF8) ; C3:6DEF  0E 07 F8 1E
@@ -177,23 +189,23 @@ Local_C36DFE:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:6DFE  0E 05 02 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:6E02  1A 59 AB
     %EVENT_SET_VELOCITIES_ZERO() ; C3:6E05  39
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:6E06  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:6E06  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6E09  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6E0D  42 BF A4 C0
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:6E11  42 46 6E C4
     %EVENT_END_LAST_TASK() ; C3:6E15  13
     %EVENT_SHORTJUMP(!TrafficLightWaitUntilOffscreenAndRelease) ; C3:6E16  19 AA A2
 Event605_FrameSelectorTaskAndRelease:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:6E19  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:6E1C  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:6E19  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:6E1C  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:6E1E  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:6E1F  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6E23  42 BF A4 C0
     %EVENT_START_TASK(!LoopVisualTypeFrameSelectorTask) ; C3:6E27  07 41 6E
     %EVENT_SHORTJUMP(!Event8_Entry2WaitUntilOffscreenRelease) ; C3:6E2A  19 B8 A2
 Event606_DoseiBoxAppearFallback:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:6E2D  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:6E30  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:6E2D  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:6E30  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:6E32  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:6E33  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6E37  42 BF A4 C0

@@ -678,6 +678,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read two script words as text pointer pieces and queue text record type #$0008",
         "args": "text_pointer_low_word, text_pointer_bank_word",
     },
+    "C0:A8A0": {
+        "name": "Script_ExecuteNestedTextPointer_ReadBankWordPointerWord",
+        "group": "text-presentation",
+        "contract": "read a nested text bank/selector word and pointer word, then forward them to C4:66F0 for nested text execution",
+        "args": "nested_text_bank_word, nested_text_pointer_word",
+    },
     "C0:A8B3": {
         "name": "Script_SetStagedPositionOffset_ReadTwoWords",
         "group": "current-slot-state",

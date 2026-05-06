@@ -4,6 +4,9 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_DIRECTION_DOWN = $00
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -36,16 +39,31 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_RADIUS_X_RADIUS_Y(target, radius_x_word, radius_y_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <radius_x_word>
+    dw <radius_y_word>
+endmacro
+
+macro EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(target, staged_offset_x_word, staged_offset_y_word)
+    db $42
+    dl <target>
+    dw <staged_offset_x_word>
+    dw <staged_offset_y_word>
+endmacro
+
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
+    db $42
+    dl <target>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
 endmacro
 
 macro EVENT_HALT()
@@ -121,18 +139,18 @@ endmacro
 org $C3C4CF
 Event137_WintersRideLaunchTextPath:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:C4CF  25 7A A3
-    %EVENT_SET_ANIMATION($00) ; C3:C4D2  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:C4D2  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:C4D4  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:C4D5  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C4D9  42 BF A4 C0
-    %EVENT_CALLROUTINE_4(!Script_SetStagedPositionOffset_ReadTwoWords, $00, $00, $08, $00) ; C3:C4DD  42 B3 A8 C0 00 00 08 00
+    %EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(!Script_SetStagedPositionOffset_ReadTwoWords, $0000, $0008) ; C3:C4DD  42 B3 A8 C0 00 00 08 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0018) ; C3:C4E5  0E 02 18 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0002) ; C3:C4E9  0E 03 02 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:C4ED  1A 8A AB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C8, $00, $32, $83) ; C3:C4F0  42 8D A8 C0 C8 00 32 83
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C8, $8332) ; C3:C4F0  42 8D A8 C0 C8 00 32 83
     %EVENT_CALLROUTINE_0(!ActionScript_PrepareNewEntityAtPartyLeader) ; C3:C4F8  42 FF A8 C0
     %EVENT_PAUSE($01) ; C3:C4FC  06 01
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C8, $00, $87, $83) ; C3:C4FE  42 8D A8 C0 C8 00 87 83
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C8, $8387) ; C3:C4FE  42 8D A8 C0 C8 00 87 83
 LoopWintersRideLaunchShake:
     %EVENT_LOOP($0A) ; C3:C506  01 0A
     %EVENT_SET_X_RELATIVE($0002) ; C3:C508  2B 02 00
@@ -160,37 +178,37 @@ LoopWintersRideLaunchShake:
     %EVENT_HALT() ; C3:C53F  09
 Event138_WintersRideLaunchAltTextPath:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:C540  25 7A A3
-    %EVENT_SET_ANIMATION($00) ; C3:C543  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:C543  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:C545  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:C546  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C54A  42 BF A4 C0
-    %EVENT_CALLROUTINE_4(!Script_SetStagedPositionOffset_ReadTwoWords, $00, $00, $08, $00) ; C3:C54E  42 B3 A8 C0 00 00 08 00
+    %EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(!Script_SetStagedPositionOffset_ReadTwoWords, $0000, $0008) ; C3:C54E  42 B3 A8 C0 00 00 08 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0018) ; C3:C556  0E 02 18 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0002) ; C3:C55A  0E 03 02 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:C55E  1A 8A AB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C8, $00, $32, $83) ; C3:C561  42 8D A8 C0 C8 00 32 83
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C8, $8332) ; C3:C561  42 8D A8 C0 C8 00 32 83
     %EVENT_CALLROUTINE_0(!ActionScript_PrepareNewEntityAtPartyLeader) ; C3:C569  42 FF A8 C0
     %EVENT_PAUSE($01) ; C3:C56D  06 01
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C9, $00, $FD, $1F) ; C3:C56F  42 8D A8 C0 C9 00 FD 1F
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C9, $1FFD) ; C3:C56F  42 8D A8 C0 C9 00 FD 1F
     %EVENT_SHORTJUMP(LoopWintersRideLaunchShake) ; C3:C577  19 06 C5
 Event138B_RandomWanderLaunchHelper:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:C57A  25 60 A3
-    %EVENT_SET_ANIMATION($00) ; C3:C57D  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:C57D  3B 00
     %EVENT_START_TASK(!LoopC40015Pulse16FrameUntilRelease) ; C3:C57F  07 F3 A1
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:C582  07 62 A2
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C585  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:C589  42 85 A6 C0 00 01
-    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $18, $00, $18, $00) ; C3:C58F  42 64 A9 C0 18 00 18 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:C589  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_RADIUS_X_RADIUS_Y(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $0018, $0018) ; C3:C58F  42 64 A9 C0 18 00 18 00
     %EVENT_SHORTJUMP(!LoopRandomWanderInsideActiveArea) ; C3:C597  19 9E AB
 Event139_WintersCoordinateTextHalt:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:C59A  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:C59D  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:C59D  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:C5A3  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1EB0) ; C3:C5A7  0E 06 B0 1E
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0B50) ; C3:C5AB  0E 07 50 0B
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:C5AF  1A 59 AB
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:C5B2  0E 04 01 00
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:C5B6  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:C5B6  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:C5B9  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C5BD  42 BF A4 C0
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C5C1  42 46 6E C4

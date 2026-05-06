@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -31,16 +33,28 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FADEOUT_EFFECT(target, fadeout_effect_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <fadeout_effect_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(target, teleport_destination_selector_byte)
+    db $42
+    dl <target>
+    db <teleport_destination_selector_byte>
 endmacro
 
 macro EVENT_LOOP(count)
@@ -189,47 +203,47 @@ LoopTeleportDestinationPausePulseG:
     %EVENT_SHORTJUMP(LoopTeleportDestinationPausePulse) ; C3:C8A0  19 71 C8
 Event147_PrepareTeleportDestinationBD:
     %EVENT_SHORTCALL(RunTeleportDestinationLeftRiseFadeHelper) ; C3:C8A3  1A 0C C9
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $BD) ; C3:C8A6  42 07 A9 C0 BD
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $BD) ; C3:C8A6  42 07 A9 C0 BD
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C8AB  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C8AF  19 04 A2
 Event148_PrepareTeleportDestinationBF:
     %EVENT_SHORTCALL(RunTeleportDestinationLeftRiseFadeHelper) ; C3:C8B2  1A 0C C9
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $BF) ; C3:C8B5  42 07 A9 C0 BF
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $BF) ; C3:C8B5  42 07 A9 C0 BF
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C8BA  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C8BE  19 04 A2
 Event149_PrepareTeleportDestinationC1:
     %EVENT_SHORTCALL(RunTeleportDestinationLeftRiseFadeHelper) ; C3:C8C1  1A 0C C9
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $C1) ; C3:C8C4  42 07 A9 C0 C1
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $C1) ; C3:C8C4  42 07 A9 C0 C1
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C8C9  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C8CD  19 04 A2
 Event150_PrepareTeleportDestinationC0:
     %EVENT_SHORTCALL(!RunTeleportDestinationRiseFadeHelper) ; C3:C8D0  1A 4E C9
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $C0) ; C3:C8D3  42 07 A9 C0 C0
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $C0) ; C3:C8D3  42 07 A9 C0 C0
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C8D8  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C8DC  19 04 A2
 Event151_PrepareTeleportDestinationBE:
     %EVENT_SHORTCALL(!RunTeleportDestinationRiseFadeHelper) ; C3:C8DF  1A 4E C9
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $BE) ; C3:C8E2  42 07 A9 C0 BE
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $BE) ; C3:C8E2  42 07 A9 C0 BE
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C8E7  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C8EB  19 04 A2
 Event152_PrepareTeleportDestinationBA:
     %EVENT_SHORTCALL(!RunTeleportDestinationRiseFadeHelper) ; C3:C8EE  1A 4E C9
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $BA) ; C3:C8F1  42 07 A9 C0 BA
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $BA) ; C3:C8F1  42 07 A9 C0 BA
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C8F6  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C8FA  19 04 A2
 PrepareTeleportDestinationC3:
     %EVENT_SHORTCALL(!RunTeleportDestinationRiseFadeHelper) ; C3:C8FD  1A 4E C9
-    %EVENT_CALLROUTINE_1(!ActionScript_PrepareNewEntityAtTeleportDestination, $C3) ; C3:C900  42 07 A9 C0 C3
+    %EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(!ActionScript_PrepareNewEntityAtTeleportDestination, $C3) ; C3:C900  42 07 A9 C0 C3
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C905  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C909  19 04 A2
 RunTeleportDestinationLeftRiseFadeHelper:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:C90C  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:C90C  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitAlternatePhysicsVar4WalkPulse) ; C3:C911  1A 26 AB
     %EVENT_SET_Z($FFA0) ; C3:C914  2A A0 FF
-    %EVENT_SET_ANIMATION($00) ; C3:C917  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:C917  3B 00
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallbackOffset) ; C3:C919  08 02 8C C4
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C91D  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:C921  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:C921  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:C927  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:C92A  1A 1E AA
     %EVENT_SET_Z_VELOCITY($0100) ; C3:C92D  41 00 01
@@ -241,6 +255,6 @@ RunTeleportDestinationLeftRiseFadeHelper:
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:C93C  1A 1E AA
     %EVENT_SET_Z_VELOCITY($FF00) ; C3:C93F  41 00 FF
     %EVENT_PAUSE($60) ; C3:C942  06 60
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $01) ; C3:C944  42 BB 9F C0 01 01
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, $0101) ; C3:C944  42 BB 9F C0 01 01
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:C94A  1A E0 AB
     %EVENT_SHORT_RETURN() ; C3:C94D  1B
