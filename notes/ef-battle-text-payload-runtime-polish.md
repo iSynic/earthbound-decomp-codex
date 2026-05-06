@@ -77,15 +77,15 @@ macros.
   diamondized, paralysis, nausea, poison, cold, crying, immobilized, frozen,
   strange, sunstroke, asleep, and PSI-seal states. These line up with the C2
   affliction-recovery helper families.
-- `EF:6F7C` and `EF:6F8E` now mark revive success/failure text immediately
-  before the shield-result block.
+- `EF:6F7C` and `EF:6F8E` now mark revive success/failure `ResultText`
+  immediately before the shield-result block.
 - `EF:6F9A/6FBD`, `EF:6FD3/6FF4`, `EF:700C/7032`, and `EF:7050/707A`
-  now mark the installed/strengthened text pairs for shield, power shield,
-  psychic shield, and psychic power shield.
+  now mark the installed/strengthened `ResultText` pairs for shield, power
+  shield, psychic shield, and psychic power shield.
 - `EF:7099`, `EF:70B1`, `EF:70D2`, `EF:70FA`, `EF:7123`, `EF:7142`, and
   `EF:7160` now mark the shield-expired, shield-reflection, PSI-name
-  shield `ByteSubstitution`, Neutralizer, and Franklin Badge text tail used by
-  C2 timed substate and Thunder reflection helpers.
+  shield `ByteSubstitutionResultText`, Neutralizer result, and Franklin Badge
+  result tail used by C2 timed substate and Thunder reflection helpers.
 - `EF:7186..7249` now splits EBATTLE4 action-blocking status text for
   diamondized, paralysis, nausea, poison, asleep, immobilized, and PSI-seal
   turns, including the PSI-seal player-side sound branch and `19 1F` byte
@@ -234,6 +234,13 @@ The source labels now make the cleanup lane explicit: `EF:6E4A..6F64` are
 `RecoveryResultText` or `RemovalResultText` anchors, the direct-result mirror of
 the earlier `StatusResultText` infliction island. They are C2 cleanup helper
 emissions, not row `+4` presentation messages.
+
+The adjacent revive and shield tail now carries the same direct-result contract:
+`EF:6F7C/6F8E` are revive `ResultText` scripts, `EF:6F9A..707A` are shield
+installed/strengthened `ResultText` pairs, and `EF:7099..7160` covers expiry,
+reflection, Neutralizer, and Franklin Badge result scripts. The PSI-name shield
+scripts at `EF:70D2/70FA` keep `ByteSubstitution` in the label because they
+also consume the `C1:DD7C -> $9D11 -> 19 1F` byte slot.
 
 ## Present Result Follow-up
 

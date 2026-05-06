@@ -1018,104 +1018,104 @@ EF6F64_EBattle5PsiSealRecoveryResultText:
 ; ---------------------------------------------------------------------------
 ; EF:6F7C
 
-; EBATTLE5: revived text.
-EF6F7C_EBattle5MsgBtlRevived:
+; EBATTLE5: revive success direct-result text.
+EF6F7C_EBattle5ReviveSuccessResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6F8E
 
-; EBATTLE5: revive failed text.
-EF6F8E_EBattle5MsgBtlReviveFailed:
+; EBATTLE5: revive failure direct-result text.
+EF6F8E_EBattle5ReviveFailureResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6F9A
 
 ; EBATTLE5: shield installed timed substate result text.
-EF6F9A_EBattle5MsgBtlShieldInstalled:
+EF6F9A_EBattle5ShieldInstalledResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6FBD
 
 ; EBATTLE5: shield strengthened timed substate result text.
-EF6FBD_EBattle5MsgBtlShieldStrengthened:
+EF6FBD_EBattle5ShieldStrengthenedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6FD3
 
 ; EBATTLE5: power shield installed timed substate result text.
-EF6FD3_EBattle5MsgBtlPowerShieldInstalled:
+EF6FD3_EBattle5PowerShieldInstalledResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6FF4
 
 ; EBATTLE5: power shield strengthened timed substate result text.
-EF6FF4_EBattle5MsgBtlPowerShieldStrengthened:
+EF6FF4_EBattle5PowerShieldStrengthenedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:700C
 
 ; EBATTLE5: psychic shield installed timed substate result text.
-EF700C_EBattle5MsgBtlPsychicShieldInstalled:
+EF700C_EBattle5PsychicShieldInstalledResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7032
 
 ; EBATTLE5: psychic shield strengthened timed substate result text.
-EF7032_EBattle5MsgBtlPsychicShieldStrengthened:
+EF7032_EBattle5PsychicShieldStrengthenedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7050
 
 ; EBATTLE5: psychic power shield installed timed substate result text.
-EF7050_EBattle5MsgBtlPsychicPowerShieldInstalled:
+EF7050_EBattle5PsychicPowerShieldInstalledResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:707A
 
 ; EBATTLE5: psychic power shield strengthened timed substate result text.
-EF707A_EBattle5MsgBtlPsychicPowerShieldStrengthened:
+EF707A_EBattle5PsychicPowerShieldStrengthenedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7099
 
-; EBATTLE5: shield expired/vanished timed substate text.
-EF7099_EBattle5MsgBtlShieldExpired:
+; EBATTLE5: shield expired/vanished timed substate result text.
+EF7099_EBattle5ShieldExpiredResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:70B1
 
-; EBATTLE5: power shield reflected the attack text.
-EF70B1_EBattle5MsgBtlPowerShieldReflectsAttack:
+; EBATTLE5: power shield reflected the attack result text.
+EF70B1_EBattle5PowerShieldReflectsAttackResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:70D2
 
 ; EBATTLE5: psychic power shield reflected PSI-name byte-substitution text.
-EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiNameByteSubstitutionText:
+EF70D2_EBattle5PsychicPowerShieldReflectsPsiNameByteSubstitutionResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:70FA
 
 ; EBATTLE5: psychic shield nullified PSI-name byte-substitution text.
-EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiNameByteSubstitutionText:
+EF70FA_EBattle5PsychicShieldNullifiesPsiNameByteSubstitutionResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7123
 
 ; EBATTLE5: Neutralizer result text.
-EF7123_EBattle5MsgBtlNeutralizeResult:
+EF7123_EBattle5NeutralizeResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7142
 
 ; EBATTLE5: neutralized-transformation result text.
-EF7142_EBattle5MsgBtlNeutralizeMetamorph:
+EF7142_EBattle5NeutralizeMetamorphResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7160
 
 ; EBATTLE5: Franklin Badge reflected Thunder text.
-EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
+EF7160_EBattle5FranklinBadgeReflectsThunderResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7186

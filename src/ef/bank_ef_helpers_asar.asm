@@ -4607,113 +4607,113 @@ db $01,$70,$1C,$0E,$50,$A7,$17,$09,$17,$B8,$51,$1F,$02,$25,$03,$02
 
 EF6F64_EBattle5PsiSealRecoveryResultText:
 
-; Original data gap before EF6F7C_EBattle5MsgBtlRevived:
+; Original data gap before EF6F7C_EBattle5ReviveSuccessResultText:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$15,$6F,$16,$57,$93,$15,$9E,$A2
 db $16,$66,$51,$1F,$02,$25,$03,$02
 
-EF6F7C_EBattle5MsgBtlRevived:
+EF6F7C_EBattle5ReviveSuccessResultText:
 
-; Original data gap before EF6F8E_EBattle5MsgBtlReviveFailed:
+; Original data gap before EF6F8E_EBattle5ReviveFailureResultText:
 db $01,$70,$1C,$0E,$15,$C4,$A2,$95,$A6,$17,$C9,$94,$51,$1F,$02,$25
 db $03,$02
 
-EF6F8E_EBattle5MsgBtlReviveFailed:
+EF6F8E_EBattle5ReviveFailureResultText:
 
-; Original data gap before EF6F9A_EBattle5MsgBtlShieldInstalled:
+; Original data gap before EF6F9A_EBattle5ShieldInstalledResultText:
 db $01,$16,$F4,$15,$CB,$16,$90,$9B,$15,$03,$03,$02
 
-EF6F9A_EBattle5MsgBtlShieldInstalled:
+EF6F9A_EBattle5ShieldInstalledResultText:
 
-; Original data gap before EF6FBD_EBattle5MsgBtlShieldStrengthened:
+; Original data gap before EF6FBD_EBattle5ShieldStrengthenedResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$A9,$16,$26,$98,$99,$95,$9C,$16,$34,$9C,$15,$BB
 db $51,$03,$02
 
-EF6FBD_EBattle5MsgBtlShieldStrengthened:
+EF6FBD_EBattle5ShieldStrengthenedResultText:
 
-; Original data gap before EF6FD3_EBattle5MsgBtlPowerShieldInstalled:
+; Original data gap before EF6FD3_EBattle5PowerShieldInstalledResultText:
 db $01,$70,$1C,$0E,$15,$39,$17,$E8,$95,$9C,$94,$15,$BD,$17,$76,$15
 db $9F,$95,$A2,$51,$03,$02
 
-EF6FD3_EBattle5MsgBtlPowerShieldInstalled:
+EF6FD3_EBattle5PowerShieldInstalledResultText:
 
-; Original data gap before EF6FF4_EBattle5MsgBtlPowerShieldStrengthened:
+; Original data gap before EF6FF4_EBattle5PowerShieldStrengthenedResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$A9,$15,$25,$15,$FB,$17,$E8,$95,$9C,$94,$51,$03
 db $02
 
-EF6FF4_EBattle5MsgBtlPowerShieldStrengthened:
+EF6FF4_EBattle5PowerShieldStrengthenedResultText:
 
-; Original data gap before EF700C_EBattle5MsgBtlPsychicShieldInstalled:
+; Original data gap before EF700C_EBattle5PsychicShieldInstalledResultText:
 db $01,$70,$1C,$0E,$57,$A3,$15,$FB,$17,$E8,$95,$9C,$94,$15,$BD,$17
 db $76,$15,$9F,$95,$A2,$51,$03,$02
 
-EF700C_EBattle5MsgBtlPsychicShieldInstalled:
+EF700C_EBattle5PsychicShieldInstalledResultText:
 
-; Original data gap before EF7032_EBattle5MsgBtlPsychicShieldStrengthened:
+; Original data gap before EF7032_EBattle5PsychicShieldStrengthenedResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$16,$54,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5,$99
 db $95,$9C,$94,$51,$03,$02
 
-EF7032_EBattle5MsgBtlPsychicShieldStrengthened:
+EF7032_EBattle5PsychicShieldStrengthenedResultText:
 
-; Original data gap before EF7050_EBattle5MsgBtlPsychicPowerShieldInstalled:
+; Original data gap before EF7050_EBattle5PsychicPowerShieldInstalledResultText:
 db $01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5,$99
 db $95,$9C,$94,$15,$BD,$17,$76,$15,$9F,$95,$A2,$51,$03,$02
 
-EF7050_EBattle5MsgBtlPsychicPowerShieldInstalled:
+EF7050_EBattle5PsychicPowerShieldInstalledResultText:
 
-; Original data gap before EF707A_EBattle5MsgBtlPsychicPowerShieldStrengthened:
+; Original data gap before EF707A_EBattle5PsychicPowerShieldStrengthenedResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$A9,$03,$00,$15,$95,$A0,$A3,$A9,$93,$98,$99,$93
 db $15,$FB,$17,$E8,$95,$9C,$94,$51,$03,$02
 
-EF707A_EBattle5MsgBtlPsychicPowerShieldStrengthened:
+EF707A_EBattle5PsychicPowerShieldStrengthenedResultText:
 
-; Original data gap before EF7099_EBattle5MsgBtlShieldExpired:
+; Original data gap before EF7099_EBattle5ShieldExpiredResultText:
 db $01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$15,$FB,$17
 db $E8,$95,$9C,$94,$15,$BD,$17,$76,$15,$9F,$95,$A2,$51,$03,$02
 
-EF7099_EBattle5MsgBtlShieldExpired:
+EF7099_EBattle5ShieldExpiredResultText:
 
-; Original data gap before EF70B1_EBattle5MsgBtlPowerShieldReflectsAttack:
+; Original data gap before EF70B1_EBattle5PowerShieldReflectsAttackResultText:
 db $01,$70,$1C,$0E,$15,$39,$17,$E8,$95,$9C,$94,$00,$50,$16,$B1,$A3
 db $16,$56,$91,$17,$45,$51,$03,$02
 
-EF70B1_EBattle5MsgBtlPowerShieldReflectsAttack:
+EF70B1_EBattle5PowerShieldReflectsAttackResultText:
 
-; Original data gap before EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiNameByteSubstitutionText:
+; Original data gap before EF70D2_EBattle5PsychicPowerShieldReflectsPsiNameByteSubstitutionResultText:
 db $01,$15,$7F,$15,$FB,$17,$E8,$95,$9C,$94,$00,$50,$16,$E7,$96,$9C
 db $16,$A5,$15,$4A,$91,$A4,$A4,$17,$16,$51,$1F,$02,$5D,$10,$1E,$03
 db $02
 
-EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiNameByteSubstitutionText:
+EF70D2_EBattle5PsychicPowerShieldReflectsPsiNameByteSubstitutionResultText:
 
-; Original data gap before EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiNameByteSubstitutionText:
+; Original data gap before EF70FA_EBattle5PsychicShieldNullifiesPsiNameByteSubstitutionResultText:
 db $01,$15,$14,$A0,$A3,$A9,$93,$98,$99,$93,$15,$FB,$17,$E8,$95,$9C
 db $94,$00,$19,$1F,$1B,$04,$50,$16,$E7,$96,$9C,$95,$93,$16,$B6,$1C
 db $12,$00,$51,$1F,$02,$5D,$03,$02
 
-EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiNameByteSubstitutionText:
+EF70FA_EBattle5PsychicShieldNullifiesPsiNameByteSubstitutionResultText:
 
-; Original data gap before EF7123_EBattle5MsgBtlNeutralizeResult:
+; Original data gap before EF7123_EBattle5NeutralizeResultText:
 db $01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5,$99
 db $95,$9C,$94,$17,$DF,$94,$95,$19,$1F,$1B,$04,$50,$1C,$12,$00,$16
 db $B1,$A3,$16,$56,$91,$A2,$51,$03,$02
 
-EF7123_EBattle5MsgBtlNeutralizeResult:
+EF7123_EBattle5NeutralizeResultText:
 
-; Original data gap before EF7142_EBattle5MsgBtlNeutralizeMetamorph:
+; Original data gap before EF7142_EBattle5NeutralizeMetamorphResultText:
 db $01,$15,$14,$95,$96,$96,$16,$A5,$16,$5C,$80,$83,$79,$17,$50,$00
 db $50,$50,$1C,$0E,$15,$21,$97,$15,$7E,$51,$1F,$02,$29,$03,$02
 
-EF7142_EBattle5MsgBtlNeutralizeMetamorph:
+EF7142_EBattle5NeutralizeMetamorphResultText:
 
-; Original data gap before EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
+; Original data gap before EF7160_EBattle5FranklinBadgeReflectsThunderResultText:
 db $01,$70,$1C,$01,$4A,$50,$16,$97,$95,$94,$00,$50,$15,$90,$16,$D9
 db $9F,$A2,$99,$97,$99,$9E,$91,$9C,$16,$12,$9D,$51,$03,$02
 
-EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
+EF7160_EBattle5FranklinBadgeReflectsThunderResultText:
 
 ; Original data gap before EF7186_EBattle4MsgBtlDiamondizedCannotMove:
 db $01,$15,$14,$76,$A2,$91,$9E,$9B,$9C,$17,$68,$72,$91,$94,$97,$95

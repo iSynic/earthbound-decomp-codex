@@ -65,6 +65,9 @@ Examples:
   messages without separate `D5:7B68` row-pointer evidence.
 - `RecoveryResultText` and `RemovalResultText` EF anchors such as
   `EF:6E4A..6F64` are the cleanup side of the same direct-result lane.
+- Revive, shield, Neutralizer, and Franklin Badge anchors in `EF:6F7C..7160`
+  are also direct result lane text; `EF:70D2/70FA` additionally keep the
+  `ByteSubstitution` suffix because they consume the staged PSI-name byte.
 - `EF:72F7`, `EF:733D`, and `EF:743B` are special-event continuations emitted
   after rows `243` and `244` present their row messages.
 - `EF:7142` and queued `EF:7123` belong to normalization result flow, separate
