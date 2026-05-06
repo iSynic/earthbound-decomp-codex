@@ -55,8 +55,8 @@ damage; zero successful hits emits shared no-effect text `EF:766E`.
 
 The action:
 
-- gates through `C2:7CFD`
-- applies `C2:7CAF(0x00FA)`
+- gates through `C2:7CFD` / `CheckSelectedBattlerDefaultTextBlocker`
+- applies `C2:7CAF(0x00FA)` / `RollSelectedVsActiveRowOffsetGate`
 - computes damage as `0x0064 - target defense`
 - applies damage through `C2:8125` / `ApplyDamageToSelectedTarget`
 - attempts `C2:724A(target, X=2, Y=4)`
@@ -67,13 +67,14 @@ displays `EF:766E`. The source now names the shared `C2:724A`
 battle-text bank, and the `C1:DC1C` direct-text dispatch.
 
 `C2:A82A` is the direct item-side solidification sibling after the bomb wrappers.
-It uses the selected-row threshold gate, applies subgroup `X = 2`, value `4`
-through `C2:724A`, and emits the same solidification/no-effect text pair.
+It uses `C2:7C96` / `RollSelectedRowThresholdGate`, applies subgroup `X = 2`,
+value `4` through `C2:724A`, and emits the same solidification/no-effect text
+pair.
 
-`C2:A86B` is a compact random-damage item leaf. It gates through `C2:7CAF`,
-rolls a `1..4` damage amount with `C2:6A2D`, applies selected-target damage
-through `C2:8125` / `ApplyDamageToSelectedTarget`, and emits shared no-effect
-text on failure.
+`C2:A86B` is a compact random-damage item leaf. It gates through `C2:7CAF` /
+`RollSelectedVsActiveRowOffsetGate`, rolls a `1..4` damage amount with
+`C2:6A2D`, applies selected-target damage through `C2:8125` /
+`ApplyDamageToSelectedTarget`, and emits shared no-effect text on failure.
 
 ## Bomb Common
 
@@ -134,6 +135,9 @@ This slice tightens several item-side runtime contracts:
 - the A3D1, A5EC, A658, A86B, and A89D item-side damage callers now share the
   `ApplyDamageToSelectedTarget` name for the `C2:8125` selected-target damage
   ABI
+- the A3D1 item-side continuation now also names its `C2:7C96` threshold gates
+  and uses the same `C2:7CAF` selected-vs-active row offset gate vocabulary as
+  A5EC/A86B/A89D
 - bomb wrappers now have durable base damage constants
 - bomb splash damage is linked to sprite-width and position fields consumed by
   the battle sprite layout/rendering lane

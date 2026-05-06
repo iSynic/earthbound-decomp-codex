@@ -35,7 +35,7 @@ C28BFD_RunPossessStatusAction = BTLACT_POSSESS
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28C65_RunPossessStatusAction_L8C65
     ldx $A972

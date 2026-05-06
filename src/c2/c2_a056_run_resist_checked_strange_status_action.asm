@@ -61,7 +61,7 @@ C2A056_RunResistCheckedStrangeStatusAction = BTLACT_BRAINSHOCK_A
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2A0A5_RunResistCheckedStrangeStatusAction_LA0A5
     ldx $A972

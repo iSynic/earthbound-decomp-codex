@@ -40,7 +40,7 @@ C29F06_RunResistCheckedAsleepStatusAction = BTLACT_HYPNOSIS_A
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29F55_RunResistCheckedAsleepStatusAction_L9F55
     ldx $A972

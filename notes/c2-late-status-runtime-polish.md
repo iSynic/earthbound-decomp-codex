@@ -45,6 +45,11 @@ The late status leaves, hit-resolution status tails, asleep/strange wrappers,
 and item-side solidification leaves now call the selected-row slot ABI directly
 instead of the inherited `INFLICT_STATUS_BATTLE` label.
 
+The same caller cleanup now applies to the front-door gates: late status leaves
+call `C2:7CFD` as `CheckSelectedBattlerDefaultTextBlocker`, and thresholded
+solidification/defense-down leaves call `C2:7C96` as
+`RollSelectedRowThresholdGate`.
+
 ## Persistent Subgroup `+0x1E`
 
 | Module | Parameters | Result |
@@ -74,7 +79,7 @@ The extra gates stay intentionally mechanical for now:
   `RollActionChanceGate`
 - `C2:8C69` tests selected-row `+0x39` through `C2:6BB8` /
   `RollActionChanceGate`
-- `C2:8CF1` tests through threshold helper `C2:7C96`
+- `C2:8CF1` tests through `C2:7C96` / `RollSelectedRowThresholdGate`
 
 ## Strange Subgroup `+0x20`
 

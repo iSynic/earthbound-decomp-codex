@@ -35,10 +35,10 @@ C28CF1_RunSolidifiedStatusAction = BTLACT_SOLIDIFY
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28D38_RunSolidifiedStatusAction_L8D38
-    jsr SUCCESS_LUCK80
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C28D2A_RunSolidifiedStatusAction_L8D2A
     ldy.w #$0004

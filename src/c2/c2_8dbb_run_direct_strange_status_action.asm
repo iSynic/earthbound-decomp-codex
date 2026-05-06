@@ -38,7 +38,7 @@ C28DBB_RunDirectStrangeStatusAction = BTLACT_FEELSTRANGE
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28DFA_RunDirectStrangeStatusAction_L8DFA
     ldy.w #$0001
@@ -70,7 +70,7 @@ C28DFC_RunAllTargetCryingStatusAction = BTLACT_CRYING_ALL
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28E39_RunDirectStrangeStatusAction_L8E39
     ldy.w #$0002

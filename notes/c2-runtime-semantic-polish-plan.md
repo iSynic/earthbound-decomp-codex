@@ -531,6 +531,15 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-psi-common-runtime-polish.md`,
   `notes/c2-item-bomb-runtime-polish.md`, and
   `notes/c2-final-prayer-runtime-polish.md`.
+- 2026-05-06 seventy-fourth slice: tightened the target/default-text and
+  threshold-gate caller vocabulary. Late status, PSI Flash, stat/action leaves,
+  hit-resolution tails, and item-side A3D1 now call `C2:7CFD` as
+  `CheckSelectedBattlerDefaultTextBlocker`, `C2:7C96` as
+  `RollSelectedRowThresholdGate`, and `C2:7CAF` as
+  `RollSelectedVsActiveRowOffsetGate` instead of inherited listing labels or
+  raw helper addresses. See `notes/c2-late-status-runtime-polish.md`,
+  `notes/c2-hit-resolution-status-runtime-polish.md`, and
+  `notes/c2-item-bomb-runtime-polish.md`.
 
 ## Validation
 

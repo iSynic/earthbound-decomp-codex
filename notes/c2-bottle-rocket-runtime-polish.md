@@ -21,7 +21,7 @@ Related evidence:
 
 `C2:A57A` is the shared `BOTTLE_ROCKET_COMMON` helper. It takes an attempt
 count in `A`, loops that many times, and increments a local successful-hit
-count for each `C2:7CAF` speed-based success result.
+count for each `C2:7CAF` / `RollSelectedVsActiveRowOffsetGate` success result.
 
 Stable promoted constants:
 

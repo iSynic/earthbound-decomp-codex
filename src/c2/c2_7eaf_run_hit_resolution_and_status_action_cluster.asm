@@ -29,7 +29,7 @@ C27126_SetBattlerHp                             = $7126
 C271F0_ReduceBattlerHp                          = $71F0
 C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
 C27550_KnockOutBattler                          = $C27550
-C27C96_SuccessLuck80                            = $7C96
+C27C96_RollSelectedRowThresholdGate             = $7C96
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
 C27E8A_SwapReflectedHitBattleTextContexts       = $7E8A
 C2BAC5_CountFilteredSelectedRows                = $C2BAC5
@@ -1525,7 +1525,7 @@ C28A92_RunParalyzeStatusAction = BTLACT_PARALYZE
     jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28AE9_RunHitResolutionAndStatusActionCluster_L8AE9
-    jsr C27C96_SuccessLuck80
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB
     ldx $A972

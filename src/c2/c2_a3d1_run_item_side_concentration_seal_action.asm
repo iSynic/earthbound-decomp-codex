@@ -29,7 +29,8 @@ C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 
 C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
 C2724A_ApplySelectedRowAfflictionSlotValue      = $724A
-C27CAF_TestSpeedBasedSuccess                     = $7CAF
+C27C96_RollSelectedRowThresholdGate             = $7C96
+C27CAF_RollSelectedVsActiveRowOffsetGate        = $7CAF
 C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
 C28D41_CheckTargetField2eThresholdGate          = $8D41
 C28125_ApplyDamageToSelectedTarget              = $8125
@@ -104,7 +105,7 @@ C2A420_RunItemSideConcentrationSealAction_LA420:
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7C96
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C2A45B_RunItemSideConcentrationSealAction_LA45B
     lda $A972
@@ -140,7 +141,7 @@ C2A46B_RunItemSideConcentrationSealAction_LA46B = BTLACT_HP_SUCKER
     tdc
     adc.w #$FFE8
     tcd
-    jsr $7C96
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     bne C2A47E_RunItemSideConcentrationSealAction_LA47E
     jmp.w C2A4F7_RunItemSideConcentrationSealAction_LA4F7
@@ -221,7 +222,7 @@ C2A505_RunItemSideConcentrationSealAction_LA505:
     cmp.w #$0000
     bne C2A578_RunItemSideConcentrationSealAction_LA578
     lda.w #$00FA
-    jsr C27CAF_TestSpeedBasedSuccess
+    jsr C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     beq C2A56A_RunItemSideConcentrationSealAction_LA56A
     ldx $A972
@@ -279,7 +280,7 @@ C2A57A_RunBottleRocketCommon = BOTTLE_ROCKET_COMMON
     bra C2A5A5_RunItemSideConcentrationSealAction_LA5A5
 C2A590_RunItemSideConcentrationSealAction_LA590:
     lda.w #BottleRocketHitGatePercent
-    jsr C27CAF_TestSpeedBasedSuccess
+    jsr C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     beq C2A5A0_RunItemSideConcentrationSealAction_LA5A0
     ldy $14

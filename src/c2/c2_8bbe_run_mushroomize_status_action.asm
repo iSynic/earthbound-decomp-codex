@@ -31,7 +31,7 @@ C28BBE_RunMushroomizeStatusAction = BTLACT_MUSHROOMIZE
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28BFB_RunMushroomizeStatusAction_L8BFB
     ldy.w #$0001

@@ -36,7 +36,7 @@ C28C69_RunCryingStatusAction = BTLACT_CRYING
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28CB6_RunCryingStatusAction_L8CB6
     ldx $A972

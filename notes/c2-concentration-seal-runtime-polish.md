@@ -32,7 +32,7 @@ Promoted runtime contract:
 
 | Contract | Runtime shape |
 | --- | --- |
-| default target gate | `C2:7CFD` |
+| default target gate | `C2:7CFD` / `CheckSelectedBattlerDefaultTextBlocker` |
 | luck gate | `C2:8D41` |
 | secondary row gate | row `+0x37` through `C2:6BB8` / `RollActionChanceGate` |
 | target byte | row `+0x21` |

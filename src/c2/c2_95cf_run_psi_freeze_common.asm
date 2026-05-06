@@ -46,7 +46,7 @@ C295CF_RunPsiFreezeCommon = PSI_FREEZE_COMMON
     pla
     tax
     stx $14
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29645_RunPsiFreezeCommon_L9645
     jsr PSI_SHIELD_NULLIFY

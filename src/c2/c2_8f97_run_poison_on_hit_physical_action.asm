@@ -30,7 +30,7 @@ C28F97_RunPoisonOnHitPhysicalAction = BTLACT_LEVEL_2_ATK_POISON
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28FF7_RunPoisonOnHitPhysicalAction_L8FF7
     lda.w #$0000

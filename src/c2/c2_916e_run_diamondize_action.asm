@@ -31,7 +31,7 @@ C2916E_RunDiamondizeAction = BTLACT_LVL_2_ATK_DIAMONDIZE
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     beq C29181_RunDiamondizeAction_L9181
     jmp.w C29252_RunDiamondizeAction_L9252
@@ -54,7 +54,7 @@ C2919A_RunDiamondizeAction_L919A:
 C291A5_RunDiamondizeAction_L91A5:
     jsr C28523_RunPhysicalHitSetup
     jsr C2856B_ApplyPhysicalHitDamage
-    jsr SUCCESS_LUCK80
+    jsr C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     bne C291B6_RunDiamondizeAction_L91B6
     jmp.w C29252_RunDiamondizeAction_L9252

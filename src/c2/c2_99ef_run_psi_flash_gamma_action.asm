@@ -33,7 +33,7 @@ C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 BTLACT_PSI_FLASH_G:
 C299EF_RunPsiFlashGammaAction = BTLACT_PSI_FLASH_G
     rep #$31
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29A34_RunPsiFlashGammaAction_L9A34
     jsr FLASH_IMMUNITY_TEST

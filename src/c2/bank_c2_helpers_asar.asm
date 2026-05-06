@@ -5050,7 +5050,7 @@ BTLACT_MUSHROOMIZE:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28BFB_RunMushroomizeStatusAction_L8BFB
     ldy.w #$0001
@@ -5094,7 +5094,7 @@ BTLACT_POSSESS:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28C65_RunPossessStatusAction_L8C65
     ldx $A972
@@ -5156,7 +5156,7 @@ BTLACT_CRYING:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28CB6_RunCryingStatusAction_L8CB6
     ldx $A972
@@ -5247,10 +5247,10 @@ BTLACT_SOLIDIFY:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28D38_RunSolidifiedStatusAction_L8D38
-    jsr SUCCESS_LUCK80
+    jsr !C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C28D2A_RunSolidifiedStatusAction_L8D2A
     ldy.w #$0004
@@ -5326,7 +5326,7 @@ BTLACT_DISTRACT:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28DB9_RunConcentrationSealAction_L8DB9
     jsr SUCCESS_LUCK40
@@ -5387,7 +5387,7 @@ BTLACT_FEELSTRANGE:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28DFA_RunDirectStrangeStatusAction_L8DFA
     ldy.w #$0001
@@ -5418,7 +5418,7 @@ BTLACT_CRYING_ALL:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28E39_RunDirectStrangeStatusAction_L8E39
     ldy.w #$0002
@@ -5538,7 +5538,7 @@ BTLACT_CUTGUTS:
     tdc
     adc.w #$FFE6
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28F1F_RunGutsReductionAction_L8F1F
     lda $A972
@@ -5614,7 +5614,7 @@ BTLACT_REDUCEOFFDEF:
     tdc
     adc.w #$FFE8
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28F95_RunOffenseDefenseReductionAction_L8F95
     ldx $A972
@@ -5686,7 +5686,7 @@ BTLACT_LEVEL_2_ATK_POISON:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28FF7_RunPoisonOnHitPhysicalAction_L8FF7
     lda.w #$0000
@@ -6021,7 +6021,7 @@ BTLACT_LVL_2_ATK_DIAMONDIZE:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     beq C29181_RunDiamondizeAction_L9181
     jmp.w C29252_RunDiamondizeAction_L9252
@@ -6044,7 +6044,7 @@ C2919A_RunDiamondizeAction_L919A:
 C291A5_RunDiamondizeAction_L91A5:
     jsr !C28523_RunPhysicalHitSetup
     jsr !C2856B_ApplyPhysicalHitDamage
-    jsr SUCCESS_LUCK80
+    jsr !C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     bne C291B6_RunDiamondizeAction_L91B6
     jmp.w C29252_RunDiamondizeAction_L9252
@@ -6135,7 +6135,7 @@ BTLACT_REDUCEOFF:
     tdc
     adc.w #$FFE8
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29296_RunOdorOffenseReductionAction_L9296
     ldx $A972
@@ -6692,7 +6692,7 @@ PSI_FREEZE_COMMON:
     pla
     tax
     stx $14
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29645_RunPsiFreezeCommon_L9645
     jsr PSI_SHIELD_NULLIFY
@@ -7230,7 +7230,7 @@ org $C29987
 BTLACT_PSI_FLASH_A:
 !C29987_RunPsiFlashAlphaAction = BTLACT_PSI_FLASH_A
     rep #$31
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C299AD_RunPsiFlashAlphaAction_L99AD
     jsr FLASH_IMMUNITY_TEST
@@ -7267,7 +7267,7 @@ org $C299AE
 BTLACT_PSI_FLASH_B:
 !C299AE_RunPsiFlashBetaAction = BTLACT_PSI_FLASH_B
     rep #$31
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C299EE_RunPsiFlashBetaAction_L99EE
     jsr FLASH_IMMUNITY_TEST
@@ -7317,7 +7317,7 @@ org $C299EF
 BTLACT_PSI_FLASH_G:
 !C299EF_RunPsiFlashGammaAction = BTLACT_PSI_FLASH_G
     rep #$31
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29A34_RunPsiFlashGammaAction_L9A34
     jsr FLASH_IMMUNITY_TEST
@@ -7369,7 +7369,7 @@ org $C29A35
 BTLACT_PSI_FLASH_O:
 !C29A35_RunPsiFlashOmegaAction = BTLACT_PSI_FLASH_O
     rep #$31
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29A7F_RunPsiFlashOmegaAction_L9A7F
     jsr FLASH_IMMUNITY_TEST
@@ -8001,7 +8001,7 @@ BTLACT_OFFENSE_UP_A:
     tdc
     adc.w #$FFE8
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29E7D_RunDefenseSprayAction_L9E7D
     ldx $A972
@@ -8060,10 +8060,10 @@ BTLACT_DEFENSE_DOWN_A:
     tdc
     adc.w #$FFE8
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29EFD_RunDefenseShowerAction_L9EFD
-    jsr SUCCESS_LUCK80
+    jsr !C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C29EEF_RunDefenseShowerAction_L9EEF
     ldx $A972
@@ -8142,7 +8142,7 @@ BTLACT_HYPNOSIS_A:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29F55_RunResistCheckedAsleepStatusAction_L9F55
     ldx $A972
@@ -8285,7 +8285,7 @@ BTLACT_PARALYSIS_A:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2A04D_RunAsleepStatusWrapperAction_LA04D
     ldx $A972
@@ -8363,7 +8363,7 @@ BTLACT_BRAINSHOCK_A:
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2A0A5_RunResistCheckedStrangeStatusAction_LA0A5
     ldx $A972
@@ -19441,7 +19441,8 @@ org $C2A3D1
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
-!C27CAF_TestSpeedBasedSuccess = $7CAF
+!C27C96_RollSelectedRowThresholdGate = $7C96
+!C27CAF_RollSelectedVsActiveRowOffsetGate = $7CAF
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C28D41_CheckTargetField2eThresholdGate = $8D41
 !C28125_ApplyDamageToSelectedTarget = $8125
@@ -19508,7 +19509,7 @@ C2A420_RunItemSideConcentrationSealAction_LA420:
     tdc
     adc.w #$FFEE
     tcd
-    jsr $7C96
+    jsr !C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C2A45B_RunItemSideConcentrationSealAction_LA45B
     lda $A972
@@ -19544,7 +19545,7 @@ BTLACT_HP_SUCKER:
     tdc
     adc.w #$FFE8
     tcd
-    jsr $7C96
+    jsr !C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     bne C2A47E_RunItemSideConcentrationSealAction_LA47E
     jmp.w C2A4F7_RunItemSideConcentrationSealAction_LA4F7
@@ -19624,7 +19625,7 @@ C2A505_RunItemSideConcentrationSealAction_LA505:
     cmp.w #$0000
     bne C2A578_RunItemSideConcentrationSealAction_LA578
     lda.w #$00FA
-    jsr !C27CAF_TestSpeedBasedSuccess
+    jsr !C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     beq C2A56A_RunItemSideConcentrationSealAction_LA56A
     ldx $A972
@@ -19681,7 +19682,7 @@ BOTTLE_ROCKET_COMMON:
     bra C2A5A5_RunItemSideConcentrationSealAction_LA5A5
 C2A590_RunItemSideConcentrationSealAction_LA590:
     lda.w #!BottleRocketHitGatePercent
-    jsr !C27CAF_TestSpeedBasedSuccess
+    jsr !C27CAF_RollSelectedVsActiveRowOffsetGate
     cmp.w #$0000
     beq C2A5A0_RunItemSideConcentrationSealAction_LA5A0
     ldy $14
@@ -29846,7 +29847,7 @@ org $C27EAF
 !C271F0_ReduceBattlerHp = $71F0
 !C2724A_ApplySelectedRowAfflictionSlotValue = $724A
 !C27550_KnockOutBattler = $C27550
-!C27C96_SuccessLuck80 = $7C96
+!C27C96_RollSelectedRowThresholdGate = $7C96
 !C27CFD_CheckSelectedBattlerDefaultTextBlocker = $7CFD
 !C27E8A_SwapReflectedHitBattleTextContexts = $7E8A
 !C2BAC5_CountFilteredSelectedRows = $C2BAC5
@@ -31332,7 +31333,7 @@ BTLACT_PARALYZE:
     jsr !C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28AE9_RunHitResolutionAndStatusActionCluster_L8AE9
-    jsr !C27C96_SuccessLuck80
+    jsr !C27C96_RollSelectedRowThresholdGate
     cmp.w #$0000
     beq C28ADB_RunHitResolutionAndStatusActionCluster_L8ADB
     ldx $A972

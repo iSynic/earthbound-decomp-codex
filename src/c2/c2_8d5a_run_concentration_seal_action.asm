@@ -36,7 +36,7 @@ C28D5A_RunConcentrationSealAction = BTLACT_DISTRACT
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C28DB9_RunConcentrationSealAction_L8DB9
     jsr SUCCESS_LUCK40

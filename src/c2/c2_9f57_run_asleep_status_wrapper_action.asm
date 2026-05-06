@@ -135,7 +135,7 @@ C29FFE_RunResistCheckedParalysisStatusAction = BTLACT_PARALYSIS_A
     tdc
     adc.w #$FFEE
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C2A04D_RunAsleepStatusWrapperAction_LA04D
     ldx $A972

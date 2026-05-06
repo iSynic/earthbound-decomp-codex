@@ -34,7 +34,7 @@ C29E38_RunOffenseUpAlphaAction = BTLACT_OFFENSE_UP_A
     tdc
     adc.w #$FFE8
     tcd
-    jsr FAIL_ATTACK_ON_NPCS
+    jsr C27CFD_CheckSelectedBattlerDefaultTextBlocker
     cmp.w #$0000
     bne C29E7D_RunDefenseSprayAction_L9E7D
     ldx $A972
