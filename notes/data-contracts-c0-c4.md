@@ -5,8 +5,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 ## Summary
 
 - schema: `earthbound-decomp.data-contracts.v1`
-- contracts: `117`
-- fields: `538`
+- contracts: `124`
+- fields: `593`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -73,10 +73,17 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | TOWN_MAP_GFX_POINTER_TABLE | rom-table | `E0:2190` | `0x4` | 6 | `far_pointer` | 1 | runtime-corroborated |
 | TITLE_SCREEN_LETTER_OAM_RECORDS | rom-table | `E1:CE08` | `0x2D` | 9 | `title_screen_letter_oam_record` | 1 | verified |
 | TITLE_SCREEN_LETTER_OAM_POINTER_TABLE | rom-table | `E1:CF9D` | `0x2` | 9 | `word_pointer` | 1 | verified |
+| PHOTOGRAPHER_CONFIG_TABLE | rom-table | `E1:2F8A` | `0x3E` | 32 | `photographer_config_record` | 31 | consumer-corroborated-partial |
 | TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_RECORDS | rom-table | `E1:F203` | `0x5` | 117 | `town_map_icon_graphic_descriptor` | 4 | runtime-corroborated-shape |
 | TOWN_MAP_ICON_GRAPHIC_POINTER_TABLE | rom-table | `E1:F44C` | `0x2` | 23 | `word_pointer` | 1 | runtime-corroborated |
 | TOWN_MAP_BLINK_SUPPRESS_TABLE | rom-table | `E1:F47A` | `0x1` | 23 | `town_map_blink_suppress_flag` | 1 | runtime-corroborated |
 | TOWN_MAP_ICON_PLACEMENT_POINTER_TABLE | rom-table | `E1:F491` | `0x4` | 6 | `far_pointer` | 1 | runtime-corroborated |
+| TOWN_MAP_ICON_PLACEMENT_LIST_0 | rom-variable-table | `E1:F4A9` | `0x5` | 7 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_PLACEMENT_LIST_1 | rom-variable-table | `E1:F4CD` | `0x5` | 8 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_PLACEMENT_LIST_2 | rom-variable-table | `E1:F4F6` | `0x5` | 9 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_PLACEMENT_LIST_3 | rom-variable-table | `E1:F524` | `0x5` | 7 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_PLACEMENT_LIST_4 | rom-variable-table | `E1:F548` | `0x5` | 5 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
+| TOWN_MAP_ICON_PLACEMENT_LIST_5 | rom-variable-table | `E1:F562` | `0x5` | 6 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
 | OVERWORLD_EVENT_MUSIC_POINTER_TABLE | rom-table | `CF:58EF` | `0x2` | 165 | `word_pointer` | 1 | exact |
 | OVERWORLD_EVENT_MUSIC_TABLE | rom-variable-table | `CF:5A39` | `0x7A4` | 1 | `overworld_event_music_rows` | 1 | exact-boundary |
 | CF_INLINE_EVENT_MUSIC_TRAILER | rom-block | `CF:61DD` | `0xA` | 1 | `inline_event_music_trailer` | 1 | exact |
@@ -1346,6 +1353,51 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `pointer` | 2 | 1 |  |
 
+### PHOTOGRAPHER_CONFIG_TABLE
+
+- domain: `rom-table`
+- address: `E1:2F8A`
+- stride: `0x3E`
+- count: `32`
+- struct: `photographer_config_record`
+- confidence: `consumer-corroborated-partial`
+- note: Thirty-two photographer/photo-scene configuration records; named fields are limited to offsets read by C4 photo, credits, and current-slot consumers.
+- evidence: `notes/bank-e1-asset-data-map.md`, `notes/current-slot-position-staging-c46b8d-c46d4b.md`, `src/c4/credits_photo_flag_counter.asm`, `src/c4/credits_photograph_render_helpers.asm`, `src/c4/credits_photograph_slide_helpers.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `event_flag_gate` | 2 | 1 | credits/photo helpers test this event flag before counting or rendering a photo scene |
+| `0x2` | `map_load_x_tile` | 2 | 1 | C4:F264 shifts this word left three before calling C0:13F6 LoadMapAtPosition |
+| `0x4` | `map_load_y_tile` | 2 | 1 | C4:F264 shifts this word left three before calling C0:13F6 LoadMapAtPosition |
+| `0x8` | `slide_angle` | 1 | 1 | C4:F46F projects the credits photograph slide vector from this angle byte |
+| `0x9` | `slide_duration` | 1 | 1 | C4:F46F scales this byte into the slide frame count |
+| `0xA` | `photo_scene_x_tile` | 2 | 1 | C4:6D4B shifts this word left three and writes the current slot live X |
+| `0xC` | `photo_scene_y_tile` | 2 | 1 | C4:6D4B shifts this word left three and writes the current slot live Y |
+| `0xE` | `attached_visual_0_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x10` | `attached_visual_0_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x12` | `attached_visual_1_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x14` | `attached_visual_1_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x16` | `attached_visual_2_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x18` | `attached_visual_2_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x1A` | `attached_visual_3_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x1C` | `attached_visual_3_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x1E` | `attached_visual_4_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x20` | `attached_visual_4_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x22` | `attached_visual_5_x_tile` | 2 | 1 | C4:F264 shifts this attached visual X tile coordinate left three before spawning |
+| `0x24` | `attached_visual_5_y_tile` | 2 | 1 | C4:F264 shifts this attached visual Y tile coordinate left three before spawning |
+| `0x26` | `photo_entity_0_x_tile` | 2 | 1 | C4:F264 shifts this live photo-entity X tile coordinate left three before spawning |
+| `0x28` | `photo_entity_0_y_tile` | 2 | 1 | C4:F264 shifts this live photo-entity Y tile coordinate left three before spawning |
+| `0x2A` | `photo_entity_0_descriptor` | 2 | 1 | C4:F264 skips this live photo-entity slot when the descriptor word is zero |
+| `0x2C` | `photo_entity_1_x_tile` | 2 | 1 | C4:F264 shifts this live photo-entity X tile coordinate left three before spawning |
+| `0x2E` | `photo_entity_1_y_tile` | 2 | 1 | C4:F264 shifts this live photo-entity Y tile coordinate left three before spawning |
+| `0x30` | `photo_entity_1_descriptor` | 2 | 1 | C4:F264 skips this live photo-entity slot when the descriptor word is zero |
+| `0x32` | `photo_entity_2_x_tile` | 2 | 1 | C4:F264 shifts this live photo-entity X tile coordinate left three before spawning |
+| `0x34` | `photo_entity_2_y_tile` | 2 | 1 | C4:F264 shifts this live photo-entity Y tile coordinate left three before spawning |
+| `0x36` | `photo_entity_2_descriptor` | 2 | 1 | C4:F264 skips this live photo-entity slot when the descriptor word is zero |
+| `0x38` | `photo_entity_3_x_tile` | 2 | 1 | C4:F264 shifts this live photo-entity X tile coordinate left three before spawning |
+| `0x3A` | `photo_entity_3_y_tile` | 2 | 1 | C4:F264 shifts this live photo-entity Y tile coordinate left three before spawning |
+| `0x3C` | `photo_entity_3_descriptor` | 2 | 1 | C4:F264 skips this live photo-entity slot when the descriptor word is zero |
+
 ### TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_RECORDS
 
 - domain: `rom-table`
@@ -1408,6 +1460,114 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `pointer` | 4 | 1 |  |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_0
+
+- domain: `rom-variable-table`
+- address: `E1:F4A9`
+- stride: `0x5`
+- count: `7`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 0; C4:D43F walks five-byte records until the FF terminator at E1:F4CC.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_1
+
+- domain: `rom-variable-table`
+- address: `E1:F4CD`
+- stride: `0x5`
+- count: `8`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 1; C4:D43F walks five-byte records until the FF terminator at E1:F4F5.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_2
+
+- domain: `rom-variable-table`
+- address: `E1:F4F6`
+- stride: `0x5`
+- count: `9`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 2; C4:D43F walks five-byte records until the FF terminator at E1:F523.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_3
+
+- domain: `rom-variable-table`
+- address: `E1:F524`
+- stride: `0x5`
+- count: `7`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 3; C4:D43F walks five-byte records until the FF terminator at E1:F547.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_4
+
+- domain: `rom-variable-table`
+- address: `E1:F548`
+- stride: `0x5`
+- count: `5`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 4; C4:D43F walks five-byte records until the FF terminator at E1:F561.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
+
+### TOWN_MAP_ICON_PLACEMENT_LIST_5
+
+- domain: `rom-variable-table`
+- address: `E1:F562`
+- stride: `0x5`
+- count: `6`
+- struct: `town_map_icon_placement_record`
+- confidence: `runtime-corroborated-shape`
+- note: Town-map icon placement list 5; C4:D43F walks five-byte records until the FF terminator at E1:F580.
+- evidence: `notes/ui-font-town-map-asset-contracts.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `x` | 1 | 1 | base X coordinate passed to C0:8C54 by C4:D43F |
+| `0x1` | `y` | 1 | 1 | base Y coordinate passed to C0:8C54 by C4:D43F |
+| `0x2` | `icon_id` | 1 | 1 | town-map icon id remapped through the E1:F44C graphic pointer table |
+| `0x3` | `event_flag_with_draw_polarity` | 2 | 1 | event flag word; high bit means draw when set, clear high bit means draw when clear |
 
 ### OVERWORLD_EVENT_MUSIC_POINTER_TABLE
 

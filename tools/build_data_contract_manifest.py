@@ -347,6 +347,38 @@ TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_FIELDS = (
     field("control_flags", 0x04, 1, note="bit 7 terminates the descriptor list; bit 0 feeds C0:8CD5's packed renderer mask/attribute bit"),
 )
 
+TOWN_MAP_ICON_PLACEMENT_FIELDS = (
+    field("x", 0x00, 1, note="base X coordinate passed to C0:8C54 by C4:D43F"),
+    field("y", 0x01, 1, note="base Y coordinate passed to C0:8C54 by C4:D43F"),
+    field("icon_id", 0x02, 1, note="town-map icon id remapped through the E1:F44C graphic pointer table"),
+    field("event_flag_with_draw_polarity", 0x03, 2, note="event flag word; high bit means draw when set, clear high bit means draw when clear"),
+)
+
+PHOTOGRAPHER_CONFIG_FIELDS = (
+    field("event_flag_gate", 0x00, 2, note="credits/photo helpers test this event flag before counting or rendering a photo scene"),
+    field("map_load_x_tile", 0x02, 2, note="C4:F264 shifts this word left three before calling C0:13F6 LoadMapAtPosition"),
+    field("map_load_y_tile", 0x04, 2, note="C4:F264 shifts this word left three before calling C0:13F6 LoadMapAtPosition"),
+    field("slide_angle", 0x08, 1, note="C4:F46F projects the credits photograph slide vector from this angle byte"),
+    field("slide_duration", 0x09, 1, note="C4:F46F scales this byte into the slide frame count"),
+    field("photo_scene_x_tile", 0x0A, 2, note="C4:6D4B shifts this word left three and writes the current slot live X"),
+    field("photo_scene_y_tile", 0x0C, 2, note="C4:6D4B shifts this word left three and writes the current slot live Y"),
+) + tuple(
+    field(name, offset, 2, note=note)
+    for index in range(6)
+    for name, offset, note in (
+        (f"attached_visual_{index}_x_tile", 0x0E + index * 4, "C4:F264 shifts this attached visual X tile coordinate left three before spawning"),
+        (f"attached_visual_{index}_y_tile", 0x10 + index * 4, "C4:F264 shifts this attached visual Y tile coordinate left three before spawning"),
+    )
+) + tuple(
+    field(name, offset, 2, note=note)
+    for index in range(4)
+    for name, offset, note in (
+        (f"photo_entity_{index}_x_tile", 0x26 + index * 6, "C4:F264 shifts this live photo-entity X tile coordinate left three before spawning"),
+        (f"photo_entity_{index}_y_tile", 0x28 + index * 6, "C4:F264 shifts this live photo-entity Y tile coordinate left three before spawning"),
+        (f"photo_entity_{index}_descriptor", 0x2A + index * 6, "C4:F264 skips this live photo-entity slot when the descriptor word is zero"),
+    )
+)
+
 TITLE_SCREEN_LETTER_OAM_RECORD_FIELDS = (
     field("oam_entries", 0x00, 5, 9, "nine OAM-ish entries: y, tile, attrs, x, control; terminal entries have bit 7 set in control"),
 )
@@ -591,6 +623,35 @@ def d8_collision_pointer_contracts() -> list[Contract]:
             fields=WORD_POINTER_FIELDS,
         )
         for index, address, count in specs
+    ]
+
+
+def town_map_icon_placement_list_contracts() -> list[Contract]:
+    specs = (
+        (0, "E1:F4A9", 7, "E1:F4CC"),
+        (1, "E1:F4CD", 8, "E1:F4F5"),
+        (2, "E1:F4F6", 9, "E1:F523"),
+        (3, "E1:F524", 7, "E1:F547"),
+        (4, "E1:F548", 5, "E1:F561"),
+        (5, "E1:F562", 6, "E1:F580"),
+    )
+    return [
+        Contract(
+            id=f"TOWN_MAP_ICON_PLACEMENT_LIST_{index}",
+            domain="rom-variable-table",
+            address=address,
+            stride=0x05,
+            count=count,
+            struct_name="town_map_icon_placement_record",
+            confidence="runtime-corroborated-shape",
+            note=f"Town-map icon placement list {index}; C4:D43F walks five-byte records until the FF terminator at {terminator}.",
+            evidence=(
+                "notes/ui-font-town-map-asset-contracts.md",
+                "notes/town-map-selection-rendering-c4d274-c4d744.md",
+            ),
+            fields=TOWN_MAP_ICON_PLACEMENT_FIELDS,
+        )
+        for index, address, count, terminator in specs
     ]
 
 
@@ -1228,6 +1289,24 @@ def extra_contracts() -> list[Contract]:
             fields=WORD_POINTER_FIELDS,
         ),
         Contract(
+            id="PHOTOGRAPHER_CONFIG_TABLE",
+            domain="rom-table",
+            address="E1:2F8A",
+            stride=0x3E,
+            count=32,
+            struct_name="photographer_config_record",
+            confidence="consumer-corroborated-partial",
+            note="Thirty-two photographer/photo-scene configuration records; named fields are limited to offsets read by C4 photo, credits, and current-slot consumers.",
+            evidence=(
+                "notes/bank-e1-asset-data-map.md",
+                "notes/current-slot-position-staging-c46b8d-c46d4b.md",
+                "src/c4/credits_photo_flag_counter.asm",
+                "src/c4/credits_photograph_render_helpers.asm",
+                "src/c4/credits_photograph_slide_helpers.asm",
+            ),
+            fields=PHOTOGRAPHER_CONFIG_FIELDS,
+        ),
+        Contract(
             id="TOWN_MAP_ICON_GRAPHIC_DESCRIPTOR_RECORDS",
             domain="rom-table",
             address="E1:F203",
@@ -1281,6 +1360,7 @@ def extra_contracts() -> list[Contract]:
             ),
             fields=FAR_POINTER_FIELDS,
         ),
+        *town_map_icon_placement_list_contracts(),
         Contract(
             id="OVERWORLD_EVENT_MUSIC_POINTER_TABLE",
             domain="rom-table",
