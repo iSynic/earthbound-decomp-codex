@@ -286,6 +286,13 @@ closure.
   its active script-record path, table-driven frame fallback, special-mode
   ladder, and cleanup handoff without assigning C0/C2 renderer internals to C4.
   See `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`.
+- 2026-05-06 Sound Stone presentation follow-up: converted the C4:AC57 EF
+  payload pointer prefix into nine explicit 4-byte row labels and added
+  side-effect comments around the Sound Stone controller's setup, Sanctuary
+  record initialization, per-frame sequence, render pass, animated EF-payload
+  walk, and closeout handoff. C0/C2 renderer, transition, and battle-visual
+  internals remain external callee contracts. See
+  `notes/sound-stone-presentation-data-c4ac57.md`.
 
 ## Validation
 

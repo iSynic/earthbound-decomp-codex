@@ -66,10 +66,26 @@ and timing rows, plus the melody id and Sanctuary event rows. The labels
 intentionally remain C4-owned because the C1 callers enter the controller at
 `C4:ACCE` rather than reading these rows directly.
 
+2026-05-06 source polish follow-up: the EF payload pointer prefix is now
+encoded as nine explicit 4-byte rows (`low word`, `bank`, padding), matching
+the controller's low-word plus bank-byte pointer walk. The controller also now
+marks its C4-owned setup, Sanctuary-record initialization, per-frame sequence,
+render pass, animated EF-payload path, and closeout side effects without
+assigning C0/C2 renderer or transition internals to this bank.
+
 ## Working Names
 
 - `C4:AC57` = `SoundStonePresentationDataBlock`
 - `C4:AC57` = `SoundStonePresentationEfPayloadPointerTable`
+- `C4:AC57` = `SoundStonePresentationEfPayloadPointer0`
+- `C4:AC5B` = `SoundStonePresentationEfPayloadPointer1`
+- `C4:AC5F` = `SoundStonePresentationEfPayloadPointer2`
+- `C4:AC63` = `SoundStonePresentationEfPayloadPointer3`
+- `C4:AC67` = `SoundStonePresentationEfPayloadPointer4`
+- `C4:AC6B` = `SoundStonePresentationEfPayloadPointer5`
+- `C4:AC6F` = `SoundStonePresentationEfPayloadPointer6`
+- `C4:AC73` = `SoundStonePresentationEfPayloadPointer7`
+- `C4:AC77` = `SoundStonePresentationEfPayloadPointer8`
 - `C4:AC7B` = `SoundStonePresentationTileXTable`
 - `C4:AC83` = `SoundStonePresentationTileYTable`
 - `C4:AC8B` = `SoundStonePresentationSpriteXTable`

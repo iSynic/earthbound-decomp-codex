@@ -132,6 +132,9 @@ LOW_BYTE_MASK                                  = $00FF
 USE_SOUND_STONE:
 C4ACCE_RunSoundStonePresentationSequence = USE_SOUND_STONE
 C4ACCE_SoundStonePresentationTablesEnd = USE_SOUND_STONE
+    ; Owns the C4-side presentation setup: blank/reset, CE graphics decode into
+    ; $7F work RAM, VRAM/palette queue arguments, sprite resource load args,
+    ; and local tile staging seeds.
     rep #$31
     phd
     pha
@@ -206,6 +209,8 @@ C4ACCE_SoundStonePresentationTablesEnd = USE_SOUND_STONE
     sty $30
     bra C4ADD7_RunSoundStonePresentationSequence_LADD7
 C4AD88_RunSoundStonePresentationSequence_LAD88:
+    ; Initialize the eight Sanctuary records from event flags. C4 owns the
+    ; $B37E-stride state layout and keeps the active Sanctuary count in $32.
     tyx
     lda SOUND_STONE_PRESENTATION_SANCTUARY_EVENT_TABLE,X
     and.w #LOW_BYTE_MASK
@@ -270,6 +275,8 @@ C4ADD7_RunSoundStonePresentationSequence_LADD7:
     sta $02
     sta $24
 C4AE03_RunSoundStonePresentationSequence_LAE03:
+    ; Main per-frame sequencer: poll input, delay the first reveal, select the
+    ; next active Sanctuary, and time the melody/stinger counters.
     jsl C08756_WaitOneFrameAndPollInput
     lda SOUND_STONE_INPUT_HELD_OR_PRESSED
     sta $22
@@ -421,6 +428,8 @@ C4AEFC_RunSoundStonePresentationSequence_LAEFC:
     adc.w #SOUND_STONE_MUSIC_STINGER_OFFSET
     jsl C0AC0C_QueuePresentationSfxOrCounter
 C4AF25_RunSoundStonePresentationSequence_LAF25:
+    ; Render pass: reset C0 renderer frame state, choose the $7E work bank,
+    ; draw each local Sanctuary tile block, then queue the C2 visual scripts.
     jsl C088B1_ResetRendererFrameState
     lda.w #SOUND_STONE_RENDERER_WORK_BANK
     jsl C088A5_SetRendererWorkBank
@@ -462,6 +471,8 @@ C4AF53_RunSoundStonePresentationSequence_LAF53:
     jsl C08CD5_DrawTileStagingBlock
     jmp.w C4B120_RunSoundStonePresentationSequence_LB120
 C4AF83_RunSoundStonePresentationSequence_LAF83:
+    ; Animated Sanctuary path: advance the C4-owned orbit angle, walk the
+    ; indexed EF payload pointer row, and cache the next glyph radius/id.
     lda $1C
     clc
     adc.w #SOUND_STONE_SANCTUARY_ANGLE_BASE
@@ -710,6 +721,8 @@ C4B17F_RunSoundStonePresentationSequence_LB17F:
     bne C4B189_RunSoundStonePresentationSequence_LB189
     jmp.w C4AE03_RunSoundStonePresentationSequence_LAE03
 C4B189_RunSoundStonePresentationSequence_LB189:
+    ; Closeout handoff: clear the presentation transition latch, wait for the
+    ; busy byte, blank/disable HDMA, set fade mode, and close C0 state.
     ldx.w #SOUND_STONE_PRESENTATION_ACTIVE_FLAG
     txa
     jsl C0887A_ClearDisplayTransitionState
