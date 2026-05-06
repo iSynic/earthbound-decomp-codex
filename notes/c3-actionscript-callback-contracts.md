@@ -82,6 +82,29 @@ The important point is not just nicer names. These names now appear directly in
 decode excerpts, so script-family notes can quote the generated audit without
 re-introducing older `UNKNOWN_*` labels.
 
+## Source-Pilot Attention Helpers
+
+Several callback contracts now feed the C3 source-pilot frontier even when they
+do not change the current source-map audit row set:
+
+- `C0:C48F` -> `GateWidePlayerDistanceBucket`: a wide player-distance gate
+  proved in `notes/pathfinding-consumers-direction-helpers-c0bd96-c0c7db.md`.
+  C3 attention scripts use it as the wait/engage boundary before direction or
+  route handoff.
+- `C0:D77F` -> `MarkOtherSlotsAttentionLocked`: marks other eligible slots'
+  attention/interaction flags before scripted object-interaction cleanup.
+- `C0:D7B3` -> `Save_CurrentSlotAttentionPosition`: snapshots the current slot
+  position into the NPC-attention saved-position fields.
+- `C0:D7C7` -> `Restore_CurrentSlotAttentionPosition`: restores that saved
+  NPC-attention position back to the current slot.
+- `C0:D7E0` -> `Normalize_CurrentSlotAttentionState`: collapses a nonzero
+  current-slot attention marker to state `1`.
+
+The `C0:D77F/D7B3/D7C7/D7E0` contracts are imported from
+`notes/npc-attention-path-coordinator-c0d19b-c0d98f.md`. They unblock the
+bus-driver and compact NPC-attention pilots without promoting any C0 runtime
+implementation into C3 ownership.
+
 Source polish: `src/c4/actionscript_camera_and_screen_position_callbacks.asm`
 now names the current-slot index, action-script callback flag bit, active
 entity registry scan tables/count, live world/screen/offset coordinate tables,

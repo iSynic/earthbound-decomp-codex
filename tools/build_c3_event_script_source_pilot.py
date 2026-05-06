@@ -1373,7 +1373,7 @@ LABEL_OVERRIDES = {
     "C0:D77F": "MarkOtherSlotsAttentionLocked",
     "C0:D7B3": "Save_CurrentSlotAttentionPosition",
     "C0:D7C7": "Restore_CurrentSlotAttentionPosition",
-    "C0:D7E0": "NormalizeCurrentSlotAttentionState",
+    "C0:D7E0": "Normalize_CurrentSlotAttentionState",
     "C0:D59B": "Check_NpcAttentionCoordinatorActive",
     "C0:6478": "Update_CurrentSlotNeighborCache_Priority",
     "C0:5E82": "Update_CurrentSlotCollisionCache_WithTerrainCompatibility",

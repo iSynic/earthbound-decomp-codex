@@ -32,10 +32,11 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
 endmacro
 
 macro EVENT_END()
@@ -111,6 +112,6 @@ FinishEvent455_BusDriverAttentionText:
 SaveEvent455_BusDriverAttentionPosition:
     %EVENT_CALLROUTINE_0(!Save_CurrentSlotAttentionPosition) ; C3:DF0A  42 B3 D7 C0
     %EVENT_SHORTCALL(!WaitUntilNoBattleSwirlOrEnemyTouch) ; C3:DF0E  1A 01 9E
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C6, $00, $25, $A7) ; C3:DF11  42 8D A8 C0 C6 00 25 A7
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C6, $A725) ; C3:DF11  42 8D A8 C0 C6 00 25 A7
     %EVENT_CALLROUTINE_0(!ScriptRelease_CurrentEntityVisualState) ; C3:DF19  42 F1 20 C0
     %EVENT_END() ; C3:DF1D  00

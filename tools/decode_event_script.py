@@ -720,6 +720,11 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "proximity-gate",
         "contract": "test whether the current slot is inside the live-area/window bounds used by event scripts",
     },
+    "C0:C48F": {
+        "name": "GateWidePlayerDistanceBucket",
+        "group": "proximity-gate",
+        "contract": "gate the wide player-distance bucket for the current slot, suppressing attention when the current slot state or global movement gate says to wait",
+    },
     "C0:C7DB": {
         "name": "UpdateCurrentSlotFootprintMask",
         "group": "collision",
@@ -749,6 +754,26 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "name": "Gate_NpcAttentionCoordinatorFromScript",
         "group": "overworld-runtime",
         "contract": "start or advance the NPC-attention coordinator and return whether the script should keep waiting",
+    },
+    "C0:D77F": {
+        "name": "MarkOtherSlotsAttentionLocked",
+        "group": "current-slot-state",
+        "contract": "mark other eligible slots' attention/interaction flags with the high bits before scripted object-interaction cleanup",
+    },
+    "C0:D7B3": {
+        "name": "Save_CurrentSlotAttentionPosition",
+        "group": "current-slot-state",
+        "contract": "save the current slot position into the NPC-attention saved-position fields for a later scripted restore",
+    },
+    "C0:D7C7": {
+        "name": "Restore_CurrentSlotAttentionPosition",
+        "group": "current-slot-state",
+        "contract": "restore the current slot position from the NPC-attention saved-position fields after scripted handoff",
+    },
+    "C0:D7E0": {
+        "name": "Normalize_CurrentSlotAttentionState",
+        "group": "current-slot-state",
+        "contract": "normalize the current slot attention marker to state 1 when the marker is nonzero",
     },
     "C0:D7F7": {
         "name": "Consume_CurrentSlotAttentionPath",

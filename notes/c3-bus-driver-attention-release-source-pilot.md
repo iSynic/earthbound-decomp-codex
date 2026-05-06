@@ -24,6 +24,10 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK`.
+
 ## Next Promotion Step
 
 Continue only after pinning the later `C2:654C` callback blocker, or move to another small callback-blocked frontier seam.
