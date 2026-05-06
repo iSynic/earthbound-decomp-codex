@@ -21,11 +21,14 @@ C269DE_WaitForDisplayTransitionBusyClear      = $69DE
 C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 C2C8C8_ResetBattleVisualPresentationState     = $C2C8C8
 C2D121_LoadPresentationSpriteResource         = $C2D121
+C2E8C4_StartBattleSwirlOverlayAndRecordMode   = $C2E8C4
+C2E9C8_PollBattleTransitionComplete           = $C2E9C8
 C2EEE7_LoadBattleGroupEnemySprites            = $C2EEE7
 C2F8F9_RenderAndCommitBattleSpriteRows        = $C2F8F9
 C44963_ResetActiveTextGlyphRun                = $C44963
 C47C3F_ClearWindowOrMenuMaskState             = $C47C3F
 C4FBBD_ChangeMusic                            = $C4FBBD
+C12DD5_WindowTick                             = $C12DD5
 
 C8_BattleTextScriptBank    = $00C8
 C8MSG_BelchGrabbedSuccess  = $F8C0
@@ -153,12 +156,12 @@ C2C240_RunRainbowColorsSpecialEvent_LC240:
     ldy.w #$001E
     ldx.w #$0001
     lda.w #$0006
-    jsl $C2E8C4
+    jsl C2E8C4_StartBattleSwirlOverlayAndRecordMode
     bra C2C257_RunRainbowColorsSpecialEvent_LC257
 C2C253_RunRainbowColorsSpecialEvent_LC253:
-    jsl $C12DD5
+    jsl C12DD5_WindowTick
 C2C257_RunRainbowColorsSpecialEvent_LC257:
-    jsl $C2E9C8
+    jsl C2E9C8_PollBattleTransitionComplete
     cmp.w #$0000
     bne C2C253_RunRainbowColorsSpecialEvent_LC253
 C2C260_RunRainbowColorsSpecialEvent_LC260:
@@ -239,12 +242,12 @@ C2C2FD_RunRainbowColorsSpecialEvent_LC2FD:
     ldy.w #$0005
     ldx.w #$0000
     lda.w #$0006
-    jsl $C2E8C4
+    jsl C2E8C4_StartBattleSwirlOverlayAndRecordMode
     bra C2C321_RunRainbowColorsSpecialEvent_LC321
 C2C31D_RunRainbowColorsSpecialEvent_LC31D:
-    jsl $C12DD5
+    jsl C12DD5_WindowTick
 C2C321_RunRainbowColorsSpecialEvent_LC321:
-    jsl $C2E9C8
+    jsl C2E9C8_PollBattleTransitionComplete
     cmp.w #$0000
     bne C2C31D_RunRainbowColorsSpecialEvent_LC31D
 C2C32A_RunRainbowColorsSpecialEvent_LC32A:

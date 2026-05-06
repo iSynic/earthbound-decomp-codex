@@ -33,6 +33,7 @@ C2BAC5_CountFilteredSecondStageBattlerRows = $C2BAC5
 C2BB18_PromoteSourceEntryToCollapseAfflictionController = $C2BB18
 C2BCB9_ApplyBattlerPpTargetLoss      = $C2BCB9
 C2BC5C_ClearInactiveSourceEntryLiveSlotTransientFields = $C2BC5C
+C2DB3F_RunBattleBgPerFrameUpdateBody = $C2DB3F
 C2EACF_PollBattleSwirlOverlayBusy   = $C2EACF
 C2FEF9_LoadOrDimBattlePaletteSet    = $C2FEF9
 D57B68_BattleActionTable            = $D57B68
@@ -816,7 +817,7 @@ C2615B_RunBattleStartCandidateControllerBack_L615B:
     bra C2616D_RunBattleStartCandidateControllerBack_L616D
 C26165_RunBattleStartCandidateControllerBack_L6165:
     jsl C08756_WaitOneFrameAndPollInput
-    jsl $C2DB3F
+    jsl C2DB3F_RunBattleBgPerFrameUpdateBody
 C2616D_RunBattleStartCandidateControllerBack_L616D:
     lda $0028
     and.w #$00FF

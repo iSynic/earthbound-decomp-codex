@@ -19776,11 +19776,14 @@ org $C2C14E
 !C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 !C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
 !C2D121_LoadPresentationSpriteResource = $C2D121
+!C2E8C4_StartBattleSwirlOverlayAndRecordMode = $C2E8C4
+!C2E9C8_PollBattleTransitionComplete = $C2E9C8
 !C2EEE7_LoadBattleGroupEnemySprites = $C2EEE7
 !C2F8F9_RenderAndCommitBattleSpriteRows = $C2F8F9
 !C44963_ResetActiveTextGlyphRun = $C44963
 !C47C3F_ClearWindowOrMenuMaskState = $C47C3F
 !C4FBBD_ChangeMusic = $C4FBBD
+!C12DD5_WindowTick = $C12DD5
 !C8_BattleTextScriptBank = $00C8
 !C8MSG_BelchGrabbedSuccess = $F8C0
 !C8MSG_BelchGrabbedFailure = $F8FD
@@ -19903,12 +19906,12 @@ C2C240_RunRainbowColorsSpecialEvent_LC240:
     ldy.w #$001E
     ldx.w #$0001
     lda.w #$0006
-    jsl $C2E8C4
+    jsl !C2E8C4_StartBattleSwirlOverlayAndRecordMode
     bra C2C257_RunRainbowColorsSpecialEvent_LC257
 C2C253_RunRainbowColorsSpecialEvent_LC253:
-    jsl $C12DD5
+    jsl !C12DD5_WindowTick
 C2C257_RunRainbowColorsSpecialEvent_LC257:
-    jsl $C2E9C8
+    jsl !C2E9C8_PollBattleTransitionComplete
     cmp.w #$0000
     bne C2C253_RunRainbowColorsSpecialEvent_LC253
 C2C260_RunRainbowColorsSpecialEvent_LC260:
@@ -19989,12 +19992,12 @@ C2C2FD_RunRainbowColorsSpecialEvent_LC2FD:
     ldy.w #$0005
     ldx.w #$0000
     lda.w #$0006
-    jsl $C2E8C4
+    jsl !C2E8C4_StartBattleSwirlOverlayAndRecordMode
     bra C2C321_RunRainbowColorsSpecialEvent_LC321
 C2C31D_RunRainbowColorsSpecialEvent_LC31D:
-    jsl $C12DD5
+    jsl !C12DD5_WindowTick
 C2C321_RunRainbowColorsSpecialEvent_LC321:
-    jsl $C2E9C8
+    jsl !C2E9C8_PollBattleTransitionComplete
     cmp.w #$0000
     bne C2C31D_RunRainbowColorsSpecialEvent_LC31D
 C2C32A_RunRainbowColorsSpecialEvent_LC32A:
@@ -24533,6 +24536,7 @@ org $C2311B
 !C26A2D_GetRandomBelow = $6A2D
 !C2B930_ExportBattleSelectionSnapshot = $C2B930
 !C2BAC5_CountFilteredSecondStageRows = $C2BAC5
+!C2FEF9_LoadOrDimBattlePaletteSet = $C2FEF9
 !C3E977_GetItemInCharacterInventorySlot = $C3E977
 !C45ECE_CheckPartyMemberPsiKnown = $C45ECE
 !C4A0CF_SelectClosestRankedBattleTargetCandidate = $C4A0CF
@@ -24596,7 +24600,7 @@ BATTLE_SELECTION_MENU:
     sta $26
     stz $24
     lda.w #$0000
-    jsl $C2FEF9
+    jsl !C2FEF9_LoadOrDimBattlePaletteSet
     lda $26
     dec A
     ldy.w #!PartyRecordStride
@@ -25772,11 +25776,16 @@ org $C24A8A
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C21628_CheckEventFlag = $C21628
 !C23BCF_BuildBattleAttackerTextContext = $C23BCF
+!C1DD3B_RefreshBattlePresentationForSelectedRow = $C1DD3B
+!C1DD47_OpenBattleTextWindow = $C1DD47
+!C1E1A5_RunEnemySelectMode = $C1E1A5
 !C26A2D_GetRandomBelow = $6A2D
 !C2B6EB_ApplyCandidateRecordPayload = $C2B6EB
 !C2B930_InitializeCandidateRecordFromSource = $C2B930
+!C2DB3F_RunBattleBgPerFrameUpdateBody = $C2DB3F
 !C2E116_AdvanceBattleVisualEffectOrSwirlState = $C2E116
 !C4FBBD_ChangeMusic = $C4FBBD
+!C12DD5_WindowTick = $C12DD5
 !BattlePresentItemByte = $AA10
 !D5EnemyRecordItemDropRateOffset = $0057
 !D5EnemyRecordDroppedItemOffset = $0058
@@ -25879,11 +25888,11 @@ C24B45_C24A8A_PopulateCandidatePoolFromVariableSources_L4B45:
     beq C24B54_C24A8A_PopulateCandidatePoolFromVariableSources_L4B54
     jmp.w C24A8A_PopulateCandidatePoolFromVariableSources
 C24B54_C24A8A_PopulateCandidatePoolFromVariableSources_L4B54:
-    jsl $C1DD3B
-    jsl $C12DD5
+    jsl !C1DD3B_RefreshBattlePresentationForSelectedRow
+    jsl !C12DD5_WindowTick
 C24B5C_C24A8A_PopulateCandidatePoolFromVariableSources_L4B5C:
     jsl !C08756_WaitOneFrameAndPollInput
-    jsl $C2DB3F
+    jsl !C2DB3F_RunBattleBgPerFrameUpdateBody
     lda $006D
     and.w #$1000
     beq C24B6F_C24A8A_PopulateCandidatePoolFromVariableSources_L4B6F
@@ -25893,7 +25902,7 @@ C24B6F_C24A8A_PopulateCandidatePoolFromVariableSources_L4B6F:
     and.w #$2000
     beq C24BC5_C24A8A_PopulateCandidatePoolFromVariableSources_L4BC5
     lda $4A8C
-    jsl $C1E1A5
+    jsl !C1E1A5_RunEnemySelectMode
     sta $31
     sta $4A8C
     lda.w #$D89A
@@ -26126,7 +26135,7 @@ C24D66_C24A8A_PopulateCandidatePoolFromVariableSources_L4D66:
     cpx.w #$0006
     bcc C24D1B_C24A8A_PopulateCandidatePoolFromVariableSources_L4D1B
 C24D6B_C24A8A_PopulateCandidatePoolFromVariableSources_L4D6B:
-    jsl $C1DD3B
+    jsl !C1DD3B_RefreshBattlePresentationForSelectedRow
     lda $9F8A
     jsr !C26A2D_GetRandomBelow
     asl A
@@ -26312,7 +26321,7 @@ C24EE7_C24A8A_PopulateCandidatePoolFromVariableSources_L4EE7:
 C24EEC_C24A8A_PopulateCandidatePoolFromVariableSources_L4EEC:
     stz $4DBC
     lda.w #$000E
-    jsl $C1DD47
+    jsl !C1DD47_OpenBattleTextWindow
     lda.w #$A21C
     sta $A970
     lda.w #$0001
@@ -26330,6 +26339,8 @@ org $C2C6F0
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DD59_WaitForBattleText = $C1DD59
 !C12DD5_WindowTick = $C12DD5
+!C2E8C4_StartBattleSwirlOverlayAndRecordMode = $C2E8C4
+!C2E9C8_PollBattleTransitionComplete = $C2E9C8
 !C4FBBD_ChangeMusic = $C4FBBD
 !C269BE_WaitFrames = $69BE
 !C8_BattleTextScriptBank = $00C8
@@ -26524,12 +26535,12 @@ C2C872_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC872:
     ldy.w #$0005
     ldx.w #$0000
     tya
-    jsl $C2E8C4
+    jsl !C2E8C4_StartBattleSwirlOverlayAndRecordMode
     bra C2C8A4_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A4
 C2C8A0_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A0:
     jsl !C12DD5_WindowTick
 C2C8A4_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A4:
-    jsl $C2E9C8
+    jsl !C2E9C8_PollBattleTransitionComplete
     cmp.w #$0000
     bne C2C8A0_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A0
     jsl !C0ABC6_ClearPresentationQueues
@@ -29113,6 +29124,7 @@ org $C25AFB
 !C2BB18_PromoteSourceEntryToCollapseAfflictionController = $C2BB18
 !C2BCB9_ApplyBattlerPpTargetLoss = $C2BCB9
 !C2BC5C_ClearInactiveSourceEntryLiveSlotTransientFields = $C2BC5C
+!C2DB3F_RunBattleBgPerFrameUpdateBody = $C2DB3F
 !C2EACF_PollBattleSwirlOverlayBusy = $C2EACF
 !C2FEF9_LoadOrDimBattlePaletteSet = $C2FEF9
 !D57B68_BattleActionTable = $D57B68
@@ -29882,7 +29894,7 @@ C2615B_RunBattleStartCandidateControllerBack_L615B:
     bra C2616D_RunBattleStartCandidateControllerBack_L616D
 C26165_RunBattleStartCandidateControllerBack_L6165:
     jsl !C08756_WaitOneFrameAndPollInput
-    jsl $C2DB3F
+    jsl !C2DB3F_RunBattleBgPerFrameUpdateBody
 C2616D_RunBattleStartCandidateControllerBack_L616D:
     lda $0028
     and.w #$00FF

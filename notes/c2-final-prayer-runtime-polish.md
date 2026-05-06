@@ -93,6 +93,10 @@ through `C2:E8C4`, waits on the overlay busy predicate, and hands off into the
 terminal battle visual state. Its fixed pauses now use the same
 `C2:69BE` / `WaitFrames` helper as the shared prayer damage worker, and its
 per-frame presentation loops now call `C1:2DD5` / `WindowTick` by name.
+The final overlay loop now names `C2:E8C4` as
+`StartBattleSwirlOverlayAndRecordMode` and `C2:E9C8` as
+`PollBattleTransitionComplete`, matching the adjacent special-event transition
+contract.
 
 The finale source now names the four C9 narrative scripts (`C9:F70C`,
 `C9:F7BB`, `C9:F804`, `C9:F84D`) and the direct `C8:FF31` Pokey run-away text
@@ -112,6 +116,8 @@ bodies into a runtime contract:
 - the finale is connected to battle-background distortion and overlay helpers
 - prayer transition and finale sources now use named C1 battle-presentation
   lifecycle joins instead of raw display/window helper calls
+- the terminal overlay wait now names the overlay start and completion poll
+  helpers instead of raw `C2:E8C4` / `C2:E9C8` edges
 
 ## Remaining Soft Spots
 

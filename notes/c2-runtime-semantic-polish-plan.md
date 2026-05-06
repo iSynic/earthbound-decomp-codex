@@ -636,6 +636,18 @@ contract notes for C0/C1/C3/C4 consumers.
   `WaitForBattleText`. See `notes/c2-battle-start-payload-join-runtime-polish.md`,
   `notes/c2-final-prayer-runtime-polish.md`, and
   `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`.
+- 2026-05-06 eighty-fourth slice: carried the same presentation/frame
+  lifecycle vocabulary into the battle-start variable-source pool, the opening
+  battle-start menu/present controller, Rainbow Colors special-event overlay
+  waits, and the Final Prayer finale overlay wait. `C2:4A8A` now names its
+  selected-row presentation refresh, `WindowTick`, `C2:DB3F` frame updater,
+  `C1:E1A5` enemy-select join, and `C1:DD47` battle-text window open;
+  `C2:311B` names its `C2:FEF9` palette load/dim join; `C2:C14E` and
+  `C2:C6F0` name `C2:E8C4` overlay start and `C2:E9C8` completion-poll
+  helpers. See `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/class2-candidate-population-and-ranking.md`,
+  `notes/class2-special-event-results-c29298-c2c14e.md`, and
+  `notes/c2-final-prayer-runtime-polish.md`.
 
 ## Validation
 

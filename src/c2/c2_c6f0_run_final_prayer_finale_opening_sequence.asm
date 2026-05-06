@@ -23,6 +23,8 @@ C0ABC6_ClearPresentationQueues = $C0ABC6
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C1DD59_WaitForBattleText       = $C1DD59
 C12DD5_WindowTick              = $C12DD5
+C2E8C4_StartBattleSwirlOverlayAndRecordMode = $C2E8C4
+C2E9C8_PollBattleTransitionComplete = $C2E9C8
 C4FBBD_ChangeMusic             = $C4FBBD
 C269BE_WaitFrames              = $69BE
 
@@ -229,12 +231,12 @@ C2C872_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC872:
     ldx.w #$0000
     tya
     ; Start the final overlay and spin until the busy predicate clears.
-    jsl $C2E8C4
+    jsl C2E8C4_StartBattleSwirlOverlayAndRecordMode
     bra C2C8A4_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A4
 C2C8A0_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A0:
     jsl C12DD5_WindowTick
 C2C8A4_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A4:
-    jsl $C2E9C8
+    jsl C2E9C8_PollBattleTransitionComplete
     cmp.w #$0000
     bne C2C8A0_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A0
     jsl C0ABC6_ClearPresentationQueues

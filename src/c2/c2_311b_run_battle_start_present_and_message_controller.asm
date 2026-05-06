@@ -24,6 +24,7 @@ C2032B_WriteWindowTitleAndUpload                    = $C2032B
 C26A2D_GetRandomBelow                               = $6A2D
 C2B930_ExportBattleSelectionSnapshot                = $C2B930
 C2BAC5_CountFilteredSecondStageRows                 = $C2BAC5
+C2FEF9_LoadOrDimBattlePaletteSet                    = $C2FEF9
 C3E977_GetItemInCharacterInventorySlot              = $C3E977
 C45ECE_CheckPartyMemberPsiKnown                     = $C45ECE
 C4A0CF_SelectClosestRankedBattleTargetCandidate     = $C4A0CF
@@ -96,7 +97,7 @@ C2311B_RunBattleStartPresentAndMessageController = BATTLE_SELECTION_MENU
     sta $26
     stz $24
     lda.w #$0000
-    jsl $C2FEF9
+    jsl C2FEF9_LoadOrDimBattlePaletteSet
     lda $26
     dec A
     ldy.w #PartyRecordStride

@@ -11,6 +11,8 @@ in:
 
 - `src/c2/c2_5024_run_battle_start_candidate_controller_front.asm`
 - `src/c2/c2_5afb_run_battle_start_candidate_controller_back.asm`
+- `src/c2/c2_4a80_populate_candidate_pool_from_variable_sources.asm`
+- `src/c2/c2_311b_run_battle_start_present_and_message_controller.asm`
 - `src/c2/c2_6189_fill_instant_win_tile_buffer_and_upload.asm`
 
 The edit is semantic source polish only. It promotes local aliases, constants,
@@ -38,6 +40,14 @@ and comments while preserving byte-equivalence.
 - Presentation follow-up now names the battle-start back half's pre-action
   `C2:FEF9` palette loader/dimmer calls, `C1:2DD5` frame ticks, `C1:DD3B`
   selected-row presentation refresh, and `C1:DD59` battle-text wait join.
+- Variable-source follow-up now carries those same presentation/frame names into
+  `C2:4A8A`: candidate-pool confirmation refreshes the selected-row
+  presentation through `C1:DD3B`, ticks the window through `C1:2DD5`, runs the
+  battle-background frame lane through `C2:DB3F`, enters C1 enemy-select mode
+  through `C1:E1A5`, and opens the final present/result text window through
+  `C1:DD47`. The `C2:311B` menu/present controller now names its opening
+  `C2:FEF9` palette load/dim call as the same `LoadOrDimBattlePaletteSet`
+  contract.
 
 ## Payload Joins
 
@@ -86,6 +96,12 @@ The pre-action presentation category at row `+2` now dispatches through the
 named `C2:FEF9` / `LoadOrDimBattlePaletteSet` helper before the controller
 waits the fixed presentation-delay frame count through `C1:2DD5` /
 `WindowTick`.
+
+The surrounding candidate-source loop at `C2:4A8A` now uses the same lifecycle
+vocabulary when the generated party/enemy candidate pool reaches the
+interactive selection frame. This keeps the pool producer, enemy-select C1
+join, and post-selection present text setup tied to one battle-start contract
+instead of leaving those calls as raw display helpers.
 
 ## Evidence Inputs
 
