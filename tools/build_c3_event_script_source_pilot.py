@@ -12,6 +12,8 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from decode_event_script import (
+    ACTIONSCRIPT_ANIMATION_IDS,
+    ACTIONSCRIPT_FIELD2B32_WORDS,
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
     OPCODES,
@@ -3316,6 +3318,24 @@ def constant_name(address: Address, names: dict[str, list[str]]) -> str:
     return f"Target_{address.bank:02X}{address.offset:04X}"
 
 
+def catalog_constant(
+    value: int,
+    catalog: dict[int, dict[str, str]],
+    *,
+    prefix: str,
+    formatter: Any,
+    constants: dict[str, str],
+) -> str | None:
+    item = catalog.get(value)
+    if item is None:
+        return None
+    name = sanitize_symbol(item["name"]).upper()
+    suffix = name if name.startswith(f"{prefix}_") else f"{prefix}_{name}"
+    symbol = f"!ACTIONSCRIPT_{suffix}"
+    constants.setdefault(symbol, formatter(value))
+    return symbol
+
+
 def operand_expr(
     operand: Operand,
     *,
@@ -3327,6 +3347,16 @@ def operand_expr(
 ) -> str:
     if operand.kind == "byte":
         value = int(operand.value)
+        if instruction.opcode.name == "EVENT_SET_ANIMATION" and index == 0:
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_ANIMATION_IDS,
+                prefix="ANIMATION",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol
         var_slot_operands = {
             "EVENT_SET_VAR": {0},
             "EVENT_WRITE_VAR_TO_TEMPVAR": {0},
@@ -3362,33 +3392,62 @@ def operand_expr(
     return symbol
 
 
+def callroutine_target(instruction: Instruction) -> Address | None:
+    if instruction.opcode.name != "EVENT_CALLROUTINE":
+        return None
+    if not instruction.operands or not isinstance(instruction.operands[0].value, Address):
+        return None
+    return instruction.operands[0].value
+
+
 def macro_name(instruction: Instruction) -> str:
     if instruction.opcode.name == "EVENT_CALLROUTINE":
-        if (
-            instruction.operands
-            and isinstance(instruction.operands[0].value, Address)
-            and instruction.operands[0].value.key == "C0:9F82"
-        ):
+        target = callroutine_target(instruction)
+        if target and target.key == "C0:9F82":
             count = next(
                 int(operand.value)
                 for operand in instruction.operands
                 if operand.kind == "call_wordlist_count"
             )
             return f"EVENT_CHOOSE_RANDOM_SCRIPT_WORD_{count}"
+        if target and target.key == "C0:A685" and instruction.call_arg_count == 2:
+            return "EVENT_CALLROUTINE_FIELD2B32"
         return f"EVENT_CALLROUTINE_{instruction.call_arg_count or 0}"
     if instruction.opcode.name in {"EVENT_SWITCH_JUMP_TEMPVAR", "EVENT_SWITCH_CALL_TEMPVAR"}:
         return f"{instruction.opcode.name}_{instruction.operands[0].value}"
     return instruction.opcode.name
 
 
-def render_instruction(
+def rendered_operands(
     instruction: Instruction,
     *,
     labels: dict[str, str],
     names: dict[str, list[str]],
     constants: dict[str, str],
-) -> str:
-    rendered_operands = [
+) -> list[str]:
+    target = callroutine_target(instruction)
+    if target and target.key == "C0:A685" and len(instruction.operands) == 3:
+        target_expr = operand_expr(
+            instruction.operands[0],
+            instruction=instruction,
+            index=0,
+            labels=labels,
+            names=names,
+            constants=constants,
+        )
+        low = int(instruction.operands[1].value)
+        high = int(instruction.operands[2].value)
+        field2b32_word = low | (high << 8)
+        word_expr = catalog_constant(
+            field2b32_word,
+            ACTIONSCRIPT_FIELD2B32_WORDS,
+            prefix="FIELD2B32",
+            formatter=fmt_word,
+            constants=constants,
+        ) or fmt_word(field2b32_word)
+        return [target_expr, word_expr]
+
+    return [
         operand_expr(
             operand,
             instruction=instruction,
@@ -3399,7 +3458,23 @@ def render_instruction(
         )
         for index, operand in enumerate(instruction.operands)
     ]
-    args = ", ".join(rendered_operands)
+
+
+def render_instruction(
+    instruction: Instruction,
+    *,
+    labels: dict[str, str],
+    names: dict[str, list[str]],
+    constants: dict[str, str],
+) -> str:
+    args = ", ".join(
+        rendered_operands(
+            instruction,
+            labels=labels,
+            names=names,
+            constants=constants,
+        )
+    )
     raw = " ".join(f"{byte:02X}" for byte in instruction.raw)
     if args:
         return f"    %{macro_name(instruction)}({args}) ; {instruction.address.key}  {raw}"
@@ -3418,6 +3493,7 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
         "EVENT_CALLROUTINE_4": ["    db $42", "    dl <target>", "    db <arg0>, <arg1>, <arg2>, <arg3>"],
         "EVENT_CALLROUTINE_5": ["    db $42", "    dl <target>", "    db <arg0>, <arg1>, <arg2>, <arg3>, <arg4>"],
         "EVENT_CALLROUTINE_6": ["    db $42", "    dl <target>", "    db <arg0>, <arg1>, <arg2>, <arg3>, <arg4>, <arg5>"],
+        "EVENT_CALLROUTINE_FIELD2B32": ["    db $42", "    dl <target>", "    dw <field2b32_word>"],
         "EVENT_CLEAR_TICK_CALLBACK": ["    db $0F"],
         "EVENT_END": ["    db $00"],
         "EVENT_END_LAST_TASK": ["    db $13"],
@@ -3472,6 +3548,7 @@ def macro_definitions(used_macros: set[str]) -> list[str]:
         "EVENT_CALLROUTINE_4": "target, arg0, arg1, arg2, arg3",
         "EVENT_CALLROUTINE_5": "target, arg0, arg1, arg2, arg3, arg4",
         "EVENT_CALLROUTINE_6": "target, arg0, arg1, arg2, arg3, arg4, arg5",
+        "EVENT_CALLROUTINE_FIELD2B32": "target, field2b32_word",
         "EVENT_LOOP": "count",
         "EVENT_PAUSE": "frames",
         "EVENT_SET_ANIMATION": "animation",
@@ -3602,6 +3679,7 @@ def render_report(
     next_step: str,
     output_path: Path,
     manifest_path: Path,
+    constants: dict[str, str],
     mismatches: list[str],
 ) -> str:
     total_bytes = sum(row.size for row in rows)
@@ -3643,6 +3721,17 @@ def render_report(
             lines.append(f"- {mismatch}")
     else:
         lines.append("- Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.")
+    readability_lines = []
+    if any(symbol.startswith("!ACTIONSCRIPT_ANIMATION_") for symbol in constants):
+        readability_lines.append(
+            "- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants."
+        )
+    if any(symbol.startswith("!ACTIONSCRIPT_FIELD2B32_") for symbol in constants):
+        readability_lines.append(
+            "- `C0:A685` calls render through `%EVENT_CALLROUTINE_FIELD2B32(..., field2b32_word)`, preserving the same little-endian bytes with a word-shaped operand."
+        )
+    if readability_lines:
+        lines.extend(["", "## Source Readability", "", *readability_lines])
     lines.extend(
         [
             "",
@@ -3729,6 +3818,7 @@ def main() -> int:
             next_step=str(family["next"]),
             output_path=output_path,
             manifest_path=manifest_path,
+            constants=constants,
             mismatches=mismatches,
         ),
         encoding="utf-8",

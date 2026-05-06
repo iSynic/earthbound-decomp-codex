@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_FRAME1 = $01
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -75,12 +77,12 @@ ApplyAnimPortDirectionAndLoop:
     %EVENT_PAUSE($01) ; C3:8999  06 01
     %EVENT_SHORTJUMP(LoopAnimPortDirectionFromVar4) ; C3:899B  19 78 89
 LoopAnimPortBlinkAnimation:
-    %EVENT_SET_ANIMATION($00) ; C3:899E  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:899E  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:89A0  42 A8 A4 C0
     %EVENT_PAUSE($01) ; C3:89A4  06 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:89A6  42 A8 A4 C0
     %EVENT_PAUSE($01) ; C3:89AA  06 01
-    %EVENT_SET_ANIMATION($01) ; C3:89AC  3B 01
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME1) ; C3:89AC  3B 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:89AE  42 B2 A4 C0
     %EVENT_PAUSE($01) ; C3:89B2  06 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:89B4  42 B2 A4 C0
