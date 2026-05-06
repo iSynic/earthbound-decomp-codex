@@ -11,7 +11,9 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C01C11_InitializeEntityStateMask = $C01C11
+C01B15_Release_EntityBytePoolRun467E = $C01B15
+C01C11_Rewrite_VisualMemoryReservations4A00 = $C01C11
+C09C35_Cleanup_EntitySlotState = $C09C35
 ; Full slot release: frees `$467E` visual records, rewrites `$4A00`
 ; reservations, clears identity markers, then calls the task/entity cleanup
 ; helper at C0:9C35.
@@ -33,11 +35,11 @@ C02140_Release_EntitySlotAndVisualState:
     sty $0E
     lda $112E,Y
     ; Release the slot's `$467E` visual-record run.
-    jsl $C01B15
+    jsl C01B15_Release_EntityBytePoolRun467E
     ldx.w #$0000
     lda $02
     ; Clear/retag this slot's `$4A00` visual-memory reservations.
-    jsl C01C11_InitializeEntityStateMask
+    jsl C01C11_Rewrite_VisualMemoryReservations4A00
     ldy $0E
     lda $2C9A,Y
     and.w #$F000
@@ -61,7 +63,7 @@ C0217F_Release_EntitySlotAndVisualState_L217F:
     sta $2C9A,X
     lda $02
     ; Broader task-slot/entity cleanup, unlike the script-facing C0:20F1 path.
-    jsl $C09C35
+    jsl C09C35_Cleanup_EntitySlotState
     pld
     rtl
     rep #$31
@@ -143,7 +145,7 @@ C0221D_Release_EntitySlotAndVisualState_L221D:
     cpx.w #$001E
     bne C021FE_Release_EntitySlotAndVisualState_L21FE
     lda.w #$0017
-    jsl $C09C35
+    jsl C09C35_Cleanup_EntitySlotState
     pld
     rtl
     rep #$31

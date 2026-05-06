@@ -11,7 +11,12 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C01C11_InitializeEntityStateMask = $C01C11
+C01A9D_Find_FreeEntityBytePoolRun467E = $C01A9D
+C01C11_Rewrite_VisualMemoryReservations4A00 = $C01C11
+C01C52_ReserveAndUpload_EntityVisualTiles = $C01C52
+C01D38_Build_EntityVisualRecords467E = $1D38
+C01DED_Read_SpritePoseVisualDescriptor = $1DED
+C09321_Init_DelayedActionState = $C09321
 ; Full entity visual setup path: read `EF:133F` pose descriptor, reserve `$4A00`
 ; visual memory, allocate `$467E` record bytes, build records, then seed the
 ; per-slot visual/runtime fields consumed by movement and render helpers.
@@ -69,13 +74,13 @@ C01E79_Initialize_EntityWithSpritePose_L1E79:
     sta $25
     lda $2B
     ; Decode descriptor dimensions and the secondary visual descriptor selector.
-    jsr $1DED
+    jsr C01DED_Read_SpritePoseVisualDescriptor
     sta $02
     ldy $04
     ldx $467C
     lda $467A
     ; Reserve `$4A00` visual-memory span and upload C4 tile data if needed.
-    jsl $C01C52
+    jsl C01C52_ReserveAndUpload_EntityVisualTiles
     sta $21
 C01EB5_Initialize_EntityWithSpritePose_L1EB5:
     lda $21
@@ -107,7 +112,7 @@ C01EBE_Initialize_EntityWithSpritePose_L1EBE:
     adc $04
     asl A
     ; Request `record_count * 10` bytes for two 5-byte-record passes.
-    jsl $C01A9D
+    jsl C01A9D_Find_FreeEntityBytePoolRun467E
     sta $1F
 C01EEF_Initialize_EntityWithSpritePose_L1EEF:
     lda $1F
@@ -138,7 +143,7 @@ C01EF8_Initialize_EntityWithSpritePose_L1EF8:
     ldx $21
     lda $1F
     ; Populate the allocated `$467E` record run from the visual descriptor.
-    jsr $1D38
+    jsr C01D38_Build_EntityVisualRecords467E
     lda $2F
     sta $04
     cmp.w #$FFFF
@@ -151,7 +156,7 @@ C01EF8_Initialize_EntityWithSpritePose_L1EF8:
     ldy $29
     ldx $27
     lda $2D
-    jsl $C09321
+    jsl C09321_Init_DelayedActionState
     sta $02
     bra C01F6C_Initialize_EntityWithSpritePose_L1F6C
 C01F4C_Initialize_EntityWithSpritePose_L1F4C:
@@ -161,12 +166,12 @@ C01F4C_Initialize_EntityWithSpritePose_L1F4C:
     ldy $29
     ldx $27
     lda $2D
-    jsl $C09321
+    jsl C09321_Init_DelayedActionState
     sta $02
     ora.w #$0080
     tax
     lda.w #$FFFF
-    jsl C01C11_InitializeEntityStateMask
+    jsl C01C11_Rewrite_VisualMemoryReservations4A00
 C01F6C_Initialize_EntityWithSpritePose_L1F6C:
     lda $02
     asl A

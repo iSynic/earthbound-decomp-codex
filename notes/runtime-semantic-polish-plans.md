@@ -183,6 +183,10 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   template/row-cache setup, HDMA dispatch reloads, C4 landing display helpers,
   cached map-property lookups, map-strip uploads, companion producers, and
   transition/music refresh calls back to existing C0/C4/EF contracts.
+- 2026-05-06: C0 map-reset/entity visual bridge follow-up named helper-call
+  surfaces from the map-strip refresh wrappers through sprite-pose entity
+  initialization, visual release, movement-adjacent spawn producers, placement
+  tile probes, spawn-list resolution, and candidate placement probes.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

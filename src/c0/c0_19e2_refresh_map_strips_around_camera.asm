@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C00AC5_Load_VerticalMovementMapStripPayload = $0AC5
+C00CF3_Load_VerticalMovementCollisionStripPayload = $0CF3
 
 ; ---------------------------------------------------------------------------
 ; C0:19E2
@@ -62,7 +63,7 @@ C01A28_Refresh_MapStripsAroundCamera_L1A28:
     adc $02
     tax
     lda $04
-    jsr $0AC5
+    jsr C00AC5_Load_VerticalMovementMapStripPayload
     ldy $0E
     iny
     sty $0E
@@ -80,7 +81,7 @@ C01A48_Refresh_MapStripsAroundCamera_L1A48:
     adc $02
     tax
     lda $04
-    jsr $0CF3
+    jsr C00CF3_Load_VerticalMovementCollisionStripPayload
     ldy $0E
     iny
     sty $0E

@@ -11,7 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-C01C11_InitializeEntityStateMask = $C01C11
+C01B15_Release_EntityBytePoolRun467E = $C01B15
+C01C11_Rewrite_VisualMemoryReservations4A00 = $C01C11
 ; Script-facing partial release for the current entity slot. It frees the
 ; `$467E` visual-record run and `$4A00` reservations, clears identity markers,
 ; but does not run the broader task-slot cleanup used by C0:2140.
@@ -32,11 +33,11 @@ C020F1_ScriptRelease_CurrentEntityVisualState:
     sty $0E
     lda $112E,Y
     ; Release the current slot's `$467E` visual-record run.
-    jsl $C01B15
+    jsl C01B15_Release_EntityBytePoolRun467E
     ldx.w #$0000
     lda $02
     ; Clear/retag this slot's `$4A00` visual-memory reservations.
-    jsl C01C11_InitializeEntityStateMask
+    jsl C01C11_Rewrite_VisualMemoryReservations4A00
     ldy $0E
     lda $2C9A,Y
     and.w #$F000

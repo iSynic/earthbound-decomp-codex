@@ -145,6 +145,16 @@ I would not yet rename `D0:1880` as a pure collision table. The code only proves
 
 The strongest next seam after this note is `C0:2C3E`, because it immediately follows `SPAWN_VERTICAL` in `ebsrc-main` and is now the first still-unexplained address after the placement bridge.
 
+## Source Polish Follow-Up
+
+The 2026-05-06 source polish pass replaced the raw helper calls in
+`SPAWN_HORIZONTAL` and the first `SPAWN_VERTICAL` spawn-probe body with the
+local names from this note. `C0:2A6B` and `C0:2B55` now call
+`Lookup_PlacementTileWord_D01880` for their adjacent nonzero/equal placement
+checks and `Resolve_SpawnProbeCandidateList` for accepted probe windows. The
+candidate commit path in `C0:2957` now also names its footprint, terrain
+compatibility, and failed-placement release helpers.
+
 ## Working Names
 
 - `C0:263D` = `Lookup_PlacementTileWord_D01880`

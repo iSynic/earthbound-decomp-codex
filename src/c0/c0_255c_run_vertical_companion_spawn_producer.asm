@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C0222B_Spawn_Entity = $C0222B
 
 ; ---------------------------------------------------------------------------
 ; C0:255C
@@ -65,7 +65,7 @@ C0258B_Run_VerticalCompanionSpawnProducer_L258B:
     beq C025B3_Run_VerticalCompanionSpawnProducer_L25B3
     ldx $10
     tya
-    jsl $C0222B
+    jsl C0222B_Spawn_Entity
     ldy $12
     tya
     sta $14

@@ -3857,6 +3857,8 @@ C019AC_AccumulateOverworldCameraStep_L19AC:
 hirom
 org $C019E2
 
+!C00AC5_Load_VerticalMovementMapStripPayload = $0AC5
+!C00CF3_Load_VerticalMovementCollisionStripPayload = $0CF3
 C019E2_Refresh_MapStripsAroundCamera:
     rep #$31
     phd
@@ -3903,7 +3905,7 @@ C01A28_Refresh_MapStripsAroundCamera_L1A28:
     adc $02
     tax
     lda $04
-    jsr $0AC5
+    jsr !C00AC5_Load_VerticalMovementMapStripPayload
     ldy $0E
     iny
     sty $0E
@@ -3921,7 +3923,7 @@ C01A48_Refresh_MapStripsAroundCamera_L1A48:
     adc $02
     tax
     lda $04
-    jsr $0CF3
+    jsr !C00CF3_Load_VerticalMovementCollisionStripPayload
     ldy $0E
     iny
     sty $0E
@@ -3939,9 +3941,10 @@ C01A5C_Refresh_MapStripsAroundCamera_L1A5C:
 hirom
 org $C01A63
 
+!C00E16_Upload_VerticalMovementMapStrip = $0E16
 C01A63_Refresh_MapStripVia0E16_FarWrapper:
     rep #$31
-    jsr $0E16
+    jsr !C00E16_Upload_VerticalMovementMapStrip
     rtl
 
 
@@ -4295,6 +4298,7 @@ C01C49_Rewrite_VisualMemoryReservations4A00_L1C49:
 hirom
 org $C01C52
 
+!C01B96_Reserve_VisualMemorySpan4A00 = $C01B96
 !C09032_DivideUnsignedWordByIndex = $C09032
 C01C52_ReserveAndUpload_EntityVisualTiles:
     rep #$31
@@ -4323,7 +4327,7 @@ C01C52_ReserveAndUpload_EntityVisualTiles:
     ldy $1C
     tyx
     lda $16
-    jsl $C01B96
+    jsl !C01B96_Reserve_VisualMemorySpan4A00
     sta $14
     cmp.w #$7FFF
     bcc C01C93_ReserveAndUpload_EntityVisualTiles_L1C93
@@ -4603,7 +4607,12 @@ C01DED_Read_SpritePoseVisualDescriptor:
 hirom
 org $C01E49
 
-!C01C11_InitializeEntityStateMask = $C01C11
+!C01A9D_Find_FreeEntityBytePoolRun467E = $C01A9D
+!C01C11_Rewrite_VisualMemoryReservations4A00 = $C01C11
+!C01C52_ReserveAndUpload_EntityVisualTiles = $C01C52
+!C01D38_Build_EntityVisualRecords467E = $1D38
+!C01DED_Read_SpritePoseVisualDescriptor = $1DED
+!C09321_Init_DelayedActionState = $C09321
 CREATE_ENTITY:
 !C01E49_Initialize_EntityWithSpritePose = CREATE_ENTITY
     rep #$31
@@ -4653,12 +4662,12 @@ C01E79_Initialize_EntityWithSpritePose_L1E79:
     lda $08
     sta $25
     lda $2B
-    jsr $1DED
+    jsr !C01DED_Read_SpritePoseVisualDescriptor
     sta $02
     ldy $04
     ldx $467C
     lda $467A
-    jsl $C01C52
+    jsl !C01C52_ReserveAndUpload_EntityVisualTiles
     sta $21
 C01EB5_Initialize_EntityWithSpritePose_L1EB5:
     lda $21
@@ -4689,7 +4698,7 @@ C01EBE_Initialize_EntityWithSpritePose_L1EBE:
     asl A
     adc $04
     asl A
-    jsl $C01A9D
+    jsl !C01A9D_Find_FreeEntityBytePoolRun467E
     sta $1F
 C01EEF_Initialize_EntityWithSpritePose_L1EEF:
     lda $1F
@@ -4719,7 +4728,7 @@ C01EF8_Initialize_EntityWithSpritePose_L1EF8:
     tay
     ldx $21
     lda $1F
-    jsr $1D38
+    jsr !C01D38_Build_EntityVisualRecords467E
     lda $2F
     sta $04
     cmp.w #$FFFF
@@ -4732,7 +4741,7 @@ C01EF8_Initialize_EntityWithSpritePose_L1EF8:
     ldy $29
     ldx $27
     lda $2D
-    jsl $C09321
+    jsl !C09321_Init_DelayedActionState
     sta $02
     bra C01F6C_Initialize_EntityWithSpritePose_L1F6C
 C01F4C_Initialize_EntityWithSpritePose_L1F4C:
@@ -4742,12 +4751,12 @@ C01F4C_Initialize_EntityWithSpritePose_L1F4C:
     ldy $29
     ldx $27
     lda $2D
-    jsl $C09321
+    jsl !C09321_Init_DelayedActionState
     sta $02
     ora.w #$0080
     tax
     lda.w #$FFFF
-    jsl !C01C11_InitializeEntityStateMask
+    jsl !C01C11_Rewrite_VisualMemoryReservations4A00
 C01F6C_Initialize_EntityWithSpritePose_L1F6C:
     lda $02
     asl A
@@ -4934,7 +4943,8 @@ C020EF_Initialize_EntityWithSpritePose_L20EF:
 hirom
 org $C020F1
 
-!C01C11_InitializeEntityStateMask = $C01C11
+!C01B15_Release_EntityBytePoolRun467E = $C01B15
+!C01C11_Rewrite_VisualMemoryReservations4A00 = $C01C11
 C020F1_ScriptRelease_CurrentEntityVisualState:
     rep #$31
     phd
@@ -4947,10 +4957,10 @@ C020F1_ScriptRelease_CurrentEntityVisualState:
     tay
     sty $0E
     lda $112E,Y
-    jsl $C01B15
+    jsl !C01B15_Release_EntityBytePoolRun467E
     ldx.w #$0000
     lda $02
-    jsl !C01C11_InitializeEntityStateMask
+    jsl !C01C11_Rewrite_VisualMemoryReservations4A00
     ldy $0E
     lda $2C9A,Y
     and.w #$F000
@@ -4983,7 +4993,9 @@ C02131_ScriptRelease_CurrentEntityVisualState_L2131:
 hirom
 org $C02140
 
-!C01C11_InitializeEntityStateMask = $C01C11
+!C01B15_Release_EntityBytePoolRun467E = $C01B15
+!C01C11_Rewrite_VisualMemoryReservations4A00 = $C01C11
+!C09C35_Cleanup_EntitySlotState = $C09C35
 C02140_Release_EntitySlotAndVisualState:
     rep #$31
     phd
@@ -4997,10 +5009,10 @@ C02140_Release_EntitySlotAndVisualState:
     tay
     sty $0E
     lda $112E,Y
-    jsl $C01B15
+    jsl !C01B15_Release_EntityBytePoolRun467E
     ldx.w #$0000
     lda $02
-    jsl !C01C11_InitializeEntityStateMask
+    jsl !C01C11_Rewrite_VisualMemoryReservations4A00
     ldy $0E
     lda $2C9A,Y
     and.w #$F000
@@ -5023,7 +5035,7 @@ C0217F_Release_EntitySlotAndVisualState_L217F:
     sta $2CD6,X
     sta $2C9A,X
     lda $02
-    jsl $C09C35
+    jsl !C09C35_Cleanup_EntitySlotState
     pld
     rtl
     rep #$31
@@ -5105,7 +5117,7 @@ C0221D_Release_EntitySlotAndVisualState_L221D:
     cpx.w #$001E
     bne C021FE_Release_EntitySlotAndVisualState_L21FE
     lda.w #$0017
-    jsl $C09C35
+    jsl !C09C35_Cleanup_EntitySlotState
     pld
     rtl
     rep #$31
@@ -5567,6 +5579,7 @@ C0255A_Seed_SpawnCandidateDirectionClass_L255A:
 hirom
 org $C0255C
 
+!C0222B_Spawn_Entity = $C0222B
 C0255C_Run_VerticalCompanionSpawnProducer:
     rep #$31
     phd
@@ -5616,7 +5629,7 @@ C0258B_Run_VerticalCompanionSpawnProducer_L258B:
     beq C025B3_Run_VerticalCompanionSpawnProducer_L25B3
     ldx $10
     tya
-    jsl $C0222B
+    jsl !C0222B_Spawn_Entity
     ldy $12
     tya
     sta $14
@@ -5648,6 +5661,7 @@ C025CD_Run_VerticalCompanionSpawnProducer_L25CD:
 hirom
 org $C025CF
 
+!C0222B_Spawn_Entity = $C0222B
 C025CF_Run_HorizontalCompanionSpawnProducer:
     rep #$31
     phd
@@ -5694,7 +5708,7 @@ C025FD_Run_HorizontalCompanionSpawnProducer_L25FD:
     beq C02621_Run_HorizontalCompanionSpawnProducer_L2621
     tyx
     lda $0E
-    jsl $C0222B
+    jsl !C0222B_Spawn_Entity
     ldy $12
     tyx
 C02621_Run_HorizontalCompanionSpawnProducer_L2621:
@@ -6176,6 +6190,9 @@ hirom
 org $C02957
 
 !C01E49_CreateEntityFromDescriptor = $C01E49
+!C02140_Release_EntitySlotAndVisualState = $C02140
+!C05DE7_Classify_EntityTerrainCompatibility = $C05DE7
+!C05F33_Probe_FootprintVerticalEdges = $C05F33
 !C08E9A_GetRandom16 = $C08E9A
 !C09231_ModUnsignedWordByIndex = $C09231
 C02957_InitializeSpawnedCandidateEntitySlot:
@@ -6234,14 +6251,14 @@ C0298C_InitializeSpawnedCandidateEntitySlot_L298C:
     ldy $14
     ldx $02
     lda $04
-    jsl $C05F33
+    jsl !C05F33_Probe_FootprintVerticalEdges
     sta $12
     and.w #$00D0
     bne C029E0_InitializeSpawnedCandidateEntitySlot_L29E0
     ldy $18
     ldx $14
     lda $12
-    jsl $C05DE7
+    jsl !C05DE7_Classify_EntityTerrainCompatibility
     cmp.w #$0000
     beq C029F1_InitializeSpawnedCandidateEntitySlot_L29F1
 C029E0_InitializeSpawnedCandidateEntitySlot_L29E0:
@@ -6251,7 +6268,7 @@ C029E2_InitializeSpawnedCandidateEntitySlot_L29E2:
     cmp.w #$0014
     bne C0298C_InitializeSpawnedCandidateEntitySlot_L298C
     lda $14
-    jsl $C02140
+    jsl !C02140_Release_EntitySlotAndVisualState
     bra C02A3A_InitializeSpawnedCandidateEntitySlot_L2A3A
 C029F1_InitializeSpawnedCandidateEntitySlot_L29F1:
     lda $14
@@ -6333,6 +6350,8 @@ C02A69_Iterate_SpawnCandidateList_L2A69:
 hirom
 org $C02A6B
 
+!C0263D_Lookup_PlacementTileWord_D01880 = $C0263D
+!C02668_Resolve_SpawnProbeCandidateList = $2668
 !C21628_CheckEventFlag = $C21628
 SPAWN_HORIZONTAL:
 !C02A6B_Spawn_Horizontal = SPAWN_HORIZONTAL
@@ -6415,14 +6434,14 @@ C02AE1_Spawn_Horizontal_L2AE1:
 C02AF3_Spawn_Horizontal_L2AF3:
     ldx $12
     lda $04
-    jsl $C0263D
+    jsl !C0263D_Lookup_PlacementTileWord_D01880
     sta $16
     ldy $04
     iny
     sty $0E
     ldx $12
     tya
-    jsl $C0263D
+    jsl !C0263D_Lookup_PlacementTileWord_D01880
     tax
     lda $16
     beq C02B34_Spawn_Horizontal_L2B34
@@ -6443,7 +6462,7 @@ C02B2B_Spawn_Horizontal_L2B2B:
     ldy $16
     ldx $12
     lda $10
-    jsr $2668
+    jsr !C02668_Resolve_SpawnProbeCandidateList
 C02B34_Spawn_Horizontal_L2B34:
     ldx $02
     lda $02
@@ -6476,6 +6495,8 @@ hirom
 org $C02B55
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C0263D_Lookup_PlacementTileWord_D01880 = $C0263D
+!C02668_Resolve_SpawnProbeCandidateList = $2668
 !C21628_CheckEventFlag = $C21628
 SPAWN_VERTICAL:
 !C02B55_Spawn_Vertical = SPAWN_VERTICAL
@@ -6558,14 +6579,14 @@ C02BCA_Spawn_Vertical_L2BCA:
 C02BDC_Spawn_Vertical_L2BDC:
     ldx $04
     lda $14
-    jsl $C0263D
+    jsl !C0263D_Lookup_PlacementTileWord_D01880
     sta $18
     ldy $04
     iny
     sty $0E
     tyx
     lda $14
-    jsl $C0263D
+    jsl !C0263D_Lookup_PlacementTileWord_D01880
     tax
     lda $18
     beq C02C1D_Spawn_Vertical_L2C1D
@@ -6586,7 +6607,7 @@ C02C14_Spawn_Vertical_L2C14:
     ldy $18
     ldx $10
     lda $14
-    jsr $2668
+    jsr !C02668_Resolve_SpawnProbeCandidateList
 C02C1D_Spawn_Vertical_L2C1D:
     ldx $02
     lda $02

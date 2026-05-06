@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C0222B_Spawn_Entity = $C0222B
 
 ; ---------------------------------------------------------------------------
 ; C0:25CF
@@ -62,7 +62,7 @@ C025FD_Run_HorizontalCompanionSpawnProducer_L25FD:
     beq C02621_Run_HorizontalCompanionSpawnProducer_L2621
     tyx
     lda $0E
-    jsl $C0222B
+    jsl C0222B_Spawn_Entity
     ldy $12
     tyx
 C02621_Run_HorizontalCompanionSpawnProducer_L2621:

@@ -11,12 +11,12 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C00E16_Upload_VerticalMovementMapStrip = $0E16
 
 ; ---------------------------------------------------------------------------
 ; C0:1A63
 
 C01A63_Refresh_MapStripVia0E16_FarWrapper:
     rep #$31
-    jsr $0E16
+    jsr C00E16_Upload_VerticalMovementMapStrip
     rtl

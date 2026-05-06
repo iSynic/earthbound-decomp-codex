@@ -11,6 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C01B96_Reserve_VisualMemorySpan4A00 = $C01B96
 C09032_DivideUnsignedWordByIndex = $C09032
 ; Uses descriptor dimensions seeded by C0:1DED (`$467A/$467C`) to reserve a
 ; `$4A00` visual-memory span, then uploads missing C4 visual tiles into the
@@ -47,7 +48,7 @@ C01C52_ReserveAndUpload_EntityVisualTiles:
     tyx
     lda $16
     ; Reserve the compact visual-memory span before any tile upload work.
-    jsl $C01B96
+    jsl C01B96_Reserve_VisualMemorySpan4A00
     sta $14
     cmp.w #$7FFF
     bcc C01C93_ReserveAndUpload_EntityVisualTiles_L1C93

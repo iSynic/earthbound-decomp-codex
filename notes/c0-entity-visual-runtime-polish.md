@@ -23,9 +23,24 @@ sprite-pose descriptor setup, spawn candidate commit path, and release helpers.
 | `src/c0/c0_1e49_initialize_entity_with_sprite_pose.asm` | Creates the slot, stores `$112E/$116A` pointer to `$467E`, and seeds render/movement fields. |
 | `src/c0/c0_20f1_script_release_current_entity_visual_state.asm` | Script-facing partial visual release without the broader task cleanup. |
 | `src/c0/c0_2140_release_entity_slot_and_visual_state.asm` | Full visual plus slot release that also calls C0:9C35 task/entity cleanup. |
+| `src/c0/c0_255c_run_vertical_companion_spawn_producer.asm` | Movement-adjacent vertical producer now calls the C0:222B spawn-entity template front door by name. |
+| `src/c0/c0_25cf_run_horizontal_companion_spawn_producer.asm` | Movement-adjacent horizontal producer now calls the C0:222B spawn-entity template front door by name. |
 | `src/c0/c0_28e7_try_place_spawn_candidate_from_list_entry.asm` | Resolves spawn-list entries through `D5:9589` row metadata. |
 | `src/c0/c0_2957_initialize_spawned_candidate_entity_slot.asm` | Creates spawned candidate slots, probes placement, commits position and identity markers. |
 | `src/c0/c0_2a50_iterate_spawn_candidate_list.asm` | Reads spawn-list count and enters the D5 metadata/spawn placement path. |
+| `src/c0/c0_2a6b_spawn_horizontal.asm` | Horizontal spawn probes now name the D0:1880 placement lookup and spawn-list resolver calls. |
+| `src/c0/c0_2b55_spawn_vertical.asm` | Vertical spawn probes now name the D0:1880 placement lookup and spawn-list resolver calls. |
+
+## Source Polish Follow-Up
+
+The 2026-05-06 C0 follow-up converted the entity visual lifecycle's remaining
+ordinary helper-call edges to local contract names in the source. The pass tied
+`C0:19E2/1A63` back to the movement strip payload/upload helpers, named the
+`C0:1E49` descriptor/allocation/record-build/task-constructor calls, and
+connected the release/spawn side through `C0:1B15`, `C0:1C11`, `C0:9C35`,
+`C0:222B`, `C0:263D`, `C0:2668`, `C0:5DE7`, and `C0:5F33`. Raw calls still
+present after the first `SPAWN_VERTICAL` body belong to later embedded tail
+entries and should be handled as a separate presentation/scene lane.
 
 ## Evidence Inputs
 

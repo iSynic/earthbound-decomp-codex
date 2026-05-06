@@ -11,6 +11,8 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C0263D_Lookup_PlacementTileWord_D01880 = $C0263D
+C02668_Resolve_SpawnProbeCandidateList = $2668
 C21628_CheckEventFlag = $C21628
 
 ; ---------------------------------------------------------------------------
@@ -97,14 +99,14 @@ C02AE1_Spawn_Horizontal_L2AE1:
 C02AF3_Spawn_Horizontal_L2AF3:
     ldx $12
     lda $04
-    jsl $C0263D
+    jsl C0263D_Lookup_PlacementTileWord_D01880
     sta $16
     ldy $04
     iny
     sty $0E
     ldx $12
     tya
-    jsl $C0263D
+    jsl C0263D_Lookup_PlacementTileWord_D01880
     tax
     lda $16
     beq C02B34_Spawn_Horizontal_L2B34
@@ -125,7 +127,7 @@ C02B2B_Spawn_Horizontal_L2B2B:
     ldy $16
     ldx $12
     lda $10
-    jsr $2668
+    jsr C02668_Resolve_SpawnProbeCandidateList
 C02B34_Spawn_Horizontal_L2B34:
     ldx $02
     lda $02

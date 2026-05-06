@@ -104,6 +104,15 @@ claiming decoded source for the overworld/runtime bank. The working-name pool in
   `notes/landing-display-assembly-cluster-c007b6-c4b26b.md`,
   `notes/overworld-walking-stutter-producer-split-c01558-c01ca8.md`, and
   `notes/overworld-camera-step-accumulator-c017ea-c018f2.md`.
+- 2026-05-06 follow-up: the C0 map-reset/entity visual bridge pass named
+  helper-call surfaces across `C0:19E2..2B55`. The pass covers map-strip refresh
+  wrappers, sprite-pose descriptor reads, `$4A00` reservation and `$467E`
+  byte-pool allocation/release calls, delayed-action slot construction,
+  script/full visual release, movement-adjacent spawn producers, placement tile
+  probes, spawn-list resolution, and candidate placement probes. See
+  `notes/early-entity-map-reset-family-c019e2-c01a86.md`,
+  `notes/c0-entity-visual-runtime-polish.md`, and
+  `notes/entity-placement-probe-c0263d-c02668.md`.
 
 ## Validation
 

@@ -12,6 +12,8 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C0263D_Lookup_PlacementTileWord_D01880 = $C0263D
+C02668_Resolve_SpawnProbeCandidateList = $2668
 C21628_CheckEventFlag              = $C21628
 
 ; ---------------------------------------------------------------------------
@@ -98,14 +100,14 @@ C02BCA_Spawn_Vertical_L2BCA:
 C02BDC_Spawn_Vertical_L2BDC:
     ldx $04
     lda $14
-    jsl $C0263D
+    jsl C0263D_Lookup_PlacementTileWord_D01880
     sta $18
     ldy $04
     iny
     sty $0E
     tyx
     lda $14
-    jsl $C0263D
+    jsl C0263D_Lookup_PlacementTileWord_D01880
     tax
     lda $18
     beq C02C1D_Spawn_Vertical_L2C1D
@@ -126,7 +128,7 @@ C02C14_Spawn_Vertical_L2C14:
     ldy $18
     ldx $10
     lda $14
-    jsr $2668
+    jsr C02668_Resolve_SpawnProbeCandidateList
 C02C1D_Spawn_Vertical_L2C1D:
     ldx $02
     lda $02

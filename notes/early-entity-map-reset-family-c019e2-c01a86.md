@@ -84,6 +84,15 @@ This small cluster sits just before the entity lifecycle material already summar
 
 So the best current boundary is: `19E2/1A63` are map strip refresh wrappers, while `1A69/1A86/1A9D/1B15` are early entity or object-state pool reset/allocation helpers.
 
+## Source Polish Follow-Up
+
+The 2026-05-06 C0 source polish pass named the ordinary helper-call edges in
+this boundary. `C0:19E2` now calls the vertical movement map-strip payload
+loader and vertical collision-strip payload loader by name, while `C0:1A63`
+names its thin bridge into the vertical movement map-strip uploader. The entity
+visual setup/release side of the same lane now names its allocator, release,
+reservation-map rewrite, and task cleanup helpers in source.
+
 ## Remaining Checks
 
 - Decode the `C4:D999` and `EF:E19E` callers of `C0:1A86` to distinguish full scene reset from narrower pool reset.
