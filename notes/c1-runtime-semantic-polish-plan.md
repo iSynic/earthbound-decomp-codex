@@ -615,6 +615,11 @@ This planning pass is documentation-only.
   visual state and sentinel values, phone-contact and Magic Truffle result
   installation through `$06/$08 -> $0E/$10`, and current-interaction flag
   set/clear/get staging values.
+- 2026-05-06 follow-up: the late `0x1E` stat-tail callbacks in
+  `C1:744B..7706` now name their local staging. The source exposes the
+  experience amount dword assembly scratch and `$0E/$10` award handoff for
+  `0x1E 09`, plus the one-byte boost payload, byte-add scratch, and queue/apply
+  exits for the IQ, Guts, Speed, Vitality, and Luck leaves.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments

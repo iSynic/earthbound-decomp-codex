@@ -16203,6 +16203,19 @@ org $C17440
 !DeferredCommandByte2 = $97BC
 !DeferredCommandByte3 = $97BD
 !DeferredCommandQueueCount = $97CA
+!GiveExperienceCallerFrameOffset = $FFEC
+!StatBoostCallerFrameOffset = $FFF0
+!ExperienceAmountByte3 = $12
+!ExperienceAmountLo = $06
+!ExperienceAmountScratchByte1 = $07
+!ExperienceAmountHi = $08
+!ExperienceAmountScratchByte3 = $09
+!ExperienceAmountPartLo = $0A
+!ExperienceAmountPartHi = $0C
+!ExperienceAwardAmountLo = $0E
+!ExperienceAwardAmountHi = $10
+!StatBoostAmount = $0E
+!StatBoostAddScratch = $00
 !GiveExperienceArgumentLimit = $0004
 !StatBoostArgumentLimit = $0001
 !AwardExperienceModeNormal = $0001
@@ -16236,109 +16249,109 @@ CC_1E_09:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!GiveExperienceCallerFrameOffset
     tcd
     pla
     txa
-    sta $12
+    sta !ExperienceAmountByte3
     lda.w #!GiveExperienceArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C17465_c1_7440_timed_delivery_row_selector_callback_L7465
-    bpl C1747C_c1_7440_timed_delivery_row_selector_callback_L747C
-    bra C17467_c1_7440_timed_delivery_row_selector_callback_L7467
-C17465_c1_7440_timed_delivery_row_selector_callback_L7465:
-    bmi C1747C_c1_7440_timed_delivery_row_selector_callback_L747C
-C17467_c1_7440_timed_delivery_row_selector_callback_L7467:
-    lda $12
+    bvc C17465_CheckExperienceArgumentLimitSign
+    bpl C1747C_ApplyQueuedExperienceAward
+    bra C17467_QueueExperienceArgumentByte
+C17465_CheckExperienceArgumentLimitSign:
+    bmi C1747C_ApplyQueuedExperienceAward
+C17467_QueueExperienceArgumentByte:
+    lda !ExperienceAmountByte3
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E09GiveExperienceCallback
-    jmp.w C17521_c1_7440_timed_delivery_row_selector_callback_L7521
-C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
+    jmp.w C17521_ReturnFromGiveExperienceTextCommand
+C1747C_ApplyQueuedExperienceAward:
     sep #$10
     ldy.b #!TwentyFourBitShift
-    lda $12
-    sta $06
-    stz $08
+    lda !ExperienceAmountByte3
+    sta !ExperienceAmountLo
+    stz !ExperienceAmountHi
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !ExperienceAmountHi
     pha
-    lda $06
+    lda !ExperienceAmountLo
     pha
     ldy.b #!SixteenBitShift
     sep #$20
     lda !DeferredCommandByte3
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !ExperienceAmountLo
+    stz !ExperienceAmountScratchByte1
+    stz !ExperienceAmountHi
+    stz !ExperienceAmountScratchByte3
     rep #$20
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !ExperienceAmountHi
     pha
-    lda $06
+    lda !ExperienceAmountLo
     pha
     ldy.b #!EightBitShift
     sep #$20
     lda !DeferredCommandByte2
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !ExperienceAmountLo
+    stz !ExperienceAmountScratchByte1
+    stz !ExperienceAmountHi
+    stz !ExperienceAmountScratchByte3
     rep #$20
     jsl !C09246_ShiftLeft32ByY
-    lda $06
-    sta $0A
-    lda $08
-    sta $0C
+    lda !ExperienceAmountLo
+    sta !ExperienceAmountPartLo
+    lda !ExperienceAmountHi
+    sta !ExperienceAmountPartHi
     sep #$20
     lda !DeferredCommandByte1
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !ExperienceAmountLo
+    stz !ExperienceAmountScratchByte1
+    stz !ExperienceAmountHi
+    stz !ExperienceAmountScratchByte3
     rep #$20
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    lda !ExperienceAmountLo
+    ora !ExperienceAmountPartLo
+    sta !ExperienceAmountLo
+    lda !ExperienceAmountHi
+    ora !ExperienceAmountPartHi
+    sta !ExperienceAmountHi
     pla
-    sta $0A
+    sta !ExperienceAmountPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta !ExperienceAmountPartHi
+    lda !ExperienceAmountLo
+    ora !ExperienceAmountPartLo
+    sta !ExperienceAmountLo
+    lda !ExperienceAmountHi
+    ora !ExperienceAmountPartHi
+    sta !ExperienceAmountHi
     pla
-    sta $0A
+    sta !ExperienceAmountPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !ExperienceAmountPartHi
+    lda !ExperienceAmountLo
+    ora !ExperienceAmountPartLo
+    sta !ExperienceAmountLo
+    lda !ExperienceAmountHi
+    ora !ExperienceAmountPartHi
+    sta !ExperienceAmountHi
+    lda !ExperienceAmountLo
+    sta !ExperienceAwardAmountLo
+    lda !ExperienceAmountHi
+    sta !ExperienceAwardAmountHi
     rep #$10
     ldx.w #!AwardExperienceModeNormal
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     jsl !C1D9E9_AwardExperienceToCharacter
     lda.w #!ZeroWord
-C17521_c1_7440_timed_delivery_row_selector_callback_L7521:
+C17521_ReturnFromGiveExperienceTextCommand:
     pld
     rts
 CC_1E_0A:
@@ -16347,29 +16360,29 @@ CC_1E_0A:
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!StatBoostCallerFrameOffset
     tcd
     pla
     txa
-    sta $0E
+    sta !StatBoostAmount
     lda.w #!StatBoostArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C1753D_c1_7440_timed_delivery_row_selector_callback_L753D
-    bpl C17553_c1_7440_timed_delivery_row_selector_callback_L7553
-    bra C1753F_c1_7440_timed_delivery_row_selector_callback_L753F
-C1753D_c1_7440_timed_delivery_row_selector_callback_L753D:
-    bmi C17553_c1_7440_timed_delivery_row_selector_callback_L7553
-C1753F_c1_7440_timed_delivery_row_selector_callback_L753F:
-    lda $0E
+    bvc C1753D_CheckBoostIqArgumentLimitSign
+    bpl C17553_ApplyQueuedIqBoost
+    bra C1753F_QueueBoostIqArgumentByte
+C1753D_CheckBoostIqArgumentLimitSign:
+    bmi C17553_ApplyQueuedIqBoost
+C1753F_QueueBoostIqArgumentByte:
+    lda !StatBoostAmount
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E0ABoostIqCallback
-    bra C17582_c1_7440_timed_delivery_row_selector_callback_L7582
-C17553_c1_7440_timed_delivery_row_selector_callback_L7553:
+    bra C17582_ReturnFromBoostIqTextCommand
+C17553_ApplyQueuedIqBoost:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
@@ -16379,19 +16392,19 @@ C17553_c1_7440_timed_delivery_row_selector_callback_L7553:
     clc
     adc.w #!CharacterIqFieldBase
     tay
-    lda $0E
+    lda !StatBoostAmount
     sep #$20
-    sta $00
+    sta !StatBoostAddScratch
     lda $0000,Y
     clc
-    adc $00
+    adc !StatBoostAddScratch
     sta $0000,Y
     rep #$20
     txa
     jsl !C21D7D_RecalculateCharacterDerivedIq
     rep #$20
     lda.w #!ZeroWord
-C17582_c1_7440_timed_delivery_row_selector_callback_L7582:
+C17582_ReturnFromBoostIqTextCommand:
     pld
     rts
 CC_1E_0B:
@@ -16400,29 +16413,29 @@ CC_1E_0B:
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!StatBoostCallerFrameOffset
     tcd
     pla
     txa
-    sta $0E
+    sta !StatBoostAmount
     lda.w #!StatBoostArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C1759E_c1_7440_timed_delivery_row_selector_callback_L759E
-    bpl C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4
-    bra C175A0_c1_7440_timed_delivery_row_selector_callback_L75A0
-C1759E_c1_7440_timed_delivery_row_selector_callback_L759E:
-    bmi C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4
-C175A0_c1_7440_timed_delivery_row_selector_callback_L75A0:
-    lda $0E
+    bvc C1759E_CheckBoostGutsArgumentLimitSign
+    bpl C175B4_ApplyQueuedGutsBoost
+    bra C175A0_QueueBoostGutsArgumentByte
+C1759E_CheckBoostGutsArgumentLimitSign:
+    bmi C175B4_ApplyQueuedGutsBoost
+C175A0_QueueBoostGutsArgumentByte:
+    lda !StatBoostAmount
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E0BBoostGutsCallback
-    bra C175E3_c1_7440_timed_delivery_row_selector_callback_L75E3
-C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4:
+    bra C175E3_ReturnFromBoostGutsTextCommand
+C175B4_ApplyQueuedGutsBoost:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
@@ -16432,19 +16445,19 @@ C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4:
     clc
     adc.w #!CharacterGutsFieldBase
     tay
-    lda $0E
+    lda !StatBoostAmount
     sep #$20
-    sta $00
+    sta !StatBoostAddScratch
     lda $0000,Y
     clc
-    adc $00
+    adc !StatBoostAddScratch
     sta $0000,Y
     rep #$20
     txa
     jsl !C21BA4_RecalculateCharacterDerivedGuts
     rep #$20
     lda.w #!ZeroWord
-C175E3_c1_7440_timed_delivery_row_selector_callback_L75E3:
+C175E3_ReturnFromBoostGutsTextCommand:
     pld
     rts
 CC_1E_0C:
@@ -16453,29 +16466,29 @@ CC_1E_0C:
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!StatBoostCallerFrameOffset
     tcd
     pla
     txa
-    sta $0E
+    sta !StatBoostAmount
     lda.w #!StatBoostArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C175FF_c1_7440_timed_delivery_row_selector_callback_L75FF
-    bpl C17615_c1_7440_timed_delivery_row_selector_callback_L7615
-    bra C17601_c1_7440_timed_delivery_row_selector_callback_L7601
-C175FF_c1_7440_timed_delivery_row_selector_callback_L75FF:
-    bmi C17615_c1_7440_timed_delivery_row_selector_callback_L7615
-C17601_c1_7440_timed_delivery_row_selector_callback_L7601:
-    lda $0E
+    bvc C175FF_CheckBoostSpeedArgumentLimitSign
+    bpl C17615_ApplyQueuedSpeedBoost
+    bra C17601_QueueBoostSpeedArgumentByte
+C175FF_CheckBoostSpeedArgumentLimitSign:
+    bmi C17615_ApplyQueuedSpeedBoost
+C17601_QueueBoostSpeedArgumentByte:
+    lda !StatBoostAmount
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E0CBoostSpeedCallback
-    bra C17644_c1_7440_timed_delivery_row_selector_callback_L7644
-C17615_c1_7440_timed_delivery_row_selector_callback_L7615:
+    bra C17644_ReturnFromBoostSpeedTextCommand
+C17615_ApplyQueuedSpeedBoost:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
@@ -16485,19 +16498,19 @@ C17615_c1_7440_timed_delivery_row_selector_callback_L7615:
     clc
     adc.w #!CharacterSpeedFieldBase
     tay
-    lda $0E
+    lda !StatBoostAmount
     sep #$20
-    sta $00
+    sta !StatBoostAddScratch
     lda $0000,Y
     clc
-    adc $00
+    adc !StatBoostAddScratch
     sta $0000,Y
     rep #$20
     txa
     jsl !C21AEB_RecalculateCharacterDerivedSpeed
     rep #$20
     lda.w #!ZeroWord
-C17644_c1_7440_timed_delivery_row_selector_callback_L7644:
+C17644_ReturnFromBoostSpeedTextCommand:
     pld
     rts
 CC_1E_0D:
@@ -16506,29 +16519,29 @@ CC_1E_0D:
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!StatBoostCallerFrameOffset
     tcd
     pla
     txa
-    sta $0E
+    sta !StatBoostAmount
     lda.w #!StatBoostArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C17660_c1_7440_timed_delivery_row_selector_callback_L7660
-    bpl C17676_c1_7440_timed_delivery_row_selector_callback_L7676
-    bra C17662_c1_7440_timed_delivery_row_selector_callback_L7662
-C17660_c1_7440_timed_delivery_row_selector_callback_L7660:
-    bmi C17676_c1_7440_timed_delivery_row_selector_callback_L7676
-C17662_c1_7440_timed_delivery_row_selector_callback_L7662:
-    lda $0E
+    bvc C17660_CheckBoostVitalityArgumentLimitSign
+    bpl C17676_ApplyQueuedVitalityBoost
+    bra C17662_QueueBoostVitalityArgumentByte
+C17660_CheckBoostVitalityArgumentLimitSign:
+    bmi C17676_ApplyQueuedVitalityBoost
+C17662_QueueBoostVitalityArgumentByte:
+    lda !StatBoostAmount
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E0DBoostVitalityCallback
-    bra C176A5_c1_7440_timed_delivery_row_selector_callback_L76A5
-C17676_c1_7440_timed_delivery_row_selector_callback_L7676:
+    bra C176A5_ReturnFromBoostVitalityTextCommand
+C17676_ApplyQueuedVitalityBoost:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
@@ -16538,19 +16551,19 @@ C17676_c1_7440_timed_delivery_row_selector_callback_L7676:
     clc
     adc.w #!CharacterVitalityFieldBase
     tay
-    lda $0E
+    lda !StatBoostAmount
     sep #$20
-    sta $00
+    sta !StatBoostAddScratch
     lda $0000,Y
     clc
-    adc $00
+    adc !StatBoostAddScratch
     sta $0000,Y
     rep #$20
     txa
     jsl !C21D65_RecalculateCharacterDerivedVitality
     rep #$20
     lda.w #!ZeroWord
-C176A5_c1_7440_timed_delivery_row_selector_callback_L76A5:
+C176A5_ReturnFromBoostVitalityTextCommand:
     pld
     rts
 CC_1E_0E:
@@ -16559,29 +16572,29 @@ CC_1E_0E:
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!StatBoostCallerFrameOffset
     tcd
     pla
     txa
-    sta $0E
+    sta !StatBoostAmount
     lda.w #!StatBoostArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C176C1_c1_7440_timed_delivery_row_selector_callback_L76C1
-    bpl C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7
-    bra C176C3_c1_7440_timed_delivery_row_selector_callback_L76C3
-C176C1_c1_7440_timed_delivery_row_selector_callback_L76C1:
-    bmi C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7
-C176C3_c1_7440_timed_delivery_row_selector_callback_L76C3:
-    lda $0E
+    bvc C176C1_CheckBoostLuckArgumentLimitSign
+    bpl C176D7_ApplyQueuedLuckBoost
+    bra C176C3_QueueBoostLuckArgumentByte
+C176C1_CheckBoostLuckArgumentLimitSign:
+    bmi C176D7_ApplyQueuedLuckBoost
+C176C3_QueueBoostLuckArgumentByte:
+    lda !StatBoostAmount
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E0EBoostLuckCallback
-    bra C17706_c1_7440_timed_delivery_row_selector_callback_L7706
-C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7:
+    bra C17706_ReturnFromBoostLuckTextCommand
+C176D7_ApplyQueuedLuckBoost:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
@@ -16591,19 +16604,19 @@ C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7:
     clc
     adc.w #!CharacterLuckFieldBase
     tay
-    lda $0E
+    lda !StatBoostAmount
     sep #$20
-    sta $00
+    sta !StatBoostAddScratch
     lda $0000,Y
     clc
-    adc $00
+    adc !StatBoostAddScratch
     sta $0000,Y
     rep #$20
     txa
     jsl !C21C5D_RecalculateCharacterDerivedLuck
     rep #$20
     lda.w #!ZeroWord
-C17706_c1_7440_timed_delivery_row_selector_callback_L7706:
+C17706_ReturnFromBoostLuckTextCommand:
     pld
     rts
 

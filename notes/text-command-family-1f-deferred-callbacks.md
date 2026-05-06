@@ -96,6 +96,9 @@ shared context installers are all explicit in source.
 Source polish follow-up (2026-05-06): the adjacent `C1:7440` callback adapter
 now names its direct `EF:0EAD` call as the delivery row sprite/placeholder
 instantiator, so the `0x1F D3` callback handoff is explicit at the source edge.
+The same source corridor now names the neighboring `0x1E 09..0E` queue/apply
+branch exits and local staging scratch, keeping the timed-delivery adapter and
+late stat-tail callback ABI readable in one place.
 
 Source polish follow-up (2026-05-06): the dynamic source-selector dispatcher
 now names the `0x1F` callback low-word returns directly. The `1F 00..02`,

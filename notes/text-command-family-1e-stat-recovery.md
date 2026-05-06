@@ -114,6 +114,13 @@ case through the existing branch, and returns the named no-follow-up value for
 anything outside the live `00..0E` range. This keeps the rare parser-side
 `0x1E 10/14/18/19/1F` hits visibly outside the runtime dispatcher contract.
 
+Source polish follow-up (2026-05-06): the `C1:7440` tail now also names its
+local staging ABI. `0x1E 09` exposes the caller-frame offset, the current high
+amount byte, the `$06/$08/$0A/$0C` dword assembly scratch, and the `$0E/$10`
+award amount handoff to `C1:D9E9`; `0x1E 0A..0E` expose the one-byte boost
+payload at `$0E`, the byte-add scratch at `$00`, and action-named queue/apply
+branches for IQ, Guts, Speed, Vitality, and Luck.
+
 ### Early HP / PP recover-deplete block
 
 The eight early leaves form a very clean structured block:
