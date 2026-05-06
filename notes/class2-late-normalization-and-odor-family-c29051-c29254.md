@@ -69,8 +69,9 @@ For the first such row it:
 
 Then, regardless of whether that front-end cleanup happened, it:
 
-- runs `C2:6E00`
-- runs `C2:70E4`
+- runs `C2:6E00`, the all-active battler target-mask builder now labeled in
+  source as `MaskSet_BuildActiveCandidates`
+- runs `C2:70E4`, the current-mask pruner for flagged battlers
 - queues callback `C2:9051` through `C2:40A4`
 - clears `$A96C/$A96E`
 

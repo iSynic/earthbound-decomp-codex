@@ -8,6 +8,7 @@ See also `notes/class2-handoff-4477-4703.md`.
 
 - `C2:6BFB` = `MaskSet_BuildActiveTypedBattlers`
 - `C2:6C82` = `MaskSet_BuildPhase1Battlers`
+- `C2:6E00` = `MaskSet_BuildActiveBattlers`
 - `C2:6E77` = `MaskSet_RemoveActiveTypedBattlers`
 - `C2:6EF8` = `MaskSet_FindFirstMatchInRange`
 - `C2:6FDC` = `MaskSet_AddBit`
@@ -57,6 +58,12 @@ the ranked front/back selection lists where it is still useful. The `$9FAC`
 domain itself is named as `BattlersTableBase` / `BattlerRowSize`, with field
 names such as `consciousness`, `ally_or_enemy`, `npc_id`, `row`, and
 `afflictions` replacing the older generic row/metadata wording.
+
+Third follow-up update: the embedded `C2:6E00` helper inside
+`src/c2/c2_6c82_mask_set_build_phase1_candidates.asm` now has its own source
+label as `MaskSet_BuildActiveCandidates`. It builds the current target mask
+from every conscious battler row, and the A89D item/status payload tail now
+uses that named helper plus the named `6BFB/6C82/6E77/6EF8/70E4` mask helpers.
 
 ## Confirmed helper roles
 
@@ -151,6 +158,18 @@ Behavior:
 Current best working name:
 
 - `MaskSet_BuildPhase1Battlers`
+
+### `C2:6E00` -> build a union of all active battlers
+
+Behavior:
+
+- clears `$A96C/$A96E`
+- iterates the 32 battler slots rooted at `9FAC`
+- for each slot with nonzero `consciousness` (`+0x0C`), ORs in the battler bit
+
+Current best working name:
+
+- `MaskSet_BuildActiveBattlers`
 
 ## Higher-level helper roles
 

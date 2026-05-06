@@ -2679,6 +2679,8 @@ C26DF4_MaskSet_BuildPhase1Candidates_L6DF4:
 C26DFE_MaskSet_BuildPhase1Candidates_L6DFE:
     pld
     rtl
+BUILD_ACTIVE_BATTLER_TARGET_MASK:
+!C26E00_MaskSet_BuildActiveCandidates = BUILD_ACTIVE_BATTLER_TARGET_MASK
     rep #$31
     phd
     tdc
@@ -5900,7 +5902,7 @@ org $C290C6
 !C270E4_MaskSetPruneFlaggedCandidates = $70E4
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
-!C26E00_MaskSetRemoveActiveCandidates = $C26E00
+!C26E00_MaskSet_BuildActiveCandidates = $C26E00
 !C2AF1F_SnapshotRestoreBattlerNormalizationContext = $C2AF1F
 C290C6_RunBattlerNormalizationActionWrapper:
     rep #$31
@@ -5969,7 +5971,7 @@ C29146_RunBattlerNormalizationActionWrapper_L9146:
     cpy.w #$0020
     bcc C290DD_RunBattlerNormalizationActionWrapper_L90DD
 C2914B_RunBattlerNormalizationActionWrapper_L914B:
-    jsl !C26E00_MaskSetRemoveActiveCandidates
+    jsl !C26E00_MaskSet_BuildActiveCandidates
     jsr !C270E4_MaskSetPruneFlaggedCandidates
     lda.w #$9051
     sta $0E
@@ -29738,6 +29740,7 @@ org $C27EAF
 !C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 !C26BB8_BuildCandidateMaskPhase = $6BB8
 !C26BDB_Success500 = $6BDB
+!C26EF8_MaskSet_FindFirstMatchInRange = $C26EF8
 !C27126_SetBattlerHp = $7126
 !C271F0_ReduceBattlerHp = $71F0
 !C2724A_InflictStatusBattle = $724A
@@ -31073,7 +31076,7 @@ C2893B_RunHitResolutionAndStatusActionCluster_L893B:
     sta $0E
     lda $08
     sta $10
-    jsl $C26EF8
+    jsl !C26EF8_MaskSet_FindFirstMatchInRange
     lda $06
     sta $0A
     lda $08
@@ -31399,6 +31402,12 @@ org $C2A89D
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 !C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
+!C26BFB_MaskSet_BuildActiveTypedCandidates = $C26BFB
+!C26C82_MaskSet_BuildPhase1Candidates = $C26C82
+!C26E00_MaskSet_BuildActiveCandidates = $C26E00
+!C26E77_MaskSet_RemoveActiveTypedCandidates = $C26E77
+!C26EF8_MaskSet_FindFirstMatchInRange = $C26EF8
+!C270E4_MaskSetPruneFlaggedCandidates = $70E4
 !EFMSG_PoisonInflicted = $6B18
 !EFMSG_SolidificationInflicted = $6BEF
 !EFMSG_AsleepInflicted = $6C55
@@ -32046,8 +32055,8 @@ C2AD9C_RunRandomDamageAndStatusItemActionCluster_LAD9C:
 C2ADA4_RunRandomDamageAndStatusItemActionCluster_LADA4:
     jmp.w C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2ADA7_RunRandomDamageAndStatusItemActionCluster_LADA7:
-    jsl $C26BFB
-    jsl $C26E77
+    jsl !C26BFB_MaskSet_BuildActiveTypedCandidates
+    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
     lda.w #$AC2A
     sta $06
     lda.w #$00C2
@@ -32058,8 +32067,8 @@ C2ADA7_RunRandomDamageAndStatusItemActionCluster_LADA7:
     sta $14
     jmp.w C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2ADC4_RunRandomDamageAndStatusItemActionCluster_LADC4:
-    jsl $C26BFB
-    jsl $C26E77
+    jsl !C26BFB_MaskSet_BuildActiveTypedCandidates
+    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
     lda.w #$AC3E
     sta $06
     lda.w #$00C2
@@ -32070,8 +32079,8 @@ C2ADC4_RunRandomDamageAndStatusItemActionCluster_LADC4:
     sta $14
     jmp.w C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2ADE1_RunRandomDamageAndStatusItemActionCluster_LADE1:
-    jsl $C26BFB
-    jsl $C26E77
+    jsl !C26BFB_MaskSet_BuildActiveTypedCandidates
+    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
     lda.w #$AC68
     sta $06
     lda.w #$00C2
@@ -32082,9 +32091,9 @@ C2ADE1_RunRandomDamageAndStatusItemActionCluster_LADE1:
     sta $14
     jmp.w C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2ADFE_RunRandomDamageAndStatusItemActionCluster_LADFE:
-    jsl $C26BFB
-    jsl $C26E77
-    jsr $70E4
+    jsl !C26BFB_MaskSet_BuildActiveTypedCandidates
+    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
+    jsr !C270E4_MaskSetPruneFlaggedCandidates
     lda $A96C
     sta $06
     lda $A96E
@@ -32093,7 +32102,7 @@ C2ADFE_RunRandomDamageAndStatusItemActionCluster_LADFE:
     sta $0E
     lda $08
     sta $10
-    jsl $C26EF8
+    jsl !C26EF8_MaskSet_FindFirstMatchInRange
     lda $06
     sta $A96C
     lda $08
@@ -32108,9 +32117,9 @@ C2ADFE_RunRandomDamageAndStatusItemActionCluster_LADFE:
     sta $14
     jmp.w C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AE3E_RunRandomDamageAndStatusItemActionCluster_LAE3E:
-    jsl $C26C82
-    jsl $C26E77
-    jsr $70E4
+    jsl !C26C82_MaskSet_BuildPhase1Candidates
+    jsl !C26E77_MaskSet_RemoveActiveTypedCandidates
+    jsr !C270E4_MaskSetPruneFlaggedCandidates
     lda $A96C
     sta $06
     lda $A96E
@@ -32119,7 +32128,7 @@ C2AE3E_RunRandomDamageAndStatusItemActionCluster_LAE3E:
     sta $0E
     lda $08
     sta $10
-    jsl $C26EF8
+    jsl !C26EF8_MaskSet_FindFirstMatchInRange
     lda $06
     sta $A96C
     lda $08
@@ -32134,7 +32143,7 @@ C2AE3E_RunRandomDamageAndStatusItemActionCluster_LAE3E:
     sta $14
     bra C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AE7D_RunRandomDamageAndStatusItemActionCluster_LAE7D:
-    jsl $C26E00
+    jsl !C26E00_MaskSet_BuildActiveCandidates
     lda.w #$9987
     sta $06
     lda.w #$00C2
@@ -32145,7 +32154,7 @@ C2AE7D_RunRandomDamageAndStatusItemActionCluster_LAE7D:
     sta $14
     bra C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AE95_RunRandomDamageAndStatusItemActionCluster_LAE95:
-    jsl $C26E00
+    jsl !C26E00_MaskSet_BuildActiveCandidates
     lda.w #$AC7B
     sta $06
     lda.w #$00C2
@@ -32156,7 +32165,7 @@ C2AE95_RunRandomDamageAndStatusItemActionCluster_LAE95:
     sta $14
     bra C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AEAD_RunRandomDamageAndStatusItemActionCluster_LAEAD:
-    jsl $C26E00
+    jsl !C26E00_MaskSet_BuildActiveCandidates
     lda.w #$AC99
     sta $06
     lda.w #$00C2
@@ -32167,7 +32176,7 @@ C2AEAD_RunRandomDamageAndStatusItemActionCluster_LAEAD:
     sta $14
     bra C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AEC5_RunRandomDamageAndStatusItemActionCluster_LAEC5:
-    jsl $C26E00
+    jsl !C26E00_MaskSet_BuildActiveCandidates
     lda.w #$ACDA
     sta $06
     lda.w #$00C2
@@ -32178,7 +32187,7 @@ C2AEC5_RunRandomDamageAndStatusItemActionCluster_LAEC5:
     sta $14
     bra C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3
 C2AEDD_RunRandomDamageAndStatusItemActionCluster_LAEDD:
-    jsl $C26E00
+    jsl !C26E00_MaskSet_BuildActiveCandidates
     lda.w #$9E86
     sta $06
     lda.w #$00C2
@@ -32191,7 +32200,7 @@ C2AEF3_RunRandomDamageAndStatusItemActionCluster_LAEF3:
     lda $16
     cmp.w #$0006
     beq C2AEFD_RunRandomDamageAndStatusItemActionCluster_LAEFD
-    jsr $70E4
+    jsr !C270E4_MaskSetPruneFlaggedCandidates
 C2AEFD_RunRandomDamageAndStatusItemActionCluster_LAEFD:
     lda $12
     sta $06

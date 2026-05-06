@@ -106,6 +106,11 @@ leaves in the cluster:
 - the item/status cluster tail now calls the named
   `C2:40A4` second-pointer payload applicator directly, keeping the local Pray
   and table-driven payload lanes aligned with the broader action-dispatch note
+- the same status-payload lane and tail now name their local target-mask
+  helpers:
+  `C2:6BFB/6C82/6E00/6E77/6EF8` and the `C2:70E4` pruner build, subtract,
+  scan, and prune candidate sets before handing the selected second-pointer
+  payload to `C2:40A4`
 
 ## Decomp Value
 
@@ -119,6 +124,8 @@ This slice tightens several item-side runtime contracts:
   amount-payload ABI names as the earlier A3D1/A5EC and stat-action slices
 - the A89D payload tail now names the same `C2:40A4` action-payload applicator
   used by `D5:7B68` second-pointer consumers
+- the table-driven A89D payload leaves now share the same named mask-helper
+  vocabulary as the standalone class-`2` target-set family
 - bomb wrappers now have durable base damage constants
 - bomb splash damage is linked to sprite-width and position fields consumed by
   the battle sprite layout/rendering lane

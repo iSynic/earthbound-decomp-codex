@@ -24,6 +24,7 @@ C269F8_Truncate16To8                            = $69F8
 C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
 C26BB8_BuildCandidateMaskPhase                  = $6BB8
 C26BDB_Success500                               = $6BDB
+C26EF8_MaskSet_FindFirstMatchInRange            = $C26EF8
 C27126_SetBattlerHp                             = $7126
 C271F0_ReduceBattlerHp                          = $71F0
 C2724A_InflictStatusBattle                      = $724A
@@ -1369,7 +1370,7 @@ C2893B_RunHitResolutionAndStatusActionCluster_L893B:
     sta $0E
     lda $08
     sta $10
-    jsl $C26EF8
+    jsl C26EF8_MaskSet_FindFirstMatchInRange
     lda $06
     sta $0A
     lda $08

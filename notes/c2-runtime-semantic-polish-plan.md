@@ -413,6 +413,19 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-instant-win-and-magic-butterfly-helpers-c26189-c2654c.md`,
   `notes/c2-item-bomb-runtime-polish.md`, and
   `notes/c2-action-dispatch-runtime-polish.md`.
+- 2026-05-05 sixty-first slice: finished the nearby A89D payload-tail mask
+  vocabulary pass. The embedded `C2:6E00` helper inside the `6C82` source
+  module now has a local source label as the all-active battler target-mask
+  builder, `C2:90C6` now calls that role by name, and the A89D item/status
+  tail now names the `6BFB/6C82/6E00/6E77/6EF8/70E4` mask-helper sequence
+  before handing the selected second-pointer payload to `C2:40A4`. The
+  hit-resolution `C2:7EAF` retargeting tail also now calls the named `C2:6EF8`
+  first-match finder. See
+  `notes/class2-mask-helper-family.md`,
+  `notes/class2-late-normalization-and-odor-family-c29051-c29254.md`,
+  `notes/c2-item-bomb-runtime-polish.md`,
+  `notes/c2-hit-resolution-status-runtime-polish.md`, and
+  `notes/c2-action-dispatch-runtime-polish.md`.
 
 ## Validation
 

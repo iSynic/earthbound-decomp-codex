@@ -232,6 +232,8 @@ C26DF4_MaskSet_BuildPhase1Candidates_L6DF4:
 C26DFE_MaskSet_BuildPhase1Candidates_L6DFE:
     pld
     rtl
+BUILD_ACTIVE_BATTLER_TARGET_MASK:
+C26E00_MaskSet_BuildActiveCandidates = BUILD_ACTIVE_BATTLER_TARGET_MASK
     rep #$31
     phd
     tdc

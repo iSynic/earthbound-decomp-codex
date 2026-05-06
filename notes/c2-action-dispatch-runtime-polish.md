@@ -153,6 +153,11 @@ embedded `D5:7B68` action-type helper. These are small edges, but they keep
 non-table-looking helper modules from drifting back to raw action-payload
 vocabulary.
 
+Third follow-up: the mask-helper source now labels embedded `C2:6E00` as the
+all-active battler target-mask builder, and the A89D item/status tail now uses
+named calls for the `6BFB/6C82/6E00/6E77/6EF8/70E4` mask-helper family before
+handing the selected payload pointer to `C2:40A4`.
+
 ## Battle Text Context Join
 
 The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local
