@@ -115,6 +115,8 @@ label_C4A7E2:
 	BNE.b label_C4A7E7
 	JMP.w label_C4AA1A
 
+; Active long-script path: decrement the current record delay, load a new
+; 0x16-byte record at boundaries, and advance $AECC/$AECE to the next record.
 label_C4A7E7:
 	LDX.w #BATTLE_OVERLAY_SCRIPT_ACTIVE
 	SEP.b #$20
@@ -345,6 +347,8 @@ label_C4A9C1:
 	JMP.w label_C4AC53
 
 label_C4A9E1:
+; Apply the current scripted position/size through the C0 battle-overlay window
+; and tile helpers. C4 owns the $AED0..$AEE2 state; C0 owns the renderer writes.
 	LDA.w BATTLE_OVERLAY_EFFECT_HEIGHT
 	XBA
 	AND.w #LowByteMask
@@ -367,6 +371,8 @@ label_C4A9E1:
 	JSL.l C0B047_ApplyBattleOverlayTileState
 	JMP.w label_C4AC53
 
+; Null script pointer path: use the CE:DC45/CE:DD41 table-driven frame records
+; seeded by C4:A67E instead of the local C4:A5CE/A5FA/A626/A652 payloads.
 label_C4AA1A:
 	LDX.w #BATTLE_OVERLAY_SCRIPT_ACTIVE
 	SEP.b #$20
@@ -490,6 +496,8 @@ label_C4AB00:
 	STA.w $0000,X
 	JMP.w label_C4AC53
 
+; Special-mode ladder: re-seed the table-driven frame count/delay phases for
+; the auxiliary mode selected by the C4:A67E flag word.
 label_C4AB20:
 	LDA.w #BATTLE_OVERLAY_SPECIAL_MODE
 	STA.b $02
@@ -608,6 +616,8 @@ label_C4ABFA:
 	JMP.w label_C4AA30
 
 label_C4AC07:
+; Completion/cleanup path: let pending work bytes drain, then clear C4/C2/C0
+; overlay state through the owning helpers.
 	LDX.w #BATTLE_OVERLAY_WORK_BYTE_AECA
 	LDA.w $0000,X
 	AND.w #LowByteMask

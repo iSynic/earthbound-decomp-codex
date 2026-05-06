@@ -17,6 +17,17 @@
 ; ---------------------------------------------------------------------------
 ; C4:A591
 
+; Overlay script record format consumed by C4:A7B0:
+; +00 delay/count byte, +01 unused padding, +02/+04 optional X/Y,
+; +06/+08 optional width/height, +0A..+14 signed deltas and delta steps.
+; Optional fields use $8000 as the leave-current-value sentinel. A zero delay
+; word starts the terminator record.
+
+BATTLE_OVERLAY_RECORD_STRIDE                 = $0016
+BATTLE_OVERLAY_RECORD_FIELD_SENTINEL         = $8000
+BATTLE_OVERLAY_RECORD_TERMINATOR             = $0000
+BATTLE_OVERLAY_RECORD_NO_DELTA               = $0000
+
 C4A591_BattleBgStaticTransitionWaveTable:
     ; 61-byte battle-background/static transition wave table consumed by C2:DBFE.
     db $00,$0E,$17,$17,$0C,$FB,$EE,$F0,$00,$0F,$0C,$FA,$F2,$00,$0D,$02
@@ -25,27 +36,31 @@ C4A591_BattleBgStaticTransitionWaveTable:
     db $FF,$FF,$02,$FF,$00,$01,$FF,$FF,$01,$00,$FF,$00,$01
 
 C4A5CE_BattleSwirlOverlayOpenMode0Script:
-    ; Two 0x16-byte script records: one active record followed by a zero terminator.
-    db $3D,$00,$80,$00,$70,$00,$00,$00,$00,$00,$00,$00,$00,$00,$E0,$00
-    db $B7,$00,$04,$00,$03,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    ; Open/default: seed X/Y and grow width/height with positive deltas.
+C4A5CE_BattleSwirlOverlayOpenMode0Record:
+    dw $003D,$0080,$0070,$0000,$0000,$0000,$0000,$00E0,$00B7,$0004,$0003
+C4A5E4_BattleSwirlOverlayOpenMode0Terminator:
+    dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
 
 C4A5FA_BattleSwirlOverlayOpenMode1Script:
-    ; Same shape as mode 0, with a longer opening record delay.
-    db $64,$00,$80,$00,$70,$00,$00,$00,$00,$00,$00,$00,$00,$00,$E0,$00
-    db $B7,$00,$04,$00,$03,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    ; Same opening record as mode 0, with a longer delay/count word.
+C4A5FA_BattleSwirlOverlayOpenMode1Record:
+    dw $0064,$0080,$0070,$0000,$0000,$0000,$0000,$00E0,$00B7,$0004,$0003
+C4A610_BattleSwirlOverlayOpenMode1Terminator:
+    dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
 
 C4A626_BattleSwirlOverlayCloseMode0Script:
-    ; Closing script for mode 0, using 0x8000 sentinels and negative deltas.
-    db $3D,$00,$80,$00,$70,$00,$00,$80,$00,$80,$00,$00,$00,$00,$20,$FF
-    db $49,$FF,$FC,$FF,$FD,$FF,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    ; Close/default: seed X/Y, leave width/height unchanged, then shrink.
+C4A626_BattleSwirlOverlayCloseMode0Record:
+    dw $003D,$0080,$0070,$8000,$8000,$0000,$0000,$FF20,$FF49,$FFFC,$FFFD
+C4A63C_BattleSwirlOverlayCloseMode0Terminator:
+    dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
 
 C4A652_BattleSwirlOverlayCloseModeNonzeroScript:
-    ; Closing script for nonzero modes, matching mode 0 except for delay.
-    db $64,$00,$80,$00,$70,$00,$00,$80,$00,$80,$00,$00,$00,$00,$20,$FF
-    db $49,$FF,$FC,$FF,$FD,$FF,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    ; Same closing record as mode 0, with a longer delay/count word.
+C4A652_BattleSwirlOverlayCloseModeNonzeroRecord:
+    dw $0064,$0080,$0070,$8000,$8000,$0000,$0000,$FF20,$FF49,$FFFC,$FFFD
+C4A668_BattleSwirlOverlayCloseModeNonzeroTerminator:
+    dw $0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000,$0000
 
 C4A67E_BattleOverlayTransitionDataEnd:

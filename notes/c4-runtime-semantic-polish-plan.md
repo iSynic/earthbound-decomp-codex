@@ -279,6 +279,13 @@ closure.
   `$ADE0/$AE00` battle-visual tail seeds. C0/C2 queue, asset-format, and script
   runner internals remain out of scope. See
   `notes/gas-station-intro-asset-loader-c4a377.md`.
+- 2026-05-06 battle-overlay transition follow-up: converted the four local
+  C4:A5CE/A5FA/A626/A652 overlay payloads from raw byte blocks into
+  row-structured `#$16` records with explicit terminators, optional-field
+  `$8000` sentinels, signed deltas, and delta-step fields. The stepper now marks
+  its active script-record path, table-driven frame fallback, special-mode
+  ladder, and cleanup handoff without assigning C0/C2 renderer internals to C4.
+  See `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`.
 
 ## Validation
 
