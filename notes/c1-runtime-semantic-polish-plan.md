@@ -269,3 +269,9 @@ This planning pass is documentation-only.
   tile-attribute, window-title upload, text-length, record-marker, glyph-state,
   and glyph-print helper joins. See
   `notes/text-entry-record-builder-neighbors-c10f40-c11887.md`.
+- 2026-05-06 follow-up: the `C1:134B..1F8A` setup and active-selection strip
+  now names the setup-wrapper, active-entry layout, active-chain render, and
+  `C1:196A` selection-loop helper calls. This removes raw helper edges from
+  the `134B`, `181B`, and `1887` text-entry modules while preserving byte
+  equivalence. See
+  `notes/text-entry-record-builder-neighbors-c10f40-c11887.md`.

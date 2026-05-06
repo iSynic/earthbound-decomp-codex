@@ -16,6 +16,8 @@
 ;   and descriptor +33 receives the selected record's +06 row/page field.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C1163C_RenderActiveTextEntryChain  = $163C
+C451FA_LayoutActiveTextEntryChainForWindow = $C451FA
 
 ; ---------------------------------------------------------------------------
 ; C1:181B
@@ -31,7 +33,7 @@ C1181B_C1181B_SelectActiveTextEntryByY:
     sty $02
     txy
     ldx.w #$0000
-    jsl $C451FA
+    jsl C451FA_LayoutActiveTextEntryChainForWindow
     lda $02
     cmp.w #$FFFF
     beq C11882_SelectActiveTextEntryByY_L1882
@@ -73,6 +75,6 @@ C11876_SelectActiveTextEntryByY_L1876:
     ; Copy selected record row/page/group field into descriptor +33.
     sta $0033,Y
 C11882_SelectActiveTextEntryByY_L1882:
-    jsr $163C
+    jsr C1163C_RenderActiveTextEntryChain
     pld
     rts

@@ -101,6 +101,11 @@ and `PRINT_LETTER` paths, active-window tile-attribute setup at `C1:0FEA`,
 the `C2:032B` window-title upload helper, `C0:8F22` text-length scan, and the
 C4 record-marker/glyph-state/glyph-print helpers.
 
+Source polish: `src/c1/c1_134b_setup_text_display_with_wallet_status.asm`
+now names the adjacent text-display setup joins too: `SHOW_HPPP_WINDOWS`,
+the wallet/status display refresh helper at `C1:AA18`, and the C3 registered
+copy-chain cleanup helper called with the active focus id.
+
 ## String Length Helper
 
 `C1:17E2` counts nonzero bytes from a caller pointer.
@@ -133,10 +138,19 @@ while rendering special active-entry bodies.
 
 `C1:0C49` is part of the same contract. It returns `0` for a `FFFF` head record and otherwise follows the `$89D4` `record + 02` next links until `FFFF`, returning the number of linked records. `C4:51FA` uses that count while assigning active-window row/page metadata to the chain.
 
+Source polish: `src/c1/c1_181b_select_active_text_entry_by_y.asm` and
+`src/c1/c1_1887_select_active_text_entry_by_a.asm` now name their helper-call
+surface. The compact selector names the C4 active-entry layout pass and the
+`C1:163C` active-chain renderer. The larger `C1:196A` menu loop names the C2
+selectable-cell search helper, C4 cursor/glyph/string-run helpers, instant-print
+and window tick helpers, active-window focus/content helpers, sound effects,
+the delayed-action target dispatcher, and the EF battle-sprite-row cleanup edge
+used before rerendering active selections.
+
 ## Practical Conclusion
 
 The unknown starts `C1:0F40`, `C1:134B`, `C1:138D`, `C1:13D1`, `C1:14B1`, `C1:153B`, `C1:1596`, `C1:15F4`, `C1:181B`, and `C1:1887` are now covered as current-window clearing, display setup, text-entry record construction, and active record-chain selection helpers.
 
 The main remaining work in this neighborhood is giving the `$89D4` record fields
-and `C1:163C`'s internal rendering modes better final names, then continuing
-into the adjacent `C1:1F8A..242E` selection-prompt controller family.
+and `C1:196A`'s internal selection-menu state bytes better final names, then
+continuing into the adjacent `C1:1F8A..242E` selection-prompt controller family.

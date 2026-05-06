@@ -12,14 +12,17 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C10A04_ShowHpppWindowsInternal     = $0A04
+C1AA18_RefreshWalletOrStatusDisplay = $AA18
+C3E7E3_ClearWindowRegisteredCopyChain = $C3E7E3
 
 ; ---------------------------------------------------------------------------
 ; C1:134B
 
 C1134B_C1134B_SetupTextDisplayWithWalletStatus:
     rep #$31
-    jsr $0A04
-    jsr $AA18
+    jsr C10A04_ShowHpppWindowsInternal
+    jsr C1AA18_RefreshWalletOrStatusDisplay
     rts
     rep #$31
     phd
@@ -50,5 +53,5 @@ C11381_SetupTextDisplayWithWalletStatus_L1381:
     rts
     rep #$31
     lda $8958
-    jsl $C3E7E3
+    jsl C3E7E3_ClearWindowRegisteredCopyChain
     rts

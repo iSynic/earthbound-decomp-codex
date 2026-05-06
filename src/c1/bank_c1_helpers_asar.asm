@@ -3137,10 +3137,13 @@ hirom
 org $C1134B
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C10A04_ShowHpppWindowsInternal = $0A04
+!C1AA18_RefreshWalletOrStatusDisplay = $AA18
+!C3E7E3_ClearWindowRegisteredCopyChain = $C3E7E3
 C1134B_C1134B_SetupTextDisplayWithWalletStatus:
     rep #$31
-    jsr $0A04
-    jsr $AA18
+    jsr !C10A04_ShowHpppWindowsInternal
+    jsr !C1AA18_RefreshWalletOrStatusDisplay
     rts
     rep #$31
     phd
@@ -3171,7 +3174,7 @@ C11381_SetupTextDisplayWithWalletStatus_L1381:
     rts
     rep #$31
     lda $8958
-    jsl $C3E7E3
+    jsl !C3E7E3_ClearWindowRegisteredCopyChain
     rts
 
 
@@ -3866,6 +3869,8 @@ hirom
 org $C1181B
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C1163C_RenderActiveTextEntryChain = $163C
+!C451FA_LayoutActiveTextEntryChainForWindow = $C451FA
 C1181B_C1181B_SelectActiveTextEntryByY:
     rep #$31
     phd
@@ -3877,7 +3882,7 @@ C1181B_C1181B_SelectActiveTextEntryByY:
     sty $02
     txy
     ldx.w #$0000
-    jsl $C451FA
+    jsl !C451FA_LayoutActiveTextEntryChainForWindow
     lda $02
     cmp.w #$FFFF
     beq C11882_SelectActiveTextEntryByY_L1882
@@ -3917,7 +3922,7 @@ C11876_SelectActiveTextEntryByY_L1876:
     ldy $0E
     sta $0033,Y
 C11882_SelectActiveTextEntryByY_L1882:
-    jsr $163C
+    jsr !C1163C_RenderActiveTextEntryChain
     pld
     rts
 
@@ -3931,7 +3936,24 @@ org $C11887
 
 !C08616_QueueVramTransfer_FromDpSource = $C08616
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
+!C09279_DispatchDelayedActionTarget = $C09279
+!C0ABE0_PlaySoundEffect = $C0ABE0
+!C1007E_SetWindowFocus = $007E
+!C10D60_PrintGlyphAndMarkWindowRedraw = $0D60
+!C10FA3_ClearActiveWindowContent = $0FA3
+!C10FEA_SetActiveWindowTileAttributes = $0FEA
+!C1134B_SetupTextDisplayWithWalletStatus = $134B
+!C1163C_RenderActiveTextEntryChain = $163C
+!C12DD5_TickWindowTextSystem = $C12DD5
+!C12E42_TickWindowInputState = $C12E42
 !C186B1_PrintTextFromPointer = $C186B1
+!C20B65_FindNextSelectableMenuCell = $C20B65
+!C3E4CA_ClearInstantPrinting = $C3E4CA
+!C3E4D4_SetInstantPrinting = $C3E4D4
+!C43B15_ApplyActiveWindowLineTileAttributeBits = $C43B15
+!C43BB9_WriteSpecialActiveWindowStringRun = $C43BB9
+!C43CD2_SetActiveCursorAndStageGlyphRunUpload = $C43CD2
+!EF0115_ClearBattleSpriteRowEffects = $EF0115
 C11887_C11887_SelectActiveTextEntryByA:
     rep #$31
     phd
@@ -3978,7 +4000,7 @@ C118D6_SelectActiveTextEntryByA_L18D6:
     ldy $0E
     sta $0033,Y
 C118E2_SelectActiveTextEntryByA_L18E2:
-    jsr $163C
+    jsr !C1163C_RenderActiveTextEntryChain
     pld
     rts
 MOVE_CURSOR:
@@ -4007,7 +4029,7 @@ MOVE_CURSOR:
     ldy $04
     ldx $1C
     lda $1A
-    jsl $C20B65
+    jsl !C20B65_FindNextSelectableMenuCell
     tax
     stx $12
     cpx.w #$FFFF
@@ -4019,7 +4041,7 @@ MOVE_CURSOR:
     ldy $04
     ldx $18
     lda $16
-    jsl $C20B65
+    jsl !C20B65_FindNextSelectableMenuCell
     tax
     stx $12
     lda $04
@@ -4044,7 +4066,7 @@ C1195A_SelectActiveTextEntryByA_L195A:
     cpx.w #$FFFF
     beq C11965_SelectActiveTextEntryByA_L1965
     lda $14
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
 C11965_SelectActiveTextEntryByA_L1965:
     ldx $12
     txa
@@ -4114,7 +4136,7 @@ C119D6_SelectActiveTextEntryByA_L19D6:
 C119EB_SelectActiveTextEntryByA_L19EB:
     ldx $22
     bne C119D6_SelectActiveTextEntryByA_L19D6
-    jsl $C3E4D4
+    jsl !C3E4D4_SetInstantPrinting
     ldx $04
     ldy $000A,X
     ldx $04
@@ -4122,7 +4144,7 @@ C119EB_SelectActiveTextEntryByA_L19EB:
     tax
     inx
     lda $04
-    jsl $C43CD2
+    jsl !C43CD2_SetActiveCursorAndStageGlyphRunUpload
     lda $04
     clc
     adc.w #$0013
@@ -4139,7 +4161,7 @@ C119EB_SelectActiveTextEntryByA_L19EB:
     sta $10
     ldx.w #$0000
     lda.w #$FFFF
-    jsl $C43BB9
+    jsl !C43BB9_WriteSpecialActiveWindowStringRun
     bra C11A3F_C11A3F_PrepareCurrentSelectionEntryRenderState
 C11A2B_SelectActiveTextEntryByA_L1A2B:
     stz $20
@@ -4171,7 +4193,7 @@ C11A3F_C11A3F_PrepareCurrentSelectionEntryRenderState:
     cmp $0A
 C11A66_SelectActiveTextEntryByA_L1A66:
     beq C11A84_SelectActiveTextEntryByA_L1A84
-    jsl $C3E4D4
+    jsl !C3E4D4_SetInstantPrinting
     ldy $1E
     lda $0000,Y
     sta $06
@@ -4228,11 +4250,11 @@ C11ABD_SelectActiveTextEntryByA_L1ABD:
     lda $08
     sta $00BE
     pla
-    jsl $C09279
+    jsl !C09279_DispatchDelayedActionTarget
     lda $26
-    jsr $007E
+    jsr !C1007E_SetWindowFocus
 C11AE7_SelectActiveTextEntryByA_L1AE7:
-    jsl $C3E4CA
+    jsl !C3E4CA_ClearInstantPrinting
     lda $5E79
     and.w #$00FF
     beq C11B03_SelectActiveTextEntryByA_L1B03
@@ -4249,14 +4271,14 @@ C11B03_SelectActiveTextEntryByA_L1B03:
     lda $0008,X
     tax
     lda $04
-    jsl $C43CD2
+    jsl !C43CD2_SetActiveCursorAndStageGlyphRunUpload
     lda.w #$0001
-    jsr $0FEA
+    jsr !C10FEA_SetActiveWindowTileAttributes
     lda.w #$0021
-    jsr $0D60
+    jsr !C10D60_PrintGlyphAndMarkWindowRedraw
     lda.w #$0000
-    jsr $0FEA
-    jsl $C12DD5
+    jsr !C10FEA_SetActiveWindowTileAttributes
+    jsl !C12DD5_TickWindowTextSystem
     lda.w #$0001
     sta $02
 C11B2F_C11B2F_BlinkSelectionCursorAndPollInput:
@@ -4329,7 +4351,7 @@ C11B2F_C11B2F_BlinkSelectionCursorAndPollInput:
     stx $1E
     jmp.w C11EBE_SelectActiveTextEntryByA_L1EBE
 C11BBB_C11BBB_PollSelectionMenuInput:
-    jsl $C12E42
+    jsl !C12E42_TickWindowInputState
     lda $006D
     and.w #$0800
     beq C11BF5_SelectActiveTextEntryByA_L1BF5
@@ -4439,7 +4461,7 @@ C11C9A_SelectActiveTextEntryByA_L1C9A:
     ldx $04
     lda $0008,X
     ldx $1A
-    jsl $C20B65
+    jsl !C20B65_FindNextSelectableMenuCell
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11CC4_SelectActiveTextEntryByA_L1CC4:
@@ -4458,7 +4480,7 @@ C11CC4_SelectActiveTextEntryByA_L1CC4:
     ldx $04
     lda $0008,X
     ldx $1A
-    jsl $C20B65
+    jsl !C20B65_FindNextSelectableMenuCell
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11CF1_SelectActiveTextEntryByA_L1CF1:
@@ -4476,7 +4498,7 @@ C11CF1_SelectActiveTextEntryByA_L1CF1:
     ldx $04
     lda $0008,X
     ldx $16
-    jsl $C20B65
+    jsl !C20B65_FindNextSelectableMenuCell
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11D1B_SelectActiveTextEntryByA_L1D1B:
@@ -4495,7 +4517,7 @@ C11D1B_SelectActiveTextEntryByA_L1D1B:
     ldx $04
     lda $0008,X
     ldx $1C
-    jsl $C20B65
+    jsl !C20B65_FindNextSelectableMenuCell
     sta $1C
     jmp.w C11ECB_C11ECB_ApplySelectionCandidateResult
 C11D48_SelectActiveTextEntryByA_L1D48:
@@ -4504,7 +4526,7 @@ C11D48_SelectActiveTextEntryByA_L1D48:
     bne C11D53_SelectActiveTextEntryByA_L1D53
     jmp.w C11E76_SelectActiveTextEntryByA_L1E76
 C11D53_SelectActiveTextEntryByA_L1D53:
-    jsl $C3E4D4
+    jsl !C3E4D4_SetInstantPrinting
     ldx $04
     lda $0006,X
     bne C11D61_SelectActiveTextEntryByA_L1D61
@@ -4513,18 +4535,18 @@ C11D61_SelectActiveTextEntryByA_L1D61:
     ldx $04
     lda $000E,X
     and.w #$00FF
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     ldx $04
     ldy $000A,X
     ldx $04
     lda $0008,X
     tax
     lda $04
-    jsl $C43CD2
+    jsl !C43CD2_SetActiveCursorAndStageGlyphRunUpload
     lda.w #$002F
-    jsr $0D60
+    jsr !C10D60_PrintGlyphAndMarkWindowRedraw
     lda.w #$0006
-    jsr $0FEA
+    jsr !C10FEA_SetActiveWindowTileAttributes
     lda $5E6E
     beq C11DF5_SelectActiveTextEntryByA_L1DF5
     lda $7EB49D
@@ -4534,7 +4556,7 @@ C11D61_SelectActiveTextEntryByA_L1D61:
     lda $8958
     cmp.w #$0013
     bne C11DA9_SelectActiveTextEntryByA_L1DA9
-    jsl $C43B15
+    jsl !C43B15_ApplyActiveWindowLineTileAttributeBits
     bra C11DF9_SelectActiveTextEntryByA_L1DF9
 C11DA9_SelectActiveTextEntryByA_L1DA9:
     lda $04
@@ -4553,7 +4575,7 @@ C11DA9_SelectActiveTextEntryByA_L1DA9:
     sta $10
     ldx.w #$0001
     lda.w #$0004
-    jsl $C43BB9
+    jsl !C43BB9_WriteSpecialActiveWindowStringRun
     bra C11DF9_SelectActiveTextEntryByA_L1DF9
 C11DCF_SelectActiveTextEntryByA_L1DCF:
     lda $04
@@ -4572,14 +4594,14 @@ C11DCF_SelectActiveTextEntryByA_L1DCF:
     sta $10
     ldx.w #$0001
     lda.w #$FFFF
-    jsl $C43BB9
+    jsl !C43BB9_WriteSpecialActiveWindowStringRun
     bra C11DF9_SelectActiveTextEntryByA_L1DF9
 C11DF5_SelectActiveTextEntryByA_L1DF5:
-    jsl $C43B15
+    jsl !C43B15_ApplyActiveWindowLineTileAttributeBits
 C11DF9_SelectActiveTextEntryByA_L1DF9:
     lda.w #$0000
-    jsr $0FEA
-    jsl $C3E4CA
+    jsr !C10FEA_SetActiveWindowTileAttributes
+    jsl !C3E4CA_ClearInstantPrinting
     lda $20
     ldy.w #$002F
     sta ($24),Y
@@ -4596,8 +4618,8 @@ C11E1A_SelectActiveTextEntryByA_L1E1A:
     jmp.w C11F58_C11F58_ReturnActiveTextEntrySelectionMenu
 C11E22_SelectActiveTextEntryByA_L1E22:
     lda.w #$0002
-    jsl $C0ABE0
-    jsr $0FA3
+    jsl !C0ABE0_PlaySoundEffect
+    jsr !C10FA3_ClearActiveWindowContent
     lda $24
     clc
     adc.w #$0033
@@ -4622,12 +4644,12 @@ C11E58_SelectActiveTextEntryByA_L1E58:
     ldx $22
     sta $0000,X
 C11E5E_SelectActiveTextEntryByA_L1E5E:
-    jsl $C3E4CA
+    jsl !C3E4CA_ClearInstantPrinting
     lda $26
-    jsl $EF0115
-    jsl $C12DD5
-    jsr $163C
-    jsl $C3E4D4
+    jsl !EF0115_ClearBattleSpriteRowEffects
+    jsl !C12DD5_TickWindowTextSystem
+    jsr !C1163C_RenderActiveTextEntryChain
+    jsl !C3E4D4_SetInstantPrinting
     jmp.w C11A3F_C11A3F_PrepareCurrentSelectionEntryRenderState
 C11E76_SelectActiveTextEntryByA_L1E76:
     lda $006D
@@ -4637,7 +4659,7 @@ C11E76_SelectActiveTextEntryByA_L1E76:
     cmp.w #$0001
     bne C11E92_SelectActiveTextEntryByA_L1E92
     lda.w #$0002
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     lda.w #$0000
     jmp.w C11F58_C11F58_ReturnActiveTextEntrySelectionMenu
 C11E92_SelectActiveTextEntryByA_L1E92:
@@ -4652,10 +4674,10 @@ C11E92_SelectActiveTextEntryByA_L1E92:
     lda $88F8
     cmp.w #$FFFF
     bne C11EB0_SelectActiveTextEntryByA_L1EB0
-    jsr $134B
+    jsr !C1134B_SetupTextDisplayWithWalletStatus
 C11EB0_SelectActiveTextEntryByA_L1EB0:
     lda.w #$0000
-    jsr $007E
+    jsr !C1007E_SetWindowFocus
     jmp.w C11A3F_C11A3F_PrepareCurrentSelectionEntryRenderState
 C11EB9_SelectActiveTextEntryByA_L1EB9:
     ldx $1E
@@ -4726,9 +4748,9 @@ C11F36_SelectActiveTextEntryByA_L1F36:
     lda $0008,X
     tax
     lda $04
-    jsl $C43CD2
+    jsl !C43CD2_SetActiveCursorAndStageGlyphRunUpload
     lda.w #$002F
-    jsr $0D60
+    jsr !C10D60_PrintGlyphAndMarkWindowRedraw
     lda $02
     sta $20
     lda $22
