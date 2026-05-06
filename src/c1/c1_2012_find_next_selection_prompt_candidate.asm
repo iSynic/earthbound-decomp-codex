@@ -15,7 +15,7 @@
 ; - Scans $AD5A/$AD6A upward using counts $AD56/$AD58 and returns candidate
 ;   index or FFFF when no later eligible candidate exists.
 
-; No named external contracts were supplied or recognized.
+C11FD4_IsSelectionPromptCandidateEligible = $1FD4
 
 ; ---------------------------------------------------------------------------
 ; C1:2012
@@ -59,7 +59,7 @@ C12041_FindNextSelectionPromptCandidate_L2041:
     ldy $14
     ldx $02
     lda $10
-    jsr $1FD4
+    jsr C11FD4_IsSelectionPromptCandidateEligible
     cmp.w #$0000
     beq C12063_FindNextSelectionPromptCandidate_L2063
     lda $02

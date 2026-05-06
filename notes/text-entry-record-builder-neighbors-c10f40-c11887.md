@@ -153,4 +153,6 @@ The unknown starts `C1:0F40`, `C1:134B`, `C1:138D`, `C1:13D1`, `C1:14B1`, `C1:15
 
 The main remaining work in this neighborhood is giving the `$89D4` record fields
 and `C1:196A`'s internal selection-menu state bytes better final names, then
-continuing into the adjacent `C1:1F8A..242E` selection-prompt controller family.
+continuing deeper into the adjacent `C1:242E` selection-prompt dispatch/core
+now that `C1:2012..242E` has named scan, refresh, two-list, and side-prompt
+helper edges.

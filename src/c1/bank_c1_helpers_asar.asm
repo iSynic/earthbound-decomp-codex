@@ -4908,6 +4908,7 @@ C12010_ReturnSelectionPromptCandidateEligibility:
 hirom
 org $C12012
 
+!C11FD4_IsSelectionPromptCandidateEligible = $1FD4
 C12012_C12012_FindNextSelectionPromptCandidate:
     rep #$31
     phd
@@ -4945,7 +4946,7 @@ C12041_FindNextSelectionPromptCandidate_L2041:
     ldy $14
     ldx $02
     lda $10
-    jsr $1FD4
+    jsr !C11FD4_IsSelectionPromptCandidateEligible
     cmp.w #$0000
     beq C12063_FindNextSelectionPromptCandidate_L2063
     lda $02
@@ -4969,6 +4970,7 @@ C1206E_FindNextSelectionPromptCandidate_L206E:
 hirom
 org $C12070
 
+!C11FD4_IsSelectionPromptCandidateEligible = $1FD4
 C12070_C12070_FindPreviousSelectionPromptCandidate:
     rep #$31
     phd
@@ -5014,7 +5016,7 @@ C120A0_FindPreviousSelectionPromptCandidate_L20A0:
     ldy $14
     ldx $02
     lda $10
-    jsr $1FD4
+    jsr !C11FD4_IsSelectionPromptCandidateEligible
     cmp.w #$0000
     beq C120C7_FindPreviousSelectionPromptCandidate_L20C7
     lda $02
@@ -5042,6 +5044,16 @@ org $C120D6
 
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C09032_DivideUnsignedWordByIndex = $C09032
+!C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
+!C10EFC_PrintFixedString = $0EFC
+!C1AC9B_GetBattleAttackerNameBufferBase = $AC9B
+!C223D9_LookupStatusTileValueForHpPpWindow = $C223D9
+!C23E8A_BuildBattleTextSelectedTargetNameBuffer = $C23E8A
+!C3E4CA_ClearInstantPrinting = $C3E4CA
+!C3E4D4_SetInstantPrinting = $C3E4D4
+!C3E75D_ResolveReflectedHitSideArticleTokens = $C3E75D
+!C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
+!C43F77_PrintGlyphWithTileCleanupSoundDelay = $C43F77
 C120D6_C120D6_RefreshSelectionPromptCandidateText:
     rep #$31
     phd
@@ -5053,15 +5065,15 @@ C120D6_C120D6_RefreshSelectionPromptCandidateText:
     stx $16
     tay
     sty $14
-    jsl $C3E4D4
+    jsl !C3E4D4_SetInstantPrinting
     lda.w #$0031
-    jsr $04EE
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     lda.w #$54F2
     sta $0E
     lda.w #$00C4
     sta $10
     lda.w #$0003
-    jsr $0EFC
+    jsr !C10EFC_PrintFixedString
     ldx $16
     cpx.w #$FFFF
     bne C12109_RefreshSelectionPromptCandidateText_L2109
@@ -5075,10 +5087,10 @@ C12109_RefreshSelectionPromptCandidateText_L2109:
     clc
     adc $02
     inc A
-    jsl $C23E8A
+    jsl !C23E8A_BuildBattleTextSelectedTargetNameBuffer
     lda.w #$0000
-    jsl $C3E75D
-    jsr $AC9B
+    jsl !C3E75D_ResolveReflectedHitSideArticleTokens
+    jsr !C1AC9B_GetBattleAttackerNameBufferBase
     sta $06
     phb
     sep #$20
@@ -5091,7 +5103,7 @@ C12109_RefreshSelectionPromptCandidateText_L2109:
     lda $08
     sta $10
     lda.w #$00FF
-    jsr $0EFC
+    jsr !C10EFC_PrintFixedString
     ldy $14
     beq C1215A_RefreshSelectionPromptCandidateText_L215A
     ldx $16
@@ -5115,12 +5127,12 @@ C1216D_RefreshSelectionPromptCandidateText_L216D:
     sty $12
     ldx.w #$0000
     lda.w #$0011
-    jsl $C438A5
+    jsl !C438A5_SetActiveWindowDescriptorCursorFields
     ldx.w #$0000
     ldy $12
     tya
-    jsl $C223D9
-    jsl $C43F77
+    jsl !C223D9_LookupStatusTileValueForHpPpWindow
+    jsl !C43F77_PrintGlyphWithTileCleanupSoundDelay
     bra C121B2_RefreshSelectionPromptCandidateText_L21B2
 C1218A_RefreshSelectionPromptCandidateText_L218A:
     ldy $14
@@ -5141,9 +5153,9 @@ C121A4_RefreshSelectionPromptCandidateText_L21A4:
     lda $08
     sta $10
     lda.w #$000D
-    jsr $0EFC
+    jsr !C10EFC_PrintFixedString
 C121B2_RefreshSelectionPromptCandidateText_L21B2:
-    jsl $C3E4CA
+    jsl !C3E4CA_ClearInstantPrinting
     pld
     rts
 
@@ -5156,6 +5168,19 @@ hirom
 org $C121B8
 
 !C09032_DivideUnsignedWordByIndex = $C09032
+!C10084_CloseFocusWindow = $0084
+!C11FBC_ReadSelectionPromptCandidateByte = $1FBC
+!C12012_FindNextSelectionPromptCandidate = $2012
+!C12070_FindPreviousSelectionPromptCandidate = $2070
+!C120D6_RefreshSelectionPromptCandidateText = $20D6
+!C0ABE0_PlaySoundEffect = $C0ABE0
+!C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
+!C12DD5_TickWindowTextSystem = $C12DD5
+!C12E42_TickWindowInputState = $C12E42
+!C3E4CA_ClearInstantPrinting = $C3E4CA
+!C3E4D4_SetInstantPrinting = $C3E4D4
+!EF0000_EnemyFlashingOff = $EF0000
+!EF0052_EnemyFlashingOn = $EF0052
 C121B8_C121B8_RunTwoListCharacterSelectionPrompt:
     rep #$31
     phd
@@ -5183,21 +5208,21 @@ C121D7_RunTwoListCharacterSelectionPrompt_L21D7:
 C121E3_RunTwoListCharacterSelectionPrompt_L21E3:
     ldx $16
     lda $04
-    jsr $1FBC
+    jsr !C11FBC_ReadSelectionPromptCandidateByte
     sta $14
     ldx $16
     lda $04
-    jsl $EF0052
+    jsl !EF0052_EnemyFlashingOn
     lda $18
     bne C121FF_RunTwoListCharacterSelectionPrompt_L21FF
     ldx $16
     lda $04
-    jsr $20D6
+    jsr !C120D6_RefreshSelectionPromptCandidateText
 C121FF_RunTwoListCharacterSelectionPrompt_L21FF:
     inc $18
-    jsl $C12DD5
+    jsl !C12DD5_TickWindowTextSystem
 C12205_RunTwoListCharacterSelectionPrompt_L2205:
-    jsl $C12E42
+    jsl !C12E42_TickWindowInputState
     lda $006D
     and.w #$0800
     beq C1221D_RunTwoListCharacterSelectionPrompt_L221D
@@ -5227,7 +5252,7 @@ C12234_RunTwoListCharacterSelectionPrompt_L2234:
     ldy $1C
     ldx $14
     lda $02
-    jsr $2070
+    jsr !C12070_FindPreviousSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -5240,7 +5265,7 @@ C12259_RunTwoListCharacterSelectionPrompt_L2259:
     ldy $1C
     ldx $14
     lda $02
-    jsr $2070
+    jsr !C12070_FindPreviousSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -5257,7 +5282,7 @@ C12277_RunTwoListCharacterSelectionPrompt_L2277:
     ldy $1C
     ldx $14
     lda $02
-    jsr $2012
+    jsr !C12012_FindNextSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -5270,7 +5295,7 @@ C12297_RunTwoListCharacterSelectionPrompt_L2297:
     ldy $1C
     ldx $14
     lda $02
-    jsr $2012
+    jsr !C12012_FindNextSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -5282,7 +5307,7 @@ C122B5_RunTwoListCharacterSelectionPrompt_L22B5:
     lda $006D
     and.w #$00A0
     beq C122DB_RunTwoListCharacterSelectionPrompt_L22DB
-    jsl $EF0000
+    jsl !EF0000_EnemyFlashingOff
     ldy $AD56
     lda $04
     jsl !C09032_DivideUnsignedWordByIndex
@@ -5292,7 +5317,7 @@ C122B5_RunTwoListCharacterSelectionPrompt_L22B5:
     inx
     stx $0E
     lda.w #$0001
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     jmp.w C1235A_RunTwoListCharacterSelectionPrompt_L235A
 C122DB_RunTwoListCharacterSelectionPrompt_L22DB:
     lda $006D
@@ -5305,11 +5330,11 @@ C122E6_RunTwoListCharacterSelectionPrompt_L22E6:
     beq C122F0_RunTwoListCharacterSelectionPrompt_L22F0
     jmp.w C12205_RunTwoListCharacterSelectionPrompt_L2205
 C122F0_RunTwoListCharacterSelectionPrompt_L22F0:
-    jsl $EF0000
+    jsl !EF0000_EnemyFlashingOff
     ldx.w #$0000
     stx $0E
     lda.w #$0002
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     bra C1235A_RunTwoListCharacterSelectionPrompt_L235A
 C12302_RunTwoListCharacterSelectionPrompt_L2302:
     lda.w #$0003
@@ -5321,7 +5346,7 @@ C12302_RunTwoListCharacterSelectionPrompt_L2302:
     ldx $14
     dex
     lda $02
-    jsr $2012
+    jsr !C12012_FindNextSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -5330,7 +5355,7 @@ C12302_RunTwoListCharacterSelectionPrompt_L2302:
     ldx $14
     inx
     lda $02
-    jsr $2070
+    jsr !C12070_FindPreviousSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -5338,20 +5363,20 @@ C12302_RunTwoListCharacterSelectionPrompt_L2302:
     jmp.w C121E3_RunTwoListCharacterSelectionPrompt_L21E3
 C12335_RunTwoListCharacterSelectionPrompt_L2335:
     stz $18
-    jsl $C3E4CA
+    jsl !C3E4CA_ClearInstantPrinting
     lda.w #$0031
-    jsr $04EE
-    jsl $C12DD5
-    jsl $C3E4D4
+    jsr !C104EE_CreateOrBindWindowDescriptorAndContext
+    jsl !C12DD5_TickWindowTextSystem
+    jsl !C3E4D4_SetInstantPrinting
     ldx $10
     stx $16
     lda $02
     sta $04
     lda $12
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     jmp.w C121E3_RunTwoListCharacterSelectionPrompt_L21E3
 C1235A_RunTwoListCharacterSelectionPrompt_L235A:
-    jsr $0084
+    jsr !C10084_CloseFocusWindow
     ldx $0E
     txa
     pld
@@ -5365,6 +5390,14 @@ C1235A_RunTwoListCharacterSelectionPrompt_L235A:
 hirom
 org $C12362
 
+!C10084_CloseFocusWindow = $0084
+!C120D6_RefreshSelectionPromptCandidateText = $20D6
+!C0ABE0_PlaySoundEffect = $C0ABE0
+!C12DD5_TickWindowTextSystem = $C12DD5
+!C12E42_TickWindowInputState = $C12E42
+!C3E4CA_ClearInstantPrinting = $C3E4CA
+!C435E4_ClearBattleTargetRowHighlightFlags = $C435E4
+!C43657_SetBattleTargetRowHighlightFlags = $C43657
 C12362_C12362_RunSimpleSideSelectionPrompt:
     rep #$31
     phd
@@ -5386,15 +5419,15 @@ C1237B_RunSimpleSideSelectionPrompt_L237B:
 C1237E_RunSimpleSideSelectionPrompt_L237E:
     ldy $12
     tya
-    jsl $C43657
-    jsl $C3E4CA
+    jsl !C43657_SetBattleTargetRowHighlightFlags
+    jsl !C3E4CA_ClearInstantPrinting
     ldx.w #$FFFF
     ldy $12
     tya
-    jsr $20D6
-    jsl $C12DD5
+    jsr !C120D6_RefreshSelectionPromptCandidateText
+    jsl !C12DD5_TickWindowTextSystem
 C12396_RunSimpleSideSelectionPrompt_L2396:
-    jsl $C12E42
+    jsl !C12E42_TickWindowInputState
     lda $006D
     and.w #$0800
     beq C123AE_RunSimpleSideSelectionPrompt_L23AE
@@ -5416,13 +5449,13 @@ C123C2_RunSimpleSideSelectionPrompt_L23C2:
     lda $006D
     and.w #$00A0
     beq C123DD_RunSimpleSideSelectionPrompt_L23DD
-    jsl $C435E4
+    jsl !C435E4_ClearBattleTargetRowHighlightFlags
     ldy $12
     tyx
     inx
     stx $10
     lda.w #$0001
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     bra C12426_RunSimpleSideSelectionPrompt_L2426
 C123DD_RunSimpleSideSelectionPrompt_L23DD:
     lda $006D
@@ -5431,11 +5464,11 @@ C123DD_RunSimpleSideSelectionPrompt_L23DD:
     lda $02
     cmp.w #$0001
     bne C12396_RunSimpleSideSelectionPrompt_L2396
-    jsl $C435E4
+    jsl !C435E4_ClearBattleTargetRowHighlightFlags
     ldx.w #$0000
     stx $10
     lda.w #$0002
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     bra C12426_RunSimpleSideSelectionPrompt_L2426
 C123FE_RunSimpleSideSelectionPrompt_L23FE:
     cpx.w #$0000
@@ -5452,13 +5485,13 @@ C12410_RunSimpleSideSelectionPrompt_L2410:
     jmp.w C1237E_RunSimpleSideSelectionPrompt_L237E
 C12418_RunSimpleSideSelectionPrompt_L2418:
     lda $0E
-    jsl $C0ABE0
+    jsl !C0ABE0_PlaySoundEffect
     ldx $10
     txy
     sty $12
     jmp.w C1237E_RunSimpleSideSelectionPrompt_L237E
 C12426_RunSimpleSideSelectionPrompt_L2426:
-    jsr $0084
+    jsr !C10084_CloseFocusWindow
     ldx $10
     txa
     pld

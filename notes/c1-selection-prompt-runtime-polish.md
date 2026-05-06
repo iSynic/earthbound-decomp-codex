@@ -44,6 +44,17 @@ eligible candidates, accept with `$006D & 00A0`, or cancel with `$006D & A000`
 when the incoming mode permits it. The simple prompt at C1:2362 only chooses a
 side, using C4:3657/C4:35E4 to mark and clear highlighted target rows.
 
+## Source Polish Follow-Up
+
+2026-05-06: the first-half prompt strip now names the helper-call surface in
+source. The forward/backward scanners call the `C1:1FD4` eligibility helper by
+name; the candidate text refresher names `CREATE_WINDOW`, `PRINT_STRING`,
+attacker-name-buffer staging, selected-target-name buffer setup, reflected-hit
+article-token resolution, active cursor setup, HP/PP status tile lookup, and
+glyph printing; the two-list and simple prompts name the candidate byte reader,
+candidate scanners, refresh helper, enemy flashing on/off, row-highlight
+setup/clear, text/input ticks, sound effects, and focus-window close helper.
+
 ## Promotion Boundary
 
 This slice intentionally stops short of reinterpreting the deeper C1:244C core

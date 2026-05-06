@@ -18,6 +18,16 @@
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C09032_DivideUnsignedWordByIndex   = $C09032
+C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
+C10EFC_PrintFixedString            = $0EFC
+C1AC9B_GetBattleAttackerNameBufferBase = $AC9B
+C223D9_LookupStatusTileValueForHpPpWindow = $C223D9
+C23E8A_BuildBattleTextSelectedTargetNameBuffer = $C23E8A
+C3E4CA_ClearInstantPrinting        = $C3E4CA
+C3E4D4_SetInstantPrinting          = $C3E4D4
+C3E75D_ResolveReflectedHitSideArticleTokens = $C3E75D
+C438A5_SetActiveWindowDescriptorCursorFields = $C438A5
+C43F77_PrintGlyphWithTileCleanupSoundDelay = $C43F77
 
 ; ---------------------------------------------------------------------------
 ; C1:20D6
@@ -33,15 +43,15 @@ C120D6_C120D6_RefreshSelectionPromptCandidateText:
     stx $16
     tay
     sty $14
-    jsl $C3E4D4
+    jsl C3E4D4_SetInstantPrinting
     lda.w #$0031
-    jsr $04EE
+    jsr C104EE_CreateOrBindWindowDescriptorAndContext
     lda.w #$54F2
     sta $0E
     lda.w #$00C4
     sta $10
     lda.w #$0003
-    jsr $0EFC
+    jsr C10EFC_PrintFixedString
     ldx $16
     cpx.w #$FFFF
     bne C12109_RefreshSelectionPromptCandidateText_L2109
@@ -56,10 +66,10 @@ C12109_RefreshSelectionPromptCandidateText_L2109:
     clc
     adc $02
     inc A
-    jsl $C23E8A
+    jsl C23E8A_BuildBattleTextSelectedTargetNameBuffer
     lda.w #$0000
-    jsl $C3E75D
-    jsr $AC9B
+    jsl C3E75D_ResolveReflectedHitSideArticleTokens
+    jsr C1AC9B_GetBattleAttackerNameBufferBase
     sta $06
     phb
     sep #$20
@@ -72,7 +82,7 @@ C12109_RefreshSelectionPromptCandidateText_L2109:
     lda $08
     sta $10
     lda.w #$00FF
-    jsr $0EFC
+    jsr C10EFC_PrintFixedString
     ldy $14
     beq C1215A_RefreshSelectionPromptCandidateText_L215A
     ; Secondary list candidates map through $AD82; primary list through $AD7A.
@@ -97,12 +107,12 @@ C1216D_RefreshSelectionPromptCandidateText_L216D:
     sty $12
     ldx.w #$0000
     lda.w #$0011
-    jsl $C438A5
+    jsl C438A5_SetActiveWindowDescriptorCursorFields
     ldx.w #$0000
     ldy $12
     tya
-    jsl $C223D9
-    jsl $C43F77
+    jsl C223D9_LookupStatusTileValueForHpPpWindow
+    jsl C43F77_PrintGlyphWithTileCleanupSoundDelay
     bra C121B2_RefreshSelectionPromptCandidateText_L21B2
 C1218A_RefreshSelectionPromptCandidateText_L218A:
     ldy $14
@@ -123,8 +133,8 @@ C121A4_RefreshSelectionPromptCandidateText_L21A4:
     lda $08
     sta $10
     lda.w #$000D
-    jsr $0EFC
+    jsr C10EFC_PrintFixedString
 C121B2_RefreshSelectionPromptCandidateText_L21B2:
-    jsl $C3E4CA
+    jsl C3E4CA_ClearInstantPrinting
     pld
     rts

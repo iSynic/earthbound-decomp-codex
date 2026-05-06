@@ -17,6 +17,19 @@
 ; - Returns a 1-based combined candidate index or 0 for cancel.
 
 C09032_DivideUnsignedWordByIndex = $C09032
+C10084_CloseFocusWindow = $0084
+C11FBC_ReadSelectionPromptCandidateByte = $1FBC
+C12012_FindNextSelectionPromptCandidate = $2012
+C12070_FindPreviousSelectionPromptCandidate = $2070
+C120D6_RefreshSelectionPromptCandidateText = $20D6
+C0ABE0_PlaySoundEffect = $C0ABE0
+C104EE_CreateOrBindWindowDescriptorAndContext = $04EE
+C12DD5_TickWindowTextSystem = $C12DD5
+C12E42_TickWindowInputState = $C12E42
+C3E4CA_ClearInstantPrinting = $C3E4CA
+C3E4D4_SetInstantPrinting = $C3E4D4
+EF0000_EnemyFlashingOff = $EF0000
+EF0052_EnemyFlashingOn = $EF0052
 
 ; ---------------------------------------------------------------------------
 ; C1:21B8
@@ -49,21 +62,21 @@ C121D7_RunTwoListCharacterSelectionPrompt_L21D7:
 C121E3_RunTwoListCharacterSelectionPrompt_L21E3:
     ldx $16
     lda $04
-    jsr $1FBC
+    jsr C11FBC_ReadSelectionPromptCandidateByte
     sta $14
     ldx $16
     lda $04
-    jsl $EF0052
+    jsl EF0052_EnemyFlashingOn
     lda $18
     bne C121FF_RunTwoListCharacterSelectionPrompt_L21FF
     ldx $16
     lda $04
-    jsr $20D6
+    jsr C120D6_RefreshSelectionPromptCandidateText
 C121FF_RunTwoListCharacterSelectionPrompt_L21FF:
     inc $18
-    jsl $C12DD5
+    jsl C12DD5_TickWindowTextSystem
 C12205_RunTwoListCharacterSelectionPrompt_L2205:
-    jsl $C12E42
+    jsl C12E42_TickWindowInputState
     lda $006D
     and.w #$0800
     beq C1221D_RunTwoListCharacterSelectionPrompt_L221D
@@ -94,7 +107,7 @@ C12234_RunTwoListCharacterSelectionPrompt_L2234:
     ldy $1C
     ldx $14
     lda $02
-    jsr $2070
+    jsr C12070_FindPreviousSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -107,7 +120,7 @@ C12259_RunTwoListCharacterSelectionPrompt_L2259:
     ldy $1C
     ldx $14
     lda $02
-    jsr $2070
+    jsr C12070_FindPreviousSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -125,7 +138,7 @@ C12277_RunTwoListCharacterSelectionPrompt_L2277:
     ldy $1C
     ldx $14
     lda $02
-    jsr $2012
+    jsr C12012_FindNextSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -138,7 +151,7 @@ C12297_RunTwoListCharacterSelectionPrompt_L2297:
     ldy $1C
     ldx $14
     lda $02
-    jsr $2012
+    jsr C12012_FindNextSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -151,7 +164,7 @@ C122B5_RunTwoListCharacterSelectionPrompt_L22B5:
     and.w #$00A0
     beq C122DB_RunTwoListCharacterSelectionPrompt_L22DB
     ; Accept returns a 1-based index folded across the two list counts.
-    jsl $EF0000
+    jsl EF0000_EnemyFlashingOff
     ldy $AD56
     lda $04
     jsl C09032_DivideUnsignedWordByIndex
@@ -161,7 +174,7 @@ C122B5_RunTwoListCharacterSelectionPrompt_L22B5:
     inx
     stx $0E
     lda.w #$0001
-    jsl $C0ABE0
+    jsl C0ABE0_PlaySoundEffect
     jmp.w C1235A_RunTwoListCharacterSelectionPrompt_L235A
 C122DB_RunTwoListCharacterSelectionPrompt_L22DB:
     lda $006D
@@ -174,11 +187,11 @@ C122E6_RunTwoListCharacterSelectionPrompt_L22E6:
     beq C122F0_RunTwoListCharacterSelectionPrompt_L22F0
     jmp.w C12205_RunTwoListCharacterSelectionPrompt_L2205
 C122F0_RunTwoListCharacterSelectionPrompt_L22F0:
-    jsl $EF0000
+    jsl EF0000_EnemyFlashingOff
     ldx.w #$0000
     stx $0E
     lda.w #$0002
-    jsl $C0ABE0
+    jsl C0ABE0_PlaySoundEffect
     bra C1235A_RunTwoListCharacterSelectionPrompt_L235A
 C12302_RunTwoListCharacterSelectionPrompt_L2302:
     lda.w #$0003
@@ -190,7 +203,7 @@ C12302_RunTwoListCharacterSelectionPrompt_L2302:
     ldx $14
     dex
     lda $02
-    jsr $2012
+    jsr C12012_FindNextSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -199,7 +212,7 @@ C12302_RunTwoListCharacterSelectionPrompt_L2302:
     ldx $14
     inx
     lda $02
-    jsr $2070
+    jsr C12070_FindPreviousSelectionPromptCandidate
     tax
     stx $10
     cpx.w #$FFFF
@@ -207,20 +220,20 @@ C12302_RunTwoListCharacterSelectionPrompt_L2302:
     jmp.w C121E3_RunTwoListCharacterSelectionPrompt_L21E3
 C12335_RunTwoListCharacterSelectionPrompt_L2335:
     stz $18
-    jsl $C3E4CA
+    jsl C3E4CA_ClearInstantPrinting
     lda.w #$0031
-    jsr $04EE
-    jsl $C12DD5
-    jsl $C3E4D4
+    jsr C104EE_CreateOrBindWindowDescriptorAndContext
+    jsl C12DD5_TickWindowTextSystem
+    jsl C3E4D4_SetInstantPrinting
     ldx $10
     stx $16
     lda $02
     sta $04
     lda $12
-    jsl $C0ABE0
+    jsl C0ABE0_PlaySoundEffect
     jmp.w C121E3_RunTwoListCharacterSelectionPrompt_L21E3
 C1235A_RunTwoListCharacterSelectionPrompt_L235A:
-    jsr $0084
+    jsr C10084_CloseFocusWindow
     ldx $0E
     txa
     pld

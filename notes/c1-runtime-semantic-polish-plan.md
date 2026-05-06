@@ -275,3 +275,9 @@ This planning pass is documentation-only.
   the `134B`, `181B`, and `1887` text-entry modules while preserving byte
   equivalence. See
   `notes/text-entry-record-builder-neighbors-c10f40-c11887.md`.
+- 2026-05-06 follow-up: the first half of the adjacent selection-prompt strip
+  now names the helper-call surface for `C1:2012`, `2070`, `20D6`, `21B8`,
+  and `2362`. The pass covers candidate eligibility scans, candidate text
+  refresh, two-list prompt control, simple side prompt control, row highlight
+  helpers, enemy flashing toggles, ticks, sound, and close-focus cleanup. See
+  `notes/c1-selection-prompt-runtime-polish.md`.

@@ -16,7 +16,14 @@
 ;   side, C4:35E4 clears it, and C1:20D6 renders the side label.
 ; - Returns side + 1 on accept or 0 on cancel when the incoming mode permits it.
 
-; No named external contracts were supplied or recognized.
+C10084_CloseFocusWindow = $0084
+C120D6_RefreshSelectionPromptCandidateText = $20D6
+C0ABE0_PlaySoundEffect = $C0ABE0
+C12DD5_TickWindowTextSystem = $C12DD5
+C12E42_TickWindowInputState = $C12E42
+C3E4CA_ClearInstantPrinting = $C3E4CA
+C435E4_ClearBattleTargetRowHighlightFlags = $C435E4
+C43657_SetBattleTargetRowHighlightFlags = $C43657
 
 ; ---------------------------------------------------------------------------
 ; C1:2362
@@ -44,15 +51,15 @@ C1237E_RunSimpleSideSelectionPrompt_L237E:
     ldy $12
     tya
     ; Highlight the currently selected side before rendering its label.
-    jsl $C43657
-    jsl $C3E4CA
+    jsl C43657_SetBattleTargetRowHighlightFlags
+    jsl C3E4CA_ClearInstantPrinting
     ldx.w #$FFFF
     ldy $12
     tya
-    jsr $20D6
-    jsl $C12DD5
+    jsr C120D6_RefreshSelectionPromptCandidateText
+    jsl C12DD5_TickWindowTextSystem
 C12396_RunSimpleSideSelectionPrompt_L2396:
-    jsl $C12E42
+    jsl C12E42_TickWindowInputState
     lda $006D
     and.w #$0800
     beq C123AE_RunSimpleSideSelectionPrompt_L23AE
@@ -74,13 +81,13 @@ C123C2_RunSimpleSideSelectionPrompt_L23C2:
     lda $006D
     and.w #$00A0
     beq C123DD_RunSimpleSideSelectionPrompt_L23DD
-    jsl $C435E4
+    jsl C435E4_ClearBattleTargetRowHighlightFlags
     ldy $12
     tyx
     inx
     stx $10
     lda.w #$0001
-    jsl $C0ABE0
+    jsl C0ABE0_PlaySoundEffect
     bra C12426_RunSimpleSideSelectionPrompt_L2426
 C123DD_RunSimpleSideSelectionPrompt_L23DD:
     lda $006D
@@ -89,11 +96,11 @@ C123DD_RunSimpleSideSelectionPrompt_L23DD:
     lda $02
     cmp.w #$0001
     bne C12396_RunSimpleSideSelectionPrompt_L2396
-    jsl $C435E4
+    jsl C435E4_ClearBattleTargetRowHighlightFlags
     ldx.w #$0000
     stx $10
     lda.w #$0002
-    jsl $C0ABE0
+    jsl C0ABE0_PlaySoundEffect
     bra C12426_RunSimpleSideSelectionPrompt_L2426
 C123FE_RunSimpleSideSelectionPrompt_L23FE:
     cpx.w #$0000
@@ -110,13 +117,13 @@ C12410_RunSimpleSideSelectionPrompt_L2410:
     jmp.w C1237E_RunSimpleSideSelectionPrompt_L237E
 C12418_RunSimpleSideSelectionPrompt_L2418:
     lda $0E
-    jsl $C0ABE0
+    jsl C0ABE0_PlaySoundEffect
     ldx $10
     txy
     sty $12
     jmp.w C1237E_RunSimpleSideSelectionPrompt_L237E
 C12426_RunSimpleSideSelectionPrompt_L2426:
-    jsr $0084
+    jsr C10084_CloseFocusWindow
     ldx $10
     txa
     pld
