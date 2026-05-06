@@ -406,6 +406,18 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read one script word and store it to current slot field $2B32",
         "args": "field2b32_word",
     },
+    "C0:A6A2": {
+        "name": "Script_SetMovementStateCA4E",
+        "group": "movement",
+        "contract": "read one script word into the movement timer scale latch and derive the movement task timer from the active vector via C0:CA4E",
+        "args": "movement_timer_word",
+    },
+    "C0:A6AD": {
+        "name": "Script_SetMovementStateCBD3",
+        "group": "movement",
+        "contract": "read one script word into the movement timer scale latch and derive the movement task timer from speed scale via C0:CBD3",
+        "args": "movement_timer_word",
+    },
     "C0:A6DA": {
         "name": "ClearCurrentSlotNeighborCache",
         "group": "neighbor-cache",
@@ -751,6 +763,11 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "name": "SetMovementTaskTimerFromActiveVector",
         "group": "movement",
         "contract": "derive the movement task timer from the active movement vector and cache it for script waits",
+    },
+    "C0:CBD3": {
+        "name": "SetMovementTaskTimerFromSpeedScale",
+        "group": "movement",
+        "contract": "derive the movement task timer from the current speed scale and cache it for script waits",
     },
     "C0:D15C": {
         "name": "HasUsableOverlapNeighborContext",

@@ -4,6 +4,9 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_UP = $04
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -17,12 +20,12 @@ hirom
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
 !GetRandom16 = $C08E9A
 !Integrate_XYVelocityOnly = $9FC8
-!PhysicsCallback_C09FF0 = $9FF0
 !PlaceCurrentSlotAtRandomCameraXPlus70Y = $C46D23
 !ProjectWorldToScreen_CopyWorld = $A0BB
 !ReadInputState006d = $C468A9
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RunLeftwardBoundsReleasePath = $4392
 !RunRandomCameraArcMovement = $41E9
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
@@ -42,16 +45,25 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(target, staged_offset_x_word, staged_offset_y_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <staged_offset_x_word>
+    dw <staged_offset_y_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_LOOP(count)
@@ -140,26 +152,26 @@ endmacro
 
 org $C34249
 PartyLookRandomCameraTextTail:
-    %EVENT_SET_ANIMATION($FF) ; C3:4249  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:4249  3B FF
     %EVENT_CALLROUTINE_0(!GetRandom16) ; C3:424B  42 9A 8E C0
     %EVENT_BINOP_TEMPVAR($00, $007F) ; C3:424F  27 00 7F 00
     %EVENT_WRITE_TEMPVAR_WAITTIMER() ; C3:4253  44
     %EVENT_SET_PRIORITY($00) ; C3:4254  43 00
-    %EVENT_SET_ANIMATION($00) ; C3:4256  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:4256  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:4258  39
     %EVENT_CALLROUTINE_0(!PlaceCurrentSlotAtRandomCameraXPlus70Y) ; C3:4259  42 23 6D C4
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:425D  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:425D  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:4260  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:4264  42 BF A4 C0
     %EVENT_SHORTCALL(!RunRandomCameraArcMovement) ; C3:4268  1A E9 41
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:426B  19 04 A2
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:426E  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:4271  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:426E  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:4271  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:4273  39
     %EVENT_START_TASK(!Event8_Entry2WaitUntilOffscreenRelease) ; C3:4274  07 B8 A2
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:4277  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:427B  42 BF A4 C0
-    %EVENT_CALLROUTINE_4(!Script_SetStagedPositionOffset_ReadTwoWords, $00, $00, $10, $00) ; C3:427F  42 B3 A8 C0 00 00 10 00
+    %EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(!Script_SetStagedPositionOffset_ReadTwoWords, $0000, $0010) ; C3:427F  42 B3 A8 C0 00 00 10 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $000C) ; C3:4287  0E 02 0C 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $000C) ; C3:428B  0E 03 0C 00
 LoopRandomCameraTextWaitA:
@@ -169,16 +181,16 @@ LoopRandomCameraTextWaitA:
     %EVENT_CALLROUTINE_0(!ReadInputState006d) ; C3:4298  42 A9 68 C4
     %EVENT_BINOP_TEMPVAR($00, $0800) ; C3:429C  27 00 00 08
     %EVENT_SHORTCALL_CONDITIONAL(LoopRandomCameraTextWaitA) ; C3:42A0  0A 8F 42
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C9, $00, $78, $33) ; C3:42A3  42 8D A8 C0 C9 00 78 33
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C9, $3378) ; C3:42A3  42 8D A8 C0 C9 00 78 33
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:42AB  1A 94 AB
     %EVENT_SHORTJUMP(LoopRandomCameraTextWaitA) ; C3:42AE  19 8F 42
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:42B1  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:42B4  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:42B1  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:42B4  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:42B6  39
     %EVENT_START_TASK(!Event8_Entry2WaitUntilOffscreenRelease) ; C3:42B7  07 B8 A2
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:42BA  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:42BE  42 BF A4 C0
-    %EVENT_CALLROUTINE_4(!Script_SetStagedPositionOffset_ReadTwoWords, $00, $00, $10, $00) ; C3:42C2  42 B3 A8 C0 00 00 10 00
+    %EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(!Script_SetStagedPositionOffset_ReadTwoWords, $0000, $0010) ; C3:42C2  42 B3 A8 C0 00 00 10 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $000C) ; C3:42CA  0E 02 0C 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $000C) ; C3:42CE  0E 03 0C 00
 LoopRandomCameraTextWaitB:
@@ -188,7 +200,7 @@ LoopRandomCameraTextWaitB:
     %EVENT_CALLROUTINE_0(!ReadInputState006d) ; C3:42DB  42 A9 68 C4
     %EVENT_BINOP_TEMPVAR($00, $0800) ; C3:42DF  27 00 00 08
     %EVENT_SHORTCALL_CONDITIONAL(LoopRandomCameraTextWaitB) ; C3:42E3  0A D2 42
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C9, $00, $4F, $34) ; C3:42E6  42 8D A8 C0 C9 00 4F 34
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C9, $344F) ; C3:42E6  42 8D A8 C0 C9 00 4F 34
     %EVENT_SHORTCALL(!WaitUntilPlayerEntersActiveArea) ; C3:42EE  1A 94 AB
     %EVENT_SHORTJUMP(LoopRandomCameraTextWaitB) ; C3:42F1  19 D2 42
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:42F4  25 C8 9F
@@ -204,27 +216,27 @@ RunRandomCameraVisualCountdownPulse:
     %EVENT_SET_Y($0028) ; C3:4311  29 28 00
     %EVENT_START_TASK(TaskRandomCameraTailOscillation) ; C3:4314  07 6D 43
     %EVENT_LOOP($04) ; C3:4317  01 04
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:4319  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:4319  42 6E AA C0 02 00
     %EVENT_PAUSE($08) ; C3:431F  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $01) ; C3:4321  42 6E AA C0 02 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $01) ; C3:4321  42 6E AA C0 02 01
     %EVENT_PAUSE($08) ; C3:4327  06 08
     %EVENT_LOOP_END() ; C3:4329  02
 LoopRandomCameraVisualCountdownPulse:
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:432A  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:432A  42 6E AA C0 02 00
     %EVENT_PAUSE($08) ; C3:4330  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $01, $00) ; C3:4332  42 6E AA C0 01 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $01, $00) ; C3:4332  42 6E AA C0 01 00
     %EVENT_PAUSE($08) ; C3:4338  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:433A  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:433A  42 6E AA C0 00 00
     %EVENT_PAUSE($08) ; C3:4340  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $07, $00) ; C3:4342  42 6E AA C0 07 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $07, $00) ; C3:4342  42 6E AA C0 07 00
     %EVENT_PAUSE($08) ; C3:4348  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:434A  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:434A  42 6E AA C0 06 00
     %EVENT_PAUSE($08) ; C3:4350  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $05, $00) ; C3:4352  42 6E AA C0 05 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $05, $00) ; C3:4352  42 6E AA C0 05 00
     %EVENT_PAUSE($08) ; C3:4358  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:435A  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:435A  42 6E AA C0 04 00
     %EVENT_PAUSE($08) ; C3:4360  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $03, $00) ; C3:4362  42 6E AA C0 03 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $03, $00) ; C3:4362  42 6E AA C0 03 00
     %EVENT_PAUSE($08) ; C3:4368  06 08
     %EVENT_SHORTJUMP(LoopRandomCameraVisualCountdownPulse) ; C3:436A  19 2A 43
 TaskRandomCameraTailOscillation:

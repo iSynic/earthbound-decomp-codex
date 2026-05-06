@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -18,10 +20,10 @@ hirom
 !GetCurrentSlotHasNoCachedNeighborFlag = $C0A6B8
 !GetGatedEntityPositionDirectionFlag = $C0C62B
 !LoopNpcAttentionArcPlayerDistanceGate = $A8E6
-!PhysicsCallback_C09FF0 = $9FF0
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
 !RefreshCurrentSlotVisualProfileFromLatchedKey = $C0A480
 !ReleaseCurrentVisualEntityTail = $A47C
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RoundAngleToOctantAndCacheCurrentSlot = $C46B0A
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetDirectionClassAndField1A86 = $C0A651
@@ -38,16 +40,22 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <direction_class_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_MOVEMENT_TIMER(target, movement_timer_word)
+    db $42
+    dl <target>
+    dw <movement_timer_word>
 endmacro
 
 macro EVENT_LOOP(count)
@@ -111,7 +119,7 @@ endmacro
 
 org $C3A922
 RunNpcAttentionArcDistanceContinuation:
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:A922  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:A922  42 85 A6 C0 00 01
     %EVENT_SHORTJUMP(RunNpcAttentionArcRevectorToPlayer) ; C3:A928  19 32 A9
 RunNpcAttentionWideGateArcRevector:
     %EVENT_CALLROUTINE_0(!GateWidePlayerDistanceBucket) ; C3:A92B  42 8F C4 C0
@@ -123,23 +131,23 @@ RunNpcAttentionArcRevectorToPlayer:
     %EVENT_CALLROUTINE_0(!RoundAngleToOctantAndCacheCurrentSlot) ; C3:A93E  42 0A 6B C4
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:A942  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfileFromLatchedKey) ; C3:A946  42 80 A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetMovementStateCBD3, $08, $00) ; C3:A94A  42 AD A6 C0 08 00
+    %EVENT_CALLROUTINE_MOVEMENT_TIMER(!Script_SetMovementStateCBD3, $0008) ; C3:A94A  42 AD A6 C0 08 00
     %EVENT_SHORTJUMP(RunNpcAttentionWideGateArcRevector) ; C3:A950  19 2B A9
     %EVENT_SHORTCALL(!StartNpcAttentionTerrainCollisionLoop) ; C3:A953  1A 26 A4
     %EVENT_CALLROUTINE_0(!GetCurrentSlotHasNoCachedNeighborFlag) ; C3:A956  42 B8 A6 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!ReleaseCurrentVisualEntityTail) ; C3:A95A  0B 7C A4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0200) ; C3:A95D  0E 03 00 02
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $04) ; C3:A961  42 51 A6 C0 04
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_UP) ; C3:A961  42 51 A6 C0 04
 RunNpcAttentionArcDistanceRetry:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0001) ; C3:A966  0E 00 01 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:A96A  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:A96A  42 85 A6 C0 00 01
     %EVENT_SET_VELOCITIES_ZERO() ; C3:A970  39
     %EVENT_CALLROUTINE_0(!GateWidePlayerDistanceBucket) ; C3:A971  42 8F C4 C0
     %EVENT_PAUSE($08) ; C3:A975  06 08
     %EVENT_SWITCH_JUMP_TEMPVAR_4(4, LoopNpcAttentionArcVerticalBounce, LoopNpcAttentionArcVerticalBounce, RunNpcAttentionArcDistanceRetry, RunNpcAttentionArcDistanceRetry) ; C3:A977  10 04 81 A9 81 A9 66 A9 66 A9
 LoopNpcAttentionArcVerticalBounce:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0001) ; C3:A981  0E 00 01 00
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:A985  25 F0 9F
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:A985  25 F0 9F
     %EVENT_LOOP($04) ; C3:A988  01 04
     %EVENT_SET_Y_RELATIVE($FFFF) ; C3:A98A  2C FF FF
     %EVENT_PAUSE($02) ; C3:A98D  06 02
@@ -163,13 +171,13 @@ RunNpcAttentionArcTurnTowardPlayer:
     %EVENT_CALLROUTINE_0(!ProjectAngleIntoCurrentSlotVectorWords) ; C3:A9C5  42 44 70 C4
     %EVENT_CALLROUTINE_0(!RoundAngleToOctantAndCacheCurrentSlot) ; C3:A9C9  42 0A 6B C4
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:A9CD  42 5F A6 C0
-    %EVENT_CALLROUTINE_2(!Script_SetMovementStateCBD3, $08, $00) ; C3:A9D1  42 AD A6 C0 08 00
+    %EVENT_CALLROUTINE_MOVEMENT_TIMER(!Script_SetMovementStateCBD3, $0008) ; C3:A9D1  42 AD A6 C0 08 00
     %EVENT_SHORTJUMP(LoopNpcAttentionArcRevectorGate) ; C3:A9D7  19 A9 A9
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $04) ; C3:A9DA  42 51 A6 C0 04
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_UP) ; C3:A9DA  42 51 A6 C0 04
     %EVENT_SHORTCALL(!StartNpcAttentionTerrainCollisionLoop) ; C3:A9DF  1A 26 A4
     %EVENT_CALLROUTINE_0(!GetCurrentSlotHasNoCachedNeighborFlag) ; C3:A9E2  42 B8 A6 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!ReleaseCurrentVisualEntityTail) ; C3:A9E6  0B 7C A4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $10, $02) ; C3:A9E9  42 85 A6 C0 10 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0210) ; C3:A9E9  42 85 A6 C0 10 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0004) ; C3:A9EF  0E 00 04 00
 LoopNpcAttentionFinalWideDistanceGate:
     %EVENT_CALLROUTINE_0(!GateWidePlayerDistanceBucket) ; C3:A9F3  42 8F C4 C0

@@ -4,6 +4,14 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_DIRECTION_DOWN = $00
+!ACTIONSCRIPT_DIRECTION_LEFT = $06
+!ACTIONSCRIPT_DIRECTION_RIGHT = $02
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_FIELD2B32_STEP_0180 = $0180
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -16,13 +24,13 @@ hirom
 !InitFlatCastScreenActorWithRefreshTask = $5FB6
 !Integrate_XYVelocityOnly = $9FC8
 !IsEntityStillOnCastScreen = $C4ECE7
-!PhysicsCallback_C09FF0 = $9FF0
 !ProjectWorldToScreen_CopyWorld = $A0BB
 !ProjectWorldToScreen_DirectCamera39Event = $C0A06C
 !ProjectWorldToScreen_FromCamera39 = $A055
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RefreshCurrentSlotVisualProfile_Mode1IfAligned = $C0A4B2
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
@@ -34,16 +42,24 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(target, entity_visual_type_word, entity_initializer_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <entity_visual_type_word>
+    dw <entity_initializer_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -100,18 +116,18 @@ endmacro
 
 org $C36834
 SpawnKingThenReleaseCurrentVisualEntity:
-    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $27, $00, $22, $03) ; C3:6834  42 8B A9 C0 27 00 22 03
+    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0027, $0322) ; C3:6834  42 8B A9 C0 27 00 22 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:683C  19 04 A2
 Event845_DownFacingShortWaitSpawnRelease:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:683F  1A B6 5F
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:6842  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:6842  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6845  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6849  42 BF A4 C0
     %EVENT_PAUSE($50) ; C3:684D  06 50
     %EVENT_SHORTJUMP(SpawnKingThenReleaseCurrentVisualEntity) ; C3:684F  19 34 68
 Event846_DownFacingMediumWaitSpawnRelease:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:6852  1A B6 5F
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:6855  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:6855  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6858  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:685C  42 BF A4 C0
     %EVENT_PAUSE($B4) ; C3:6860  06 B4
@@ -119,7 +135,7 @@ Event846_DownFacingMediumWaitSpawnRelease:
     %EVENT_SHORTJUMP(SpawnKingThenReleaseCurrentVisualEntity) ; C3:6864  19 34 68
 Event847_DownFacingLongWaitSpawnRelease:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:6867  1A B6 5F
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:686A  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:686A  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:686D  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6871  42 BF A4 C0
     %EVENT_PAUSE($B4) ; C3:6875  06 B4
@@ -127,7 +143,7 @@ Event847_DownFacingLongWaitSpawnRelease:
     %EVENT_SHORTJUMP(SpawnKingThenReleaseCurrentVisualEntity) ; C3:6879  19 34 68
 Event848_DownFacingOffsetWaitSpawnRelease:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:687C  1A B6 5F
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:687F  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:687F  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6882  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6886  42 BF A4 C0
     %EVENT_PAUSE($50) ; C3:688A  06 50
@@ -135,7 +151,7 @@ Event848_DownFacingOffsetWaitSpawnRelease:
     %EVENT_SHORTJUMP(SpawnKingThenReleaseCurrentVisualEntity) ; C3:688E  19 34 68
 Event849_DownFacingLongOffsetWaitSpawnRelease:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:6891  1A B6 5F
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:6894  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:6894  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6897  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:689B  42 BF A4 C0
     %EVENT_PAUSE($50) ; C3:689F  06 50
@@ -143,79 +159,79 @@ Event849_DownFacingLongOffsetWaitSpawnRelease:
     %EVENT_SHORTJUMP(SpawnKingThenReleaseCurrentVisualEntity) ; C3:68A3  19 34 68
 Event850_LeftStepThenDownFacingHalt:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:68A6  1A B6 5F
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:68A9  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:68A9  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:68AC  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:68B0  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:68B4  42 85 A6 C0 00 01
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:68BA  1D 06 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:68B4  42 85 A6 C0 00 01
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:68BA  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:68BD  1A 1E AA
     %EVENT_PAUSE($C8) ; C3:68C0  06 C8
     %EVENT_SET_VELOCITIES_ZERO() ; C3:68C2  39
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:68C3  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:68C3  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:68C6  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:68CA  42 BF A4 C0
     %EVENT_HALT() ; C3:68CE  09
 Event851_RightStepThenDownFacingHalt:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:68CF  1A B6 5F
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:68D2  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:68D2  1D 02 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:68D5  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:68D9  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:68DD  42 85 A6 C0 00 01
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:68E3  1D 02 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:68DD  42 85 A6 C0 00 01
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:68E3  1D 02 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:68E6  1A 1E AA
     %EVENT_PAUSE($C8) ; C3:68E9  06 C8
     %EVENT_SET_VELOCITIES_ZERO() ; C3:68EB  39
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:68EC  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:68EC  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:68EF  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:68F3  42 BF A4 C0
     %EVENT_HALT() ; C3:68F7  09
 Event852_CastScreenFacingCycleUntilInvisible:
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera39) ; C3:68F8  23 55 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:68FB  25 C8 9F
-    %EVENT_SET_ANIMATION($00) ; C3:68FE  3B 00
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:6900  1D 04 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:68FE  3B 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:6900  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6903  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:6907  42 BF A4 C0
     %EVENT_PAUSE($8C) ; C3:690B  06 8C
     %EVENT_PAUSE($8C) ; C3:690D  06 8C
 LoopEvent852_CastScreenFacingCycle:
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:690F  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:690F  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6912  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:6916  42 B2 A4 C0
     %EVENT_PAUSE($18) ; C3:691A  06 18
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:691C  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:691C  1D 02 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:691F  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:6923  42 B2 A4 C0
     %EVENT_PAUSE($06) ; C3:6927  06 06
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:6929  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:6929  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:692C  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:6930  42 B2 A4 C0
     %EVENT_PAUSE($06) ; C3:6934  06 06
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:6936  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:6936  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6939  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:693D  42 B2 A4 C0
     %EVENT_PAUSE($06) ; C3:6941  06 06
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:6943  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:6943  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6946  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:694A  42 B2 A4 C0
     %EVENT_PAUSE($06) ; C3:694E  06 06
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:6950  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:6950  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6953  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:6957  42 B2 A4 C0
     %EVENT_PAUSE($06) ; C3:695B  06 06
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:695D  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:695D  1D 02 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6960  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:6964  42 B2 A4 C0
     %EVENT_PAUSE($06) ; C3:6968  06 06
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:696A  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:696A  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:696D  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:6971  42 B2 A4 C0
     %EVENT_PAUSE($06) ; C3:6975  06 06
-    %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:6977  1D 00 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_DOWN) ; C3:6977  1D 00 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:697A  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:697E  42 B2 A4 C0
     %EVENT_PAUSE($06) ; C3:6982  06 06
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:6984  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:6984  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:6987  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:698B  42 B2 A4 C0
     %EVENT_PAUSE($06) ; C3:698F  06 06
@@ -224,61 +240,61 @@ LoopEvent852_CastScreenFacingCycle:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6998  19 04 A2
 Event853_LeftFacingPauseSpawnKing:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:699B  1A B6 5F
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:699E  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:699E  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:69A1  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:69A5  42 BF A4 C0
     %EVENT_PAUSE($8C) ; C3:69A9  06 8C
     %EVENT_PAUSE($8C) ; C3:69AB  06 8C
     %EVENT_PAUSE($3C) ; C3:69AD  06 3C
 SpawnEvent854KingThenReleaseCurrentVisualEntity:
-    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $28, $00, $56, $03) ; C3:69AF  42 8B A9 C0 28 00 56 03
+    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0028, $0356) ; C3:69AF  42 8B A9 C0 28 00 56 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:69B7  19 04 A2
 Event854_LeftFacingHalt:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:69BA  1A B6 5F
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:69BD  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:69BD  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:69C0  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:69C4  42 BF A4 C0
     %EVENT_HALT() ; C3:69C8  09
 Event855_RightStepThenDownFacingHalt:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:69C9  1A B6 5F
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:69CC  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:69CC  42 85 A6 C0 80 00
     %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:69D2  1D 02 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:69D5  1A 1E AA
     %EVENT_PAUSE($B0) ; C3:69D8  06 B0
     %EVENT_SET_VELOCITIES_ZERO() ; C3:69DA  39
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:69DB  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:69DB  42 6E AA C0 04 00
     %EVENT_HALT() ; C3:69E1  09
 Event856_LeftStepThenDownFacingHalt:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:69E2  1A B6 5F
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:69E5  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:69E5  42 85 A6 C0 80 00
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:69EB  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:69EE  1A 1E AA
     %EVENT_PAUSE($B0) ; C3:69F1  06 B0
     %EVENT_SET_VELOCITIES_ZERO() ; C3:69F3  39
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:69F4  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:69F4  42 6E AA C0 04 00
     %EVENT_HALT() ; C3:69FA  09
 Event857_DownFacingPauseSpawnNessPosing:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:69FB  1A B6 5F
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:69FE  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:69FE  42 6E AA C0 04 00
     %EVENT_PAUSE($8C) ; C3:6A04  06 8C
     %EVENT_PAUSE($8C) ; C3:6A06  06 8C
     %EVENT_PAUSE($8C) ; C3:6A08  06 8C
     %EVENT_PAUSE($28) ; C3:6A0A  06 28
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0004) ; C3:6A0C  0E 03 04 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $01) ; C3:6A10  42 85 A6 C0 80 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0180) ; C3:6A10  42 85 A6 C0 80 01
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:6A16  1D 04 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:6A19  1A 1E AA
     %EVENT_PAUSE($38) ; C3:6A1C  06 38
     %EVENT_SET_VELOCITIES_ZERO() ; C3:6A1E  39
 SpawnEvent858NessPosingThenReleaseCurrentVisualEntity:
-    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0E, $00, $5A, $03) ; C3:6A1F  42 8B A9 C0 0E 00 5A 03
+    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $000E, $035A) ; C3:6A1F  42 8B A9 C0 0E 00 5A 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6A27  19 04 A2
 Event858_DownFacingProjectedPoseHalt:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:6A2A  39
     %EVENT_CALLROUTINE_0(!ProjectWorldToScreen_DirectCamera39Event) ; C3:6A2B  42 6C A0 C0
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_CopyWorld) ; C3:6A2F  23 BB A0
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:6A32  25 F0 9F
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:6A35  42 6E AA C0 04 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:6A32  25 F0 9F
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:6A35  42 6E AA C0 04 00
     %EVENT_PAUSE($F0) ; C3:6A3B  06 F0
     %EVENT_HALT() ; C3:6A3D  09
 ReleaseCurrentVisualEntityFromCastPath:

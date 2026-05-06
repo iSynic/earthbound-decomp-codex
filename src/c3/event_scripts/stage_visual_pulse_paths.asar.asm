@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_DIRECTION_RIGHT = $02
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -30,16 +32,17 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <display_control_bits_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_LOOP(count)
@@ -121,21 +124,21 @@ org $C333DD
 RunStageFacingVisualPulsePattern:
     %EVENT_SHORTCALL(!PulseDownFacingVisualCountdown) ; C3:33DD  1A 99 33
     %EVENT_SHORTCALL(!PulseDownFacingVisualCountdown) ; C3:33E0  1A 99 33
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $01) ; C3:33E3  42 6E AA C0 04 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $01) ; C3:33E3  42 6E AA C0 04 01
     %EVENT_PAUSE($16) ; C3:33E9  06 16
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:33EB  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:33EB  42 6E AA C0 02 00
     %EVENT_PAUSE($0C) ; C3:33F1  06 0C
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $01) ; C3:33F3  42 6E AA C0 04 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $01) ; C3:33F3  42 6E AA C0 04 01
     %EVENT_PAUSE($0B) ; C3:33F9  06 0B
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:33FB  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:33FB  42 6E AA C0 06 00
     %EVENT_PAUSE($0B) ; C3:3401  06 0B
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $01) ; C3:3403  42 6E AA C0 04 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $01) ; C3:3403  42 6E AA C0 04 01
     %EVENT_PAUSE($0B) ; C3:3409  06 0B
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $01) ; C3:340B  42 6E AA C0 02 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $01) ; C3:340B  42 6E AA C0 02 01
     %EVENT_PAUSE($0B) ; C3:3411  06 0B
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:3413  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:3413  42 6E AA C0 00 00
     %EVENT_PAUSE($0C) ; C3:3419  06 0C
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:341B  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:341B  42 6E AA C0 06 00
     %EVENT_PAUSE($0B) ; C3:3421  06 0B
     %EVENT_SHORT_RETURN() ; C3:3423  1B
 Event435_StagePerformancePulseRelease:
@@ -144,13 +147,13 @@ Event435_StagePerformancePulseRelease:
     %EVENT_SET_Y($1660) ; C3:3429  29 60 16
     %EVENT_SHORTCALL(!InitVar4TimedAnimationPulseMovement) ; C3:342C  1A 4F 1D
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $000A) ; C3:342F  0E 04 0A 00
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:3433  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:3433  42 6E AA C0 02 00
     %EVENT_SET_X_VELOCITY($018D) ; C3:3439  3F 8D 01
     %EVENT_SET_Y_VELOCITY($001E) ; C3:343C  40 1E 00
     %EVENT_PAUSE($43) ; C3:343F  06 43
     %EVENT_SET_VELOCITIES_ZERO() ; C3:3441  39
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:3442  0E 04 00 00
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:3446  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:3446  42 6E AA C0 00 00
     %EVENT_PAUSE($5A) ; C3:344C  06 5A
     %EVENT_SHORTCALL(!PulseDownFacingVisualCountdown) ; C3:344E  1A 99 33
     %EVENT_SHORTCALL(!PulseDownFacingVisualCountdown) ; C3:3451  1A 99 33
@@ -201,9 +204,9 @@ Event436_ObscuredStageSlideRelease:
     %EVENT_SET_X($1210) ; C3:34CF  28 10 12
     %EVENT_SET_Y($166C) ; C3:34D2  29 6C 16
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:34D5  25 C8 9F
-    %EVENT_SET_ANIMATION($00) ; C3:34D8  3B 00
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:34DA  42 79 A6 C0 03
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:34DF  1D 02 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:34D8  3B 00
+    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:34DA  42 79 A6 C0 03
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:34DF  1D 02 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:34E2  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:34E6  42 BF A4 C0
     %EVENT_SET_X_VELOCITY($0079) ; C3:34EA  3F 79 00
