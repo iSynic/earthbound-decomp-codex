@@ -314,6 +314,13 @@ closure.
   display selector/mode, post-scroll hold, return-spawn, and scene-clear
   arguments while leaving frame-callback and display internals to C0. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
+- 2026-05-06 credits photograph follow-up: tightened the credits photograph
+  render/count/slide helpers around the C4-owned `E1:2F8A` record fields,
+  `$98CB` optional visual rows, fixed photo palette transfer arguments,
+  object/attached-visual loop bounds, and slide angle/frame-count fields. The
+  comments keep map load, entity spawn, visual attach, BG3 scroll, and DMA
+  queue behavior as caller joins into their owning helpers. See
+  `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`.
 
 ## Validation
 

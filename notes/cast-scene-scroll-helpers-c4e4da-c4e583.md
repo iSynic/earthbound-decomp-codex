@@ -167,6 +167,14 @@ arming the C0 command-stream callback. The playback tail now names the fixed
 post-scroll hold, return entity spawn coordinates, final `$7DFE` clear span,
 and display mode restored before the delayed-action callback is reinstalled.
 
+2026-05-06 credits photograph follow-up: the photograph render/count/slide
+helpers now share C4-local names for the `E1:2F8A` record gate, map-cell
+offsets, object and attached-visual coordinate/id fields, four-object and
+six-visual loop bounds, `$98CB` optional visual rows, fixed photo palette block,
+and slide angle/frame-count fields. The source comments identify only the C4
+argument staging for map load, entity spawn, visual attach, BG3 scroll, and
+DMA queue drains; the C0/C2 helper internals remain external.
+
 `C4:F70A..C4:F947` is the ebsrc-named music dataset table. `ChangeMusic` treats
 the requested music id as one-based, subtracts one for the row lookup, and reads
 three byte fields per row: primary sample pack, secondary sample pack, and

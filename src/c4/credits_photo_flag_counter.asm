@@ -16,13 +16,14 @@ CheckEventFlagMaybe                = $C21628
 CreditsPhotographTable             = $E12F8A
 CreditsPhotographRecordStride      = $003E
 CreditsPhotographRecordCount       = $0020
+CreditsPhotographEventFlagOffset   = $0000
 
 ; ---------------------------------------------------------------------------
 ; C4:F433
 
 COUNT_PHOTO_FLAGS:
 C4F433_CountPhotoFlags = COUNT_PHOTO_FLAGS
-    ; Count the E1:2F8A photographer records whose first word event flag is set.
+    ; Count the E1:2F8A photographer records whose offset-0 event flag is set.
     ; The playback controller uses this to space the credits photo reveals.
     rep #$31
     phd
@@ -39,6 +40,8 @@ C4F445_CountPhotoFlags_LF445:
     ldy.w #CreditsPhotographRecordStride
     jsl Multiply16By8_ViaHardwareRegisters
     tax
+    ; X selects the record base, so the absolute table read consumes the
+    ; offset-0 event flag without assigning meaning to later record fields.
     lda CreditsPhotographTable,X
     jsl CheckEventFlagMaybe
     cmp.w #$0000

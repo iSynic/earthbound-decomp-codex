@@ -20,6 +20,10 @@ ProcessCreditsDmaQueue              = $C4F01D
 PhotographerCfgTableLo              = $2F8A
 PhotographerCfgTableBank            = $00E1
 PhotographerCfgRecordStride         = $003E
+PhotographerCfgSlideAngleOffset     = $0008
+PhotographerCfgSlideFrameCountOffset = $0009
+CreditsPhotoSlideProjectionMagnitude = $0400
+CreditsPhotoSlideFractionUnit       = $0100
 Bg3HScrollLow                       = $0031
 Bg3VScrollLow                       = $0033
 Bg3HScrollHigh                      = $0035
@@ -54,13 +58,15 @@ C4F46F_SlideCreditsPhotograph = SLIDE_CREDITS_PHOTOGRAPH
     sta $1E
     lda $08
     sta $20
-    ldx.w #$0100
+    ; The photograph record contributes only the slide angle and frame count;
+    ; the projection/division helpers own the math details.
+    ldx.w #CreditsPhotoSlideFractionUnit
     sep #$20
-    ldy.w #$0008
+    ldy.w #PhotographerCfgSlideAngleOffset
     lda [$06],Y
     rep #$20
     and.w #$00FF
-    ldy.w #$0400
+    ldy.w #CreditsPhotoSlideProjectionMagnitude
     jsl Multiply16By16_ViaHardwareRegisters
     jsl ProjectMagnitudeByDirectionAngle
     lda $06
@@ -80,13 +86,13 @@ C4F46F_SlideCreditsPhotograph = SLIDE_CREDITS_PHOTOGRAPH
     lda $20
     sta $08
     sep #$20
-    ldy.w #$0009
+    ldy.w #PhotographerCfgSlideFrameCountOffset
     lda [$06],Y
     rep #$20
     and.w #$00FF
     xba
     and.w #$FF00
-    ldy.w #$0100
+    ldy.w #CreditsPhotoSlideFractionUnit
     jsl Divide16By16_ViaHardwareRegisters
     sta $22
     lda $10
@@ -112,14 +118,16 @@ C4F50A_SlideCreditsPhotograph_LF50A:
     clc
     adc $1A
     sta $04
-    ldy.w #$0100
+    ; C4 updates the BG3 scroll shadow each frame, then drains at most one
+    ; queued credits DMA record before running the shared text frame.
+    ldy.w #CreditsPhotoSlideFractionUnit
     lda $02
     jsl Divide16By16_ViaHardwareRegisters
     tax
     clc
     adc $18
     sta Bg3HScrollLow
-    ldy.w #$0100
+    ldy.w #CreditsPhotoSlideFractionUnit
     lda $04
     jsl Divide16By16_ViaHardwareRegisters
     sta $12
