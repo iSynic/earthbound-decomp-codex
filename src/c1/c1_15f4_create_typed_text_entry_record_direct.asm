@@ -18,6 +18,16 @@
 ;   following record +02 and using record +06/+08/+0A/+13 during display.
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C08F22_MeasureTerminatedTextLength = $C08F22
+C10CB6_PrintGlyphWithSoundAndDelay = $0CB6
+C10EFC_PrintFixedString           = $0EFC
+C10FEA_SetActiveWindowTileAttributes = $0FEA
+C113D1_InstallTextEntryRecord     = $13D1
+C2032B_WriteWindowTitleAndUpload  = $C2032B
+C3E4D4_SetInstantPrinting         = $C3E4D4
+C43CAA_AdvanceAnimatedGlyphTileStateOffset = $C43CAA
+C43DDB_PrintRecordSelectionMarkerAndStageGlyphRun = $C43DDB
+C43F77_PrintGlyphWithTileCleanupSoundDelay = $C43F77
 
 ; ---------------------------------------------------------------------------
 ; C1:15F4
@@ -52,7 +62,7 @@ C115F4_C115F4_CreateTypedTextEntryRecordDirect:
     sta $12
     lda $08
     sta $14
-    jsr $13D1
+    jsr C113D1_InstallTextEntryRecord
     tax
     ldy $16
     tya
@@ -99,7 +109,7 @@ C11678_CreateTypedTextEntryRecordDirect_L1678:
     clc
     adc.w #$89D4
     sta $02
-    jsl $C3E4D4
+    jsl C3E4D4_SetInstantPrinting
 C11689_C11689_RenderNextActiveTextEntryRecord:
     ldx $02
     ; record +06 is matched against descriptor +33; zero records render on the
@@ -113,19 +123,19 @@ C11689_C11689_RenderNextActiveTextEntryRecord:
     jmp.w C117C4_C117C4_AdvanceToNextTextEntryRecord
 C1169D_CreateTypedTextEntryRecordDirect_L169D:
     lda $02
-    jsl $C43DDB
+    jsl C43DDB_PrintRecordSelectionMarkerAndStageGlyphRun
     ldx $02
     lda $0006,X
     beq C116AD_CreateTypedTextEntryRecordDirect_L16AD
     jmp.w C117A4_C117A4_PrintTextEntryRecordBodyDirectly
 C116AD_CreateTypedTextEntryRecordDirect_L16AD:
     lda.w #$0000
-    jsr $0FEA
+    jsr C10FEA_SetActiveWindowTileAttributes
     lda.w #$014F
-    jsl $C43F77
-    jsl $C43CAA
+    jsl C43F77_PrintGlyphWithTileCleanupSoundDelay
+    jsl C43CAA_AdvanceAnimatedGlyphTileStateOffset
     lda.w #$0000
-    jsr $0FEA
+    jsr C10FEA_SetActiveWindowTileAttributes
     lda $04
     clc
     adc.w #$003C
@@ -175,7 +185,7 @@ C116FA_CreateTypedTextEntryRecordDirect_L16FA:
     inx
     lda.b #$00
     sta $0000,X
-    jsl $C43CAA
+    jsl C43CAA_AdvanceAnimatedGlyphTileStateOffset
     lda.b #$9F
     stz $0685
     phb
@@ -190,13 +200,13 @@ C116FA_CreateTypedTextEntryRecordDirect_L16FA:
     sta $10
     ldx.w #$FFFF
     lda $8958
-    jsl $C2032B
-    jsl $C43CAA
+    jsl C2032B_WriteWindowTitleAndUpload
+    jsl C43CAA_AdvanceAnimatedGlyphTileStateOffset
     lda $06
     sta $0E
     lda $08
     sta $10
-    jsl $C08F22
+    jsl C08F22_MeasureTerminatedTextLength
     sta $12
     lda $06
     sta $0E
@@ -205,7 +215,7 @@ C116FA_CreateTypedTextEntryRecordDirect_L16FA:
     lda $12
     dec A
     dec A
-    jsr $0EFC
+    jsr C10EFC_PrintFixedString
     ldy $14
     lda $0000,Y
     sta $14
@@ -227,9 +237,9 @@ C11795_CreateTypedTextEntryRecordDirect_L1795:
     clc
     adc.w #$0061
 C11799_CreateTypedTextEntryRecordDirect_L1799:
-    jsr $0CB6
+    jsr C10CB6_PrintGlyphWithSoundAndDelay
     lda.w #$0059
-    jsr $0CB6
+    jsr C10CB6_PrintGlyphWithSoundAndDelay
     bra C117C4_C117C4_AdvanceToNextTextEntryRecord
 C117A4_C117A4_PrintTextEntryRecordBodyDirectly:
     ; record +13 is the copied NUL-terminated text body.
@@ -248,7 +258,7 @@ C117A4_C117A4_PrintTextEntryRecordBodyDirectly:
     lda $08
     sta $10
     lda.w #$FFFF
-    jsr $0EFC
+    jsr C10EFC_PrintFixedString
 C117C4_C117C4_AdvanceToNextTextEntryRecord:
     ldx $02
     ; record +02 links to the next entry in the active text-entry chain.

@@ -264,3 +264,8 @@ This planning pass is documentation-only.
   text/input tick, sound effect, `MULT32`, and divide helper calls. See
   `notes/text-entry-record-builder-neighbors-c10f40-c11887.md` and
   `notes/text-window-rendering-primitives-c1078d-c10d7c.md`.
+- 2026-05-06 follow-up: the adjacent `C1:15F4..17E2` direct text-entry
+  constructor and active-chain renderer now name their installer, print,
+  tile-attribute, window-title upload, text-length, record-marker, glyph-state,
+  and glyph-print helper joins. See
+  `notes/text-entry-record-builder-neighbors-c10f40-c11887.md`.

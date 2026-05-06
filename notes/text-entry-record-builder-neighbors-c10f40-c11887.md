@@ -94,6 +94,13 @@ So `C1:14B1` is best read as "create text-entry record with display metadata".
 
 The exact user-facing distinctions among these record types are still softer than the byte mechanics, but the local structure is clear: they are not independent print algorithms; they are constructors over the same `$89D4` entry format.
 
+Source polish: `src/c1/c1_15f4_create_typed_text_entry_record_direct.asm`
+now names the helper edges used by the direct constructor and the adjacent
+active-chain renderer. The source names the `C1:13D1` installer, `PRINT_STRING`
+and `PRINT_LETTER` paths, active-window tile-attribute setup at `C1:0FEA`,
+the `C2:032B` window-title upload helper, `C0:8F22` text-length scan, and the
+C4 record-marker/glyph-state/glyph-print helpers.
+
 ## String Length Helper
 
 `C1:17E2` counts nonzero bytes from a caller pointer.
@@ -118,7 +125,11 @@ Both routines:
 
 `C1:181B` takes the requested index from `Y` and treats `FFFF` as "skip selection update"; `C1:1887` takes the requested index from `A` and uses the same `FFFF` sentinel.
 
-The larger `C1:163C` routine is still too broad to name tightly here, but these two starts are locally clear as active-entry-chain selection/update helpers.
+The larger `C1:163C` routine is still broad, but its helper edges are now
+clearer: it enters instant-print mode, prints record selection markers through
+`C4:3DDB`, stages animated glyph state through `C4:3CAA`, prints through
+`C1:0EFC`/`C1:0CB6`, and uses the window-title upload and text-length helpers
+while rendering special active-entry bodies.
 
 `C1:0C49` is part of the same contract. It returns `0` for a `FFFF` head record and otherwise follows the `$89D4` `record + 02` next links until `FFFF`, returning the number of linked records. `C4:51FA` uses that count while assigning active-window row/page metadata to the chain.
 
@@ -126,4 +137,6 @@ The larger `C1:163C` routine is still too broad to name tightly here, but these 
 
 The unknown starts `C1:0F40`, `C1:134B`, `C1:138D`, `C1:13D1`, `C1:14B1`, `C1:153B`, `C1:1596`, `C1:15F4`, `C1:181B`, and `C1:1887` are now covered as current-window clearing, display setup, text-entry record construction, and active record-chain selection helpers.
 
-The main remaining work in this neighborhood is giving the `$89D4` record fields and the broad `C1:163C` refresh path better final names, then continuing into the adjacent `C1:1F8A..242E` selection-prompt controller family.
+The main remaining work in this neighborhood is giving the `$89D4` record fields
+and `C1:163C`'s internal rendering modes better final names, then continuing
+into the adjacent `C1:1F8A..242E` selection-prompt controller family.
