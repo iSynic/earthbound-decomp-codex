@@ -130,6 +130,8 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate independent oracle coverage report: `python tools/validate_audio_independent_oracle_coverage_report.py`.
 - Build residual uncertainty coverage report: `python tools/build_audio_residual_uncertainty_coverage_report.py`.
 - Validate residual uncertainty coverage report: `python tools/validate_audio_residual_uncertainty_coverage_report.py`.
+- Build audio duration next-actions plan: `python tools/build_audio_duration_next_actions_plan.py`.
+- Validate audio duration next-actions plan: `python tools/validate_audio_duration_next_actions_plan.py`.
 - Collect fused post-command timing metrics: `python tools/collect_audio_fusion_timing_metrics.py`.
 - Validate fused post-command timing metrics: `python tools/validate_audio_fusion_timing_metrics.py`.
 - Build ignored renderer fixtures: `python tools/build_audio_renderer_fixtures.py --tracks 46`.
