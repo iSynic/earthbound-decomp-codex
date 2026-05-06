@@ -17,6 +17,9 @@ C0B0AA_ResetOrPrimeBattleOverlayRenderer      = $C0B0AA
 
 ; ---------------------------------------------------------------------------
 ; WRAM / data contracts
+;
+; C4 owns the $AEC2..$AEE6 overlay interpreter state. C2 and C3 callers select
+; modes and flags, but the byte layout below is the callee-side contract.
 
 BATTLE_OVERLAY_SCRIPT_TABLE_BASE              = $CEDD41
 BATTLE_OVERLAY_SCRIPT_TABLE_BANK              = $00CE
@@ -54,6 +57,13 @@ LowByteMask                                   = $00FF
 ; C4:A67E
 
 ; StartBattleOverlayScriptState
+;
+; Entry:
+;   A = CE:DD41 mode index.
+;   X = overlay flag word.
+; Side effects: seeds $AEC2..$AEE6, optionally installs the local C4:A5CE
+; default opening script pointer, and then calls the C0 renderer primer. This
+; routine does not advance script records; C4:A7B0 owns per-frame stepping.
 C4A67E_StartBattleOverlayScriptState:
     rep #$31
     phd

@@ -29,6 +29,12 @@ Source polish: `src/c4/window_color_hdma_helpers.asm` now names the
 `COLDATA` red/green/blue selector bits and the WOBJSEL clear value used by
 the channel-4 teardown helper.
 
+2026-05-06 source polish: the same source module now documents the direct PPU
+side effects for the color-window presets and the WH0/WH2 HDMA setup/teardown
+helpers. The comments intentionally stop at register writes and `$001F` HDMA
+enable-shadow bits; C4 does not claim the broader C0 renderer bracket semantics
+for these small entries.
+
 `C4:249A`, `C4:24D1`, `C4:2509`, and `C4:258C` are larger one-shot presets:
 
 - `C4:249A` takes caller A as `CGADSUB`, uses a full-screen `WH0/WH1` range, enables the object/color window through `WOBJSEL = #$20`, and writes fixed color from caller X ORed with `#$E0`.

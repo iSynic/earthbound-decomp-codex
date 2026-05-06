@@ -212,6 +212,17 @@ closure.
   exception, stereo/mono stream loader, and auto-sector music-change latch. See
   `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md` and
   `notes/audio-pack-format-and-renderer-frontier.md`.
+- 2026-05-06 PPU/presentation contract follow-up: added conservative
+  side-effect comments for the C4 color-window and WH0/WH2 HDMA helpers,
+  clarified that the battle overlay initializer owns the `$AEC2..$AEE6`
+  callee-side state layout, attached local movement-presentation WRAM names to
+  the current-slot vector/bounds helper corridor, and split the Sound Stone
+  presentation data block into labeled EF payload, coordinate, melody,
+  phrase-length, and event tables. See
+  `notes/c4-window-color-math-and-palette-helpers-23dc-26ed.md`,
+  `notes/battle-overlay-script-state-c4a67e-c4a7b0.md`,
+  `notes/movement-target-bounds-and-vector-refresh-c46ef8-c47369.md`, and
+  `notes/sound-stone-presentation-data-c4ac57.md`.
 
 ## Validation
 

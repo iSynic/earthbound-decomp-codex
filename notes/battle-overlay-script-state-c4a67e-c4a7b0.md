@@ -102,6 +102,11 @@ active script pointer, `CE:DD41` script table, `CE:DC45` frame pointer table,
 and delta fields, special-mode delay ladder, and the C0 window/offset helper
 calls.
 
+2026-05-06 source polish: the initializer source now states the callee-side
+ownership boundary explicitly: C2/C3 pass mode and flag words, but C4 owns the
+`$AEC2..$AEE6` state layout, the optional local `C4:A5CE` default opening
+script pointer, and the handoff to the C0 renderer primer.
+
 ## Working Names
 
 - `C4:A591` = `BattleBgStaticTransitionWaveTable`

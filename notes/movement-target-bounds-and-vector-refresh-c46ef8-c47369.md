@@ -13,6 +13,13 @@ Reference context is still mostly placeholder names (`UNKNOWN_C46EF8`, `UNKNOWN_
 
 The safest model is that this is a movement-control layer over current-slot position, target position, vector/facing tables, and script-local bounds. Several per-slot fields are reused by different movement families, so the routine names below describe concrete behavior rather than assigning permanent global meanings to every table.
 
+2026-05-06 source polish: `src/c4/movement_target_bounds_and_vector_refresh_helpers.asm`
+now carries local WRAM names for the current-slot world position, cached target,
+arrival tolerance, vector high/low words, facing direction, area bounds, camera
+origin, and landing-profile action table. These names are deliberately scoped
+to this movement-presentation corridor because `$0E5E/$0E9A/$0ED6/$0F12` and
+nearby per-slot fields take narrower helper-local roles elsewhere.
+
 ## `C4:6EF8`
 
 `C4:6EF8` returns `0` immediately while `$9F3F` is nonzero. Otherwise it compares the current slot position (`$0B8E/$0BCA`) against the player position (`$9877/$987B`):

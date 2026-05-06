@@ -15,6 +15,10 @@
 
 ; ---------------------------------------------------------------------------
 ; Hardware and WRAM contracts
+;
+; These helpers write the PPU registers directly and maintain only the local
+; HDMA enable shadow at $001F. They do not queue through the C0 renderer layer,
+; so call sites must already be inside an appropriate display/effect bracket.
 
 REGISTER_WH0                         = $002126
 REGISTER_WH1                         = $002127
@@ -77,6 +81,9 @@ COLDATA_BLUE_SELECTOR                = $20
 ; C4:23DC
 
 ; SetCenteredColorWindowRangePreset
+;
+; Side effects: writes WH0/WH2 = $80, WH1/WH3 = $7F, CGWSEL/TMW, and clears
+; WBGLOG/WOBJLOG. This is a color-window preset, not a general window API.
 C423DC_SetCenteredColorWindowRangePreset:
     sep #$20
     lda.b #COLOR_WINDOW_CENTER_LEFT
@@ -99,6 +106,9 @@ C423DC_SetCenteredColorWindowRangePreset:
 ; C4:240A
 
 ; SetFullscreenColorWindowRangePreset
+;
+; Side effects: writes full WH0/WH2 and WH1/WH3 ranges, CGWSEL/TMW, and clears
+; WBGLOG/WOBJLOG.
 C4240A_SetFullscreenColorWindowRangePreset:
     sep #$20
     lda.b #COLOR_WINDOW_FULLSCREEN_LEFT
@@ -149,6 +159,8 @@ C42439_ApplyColorMathAndFixedColorFrom9e37:
 ; Entry:
 ;   A = HDMA source bank / indirect bank.
 ;   X = HDMA table source address.
+; Side effects: programs DMA channel 4 for indirect HDMA to WH0/WH1, sets
+; WOBJSEL to $A0, and sets bit $10 in the $001F HDMA enable shadow.
 C4245D_StartWh0HdmaChannel4AndWhselA0:
     sep #$20
     sta.l DMA4_A1B
@@ -172,6 +184,9 @@ C4245D_StartWh0HdmaChannel4AndWhselA0:
 ; C4:248A
 
 ; StopWh0HdmaChannel4AndClearWhsel
+;
+; Side effects: clears bit $10 in the $001F HDMA enable shadow and clears
+; WOBJSEL. It does not clear the DMA4 descriptor fields.
 C4248A_StopWh0HdmaChannel4AndClearWhsel:
     sep #$20
     lda.b #HDMA_CHANNEL4_ENABLE_BIT
@@ -189,6 +204,8 @@ C4248A_StopWh0HdmaChannel4AndClearWhsel:
 ; Entry:
 ;   A = CGADSUB value.
 ;   X = fixed-color low component value, ORed with the COLDATA selector mask.
+; Side effects: writes CGADSUB, WOBJSEL, WH0/WH1, TMW, WBGLOG/WOBJLOG,
+; CGWSEL, and one COLDATA byte.
 C4249A_ApplyFullscreenColorMathWithFixedColorX:
     sep #$30
     sta.l REGISTER_CGADSUB
@@ -267,6 +284,12 @@ C42509_ApplyFullscreenColorSubtractHalfPreset:
 ; C4:2542
 
 ; StartWh0HdmaChannel4
+;
+; Entry:
+;   A = HDMA source bank / indirect bank.
+;   X = HDMA table source address.
+; Side effects: programs DMA channel 4 for indirect HDMA to WH0/WH1 and sets
+; bit $10 in the $001F HDMA enable shadow. WOBJSEL is left unchanged.
 C42542_StartWh0HdmaChannel4:
     sep #$20
     sta.l DMA4_A1B
@@ -304,6 +327,9 @@ C42574_SetColorMathModeB3:
     rtl
 
 ; ClearWh0HdmaChannel4Enable
+;
+; Side effects: clears bit $10 in the $001F HDMA enable shadow through an
+; AND/store sequence. WOBJSEL and the DMA4 descriptor fields are left unchanged.
 C4257F_ClearWh0HdmaChannel4Enable:
     sep #$20
     lda HDMA_ENABLE_SHADOW
@@ -344,6 +370,13 @@ C4258C_ApplyDualCenteredColorSubtractHalfPreset:
 ; C4:25CC / C4:25F3
 
 ; StartWh0HdmaChannel4AltEntry
+;
+; Entry:
+;   A = HDMA source bank / indirect bank.
+;   X = HDMA table source address.
+; Side effects match C4:2542: programs DMA channel 4 for WH0/WH1 HDMA and
+; sets bit $10 in the $001F HDMA enable shadow. The distinct entry name is kept
+; until call-site ownership proves whether it is semantically separate.
 C425CC_StartWh0HdmaChannel4AltEntry:
     sep #$20
     sta.l DMA4_A1B
@@ -362,6 +395,8 @@ C425CC_StartWh0HdmaChannel4AltEntry:
     rtl
 
 ; ClearWh0HdmaChannel4EnableViaTrb
+;
+; Side effects: clears bit $10 in the $001F HDMA enable shadow through TRB.
 C425F3_ClearWh0HdmaChannel4EnableViaTrb:
     sep #$20
     lda.b #HDMA_CHANNEL4_ENABLE_BIT
@@ -373,6 +408,12 @@ C425F3_ClearWh0HdmaChannel4EnableViaTrb:
 ; C4:25FD / C4:2624
 
 ; StartWh2HdmaChannel5
+;
+; Entry:
+;   A = HDMA source bank / indirect bank.
+;   X = HDMA table source address.
+; Side effects: programs DMA channel 5 for indirect HDMA to WH2/WH3 and sets
+; bit $20 in the $001F HDMA enable shadow.
 C425FD_StartWh2HdmaChannel5:
     sep #$20
     sta.l DMA5_A1B
@@ -391,6 +432,9 @@ C425FD_StartWh2HdmaChannel5:
     rtl
 
 ; ClearWh2HdmaChannel5Enable
+;
+; Side effects: clears bit $20 in the $001F HDMA enable shadow. DMA5
+; descriptor fields are left unchanged.
 C42624_ClearWh2HdmaChannel5Enable:
     sep #$20
     lda HDMA_ENABLE_SHADOW

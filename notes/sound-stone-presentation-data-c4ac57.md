@@ -59,6 +59,13 @@ pointer-table walk, per-Sanctuary orbit angle/phase/glyph fields, opposite
 orbit projection, spinner frame, battle-visual script ids, input exit mask,
 and presentation closeout fade/busy gates.
 
+2026-05-06 table polish: `src/c4/sound_stone_presentation_tables.asm` now
+keeps the original `C4:AC57` block label while splitting the bytes into
+table-local labels for the nine EF payload pointers, the coordinate/control
+and timing rows, plus the melody id and Sanctuary event rows. The labels
+intentionally remain C4-owned because the C1 callers enter the controller at
+`C4:ACCE` rather than reading these rows directly.
+
 ## Working Names
 
 - `C4:AC57` = `SoundStonePresentationDataBlock`
