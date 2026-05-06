@@ -1,0 +1,145 @@
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+import build_asset_data_contract_frontier
+import build_asset_output_preview_geometry
+import build_asset_output_recipe_contracts
+import build_asset_output_smoke_fixtures
+import validate_asset_output_codecs
+
+
+ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_MANIFEST_DIR = ROOT / "asset-manifests"
+
+
+@dataclass(frozen=True)
+class CheckedReport:
+    path: Path
+    expected: str
+    command: str
+
+
+def normalize_text(text: str) -> str:
+    return text.replace("\r\n", "\n")
+
+
+def json_text(data: object) -> str:
+    return json.dumps(data, indent=2) + "\n"
+
+
+def load_existing(path: Path) -> str:
+    if not path.exists():
+        return ""
+    return normalize_text(path.read_text(encoding="utf-8"))
+
+
+def rel(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return str(path)
+
+
+def build_checked_reports(manifest_dir: Path, *, include_codec: bool) -> list[CheckedReport]:
+    reports: list[CheckedReport] = []
+
+    smoke_plan = build_asset_output_smoke_fixtures.build_fixture_plan(manifest_dir)
+    reports.append(
+        CheckedReport(
+            build_asset_output_smoke_fixtures.DEFAULT_JSON_OUT,
+            json_text(smoke_plan),
+            "python tools/build_asset_output_smoke_fixtures.py",
+        )
+    )
+    reports.append(
+        CheckedReport(
+            build_asset_output_smoke_fixtures.DEFAULT_MARKDOWN_OUT,
+            build_asset_output_smoke_fixtures.render_markdown(smoke_plan),
+            "python tools/build_asset_output_smoke_fixtures.py",
+        )
+    )
+
+    recipe_contract = build_asset_output_recipe_contracts.build_contract(manifest_dir)
+    reports.append(
+        CheckedReport(
+            build_asset_output_recipe_contracts.DEFAULT_MARKDOWN_OUT,
+            build_asset_output_recipe_contracts.render_markdown(recipe_contract),
+            "python tools/build_asset_output_recipe_contracts.py",
+        )
+    )
+
+    preview_geometry = build_asset_output_preview_geometry.build_report(manifest_dir)
+    reports.append(
+        CheckedReport(
+            build_asset_output_preview_geometry.DEFAULT_MARKDOWN_OUT,
+            build_asset_output_preview_geometry.render_markdown(preview_geometry),
+            "python tools/build_asset_output_preview_geometry.py",
+        )
+    )
+
+    frontier = build_asset_data_contract_frontier.build_frontier(manifest_dir)
+    reports.append(
+        CheckedReport(
+            build_asset_data_contract_frontier.DEFAULT_MARKDOWN_OUT,
+            build_asset_data_contract_frontier.render_markdown(frontier),
+            "python tools/build_asset_data_contract_frontier.py",
+        )
+    )
+
+    if include_codec:
+        codec_report = validate_asset_output_codecs.run_validation(validate_asset_output_codecs.DEFAULT_OUT)
+        reports.append(
+            CheckedReport(
+                validate_asset_output_codecs.DEFAULT_MARKDOWN_OUT,
+                validate_asset_output_codecs.render_markdown(codec_report),
+                "python tools/validate_asset_output_codecs.py",
+            )
+        )
+
+    return reports
+
+
+def validate_reports(manifest_dir: Path, *, include_codec: bool) -> list[str]:
+    errors: list[str] = []
+    for report in build_checked_reports(manifest_dir, include_codec=include_codec):
+        expected = normalize_text(report.expected)
+        existing = load_existing(report.path)
+        if existing != expected:
+            if not report.path.exists():
+                errors.append(f"{rel(report.path)} is missing; run `{report.command}`")
+            else:
+                errors.append(f"{rel(report.path)} is stale; run `{report.command}`")
+    return errors
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Validate generated asset output reports are fresh.")
+    parser.add_argument("--manifest-dir", default=str(DEFAULT_MANIFEST_DIR))
+    parser.add_argument(
+        "--skip-codec",
+        action="store_true",
+        help="Skip synthetic codec validation freshness; by default it also rebuilds ignored build/ codec outputs.",
+    )
+    args = parser.parse_args()
+
+    errors = validate_reports(Path(args.manifest_dir), include_codec=not args.skip_codec)
+    if errors:
+        print("asset output report freshness: invalid")
+        for error in errors:
+            print(f"ERROR {error}")
+        return 1
+    print("asset output report freshness: ok")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -10,6 +10,8 @@ Offline codec/render validation for every typed output kind is tracked in `notes
 
 Static preview geometry for PNG recipe outputs is tracked in `notes/asset-output-preview-geometry.md` and rebuildable without a ROM via `tools/build_asset_output_preview_geometry.py`.
 
+Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.
+
 ## Snapshot
 
 - manifests: `38`

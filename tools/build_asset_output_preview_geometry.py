@@ -282,6 +282,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         "This is a static geometry contract for PNG preview/render recipes. It contains no ROM-derived payloads; dimensions are predicted only when manifest metadata is sufficient without reading or decompressing a ROM.",
         "",
+        "Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
+        "",
         "## Snapshot",
         "",
         f"- status: `{report['status']}`",

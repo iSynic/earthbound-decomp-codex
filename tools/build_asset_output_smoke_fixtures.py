@@ -269,6 +269,7 @@ def render_markdown(plan: dict[str, Any]) -> str:
         "- execute smoke fixtures with a ROM: `python tools/run_asset_output_smoke_fixtures.py --rom path/to/EarthBound.sfc`",
         "- default output root: `build/asset-output-smoke-fixtures`",
         "- post-extraction validation checks that every fixture target output exists, is non-empty, matches reported SHA-1/size, and carries required typed report metadata",
+        "- check generated asset-output report freshness: `python tools/validate_asset_output_reports.py`",
         "",
         "## Recipe-Kind Fixtures",
         "",

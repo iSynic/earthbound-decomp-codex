@@ -320,6 +320,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         "This validates the offline renderer/decoder code paths behind typed output recipes without requiring a user-supplied ROM. Generated PNG/JSON/bin outputs stay under ignored `build/` paths.",
         "",
+        "Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
+        "",
         "## Snapshot",
         "",
         f"- status: `{report['status']}`",

@@ -283,6 +283,7 @@ def build_contract(manifest_dir: Path) -> dict[str, Any]:
             "manifest_dir": rel(manifest_dir),
             "recipe_contract_module": "tools/asset_output_recipe_contracts.py",
         },
+        "freshness_validator": "tools/validate_asset_output_reports.py",
         "generated_json": rel(DEFAULT_JSON_OUT),
         "tracked_markdown": rel(DEFAULT_MARKDOWN_OUT),
         "smoke_fixtures": {
@@ -331,6 +332,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "Offline codec/render validation for every typed output kind is tracked in `notes/asset-output-codec-validation.md` and executable without a ROM via `tools/validate_asset_output_codecs.py`.",
         "",
         "Static preview geometry for PNG recipe outputs is tracked in `notes/asset-output-preview-geometry.md` and rebuildable without a ROM via `tools/build_asset_output_preview_geometry.py`.",
+        "",
+        "Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
         "",
         "## Snapshot",
         "",
