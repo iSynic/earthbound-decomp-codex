@@ -59,6 +59,14 @@ DIRECTION_TEMPVAR_CONSUMERS = {
     "C0:C83B": "InstallScriptMovementVectorFromDirection",
 }
 
+FIELD2B32_CONSUMERS = {
+    "C0:C83B": "InstallScriptMovementVectorFromDirection",
+    "C0:CA4E": "SetMovementTaskTimerFromActiveVector",
+    "C0:A6A2": "Script_SetMovementStateCA4E",
+    "C0:A6AD": "Script_SetMovementStateCBD3",
+    "C0:CBD3": "SetMovementTaskTimerFromSpeedScale",
+}
+
 TEMPVAR_REPLACING_OPCODES = {
     "EVENT_WRITE_WORD_TEMPVAR",
     "EVENT_WRITE_WRAM_TEMPVAR",
@@ -314,6 +322,93 @@ def collect_direction_boundary_signals(
     for event in events.values():
         for value in event["values"]:
             value_counts[value] += 1
+        for consumer in event["consumers"]:
+            consumer_counts[consumer.split()[0]] += 1
+
+    return {
+        "producer_count": len(events),
+        "value_counts": dict(value_counts.most_common()),
+        "consumer_counts": dict(consumer_counts.most_common()),
+        "events": sorted(
+            events.values(),
+            key=lambda item: address_sort_key(str(item["producer_address"])),
+        ),
+    }
+
+
+def collect_field2b32_boundary_signals(
+    entries: list[dict[str, Any]],
+    rom: bytes,
+    names: dict[str, list[str]],
+    *,
+    max_instructions: int,
+    max_bytes: int,
+) -> dict[str, Any]:
+    events: dict[tuple[str, int], dict[str, Any]] = {}
+
+    for entry in entries:
+        address = parse_address(str(entry["address"]))
+        size = entry.get("size")
+        decode_bytes = min(size, max_bytes) if isinstance(size, int) and size > 0 else max_bytes
+        lines = decode_script(
+            rom,
+            address,
+            max_instructions=max_instructions,
+            max_bytes=decode_bytes,
+            stop_at_terminal=False,
+            names=names,
+        )
+        pending: dict[str, Any] | None = None
+        for line in lines:
+            address_match = DECODED_ADDRESS_RE.match(line)
+            if not address_match:
+                continue
+            line_address = address_match.group(1)
+            target = CALLROUTINE_RE.search(line)
+            target_key = target.group(1) if target else None
+
+            if target_key == "C0:A685":
+                match = FIELD2B32_WORD_RE.search(line)
+                if match:
+                    pending = {
+                        "producer_address": line_address,
+                        "value": int(match.group(1), 16),
+                    }
+                else:
+                    pending = None
+                continue
+
+            if target_key == "C0:A68B":
+                pending = None
+                continue
+
+            if target_key in FIELD2B32_CONSUMERS and pending:
+                key = (str(pending["producer_address"]), int(pending["value"]))
+                event = events.setdefault(
+                    key,
+                    {
+                        "producer_address": pending["producer_address"],
+                        "source": "C0:A685 field2b32_word",
+                        "value": f"${int(pending['value']):04X}",
+                        "value_name": ACTIONSCRIPT_FIELD2B32_WORDS.get(
+                            int(pending["value"]),
+                            {"name": f"field2b32_step_{int(pending['value']):04x}"},
+                        )["name"],
+                        "consumers": [],
+                        "rows": [],
+                    },
+                )
+                consumer_label = f"{target_key} {FIELD2B32_CONSUMERS[target_key]}"
+                if consumer_label not in event["consumers"]:
+                    event["consumers"].append(consumer_label)
+                row_label = f"{entry['address']} {entry.get('name') or ''}".strip()
+                if row_label not in event["rows"]:
+                    event["rows"].append(row_label)
+
+    value_counts: Counter[str] = Counter()
+    consumer_counts: Counter[str] = Counter()
+    for event in events.values():
+        value_counts[event["value"]] += 1
         for consumer in event["consumers"]:
             consumer_counts[consumer.split()[0]] += 1
 
@@ -650,6 +745,13 @@ def build_audit(
         str(contract["semantic_group"]) for contract in installed_callback_contracts
     )
     operand_value_signals = collect_operand_value_signals(rows)
+    field2b32_boundary_signals = collect_field2b32_boundary_signals(
+        entries,
+        rom,
+        names,
+        max_instructions=max_instructions,
+        max_bytes=max_bytes,
+    )
     direction_boundary_signals = collect_direction_boundary_signals(
         entries,
         rom,
@@ -685,6 +787,7 @@ def build_audit(
         },
         "opcode_catalog": build_opcode_catalog(),
         "operand_value_catalog": operand_value_signals,
+        "field2b32_boundary_signals": field2b32_boundary_signals,
         "direction_boundary_signals": direction_boundary_signals,
         "callback_contracts": callback_contracts,
         "installed_callback_contracts": installed_callback_contracts,
@@ -838,17 +941,66 @@ def render_markdown(audit: dict[str, Any]) -> str:
             "",
             "### Field $2B32 movement words",
             "",
-            "| Value | Name | Decode count | Contract |",
+            "| Value | Name | Observed count | Contract |",
             "| --- | --- | ---: | --- |",
         ]
     )
+    field2b32_signals = audit.get("field2b32_boundary_signals", {})
+    field2b32_counts = dict(operand_values["field2b32_words"])
+    for value, count in field2b32_signals.get("value_counts", {}).items():
+        field2b32_counts[value] = max(int(field2b32_counts.get(value, 0)), int(count))
     lines.extend(
         render_operand_rows(
             ACTIONSCRIPT_FIELD2B32_WORDS,
-            operand_values["field2b32_words"],
+            field2b32_counts,
             width=4,
         )
     )
+
+    lines.extend(
+        [
+            "",
+            "### Field $2B32 movement boundary evidence",
+            "",
+            "`C0:A685` writes the inline `field2b32_word` into current-slot `$2B32`. The C0 movement-vector note shows `C0:C83B` deriving signed vector words from `$2B32`; timer wrappers such as `C0:A6A2`/`C0:A6AD` and direct `C0:CA4E`/`C0:CBD3` calls then consume the active vector or speed scale. The table records decoded C3 `$2B32` writes that reach one of those movement/timer consumers inside the same source-map span.",
+            "",
+            f"- boundary-confirmed producers: `{field2b32_signals.get('producer_count', 0)}`",
+            f"- value coverage: `{field2b32_signals.get('value_counts', {})}`",
+            f"- consumer coverage: `{field2b32_signals.get('consumer_counts', {})}`",
+            "",
+            "| Producer | Value | Consumers | Rows |",
+            "| --- | --- | --- | --- |",
+        ]
+    )
+    field2b32_events = list(field2b32_signals.get("events", []))
+    priority_events = [
+        event
+        for event in field2b32_events
+        if any(
+            str(consumer).startswith(("C0:C83B ", "C0:A6AD ", "C0:CBD3 "))
+            for consumer in event.get("consumers", [])
+        )
+    ]
+    sample_events = [
+        event
+        for event in field2b32_events
+        if event not in priority_events
+    ][:20]
+    visible_events = priority_events[:24] + sample_events
+    for event in visible_events:
+        value = f"{event.get('value')} <{event.get('value_name')}>"
+        lines.append(
+            "| `{producer}` | `{value}` | {consumers} | {rows} |".format(
+                producer=event["producer_address"],
+                value=markdown_escape(value),
+                consumers=format_list(event.get("consumers", []), limit=3),
+                rows=format_list(event.get("rows", []), limit=2),
+            )
+        )
+    if len(field2b32_events) > len(visible_events):
+        lines.append(
+            f"| `...` | - | - | `{len(field2b32_events) - len(visible_events)}` additional boundary-confirmed producer(s) in JSON output |"
+        )
     lines.extend(
         [
             "",

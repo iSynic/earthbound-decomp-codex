@@ -887,43 +887,47 @@ ACTIONSCRIPT_ANIMATION_IDS: dict[int, dict[str, str]] = {
 ACTIONSCRIPT_FIELD2B32_WORDS: dict[int, dict[str, str]] = {
     0x0040: {
         "name": "field2b32_step_0040",
-        "contract": "small movement/visual vector magnitude written to current slot field $2B32",
+        "contract": "small movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
     },
     0x0060: {
         "name": "field2b32_step_0060",
-        "contract": "observed movement/visual vector magnitude written to current slot field $2B32",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+    0x0080: {
+        "name": "field2b32_step_0080",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
     },
     0x00C0: {
         "name": "field2b32_step_00c0",
-        "contract": "observed movement/visual vector magnitude written to current slot field $2B32",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
     },
     0x0100: {
         "name": "field2b32_step_0100",
-        "contract": "standard movement/visual vector magnitude written to current slot field $2B32",
+        "contract": "standard movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
     },
     0x0140: {
         "name": "field2b32_step_0140",
-        "contract": "observed movement/visual vector magnitude written to current slot field $2B32",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
     },
     0x0160: {
         "name": "field2b32_step_0160",
-        "contract": "larger movement/visual vector magnitude written to current slot field $2B32",
+        "contract": "larger movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
     },
     0x0180: {
         "name": "field2b32_step_0180",
-        "contract": "observed movement/visual vector magnitude written to current slot field $2B32",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
     },
     0x0200: {
         "name": "field2b32_step_0200",
-        "contract": "large movement/visual vector magnitude written to current slot field $2B32",
+        "contract": "large movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
     },
     0x0280: {
         "name": "field2b32_step_0280",
-        "contract": "observed movement/visual vector magnitude written to current slot field $2B32",
+        "contract": "observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
     },
     0x0600: {
         "name": "field2b32_step_0600",
-        "contract": "very large movement/visual vector magnitude written to current slot field $2B32",
+        "contract": "very large movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
     },
 }
 

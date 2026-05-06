@@ -117,6 +117,9 @@ evidence is already bank-local or cross-referenced:
   writes or `C0:9F82` random-choice word lists are counted as direction values
   only when they reach `C0:A65F` and, for movement-vector cases, `C0:C83B`
   inside the same decoded source-map span
+- the same audit now records `$2B32` movement magnitudes from `C0:A685` only
+  when the decoded span carries them into movement-vector or timer consumers
+  such as `C0:C83B`, `C0:CA4E`, `C0:A6A2`, `C0:A6AD`, or `C0:CBD3`
 
 This is intentionally a readability layer, not a new byte format. The raw bytes
 remain printed on every decoded line, and the source-pilot emitters still

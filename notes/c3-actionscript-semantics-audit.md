@@ -104,18 +104,41 @@ These names are source-pilot readability seeds from recurring decoded C3 actions
 
 ### Field $2B32 movement words
 
-| Value | Name | Decode count | Contract |
+| Value | Name | Observed count | Contract |
 | --- | --- | ---: | --- |
-| `$0040` | `field2b32_step_0040` | 2 | small movement/visual vector magnitude written to current slot field $2B32 |
-| `$0060` | `field2b32_step_0060` | 1 | observed movement/visual vector magnitude written to current slot field $2B32 |
-| `$00C0` | `field2b32_step_00c0` | 2 | observed movement/visual vector magnitude written to current slot field $2B32 |
-| `$0100` | `field2b32_step_0100` | 12 | standard movement/visual vector magnitude written to current slot field $2B32 |
-| `$0140` | `field2b32_step_0140` | 1 | observed movement/visual vector magnitude written to current slot field $2B32 |
-| `$0160` | `field2b32_step_0160` | 2 | larger movement/visual vector magnitude written to current slot field $2B32 |
-| `$0180` | `field2b32_step_0180` | 2 | observed movement/visual vector magnitude written to current slot field $2B32 |
-| `$0200` | `field2b32_step_0200` | 2 | large movement/visual vector magnitude written to current slot field $2B32 |
-| `$0280` | `field2b32_step_0280` | 1 | observed movement/visual vector magnitude written to current slot field $2B32 |
-| `$0600` | `field2b32_step_0600` | 2 | very large movement/visual vector magnitude written to current slot field $2B32 |
+| `$0040` | `field2b32_step_0040` | 2 | small movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers |
+| `$0060` | `field2b32_step_0060` | 1 | observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers |
+| `$0080` | `field2b32_step_0080` | 1 | observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers |
+| `$00C0` | `field2b32_step_00c0` | 2 | observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers |
+| `$0100` | `field2b32_step_0100` | 12 | standard movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers |
+| `$0140` | `field2b32_step_0140` | 1 | observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers |
+| `$0160` | `field2b32_step_0160` | 2 | larger movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers |
+| `$0180` | `field2b32_step_0180` | 2 | observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers |
+| `$0200` | `field2b32_step_0200` | 2 | large movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers |
+| `$0280` | `field2b32_step_0280` | 1 | observed movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers |
+| `$0600` | `field2b32_step_0600` | 2 | very large movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers |
+
+### Field $2B32 movement boundary evidence
+
+`C0:A685` writes the inline `field2b32_word` into current-slot `$2B32`. The C0 movement-vector note shows `C0:C83B` deriving signed vector words from `$2B32`; timer wrappers such as `C0:A6A2`/`C0:A6AD` and direct `C0:CA4E`/`C0:CBD3` calls then consume the active vector or speed scale. The table records decoded C3 `$2B32` writes that reach one of those movement/timer consumers inside the same source-map span.
+
+- boundary-confirmed producers: `11`
+- value coverage: `{'$0100': 4, '$0200': 2, '$0180': 2, '$0040': 1, '$0140': 1, '$0080': 1}`
+- consumer coverage: `{'C0:C83B': 6, 'C0:A6AD': 5, 'C0:CA4E': 3}`
+
+| Producer | Value | Consumers | Rows |
+| --- | --- | --- | --- |
+| `C3:9B42` | `$0040 <field2b32_step_0040>` | `C0:C83B InstallScriptMovementVectorFromDirection`, `C0:CA4E SetMovementTaskTimerFromActiveVector` | `C3:9AC7` |
+| `C3:A2F7` | `$0100 <field2b32_step_0100>` | `C0:C83B InstallScriptMovementVectorFromDirection`, `C0:CA4E SetMovementTaskTimerFromActiveVector` | `C3:A204 ReleaseCurrentVisualEntityAndEnd`, `C3:A22C Var0AnimationCase0Pulse8FrameOn`, +6 |
+| `C3:A3B0` | `$0100 <field2b32_step_0100>` | `C0:C83B InstallScriptMovementVectorFromDirection`, `C0:CA4E SetMovementTaskTimerFromActiveVector` | `C3:A23D Var0AnimationCase2Pulse4Frame`, `C3:A24E Var0AnimationCase3Pulse32Frame`, +5 |
+| `C3:A494` | `$0200 <field2b32_step_0200>` | `C0:A6AD Script_SetMovementStateCBD3` | `C3:A381 InitRandomWanderMovementWithCollisionProbe`, `C3:A3A1 InitC40015PulseWithCollisionProbe`, +11 |
+| `C3:A4D3` | `$0200 <field2b32_step_0200>` | `C0:A6AD Script_SetMovementStateCBD3` | `C3:A3B7 LoopRandomDirectionMovementWithRandomWait`, `C3:A3C9 ChooseRandomCardinalDirection`, +9 |
+| `C3:A553` | `$0100 <field2b32_step_0100>` | `C0:A6AD Script_SetMovementStateCBD3` | `C3:A3E7 SetMovementTimerThenRandomWait`, `C3:A401 InitNpcAttentionPathIfNoCachedNeighbor`, +6 |
+| `C3:A5A6` | `$0180 <field2b32_step_0180>` | `C0:A6AD Script_SetMovementStateCBD3` | `C3:A434 LoopNpcAttentionTerrainCollision`, `C3:A448 LoopNpcAttentionHorizontalCollision`, +2 |
+| `C3:A5D3` | `$0180 <field2b32_step_0180>` | `C0:A6AD Script_SetMovementStateCBD3` | `C3:A47C ReleaseCurrentVisualEntityTail` |
+| `C3:B795` | `$0140 <field2b32_step_0140>` | `C0:C83B InstallScriptMovementVectorFromDirection` | `C3:B70C` |
+| `C3:BBA0` | `$0100 <field2b32_step_0100>` | `C0:C83B InstallScriptMovementVectorFromDirection` | `C3:BB73` |
+| `C3:CF5C` | `$0080 <field2b32_step_0080>` | `C0:C83B InstallScriptMovementVectorFromDirection` | `C3:CEB9` |
 
 ### Direction-class word candidates
 
