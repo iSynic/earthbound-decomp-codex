@@ -8,20 +8,20 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 
 ## Snapshot
 
-- fixture selectors: `85`
-- unique selected assets: `31`
-- recipe kinds covered: `14`
+- fixture selectors: `87`
+- unique selected assets: `32`
+- recipe kinds covered: `15`
 - family/renderer pairs covered: `12`
 - family/renderer/geometry-status pairs covered: `14`
-- family/decoder pairs covered: `18`
+- family/decoder pairs covered: `19`
 - target bank-output policy banks: `22`
 - target banks with bank-output fixtures: `22`
 - target banks without typed non-raw outputs: -
 - fixture target source refs: `27`
 - fixture source-ref status mix: `manifest_asset` 21, `known_external` 6
 - fixture source-ref field mix: `palette_source` 21, `graphics_source` 6
-- fixture type mix: `bank_output` 22, `family_decoder` 18, `family_renderer_geometry` 14, `recipe_kind` 14, `family_renderer` 12, +1 more
-- fixture family mix: `battle_visual_assets` 30, `map_tilesets_and_runtime_tables` 19, `ui_font_town_map_assets` 18, `overworld_sprites` 15, `ef_debug_and_late_tail` 3
+- fixture type mix: `bank_output` 22, `family_decoder` 19, `recipe_kind` 15, `family_renderer_geometry` 14, `family_renderer` 12, +1 more
+- fixture family mix: `battle_visual_assets` 32, `map_tilesets_and_runtime_tables` 19, `ui_font_town_map_assets` 18, `overworld_sprites` 15, `ef_debug_and_late_tail` 3
 
 ## Runner
 
@@ -43,6 +43,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 
 | Recipe kind | Asset | Manifest | Target output | Decoder | Renderer |
 | --- | --- | --- | --- | --- | --- |
+| `battle_swirl_frame_json` | `asset.ce.swirl_data_0` | `asset-manifests/bank-ce-assets.json` | `ce/swirls/0_frame.json` | `battle_swirl_frame_metadata` | - |
 | `earthbound_lzhal` | `asset.ca.battle_background_arr_100` | `asset-manifests/bank-ca-assets.json` | `ca/battle_bgs/arrangements/100.arr` | `earthbound_lzhal` | - |
 | `earthbound_lzhal_battle_bg_arrangement_png` | `asset.ca.battle_background_arr_100` | `asset-manifests/bank-ca-assets.json` | `ca/battle_bgs/arrangements/100_composed_preview.png` | `earthbound_lzhal+snes_tilemap+snes_tiles+snes_palette` | `battle_background_arrangement` |
 | `earthbound_lzhal_battle_sprite_png` | `asset.cd.battle_sprite_10` | `asset-manifests/bank-cd-assets.json` | `cd/battle_sprites/10_palette_09_sprite.png` | `earthbound_lzhal+snes_4bpp_tiles+snes_palette` | `battle_sprite` |
@@ -135,6 +136,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 
 | Family/decoder | Asset | Manifest | Target recipe | Target output |
 | --- | --- | --- | --- | --- |
+| `battle_visual_assets.battle_swirl_frame_metadata` | `asset.ce.swirl_data_0` | `asset-manifests/bank-ce-assets.json` | `battle_swirl_frame_json` | `ce/swirls/0_frame.json` |
 | `battle_visual_assets.earthbound_lzhal` | `asset.ca.battle_background_arr_100` | `asset-manifests/bank-ca-assets.json` | `earthbound_lzhal` | `ca/battle_bgs/arrangements/100.arr` |
 | `battle_visual_assets.earthbound_lzhal+snes_4bpp_tiles` | `asset.ca.battle_background_gfx_38` | `asset-manifests/bank-ca-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `ca/battle_bgs/graphics/38_4bpp_preview.png` |
 | `battle_visual_assets.earthbound_lzhal+snes_4bpp_tiles+snes_palette` | `asset.ca.battle_background_gfx_38` | `asset-manifests/bank-ca-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | `ca/battle_bgs/graphics/38_palette_preview.png` |
@@ -162,7 +164,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `asset-manifests/bank-cb-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/bank-cb-assets.json --asset-id asset.cb.battle_background_arr_0 --asset-id asset.cb.battle_background_palette_0 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-cc-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-cc-assets.json --asset-id asset.cc.psi_anim_gfx_set_3 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-cd-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-cd-assets.json --asset-id asset.cd.battle_sprite_10 --out build/asset-output-smoke-fixtures` |
-| `asset-manifests/bank-ce-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-ce-assets.json --asset-id asset.ce.battle_sprite_0 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-ce-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/bank-ce-assets.json --asset-id asset.ce.battle_sprite_0 --asset-id asset.ce.swirl_data_0 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-d1-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-d1-assets.json --asset-id asset.d1.sprite_0000 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-d2-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-d2-assets.json --asset-id asset.d2.sprite_0123 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-d3-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-d3-assets.json --asset-id asset.d3.sprite_0354 --out build/asset-output-smoke-fixtures` |

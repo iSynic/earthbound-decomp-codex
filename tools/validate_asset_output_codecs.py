@@ -150,6 +150,28 @@ def output_cases() -> list[dict[str, Any]]:
             },
         },
         {
+            "id": "battle-swirl-frame-metadata",
+            "data": bytes([0x04, 0x5E, 0xFF, 0x00, 0xFF, 0x00, 0x91, 0x82]),
+            "spec": {
+                "kind": "battle_swirl_frame_json",
+                "path": "battle_swirl_frame.json",
+                "swirl_id": 4,
+                "sequence_id": 1,
+                "sequence_frame_index": 4,
+                "sequence_speed": 2,
+                "sequence_frame_count": 23,
+            },
+            "expected_metadata": {
+                "swirl_id": 4,
+                "sequence_id": 1,
+                "sequence_frame_index": 4,
+                "sequence_speed": 2,
+                "sequence_frame_count": 23,
+                "payload_bytes": 8,
+                "first_opcode": 4,
+            },
+        },
+        {
             "id": "snes-2bpp-tiles",
             "data": graphics_2bpp,
             "spec": {"kind": "snes_2bpp_tiles_png", "path": "tiles_2bpp.png", "columns": 2},

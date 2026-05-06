@@ -214,6 +214,51 @@ def overworld_sprite_asset_number(entry: dict[str, Any]) -> int | None:
     return int(match.group(1))
 
 
+def battle_swirl_asset_number(entry: dict[str, Any]) -> int | None:
+    payload = str(entry.get("payload_path") or "").replace("\\", "/").lower()
+    match = re.match(r"^swirls/(\d+)\.swirl$", payload)
+    if match is None:
+        return None
+    return int(match.group(1))
+
+
+def battle_swirl_sequence_context(swirl_id: int) -> dict[str, int] | None:
+    sequence_rows = [
+        {"sequence_id": 1, "sequence_speed": 2, "first": 0, "sequence_frame_count": 23},
+        {"sequence_id": 2, "sequence_speed": 4, "first": 23, "sequence_frame_count": 15},
+        {"sequence_id": 3, "sequence_speed": 3, "first": 38, "sequence_frame_count": 22},
+        {"sequence_id": 4, "sequence_speed": 4, "first": 60, "sequence_frame_count": 21},
+        {"sequence_id": 5, "sequence_speed": 2, "first": 81, "sequence_frame_count": 28},
+        {"sequence_id": 6, "sequence_speed": 3, "first": 109, "sequence_frame_count": 17},
+    ]
+    for row in sequence_rows:
+        first = row["first"]
+        count = row["sequence_frame_count"]
+        if first <= swirl_id < first + count:
+            return {
+                "sequence_id": row["sequence_id"],
+                "sequence_frame_index": swirl_id - first,
+                "sequence_speed": row["sequence_speed"],
+                "sequence_frame_count": count,
+            }
+    return None
+
+
+def battle_swirl_frame_metadata_output(raw_path: str, entry: dict[str, Any]) -> dict[str, Any] | None:
+    swirl_id = battle_swirl_asset_number(entry)
+    if swirl_id is None:
+        return None
+    context = battle_swirl_sequence_context(swirl_id)
+    if context is None:
+        return None
+    return {
+        "kind": "battle_swirl_frame_json",
+        "path": sidecar_path(raw_path, "frame", ".json"),
+        "swirl_id": swirl_id,
+        **context,
+    }
+
+
 def romaji_font_2bpp_preview_output(raw_path: str, entry: dict[str, Any]) -> dict[str, Any] | None:
     payload = str(entry.get("payload_path") or "").replace("\\", "/").lower()
     size = int(entry["size"])
@@ -666,6 +711,9 @@ def binary_outputs(
             outputs.append(romaji_preview)
     if extension == "pal" and not compressed and size % 2 == 0:
         outputs.extend(palette_outputs(raw_path, compressed=False))
+    swirl_metadata = battle_swirl_frame_metadata_output(raw_path, entry)
+    if swirl_metadata is not None:
+        outputs.append(swirl_metadata)
     return outputs
 
 

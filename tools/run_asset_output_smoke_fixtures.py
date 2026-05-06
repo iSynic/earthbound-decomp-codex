@@ -22,7 +22,15 @@ ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST_DIR = ROOT / "asset-manifests"
 DEFAULT_FIXTURES = ROOT / "notes" / "asset-output-smoke-fixtures.json"
 DEFAULT_OUT = ROOT / "build" / "asset-output-smoke-fixtures"
-REPORT_ZERO_OK_FIELDS = {"arrangement_id", "graphics_id", "max_tile", "palette_id", "sprite_id"}
+REPORT_ZERO_OK_FIELDS = {
+    "arrangement_id",
+    "graphics_id",
+    "max_tile",
+    "palette_id",
+    "sequence_frame_index",
+    "sprite_id",
+    "swirl_id",
+}
 
 
 def parse_args() -> argparse.Namespace:

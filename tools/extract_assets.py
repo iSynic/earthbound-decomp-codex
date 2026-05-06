@@ -228,6 +228,47 @@ def write_map_tile_chunk_index_json(data: bytes, path: Path, spec: dict[str, Any
     }
 
 
+def write_battle_swirl_frame_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    if not data:
+        raise ValueError("Battle swirl frame metadata requires a non-empty payload")
+    swirl_id = int(spec["swirl_id"])
+    sequence_id = int(spec["sequence_id"])
+    sequence_frame_index = int(spec["sequence_frame_index"])
+    sequence_speed = int(spec["sequence_speed"])
+    sequence_frame_count = int(spec["sequence_frame_count"])
+    if sequence_frame_index < 0 or sequence_frame_index >= sequence_frame_count:
+        raise ValueError(
+            "Battle swirl sequence frame index must be within the sequence frame count: "
+            f"{sequence_frame_index}/{sequence_frame_count}"
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.battle-swirl-frame-metadata.v1",
+        "decoder": "battle_swirl_frame_metadata",
+        "bytecode_status": "raw-preserved",
+        "swirl_id": swirl_id,
+        "sequence_id": sequence_id,
+        "sequence_frame_index": sequence_frame_index,
+        "sequence_speed": sequence_speed,
+        "sequence_frame_count": sequence_frame_count,
+        "source_bytes": len(data),
+        "first_opcode": data[0],
+        "last_byte": data[-1],
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "swirl_id": swirl_id,
+        "sequence_id": sequence_id,
+        "sequence_frame_index": sequence_frame_index,
+        "sequence_speed": sequence_speed,
+        "sequence_frame_count": sequence_frame_count,
+        "payload_bytes": len(data),
+        "first_opcode": data[0],
+    }
+
+
 def write_snes_palette_swatch_png(data: bytes, path: Path, spec: dict[str, Any]) -> int:
     entries = decode_snes_bgr555_palette(data, count=palette_entry_count(data, spec))
     per_row = int(spec.get("per_row", 16))
@@ -586,6 +627,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata["decompressed_bytes"] = len(decompressed)
     elif kind == "map_tile_chunk_index_json":
         metadata.update(write_map_tile_chunk_index_json(data, path, spec))
+    elif kind == "battle_swirl_frame_json":
+        metadata.update(write_battle_swirl_frame_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         tile_data = trim_trailing_bytes(data, spec)
