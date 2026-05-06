@@ -181,6 +181,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `244` into the row-message crosswalk: `EF:72F6 -> C2:9298` and
   `EF:7415 -> C2:92EE`, with their behavior continuations kept as separate
   direct-result text.
+- 2026-05-06: EF healing/explosive row-message follow-up added rows `99`,
+  `101`, and `140` to the proved row `+4` crosswalk and documented C9 item and
+  Final Prayer row-message lanes as non-EF presentation consumers.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

@@ -214,3 +214,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
   proved row `243` and `244` joins into the same crosswalk, keeping their
   `C1:DD9F` row presentation messages separate from the direct event-result
   continuations emitted by their C2 behavior bodies.
+- 2026-05-06: EF healing/explosive row-message follow-up promoted rows `99`,
+  `101`, and `140` into the row-message crosswalk and marked C9 item/Final
+  Prayer row messages as non-EF presentation lanes that should not drive EF
+  anchor naming.

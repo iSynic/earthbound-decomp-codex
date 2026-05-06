@@ -52,7 +52,7 @@ Important modeling point: the row `+4` message is the action presentation text
 shown through `C1:DD9F`. The success/failure payloads listed above are separate
 result scripts emitted later by the row `+8` behavior body through `DC1C`.
 
-## Physical, Special, And Flavor Row Messages
+## Physical, Special, Item, And Flavor Row Messages
 
 These rows are also source-backed, but the behavior bodies are damage,
 normalization, special-event, or message-only rather than simple affliction
@@ -60,11 +60,14 @@ writes.
 
 | Row | Row `+4` EF message | Row `+8` C2 body | Current behavior read |
 | ---: | --- | --- | --- |
+| `99` | `EF:7E88` | `C2:9AD8` | Full-heal reuse over the fixed-amount healing core; fuel-supply presentation text |
 | `100` | `EF:7EAC` `MSG_BTL_DOKU_KAMITUKI` | `C2:8F97` | Poison-on-hit physical action; secondary success text `EF:6B18` |
+| `101` | `EF:7ED5` | `C2:A821` | Projectile/explosive wrapper over bomb-common splash damage; fired-missile presentation text |
 | `102` | `EF:7F02` `MSG_BTL_MULTI_ATTACK` | `C2:8FF9` | Exact double-bash wrapper over `C2:859F` |
 | `104` | `EF:7F32` `MSG_BTL_FIREBALL` | `C2:900B` | One-target fire-damage wrapper |
 | `117` | `EF:80C4` `MSG_BTL_TATUMAKI` | `C2:902C` | All-target physical wrapper over `C2:8651` |
 | `118` | `EF:80E4` `MSG_BTL_WATER` | `C2:902C` | Same all-target physical wrapper reuse |
+| `140` | `EF:8E27` `MSG_BTL_WARP_NEAR` | `C2:9AD8` | Item-side full-heal reuse over the fixed-amount healing core; named-item presentation wrapper |
 | `228` | `EF:8BE8` `MSG_BTL_KAMITSUKI_DIAMOND` | `C2:916E` | One-target diamondize action; emits `EF:6AC7` or `EF:7655` |
 | `232` | `EF:8C58` `MSG_BTL_BAD_SMELL` | `C2:9254` | Odor/offense-reduction family; reports amount through C8 text via `DC66` |
 | `243` | `EF:72F6` | `C2:9298` | Runaway Five / Clumsy Robot special-event controller; branches to `EF:72F7` or `EF:733D` |
@@ -77,6 +80,11 @@ writes.
 Rows whose behavior body emits C8/C9 scripts should not force EF result names.
 Keep the EF row-message labels as exact `MSG_BTL_*` anchors and document the
 secondary script bank in the C2-focused note.
+
+`EF:8E27` is intentionally listed twice: row `140` uses it as a named-item
+healing presentation wrapper, while row `247` uses the same row-message anchor
+with the normalization wrapper. The C2 row `+8` body is what separates those
+runtime roles.
 
 ## Early Row-Message Anchors
 
@@ -154,6 +162,23 @@ Final Prayer rows `291..299` remain a separate frontier. Many of their row
 messages live outside EF, while secondary result scripts still affect the
 battle-text contract through C8/C9 direct-result lanes. Keep them out of EF
 row-message rename work unless a local row `+4` EF pointer is proved.
+
+## Non-EF Row-Message Lanes
+
+Some source-backed action rows are important to the C1/C2 display contract but
+do not name EF anchors at all. Keep them visible here so they do not get
+mistaken for missing EF text splits.
+
+| Rows | Row-message bank | Row `+8` C2 body | EF naming impact |
+| --- | --- | --- | --- |
+| `139`, `141` | `C9:7B6B` item-use wrapper | `C2:9AC6`, `C2:9AE1` | Item-side healing reuses; not EF row messages |
+| `166` | `C9:7F56` item strike wrapper | `C2:A5EC` | Damage-plus-solidification item action; success/failure results still emit `EF:6BEF` or `EF:766E` |
+| `167`, `168` | `C9:7EB7` item thrown/fired wrapper | `C2:A818`, `C2:A821` | Bomb-family item rows; not EF row messages |
+| `291..299` | C9 prayer message family, including `C9:F0B8` and `C9:F3EC` | `C2:C572..C2:C6F0` | Final Prayer ladder; row presentation and C8/C9 narrative results stay outside EF action-anchor naming |
+
+Modeling rule: non-EF row messages still travel through the same row `+4`
+presentation lane, but they should not create or rename EF anchors. Only their
+secondary direct-result EF scripts belong in the EF payload map.
 
 ## Next Evidence To Add
 

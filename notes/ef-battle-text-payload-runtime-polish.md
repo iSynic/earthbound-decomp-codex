@@ -327,6 +327,12 @@ proved EF row-message entries: `243 -> EF:72F6 -> C2:9298` and
 continuations at `EF:72F7`, `EF:733D`, and `EF:743B`, so the row presentation
 and event-result text stay separate.
 
+The same crosswalk now pulls in the neighboring healing and explosive row
+messages that local C2 notes already prove: row `99 -> EF:7E88`, row
+`101 -> EF:7ED5`, and row `140 -> EF:8E27`. It also records the non-EF
+row-message lanes for C9 item wrappers and Final Prayer so EF anchor work does
+not accidentally claim presentation text that lives in another bank.
+
 ## EGOODS2 Item-Use Follow-up
 
 The `EF:9EF4..A2FA` EGOODS2 include is now split into item-use payload anchors.

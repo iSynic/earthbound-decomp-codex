@@ -69,9 +69,9 @@ The EBATTLE1 action tail has at least one strong late-table row-message join:
 | `85` | `EF:9DA1` | Concentration/PSI-seal action row message; the `+8` body emits success `EF:6C0B` or fallback `EF:766E` |
 
 The row-message crosswalk expands this into the currently source-backed status
-rows (`75`, `76`, `78..87`, `90`, `159`, and `207`) plus late
-physical/special rows (`100`, `102`, `104`, `117`, `118`, `228`, `232`,
-`243`, `244`, `247`, `248`, `273`, and `290`).
+rows (`75`, `76`, `78..87`, `90`, `159`, and `207`) plus late physical,
+special, item, and event rows (`99..102`, `104`, `117`, `118`, `140`, `228`,
+`232`, `243`, `244`, `247`, `248`, `273`, and `290`).
 
 Rows whose C2 behavior bodies are known but whose row `+4` EF pointers are not
 locally recovered should stay out of the proved-join table. The current
@@ -92,6 +92,9 @@ neighborhood and should remain visibly separate:
 - `EF:72F7`, `EF:733D`, and `EF:743B` are special-event continuations emitted
   by the row `243` and `244` behavior bodies after their row `+4` presentation
   messages at `EF:72F6` and `EF:7415`.
+- `EF:6BEF` and `EF:766E` are result scripts emitted by item-side
+  solidification rows whose row `+4` presentation text can live in C9 instead
+  of EF.
 - `EF:8814`, `EF:8823`, and `EF:8837` are Thunder presentation/miss scripts
   selected by the C2 Thunder common helper.
 - `EF:7843` is the Time Stop return/result script; it is separate from the
