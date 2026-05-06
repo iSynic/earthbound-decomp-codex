@@ -17,21 +17,28 @@ C0915B_DivideUnsignedWordByY       = $C0915B
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C1DD47_OpenBattleTextWindow                     = $C1DD47
+C1DD53_RedirectTextEntryHelper0FA3              = $C1DD53
+C1DD59_WaitForBattleText                        = $C1DD59
 C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
 C1DDCC_SelectPartyMemberPresentation            = $C1DDCC
+C1DDD3_ClearFocusedPartyHpPpActorAndBlankRow    = $C1DDD3
 C26A2D_GetRandomBelow            = $6A2D
 C26AFD_ApplyTwentyFivePercentVariance = $6AFD
 C27550_StartSelectedBattlerCollapseAfflictionPath = $C27550
 C23BCF_BuildBattleAttackerTextContext = $C23BCF
 C23D05_BuildBattleTargetTextContext = $C23D05
+C23E32_BuildFirstTargetTextContextFromCurrentMask = $C23E32
+C24009_BuildBattleActionTargetMaskForActiveAttacker = $4009
 C2416F_FilterBattleActionTargetMaskByRowState = $C2416F
 C24316_SelectStealableItemCandidate = $C24316
 C24348_IsPendingStealItemStillStealable = $C24348
 C24477_BuildClass2DerivedActionCode = $C24477
 C24703_DispatchClass2DerivedAction = $C24703
+C2311B_RunBattleStartPresentAndMessageController = $C2311B
 C2BAC5_CountFilteredSecondStageBattlerRows = $C2BAC5
 C2BB18_PromoteSourceEntryToCollapseAfflictionController = $C2BB18
 C2BCE6_ApplyBattlerHpTargetLoss = $C2BCE6
+C4A228_StoreRankedBattlerTargetOrdinal = $C4A228
 D57B68_BattleActionTable           = $D57B68
 D57B68_BattleActionTableLo         = $7B68
 D57B68_BattleActionTableBank       = $00D5
@@ -141,10 +148,10 @@ C250E6_RunBattleStartCandidateControllerFront_L50E6:
     ldy $19
     tyx
     lda $04
-    jsl $C2311B
+    jsl C2311B_RunBattleStartPresentAndMessageController
     sta $1F
-    jsl $C1DDD3
-    jsl $C1DD59
+    jsl C1DDD3_ClearFocusedPartyHpPpActorAndBlankRow
+    jsl C1DD59_WaitForBattleText
     lda $4DC2
     beq C25110_RunBattleStartCandidateControllerFront_L5110
     lda $1F
@@ -820,7 +827,7 @@ C25679_RunBattleStartCandidateControllerFront_L5679:
     bne C25688_RunBattleStartCandidateControllerFront_L5688
     jmp $6088
 C25688_RunBattleStartCandidateControllerFront_L5688:
-    jsl $C1DD53
+    jsl C1DD53_RedirectTextEntryHelper0FA3
     lda $04
     ldy.w #$004E
     jsl C08FF7_ResolveIndexedPointerOffset
@@ -1077,7 +1084,7 @@ C2589D_RunBattleStartCandidateControllerFront_L589D:
     jsl C0915B_DivideUnsignedWordByY
     tax
     lda $A970
-    jsl $C4A228
+    jsl C4A228_StoreRankedBattlerTargetOrdinal
 C258BF_RunBattleStartCandidateControllerFront_L58BF:
     ldx.w #$0000
     stx $2F
@@ -1283,7 +1290,7 @@ C25A7B_RunBattleStartCandidateControllerFront_L5A7B:
     ldy.w #$0001
     sty $31
 C25A98_RunBattleStartCandidateControllerFront_L5A98:
-    jsr $4009
+    jsr C24009_BuildBattleActionTargetMaskForActiveAttacker
     jsl C2416F_FilterBattleActionTargetMaskByRowState
     lda.w #$0000
     sta $0A
@@ -1322,4 +1329,4 @@ C25AE2_RunBattleStartCandidateControllerFront_L5AE2:
     ; Stage selected row byte +8 for the generic C1 byte-substitution slot.
     lda $0008,X
     jsl C1DD7C_SetBattleTextByteSubstitution
-    jsl $C23E32
+    jsl C23E32_BuildFirstTargetTextContextFromCurrentMask

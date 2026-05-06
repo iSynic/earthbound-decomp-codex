@@ -126,6 +126,15 @@ argument, validate that argument against the current stealable-item list before
 text/payload work, and run the end-state stolen-slot applicator only on the
 cleanup paths that can still commit it.
 
+Front/back controller follow-up: the front half now names the battle-start
+present/message menu join (`C2:311B`), the C1 battle-text wait and focused
+HP/PP-row clear redirects (`C1:DD59` / `C1:DDD3`), the C1 text-entry helper
+redirect at `C1:DD53`, the ranked battler ordinal writer (`C4:A228`), and the
+two target-context helper entries `C2:3E32` / `C2:4009`. The back half now
+calls `C2:0F9A` as `ClampHpPpRollTargetsToLiveValues` at the monsters-win,
+player-win, and cleanup-tail completion branches, keeping battle-start result
+flow tied to the HP/PP roller target contract.
+
 ## Evidence Inputs
 
 - `notes/c2-ef-battle-text-contract-workahead.md`

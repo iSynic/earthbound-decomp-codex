@@ -202,6 +202,7 @@ C23E11_BuildBattleTargetTextContext_L3E11:
 C23E30_BuildBattleTargetTextContext_L3E30:
     pld
     rtl
+C23E32_BuildFirstTargetTextContextFromCurrentMask:
     rep #$31
     phd
     tdc
@@ -435,6 +436,7 @@ C24005_BuildBattleTargetTextContext_L4005:
     lda.w #$0000
 C24008_BuildBattleTargetTextContext_L4008:
     rtl
+C24009_BuildBattleActionTargetMaskForActiveAttacker:
     rep #$31
     phd
     tdc

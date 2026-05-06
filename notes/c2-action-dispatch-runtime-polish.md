@@ -184,6 +184,13 @@ need a front/back-row candidate before validating it through `C4:A1F5`. The
 nearby `C2:3F6C` call remains raw until its target-selection role is proven
 from local evidence.
 
+Battle-start target-mask follow-up: the target text-context source now exposes
+two formerly hidden helper entries inside `C2:3D05..40A4`. `C2:3E32` rebuilds
+the first target text context from the current target mask, and `C2:4009`
+builds the current target mask from the active attacker's action-targeting
+byte before row-state pruning. The battle-start front controller now calls both
+entries by those roles instead of raw local addresses.
+
 ## Battle Text Context Join
 
 The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local

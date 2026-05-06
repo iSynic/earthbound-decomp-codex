@@ -678,6 +678,16 @@ contract notes for C0/C1/C3/C4 consumers.
   sound/effect dispatcher for the target-switch cue, and names the `EF:0256` /
   `EF:026E` music pause/resume helpers around the Time Stop repeated-bash
   loop. See `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-06 eighty-eighth slice: tightened battle-start front/back helper
+  joins against established action-dispatch and HP/PP contracts. The
+  `C2:3D05..40A4` source now labels `C2:3E32` as the first-target
+  text-context rebuild from the current target mask and `C2:4009` as the
+  active-attacker target-mask builder; the front controller calls those labels,
+  the `C2:311B` present/message controller, `C4:A228` ranked-target ordinal
+  writer, and C1 text/presentation waits by name; and the back controller calls
+  `C2:0F9A` as `ClampHpPpRollTargetsToLiveValues` at each result-completion
+  branch. See `notes/c2-action-dispatch-runtime-polish.md` and
+  `notes/c2-battle-start-payload-join-runtime-polish.md`.
 
 ## Validation
 

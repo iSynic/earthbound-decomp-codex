@@ -26,10 +26,12 @@ C1DD3B_RefreshBattlePresentationForSelectedRow = $C1DD3B
 C1DD59_WaitForBattleText            = $C1DD59
 C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 C1DDCC_SelectPartyMemberPresentation = $C1DDCC
+C1DDD3_ClearFocusedPartyHpPpActorAndBlankRow = $C1DDD3
 C12DD5_WindowTick                   = $C12DD5
 C09279_DispatchBattleActionPayload   = $C09279
 C23D05_BuildBattleTargetTextContext  = $C23D05
 C20293_ClearDefaultTitleUploadTiles  = $C20293
+C20F9A_ClampHpPpRollTargetsToLiveValues = $C20F9A
 C2108C_ClearHpPpRollDirtyLatchIfSettled = $C2108C
 C2281D_DepositIntoAtm                = $C2281D
 C26A2D_GetRandomBelow               = $6A2D
@@ -449,7 +451,7 @@ C25DA9_RunBattleStartCandidateControllerBack_L5DA9:
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
 C25E14_RunBattleStartCandidateControllerBack_L5E14:
-    jsl $C1DDD3
+    jsl C1DDD3_ClearFocusedPartyHpPpActorAndBlankRow
 C25E18_RunBattleStartCandidateControllerBack_L5E18:
     jsl C2BB18_PromoteSourceEntryToCollapseAfflictionController
     lda $A970
@@ -552,7 +554,7 @@ C25EF7_ResolveBattleStartCandidateCompletion:
     bne C25F1F_RunBattleStartCandidateControllerBack_L5F1F
     lda.w #$0001
     sta $17
-    jsl $C20F9A
+    jsl C20F9A_ClampHpPpRollTargetsToLiveValues
     lda.w #EFMSG_MonstersWon
     sta $0E
     lda.w #EF_BattleTextScriptBank
@@ -568,7 +570,7 @@ C25F1F_RunBattleStartCandidateControllerBack_L5F1F:
     jmp.w C26081_RunBattleStartCandidateControllerBack_L6081
 C25F2E_RunBattleStartCandidateControllerBack_L5F2E:
     stz $17
-    jsl $C20F9A
+    jsl C20F9A_ClampHpPpRollTargetsToLiveValues
     lda.w #$0001
     sta $ADB6
     sta $ADD0
@@ -725,7 +727,7 @@ C2608C_BattleStartCandidateControllerTail:
     bne C26093_RunBattleStartCandidateControllerBack_L6093
     jmp $4FCF
 C26093_RunBattleStartCandidateControllerBack_L6093:
-    jsl $C20F9A
+    jsl C20F9A_ClampHpPpRollTargetsToLiveValues
 C26097_RunBattleStartCandidateControllerBack_L6097:
     jsl C12DD5_WindowTick
     jsl C2108C_ClearHpPpRollDirtyLatchIfSettled
