@@ -34,6 +34,7 @@ C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
 C24477_BuildClass2DerivedActionCode          = $C24477
 C24703_DispatchClass2DerivedAction           = $C24703
 C26A2D_GetRandomBelow                        = $6A2D
+C269BE_WaitFrames                            = $69BE
 C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 C2BAC5_CountRowsWithPhaseValue               = $C2BAC5
 
@@ -447,7 +448,7 @@ C27A9F_RunClass2LateSelectedRowController_L7A9F:
     cmp.w #$0010
     bcc C27A7F_RunClass2LateSelectedRowController_L7A7F
     lda.w #$000A
-    jsr $69BE
+    jsr C269BE_WaitFrames
     lda.w #$0014
     jsl $C2FAD8
     lda.w #$0001
@@ -475,7 +476,7 @@ C27AD9_RunClass2LateSelectedRowController_L7AD9:
     cmp.w #$0010
     bcc C27ABA_RunClass2LateSelectedRowController_L7ABA
     lda.w #$0014
-    jsr $69BE
+    jsr C269BE_WaitFrames
     sep #$20
     lda.b #$01
     ldx $02
@@ -553,7 +554,7 @@ C27B81_RunClass2LateSelectedRowController_L7B81:
     cmp.w #$0040
     bcc C27B6B_RunClass2LateSelectedRowController_L7B6B
     lda.w #$000A
-    jsr $69BE
+    jsr C269BE_WaitFrames
     lda.w #$0014
     jsl $C2FAD8
     lda.w #$0001
@@ -575,7 +576,7 @@ C27BB1_RunClass2LateSelectedRowController_L7BB1:
     cmp.w #$0040
     bcc C27B9C_RunClass2LateSelectedRowController_L7B9C
     lda.w #$0014
-    jsr $69BE
+    jsr C269BE_WaitFrames
     ldx.w #ActorTargetBattlerBase
     ldy.w #ActorTargetStartBit
     bra C27BDE_RunClass2LateSelectedRowController_L7BDE

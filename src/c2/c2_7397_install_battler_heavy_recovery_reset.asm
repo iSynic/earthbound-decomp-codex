@@ -23,6 +23,7 @@
 ; External contracts used by this module
 
 C27126_SetBattlerHpTarget           = $7126
+C269BE_WaitFrames                   = $69BE
 C08FF7_ResolveIndexedPointerOffset  = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 
@@ -194,7 +195,7 @@ C274DB_InstallBattlerHeavyRecoveryReset_L74DB:
     cmp.w #$0010
     bcc C274BB_InstallBattlerHeavyRecoveryReset_L74BB
     lda.w #$000A
-    jsr $69BE
+    jsr C269BE_WaitFrames
     lda.w #$0014
     jsl $C2FAD8
     lda.w #$0001
@@ -247,7 +248,7 @@ C2753E_InstallBattlerHeavyRecoveryReset_L753E:
     cmp.w #$0010
     bcc C274F6_InstallBattlerHeavyRecoveryReset_L74F6
     lda.w #$0014
-    jsr $69BE
+    jsr C269BE_WaitFrames
 C2754B_InstallBattlerHeavyRecoveryReset_L754B:
     lda.w #$0001
     pld

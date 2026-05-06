@@ -68,7 +68,8 @@ Current safest reading:
 - it sets row byte `+0x0D = 1`
 - when row bytes `+0x0E` and `+0x0F` are both zero, it updates paired `9A15` and `9A13` tables through selector `#$005F` using ids stored at row `+0x10`
 - it clears row byte `+0x4B` across all 32 candidate rows, then marks the selected row's `+0x4B` byte
-- it runs two 16-step initialization loops through `C2:FAD8`, `C2:FB35`, and `C2:69BE`, keyed by selected-row byte `+0x43`
+- it runs two 16-step initialization loops through `C2:FAD8`, `C2:FB35`, and
+  `C2:69BE` / `WaitFrames`, keyed by selected-row byte `+0x43`
 
 That makes `7397` look broader than a simple controller-phase installer. The older controller note still holds structurally, but the now-pinned `EF:6F7C` text and the battle-side calls from `9CB8` show that this helper is also reused as a heavy recovery or revival-grade reset path over the selected row. See also [battle-affliction-recovery-family-c29aea-a39d.md](notes/battle-affliction-recovery-family-c29aea-a39d.md).
 

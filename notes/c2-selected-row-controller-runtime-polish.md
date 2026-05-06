@@ -66,7 +66,7 @@ Promoted runtime contract:
   tables through the id stored at row `+0x10`
 - if row `+0x0E == 1` and `+0x0F == 0`, reset row-membership byte `+0x4B`
   across candidate rows, mark the selected row, and run the visual refresh loops
-  through the `FAD8/FB35/69BE` helper family
+  through the `FAD8/FB35` helpers and `C2:69BE` / `WaitFrames`
 
 This keeps the helper named around behavior instead of final gameplay wording:
 it is wider than "print revived" because it also resets selected-row state,
@@ -110,10 +110,12 @@ This slice ties together several previously separate-looking facts:
 - `C2:7126/7191` are now named as target setter/clamp helpers, while the
   adjacent `C2:71F0/721D` bodies are the subtract-and-floor HP/PP target-loss
   wrappers that delegate to those setters.
+- `C2:69BE` is now named as the counted frame wait used by the selected-row
+  visual refresh loops.
 
 ## Remaining Soft Spots
 
 - final gameplay names for row bytes `+0x0D`, `+0x0F`, and `+0x10`
 - whether every non-curative reader of row `+0x1D == 1` should be promoted to
   the same global hard/collapsed enum
-- finer names for the `FAD8/FB35/69BE` visual-refresh helper family
+- finer names for the `FAD8/FB35` visual-refresh helper family

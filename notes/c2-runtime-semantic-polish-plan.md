@@ -572,6 +572,15 @@ contract notes for C0/C1/C3/C4 consumers.
   See `notes/c2-selected-row-controller-runtime-polish.md`,
   `notes/c2-pp-loss-and-call-for-help-width-helpers-c2bcb9-c2bd13.md`, and
   `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-06 seventy-eighth slice: named the C2 local presentation wait helpers
+  that sit beside the action-contract helpers. `C2:69BE` is now
+  `WaitFrames`, the counted `C1:2DD5` frame-pump loop, and `C2:69DE` is
+  `WaitForDisplayTransitionBusyClear`, the matching loop that waits for the
+  display-transition busy byte at `$0028` to clear. Final Prayer transitions,
+  the finale opener, the selected-row visual refresh paths, and the
+  rainbow-colors special event now use these names instead of raw helper
+  addresses. See `notes/c2-final-prayer-runtime-polish.md` and
+  `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`.
 
 ## Validation
 

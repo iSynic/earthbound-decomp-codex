@@ -3646,6 +3646,7 @@ hirom
 org $C27397
 
 !C27126_SetBattlerHpTarget = $7126
+!C269BE_WaitFrames = $69BE
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 REVIVE_TARGET:
@@ -3810,7 +3811,7 @@ C274DB_InstallBattlerHeavyRecoveryReset_L74DB:
     cmp.w #$0010
     bcc C274BB_InstallBattlerHeavyRecoveryReset_L74BB
     lda.w #$000A
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     lda.w #$0014
     jsl $C2FAD8
     lda.w #$0001
@@ -3863,7 +3864,7 @@ C2753E_InstallBattlerHeavyRecoveryReset_L753E:
     cmp.w #$0010
     bcc C274F6_InstallBattlerHeavyRecoveryReset_L74F6
     lda.w #$0014
-    jsr $69BE
+    jsr !C269BE_WaitFrames
 C2754B_InstallBattlerHeavyRecoveryReset_L754B:
     lda.w #$0001
     pld
@@ -4061,6 +4062,7 @@ org $C277CA
 !C24477_BuildClass2DerivedActionCode = $C24477
 !C24703_DispatchClass2DerivedAction = $C24703
 !C26A2D_GetRandomBelow = $6A2D
+!C269BE_WaitFrames = $69BE
 !C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 !C2BAC5_CountRowsWithPhaseValue = $C2BAC5
 !D57B68_BattleActionTableLo = $7B68
@@ -4456,7 +4458,7 @@ C27A9F_RunClass2LateSelectedRowController_L7A9F:
     cmp.w #$0010
     bcc C27A7F_RunClass2LateSelectedRowController_L7A7F
     lda.w #$000A
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     lda.w #$0014
     jsl $C2FAD8
     lda.w #$0001
@@ -4484,7 +4486,7 @@ C27AD9_RunClass2LateSelectedRowController_L7AD9:
     cmp.w #$0010
     bcc C27ABA_RunClass2LateSelectedRowController_L7ABA
     lda.w #$0014
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     sep #$20
     lda.b #$01
     ldx $02
@@ -4560,7 +4562,7 @@ C27B81_RunClass2LateSelectedRowController_L7B81:
     cmp.w #$0040
     bcc C27B6B_RunClass2LateSelectedRowController_L7B6B
     lda.w #$000A
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     lda.w #$0014
     jsl $C2FAD8
     lda.w #$0001
@@ -4582,7 +4584,7 @@ C27BB1_RunClass2LateSelectedRowController_L7BB1:
     cmp.w #$0040
     bcc C27B9C_RunClass2LateSelectedRowController_L7B9C
     lda.w #$0014
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     ldx.w #!ActorTargetBattlerBase
     ldy.w #!ActorTargetStartBit
     bra C27BDE_RunClass2LateSelectedRowController_L7BDE
@@ -14850,6 +14852,7 @@ org $C2654C
 !C08EED_CopyToLocalTileBuffer = $C08EED
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C0ABE0_SetupVisualPass = $C0ABE0
+!C12DD5_WindowTick = $C12DD5
 !C426ED_AdvanceEventFrame = $C426ED
 !C496E7_StartMagicButterflyVisualPass = $C496E7
 !C49740_EndMagicButterflyVisualPass = $C49740
@@ -15460,6 +15463,7 @@ LOAD_BATTLE_ACTION_TYPE_FROM_ACTION_ID:
     lda $D59589,X
     and.w #$00FF
     rts
+C269BE_WaitFrames:
     rep #$31
     phd
     pha
@@ -15471,7 +15475,7 @@ LOAD_BATTLE_ACTION_TYPE_FROM_ACTION_ID:
     stx $0E
     bra C269D1_RunMagicButterflyPpRestoreAnimation_L69D1
 C269CD_RunMagicButterflyPpRestoreAnimation_L69CD:
-    jsl $C12DD5
+    jsl !C12DD5_WindowTick
 C269D1_RunMagicButterflyPpRestoreAnimation_L69D1:
     ldx $0E
     txa
@@ -15481,10 +15485,11 @@ C269D1_RunMagicButterflyPpRestoreAnimation_L69D1:
     bne C269CD_RunMagicButterflyPpRestoreAnimation_L69CD
     pld
     rts
+C269DE_WaitForDisplayTransitionBusyClear:
     rep #$31
     bra C269E6_RunMagicButterflyPpRestoreAnimation_L69E6
 C269E2_RunMagicButterflyPpRestoreAnimation_L69E2:
-    jsl $C12DD5
+    jsl !C12DD5_WindowTick
 C269E6_RunMagicButterflyPpRestoreAnimation_L69E6:
     lda $0028
     and.w #$00FF
@@ -19760,6 +19765,7 @@ org $C2C14E
 !C08744_OpenDisplayTransitionBracket = $C08744
 !C0886C_SetDisplayTransitionState = $C0886C
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C269DE_WaitForDisplayTransitionBusyClear = $69DE
 !C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 !C2C8C8_ResetBattleVisualPresentationState = $C2C8C8
 !C2D121_LoadPresentationSpriteResource = $C2D121
@@ -19964,7 +19970,7 @@ C2C2E6_RunRainbowColorsSpecialEvent_LC2E6:
     ldx.w #$0004
     lda.w #$0001
     jsl !C0886C_SetDisplayTransitionState
-    jsr $69DE
+    jsr !C269DE_WaitForDisplayTransitionBusyClear
     bra C2C32A_RunRainbowColorsSpecialEvent_LC32A
 C2C2FD_RunRainbowColorsSpecialEvent_LC2FD:
     ldx.w #$0001
@@ -21769,6 +21775,8 @@ org $C2C37A
 !C0887A_ClearDisplayTransitionState = $C0887A
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
+!C269BE_WaitFrames = $69BE
+!C269DE_WaitForDisplayTransitionBusyClear = $69DE
 C2C37A_RunFinalPrayerStageTransition:
     rep #$31
     phd
@@ -21787,7 +21795,7 @@ C2C37A_RunFinalPrayerStageTransition:
     ldx.w #$0004
     lda.w #$0001
     jsl !C0887A_ClearDisplayTransitionState
-    jsr $69DE
+    jsr !C269DE_WaitForDisplayTransitionBusyClear
     stz $9643
     stz $5DD4
     jsl !C1DD5F_WaitForTextOrMenuAcknowledge
@@ -21799,7 +21807,7 @@ C2C37A_RunFinalPrayerStageTransition:
     ldx.w #$0002
     lda.w #$0001
     jsl !C0887A_ClearDisplayTransitionState
-    jsr $69DE
+    jsr !C269DE_WaitForDisplayTransitionBusyClear
     ldx $02
     ldy $12
     tya
@@ -21810,7 +21818,7 @@ C2C37A_RunFinalPrayerStageTransition:
     lda.w #$000E
     jsl $C1DD47
     lda.w #$003C
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     pld
     rts
 
@@ -22701,6 +22709,7 @@ hirom
 org $C2C572
 
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C269BE_WaitFrames = $69BE
 !C9_BattleTextScriptBank = $00C9
 !C9MSG_FinalPrayerDamagePhase1 = $F86A
 BTLACT_GIYGAS_PRAYER_1:
@@ -22718,11 +22727,11 @@ BTLACT_GIYGAS_PRAYER_1:
     lda.w #$01DE
     jsr $C37A
     lda.w #$0078
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     lda.w #$0040
     jsl $C0ABE0
     lda.w #$001E
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     lda.w #$003C
     sta $AD8C
     lda.w #$000C
@@ -24373,6 +24382,8 @@ org $C2C41F
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 !C4FBBD_ChangeMusic = $C4FBBD
+!C269BE_WaitFrames = $69BE
+!C269DE_WaitForDisplayTransitionBusyClear = $69DE
 !C8_BattleTextScriptBank = $00C8
 !C8MSG_MechPokeyFirstSpeechTail = $FC2E
 C2C41F_RunFinalPrayerNarrativeTransition:
@@ -24394,7 +24405,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     jsl !C0887A_ClearDisplayTransitionState
     lda.w #$0002
     jsl !C0AC0C_QueuePresentationSfxOrCounter
-    jsr $69DE
+    jsr !C269DE_WaitForDisplayTransitionBusyClear
     stz $9643
     jsl !C1DD5F_WaitForTextOrMenuAcknowledge
     sep #$20
@@ -24406,9 +24417,9 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     ldx.w #$0001
     txa
     jsl !C0886C_SetDisplayTransitionState
-    jsr $69DE
+    jsr !C269DE_WaitForDisplayTransitionBusyClear
     lda.w #$0014
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     lda $06
     sta $0E
     lda $08
@@ -24417,13 +24428,13 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     lda.w #$0001
     sta $9643
     lda.w #$0014
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     lda.w #$0002
     jsl !C0AC0C_QueuePresentationSfxOrCounter
     ldx.w #$0001
     txa
     jsl !C0887A_ClearDisplayTransitionState
-    jsr $69DE
+    jsr !C269DE_WaitForDisplayTransitionBusyClear
     jsl $C1DD3B
     lda.w #$000E
     jsl $C1DD47
@@ -24437,7 +24448,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     ldx.w #$0001
     txa
     jsl !C0886C_SetDisplayTransitionState
-    jsr $69DE
+    jsr !C269DE_WaitForDisplayTransitionBusyClear
     pld
     rts
     rep #$31
@@ -26306,6 +26317,7 @@ org $C2C6F0
 !C0ABC6_ClearPresentationQueues = $C0ABC6
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C4FBBD_ChangeMusic = $C4FBBD
+!C269BE_WaitFrames = $69BE
 !C8_BattleTextScriptBank = $00C8
 !C8MSG_PokeyRunAway = $FF31
 !C9_BattleTextScriptBank = $00C9
@@ -26397,14 +26409,14 @@ C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B:
     iny
     sty $18
     txa
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     bra C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B
 C2C7BC_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC7BC:
     lda.w #$004B
     jsl !C4FBBD_ChangeMusic
     stz $A97A
     lda.w #$01E0
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     ldx.w #$A276
     stx $16
     sep #$20
@@ -26422,7 +26434,7 @@ C2C7BC_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC7BC:
     sta $0000,X
     jsl $C2F8F9
     lda.w #$003C
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     ldy.w #$0002
     sty $14
     tya
@@ -26491,7 +26503,7 @@ C2C872_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC872:
     lda.w #$00B6
     jsl !C4FBBD_ChangeMusic
     lda.w #$0258
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     lda.w #$003F
     jsl $C0ABE0
     jsl !C0ABC6_ClearPresentationQueues
@@ -26511,7 +26523,7 @@ C2C8A4_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A4:
     lda.w #$01E3
     jsr $C21F
     lda.w #$01E0
-    jsr $69BE
+    jsr !C269BE_WaitFrames
     lda.w #$0003
     sta $AA0E
     pld

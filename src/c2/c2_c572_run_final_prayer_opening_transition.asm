@@ -18,6 +18,7 @@
 ; External contracts used by this module
 
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C269BE_WaitFrames                   = $69BE
 
 C9_BattleTextScriptBank       = $00C9
 C9MSG_FinalPrayerDamagePhase1 = $F86A
@@ -40,11 +41,11 @@ C2C572_RunFinalPrayerOpeningTransition = BTLACT_GIYGAS_PRAYER_1
     lda.w #$01DE
     jsr $C37A
     lda.w #$0078
-    jsr $69BE
+    jsr C269BE_WaitFrames
     lda.w #$0040
     jsl $C0ABE0
     lda.w #$001E
-    jsr $69BE
+    jsr C269BE_WaitFrames
     lda.w #$003C
     sta $AD8C
     lda.w #$000C

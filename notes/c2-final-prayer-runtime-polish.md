@@ -32,7 +32,9 @@ Related evidence notes:
 It captures the caller-staged text pointer, runs display mode transitions,
 temporarily disables battle-background frame updates through `$9643`, displays
 the prayer text, applies the caller's battle visual selector through `C2:C21F`,
-then restores updates and returns through C1 cleanup.
+then restores updates and returns through C1 cleanup. The display transitions
+now call `C2:69DE` / `WaitForDisplayTransitionBusyClear`, and the trailing
+pause calls `C2:69BE` / `WaitFrames`.
 
 The staged text display is now named at the source site as the `C1:DC1C`
 direct battle-text pointer ABI.
@@ -84,7 +86,8 @@ tiers:
 It then runs the Sound Stone/noise table rooted at `C4:A35D`, drives layer-1
 battle-background distortion swaps through `C2:DAE3`, starts the final overlay
 through `C2:E8C4`, waits on the overlay busy predicate, and hands off into the
-terminal battle visual state.
+terminal battle visual state. Its fixed pauses now use the same
+`C2:69BE` / `WaitFrames` helper as the shared prayer damage worker.
 
 The finale source now names the four C9 narrative scripts (`C9:F70C`,
 `C9:F7BB`, `C9:F804`, `C9:F84D`) and the direct `C8:FF31` Pokey run-away text
@@ -105,6 +108,6 @@ bodies into a runtime contract:
 
 ## Remaining Soft Spots
 
-- exact final names for display helpers `C0:887A`, `C0:886C`, and `C2:69DE`
+- exact final names for display helpers `C0:887A` and `C0:886C`
 - full decoded-source replacement for the remaining `C2:C6F0..CFE5` corridor
 - final names for the C4 finale sound and distortion timing tables

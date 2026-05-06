@@ -22,6 +22,7 @@
 C0ABC6_ClearPresentationQueues = $C0ABC6
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C4FBBD_ChangeMusic             = $C4FBBD
+C269BE_WaitFrames              = $69BE
 
 C8_BattleTextScriptBank        = $00C8
 C8MSG_PokeyRunAway             = $FF31
@@ -123,14 +124,14 @@ C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B:
     iny
     sty $18
     txa
-    jsr $69BE
+    jsr C269BE_WaitFrames
     bra C2C77B_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC77B
 C2C7BC_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC7BC:
     lda.w #$004B
     jsl C4FBBD_ChangeMusic
     stz $A97A
     lda.w #$01E0
-    jsr $69BE
+    jsr C269BE_WaitFrames
     ldx.w #$A276
     stx $16
     sep #$20
@@ -148,7 +149,7 @@ C2C7BC_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC7BC:
     sta $0000,X
     jsl $C2F8F9
     lda.w #$003C
-    jsr $69BE
+    jsr C269BE_WaitFrames
     ldy.w #$0002
     sty $14
     tya
@@ -218,7 +219,7 @@ C2C872_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC872:
     lda.w #$00B6
     jsl C4FBBD_ChangeMusic
     lda.w #$0258
-    jsr $69BE
+    jsr C269BE_WaitFrames
     lda.w #$003F
     jsl $C0ABE0
     jsl C0ABC6_ClearPresentationQueues
@@ -239,7 +240,7 @@ C2C8A4_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A4:
     lda.w #$01E3
     jsr $C21F
     lda.w #$01E0
-    jsr $69BE
+    jsr C269BE_WaitFrames
     lda.w #$0003
     sta $AA0E
     pld
