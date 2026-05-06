@@ -24,6 +24,10 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+
 ## Next Promotion Step
 
 The adjacent `C3:A09F..C3:A272` movement pulse and helper family is already promoted; continue with another ready seam from `notes/c3-source-pilot-frontier.md`.

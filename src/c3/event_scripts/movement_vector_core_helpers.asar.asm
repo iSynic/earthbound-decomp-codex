@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -16,9 +18,9 @@ hirom
 !InstallScriptMovementVectorFromDirection = $C0C83B
 !LoopActiveEntityCollisionProbeRefresh = $A262
 !LoopC40015Pulse16FrameUntilRelease = $A1F3
-!PositionChangeCallback_C0A039 = $A039
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !RoundAngleToOctantAndCacheCurrentSlot = $C46B0A
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SimpleScreenPositionCallback = $C48BE1
@@ -87,7 +89,7 @@ ApplyTempDirectionAndRefreshMovementVector:
     %EVENT_SHORT_RETURN() ; C3:AA2A  1B
 InitMovementWithDefaultPhysicsPulseAndCollisionProbe:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:AA2B  25 60 A3
-    %EVENT_SET_ANIMATION($00) ; C3:AA2E  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:AA2E  3B 00
     %EVENT_START_TASK(!LoopC40015Pulse16FrameUntilRelease) ; C3:AA30  07 F3 A1
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:AA33  07 62 A2
     %EVENT_SET_VELOCITIES_ZERO() ; C3:AA36  39
@@ -95,9 +97,9 @@ InitMovementWithDefaultPhysicsPulseAndCollisionProbe:
 
 org $C3AB37
 InitSimpleScreenPositionMovementCallbacks:
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:AB37  23 39 A0
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:AB37  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:AB3A  25 7A A3
-    %EVENT_SET_ANIMATION($FF) ; C3:AB3D  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:AB3D  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:AB3F  08 E1 8B C4
     %EVENT_SHORT_RETURN() ; C3:AB43  1B
 RefreshActiveEntityDirectionAndVisualProfile:

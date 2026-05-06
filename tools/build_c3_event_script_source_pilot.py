@@ -1520,7 +1520,14 @@ def callroutine_schema(target: Address, arg_count: int | None) -> tuple[str, ...
 def callroutine_schema_suffix(fields: tuple[str, ...]) -> str:
     parts = []
     for field in fields:
-        base = re.sub(r"_(?:byte|word|long)$", "", field)
+        # C0:A643 and C0:A68B both expose a direction-class operand, but
+        # the former reads a word while the latter reads a byte. Keep the
+        # word shape in the macro name so the combined scaffold cannot reuse
+        # the byte-emitting macro for a word argument.
+        if field == "direction_class_word":
+            base = field
+        else:
+            base = re.sub(r"_(?:byte|word|long)$", "", field)
         text = re.sub(r"[^0-9A-Za-z_]+", "_", base)
         text = re.sub(r"_+", "_", text).strip("_")
         parts.append((text or "ARG").upper())

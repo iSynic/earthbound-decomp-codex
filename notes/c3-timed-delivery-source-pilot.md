@@ -27,7 +27,7 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 ## Source Readability
 
 - Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
-- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_DIRECTION_CLASS`.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_DIRECTION_CLASS_WORD`.
 
 ## Next Promotion Step
 

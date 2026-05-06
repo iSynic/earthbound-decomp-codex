@@ -53,10 +53,10 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
+macro EVENT_CALLROUTINE_DIRECTION_CLASS_WORD(target, direction_class_word)
     db $42
     dl <target>
-    db <direction_class_byte>
+    dw <direction_class_word>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -144,7 +144,7 @@ TimedDeliveryDeparturePulseAnimation0Half:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:43FB  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:43FF  19 04 A2
 Event500_TimedDeliveryExistingRowGate:
-    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField2C9A, $051F) ; C3:4402  42 43 A6 C0 1F 05
+    %EVENT_CALLROUTINE_DIRECTION_CLASS_WORD(!Script_SetDirectionClassAndField2C9A, $051F) ; C3:4402  42 43 A6 C0 1F 05
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:4408  25 60 A3
     %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:440B  42 2F A8 C0
     %EVENT_SET_VELOCITIES_ZERO() ; C3:440F  39
@@ -152,7 +152,7 @@ Event500_TimedDeliveryExistingRowGate:
     %EVENT_SHORTCALL_CONDITIONAL_NOT(TimedDeliveryReadinessGate) ; C3:4414  0B 4D 44
     %EVENT_SHORTJUMP(TimedDeliveryCommonCountdownLoop) ; C3:4417  19 32 44
 Event499_TimedDeliverySetup:
-    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField2C9A, $051F) ; C3:441A  42 43 A6 C0 1F 05
+    %EVENT_CALLROUTINE_DIRECTION_CLASS_WORD(!Script_SetDirectionClassAndField2C9A, $051F) ; C3:441A  42 43 A6 C0 1F 05
     %EVENT_CALLROUTINE_0(!ClearActivePartySlotCacheWord) ; C3:4420  42 97 0C EF
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:4424  25 60 A3
     %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:4427  42 2F A8 C0

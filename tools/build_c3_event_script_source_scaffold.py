@@ -18,6 +18,8 @@ DEFAULT_OUTPUT = ROOT / "src" / "c3" / "bank_c3_event_scripts_source_pilot.asar.
 DEFAULT_MANIFEST = ROOT / "build" / "c3-event-script-source-scaffold.json"
 DEFAULT_RANGES = ROOT / "build" / "c3-event-script-source-scaffold-ranges.json"
 DEFAULT_REPORT = ROOT / "notes" / "c3-event-script-source-scaffold.md"
+PRESERVED_GAP_CONTRACT_REPORT = ROOT / "notes" / "c3-preserved-gap-contracts.md"
+PRESERVED_GAP_CONTRACT_MANIFEST = ROOT / "notes" / "c3-preserved-gap-contracts.json"
 DEFAULT_START = 0x0000
 DEFAULT_END = 0xE450
 SCHEMA = "earthbound-decomp.c3-event-script-source-scaffold.v1"
@@ -448,6 +450,8 @@ def write_report(path: Path, manifest: dict[str, Any]) -> None:
         f"- Output: `{manifest['output']}`",
         f"- Range manifest: `{manifest['ranges']}`",
         f"- Covered range: `{manifest['covered_range']}`",
+        f"- Preserved gap contract report: `{rel(PRESERVED_GAP_CONTRACT_REPORT)}`",
+        f"- Preserved gap contract manifest: `{rel(PRESERVED_GAP_CONTRACT_MANIFEST)}`",
         f"- Source-pilot files: `{summary['source_pilot_files']}`",
         f"- Source spans: `{summary['source_spans']}`",
         f"- Source bytes: `{summary['source_bytes']}`",
@@ -459,6 +463,8 @@ def write_report(path: Path, manifest: dict[str, Any]) -> None:
         f"- Duplicate local labels renamed: `{summary['renamed_duplicate_labels']}`",
         "",
         "This scaffold assembles every validated C3 event/actionscript source pilot together with the raw bytes that are not event/actionscript candidates. It is included by the canonical `src/c3/bank_c3_helpers_asar.asm` scaffold for the `C3:0000..E450` corridor.",
+        "",
+        "The preserved gaps are now closed by explicit contracts in `notes/c3-preserved-gap-contracts.md`: the bank prefix is palette/system-screen/source-adjacent data, the `C3:9FF2..A07F` block is intro movement-pattern data plus decoded intro bytecode, and the `C3:DFE8..E450` block is table/cursor/menu data leading into the `C3:E450` window helper.",
         "",
         "## Preserved Gaps",
         "",
