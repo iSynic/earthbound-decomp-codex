@@ -24,10 +24,12 @@ DEFAULT_FIXTURES = ROOT / "notes" / "asset-output-smoke-fixtures.json"
 DEFAULT_OUT = ROOT / "build" / "asset-output-smoke-fixtures"
 REPORT_ZERO_OK_FIELDS = {
     "arrangement_id",
+    "font_id",
     "graphics_id",
     "max_tile",
     "palette_id",
     "sequence_frame_index",
+    "sentinel_ff_count",
     "sprite_id",
     "swirl_id",
 }

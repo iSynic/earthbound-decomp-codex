@@ -18,7 +18,7 @@ No ROM-derived payloads are checked in by this report.
 | Family | Assets | Bytes | Inferred payloads | Contract-covered | Unresolved metadata | Categories | Output recipes | Runtime contract |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
 | Text window skins and text palettes | 3 | 2447 | 0 | 0 | 0 | `graphics` 2, `raw-table` 1 | `raw` 3, `earthbound_lzhal` 2, `earthbound_lzhal_snes_4bpp_tiles_png` 1 | C0/C4 text-window upload and palette-flavour callers consume these as window graphics, window-property rows, and palette/font-colour data. |
-| Font data and glyph graphics | 11 | 12532 | 0 | 0 | 0 | `graphics` 6, `binary-asset` 5 | `raw` 11, `snes_4bpp_tiles_png` 5 | Font data assets are fixed-width metric/spacing rows paired with raw or 4bpp glyph graphics consumed by the text and presentation renderers. |
+| Font data and glyph graphics | 11 | 12532 | 0 | 0 | 0 | `graphics` 6, `binary-asset` 5 | `raw` 11, `font_metric_widths_json` 5, `snes_4bpp_tiles_png` 5, `snes_2bpp_tiles_png` 1 | Font data assets are fixed-width metric/spacing rows paired with raw or 4bpp glyph graphics consumed by the text and presentation renderers. |
 | Town-map graphics, labels, icons, and placement tables | 9 | 54924 | 0 | 0 | 0 | `binary-asset` 6, `graphics` 2, `raw-table` 1 | `raw` 9, `earthbound_lzhal` 7, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | C4:D553 selects E0 town-map graphics through E0:2190; C4:D43F walks E1 town-map icon records from E1:F491 and draws icons mapped through E1:F44C. |
 | Intro, logo, title, and attract visuals | 24 | 35132 | 3 | 3 | 0 | `graphics` 23, `binary-asset` 1 | `earthbound_lzhal` 24, `raw` 24, `earthbound_lzhal_snes_palette_json` 8, `earthbound_lzhal_snes_palette_swatch_png` 8, `earthbound_lzhal_snes_4bpp_tiles_png` 7 | C4 intro/presentation loaders consume compressed arrangement, graphics, and palette triples for logos, gas-station intro, title screen, Itoi/Nintendo presentation, and related attract payloads. |
 | Saved-coordinate landing display visuals | 3 | 1842 | 0 | 0 | 0 | `graphics` 3 | `earthbound_lzhal` 3, `raw` 3, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `earthbound_lzhal_snes_palette_json` 1, `earthbound_lzhal_snes_palette_swatch_png` 1 | C4:C2DE decompresses E1:CFAF, E1:D5E8, and E1:D4F4 as the saved-coordinate landing display graphics, arrangement, and palette bundle. |
@@ -39,20 +39,6 @@ No ROM-derived payloads are checked in by this report.
 - `intro_title_visual_bundles`: E1 intro/title payloads now split into six scene bundles: APE, HALKEN, Nintendo, War-on-Giygas/gas-station, presented/produced-by attract cards, and title screen; E1:AE7C and E1:CE08 are further promoted to title palette animation and TitleScreenLetterOAMData contracts. Source: `notes/intro-title-visual-bundle-contracts.md`.
 - `landing_cast_visual_bundles`: E1:CFAF/D5E8/D4F4 are the C4:C2DE saved-coordinate landing display graphics/arrangement/palette bundle, while E1:D6E1..D815, E1:D815..D835, E1:D835..E4E6, and E1:E4E6..E528 belong to the C4:E369 ending cast-name visual path. Source: `notes/landing-cast-visual-contracts.md`.
 - `sram_save_template`: E0 COMPRESSED_SRAM decompresses to 0x2800 bytes: eight 0x500-byte ebsrc `save_block` records, with three runtime user save-slot primary/backup pairs, checksum/complement fields verified against EF:0734/077B, and two preserved reserve records outside the retail slot loops. Source: `notes/sram-template-contracts.md`.
-
-## CoilSnake Probe Context
-
-- `font0-width5-probe` is valid CoilSnake rebuilt-layout evidence, but its
-  changed byte lands at `CF:60DC` in the baseline rebuild rather than any
-  original E0/E1 font metric range listed below.
-- `town-map-first-icon-x-probe` changes one byte at `E0:11A4` in the
-  CoilSnake baseline rebuild. In the original ROM, that address falls inside
-  the compressed SRAM template range `E0:09B4..E0:1359`, while town-map icon
-  placement records live at `E1:F4A9..E1:F581`; keep it deferred until a
-  rebuilt-to-original town-map layout map exists.
-- `windowgraphics-windows1-copy-probe` changes a bounded span inside
-  `E0:1FC8..E0:2188`, so it is safe evidence that CoilSnake's WindowGraphics
-  resource feeds the local text-window palette block contract.
 
 ## Runtime Subrange Contracts
 
@@ -113,16 +99,16 @@ No ROM-derived payloads are checked in by this report.
 
 | Asset | Range | Bytes | Outputs | Notes |
 | --- | --- | ---: | --- | --- |
-| `asset.e0.mother2_romaji_font` | `E0:07A0..E0:09B4` | 532 | `raw` | - |
-| `asset.e0.mrsaturn_font_data` | `E0:1359..E0:13B9` | 96 | `raw` | - |
+| `asset.e0.mother2_romaji_font` | `E0:07A0..E0:09B4` | 532 | `raw`, `snes_2bpp_tiles_png` | - |
+| `asset.e0.mrsaturn_font_data` | `E0:1359..E0:13B9` | 96 | `raw`, `font_metric_widths_json` | - |
 | `asset.e0.mrsaturn_font_gfx` | `E0:13B9..E0:1FB9` | 3072 | `raw`, `snes_4bpp_tiles_png` | - |
-| `asset.e1.main_font_data` | `E1:0C7A..E1:0CDA` | 96 | `raw` | - |
+| `asset.e1.main_font_data` | `E1:0C7A..E1:0CDA` | 96 | `raw`, `font_metric_widths_json` | - |
 | `asset.e1.main_font_gfx` | `E1:0CDA..E1:18DA` | 3072 | `raw`, `snes_4bpp_tiles_png` | - |
-| `asset.e1.battle_font_data` | `E1:18DA..E1:193A` | 96 | `raw` | - |
+| `asset.e1.battle_font_data` | `E1:18DA..E1:193A` | 96 | `raw`, `font_metric_widths_json` | - |
 | `asset.e1.battle_font_gfx` | `E1:193A..E1:1F3A` | 1536 | `raw`, `snes_4bpp_tiles_png` | - |
-| `asset.e1.tiny_font_data` | `E1:1F3A..E1:1F9A` | 96 | `raw` | - |
+| `asset.e1.tiny_font_data` | `E1:1F3A..E1:1F9A` | 96 | `raw`, `font_metric_widths_json` | - |
 | `asset.e1.tiny_font_gfx` | `E1:1F9A..E1:229A` | 768 | `raw`, `snes_4bpp_tiles_png` | - |
-| `asset.e1.large_font_data` | `E1:229A..E1:22FA` | 96 | `raw` | - |
+| `asset.e1.large_font_data` | `E1:229A..E1:22FA` | 96 | `raw`, `font_metric_widths_json` | - |
 | `asset.e1.large_font_gfx` | `E1:22FA..E1:2EFA` | 3072 | `raw`, `snes_4bpp_tiles_png` | - |
 
 ### Town-map graphics, labels, icons, and placement tables

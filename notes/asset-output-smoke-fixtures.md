@@ -8,20 +8,20 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 
 ## Snapshot
 
-- fixture selectors: `87`
-- unique selected assets: `32`
-- recipe kinds covered: `15`
+- fixture selectors: `89`
+- unique selected assets: `33`
+- recipe kinds covered: `16`
 - family/renderer pairs covered: `12`
 - family/renderer/geometry-status pairs covered: `14`
-- family/decoder pairs covered: `19`
+- family/decoder pairs covered: `20`
 - target bank-output policy banks: `22`
 - target banks with bank-output fixtures: `22`
 - target banks without typed non-raw outputs: -
 - fixture target source refs: `27`
 - fixture source-ref status mix: `manifest_asset` 21, `known_external` 6
 - fixture source-ref field mix: `palette_source` 21, `graphics_source` 6
-- fixture type mix: `bank_output` 22, `family_decoder` 19, `recipe_kind` 15, `family_renderer_geometry` 14, `family_renderer` 12, +1 more
-- fixture family mix: `battle_visual_assets` 32, `map_tilesets_and_runtime_tables` 19, `ui_font_town_map_assets` 18, `overworld_sprites` 15, `ef_debug_and_late_tail` 3
+- fixture type mix: `bank_output` 22, `family_decoder` 20, `recipe_kind` 16, `family_renderer_geometry` 14, `family_renderer` 12, +1 more
+- fixture family mix: `battle_visual_assets` 32, `ui_font_town_map_assets` 20, `map_tilesets_and_runtime_tables` 19, `overworld_sprites` 15, `ef_debug_and_late_tail` 3
 
 ## Runner
 
@@ -51,6 +51,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `earthbound_lzhal_snes_4bpp_tiles_png` | `asset.ca.battle_background_gfx_38` | `asset-manifests/bank-ca-assets.json` | `ca/battle_bgs/graphics/38_4bpp_preview.png` | `earthbound_lzhal+snes_4bpp_tiles` | `grayscale_tile_sheet` |
 | `earthbound_lzhal_snes_palette_json` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `e1/intro/logos/ape_palette.json` | `earthbound_lzhal+snes_palette` | - |
 | `earthbound_lzhal_snes_palette_swatch_png` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `e1/intro/logos/ape_palette.png` | `earthbound_lzhal+snes_palette` | `palette_swatch` |
+| `font_metric_widths_json` | `asset.e0.mrsaturn_font_data` | `asset-manifests/bank-e0-assets.json` | `e0/fonts/mrsaturn_widths.json` | `font_metric_widths` | - |
 | `map_tile_chunk_index_json` | `asset.d6.map_data_tile_table_chunk_1` | `asset-manifests/bank-d6-assets.json` | `d6/maps/tiles/chunk_01_tile_index.json` | `map_tile_chunk_index` | - |
 | `raw` | `asset.ca.battle_background_arr_100` | `asset-manifests/bank-ca-assets.json` | `ca/battle_bgs/arrangements/100.arr.lzhal` | - | - |
 | `snes_2bpp_tiles_png` | `asset.e0.mother2_romaji_font` | `asset-manifests/bank-e0-assets.json` | `e0/fonts/romaji_2bpp_preview.png` | `snes_2bpp_tiles` | `grayscale_tile_sheet` |
@@ -152,6 +153,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `ui_font_town_map_assets.earthbound_lzhal` | `asset.e0.compressed_sram` | `asset-manifests/bank-e0-assets.json` | `earthbound_lzhal` | `e0/mystery_sram.bin` |
 | `ui_font_town_map_assets.earthbound_lzhal+snes_4bpp_tiles` | `asset.e0.text_window_gfx` | `asset-manifests/bank-e0-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `e0/graphics/text_window_4bpp_preview.png` |
 | `ui_font_town_map_assets.earthbound_lzhal+snes_palette` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `earthbound_lzhal_snes_palette_json` | `e1/intro/logos/ape_palette.json` |
+| `ui_font_town_map_assets.font_metric_widths` | `asset.e0.mrsaturn_font_data` | `asset-manifests/bank-e0-assets.json` | `font_metric_widths_json` | `e0/fonts/mrsaturn_widths.json` |
 | `ui_font_town_map_assets.snes_2bpp_tiles` | `asset.e0.mother2_romaji_font` | `asset-manifests/bank-e0-assets.json` | `snes_2bpp_tiles_png` | `e0/fonts/romaji_2bpp_preview.png` |
 | `ui_font_town_map_assets.snes_4bpp_tiles` | `asset.e0.mrsaturn_font_gfx` | `asset-manifests/bank-e0-assets.json` | `snes_4bpp_tiles_png` | `e0/fonts/mrsaturn_4bpp_preview.png` |
 | `ui_font_town_map_assets.snes_palette` | `asset.e1.staff_credits_font_palette` | `asset-manifests/bank-e1-assets.json` | `snes_palette_json` | `e1/ending/credits_font_palette.json` |
@@ -180,6 +182,6 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `asset-manifests/bank-dd-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-dd-assets.json --asset-id asset.dd.map_data_tile_set_graphics_0 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-de-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-de-assets.json --asset-id asset.de.map_data_tile_animation_gfx_15 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-df-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-df-assets.json --asset-id asset.df.map_data_tile_animation_gfx_0 --out build/asset-output-smoke-fixtures` |
-| `asset-manifests/bank-e0-assets.json` | 4 | `python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mother2_romaji_font --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-e0-assets.json` | 5 | `python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mother2_romaji_font --asset-id asset.e0.mrsaturn_font_data --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-e1-assets.json` | 3 | `python tools/extract_assets.py --manifest asset-manifests/bank-e1-assets.json --asset-id asset.e1.ape_graphics --asset-id asset.e1.ape_palette --asset-id asset.e1.staff_credits_font_palette --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/ef-debug-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/ef-debug-assets.json --asset-id asset.debug.cursor_graphics --out build/asset-output-smoke-fixtures` |

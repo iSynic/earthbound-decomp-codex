@@ -259,6 +259,29 @@ def battle_swirl_frame_metadata_output(raw_path: str, entry: dict[str, Any]) -> 
     }
 
 
+FONT_METRIC_IDS = {
+    "fonts/main.bin": 0,
+    "fonts/mrsaturn.bin": 1,
+    "fonts/large.bin": 2,
+    "fonts/battle.bin": 3,
+    "fonts/tiny.bin": 4,
+}
+
+
+def font_metric_widths_output(raw_path: str, entry: dict[str, Any]) -> dict[str, Any] | None:
+    payload = str(entry.get("payload_path") or "").replace("\\", "/").lower()
+    font_id = FONT_METRIC_IDS.get(payload)
+    if font_id is None or int(entry["size"]) != 96:
+        return None
+    return {
+        "kind": "font_metric_widths_json",
+        "path": sidecar_path(raw_path, "widths", ".json"),
+        "font_id": font_id,
+        "entry_count": 96,
+        "first_character_code": 0x50,
+    }
+
+
 def romaji_font_2bpp_preview_output(raw_path: str, entry: dict[str, Any]) -> dict[str, Any] | None:
     payload = str(entry.get("payload_path") or "").replace("\\", "/").lower()
     size = int(entry["size"])
@@ -714,6 +737,9 @@ def binary_outputs(
     swirl_metadata = battle_swirl_frame_metadata_output(raw_path, entry)
     if swirl_metadata is not None:
         outputs.append(swirl_metadata)
+    font_metrics = font_metric_widths_output(raw_path, entry)
+    if font_metrics is not None:
+        outputs.append(font_metrics)
     return outputs
 
 

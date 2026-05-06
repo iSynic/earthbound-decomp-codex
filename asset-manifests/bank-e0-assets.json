@@ -38,14 +38,15 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 16,
-    "output_recipe_count": 28,
-    "typed_output_kind_count": 5,
-    "decoder_output_recipe_count": 12,
+    "output_recipe_count": 29,
+    "typed_output_kind_count": 6,
+    "decoder_output_recipe_count": 13,
     "renderer_output_recipe_count": 3,
     "preview_png_recipe_count": 3,
     "output_kind_counts": {
       "earthbound_lzhal": 9,
       "earthbound_lzhal_snes_4bpp_tiles_png": 1,
+      "font_metric_widths_json": 1,
       "raw": 16,
       "snes_2bpp_tiles_png": 1,
       "snes_4bpp_tiles_png": 1
@@ -53,30 +54,33 @@
     "decoder_counts": {
       "earthbound_lzhal": 9,
       "earthbound_lzhal+snes_4bpp_tiles": 1,
+      "font_metric_widths": 1,
       "snes_2bpp_tiles": 1,
       "snes_4bpp_tiles": 1
     },
     "renderer_counts": {
       "grayscale_tile_sheet": 3
     },
-    "smoke_fixture_count": 10,
+    "smoke_fixture_count": 12,
     "smoke_fixture_asset_ids": [
       "asset.e0.compressed_sram",
       "asset.e0.mother2_romaji_font",
+      "asset.e0.mrsaturn_font_data",
       "asset.e0.mrsaturn_font_gfx",
       "asset.e0.text_window_gfx"
     ],
     "smoke_fixture_type_counts": {
       "bank_output": 1,
-      "family_decoder": 4,
+      "family_decoder": 5,
       "family_renderer": 1,
       "family_renderer_geometry": 2,
-      "recipe_kind": 1,
+      "recipe_kind": 2,
       "recipe_option": 1
     },
     "smoke_fixture_target_kind_counts": {
       "earthbound_lzhal": 1,
       "earthbound_lzhal_snes_4bpp_tiles_png": 2,
+      "font_metric_widths_json": 2,
       "snes_2bpp_tiles_png": 6,
       "snes_4bpp_tiles_png": 1
     }
@@ -208,11 +212,19 @@
         {
           "kind": "raw",
           "path": "e0/fonts/mrsaturn.bin"
+        },
+        {
+          "kind": "font_metric_widths_json",
+          "path": "e0/fonts/mrsaturn_widths.json",
+          "font_id": 1,
+          "entry_count": 96,
+          "first_character_code": 80
         }
       ],
       "notes": [
         "Source payload path from ebsrc: fonts/mrsaturn.bin",
-        "Original file offset: 0x201359"
+        "Original file offset: 0x201359",
+        "Decoded as the first 96 one-byte font metric widths used by the text/window glyph measurement path; font id matches tools/build_font_bundle_contracts.py CORE_FONTS ref_width_id."
       ]
     },
     {

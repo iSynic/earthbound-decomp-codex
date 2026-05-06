@@ -172,6 +172,25 @@ def output_cases() -> list[dict[str, Any]]:
             },
         },
         {
+            "id": "font-metric-widths",
+            "data": bytes([2, 3, 4, 0xFF, 6, 7]),
+            "spec": {
+                "kind": "font_metric_widths_json",
+                "path": "font_widths.json",
+                "font_id": 0,
+                "entry_count": 6,
+                "first_character_code": 0x50,
+            },
+            "expected_metadata": {
+                "font_id": 0,
+                "entry_count": 6,
+                "first_character_code": 0x50,
+                "max_width": 0xFF,
+                "distinct_widths": 6,
+                "sentinel_ff_count": 1,
+            },
+        },
+        {
             "id": "snes-2bpp-tiles",
             "data": graphics_2bpp,
             "spec": {"kind": "snes_2bpp_tiles_png", "path": "tiles_2bpp.png", "columns": 2},

@@ -9,9 +9,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 ## Snapshot
 
 - status: `ok`
-- synthetic cases: `16`
+- synthetic cases: `17`
 - trim-trailing-bytes cases: `1`
-- output kinds covered: `15`
+- output kinds covered: `16`
 - missing output kinds: `0`
 - output root: `build/asset-output-codec-validation`
 
@@ -23,6 +23,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `earthbound-lzhal` | `earthbound_lzhal` | 26 | - | `compressed_bytes_consumed`, `decompressed_bytes` |
 | `map-tile-chunk-index` | `map_tile_chunk_index_json` | 347 | `chunk_index` | `chunk_index`, `distinct_tile_ids`, `entry_count`, `max_tile_id`, `min_tile_id` |
 | `battle-swirl-frame-metadata` | `battle_swirl_frame_json` | 405 | `sequence_frame_count`, `sequence_frame_index`, `sequence_id`, `sequence_speed`, `swirl_id` | `first_opcode`, `payload_bytes`, `sequence_frame_count`, `sequence_frame_index`, `sequence_id`, `sequence_speed`, `swirl_id` |
+| `font-metric-widths` | `font_metric_widths_json` | 706 | `entry_count`, `first_character_code`, `font_id` | `distinct_widths`, `entry_count`, `first_character_code`, `font_id`, `max_width`, `sentinel_ff_count` |
 | `snes-2bpp-tiles` | `snes_2bpp_tiles_png` | 90 | `columns` | `height`, `tiles`, `width` |
 | `snes-2bpp-tiles-trimmed` | `snes_2bpp_tiles_png` | 90 | `columns`, `trim_trailing_bytes` | `height`, `tiles`, `trimmed_source_bytes`, `width` |
 | `snes-4bpp-tiles` | `snes_4bpp_tiles_png` | 114 | `columns` | `height`, `tiles`, `width` |

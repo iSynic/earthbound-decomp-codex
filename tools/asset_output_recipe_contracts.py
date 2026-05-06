@@ -70,6 +70,22 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         ),
         extension=".json",
     ),
+    "font_metric_widths_json": OutputRecipeContract(
+        kind="font_metric_widths_json",
+        output_type="font metric width table JSON",
+        decoder="font_metric_widths",
+        renderer=None,
+        required_fields=("font_id", "entry_count", "first_character_code"),
+        report_required_fields=(
+            "font_id",
+            "entry_count",
+            "first_character_code",
+            "max_width",
+            "distinct_widths",
+            "sentinel_ff_count",
+        ),
+        extension=".json",
+    ),
     "snes_2bpp_tiles_png": OutputRecipeContract(
         kind="snes_2bpp_tiles_png",
         output_type="tile preview PNG",
@@ -216,6 +232,9 @@ INT_FIELDS = {
     "chunk_index",
     "colors",
     "columns",
+    "entry_count",
+    "first_character_code",
+    "font_id",
     "graphics_id",
     "height",
     "height_tiles",
@@ -304,7 +323,17 @@ def validate_output_spec(output: dict[str, Any], asset_id: str) -> list[str]:
     for field in sorted((set(contract.required_fields) | set(contract.optional_fields)) & INT_FIELDS):
         if field in output and (not isinstance(output[field], int) or output[field] < 0):
             errors.append(f"{asset_id}: {kind}.{field} must be a non-negative integer")
-    for field in {"columns", "colors", "height", "height_tiles", "per_row", "swatch", "width", "width_tiles"}:
+    for field in {
+        "columns",
+        "colors",
+        "entry_count",
+        "height",
+        "height_tiles",
+        "per_row",
+        "swatch",
+        "width",
+        "width_tiles",
+    }:
         if field in output and isinstance(output[field], int) and output[field] <= 0:
             errors.append(f"{asset_id}: {kind}.{field} must be positive")
     if "bpp" in output and output["bpp"] not in {2, 4}:

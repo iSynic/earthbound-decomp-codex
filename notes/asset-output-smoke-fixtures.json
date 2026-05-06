@@ -13,13 +13,13 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 87,
-    "unique_selected_assets": 32,
-    "unique_selected_manifest_asset_pairs": 32,
-    "recipe_kinds_covered": 15,
+    "fixture_count": 89,
+    "unique_selected_assets": 33,
+    "unique_selected_manifest_asset_pairs": 33,
+    "recipe_kinds_covered": 16,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 19,
+    "family_decoder_pairs_covered": 20,
     "target_bank_output_fixture_policy_banks": 22,
     "bank_output_fixture_banks_covered": 22,
     "target_banks_without_typed_non_raw_outputs": [],
@@ -34,10 +34,10 @@
     },
     "fixture_type_counts": {
       "bank_output": 22,
-      "family_decoder": 19,
+      "family_decoder": 20,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 15,
+      "recipe_kind": 16,
       "recipe_option": 5
     },
     "fixture_family_counts": {
@@ -45,7 +45,7 @@
       "ef_debug_and_late_tail": 3,
       "map_tilesets_and_runtime_tables": 19,
       "overworld_sprites": 15,
-      "ui_font_town_map_assets": 18
+      "ui_font_town_map_assets": 20
     }
   },
   "source_ref_coverage": {
@@ -117,6 +117,7 @@
       "earthbound_lzhal_snes_4bpp_tiles_png": 13,
       "earthbound_lzhal_snes_palette_json": 10,
       "earthbound_lzhal_snes_palette_swatch_png": 10,
+      "font_metric_widths_json": 5,
       "raw": 69,
       "snes_2bpp_tiles_png": 1,
       "snes_4bpp_tiles_png": 5,
@@ -326,6 +327,29 @@
         "earthbound_lzhal",
         "earthbound_lzhal_snes_palette_json",
         "earthbound_lzhal_snes_palette_swatch_png",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.font_metric_widths_json",
+      "type": "recipe_kind",
+      "key": "font_metric_widths_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "ui_font_town_map_assets",
+      "bank": "E0",
+      "manifest_path": "asset-manifests/bank-e0-assets.json",
+      "asset_id": "asset.e0.mrsaturn_font_data",
+      "title": "MRSATURN_FONT_DATA",
+      "category": "binary-asset",
+      "bytes": 96,
+      "target_output": {
+        "kind": "font_metric_widths_json",
+        "path": "e0/fonts/mrsaturn_widths.json",
+        "decoder": "font_metric_widths",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "font_metric_widths_json",
         "raw"
       ]
     },
@@ -2230,6 +2254,29 @@
       ]
     },
     {
+      "id": "fixture.family_decoder.ui_font_town_map_assets_font_metric_widths",
+      "type": "family_decoder",
+      "key": "ui_font_town_map_assets.font_metric_widths",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "ui_font_town_map_assets",
+      "bank": "E0",
+      "manifest_path": "asset-manifests/bank-e0-assets.json",
+      "asset_id": "asset.e0.mrsaturn_font_data",
+      "title": "MRSATURN_FONT_DATA",
+      "category": "binary-asset",
+      "bytes": 96,
+      "target_output": {
+        "kind": "font_metric_widths_json",
+        "path": "e0/fonts/mrsaturn_widths.json",
+        "decoder": "font_metric_widths",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "font_metric_widths_json",
+        "raw"
+      ]
+    },
+    {
       "id": "fixture.family_decoder.ui_font_town_map_assets_snes_2bpp_tiles",
       "type": "family_decoder",
       "key": "ui_font_town_map_assets.snes_2bpp_tiles",
@@ -2450,10 +2497,11 @@
       "asset_ids": [
         "asset.e0.compressed_sram",
         "asset.e0.mother2_romaji_font",
+        "asset.e0.mrsaturn_font_data",
         "asset.e0.mrsaturn_font_gfx",
         "asset.e0.text_window_gfx"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mother2_romaji_font --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-e0-assets.json --asset-id asset.e0.compressed_sram --asset-id asset.e0.mother2_romaji_font --asset-id asset.e0.mrsaturn_font_data --asset-id asset.e0.mrsaturn_font_gfx --asset-id asset.e0.text_window_gfx --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/bank-e1-assets.json",

@@ -269,6 +269,45 @@ def write_battle_swirl_frame_json(data: bytes, path: Path, spec: dict[str, Any])
     }
 
 
+def write_font_metric_widths_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    font_id = int(spec["font_id"])
+    entry_count = int(spec["entry_count"])
+    first_character_code = int(spec["first_character_code"])
+    if entry_count <= 0:
+        raise ValueError(f"Font metric entry_count must be positive, got {entry_count}")
+    if len(data) != entry_count:
+        raise ValueError(f"Font metric table expected {entry_count} bytes, got {len(data)}")
+
+    widths = list(data)
+    payload = {
+        "schema": "earthbound-decomp.font-metric-widths.v1",
+        "decoder": "font_metric_widths",
+        "font_id": font_id,
+        "first_character_code": first_character_code,
+        "entry_count": entry_count,
+        "entry_size_bytes": 1,
+        "width_units": "pixels",
+        "min_width": min(widths),
+        "max_width": max(widths),
+        "distinct_widths": len(set(widths)),
+        "sentinel_ff_count": widths.count(0xFF),
+        "widths": [
+            {"character_code": first_character_code + index, "width": width}
+            for index, width in enumerate(widths)
+        ],
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "font_id": font_id,
+        "entry_count": entry_count,
+        "first_character_code": first_character_code,
+        "max_width": payload["max_width"],
+        "distinct_widths": payload["distinct_widths"],
+        "sentinel_ff_count": payload["sentinel_ff_count"],
+    }
+
+
 def write_snes_palette_swatch_png(data: bytes, path: Path, spec: dict[str, Any]) -> int:
     entries = decode_snes_bgr555_palette(data, count=palette_entry_count(data, spec))
     per_row = int(spec.get("per_row", 16))
@@ -629,6 +668,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_map_tile_chunk_index_json(data, path, spec))
     elif kind == "battle_swirl_frame_json":
         metadata.update(write_battle_swirl_frame_json(data, path, spec))
+    elif kind == "font_metric_widths_json":
+        metadata.update(write_font_metric_widths_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         tile_data = trim_trailing_bytes(data, spec)
