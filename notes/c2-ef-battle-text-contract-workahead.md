@@ -99,6 +99,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `MsgBtlCheck*` labels from `EF:69EA..6A7F`, keeping Spy offense/defense as
   `ActionAmount` readouts and resistance buckets as direct readout text, then
   named `EF:6A99/6AB3` as metamorphose `ResultText`.
+- 2026-05-06: EF HP/PP recovery naming follow-up tightened `EF:69A1..69D2`:
+  HP already-maxed stays a recovery text anchor, while HP and PP recovered
+  paths carry `ActionAmount` names for the C2 `DC66` staged-delta paths.
 - 2026-05-05: EF EBATTLE8 follow-up added source anchors for the four
   call-for-help result scripts (`EF:77FD`, `EF:7810`, `EF:7824`, `EF:7830`)
   and the Time Stop return script at `EF:7843`.
@@ -510,10 +513,11 @@ Promotion effect: name these callers as “select enemy record pointer + emit ba
 ### HP/PP recovery feedback (paired `DC1C` + `DC66` contract)
 
 - `C2:7294` (`src/c2/c2_7294_apply_battler_hp_recovery_feedback.asm`)
-  - chooses among `EF:69A1` (maxed), `EF:69BA` (amount-bearing), `EF:7696` (no visible effect)
+  - chooses among `EF:69A1` (HP already maxed recovery text), `EF:69BA`
+    (HP recovered amount-bearing text), `EF:7696` (no visible effect)
   - uses `DC66` only on the path where the EF script prints `PRINT_ACTION_AMOUNT` (`1C 0F`)
 - `C2:7318` (`src/c2/c2_7318_apply_battler_pp_recovery_feedback.asm`)
-  - emits `EF:69D2` via `DC66` (amount-bearing PP recovered)
+  - emits `EF:69D2` via `DC66` (PP recovered amount-bearing text)
 
 Promotion effect: keep the “amount-bearing EF script requires staged delta” invariant explicit in naming and parameter shaping.
 

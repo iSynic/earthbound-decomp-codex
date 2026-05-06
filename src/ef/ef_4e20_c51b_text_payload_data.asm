@@ -638,19 +638,19 @@ EF6954_E07GpftBranchThrkBossGraveDieHave:
 ; EF:69A1
 
 ; EBATTLE5: HP already maxed recovery text.
-EF69A1_EBattle5MsgBtlHpMaxRecovered:
+EF69A1_EBattle5HpAlreadyMaxedRecoveryText:
 
 ; ---------------------------------------------------------------------------
 ; EF:69BA
 
 ; EBATTLE5: HP recovery text; C2 stages delta HP through C1:DC66/1C 0F.
-EF69BA_EBattle5MsgBtlHpRecoveredActionAmount:
+EF69BA_EBattle5HpRecoveredActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:69D2
 
 ; EBATTLE5: PP recovery text; C2 stages delta PP through C1:DC66/1C 0F.
-EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
+EF69D2_EBattle5PpRecoveredActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:69EA

@@ -111,7 +111,9 @@ should keep the `ActionAmount` suffix when the script uses
 
 Examples:
 
-- HP/PP recovery scripts consume staged recovery amounts.
+- HP/PP recovery amount scripts `EF:69BA/69D2` consume staged recovery
+  amounts. The adjacent HP-already-maxed text at `EF:69A1` is the non-amount
+  recovery branch.
 - Spy offense/defense readouts at `EF:69EA/69FF` are `ActionAmount` consumers
   staged by C2 Spy setup through `DC66`.
 - damage, drain, stat-up, stat-down, and HP-sucker scripts consume staged

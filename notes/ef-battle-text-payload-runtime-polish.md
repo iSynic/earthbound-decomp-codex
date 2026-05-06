@@ -47,9 +47,10 @@ macros.
 - `EF:4E20..69A1` now splits the front text-payload corridor into the
   `EEXPLPSI` PSI explanation scripts, the `E16DKFD` Dungeon Man/Deep Darkness
   payloads, and the `E07GPFT` Grapefruit Falls/Threed payloads before EBATTLE5.
-- `EF:69A1`, `EF:69BA`, and `EF:69D2` now mark HP maxed, HP recovered amount,
-  and PP recovered amount text. The two `ActionAmount` scripts are consumed
-  through `C1:DC66 -> C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
+- `EF:69A1`, `EF:69BA`, and `EF:69D2` now mark HP already-maxed recovery
+  text, HP recovered `ActionAmount`, and PP recovered `ActionAmount`. The two
+  `ActionAmount` scripts are consumed through
+  `C1:DC66 -> C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
 - `EF:69EA` and `EF:69FF` now mark the Spy offense and defense amount
   readouts. Both scripts are `ActionAmount` consumers reached through the C2
   Spy setup and the `C1:DC66` amount-print contract.
@@ -183,6 +184,13 @@ rather than poison. The actual poison-inflicted text remains the separate
 `EF:6B18` script used by the item/status cluster.
 
 ## Spy Readout Follow-up
+
+The HP/PP recovery front of EBATTLE5 now carries payload-role names before the
+Spy readout island begins. `EF:69A1` is the HP-already-maxed recovery text used
+when the HP feedback helper has no delta to stage, while `EF:69BA` and
+`EF:69D2` are HP/PP recovered `ActionAmount` scripts. That keeps the direct
+maxed-out recovery message separate from the `DC66` amount-bearing success
+paths.
 
 The C2 Spy refinement proved that the coarse `EF:69EA..6AE0` EBATTLE5 corridor
 contains a compact set of distinct scripts, not one generic stat/status

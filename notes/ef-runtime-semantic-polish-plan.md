@@ -125,6 +125,10 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:69EA/69FF` now carry Spy `ActionAmount` readout names, `EF:6A0D..6A7F`
   carry direct Spy vulnerability/susceptibility readout names, and
   `EF:6A99/6AB3` carry metamorphose `ResultText` names.
+- 2026-05-06: EF HP/PP recovery naming follow-up tightened the EBATTLE5
+  recovery front: `EF:69A1` now names HP already-maxed recovery text, while
+  `EF:69BA/69D2` carry HP/PP recovered `ActionAmount` names for C2 staged
+  delta paths.
 - 2026-05-05: EF EBATTLE8 call-for-help/Time Stop follow-up split the
   `EF:77FD..7B77` corridor into the four C2 call-for-help result scripts at
   `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830`, the C2 hit-resolution

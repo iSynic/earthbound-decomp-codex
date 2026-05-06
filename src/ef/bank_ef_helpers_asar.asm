@@ -4216,26 +4216,26 @@ db $A4,$17,$1A,$17,$42,$99,$95,$15,$53,$03,$18,$04,$02
 
 EF6954_E07GpftBranchThrkBossGraveDieHave:
 
-; Original data gap before EF69A1_EBattle5MsgBtlHpMaxRecovered:
+; Original data gap before EF69A1_EBattle5HpAlreadyMaxedRecoveryText:
 db $70,$79,$16,$CD,$15,$33,$97,$95,$16,$0E,$76,$15,$9D,$78,$17,$3E
 db $15,$04,$97,$A5,$9C,$A0,$15,$CA,$17,$9F,$5E,$03,$00,$70,$7D,$17
 db $1E,$50,$72,$95,$9C,$93,$98,$15,$04,$79,$50,$9C,$16,$61,$50,$76
 db $15,$9D,$78,$17,$3E,$5E,$10,$14,$00,$50,$50,$77,$A9,$9F,$A2,$97
 db $50,$77,$A9,$9F,$A2,$97,$51,$15,$03,$03,$18,$04,$02
 
-EF69A1_EBattle5MsgBtlHpMaxRecovered:
+EF69A1_EBattle5HpAlreadyMaxedRecoveryText:
 
-; Original data gap before EF69BA_EBattle5MsgBtlHpRecoveredActionAmount:
+; Original data gap before EF69BA_EBattle5HpRecoveredActionAmount:
 db $01,$70,$1C,$0E,$15,$39,$78,$80,$17,$61,$00,$50,$17,$DF,$A8,$95
 db $94,$15,$93,$51,$1F,$02,$24,$03,$02
 
-EF69BA_EBattle5MsgBtlHpRecoveredActionAmount:
+EF69BA_EBattle5HpRecoveredActionAmount:
 
-; Original data gap before EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
+; Original data gap before EF69D2_EBattle5PpRecoveredActionAmount:
 db $01,$70,$1C,$0E,$50,$A2,$16,$88,$95,$94,$00,$50,$50,$1C,$0F,$50
 db $78,$80,$51,$1F,$02,$24,$03,$02
 
-EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
+EF69D2_EBattle5PpRecoveredActionAmount:
 
 ; Original data gap before EF69EA_EBattle5SpyOffenseReadoutActionAmount:
 db $01,$70,$1C,$0E,$50,$A2,$16,$88,$95,$94,$00,$50,$50,$1C,$0F,$50
