@@ -112,6 +112,13 @@ that naming too. `1F 83` uses the one-byte item-use compatibility selector
 queue, and `1F 71` uses the same one-byte party utility queue, both returning
 through named callback aliases instead of raw low-word literals.
 
+Source polish follow-up (2026-05-06): the `[1F 41]` special-event caller and
+name-entry path now share source-facing names. Cases `03/04` call
+`C1:EAA6_RunNameEntrySpecialEventPrelude` directly; the prelude names its
+name-entry state flags and tail-call into the `EB4C` preview-entry path; and
+the neighboring naming-buffer commit source names the `$9801`, `$97F5`, and
+`$9C9F` buffers plus the text-input window ids used by the dialog.
+
 The immediate `0x1F D1` branch's target is now semantically polished in
 `src/c4/nearby_truffle_and_landing_profile_interpolation_helpers.asm`. The C4
 source names the magic-truffle pose descriptor, missing-slot sentinel,

@@ -29879,6 +29879,12 @@ org $C1E4BE
 !C4406A_ReadNameEntryGridCharacter = $C4406A
 !C441B7_InitializeTextInputOptionGlyphMetrics = $C441B7
 !C442AC_RenderTextInputOptionStrip = $C442AC
+!TextInputDialogWindowId = $001C
+!NameEntryDialogWindowId = $0027
+!NameEntryPreludeState = $5E6E
+!NameEntryActiveFlag = $B49D
+!NameEntryActiveValue = $01
+!C1EB4C_RunNamingBufferCommitFlowWithPreview = $EB4C
 C1E4BE_BuildTextInputOptionStrip:
     rep #$31
     phd
@@ -29977,7 +29983,7 @@ C1E545_BuildTextInputOptionStrip_LE545:
     and.w #$00FF
     tax
     bne C1E536_BuildTextInputOptionStrip_LE536
-    lda.w #$001C
+    lda.w #!TextInputDialogWindowId
     jsr !C1007E_SetActiveWindowFocus
     lda $12
     sta $04
@@ -30007,7 +30013,7 @@ TEXT_INPUT_DIALOG:
     lda $26
     sta $1E
     jsl !C3E4D4_EnterWindowUpdateScope
-    lda.w #$001C
+    lda.w #!TextInputDialogWindowId
     jsr !C104EE_SetWindowFocus
     lda $28
     cmp.w #$FFFF
@@ -30096,7 +30102,7 @@ C1E65A_BuildTextInputOptionStrip_LE65A:
     bne C1E667_BuildTextInputOptionStrip_LE667
     jmp.w C1E71F_BuildTextInputOptionStrip_LE71F
 C1E667_BuildTextInputOptionStrip_LE667:
-    lda.w #$001C
+    lda.w #!TextInputDialogWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4E0_TickWindowWithoutInstantPrinting
     lda $28
@@ -30612,16 +30618,16 @@ ENTER_YOUR_NAME_PLEASE:
     pla
     tax
     stx $14
-    stz $5E6E
+    stz !NameEntryPreludeState
     sep #$20
-    lda.b #$01
-    sta $B49D
+    lda.b #!NameEntryActiveValue
+    sta !NameEntryActiveFlag
     jsl !C3E4D4_EnterWindowUpdateScope
-    lda.w #$0027
+    lda.w #!NameEntryDialogWindowId
     jsr !C104EE_SetWindowFocus
     ldx $14
     bne C1EACE_BuildTextInputOptionStrip_LEACE
-    jmp $EB4C
+    jmp !C1EB4C_RunNamingBufferCommitFlowWithPreview
 C1EACE_BuildTextInputOptionStrip_LEACE:
     ldx.w #$0000
     txa
@@ -34613,8 +34619,22 @@ org $C1EAD6
 !C440B5_BuildTextInputStringGlyphMetrics = $C440B5
 !C441B7_InitializeTextInputOptionGlyphMetrics = $C441B7
 !C4D065_NormalizeNamingBufferToCommittedSelectorText = $C4D065
+!PlayerNameInputBuffer = $9801
+!TemporaryNameInputBuffer = $97F5
+!CommittedNameSelectorBuffer = $9C9F
+!PlayerNameInputLength = $0018
+!TemporaryNameInputLength = $000C
+!TextInputDialogWindowId = $0027
+!TextInputOptionWindowId = $001C
+!NamePreviewWindowId = $001A
+!NamePreviewBodyWindowId = $001B
+!NameEntryPreludeState = $5E6E
+!NameEntryActiveFlag = $B49D
+!NameEntryFinishedSentinel = $00FF
+!NoInitialCursorLimit = $FFFF
+!ZeroWord = $0000
 C1EAD6_RunNamingBufferCommitFlow:
-    lda.w #$9801
+    lda.w #!PlayerNameInputBuffer
     sta $06
     phb
     sep #$20
@@ -34626,17 +34646,17 @@ C1EAD6_RunNamingBufferCommitFlow:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0018
+    lda.w #!PlayerNameInputLength
     jsr !C10EFC_PrintTextFromPointerLocal
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsl !C438A5_SetTextCursorPosition
-    lda.w #$000C
+    lda.w #!TemporaryNameInputLength
     jsl !C441B7_InitializeTextInputOptionGlyphMetrics
-    lda $97F5
+    lda !TemporaryNameInputBuffer
     and.w #$00FF
     beq C1EB29_RunNamingBufferCommitFlow_LEB29
-    lda.w #$97F5
+    lda.w #!TemporaryNameInputBuffer
     sta $06
     phb
     sep #$20
@@ -34648,18 +34668,18 @@ C1EAD6_RunNamingBufferCommitFlow:
     sta $0E
     lda $08
     sta $10
-    lda.w #$000C
+    lda.w #!TemporaryNameInputLength
     jsr !C10EFC_PrintTextFromPointerLocal
 C1EB29_RunNamingBufferCommitFlow_LEB29:
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsl !C438A5_SetTextCursorPosition
     stz $0E
-    lda.w #$FFFF
+    lda.w #!NoInitialCursorLimit
     sta $10
-    ldy.w #$97F5
-    ldx.w #$000C
-    lda.w #$0027
+    ldy.w #!TemporaryNameInputBuffer
+    ldx.w #!TemporaryNameInputLength
+    lda.w #!TextInputDialogWindowId
     jsr TEXT_INPUT_DIALOG
     tay
     sty $12
@@ -34671,43 +34691,43 @@ C1EB29_RunNamingBufferCommitFlow_LEB29:
     sta $0E
     lda.w #$00C3
     sta $10
-    lda.w #$001A
+    lda.w #!NamePreviewWindowId
     jsr !C10EFC_PrintTextFromPointerLocal
     jsl !C08F8B_RefreshNamingPreviewGlyphState
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsl !C438A5_SetTextCursorPosition
-    lda.w #$0018
+    lda.w #!PlayerNameInputLength
     jsl !C441B7_InitializeTextInputOptionGlyphMetrics
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsl !C438A5_SetTextCursorPosition
-    ldy.w #$9801
+    ldy.w #!PlayerNameInputBuffer
     lda $0000,Y
     and.w #$00FF
     beq C1EB96_RunNamingBufferCommitFlow_LEB96
-    ldx.w #$0018
+    ldx.w #!PlayerNameInputLength
     tya
     jsl !C440B5_BuildTextInputStringGlyphMetrics
 C1EB96_RunNamingBufferCommitFlow_LEB96:
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #!ZeroWord
     jsl !C438A5_SetTextCursorPosition
-    lda.w #$9801
+    lda.w #!PlayerNameInputBuffer
     sta $02
     stz $0E
-    lda.w #$FFFF
+    lda.w #!NoInitialCursorLimit
     sta $10
     ldy $02
-    ldx.w #$0018
-    lda.w #$0027
+    ldx.w #!PlayerNameInputLength
+    lda.w #!TextInputDialogWindowId
     jsr TEXT_INPUT_DIALOG
     tay
     sty $12
     ldx $02
-    lda.w #$9C9F
+    lda.w #!CommittedNameSelectorBuffer
     jsl !C4D065_NormalizeNamingBufferToCommittedSelectorText
-    lda.w #$9C9F
+    lda.w #!CommittedNameSelectorBuffer
     sta $06
     phb
     sep #$20
@@ -34719,18 +34739,18 @@ C1EB96_RunNamingBufferCommitFlow_LEB96:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$000C
-    lda.w #$97F5
+    ldx.w #!TemporaryNameInputLength
+    lda.w #!TemporaryNameInputBuffer
     jsl !C08ED2_CopyWordsFromLongSource
 C1EBE4_RunNamingBufferCommitFlow_LEBE4:
-    lda.w #$001C
+    lda.w #!TextInputOptionWindowId
     jsl !C3E521_CloseWindowAndReleaseTileState
-    lda.w #$0027
+    lda.w #!TextInputDialogWindowId
     jsl !C3E521_CloseWindowAndReleaseTileState
-    lda.w #$00FF
-    sta $5E6E
+    lda.w #!NameEntryFinishedSentinel
+    sta !NameEntryPreludeState
     sep #$20
-    stz $B49D
+    stz !NameEntryActiveFlag
     ldy $12
     rep #$20
     tya
@@ -34756,7 +34776,7 @@ NAME_A_CHARACTER:
     lda $26
     sta $08
     jsl !C3E4D4_SetInstantPrinting
-    lda.w #$001A
+    lda.w #!NamePreviewWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4E0_TickWindowWithoutInstantPrinting
     ldy $12
@@ -34774,7 +34794,7 @@ C1EC48_RunNamingBufferCommitFlow_LEC48:
     ldx.w #$0000
     txa
     jsl !C438A5_SetTextCursorPosition
-    lda.w #$001B
+    lda.w #!NamePreviewBodyWindowId
     jsr !C104EE_SetWindowFocus
     jsl !C3E4E0_TickWindowWithoutInstantPrinting
     lda $06
@@ -34791,11 +34811,11 @@ C1EC48_RunNamingBufferCommitFlow_LEC48:
     sta $10
     ldy $12
     ldx $02
-    lda.w #$001A
+    lda.w #!NamePreviewWindowId
     jsr TEXT_INPUT_DIALOG
     tax
     stx $14
-    lda.w #$001C
+    lda.w #!TextInputOptionWindowId
     jsl !C3E521_CloseWindowAndReleaseTileState
     ldx $14
     txa
@@ -35822,9 +35842,16 @@ org $C1BEFC
 !C4D681_DisplayCurrentPositionTownMap = $C4D681
 !C4ED0E_RunCastScene = $C4ED0E
 !C4F554_RunCreditsOrPhotoScene = $C4F554
+!SpecialEventArgumentZero = $0000
+!SpecialEventArgumentOne = $0001
+!HomesicknessRestrictionEventFlag = $0049
+!BicycleMovementState = $9883
+!BicycleStateMounted = $0003
+!SpecialEventFlagClearStart = $9C08
+!SpecialEventFlagClearLength = $0080
 C1BEFC_DispatchTextCommand1F41SpecialEvent:
     rep #$31
-    cmp.w #$0001
+    cmp.w #!SpecialEventArgumentOne
     bne C1BF06_DispatchTextCommand1F41SpecialEvent_LBF06
     jmp.w C1BF91_DispatchTextCommand1F41SpecialEvent_LBF91
 C1BF06_DispatchTextCommand1F41SpecialEvent_LBF06:
@@ -35898,27 +35925,27 @@ C1BF86_DispatchTextCommand1F41SpecialEvent_LBF86:
 C1BF8E_DispatchTextCommand1F41SpecialEvent_LBF8E:
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BF91_DispatchTextCommand1F41SpecialEvent_LBF91:
-    lda.w #$0000
+    lda.w #!SpecialEventArgumentZero
     jsl !C49D6A_RunCoffeeOrTeaScene
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BF9B_DispatchTextCommand1F41SpecialEvent_LBF9B:
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     jsl !C49D6A_RunCoffeeOrTeaScene
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFA5_DispatchTextCommand1F41SpecialEvent_LBFA5:
-    lda.w #$0000
-    jsl ENTER_YOUR_NAME_PLEASE
+    lda.w #!SpecialEventArgumentZero
+    jsl !C1EAA6_RunNameEntrySpecialEventPrelude
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFAF_DispatchTextCommand1F41SpecialEvent_LBFAF:
-    lda.w #$0001
-    jsl ENTER_YOUR_NAME_PLEASE
+    lda.w #!SpecialEventArgumentOne
+    jsl !C1EAA6_RunNameEntrySpecialEventPrelude
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFB9_DispatchTextCommand1F41SpecialEvent_LBFB9:
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     jsl !C43344_SetSpecialEventRestrictionLatch5d98
     jmp.w C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFC3_DispatchTextCommand1F41SpecialEvent_LBFC3:
-    lda.w #$0049
+    lda.w #!HomesicknessRestrictionEventFlag
     jsl !C21628_CheckEventFlag
     jsl !C43344_SetSpecialEventRestrictionLatch5d98
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
@@ -35929,11 +35956,11 @@ C1BFD6_DispatchTextCommand1F41SpecialEvent_LBFD6:
     jsl !C3FB09_CheckActionUserSide
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1BFDC_DispatchTextCommand1F41SpecialEvent_LBFDC:
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     jsl !C4ACCE_RunSoundStoneScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFE5_DispatchTextCommand1F41SpecialEvent_LBFE5:
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     jsl !C3F3C5_ShowTitleScreenStillImage
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFEE_DispatchTextCommand1F41SpecialEvent_LBFEE:
@@ -35943,44 +35970,44 @@ C1BFF4_DispatchTextCommand1F41SpecialEvent_LBFF4:
     jsl !C4F554_RunCreditsOrPhotoScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1BFFA_DispatchTextCommand1F41SpecialEvent_LBFFA:
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     jsr !C12D17_ToggleDebugMeterDisplayOverlay
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C002_DispatchTextCommand1F41SpecialEvent_LC002:
-    lda.w #$0000
+    lda.w #!SpecialEventArgumentZero
     jsr !C12D17_ToggleDebugMeterDisplayOverlay
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C00A_DispatchTextCommand1F41SpecialEvent_LC00A:
-    ldx.w #$0000
+    ldx.w #!SpecialEventArgumentZero
     bra C1C015_DispatchTextCommand1F41SpecialEvent_LC015
 C1C00F_DispatchTextCommand1F41SpecialEvent_LC00F:
     sep #$20
-    stz $9C08,X
+    stz !SpecialEventFlagClearStart,X
     inx
 C1C015_DispatchTextCommand1F41SpecialEvent_LC015:
-    cpx.w #$0080
+    cpx.w #!SpecialEventFlagClearLength
     bcc C1C00F_DispatchTextCommand1F41SpecialEvent_LC00F
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C01C_DispatchTextCommand1F41SpecialEvent_LC01C:
-    lda.w #$0000
+    lda.w #!SpecialEventArgumentZero
     jsl !C4ACCE_RunSoundStoneScene
     bra C1C040_DispatchTextCommand1F41SpecialEvent_LC040
 C1C025_DispatchTextCommand1F41SpecialEvent_LC025:
     jsr ATTEMPT_HOMESICKNESS
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C02A_DispatchTextCommand1F41SpecialEvent_LC02A:
-    lda $9883
-    cmp.w #$0003
+    lda !BicycleMovementState
+    cmp.w #!BicycleStateMounted
     bne C1C03B_DispatchTextCommand1F41SpecialEvent_LC03B
     jsl !C03CFD_ExitBicycleMode
-    lda.w #$0001
+    lda.w #!SpecialEventArgumentOne
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C03B_DispatchTextCommand1F41SpecialEvent_LC03B:
-    lda.w #$0000
+    lda.w #!SpecialEventArgumentZero
     bra C1C045_DispatchTextCommand1F41SpecialEvent_LC045
 C1C040_DispatchTextCommand1F41SpecialEvent_LC040:
     rep #$20
-    lda.w #$0000
+    lda.w #!SpecialEventArgumentZero
 C1C045_DispatchTextCommand1F41SpecialEvent_LC045:
     rtl
 

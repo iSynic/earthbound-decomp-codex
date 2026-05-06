@@ -53,6 +53,13 @@ Current local mapping:
 
 The shared return-at-zero path at `C1:C040` resets accumulator width with `REP #$20`, loads `0`, and returns. The result-preserving path returns directly through `C1:C045`.
 
+Source polish follow-up (2026-05-06): `src/c1/c1_befc_dispatch_text_command1_f41_special_event.asm`
+now uses the named `C1:EAA6` contract for cases `03/04`, names the shared
+zero/one scene arguments, the event-flag clear span at `$9C08..$9C87`, the
+homesickness restriction flag `0x0049`, and the bicycle-state predicate used by
+case `12`. The adjacent name-entry sources now name the `$9801/$97F5/$9C9F`
+buffers, text-input window ids, and the `EAA6 -> EB4C` preview-entry handoff.
+
 ## Reference Corroboration
 
 The community docs for `[1F 41 XX]` give this same high-level case list:

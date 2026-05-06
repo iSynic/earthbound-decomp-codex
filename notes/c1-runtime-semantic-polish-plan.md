@@ -519,3 +519,11 @@ This planning pass is documentation-only.
   staging, the number-select cancel sentinel, and the `0x18 05` forced
   alignment single-byte queue. The scaffold was regenerated from source; exact
   byte-equivalence remains pending on the same missing-ROM gate.
+- 2026-05-06 follow-up: the `[1F 41]` name-entry caller contract now reaches
+  through the C1 UI sources. The special-event dispatcher calls `C1:EAA6` by
+  name for cases `03/04`, names its zero/one scene arguments and local event
+  spans, while `C1:EAA6..EC8F` names the name-entry state flags, the
+  `EAA6 -> EB4C` preview-entry handoff, `$9801/$97F5/$9C9F` naming buffers,
+  text-input window ids, and commit-flow cleanup flags. The scaffold was
+  regenerated from source; exact byte-equivalence remains pending on the same
+  missing-ROM gate.

@@ -25,11 +25,26 @@ C440B5_BuildTextInputStringGlyphMetrics             = $C440B5
 C441B7_InitializeTextInputOptionGlyphMetrics        = $C441B7
 C4D065_NormalizeNamingBufferToCommittedSelectorText = $C4D065
 
+PlayerNameInputBuffer = $9801
+TemporaryNameInputBuffer = $97F5
+CommittedNameSelectorBuffer = $9C9F
+PlayerNameInputLength = $0018
+TemporaryNameInputLength = $000C
+TextInputDialogWindowId = $0027
+TextInputOptionWindowId = $001C
+NamePreviewWindowId = $001A
+NamePreviewBodyWindowId = $001B
+NameEntryPreludeState = $5E6E
+NameEntryActiveFlag = $B49D
+NameEntryFinishedSentinel = $00FF
+NoInitialCursorLimit = $FFFF
+ZeroWord = $0000
+
 ; ---------------------------------------------------------------------------
 ; C1:EAD6
 
 C1EAD6_RunNamingBufferCommitFlow:
-    lda.w #$9801
+    lda.w #PlayerNameInputBuffer
     sta $06
     phb
     sep #$20
@@ -41,17 +56,17 @@ C1EAD6_RunNamingBufferCommitFlow:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0018
+    lda.w #PlayerNameInputLength
     jsr C10EFC_PrintTextFromPointerLocal
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #ZeroWord
     jsl C438A5_SetTextCursorPosition
-    lda.w #$000C
+    lda.w #TemporaryNameInputLength
     jsl C441B7_InitializeTextInputOptionGlyphMetrics
-    lda $97F5
+    lda TemporaryNameInputBuffer
     and.w #$00FF
     beq C1EB29_RunNamingBufferCommitFlow_LEB29
-    lda.w #$97F5
+    lda.w #TemporaryNameInputBuffer
     sta $06
     phb
     sep #$20
@@ -63,18 +78,18 @@ C1EAD6_RunNamingBufferCommitFlow:
     sta $0E
     lda $08
     sta $10
-    lda.w #$000C
+    lda.w #TemporaryNameInputLength
     jsr C10EFC_PrintTextFromPointerLocal
 C1EB29_RunNamingBufferCommitFlow_LEB29:
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #ZeroWord
     jsl C438A5_SetTextCursorPosition
     stz $0E
-    lda.w #$FFFF
+    lda.w #NoInitialCursorLimit
     sta $10
-    ldy.w #$97F5
-    ldx.w #$000C
-    lda.w #$0027
+    ldy.w #TemporaryNameInputBuffer
+    ldx.w #TemporaryNameInputLength
+    lda.w #TextInputDialogWindowId
     jsr TEXT_INPUT_DIALOG
     tay
     sty $12
@@ -86,43 +101,43 @@ C1EB29_RunNamingBufferCommitFlow_LEB29:
     sta $0E
     lda.w #$00C3
     sta $10
-    lda.w #$001A
+    lda.w #NamePreviewWindowId
     jsr C10EFC_PrintTextFromPointerLocal
     jsl C08F8B_RefreshNamingPreviewGlyphState
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #ZeroWord
     jsl C438A5_SetTextCursorPosition
-    lda.w #$0018
+    lda.w #PlayerNameInputLength
     jsl C441B7_InitializeTextInputOptionGlyphMetrics
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #ZeroWord
     jsl C438A5_SetTextCursorPosition
-    ldy.w #$9801
+    ldy.w #PlayerNameInputBuffer
     lda $0000,Y
     and.w #$00FF
     beq C1EB96_RunNamingBufferCommitFlow_LEB96
-    ldx.w #$0018
+    ldx.w #PlayerNameInputLength
     tya
     jsl C440B5_BuildTextInputStringGlyphMetrics
 C1EB96_RunNamingBufferCommitFlow_LEB96:
     ldx.w #$0001
-    lda.w #$0000
+    lda.w #ZeroWord
     jsl C438A5_SetTextCursorPosition
-    lda.w #$9801
+    lda.w #PlayerNameInputBuffer
     sta $02
     stz $0E
-    lda.w #$FFFF
+    lda.w #NoInitialCursorLimit
     sta $10
     ldy $02
-    ldx.w #$0018
-    lda.w #$0027
+    ldx.w #PlayerNameInputLength
+    lda.w #TextInputDialogWindowId
     jsr TEXT_INPUT_DIALOG
     tay
     sty $12
     ldx $02
-    lda.w #$9C9F
+    lda.w #CommittedNameSelectorBuffer
     jsl C4D065_NormalizeNamingBufferToCommittedSelectorText
-    lda.w #$9C9F
+    lda.w #CommittedNameSelectorBuffer
     sta $06
     phb
     sep #$20
@@ -134,18 +149,18 @@ C1EB96_RunNamingBufferCommitFlow_LEB96:
     sta $0E
     lda $08
     sta $10
-    ldx.w #$000C
-    lda.w #$97F5
+    ldx.w #TemporaryNameInputLength
+    lda.w #TemporaryNameInputBuffer
     jsl C08ED2_CopyWordsFromLongSource
 C1EBE4_RunNamingBufferCommitFlow_LEBE4:
-    lda.w #$001C
+    lda.w #TextInputOptionWindowId
     jsl C3E521_CloseWindowAndReleaseTileState
-    lda.w #$0027
+    lda.w #TextInputDialogWindowId
     jsl C3E521_CloseWindowAndReleaseTileState
-    lda.w #$00FF
-    sta $5E6E
+    lda.w #NameEntryFinishedSentinel
+    sta NameEntryPreludeState
     sep #$20
-    stz $B49D
+    stz NameEntryActiveFlag
     ldy $12
     rep #$20
     tya
@@ -171,7 +186,7 @@ C1EC04_CommitNamingBufferFieldWithPreview = NAME_A_CHARACTER
     lda $26
     sta $08
     jsl C3E4D4_SetInstantPrinting
-    lda.w #$001A
+    lda.w #NamePreviewWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4E0_TickWindowWithoutInstantPrinting
     ldy $12
@@ -189,7 +204,7 @@ C1EC48_RunNamingBufferCommitFlow_LEC48:
     ldx.w #$0000
     txa
     jsl C438A5_SetTextCursorPosition
-    lda.w #$001B
+    lda.w #NamePreviewBodyWindowId
     jsr C104EE_SetWindowFocus
     jsl C3E4E0_TickWindowWithoutInstantPrinting
     lda $06
@@ -206,11 +221,11 @@ C1EC48_RunNamingBufferCommitFlow_LEC48:
     sta $10
     ldy $12
     ldx $02
-    lda.w #$001A
+    lda.w #NamePreviewWindowId
     jsr TEXT_INPUT_DIALOG
     tax
     stx $14
-    lda.w #$001C
+    lda.w #TextInputOptionWindowId
     jsl C3E521_CloseWindowAndReleaseTileState
     ldx $14
     txa
