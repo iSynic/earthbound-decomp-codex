@@ -163,6 +163,10 @@ out by `notes/source-readiness-triage.md` and `notes/project-status.md`.
   window/cursor helpers, and battle-sprite row effect clearing. See
   `notes/c1-battle-front-end-runtime-polish.md` and
   `notes/c1-battle-psi-runtime-polish.md`.
+- 2026-05-06: C1 level-up/stat refresh follow-up named the remaining helper
+  calls in `C1:D109..DC1C`, covering stat refresh recalculators, random/divide
+  helpers, battle-text focus/mode helpers, and the Sound Stone display tail.
+  See `notes/level-up-stat-growth-helper-c1d08b.md`.
 - 2026-04-30: C1 display-helper sixth slice landed as byte-neutral source
   comments plus `notes/c1-display-helper-runtime-polish.md`.
 - 2026-04-30: C1 equipment-menu seventh slice landed as byte-neutral source

@@ -12,21 +12,30 @@
 ; External contracts used by this module
 
 C10036_WaitTextTicks                      = $0036
+C1003C_ClearBattleTextDisplayMode         = $003C
+C10084_CloseFocusWindow                   = $0084
+C104EE_SetWindowFocus                     = $04EE
+C1AC4A_BuildBattleAttackerNameBuffer      = $AC4A
 C1ACA1_BuildBattleTargetNameBuffer        = $ACA1
 C1ACF8_StageBattleTextSubstitutionByte    = $ACF8
 C1AD0A_StageBattleTextSubstitutionPointer = $AD0A
 C1D08B_ComputeLevelUpStatGrowthDelta      = $D08B
 C08FF7_ResolveIndexedPointerOffset        = $C08FF7
 C09032_DivideUnsignedWordByIndex          = $C09032
+C090E6_DivideSignedFixedPointDelta        = $C090E6
 C0943C_SaveCurrentCoordinateState         = $C0943C
 C09451_RestoreSavedCoordinateState        = $C09451
+C12DD5_TickWindowTextSystem               = $C12DD5
 C186B1_PrintTextFromPointer               = $C186B1
 C21628_CheckEventFlag                     = $C21628
 C21857_RefreshOffenseDerivedStat          = $C21857
 C2192B_RefreshDefenseDerivedStat          = $C2192B
 C21AEB_RefreshSpeedDerivedStat            = $C21AEB
 C21BA4_RefreshGutsDerivedStat             = $C21BA4
+C21C5D_RecalculateCharacterDerivedLuck    = $C21C5D
 C21D65_RefreshVitalityDerivedStat         = $C21D65
+C21D7D_RecalculateCharacterDerivedIq      = $C21D7D
+C45F7B_GetRandomLessThanA                 = $C45F7B
 C4FBBD_PlaySoundStoneMelody               = $C4FBBD
 
 ; ---------------------------------------------------------------------------
@@ -430,7 +439,7 @@ C1D3C4_LevelUpCharacterAndRefreshDerivedStats_LD3C4:
     sec
     sbc $02
     ldy.w #$000A
-    jsl $C090E6
+    jsl C090E6_DivideSignedFixedPointDelta
     bra C1D43F_LevelUpCharacterAndRefreshDerivedStats_LD43F
 C1D40C_LevelUpCharacterAndRefreshDerivedStats_LD40C:
     ldy $1B
@@ -553,7 +562,7 @@ C1D4AC_LevelUpCharacterAndRefreshDerivedStats_LD4AC:
     sec
     sbc $02
     ldy.w #$000A
-    jsl $C090E6
+    jsl C090E6_DivideSignedFixedPointDelta
     bra C1D527_LevelUpCharacterAndRefreshDerivedStats_LD527
 C1D4F4_LevelUpCharacterAndRefreshDerivedStats_LD4F4:
     ldy $1B
@@ -609,7 +618,7 @@ C1D535_LevelUpCharacterAndRefreshDerivedStats_LD535:
     rep #$20
     tya
     inc A
-    jsl $C21D7D
+    jsl C21D7D_RecalculateCharacterDerivedIq
     rep #$20
     lda $1D
     beq C1D586_LevelUpCharacterAndRefreshDerivedStats_LD586
@@ -683,7 +692,7 @@ C1D5CE_LevelUpCharacterAndRefreshDerivedStats_LD5CE:
     rep #$20
     tya
     inc A
-    jsl $C21C5D
+    jsl C21C5D_RecalculateCharacterDerivedLuck
     rep #$20
     lda $1D
     beq C1D617_LevelUpCharacterAndRefreshDerivedStats_LD617
@@ -736,7 +745,7 @@ C1D645_LevelUpCharacterAndRefreshDerivedStats_LD645:
     bra C1D653_LevelUpCharacterAndRefreshDerivedStats_LD653
 C1D64A_LevelUpCharacterAndRefreshDerivedStats_LD64A:
     lda.w #$0002
-    jsl $C45F7B
+    jsl C45F7B_GetRandomLessThanA
     tax
     inx
 C1D653_LevelUpCharacterAndRefreshDerivedStats_LD653:
@@ -837,7 +846,7 @@ C1D70D_LevelUpCharacterAndRefreshDerivedStats_LD70D:
     bra C1D71A_LevelUpCharacterAndRefreshDerivedStats_LD71A
 C1D712_LevelUpCharacterAndRefreshDerivedStats_LD712:
     lda.w #$0002
-    jsl $C45F7B
+    jsl C45F7B_GetRandomLessThanA
     tax
 C1D71A_LevelUpCharacterAndRefreshDerivedStats_LD71A:
     txa
@@ -1079,7 +1088,7 @@ C1D8B5_LevelUpCharacterAndRefreshDerivedStats_LD8B5:
     brk #$D0
     lda [$A5]
     ora $03F0,X
-    jsr $003C
+    jsr C1003C_ClearBattleTextDisplayMode
     pld
     rts
     rep #$31
@@ -1150,7 +1159,7 @@ C1D926_LevelUpCharacterAndRefreshDerivedStats_LD926:
     ldy $0E
     rep #$20
     tya
-    jsl $C21C5D
+    jsl C21C5D_RecalculateCharacterDerivedLuck
     ldy $0E
     rep #$20
     tya
@@ -1158,7 +1167,7 @@ C1D926_LevelUpCharacterAndRefreshDerivedStats_LD926:
     ldy $0E
     rep #$20
     tya
-    jsl $C21D7D
+    jsl C21D7D_RecalculateCharacterDerivedIq
     bra C1D984_LevelUpCharacterAndRefreshDerivedStats_LD984
 C1D97B_LevelUpCharacterAndRefreshDerivedStats_LD97B:
     ldx.w #$0000
@@ -1476,7 +1485,7 @@ C1DBB9_LevelUpCharacterAndRefreshDerivedStats_LDBB9:
     sta $A970
     jsl C0943C_SaveCurrentCoordinateState
     lda.w #$0001
-    jsr $04EE
+    jsr C104EE_SetWindowFocus
     ldx.w #$0005
     ldy $60
     tya
@@ -1485,14 +1494,14 @@ C1DBB9_LevelUpCharacterAndRefreshDerivedStats_LDBB9:
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$99CE
-    jsr $AC4A
+    jsr C1AC4A_BuildBattleAttackerNameBuffer
     lda.w #$C7AF
     sta $0E
     lda.w #$00C7
     sta $10
     jsl C186B1_PrintTextFromPointer
-    jsr $0084
-    jsl $C12DD5
+    jsr C10084_CloseFocusWindow
+    jsl C12DD5_TickWindowTextSystem
     jsl C09451_RestoreSavedCoordinateState
     lda $02
     sta $A970

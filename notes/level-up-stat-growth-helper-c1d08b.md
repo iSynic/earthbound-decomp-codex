@@ -94,3 +94,13 @@ The visible refresh calls line up with the already-documented derived cache fami
 - and sibling stat refresh paths later in the same routine
 
 So `C1:D08B` is best named as a level-up stat growth delta helper, with the exact RNG/curve math still a softer edge.
+
+## Source Polish Follow-Up
+
+2026-05-06: `src/c1/c1_d109_level_up_character_and_refresh_derived_stats.asm`
+now names its remaining helper-call surface. The pass covers the signed
+fixed-point divide helper at `C0:90E6`, the IQ/Luck derived-stat recalculators
+at `C2:1D7D/C2:1C5D`, the C4 bounded-random helper used by max HP/PP growth,
+the battle-text display-mode/focus/name-buffer helpers, and the final
+Sound Stone melody display tick tail. The `C1:D109..DC1C` source unit now has
+no raw helper-call edges.

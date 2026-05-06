@@ -454,3 +454,9 @@ This planning pass is documentation-only.
   `notes/c1-battle-front-end-runtime-polish.md`,
   `notes/c1-battle-psi-runtime-polish.md`, and
   `notes/battle-psi-selection-refresh-c1ca72.md`.
+- 2026-05-06 follow-up: the `C1:D109..DC1C` level-up/stat refresh source unit
+  now names its remaining helper-call surface. The pass covers signed
+  fixed-point division, IQ/Luck derived-stat recalculation, bounded random
+  max HP/PP bumps, battle-text mode/focus/name-buffer helpers, and the
+  Sound Stone display tick tail. See `notes/level-up-stat-growth-helper-c1d08b.md`
+  and `notes/level-up-stat-gain-text-family-c1d15b-d76d.md`.

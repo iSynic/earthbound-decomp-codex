@@ -11,6 +11,12 @@ This `D1xx..D7xx` stretch is now much healthier as a concrete battle-text consum
 
 The surrounding `C1:D109..DC1C` routine is now promoted into byte-equivalent source at `src/c1/c1_d109_level_up_character_and_refresh_derived_stats.asm`, with the fixed message leaves below preserved as source labels.
 
+Source polish follow-up (2026-05-06): the surrounding level-up source now names
+the helper edges that feed the stat refresh and narration flow, including the
+remaining IQ/Luck recalculators, max HP/PP random bump helper, battle-text mode
+clear, focus/window close, attacker-name buffer, and text tick calls. The fixed
+message leaves remain byte-equivalent source labels.
+
 The strongest current local read is:
 
 - `C1:ACA1` builds the live target-name buffer for the affected character
