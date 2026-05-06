@@ -214,3 +214,22 @@ This planning pass is documentation-only.
   C0 current-position music-id getter used by the restore-current-map-music
   branch. See `notes/text-command-family-1f-deferred-callbacks.md` and
   `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
+- 2026-05-06: C1 text-command `1F 64/65` temporary party source polish landed
+  in the dynamic source-selector corridor. The promoted constants name the C2
+  save-and-clear and restore helpers at `C2:3008/307B`, tying the C1 leaves to
+  the existing C2 temporary source block contract. See
+  `notes/text-command-family-1f-deferred-callbacks.md` and
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
+- 2026-05-06: C1 text-command `1F A0/A1/A2` current interaction flag polish
+  landed in the same corridor. The promoted constants name the C2 set/clear
+  and get wrappers at `C2:26C5/26E6`, including the `$9C88` current flag id
+  and `$5D64` refresh contract. See
+  `notes/text-command-family-1f-deferred-callbacks.md` and
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.
+- 2026-05-06: C1 text-command `1F B0` save-game polish landed in the same
+  corridor, with the debug-menu save command folded into the same named edge.
+  The promoted constant names the C2 save-current-game wrapper at `C2:2A2C`,
+  which converts `$B4A1` from one-based current save slot to the zero-based
+  `EF:0A4D` save-slot index. See
+  `notes/text-command-family-1f-deferred-callbacks.md` and
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`.

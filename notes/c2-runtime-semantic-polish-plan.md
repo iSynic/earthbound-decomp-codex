@@ -452,6 +452,27 @@ contract notes for C0/C1/C3/C4 consumers.
   contracts for play-music, stop-music, play-sound, and restore-current-map
   music. See `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`
   and `notes/text-command-family-1f-deferred-callbacks.md`.
+- 2026-05-06 sixty-fifth slice: carried the same caller/callee polish into
+  the temporary party source save/restore leaves. C1 `1F 64/65` now names the
+  `C2:3008/307B` contracts directly, tying the dynamic source-selector leaves
+  to the C2 block that saves `$983A/$983B/$983C/$983E/$9831/$9833`, removes
+  the active source ids from `$986F`, and later restores the saved state. See
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md` and
+  `notes/text-command-family-1f-deferred-callbacks.md`.
+- 2026-05-06 sixty-sixth slice: continued the C1 dynamic source-selector
+  caller cleanup with the current-interaction-flag leaves. C1 `1F A0/A1/A2`
+  now names the `C2:26C5/26E6` wrappers directly, tying set, clear, and read
+  text-command behavior to the C2 `$9C88` flag id and `$5D64` refresh target
+  contracts. See
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md` and
+  `notes/text-command-family-1f-deferred-callbacks.md`.
+- 2026-05-06 sixty-seventh slice: named the C2 save-current-game wrapper and
+  its C1 callers. `C2:2A2C` now names `$B4A1` as the current save slot and
+  `EF:0A4D` as the save-slot helper, while preserving inherited
+  `SAVE_CURRENT_GAME`; C1 `1F B0` and the debug menu save command both call the
+  wrapper by role. See
+  `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md` and
+  `notes/text-command-family-1f-deferred-callbacks.md`.
 
 ## Validation
 

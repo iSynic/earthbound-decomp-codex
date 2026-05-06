@@ -2,7 +2,7 @@
 
 Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`.
 
-- Proposals: `220`
+- Proposals: `221`
 
 | Address | Proposed Name | Evidence Notes |
 | --- | --- | --- |
@@ -34,9 +34,9 @@ Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`
 | `C2:108C` | `ClearHpPpRollDirtyLatchIfSettled` | `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md:197` |
 | `C2:1628` | `TestEventFlag` | `notes/text-command-07-check-event-flag.md:22` |
 | `C2:165E` | `SetOrClearEventFlag` | `notes/text-command-04-set-event-flag.md:23`<br>`notes/text-command-05-clear-event-flag.md:22` |
-| `C2:16AD` | `ApplyMusicTrackAndSyncMirror` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:270` |
-| `C2:16C9` | `StopMusicRedirect` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:271` |
-| `C2:16D0` | `PlaySoundAndTickLightWindow` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:272` |
+| `C2:16AD` | `ApplyMusicTrackAndSyncMirror` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:302` |
+| `C2:16C9` | `StopMusicRedirect` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:303` |
+| `C2:16D0` | `PlaySoundAndTickLightWindow` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:304` |
 | `C2:16DB` | `ArbitratePartyOverlayEntityPresence` | `notes/party-overlay-arbitration-c216db-c3ebca.md:10` |
 | `C2:1857` | `RecalculateCharacterDerivedOffense` | `notes/equipped-item-derived-cache-family-c21857-c21e03.md:9` |
 | `C2:192B` | `RecalculateCharacterDerivedDefense` | `notes/equipped-item-derived-cache-family-c21857-c21e03.md:10` |
@@ -49,26 +49,27 @@ Generated from local note bullets that use `ADDRESS = Name` or `ADDRESS -> Name`
 | `C2:1E03` | `RecalculateCharacterDerivedResistanceFields` | `notes/equipped-item-derived-cache-family-c21857-c21e03.md:17` |
 | `C2:2351` | `FindFirstEmptyInventorySlotForCharacter` | `notes/pending-item-queue-984b.md:11` |
 | `C2:239D` | `CheckPartyOverlayRegistryPresence` | `notes/party-overlay-arbitration-c216db-c3ebca.md:11` |
-| `C2:23D9` | `LookupStatusTileValueForHpPpWindow` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:273` |
-| `C2:2474` | `LookupStatusTileWidthOrOffsetForHpPpWindow` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:274` |
-| `C2:24E1` | `ClassifyItemEquipSlotSubtypeOrdinal` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:275` |
-| `C2:2524` | `ClassifyGroupedEquipmentSlotOrdinal` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:276` |
+| `C2:23D9` | `LookupStatusTileValueForHpPpWindow` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:305` |
+| `C2:2474` | `LookupStatusTileWidthOrOffsetForHpPpWindow` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:306` |
+| `C2:24E1` | `ClassifyItemEquipSlotSubtypeOrdinal` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:307` |
+| `C2:2524` | `ClassifyGroupedEquipmentSlotOrdinal` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:308` |
 | `C2:2562` | `SetupWeaponEquipmentPreviewBlock` | `notes/equipment-preview-slot-block-9cd0-9cd6.md:26` |
 | `C2:25AC` | `SetupCharmEquipmentPreviewBlock` | `notes/equipment-preview-slot-block-9cd0-9cd6.md:27` |
 | `C2:260D` | `SetupBraceletEquipmentPreviewBlock` | `notes/equipment-preview-slot-block-9cd0-9cd6.md:28` |
 | `C2:2673` | `SetupHeadgearEquipmentPreviewBlock` | `notes/equipment-preview-slot-block-9cd0-9cd6.md:29` |
-| `C2:26C5` | `SetCurrent9C88FlagAndRefresh5D64` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:277` |
+| `C2:26C5` | `SetCurrent9C88FlagAndRefresh5D64` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:309` |
 | `C2:26D0` | `SetCurrentInteractionEventFlagAndRefreshTarget` | `notes/class2-c2-handlers.md:9` |
-| `C2:26E6` | `GetCurrent9C88Flag` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:278` |
+| `C2:26E6` | `GetCurrent9C88Flag` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:310` |
 | `C2:26EB` | `TestCurrentInteractionEventFlag` | `notes/class2-c2-handlers.md:10` |
-| `C2:26F0` | `FindFirstPartySlotWithStateOne` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:279` |
-| `C2:272F` | `CountPartySlotsNotStateOneOrTwo` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:280` |
-| `C2:277C` | `FindFirstPartyCodeNotStateOneOrTwo` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:281` |
+| `C2:26F0` | `FindFirstPartySlotWithStateOne` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:311` |
+| `C2:272F` | `CountPartySlotsNotStateOneOrTwo` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:312` |
+| `C2:277C` | `FindFirstPartyCodeNotStateOneOrTwo` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:313` |
 | `C2:29BB` | `RemovePartyOverlayTrackedItemId` | `notes/teddy-bear-and-egg-item-cleanup-branches.md:7` |
-| `C2:2A3A` | `TransferInventoryItemBetweenCharactersMaintainingEquipment` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:282` |
-| `C2:2F38` | `InitBattleScripted` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:283` |
-| `C2:3008` | `SaveAndClearTemporaryPartySourceState` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:284` |
-| `C2:307B` | `RestoreTemporaryPartySourceState` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:285` |
+| `C2:2A2C` | `SaveCurrentGame` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:314` |
+| `C2:2A3A` | `TransferInventoryItemBetweenCharactersMaintainingEquipment` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:315` |
+| `C2:2F38` | `InitBattleScripted` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:316` |
+| `C2:3008` | `SaveAndClearTemporaryPartySourceState` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:317` |
+| `C2:307B` | `RestoreTemporaryPartySourceState` | `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md:318` |
 | `C2:30F3` | `SnapshotRespawnWarpTargetState` | `notes/respawn-warp-target-snapshot-helper-c230f3.md:11` |
 | `C2:3109` | `BattleStartUfoPresentFallbackTable` | `notes/class2-battle-start-extra-message-state-4dbc-aa10.md:13` |
 | `C2:3B66` | `ExpandBattleTextContextTemplate` | `notes/class2-reflected-hit-context-rebuild.md:12` |

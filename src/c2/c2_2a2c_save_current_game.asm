@@ -1,4 +1,4 @@
-; EarthBound C2 B4A1 indexed EF:0A4D wrapper.
+; EarthBound C2 save-current-game wrapper.
 ;
 ; Source-emission status:
 ; - Prototype level: build-candidate
@@ -6,21 +6,23 @@
 ;   linear ROM decode, then intended for byte-equivalence validation.
 ;
 ; Source units covered:
-; - C2:2A2C..C2:2A3A RunB4A1IndexedEf0A4d
+; - C2:2A2C..C2:2A3A SaveCurrentGame
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-EF0A4D_RunB4A1IndexedHelper = $EF0A4D
+EF0A4D_SaveGameSlot = $EF0A4D
+
+CurrentSaveSlot = $B4A1
 
 ; ---------------------------------------------------------------------------
 ; C2:2A2C
 
 SAVE_CURRENT_GAME:
-C22A2C_RunB4A1IndexedEf0A4d = SAVE_CURRENT_GAME
+C22A2C_SaveCurrentGame = SAVE_CURRENT_GAME
     rep #$31
-    lda $B4A1
+    lda CurrentSaveSlot
     and.w #$00FF
     dec A
-    jsl EF0A4D_RunB4A1IndexedHelper
+    jsl EF0A4D_SaveGameSlot
     rtl

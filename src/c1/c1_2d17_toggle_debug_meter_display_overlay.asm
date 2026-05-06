@@ -19,6 +19,7 @@ C0943C_SaveCurrentCoordinateState          = $C0943C
 C09451_RestoreSavedCoordinateState         = $C09451
 C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
 C186B1_PrintTextFromPointer                = $C186B1
+C22A2C_SaveCurrentGame                     = $C22A2C
 C47F87_RefreshWindowFlavorPalette          = $C47F87
 
 ; ---------------------------------------------------------------------------
@@ -348,7 +349,9 @@ C12FAB_ToggleDebugMeterDisplayOverlay_L2FAB:
     jsl $C13EE7
     jmp.w C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C12FB2_ToggleDebugMeterDisplayOverlay_L2FB2:
-    jsl $C22A2C
+C12FB2_SaveCurrentGameDebugMenuCommand = C12FB2_ToggleDebugMeterDisplayOverlay_L2FB2
+    ; Debug menu command 3: save the currently selected game slot.
+    jsl C22A2C_SaveCurrentGame
     lda $9877
     sta $9D1F
     lda $987B

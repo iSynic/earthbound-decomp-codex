@@ -18,6 +18,11 @@ C10DF6_PrintNumber                 = $0DF6
 C1AD26_LoadBattleTextSubstitutionPointer = $AD26
 C216AD_ApplyMusicTrackAndSyncMirror = $C216AD
 C2165E_SetEventFlagOrState         = $C2165E
+C226C5_SetCurrent9C88FlagAndRefresh5D64 = $C226C5
+C226E6_GetCurrent9C88Flag = $C226E6
+C22A2C_SaveCurrentGame = $C22A2C
+C23008_SaveAndClearTemporaryPartySourceState = $C23008
+C2307B_RestoreTemporaryPartySourceState = $C2307B
 
 LoadedBattleTextAmountPointerLo    = $06
 LoadedBattleTextAmountPointerHi    = $08
@@ -1273,10 +1278,14 @@ C184F8_DispatchDisplayTextDynamicSourceSelector_L84F8:
     lda.w #$6DE8
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE:
-    jsl $C23008
+C184FE_SaveAndClearTemporaryPartySourceStateTextCommand = C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE
+    ; Text command 1F 64: save and clear the temporary party source state.
+    jsl C23008_SaveAndClearTemporaryPartySourceState
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18505_DispatchDisplayTextDynamicSourceSelector_L8505:
-    jsl $C2307B
+C18505_RestoreTemporaryPartySourceStateTextCommand = C18505_DispatchDisplayTextDynamicSourceSelector_L8505
+    ; Text command 1F 65: restore the temporary party source state.
+    jsl C2307B_RestoreTemporaryPartySourceState
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C1850C_DispatchDisplayTextDynamicSourceSelector_L850C:
     lda.w #$711C
@@ -1348,15 +1357,21 @@ C18594_DispatchDisplayTextDynamicSourceSelector_L8594:
     jsr $045D
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9:
+C185A9_SetCurrentInteractionFlagTextCommand = C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9
+    ; Text command 1F A0: set the current interaction flag and refresh target state.
     lda.w #$0001
-    jsl $C226C5
+    jsl C226C5_SetCurrent9C88FlagAndRefresh5D64
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185B3_DispatchDisplayTextDynamicSourceSelector_L85B3:
+C185B3_ClearCurrentInteractionFlagTextCommand = C185B3_DispatchDisplayTextDynamicSourceSelector_L85B3
+    ; Text command 1F A1: clear the current interaction flag and refresh target state.
     lda.w #$0000
-    jsl $C226C5
+    jsl C226C5_SetCurrent9C88FlagAndRefresh5D64
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185BD_DispatchDisplayTextDynamicSourceSelector_L85BD:
-    jsl $C226E6
+C185BD_GetCurrentInteractionFlagTextCommand = C185BD_DispatchDisplayTextDynamicSourceSelector_L85BD
+    ; Text command 1F A2: return the current interaction flag state.
+    jsl C226E6_GetCurrent9C88Flag
     cmp.w #$0000
     sta $06
     stz $08
@@ -1370,7 +1385,9 @@ C185CC_DispatchDisplayTextDynamicSourceSelector_L85CC:
     jsr $045D
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185DA_DispatchDisplayTextDynamicSourceSelector_L85DA:
-    jsl $C22A2C
+C185DA_SaveCurrentGameTextCommand = C185DA_DispatchDisplayTextDynamicSourceSelector_L85DA
+    ; Text command 1F B0: save the currently selected game slot.
+    jsl C22A2C_SaveCurrentGame
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185E1_DispatchDisplayTextDynamicSourceSelector_L85E1:
     lda.w #$6308

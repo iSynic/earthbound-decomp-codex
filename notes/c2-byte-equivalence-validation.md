@@ -127,7 +127,7 @@ This report assembles an existing durable Asar source-bank scaffold into a clean
 | `OK` | `src/c2/c2_28b7_clamp_party_overlay_position_delta.asm` | `C2:28B7..C2:28F8` | 65 | 0 | `src/c2/bank_c2_helpers_asar.asm` |
 | `OK` | `src/c2/c2_28f8_insert_party_overlay_tracked_item_id.asm` | `C2:28F8..C2:29BB` | 195 | 0 | `src/c2/bank_c2_helpers_asar.asm` |
 | `OK` | `src/c2/c2_29bb_remove_party_overlay_tracked_item_id.asm` | `C2:29BB..C2:2A2C` | 113 | 0 | `src/c2/bank_c2_helpers_asar.asm` |
-| `OK` | `src/c2/c2_2a2c_run_b4a1_indexed_ef0a4d.asm` | `C2:2A2C..C2:2A3A` | 14 | 0 | `src/c2/bank_c2_helpers_asar.asm` |
+| `OK` | `src/c2/c2_2a2c_save_current_game.asm` | `C2:2A2C..C2:2A3A` | 14 | 0 | `src/c2/bank_c2_helpers_asar.asm` |
 | `OK` | `src/c2/c2_3008_save_and_clear_temporary_party_source_state.asm` | `C2:3008..C2:307B` | 115 | 0 | `src/c2/bank_c2_helpers_asar.asm` |
 | `OK` | `src/c2/c2_307b_restore_temporary_party_source_state.asm` | `C2:307B..C2:30F3` | 120 | 0 | `src/c2/bank_c2_helpers_asar.asm` |
 | `OK` | `src/c2/c2_2a3a_transfer_inventory_item_between_characters_maintaining_equipment.asm` | `C2:2A3A..C2:2F38` | 1278 | 0 | `src/c2/bank_c2_helpers_asar.asm` |

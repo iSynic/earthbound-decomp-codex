@@ -128,7 +128,7 @@ This manifest records source slices promoted into the reusable source-bank scaff
 | `build-candidate` | `src/c2/c2_28b7_clamp_party_overlay_position_delta.asm` | `C2:28B7..C2:28F8` | 65 | 65 | 0 | `aa5f341fcc09ff10d75953686eec4dab5254a8aa` |
 | `build-candidate` | `src/c2/c2_28f8_insert_party_overlay_tracked_item_id.asm` | `C2:28F8..C2:29BB` | 195 | 195 | 0 | `da729ab3137cdc755c0cd2ddf557548a0ca54a9e` |
 | `build-candidate` | `src/c2/c2_29bb_remove_party_overlay_tracked_item_id.asm` | `C2:29BB..C2:2A2C` | 113 | 113 | 0 | `d6bcb6e9c809c5c1b6408fdc3e9eab2c80959fda` |
-| `build-candidate` | `src/c2/c2_2a2c_run_b4a1_indexed_ef0a4d.asm` | `C2:2A2C..C2:2A3A` | 14 | 14 | 0 | `c7715e26ee6b73b8b636cd9a5f29b5aec9b8f230` |
+| `build-candidate` | `src/c2/c2_2a2c_save_current_game.asm` | `C2:2A2C..C2:2A3A` | 14 | 14 | 0 | `c7715e26ee6b73b8b636cd9a5f29b5aec9b8f230` |
 | `build-candidate` | `src/c2/c2_3008_save_and_clear_temporary_party_source_state.asm` | `C2:3008..C2:307B` | 115 | 115 | 0 | `2b8e294be7cffd279bb59519ff56f4bb8f9bd299` |
 | `build-candidate` | `src/c2/c2_307b_restore_temporary_party_source_state.asm` | `C2:307B..C2:30F3` | 120 | 120 | 0 | `d4ada9ad5651260b23e3db8e0c2252b6c9f9c830` |
 | `build-candidate` | `src/c2/c2_2a3a_transfer_inventory_item_between_characters_maintaining_equipment.asm` | `C2:2A3A..C2:2F38` | 1278 | 1278 | 0 | `1e142ea8b494a379e778e350a61bff1adb2151b4` |
@@ -2005,19 +2005,20 @@ Evidence:
 - `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`
 - `notes/party-overlay-arbitration-c216db-c3ebca.md`
 
-### `src/c2/c2_2a2c_run_b4a1_indexed_ef0a4d.asm`
+### `src/c2/c2_2a2c_save_current_game.asm`
 
 | Range | Size | Name | SHA-1 |
 | --- | ---: | --- | --- |
-| `C2:2A2C..C2:2A3A` | 14 | `RunB4A1IndexedEf0A4d` | `c7715e26ee6b73b8b636cd9a5f29b5aec9b8f230` |
+| `C2:2A2C..C2:2A3A` | 14 | `SaveCurrentGame` | `c7715e26ee6b73b8b636cd9a5f29b5aec9b8f230` |
 
 Labels:
 
-- `C2:2A2C RunB4A1IndexedEf0A4d`
+- `C2:2A2C SaveCurrentGame`
 
 Evidence:
 
 - `notes/c2-party-inventory-status-utility-corridor-c216ad-c2307b.md`
+- `notes/text-command-family-1f-deferred-callbacks.md`
 
 ### `src/c2/c2_3008_save_and_clear_temporary_party_source_state.asm`
 

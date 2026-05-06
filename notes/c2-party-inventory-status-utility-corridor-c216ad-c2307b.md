@@ -106,6 +106,10 @@ Working names:
 - `C2:3008` = `SaveAndClearTemporaryPartySourceState`
 - `C2:307B` = `RestoreTemporaryPartySourceState`
 
+The C1 source now names those leaves as text-command `1F 64` and `1F 65`,
+respectively, so the caller and callee agree on the temporary party source
+save/restore contract instead of leaving raw `JSL $C23008/$C2307B` edges.
+
 The exact user-facing reason for this pair is still soft, but its mechanical role is clear: it temporarily removes up to two active source codes from `$986F`, preserves associated words, and later restores them.
 
 ## Character status selector/count helpers
@@ -195,10 +199,29 @@ Direct callers are `C1:85AC` and `C1:85B6`, the `0x1F` command leaves that pass 
 
 Direct caller is `C1:85BD`, which then prints/returns the numeric result through the text engine.
 
+The C1 source now names those leaves as text-command `1F A0`, `1F A1`, and
+`1F A2`: set current interaction flag, clear current interaction flag, and
+return current interaction flag. The set/clear pair intentionally enters the
+`C2:26C5` prologue so the incoming boolean in `A` is moved to `X` before the
+shared `C2:26D0` tail applies `$9C88` and refreshes the `$5D64` target state.
+
 Working names:
 
 - `C2:26C5` = `SetCurrent9C88FlagAndRefresh5D64`
 - `C2:26E6` = `GetCurrent9C88Flag`
+
+## Save-current-game wrapper
+
+`C2:2A2C` is the tiny text-command-facing wrapper for `SAVE_CURRENT_GAME`.
+It reads the one-based current save slot at `$B4A1`, decrements it to the
+zero-based slot index expected by `EF:0A4D`, and calls the EF save-slot helper.
+
+Direct callers:
+
+- C1 `1F B0` in the dynamic source-selector corridor
+- the debug meter/display overlay helper at `C1:2D17`
+
+Working name: `SaveCurrentGame`.
 
 Source polish:
 
@@ -228,6 +251,15 @@ Source polish:
   source label `PlaySoundAndTickLightWindow`, replacing the inherited
   `PLAY_SOUND_AND_UNKNOWN` name while preserving an HP/PP refresh compatibility
   alias.
+- 2026-05-06: the C1 `1F 64/65` dynamic source-selector leaves now call
+  `C2:3008` and `C2:307B` by their temporary party source save/restore roles,
+  matching the existing C2 source contracts for `$983A..$9849` and `$986F`.
+- 2026-05-06: the C1 `1F A0/A1/A2` dynamic source-selector leaves now call
+  `C2:26C5` and `C2:26E6` by their current-interaction-flag wrapper roles,
+  matching the C2 `$9C88` flag id and `$5D64` refresh contracts.
+- 2026-05-06: `C2:2A2C` now names the current-save-slot byte `$B4A1` and the
+  EF save-slot callee `EF:0A4D`; the C1 `1F B0` leaf and debug menu command
+  caller now call it by its `SaveCurrentGame` role.
 
 ## Source Scaffold Promotion
 
@@ -279,6 +311,7 @@ The exact C1 command labels for the six direct callers remain a separate parser-
 - `C2:26F0` = `FindFirstPartySlotWithStateOne`
 - `C2:272F` = `CountPartySlotsNotStateOneOrTwo`
 - `C2:277C` = `FindFirstPartyCodeNotStateOneOrTwo`
+- `C2:2A2C` = `SaveCurrentGame`
 - `C2:2A3A` = `TransferInventoryItemBetweenCharactersMaintainingEquipment`
 - `C2:2F38` = `InitBattleScripted`
 - `C2:3008` = `SaveAndClearTemporaryPartySourceState`
@@ -291,6 +324,7 @@ High confidence:
 - `C2:23D9` / `C2:2474` scan the seven-byte `$99DC`-family status slice and feed HP/PP tile layout.
 - `C2:26C5` / `C2:26E6` are wrappers over flag id `$9C88`.
 - `C2:3008` / `C2:307B` are a matched save/restore pair over `$983A/$983B/$983C/$983E/$9831/$9833` and `$986F`.
+- `C2:2A2C` is the save-current-game wrapper over `$B4A1` and `EF:0A4D`.
 - `C2:2A3A` maintains both packed inventory bytes and equipped-slot indices.
 
 Medium confidence:

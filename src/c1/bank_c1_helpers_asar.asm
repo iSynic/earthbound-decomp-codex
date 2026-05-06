@@ -5623,6 +5623,7 @@ org $C12D17
 !C09451_RestoreSavedCoordinateState = $C09451
 !C1004E_WaitWhileFileSelectEntityScriptBusy = $C1004E
 !C186B1_PrintTextFromPointer = $C186B1
+!C22A2C_SaveCurrentGame = $C22A2C
 !C47F87_RefreshWindowFlavorPalette = $C47F87
 C12D17_ToggleDebugMeterDisplayOverlay:
     rep #$31
@@ -5948,7 +5949,8 @@ C12FAB_ToggleDebugMeterDisplayOverlay_L2FAB:
     jsl $C13EE7
     jmp.w C1313B_ToggleDebugMeterDisplayOverlay_L313B
 C12FB2_ToggleDebugMeterDisplayOverlay_L2FB2:
-    jsl $C22A2C
+!C12FB2_SaveCurrentGameDebugMenuCommand = C12FB2_ToggleDebugMeterDisplayOverlay_L2FB2
+    jsl !C22A2C_SaveCurrentGame
     lda $9877
     sta $9D1F
     lda $987B
@@ -16798,6 +16800,11 @@ org $C17B56
 !C1AD26_LoadBattleTextSubstitutionPointer = $AD26
 !C216AD_ApplyMusicTrackAndSyncMirror = $C216AD
 !C2165E_SetEventFlagOrState = $C2165E
+!C226C5_SetCurrent9C88FlagAndRefresh5D64 = $C226C5
+!C226E6_GetCurrent9C88Flag = $C226E6
+!C22A2C_SaveCurrentGame = $C22A2C
+!C23008_SaveAndClearTemporaryPartySourceState = $C23008
+!C2307B_RestoreTemporaryPartySourceState = $C2307B
 !LoadedBattleTextAmountPointerLo = $06
 !LoadedBattleTextAmountPointerHi = $08
 !TextContextSourcePointerLo = $0E
@@ -18046,10 +18053,12 @@ C184F8_DispatchDisplayTextDynamicSourceSelector_L84F8:
     lda.w #$6DE8
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE:
-    jsl $C23008
+!C184FE_SaveAndClearTemporaryPartySourceStateTextCommand = C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE
+    jsl !C23008_SaveAndClearTemporaryPartySourceState
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18505_DispatchDisplayTextDynamicSourceSelector_L8505:
-    jsl $C2307B
+!C18505_RestoreTemporaryPartySourceStateTextCommand = C18505_DispatchDisplayTextDynamicSourceSelector_L8505
+    jsl !C2307B_RestoreTemporaryPartySourceState
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C1850C_DispatchDisplayTextDynamicSourceSelector_L850C:
     lda.w #$711C
@@ -18121,15 +18130,18 @@ C18594_DispatchDisplayTextDynamicSourceSelector_L8594:
     jsr $045D
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9:
+!C185A9_SetCurrentInteractionFlagTextCommand = C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9
     lda.w #$0001
-    jsl $C226C5
+    jsl !C226C5_SetCurrent9C88FlagAndRefresh5D64
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185B3_DispatchDisplayTextDynamicSourceSelector_L85B3:
+!C185B3_ClearCurrentInteractionFlagTextCommand = C185B3_DispatchDisplayTextDynamicSourceSelector_L85B3
     lda.w #$0000
-    jsl $C226C5
+    jsl !C226C5_SetCurrent9C88FlagAndRefresh5D64
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185BD_DispatchDisplayTextDynamicSourceSelector_L85BD:
-    jsl $C226E6
+!C185BD_GetCurrentInteractionFlagTextCommand = C185BD_DispatchDisplayTextDynamicSourceSelector_L85BD
+    jsl !C226E6_GetCurrent9C88Flag
     cmp.w #$0000
     sta $06
     stz $08
@@ -18143,7 +18155,8 @@ C185CC_DispatchDisplayTextDynamicSourceSelector_L85CC:
     jsr $045D
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185DA_DispatchDisplayTextDynamicSourceSelector_L85DA:
-    jsl $C22A2C
+!C185DA_SaveCurrentGameTextCommand = C185DA_DispatchDisplayTextDynamicSourceSelector_L85DA
+    jsl !C22A2C_SaveCurrentGame
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185E1_DispatchDisplayTextDynamicSourceSelector_L85E1:
     lda.w #$6308

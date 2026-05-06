@@ -27,8 +27,19 @@ The strongest currently pinned members are:
 - `0x1F 41` -> special-event dispatcher, with local wrapper at `C1:72DA` and
   main dispatcher at `C1:BEFC`
 - `0x1F 60` -> wait for the text prompt / system input gate through `C1:00FE`
+- `0x1F 64` -> save and clear the temporary party source state through
+  `C2:3008`
+- `0x1F 65` -> restore the temporary party source state through `C2:307B`
 - `0x1F 81` -> direct item-use compatibility check through `C1:4F6F`
 - `0x1F 90` -> phone-contact selection menu builder through `C1:9441`
+- `0x1F A0` -> set the current interaction flag id at `$9C88`, then refresh
+  target state from `$5D64` through the C2 wrapper at `C2:26C5/26D0`
+- `0x1F A1` -> clear the current interaction flag id at `$9C88`, then refresh
+  target state from `$5D64` through the same C2 wrapper
+- `0x1F A2` -> read the current interaction flag id at `$9C88` through
+  `C2:26E6/26EB` and return it through the text context
+- `0x1F B0` -> save the currently selected game slot through `C2:2A2C` and
+  `EF:0A4D`
 - `0x1F D0` -> Jeff repair / broken-item callback family
 - `0x1F D1` -> immediate nearby magic-truffle direction helper
 - `0x1F D2` -> strongest current fit wandering-photographer summon branch
@@ -43,6 +54,21 @@ The lower `C1:461A..4819` text-command source now also names the nearby
 the `1F 03` restore-current-map-music branch. These leaves call the C2 music
 track, stop-music, and play-sound/light-window wrappers by contract names
 instead of raw far addresses.
+
+The same dynamic source-selector corridor now names the `1F 64/65` temporary
+party source save/restore leaves. These call `C2:3008` and `C2:307B`, the
+matched C2 helpers that preserve `$983A/$983B/$983C/$983E/$9831/$9833`, remove
+the active source ids from `$986F`, and later restore the saved ids and words.
+
+It also names the `1F A0/A1/A2` current-interaction flag leaves. The set/clear
+pair stages `1` or `0` into `C2:26C5`, which falls through to the C2 refresh
+tail that uses `$9C88` and `$5D64`; the read leaf calls `C2:26E6` and stages
+the returned flag state into the active text context.
+
+The `1F B0` save-game leaf now calls the C2 `SaveCurrentGame` wrapper by name.
+That wrapper reads the one-based current save slot at `$B4A1`, converts it to
+the zero-based slot index expected by `EF:0A4D`, and delegates to the EF
+save-slot helper. This matches the recovered authoring hint for `@SAVE_GAME`.
 
 The adjacent `C1:7274..7440` corridor is now decoded source in `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm`. It covers `1F 40`, `1F 41`'s local special-event-dispatch wrapper, `1F D2`'s wandering-photographer helper bridge, `1F F3/F4`, the `C1:73C0` battle visual result stager, and `1F 07`. The `C1:7440` timed-delivery callback adapter itself is now decoded source in `src/c1/c1_7440_timed_delivery_row_selector_callback.asm`. The combined C1 scaffold validates byte-for-byte after promotion: `C1 byte-equivalence: OK, 172 module(s), 0 mismatch(es).`
 
