@@ -378,6 +378,13 @@ that C2 row `+8` behavior bodies emit through `DC1C`, not the row `+4`
 presentation lane: `EF:6B81..6C55` for status-result text and `EF:766E` for
 the shared no-effect fallback.
 
+The EF source now also carries negative guardrails at the most tempting
+behavior-only anchors: Lifeup explanation text `EF:5173..51BB`,
+enemy-action Lifeup flavor `EF:8D4C`, and explosive candidates
+`EF:9A7E/9A9E`. These comments preserve the current frontier: rows `32..35`
+and `64/65` need row `+4` pointer recovery before those nearby EF scripts can
+be treated as action-row presentation joins.
+
 ## EGOODS2 Item-Use Follow-up
 
 The `EF:9EF4..A2FA` EGOODS2 include is now split into item-use payload anchors.

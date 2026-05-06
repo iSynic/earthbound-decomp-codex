@@ -3476,24 +3476,28 @@ db $08,$DF,$69,$C5,$00,$01,$15,$DA,$94,$17,$C1,$A3,$15,$07,$67,$62
 db $60,$50,$16,$A4,$A3,$15,$86,$15,$D6,$15,$0C,$17,$71,$15,$F3,$5E
 db $02
 
+; PSI explanation payload text; not a proved row +4 Lifeup presentation.
 EF5173_EExplPsiMsgExplPsiLifeupAlfa:
 
 ; Original data gap before EF5189_EExplPsiMsgExplPsiLifeupBeta:
 db $70,$82,$95,$17,$60,$17,$52,$61,$60,$60,$50,$78,$80,$15,$90,$16
 db $9B,$A0,$17,$2C,$5E,$02
 
+; PSI explanation payload text; not a proved row +4 Lifeup presentation.
 EF5189_EExplPsiMsgExplPsiLifeupBeta:
 
 ; Original data gap before EF519F_EExplPsiMsgExplPsiLifeupGamma:
 db $70,$82,$95,$17,$60,$17,$52,$63,$60,$60,$50,$78,$80,$15,$90,$16
 db $9B,$A0,$17,$2C,$5E,$02
 
+; PSI explanation payload text; not a proved row +4 Lifeup presentation.
 EF519F_EExplPsiMsgExplPsiLifeupGamma:
 
 ; Original data gap before EF51BB_EExplPsiMsgExplPsiLifeupOmega:
 db $70,$73,$9F,$9D,$17,$05,$A4,$95,$15,$9D,$A2,$95,$17,$60,$95,$15
 db $32,$78,$80,$15,$86,$16,$9B,$A0,$17,$2C,$5E,$02
 
+; PSI explanation payload text; not a proved row +4 Lifeup presentation.
 EF51BB_EExplPsiMsgExplPsiLifeupOmega:
 
 ; Original data gap before EF51CF_EExplPsiMsgExplPsiHealingAlfa:
@@ -6322,6 +6326,7 @@ EF8D2F_EBattle3MsgBtlYudan4:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$CD,$15,$33,$97,$9F,$00,$50,$15
 db $04,$16,$5B,$91,$17,$DB,$A4,$16,$06,$A9,$51,$03,$02
 
+; EBATTLE3: enemy Lifeup flavor, not row +4 Lifeup presentation for rows 32..35.
 EF8D4C_EBattle3MsgBtlYudanLifeup:
 
 ; Original data gap before EF8D72_EBattle3MsgBtlNebieBeam:
@@ -6859,12 +6864,14 @@ EF9A5E_EBattle1MsgBtlTanemaki0:
 db $1F,$02,$19,$01,$70,$1C,$0D,$16,$7C,$A7,$95,$94,$00,$50,$15,$1C
 db $16,$67,$94,$A3,$15,$AB,$99,$A4,$16,$EB,$51,$1F,$02,$48,$03,$02
 
+; EBATTLE1: candidate explosive flavor near rows 64/65; row +4 pointers unrecovered.
 EF9A7E_EBattle1MsgBtlExplosion:
 
 ; Original data gap before EF9A9E_EBattle1MsgBtlBurn:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$A8,$A0,$9C,$9F,$94,$95,$94
 db $00,$50,$16,$0B,$92,$99,$A4,$A3,$51,$1F,$02,$5B,$03,$10,$1E,$02
 
+; EBATTLE1: candidate explosive flavor near rows 64/65; row +4 pointers unrecovered.
 EF9A9E_EBattle1MsgBtlBurn:
 
 ; Original data gap before EF9ABB_EBattle1MsgBtlGoods:

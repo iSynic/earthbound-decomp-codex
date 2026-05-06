@@ -107,6 +107,24 @@ several neighboring PSI rows already use `EF:8543`:
 This is exactly the kind of case where the row `+8` behavior body is strong,
 but the `C1:DD9F` presentation text still needs the row `+4` pointer.
 
+The latest EF source comments mirror this caution directly at `EF:5173..51BB`
+and `EF:8D4C`, so those Lifeup-looking anchors are not accidentally promoted
+as rows `32..35` presentation messages during later payload work.
+
+## Explosive Caution
+
+Rows `64` and `65` also stay in the pointer-recovery frontier:
+
+- local notes prove both rows reach the `C2:A821` super-bomb/explosive wrapper;
+- row `101` proves one `C2:A821` row-message join at `EF:7ED5`;
+- EF explosive flavor text at `EF:9A7E` and `EF:9A9E` is nearby and plausible,
+  but no current local note proves either address as the row `+4` pointer for
+  rows `64` or `65`.
+
+The EF source comments now mark `EF:9A7E/9A9E` as candidate explosive flavor,
+not proved row-message joins. Promote them only after row inspection recovers
+the exact row `+4` pointers.
+
 ## Promotion Rules
 
 Use the recovered row `+4` bank to decide the follow-up:

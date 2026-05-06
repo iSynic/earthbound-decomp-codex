@@ -244,3 +244,7 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-06: EF status-result source-comment follow-up added byte-neutral
   comments at `EF:6B81..6C55` and `EF:766E` to keep C2 row `+8` `DC1C`
   result emissions separate from row `+4` presentation messages in the source.
+- 2026-05-06: EF negative-guardrail source follow-up added byte-neutral
+  comments at Lifeup-looking and explosive-looking anchors so rows `32..35`
+  and `64/65` remain blocked on row `+4` pointer recovery rather than nearby
+  EF flavor text.

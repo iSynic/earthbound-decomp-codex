@@ -156,24 +156,28 @@ EF5152_EExplPsiMsgExplPsiStarstormOmega:
 ; EF:5173
 
 ; PSI explanation payload text: `MSG_EXPL_PSI_LIFEUP_ALFA`.
+; Not a proved row +4 Lifeup battle-action presentation message.
 EF5173_EExplPsiMsgExplPsiLifeupAlfa:
 
 ; ---------------------------------------------------------------------------
 ; EF:5189
 
 ; PSI explanation payload text: `MSG_EXPL_PSI_LIFEUP_BETA`.
+; Not a proved row +4 Lifeup battle-action presentation message.
 EF5189_EExplPsiMsgExplPsiLifeupBeta:
 
 ; ---------------------------------------------------------------------------
 ; EF:519F
 
 ; PSI explanation payload text: `MSG_EXPL_PSI_LIFEUP_GAMMA`.
+; Not a proved row +4 Lifeup battle-action presentation message.
 EF519F_EExplPsiMsgExplPsiLifeupGamma:
 
 ; ---------------------------------------------------------------------------
 ; EF:51BB
 
 ; PSI explanation payload text: `MSG_EXPL_PSI_LIFEUP_OMEGA`.
+; Not a proved row +4 Lifeup battle-action presentation message.
 EF51BB_EExplPsiMsgExplPsiLifeupOmega:
 
 ; ---------------------------------------------------------------------------
@@ -2681,7 +2685,8 @@ EF8D2F_EBattle3MsgBtlYudan4:
 ; ---------------------------------------------------------------------------
 ; EF:8D4C
 
-; EBATTLE3: `MSG_BTL_YUDAN_LIFEUP` enemy-action text.
+; EBATTLE3: `MSG_BTL_YUDAN_LIFEUP` enemy-action text, not the unproved
+; row +4 Lifeup presentation for action rows 32..35.
 EF8D4C_EBattle3MsgBtlYudanLifeup:
 
 ; ---------------------------------------------------------------------------
@@ -3142,13 +3147,15 @@ EF9A5E_EBattle1MsgBtlTanemaki0:
 ; ---------------------------------------------------------------------------
 ; EF:9A7E
 
-; EBATTLE1: `MSG_BTL_EXPLOSION` action payload text.
+; EBATTLE1: `MSG_BTL_EXPLOSION` action payload text. Candidate explosive
+; flavor near rows 64/65, but row +4 pointers are still unrecovered.
 EF9A7E_EBattle1MsgBtlExplosion:
 
 ; ---------------------------------------------------------------------------
 ; EF:9A9E
 
-; EBATTLE1: `MSG_BTL_BURN` action payload text.
+; EBATTLE1: `MSG_BTL_BURN` action payload text. Candidate explosive flavor
+; near rows 64/65, but row +4 pointers are still unrecovered.
 EF9A9E_EBattle1MsgBtlBurn:
 
 ; ---------------------------------------------------------------------------

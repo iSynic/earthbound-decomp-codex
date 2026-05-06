@@ -213,6 +213,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:6B81..6C55` status payloads and `EF:766E` no-effect fallback as `DC1C`
   direct-result emissions from C2 row `+8` behavior, not row `+4` presentation
   messages.
+- 2026-05-06: EF negative-guardrail source follow-up marked Lifeup explanation
+  and enemy-flavor anchors plus explosive `EF:9A7E/9A9E` candidates as not-yet
+  row-message joins, preserving rows `32..35` and `64/65` for row `+4` pointer
+  recovery.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
