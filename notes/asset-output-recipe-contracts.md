@@ -28,11 +28,11 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 
 - manifests: `38`
 - manifests with typed output summaries: `38`
-- manifests with smoke fixture links: `22`
+- manifests with smoke fixture links: `23`
 - assets/tables/gaps represented: `2219`
-- output recipes: `6176`
-- typed output recipe kinds: `13`
-- decoder-backed output recipes: `3957`
+- output recipes: `6186`
+- typed output recipe kinds: `14`
+- decoder-backed output recipes: `3967`
 - renderer-backed output recipes: `3265`
 - PNG preview/render recipes: `3265`
 
@@ -55,6 +55,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `earthbound_lzhal_snes_4bpp_tiles_png` | 237 | 237 | decompressed tile preview PNG | `earthbound_lzhal+snes_4bpp_tiles` | `grayscale_tile_sheet` | `columns` | `compressed_bytes_consumed`, `decompressed_bytes`, `width`, `height`, `tiles` | `asset.ca.battle_background_gfx_63` -> `ca/battle_bgs/graphics/63_4bpp_preview.png` |
 | `earthbound_lzhal_snes_palette_json` | 10 | 10 | decompressed SNES palette JSON | `earthbound_lzhal+snes_palette` | - | - | `compressed_bytes_consumed`, `decompressed_bytes`, `colors` | `asset.e1.compressed_palette_unknown` -> `e1/unknown_palette_palette.json` |
 | `earthbound_lzhal_snes_palette_swatch_png` | 10 | 10 | decompressed palette swatch PNG | `earthbound_lzhal+snes_palette` | `palette_swatch` | `per_row`, `swatch` | `compressed_bytes_consumed`, `decompressed_bytes`, `colors`, `width`, `height` | `asset.e1.compressed_palette_unknown` -> `e1/unknown_palette_palette.png` |
+| `map_tile_chunk_index_json` | 10 | 10 | decoded map tile chunk index JSON | `map_tile_chunk_index` | - | `chunk_index` | `chunk_index`, `entry_count`, `min_tile_id`, `max_tile_id`, `distinct_tile_ids` | `asset.d6.map_data_tile_table_chunk_1` -> `d6/maps/tiles/chunk_01_tile_index.json` |
 | `raw` | 2219 | 2219 | byte-for-byte extract | - | - | - | - | `asset.ca.battle_background_gfx_63` -> `ca/battle_bgs/graphics/63.gfx.lzhal` |
 | `snes_2bpp_tiles_png` | 2 | 2 | tile preview PNG | `snes_2bpp_tiles` | `grayscale_tile_sheet` | `columns` | `width`, `height`, `tiles` | `asset.debug.menu_font` -> `ef/debug_menu_font_preview.png` |
 | `snes_4bpp_tiles_palette_png` | 1146 | 1146 | palette-applied tile preview PNG | `snes_4bpp_tiles+snes_palette` | `palette_tile_sheet` | `columns`, `colors`, `palette_source` | `colors`, `palette_source_range`, `width`, `height`, `tiles` | `asset.d1.sprite_0000` -> `d1/overworld_sprites/gfx/0000_palette_00_preview.png` |
@@ -69,7 +70,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | Battle visual assets | `CA, CB, CC, CD, CE` | 689 | 2117 | 1428 | 886 | 886 | `raw` 689, `earthbound_lzhal` 361, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 234, `earthbound_lzhal_snes_4bpp_tiles_png` 202, `snes_palette_json` 181, +3 more | `palette_tile_sheet` 234, `grayscale_tile_sheet` 202, `palette_swatch` 181, `battle_sprite` 166, `battle_background_arrangement` 103 |
 | Mixed asset/table banks | `CF, D0` | 7 | 7 | 0 | 0 | 0 | `raw` 7 | - |
 | Overworld sprites | `D1, D2, D3, D4, D5` | 1148 | 3440 | 2292 | 2292 | 2292 | `raw` 1148, `snes_4bpp_tiles_palette_png` 1146, `snes_4bpp_tiles_png` 1146 | `grayscale_tile_sheet` 1146, `palette_tile_sheet` 1146 |
-| Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | 130 | 282 | 152 | 55 | 55 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22 | `palette_swatch` 33, `grayscale_tile_sheet` 22 |
+| Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | 130 | 292 | 162 | 55 | 55 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22, +1 more | `palette_swatch` 33, `grayscale_tile_sheet` 22 |
 | UI, fonts, and town-map assets | `E0, E1` | 69 | 152 | 83 | 30 | 30 | `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, `earthbound_lzhal_snes_palette_swatch_png` 10, +3 more | `grayscale_tile_sheet` 18, `palette_swatch` 12 |
 | Audio packs | `E2, E3, E4, E5, E6, E7, E8, E9, EA, EB, EC, ED, EE` | 171 | 171 | 0 | 0 | 0 | `raw` 171 | - |
 | EF debug and late-tail data | `EF` | 5 | 7 | 2 | 2 | 2 | `raw` 5, `snes_2bpp_tiles_png` 2 | `grayscale_tile_sheet` 2 |

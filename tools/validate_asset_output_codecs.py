@@ -138,6 +138,18 @@ def output_cases() -> list[dict[str, Any]]:
             "spec": {"kind": "earthbound_lzhal", "path": "decoded.bin"},
         },
         {
+            "id": "map-tile-chunk-index",
+            "data": bytes([0x00, 0x00, 0x25, 0x00, 0xAA, 0x00, 0x25, 0x00]),
+            "spec": {"kind": "map_tile_chunk_index_json", "path": "map_tile_chunk.json", "chunk_index": 1},
+            "expected_metadata": {
+                "chunk_index": 1,
+                "entry_count": 4,
+                "min_tile_id": 0,
+                "max_tile_id": 170,
+                "distinct_tile_ids": 3,
+            },
+        },
+        {
             "id": "snes-2bpp-tiles",
             "data": graphics_2bpp,
             "spec": {"kind": "snes_2bpp_tiles_png", "path": "tiles_2bpp.png", "columns": 2},

@@ -32,6 +32,21 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
         renderer=None,
         report_required_fields=("compressed_bytes_consumed", "decompressed_bytes"),
     ),
+    "map_tile_chunk_index_json": OutputRecipeContract(
+        kind="map_tile_chunk_index_json",
+        output_type="decoded map tile chunk index JSON",
+        decoder="map_tile_chunk_index",
+        renderer=None,
+        required_fields=("chunk_index",),
+        report_required_fields=(
+            "chunk_index",
+            "entry_count",
+            "min_tile_id",
+            "max_tile_id",
+            "distinct_tile_ids",
+        ),
+        extension=".json",
+    ),
     "snes_2bpp_tiles_png": OutputRecipeContract(
         kind="snes_2bpp_tiles_png",
         output_type="tile preview PNG",
@@ -175,6 +190,7 @@ OUTPUT_RECIPE_CONTRACTS: dict[str, OutputRecipeContract] = {
 INT_FIELDS = {
     "arrangement_id",
     "bpp",
+    "chunk_index",
     "colors",
     "columns",
     "graphics_id",

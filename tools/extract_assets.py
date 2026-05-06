@@ -198,6 +198,36 @@ def write_snes_palette_json(data: bytes, path: Path, spec: dict[str, Any]) -> in
     return len(entries)
 
 
+def write_map_tile_chunk_index_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    if len(data) % 2 != 0:
+        raise ValueError(f"Map tile chunk data must have an even byte count, got {len(data)}")
+    chunk_index = int(spec["chunk_index"])
+    values = [data[offset] | (data[offset + 1] << 8) for offset in range(0, len(data), 2)]
+    distinct_values = len(set(values))
+    payload = {
+        "schema": "earthbound-decomp.map-tile-chunk-index.v1",
+        "decoder": "map_tile_chunk_index",
+        "chunk_index": chunk_index,
+        "byte_order": "little",
+        "entry_size_bytes": 2,
+        "source_bytes": len(data),
+        "entry_count": len(values),
+        "min_tile_id": min(values) if values else 0,
+        "max_tile_id": max(values) if values else 0,
+        "distinct_tile_ids": distinct_values,
+        "tile_ids": values,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "chunk_index": chunk_index,
+        "entry_count": len(values),
+        "min_tile_id": payload["min_tile_id"],
+        "max_tile_id": payload["max_tile_id"],
+        "distinct_tile_ids": distinct_values,
+    }
+
+
 def write_snes_palette_swatch_png(data: bytes, path: Path, spec: dict[str, Any]) -> int:
     entries = decode_snes_bgr555_palette(data, count=palette_entry_count(data, spec))
     per_row = int(spec.get("per_row", 16))
@@ -554,6 +584,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         write_raw(decompressed, path)
         metadata["compressed_bytes_consumed"] = consumed
         metadata["decompressed_bytes"] = len(decompressed)
+    elif kind == "map_tile_chunk_index_json":
+        metadata.update(write_map_tile_chunk_index_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         tile_data = trim_trailing_bytes(data, spec)

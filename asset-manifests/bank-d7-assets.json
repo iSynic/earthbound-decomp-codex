@@ -37,17 +37,19 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 7,
-    "output_recipe_count": 8,
-    "typed_output_kind_count": 2,
-    "decoder_output_recipe_count": 1,
+    "output_recipe_count": 12,
+    "typed_output_kind_count": 3,
+    "decoder_output_recipe_count": 5,
     "renderer_output_recipe_count": 0,
     "preview_png_recipe_count": 0,
     "output_kind_counts": {
       "earthbound_lzhal": 1,
+      "map_tile_chunk_index_json": 4,
       "raw": 7
     },
     "decoder_counts": {
-      "earthbound_lzhal": 1
+      "earthbound_lzhal": 1,
+      "map_tile_chunk_index": 4
     },
     "renderer_counts": {},
     "smoke_fixture_count": 2,
@@ -77,6 +79,11 @@
         {
           "kind": "raw",
           "path": "d7/maps/tiles/chunk_07.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d7/maps/tiles/chunk_07_tile_index.json",
+          "chunk_index": 7
         }
       ],
       "notes": [
@@ -98,6 +105,11 @@
         {
           "kind": "raw",
           "path": "d7/maps/tiles/chunk_08.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d7/maps/tiles/chunk_08_tile_index.json",
+          "chunk_index": 8
         }
       ],
       "notes": [
@@ -119,6 +131,11 @@
         {
           "kind": "raw",
           "path": "d7/maps/tiles/chunk_09.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d7/maps/tiles/chunk_09_tile_index.json",
+          "chunk_index": 9
         }
       ],
       "notes": [
@@ -140,6 +157,11 @@
         {
           "kind": "raw",
           "path": "d7/maps/tiles/chunk_10.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d7/maps/tiles/chunk_10_tile_index.json",
+          "chunk_index": 10
         }
       ],
       "notes": [

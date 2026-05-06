@@ -13,18 +13,16 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 81,
-    "unique_selected_assets": 30,
-    "unique_selected_manifest_asset_pairs": 30,
-    "recipe_kinds_covered": 13,
+    "fixture_count": 84,
+    "unique_selected_assets": 31,
+    "unique_selected_manifest_asset_pairs": 31,
+    "recipe_kinds_covered": 14,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 16,
+    "family_decoder_pairs_covered": 17,
     "target_bank_output_fixture_policy_banks": 22,
-    "bank_output_fixture_banks_covered": 21,
-    "target_banks_without_typed_non_raw_outputs": [
-      "D6"
-    ],
+    "bank_output_fixture_banks_covered": 22,
+    "target_banks_without_typed_non_raw_outputs": [],
     "fixture_target_source_refs": 27,
     "fixture_target_source_ref_status_counts": {
       "known_external": 6,
@@ -35,17 +33,17 @@
       "palette_source": 21
     },
     "fixture_type_counts": {
-      "bank_output": 21,
-      "family_decoder": 16,
+      "bank_output": 22,
+      "family_decoder": 17,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 13,
+      "recipe_kind": 14,
       "recipe_option": 5
     },
     "fixture_family_counts": {
       "battle_visual_assets": 30,
       "ef_debug_and_late_tail": 5,
-      "map_tilesets_and_runtime_tables": 16,
+      "map_tilesets_and_runtime_tables": 19,
       "overworld_sprites": 15,
       "ui_font_town_map_assets": 15
     }
@@ -108,6 +106,7 @@
     "map_tilesets_and_runtime_tables": {
       "earthbound_lzhal": 64,
       "earthbound_lzhal_snes_4bpp_tiles_png": 22,
+      "map_tile_chunk_index_json": 10,
       "raw": 130,
       "snes_palette_json": 33,
       "snes_palette_swatch_png": 33
@@ -302,6 +301,29 @@
         "earthbound_lzhal",
         "earthbound_lzhal_snes_palette_json",
         "earthbound_lzhal_snes_palette_swatch_png",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.map_tile_chunk_index_json",
+      "type": "recipe_kind",
+      "key": "map_tile_chunk_index_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "map_tilesets_and_runtime_tables",
+      "bank": "D6",
+      "manifest_path": "asset-manifests/bank-d6-assets.json",
+      "asset_id": "asset.d6.map_data_tile_table_chunk_1",
+      "title": "MAP_DATA_TILE_TABLE_CHUNK_1",
+      "category": "binary-asset",
+      "bytes": 10240,
+      "target_output": {
+        "kind": "map_tile_chunk_index_json",
+        "path": "d6/maps/tiles/chunk_01_tile_index.json",
+        "decoder": "map_tile_chunk_index",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "map_tile_chunk_index_json",
         "raw"
       ]
     },
@@ -813,6 +835,29 @@
         "raw",
         "snes_4bpp_tiles_palette_png",
         "snes_4bpp_tiles_png"
+      ]
+    },
+    {
+      "id": "fixture.bank_output.d6",
+      "type": "bank_output",
+      "key": "D6",
+      "reason": "Covers one representative typed non-raw output from a target asset bank.",
+      "family": "map_tilesets_and_runtime_tables",
+      "bank": "D6",
+      "manifest_path": "asset-manifests/bank-d6-assets.json",
+      "asset_id": "asset.d6.map_data_tile_table_chunk_1",
+      "title": "MAP_DATA_TILE_TABLE_CHUNK_1",
+      "category": "binary-asset",
+      "bytes": 10240,
+      "target_output": {
+        "kind": "map_tile_chunk_index_json",
+        "path": "d6/maps/tiles/chunk_01_tile_index.json",
+        "decoder": "map_tile_chunk_index",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "map_tile_chunk_index_json",
+        "raw"
       ]
     },
     {
@@ -1969,6 +2014,29 @@
       ]
     },
     {
+      "id": "fixture.family_decoder.map_tilesets_and_runtime_tables_map_tile_chunk_index",
+      "type": "family_decoder",
+      "key": "map_tilesets_and_runtime_tables.map_tile_chunk_index",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "map_tilesets_and_runtime_tables",
+      "bank": "D6",
+      "manifest_path": "asset-manifests/bank-d6-assets.json",
+      "asset_id": "asset.d6.map_data_tile_table_chunk_1",
+      "title": "MAP_DATA_TILE_TABLE_CHUNK_1",
+      "category": "binary-asset",
+      "bytes": 10240,
+      "target_output": {
+        "kind": "map_tile_chunk_index_json",
+        "path": "d6/maps/tiles/chunk_01_tile_index.json",
+        "decoder": "map_tile_chunk_index",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "map_tile_chunk_index_json",
+        "raw"
+      ]
+    },
+    {
       "id": "fixture.family_decoder.map_tilesets_and_runtime_tables_snes_palette",
       "type": "family_decoder",
       "key": "map_tilesets_and_runtime_tables.snes_palette",
@@ -2232,6 +2300,13 @@
         "asset.d5.sprite_1028"
       ],
       "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-d5-assets.json --asset-id asset.d5.sprite_1028 --out build/asset-output-smoke-fixtures"
+    },
+    {
+      "manifest_path": "asset-manifests/bank-d6-assets.json",
+      "asset_ids": [
+        "asset.d6.map_data_tile_table_chunk_1"
+      ],
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-d6-assets.json --asset-id asset.d6.map_data_tile_table_chunk_1 --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/bank-d7-assets.json",

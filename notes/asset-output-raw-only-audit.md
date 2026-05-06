@@ -10,20 +10,20 @@ Generated asset-output and source-range reports are freshness-checked together w
 
 - status: `ok`
 - assets with outputs: `2219`
-- decoder/renderer-backed assets: `1835`
-- extract-only assets: `384`
-- extract-only bytes: `1375788`
+- decoder/renderer-backed assets: `1845`
+- extract-only assets: `374`
+- extract-only bytes: `1267244`
 - extract-only categories: `6`
-- extract-only banks: `33`
+- extract-only banks: `32`
 - unsupported output kinds: `0`
-- extract-only category mix: `audio` 168, `binary-asset` 141, `raw-table` 41, `raw-gap` 31, `raw-preserved-corridor` 2, +1 more
-- extract-only boundary mix: `deferred_audio_pack` 168, `binary_asset_semantics` 141, `table_semantics` 41, `preserved_coverage_gap` 31, `preserved_corridor` 2, +1 more
+- extract-only category mix: `audio` 168, `binary-asset` 131, `raw-table` 41, `raw-gap` 31, `raw-preserved-corridor` 2, +1 more
+- extract-only boundary mix: `deferred_audio_pack` 168, `binary_asset_semantics` 131, `table_semantics` 41, `preserved_coverage_gap` 31, `preserved_corridor` 2, +1 more
 
 ## Boundary Notes
 
 | Boundary | Assets | Bytes | Meaning |
 | --- | ---: | ---: | --- |
-| `binary_asset_semantics` | 141 | 138513 | Byte-stable extraction exists; format-level decode depends on narrower table or runtime-owner evidence. |
+| `binary_asset_semantics` | 131 | 29969 | Byte-stable extraction exists; format-level decode depends on narrower table or runtime-owner evidence. |
 | `deferred_audio_pack` | 168 | 858695 | Raw-pack extraction is intentional until the audio pack/sample/sequence contract boundary is chosen. |
 | `graphics_decode_candidate` | 1 | 532 | Graphic bytes are extractable but do not yet have a typed tile/font/preview recipe. |
 | `preserved_corridor` | 2 | 64136 | Mixed data/code corridor is intentionally preserved until source/runtime semantics split it safely. |
@@ -37,7 +37,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 | Battle visual assets | 147 | 55727 | `binary-asset` 126, `raw-table` 13, `audio` 4, `raw-gap` 4 | `binary_asset_semantics` 126, `table_semantics` 13, `deferred_audio_pack` 4, `preserved_coverage_gap` 4 |
 | Mixed asset/table banks | 7 | 131072 | `audio` 3, `raw-gap` 2, `raw-table` 2 | `deferred_audio_pack` 3, `preserved_coverage_gap` 2, `table_semantics` 2 |
 | Overworld sprites | 2 | 47680 | `raw-gap` 1, `raw-table` 1 | `preserved_coverage_gap` 1, `table_semantics` 1 |
-| Map tilesets and runtime tables | 33 | 205650 | `binary-asset` 10, `audio` 9, `raw-gap` 9, `raw-table` 5 | `binary_asset_semantics` 10, `deferred_audio_pack` 9, `preserved_coverage_gap` 9, `table_semantics` 5 |
+| Map tilesets and runtime tables | 23 | 97106 | `audio` 9, `raw-gap` 9, `raw-table` 5 | `deferred_audio_pack` 9, `preserved_coverage_gap` 9, `table_semantics` 5 |
 | UI, fonts, and town-map assets | 21 | 19484 | `raw-table` 10, `binary-asset` 5, `audio` 3, `raw-gap` 2, `graphics` 1 | `table_semantics` 10, `binary_asset_semantics` 5, `deferred_audio_pack` 3, `preserved_coverage_gap` 2, `graphics_decode_candidate` 1 |
 | Audio packs | 171 | 851968 | `audio` 149, `raw-gap` 13, `raw-table` 9 | `deferred_audio_pack` 149, `preserved_coverage_gap` 13, `table_semantics` 9 |
 | EF debug and late-tail data | 3 | 64207 | `raw-preserved-corridor` 2, `raw-table` 1 | `preserved_corridor` 2, `table_semantics` 1 |
@@ -53,8 +53,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 | `CF` | 4 | 65536 | `audio` 2, `raw-gap` 1, `raw-table` 1 | `deferred_audio_pack` 2, `preserved_coverage_gap` 1, `table_semantics` 1 |
 | `D0` | 3 | 65536 | `audio` 1, `raw-gap` 1, `raw-table` 1 | `deferred_audio_pack` 1, `preserved_coverage_gap` 1, `table_semantics` 1 |
 | `D5` | 2 | 47680 | `raw-gap` 1, `raw-table` 1 | `preserved_coverage_gap` 1, `table_semantics` 1 |
-| `D6` | 6 | 65536 | `binary-asset` 6 | `binary_asset_semantics` 6 |
-| `D7` | 6 | 51736 | `binary-asset` 4, `raw-gap` 1, `raw-table` 1 | `binary_asset_semantics` 4, `preserved_coverage_gap` 1, `table_semantics` 1 |
+| `D7` | 2 | 8728 | `raw-gap` 1, `raw-table` 1 | `preserved_coverage_gap` 1, `table_semantics` 1 |
 | `D8` | 3 | 63911 | `audio` 1, `raw-gap` 1, `raw-table` 1 | `deferred_audio_pack` 1, `preserved_coverage_gap` 1, `table_semantics` 1 |
 | `D9` | 2 | 1000 | `audio` 1, `raw-gap` 1 | `deferred_audio_pack` 1, `preserved_coverage_gap` 1 |
 | `DA` | 3 | 1369 | `audio` 1, `raw-gap` 1, `raw-table` 1 | `deferred_audio_pack` 1, `preserved_coverage_gap` 1, `table_semantics` 1 |
@@ -85,16 +84,6 @@ Generated asset-output and source-range reports are freshness-checked together w
 | Asset | Manifest | Category | Bytes | Boundary |
 | --- | --- | --- | ---: | --- |
 | `asset.e0.mother2_romaji_font` | `asset-manifests/bank-e0-assets.json` | `graphics` | 532 | `graphics_decode_candidate` |
-| `asset.d6.map_data_tile_table_chunk_3` | `asset-manifests/bank-d6-assets.json` | `binary-asset` | 12288 | `binary_asset_semantics` |
-| `asset.d6.map_data_tile_table_chunk_6` | `asset-manifests/bank-d6-assets.json` | `binary-asset` | 12288 | `binary_asset_semantics` |
-| `asset.d7.map_data_tile_table_chunk_9` | `asset-manifests/bank-d7-assets.json` | `binary-asset` | 12288 | `binary_asset_semantics` |
-| `asset.d6.map_data_tile_table_chunk_1` | `asset-manifests/bank-d6-assets.json` | `binary-asset` | 10240 | `binary_asset_semantics` |
-| `asset.d6.map_data_tile_table_chunk_2` | `asset-manifests/bank-d6-assets.json` | `binary-asset` | 10240 | `binary_asset_semantics` |
-| `asset.d6.map_data_tile_table_chunk_4` | `asset-manifests/bank-d6-assets.json` | `binary-asset` | 10240 | `binary_asset_semantics` |
-| `asset.d6.map_data_tile_table_chunk_5` | `asset-manifests/bank-d6-assets.json` | `binary-asset` | 10240 | `binary_asset_semantics` |
-| `asset.d7.map_data_tile_table_chunk_10` | `asset-manifests/bank-d7-assets.json` | `binary-asset` | 10240 | `binary_asset_semantics` |
-| `asset.d7.map_data_tile_table_chunk_7` | `asset-manifests/bank-d7-assets.json` | `binary-asset` | 10240 | `binary_asset_semantics` |
-| `asset.d7.map_data_tile_table_chunk_8` | `asset-manifests/bank-d7-assets.json` | `binary-asset` | 10240 | `binary_asset_semantics` |
 | `asset.ce.swirl_data_71` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 900 | `binary_asset_semantics` |
 | `asset.ce.swirl_data_72` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 900 | `binary_asset_semantics` |
 | `asset.ce.swirl_data_73` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 900 | `binary_asset_semantics` |
@@ -134,3 +123,13 @@ Generated asset-output and source-range reports are freshness-checked together w
 | `asset.ce.swirl_data_20` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 325 | `binary_asset_semantics` |
 | `asset.ce.swirl_data_66` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 289 | `binary_asset_semantics` |
 | `asset.ce.swirl_data_10` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 285 | `binary_asset_semantics` |
+| `asset.ce.swirl_data_35` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 285 | `binary_asset_semantics` |
+| `asset.ce.swirl_data_9` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 280 | `binary_asset_semantics` |
+| `asset.ce.swirl_data_53` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 278 | `binary_asset_semantics` |
+| `asset.ce.swirl_data_52` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 275 | `binary_asset_semantics` |
+| `asset.ce.swirl_data_112` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 256 | `binary_asset_semantics` |
+| `asset.ce.swirl_data_122` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 254 | `binary_asset_semantics` |
+| `asset.ce.swirl_data_51` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 251 | `binary_asset_semantics` |
+| `asset.ce.swirl_data_8` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 242 | `binary_asset_semantics` |
+| `asset.ce.swirl_data_78` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 225 | `binary_asset_semantics` |
+| `asset.ce.swirl_data_7` | `asset-manifests/bank-ce-assets.json` | `binary-asset` | 222 | `binary_asset_semantics` |

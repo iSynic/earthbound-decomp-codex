@@ -135,6 +135,14 @@ def without_lzhal_suffix(raw_path: str) -> str:
     return f"{raw_path}.decompressed"
 
 
+def map_tile_chunk_index(payload: str) -> int | None:
+    normalized = payload.replace("\\", "/").lower()
+    match = re.match(r"^maps/tiles/chunk_(\d+)\.bin$", normalized)
+    if match is None:
+        return None
+    return int(match.group(1))
+
+
 def read_entry_bytes(rom: bytes, entry: dict[str, Any]) -> bytes:
     offset = int(str(entry["file_offset"]), 16)
     size = int(entry["size"])
@@ -552,6 +560,15 @@ def binary_outputs(
     extension = str(entry.get("extension", "")).lower()
     size = int(entry["size"])
     compressed = bool(entry.get("compressed")) or payload.lower().endswith(".lzhal")
+    chunk_index = map_tile_chunk_index(payload)
+    if chunk_index is not None and not compressed and size % 2 == 0:
+        outputs.append(
+            {
+                "kind": "map_tile_chunk_index_json",
+                "path": sidecar_path(raw_path, "tile_index", ".json"),
+                "chunk_index": chunk_index,
+            }
+        )
     if compressed:
         decompressed_path = without_lzhal_suffix(raw_path)
         outputs.append(
