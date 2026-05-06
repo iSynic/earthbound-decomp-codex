@@ -8,6 +8,8 @@ Reproducible smoke selectors for these recipe kinds are tracked in `notes/asset-
 
 Offline codec/render validation for every typed output kind is tracked in `notes/asset-output-codec-validation.md` and executable without a ROM via `tools/validate_asset_output_codecs.py`.
 
+Static preview geometry for PNG recipe outputs is tracked in `notes/asset-output-preview-geometry.md` and rebuildable without a ROM via `tools/build_asset_output_preview_geometry.py`.
+
 ## Snapshot
 
 - manifests: `38`

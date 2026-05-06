@@ -22,6 +22,8 @@ SMOKE_FIXTURES_JSON = ROOT / "notes" / "asset-output-smoke-fixtures.json"
 SMOKE_FIXTURES_MARKDOWN = ROOT / "notes" / "asset-output-smoke-fixtures.md"
 CODEC_VALIDATION_JSON = ROOT / "build" / "asset-output-codec-validation.json"
 CODEC_VALIDATION_MARKDOWN = ROOT / "notes" / "asset-output-codec-validation.md"
+PREVIEW_GEOMETRY_JSON = ROOT / "build" / "asset-output-preview-geometry.json"
+PREVIEW_GEOMETRY_MARKDOWN = ROOT / "notes" / "asset-output-preview-geometry.md"
 
 
 FAMILIES: list[dict[str, Any]] = [
@@ -293,6 +295,11 @@ def build_contract(manifest_dir: Path) -> dict[str, Any]:
             "tracked_markdown": rel(CODEC_VALIDATION_MARKDOWN),
             "runner": "tools/validate_asset_output_codecs.py",
         },
+        "preview_geometry": {
+            "generated_json": rel(PREVIEW_GEOMETRY_JSON),
+            "tracked_markdown": rel(PREVIEW_GEOMETRY_MARKDOWN),
+            "runner": "tools/build_asset_output_preview_geometry.py",
+        },
         "source_policy": {
             "contains_rom_derived_outputs": False,
             "validates_recipes_for_user_rom_extraction": True,
@@ -322,6 +329,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "Reproducible smoke selectors for these recipe kinds are tracked in `notes/asset-output-smoke-fixtures.md` and executable with `tools/run_asset_output_smoke_fixtures.py`.",
         "",
         "Offline codec/render validation for every typed output kind is tracked in `notes/asset-output-codec-validation.md` and executable without a ROM via `tools/validate_asset_output_codecs.py`.",
+        "",
+        "Static preview geometry for PNG recipe outputs is tracked in `notes/asset-output-preview-geometry.md` and rebuildable without a ROM via `tools/build_asset_output_preview_geometry.py`.",
         "",
         "## Snapshot",
         "",

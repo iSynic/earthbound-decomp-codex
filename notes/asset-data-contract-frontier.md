@@ -10,6 +10,8 @@ ROM-backed extraction smoke selectors are tracked in `notes/asset-output-smoke-f
 
 ROM-free codec validation is tracked in `notes/asset-output-codec-validation.md`; it exercises synthetic LZHAL, SNES tile, palette, tilemap, battle background, and battle sprite render paths for every typed output kind.
 
+Static preview geometry is tracked in `notes/asset-output-preview-geometry.md`; it separates PNG recipes with manifest-known dimensions from compressed recipes whose tile/color count is only known after ROM decode.
+
 ## Snapshot
 
 - manifests: `38`
