@@ -1190,6 +1190,32 @@ ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS: dict[int, dict[str, str]] = {
     },
 }
 
+ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_WORDS: dict[int, dict[str, str]] = {
+    0x0010: {
+        "name": "party_recovery_slot0_lying",
+        "contract": "sprite-pose descriptor word used by Event782 party lying-down recovery spawn slot 0 through C0:A98B; exact character/pose asset identity remains local-unknown",
+    },
+    0x0189: {
+        "name": "party_recovery_slot1_lying",
+        "contract": "sprite-pose descriptor word used by Event782 party lying-down recovery spawn slot 1 through C0:A98B; exact character/pose asset identity remains local-unknown",
+    },
+    0x018A: {
+        "name": "party_recovery_slot2_lying",
+        "contract": "sprite-pose descriptor word used by Event782 party lying-down recovery spawn slot 2 through C0:A98B; exact character/pose asset identity remains local-unknown",
+    },
+    0x018B: {
+        "name": "party_recovery_slot3_lying",
+        "contract": "sprite-pose descriptor word used by Event782 party lying-down recovery spawn slot 3 through C0:A98B; exact character/pose asset identity remains local-unknown",
+    },
+}
+
+ACTIONSCRIPT_ENTITY_SCRIPT_IDS: dict[int, dict[str, str]] = {
+    0x030F: {
+        "name": "battle_swirl_recovery_party_spawn",
+        "contract": "entity script id shared by Event782 party lying-down recovery spawns through C0:A98B",
+    },
+}
+
 ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS: dict[int, dict[str, str]] = {
     0x00FF: {
         "name": "event340_winters_transition",
@@ -1631,6 +1657,10 @@ def format_call_arg_value(
             return f"{field}={format_named_word(value, ACTIONSCRIPT_DISPLAY_FADE_WAIT_FRAME_WORDS)}", cursor + 2
         if field == "display_mosaic_update_flag_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS)}", cursor + 2
+        if field == "sprite_pose_descriptor_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_WORDS)}", cursor + 2
+        if field == "entity_script_id_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_ENTITY_SCRIPT_IDS)}", cursor + 2
         if field == "sound_effect_id_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_SOUND_EFFECT_IDS)}", cursor + 2
         return f"{field}={format_word(value)}", cursor + 2

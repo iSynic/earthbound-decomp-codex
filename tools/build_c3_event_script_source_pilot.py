@@ -20,6 +20,7 @@ from decode_event_script import (
     ACTIONSCRIPT_DISPLAY_FADE_STEP_WORDS,
     ACTIONSCRIPT_DISPLAY_FADE_WAIT_FRAME_WORDS,
     ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS,
+    ACTIONSCRIPT_ENTITY_SCRIPT_IDS,
     ACTIONSCRIPT_FADE_EFFECT_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
     ACTIONSCRIPT_LANDING_PALETTE_FADE_FRAME_COUNT_BYTES,
@@ -29,6 +30,7 @@ from decode_event_script import (
     ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS,
     ACTIONSCRIPT_MOSAIC_WH0_MASK_Y_WORDS,
     ACTIONSCRIPT_SOUND_EFFECT_IDS,
+    ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_WORDS,
     ACTIONSCRIPT_SURFACE_FLAGS_BYTES,
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
@@ -3706,6 +3708,26 @@ def call_arg_expr(
                 value,
                 ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS,
                 prefix="DISPLAY_MOSAIC",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "sprite_pose_descriptor_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_WORDS,
+                prefix="SPRITE_POSE_DESCRIPTOR",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "entity_script_id_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_ENTITY_SCRIPT_IDS,
+                prefix="ENTITY_SCRIPT_ID",
                 formatter=fmt_word,
                 constants=constants,
             )

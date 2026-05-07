@@ -125,8 +125,13 @@ entity_script_id_word`.  The spawn contract is based on the C4 spawn wrappers
 indexes the `EF:133F` sprite-pose descriptor table and X (`$2D`) is passed to
 the delayed-action state initializer as the entity script id. `C4:ED0E` names
 `$0321` as `CastSceneDriverScriptId`, matching the `$0322+` values seen in the
-cast-scroll spawn pilot as entity script ids. Individual descriptor and script
-id labels remain uncataloged here. The same operand pair applies to `C0:A98B`
+cast-scroll spawn pilot as entity script ids. Most individual descriptor and
+script id labels remain uncataloged, but the compact Event782 party recovery
+set is now C3-cataloged: `$0010/$0189/$018A/$018B` are named as the four
+`party_recovery_slot*_lying` sprite-pose descriptors and `$030F` as the shared
+`battle_swirl_recovery_party_spawn` entity script id. Those names are scoped to
+the observed spawn sequence; exact character/pose asset identity remains
+local-unknown. The same operand pair applies to `C0:A98B`
 `SpawnEntityAtCurrentSlotAnchor_ReadTwoWords`; only the anchor source differs.
 
 The contracts are imported from the C0/C4 wrapper strip and
