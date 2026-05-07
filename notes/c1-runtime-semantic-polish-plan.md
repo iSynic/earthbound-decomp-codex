@@ -754,3 +754,9 @@ This planning pass is documentation-only.
   source/metadata, C4 copy source/destination pairs, level decimal print
   source, preserved print buffer, and active text-entry pointer for selected
   slot redraws.
+- 2026-05-07 follow-up: the file-select setup wrappers at `C1:F616..F7F3`
+  now name the sound-setting refresh/result ABI and window-flavour
+  prompt/option text-entry ABI. The source distinguishes refresh mode, active
+  text-entry pointer, redraw source, option text sources, metadata, persisted
+  setting pointer, preview callback, and final selection result while leaving
+  EF save persistence and C4 text assets untouched.

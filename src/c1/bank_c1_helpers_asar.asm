@@ -28322,6 +28322,19 @@ org $C1F616
 !StartSelectedFileTextBank = $00C7
 !NoCursorLimit = $FFFF
 !ZeroWord = $0000
+!SoundSettingRefreshMode = $16
+!SoundSettingActiveTextEntryPointer = $14
+!SoundSettingSelectionResult = $12
+!SoundSettingRedrawTextSourcePointerLo = $0E
+!SoundSettingRedrawTextSourcePointerBank = $10
+!WindowFlavourPromptSourcePointerLo = $0E
+!WindowFlavourPromptSourcePointerBank = $10
+!WindowFlavourOptionSourcePointerLo = $0E
+!WindowFlavourOptionSourcePointerBank = $10
+!WindowFlavourTextEntryMetadataLo = $12
+!WindowFlavourTextEntryMetadataHi = $14
+!WindowFlavourSettingPointer = $18
+!WindowFlavourSelectionResult = $16
 C1F616_OpenOrRefreshSoundSettingSelection:
     rep #$31
     phd
@@ -28331,11 +28344,11 @@ C1F616_OpenOrRefreshSoundSettingSelection:
     tcd
     pla
     tax
-    stx $16
+    stx !SoundSettingRefreshMode
     lda.w #!SoundSettingMenuWindowId
     sta !ActiveWindowFocus
     jsl !C3E4D4_EnterWindowUpdateScope
-    ldx $16
+    ldx !SoundSettingRefreshMode
     bne C1F634_OpenOrRefreshSoundSettingSelection_LF634
     jmp.w C1F6C0_OpenOrRefreshSoundSettingSelection_LF6C0
 C1F634_OpenOrRefreshSoundSettingSelection_LF634:
@@ -28353,7 +28366,7 @@ C1F634_OpenOrRefreshSoundSettingSelection_LF634:
     clc
     adc.w #!TextEntryRecordTableBase
     tay
-    sty $14
+    sty !SoundSettingActiveTextEntryPointer
     lda !CurrentSoundSetting
     and.w #$00FF
     tax
@@ -28366,19 +28379,19 @@ C1F662_OpenOrRefreshSoundSettingSelection_LF662:
     clc
     adc.w #!TextEntryRecordTableBase
     tay
-    sty $14
+    sty !SoundSettingActiveTextEntryPointer
     dex
 C1F674_OpenOrRefreshSoundSettingSelection_LF674:
     bne C1F662_OpenOrRefreshSoundSettingSelection_LF662
     lda.w #!RedrawSelectedSetupRowMode
     jsr !C10FEA_ClearOrPrepareWindowContent
-    ldy $14
+    ldy !SoundSettingActiveTextEntryPointer
     lda !TextEntryCursorRowOffset,Y
     tax
     lda !TextEntryCursorColumnOffset,Y
     inc A
     jsl !C438A5_SetTextCursorPosition
-    ldy $14
+    ldy !SoundSettingActiveTextEntryPointer
     tya
     clc
     adc.w #!TextEntryBodyTextOffset
@@ -28390,9 +28403,9 @@ C1F674_OpenOrRefreshSoundSettingSelection_LF674:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !SoundSettingRedrawTextSourcePointerLo
     lda $08
-    sta $10
+    sta !SoundSettingRedrawTextSourcePointerBank
     ldx.w #!MenuSelectionEnabled
     lda.w #!NoCursorLimit
     jsl !C43BB9_PrintTextFromPointer
@@ -28401,13 +28414,13 @@ C1F674_OpenOrRefreshSoundSettingSelection_LF674:
     lda !CurrentSoundSetting
     and.w #$00FF
     tax
-    stx $12
+    stx !SoundSettingSelectionResult
     bra C1F6DE_OpenOrRefreshSoundSettingSelection_LF6DE
 C1F6C0_OpenOrRefreshSoundSettingSelection_LF6C0:
     lda.w #$0001
     jsr !C1196A_OpenMenuSelectionLoop
     tax
-    stx $12
+    stx !SoundSettingSelectionResult
     beq C1F6D1_OpenOrRefreshSoundSettingSelection_LF6D1
     txa
     sep #$20
@@ -28419,7 +28432,7 @@ C1F6D1_OpenOrRefreshSoundSettingSelection_LF6D1:
     dec A
     jsl !EF0A4D_SaveGameSlot
 C1F6DE_OpenOrRefreshSoundSettingSelection_LF6DE:
-    ldx $12
+    ldx !SoundSettingSelectionResult
     txa
     pld
     rts
@@ -28434,9 +28447,9 @@ OPEN_FLAVOUR_MENU:
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_EnterWindowUpdateScope
     lda.w #!WindowFlavourPromptTextLo
-    sta $0E
+    sta !WindowFlavourPromptSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourPromptSourcePointerBank
     lda.w #!WindowFlavourPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
     lda.w #!ZeroWord
@@ -28444,57 +28457,57 @@ OPEN_FLAVOUR_MENU:
     lda.w #!ZeroWord
     sta $08
     lda.w #!WindowFlavourOption1TextLo
-    sta $0E
+    sta !WindowFlavourOptionSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourOptionSourcePointerBank
     lda $06
-    sta $12
+    sta !WindowFlavourTextEntryMetadataLo
     lda $08
-    sta $14
+    sta !WindowFlavourTextEntryMetadataHi
     ldx.w #!WindowFlavourFirstChoice
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #!WindowFlavourOption2TextLo
-    sta $0E
+    sta !WindowFlavourOptionSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourOptionSourcePointerBank
     lda $06
-    sta $12
+    sta !WindowFlavourTextEntryMetadataLo
     lda $08
-    sta $14
+    sta !WindowFlavourTextEntryMetadataHi
     ldx.w #!WindowFlavourSecondChoice
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #!WindowFlavourOption3TextLo
-    sta $0E
+    sta !WindowFlavourOptionSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourOptionSourcePointerBank
     lda $06
-    sta $12
+    sta !WindowFlavourTextEntryMetadataLo
     lda $08
-    sta $14
+    sta !WindowFlavourTextEntryMetadataHi
     ldx.w #!WindowFlavourThirdChoice
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #!WindowFlavourOption4TextLo
-    sta $0E
+    sta !WindowFlavourOptionSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourOptionSourcePointerBank
     lda $06
-    sta $12
+    sta !WindowFlavourTextEntryMetadataLo
     lda $08
-    sta $14
+    sta !WindowFlavourTextEntryMetadataHi
     ldx.w #!WindowFlavourFourthChoice
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #!WindowFlavourOption5TextLo
-    sta $0E
+    sta !WindowFlavourOptionSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourOptionSourcePointerBank
     lda $06
-    sta $12
+    sta !WindowFlavourTextEntryMetadataLo
     lda $08
-    sta $14
+    sta !WindowFlavourTextEntryMetadataHi
     ldx.w #!WindowFlavourFifthChoice
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
@@ -28507,7 +28520,7 @@ OPEN_FLAVOUR_MENU:
     sta $0000,X
 C1F7A8_OpenOrRefreshSoundSettingSelection_LF7A8:
     ldx.w #!CurrentWindowFlavourSetting
-    stx $18
+    stx !WindowFlavourSettingPointer
     rep #$20
     lda $0000,X
     and.w #$00FF
@@ -28521,15 +28534,15 @@ C1F7A8_OpenOrRefreshSoundSettingSelection_LF7A8:
     lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
     tay
-    sty $16
+    sty !WindowFlavourSelectionResult
     beq C1F7DB_OpenOrRefreshSoundSettingSelection_LF7DB
     tya
     sep #$20
-    ldx $18
+    ldx !WindowFlavourSettingPointer
     sta $0000,X
     bra C1F7F3_OpenOrRefreshSoundSettingSelection_LF7F3
 C1F7DB_OpenOrRefreshSoundSettingSelection_LF7DB:
-    ldx $18
+    ldx !WindowFlavourSettingPointer
     lda $0000,X
     and.b #$FF
     brk #$F0
@@ -28545,7 +28558,7 @@ C1F7F3_OpenOrRefreshSoundSettingSelection_LF7F3:
     and.w #$00FF
     dec A
     jsl !EF0A4D_SaveGameSlot
-    ldy $16
+    ldy !WindowFlavourSelectionResult
     tya
     pld
     rts

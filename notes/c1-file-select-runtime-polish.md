@@ -182,6 +182,11 @@ This slice makes the file-select path useful to future SRAM/setup work:
   source/metadata, C4 copy source/destination pairs, level decimal source,
   preserved print buffer, and active text-entry pointer used for selected-slot
   redraws
+- the setup-menu wrappers at `C1:F616` and `C1:F6E3` now name their refresh
+  mode/result slots, active text-entry pointer, redraw text source,
+  window-flavour prompt/option text sources, text-entry metadata, persisted
+  setting pointer, and preview-selection result around the shared setup
+  selection loops
 
 ## Remaining Soft Spots
 
