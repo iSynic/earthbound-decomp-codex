@@ -166,8 +166,10 @@ macros.
 - `EF:89FE..8FAD` now splits the complete EBATTLE3 enemy-action text include,
   from `MSG_BTL_JIHIBIKI` through `MSG_BTL_GYIYYIG_3`, before the next
   EBATTLE9 include begins. Proved EBATTLE3 row-message consumers now carry
-  `RowPresentationText` names for rows `159`, `228`, `232`, `248`, `273`,
-  and `290`, plus the shared named-item anchor used by rows `140` and `247`.
+  `RowPresentationText` names for rows `159`, `160`, `161`, `176`, `211..234`,
+  `241`, `242`, `248`, `273`, `274`, `290`, and `300..307`, plus
+  `FlavorRowPresentationText` for rows `235/236` and `309/313..317`, and the
+  shared named-item anchor used by rows `140` and `247`.
 - `EF:8FAD..9A47` now splits the complete EBATTLE9 field-monster/graveyard
   include: the party-size helper branch, Sanctuary field-monster payloads,
   Paula/graveyard branches, signpost/boss/girl text, and the Guts tutorial
@@ -507,9 +509,9 @@ EF anchor renames.
 
 The row-pointer recovery frontier now records the resolved set and the remaining
 local frontier. The ROM-backed inspector is available in this checkout, so the
-next EF pass can focus on remaining exact EBATTLE3/EBATTLE1 `MSG_BTL_*`
-islands rather than the already proved EBATTLE2 action rows, Lifeup,
-numeric-effect, explosive, main no-op/flavor, complete `C2:9039`, and
+next EF pass can focus on the remaining exact EBATTLE1 action-tail
+`MSG_BTL_*` rows rather than the already proved EBATTLE2/EBATTLE3 action rows,
+Lifeup, numeric-effect, explosive, main no-op/flavor, complete `C2:9039`, and
 neighboring no-op-tail joins.
 
 The neighboring no-op-tail pass is now also complete. `C2:903C` only joins row

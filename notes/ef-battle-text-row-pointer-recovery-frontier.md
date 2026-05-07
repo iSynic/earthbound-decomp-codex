@@ -83,13 +83,14 @@ table when a recovered row looks ambiguous.
 ## First Rows To Recover
 
 Rows `32..35`, `48`, `49`, `64`, `65`, `95..98`, `103`, `105..116`,
-`119..134`, `201..206`, `208..210`, `233`, `234`, `238`, `251..257`, and
-`260..266` are now recovered and moved into the concrete row-message crosswalk.
+`119..134`, `160`, `161`, `176`, `201..206`, `208..210`, `211..236`, `238`,
+`241`, `242`, `251..257`, `260..266`, `274`, and `300..307` are now recovered
+and moved into the concrete row-message crosswalk.
 Continue with the remaining rows before any broader action-table sweep:
 
 | Priority | Rows | Why they matter |
 | ---: | --- | --- |
-| `1` | remaining exact EBATTLE3/EBATTLE1 `MSG_BTL_*` islands outside the recovered sets | These need the same row `+4/+8` proof before labels graduate from symbol-derived anchors. |
+| `1` | remaining exact EBATTLE1 action-tail `MSG_BTL_*` rows | These need the same row `+4/+8` proof before labels graduate from symbol-derived anchors. |
 
 ## Recovered No-Op And Flavor Joins
 
@@ -114,6 +115,9 @@ The no-op/flavor pass recovered the highest-risk behavior-only family:
 - the EBATTLE2 exact `MSG_BTL_*` action rows `103`, `105..116`, `201..206`,
   `208..210`, and reuse row `238` now have `RowPresentationText` source names
   and concrete crosswalk entries.
+- the EBATTLE3 exact `MSG_BTL_*` action rows `160/161/176`, `211..227`,
+  `229..231`, `241/242`, and `274/300..307` now have `RowPresentationText`
+  source names; no-op rows `235/236` carry `FlavorRowPresentationText`.
 
 The EBATTLE2 `119..134` anchors now carry `FlavorRowPresentationText` names in
 source. The EBATTLE4/status rows keep their existing event/status/result labels

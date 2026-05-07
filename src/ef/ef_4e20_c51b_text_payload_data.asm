@@ -2522,106 +2522,105 @@ EF89E0_EBattle1PrayRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:89FE
 
-; EBATTLE3 enemy-action island: exact MSG_BTL anchors preserved for later
-; D5:7B68 row-message crosswalk work.
-; EBATTLE3: `MSG_BTL_JIHIBIKI` enemy-action text.
-EF89FE_EBattle3MsgBtlJihibiki:
+; EBATTLE3 enemy-action island: row-backed MSG_BTL row-presentation anchors.
+; EBATTLE3: row 211 row +4 `MSG_BTL_JIHIBIKI` presentation text.
+EF89FE_EBattle3JihibikiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8A18
 
-; EBATTLE3: `MSG_BTL_OSAETSUKE` enemy-action text.
-EF8A18_EBattle3MsgBtlOsaetsuke:
+; EBATTLE3: row 212 row +4 `MSG_BTL_OSAETSUKE` presentation text.
+EF8A18_EBattle3OsaetsukeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8A33
 
-; EBATTLE3: `MSG_BTL_CURSE_WORD` enemy-action text.
-EF8A33_EBattle3MsgBtlCurseWord:
+; EBATTLE3: row 213 row +4 `MSG_BTL_CURSE_WORD` presentation text.
+EF8A33_EBattle3CurseWordRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8A52
 
-; EBATTLE3: `MSG_BTL_JIMI` enemy-action text.
-EF8A52_EBattle3MsgBtlJimi:
+; EBATTLE3: row 214 row +4 `MSG_BTL_JIMI` presentation text.
+EF8A52_EBattle3JimiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8A6F
 
-; EBATTLE3: `MSG_BTL_PENKI` enemy-action text.
-EF8A6F_EBattle3MsgBtlPenki:
+; EBATTLE3: row 215 row +4 `MSG_BTL_PENKI` presentation text.
+EF8A6F_EBattle3PenkiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8A8C
 
-; EBATTLE3: `MSG_BTL_NAGURI_KAKARI` enemy-action text.
-EF8A8C_EBattle3MsgBtlNaguriKakari:
+; EBATTLE3: row 216 row +4 `MSG_BTL_NAGURI_KAKARI` presentation text.
+EF8A8C_EBattle3NaguriKakariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8AA3
 
-; EBATTLE3: `MSG_BTL_CLAW` enemy-action text.
-EF8AA3_EBattle3MsgBtlClaw:
+; EBATTLE3: row 217 row +4 `MSG_BTL_CLAW` presentation text.
+EF8AA3_EBattle3ClawRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8AC2
 
-; EBATTLE3: `MSG_BTL_KUCHIBASHI` enemy-action text.
-EF8AC2_EBattle3MsgBtlKuchibashi:
+; EBATTLE3: row 218 row +4 `MSG_BTL_KUCHIBASHI` presentation text.
+EF8AC2_EBattle3KuchibashiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8ADD
 
-; EBATTLE3: `MSG_BTL_TSUNO` enemy-action text.
-EF8ADD_EBattle3MsgBtlTsuno:
+; EBATTLE3: row 219 row +4 `MSG_BTL_TSUNO` presentation text.
+EF8ADD_EBattle3TsunoRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8AF8
 
-; EBATTLE3: `MSG_BTL_PUNCH` enemy-action text.
-EF8AF8_EBattle3MsgBtlPunch:
+; EBATTLE3: row 220 row +4 `MSG_BTL_PUNCH` presentation text.
+EF8AF8_EBattle3PunchRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8B11
 
-; EBATTLE3: `MSG_BTL_PUMPKIN` enemy-action text.
-EF8B11_EBattle3MsgBtlPumpkin:
+; EBATTLE3: row 221 row +4 `MSG_BTL_PUMPKIN` presentation text.
+EF8B11_EBattle3PumpkinRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8B2F
 
-; EBATTLE3: `MSG_BTL_BEAM` enemy-action text.
-EF8B2F_EBattle3MsgBtlBeam:
+; EBATTLE3: row 222 row +4 `MSG_BTL_BEAM` presentation text.
+EF8B2F_EBattle3BeamRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8B4A
 
-; EBATTLE3: `MSG_BTL_YARI` enemy-action text.
-EF8B4A_EBattle3MsgBtlYari:
+; EBATTLE3: row 223 row +4 `MSG_BTL_YARI` presentation text.
+EF8B4A_EBattle3YariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8B65
 
-; EBATTLE3: `MSG_BTL_FUMITSUKE` enemy-action text.
-EF8B65_EBattle3MsgBtlFumitsuke:
+; EBATTLE3: row 224 row +4 `MSG_BTL_FUMITSUKE` presentation text.
+EF8B65_EBattle3FumitsukeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8B89
 
-; EBATTLE3: `MSG_BTL_FURAFUUPU` enemy-action text.
-EF8B89_EBattle3MsgBtlFurafuupu:
+; EBATTLE3: row 225 row +4 `MSG_BTL_FURAFUUPU` presentation text.
+EF8B89_EBattle3FurafuupuRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8BA8
 
-; EBATTLE3: `MSG_BTL_TAIATARI` enemy-action text.
-EF8BA8_EBattle3MsgBtlTaiatari:
+; EBATTLE3: row 226 row +4 `MSG_BTL_TAIATARI` presentation text.
+EF8BA8_EBattle3TaiatariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8BC0
 
-; EBATTLE3: `MSG_BTL_SKATEBOARD` enemy-action text.
-EF8BC0_EBattle3MsgBtlSkateboard:
+; EBATTLE3: row 227 row +4 `MSG_BTL_SKATEBOARD` presentation text.
+EF8BC0_EBattle3SkateboardRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8BE8
@@ -2632,20 +2631,20 @@ EF8BE8_EBattle3DiamondizeBiteRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:8BFB
 
-; EBATTLE3: `MSG_BTL_KUDAMAKI` enemy-action text.
-EF8BFB_EBattle3MsgBtlKudamaki:
+; EBATTLE3: row 229 row +4 `MSG_BTL_KUDAMAKI` presentation text.
+EF8BFB_EBattle3KudamakiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8C1D
 
-; EBATTLE3: `MSG_BTL_SEKKYOU` enemy-action text.
-EF8C1D_EBattle3MsgBtlSekkyou:
+; EBATTLE3: row 230 row +4 `MSG_BTL_SEKKYOU` presentation text.
+EF8C1D_EBattle3SekkyouRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8C3A
 
-; EBATTLE3: `MSG_BTL_SHIKARITSUKE` enemy-action text.
-EF8C3A_EBattle3MsgBtlShikaritsuke:
+; EBATTLE3: row 231 row +4 `MSG_BTL_SHIKARITSUKE` presentation text.
+EF8C3A_EBattle3ShikaritsukeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8C58
@@ -2668,14 +2667,14 @@ EF8C92_EBattle3WarCryOffenseDefenseReductionRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:8CAC
 
-; EBATTLE3: `MSG_BTL_FAKE_DEAD` enemy-action text.
-EF8CAC_EBattle3MsgBtlFakeDead:
+; EBATTLE3: row 235 row +4 `MSG_BTL_FAKE_DEAD` flavor presentation text.
+EF8CAC_EBattle3FakeDeadFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8CC7
 
-; EBATTLE3: `MSG_BTL_YUDAN` enemy-action text.
-EF8CC7_EBattle3MsgBtlYudan:
+; EBATTLE3: row 236 row +4 `MSG_BTL_YUDAN` flavor presentation text.
+EF8CC7_EBattle3YudanFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8CDD
@@ -2711,8 +2710,8 @@ EF8D4C_EBattle3EnemyLifeupFlavorRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:8D72
 
-; EBATTLE3: `MSG_BTL_NEBIE_BEAM` enemy-action text.
-EF8D72_EBattle3MsgBtlNebieBeam:
+; EBATTLE3: row 241 row +4 `MSG_BTL_NEBIE_BEAM` presentation text.
+EF8D72_EBattle3NebieBeamRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8D9F
@@ -2723,8 +2722,8 @@ EF8D9F_EBattle3NeutralizeSparkleRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:8DC1
 
-; EBATTLE3: `MSG_BTL_MAKITSUKI` enemy-action text.
-EF8DC1_EBattle3MsgBtlMakitsuki:
+; EBATTLE3: row 242 row +4 `MSG_BTL_MAKITSUKI` presentation text.
+EF8DC1_EBattle3MakitsukiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8DDE
@@ -2747,20 +2746,20 @@ EF8E3C_EBattle3ConcentrationPsiSealRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:8E5E
 
-; EBATTLE3: `MSG_BTL_HPSUCK` enemy-action text.
-EF8E5E_EBattle3MsgBtlHpsuck:
+; EBATTLE3: row 161 row +4 `MSG_BTL_HPSUCK` presentation text.
+EF8E5E_EBattle3HpsuckRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8E7E
 
-; EBATTLE3: `MSG_BTL_HPSUCKSP` enemy-action text.
-EF8E7E_EBattle3MsgBtlHpsucksp:
+; EBATTLE3: row 176 row +4 `MSG_BTL_HPSUCKSP` presentation text.
+EF8E7E_EBattle3HpsuckspRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8E9E
 
-; EBATTLE3: `MSG_BTL_SHIELDKILL` enemy-action text.
-EF8E9E_EBattle3MsgBtlShieldkill:
+; EBATTLE3: row 160 row +4 `MSG_BTL_SHIELDKILL` presentation text.
+EF8E9E_EBattle3ShieldkillRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8EBE
@@ -2771,20 +2770,20 @@ EF8EBE_EBattle3BadSmellGasRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:8EE2
 
-; EBATTLE3: `MSG_BTL_LIGHTNING` enemy-action text.
-EF8EE2_EBattle3MsgBtlLightning:
+; EBATTLE3: rows 302..304 row +4 `MSG_BTL_LIGHTNING` presentation text.
+EF8EE2_EBattle3LightningRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8F17
 
-; EBATTLE3: `MSG_BTL_LIGHTNING_B` enemy-action text.
-EF8F17_EBattle3MsgBtlLightningB:
+; EBATTLE3: rows 274, 300, and 301 row +4 `MSG_BTL_LIGHTNING_B` presentation text.
+EF8F17_EBattle3LightningBRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8F4A
 
-; EBATTLE3: `MSG_BTL_LIGHTNING_C` enemy-action text.
-EF8F4A_EBattle3MsgBtlLightningC:
+; EBATTLE3: rows 305..307 row +4 `MSG_BTL_LIGHTNING_C` presentation text.
+EF8F4A_EBattle3LightningCRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8F91

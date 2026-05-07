@@ -351,6 +351,10 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `MSG_BTL_*` anchors for rows `103`, `105..116`, `201..206`, `208..210`, and
   reuse row `238` to `RowPresentationText`, preserving symbol stems while
   removing that EBATTLE2 island from the exact-anchor frontier.
+- 2026-05-06: EF EBATTLE3 exact-message follow-up promoted the row-backed
+  `MSG_BTL_*` anchors for rows `160/161/176`, `211..227`, `229..231`,
+  `241/242`, and `274/300..307` to `RowPresentationText`, with no-op rows
+  `235/236` carrying `FlavorRowPresentationText`.
 - 2026-05-06: EF status-result label follow-up renamed the proved direct
   `DC1C` status-result anchors across `EF:6AC7..6C55` and shared fallback
   `EF:766E` with `StatusResultText`, keeping them distinct from `DD9F` row

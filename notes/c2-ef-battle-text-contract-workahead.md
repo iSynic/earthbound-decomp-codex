@@ -325,8 +325,12 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   homesick/action-blocked/recovery payloads rather than pure flavor anchors.
 - 2026-05-06: EF EBATTLE2 exact-message follow-up promoted row-backed
   `MSG_BTL_*` anchors `103`, `105..116`, `201..206`, `208..210`, and `238` to
-  `RowPresentationText`, leaving remaining EBATTLE3/EBATTLE1 exact anchors in
-  the row-pointer frontier until their C2 bodies are joined.
+  `RowPresentationText`, leaving later exact-anchor passes to discharge the
+  other row-backed islands.
+- 2026-05-06: EF EBATTLE3 exact-message follow-up promoted row-backed
+  `MSG_BTL_*` anchors `160/161/176`, `211..227`, `229..231`, `241/242`, and
+  `274/300..307` to `RowPresentationText`, with no-op rows `235/236` using
+  `FlavorRowPresentationText`.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

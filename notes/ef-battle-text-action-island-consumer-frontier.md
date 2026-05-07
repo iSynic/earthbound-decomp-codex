@@ -91,11 +91,17 @@ enemy-action island:
 | ---: | --- | --- |
 | `140`, `247` | `EF:8E27` | Shared named-item/normalization row message |
 | `159` | `EF:8E3C` | Concentration/PSI-seal item-side row message |
+| `160`, `161`, `176` | `EF:8E9E`, `EF:8E5E`, `EF:8E7E` | Shield-kill / HP-suck row presentations |
+| `211..227` | `EF:89FE..8BC0` | EBATTLE3 exact `MSG_BTL_*` enemy-action row presentations |
 | `228` | `EF:8BE8` | Diamondize-bite row message |
+| `229..231` | `EF:8BFB..8C3A` | EBATTLE3 exact `MSG_BTL_*` guts/stat reduction row presentations |
 | `232` | `EF:8C58` | Odor/offense-reduction row message |
 | `233`, `234` | `EF:8C75/8C92` | Offense/defense reduction row messages |
+| `235`, `236` | `EF:8CAC`, `EF:8CC7` | EBATTLE3 fake-dead/Yudan flavor row messages over `C2:9033` |
+| `241`, `242` | `EF:8D72`, `EF:8DC1` | EBATTLE3 special/status row presentations |
 | `248` | `EF:8D9F` | Neutralize-sparkle row message |
 | `273` | `EF:8EBE` | Bad-smell gas row message |
+| `274`, `300..307` | `EF:8F17`, `EF:8EE2`, `EF:8F4A` | Lightning row presentations reused across PSI wrappers |
 | `290` | `EF:8DDE` | Rainbow-colors event row message |
 | `309` | `EF:8F91` | Giygas/Gyiyg flavor row message with `C2:9039` default/no-op behavior |
 | `313..317` | `EF:8D4C`, `EF:8CDD`, `EF:8CFB`, `EF:8D17`, `EF:8D2F` | Enemy Lifeup/Yudan flavor row messages with `C2:9039` default/no-op behavior |
@@ -115,9 +121,11 @@ physical, special, item, and event rows (`99..102`, `104`, `117`, `118`,
 `140`, `228`, `232..234`, `243`, `244`, `247`, `248`, `273`, and `290`).
 It also now records the recovered Lifeup/offense PSI rows (`32..35`, `48`,
 `49`), numeric-effect rows (`95..98`, `233`, `234`), explosive rows
-(`64`, `65`), and the proved EBATTLE2 exact `MSG_BTL_*` action rows
-(`103`, `105..116`, `201..206`, `208..210`, and `238`). The latest
-pointer-recovery passes add the no-op/flavor rows
+(`64`, `65`), the proved EBATTLE2 exact `MSG_BTL_*` action rows
+(`103`, `105..116`, `201..206`, `208..210`, and `238`), and the proved
+EBATTLE3 exact rows (`160/161/176`, `211..227`, `229..231`, `235/236`,
+`241/242`, and `274/300..307`). The latest pointer-recovery passes add the
+no-op/flavor rows
 `119..134`, `251..257`, and `260..266`, plus the complete `C2:9039`
 default/item-use split: EF rows `60/61`, `259`, `270`, `271`, `279`, `309`, and
 `313..317` are recorded separately from C7/C9/C6 non-EF rows. The EBATTLE2

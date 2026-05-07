@@ -128,6 +128,21 @@ original symbol stem.
 | `208..210` | `EF:83CA..8413` `Fue`, `JumpToFace`, `ChouOnpa` row presentation texts | `C2:8E3B`, `8CF1`, `8CF1` | Late EBATTLE2 special/status row presentations |
 | `238` | `EF:8010` `KamitukiRowPresentationText` | `C2:859F` | Reuse of row `111` bite text with a single-target bash body |
 
+## EBATTLE3 Proved Enemy Row Messages
+
+The EBATTLE3 exact `MSG_BTL_*` subset below now has concrete row `+4/+8`
+evidence. The no-op rows keep `FlavorRowPresentationText`; the rest use
+row-presentation labels with the original symbol stem.
+
+| Row | Row `+4` EF message | Row `+8` C2 body | Current behavior read |
+| ---: | --- | --- | --- |
+| `160`, `161`, `176` | `EF:8E9E`, `EF:8E5E`, `EF:8E7E` shield/HP-suck row texts | `C2:A422`, `A46B`, `A507` | Shield-kill and HP-suck row presentations |
+| `211..227` | `EF:89FE..8BC0` `Jihibiki` through `Skateboard` row texts | mixed physical/status bodies | Main EBATTLE3 enemy-action row presentations |
+| `229..231` | `EF:8BFB..8C3A` `Kudamaki`, `Sekkyou`, `Shikaritsuke` row texts | `C2:8EAE` | Guts/stat reduction row presentations |
+| `235`, `236` | `EF:8CAC`, `EF:8CC7` `FakeDead` and `Yudan` flavor row texts | `C2:9033` | Flavor-only no-op row presentations |
+| `241`, `242` | `EF:8D72`, `EF:8DC1` `NebieBeam` and `Makitsuki` row texts | `C2:8B6D`, `8CB8` | Special/status row presentations |
+| `274`, `300..307` | `EF:8F17`, `EF:8EE2`, `EF:8F4A` Lightning row texts | `C2:987D`, `9647`, `99EF` | Lightning alpha/beta/gamma presentation reused across PSI wrappers |
+
 ## Flavor-Only No-Op Row Messages
 
 These rows have no-op or tiny row `+8` behavior tails, so the row `+4` message
