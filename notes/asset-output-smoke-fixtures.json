@@ -13,13 +13,13 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 120,
-    "unique_selected_assets": 48,
-    "unique_selected_manifest_asset_pairs": 48,
-    "recipe_kinds_covered": 31,
+    "fixture_count": 122,
+    "unique_selected_assets": 49,
+    "unique_selected_manifest_asset_pairs": 49,
+    "recipe_kinds_covered": 32,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 35,
+    "family_decoder_pairs_covered": 36,
     "target_bank_output_fixture_policy_banks": 22,
     "bank_output_fixture_banks_covered": 22,
     "target_banks_without_typed_non_raw_outputs": [],
@@ -34,16 +34,16 @@
     },
     "fixture_type_counts": {
       "bank_output": 22,
-      "family_decoder": 35,
+      "family_decoder": 36,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 31,
+      "recipe_kind": 32,
       "recipe_option": 6
     },
     "fixture_family_counts": {
       "battle_visual_assets": 55,
       "ef_debug_and_late_tail": 3,
-      "map_tilesets_and_runtime_tables": 21,
+      "map_tilesets_and_runtime_tables": 23,
       "overworld_sprites": 15,
       "ui_font_town_map_assets": 26
     }
@@ -118,6 +118,7 @@
     "map_tilesets_and_runtime_tables": {
       "earthbound_lzhal": 64,
       "earthbound_lzhal_snes_4bpp_tiles_png": 22,
+      "map_palette_pointer_table_json": 1,
       "map_sector_music_table_json": 1,
       "map_tile_chunk_index_json": 10,
       "raw": 130,
@@ -572,6 +573,29 @@
       },
       "all_output_kinds": [
         "font_metric_widths_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.map_palette_pointer_table_json",
+      "type": "recipe_kind",
+      "key": "map_palette_pointer_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "map_tilesets_and_runtime_tables",
+      "bank": "DA",
+      "manifest_path": "asset-manifests/bank-da-assets.json",
+      "asset_id": "table.da.035_data_map_unknown_map_palette_pointer_table_asm",
+      "title": "data/map/unknown_map_palette_pointer_table.asm",
+      "category": "raw-table",
+      "bytes": 96,
+      "target_output": {
+        "kind": "map_palette_pointer_table_json",
+        "path": "da/tables/035_data_map_unknown_map_palette_pointer_table_asm_decoded.json",
+        "decoder": "map_palette_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "map_palette_pointer_table_json",
         "raw"
       ]
     },
@@ -2723,6 +2747,29 @@
       ]
     },
     {
+      "id": "fixture.family_decoder.map_tilesets_and_runtime_tables_map_palette_pointer_table",
+      "type": "family_decoder",
+      "key": "map_tilesets_and_runtime_tables.map_palette_pointer_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "map_tilesets_and_runtime_tables",
+      "bank": "DA",
+      "manifest_path": "asset-manifests/bank-da-assets.json",
+      "asset_id": "table.da.035_data_map_unknown_map_palette_pointer_table_asm",
+      "title": "data/map/unknown_map_palette_pointer_table.asm",
+      "category": "raw-table",
+      "bytes": 96,
+      "target_output": {
+        "kind": "map_palette_pointer_table_json",
+        "path": "da/tables/035_data_map_unknown_map_palette_pointer_table_asm_decoded.json",
+        "decoder": "map_palette_pointer_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "map_palette_pointer_table_json",
+        "raw"
+      ]
+    },
+    {
       "id": "fixture.family_decoder.map_tilesets_and_runtime_tables_map_sector_music_table",
       "type": "family_decoder",
       "key": "map_tilesets_and_runtime_tables.map_sector_music_table",
@@ -3192,9 +3239,10 @@
     {
       "manifest_path": "asset-manifests/bank-da-assets.json",
       "asset_ids": [
-        "asset.da.map_data_palette_0"
+        "asset.da.map_data_palette_0",
+        "table.da.035_data_map_unknown_map_palette_pointer_table_asm"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-da-assets.json --asset-id asset.da.map_data_palette_0 --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-da-assets.json --asset-id asset.da.map_data_palette_0 --asset-id table.da.035_data_map_unknown_map_palette_pointer_table_asm --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/bank-db-assets.json",

@@ -9,9 +9,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 ## Snapshot
 
 - status: `ok`
-- synthetic cases: `32`
+- synthetic cases: `33`
 - trim-trailing-bytes cases: `1`
-- output kinds covered: `31`
+- output kinds covered: `32`
 - missing output kinds: `0`
 - output root: `build/asset-output-codec-validation`
 
@@ -23,6 +23,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `earthbound-lzhal` | `earthbound_lzhal` | 26 | - | `compressed_bytes_consumed`, `decompressed_bytes` |
 | `map-tile-chunk-index` | `map_tile_chunk_index_json` | 347 | `chunk_index` | `chunk_index`, `distinct_tile_ids`, `entry_count`, `max_tile_id`, `min_tile_id` |
 | `map-sector-music-table` | `map_sector_music_table_json` | 454398 | `column_count`, `row_count` | `distinct_entry_count`, `max_entry_id`, `min_entry_id`, `sector_count` |
+| `map-palette-pointer-table` | `map_palette_pointer_table_json` | 12943 | `entry_count`, `pointer_bank` | `distinct_pointers`, `distinct_target_banks`, `entry_count`, `pointer_bank`, `sequential_palette_id_count` |
 | `battle-swirl-frame-metadata` | `battle_swirl_frame_json` | 405 | `sequence_frame_count`, `sequence_frame_index`, `sequence_id`, `sequence_speed`, `swirl_id` | `first_opcode`, `payload_bytes`, `sequence_frame_count`, `sequence_frame_index`, `sequence_id`, `sequence_speed`, `swirl_id` |
 | `battle-swirl-pointer-table` | `battle_swirl_pointer_table_json` | 601 | `entry_count`, `pointer_bank` | `distinct_pointers`, `entry_count`, `max_pointer`, `min_pointer`, `pointer_bank` |
 | `battle-swirl-sequence-table` | `battle_swirl_sequence_table_json` | 876 | `row_count` | `max_sequence_speed`, `row_count`, `total_frame_count`, `visible_sequence_count` |

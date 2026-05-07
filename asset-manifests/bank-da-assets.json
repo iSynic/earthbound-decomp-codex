@@ -38,32 +38,38 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 38,
-    "output_recipe_count": 105,
-    "typed_output_kind_count": 4,
-    "decoder_output_recipe_count": 67,
+    "output_recipe_count": 106,
+    "typed_output_kind_count": 5,
+    "decoder_output_recipe_count": 68,
     "renderer_output_recipe_count": 32,
     "preview_png_recipe_count": 32,
     "output_kind_counts": {
       "earthbound_lzhal": 3,
+      "map_palette_pointer_table_json": 1,
       "raw": 38,
       "snes_palette_json": 32,
       "snes_palette_swatch_png": 32
     },
     "decoder_counts": {
       "earthbound_lzhal": 3,
+      "map_palette_pointer_table": 1,
       "snes_palette": 64
     },
     "renderer_counts": {
       "palette_swatch": 32
     },
-    "smoke_fixture_count": 1,
+    "smoke_fixture_count": 3,
     "smoke_fixture_asset_ids": [
-      "asset.da.map_data_palette_0"
+      "asset.da.map_data_palette_0",
+      "table.da.035_data_map_unknown_map_palette_pointer_table_asm"
     ],
     "smoke_fixture_type_counts": {
-      "bank_output": 1
+      "bank_output": 1,
+      "family_decoder": 1,
+      "recipe_kind": 1
     },
     "smoke_fixture_target_kind_counts": {
+      "map_palette_pointer_table_json": 2,
       "snes_palette_swatch_png": 1
     }
   },
@@ -1173,12 +1179,19 @@
         {
           "kind": "raw",
           "path": "da/tables/035_data_map_unknown_map_palette_pointer_table_asm.bin"
+        },
+        {
+          "kind": "map_palette_pointer_table_json",
+          "path": "da/tables/035_data_map_unknown_map_palette_pointer_table_asm_decoded.json",
+          "entry_count": 32,
+          "pointer_bank": 218
         }
       ],
       "notes": [
         "Source include from ebsrc: data/map/unknown_map_palette_pointer_table.asm",
         "Original file offset: 0x1AFAA7",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Decoded as the 32-entry DA map palette long-pointer table; entries target MAP_DATA_PALETTE_0..31 payload starts."
       ]
     },
     {

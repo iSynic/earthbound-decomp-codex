@@ -233,11 +233,23 @@ MAP_SECTOR_MUSIC_COLUMN_COUNT = 80
 MAP_SECTOR_MUSIC_ROW_COUNT = 32
 MAP_SECTOR_MUSIC_EXPECTED_BYTES = MAP_SECTOR_MUSIC_COLUMN_COUNT * MAP_SECTOR_MUSIC_ROW_COUNT
 
+MAP_PALETTE_POINTER_TABLE_START = 0xFAA7
+MAP_PALETTE_POINTER_ENTRY_COUNT = 32
+MAP_PALETTE_POINTER_ENTRY_SIZE = 3
+MAP_PALETTE_POINTER_EXPECTED_BYTES = MAP_PALETTE_POINTER_ENTRY_COUNT * MAP_PALETTE_POINTER_ENTRY_SIZE
+MAP_PALETTE_VARIANT_BYTES = 192
+
 
 def dc_table_range(table_start: int, offset: int, size: int) -> str:
     start = table_start + offset
     end = start + size
     return f"DC:{start:04X}..DC:{end:04X}"
+
+
+def da_table_range(table_start: int, offset: int, size: int) -> str:
+    start = table_start + offset
+    end = start + size
+    return f"DA:{start:04X}..DA:{end:04X}"
 
 
 def write_map_sector_music_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
@@ -306,6 +318,83 @@ def write_map_sector_music_table_json(data: bytes, path: Path, spec: dict[str, A
         "distinct_entry_count": len(distinct_values),
         "min_entry_id": min(values),
         "max_entry_id": max(values),
+    }
+
+
+def write_map_palette_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    entry_count = int(spec["entry_count"])
+    pointer_bank = int(spec["pointer_bank"])
+    if entry_count != MAP_PALETTE_POINTER_ENTRY_COUNT:
+        raise ValueError(f"Map palette pointer table entry_count must be 32, got {entry_count}")
+    if pointer_bank != 0xDA:
+        raise ValueError(f"Map palette pointer table pointer_bank must be 0xDA, got 0x{pointer_bank:02X}")
+    if len(data) != MAP_PALETTE_POINTER_EXPECTED_BYTES:
+        raise ValueError(
+            "Map palette pointer table expected "
+            f"{MAP_PALETTE_POINTER_EXPECTED_BYTES} bytes, got {len(data)}"
+        )
+
+    entries = []
+    packed_pointers = []
+    target_banks = set()
+    sequential_palette_id_count = 0
+    for palette_id in range(entry_count):
+        offset = palette_id * MAP_PALETTE_POINTER_ENTRY_SIZE
+        packed_pointer = read_u24_le(data, offset)
+        bank = packed_pointer >> 16
+        low_word = packed_pointer & 0xFFFF
+        packed_pointers.append(packed_pointer)
+        target_banks.add(bank)
+        if palette_id == len(entries):
+            sequential_palette_id_count += 1
+        entries.append(
+            {
+                "palette_id": palette_id,
+                "range": da_table_range(MAP_PALETTE_POINTER_TABLE_START, offset, MAP_PALETTE_POINTER_ENTRY_SIZE),
+                "target": f"{bank:02X}:{low_word:04X}",
+                "target_bank": bank,
+                "target_offset_in_bank": low_word,
+                "packed_pointer": packed_pointer,
+                "expected_asset_title": f"MAP_DATA_PALETTE_{palette_id}",
+                "expected_palette_variant_size_bytes": MAP_PALETTE_VARIANT_BYTES,
+                "raw_bytes": list(data[offset : offset + MAP_PALETTE_POINTER_ENTRY_SIZE]),
+            }
+        )
+    if target_banks != {pointer_bank}:
+        actual = ", ".join(f"0x{bank:02X}" for bank in sorted(target_banks))
+        raise ValueError(f"Map palette pointer table expected only bank 0x{pointer_bank:02X}, got {actual}")
+
+    payload = {
+        "schema": "earthbound-decomp.map-palette-pointer-table.v1",
+        "decoder": "map_palette_pointer_table",
+        "byte_order": "little",
+        "entry_size_bytes": MAP_PALETTE_POINTER_ENTRY_SIZE,
+        "entry_count": entry_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "pointer_bank": pointer_bank,
+        "target_banks": [f"{bank:02X}" for bank in sorted(target_banks)],
+        "distinct_target_banks": len(target_banks),
+        "min_pointer": min(packed_pointers),
+        "max_pointer": max(packed_pointers),
+        "distinct_pointers": len(set(packed_pointers)),
+        "sequential_palette_id_count": sequential_palette_id_count,
+        "consumer_contract": "notes/map-palette-pointer-table-contract.md",
+        "interpretation_boundary": (
+            "Entries identify MAP_DATA_PALETTE_N payload starts. Palette variant "
+            "selection and subpalette role semantics remain covered by the map "
+            "palette contracts."
+        ),
+        "entries": entries,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "entry_count": entry_count,
+        "pointer_bank": pointer_bank,
+        "distinct_pointers": len(set(packed_pointers)),
+        "distinct_target_banks": len(target_banks),
+        "sequential_palette_id_count": sequential_palette_id_count,
     }
 
 
@@ -508,6 +597,10 @@ def write_battle_bg_pointer_table_json(data: bytes, path: Path, spec: dict[str, 
 
 def read_u16_le(data: bytes, offset: int) -> int:
     return data[offset] | (data[offset + 1] << 8)
+
+
+def read_u24_le(data: bytes, offset: int) -> int:
+    return data[offset] | (data[offset + 1] << 8) | (data[offset + 2] << 16)
 
 
 def read_s16_le(data: bytes, offset: int) -> int:
@@ -2170,6 +2263,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_map_tile_chunk_index_json(data, path, spec))
     elif kind == "map_sector_music_table_json":
         metadata.update(write_map_sector_music_table_json(data, path, spec))
+    elif kind == "map_palette_pointer_table_json":
+        metadata.update(write_map_palette_pointer_table_json(data, path, spec))
     elif kind == "battle_swirl_frame_json":
         metadata.update(write_battle_swirl_frame_json(data, path, spec))
     elif kind == "battle_swirl_pointer_table_json":

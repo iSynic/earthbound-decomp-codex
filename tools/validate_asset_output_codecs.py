@@ -221,6 +221,14 @@ def make_map_sector_music_table() -> bytes:
     return bytes(data)
 
 
+def make_map_palette_pointer_table() -> bytes:
+    data = bytearray()
+    for palette_id in range(32):
+        pointer = (0xDA << 16) | (0x8000 + palette_id * 0x40)
+        data.extend(pointer.to_bytes(3, "little"))
+    return bytes(data)
+
+
 def synthetic_rom(palette: bytes, graphics: bytes) -> bytes:
     rom = bytearray(ROM_SIZE)
     palette_offset = 0x1000
@@ -273,6 +281,23 @@ def output_cases() -> list[dict[str, Any]]:
                 "distinct_entry_count": 17,
                 "min_entry_id": 0,
                 "max_entry_id": 16,
+            },
+        },
+        {
+            "id": "map-palette-pointer-table",
+            "data": make_map_palette_pointer_table(),
+            "spec": {
+                "kind": "map_palette_pointer_table_json",
+                "path": "map_palette_pointers.json",
+                "entry_count": 32,
+                "pointer_bank": 0xDA,
+            },
+            "expected_metadata": {
+                "entry_count": 32,
+                "pointer_bank": 0xDA,
+                "distinct_pointers": 32,
+                "distinct_target_banks": 1,
+                "sequential_palette_id_count": 32,
             },
         },
         {

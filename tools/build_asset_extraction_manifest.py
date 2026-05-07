@@ -1013,6 +1013,18 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
         notes.append(
             "Decoded as the 80-by-32 map-sector destination/music row lookup consumed by C0:68F4 before resolving the current map music track."
         )
+    if bank.upper() == "DA" and include == "data/map/unknown_map_palette_pointer_table.asm" and size == 96:
+        outputs.append(
+            {
+                "kind": "map_palette_pointer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "entry_count": 32,
+                "pointer_bank": 0xDA,
+            }
+        )
+        notes.append(
+            "Decoded as the 32-entry DA map palette long-pointer table; entries target MAP_DATA_PALETTE_0..31 payload starts."
+        )
     if bank.upper() == "CA":
         battle_bg_pointer_output = battle_bg_pointer_table_output(raw_path, include, size)
         if battle_bg_pointer_output is not None:
