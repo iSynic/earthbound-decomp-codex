@@ -3353,8 +3353,9 @@ EF9ED7_EBattle1FireBreathRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:9EF4
 
-; EGOODS2: Exit Mouse use payload text.
-EF9EF4_EGoods2MsgBtlEscapeMouse:
+; EGOODS2: Exit Mouse item-use payload text. D5:7B68 row 259 also uses this
+; as row +4 text with the `C2:9039` default/no-op body.
+EF9EF4_EGoods2ExitMouseItemUsePayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9F9F
@@ -3395,15 +3396,16 @@ EFA0B7_EGoods2BranchBtlEscapeMouseCapsule:
 ; ---------------------------------------------------------------------------
 ; EF:A0DC
 
-; EGOODS2: Hieroglyph item-use payload text.
-EFA0DC_EGoods2MsgBtlHiero:
+; EGOODS2: Hieroglyph item-use payload text. D5:7B68 row 270 also uses this
+; as row +4 text with the `C2:9039` default/no-op body.
+EFA0DC_EGoods2HieroglyphItemUsePayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:A2AB
 
 ; EGOODS2: Town Map item-use payload text. D5:7B68 row 271 also uses this as
 ; row +4 text with the `C2:9039` default/no-op body.
-EFA2AB_EGoods2MsgBtlTownMap:
+EFA2AB_EGoods2TownMapItemUsePayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:A2B5

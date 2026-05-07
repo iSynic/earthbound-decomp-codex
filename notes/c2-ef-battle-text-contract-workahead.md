@@ -333,8 +333,11 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `FlavorRowPresentationText`.
 - 2026-05-06: EF EBATTLE1 action-tail exact-message follow-up promoted
   row-backed `MSG_BTL_*` anchors `62/63`, `66..74`, `77`, `88/89`, and
-  `91..94` to `RowPresentationText`. The remaining row-backed `MsgBtl` labels
-  are EGOODS2 item-use payloads and stay out of battle-action anchor naming.
+  `91..94` to `RowPresentationText`. EGOODS2 item-use payloads stay out of
+  battle-action anchor naming.
+- 2026-05-06: EF EGOODS2 item-use guardrail follow-up removed the last
+  inherited battle-message shells by renaming `EF:9EF4`, `EF:A0DC`, and `EF:A2AB`
+  as `ItemUsePayloadText` anchors for Exit Mouse, Hieroglyph, and Town Map.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

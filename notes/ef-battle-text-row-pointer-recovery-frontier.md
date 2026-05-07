@@ -86,11 +86,12 @@ Rows `32..35`, `48`, `49`, `62..94`, `95..98`, `103`, `105..116`,
 `119..134`, `160`, `161`, `176`, `201..206`, `208..210`, `211..236`, `238`,
 `241`, `242`, `251..257`, `260..266`, `274`, and `300..307` are now recovered
 and moved into the concrete row-message crosswalk.
-Continue with the remaining rows before any broader action-table sweep:
+The exact row-backed battle-action label frontier is closed. Continue with
+adjacent status/result islands only when the C1/C2 consumer lane is proved.
 
 | Priority | Rows | Why they matter |
 | ---: | --- | --- |
-| `1` | remaining row-backed `MsgBtl` labels are EGOODS2 item-use scripts | Rows `259`, `270`, and `271` intentionally keep item-use names; do not promote them into battle-action anchors. |
+| `1` | direct-result/status islands adjacent to recovered row messages | These are `DC1C`/`DC66` result consumers, not row `+4` presentation anchors; keep lane proof before renaming. |
 
 ## Recovered No-Op And Flavor Joins
 
@@ -120,7 +121,8 @@ The no-op/flavor pass recovered the highest-risk behavior-only family:
   source names; no-op rows `235/236` carry `FlavorRowPresentationText`.
 - the EBATTLE1 exact `MSG_BTL_*` action-tail rows `62/63`, `66..74`, `77`,
   `88/89`, and `91..94` now have `RowPresentationText` source names. The only
-  row-backed `MsgBtl` labels left are EGOODS2 item-use payloads.
+  row-backed EGOODS2 scripts now have `ItemUsePayloadText` labels instead of
+  inherited battle-message shells.
 
 The EBATTLE2 `119..134` anchors now carry `FlavorRowPresentationText` names in
 source. The EBATTLE4/status rows keep their existing event/status/result labels

@@ -509,10 +509,11 @@ C7/C9/C6 row-message banks, so they document C2 consumer joins without driving
 EF anchor renames.
 
 The row-pointer recovery frontier now records the resolved set and the remaining
-local frontier. The ROM-backed inspector is available in this checkout, so the
-the row-backed exact battle-action frontier is now closed. The remaining
-row-backed `MsgBtl` labels are the guarded EGOODS2 item-use scripts
-`EF:9EF4`, `EF:A0DC`, and `EF:A2AB`, not unresolved battle-action anchors.
+local frontier. The ROM-backed inspector is available in this checkout, and the
+row-backed exact battle-action frontier is now closed. The row-backed EGOODS2
+item-use scripts `EF:9EF4`, `EF:A0DC`, and `EF:A2AB` now carry
+`ItemUsePayloadText` labels rather than inherited `MsgBtl` shells, keeping their
+item-use payload role separate from battle-action row presentation naming.
 
 The neighboring no-op-tail pass is now also complete. `C2:903C` only joins row
 `9` to a C7 empty/default message, while `C2:903F`, `9042`, `9045`, `9048`,

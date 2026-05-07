@@ -7133,11 +7133,13 @@ db $10,$01,$02
 
 EF9ED7_EBattle1FireBreathRowPresentationText:
 
-; Original data gap before EF9EF4_EGoods2MsgBtlEscapeMouse:
+; Original data gap before EF9EF4_EGoods2ExitMouseItemUsePayloadText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$92,$16,$82,$98,$95,$94,$00,$50
 db $50,$96,$99,$A2,$95,$51,$1F,$02,$4B,$03,$10,$01,$02
 
-EF9EF4_EGoods2MsgBtlEscapeMouse:
+; EGOODS2: row 259 +4 Exit Mouse item-use payload with the C2:9039
+; default/no-op body.
+EF9EF4_EGoods2ExitMouseItemUsePayloadText:
 
 ; Original data gap before EF9F9F_EGoods2BranchMouseNotDungeon:
 db $1B,$00,$01,$1D,$22,$1B,$02,$9F,$9F,$EF,$00,$06,$0A,$03,$E2,$9F
@@ -7194,14 +7196,16 @@ db $A8,$17,$67,$7D,$9F,$16,$4B,$51,$02
 
 EFA0B7_EGoods2BranchBtlEscapeMouseCapsule:
 
-; Original data gap before EFA0DC_EGoods2MsgBtlHiero:
+; Original data gap before EFA0DC_EGoods2HieroglyphItemUsePayloadText:
 db $70,$76,$9F,$A2,$15,$1C,$15,$B6,$A3,$9F,$9E,$15,$E5,$95,$A8,$99
 db $A4,$17,$6F,$17,$55,$99,$15,$E7,$92,$95,$16,$D6,$97,$16,$FA,$91
 db $16,$86,$5E,$13,$02
 
-EFA0DC_EGoods2MsgBtlHiero:
+; EGOODS2: row 270 +4 Hieroglyph item-use payload with the C2:9039
+; default/no-op body.
+EFA0DC_EGoods2HieroglyphItemUsePayloadText:
 
-; Original data gap before EFA2AB_EGoods2MsgBtlTownMap:
+; Original data gap before EFA2AB_EGoods2TownMapItemUsePayloadText:
 db $1B,$04,$70,$1C,$02,$00,$16,$C4,$94,$15,$18,$98,$99,$95,$A2,$9F
 db $97,$9C,$A9,$A0,$98,$A3,$5E,$03,$00,$70,$6C,$84,$9F,$50,$96,$15
 db $BB,$15,$5B,$A3,$15,$36,$99,$9E,$A6,$91,$94,$17,$B9,$5C,$16,$85
@@ -7234,7 +7238,7 @@ db $9F,$9E,$A4,$15,$09,$83,$A0,$98,$99,$9E,$A8,$51,$6E,$13,$02
 
 ; EGOODS2: Town Map item-use payload text; row 271 also uses it as row +4 text
 ; with the C2:9039 default/no-op body.
-EFA2AB_EGoods2MsgBtlTownMap:
+EFA2AB_EGoods2TownMapItemUsePayloadText:
 
 ; Original data gap before EFA2B5_EGoods2BranchTownMapNg:
 db $1F,$41,$07,$1B,$02,$B5,$A2,$EF,$00,$02

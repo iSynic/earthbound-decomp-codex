@@ -358,7 +358,10 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-06: EF EBATTLE1 action-tail exact-message follow-up promoted the
   row-backed `MSG_BTL_*` anchors for rows `62/63`, `66..74`, `77`, `88/89`,
   and `91..94` to `RowPresentationText`, closing the exact battle-action
-  anchor frontier while preserving EGOODS2 item-use `MsgBtl` labels.
+  anchor frontier while preserving EGOODS2 item-use payload semantics.
+- 2026-05-06: EF EGOODS2 item-use guardrail follow-up renamed the remaining
+  inherited battle-message shells at `EF:9EF4`, `EF:A0DC`, and `EF:A2AB` as
+  `ItemUsePayloadText`, closing the row-backed legacy-shell inventory entirely.
 - 2026-05-06: EF status-result label follow-up renamed the proved direct
   `DC1C` status-result anchors across `EF:6AC7..6C55` and shared fallback
   `EF:766E` with `StatusResultText`, keeping them distinct from `DD9F` row

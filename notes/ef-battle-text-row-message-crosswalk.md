@@ -243,9 +243,9 @@ according to their actual payload family.
 | Row | Row `+4` EF message | Row `+8` C2 body | Current behavior read |
 | ---: | --- | --- | --- |
 | `60`, `61` | `EF:8543` `SharedPsiNameByteSubstitutionRowPresentationText` | `C2:9039` | Shared PSI-name row presentation with default/no-op behavior |
-| `259` | `EF:9EF4` `EGoods2MsgBtlEscapeMouse` | `C2:9039` | Exit Mouse item-use payload; keep EGOODS2 item-use naming |
-| `270` | `EF:A0DC` `EGoods2MsgBtlHiero` | `C2:9039` | Hieroglyph item-use payload; keep EGOODS2 item-use naming |
-| `271` | `EF:A2AB` `EGoods2MsgBtlTownMap` | `C2:9039` | Town Map item-use payload; keep EGOODS2 item-use naming |
+| `259` | `EF:9EF4` `EGoods2ExitMouseItemUsePayloadText` | `C2:9039` | Exit Mouse item-use payload; keep EGOODS2 item-use naming |
+| `270` | `EF:A0DC` `EGoods2HieroglyphItemUsePayloadText` | `C2:9039` | Hieroglyph item-use payload; keep EGOODS2 item-use naming |
+| `271` | `EF:A2AB` `EGoods2TownMapItemUsePayloadText` | `C2:9039` | Town Map item-use payload; keep EGOODS2 item-use naming |
 | `279` | `EF:84F3` `PlayerFleeSuccessText` | `C2:9039` | Successful flee text reused as a row `+4` presentation; also known from direct battle-start/result paths |
 | `309` | `EF:8F91` `Gyiyyig3FlavorRowPresentationText` | `C2:9039` | Giygas/Gyiyg flavor row presentation; calls the C9 repeated-line helper before its own text |
 | `313` | `EF:8D4C` `EnemyLifeupFlavorRowPresentationText` | `C2:9039` | Enemy Lifeup flavor row presentation, not PSI Lifeup rows `32..35` |
