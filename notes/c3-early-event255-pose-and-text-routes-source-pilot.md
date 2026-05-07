@@ -24,6 +24,13 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+- `C0:A685` calls render through `%EVENT_CALLROUTINE_FIELD2B32(..., field2b32_word)`, preserving the same little-endian bytes with a word-shaped operand.
+- Known sound-effect IDs render as `!ACTIONSCRIPT_SOUND_EFFECT_*` constants while keeping the word-shaped callback operand.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_EVENT_FLAG`, `%EVENT_CALLROUTINE_FIELD2B32`, `%EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR`, `%EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT`, +5.
+
 ## Next Promotion Step
 
 Continue with the remaining `C3:08E5..C3:098B` early route tail after naming/pinning `C4:733C`, or move to another ready source-pilot seam.

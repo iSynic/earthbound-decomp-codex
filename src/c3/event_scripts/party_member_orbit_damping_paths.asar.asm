@@ -12,14 +12,14 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !HalveCurrentSlot0d32PreserveSign = $C4730E
 !InitAlternatePhysicsVar4WalkPulse = $AB26
 !LoopField2B32VerticalOscillation = $B0B6
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
+!ProjectSlot0e5eAngleAndRefreshFacing_Mode0 = $C0A8E7
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RoundAngleToWalkDirectionStep = $C46B51
-!ScriptWrapper_C472A8_Mode0 = $C0A8E7
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
@@ -35,16 +35,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <registry_slot_byte>
 endmacro
 
 macro EVENT_PAUSE(frames)
@@ -85,10 +85,10 @@ org $C3B06D
 Event51_PartyMemberOrbitLoop:
     %EVENT_SHORTCALL(!InitAlternatePhysicsVar4WalkPulse) ; C3:B06D  1A 26 AB
     %EVENT_START_TASK(!LoopField2B32VerticalOscillation) ; C3:B070  07 B6 B0
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:B073  42 2F A8 C0
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $01) ; C3:B077  42 64 A8 C0 01
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:B073  42 2F A8 C0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $01) ; C3:B077  42 64 A8 C0 01
     %EVENT_SET_Z($0010) ; C3:B07C  2A 10 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $00) ; C3:B07F  42 85 A6 C0 00 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0000) ; C3:B07F  42 85 A6 C0 00 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0000) ; C3:B085  0E 00 00 00
     %EVENT_WRITE_VAR_TO_TEMPVAR(!ACTIONSCRIPT_VARS_V0) ; C3:B089  20 00
     %EVENT_CALLROUTINE_0(!ProjectAngleIntoCurrentSlotVectorWords) ; C3:B08B  42 44 70 C4
@@ -98,8 +98,8 @@ Event51_PartyMemberOrbitLoop:
 LoopEvent51_PartyMemberOrbitDamping:
     %EVENT_PAUSE($01) ; C3:B09B  06 01
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $0800) ; C3:B09D  14 00 02 00 08
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:B0A2  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:B0A7  42 E7 A8 C0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:B0A2  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_0(!ProjectSlot0e5eAngleAndRefreshFacing_Mode0) ; C3:B0A7  42 E7 A8 C0
     %EVENT_CALLROUTINE_0(!HalveCurrentSlot0d32PreserveSign) ; C3:B0AB  42 0E 73 C4
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:B0AF  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:B0AF  42 2F A8 C0
     %EVENT_SHORTJUMP(LoopEvent51_PartyMemberOrbitDamping) ; C3:B0B3  19 9B B0

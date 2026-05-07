@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_SURFACE_FLAGS_NONE = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -18,7 +20,7 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
 
@@ -28,16 +30,23 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <registry_slot_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <surface_flags_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -92,19 +101,19 @@ org $C3069F
 Event251_LeftOffsetVisualCountdownHalt:
     %EVENT_SET_X_RELATIVE($FFF9) ; C3:069F  2B F9 FF
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:06A2  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:06A5  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:06A5  42 6E AA C0 00 00
     %EVENT_PAUSE($1E) ; C3:06AB  06 1E
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:06AD  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:06AD  42 6E AA C0 04 00
     %EVENT_PAUSE($1E) ; C3:06B3  06 1E
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:06B5  42 46 6E C4
     %EVENT_HALT() ; C3:06B9  09
 Event252_RegistryAnchorVisualCountdownHalt:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $09) ; C3:06BA  42 64 A8 C0 09
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $09) ; C3:06BA  42 64 A8 C0 09
     %EVENT_SET_X_RELATIVE($FFF9) ; C3:06BF  2B F9 FF
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:06C2  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:06C5  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:06C5  42 6E AA C0 00 00
     %EVENT_PAUSE($1E) ; C3:06CB  06 1E
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:06CD  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:06CD  42 6E AA C0 04 00
     %EVENT_PAUSE($1E) ; C3:06D3  06 1E
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:06D5  42 46 6E C4
     %EVENT_HALT() ; C3:06D9  09
@@ -112,9 +121,9 @@ Event253_JumpingVisualCountdownHalt:
     %EVENT_SET_X_RELATIVE($0007) ; C3:06DA  2B 07 00
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:06DD  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:06E0  25 0C A0
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:06E3  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:06E3  42 79 A6 C0 00
     %EVENT_SET_Z($0008) ; C3:06E8  2A 08 00
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:06EB  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:06EB  42 6E AA C0 04 00
     %EVENT_SET_Z_VELOCITY($0080) ; C3:06F1  41 80 00
     %EVENT_PAUSE($40) ; C3:06F4  06 40
     %EVENT_SET_VELOCITIES_ZERO() ; C3:06F6  39
@@ -127,7 +136,7 @@ Event253_JumpingVisualCountdownHalt:
 Event254_DirectionVisualCountdownHalt:
     %EVENT_SET_X_RELATIVE($0007) ; C3:0704  2B 07 00
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:0707  1A 38 AA
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:070A  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:070A  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:070D  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:0711  42 BF A4 C0
     %EVENT_HALT() ; C3:0715  09

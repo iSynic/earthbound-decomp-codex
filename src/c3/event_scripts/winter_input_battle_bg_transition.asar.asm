@@ -4,6 +4,15 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_BATTLE_BG_LAYER1_ID_EVENT340_WINTERS_TRANSITION = $00FF
+!ACTIONSCRIPT_BATTLE_BG_LAYER2_ID_NONE = $0000
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_DISPLAY_FADE_STEP_1 = $0001
+!ACTIONSCRIPT_DISPLAY_FADE_WAIT_1_FRAME = $0001
+!ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_DISABLED = $0000
+!ACTIONSCRIPT_FADE_EFFECT_0101 = $0101
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -21,10 +30,10 @@ hirom
 !InitActionScriptMovementState = $AA38
 !Integrate_XYVelocityOnly = $9FC8
 !Movement_LoadBattleBg = $C0A977
-!PositionChangeCallback_C0A039 = $A039
 !ReadInputState006d = $C468A9
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
@@ -43,28 +52,43 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_BATTLE_BG_LAYER1_ID_BATTLE_BG_LAYER2_ID(target, battle_bg_layer1_id_word, battle_bg_layer2_id_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <battle_bg_layer1_id_word>
+    dw <battle_bg_layer2_id_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_DISPLAY_FADE_STEP_DISPLAY_FADE_WAIT_FRAMES_DISPLAY_MOSAIC_UPDATE_FLAG(target, display_fade_step_word, display_fade_wait_frames_word, display_mosaic_update_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <display_fade_step_word>
+    dw <display_fade_wait_frames_word>
+    dw <display_mosaic_update_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_6(target, arg0, arg1, arg2, arg3, arg4, arg5)
+macro EVENT_CALLROUTINE_FADEIN_EFFECT(target, fadein_effect_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>, <arg4>, <arg5>
+    dw <fadein_effect_word>
+endmacro
+
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
+    db $42
+    dl <target>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -140,12 +164,12 @@ endmacro
 
 org $C318D0
 Event339_TransitionSnapshotMovementRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:18D0  42 64 A8 C0 FF
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:18D5  23 39 A0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:18D0  42 64 A8 C0 FF
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:18D5  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:18D8  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:18DB  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:18DB  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:18DD  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:18E1  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:18E1  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:18E7  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1380) ; C3:18EB  0E 06 80 13
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0EE0) ; C3:18EF  0E 07 E0 0E
@@ -153,10 +177,10 @@ Event339_TransitionSnapshotMovementRelease:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:18F6  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:18FA  19 04 A2
 Event340_InputGatedBattleBgTransition:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:18FD  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:18FD  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:1902  1A 38 AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:1905  0E 04 01 00
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:1909  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:1909  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:190C  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:1910  42 BF A4 C0
     %EVENT_PAUSE($3C) ; C3:1914  06 3C
@@ -165,7 +189,7 @@ Event340_InputGatedBattleBgTransition:
     %EVENT_BINOP_TEMPVAR($00, $0F00) ; C3:191C  27 00 00 0F
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent340_WaitForInputA) ; C3:1920  0A 31 19
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:1923  1D 01 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $02, $00) ; C3:1926  42 57 A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0002) ; C3:1926  42 57 A8 C0 02 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:192C  42 46 6E C4
     %EVENT_HALT() ; C3:1930  09
 LoopEvent340_WaitForInputA:
@@ -179,18 +203,18 @@ LoopEvent340_WaitForInputA:
     %EVENT_BINOP_TEMPVAR($00, $0F00) ; C3:1942  27 00 00 0F
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent340_WaitForInputB) ; C3:1946  0A 57 19
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:1949  1D 01 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $02, $00) ; C3:194C  42 57 A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0002) ; C3:194C  42 57 A8 C0 02 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1952  42 46 6E C4
     %EVENT_HALT() ; C3:1956  09
 LoopEvent340_WaitForInputB:
     %EVENT_PAUSE($01) ; C3:1957  06 01
     %EVENT_LOOP_END() ; C3:1959  02
     %EVENT_LOOP_END() ; C3:195A  02
-    %EVENT_CALLROUTINE_6(!ActionScript_FadeOutWithMosaic, $01, $00, $01, $00, $00, $00) ; C3:195B  42 07 AA C0 01 00 01 00 00 00
-    %EVENT_CALLROUTINE_4(!Movement_LoadBattleBg, $FF, $00, $00, $00) ; C3:1965  42 77 A9 C0 FF 00 00 00
+    %EVENT_CALLROUTINE_DISPLAY_FADE_STEP_DISPLAY_FADE_WAIT_FRAMES_DISPLAY_MOSAIC_UPDATE_FLAG(!ActionScript_FadeOutWithMosaic, !ACTIONSCRIPT_DISPLAY_FADE_STEP_1, !ACTIONSCRIPT_DISPLAY_FADE_WAIT_1_FRAME, !ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_DISABLED) ; C3:195B  42 07 AA C0 01 00 01 00 00 00
+    %EVENT_CALLROUTINE_BATTLE_BG_LAYER1_ID_BATTLE_BG_LAYER2_ID(!Movement_LoadBattleBg, !ACTIONSCRIPT_BATTLE_BG_LAYER1_ID_EVENT340_WINTERS_TRANSITION, !ACTIONSCRIPT_BATTLE_BG_LAYER2_ID_NONE) ; C3:1965  42 77 A9 C0 FF 00 00 00
     %EVENT_SET_X($0080) ; C3:196D  28 80 00
     %EVENT_SET_Y($0070) ; C3:1970  29 70 00
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeInWrapper, $01, $01) ; C3:1973  42 AE 9F C0 01 01
+    %EVENT_CALLROUTINE_FADEIN_EFFECT(!ActionScript_FadeInWrapper, !ACTIONSCRIPT_FADE_EFFECT_0101) ; C3:1973  42 AE 9F C0 01 01
     %EVENT_SET_TICK_CALLBACK(!AnimatedBackgroundCallback) ; C3:1979  08 DA 8B C4
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:197D  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:1981  06 01
@@ -198,6 +222,6 @@ LoopEvent340_WaitForInputB:
     %EVENT_BINOP_TEMPVAR($00, $0F00) ; C3:1987  27 00 00 0F
     %EVENT_SHORTCALL_CONDITIONAL(!ContinueEvent340_BattleBgTransition) ; C3:198B  0A 9E 19
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:198E  1D 01 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $02, $00) ; C3:1991  42 57 A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0002) ; C3:1991  42 57 A8 C0 02 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1997  42 46 6E C4
     %EVENT_SHORTJUMP(!Event340_BattleBgTransitionCancelReload) ; C3:199B  19 17 1A

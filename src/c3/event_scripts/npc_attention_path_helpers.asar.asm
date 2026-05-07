@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -13,13 +15,13 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !Check_NpcAttentionCoordinatorActive = $C0D59B
-!ClearCurrentEntityCollision = $C0A6DA
+!ClearCurrentSlotNeighborCache = $C0A6DA
 !Consume_CurrentSlotAttentionPath = $C0D7F7
 !Gate_NpcAttentionCoordinatorFromScript = $C0D5B0
 !GetCurrentSlotHasNoCachedNeighborFlag = $C0A6B8
 !LoopVar0SelectedAnimationUntilOffscreen = $A20E
-!PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !ScriptRelease_CurrentEntityVisualState = $C020F1
 !UpdatePosition_WhenNoNeighbor_WithSpriteRefresh = $A360
 !Update_CurrentSlotCollisionCache_FromHorizontalEdges = $C05ECE
@@ -98,14 +100,14 @@ endmacro
 
 org $C3A401
 InitNpcAttentionPathIfNoCachedNeighbor:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:A401  25 F0 9F
-    %EVENT_CALLROUTINE_0(!ClearCurrentEntityCollision) ; C3:A404  42 DA A6 C0
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:A401  25 F0 9F
+    %EVENT_CALLROUTINE_0(!ClearCurrentSlotNeighborCache) ; C3:A404  42 DA A6 C0
     %EVENT_PAUSE($01) ; C3:A408  06 01
     %EVENT_CALLROUTINE_0(!GetCurrentSlotHasNoCachedNeighborFlag) ; C3:A40A  42 B8 A6 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(ReturnFromNpcAttentionInit) ; C3:A40E  0B 25 A4
     %EVENT_SET_TICK_CALLBACK(!Consume_CurrentSlotAttentionPath) ; C3:A411  08 F7 D7 C0
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:A415  25 60 A3
-    %EVENT_SET_ANIMATION($00) ; C3:A418  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A418  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:A41A  42 BF A4 C0
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0000) ; C3:A41E  0E 00 00 00
     %EVENT_START_TASK(!LoopVar0SelectedAnimationUntilOffscreen) ; C3:A422  07 0E A2
@@ -137,20 +139,20 @@ FinishNpcAttentionAndReleaseActor:
     %EVENT_PAUSE($01) ; C3:A45C  06 01
     %EVENT_CALLROUTINE_0(!Check_NpcAttentionCoordinatorActive) ; C3:A45E  42 9B D5 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(FinishNpcAttentionAndReleaseActor) ; C3:A462  0B 5C A4
-    %EVENT_SET_ANIMATION($00) ; C3:A465  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A465  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:A467  39
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:A468  25 F0 9F
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:A468  25 F0 9F
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0001) ; C3:A46B  0E 00 01 00
     %EVENT_PAUSE($01) ; C3:A46F  06 01
     %EVENT_LOOP($03) ; C3:A471  01 03
-    %EVENT_SET_ANIMATION($FF) ; C3:A473  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:A473  3B FF
     %EVENT_PAUSE($05) ; C3:A475  06 05
-    %EVENT_SET_ANIMATION($00) ; C3:A477  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A477  3B 00
     %EVENT_PAUSE($05) ; C3:A479  06 05
     %EVENT_LOOP_END() ; C3:A47B  02
 ReleaseCurrentVisualEntityTail:
     %EVENT_CALLROUTINE_0(!ScriptRelease_CurrentEntityVisualState) ; C3:A47C  42 F1 20 C0
     %EVENT_END() ; C3:A480  00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:A481  42 BF A4 C0
-    %EVENT_SET_ANIMATION($00) ; C3:A485  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A485  3B 00
     %EVENT_SHORTJUMP(FinishNpcAttentionAndReleaseActor) ; C3:A487  19 5C A4

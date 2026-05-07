@@ -82,6 +82,165 @@ The important point is not just nicer names. These names now appear directly in
 decode excerpts, so script-family notes can quote the generated audit without
 re-introducing older `UNKNOWN_*` labels.
 
+## Source-Pilot Attention Helpers
+
+Several callback contracts now feed the C3 source-pilot frontier even when they
+do not change the current source-map audit row set:
+
+- `C0:C48F` -> `GateWidePlayerDistanceBucket`: a wide player-distance gate
+  proved in `notes/pathfinding-consumers-direction-helpers-c0bd96-c0c7db.md`.
+  C3 attention scripts use it as the wait/engage boundary before direction or
+  route handoff.
+- `C0:D77F` -> `MarkOtherSlotsAttentionLocked`: marks other eligible slots'
+  attention/interaction flags before scripted object-interaction cleanup.
+- `C0:D7B3` -> `Save_CurrentSlotAttentionPosition`: snapshots the current slot
+  position into the NPC-attention saved-position fields.
+- `C0:D7C7` -> `Restore_CurrentSlotAttentionPosition`: restores that saved
+  NPC-attention position back to the current slot.
+- `C0:D7E0` -> `Normalize_CurrentSlotAttentionState`: collapses a nonzero
+  current-slot attention marker to state `1`.
+
+The `C0:D77F/D7B3/D7C7/D7E0` contracts are imported from
+`notes/npc-attention-path-coordinator-c0d19b-c0d98f.md`. They unblock the
+bus-driver and compact NPC-attention pilots without promoting any C0 runtime
+implementation into C3 ownership.
+
+## Cast-Scroll Source-Pilot Wrappers
+
+The large event-801 cast-scroll pilot now has field-shaped wrappers for its
+high-volume C0 helper calls:
+
+- `C0:A99F` -> `SpawnEntityRelative_ReadTwoWords`: reads a sprite-pose
+  descriptor index and entity script id, then calls the C4 cast-scene spawn
+  helper that combines staged script `var0/var1` with the live BG3 scroll.
+- `C0:A9B3` -> `PrintCastNameParty_ReadThreeWords`
+- `C0:A9CF` -> `PrintCastNameEntityVar0_ReadThreeWords`
+- `C0:A9EB` -> `PrintCastNameCurrentThreshold_ReadThreeWords`
+
+Those cast-name helpers render as
+`cast_name_source_word, cast_name_tile_x_word, cast_name_tile_y_word`; the
+entity spawner renders as `sprite_pose_descriptor_word,
+entity_script_id_word`.  The spawn contract is based on the C4 spawn wrappers
+(`C4:6534` and `C4:ECAD`) forwarding A/X into `C0:1E49`, where A (`$2B`)
+indexes the `EF:133F` sprite-pose descriptor table and X (`$2D`) is passed to
+the delayed-action state initializer as the entity script id. `C4:ED0E` names
+`$0321` as `CastSceneDriverScriptId`, matching the `$0322+` values seen in the
+cast-scroll spawn pilot as entity script ids. Most individual descriptor and
+script id labels remain uncataloged, but the compact Event782 party recovery
+set is now C3-cataloged: `$0010/$0189/$018A/$018B` are named as the four
+`party_recovery_slot*_lying` sprite-pose descriptors and `$030F` as the shared
+`battle_swirl_recovery_party_spawn` entity script id. Those names are scoped to
+the observed spawn sequence; exact character/pose asset identity remains
+local-unknown. The same operand pair applies to `C0:A98B`
+`SpawnEntityAtCurrentSlotAnchor_ReadTwoWords`; only the anchor source differs.
+
+The contracts are imported from the C0/C4 wrapper strip and
+`notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`, then applied only as C3
+decoder/source-pilot metadata.
+
+## Position Wrapper Operands
+
+- `C0:A87A` -> `Script_SetCameraRelativeAnchor_ReadTwoWords`: X/Y offset
+  words added to the current camera origin before writing the current slot
+  anchor and anchor flags.
+- `C0:A912` -> `ActionScript_PrepareNewEntity`: explicit new-entity X/Y words
+  plus a facing/selector byte staged through the C4 new-entity helper.
+
+## Presentation Wrapper Operands
+
+The C3 decoder now carries a few more small presentation wrapper schemas that
+show up in town hall, coffee/tea, teleport, and battle-background transition
+pilots:
+
+- `C0:9FAE` -> `ActionScript_FadeInWrapper`: one `fadein_effect_word`.
+- `C0:9FBB` -> `ActionScript_FadeOutWrapper`: one `fadeout_effect_word`.
+- `C0:A977` -> `Movement_LoadBattleBg`: `battle_bg_layer1_id_word` plus
+  `battle_bg_layer2_id_word`. The C0 wrapper reads the first word into A and
+  the second into X before calling `C4:7370`; that helper fixes Y to `$0004`
+  and forwards A/X/Y to `C2:D121`, whose runtime contract names A as layer 1,
+  X as optional layer 2, and Y as layout flags.
+- `C0:AA07` -> `ActionScript_FadeOutWithMosaic`: display fade step,
+  per-step wait, and mosaic-update flag words passed to the fade-out
+  transition helper.
+- `C0:AA23` -> `Script_StageMosaicWh0Mask_ReadThreeWords`: left-X, Y, and
+  right-X words forwarded to the C4 WH0 mosaic/window-mask starter.
+- `C0:AA3F` -> `Script_SetVisualSetupBytesByMode`: COLDATA red, green,
+  and blue component bytes loaded into `$9E37-$9E39` before the C4
+  color-math/fixed-color writer runs with the caller-supplied mode selector.
+- `C0:AAB5` -> `Script_RunLandingPaletteFade_ReadWordByteByte`: a landing
+  palette existing-work mask word, palette scale byte, and fade frame-count
+  byte forwarded to the C4 landing/flyover palette fade driver.
+
+`C0:AA6E` sites now name the two inline bytes without overclaiming the exact
+frame art. The first byte is a `visual_state_byte`: the C0 wrapper stores it in
+current-slot `$2AF6` before the `C0:A4C4`/`C0:A794` visual-profile refresh
+path. The observed C3 values are `$00-$07`. The second byte is a
+`countdown_byte` seed: `$00/$01` are observed, with the zero-visual path writing
+the seed raw to `$10F2/$2892` and the existing-visual path doubling it into
+`$10F2` before recording the current slot in `$2896`.
+
+The C3-local battle-bg value catalog only names observed pilot values:
+`$00FF` as the event-340 Winters transition layer 1, `$0000` as the disabled
+layer-2 sentinel, and `$0107/$0108` as the coffee/tea layer pair. These are
+byte-shape contracts plus narrow source-pilot aliases; exact visual-effect
+naming can stay with the C0/C2/C4 presentation notes.
+
+The C3-local landing palette mask catalog names the three observed first-word
+values passed through `C0:AAB5`. `C4:958E` shifts this word once per 16-color
+palette block; a set bit reuses the existing `$7F:0000` work block and a clear
+bit reloads the source/template word. Source pilots therefore render `$FFFC`,
+`$DFFC`, and `$2000` as block-pattern masks rather than opaque palette
+selectors.
+
+The same `C0:AAB5` sites now also catalog the two trailing bytes. The palette
+scale byte is forwarded through X to `C4:954C`: `$32` is the full RGB555 scale,
+lower observed values dim the source block, and higher observed values such as
+`$5A` saturate through the C4 clamp path. The fade frame-count byte is forwarded
+through A to `C4:97C0`: `$01` is the immediate-export sentinel, while `$3C`,
+`$64`, and `$78` step the landing palette interpolation once per frame before
+exporting and queueing the CGRAM upload.
+
+The C3-local COLDATA component catalog names only the observed bytes passed
+through `C0:AA3F`: `$00`, `$10`, and `$18`. The C0 wrapper copies those bytes
+to `$9E37-$9E39`; `C4:2439` then writes them to `$2132 COLDATA` with the red,
+green, and blue selector bits applied. These source-pilot aliases preserve the
+component-value contract without trying to name the exact screen effect from
+the script site alone.
+
+The C3-local fade effect catalog names only the observed words passed through
+`C0:9FAE/C0:9FBB`: `$0101` and `$0701`. The wrappers preserve the word in A
+and move the byte-swapped copy through X before calling `C0:886C` or
+`C0:887A`; those helpers seed `$0028` from the low byte and `$0029-$002A` from
+the high byte. Source pilots keep these as fade effect words until the display
+state machine has stronger player-facing effect names.
+
+The C3-local mosaic WH0 mask catalog names the two observed `C0:AA23` triples:
+`$1AC0/$2170/$1B40` for the Tenda-stage dance-followup path and
+`$1220/$1670/$12E0` for the repeated Tenda-stage performance-corridor path.
+`C4:7765` subtracts `$0031` from the left/right X words and `$0033` from the
+Y word while emitting the `$7F:0BF8` WH0 HDMA stream, so the source aliases
+name the callsite preset and edge role while leaving the final visual-effect
+name open.
+
+The C3-local display fade-out catalog names the observed `C0:AA07` words:
+`$0001` as the fade step, `$0001/$0008` as per-step wait counts, and `$0000`
+as the disabled mosaic-update flag. The C0 wrapper forwards these as A/X/Y to
+`C0:8814`; that helper subtracts A from INIDISP mirror `$000D`, waits X frames
+through `C0:878B`, and only calls the `C0:87AB` mosaic-nibble updater when Y is
+nonzero.
+
+## Surface-Flag Operands
+
+- `C0:A679` -> `Script_SetCurrentSlotSurfaceFlags`: reads one byte and stores it
+  to current slot field `$2BAA`. The ebsrc symbol at the C0 wrapper is
+  `SET_SURFACE_FLAGS`, so C3 now treats the operand as `surface_flags_byte`
+  rather than a generic display-control byte.
+- The observed C3 values are `$00`, `$01`, and `$03`. Source pilots render them
+  as `!ACTIONSCRIPT_SURFACE_FLAGS_NONE`,
+  `!ACTIONSCRIPT_SURFACE_FLAGS_BIT0`, and
+  `!ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1`; those names intentionally preserve
+  the bitmask shape without claiming exact per-bit runtime meaning yet.
+
 Source polish: `src/c4/actionscript_camera_and_screen_position_callbacks.asm`
 now names the current-slot index, action-script callback flag bit, active
 entity registry scan tables/count, live world/screen/offset coordinate tables,
@@ -124,6 +283,20 @@ evidence is already bank-local or cross-referenced:
 This is intentionally a readability layer, not a new byte format. The raw bytes
 remain printed on every decoded line, and the source-pilot emitters still
 revalidate against the ROM byte-for-byte.
+
+## Sound-Effect Word Constants
+
+`C0:A841` reads a word-shaped `sound_effect_id_word` and hands it to the sound
+queue path. The source-pilot renderer names the C3-used IDs that have direct
+`SFX_XX` comments in `refs/earthbound-sounddriver-byte-perfect/sfx_sequences.asm`.
+Examples include `!ACTIONSCRIPT_SOUND_EFFECT_ENTER_DOOR`,
+`!ACTIONSCRIPT_SOUND_EFFECT_EXIT_DOOR`, `!ACTIONSCRIPT_SOUND_EFFECT_CAMERA_SHUTTER`,
+`!ACTIONSCRIPT_SOUND_EFFECT_MAGIC_BUTTERFLY`, and
+`!ACTIONSCRIPT_SOUND_EFFECT_STAIRS_FAST`.
+
+That catalog is deliberately narrow. Other words that happen to match a sound
+ID numerically, such as entity visual-type operands passed to spawn helpers,
+remain numeric because they are not `sound_effect_id_word` operands.
 
 ## Good-Enough Boundary
 

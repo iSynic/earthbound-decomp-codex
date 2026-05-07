@@ -24,6 +24,13 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants.
+- Direction tempvar writes render as `!ACTIONSCRIPT_DIRECTION_*` constants only when a later direction/vector callback consumes them in the same emitted row, with no intervening tempvar rewrite or unrelated native callback.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_EVENT_FLAG`, `%EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT`.
+
 ## Next Promotion Step
 
 Continue with the remaining `C3:4249..C3:4392` route tail only after deciding whether direct `C0:8E9A` calls should be treated as event callback contracts, or move to the remaining NPC-attention frontier.

@@ -24,6 +24,15 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+- `C0:A685` calls render through `%EVENT_CALLROUTINE_FIELD2B32(..., field2b32_word)`, preserving the same little-endian bytes with a word-shaped operand.
+- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants.
+- Known `C0:A679` surface-flag bytes render as `!ACTIONSCRIPT_SURFACE_FLAGS_*` constants; bit-level meanings remain intentionally unsplit.
+- Direction tempvar writes render as `!ACTIONSCRIPT_DIRECTION_*` constants only when a later direction/vector callback consumes them in the same emitted row, with no intervening tempvar rewrite or unrelated native callback.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_FIELD2B32`, `%EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT`, `%EVENT_CALLROUTINE_REGISTRY_SLOT`, `%EVENT_CALLROUTINE_SURFACE_FLAGS`, +2.
+
 ## Next Promotion Step
 
 Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the larger adjacent `C3:DBF2..C3:DF90` corridor should be split only after its callback-heavy movement/text handoffs are reviewed.

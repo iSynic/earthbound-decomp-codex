@@ -102,6 +102,26 @@ These names are source-pilot readability seeds from recurring decoded C3 actions
 | `$01` | `animation_frame1` | 32 | alternate/second script animation frame selector; often paired with $00 |
 | `$FF` | `animation_hidden_or_off` | 10 | sentinel/off-frame animation selector used by blink or disappearance-style pulses |
 
+### Visual countdown state bytes
+
+| Value | Name | Decode count | Contract |
+| --- | --- | ---: | --- |
+| `$00` | `visual_state_00` | 12 | visual-state byte $00 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$01` | `visual_state_01` | 1 | visual-state byte $01 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$02` | `visual_state_02` | 15 | visual-state byte $02 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$03` | `visual_state_03` | 1 | visual-state byte $03 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$04` | `visual_state_04` | 16 | visual-state byte $04 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$05` | `visual_state_05` | 1 | visual-state byte $05 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$06` | `visual_state_06` | 19 | visual-state byte $06 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$07` | `visual_state_07` | 1 | visual-state byte $07 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+
+### Visual countdown seed bytes
+
+| Value | Name | Decode count | Contract |
+| --- | --- | ---: | --- |
+| `$00` | `visual_countdown_seed_00` | 40 | visual countdown seed byte $00 read by C0:AA6E; zero-visual path writes it raw to $10F2/$2892, existing-visual path doubles it into $10F2 and records the slot in $2896 |
+| `$01` | `visual_countdown_seed_01` | 26 | visual countdown seed byte $01 read by C0:AA6E; zero-visual path writes it raw to $10F2/$2892, existing-visual path doubles it into $10F2 and records the slot in $2896 |
+
 ### Field $2B32 movement words
 
 | Value | Name | Observed count | Contract |
@@ -232,8 +252,8 @@ C3 direction-class words are backed by the runtime chain documented around `C0:A
 | `EF:0DFA` | `QueueCurrentDeliveryPointer2` | `timed-delivery` | 2 | 0 | `-` | queue current delivery row pointer 2 as deferred queue type #$000A | `byte-count-known` |
 | `C4:6EF8` | `CheckCurrentSlotWithinPlayerProximityThreshold` | `proximity-gate` | 2 | 0 | `-` | test the current slot anchor against the player proximity threshold | `byte-count-known` |
 | `C0:A959` | `FacePoseDescriptorSlotTowardCurrentSlot_ReadWord` | `presentation-render` | 2 | 2 | `pose_descriptor_id_word` | read one pose-descriptor id word, resolve that slot, and face it toward the current slot | `byte-count-known` |
-| `C0:A98B` | `SpawnEntityAtCurrentSlotAnchor_ReadTwoWords` | `entity-spawn` | 2 | 4 | `entity_visual_type_word, entity_initializer_word` | read two entity initializer words and spawn or initialize an entity at the current slot anchor | `byte-count-known` |
-| `C0:A679` | `Script_SetCurrentSlotDisplayControlBits` | `current-slot-state` | 2 | 1 | `display_control_bits_byte` | read one display-control byte and store it to current slot field $2BAA | `byte-count-known` |
+| `C0:A98B` | `SpawnEntityAtCurrentSlotAnchor_ReadTwoWords` | `entity-spawn` | 2 | 4 | `sprite_pose_descriptor_word, entity_script_id_word` | read a sprite-pose descriptor index and entity script id, then spawn an entity at the current slot anchor through C01E49 | `byte-count-known` |
+| `C0:A679` | `Script_SetCurrentSlotSurfaceFlags` | `current-slot-state` | 2 | 1 | `surface_flags_byte` | read one surface-flags byte and store it to current slot field $2BAA | `byte-count-known` |
 | `C4:0023` | `StoreLowNibble1a42ToCurrentScriptField1372` | `presentation-render` | 2 | 0 | `-` | copy the low nibble of display/script latch $1A42 into current script field $1372 | `byte-count-known` |
 | `C0:A6E3` | `WatchAndRefreshCompanionVisualPhase` | `visual-profile` | 2 | 0 | `-` | poll companion visual state and refresh the current slot phase while the watcher remains active | `byte-count-known` |
 | `C4:7269` | `ClassifyCurrentSlotAgainstAreaBounds` | `current-slot-state` | 2 | 0 | `-` | classify the current slot against the active area-bounds rectangle and return the result in the tempvar | `byte-count-known` |
@@ -300,7 +320,7 @@ C3 direction-class words are backed by the runtime chain documented around `C0:A
 | `C0:A055` | `ProjectWorldToScreen_FromCamera39` | `presentation-render` | 1 | project current slot world X/Y through camera $39/$3B |
 | `C0:A0A0` | `ProjectWorldToScreen_FromCamera39AndHeight` | `presentation-render` | 1 | project current slot world X/Y through camera $39/$3B and subtract height from screen Y |
 | `C0:A384` | `UpdatePosition_WhenNoNeighbor` | `movement` | 1 | per-frame no-neighbor position updater that integrates movement without the footprint refresh tail |
-| `C0:A26B` | `PhysicsCallback_TargetComparisonAndProjection` | `movement` | 1 | physics callback that compares current slot against active target context and falls back to camera projection |
+| `C0:A26B` | `PhysicsCallback_TargetContextCompareAndProject` | `movement` | 1 | physics callback that compares current slot in active target context and otherwise falls back to camera projection |
 | `C0:4D78` | `Tick_Event2SnapshotObjectReconcile` | `overworld-runtime` | 1 | intro/event snapshot tick callback that reconciles object state against saved coordinates |
 | `C0:D7F7` | `Consume_CurrentSlotAttentionPath` | `current-slot-state` | 1 | consume the current slot attention path into live movement target state |
 | `C0:A03A` | `ProjectWorldToScreen_FromCamera31AndHeight` | `presentation-render` | 1 | project current slot world coordinates through camera $31 and height state into screen coordinates |
@@ -566,14 +586,14 @@ C3:0263  29 D8 00             EVENT_SET_Y y_word=$00D8
 C3:0266  0E 06 80 1D          EVENT_SET_VAR script_var=var6, value_word=$1D80
 C3:026A  0E 07 D8 00          EVENT_SET_VAR script_var=var7, value_word=$00D8
 C3:026E  1A 95 02             EVENT_SHORTCALL call_target=$C3:0295 <MoveActiveEntityLeftToScriptVarsAndWait>
-C3:0271  42 6E AA C0 02 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$02, countdown_byte=$00
+C3:0271  42 6E AA C0 02 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$02 <visual_state_02>, countdown_byte=$00 <visual_countdown_seed_00>
 C3:0277  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
 C3:027B  06 01                EVENT_PAUSE frames=$01
 C3:027D  15 9A 5D 00 00       EVENT_WRITE_WORD_WRAM wram_addr=$5D9A <queue_pending_or_special_state_flag>, value_word=$0000
 C3:0282  0E 06 D0 1D          EVENT_SET_VAR script_var=var6, value_word=$1DD0
 C3:0286  1A 59 AB             EVENT_SHORTCALL call_target=$C3:AB59 <WaitForActiveEntityMovementToFinish>
 C3:0289  13                   EVENT_END_LAST_TASK
-C3:028A  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$06, countdown_byte=$00
+C3:028A  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$06 <visual_state_06>, countdown_byte=$00 <visual_countdown_seed_00>
 C3:0290  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
 C3:0294  09                   EVENT_HALT
 ```
@@ -587,7 +607,7 @@ C3:0294  09                   EVENT_HALT
 
 ```text
 C3:0295  1A 38 AA             EVENT_SHORTCALL call_target=$C3:AA38 <InitActionScriptMovementState>
-C3:0298  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$06, countdown_byte=$00
+C3:0298  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$06 <visual_state_06>, countdown_byte=$00 <visual_countdown_seed_00>
 C3:029E  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0100 <field2b32_step_0100>
 C3:02A4  0E 05 01 00          EVENT_SET_VAR script_var=var5, value_word=$0001
 C3:02A8  1A 59 AB             EVENT_SHORTCALL call_target=$C3:AB59 <WaitForActiveEntityMovementToFinish>
@@ -923,7 +943,7 @@ C3:A05B  19 52 A0             EVENT_SHORTJUMP jump_target=$C3:A052 <LoopIntroCam
 
 ```text
 C3:A05E  23 39 A0             EVENT_SET_POSITION_CHANGE_CALLBACK position_change_callback=$C0:A039 <ReturnFromPositionChangeCallback_NoProjection>
-C3:A061  25 6B A2             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A26B <PhysicsCallback_TargetComparisonAndProjection>
+C3:A061  25 6B A2             EVENT_SET_PHYSICS_CALLBACK physics_callback=$C0:A26B <PhysicsCallback_TargetContextCompareAndProject>
 C3:A064  3B 00                EVENT_SET_ANIMATION animation_id=$00 <animation_frame0>
 C3:A066  42 AA 3D C0          EVENT_CALLROUTINE $C0:3DAA <Sync_CurrentSlotToPartyCharacterRecord>
 C3:A06A  42 F0 4E C0          EVENT_CALLROUTINE $C0:4EF0 <Restore_CurrentSlotFromSnapshotRecord>

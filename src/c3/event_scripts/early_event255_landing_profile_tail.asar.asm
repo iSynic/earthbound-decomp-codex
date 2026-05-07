@@ -4,6 +4,9 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_SOUND_EFFECT_FALL_INTO_HOLE = $0011
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -34,16 +37,28 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
+    db $42
+    dl <target>
+    db <party_member_selector_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
+    db $42
+    dl <target>
+    dw <sound_effect_id_word>
 endmacro
 
 macro EVENT_HALT()
@@ -85,7 +100,7 @@ endmacro
 org $C308E5
 EarlyEvent255LandingProfileTail:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:08E5  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $00) ; C3:08E8  42 85 A6 C0 00 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0000) ; C3:08E8  42 85 A6 C0 00 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:08EE  0E 04 01 00
     %EVENT_LOOP($02) ; C3:08F2  01 02
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:08F4  1D 04 00
@@ -105,8 +120,8 @@ EarlyEvent255LandingProfileTail:
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:0918  1A 1E AA
     %EVENT_PAUSE($1E) ; C3:091B  06 1E
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:091D  1D 01 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $37, $01) ; C3:0920  42 57 A8 C0 37 01
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $11, $00) ; C3:0926  42 41 A8 C0 11 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0137) ; C3:0920  42 57 A8 C0 37 01
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_FALL_INTO_HOLE) ; C3:0926  42 41 A8 C0 11 00
     %EVENT_CALLROUTINE_0(!DispatchCurrentLandingProfileAction) ; C3:092C  42 3C 73 C4
     %EVENT_WRITE_WORD_TEMPVAR($0029) ; C3:0930  1D 29 00
     %EVENT_LOOP($0A) ; C3:0933  01 0A
@@ -118,7 +133,7 @@ EarlyEvent255LandingProfileTail:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:0944  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:0948  06 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:094A  0E 04 00 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:094E  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:094E  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:0954  1D 04 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:0957  1A 1E AA
     %EVENT_PAUSE($10) ; C3:095A  06 10
@@ -126,7 +141,7 @@ EarlyEvent255LandingProfileTail:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:095D  42 46 6E C4
     %EVENT_HALT() ; C3:0961  09
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:0962  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:0965  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:0965  42 85 A6 C0 80 00
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:096B  1D 04 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:096E  1A 1E AA
     %EVENT_PAUSE($70) ; C3:0971  06 70
@@ -134,6 +149,6 @@ EarlyEvent255LandingProfileTail:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:0974  42 46 6E C4
     %EVENT_HALT() ; C3:0978  09
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:0979  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:097C  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:097C  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:0982  0E 05 01 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $09) ; C3:0986  42 43 A9 C0 09
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $09) ; C3:0986  42 43 A9 C0 09

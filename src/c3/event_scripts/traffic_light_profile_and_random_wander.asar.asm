@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -20,9 +22,9 @@ hirom
 !LoopActiveEntityWalkPulseVar4Gate = $A111
 !LoopC40015Pulse16FrameUntilRelease = $A1F3
 !LoopC40015Var4GatedPulseUntilRelease = $A15E
-!PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotProfileFromField2C9A_Current = $C0C353
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !ScriptRelease_CurrentEntityVisualState = $C020F1
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords = $C0A964
@@ -42,16 +44,17 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_RADIUS_X_RADIUS_Y(target, radius_x_word, radius_y_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <radius_x_word>
+    dw <radius_y_word>
 endmacro
 
 macro EVENT_CHOOSE_RANDOM_SCRIPT_WORD_2(target, count, choice0, choice1)
@@ -143,15 +146,15 @@ endmacro
 
 org $C3A299
 Event9_TrafficLightProfileRefreshWait:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:A299  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:A29C  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:A299  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A29C  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:A29E  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:A29F  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotProfileFromField2C9A_Current) ; C3:A2A3  42 53 C3 C0
     %EVENT_SHORTJUMP(Event8_Entry2WaitUntilOffscreenRelease) ; C3:A2A7  19 B8 A2
 TrafficLightWaitUntilOffscreenAndRelease:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:A2AA  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:A2AD  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:A2AA  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A2AD  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:A2AF  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:A2B0  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:A2B4  42 BF A4 C0
@@ -162,26 +165,26 @@ Event8_Entry2WaitUntilOffscreenRelease:
     %EVENT_CALLROUTINE_0(!ScriptRelease_CurrentEntityVisualState) ; C3:A2C1  42 F1 20 C0
     %EVENT_END() ; C3:A2C5  00
 TrafficLightPulse16FrameRelease:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:A2C6  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:A2C9  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:A2C6  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A2C9  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:A2CB  39
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:A2CC  42 BF A4 C0
     %EVENT_SHORTJUMP(!LoopC40015Pulse16FrameUntilRelease) ; C3:A2D0  19 F3 A1
 TrafficLightFootprintPulse16FrameRelease:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:A2D3  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:A2D6  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:A2D3  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A2D6  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:A2D8  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:A2D9  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:A2DD  42 BF A4 C0
     %EVENT_SHORTJUMP(!LoopC40015Pulse16FrameUntilRelease) ; C3:A2E1  19 F3 A1
 TrafficLightRandomDirectionLoop:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:A2E4  25 60 A3
-    %EVENT_SET_ANIMATION($00) ; C3:A2E7  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A2E7  3B 00
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:A2E9  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:A2ED  42 BF A4 C0
     %EVENT_START_TASK(!LoopC40015Var4GatedPulseUntilRelease) ; C3:A2F1  07 5E A1
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:A2F4  07 62 A2
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:A2F7  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:A2F7  42 85 A6 C0 00 01
 LoopRandomDirectionMovementTimer:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:A2FD  0E 04 00 00
     %EVENT_CHOOSE_RANDOM_SCRIPT_WORD_4(!ChooseRandomScriptWord, 4, $0000, $0002, $0004, $0006) ; C3:A301  42 82 9F C0 04 00 00 02 00 04 00 06 00
@@ -196,40 +199,40 @@ LoopRandomDirectionMovementTimer:
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementTimer) ; C3:A338  19 FD A2
 TrafficLightRandomWander8x8:
     %EVENT_SHORTCALL(InitC40015PulseWithCollisionProbe) ; C3:A33B  1A A1 A3
-    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $08, $00, $08, $00) ; C3:A33E  42 64 A9 C0 08 00 08 00
+    %EVENT_CALLROUTINE_RADIUS_X_RADIUS_Y(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $0008, $0008) ; C3:A33E  42 64 A9 C0 08 00 08 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A346  19 B7 A3
 TrafficLightRandomWander16x16:
     %EVENT_SHORTCALL(InitC40015PulseWithCollisionProbe) ; C3:A349  1A A1 A3
-    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $10, $00, $10, $00) ; C3:A34C  42 64 A9 C0 10 00 10 00
+    %EVENT_CALLROUTINE_RADIUS_X_RADIUS_Y(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $0010, $0010) ; C3:A34C  42 64 A9 C0 10 00 10 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A354  19 B7 A3
 TrafficLightRandomWander32x32:
     %EVENT_SHORTCALL(InitC40015PulseWithCollisionProbe) ; C3:A357  1A A1 A3
-    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $20, $00, $20, $00) ; C3:A35A  42 64 A9 C0 20 00 20 00
+    %EVENT_CALLROUTINE_RADIUS_X_RADIUS_Y(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $0020, $0020) ; C3:A35A  42 64 A9 C0 20 00 20 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A362  19 B7 A3
 TrafficLightRandomWander24x8:
     %EVENT_SHORTCALL(InitC40015PulseWithCollisionProbe) ; C3:A365  1A A1 A3
-    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $18, $00, $08, $00) ; C3:A368  42 64 A9 C0 18 00 08 00
+    %EVENT_CALLROUTINE_RADIUS_X_RADIUS_Y(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $0018, $0008) ; C3:A368  42 64 A9 C0 18 00 08 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A370  19 B7 A3
 TrafficLightRandomWander24x8Alt:
     %EVENT_SHORTCALL(InitC40015PulseWithCollisionProbe) ; C3:A373  1A A1 A3
-    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $18, $00, $08, $00) ; C3:A376  42 64 A9 C0 18 00 08 00
+    %EVENT_CALLROUTINE_RADIUS_X_RADIUS_Y(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $0018, $0008) ; C3:A376  42 64 A9 C0 18 00 08 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A37E  19 B7 A3
 TrafficLightRandomWanderPresetLoop:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:A381  25 60 A3
-    %EVENT_SET_ANIMATION($00) ; C3:A384  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A384  3B 00
     %EVENT_START_TASK(!LoopActiveEntityWalkPulseVar4Gate) ; C3:A386  07 11 A1
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:A389  07 62 A2
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:A38C  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:A390  42 85 A6 C0 00 01
-    %EVENT_CALLROUTINE_4(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $08, $00, $08, $00) ; C3:A396  42 64 A9 C0 08 00 08 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:A390  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_RADIUS_X_RADIUS_Y(!SetCurrentSlotAreaBoundsFromRadii_ReadTwoWords, $0008, $0008) ; C3:A396  42 64 A9 C0 08 00 08 00
     %EVENT_SHORTJUMP(LoopRandomDirectionMovementWithRandomWait) ; C3:A39E  19 B7 A3
 InitC40015PulseWithCollisionProbe:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:A3A1  25 60 A3
-    %EVENT_SET_ANIMATION($00) ; C3:A3A4  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A3A4  3B 00
     %EVENT_START_TASK(!LoopC40015Var4GatedPulseUntilRelease) ; C3:A3A6  07 5E A1
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:A3A9  07 62 A2
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:A3AC  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:A3B0  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:A3B0  42 85 A6 C0 00 01
     %EVENT_SHORT_RETURN() ; C3:A3B6  1B
 LoopRandomDirectionMovementWithRandomWait:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:A3B7  0E 04 00 00

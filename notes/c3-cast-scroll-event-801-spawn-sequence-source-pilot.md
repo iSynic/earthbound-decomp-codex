@@ -24,6 +24,10 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_CAST_NAME_SOURCE_CAST_NAME_TILE_X_CAST_NAME_TILE_Y`, `%EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID`.
+
 ## Next Promotion Step
 
 The adjacent `C3:5F8B..C3:62C0` cast-member path family is already promoted; continue with one of the remaining callback-blocked C3 gaps from `notes/c3-source-pilot-frontier.md`.

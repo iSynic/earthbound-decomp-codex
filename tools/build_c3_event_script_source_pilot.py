@@ -13,8 +13,27 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from decode_event_script import (
     ACTIONSCRIPT_ANIMATION_IDS,
+    ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS,
+    ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS,
+    ACTIONSCRIPT_COLDATA_COMPONENT_BYTES,
     ACTIONSCRIPT_DIRECTION_WORDS,
+    ACTIONSCRIPT_DISPLAY_FADE_STEP_WORDS,
+    ACTIONSCRIPT_DISPLAY_FADE_WAIT_FRAME_WORDS,
+    ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS,
+    ACTIONSCRIPT_ENTITY_SCRIPT_IDS,
+    ACTIONSCRIPT_FADE_EFFECT_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
+    ACTIONSCRIPT_LANDING_PALETTE_FADE_FRAME_COUNT_BYTES,
+    ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS,
+    ACTIONSCRIPT_LANDING_PALETTE_SCALE_BYTES,
+    ACTIONSCRIPT_MOSAIC_WH0_MASK_LEFT_X_WORDS,
+    ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS,
+    ACTIONSCRIPT_MOSAIC_WH0_MASK_Y_WORDS,
+    ACTIONSCRIPT_SOUND_EFFECT_IDS,
+    ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_WORDS,
+    ACTIONSCRIPT_SURFACE_FLAGS_BYTES,
+    ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES,
+    ACTIONSCRIPT_VISUAL_STATE_BYTES,
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
     OPCODES,
@@ -803,8 +822,8 @@ LABEL_OVERRIDES = {
     "C2:EACF": "WaitForBattleEffectStepReady",
     "C0:9FAE": "ActionScript_FadeInWrapper",
     "C0:A977": "Movement_LoadBattleBg",
-    "C0:A9CF": "ScriptWrapper_C4EC05_ReadThreeWords",
-    "C0:A9EB": "ScriptWrapper_C4EC52_ReadThreeWords",
+    "C0:A9CF": "PrintCastNameEntityVar0_ReadThreeWords",
+    "C0:A9EB": "PrintCastNameCurrentThreshold_ReadThreeWords",
     "C0:AA07": "ActionScript_FadeOutWithMosaic",
     "C0:A8B3": "Script_SetStagedPositionOffset_ReadTwoWords",
     "C0:A8F7": "ActionScript_PrepareNewEntityAtSelf",
@@ -1027,8 +1046,8 @@ LABEL_OVERRIDES = {
     "C3:B86C": "Event78_BikiniZombieFlaggedLeftMove",
     "C3:B8A5": "Event79_BikiniZombieHotelDoorPath",
     "C3:B8E8": "Event80_ResetVar4AfterPartyMove",
-    "C3:B902": "Event81_PartyLookTaskUnknown61Release",
-    "C3:B926": "Event82_DirectionalUnknown61Release",
+    "C3:B902": "Event81_PartyLookTaskStairsFastSfxRelease",
+    "C3:B926": "Event82_DirectionalStairsFastSfxRelease",
     "C3:B95D": "Event83_PartyMemberOneOuchSequence",
     "C3:B9B6": "Event84_PartyMemberOneYieldAndHold",
     "C3:B9D4": "Event85_TwosonThreedTunnelFlagGateA",
@@ -1345,7 +1364,7 @@ LABEL_OVERRIDES = {
     "C0:A0BB": "ProjectWorldToScreen_CopyWorld",
     "C0:9FA8": "ChooseRandomScriptByte",
     "C0:A65F": "SetCurrentSlotDirectionClassIfActive",
-    "C0:A679": "Script_SetCurrentSlotDisplayControlBits",
+    "C0:A679": "Script_SetCurrentSlotSurfaceFlags",
     "C0:A841": "Script_PlaySoundEffectParameter",
     "C0:A864": "Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte",
     "C0:A87A": "Script_SetCameraRelativeAnchor_ReadTwoWords",
@@ -1353,9 +1372,9 @@ LABEL_OVERRIDES = {
     "C0:A8E7": "ScriptWrapper_C472A8_Mode0",
     "C0:9FC8": "Integrate_XYVelocityOnly",
     "C0:9FBB": "ActionScript_FadeOutWrapper",
-    "C0:A98B": "ScriptWrapper_C46534_ReadThreeWords",
+    "C0:A98B": "SpawnEntityAtCurrentSlotAnchor_ReadTwoWords",
     "C0:A99F": "SpawnEntityRelative_ReadTwoWords",
-    "C0:A9B3": "ScriptWrapper_C4EBAD_ReadThreeWords",
+    "C0:A9B3": "PrintCastNameParty_ReadThreeWords",
     "C0:A00C": "Integrate_XYAndZVelocity",
     "C0:A03A": "ProjectWorldToScreen_FromCamera31AndHeight",
     "C0:AA23": "ScriptWrapper_C47765_ReadThreeWords",
@@ -1373,7 +1392,7 @@ LABEL_OVERRIDES = {
     "C0:D77F": "MarkOtherSlotsAttentionLocked",
     "C0:D7B3": "Save_CurrentSlotAttentionPosition",
     "C0:D7C7": "Restore_CurrentSlotAttentionPosition",
-    "C0:D7E0": "NormalizeCurrentSlotAttentionState",
+    "C0:D7E0": "Normalize_CurrentSlotAttentionState",
     "C0:D59B": "Check_NpcAttentionCoordinatorActive",
     "C0:6478": "Update_CurrentSlotNeighborCache_Priority",
     "C0:5E82": "Update_CurrentSlotCollisionCache_WithTerrainCompatibility",
@@ -1520,7 +1539,14 @@ def callroutine_schema(target: Address, arg_count: int | None) -> tuple[str, ...
 def callroutine_schema_suffix(fields: tuple[str, ...]) -> str:
     parts = []
     for field in fields:
-        base = re.sub(r"_(?:byte|word|long)$", "", field)
+        # C0:A643 and C0:A68B both expose a direction-class operand, but
+        # the former reads a word while the latter reads a byte. Keep the
+        # word shape in the macro name so the combined scaffold cannot reuse
+        # the byte-emitting macro for a word argument.
+        if field == "direction_class_word":
+            base = field
+        else:
+            base = re.sub(r"_(?:byte|word|long)$", "", field)
         text = re.sub(r"[^0-9A-Za-z_]+", "_", base)
         text = re.sub(r"_+", "_", text).strip("_")
         parts.append((text or "ARG").upper())
@@ -3522,11 +3548,75 @@ def call_arg_expr(
         raise ValueError(f"cannot render call argument field {field!r}")
     if width == 1:
         value = raw_args[cursor]
+        if field == "palette_scale_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_LANDING_PALETTE_SCALE_BYTES,
+                prefix="LANDING_PALETTE",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
+        if field == "fade_frame_count_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_LANDING_PALETTE_FADE_FRAME_COUNT_BYTES,
+                prefix="LANDING_PALETTE",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
+        if field in {
+            "coldata_red_component_byte",
+            "coldata_green_component_byte",
+            "coldata_blue_component_byte",
+        }:
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_COLDATA_COMPONENT_BYTES,
+                prefix="COLDATA",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
         if field == "direction_class_byte":
             symbol = catalog_constant(
                 value,
                 ACTIONSCRIPT_DIRECTION_WORDS,
                 prefix="DIRECTION",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
+        if field == "surface_flags_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_SURFACE_FLAGS_BYTES,
+                prefix="SURFACE_FLAGS",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
+        if field == "visual_state_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_VISUAL_STATE_BYTES,
+                prefix="VISUAL_STATE",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
+        if field == "countdown_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES,
+                prefix="VISUAL_COUNTDOWN",
                 formatter=fmt_byte,
                 constants=constants,
             )
@@ -3540,6 +3630,136 @@ def call_arg_expr(
                 value,
                 ACTIONSCRIPT_FIELD2B32_WORDS,
                 prefix="FIELD2B32",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "battle_bg_layer1_id_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS,
+                prefix="BATTLE_BG_LAYER1_ID",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "battle_bg_layer2_id_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS,
+                prefix="BATTLE_BG_LAYER2_ID",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "landing_palette_existing_work_mask_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS,
+                prefix="LANDING_PALETTE_EXISTING_WORK_MASK",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field in {"fadein_effect_word", "fadeout_effect_word"}:
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_FADE_EFFECT_WORDS,
+                prefix="FADE_EFFECT",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "mask_left_x_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_MOSAIC_WH0_MASK_LEFT_X_WORDS,
+                prefix="MOSAIC_WH0_MASK_LEFT_X",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "mask_y_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_MOSAIC_WH0_MASK_Y_WORDS,
+                prefix="MOSAIC_WH0_MASK_Y",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "mask_right_x_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS,
+                prefix="MOSAIC_WH0_MASK_RIGHT_X",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "display_fade_step_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_DISPLAY_FADE_STEP_WORDS,
+                prefix="DISPLAY_FADE",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "display_fade_wait_frames_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_DISPLAY_FADE_WAIT_FRAME_WORDS,
+                prefix="DISPLAY_FADE",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "display_mosaic_update_flag_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS,
+                prefix="DISPLAY_MOSAIC",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "sprite_pose_descriptor_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_WORDS,
+                prefix="SPRITE_POSE_DESCRIPTOR",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "entity_script_id_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_ENTITY_SCRIPT_IDS,
+                prefix="ENTITY_SCRIPT_ID",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "sound_effect_id_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_SOUND_EFFECT_IDS,
+                prefix="SOUND_EFFECT",
                 formatter=fmt_word,
                 constants=constants,
             )
@@ -3913,6 +4133,14 @@ def render_report(
     if any(symbol.startswith("!ACTIONSCRIPT_DIRECTION_") for symbol in constants):
         readability_lines.append(
             "- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants."
+        )
+    if any(symbol.startswith("!ACTIONSCRIPT_SOUND_EFFECT_") for symbol in constants):
+        readability_lines.append(
+            "- Known sound-effect IDs render as `!ACTIONSCRIPT_SOUND_EFFECT_*` constants while keeping the word-shaped callback operand."
+        )
+    if any(symbol.startswith("!ACTIONSCRIPT_SURFACE_FLAGS_") for symbol in constants):
+        readability_lines.append(
+            "- Known `C0:A679` surface-flag bytes render as `!ACTIONSCRIPT_SURFACE_FLAGS_*` constants; bit-level meanings remain intentionally unsplit."
         )
     if direction_tempvar_write_count:
         readability_lines.append(

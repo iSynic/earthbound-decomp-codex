@@ -24,6 +24,12 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+- Known sound-effect IDs render as `!ACTIONSCRIPT_SOUND_EFFECT_*` constants while keeping the word-shaped callback operand.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_FIELD2B32`, `%EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR`, `%EVENT_CALLROUTINE_SOUND_EFFECT_ID`.
+
 ## Next Promotion Step
 
 Continue with another callback-contract seam from `notes/c3-source-pilot-frontier.md`; the adjacent `C3:DF90..` rightward live-area path family is already promoted.

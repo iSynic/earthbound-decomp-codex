@@ -12,6 +12,7 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
+!CheckStagedPositionWithinPlayerProximityThreshold = $C46E74
 !ChooseRandomScriptWord = $C09F82
 !ClassifyCurrentSlotAgainstAreaBounds = $C47269
 !ComputeCurrentSlotTargetDirectionOctant = $C46ADB
@@ -20,10 +21,9 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RotateDirectionOctantHalfTurn = $C46B37
 !RoundAngleToOctantAndCacheCurrentSlot = $C46B0A
-!ScriptWrapper_C47143_Mode10 = $C0A8D1
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetMovementTaskTimerFromActiveVector = $C0CA4E
-!label_C46E74 = $C46E74
+!StepCurrentSlotTowardCachedTarget_WithHalfTurnFacing = $C0A8D1
 
 ; Minimal macro vocabulary used by this source pilot.
 macro EVENT_BINOP_TEMPVAR(op, value)
@@ -96,18 +96,18 @@ MoveCurrentSlotAwayFromTargetVector:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:AB7B  42 BF A4 C0
 LoopMoveCurrentSlotAwayFromTargetVector:
     %EVENT_PAUSE($01) ; C3:AB7F  06 01
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode10) ; C3:AB81  42 D1 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget_WithHalfTurnFacing) ; C3:AB81  42 D1 A8 C0
     %EVENT_SHORTCALL_CONDITIONAL(LoopMoveCurrentSlotAwayFromTargetVector) ; C3:AB85  0A 7F AB
     %EVENT_SET_VELOCITIES_ZERO() ; C3:AB88  39
     %EVENT_SHORT_RETURN() ; C3:AB89  1B
 WaitUntilPlayerLeavesActiveArea:
     %EVENT_PAUSE($01) ; C3:AB8A  06 01
-    %EVENT_CALLROUTINE_0(!label_C46E74) ; C3:AB8C  42 74 6E C4
+    %EVENT_CALLROUTINE_0(!CheckStagedPositionWithinPlayerProximityThreshold) ; C3:AB8C  42 74 6E C4
     %EVENT_SHORTCALL_CONDITIONAL(WaitUntilPlayerLeavesActiveArea) ; C3:AB90  0A 8A AB
     %EVENT_SHORT_RETURN() ; C3:AB93  1B
 WaitUntilPlayerEntersActiveArea:
     %EVENT_PAUSE($01) ; C3:AB94  06 01
-    %EVENT_CALLROUTINE_0(!label_C46E74) ; C3:AB96  42 74 6E C4
+    %EVENT_CALLROUTINE_0(!CheckStagedPositionWithinPlayerProximityThreshold) ; C3:AB96  42 74 6E C4
     %EVENT_SHORTCALL_CONDITIONAL_NOT(WaitUntilPlayerEntersActiveArea) ; C3:AB9A  0B 94 AB
     %EVENT_SHORT_RETURN() ; C3:AB9D  1B
 LoopRandomWanderInsideActiveArea:

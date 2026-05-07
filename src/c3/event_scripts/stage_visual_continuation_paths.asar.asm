@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -29,22 +31,30 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <registry_slot_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -93,23 +103,23 @@ endmacro
 
 org $C334FF
 Event438_StageVisualCountdownTextRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:34FF  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:34FF  42 64 A8 C0 FF
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:3504  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:3507  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:3507  3B FF
     %EVENT_SET_TICK_CALLBACK(!CentreScreenOnEntityCallback) ; C3:3509  08 2B 8C C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $FFF1) ; C3:350D  0E 00 F1 FF
     %EVENT_CALLROUTINE_0(!ApplyCurrentSlot0e5eFixedColorMath) ; C3:3511  42 A8 74 C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:3515  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:3515  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:351B  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1280) ; C3:351F  0E 06 80 12
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1670) ; C3:3523  0E 07 70 16
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:3527  1A 59 AB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C8, $00, $C7, $89) ; C3:352A  42 8D A8 C0 C8 00 C7 89
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C8, $89C7) ; C3:352A  42 8D A8 C0 C8 00 C7 89
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:3532  19 04 A2
 StagePositionVisualCountdownHalt:
     %EVENT_SET_X($1280) ; C3:3535  28 80 12
     %EVENT_SET_Y($1668) ; C3:3538  29 68 16
     %EVENT_SHORTCALL(!InitVar4TimedAnimationPulseMovement) ; C3:353B  1A 4F 1D
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:353E  0E 04 00 00
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:3542  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:3542  42 6E AA C0 00 00
     %EVENT_HALT() ; C3:3548  09

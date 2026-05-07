@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_DIRECTION_DOWN = $00
+!ACTIONSCRIPT_FIELD2B32_STEP_0040 = $0040
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -13,7 +15,7 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !Event51_PartyMemberOrbitLoop = $B06D
 !GetCurrentSlotField2B32 = $C0A691
 !InitAlternatePhysicsVar4WalkPulse = $AB26
@@ -37,16 +39,28 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <direction_class_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
+    db $42
+    dl <target>
+    db <party_member_selector_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
+    db $42
+    dl <target>
+    dw <pose_descriptor_slot_word>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -120,21 +134,21 @@ LoopField2B32OscillationUp:
     %EVENT_SHORTJUMP(LoopField2B32OscillationDown) ; C3:B0E9  19 C7 B0
 Event50_PartyMemberHopTextRelease:
     %EVENT_SHORTCALL(!InitAlternatePhysicsVar4WalkPulse) ; C3:B0EC  1A 26 AB
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:B0EF  42 2F A8 C0
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $C5, $00) ; C3:B0F3  42 6F A8 C0 C5 00
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:B0EF  42 2F A8 C0
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00C5) ; C3:B0F3  42 6F A8 C0 C5 00
     %EVENT_START_TASK(!LoopPartyLooksAtActiveEntity) ; C3:B0F9  07 A3 AF
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $00) ; C3:B0FC  42 51 A6 C0 00
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_DOWN) ; C3:B0FC  42 51 A6 C0 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B101  42 BF A4 C0
     %EVENT_START_TASK(Event50_ZVelocityHopTask) ; C3:B105  07 35 B1
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0004) ; C3:B108  0E 05 04 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $05) ; C3:B10C  42 43 A9 C0 05
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $40, $00) ; C3:B111  42 85 A6 C0 40 00
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $05) ; C3:B10C  42 43 A9 C0 05
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0040) ; C3:B111  42 85 A6 C0 40 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:B117  1A 59 AB
     %EVENT_PAUSE($78) ; C3:B11A  06 78
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:B11C  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:B120  06 01
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $01) ; C3:B122  42 43 A9 C0 01
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $40, $00) ; C3:B127  42 85 A6 C0 40 00
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $01) ; C3:B122  42 43 A9 C0 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0040) ; C3:B127  42 85 A6 C0 40 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:B12D  1A 59 AB
     %EVENT_END_LAST_TASK() ; C3:B130  13
     %EVENT_END_LAST_TASK() ; C3:B131  13

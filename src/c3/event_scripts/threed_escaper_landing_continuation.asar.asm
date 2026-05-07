@@ -4,6 +4,15 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_FRAME1 = $01
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_RIGHT = $02
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0040 = $0040
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_FIELD2B32_STEP_0160 = $0160
+!ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -25,11 +34,11 @@ hirom
 !LoopActiveEntityWalkPulse9FrameConditional = $A0D8
 !MakePartyLookAtActiveEntityCallback = $C48B3B
 !MoveCurrentSlotAwayFromTargetVector = $AB67
-!PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
 !RefreshCurrentSlotVisualProfile_Mode1IfAligned = $C0A4B2
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RunThreedEscaperRandomTextPause = $7E66
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
@@ -52,16 +61,23 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
+    db $42
+    dl <target>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
 endmacro
 
 macro EVENT_CHOOSE_RANDOM_SCRIPT_WORD_4(target, count, choice0, choice1, choice2, choice3)
@@ -182,22 +198,22 @@ endmacro
 org $C37BFE
 Event670_ThreedEscaperLandingSequence:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:7BFE  25 7A A3
-    %EVENT_SET_ANIMATION($00) ; C3:7C01  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:7C01  3B 00
     %EVENT_START_TASK(!LoopActiveEntityWalkPulse9FrameConditional) ; C3:7C03  07 D8 A0
     %EVENT_SET_VELOCITIES_ZERO() ; C3:7C06  39
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7C07  42 BF A4 C0
     %EVENT_SET_TICK_CALLBACK(!MakePartyLookAtActiveEntityCallback) ; C3:7C0B  08 3B 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $60, $01) ; C3:7C0F  42 85 A6 C0 60 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0160) ; C3:7C0F  42 85 A6 C0 60 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:7C15  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $04D0) ; C3:7C19  0E 06 D0 04
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2730) ; C3:7C1D  0E 07 30 27
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7C21  1A 59 AB
     %EVENT_END_LAST_TASK() ; C3:7C24  13
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:7C25  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:7C25  1D 02 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7C28  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7C2C  42 BF A4 C0
     %EVENT_PAUSE($1E) ; C3:7C30  06 1E
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $40, $00) ; C3:7C32  42 85 A6 C0 40 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0040) ; C3:7C32  42 85 A6 C0 40 00
     %EVENT_START_TASK(!LoopActiveEntityWalkPulse24Frame) ; C3:7C38  07 B2 A0
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:7C3B  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $04B0) ; C3:7C3F  0E 06 B0 04
@@ -205,7 +221,7 @@ Event670_ThreedEscaperLandingSequence:
     %EVENT_SHORTCALL(!MoveCurrentSlotAwayFromTargetVector) ; C3:7C47  1A 67 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:7C4A  42 46 6E C4
     %EVENT_START_TASK(!LoopActiveEntityWalkAnimationPulse) ; C3:7C4E  07 9F A0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:7C51  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:7C51  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0005) ; C3:7C57  0E 05 05 00
     %EVENT_START_TASK(LoopEvent670_LandingFieldPulseTask) ; C3:7C5B  07 D8 7C
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $05D0) ; C3:7C5E  0E 06 D0 05
@@ -214,17 +230,17 @@ Event670_ThreedEscaperLandingSequence:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:7C69  39
     %EVENT_PAUSE($F0) ; C3:7C6A  06 F0
     %EVENT_START_TASK(LoopEvent670_LandingAnimationPulseTask) ; C3:7C6C  07 EA 7C
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $03) ; C3:7C6F  42 85 A6 C0 00 03
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0300) ; C3:7C6F  42 85 A6 C0 00 03
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0004) ; C3:7C75  0E 00 04 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:7C79  0E 05 03 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0538) ; C3:7C7D  0E 06 38 05
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7C81  1A 59 AB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:7C84  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:7C84  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0006) ; C3:7C8A  0E 00 06 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:7C8E  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $04F0) ; C3:7C92  0E 06 F0 04
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7C96  1A 59 AB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:7C99  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:7C99  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $000C) ; C3:7C9F  0E 00 0C 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:7CA3  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $04B0) ; C3:7CA7  0E 06 B0 04
@@ -234,7 +250,7 @@ Event670_ThreedEscaperLandingSequence:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $26C8) ; C3:7CB6  0E 07 C8 26
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7CBA  1A 59 AB
     %EVENT_SET_VELOCITIES_ZERO() ; C3:7CBD  39
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:7CBE  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:7CBE  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:7CC1  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7CC5  42 BF A4 C0
     %EVENT_CLEAR_TICK_CALLBACK() ; C3:7CC9  0F
@@ -252,10 +268,10 @@ LoopEvent670_LandingFieldPulseTask:
     %EVENT_END_TASK() ; C3:7CE9  0C
 LoopEvent670_LandingAnimationPulseTask:
     %EVENT_WRITE_VAR_TO_WAIT_TIMER(!ACTIONSCRIPT_VARS_V0) ; C3:7CEA  21 00
-    %EVENT_SET_ANIMATION($01) ; C3:7CEC  3B 01
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME1) ; C3:7CEC  3B 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:7CEE  42 B2 A4 C0
     %EVENT_WRITE_VAR_TO_WAIT_TIMER(!ACTIONSCRIPT_VARS_V0) ; C3:7CF2  21 00
-    %EVENT_SET_ANIMATION($00) ; C3:7CF4  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:7CF4  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:7CF6  42 A8 A4 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopEvent670_LandingAnimationPulseTask) ; C3:7CFA  0B EA 7C
     %EVENT_SHORTCALL(!InitMovementPreset00_02Pulse6Frame) ; C3:7CFD  1A 82 AA
@@ -277,7 +293,7 @@ ThreedEscaperRandomTextCheck0:
     %EVENT_SHORTCALL(PrepareThreedEscaperRandomTextActor) ; C3:7D33  1A 50 7E
 LoopThreedEscaperRandomTextCheck0:
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:7D36  1D 00 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0E, $02) ; C3:7D39  42 57 A8 C0 0E 02
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $020E) ; C3:7D39  42 57 A8 C0 0E 02
     %EVENT_CHOOSE_RANDOM_SCRIPT_WORD_4(!ChooseRandomScriptWord, 4, $0190, $0258, $04B0, $0708) ; C3:7D3F  42 82 9F C0 04 90 01 58 02 B0 04 08 07
     %EVENT_WRITE_TEMPVAR_WAITTIMER() ; C3:7D4C  44
     %EVENT_WRITE_WRAM_TEMPVAR($5D60) ; C3:7D4D  1E 60 5D
@@ -294,16 +310,16 @@ LoopThreedEscaperRandomTextCheck0:
     %EVENT_CALLROUTINE_0(!CheckStagedPositionWithinPlayerProximityThreshold) ; C3:7D74  42 74 6E C4
     %EVENT_SHORTCALL_CONDITIONAL(QueueThreedEscaperRandomText0) ; C3:7D78  0A 84 7D
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:7D7B  1D 01 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0E, $02) ; C3:7D7E  42 57 A8 C0 0E 02
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $020E) ; C3:7D7E  42 57 A8 C0 0E 02
 QueueThreedEscaperRandomText0:
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $C9, $B7) ; C3:7D84  42 8D A8 C0 C7 00 C9 B7
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $B7C9) ; C3:7D84  42 8D A8 C0 C7 00 C9 B7
     %EVENT_SHORTCALL(!RunThreedEscaperRandomTextPause) ; C3:7D8C  1A 66 7E
     %EVENT_SHORTJUMP(LoopThreedEscaperRandomTextCheck0) ; C3:7D8F  19 36 7D
 ThreedEscaperRandomTextCheck1:
     %EVENT_SHORTCALL(PrepareThreedEscaperRandomTextActor) ; C3:7D92  1A 50 7E
 LoopThreedEscaperRandomTextCheck1:
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:7D95  1D 00 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0F, $02) ; C3:7D98  42 57 A8 C0 0F 02
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $020F) ; C3:7D98  42 57 A8 C0 0F 02
     %EVENT_CHOOSE_RANDOM_SCRIPT_WORD_4(!ChooseRandomScriptWord, 4, $0190, $0258, $04B0, $0708) ; C3:7D9E  42 82 9F C0 04 90 01 58 02 B0 04 08 07
     %EVENT_WRITE_TEMPVAR_WAITTIMER() ; C3:7DAB  44
     %EVENT_WRITE_WRAM_TEMPVAR($5D60) ; C3:7DAC  1E 60 5D
@@ -320,16 +336,16 @@ LoopThreedEscaperRandomTextCheck1:
     %EVENT_CALLROUTINE_0(!CheckStagedPositionWithinPlayerProximityThreshold) ; C3:7DD3  42 74 6E C4
     %EVENT_SHORTCALL_CONDITIONAL(QueueThreedEscaperRandomText1) ; C3:7DD7  0A E3 7D
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:7DDA  1D 01 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0F, $02) ; C3:7DDD  42 57 A8 C0 0F 02
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $020F) ; C3:7DDD  42 57 A8 C0 0F 02
 QueueThreedEscaperRandomText1:
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $2D, $B8) ; C3:7DE3  42 8D A8 C0 C7 00 2D B8
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $B82D) ; C3:7DE3  42 8D A8 C0 C7 00 2D B8
     %EVENT_SHORTCALL(!RunThreedEscaperRandomTextPause) ; C3:7DEB  1A 66 7E
     %EVENT_SHORTJUMP(LoopThreedEscaperRandomTextCheck1) ; C3:7DEE  19 95 7D
 ThreedEscaperRandomTextCheck2:
     %EVENT_SHORTCALL(PrepareThreedEscaperRandomTextActor) ; C3:7DF1  1A 50 7E
 LoopThreedEscaperRandomTextCheck2:
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:7DF4  1D 00 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $10, $02) ; C3:7DF7  42 57 A8 C0 10 02
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0210) ; C3:7DF7  42 57 A8 C0 10 02
     %EVENT_CHOOSE_RANDOM_SCRIPT_WORD_4(!ChooseRandomScriptWord, 4, $0190, $0258, $04B0, $0708) ; C3:7DFD  42 82 9F C0 04 90 01 58 02 B0 04 08 07
     %EVENT_WRITE_TEMPVAR_WAITTIMER() ; C3:7E0A  44
     %EVENT_WRITE_WRAM_TEMPVAR($5D60) ; C3:7E0B  1E 60 5D
@@ -346,15 +362,15 @@ LoopThreedEscaperRandomTextCheck2:
     %EVENT_CALLROUTINE_0(!CheckStagedPositionWithinPlayerProximityThreshold) ; C3:7E32  42 74 6E C4
     %EVENT_SHORTCALL_CONDITIONAL(QueueThreedEscaperRandomText2) ; C3:7E36  0A 42 7E
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:7E39  1D 01 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $10, $02) ; C3:7E3C  42 57 A8 C0 10 02
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0210) ; C3:7E3C  42 57 A8 C0 10 02
 QueueThreedEscaperRandomText2:
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $92, $B8) ; C3:7E42  42 8D A8 C0 C7 00 92 B8
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $B892) ; C3:7E42  42 8D A8 C0 C7 00 92 B8
     %EVENT_SHORTCALL(!RunThreedEscaperRandomTextPause) ; C3:7E4A  1A 66 7E
     %EVENT_SHORTJUMP(LoopThreedEscaperRandomTextCheck2) ; C3:7E4D  19 F4 7D
 PrepareThreedEscaperRandomTextActor:
     %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:7E50  42 2F A8 C0
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:7E54  25 F0 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:7E57  3B FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:7E54  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:7E57  3B FF
     %EVENT_SET_VELOCITIES_ZERO() ; C3:7E59  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:7E5A  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7E5E  42 BF A4 C0

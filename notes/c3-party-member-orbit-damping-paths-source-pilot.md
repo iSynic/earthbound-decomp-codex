@@ -24,6 +24,10 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_FIELD2B32`, `%EVENT_CALLROUTINE_REGISTRY_SLOT`.
+
 ## Next Promotion Step
 
 Continue with another callback-unlocked seam from `notes/c3-source-pilot-frontier.md`, especially the cast-screen and Threed escaper terminal batches.

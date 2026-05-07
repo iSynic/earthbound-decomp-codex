@@ -4,6 +4,15 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_COLDATA_COMPONENT_10 = $10
+!ACTIONSCRIPT_COLDATA_COMPONENT_18 = $18
+!ACTIONSCRIPT_COLDATA_COMPONENT_ZERO = $00
+!ACTIONSCRIPT_DIRECTION_LEFT = $06
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
+!ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -25,9 +34,9 @@ hirom
 !Integrate_XYVelocityOnly = $9FC8
 !LoopActiveEntityWalkAnimationPulse = $A09F
 !MoveCurrentSlotAwayFromTargetVector = $AB67
-!PositionChangeCallback_C0A039 = $A039
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
@@ -56,28 +65,62 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT(target, coldata_red_component_byte, coldata_green_component_byte, coldata_blue_component_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <coldata_red_component_byte>
+    db <coldata_green_component_byte>
+    db <coldata_blue_component_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_3(target, arg0, arg1, arg2)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    db <party_member_selector_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
+    db $42
+    dl <target>
+    dw <pose_descriptor_slot_word>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
+    db $42
+    dl <target>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_TYPE_SLOT(target, visual_type_slot_word)
+    db $42
+    dl <target>
+    dw <visual_type_slot_word>
 endmacro
 
 macro EVENT_CLEAR_TICK_CALLBACK()
@@ -171,16 +214,16 @@ endmacro
 
 org $C3B13E
 Event54_MeteoriteWindowColorPresentation:
-    %EVENT_CALLROUTINE_2(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $C5, $00) ; C3:B13E  42 6F A8 C0 C5 00
+    %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00C5) ; C3:B13E  42 6F A8 C0 C5 00
     %EVENT_SET_Y_RELATIVE($FFF6) ; C3:B144  2C F6 FF
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:B147  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:B14A  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:B14A  3B FF
     %EVENT_PAUSE($3C) ; C3:B14C  06 3C
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0001) ; C3:B14E  0E 00 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0001) ; C3:B152  0E 01 01 00
     %EVENT_CALLROUTINE_0(!SetCenteredColorWindowRangePreset) ; C3:B156  42 DC 23 C4
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:B15A  1D 00 00
-    %EVENT_CALLROUTINE_3(!Script_SetVisualSetupBytesByMode, $00, $10, $18) ; C3:B15D  42 3F AA C0 00 10 18
+    %EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT(!Script_SetVisualSetupBytesByMode, !ACTIONSCRIPT_COLDATA_COMPONENT_ZERO, !ACTIONSCRIPT_COLDATA_COMPONENT_10, !ACTIONSCRIPT_COLDATA_COMPONENT_18) ; C3:B15D  42 3F AA C0 00 10 18
     %EVENT_SET_TICK_CALLBACK(!StageCurrentEntityCenteredWh0BoxMask) ; C3:B164  08 E9 79 C4
     %EVENT_LOOP($50) ; C3:B168  01 50
     %EVENT_PAUSE($01) ; C3:B16A  06 01
@@ -209,16 +252,16 @@ Event54_MeteoriteWindowColorPresentation:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:B1A3  19 04 A2
 Event52_MeteoritePokeyHopTextHalt:
     %EVENT_SHORTCALL(!InitAlternatePhysicsVar4WalkPulse) ; C3:B1A6  1A 26 AB
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $01) ; C3:B1A9  42 64 A8 C0 01
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $01) ; C3:B1A9  42 64 A8 C0 01
     %EVENT_SET_Z($0010) ; C3:B1AE  2A 10 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $30, $00) ; C3:B1B1  42 85 A6 C0 30 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0030) ; C3:B1B1  42 85 A6 C0 30 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:B1B7  0E 05 01 00
-    %EVENT_CALLROUTINE_2(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $2D, $00) ; C3:B1BB  42 2D A9 C0 2D 00
+    %EVENT_CALLROUTINE_VISUAL_TYPE_SLOT(!Script_SetTargetToVisualTypeSlotPosition_ReadWord, $002D) ; C3:B1BB  42 2D A9 C0 2D 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:B1C1  1A 59 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:B1C4  42 46 6E C4
 LoopEvent52_WaitForTempFlag1Clear:
     %EVENT_PAUSE($01) ; C3:B1C8  06 01
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:B1CA  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0002) ; C3:B1CA  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(LoopEvent52_WaitForTempFlag1Clear) ; C3:B1D0  0A C8 B1
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1BC8) ; C3:B1D3  0E 06 C8 1B
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0368) ; C3:B1D7  0E 07 68 03
@@ -230,7 +273,7 @@ LoopEvent52_WaitForTempFlag1Clear:
     %EVENT_HALT() ; C3:B1E8  09
 Event53_MeteoritePokeyTextRelease:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:B1E9  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:B1EC  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:B1EC  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:B1F2  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1D68) ; C3:B1F6  0E 06 68 1D
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $04E0) ; C3:B1FA  0E 07 E0 04
@@ -246,16 +289,16 @@ RunMeteoritePartyApproachPrelude:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0050) ; C3:B21B  0E 03 50 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:B21F  1A 8A AB
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:B222  1D 01 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $21, $00) ; C3:B225  42 57 A8 C0 21 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0021) ; C3:B225  42 57 A8 C0 21 00
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:B22B  1D 00 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $20, $00) ; C3:B22E  42 57 A8 C0 20 00
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:B234  1D 04 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0020) ; C3:B22E  42 57 A8 C0 20 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:B234  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:B237  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B23B  42 BF A4 C0
     %EVENT_PAUSE($08) ; C3:B23F  06 08
 StartMeteoritePartyApproachRun:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0005) ; C3:B241  0E 04 05 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:B245  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:B245  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:B24B  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0F10) ; C3:B24F  0E 06 10 0F
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1BC8) ; C3:B253  0E 07 C8 1B
@@ -269,15 +312,15 @@ StartMeteoritePartyApproachRun:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0050) ; C3:B270  0E 03 50 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:B274  1A 8A AB
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:B277  1D 01 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $32, $01) ; C3:B27A  42 57 A8 C0 32 01
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0132) ; C3:B27A  42 57 A8 C0 32 01
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:B280  1D 00 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $21, $00) ; C3:B283  42 57 A8 C0 21 00
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:B289  1D 04 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0021) ; C3:B283  42 57 A8 C0 21 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:B289  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:B28C  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B290  42 BF A4 C0
     %EVENT_PAUSE($08) ; C3:B294  06 08
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0005) ; C3:B296  0E 04 05 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:B29A  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:B29A  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:B2A0  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1510) ; C3:B2A4  0E 06 10 15
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $09D8) ; C3:B2A8  0E 07 D8 09
@@ -290,12 +333,12 @@ StartMeteoritePartyApproachRun:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0050) ; C3:B2C1  0E 02 50 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0050) ; C3:B2C5  0E 03 50 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:B2C9  1A 8A AB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C5, $00, $43, $F6) ; C3:B2CC  42 8D A8 C0 C5 00 43 F6
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C5, $F643) ; C3:B2CC  42 8D A8 C0 C5 00 43 F6
     %EVENT_PAUSE($01) ; C3:B2D4  06 01
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:B2D6  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:B2D6  42 6E AA C0 04 00
     %EVENT_PAUSE($08) ; C3:B2DC  06 08
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0005) ; C3:B2DE  0E 04 05 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:B2E2  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:B2E2  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:B2E8  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0CC8) ; C3:B2EC  0E 06 C8 0C
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0860) ; C3:B2F0  0E 07 60 08
@@ -309,14 +352,14 @@ Event57_MeteoritePartyApproachTextRelease:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0018) ; C3:B309  0E 02 18 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0018) ; C3:B30D  0E 03 18 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:B311  1A 8A AB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C6, $00, $EA, $66) ; C3:B314  42 8D A8 C0 C6 00 EA 66
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C6, $66EA) ; C3:B314  42 8D A8 C0 C6 00 EA 66
     %EVENT_PAUSE($01) ; C3:B31C  06 01
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:B31E  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:B31E  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:B321  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B325  42 BF A4 C0
     %EVENT_PAUSE($08) ; C3:B329  06 08
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0005) ; C3:B32B  0E 04 05 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:B32F  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:B32F  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:B335  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0C40) ; C3:B339  0E 06 40 0C
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0860) ; C3:B33D  0E 07 60 08
@@ -330,39 +373,39 @@ Event57_MeteoritePartyApproachTextRelease:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:B35A  19 04 A2
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:B35D  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0012) ; C3:B360  0E 04 12 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:B364  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:B364  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:B36A  0E 05 01 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:B36E  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:B36E  42 43 A9 C0 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V6, $02, $0010) ; C3:B373  14 06 02 10 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:B378  1A 59 AB
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:B37B  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:B37B  42 6E AA C0 06 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:B381  39
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:B382  42 46 6E C4
     %EVENT_CALLROUTINE_0(!ActionScript_PrepareNewEntityAtPartyLeader) ; C3:B386  42 FF A8 C0
     %EVENT_PAUSE($01) ; C3:B38A  06 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0018) ; C3:B38C  0E 04 18 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $20, $00) ; C3:B390  42 85 A6 C0 20 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0020) ; C3:B390  42 85 A6 C0 20 00
     %EVENT_CALLROUTINE_0(!GetCurrentSlotDirectionClass) ; C3:B396  42 73 A6 C0
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:B39A  42 3B C8 C0
     %EVENT_PAUSE($40) ; C3:B39E  06 40
     %EVENT_SET_VELOCITIES_ZERO() ; C3:B3A0  39
     %EVENT_HALT() ; C3:B3A1  09
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:B3A2  23 39 A0
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:B3A2  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:B3A5  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:B3A8  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:B3A8  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:B3AA  08 E1 8B C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $20, $00) ; C3:B3AE  42 85 A6 C0 20 00
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:B3B4  1D 06 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0020) ; C3:B3AE  42 85 A6 C0 20 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:B3B4  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:B3B7  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:B3BB  42 3B C8 C0
     %EVENT_PAUSE($40) ; C3:B3BF  06 40
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:B3C1  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:B3C5  19 04 A2
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:B3C8  25 7A A3
-    %EVENT_SET_ANIMATION($00) ; C3:B3CB  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:B3CB  3B 00
     %EVENT_START_TASK(!LoopActiveEntityWalkAnimationPulse) ; C3:B3CD  07 9F A0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:B3D0  42 85 A6 C0 80 00
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:B3D6  1D 06 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:B3D0  42 85 A6 C0 80 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:B3D6  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:B3D9  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:B3DD  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B3E1  42 BF A4 C0
@@ -372,7 +415,7 @@ Event57_MeteoritePartyApproachTextRelease:
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:B3EE  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B3F2  42 BF A4 C0
     %EVENT_PAUSE($2D) ; C3:B3F6  06 2D
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:B3F8  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:B3F8  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:B3FB  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:B3FF  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B403  42 BF A4 C0
@@ -382,7 +425,7 @@ Event57_MeteoritePartyApproachTextRelease:
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:B410  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B414  42 BF A4 C0
     %EVENT_PAUSE($86) ; C3:B418  06 86
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:B41A  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:B41A  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:B41D  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!InstallScriptMovementVectorFromDirection) ; C3:B421  42 3B C8 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:B425  42 BF A4 C0

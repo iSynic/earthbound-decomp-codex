@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -12,9 +13,9 @@ hirom
 !ACTIONSCRIPT_VARS_V5 = $05
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
-!PhysicsCallback_TargetComparisonAndProjection = $A26B
-!PositionChangeCallback_C0A039 = $A039
+!PhysicsCallback_TargetContextCompareAndProject = $A26B
 !RefreshOverworldEntitySnapshotState = $EF031E
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !SeedOverworldEntitySnapshotCoordinates = $EF027D
 !WatchAndRefreshCompanionVisualPhase = $C0A6E3
 
@@ -65,9 +66,9 @@ endmacro
 
 org $C3A080
 Event3_OverworldSnapshotSeedLoop:
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:A080  23 39 A0
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_TargetComparisonAndProjection) ; C3:A083  25 6B A2
-    %EVENT_SET_ANIMATION($00) ; C3:A086  3B 00
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:A080  23 39 A0
+    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_TargetContextCompareAndProject) ; C3:A083  25 6B A2
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A086  3B 00
     %EVENT_CALLROUTINE_0(!SeedOverworldEntitySnapshotCoordinates) ; C3:A088  42 7D 02 EF
     %EVENT_SET_TICK_CALLBACK(!RefreshOverworldEntitySnapshotState) ; C3:A08C  08 1E 03 EF
 LoopEvent3_RefreshSnapshotCompanion:

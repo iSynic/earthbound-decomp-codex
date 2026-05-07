@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -35,16 +37,22 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -106,17 +114,17 @@ endmacro
 org $C37A7C
 InitStationaryVar4PulseAndReturn:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:7A7C  25 7A A3
-    %EVENT_SET_ANIMATION($00) ; C3:7A7F  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:7A7F  3B 00
     %EVENT_START_TASK(!LoopC40015Var4GatedPulseUntilRelease) ; C3:7A81  07 5E A1
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:7A84  0E 04 01 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:7A88  39
     %EVENT_SHORT_RETURN() ; C3:7A89  1B
 Event665_OffsetLeftMovementRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7A8A  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7A8A  42 64 A8 C0 FF
     %EVENT_SET_X_RELATIVE($0080) ; C3:7A8F  2B 80 00
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:7A92  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0004) ; C3:7A95  0E 04 04 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $04) ; C3:7A99  42 85 A6 C0 00 04
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0400) ; C3:7A99  42 85 A6 C0 00 04
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:7A9F  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:7AA2  1A 1E AA
     %EVENT_PAUSE($20) ; C3:7AA5  06 20
@@ -130,7 +138,7 @@ Event666_EscaperAppearMovementRelease:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh) ; C3:7AB5  25 60 A3
     %EVENT_START_TASK(!LoopActiveEntityCollisionProbeRefresh) ; C3:7AB8  07 62 A2
     %EVENT_START_TASK(!Event8_Entry2WaitUntilOffscreenRelease) ; C3:7ABB  07 B8 A2
-    %EVENT_SET_ANIMATION($00) ; C3:7ABE  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:7ABE  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:7AC0  39
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7AC1  42 BF A4 C0
     %EVENT_CALLROUTINE_0(!SnapshotCurrentSlotAnchorToStagedPosition) ; C3:7AC5  42 45 6C C4
@@ -138,12 +146,12 @@ Event666_EscaperAppearMovementRelease:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0040) ; C3:7ACD  0E 03 40 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:7AD1  1A 8A AB
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:7AD4  1D 00 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $72, $02) ; C3:7AD7  42 57 A8 C0 72 02
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0272) ; C3:7AD7  42 57 A8 C0 72 02
     %EVENT_END_LAST_TASK() ; C3:7ADD  13
     %EVENT_START_TASK(!LoopActiveEntityWalkPulseVar4Countdown) ; C3:7ADE  07 2E A1
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:7AE1  25 7A A3
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0005) ; C3:7AE4  0E 04 05 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:7AE8  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:7AE8  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:7AEE  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $15D8) ; C3:7AF2  0E 06 D8 15
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $23C0) ; C3:7AF6  0E 07 C0 23

@@ -4,6 +4,9 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_SOUND_EFFECT_MAGIC_BUTTERFLY = $005F
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -13,15 +16,15 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !Integrate_XYAndZVelocity_WithSpriteRefresh = $9FF1
 !LoopActiveEntityWalkPulseVar4Countdown = $A12E
 !MarkOtherSlotsAttentionLocked = $C0D77F
-!PhysicsCallback_C09FF0 = $9FF0
 !ProjectWorldToScreen_FromCamera31AndHeight = $A03A
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RestoreSavedCoordinateState = $C09451
 !Restore_CurrentSlotAttentionPosition = $C0D7C7
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RunMagicButterflyPpRestoreAnimation = $C2654C
 !ScriptRelease_CurrentEntityVisualState = $C020F1
 !Script_PlaySoundEffectParameter = $C0A841
@@ -40,16 +43,22 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <party_member_selector_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
+    db $42
+    dl <target>
+    dw <sound_effect_id_word>
 endmacro
 
 macro EVENT_END()
@@ -125,18 +134,18 @@ Event34_MagicButterflyPpRestoreRelease:
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:DF1E  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity_WithSpriteRefresh) ; C3:DF21  25 F1 9F
     %EVENT_START_TASK(!LoopActiveEntityWalkPulseVar4Countdown) ; C3:DF24  07 2E A1
-    %EVENT_SET_ANIMATION($00) ; C3:DF27  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:DF27  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:DF29  39
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0006) ; C3:DF2A  0E 04 06 00
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:DF2E  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:DF2E  42 2F A8 C0
     %EVENT_SET_Z($0005) ; C3:DF32  2A 05 00
     %EVENT_CALLROUTINE_0(!Restore_CurrentSlotAttentionPosition) ; C3:DF35  42 C7 D7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:DF39  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $5F, $00) ; C3:DF3D  42 41 A8 C0 5F 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_MAGIC_BUTTERFLY) ; C3:DF3D  42 41 A8 C0 5F 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:DF43  0E 05 01 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:DF47  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:DF47  42 43 A9 C0 FF
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V7, $02, $0001) ; C3:DF4C  14 07 02 01 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $20, $00) ; C3:DF51  42 85 A6 C0 20 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0020) ; C3:DF51  42 85 A6 C0 20 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:DF57  1A 59 AB
     %EVENT_SET_Z_VELOCITY($0040) ; C3:DF5A  41 40 00
     %EVENT_PAUSE($3C) ; C3:DF5D  06 3C
@@ -148,14 +157,14 @@ Event34_MagicButterflyPpRestoreRelease:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:DF6D  42 46 6E C4
     %EVENT_HALT() ; C3:DF71  09
 BlinkAndRestoreSavedCoordinateState:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:DF72  25 F0 9F
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:DF72  25 F0 9F
     %EVENT_CALLROUTINE_0(!MarkOtherSlotsAttentionLocked) ; C3:DF75  42 7F D7 C0
-    %EVENT_SET_ANIMATION($00) ; C3:DF79  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:DF79  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:DF7B  39
     %EVENT_LOOP($03) ; C3:DF7C  01 03
-    %EVENT_SET_ANIMATION($FF) ; C3:DF7E  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:DF7E  3B FF
     %EVENT_PAUSE($05) ; C3:DF80  06 05
-    %EVENT_SET_ANIMATION($00) ; C3:DF82  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:DF82  3B 00
     %EVENT_PAUSE($05) ; C3:DF84  06 05
     %EVENT_LOOP_END() ; C3:DF86  02
     %EVENT_CALLROUTINE_0(!ScriptRelease_CurrentEntityVisualState) ; C3:DF87  42 F1 20 C0

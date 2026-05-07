@@ -15,10 +15,11 @@ hirom
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 
 ; Minimal macro vocabulary used by this source pilot.
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_LOOP(count)
@@ -41,17 +42,17 @@ endmacro
 org $C37545
 RunRightLeftFacingPulsePair:
     %EVENT_LOOP($02) ; C3:7545  01 02
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:7547  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:7547  42 6E AA C0 02 00
     %EVENT_PAUSE($10) ; C3:754D  06 10
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:754F  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:754F  42 6E AA C0 06 00
     %EVENT_PAUSE($10) ; C3:7555  06 10
     %EVENT_LOOP_END() ; C3:7557  02
     %EVENT_SHORT_RETURN() ; C3:7558  1B
 RunLeftRightFacingPulsePair:
     %EVENT_LOOP($02) ; C3:7559  01 02
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:755B  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:755B  42 6E AA C0 06 00
     %EVENT_PAUSE($10) ; C3:7561  06 10
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:7563  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:7563  42 6E AA C0 02 00
     %EVENT_PAUSE($10) ; C3:7569  06 10
     %EVENT_LOOP_END() ; C3:756B  02
     %EVENT_SHORT_RETURN() ; C3:756C  1B

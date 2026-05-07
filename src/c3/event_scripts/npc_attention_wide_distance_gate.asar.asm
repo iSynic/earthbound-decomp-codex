@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -26,16 +28,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <direction_class_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
 endmacro
 
 macro EVENT_PAUSE(frames)
@@ -72,11 +74,11 @@ RunNpcAttentionWideDistanceGate:
     %EVENT_SHORTCALL(!StartNpcAttentionTerrainCollisionLoop) ; C3:A48A  1A 26 A4
     %EVENT_CALLROUTINE_0(!GetCurrentSlotHasNoCachedNeighborFlag) ; C3:A48D  42 B8 A6 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!ReleaseCurrentVisualEntityTail) ; C3:A491  0B 7C A4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:A494  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:A494  42 85 A6 C0 00 02
 LoopNpcAttentionWideDistanceGate:
     %EVENT_CALLROUTINE_0(!GateWidePlayerDistanceBucket) ; C3:A49A  42 8F C4 C0
     %EVENT_SHORTCALL_CONDITIONAL(!RunNpcAttentionRoundWalkDirection) ; C3:A49E  0A AC A4
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $04) ; C3:A4A1  42 51 A6 C0 04
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_UP) ; C3:A4A1  42 51 A6 C0 04
     %EVENT_SET_VELOCITIES_ZERO() ; C3:A4A6  39
     %EVENT_PAUSE($08) ; C3:A4A7  06 08
     %EVENT_SHORTJUMP(LoopNpcAttentionWideDistanceGate) ; C3:A4A9  19 9A A4

@@ -4,6 +4,9 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_FIELD2B32_STEP_0060 = $0060
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -16,9 +19,9 @@ hirom
 !ChooseRandomScriptWord = $C09F82
 !InitMovementPresetVar4Countdown = $AAAA
 !InitSimpleScreenPositionMovementCallbacks = $AB37
-!PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -33,16 +36,23 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_CHOOSE_RANDOM_SCRIPT_WORD_8(target, count, choice0, choice1, choice2, choice3, choice4, choice5, choice6, choice7)
@@ -115,51 +125,51 @@ ChooseRandomFacingCycleStepCount:
     %EVENT_CHOOSE_RANDOM_SCRIPT_WORD_8(!ChooseRandomScriptWord, 8, $000A, $000B, $000C, $000D, $000E, $000F, $0010, $0011) ; C3:83BC  42 82 9F C0 08 0A 00 0B 00 0C 00 0D 00 0E 00 0F 00 10 00 11 00
     %EVENT_SHORT_RETURN() ; C3:83D1  1B
 Event693_LiveAreaFacingCycleFast:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:83D2  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:83D5  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:83D2  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:83D5  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:83D7  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:83D8  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:83DC  42 BF A4 C0
 LoopEvent693_LiveAreaFacingCycleFast:
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:83E0  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:83E0  42 6E AA C0 00 00
     %EVENT_PAUSE($08) ; C3:83E6  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:83E8  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:83E8  42 6E AA C0 02 00
     %EVENT_PAUSE($08) ; C3:83EE  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:83F0  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:83F0  42 6E AA C0 04 00
     %EVENT_PAUSE($08) ; C3:83F6  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:83F8  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:83F8  42 6E AA C0 06 00
     %EVENT_PAUSE($08) ; C3:83FE  06 08
     %EVENT_CALLROUTINE_0(!CheckCurrentSlotInsideLiveAreaWindow) ; C3:8400  42 B6 C6 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopEvent693_LiveAreaFacingCycleFast) ; C3:8404  0B E0 83
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:8407  19 04 A2
 Event694_LiveAreaFacingCycleSlow:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:840A  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:840D  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:840A  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:840D  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:840F  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:8410  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:8414  42 BF A4 C0
 LoopEvent694_LiveAreaFacingCycleSlow:
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:8418  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:8418  42 6E AA C0 00 00
     %EVENT_PAUSE($10) ; C3:841E  06 10
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:8420  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:8420  42 6E AA C0 02 00
     %EVENT_PAUSE($10) ; C3:8426  06 10
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:8428  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:8428  42 6E AA C0 04 00
     %EVENT_PAUSE($10) ; C3:842E  06 10
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:8430  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:8430  42 6E AA C0 06 00
     %EVENT_PAUSE($10) ; C3:8436  06 10
     %EVENT_CALLROUTINE_0(!CheckCurrentSlotInsideLiveAreaWindow) ; C3:8438  42 B6 C6 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopEvent694_LiveAreaFacingCycleSlow) ; C3:843C  0B 18 84
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:843F  19 04 A2
 Event695_LongMovementPathYield:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:8442  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:8442  42 64 A8 C0 FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:8447  08 E1 8B C4
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:844B  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:844E  0E 04 00 00
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:8452  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:8452  42 6E AA C0 00 00
     %EVENT_PAUSE($78) ; C3:8458  06 78
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:845A  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0012) ; C3:845E  0E 04 12 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $60, $00) ; C3:8462  42 85 A6 C0 60 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0060) ; C3:8462  42 85 A6 C0 60 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1870) ; C3:8468  0E 06 70 18
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0448) ; C3:846C  0E 07 48 04
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:8470  1A 59 AB
@@ -205,9 +215,9 @@ Event690_TargetMovementAnchorC:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0858) ; C3:84F2  0E 07 58 08
     %EVENT_SHORTJUMP(RunTargetMovementAnchorPath) ; C3:84F6  19 F9 84
 RunTargetMovementAnchorPath:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:84F9  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:84F9  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitSimpleScreenPositionMovementCallbacks) ; C3:84FE  1A 37 AB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:8501  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:8501  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:8507  0E 05 01 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:850B  1A 59 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:850E  42 46 6E C4

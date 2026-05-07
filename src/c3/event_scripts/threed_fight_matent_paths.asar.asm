@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -24,10 +25,11 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
 endmacro
 
 macro EVENT_HALT()
@@ -84,12 +86,12 @@ LoopVar3VerticalBouncePauseOnly:
     %EVENT_SHORTJUMP(LoopVar3VerticalBounce) ; C3:6BC3  19 B4 6B
 Event591_ThreedFightMatentTextHalt:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:6BC6  1A 38 AA
-    %EVENT_SET_ANIMATION($FF) ; C3:6BC9  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:6BC9  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:6BCB  0E 04 01 00
     %EVENT_CALLROUTINE_0(!SnapshotCurrentSlotAnchorToStagedPosition) ; C3:6BCF  42 45 6C C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $000C) ; C3:6BD3  0E 02 0C 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0020) ; C3:6BD7  0E 03 20 00
     %EVENT_SHORTCALL(!WaitUntilPlayerLeavesActiveArea) ; C3:6BDB  1A 8A AB
     %EVENT_SHORTCALL(!WaitUntilNoBattleSwirlOrEnemyTouch) ; C3:6BDE  1A 01 9E
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C8, $00, $39, $87) ; C3:6BE1  42 8D A8 C0 C8 00 39 87
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C8, $8739) ; C3:6BE1  42 8D A8 C0 C8 00 39 87
     %EVENT_HALT() ; C3:6BE9  09

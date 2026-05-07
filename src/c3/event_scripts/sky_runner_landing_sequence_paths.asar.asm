@@ -4,6 +4,14 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_DIRECTION_LEFT = $06
+!ACTIONSCRIPT_FADE_EFFECT_0101 = $0101
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_FIELD2B32_STEP_0180 = $0180
+!ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
+!ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1 = $03
+!ACTIONSCRIPT_SURFACE_FLAGS_NONE = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -24,8 +32,8 @@ hirom
 !RunTeleportFlyoverCoordinatePathB = $CC5C
 !RunWindowGfxVariantLoop = $3C1D
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallbackOffset = $C48C02
@@ -38,22 +46,36 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FADEOUT_EFFECT(target, fadeout_effect_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <fadeout_effect_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_5(target, arg0, arg1, arg2, arg3, arg4)
+macro EVENT_CALLROUTINE_NEW_ENTITY_X_NEW_ENTITY_Y_NEW_ENTITY_FACING(target, new_entity_x_word, new_entity_y_word, new_entity_facing_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>, <arg4>
+    dw <new_entity_x_word>
+    dw <new_entity_y_word>
+    db <new_entity_facing_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
+    db $42
+    dl <target>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -143,20 +165,20 @@ endmacro
 
 org $C3CCB5
 Event161_SkyRunnerCrashLandingSequence:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CCB5  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CCB5  42 64 A8 C0 FF
     %EVENT_SET_Y_RELATIVE($FF80) ; C3:CCBA  2C 80 FF
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:CCBD  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:CCBD  42 79 A6 C0 00
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:CCC2  25 C8 9F
     %EVENT_START_TASK(!LoopSpawnSkyRunnerElectricEffect) ; C3:CCC5  07 A2 CE
-    %EVENT_SET_ANIMATION($00) ; C3:CCC8  3B 00
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:CCCA  1D 06 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:CCC8  3B 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:CCCA  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:CCCD  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:CCD1  42 BF A4 C0
     %EVENT_SET_X_VELOCITY($FE00) ; C3:CCD5  3F 00 FE
     %EVENT_SET_Y_VELOCITY($0100) ; C3:CCD8  40 00 01
     %EVENT_PAUSE($50) ; C3:CCDB  06 50
     %EVENT_SET_Y_VELOCITY($0000) ; C3:CCDD  40 00 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:CCE0  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:CCE0  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:CCE6  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1560) ; C3:CCEA  0E 06 60 15
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $23A8) ; C3:CCEE  0E 07 A8 23
@@ -185,12 +207,12 @@ Event161_SkyRunnerCrashLandingSequence:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:CD42  1A 59 AB
     %EVENT_SHORTCALL(!RunTeleportFlyoverCoordinatePathA) ; C3:CD45  1A 24 CC
     %EVENT_END_LAST_TASK() ; C3:CD48  13
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $01) ; C3:CD49  42 85 A6 C0 80 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0180) ; C3:CD49  42 85 A6 C0 80 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1630) ; C3:CD4F  0E 06 30 16
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2100) ; C3:CD53  0E 07 00 21
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:CD57  1A 59 AB
     %EVENT_PAUSE($03) ; C3:CD5A  06 03
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:CD5C  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:CD5C  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1748) ; C3:CD62  0E 06 48 17
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2128) ; C3:CD66  0E 07 28 21
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:CD6A  1A 59 AB
@@ -227,21 +249,21 @@ Event161_SkyRunnerCrashLandingSequence:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $000E) ; C3:CDC6  0E 03 0E 00
     %EVENT_SHORTCALL(!RunWindowGfxVariantLoop) ; C3:CDCA  1A 1D 3C
     %EVENT_PAUSE($3C) ; C3:CDCD  06 3C
-    %EVENT_CALLROUTINE_5(!ActionScript_PrepareNewEntity, $EC, $02, $2B, $04, $04) ; C3:CDCF  42 12 A9 C0 EC 02 2B 04 04
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $01) ; C3:CDD8  42 BB 9F C0 01 01
+    %EVENT_CALLROUTINE_NEW_ENTITY_X_NEW_ENTITY_Y_NEW_ENTITY_FACING(!ActionScript_PrepareNewEntity, $02EC, $042B, $04) ; C3:CDCF  42 12 A9 C0 EC 02 2B 04 04
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, !ACTIONSCRIPT_FADE_EFFECT_0101) ; C3:CDD8  42 BB 9F C0 01 01
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:CDDE  1A E0 AB
     %EVENT_WRITE_WORD_WRAM($9D1B, $800B) ; C3:CDE1  15 1B 9D 0B 80
     %EVENT_WRITE_WORD_WRAM($9D1D, $00C4) ; C3:CDE6  15 1D 9D C4 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:CDEB  42 46 6E C4
     %EVENT_HALT() ; C3:CDEF  09
 Event164_ObscuredSkyRunnerLandingHalt:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CDF0  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:CDF5  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CDF0  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1) ; C3:CDF5  42 79 A6 C0 03
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:CDFA  25 C8 9F
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallbackOffset) ; C3:CDFD  08 02 8C C4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $02) ; C3:CE01  42 85 A6 C0 00 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:CE01  42 85 A6 C0 00 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:CE07  0E 05 02 00
-    %EVENT_SET_ANIMATION($00) ; C3:CE0B  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:CE0B  3B 00
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:CE0D  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:CE10  1A 1E AA
     %EVENT_PAUSE($50) ; C3:CE13  06 50
@@ -271,11 +293,11 @@ Event164_ObscuredSkyRunnerLandingHalt:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $23D8) ; C3:CE69  0E 07 D8 23
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:CE6D  1A 59 AB
     %EVENT_SHORTCALL(!RunTeleportFlyoverCoordinatePathB) ; C3:CE70  1A 5C CC
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $01) ; C3:CE73  42 85 A6 C0 80 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0180) ; C3:CE73  42 85 A6 C0 80 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1630) ; C3:CE79  0E 06 30 16
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2130) ; C3:CE7D  0E 07 30 21
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:CE81  1A 59 AB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:CE84  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:CE84  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1748) ; C3:CE8A  0E 06 48 17
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2158) ; C3:CE8E  0E 07 58 21
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:CE92  1A 59 AB

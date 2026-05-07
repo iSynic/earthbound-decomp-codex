@@ -14,9 +14,9 @@ hirom
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_GetPositionOfPartyMember = $C0A943
 !ActionScript_QueueTextPointer = $C0A88D
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !PrepareTunnelGhostActiveAreaWindow = $BB5C
-!ScriptWrapper_C47143_Mode00 = $C0A8C6
+!StepCurrentSlotTowardCachedTarget = $C0A8C6
 !TrackPartyMemberForTunnelGhost = $BB73
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -25,16 +25,17 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <party_member_selector_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
 endmacro
 
 macro EVENT_HALT()
@@ -62,19 +63,19 @@ endmacro
 
 org $C3BAA3
 RunTunnelGhostOneTextLoop:
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:BAA3  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:BAA3  42 2F A8 C0
     %EVENT_SHORTCALL(!PrepareTunnelGhostActiveAreaWindow) ; C3:BAA7  1A 5C BB
     %EVENT_SHORTCALL(!TrackPartyMemberForTunnelGhost) ; C3:BAAA  1A 73 BB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $12, $8F) ; C3:BAAD  42 8D A8 C0 C7 00 12 8F
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $8F12) ; C3:BAAD  42 8D A8 C0 C7 00 12 8F
 LoopTunnelGhostOneTextPartyTrack:
     %EVENT_PAUSE($01) ; C3:BAB5  06 01
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BAB7  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:BAB7  42 43 A9 C0 FF
     %EVENT_SET_VELOCITIES_ZERO() ; C3:BABC  39
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C47143_Mode00) ; C3:BABD  42 C6 A8 C0
+    %EVENT_CALLROUTINE_0(!StepCurrentSlotTowardCachedTarget) ; C3:BABD  42 C6 A8 C0
     %EVENT_SHORTJUMP(LoopTunnelGhostOneTextPartyTrack) ; C3:BAC1  19 B5 BA
 RunTunnelGhostWarpTextHalt:
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:BAC4  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:BAC4  42 2F A8 C0
     %EVENT_SHORTCALL(!PrepareTunnelGhostActiveAreaWindow) ; C3:BAC8  1A 5C BB
     %EVENT_SHORTCALL(!TrackPartyMemberForTunnelGhost) ; C3:BACB  1A 73 BB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $4A, $8F) ; C3:BACE  42 8D A8 C0 C7 00 4A 8F
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $8F4A) ; C3:BACE  42 8D A8 C0 C7 00 4A 8F
     %EVENT_HALT() ; C3:BAD6  09

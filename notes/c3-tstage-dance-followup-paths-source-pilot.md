@@ -24,6 +24,13 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants.
+- Direction tempvar writes render as `!ACTIONSCRIPT_DIRECTION_*` constants only when a later direction/vector callback consumes them in the same emitted row, with no intervening tempvar rewrite or unrelated native callback.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_MASK_LEFT_X_MASK_Y_MASK_RIGHT_X`, `%EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN`.
+
 ## Next Promotion Step
 
 Continue with the adjacent `C3:240A..C3:2CD2` stage-performance corridor after the `C4:258C` dual-window color callback contract is pinned, or take another ready seam from `notes/c3-source-pilot-frontier.md`.

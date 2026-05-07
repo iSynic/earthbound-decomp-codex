@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_DIRECTION_UP = $04
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -30,10 +32,10 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <party_member_selector_byte>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -98,8 +100,8 @@ Event448_PhotoSceneJumpRelease:
     %EVENT_CALLROUTINE_0(!PlaceCurrentSlotFromPhotoSceneRecord) ; C3:3B11  42 4B 6D C4
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:3B15  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:3B18  25 0C A0
-    %EVENT_SET_ANIMATION($00) ; C3:3B1B  3B 00
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:3B1D  1D 04 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:3B1B  3B 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:3B1D  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:3B20  42 5F A6 C0
     %EVENT_START_TASK(!LoopPhotoSceneSpinDirectionTask) ; C3:3B24  07 77 3B
     %EVENT_SET_VELOCITIES_ZERO() ; C3:3B27  39
@@ -111,14 +113,14 @@ Event448_PhotoSceneJumpRelease:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:3B36  39
     %EVENT_END_LAST_TASK() ; C3:3B37  13
     %EVENT_PAUSE($1E) ; C3:3B38  06 1E
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:3B3A  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:3B3A  42 43 A9 C0 FF
     %EVENT_CALLROUTINE_0(!ComputeCurrentSlotTargetDirectionOctant) ; C3:3B3F  42 DB 6A C4
     %EVENT_CALLROUTINE_0(!RoundAngleToOctantAndCacheCurrentSlot) ; C3:3B43  42 0A 6B C4
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:3B47  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:3B4B  42 BF A4 C0
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:3B4F  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:3B53  06 01
-    %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:3B55  1D 04 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_UP) ; C3:3B55  1D 04 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:3B58  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:3B5C  42 BF A4 C0
     %EVENT_PAUSE($1E) ; C3:3B60  06 1E

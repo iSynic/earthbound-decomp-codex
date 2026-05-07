@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -15,9 +16,9 @@ hirom
 !GateWidePlayerDistanceBucket = $C0C48F
 !GetCurrentSlotHasNoCachedNeighborFlag = $C0A6B8
 !GetGatedEntityPositionDirectionFlag = $C0C62B
-!PhysicsCallback_C09FF0 = $9FF0
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
 !ReleaseCurrentVisualEntityTail = $A47C
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RoundAngleToOctantAndCacheCurrentSlot = $C46B0A
 !Script_SetCurrentSlotField2B32 = $C0A685
 !Script_SetDirectionClassAndField1A86 = $C0A651
@@ -33,16 +34,22 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <direction_class_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_MOVEMENT_TIMER(target, movement_timer_word)
+    db $42
+    dl <target>
+    dw <movement_timer_word>
 endmacro
 
 macro EVENT_LOOP(count)
@@ -103,13 +110,13 @@ RunNpcAttentionWideDistanceBounceChase:
     %EVENT_SHORTCALL(!StartNpcAttentionHorizontalCollisionLoop) ; C3:A717  1A 2D A4
     %EVENT_CALLROUTINE_0(!GetCurrentSlotHasNoCachedNeighborFlag) ; C3:A71A  42 B8 A6 C0
     %EVENT_SHORTCALL_CONDITIONAL_NOT(!ReleaseCurrentVisualEntityTail) ; C3:A71E  0B 7C A4
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:A721  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:A721  42 85 A6 C0 00 01
 LoopNpcAttentionWideDistanceBounceWait:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:A727  39
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0001) ; C3:A728  0E 00 01 00
     %EVENT_PAUSE($10) ; C3:A72C  06 10
-    %EVENT_CALLROUTINE_1(!Script_SetDirectionClassAndField1A86, $08) ; C3:A72E  42 51 A6 C0 08
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:A733  25 F0 9F
+    %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, $08) ; C3:A72E  42 51 A6 C0 08
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:A733  25 F0 9F
 LoopNpcAttentionWideDistanceBounceGate:
     %EVENT_CALLROUTINE_0(!GateWidePlayerDistanceBucket) ; C3:A736  42 8F C4 C0
     %EVENT_PAUSE($08) ; C3:A73A  06 08
@@ -126,7 +133,7 @@ RunNpcAttentionWideDistancePlayerFallback:
     %EVENT_CALLROUTINE_0(!ProjectAngleIntoCurrentSlotVectorWords) ; C3:A758  42 44 70 C4
     %EVENT_CALLROUTINE_0(!RoundAngleToOctantAndCacheCurrentSlot) ; C3:A75C  42 0A 6B C4
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:A760  42 5F A6 C0
-    %EVENT_CALLROUTINE_2(!Script_SetMovementStateCBD3, $20, $00) ; C3:A764  42 AD A6 C0 20 00
+    %EVENT_CALLROUTINE_MOVEMENT_TIMER(!Script_SetMovementStateCBD3, $0020) ; C3:A764  42 AD A6 C0 20 00
     %EVENT_SHORTJUMP(LoopNpcAttentionWideDistanceFallbackGate) ; C3:A76A  19 49 A7
 TaskNpcAttentionSmallHorizontalBounce:
     %EVENT_LOOP($10) ; C3:A76D  01 10

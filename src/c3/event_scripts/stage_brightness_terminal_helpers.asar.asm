@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -29,10 +31,16 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <party_member_selector_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -93,23 +101,23 @@ endmacro
 org $C31D4F
 InitVar4TimedAnimationPulseMovement:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:1D4F  25 7A A3
-    %EVENT_SET_ANIMATION($00) ; C3:1D52  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:1D52  3B 00
     %EVENT_START_TASK(!LoopVar4TimedAnimationPulse) ; C3:1D54  07 2D 1D
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0018) ; C3:1D57  0E 04 18 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:1D5B  39
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:1D5C  42 BF A4 C0
     %EVENT_SHORT_RETURN() ; C3:1D60  1B
 Event355_CopyRegistryAnchorAndHalt:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:1D61  42 64 A8 C0 FF
-    %EVENT_SET_ANIMATION($FF) ; C3:1D66  3B FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:1D61  42 64 A8 C0 FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:1D66  3B FF
     %EVENT_SET_VELOCITIES_ZERO() ; C3:1D68  39
     %EVENT_HALT() ; C3:1D69  09
 
 org $C31DF4
 Event357_RegistryAnchorMovementPrep:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:1DF4  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:1DF4  42 64 A8 C0 FF
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:1DF9  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:1DFC  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:1DFC  3B FF
     %EVENT_SET_TICK_CALLBACK(!CentreScreenOnEntityCallback) ; C3:1DFE  08 2B 8C C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0000) ; C3:1E02  0E 02 00 00
     %EVENT_START_TASK(!Event357_BrightnessFadeTask) ; C3:1E06  07 14 1E
@@ -123,11 +131,11 @@ LoopEvent357_WaitForBrightnessTask:
 org $C31E2D
 InitPartyMemberMovementWithBrightnessTask:
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:1E2D  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:1E30  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:1E30  3B FF
     %EVENT_SET_TICK_CALLBACK(!CentreScreenOnEntityCallback) ; C3:1E32  08 2B 8C C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0000) ; C3:1E36  0E 02 00 00
     %EVENT_START_TASK(!PartyMovementBrightnessFadeTask) ; C3:1E3A  07 4D 1E
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:1E3D  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:1E3D  42 43 A9 C0 FF
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:1E42  1A 59 AB
 LoopWaitForPartyMovementBrightnessTask:
     %EVENT_PAUSE($01) ; C3:1E45  06 01

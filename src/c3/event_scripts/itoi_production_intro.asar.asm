@@ -4,6 +4,10 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_LEFT = $06
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_FIELD2B32_STEP_0140 = $0140
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -18,10 +22,10 @@ hirom
 !DecompressItoiProductionIntroAssets = $C4DD28
 !InitActionScriptMovementState = $AA38
 !Integrate_XYVelocityOnly = $9FC8
-!PositionChangeCallback_C0A039 = $A039
+!ReturnFromPositionChangeCallback_NoProjection = $A039
 !ReturnX0002 = $C0AACD
-!ScriptWrapper_C466F0_ReadWordByte = $C0A8A0
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
+!Script_ExecuteNestedTextPointer_ReadBankWordPointerWord = $C0A8A0
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
@@ -34,22 +38,29 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_NESTED_TEXT_BANK_NESTED_TEXT_POINTER(target, nested_text_bank_word, nested_text_pointer_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <nested_text_bank_word>
+    dw <nested_text_pointer_word>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -131,15 +142,15 @@ endmacro
 
 org $C34E73
 InitSimpleScreenPositionIntroActor:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:4E73  42 64 A8 C0 FF
-    %EVENT_SET_POSITION_CHANGE_CALLBACK(!PositionChangeCallback_C0A039) ; C3:4E78  23 39 A0
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:4E73  42 64 A8 C0 FF
+    %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:4E78  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:4E7B  25 C8 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:4E7E  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:4E7E  3B FF
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:4E80  08 E1 8B C4
     %EVENT_SHORT_RETURN() ; C3:4E84  1B
 Event535_ItoiProductionIntroTextPath:
     %EVENT_SHORTCALL(InitSimpleScreenPositionIntroActor) ; C3:4E85  1A 73 4E
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $40, $01) ; C3:4E88  42 85 A6 C0 40 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0140) ; C3:4E88  42 85 A6 C0 40 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:4E8E  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1D60) ; C3:4E92  0E 06 60 1D
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0B40) ; C3:4E96  0E 07 40 0B
@@ -152,12 +163,12 @@ Event535_ItoiProductionIntroTextPath:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1C70) ; C3:4EB0  0E 06 70 1C
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0B70) ; C3:4EB4  0E 07 70 0B
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:4EB8  1A 59 AB
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C466F0_ReadWordByte, $C5, $00, $DF, $E5) ; C3:4EBB  42 A0 A8 C0 C5 00 DF E5
+    %EVENT_CALLROUTINE_NESTED_TEXT_BANK_NESTED_TEXT_POINTER(!Script_ExecuteNestedTextPointer_ReadBankWordPointerWord, $00C5, $E5DF) ; C3:4EBB  42 A0 A8 C0 C5 00 DF E5
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:4EC3  42 46 6E C4
     %EVENT_HALT() ; C3:4EC7  09
 Event536_ItoiProductionLoopWalkPath:
     %EVENT_SHORTCALL(InitSimpleScreenPositionIntroActor) ; C3:4EC8  1A 73 4E
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $40, $01) ; C3:4ECB  42 85 A6 C0 40 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0140) ; C3:4ECB  42 85 A6 C0 40 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:4ED1  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1760) ; C3:4ED5  0E 06 60 17
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $2188) ; C3:4ED9  0E 07 88 21
@@ -188,7 +199,7 @@ Event536_ItoiProductionLoopWalkPath:
     %EVENT_HALT() ; C3:4F30  09
 Event537_ItoiProductionRafflesiaPath:
     %EVENT_SHORTCALL(InitSimpleScreenPositionIntroActor) ; C3:4F31  1A 73 4E
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $40, $01) ; C3:4F34  42 85 A6 C0 40 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0140) ; C3:4F34  42 85 A6 C0 40 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:4F3A  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $17A0) ; C3:4F3E  0E 06 A0 17
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1DA8) ; C3:4F42  0E 07 A8 1D
@@ -205,12 +216,12 @@ Event537_ItoiProductionRafflesiaPath:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $17E8) ; C3:4F6B  0E 06 E8 17
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1EA0) ; C3:4F6F  0E 07 A0 1E
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:4F73  1A 59 AB
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C466F0_ReadWordByte, $C5, $00, $2C, $E6) ; C3:4F76  42 A0 A8 C0 C5 00 2C E6
+    %EVENT_CALLROUTINE_NESTED_TEXT_BANK_NESTED_TEXT_POINTER(!Script_ExecuteNestedTextPointer_ReadBankWordPointerWord, $00C5, $E62C) ; C3:4F76  42 A0 A8 C0 C5 00 2C E6
 WaitUntilTempFlag1Clear:
     %EVENT_PAUSE($01) ; C3:4F7E  06 01
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:4F80  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0002) ; C3:4F80  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL(WaitUntilTempFlag1Clear) ; C3:4F86  0A 7E 4F
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:4F89  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:4F89  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:4F8C  42 5F A6 C0
     %EVENT_SET_X_VELOCITY($FFFF) ; C3:4F90  3F FF FF
     %EVENT_PAUSE($01) ; C3:4F93  06 01
@@ -221,12 +232,12 @@ Event538_SetTempFlag1AfterShortMove:
     %EVENT_SET_X($17A0) ; C3:4F9B  28 A0 17
     %EVENT_SET_Y($1EA0) ; C3:4F9E  29 A0 1E
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:4FA1  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:4FA4  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:4FA4  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:4FAA  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $17B8) ; C3:4FAE  0E 06 B8 17
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1EA0) ; C3:4FB2  0E 07 A0 1E
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:4FB6  1A 59 AB
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:4FB9  0E 04 01 00
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:4FBD  1D 01 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $02, $00) ; C3:4FC0  42 57 A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0002) ; C3:4FC0  42 57 A8 C0 02 00
     %EVENT_HALT() ; C3:4FC6  09

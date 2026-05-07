@@ -4,6 +4,13 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_LEFT = $06
+!ACTIONSCRIPT_FIELD2B32_STEP_0040 = $0040
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
+!ACTIONSCRIPT_FIELD2B32_STEP_0160 = $0160
+!ACTIONSCRIPT_FIELD2B32_STEP_0180 = $0180
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -22,14 +29,14 @@ hirom
 !LoadCurrentEntityIndexedWindowGfxToVram = $C47A9E
 !LoopPartyLooksAtActiveEntity = $AFA3
 !OnettDoorCloseDisplayResetLoop = $7276
-!PhysicsCallback_C09FF0 = $9FF0
 !ProjectAngleIntoCurrentSlotVectorWords = $C47044
+!ProjectSlot0e5eAngleAndRefreshFacing_Mode0 = $C0A8E7
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !RoundAngleToWalkDirectionStep = $C46B51
 !RunWindowGfxVariantLoop = $3C1D
-!ScriptWrapper_C472A8_Mode0 = $C0A8E7
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -50,16 +57,29 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <party_member_selector_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -154,7 +174,7 @@ Event620_OnettDoorCloseArcWalkHalt:
     %EVENT_SET_X($1658) ; C3:7010  28 58 16
     %EVENT_SET_Y($0080) ; C3:7013  29 80 00
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:7016  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $05) ; C3:7019  42 85 A6 C0 00 05
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0500) ; C3:7019  42 85 A6 C0 00 05
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0005) ; C3:701F  0E 05 05 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1678) ; C3:7023  0E 06 78 16
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $00C0) ; C3:7027  0E 07 C0 00
@@ -184,9 +204,9 @@ Event620_OnettDoorCloseArcWalkHalt:
     %EVENT_LOOP($40) ; C3:707E  01 40
     %EVENT_PAUSE($01) ; C3:7080  06 01
     %EVENT_BINOP(!ACTIONSCRIPT_VARS_V0, $02, $1000) ; C3:7082  14 00 02 00 10
-    %EVENT_CALLROUTINE_0(!ScriptWrapper_C472A8_Mode0) ; C3:7087  42 E7 A8 C0
+    %EVENT_CALLROUTINE_0(!ProjectSlot0e5eAngleAndRefreshFacing_Mode0) ; C3:7087  42 E7 A8 C0
     %EVENT_LOOP_END() ; C3:708B  02
-    %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:708C  1D 06 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_LEFT) ; C3:708C  1D 06 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:708F  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:7093  42 46 6E C4
     %EVENT_HALT() ; C3:7097  09
@@ -196,7 +216,7 @@ OnettDoorCloseReturnArcRelease:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:709F  19 04 A2
 RunOnettDoorCloseReturnArcPath:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:70A2  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $05) ; C3:70A5  42 85 A6 C0 00 05
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0500) ; C3:70A5  42 85 A6 C0 00 05
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0005) ; C3:70AB  0E 05 05 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1628) ; C3:70AF  0E 06 28 16
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0150) ; C3:70B3  0E 07 50 01
@@ -221,11 +241,11 @@ RunOnettDoorCloseReturnArcPath:
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:70F9  1A 59 AB
     %EVENT_SHORT_RETURN() ; C3:70FC  1B
 OnettDoorCloseFlashWindowGfxHalt:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $01) ; C3:70FD  42 64 A8 C0 01
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $01) ; C3:70FD  42 64 A8 C0 01
     %EVENT_SET_Y_RELATIVE($FFF0) ; C3:7102  2C F0 FF
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:7105  25 F0 9F
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:7105  25 F0 9F
     %EVENT_SET_VELOCITIES_ZERO() ; C3:7108  39
-    %EVENT_SET_ANIMATION($FF) ; C3:7109  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:7109  3B FF
     %EVENT_LOOP($04) ; C3:710B  01 04
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $000D) ; C3:710D  0E 00 0D 00
     %EVENT_CALLROUTINE_0(!ApplyCurrentSlot0e5eFixedColorMath) ; C3:7111  42 A8 74 C4
@@ -240,8 +260,8 @@ OnettDoorCloseFlashWindowGfxHalt:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V3, $0008) ; C3:712E  0E 03 08 00
     %EVENT_CALLROUTINE_0(!LoadCurrentEntityIndexedWindowGfxToVram) ; C3:7132  42 9E 7A C4
     %EVENT_SHORTCALL(!RunWindowGfxVariantLoop) ; C3:7136  1A 1D 3C
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:7139  42 6E AA C0 04 00
-    %EVENT_SET_ANIMATION($00) ; C3:713F  3B 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:7139  42 6E AA C0 04 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:713F  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:7141  42 BF A4 C0
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0006) ; C3:7145  0E 01 06 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V2, $0002) ; C3:7149  0E 02 02 00
@@ -253,7 +273,7 @@ OnettDoorCloseFlashWindowGfxHalt:
 OnettDoorClosePartyLookRetreatRelease:
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:715D  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0008) ; C3:7160  0E 04 08 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $60, $01) ; C3:7164  42 85 A6 C0 60 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0160) ; C3:7164  42 85 A6 C0 60 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:716A  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0E98) ; C3:716E  0E 06 98 0E
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1EC0) ; C3:7172  0E 07 C0 1E
@@ -268,24 +288,24 @@ OnettDoorClosePartyLookRetreatRelease:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:7192  42 A8 A4 C0
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:7196  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:719A  06 01
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:719C  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:719C  42 6E AA C0 04 00
     %EVENT_PAUSE($14) ; C3:71A2  06 14
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0014) ; C3:71A4  0E 04 14 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $40, $00) ; C3:71A8  42 85 A6 C0 40 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0040) ; C3:71A8  42 85 A6 C0 40 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:71AE  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0E98) ; C3:71B2  0E 06 98 0E
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1EE0) ; C3:71B6  0E 07 E0 1E
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:71BA  1A 59 AB
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:71BD  0E 04 00 00
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:71C1  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:71C1  42 6E AA C0 04 00
     %EVENT_PAUSE($08) ; C3:71C7  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:71C9  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:71C9  42 6E AA C0 02 00
     %EVENT_PAUSE($08) ; C3:71CF  06 08
     %EVENT_END_LAST_TASK() ; C3:71D1  13
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:71D2  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:71D6  06 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0004) ; C3:71D8  0E 04 04 00
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $60, $02) ; C3:71DC  42 85 A6 C0 60 02
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0260) ; C3:71DC  42 85 A6 C0 60 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:71E2  0E 05 03 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0E98) ; C3:71E6  0E 06 98 0E
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1E08) ; C3:71EA  0E 07 08 1E
@@ -297,11 +317,11 @@ OnettDoorCloseUseSharedDisplayReset:
 OnettDoorClosePartyMemberDirectionHalt:
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:71FA  1A 38 AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:71FD  0E 05 02 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:7201  42 43 A9 C0 FF
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $01) ; C3:7206  42 85 A6 C0 80 01
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:7201  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0180) ; C3:7206  42 85 A6 C0 80 01
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:720C  1A 59 AB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $00) ; C3:720F  42 85 A6 C0 00 00
-    %EVENT_SET_ANIMATION($00) ; C3:7215  3B 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0000) ; C3:720F  42 85 A6 C0 00 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:7215  3B 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:7217  0E 04 01 00
     %EVENT_PAUSE($0A) ; C3:721B  06 0A
     %EVENT_LOOP($02) ; C3:721D  01 02
@@ -325,8 +345,8 @@ OnettDoorCloseWalkInRelease:
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:7248  25 C8 9F
     %EVENT_SET_X($1FC8) ; C3:724B  28 C8 1F
     %EVENT_SET_Y($0448) ; C3:724E  29 48 04
-    %EVENT_SET_ANIMATION($FF) ; C3:7251  3B FF
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:7253  42 85 A6 C0 80 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:7251  3B FF
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:7253  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:7259  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1FB8) ; C3:725D  0E 06 B8 1F
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0448) ; C3:7261  0E 07 48 04

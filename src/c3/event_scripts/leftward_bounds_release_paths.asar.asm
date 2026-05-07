@@ -23,10 +23,11 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_LOOP(count)
@@ -77,9 +78,9 @@ RunLeftwardBoundsReleasePath:
     %EVENT_START_TASK(LoopWatchBoundsForLeftwardRelease) ; C3:4392  07 AE 43
     %EVENT_SET_X_VELOCITY($FF00) ; C3:4395  3F 00 FF
     %EVENT_LOOP($05) ; C3:4398  01 05
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:439A  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:439A  42 6E AA C0 06 00
     %EVENT_PAUSE($08) ; C3:43A0  06 08
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $01) ; C3:43A2  42 6E AA C0 06 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $01) ; C3:43A2  42 6E AA C0 06 01
     %EVENT_PAUSE($08) ; C3:43A8  06 08
     %EVENT_LOOP_END() ; C3:43AA  02
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:43AB  19 04 A2

@@ -4,6 +4,13 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_FIELD2B32_STEP_0040 = $0040
+!ACTIONSCRIPT_FIELD2B32_STEP_0060 = $0060
+!ACTIONSCRIPT_FIELD2B32_STEP_0160 = $0160
+!ACTIONSCRIPT_FIELD2B32_STEP_0600 = $0600
+!ACTIONSCRIPT_SOUND_EFFECT_SHOOT = $001B
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -18,10 +25,10 @@ hirom
 !LoopC40015FastPulseUntilRelease = $A18F
 !LoopC40015Pulse9FrameUntilRelease = $A1B7
 !MoveCurrentSlotAwayFromTargetVector = $AB67
-!PhysicsCallback_C09FF0 = $9FF0
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !RefreshCurrentSlotVisualProfile_Mode0IfAligned = $C0A4A8
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_PlaySoundEffectParameter = $C0A841
 !Script_SetCurrentSlotField2B32 = $C0A685
@@ -41,16 +48,22 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
+    db $42
+    dl <target>
+    dw <sound_effect_id_word>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -114,18 +127,18 @@ endmacro
 org $C37439
 PrepareAlignedMovementToY1616:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:7439  25 7A A3
-    %EVENT_SET_ANIMATION($00) ; C3:743C  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:743C  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:743E  39
     %EVENT_CALLROUTINE_0(!UpdateCurrentSlotFootprintMask) ; C3:743F  42 DB C7 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:7443  42 A8 A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $60, $00) ; C3:7447  42 85 A6 C0 60 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0060) ; C3:7447  42 85 A6 C0 60 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:744D  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $1616) ; C3:7451  0E 07 16 16
     %EVENT_SHORT_RETURN() ; C3:7455  1B
 Event633_PaletteFadeYieldFast:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7456  42 64 A8 C0 FF
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:745B  25 F0 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:745E  3B FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7456  42 64 A8 C0 FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:745B  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:745E  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0000) ; C3:7460  0E 00 00 00
 LoopEvent633_PaletteFade:
     %EVENT_LOOP($1F) ; C3:7464  01 1F
@@ -136,9 +149,9 @@ LoopEvent633_PaletteFade:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:7472  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:7476  19 04 A2
 Event634_PaletteFadeYieldSlow:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7479  42 64 A8 C0 FF
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:747E  25 F0 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:7481  3B FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:7479  42 64 A8 C0 FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:747E  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:7481  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0000) ; C3:7483  0E 00 00 00
 LoopEvent634_PaletteFade:
     %EVENT_LOOP($1F) ; C3:7487  01 1F
@@ -149,14 +162,14 @@ LoopEvent634_PaletteFade:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:7495  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:7499  19 04 A2
 Event635_BlinkThreeTimesRelease:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:749C  25 F0 9F
-    %EVENT_SET_ANIMATION($00) ; C3:749F  3B 00
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:749C  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:749F  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:74A1  39
 LoopEvent635_Blink:
     %EVENT_LOOP($03) ; C3:74A2  01 03
-    %EVENT_SET_ANIMATION($FF) ; C3:74A4  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:74A4  3B FF
     %EVENT_PAUSE($05) ; C3:74A6  06 05
-    %EVENT_SET_ANIMATION($00) ; C3:74A8  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:74A8  3B 00
     %EVENT_PAUSE($05) ; C3:74AA  06 05
     %EVENT_LOOP_END() ; C3:74AC  02
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:74AD  19 04 A2
@@ -173,21 +186,21 @@ Event636_CoordinateSoundYieldHalt:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0A30) ; C3:74CE  0E 06 30 0A
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0F30) ; C3:74D2  0E 07 30 0F
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:74D6  1A 59 AB
-    %EVENT_CALLROUTINE_2(!Script_PlaySoundEffectParameter, $1B, $00) ; C3:74D9  42 41 A8 C0 1B 00
+    %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_SHOOT) ; C3:74D9  42 41 A8 C0 1B 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:74DF  42 46 6E C4
     %EVENT_HALT() ; C3:74E3  09
 Event637_CoordinateTextYieldRelease:
     %EVENT_SET_PHYSICS_CALLBACK(!UpdatePosition_WhenNoNeighbor_WithSpriteRefresh_CurrentSlot) ; C3:74E4  25 7A A3
-    %EVENT_SET_ANIMATION($00) ; C3:74E7  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:74E7  3B 00
     %EVENT_START_TASK(!LoopC40015Pulse9FrameUntilRelease) ; C3:74E9  07 B7 A1
     %EVENT_SET_VELOCITIES_ZERO() ; C3:74EC  39
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:74ED  42 BF A4 C0
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $60, $01) ; C3:74F1  42 85 A6 C0 60 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0160) ; C3:74F1  42 85 A6 C0 60 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:74F7  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0A10) ; C3:74FB  0E 06 10 0A
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0F80) ; C3:74FF  0E 07 80 0F
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:7503  1A 59 AB
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $40, $00) ; C3:7506  42 85 A6 C0 40 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0040) ; C3:7506  42 85 A6 C0 40 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:750C  0E 05 01 00
     %EVENT_END_LAST_TASK() ; C3:7510  13
 Event637_StartFastPulseFinalMove:
@@ -197,7 +210,7 @@ Event637_StartFastPulseFinalMove:
     %EVENT_SHORTCALL(!MoveCurrentSlotAwayFromTargetVector) ; C3:751C  1A 67 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:751F  42 46 6E C4
     %EVENT_PAUSE($0A) ; C3:7523  06 0A
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $06) ; C3:7525  42 85 A6 C0 00 06
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0600) ; C3:7525  42 85 A6 C0 00 06
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0006) ; C3:752B  0E 05 06 00
     %EVENT_END_LAST_TASK() ; C3:752F  13
 Event637_StartTwoFramePulseFinalMove:

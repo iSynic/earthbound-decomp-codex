@@ -4,6 +4,8 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -26,10 +28,10 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
 endmacro
 
 macro EVENT_PAUSE(frames)
@@ -68,7 +70,7 @@ endmacro
 
 org $C31CFB
 Event353MessageTileReveal:
-    %EVENT_SET_ANIMATION($FF) ; C3:1CFB  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:1CFB  3B FF
     %EVENT_CALLROUTINE_0(!InitEvent353MessageTileReveal) ; C3:1CFD  42 0C 88 C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0000) ; C3:1D01  0E 01 00 00
 Local_C31D05:
@@ -78,7 +80,7 @@ Local_C31D05:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1D0E  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:1D12  19 04 A2
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:1D15  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:1D18  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:1D18  42 85 A6 C0 00 01
     %EVENT_WRITE_WORD_TEMPVAR($0004) ; C3:1D1E  1D 04 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:1D21  1A 1E AA
     %EVENT_PAUSE($78) ; C3:1D24  06 78

@@ -24,6 +24,14 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
+- Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants.
+- Known sound-effect IDs render as `!ACTIONSCRIPT_SOUND_EFFECT_*` constants while keeping the word-shaped callback operand.
+- Direction tempvar writes render as `!ACTIONSCRIPT_DIRECTION_*` constants only when a later direction/vector callback consumes them in the same emitted row, with no intervening tempvar rewrite or unrelated native callback.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT`, `%EVENT_CALLROUTINE_EVENT_FLAG`, `%EVENT_CALLROUTINE_FIELD2B32`, `%EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR`, +2.
+
 ## Next Promotion Step
 
 The first split from the larger `C3:4E73..C3:5F8B` payload cluster is now emitted by `--family itoi-production-intro`; continue at `C3:4FC7`.

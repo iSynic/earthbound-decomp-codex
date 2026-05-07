@@ -24,6 +24,10 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Every emitted span was decoded over its exact byte range and revalidated against the ROM bytes used to generate it.
 
+## Source Readability
+
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR`, `%EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK`.
+
 ## Next Promotion Step
 
 Continue with another high-ranked ready seam from `notes/c3-source-pilot-frontier.md`; the preceding tunnel ghost/zombie family and following tunnel ghost follower family are already promoted.

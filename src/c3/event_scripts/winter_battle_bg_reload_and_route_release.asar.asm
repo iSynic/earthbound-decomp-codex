@@ -4,6 +4,15 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_DIRECTION_RIGHT = $02
+!ACTIONSCRIPT_FADE_EFFECT_0101 = $0101
+!ACTIONSCRIPT_FIELD2B32_STEP_0040 = $0040
+!ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
+!ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASK_BLOCKS_2_TO_15_EXISTING = $FFFC
+!ACTIONSCRIPT_LANDING_PALETTE_FADE_FRAMES_64 = $64
+!ACTIONSCRIPT_LANDING_PALETTE_SCALE_00 = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -25,9 +34,9 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !ReloadMapAndResetPresentationState = $C018F3
-!ScriptWrapper_C497C0_ReadWordByteByte = $C0AAB5
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
+!Script_RunLandingPaletteFade_ReadWordByteByte = $C0AAB5
 !Script_SetCameraRelativeAnchor_ReadTwoWords = $C0A87A
 !Script_SetCurrentSlotField2B32 = $C0A685
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
@@ -42,22 +51,62 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_CAMERA_RELATIVE_X_CAMERA_RELATIVE_Y(target, camera_relative_x_word, camera_relative_y_word)
     db $42
     dl <target>
-    db <arg0>
+    dw <camera_relative_x_word>
+    dw <camera_relative_y_word>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <event_flag_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_FADEIN_EFFECT(target, fadein_effect_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <fadein_effect_word>
+endmacro
+
+macro EVENT_CALLROUTINE_FADEOUT_EFFECT(target, fadeout_effect_word)
+    db $42
+    dl <target>
+    dw <fadeout_effect_word>
+endmacro
+
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
+    db $42
+    dl <target>
+    dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_LANDING_PALETTE_EXISTING_WORK_MASK_PALETTE_SCALE_FADE_FRAME_COUNT(target, landing_palette_existing_work_mask_word, palette_scale_byte, fade_frame_count_byte)
+    db $42
+    dl <target>
+    dw <landing_palette_existing_work_mask_word>
+    db <palette_scale_byte>
+    db <fade_frame_count_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
+    db $42
+    dl <target>
+    db <party_member_selector_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
+    db $42
+    dl <target>
+    db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_CLEAR_TICK_CALLBACK()
@@ -137,62 +186,62 @@ endmacro
 org $C3199E
 ContinueEvent340_BattleBgTransition:
     %EVENT_PAUSE($01) ; C3:199E  06 01
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $03, $00) ; C3:19A0  42 4C A8 C0 03 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0003) ; C3:19A0  42 4C A8 C0 03 00
     %EVENT_SHORTCALL_CONDITIONAL(!Target_C31983) ; C3:19A6  0A 83 19
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $01) ; C3:19A9  42 BB 9F C0 01 01
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, !ACTIONSCRIPT_FADE_EFFECT_0101) ; C3:19A9  42 BB 9F C0 01 01
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:19AF  1A E0 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:19B2  42 46 6E C4
     %EVENT_PAUSE($02) ; C3:19B6  06 02
-    %EVENT_SET_ANIMATION($FF) ; C3:19B8  3B FF
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeInWrapper, $01, $01) ; C3:19BA  42 AE 9F C0 01 01
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:19B8  3B FF
+    %EVENT_CALLROUTINE_FADEIN_EFFECT(!ActionScript_FadeInWrapper, !ACTIONSCRIPT_FADE_EFFECT_0101) ; C3:19BA  42 AE 9F C0 01 01
 Local_C319C0:
     %EVENT_PAUSE($01) ; C3:19C0  06 01
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:19C2  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0002) ; C3:19C2  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event340_BattleBgTransitionCancelReload) ; C3:19C8  0B 17 1A
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $05, $00) ; C3:19CB  42 4C A8 C0 05 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0005) ; C3:19CB  42 4C A8 C0 05 00
     %EVENT_SHORTCALL_CONDITIONAL(Local_C319C0) ; C3:19D1  0A C0 19
     %EVENT_CLEAR_TICK_CALLBACK() ; C3:19D4  0F
     %EVENT_CALLROUTINE_0(!CopyCgramShadow0200To4476) ; C3:19D5  42 8E 97 C4
-    %EVENT_CALLROUTINE_4(!ScriptWrapper_C497C0_ReadWordByteByte, $FC, $FF, $00, $64) ; C3:19D9  42 B5 AA C0 FC FF 00 64
+    %EVENT_CALLROUTINE_LANDING_PALETTE_EXISTING_WORK_MASK_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, !ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASK_BLOCKS_2_TO_15_EXISTING, !ACTIONSCRIPT_LANDING_PALETTE_SCALE_00, !ACTIONSCRIPT_LANDING_PALETTE_FADE_FRAMES_64) ; C3:19D9  42 B5 AA C0 FC FF 00 64
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:19E1  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:19E5  06 01
 Local_C319E7:
     %EVENT_PAUSE($01) ; C3:19E7  06 01
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $03, $00) ; C3:19E9  42 4C A8 C0 03 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0003) ; C3:19E9  42 4C A8 C0 03 00
     %EVENT_SHORTCALL_CONDITIONAL(Local_C319E7) ; C3:19EF  0A E7 19
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:19F2  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0002) ; C3:19F2  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event340_BattleBgTransitionCancelReload) ; C3:19F8  0B 17 1A
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $01) ; C3:19FB  42 BB 9F C0 01 01
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, !ACTIONSCRIPT_FADE_EFFECT_0101) ; C3:19FB  42 BB 9F C0 01 01
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:1A01  1A E0 AB
     %EVENT_CALLROUTINE_0(!ReloadMapAndResetPresentationState) ; C3:1A04  42 F3 18 C0
     %EVENT_PAUSE($96) ; C3:1A08  06 96
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeInWrapper, $01, $01) ; C3:1A0A  42 AE 9F C0 01 01
+    %EVENT_CALLROUTINE_FADEIN_EFFECT(!ActionScript_FadeInWrapper, !ACTIONSCRIPT_FADE_EFFECT_0101) ; C3:1A0A  42 AE 9F C0 01 01
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1A10  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:1A14  19 04 A2
 Event340_BattleBgTransitionCancelReload:
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeOutWrapper, $01, $01) ; C3:1A17  42 BB 9F C0 01 01
+    %EVENT_CALLROUTINE_FADEOUT_EFFECT(!ActionScript_FadeOutWrapper, !ACTIONSCRIPT_FADE_EFFECT_0101) ; C3:1A17  42 BB 9F C0 01 01
     %EVENT_SHORTCALL(!WaitUntilWram0028LowByteSet) ; C3:1A1D  1A E0 AB
     %EVENT_CLEAR_TICK_CALLBACK() ; C3:1A20  0F
     %EVENT_CALLROUTINE_0(!ReloadMapAndResetPresentationState) ; C3:1A21  42 F3 18 C0
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:1A25  1D 00 00
-    %EVENT_CALLROUTINE_2(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $04, $00) ; C3:1A28  42 57 A8 C0 04 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_SetOrClearEventFlag_ReadWordPreserveMode, $0004) ; C3:1A28  42 57 A8 C0 04 00
 LoopEvent340_WaitForTempFlag1AfterReload:
     %EVENT_PAUSE($01) ; C3:1A2E  06 01
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:1A30  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0002) ; C3:1A30  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(LoopEvent340_WaitForTempFlag1AfterReload) ; C3:1A36  0B 2E 1A
-    %EVENT_CALLROUTINE_2(!ActionScript_FadeInWrapper, $01, $01) ; C3:1A39  42 AE 9F C0 01 01
+    %EVENT_CALLROUTINE_FADEIN_EFFECT(!ActionScript_FadeInWrapper, !ACTIONSCRIPT_FADE_EFFECT_0101) ; C3:1A39  42 AE 9F C0 01 01
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:1A3F  19 04 A2
 Event341_WintersBattleBgExitRoute:
     %EVENT_SET_X($12E8) ; C3:1A42  28 E8 12
     %EVENT_SET_Y($0F28) ; C3:1A45  29 28 0F
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:1A48  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $80, $00) ; C3:1A4B  42 85 A6 C0 80 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0080) ; C3:1A4B  42 85 A6 C0 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:1A51  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $1310) ; C3:1A55  0E 06 10 13
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0F18) ; C3:1A59  0E 07 18 0F
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:1A5D  1A 59 AB
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1A60  42 46 6E C4
-    %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:1A64  1D 02 00
+    %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:1A64  1D 02 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:1A67  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:1A6B  42 BF A4 C0
     %EVENT_PAUSE($01) ; C3:1A6F  06 01
@@ -202,24 +251,24 @@ Event341_WintersBattleBgExitRoute:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1A7C  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:1A80  19 04 A2
 Event342_CameraRelativeCenterMoveHalt:
-    %EVENT_CALLROUTINE_4(!Script_SetCameraRelativeAnchor_ReadTwoWords, $80, $00, $00, $00) ; C3:1A83  42 7A A8 C0 80 00 00 00
+    %EVENT_CALLROUTINE_CAMERA_RELATIVE_X_CAMERA_RELATIVE_Y(!Script_SetCameraRelativeAnchor_ReadTwoWords, $0080, $0000) ; C3:1A83  42 7A A8 C0 80 00 00 00
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:1A8B  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $40, $00) ; C3:1A8E  42 85 A6 C0 40 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0040) ; C3:1A8E  42 85 A6 C0 40 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:1A94  0E 05 01 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $0080) ; C3:1A98  0E 06 80 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V7, $0080) ; C3:1A9C  0E 07 80 00
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:1AA0  1A 59 AB
-    %EVENT_CALLROUTINE_2(!ActionScript_TestEventFlag_ReadWord, $02, $00) ; C3:1AA3  42 4C A8 C0 02 00
+    %EVENT_CALLROUTINE_EVENT_FLAG(!ActionScript_TestEventFlag_ReadWord, $0002) ; C3:1AA3  42 4C A8 C0 02 00
     %EVENT_SHORTCALL_CONDITIONAL_NOT(Event342_Halt) ; C3:1AA9  0B B0 1A
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1AAC  42 46 6E C4
 Event342_Halt:
     %EVENT_HALT() ; C3:1AB0  09
 Event343_CameraRelativeOffsetInitHalt:
-    %EVENT_CALLROUTINE_4(!Script_SetCameraRelativeAnchor_ReadTwoWords, $80, $00, $80, $00) ; C3:1AB1  42 7A A8 C0 80 00 80 00
+    %EVENT_CALLROUTINE_CAMERA_RELATIVE_X_CAMERA_RELATIVE_Y(!Script_SetCameraRelativeAnchor_ReadTwoWords, $0080, $0080) ; C3:1AB1  42 7A A8 C0 80 00 80 00
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:1AB9  1A 38 AA
     %EVENT_HALT() ; C3:1ABC  09
 Event344_WintersCompassFacingRelease:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:1ABD  42 64 A8 C0 FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:1ABD  42 64 A8 C0 FF
     %EVENT_SHORTCALL(!InitMovementPresetVar4Countdown) ; C3:1AC2  1A AA AA
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0000) ; C3:1AC5  0E 04 00 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:1AC9  42 BF A4 C0
@@ -237,7 +286,7 @@ Event344_WintersCompassFacingRelease:
     %EVENT_SHORTCALL(!PlayDirectionCountdownCompassCycle) ; C3:1AF3  1A 62 4B
     %EVENT_SHORTCALL(!PlayDirectionCountdownCompassCycle) ; C3:1AF6  1A 62 4B
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0005) ; C3:1AF9  0E 04 05 00
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:1AFD  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:1AFD  42 6E AA C0 02 00
     %EVENT_LOOP($20) ; C3:1B03  01 20
     %EVENT_SET_X_VELOCITY_RELATIVE($0020) ; C3:1B05  2E 20 00
     %EVENT_PAUSE($01) ; C3:1B08  06 01
@@ -246,17 +295,17 @@ Event344_WintersCompassFacingRelease:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1B0D  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:1B11  19 04 A2
 Event345_WintersRightwardMovementHalt:
-    %EVENT_CALLROUTINE_4(!Script_SetCameraRelativeAnchor_ReadTwoWords, $00, $00, $80, $00) ; C3:1B14  42 7A A8 C0 00 00 80 00
+    %EVENT_CALLROUTINE_CAMERA_RELATIVE_X_CAMERA_RELATIVE_Y(!Script_SetCameraRelativeAnchor_ReadTwoWords, $0000, $0080) ; C3:1B14  42 7A A8 C0 00 00 80 00
     %EVENT_SHORTCALL(!InitActionScriptMovementState) ; C3:1B1C  1A 38 AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $04) ; C3:1B1F  42 85 A6 C0 00 04
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0400) ; C3:1B1F  42 85 A6 C0 00 04
     %EVENT_WRITE_WORD_TEMPVAR($0002) ; C3:1B25  1D 02 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:1B28  1A 1E AA
     %EVENT_PAUSE($46) ; C3:1B2B  06 46
     %EVENT_SET_VELOCITIES_ZERO() ; C3:1B2D  39
     %EVENT_PAUSE($3C) ; C3:1B2E  06 3C
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $00, $01) ; C3:1B30  42 85 A6 C0 00 01
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0100) ; C3:1B30  42 85 A6 C0 00 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0011) ; C3:1B36  0E 05 11 00
-    %EVENT_CALLROUTINE_1(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:1B3A  42 43 A9 C0 FF
+    %EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(!ActionScript_GetPositionOfPartyMember, $FF) ; C3:1B3A  42 43 A9 C0 FF
     %EVENT_SHORTCALL(!WaitForActiveEntityMovementToFinish) ; C3:1B3F  1A 59 AB
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:1B42  0E 04 01 00
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:1B46  42 46 6E C4

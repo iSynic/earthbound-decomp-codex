@@ -4,6 +4,9 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_ANIMATION_FRAME1 = $01
+!ACTIONSCRIPT_FIELD2B32_STEP_00C0 = $00C0
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -13,7 +16,7 @@ hirom
 !ACTIONSCRIPT_VARS_V6 = $06
 !ACTIONSCRIPT_VARS_V7 = $07
 !ActionScript_QueueTextPointer = $C0A88D
-!DisableCurrentEntityCollision2 = $C0A82F
+!DisableCurrentSlotNeighborCache = $C0A82F
 !HasUsableOverlapNeighborContext = $C0D15C
 !InitMovementWithDefaultPhysicsPulseAndCollisionProbe = $AA2B
 !PrepareTunnelGhostActiveAreaWindow = $BB5C
@@ -36,16 +39,24 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    dw <text_pointer_low_word>
+    dw <text_pointer_bank_word>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_END_TASK()
@@ -92,44 +103,44 @@ endmacro
 org $C30C55
 InitMovementPresetField2B32AndRefreshVisual:
     %EVENT_SHORTCALL(!InitMovementWithDefaultPhysicsPulseAndCollisionProbe) ; C3:0C55  1A 2B AA
-    %EVENT_CALLROUTINE_2(!Script_SetCurrentSlotField2B32, $C0, $00) ; C3:0C58  42 85 A6 C0 C0 00
+    %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_00C0) ; C3:0C58  42 85 A6 C0 C0 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0001) ; C3:0C5E  0E 05 01 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:0C62  42 BF A4 C0
     %EVENT_SHORT_RETURN() ; C3:0C66  1B
 
 org $C32138
 RunTStageAnimationStepPair:
-    %EVENT_SET_ANIMATION($00) ; C3:2138  3B 00
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:2138  3B 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0IfAligned) ; C3:213A  42 A8 A4 C0
     %EVENT_PAUSE($16) ; C3:213E  06 16
-    %EVENT_SET_ANIMATION($01) ; C3:2140  3B 01
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME1) ; C3:2140  3B 01
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode1IfAligned) ; C3:2142  42 B2 A4 C0
     %EVENT_PAUSE($17) ; C3:2146  06 17
     %EVENT_SHORT_RETURN() ; C3:2148  1B
 
 org $C33399
 PulseDownFacingVisualCountdown:
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $01) ; C3:3399  42 6E AA C0 04 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $01) ; C3:3399  42 6E AA C0 04 01
     %EVENT_PAUSE($16) ; C3:339F  06 16
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:33A1  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:33A1  42 6E AA C0 04 00
     %EVENT_PAUSE($17) ; C3:33A7  06 17
     %EVENT_SHORT_RETURN() ; C3:33A9  1B
 PulseUpFacingVisualCountdown:
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $01) ; C3:33AA  42 6E AA C0 00 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $01) ; C3:33AA  42 6E AA C0 00 01
     %EVENT_PAUSE($16) ; C3:33B0  06 16
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:33B2  42 6E AA C0 00 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $00, $00) ; C3:33B2  42 6E AA C0 00 00
     %EVENT_PAUSE($17) ; C3:33B8  06 17
     %EVENT_SHORT_RETURN() ; C3:33BA  1B
 PulseLeftFacingVisualCountdown:
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $01) ; C3:33BB  42 6E AA C0 06 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $01) ; C3:33BB  42 6E AA C0 06 01
     %EVENT_PAUSE($16) ; C3:33C1  06 16
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:33C3  42 6E AA C0 06 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $06, $00) ; C3:33C3  42 6E AA C0 06 00
     %EVENT_PAUSE($17) ; C3:33C9  06 17
     %EVENT_SHORT_RETURN() ; C3:33CB  1B
 PulseRightFacingVisualCountdown:
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $01) ; C3:33CC  42 6E AA C0 02 01
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $01) ; C3:33CC  42 6E AA C0 02 01
     %EVENT_PAUSE($16) ; C3:33D2  06 16
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:33D4  42 6E AA C0 02 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $02, $00) ; C3:33D4  42 6E AA C0 02 00
     %EVENT_PAUSE($17) ; C3:33DA  06 17
     %EVENT_SHORT_RETURN() ; C3:33DC  1B
 
@@ -162,10 +173,10 @@ EndCurrentEventTask:
 
 org $C3BAD7
 RunTunnelGhostThreedWarpTextHalt:
-    %EVENT_CALLROUTINE_0(!DisableCurrentEntityCollision2) ; C3:BAD7  42 2F A8 C0
+    %EVENT_CALLROUTINE_0(!DisableCurrentSlotNeighborCache) ; C3:BAD7  42 2F A8 C0
     %EVENT_SHORTCALL(!PrepareTunnelGhostActiveAreaWindow) ; C3:BADB  1A 5C BB
     %EVENT_SHORTCALL(!TrackPartyMemberForTunnelGhost) ; C3:BADE  1A 73 BB
-    %EVENT_CALLROUTINE_4(!ActionScript_QueueTextPointer, $C7, $00, $CA, $8F) ; C3:BAE1  42 8D A8 C0 C7 00 CA 8F
+    %EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(!ActionScript_QueueTextPointer, $00C7, $8FCA) ; C3:BAE1  42 8D A8 C0 C7 00 CA 8F
     %EVENT_HALT() ; C3:BAE9  09
 
 org $C3C167

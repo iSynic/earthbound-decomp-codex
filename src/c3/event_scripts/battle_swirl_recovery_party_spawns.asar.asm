@@ -4,6 +4,13 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_ENTITY_SCRIPT_ID_BATTLE_SWIRL_RECOVERY_PARTY_SPAWN = $030F
+!ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_PARTY_RECOVERY_SLOT0_LYING = $0010
+!ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_PARTY_RECOVERY_SLOT1_LYING = $0189
+!ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_PARTY_RECOVERY_SLOT2_LYING = $018A
+!ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_PARTY_RECOVERY_SLOT3_LYING = $018B
+!ACTIONSCRIPT_SURFACE_FLAGS_NONE = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -16,11 +23,11 @@ hirom
 !ChooseRandomScriptWord = $C09F82
 !Event8_Entry2WaitUntilOffscreenRelease = $A2B8
 !Integrate_XYVelocityOnly = $9FC8
-!PhysicsCallback_C09FF0 = $9FF0
 !ReleaseCurrentVisualEntityAndEnd = $A204
+!ReturnFromPhysicsCallback_NoMovement = $9FF0
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !SetYieldToTextLatch9641 = $C46E46
 !SpawnEntityAtCurrentSlotAnchor_ReadTwoWords = $C0A98B
 
@@ -35,22 +42,30 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_1(target, arg0)
+macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
-    db <arg0>
+    db <registry_slot_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_2(target, arg0, arg1)
+macro EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(target, sprite_pose_descriptor_word, entity_script_id_word)
     db $42
     dl <target>
-    db <arg0>, <arg1>
+    dw <sprite_pose_descriptor_word>
+    dw <entity_script_id_word>
 endmacro
 
-macro EVENT_CALLROUTINE_4(target, arg0, arg1, arg2, arg3)
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
     db $42
     dl <target>
-    db <arg0>, <arg1>, <arg2>, <arg3>
+    db <surface_flags_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
+    db $42
+    dl <target>
+    db <visual_state_byte>
+    db <countdown_byte>
 endmacro
 
 macro EVENT_CHOOSE_RANDOM_SCRIPT_WORD_3(target, count, choice0, choice1, choice2)
@@ -128,21 +143,21 @@ endmacro
 
 org $C39EF2
 Event782_PartyLyingDownSpawnRecovery:
-    %EVENT_CALLROUTINE_1(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9EF2  42 64 A8 C0 FF
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:9EF7  25 F0 9F
-    %EVENT_SET_ANIMATION($FF) ; C3:9EFA  3B FF
+    %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:9EF2  42 64 A8 C0 FF
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:9EF7  25 F0 9F
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:9EFA  3B FF
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $FFE1) ; C3:9EFC  0E 00 E1 FF
     %EVENT_CALLROUTINE_0(!ApplyCurrentSlot0e5eFixedColorMath) ; C3:9F00  42 A8 74 C4
     %EVENT_PAUSE($04) ; C3:9F04  06 04
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9F06  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9F0A  06 01
-    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $10, $00, $0F, $03) ; C3:9F0C  42 8B A9 C0 10 00 0F 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, !ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_PARTY_RECOVERY_SLOT0_LYING, !ACTIONSCRIPT_ENTITY_SCRIPT_ID_BATTLE_SWIRL_RECOVERY_PARTY_SPAWN) ; C3:9F0C  42 8B A9 C0 10 00 0F 03
     %EVENT_SHORTCALL(Event782_RunRecoveryColorPulseSequence) ; C3:9F14  1A 3F 9F
-    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $89, $01, $0F, $03) ; C3:9F17  42 8B A9 C0 89 01 0F 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, !ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_PARTY_RECOVERY_SLOT1_LYING, !ACTIONSCRIPT_ENTITY_SCRIPT_ID_BATTLE_SWIRL_RECOVERY_PARTY_SPAWN) ; C3:9F17  42 8B A9 C0 89 01 0F 03
     %EVENT_SHORTCALL(Event782_RunRecoveryColorPulseSequence) ; C3:9F1F  1A 3F 9F
-    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $8A, $01, $0F, $03) ; C3:9F22  42 8B A9 C0 8A 01 0F 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, !ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_PARTY_RECOVERY_SLOT2_LYING, !ACTIONSCRIPT_ENTITY_SCRIPT_ID_BATTLE_SWIRL_RECOVERY_PARTY_SPAWN) ; C3:9F22  42 8B A9 C0 8A 01 0F 03
     %EVENT_SHORTCALL(Event782_RunRecoveryColorPulseSequence) ; C3:9F2A  1A 3F 9F
-    %EVENT_CALLROUTINE_4(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $8B, $01, $0F, $03) ; C3:9F2D  42 8B A9 C0 8B 01 0F 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, !ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_PARTY_RECOVERY_SLOT3_LYING, !ACTIONSCRIPT_ENTITY_SCRIPT_ID_BATTLE_SWIRL_RECOVERY_PARTY_SPAWN) ; C3:9F2D  42 8B A9 C0 8B 01 0F 03
     %EVENT_SHORTCALL(Event782_RunRecoveryColorPulseSequence) ; C3:9F35  1A 3F 9F
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9F38  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:9F3C  19 04 A2
@@ -187,9 +202,9 @@ Event782_FadeFixedColorUp:
     %EVENT_LOOP_END() ; C3:9F9E  02
     %EVENT_SHORT_RETURN() ; C3:9F9F  1B
 Event783_LyingDownBounceRelease:
-    %EVENT_SET_PHYSICS_CALLBACK(!PhysicsCallback_C09FF0) ; C3:9FA0  25 F0 9F
+    %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:9FA0  25 F0 9F
     %EVENT_SET_VELOCITIES_ZERO() ; C3:9FA3  39
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:9FA4  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:9FA4  42 6E AA C0 04 00
     %EVENT_LOOP($8B) ; C3:9FAA  01 8B
     %EVENT_SET_Y_RELATIVE($FFFF) ; C3:9FAC  2C FF FF
     %EVENT_PAUSE($02) ; C3:9FAF  06 02
@@ -199,10 +214,10 @@ Event783_LyingDownBounceRelease:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:9FB7  19 04 A2
 Event784_LeftRightWanderLoop:
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:9FBA  25 C8 9F
-    %EVENT_CALLROUTINE_1(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:9FBD  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:9FBD  42 79 A6 C0 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:9FC2  39
     %EVENT_START_TASK(!Event8_Entry2WaitUntilOffscreenRelease) ; C3:9FC3  07 B8 A2
-    %EVENT_CALLROUTINE_2(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:9FC6  42 6E AA C0 04 00
+    %EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(!Script_ApplyCurrentSlotVisualCountdownState, $04, $00) ; C3:9FC6  42 6E AA C0 04 00
     %EVENT_CHOOSE_RANDOM_SCRIPT_WORD_3(!ChooseRandomScriptWord, 3, $003C, $0078, $00B4) ; C3:9FCC  42 82 9F C0 03 3C 00 78 00 B4 00
     %EVENT_WRITE_TEMPVAR_WAITTIMER() ; C3:9FD7  44
     %EVENT_SET_X_VELOCITY($0020) ; C3:9FD8  3F 20 00

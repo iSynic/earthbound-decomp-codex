@@ -4,6 +4,7 @@
 hirom
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -63,7 +64,7 @@ endmacro
 
 org $C33BFB
 RunWindowGfxVariantLoaderPrologue:
-    %EVENT_SET_ANIMATION($FF) ; C3:3BFB  3B FF
+    %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:3BFB  3B FF
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:3BFD  25 C8 9F
     %EVENT_CALLROUTINE_0(!LoadCurrentEntityIndexedWindowGfxToVram) ; C3:3C00  42 9E 7A C4
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0000) ; C3:3C04  0E 01 00 00

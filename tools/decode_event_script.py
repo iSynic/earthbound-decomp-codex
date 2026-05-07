@@ -143,6 +143,7 @@ CALL_ARG_COUNTS: dict[str, int] = {
     "C0:A8D1": 0,
     "C0:A8DC": 0,
     "C0:A8E7": 0,
+    "C0:A8EF": 0,
     "C0:A8F7": 0,
     "C0:A8FF": 0,
     "C0:A907": 1,
@@ -328,9 +329,9 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "project current slot world coordinates through camera $31 and height state into screen coordinates",
     },
     "C0:A26B": {
-        "name": "PhysicsCallback_TargetComparisonAndProjection",
+        "name": "PhysicsCallback_TargetContextCompareAndProject",
         "group": "movement",
-        "contract": "physics callback that compares current slot against active target context and falls back to camera projection",
+        "contract": "physics callback that compares current slot in active target context and otherwise falls back to camera projection",
     },
     "C0:5200": {
         "name": "Tick_OverworldPlayerPositionAndCallbacks",
@@ -388,6 +389,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "refresh current slot collision cache using one script mode byte and a long neighbor-cache callback pointer",
         "args": "collision_probe_mode_byte, neighbor_cache_callback_long",
     },
+    "C0:A643": {
+        "name": "Script_SetDirectionClassAndField2C9A",
+        "group": "movement",
+        "contract": "read one direction/visual class word, apply it when active, and store the resulting class value to current slot field $2C9A",
+        "args": "direction_class_word",
+    },
     "C0:A651": {
         "name": "Script_SetDirectionClassAndField1A86",
         "group": "movement",
@@ -395,16 +402,28 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "args": "direction_class_byte",
     },
     "C0:A679": {
-        "name": "Script_SetCurrentSlotDisplayControlBits",
+        "name": "Script_SetCurrentSlotSurfaceFlags",
         "group": "current-slot-state",
-        "contract": "read one display-control byte and store it to current slot field $2BAA",
-        "args": "display_control_bits_byte",
+        "contract": "read one surface-flags byte and store it to current slot field $2BAA",
+        "args": "surface_flags_byte",
     },
     "C0:A685": {
         "name": "Script_SetCurrentSlotField2B32",
         "group": "current-slot-state",
         "contract": "read one script word and store it to current slot field $2B32",
         "args": "field2b32_word",
+    },
+    "C0:A6A2": {
+        "name": "Script_SetMovementStateCA4E",
+        "group": "movement",
+        "contract": "read one script word into the movement timer scale latch and derive the movement task timer from the active vector via C0:CA4E",
+        "args": "movement_timer_word",
+    },
+    "C0:A6AD": {
+        "name": "Script_SetMovementStateCBD3",
+        "group": "movement",
+        "contract": "read one script word into the movement timer scale latch and derive the movement task timer from speed scale via C0:CBD3",
+        "args": "movement_timer_word",
     },
     "C0:A6DA": {
         "name": "ClearCurrentSlotNeighborCache",
@@ -456,6 +475,12 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "overworld-runtime",
         "contract": "read an inline choice count followed by that many words, choose one at random, and leave it in the tempvar/result latch",
         "args": "choice_count_byte, choice_words[]",
+    },
+    "C0:9FAE": {
+        "name": "ActionScript_FadeInWrapper",
+        "group": "presentation-render",
+        "contract": "read one display-transition word and pass it to the fade-in transition helper at C0:886C",
+        "args": "fadein_effect_word",
     },
     "C0:AA6E": {
         "name": "Script_ApplyCurrentSlotVisualCountdownState",
@@ -648,11 +673,29 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read one script word and copy that pose-descriptor slot anchor to current slot state",
         "args": "pose_descriptor_slot_word",
     },
+    "C0:A87A": {
+        "name": "Script_SetCameraRelativeAnchor_ReadTwoWords",
+        "group": "current-slot-state",
+        "contract": "read X/Y offset words, place the current slot at camera origin plus those offsets, and set the current-slot anchor flags",
+        "args": "camera_relative_x_word, camera_relative_y_word",
+    },
     "C0:A88D": {
         "name": "ActionScript_QueueTextPointer",
         "group": "text-presentation",
         "contract": "read two script words as text pointer pieces and queue text record type #$0008",
         "args": "text_pointer_low_word, text_pointer_bank_word",
+    },
+    "C0:A8A0": {
+        "name": "Script_ExecuteNestedTextPointer_ReadBankWordPointerWord",
+        "group": "text-presentation",
+        "contract": "read a nested text bank/selector word and pointer word, then forward them to C4:66F0 for nested text execution",
+        "args": "nested_text_bank_word, nested_text_pointer_word",
+    },
+    "C0:A8B3": {
+        "name": "Script_SetStagedPositionOffset_ReadTwoWords",
+        "group": "current-slot-state",
+        "contract": "read X/Y offset words and apply them to the staged position used by script presentation helpers",
+        "args": "staged_offset_x_word, staged_offset_y_word",
     },
     "C0:A8C6": {
         "name": "StepCurrentSlotTowardCachedTarget",
@@ -668,6 +711,16 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "name": "StepCurrentSlotTowardCachedTarget_NoFacingRefresh",
         "group": "movement",
         "contract": "step current slot toward cached target without refreshing the current slot facing selector, and report arrival",
+    },
+    "C0:A8E7": {
+        "name": "ProjectSlot0e5eAngleAndRefreshFacing_Mode0",
+        "group": "movement",
+        "contract": "project current slot field $0E5E through C4:72A8 without the mode-1 half-turn rotation and refresh facing when its coarse bucket changes",
+    },
+    "C0:A8EF": {
+        "name": "ProjectSlot0e5eAngleAndRefreshFacing_Mode1",
+        "group": "movement",
+        "contract": "project current slot field $0E5E through C4:72A8 with the mode-1 half-turn rotation and refresh facing when its coarse bucket changes",
     },
     "C0:20F1": {
         "name": "ScriptRelease_CurrentEntityVisualState",
@@ -714,6 +767,11 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "proximity-gate",
         "contract": "test whether the current slot is inside the live-area/window bounds used by event scripts",
     },
+    "C0:C48F": {
+        "name": "GateWidePlayerDistanceBucket",
+        "group": "proximity-gate",
+        "contract": "gate the wide player-distance bucket for the current slot, suppressing attention when the current slot state or global movement gate says to wait",
+    },
     "C0:C7DB": {
         "name": "UpdateCurrentSlotFootprintMask",
         "group": "collision",
@@ -728,6 +786,11 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "name": "SetMovementTaskTimerFromActiveVector",
         "group": "movement",
         "contract": "derive the movement task timer from the active movement vector and cache it for script waits",
+    },
+    "C0:CBD3": {
+        "name": "SetMovementTaskTimerFromSpeedScale",
+        "group": "movement",
+        "contract": "derive the movement task timer from the current speed scale and cache it for script waits",
     },
     "C0:D15C": {
         "name": "HasUsableOverlapNeighborContext",
@@ -744,6 +807,26 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "overworld-runtime",
         "contract": "start or advance the NPC-attention coordinator and return whether the script should keep waiting",
     },
+    "C0:D77F": {
+        "name": "MarkOtherSlotsAttentionLocked",
+        "group": "current-slot-state",
+        "contract": "mark other eligible slots' attention/interaction flags with the high bits before scripted object-interaction cleanup",
+    },
+    "C0:D7B3": {
+        "name": "Save_CurrentSlotAttentionPosition",
+        "group": "current-slot-state",
+        "contract": "save the current slot position into the NPC-attention saved-position fields for a later scripted restore",
+    },
+    "C0:D7C7": {
+        "name": "Restore_CurrentSlotAttentionPosition",
+        "group": "current-slot-state",
+        "contract": "restore the current slot position from the NPC-attention saved-position fields after scripted handoff",
+    },
+    "C0:D7E0": {
+        "name": "Normalize_CurrentSlotAttentionState",
+        "group": "current-slot-state",
+        "contract": "normalize the current slot attention marker to state 1 when the marker is nonzero",
+    },
     "C0:D7F7": {
         "name": "Consume_CurrentSlotAttentionPath",
         "group": "current-slot-state",
@@ -759,6 +842,24 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "group": "overworld-runtime",
         "contract": "read one teleport-destination selector byte and prepare a new entity at that destination",
         "args": "teleport_destination_selector_byte",
+    },
+    "C0:A912": {
+        "name": "ActionScript_PrepareNewEntity",
+        "group": "overworld-runtime",
+        "contract": "read explicit X/Y position words plus a facing/selector byte and stage a new entity through C4:6E37",
+        "args": "new_entity_x_word, new_entity_y_word, new_entity_facing_byte",
+    },
+    "C0:A92D": {
+        "name": "Script_SetTargetToVisualTypeSlotPosition_ReadWord",
+        "group": "current-slot-state",
+        "contract": "read one visual-type slot word and copy that slot position into the active script target",
+        "args": "visual_type_slot_word",
+    },
+    "C0:A938": {
+        "name": "Script_SetTargetToPoseDescriptorSlotPosition_ReadWord",
+        "group": "current-slot-state",
+        "contract": "read one pose-descriptor slot word and copy that slot position into the active script target",
+        "args": "pose_descriptor_slot_word",
     },
     "C0:A943": {
         "name": "ActionScript_GetPositionOfPartyMember",
@@ -784,17 +885,71 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "contract": "read X/Y radius words and build an area-bounds rectangle around the current slot",
         "args": "radius_x_word, radius_y_word",
     },
+    "C0:A977": {
+        "name": "Movement_LoadBattleBg",
+        "group": "presentation-render",
+        "contract": "read layer-1 and optional layer-2 battle-background config ids, then load the battle-bg presentation state for a movement script",
+        "args": "battle_bg_layer1_id_word, battle_bg_layer2_id_word",
+    },
     "C0:A98B": {
         "name": "SpawnEntityAtCurrentSlotAnchor_ReadTwoWords",
         "group": "entity-spawn",
-        "contract": "read two entity initializer words and spawn or initialize an entity at the current slot anchor",
-        "args": "entity_visual_type_word, entity_initializer_word",
+        "contract": "read a sprite-pose descriptor index and entity script id, then spawn an entity at the current slot anchor through C01E49",
+        "args": "sprite_pose_descriptor_word, entity_script_id_word",
+    },
+    "C0:A99F": {
+        "name": "SpawnEntityRelative_ReadTwoWords",
+        "group": "entity-spawn",
+        "contract": "read a sprite-pose descriptor index and entity script id, then spawn a cast-scene entity at the staged script var0/var1 position relative to the live BG3 scroll through C01E49",
+        "args": "sprite_pose_descriptor_word, entity_script_id_word",
+    },
+    "C0:A9B3": {
+        "name": "PrintCastNameParty_ReadThreeWords",
+        "group": "text-presentation",
+        "contract": "read cast-name source and tile-position words, then print the party cast-name row through the ending cast-name tilemap helpers",
+        "args": "cast_name_source_word, cast_name_tile_x_word, cast_name_tile_y_word",
+    },
+    "C0:A9CF": {
+        "name": "PrintCastNameEntityVar0_ReadThreeWords",
+        "group": "text-presentation",
+        "contract": "read cast-name source and tile-position words, then print the entity-var0 cast-name row through the ending cast-name tilemap helpers",
+        "args": "cast_name_source_word, cast_name_tile_x_word, cast_name_tile_y_word",
+    },
+    "C0:A9EB": {
+        "name": "PrintCastNameCurrentThreshold_ReadThreeWords",
+        "group": "text-presentation",
+        "contract": "read cast-name print words, replace the source selector with the current cast-scroll threshold, and print through the ending cast-name tilemap helpers",
+        "args": "cast_name_source_word, cast_name_tile_x_word, cast_name_tile_y_word",
     },
     "C0:9FBB": {
         "name": "ActionScript_FadeOutWrapper",
         "group": "presentation-render",
         "contract": "read one fade-out effect word and pass it to C0:887A",
         "args": "fadeout_effect_word",
+    },
+    "C0:AA07": {
+        "name": "ActionScript_FadeOutWithMosaic",
+        "group": "presentation-render",
+        "contract": "read display fade step, per-step wait, and mosaic-update flag words, then forward them as A/X/Y to the fade-out transition helper at C0:8814",
+        "args": "display_fade_step_word, display_fade_wait_frames_word, display_mosaic_update_flag_word",
+    },
+    "C0:AA23": {
+        "name": "Script_StageMosaicWh0Mask_ReadThreeWords",
+        "group": "presentation-render",
+        "contract": "read left-X, Y, and right-X words, then forward them as A/X/Y to the C4:7765 WH0 mosaic/window-mask starter",
+        "args": "mask_left_x_word, mask_y_word, mask_right_x_word",
+    },
+    "C0:AA3F": {
+        "name": "Script_SetVisualSetupBytesByMode",
+        "group": "presentation-render",
+        "contract": "read COLDATA red/green/blue component bytes into $9E37-$9E39, then apply color math using the caller-supplied mode selector",
+        "args": "coldata_red_component_byte, coldata_green_component_byte, coldata_blue_component_byte",
+    },
+    "C0:AAB5": {
+        "name": "Script_RunLandingPaletteFade_ReadWordByteByte",
+        "group": "presentation-render",
+        "contract": "read a landing-palette existing-work block mask, palette scale byte, and fade frame-count byte, then forward them to C4:97C0",
+        "args": "landing_palette_existing_work_mask_word, palette_scale_byte, fade_frame_count_byte",
     },
     "EF:0CA7": {
         "name": "CheckCurrentDeliveryRetryThreshold",
@@ -884,6 +1039,236 @@ ACTIONSCRIPT_ANIMATION_IDS: dict[int, dict[str, str]] = {
     },
 }
 
+ACTIONSCRIPT_SURFACE_FLAGS_BYTES: dict[int, dict[str, str]] = {
+    0x00: {
+        "name": "surface_flags_none",
+        "contract": "surface-flags byte $00 written by C0:A679 to current slot field $2BAA; bit semantics not yet split",
+    },
+    0x01: {
+        "name": "surface_flags_bit0",
+        "contract": "surface-flags byte $01 written by C0:A679 to current slot field $2BAA; bit 0 set, exact runtime meaning still local-unknown",
+    },
+    0x03: {
+        "name": "surface_flags_bit0_bit1",
+        "contract": "surface-flags byte $03 written by C0:A679 to current slot field $2BAA; bits 0 and 1 set, exact runtime meanings still local-unknown",
+    },
+}
+
+ACTIONSCRIPT_VISUAL_STATE_BYTES: dict[int, dict[str, str]] = {
+    value: {
+        "name": f"visual_state_{value:02x}",
+        "contract": f"visual-state byte ${value:02X} stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown",
+    }
+    for value in range(0x08)
+}
+
+ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES: dict[int, dict[str, str]] = {
+    value: {
+        "name": f"visual_countdown_seed_{value:02x}",
+        "contract": f"visual countdown seed byte ${value:02X} read by C0:AA6E; zero-visual path writes it raw to $10F2/$2892, existing-visual path doubles it into $10F2 and records the slot in $2896",
+    }
+    for value in (0x00, 0x01)
+}
+
+ACTIONSCRIPT_LANDING_PALETTE_SCALE_BYTES: dict[int, dict[str, str]] = {
+    value: {
+        "name": f"scale_{value:02x}",
+        "contract": f"landing palette scale byte ${value:02X} passed through C0:AAB5 to C4:954C; $32 is full RGB555 scale, lower values dim the source block, higher values saturate",
+    }
+    for value in (
+        0x00,
+        0x08,
+        0x0A,
+        0x0C,
+        0x0E,
+        0x10,
+        0x12,
+        0x14,
+        0x16,
+        0x18,
+        0x1A,
+        0x1C,
+        0x1E,
+        0x20,
+        0x22,
+        0x24,
+        0x26,
+        0x28,
+        0x2A,
+        0x2C,
+        0x2E,
+        0x31,
+        0x32,
+        0x5A,
+    )
+}
+
+ACTIONSCRIPT_LANDING_PALETTE_FADE_FRAME_COUNT_BYTES: dict[int, dict[str, str]] = {
+    0x01: {
+        "name": "fade_frames_01",
+        "contract": "landing palette fade frame-count byte $01; C4:97C0 treats this as the immediate-export sentinel",
+    },
+    0x3C: {
+        "name": "fade_frames_3c",
+        "contract": "landing palette fade frame-count byte $3C; C4:97C0 steps palette interpolation once per frame until this count is reached",
+    },
+    0x64: {
+        "name": "fade_frames_64",
+        "contract": "landing palette fade frame-count byte $64; C4:97C0 steps palette interpolation once per frame until this count is reached",
+    },
+    0x78: {
+        "name": "fade_frames_78",
+        "contract": "landing palette fade frame-count byte $78; C4:97C0 steps palette interpolation once per frame until this count is reached",
+    },
+}
+
+ACTIONSCRIPT_COLDATA_COMPONENT_BYTES: dict[int, dict[str, str]] = {
+    0x00: {
+        "name": "component_zero",
+        "contract": "COLDATA fixed-color component value $00 written through C4:2439 with the channel selector bit applied",
+    },
+    0x10: {
+        "name": "component_10",
+        "contract": "COLDATA fixed-color component value $10 written through C4:2439 with the channel selector bit applied",
+    },
+    0x18: {
+        "name": "component_18",
+        "contract": "COLDATA fixed-color component value $18 written through C4:2439 with the channel selector bit applied",
+    },
+}
+
+ACTIONSCRIPT_FADE_EFFECT_WORDS: dict[int, dict[str, str]] = {
+    0x0101: {
+        "name": "fade_effect_0101",
+        "contract": "display fade effect word $0101 passed through C0:9FAE/C0:9FBB; low byte seeds the display wait counter and high byte seeds companion display bytes $0029-$002A",
+    },
+    0x0701: {
+        "name": "fade_effect_0701",
+        "contract": "display fade effect word $0701 passed through C0:9FAE/C0:9FBB; low byte seeds the display wait counter and high byte seeds companion display bytes $0029-$002A",
+    },
+}
+
+ACTIONSCRIPT_MOSAIC_WH0_MASK_LEFT_X_WORDS: dict[int, dict[str, str]] = {
+    0x1220: {
+        "name": "tstage_performance_corridor",
+        "contract": "left-X word for the repeated Tenda-stage performance-corridor C0:AA23 WH0 mask preset; C4:7765 subtracts screen X origin $0031 before writing stream edge bytes",
+    },
+    0x1AC0: {
+        "name": "tstage_dance_followup",
+        "contract": "left-X word for the Tenda-stage dance-followup C0:AA23 WH0 mask preset; C4:7765 subtracts screen X origin $0031 before writing stream edge bytes",
+    },
+}
+
+ACTIONSCRIPT_MOSAIC_WH0_MASK_Y_WORDS: dict[int, dict[str, str]] = {
+    0x1670: {
+        "name": "tstage_performance_corridor",
+        "contract": "Y word for the repeated Tenda-stage performance-corridor C0:AA23 WH0 mask preset; C4:7765 subtracts screen Y origin $0033 before seeding the WH0 stream start",
+    },
+    0x2170: {
+        "name": "tstage_dance_followup",
+        "contract": "Y word for the Tenda-stage dance-followup C0:AA23 WH0 mask preset; C4:7765 subtracts screen Y origin $0033 before seeding the WH0 stream start",
+    },
+}
+
+ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS: dict[int, dict[str, str]] = {
+    0x12E0: {
+        "name": "tstage_performance_corridor",
+        "contract": "right-X word for the repeated Tenda-stage performance-corridor C0:AA23 WH0 mask preset; C4:7765 subtracts screen X origin $0031 before writing stream edge bytes",
+    },
+    0x1B40: {
+        "name": "tstage_dance_followup",
+        "contract": "right-X word for the Tenda-stage dance-followup C0:AA23 WH0 mask preset; C4:7765 subtracts screen X origin $0031 before writing stream edge bytes",
+    },
+}
+
+ACTIONSCRIPT_DISPLAY_FADE_STEP_WORDS: dict[int, dict[str, str]] = {
+    0x0001: {
+        "name": "step_1",
+        "contract": "display fade-out step word $0001; C0:8814 subtracts this from INIDISP mirror $000D each transition step",
+    },
+}
+
+ACTIONSCRIPT_DISPLAY_FADE_WAIT_FRAME_WORDS: dict[int, dict[str, str]] = {
+    0x0001: {
+        "name": "wait_1_frame",
+        "contract": "display fade-out per-step wait word $0001 forwarded to C0:878B after each brightness step",
+    },
+    0x0008: {
+        "name": "wait_8_frames",
+        "contract": "display fade-out per-step wait word $0008 forwarded to C0:878B after each brightness step",
+    },
+}
+
+ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS: dict[int, dict[str, str]] = {
+    0x0000: {
+        "name": "update_disabled",
+        "contract": "display fade-out mosaic-update flag $0000; C0:8814 skips the C0:87AB mosaic-nibble update when this word is zero",
+    },
+}
+
+ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_WORDS: dict[int, dict[str, str]] = {
+    0x0010: {
+        "name": "party_recovery_slot0_lying",
+        "contract": "sprite-pose descriptor word used by Event782 party lying-down recovery spawn slot 0 through C0:A98B; exact character/pose asset identity remains local-unknown",
+    },
+    0x0189: {
+        "name": "party_recovery_slot1_lying",
+        "contract": "sprite-pose descriptor word used by Event782 party lying-down recovery spawn slot 1 through C0:A98B; exact character/pose asset identity remains local-unknown",
+    },
+    0x018A: {
+        "name": "party_recovery_slot2_lying",
+        "contract": "sprite-pose descriptor word used by Event782 party lying-down recovery spawn slot 2 through C0:A98B; exact character/pose asset identity remains local-unknown",
+    },
+    0x018B: {
+        "name": "party_recovery_slot3_lying",
+        "contract": "sprite-pose descriptor word used by Event782 party lying-down recovery spawn slot 3 through C0:A98B; exact character/pose asset identity remains local-unknown",
+    },
+}
+
+ACTIONSCRIPT_ENTITY_SCRIPT_IDS: dict[int, dict[str, str]] = {
+    0x030F: {
+        "name": "battle_swirl_recovery_party_spawn",
+        "contract": "entity script id shared by Event782 party lying-down recovery spawns through C0:A98B",
+    },
+}
+
+ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS: dict[int, dict[str, str]] = {
+    0x00FF: {
+        "name": "event340_winters_transition",
+        "contract": "layer-1 battle-background config id used by the Winters event-340 input-gated transition",
+    },
+    0x0107: {
+        "name": "coffee_tea_layer1",
+        "contract": "layer-1 battle-background config id used by the coffee/tea visual gatekeeper",
+    },
+}
+
+ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS: dict[int, dict[str, str]] = {
+    0x0000: {
+        "name": "none",
+        "contract": "optional layer-2 battle-background config id $0000; C2:D121 skips layer-2 setup when X is zero",
+    },
+    0x0108: {
+        "name": "coffee_tea_layer2",
+        "contract": "optional layer-2 battle-background config id paired with coffee/tea layer 1",
+    },
+}
+
+ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS: dict[int, dict[str, str]] = {
+    0x2000: {
+        "name": "block13_existing",
+        "contract": "landing palette interpolation mask; bit 13 reuses the existing $7F:0000 work block while other 16-color blocks use the template/source palette",
+    },
+    0xDFFC: {
+        "name": "blocks_2_to_15_except_13_existing",
+        "contract": "landing palette interpolation mask; blocks 2-12 and 14-15 reuse existing $7F:0000 work blocks while blocks 0-1 and 13 use the template/source palette",
+    },
+    0xFFFC: {
+        "name": "blocks_2_to_15_existing",
+        "contract": "landing palette interpolation mask; blocks 2-15 reuse existing $7F:0000 work blocks while blocks 0-1 use the template/source palette",
+    },
+}
+
 ACTIONSCRIPT_FIELD2B32_WORDS: dict[int, dict[str, str]] = {
     0x0040: {
         "name": "field2b32_step_0040",
@@ -928,6 +1313,85 @@ ACTIONSCRIPT_FIELD2B32_WORDS: dict[int, dict[str, str]] = {
     0x0600: {
         "name": "field2b32_step_0600",
         "contract": "very large movement/vector magnitude written to current slot $2B32; boundary-audited through movement/timer consumers",
+    },
+}
+
+ACTIONSCRIPT_SOUND_EFFECT_IDS: dict[int, dict[str, str]] = {
+    0x0003: {
+        "name": "sound_effect_cursor_move",
+        "contract": "sound effect $0003; sound-driver reference labels SFX_03 as cursor move",
+    },
+    0x0004: {
+        "name": "sound_effect_window_open",
+        "contract": "sound effect $0004; sound-driver reference labels SFX_04 as window open",
+    },
+    0x0008: {
+        "name": "sound_effect_enter_door",
+        "contract": "sound effect $0008; sound-driver reference labels SFX_08 as enter door",
+    },
+    0x0009: {
+        "name": "sound_effect_exit_door",
+        "contract": "sound effect $0009; sound-driver reference labels SFX_09 as exit door",
+    },
+    0x000A: {
+        "name": "sound_effect_phone_ring",
+        "contract": "sound effect $000A; sound-driver reference labels SFX_0A as phone ring",
+    },
+    0x000D: {
+        "name": "sound_effect_camera_shutter",
+        "contract": "sound effect $000D; sound-driver reference labels SFX_0D as camera shutter",
+    },
+    0x000E: {
+        "name": "sound_effect_blow_a_bubble",
+        "contract": "sound effect $000E; sound-driver reference labels SFX_0E as blow a bubble",
+    },
+    0x0011: {
+        "name": "sound_effect_fall_into_hole",
+        "contract": "sound effect $0011; sound-driver reference labels SFX_11 as fall into hole",
+    },
+    0x0012: {
+        "name": "sound_effect_stairs",
+        "contract": "sound effect $0012; sound-driver reference labels SFX_12 as stairs",
+    },
+    0x001B: {
+        "name": "sound_effect_shoot",
+        "contract": "sound effect $001B; sound-driver reference labels SFX_1B as shoot",
+    },
+    0x001E: {
+        "name": "sound_effect_enemy_damaged",
+        "contract": "sound effect $001E; sound-driver reference labels SFX_1E as enemy damaged",
+    },
+    0x0022: {
+        "name": "sound_effect_miss_attack",
+        "contract": "sound effect $0022; sound-driver reference labels SFX_22 as miss attack",
+    },
+    0x002E: {
+        "name": "sound_effect_player_wounded",
+        "contract": "sound effect $002E; sound-driver reference labels SFX_2E as player wounded",
+    },
+    0x003A: {
+        "name": "sound_effect_freeze_3",
+        "contract": "sound effect $003A; sound-driver reference labels SFX_3A as Freeze 3",
+    },
+    0x0049: {
+        "name": "sound_effect_sky_runner_signal_giygas_shield",
+        "contract": "sound effect $0049; sound-driver reference labels SFX_49 as Sky Runner signal/Giygas shield",
+    },
+    0x0051: {
+        "name": "sound_effect_giygas_attack_arctic_cold_breath",
+        "contract": "sound effect $0051; sound-driver reference labels SFX_51 as Giygas attack/arctic-cold breath",
+    },
+    0x0054: {
+        "name": "sound_effect_yell_or_say_something_nasty",
+        "contract": "sound effect $0054; sound-driver reference labels SFX_54 as yell/say something nasty",
+    },
+    0x005F: {
+        "name": "sound_effect_magic_butterfly",
+        "contract": "sound effect $005F; sound-driver reference labels SFX_5F as Magic Butterfly",
+    },
+    0x0061: {
+        "name": "sound_effect_stairs_fast",
+        "contract": "sound effect $0061; sound-driver reference labels SFX_61 as the fast stairs effect",
     },
 }
 
@@ -1170,13 +1634,55 @@ def format_call_arg_value(
         return None
     if width == 1:
         value = raw_args[cursor]
+        if field == "palette_scale_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_LANDING_PALETTE_SCALE_BYTES)}", cursor + 1
+        if field == "fade_frame_count_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_LANDING_PALETTE_FADE_FRAME_COUNT_BYTES)}", cursor + 1
+        if field in {
+            "coldata_red_component_byte",
+            "coldata_green_component_byte",
+            "coldata_blue_component_byte",
+        }:
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_COLDATA_COMPONENT_BYTES)}", cursor + 1
         if field == "direction_class_byte":
             return f"{field}={format_named_byte(value, ACTIONSCRIPT_DIRECTION_WORDS)}", cursor + 1
+        if field == "surface_flags_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_SURFACE_FLAGS_BYTES)}", cursor + 1
+        if field == "visual_state_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_VISUAL_STATE_BYTES)}", cursor + 1
+        if field == "countdown_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES)}", cursor + 1
         return f"{field}={format_byte(value)}", cursor + 1
     if width == 2:
         value = raw_args[cursor] | (raw_args[cursor + 1] << 8)
         if field == "field2b32_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_FIELD2B32_WORDS)}", cursor + 2
+        if field == "battle_bg_layer1_id_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS)}", cursor + 2
+        if field == "battle_bg_layer2_id_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS)}", cursor + 2
+        if field == "landing_palette_existing_work_mask_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS)}", cursor + 2
+        if field in {"fadein_effect_word", "fadeout_effect_word"}:
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_FADE_EFFECT_WORDS)}", cursor + 2
+        if field == "mask_left_x_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_MOSAIC_WH0_MASK_LEFT_X_WORDS)}", cursor + 2
+        if field == "mask_y_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_MOSAIC_WH0_MASK_Y_WORDS)}", cursor + 2
+        if field == "mask_right_x_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS)}", cursor + 2
+        if field == "display_fade_step_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_DISPLAY_FADE_STEP_WORDS)}", cursor + 2
+        if field == "display_fade_wait_frames_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_DISPLAY_FADE_WAIT_FRAME_WORDS)}", cursor + 2
+        if field == "display_mosaic_update_flag_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS)}", cursor + 2
+        if field == "sprite_pose_descriptor_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_WORDS)}", cursor + 2
+        if field == "entity_script_id_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_ENTITY_SCRIPT_IDS)}", cursor + 2
+        if field == "sound_effect_id_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_SOUND_EFFECT_IDS)}", cursor + 2
         return f"{field}={format_word(value)}", cursor + 2
     target = Address(raw_args[cursor + 2], raw_args[cursor] | (raw_args[cursor + 1] << 8))
     return f"{field}={format_target(target, names)}", cursor + 3
