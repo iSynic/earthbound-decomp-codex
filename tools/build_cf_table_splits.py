@@ -190,7 +190,7 @@ def build_splits(rom_path: Path | None) -> dict[str, object]:
             2,
             "exact",
             "map_music.yml row count and pointer-table/table adjacency",
-            "165 little-endian offsets into the event music table.",
+            "165 little-endian selectors into the event-music context table; selector 0 is the observed null row.",
         ),
         make_split(
             rom,
@@ -202,7 +202,7 @@ def build_splits(rom_path: Path | None) -> dict[str, object]:
             None,
             "exact-boundary",
             "next inline byte block from bank0f.asm",
-            "Variable-length event-flag/music rows up to the inline bankconfig block.",
+            "Variable-length current-position event-music context rows up to the inline bankconfig block.",
         ),
         make_split(
             rom,
@@ -373,13 +373,16 @@ def render_markdown(manifest: dict[str, object]) -> str:
             "## Source Notes",
             "",
             "- `D0:0000..D0:13FF` is the 1280-entry long-pointer table that anchors the CF door sector lists.",
+            "- `notes/cf-door-data-contracts.md` decodes the consumer-backed `DOOR_DATA` type `0`, type `2`, and type `6` payload variants.",
+            "- `notes/cf-movement-trigger-contracts.md` decodes `DOOR_CONFIG_TABLE` trigger payload meanings for all source-order physical rows.",
             "- `DOOR_CONFIG_TABLE` and `SPRITE_PLACEMENT_TABLE` are variable-length counted sector lists.",
+            "- `notes/cf-event-music-context-contracts.md` decodes `OVERWORLD_EVENT_MUSIC_POINTER_TABLE` and `OVERWORLD_EVENT_MUSIC_TABLE` as selector-addressed current-position music/SFX context chains.",
             "- `NPC_CONFIG_TABLE` uses the ebsrc `npc_config` struct size of 17 bytes and the eb-decompile row count of 1584.",
             "- `CF:F2B5` is the first audio-pack byte, so all generated map data ends exactly at `CF:F2B4`.",
             "",
             "## Recommended next move",
             "",
-            "Promote the stable CF table shapes into the data-contract manifest, then use the D0 door pointer table and late battle/enemy pointers to continue the D0 splitter.",
+            "Use the stable CF table shapes and promoted row contracts for source emission planning, then continue with optional gameplay labels or source-emission tooling that consumes the checked-in artifacts.",
         ]
     )
     return "\n".join(lines).rstrip() + "\n"

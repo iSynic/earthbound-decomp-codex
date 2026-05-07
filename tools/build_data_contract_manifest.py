@@ -223,7 +223,13 @@ TIMED_DELIVERY_CONTROLLER_FIELDS = (
 )
 
 RAW_CF_DOOR_DATA_FIELDS = (
-    field("raw_payload", 0x00, 1, 0x264F, "exact CF door-data payload block; subrecords are variable/packed"),
+    field(
+        "raw_payload",
+        0x00,
+        1,
+        0x264F,
+        "exact CF door-data payload block; see notes/cf-door-data-contracts.json for consumer-backed type 0 event-gated script pointers, type 2 door-transition records, and type 6 cached interaction pointers",
+    ),
 )
 
 RAW_CF_DOOR_CONFIG_LIST_FIELDS = (
@@ -232,7 +238,7 @@ RAW_CF_DOOR_CONFIG_LIST_FIELDS = (
         0x00,
         1,
         0x32A0,
-        "1280 D0-pointer-addressed counted sector door/trigger lists; see notes/cf-sector-list-contracts.json for complete decoded lists, overlap rows, and five-byte movement-trigger entries",
+        "1280 D0-pointer-addressed counted sector door/trigger lists; see notes/cf-sector-list-contracts.json for complete decoded lists and notes/cf-movement-trigger-contracts.json for trigger_payload_word meanings by movement_trigger_type",
     ),
 )
 
@@ -251,7 +257,13 @@ WORD_POINTER_FIELDS = (
 )
 
 RAW_CF_EVENT_MUSIC_TABLE_FIELDS = (
-    field("raw_event_music_rows", 0x00, 1, 0x07A4, "variable-length event-flag/music rows"),
+    field(
+        "raw_event_music_context_rows",
+        0x00,
+        1,
+        0x07A4,
+        "164 CF selector-addressed variable chains; see notes/cf-event-music-context-contracts.json for decoded event-flag condition/default rows and music/SFX bytes",
+    ),
 )
 
 RAW_CF_INLINE_EVENT_MUSIC_TRAILER_FIELDS = (
@@ -304,7 +316,13 @@ SCREEN_TRANSITION_CONFIG_FIELDS = (
 )
 
 RAW_D0_TILE_EVENT_CONTROL_FIELDS = (
-    field("raw_event_chains", 0x00, 1, 0x02C0, "20 variable MAP_TILE_EVENT chains"),
+    field(
+        "raw_event_chains",
+        0x00,
+        1,
+        0x02C0,
+        "20 variable MAP_TILE_EVENT chains; see notes/d0-tile-event-contracts.json for decoded event-condition headers and replacement pairs",
+    ),
 )
 
 MAP_ENEMY_PLACEMENT_FIELDS = (
@@ -384,7 +402,7 @@ D7_SECTOR_CONTEXT_WORD_FIELDS = (
         "sector_context_word",
         0x00,
         2,
-        note="per-sector context word loaded by C0:0AA1 into $438E; low three bits match map-sector Setting and are consumed by the C0:2668 spawn candidate resolver",
+        note="per-sector context word loaded by C0:0AA1 into $438E; low three bits match map-sector Setting and feed spawn, visual-context, and path-lane gates",
     ),
 )
 
@@ -395,6 +413,15 @@ SNES_LONG_POINTER24_FIELDS = (
 
 PER_SECTOR_MUSIC_FIELDS = (
     field("music_options_index", 0x00, 2, note="40x32 sector-indexed word joined to map_music.yml option lists by the map sector bundle contract"),
+)
+
+CURRENT_POSITION_EVENT_MUSIC_SELECTOR_FIELDS = (
+    field(
+        "event_music_context_selector",
+        0x00,
+        1,
+        note="byte-indexed first plane at DC:D637; C0:68F4 and the EF debug overlay use this selector to index CF:58EF; matches map-sector Music for all 1280 rows",
+    ),
 )
 
 TEXT_WINDOW_FLAVOR_SELECTOR_FIELDS = (
@@ -1234,11 +1261,17 @@ def extra_contracts() -> list[Contract]:
             stride=0x264F,
             count=1,
             struct_name="cf_door_data_payload",
-            confidence="exact-boundary",
-            note="CF door-data payload block before the 1280 counted sector door-list records.",
+            confidence="consumer-corroborated-partial",
+            note="CF door-data payload block before the 1280 counted sector door-list records. Type 0, type 2, and type 6 payload shapes are decoded by the CF door-data contract; remaining trigger-type parameters stay bounded/raw.",
             evidence=(
                 "notes/cf-table-splits.md",
+                "notes/cf-sector-list-contracts.md",
+                "notes/cf-door-data-contracts.md",
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm",
+                "src/c0/c0_6a1b_movement_trigger_type0_queue_door_destination.asm",
+                "src/c0/c0_6aca_movement_trigger_type2_queue_door_transition.asm",
+                "src/c0/c0_6bff_run_deferred_script_pointer_and_refresh_transition_state.asm",
+                "src/c0/c0_65c2_probe_type6_door_candidate.asm",
             ),
             fields=RAW_CF_DOOR_DATA_FIELDS,
         ),
@@ -1250,10 +1283,11 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="door_sector_list_block",
             confidence="exact-variable-lists",
-            note="1280 D0-pointer-addressed counted door/trigger sector lists with complete decoded rows in notes/cf-sector-list-contracts.json. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.",
+            note="1280 D0-pointer-addressed counted door/trigger sector lists with complete decoded rows in notes/cf-sector-list-contracts.json and per-type trigger payload semantics in notes/cf-movement-trigger-contracts.json. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.",
             evidence=(
                 "notes/cf-table-splits.md",
                 "notes/cf-sector-list-contracts.md",
+                "notes/cf-movement-trigger-contracts.md",
                 "refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm",
             ),
             fields=RAW_CF_DOOR_CONFIG_LIST_FIELDS,
@@ -1297,10 +1331,11 @@ def extra_contracts() -> list[Contract]:
             count=20,
             struct_name="word_pointer",
             confidence="exact",
-            note="Word offsets to the 20 MAP_TILE_EVENT chains.",
+            note="Word offsets to the 20 MAP_TILE_EVENT chains; C0:0703 indexes this table by tileset/event-control id.",
             evidence=(
                 "refs/ebsrc-main/ebsrc-main/src/data/event_control_ptr_table.asm",
                 "notes/d0-table-splits.md",
+                "notes/d0-tile-event-contracts.md",
             ),
             fields=WORD_POINTER_FIELDS,
         ),
@@ -1312,10 +1347,11 @@ def extra_contracts() -> list[Contract]:
             count=1,
             struct_name="map_tile_event_chain_block",
             confidence="exact-variable-chains",
-            note="20 variable MAP_TILE_EVENT chains, each terminated by a zero event flag word.",
+            note="20 variable MAP_TILE_EVENT chains. Each nonzero condition header is event_flag_condition_word plus replacement_pair_count, followed by target/source replacement-block pairs consumed by C0:062A.",
             evidence=(
                 "refs/ebsrc-main/ebsrc-main/include/structs.asm",
                 "notes/d0-table-splits.md",
+                "notes/d0-tile-event-contracts.md",
             ),
             fields=RAW_D0_TILE_EVENT_CONTROL_FIELDS,
         ),
@@ -1424,12 +1460,15 @@ def extra_contracts() -> list[Contract]:
             count=1280,
             struct_name="map_sector_context_word",
             confidence="consumer-corroborated-low3",
-            note="40x32 sector context-word table. C0:0AA1 loads the full word to $438E; C0:2668 consumes the low three bits, which match map-sector Setting for every row.",
+            note="40x32 sector context-word table. C0:0AA1 loads the full word to $438E; C0:2668, C0:3A94, and path-lane callers consume the low three bits, which match map-sector Setting for every row.",
             evidence=(
                 "notes/d7-sector-metadata-contracts.md",
                 "notes/map-sector-bundles.md",
                 "src/c0/c0_0aa1_lookup_position_cell_context_word.asm",
                 "src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm",
+                "src/c0/c0_3a94_refresh_position_derived_visual_context_class.asm",
+                "src/c0/c0_c0b4_copy_path_to_lane_from_party_path.asm",
+                "src/c0/c0_c19b_copy_path_to_lane_from_party_member_request.asm",
             ),
             fields=D7_SECTOR_CONTEXT_WORD_FIELDS,
         ),
@@ -1510,13 +1549,31 @@ def extra_contracts() -> list[Contract]:
             count=1280,
             struct_name="per_sector_music_options_index",
             confidence="structural-corroborated",
-            note="40x32 sector-indexed music-options table used by the map sector bundle inventory.",
+            note="40x32 sector-indexed music-options table used by the map sector bundle inventory. The overlapping C0 byte-indexed selector plane is tracked separately as CURRENT_POSITION_EVENT_MUSIC_SELECTOR_TABLE.",
             evidence=(
                 "notes/bank-dc-asset-data-map.md",
                 "notes/map-sector-bundles.md",
                 "tools/build_map_sector_bundle_contract.py",
             ),
             fields=PER_SECTOR_MUSIC_FIELDS,
+        ),
+        Contract(
+            id="CURRENT_POSITION_EVENT_MUSIC_SELECTOR_TABLE",
+            domain="rom-table",
+            address="DC:D637",
+            stride=0x01,
+            count=1280,
+            struct_name="current_position_event_music_context_selector",
+            confidence="consumer-corroborated",
+            note="The byte-indexed first plane of DC:D637..DC:E036. C0:68F4 computes sector_y*32 + sector_x, reads this byte, and uses it as the selector into CF:58EF; it also matches map-sector Music for every checked sector row.",
+            evidence=(
+                "notes/cf-event-music-context-contracts.md",
+                "notes/map-sector-bundles.md",
+                "notes/c0-current-position-music-refresh-c068f4-c069af.md",
+                "src/c0/c0_65c2_probe_type6_door_candidate.asm",
+                "src/ef/ef_dcbc_de1a_debug_check_position_overlay.asm",
+            ),
+            fields=CURRENT_POSITION_EVENT_MUSIC_SELECTOR_FIELDS,
         ),
         Contract(
             id="LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE",
@@ -1705,11 +1762,13 @@ def extra_contracts() -> list[Contract]:
             stride=0x02,
             count=165,
             struct_name="word_pointer",
-            confidence="exact",
-            note="Offsets into the CF overworld event-music table.",
+            confidence="consumer-corroborated",
+            note="Selector-indexed low-word pointers into the CF current-position event-music context chains; selector 0 is null and selectors 1..164 target CF:5A39..CF:61DC.",
             evidence=(
                 "refs/eb-decompile-4ef92/map_music.yml",
                 "notes/cf-table-splits.md",
+                "notes/cf-event-music-context-contracts.md",
+                "src/c0/c0_65c2_probe_type6_door_candidate.asm",
             ),
             fields=WORD_POINTER_FIELDS,
         ),
@@ -1720,11 +1779,14 @@ def extra_contracts() -> list[Contract]:
             stride=0x07A4,
             count=1,
             struct_name="overworld_event_music_rows",
-            confidence="exact-boundary",
-            note="Variable-length event flag/music rows ending at the inline bank0f byte block.",
+            confidence="consumer-corroborated",
+            note="Variable-length current-position event-music context chains ending at the inline bank0f byte block; each four-byte row is an event-condition/default row plus music-track and screen-transition-SFX bytes.",
             evidence=(
                 "refs/eb-decompile-4ef92/map_music.yml",
                 "notes/cf-table-splits.md",
+                "notes/cf-event-music-context-contracts.md",
+                "notes/c0-current-position-music-refresh-c068f4-c069af.md",
+                "src/c0/c0_65c2_probe_type6_door_candidate.asm",
             ),
             fields=RAW_CF_EVENT_MUSIC_TABLE_FIELDS,
         ),

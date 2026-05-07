@@ -39,10 +39,10 @@ Expected validation:
 
 | Group | Range | Bytes | Notes |
 | --- | --- | ---: | --- |
-| door data | `CF:0000..CF:264F` | `9807` | variable door payload block |
-| door config table | `CF:264F..CF:58EF` | `12960` | 1280 counted sector lists |
+| door data | `CF:0000..CF:264F` | `9807` | variable door payload block; type 0/2/6 variants decoded in `notes/cf-door-data-contracts.md` |
+| door config table | `CF:264F..CF:58EF` | `12960` | 1280 counted sector lists; trigger payload meanings decoded in `notes/cf-movement-trigger-contracts.md` |
 | overworld event music pointer table | `CF:58EF..CF:5A39` | `330` | 165 word pointers |
-| overworld event music table | `CF:5A39..CF:61DD` | `1956` | variable event/music rows |
+| overworld event music table | `CF:5A39..CF:61DD` | `1956` | 164 selector-addressed event-music context chains; see `notes/cf-event-music-context-contracts.md` |
 | inline event music trailer | `CF:61DD..CF:61E7` | `10` | inline bank-config bytes |
 | sprite placement pointer table | `CF:61E7..CF:6BE7` | `2560` | 1280 word pointers |
 | sprite placement table | `CF:6BE7..CF:8985` | `7582` | 627 counted sector lists |
@@ -55,8 +55,9 @@ Expected validation:
 
 CF is byte-complete, but useful semantic work remains:
 
-- expand variable door and sprite-placement sector lists into typed records
+- keep the CF door-data type 0/2/6 payload contract regression-tested
+- keep the CF movement-trigger parameter contract regression-tested
+- keep the CF/DC event-music context contract regression-tested
 - row-name NPC config entries against map/sprite placement consumers
 - keep the D0 door pointer table tied to the CF door config contract
 - leave audio packs opaque unless audio-pack decoding becomes a separate target
-

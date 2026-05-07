@@ -13,7 +13,7 @@ Bank `DC` is byte-complete for the current source-scaffold phase.
 - preserved data-gap bytes: `65536`
 - byte-equivalence: `OK`, `0` mismatches
 
-DC is protected as exact map arrangement, per-sector music table, audio payload, and tail-padding corridors.
+DC is protected as exact map arrangement, per-sector music table, audio payload, and tail-padding corridors. The first per-sector music byte plane is now joined to the CF event-music context selector contract in `notes/cf-event-music-context-contracts.md`.
 
 ## Regenerate And Validate
 
@@ -34,6 +34,7 @@ Expected validation:
 
 ## Remaining Semantic Work
 
-- promote the per-sector music table into a richer typed contract
+- keep the CF/DC current-position music selector contract regression-tested
+- name the second per-sector music byte plane only if a consumer/tool join supports it
 - optional arrangement/music cross-reference fixtures
 - leave audio packs opaque unless audio-pack decoding becomes a separate target

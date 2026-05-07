@@ -121,10 +121,17 @@ def setting_counter_dict(counter: Counter[str]) -> dict[str, int]:
     return {key: counter[key] for key in sorted(counter, key=lambda value: SETTING_CODES[value])}
 
 
-def top_counter_rows(counter: Counter[int], count: int = 12) -> list[dict[str, Any]]:
+def top_counter_rows(counter: Counter[int], count: int = 12, width: int = 4) -> list[dict[str, Any]]:
     return [
-        {"value": f"0x{value:04X}", "count": seen}
+        {"value": f"0x{value:0{width}X}", "count": seen}
         for value, seen in counter.most_common(count)
+    ]
+
+
+def counter_rows(counter: Counter[int], width: int = 4) -> list[dict[str, Any]]:
+    return [
+        {"value": f"0x{value:0{width}X}", "count": counter[value]}
+        for value in sorted(counter)
     ]
 
 
@@ -144,10 +151,15 @@ def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
     setting_counts: Counter[str] = Counter()
     context_word_counts: Counter[int] = Counter()
     context_low3_counts: Counter[int] = Counter()
+    context_high_payload_counts: Counter[int] = Counter()
+    unresolved_byte_plane_counts: Counter[int] = Counter()
+    unresolved_word_plane_counts: Counter[int] = Counter()
 
     for sector_index, sector in enumerate(sectors):
         metadata = sector["metadata"]
         packed = data[TILESET_PALETTE_OFFSET + sector_index]
+        unresolved_byte = data[UNKNOWN_BYTE_PLANE_OFFSET + sector_index]
+        unresolved_word = word(data, UNKNOWN_WORD_PLANE_OFFSET + sector_index * 2)
         tileset_id = packed >> 3
         palette_variant = packed & 0x07
         expected_tileset_id = int(metadata["Tileset"])
@@ -187,6 +199,9 @@ def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
         setting_counts[setting] += 1
         context_word_counts[sector_context_word] += 1
         context_low3_counts[sector_setting_code] += 1
+        context_high_payload_counts[sector_context_word & 0xFFF8] += 1
+        unresolved_byte_plane_counts[unresolved_byte] += 1
+        unresolved_word_plane_counts[unresolved_word] += 1
         rows.append(
             {
                 "sector_index": sector_index,
@@ -244,6 +259,52 @@ def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
             "status": "bounded-but-unnamed",
         },
     ]
+    source_emission_rows = [
+        {
+            "family": "D7_SECTOR_TILESET_PALETTE_TABLE",
+            "span": "D7:A800..D7:AD00",
+            "rows": SECTOR_COUNT,
+            "stride": 1,
+            "field_policy": "typed",
+            "source_emission_note": (
+                "Emit one byte per sector as `packed_tileset_palette`; bits 3..7 are "
+                "`tileset_id` and bits 0..2 are `palette_variant`."
+            ),
+        },
+        {
+            "family": "D7_UNRESOLVED_METADATA_BYTE_PLANE",
+            "span": "D7:AD00..D7:B200",
+            "rows": SECTOR_COUNT,
+            "stride": 1,
+            "field_policy": "numeric-preserve",
+            "source_emission_note": (
+                "Emit one numeric byte per sector under a bounded plane label; do not promote "
+                "field names until a direct consumer proves semantics."
+            ),
+        },
+        {
+            "family": "D7_SECTOR_CONTEXT_WORD_TABLE",
+            "span": "D7:B200..D7:BC00",
+            "rows": SECTOR_COUNT,
+            "stride": 2,
+            "field_policy": "typed-low3/numeric-high13",
+            "source_emission_note": (
+                "Emit one full word per sector as `sector_context_word`; bits 0..2 are "
+                "`sector_setting_code`, while bits 3..15 must round-trip numerically."
+            ),
+        },
+        {
+            "family": "D7_UNRESOLVED_METADATA_WORD_PLANE",
+            "span": "D7:BC00..D7:C600",
+            "rows": SECTOR_COUNT,
+            "stride": 2,
+            "field_policy": "numeric-preserve",
+            "source_emission_note": (
+                "Emit one numeric word per sector under a bounded plane label; do not promote "
+                "field names until a direct consumer proves semantics."
+            ),
+        },
+    ]
 
     return {
         "schema": SCHEMA,
@@ -271,10 +332,16 @@ def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
             "unique_palette_variants": len(palette_counts),
             "unique_sector_context_words": len(context_word_counts),
             "unique_sector_setting_codes": len(context_low3_counts),
+            "unique_context_high_payloads": len(context_high_payload_counts),
+            "context_high_payload_nonzero_rows": SECTOR_COUNT - context_high_payload_counts[0],
+            "unique_unresolved_byte_plane_values": len(unresolved_byte_plane_counts),
+            "unique_unresolved_word_plane_values": len(unresolved_word_plane_counts),
             "setting_counts": setting_counter_dict(setting_counts),
             "context_word_top_values": top_counter_rows(context_word_counts),
+            "context_high_payload_top_values": top_counter_rows(context_high_payload_counts),
         },
         "spans": spans,
+        "source_emission_rows": source_emission_rows,
         "record_shapes": {
             "map_sector_tileset_palette": [
                 {
@@ -312,6 +379,76 @@ def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
             "sector_context_word": counter_dict(context_word_counts),
             "sector_setting_code_low3": counter_dict(context_low3_counts),
         },
+        "consumer_usage": {
+            "D7_SECTOR_TILESET_PALETTE_TABLE": [
+                {
+                    "consumer": "src/c0/c0_08cf_derive_landing_region_profile_from_destination.asm",
+                    "field_use": "masks bits 0..2 and shifts bits 3..7 while deriving the landing/profile selector",
+                },
+                {
+                    "consumer": "src/c0/c0_0ac5_load_vertical_movement_map_strip_payload.asm",
+                    "field_use": "compares shifted tileset/profile id against cached $436E during vertical strip loading",
+                },
+                {
+                    "consumer": "src/c0/c0_0bdc_load_horizontal_movement_map_strip_payload.asm",
+                    "field_use": "compares shifted tileset/profile id against cached $436E during horizontal strip loading",
+                },
+                {
+                    "consumer": "src/c0/c0_2291_test_secondary_descriptor_leading_piece_context.asm",
+                    "field_use": "rejects secondary descriptors whose shifted tileset/profile id does not match $436E",
+                },
+                {
+                    "consumer": "src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm",
+                    "field_use": "uses the shifted tileset/profile id to validate table-backed spawn candidate lists",
+                },
+                {
+                    "consumer": "src/c4/your_sanctuary_tile_arrangement_helpers.asm",
+                    "field_use": "consumes the shifted tileset/profile id while choosing sanctuary tile-arrangement data",
+                },
+            ],
+            "D7_SECTOR_CONTEXT_WORD_TABLE": [
+                {
+                    "consumer": "src/c0/c0_0aa1_lookup_position_cell_context_word.asm",
+                    "field_use": "loads the full 16-bit context word into $438E and returns it to callers",
+                },
+                {
+                    "consumer": "src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm",
+                    "field_use": "masks low three bits to select spawn-probe threshold behavior",
+                },
+                {
+                    "consumer": "src/c0/c0_3a94_refresh_position_derived_visual_context_class.asm",
+                    "field_use": "calls C0:0AA1, masks low three bits, and stores the position-derived visual context class in $9887",
+                },
+                {
+                    "consumer": "src/c0/c0_c0b4_copy_path_to_lane_from_party_path.asm",
+                    "field_use": "calls C0:0AA1, masks low three bits, and gates path-lane copying through C3:DFE8",
+                },
+                {
+                    "consumer": "src/c0/c0_c19b_copy_path_to_lane_from_party_member_request.asm",
+                    "field_use": "calls C0:0AA1, masks low three bits, and gates party-member path-lane copying through C3:DFE8",
+                },
+            ],
+        },
+        "unresolved_plane_summaries": [
+            {
+                "span": "D7:AD00..D7:B1FF",
+                "row_shape": "1280 x 1",
+                "status": "bounded-but-unnamed",
+                "unique_values": len(unresolved_byte_plane_counts),
+                "zero_rows": unresolved_byte_plane_counts[0],
+                "top_values": top_counter_rows(unresolved_byte_plane_counts, width=2),
+                "value_counts": counter_rows(unresolved_byte_plane_counts, width=2),
+            },
+            {
+                "span": "D7:BC00..D7:C5FF",
+                "row_shape": "1280 x 2",
+                "status": "bounded-but-unnamed",
+                "unique_values": len(unresolved_word_plane_counts),
+                "zero_rows": unresolved_word_plane_counts[0],
+                "top_values": top_counter_rows(unresolved_word_plane_counts),
+                "value_counts": counter_rows(unresolved_word_plane_counts),
+            },
+        ],
         "mismatches": {
             "packed_tileset_palette": packed_mismatches,
             "sector_setting_code_low3": setting_mismatches,
@@ -343,12 +480,33 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- unique tileset ids: `{summary['unique_tileset_ids']}`",
         f"- unique palette variants: `{summary['unique_palette_variants']}`",
         f"- unique sector context words: `{summary['unique_sector_context_words']}`",
+        f"- unique context high-bit payloads: `{summary['unique_context_high_payloads']}`",
+        f"- context words with nonzero high-bit payload: `{summary['context_high_payload_nonzero_rows']}`",
+        f"- unresolved byte-plane unique values: `{summary['unique_unresolved_byte_plane_values']}`",
+        f"- unresolved word-plane unique values: `{summary['unique_unresolved_word_plane_values']}`",
         "",
+        "## Source-Emission Summary",
+        "",
+        "The generated `D7:A800..D7:C5FF` metadata span should be emitted as four contiguous per-sector planes. Only the two consumer-backed fields below get typed names; the other planes and the high context-word bits round-trip numerically.",
+        "",
+        "| Family | Span | Rows | Stride | Field Policy | Source Emission Note |",
+        "| --- | --- | ---: | ---: | --- | --- |",
+    ]
+    for row in contract["source_emission_rows"]:
+        lines.append(
+            f"| `{row['family']}` | `{row['span']}` | {row['rows']} | "
+            f"`0x{int(row['stride']):X}` | `{row['field_policy']}` | {row['source_emission_note']} |"
+        )
+
+    lines.extend(
+        [
+            "",
         "## Span Split",
         "",
         "| Span | Bytes | Row Shape | Status |",
         "| --- | ---: | --- | --- |",
-    ]
+        ]
+    )
     for span in contract["spans"]:
         lines.append(
             f"| `{span['address']}..{span['end_exclusive']}` | {span['bytes']} | "
@@ -390,6 +548,25 @@ def render_markdown(contract: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            "## Consumer Usage",
+            "",
+        ]
+    )
+    for table_name, rows in contract["consumer_usage"].items():
+        lines.extend(
+            [
+                f"### {table_name}",
+                "",
+                "| Consumer | Supported field use |",
+                "| --- | --- |",
+            ]
+        )
+        for row in rows:
+            lines.append(f"| `{row['consumer']}` | {row['field_use']} |")
+
+    lines.extend(
+        [
+            "",
             "## Sector Setting Codes",
             "",
             "| Setting | Code | Count |",
@@ -398,6 +575,69 @@ def render_markdown(contract: dict[str, Any]) -> str:
     )
     for setting, code in contract["setting_codes"].items():
         lines.append(f"| `{setting}` | `{code}` | {summary['setting_counts'][setting]} |")
+
+    lines.extend(
+        [
+            "",
+            "## Distribution Snapshot",
+            "",
+            "### Top context words",
+            "",
+            "| Word | Count |",
+            "| ---: | ---: |",
+        ]
+    )
+    for row in summary["context_word_top_values"]:
+        lines.append(f"| `{row['value']}` | {row['count']} |")
+
+    lines.extend(
+        [
+            "",
+            "### Top context high-bit payloads",
+            "",
+            "These are `sector_context_word & 0xFFF8`; only the low three setting bits have promoted names.",
+            "",
+            "| High payload | Count |",
+            "| ---: | ---: |",
+        ]
+    )
+    for row in summary["context_high_payload_top_values"]:
+        lines.append(f"| `{row['value']}` | {row['count']} |")
+
+    lines.extend(
+        [
+            "",
+            "### Sample proven rows",
+            "",
+            "| Sector | Coords | Packed tileset/palette | Tileset | Palette | Context word | Setting code | Setting |",
+            "| ---: | --- | ---: | ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    for row in contract["sample_rows"]:
+        coords = row["sector"]
+        lines.append(
+            f"| {row['sector_index']} | `({coords['x']},{coords['y']})` | `{row['packed_tileset_palette']}` | "
+            f"{row['tileset_id']} | {row['palette_variant']} | `{row['sector_context_word']}` | "
+            f"{row['sector_setting_code_low3']} | `{row['sector_setting']}` |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Unresolved Plane Summaries",
+            "",
+            "These summaries keep the two remaining planes byte-bounded without promoting field names.",
+            "",
+            "| Span | Row Shape | Status | Unique values | Zero rows | Top values |",
+            "| --- | --- | --- | ---: | ---: | --- |",
+        ]
+    )
+    for plane in contract["unresolved_plane_summaries"]:
+        top_values = ", ".join(f"`{row['value']}` x {row['count']}" for row in plane["top_values"][:6])
+        lines.append(
+            f"| `{plane['span']}` | `{plane['row_shape']}` | `{plane['status']}` | "
+            f"{plane['unique_values']} | {plane['zero_rows']} | {top_values} |"
+        )
 
     lines.extend(
         [
@@ -417,8 +657,9 @@ def render_markdown(contract: dict[str, Any]) -> str:
             "- `notes/map-sector-bundles.md` and `notes/map-sector-bundles.json` provide the reference sector-order tileset, palette, and setting values.",
             "- `src/c0/c0_08cf_derive_landing_region_profile_from_destination.asm` reads `D7A800,X`, masks bits `0..2`, and shifts bits `3..7` for the landing/profile selector.",
             "- `src/c0/c0_0ac5_load_vertical_movement_map_strip_payload.asm` and `src/c0/c0_0bdc_load_horizontal_movement_map_strip_payload.asm` read `D7A800,X` and compare the shifted tileset/profile id against `$436E` during movement strip loading.",
+            "- `src/c0/c0_2291_test_secondary_descriptor_leading_piece_context.asm` and `src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm` use the shifted `D7A800,X` value to gate secondary descriptors and spawn candidate lists.",
             "- `src/c0/c0_0aa1_lookup_position_cell_context_word.asm` loads `D7B200,X` into `$438E` as the position sector context word.",
-            "- `src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm` masks the low three bits of `D7B200,X` to select spawn-probe behavior.",
+            "- `src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm`, `src/c0/c0_3a94_refresh_position_derived_visual_context_class.asm`, `src/c0/c0_c0b4_copy_path_to_lane_from_party_path.asm`, and `src/c0/c0_c19b_copy_path_to_lane_from_party_member_request.asm` mask the low three bits of the D7:B200 context word for spawn, visual-context, and path-lane gates.",
             "- `src/c4/your_sanctuary_tile_arrangement_helpers.asm` also consumes the shifted `D7A800,X` tileset/profile id.",
             "- `notes/d7-sector-metadata-contracts.json` carries machine-readable counts, span splits, and mismatch-free validation summaries.",
         ]

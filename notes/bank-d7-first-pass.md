@@ -57,14 +57,18 @@ split is now:
 - `D7:A800..D7:ACFF`: `D7_SECTOR_TILESET_PALETTE_TABLE`, 1280 one-byte rows.
   Bits `3..7` are `tileset_id`; bits `0..2` are `palette_variant`. This matches
   `notes/map-sector-bundles.json` for all 1280 sectors and is consumed by C0/C4
-  map/landing/tile-arrangement helpers.
+  landing, movement-strip, secondary-descriptor, spawn-list, and
+  tile-arrangement helpers.
 - `D7:AD00..D7:B1FF`: bounded 1280-byte metadata plane. No field names are
-  promoted yet.
+  promoted yet; the D7 sector contract records value distributions only.
 - `D7:B200..D7:BBFF`: `D7_SECTOR_CONTEXT_WORD_TABLE`, 1280 two-byte rows. The
   full word is loaded by `C0:0AA1`; the low three bits match map-sector
-  `Setting` for all 1280 sectors and are consumed by `C0:2668`.
+  `Setting` for all 1280 sectors and feed spawn-probe, visual-context, and
+  path-lane gates. The contract now records `10` distinct high-bit payloads
+  (`sector_context_word & 0xFFF8`) across `1062` nonzero high-payload rows, but
+  keeps those bits numeric.
 - `D7:BC00..D7:C5FF`: bounded 1280-word metadata plane. No field names are
-  promoted yet.
+  promoted yet; the D7 sector contract records value distributions only.
 
 ## Current D7 confidence boundary
 
@@ -74,7 +78,11 @@ High confidence:
 - `D7:0000..D7:A7FF` completes map tile chunks `7` through `10`.
 - `D7:A800..D7:C5FF` is generated map metadata named by the bank config.
 - `D7:A800..D7:ACFF` and `D7:B200..D7:BBFF` now have consumer-backed table
-  contracts with 1280/1280 sector-bundle matches.
+  contracts with 1280/1280 sector-bundle matches and explicit consumer-usage
+  summaries.
+- `notes/d7-sector-metadata-contracts.md` now carries source-emission rows for
+  all four D7 metadata planes, including numeric-preserve policies and full
+  value counts for the two bounded-but-unnamed planes.
 - `D7:C600..D7:FBE7` is compressed map arrangement payload `0`.
 - `src/d7/bank_d7_helpers_asar.asm` protects the full bank through the reusable
   source-bank scaffold pipeline.
@@ -90,7 +98,10 @@ Still intentionally out of scope:
 ## Recommended next move
 
 D7 is now closed for byte-preserving scaffold purposes, and the strongest
-consumer-backed sector metadata fields are promoted. The remaining D7 work is
+consumer-backed sector metadata fields plus source-emission policies are
+promoted. Source emission should split `D7:A800..D7:C5FF` into the four
+per-sector planes in `notes/d7-sector-metadata-contracts.md`, preserving the two
+unnamed planes and context-word high bits numerically. The remaining D7 work is
 narrow semantic polish: identify the two bounded unresolved metadata planes,
 decode the high bits of the sector context words if a consumer proves them, and
 optionally connect the map tile and arrangement payloads to render fixtures.

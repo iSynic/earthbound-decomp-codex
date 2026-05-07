@@ -13,7 +13,12 @@ Bank `E1` is byte-complete for the current source-scaffold phase.
 - preserved data-gap bytes: `65536`
 - byte-equivalence: `OK`, `0` mismatches
 
-E1 is protected as exact flyover/font/intro/title/ending/town-map/audio corridors, including inferred missing pre-title and ending payload spans.
+E1 is protected as exact flyover/font/intro/title/ending/town-map/audio
+corridors, including the formerly inferred pre-title and ending payload spans.
+Their semantic contracts now live in
+`notes/title-screen-palette-animation-contracts.md`,
+`notes/title-screen-letter-oam-contracts.md`, and
+`notes/landing-cast-visual-contracts.md`.
 
 ## Regenerate And Validate
 
@@ -34,7 +39,7 @@ Expected validation:
 
 ## Remaining Semantic Work
 
-- resolve exact split among E1AE7C.bin.lzhal, E1AE83.bin.lzhal, and E1AEFD.bin.lzhal
-- resolve missing metadata for E1D6E1.gfx.lzhal if asset-level extraction needs a named source file
-- promote photographer, flyover, town-map icon placement, and unknown table spans into typed contracts
+- preserve the missing-yml provenance for E1AE7C/E1AE83/E1AEFD and E1D6E1 if asset-level extraction needs named source files
+- use the existing title palette-animation, title-letter OAM, landing display, ending cast, and town-map icon contracts for source emission
+- promote photographer, flyover, credits-adjacent, and remaining unknown table spans only when caller evidence supports field names
 - optional render fixtures for intro/title/ending/town-map assets

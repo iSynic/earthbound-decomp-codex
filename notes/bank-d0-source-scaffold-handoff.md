@@ -41,8 +41,8 @@ Expected validation:
 | --- | --- | ---: | --- |
 | door pointer table | `D0:0000..D0:1400` | `5120` | 1280 long pointers into CF |
 | screen transition config table | `D0:1400..D0:1598` | `408` | 34 rows, stride `0x0C` |
-| event control pointer table | `D0:1598..D0:15C0` | `40` | 20 word pointers |
-| map tile event control table | `D0:15C0..D0:1880` | `704` | 20 variable chains |
+| event control pointer table | `D0:1598..D0:15C0` | `40` | 20 word pointers into decoded tile-event chains |
+| map tile event control table | `D0:15C0..D0:1880` | `704` | 20 variable chains; decoded in `notes/d0-tile-event-contracts.md` |
 | map enemy placement | `D0:1880..D0:B880` | `40960` | 20480 word entries |
 | enemy placement group pointer table | `D0:B880..D0:BBAC` | `812` | 203 long pointers |
 | enemy placement groups table | `D0:BBAC..D0:C60D` | `2657` | 203 variable lists |
@@ -53,10 +53,9 @@ Expected validation:
 
 ## Remaining Semantic Work
 
-D0 is byte-complete, but useful semantic work remains:
+D0 is byte-complete and its highest-risk variable rows now have row contracts:
 
-- expand map tile event chains into typed event-control records
-- decode enemy placement group lists and battle group payloads
-- connect `BTL_ENTRY_PTR_TABLE` rows to enemy/battle metadata consumers
+- use `notes/d0-tile-event-contracts.json` for tile-event source emission
+- use `notes/d0-variable-list-contracts.json` for placement/battle source emission
+- connect `BTL_ENTRY_PTR_TABLE` rows to higher-level enemy/battle metadata names
 - keep D0's door pointer table linked to CF's door config table contract
-

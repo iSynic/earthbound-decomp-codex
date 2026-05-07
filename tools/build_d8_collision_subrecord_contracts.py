@@ -22,8 +22,88 @@ def format_list(values: list[str]) -> str:
     return ", ".join(f"`{value}`" for value in values) if values else "`none`"
 
 
+def parse_hex(value: str) -> int:
+    return int(value, 16)
+
+
+def format_hex(value: int, width: int = 2) -> str:
+    return f"0x{value:0{width}X}"
+
+
 def matching_count(row: dict[str, Any], source: str) -> int:
     return int(row["counts"][source]["matching_cell_count"])
+
+
+def count_values(rows: list[dict[str, Any]]) -> dict[int, int]:
+    return {parse_hex(row["value"]): int(row["count"]) for row in rows}
+
+
+def sum_mask_matches(counts: dict[int, int], mask: int) -> int:
+    return sum(count for value, count in counts.items() if value & mask)
+
+
+def observed_mask_values(counts: dict[int, int], mask: int) -> list[str]:
+    return [format_hex(value & mask, 4) for value in sorted({value & mask for value in counts})]
+
+
+def build_bit_family_summary(
+    d8_counts: dict[int, int], pointer_counts: dict[int, int], runtime: dict[str, Any]
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "mask": "0x00C0",
+            "working_name": "high_collision_block_mask",
+            "observed_raw_values": runtime["summary"]["observed_high_collision_values"],
+            "observed_mask_values": observed_mask_values(d8_counts, 0xC0),
+            "d8_cells": sum_mask_matches(d8_counts, 0xC0),
+            "pointer_expanded_cells": sum_mask_matches(pointer_counts, 0xC0),
+            "source_emission_note": (
+                "Preserve as numeric flag bits; 0x80 is observed and 0x40 is "
+                "runtime-supported by C0 but absent from verified D8 data."
+            ),
+        },
+        {
+            "mask": "0x0010",
+            "working_name": "special_surface_coord_latch",
+            "observed_raw_values": runtime["summary"]["observed_special_latch_values"],
+            "observed_mask_values": observed_mask_values(d8_counts, 0x10),
+            "d8_cells": sum_mask_matches(d8_counts, 0x10),
+            "pointer_expanded_cells": sum_mask_matches(pointer_counts, 0x10),
+            "source_emission_note": (
+                "Consumer-backed latch bit; name the mask, not individual gameplay surfaces."
+            ),
+        },
+        {
+            "mask": "0x000C",
+            "working_name": "entity_terrain_compatibility_class",
+            "observed_raw_values": [
+                format_hex(value)
+                for value in sorted(d8_counts)
+                if value & 0x0C
+            ],
+            "observed_mask_values": observed_mask_values(d8_counts, 0x0C),
+            "d8_cells": sum_mask_matches(d8_counts, 0x0C),
+            "pointer_expanded_cells": sum_mask_matches(pointer_counts, 0x0C),
+            "source_emission_note": (
+                "Consumer-backed class bits from C0; keep class values numeric until caller evidence proves labels."
+            ),
+        },
+        {
+            "mask": "0x0003",
+            "working_name": "low_surface_modifier_bits",
+            "observed_raw_values": [
+                format_hex(value)
+                for value in sorted(d8_counts)
+                if value & 0x03
+            ],
+            "observed_mask_values": observed_mask_values(d8_counts, 0x03),
+            "d8_cells": sum_mask_matches(d8_counts, 0x03),
+            "pointer_expanded_cells": sum_mask_matches(pointer_counts, 0x03),
+            "source_emission_note": (
+                "Preserved through C0:5B7B's low-six-bit return path; final gameplay labels remain open."
+            ),
+        },
+    ]
 
 
 def build_contract(pointer_path: Path, runtime_path: Path) -> dict[str, Any]:
@@ -31,6 +111,9 @@ def build_contract(pointer_path: Path, runtime_path: Path) -> dict[str, Any]:
     runtime = load_json(runtime_path)
     pool = pointer["collision_data_pool"]
     summary = pointer["summary"]
+    alphabets = pointer["value_alphabets"]
+    d8_counts = count_values(alphabets["d8_pool_value_counts"])
+    pointer_counts = count_values(alphabets["pointer_expanded_value_counts"])
 
     cell_fields = [
         {
@@ -72,6 +155,39 @@ def build_contract(pointer_path: Path, runtime_path: Path) -> dict[str, Any]:
         for row in runtime["runtime_masks"]
     ]
 
+    source_emission_rows = [
+        {
+            "family": "MAP_TILE_COLLISION_DATA",
+            "span": pool["range"],
+            "count": pool["record_count"],
+            "stride": pool["record_size"],
+            "source_emission_note": (
+                "Emit as 2293 16-byte `map_tile_collision_record` rows; every cell byte is "
+                "`surface_collision_flags` and all observed values must round-trip."
+            ),
+        },
+        {
+            "family": "MAP_DATA_TILE_COLLISION_POINTERS_0..19",
+            "span": "D8:8F50..D8:F05D",
+            "count": summary["pointer_entries"],
+            "stride": 2,
+            "source_emission_note": (
+                "Emit as 20 exact word-offset tables into `MAP_TILE_COLLISION_DATA`; offsets are "
+                "16-byte aligned and `0x0000` is a real record, not null."
+            ),
+        },
+        {
+            "family": "implicit .fts zero tails",
+            "span": "outside D8 collision pointer tables",
+            "count": summary["implicit_zero_metatile_records"],
+            "stride": 16,
+            "source_emission_note": (
+                "These all-zero trailing metatiles are synthesized by `.fts` coverage behavior; "
+                "they are not extra D8 records."
+            ),
+        },
+    ]
+
     return {
         "schema": SCHEMA,
         "title": "D8 Collision Subrecord Contracts",
@@ -96,8 +212,14 @@ def build_contract(pointer_path: Path, runtime_path: Path) -> dict[str, Any]:
             "unique_pointer_offsets": summary["unique_pointer_offsets"],
             "all_data_records_referenced": summary["all_data_records_referenced"],
             "pointer_entries_matched_fts": summary["matched_pointer_entries"],
+            "pointer_expanded_values_match_covered_fts": summary[
+                "pointer_expanded_value_counts_match_covered_fts"
+            ],
             "implicit_zero_metatile_records": summary["implicit_zero_metatile_records"],
+            "trailing_nonzero_fts_cells": summary["trailing_nonzero_cells"],
             "observed_values": pool["unique_values"],
+            "d8_pool_value_counts": alphabets["d8_pool_value_counts"],
+            "pointer_expanded_value_counts": alphabets["pointer_expanded_value_counts"],
             "runtime_supported_but_unobserved_high_bit": runtime["summary"][
                 "runtime_supported_but_unobserved_high_bit"
             ],
@@ -117,6 +239,8 @@ def build_contract(pointer_path: Path, runtime_path: Path) -> dict[str, Any]:
             "fields": pointer_fields,
         },
         "runtime_masks": mask_rows,
+        "bit_family_summary": build_bit_family_summary(d8_counts, pointer_counts, runtime),
+        "source_emission_rows": source_emission_rows,
         "runtime_anchors": runtime["runtime_anchors"],
     }
 
@@ -138,18 +262,73 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- unique pointer offsets: `{summary['unique_pointer_offsets']}`",
         f"- all D8 data records referenced: `{summary['all_data_records_referenced']}`",
         f"- pointer entries matched against `.fts`: `{summary['pointer_entries_matched_fts']}`",
+        f"- pointer-expanded values match covered `.fts`: `{summary['pointer_expanded_values_match_covered_fts']}`",
         f"- implicit all-zero trailing `.fts` metatiles: `{summary['implicit_zero_metatile_records']}`",
+        f"- trailing nonzero `.fts` cells outside D8 pointer coverage: `{summary['trailing_nonzero_fts_cells']}`",
         "- observed collision values: " + format_list(summary["observed_values"]),
         f"- runtime-supported but unobserved high bit: `{summary['runtime_supported_but_unobserved_high_bit']}`",
         "",
-        "## Record Shape",
+        "## Source-Emission Summary",
         "",
-        "Each `MAP_TILE_COLLISION_DATA` record is a 4x4 metatile-cell grid.",
-        "Each byte is now named as a `surface_collision_flags` field because the D8 pointer contract proves the storage grid and the C0 runtime contract proves the mask roles.",
-        "",
-        "| Offset | Field | Cell | Size |",
-        "| ---: | --- | --- | ---: |",
+        "| Family | Span | Count | Stride | Source Emission Note |",
+        "| --- | --- | ---: | ---: | --- |",
     ]
+    for row in contract["source_emission_rows"]:
+        lines.append(
+            f"| `{row['family']}` | `{row['span']}` | {row['count']} | "
+            f"`0x{int(row['stride']):X}` | {row['source_emission_note']} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Value Counts",
+            "",
+            "The D8 pool counts describe the 2293 unique source records; pointer-expanded counts describe the 12423 referenced metatiles after applying tileset pointer tables.",
+            "",
+            "| Value | D8 Pool Cells | Pointer-Expanded Cells |",
+            "| ---: | ---: | ---: |",
+        ]
+    )
+    pointer_counts_by_value = {
+        row["value"]: int(row["count"])
+        for row in summary["pointer_expanded_value_counts"]
+    }
+    for row in summary["d8_pool_value_counts"]:
+        value = row["value"]
+        lines.append(
+            f"| `{value}` | {int(row['count'])} | {pointer_counts_by_value[value]} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Bit Families",
+            "",
+            "| Mask | Working Name | Observed Raw Values | Observed Mask Values | D8 Cells | Pointer-Expanded Cells | Source Emission Note |",
+            "| ---: | --- | --- | --- | ---: | ---: | --- |",
+        ]
+    )
+    for row in contract["bit_family_summary"]:
+        lines.append(
+            f"| `{row['mask']}` | `{row['working_name']}` | "
+            f"{format_list(row['observed_raw_values'])} | "
+            f"{format_list(row['observed_mask_values'])} | {row['d8_cells']} | "
+            f"{row['pointer_expanded_cells']} | {row['source_emission_note']} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Record Shape",
+            "",
+            "Each `MAP_TILE_COLLISION_DATA` record is a 4x4 metatile-cell grid.",
+            "Each byte is now named as a `surface_collision_flags` field because the D8 pointer contract proves the storage grid and the C0 runtime contract proves the mask roles.",
+            "",
+            "| Offset | Field | Cell | Size |",
+            "| ---: | --- | --- | ---: |",
+        ]
+    )
     for field in contract["record_shape"]["fields"]:
         lines.append(
             f"| `0x{field['offset']:X}` | `{field['field']}` | "

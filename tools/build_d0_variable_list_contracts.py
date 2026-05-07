@@ -57,6 +57,48 @@ def counter_dict(counter: Counter[int]) -> dict[str, int]:
     return {str(key): counter[key] for key in sorted(counter)}
 
 
+def hex_byte_counter_dict(counter: Counter[int]) -> dict[str, int]:
+    return {f"0x{key:02X}": counter[key] for key in sorted(counter)}
+
+
+def hex_word_counter_dict(counter: Counter[int]) -> dict[str, int]:
+    return {f"0x{key:04X}": counter[key] for key in sorted(counter)}
+
+
+def cpu_low_word(address: str) -> int:
+    return int(address.split(":")[1], 16)
+
+
+def find_unpointed_ranges(rows: list[dict[str, Any]], start: int, end: int) -> list[dict[str, Any]]:
+    ranges = []
+    cursor = start
+    for row in sorted(rows, key=lambda item: cpu_low_word(item["address"])):
+        row_start = cpu_low_word(row["address"])
+        row_end = cpu_low_word(row["end_exclusive"])
+        if row_start > cursor:
+            ranges.append(
+                {
+                    "range": f"{cpu('D0', cursor)}..{cpu('D0', row_start)}",
+                    "bytes": row_start - cursor,
+                    "reason": "no BTL_ENTRY_PTR_TABLE row targets this byte range",
+                }
+            )
+        cursor = max(cursor, row_end)
+    if cursor < end:
+        ranges.append(
+            {
+                "range": f"{cpu('D0', cursor)}..{cpu('D0', end)}",
+                "bytes": end - cursor,
+                "reason": "no BTL_ENTRY_PTR_TABLE row targets this byte range",
+            }
+        )
+    return ranges
+
+
+def format_histogram(histogram: dict[str, int]) -> str:
+    return ", ".join(f"`{key}`: {value}" for key, value in histogram.items()) or "-"
+
+
 def build_contract(source_path: Path) -> dict[str, Any]:
     text = source_path.read_text(encoding="utf-8")
     placement_ptr = parse_db_bytes(source_slice(text, "table_enemy_placement_groups_ptr_table.asm"))
@@ -110,6 +152,8 @@ def build_contract(source_path: Path) -> dict[str, Any]:
     battle_pointers: list[int] = []
     battle_pointer_rows: list[int | None] = []
     battle_entry_rows = []
+    battle_pointer_banks = []
+    battle_pointer_padding_bytes = []
     for index in range(BATTLE_ENTRY_ROWS):
         offset = index * 8
         target = long_low_word(battle_entry_ptr, offset)
@@ -120,6 +164,8 @@ def build_contract(source_path: Path) -> dict[str, Any]:
             battle_pointer_rows.append(target)
         else:
             battle_pointer_rows.append(None)
+        battle_pointer_banks.append(bank)
+        battle_pointer_padding_bytes.append(extra)
         battle_entry_rows.append(
             {
                 "id": index,
@@ -174,9 +220,20 @@ def build_contract(source_path: Path) -> dict[str, Any]:
         )
 
     placement_entry_counts = Counter(item["weighted_entries"] for item in placement_lists)
-    battle_entry_counts = Counter(item["enemy_entries"] for item in battle_lists)
+    placement_pointer_fan_in_counts = Counter(len(item["pointer_rows"]) for item in placement_lists)
     placement_weight_counts = Counter(entry["selection_weight"] for entry in placement_entries)
+    placement_total_weight_counts = Counter(item["total_selection_weight"] for item in placement_lists)
+    battle_entry_counts = Counter(item["enemy_entries"] for item in battle_lists)
+    battle_pointer_fan_in_counts = Counter(len(item["pointer_rows"]) for item in battle_lists)
     battle_repeat_counts = Counter(entry["repeat_count"] for entry in battle_group_entries)
+    battle_total_enemy_counts = Counter(item["total_enemy_count"] for item in battle_lists)
+    battle_byte_length_counts = Counter(item["bytes"] for item in battle_lists)
+    battle_group_unpointed_ranges = find_unpointed_ranges(
+        battle_lists,
+        BATTLE_GROUP_TABLE_START,
+        BATTLE_GROUP_TABLE_END,
+    )
+    pointed_battle_group_bytes = sum(item["bytes"] for item in battle_lists)
     return {
         "schema": SCHEMA,
         "title": "D0 Variable-List Contracts",
@@ -211,18 +268,46 @@ def build_contract(source_path: Path) -> dict[str, Any]:
                 {"offset": 0, "field": "repeat_count_or_ff_terminator", "size": 1, "consumer": "C2:2F38 repeats the enemy id this many times; C2:EEE7 treats FF as terminator"},
                 {"offset": 1, "field": "enemy_id", "size": 2, "consumer": "C2:2F38 stages this id into $9F8C; C2:EEE7 maps it through D5 enemy config"},
             ],
+            "battle_entry_pointer_row": [
+                {"offset": 0, "field": "enemy_list_pointer", "size": 4, "consumer": "ebsrc `battle_entry_ptr_entry` field; every non-null row targets a D0 enemy battle-group slice"},
+                {"offset": 4, "field": "run_away_flag", "size": 2, "consumer": "ebsrc `battle_entry_ptr_entry` field; this pass keeps numeric values"},
+                {"offset": 6, "field": "run_away_flag_state", "size": 1, "consumer": "ebsrc `battle_entry_ptr_entry` field; this pass keeps numeric values"},
+                {"offset": 7, "field": "presentation_sprite_style", "size": 1, "consumer": "C2 battle presentation paths pass this byte as Y to C2:D121 LoadPresentationSpriteResource"},
+            ],
         },
         "summary": {
             "enemy_placement_pointer_rows": len(placement_pointers),
             "enemy_placement_unique_lists": len(placement_lists),
             "enemy_placement_weighted_entries": sum(item["weighted_entries"] for item in placement_lists),
             "enemy_placement_entry_count_histogram": counter_dict(placement_entry_counts),
+            "enemy_placement_pointer_fan_in_histogram": counter_dict(placement_pointer_fan_in_counts),
             "enemy_placement_selection_weight_histogram": counter_dict(placement_weight_counts),
+            "enemy_placement_total_selection_weight_histogram": counter_dict(placement_total_weight_counts),
+            "enemy_placement_event_flag_rows": sum(1 for item in placement_lists if item["event_flag_gate"]),
+            "enemy_placement_flagged_chance_rows": sum(1 for item in placement_lists if item["flagged_spawn_chance"]),
             "battle_entry_pointer_rows": len(battle_entry_rows),
+            "battle_entry_pointer_null_rows": sum(1 for pointer in battle_pointer_rows if pointer is None),
+            "battle_entry_pointer_bank_histogram": hex_byte_counter_dict(Counter(battle_pointer_banks)),
+            "battle_entry_pointer_padding_byte_histogram": hex_byte_counter_dict(Counter(battle_pointer_padding_bytes)),
+            "battle_entry_run_away_flag_histogram": hex_word_counter_dict(
+                Counter(row["run_away_flag"] for row in battle_entry_rows)
+            ),
+            "battle_entry_run_away_flag_state_histogram": counter_dict(
+                Counter(row["run_away_flag_state"] for row in battle_entry_rows)
+            ),
+            "battle_entry_presentation_sprite_style_histogram": counter_dict(
+                Counter(row["presentation_sprite_style"] for row in battle_entry_rows)
+            ),
             "battle_group_unique_pointer_slices": len(battle_lists),
+            "battle_group_pointer_fan_in_histogram": counter_dict(battle_pointer_fan_in_counts),
             "battle_group_enemy_entries": sum(item["enemy_entries"] for item in battle_lists),
             "battle_group_entry_count_histogram": counter_dict(battle_entry_counts),
+            "battle_group_total_enemy_count_histogram": counter_dict(battle_total_enemy_counts),
             "battle_group_repeat_count_histogram": counter_dict(battle_repeat_counts),
+            "battle_group_byte_length_histogram": counter_dict(battle_byte_length_counts),
+            "battle_group_pointed_list_bytes": pointed_battle_group_bytes,
+            "battle_group_unpointed_gap_bytes": sum(item["bytes"] for item in battle_group_unpointed_ranges),
+            "battle_group_unpointed_gap_ranges": battle_group_unpointed_ranges,
         },
         "enemy_placement_group_lists": placement_lists,
         "enemy_placement_weighted_entries": placement_entries,
@@ -245,10 +330,16 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- unique enemy placement lists: `{summary['enemy_placement_unique_lists']}`",
         f"- weighted spawn entries: `{summary['enemy_placement_weighted_entries']}`",
         f"- enemy placement entry-count histogram: `{summary['enemy_placement_entry_count_histogram']}`",
+        f"- enemy placement pointer fan-in histogram: `{summary['enemy_placement_pointer_fan_in_histogram']}`",
+        f"- enemy placement nonzero event-flag rows: `{summary['enemy_placement_event_flag_rows']}`",
+        f"- enemy placement nonzero flagged-chance rows: `{summary['enemy_placement_flagged_chance_rows']}`",
         f"- battle entry pointer rows: `{summary['battle_entry_pointer_rows']}`",
+        f"- battle entry null pointer rows: `{summary['battle_entry_pointer_null_rows']}`",
         f"- unique enemy battle-group pointer slices: `{summary['battle_group_unique_pointer_slices']}`",
         f"- battle-group enemy entries: `{summary['battle_group_enemy_entries']}`",
         f"- battle-group entry-count histogram: `{summary['battle_group_entry_count_histogram']}`",
+        f"- battle-group pointed bytes: `{summary['battle_group_pointed_list_bytes']}`",
+        f"- battle-group unpointed gap bytes: `{summary['battle_group_unpointed_gap_bytes']}`",
         "",
         "## Record Shapes",
         "",
@@ -274,8 +365,20 @@ def render_markdown(contract: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            "`BTL_ENTRY_PTR_TABLE` rows are eight bytes and point at enemy battle-group slices.",
+            "",
+            "| Offset | Field | Size | Consumer evidence |",
+            "| ---: | --- | ---: | --- |",
+        ]
+    )
+    for field in contract["record_shapes"]["battle_entry_pointer_row"]:
+        lines.append(f"| `+0x{field['offset']:X}` | `{field['field']}` | {field['size']} | {field['consumer']} |")
+
+    lines.extend(
+        [
+            "",
             "Enemy battle-group pointer slices at `D0:D52D..D0:DFB4` have three-byte entries and a final `FF` terminator byte.",
-            "Some `BTL_ENTRY_PTR_TABLE` rows intentionally target later entry boundaries inside a shared terminated byte run, so each pointer target is parsed as a consumer-visible suffix slice.",
+            "Every non-null `BTL_ENTRY_PTR_TABLE` row targets a unique parsed slice; the table span also carries the unpointed gap recorded below.",
             "",
             "| Offset | Field | Size | Consumer evidence |",
             "| ---: | --- | ---: | --- |",
@@ -283,6 +386,43 @@ def render_markdown(contract: dict[str, Any]) -> str:
     )
     for field in contract["record_shapes"]["enemy_battle_group_entry"]:
         lines.append(f"| `+0x{field['offset']:X}` | `{field['field']}` | {field['size']} | {field['consumer']} |")
+
+    lines.extend(
+        [
+            "",
+            "## Distribution Snapshot",
+            "",
+            "| Family | Metric | Values |",
+            "| --- | --- | --- |",
+            f"| enemy placement lists | entry count | {format_histogram(summary['enemy_placement_entry_count_histogram'])} |",
+            f"| enemy placement entries | selection weight | {format_histogram(summary['enemy_placement_selection_weight_histogram'])} |",
+            f"| enemy placement lists | total selection weight | {format_histogram(summary['enemy_placement_total_selection_weight_histogram'])} |",
+            f"| BTL entry rows | pointer bank | {format_histogram(summary['battle_entry_pointer_bank_histogram'])} |",
+            f"| BTL entry rows | pointer padding byte | {format_histogram(summary['battle_entry_pointer_padding_byte_histogram'])} |",
+            f"| BTL entry rows | run-away flag | {format_histogram(summary['battle_entry_run_away_flag_histogram'])} |",
+            f"| BTL entry rows | run-away flag state | {format_histogram(summary['battle_entry_run_away_flag_state_histogram'])} |",
+            f"| BTL entry rows | presentation sprite style | {format_histogram(summary['battle_entry_presentation_sprite_style_histogram'])} |",
+            f"| enemy battle groups | entry count | {format_histogram(summary['battle_group_entry_count_histogram'])} |",
+            f"| enemy battle groups | total enemy count | {format_histogram(summary['battle_group_total_enemy_count_histogram'])} |",
+            f"| enemy battle groups | repeat count | {format_histogram(summary['battle_group_repeat_count_histogram'])} |",
+            f"| enemy battle groups | byte length | {format_histogram(summary['battle_group_byte_length_histogram'])} |",
+        ]
+    )
+
+    if summary["battle_group_unpointed_gap_ranges"]:
+        lines.extend(
+            [
+                "",
+                "## Unpointed Battle-Group Gap",
+                "",
+                "The gap is inside the byte-accounted `ENEMY_BATTLE_GROUPS_TABLE` span but has no `BTL_ENTRY_PTR_TABLE` owner.",
+                "",
+                "| Range | Bytes | Reason |",
+                "| --- | ---: | --- |",
+            ]
+        )
+        for row in summary["battle_group_unpointed_gap_ranges"]:
+            lines.append(f"| `{row['range']}` | {row['bytes']} | {row['reason']} |")
 
     lines.extend(
         [
@@ -332,12 +472,14 @@ def render_markdown(contract: dict[str, Any]) -> str:
             "## Interpretation Boundary",
             "",
             "- Placement `selection_weight` bytes are named only as the C0 selection weights; this pass does not assign encounter-design meanings to individual weights.",
-            "- Battle group pointer targets are consumer-visible suffix slices. Do not assume every `BTL_ENTRY_PTR_TABLE` row owns a unique physical byte run.",
+            "- Battle group pointer targets are consumer-visible slices; preserve unpointed bytes in the table span separately instead of assigning them to a pointer row.",
+            "- `run_away_flag` and `run_away_flag_state` names come from the ebsrc battle-entry pointer structure and remain numeric here.",
             "- Enemy ids are linked to the D5 enemy config table by C2 consumers; this pass does not rename individual enemy ids.",
             "",
             "## Evidence",
             "",
             "- `notes/d0-table-splits.md` pins the D0 variable-list spans and pointer-table counts.",
+            "- `notes/data-contracts-c0-c4.md` carries the central `BTL_ENTRY_PTR_TABLE` row shape, including the presentation-sprite-style consumer note.",
             "- `notes/entity-placement-probe-c0263d-c02668.md` documents the C0 spawn-candidate consumer for `D0:B880` / `D0:BBAC`.",
             "- `src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm` reads the placement-list header and weighted entries.",
             "- `src/c2/c2_2f38_init_battle_scripted.asm` expands battle-group repeat counts into `$9F8C` enemy ids.",

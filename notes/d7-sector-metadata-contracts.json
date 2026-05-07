@@ -1,4 +1,54 @@
 {
+  "consumer_usage": {
+    "D7_SECTOR_CONTEXT_WORD_TABLE": [
+      {
+        "consumer": "src/c0/c0_0aa1_lookup_position_cell_context_word.asm",
+        "field_use": "loads the full 16-bit context word into $438E and returns it to callers"
+      },
+      {
+        "consumer": "src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm",
+        "field_use": "masks low three bits to select spawn-probe threshold behavior"
+      },
+      {
+        "consumer": "src/c0/c0_3a94_refresh_position_derived_visual_context_class.asm",
+        "field_use": "calls C0:0AA1, masks low three bits, and stores the position-derived visual context class in $9887"
+      },
+      {
+        "consumer": "src/c0/c0_c0b4_copy_path_to_lane_from_party_path.asm",
+        "field_use": "calls C0:0AA1, masks low three bits, and gates path-lane copying through C3:DFE8"
+      },
+      {
+        "consumer": "src/c0/c0_c19b_copy_path_to_lane_from_party_member_request.asm",
+        "field_use": "calls C0:0AA1, masks low three bits, and gates party-member path-lane copying through C3:DFE8"
+      }
+    ],
+    "D7_SECTOR_TILESET_PALETTE_TABLE": [
+      {
+        "consumer": "src/c0/c0_08cf_derive_landing_region_profile_from_destination.asm",
+        "field_use": "masks bits 0..2 and shifts bits 3..7 while deriving the landing/profile selector"
+      },
+      {
+        "consumer": "src/c0/c0_0ac5_load_vertical_movement_map_strip_payload.asm",
+        "field_use": "compares shifted tileset/profile id against cached $436E during vertical strip loading"
+      },
+      {
+        "consumer": "src/c0/c0_0bdc_load_horizontal_movement_map_strip_payload.asm",
+        "field_use": "compares shifted tileset/profile id against cached $436E during horizontal strip loading"
+      },
+      {
+        "consumer": "src/c0/c0_2291_test_secondary_descriptor_leading_piece_context.asm",
+        "field_use": "rejects secondary descriptors whose shifted tileset/profile id does not match $436E"
+      },
+      {
+        "consumer": "src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm",
+        "field_use": "uses the shifted tileset/profile id to validate table-backed spawn candidate lists"
+      },
+      {
+        "consumer": "src/c4/your_sanctuary_tile_arrangement_helpers.asm",
+        "field_use": "consumes the shifted tileset/profile id while choosing sanctuary tile-arrangement data"
+      }
+    ]
+  },
   "counts": {
     "packed_tileset_palette": {
       "0x0000": 31,
@@ -317,6 +367,40 @@
     "none": "0x0",
     "robot sprites": "0x5"
   },
+  "source_emission_rows": [
+    {
+      "family": "D7_SECTOR_TILESET_PALETTE_TABLE",
+      "field_policy": "typed",
+      "rows": 1280,
+      "source_emission_note": "Emit one byte per sector as `packed_tileset_palette`; bits 3..7 are `tileset_id` and bits 0..2 are `palette_variant`.",
+      "span": "D7:A800..D7:AD00",
+      "stride": 1
+    },
+    {
+      "family": "D7_UNRESOLVED_METADATA_BYTE_PLANE",
+      "field_policy": "numeric-preserve",
+      "rows": 1280,
+      "source_emission_note": "Emit one numeric byte per sector under a bounded plane label; do not promote field names until a direct consumer proves semantics.",
+      "span": "D7:AD00..D7:B200",
+      "stride": 1
+    },
+    {
+      "family": "D7_SECTOR_CONTEXT_WORD_TABLE",
+      "field_policy": "typed-low3/numeric-high13",
+      "rows": 1280,
+      "source_emission_note": "Emit one full word per sector as `sector_context_word`; bits 0..2 are `sector_setting_code`, while bits 3..15 must round-trip numerically.",
+      "span": "D7:B200..D7:BC00",
+      "stride": 2
+    },
+    {
+      "family": "D7_UNRESOLVED_METADATA_WORD_PLANE",
+      "field_policy": "numeric-preserve",
+      "rows": 1280,
+      "source_emission_note": "Emit one numeric word per sector under a bounded plane label; do not promote field names until a direct consumer proves semantics.",
+      "span": "D7:BC00..D7:C600",
+      "stride": 2
+    }
+  ],
   "source_policy": "Derived from byte-equivalent D7 source-scaffold bytes and the checked-in map sector bundle contract. The JSON records row-level decoded values, counts, field names, and validation summaries only; it does not commit the unresolved raw metadata planes.",
   "sources": {
     "d7_helper": "src/d7/bank_d7_helpers_asar.asm",
@@ -362,6 +446,49 @@
     }
   ],
   "summary": {
+    "context_high_payload_nonzero_rows": 1062,
+    "context_high_payload_top_values": [
+      {
+        "count": 440,
+        "value": "0x0080"
+      },
+      {
+        "count": 218,
+        "value": "0x0000"
+      },
+      {
+        "count": 185,
+        "value": "0xB008"
+      },
+      {
+        "count": 110,
+        "value": "0x0020"
+      },
+      {
+        "count": 88,
+        "value": "0xB000"
+      },
+      {
+        "count": 81,
+        "value": "0x0030"
+      },
+      {
+        "count": 70,
+        "value": "0x0088"
+      },
+      {
+        "count": 46,
+        "value": "0x00A0"
+      },
+      {
+        "count": 40,
+        "value": "0x0028"
+      },
+      {
+        "count": 2,
+        "value": "0x0098"
+      }
+    ],
     "context_word_top_values": [
       {
         "count": 276,
@@ -425,11 +552,582 @@
       "none": 743,
       "robot sprites": 10
     },
+    "unique_context_high_payloads": 10,
     "unique_packed_tileset_palette_bytes": 88,
     "unique_palette_variants": 8,
     "unique_sector_context_words": 17,
     "unique_sector_setting_codes": 6,
-    "unique_tileset_ids": 28
+    "unique_tileset_ids": 28,
+    "unique_unresolved_byte_plane_values": 93,
+    "unique_unresolved_word_plane_values": 19
   },
-  "title": "D7 Sector Metadata Contracts"
+  "title": "D7 Sector Metadata Contracts",
+  "unresolved_plane_summaries": [
+    {
+      "row_shape": "1280 x 1",
+      "span": "D7:AD00..D7:B1FF",
+      "status": "bounded-but-unnamed",
+      "top_values": [
+        {
+          "count": 166,
+          "value": "0x40"
+        },
+        {
+          "count": 157,
+          "value": "0x10"
+        },
+        {
+          "count": 101,
+          "value": "0x18"
+        },
+        {
+          "count": 80,
+          "value": "0x33"
+        },
+        {
+          "count": 58,
+          "value": "0xF0"
+        },
+        {
+          "count": 39,
+          "value": "0x00"
+        },
+        {
+          "count": 38,
+          "value": "0x02"
+        },
+        {
+          "count": 33,
+          "value": "0xD3"
+        },
+        {
+          "count": 32,
+          "value": "0x11"
+        },
+        {
+          "count": 28,
+          "value": "0xA1"
+        },
+        {
+          "count": 26,
+          "value": "0xEB"
+        },
+        {
+          "count": 26,
+          "value": "0xE8"
+        }
+      ],
+      "unique_values": 93,
+      "value_counts": [
+        {
+          "count": 39,
+          "value": "0x00"
+        },
+        {
+          "count": 38,
+          "value": "0x02"
+        },
+        {
+          "count": 157,
+          "value": "0x10"
+        },
+        {
+          "count": 32,
+          "value": "0x11"
+        },
+        {
+          "count": 15,
+          "value": "0x13"
+        },
+        {
+          "count": 101,
+          "value": "0x18"
+        },
+        {
+          "count": 12,
+          "value": "0x20"
+        },
+        {
+          "count": 15,
+          "value": "0x29"
+        },
+        {
+          "count": 4,
+          "value": "0x2A"
+        },
+        {
+          "count": 1,
+          "value": "0x2B"
+        },
+        {
+          "count": 24,
+          "value": "0x32"
+        },
+        {
+          "count": 80,
+          "value": "0x33"
+        },
+        {
+          "count": 8,
+          "value": "0x34"
+        },
+        {
+          "count": 24,
+          "value": "0x35"
+        },
+        {
+          "count": 166,
+          "value": "0x40"
+        },
+        {
+          "count": 8,
+          "value": "0x49"
+        },
+        {
+          "count": 4,
+          "value": "0x4B"
+        },
+        {
+          "count": 16,
+          "value": "0x4C"
+        },
+        {
+          "count": 6,
+          "value": "0x50"
+        },
+        {
+          "count": 1,
+          "value": "0x52"
+        },
+        {
+          "count": 1,
+          "value": "0x53"
+        },
+        {
+          "count": 1,
+          "value": "0x54"
+        },
+        {
+          "count": 2,
+          "value": "0x55"
+        },
+        {
+          "count": 1,
+          "value": "0x57"
+        },
+        {
+          "count": 2,
+          "value": "0x5F"
+        },
+        {
+          "count": 11,
+          "value": "0x60"
+        },
+        {
+          "count": 1,
+          "value": "0x61"
+        },
+        {
+          "count": 1,
+          "value": "0x63"
+        },
+        {
+          "count": 1,
+          "value": "0x64"
+        },
+        {
+          "count": 2,
+          "value": "0x65"
+        },
+        {
+          "count": 11,
+          "value": "0x70"
+        },
+        {
+          "count": 2,
+          "value": "0x71"
+        },
+        {
+          "count": 2,
+          "value": "0x72"
+        },
+        {
+          "count": 2,
+          "value": "0x73"
+        },
+        {
+          "count": 10,
+          "value": "0x74"
+        },
+        {
+          "count": 2,
+          "value": "0x7A"
+        },
+        {
+          "count": 2,
+          "value": "0x7D"
+        },
+        {
+          "count": 2,
+          "value": "0x7E"
+        },
+        {
+          "count": 8,
+          "value": "0x80"
+        },
+        {
+          "count": 2,
+          "value": "0x81"
+        },
+        {
+          "count": 1,
+          "value": "0x82"
+        },
+        {
+          "count": 7,
+          "value": "0x88"
+        },
+        {
+          "count": 4,
+          "value": "0x89"
+        },
+        {
+          "count": 4,
+          "value": "0x8A"
+        },
+        {
+          "count": 3,
+          "value": "0x8B"
+        },
+        {
+          "count": 2,
+          "value": "0x8E"
+        },
+        {
+          "count": 24,
+          "value": "0x90"
+        },
+        {
+          "count": 4,
+          "value": "0x98"
+        },
+        {
+          "count": 5,
+          "value": "0x99"
+        },
+        {
+          "count": 1,
+          "value": "0x9B"
+        },
+        {
+          "count": 2,
+          "value": "0x9D"
+        },
+        {
+          "count": 1,
+          "value": "0x9E"
+        },
+        {
+          "count": 20,
+          "value": "0xA0"
+        },
+        {
+          "count": 28,
+          "value": "0xA1"
+        },
+        {
+          "count": 3,
+          "value": "0xA2"
+        },
+        {
+          "count": 2,
+          "value": "0xA3"
+        },
+        {
+          "count": 1,
+          "value": "0xA6"
+        },
+        {
+          "count": 3,
+          "value": "0xA8"
+        },
+        {
+          "count": 8,
+          "value": "0xA9"
+        },
+        {
+          "count": 9,
+          "value": "0xAA"
+        },
+        {
+          "count": 1,
+          "value": "0xAB"
+        },
+        {
+          "count": 9,
+          "value": "0xAC"
+        },
+        {
+          "count": 4,
+          "value": "0xB1"
+        },
+        {
+          "count": 6,
+          "value": "0xB2"
+        },
+        {
+          "count": 6,
+          "value": "0xB3"
+        },
+        {
+          "count": 2,
+          "value": "0xB4"
+        },
+        {
+          "count": 1,
+          "value": "0xB8"
+        },
+        {
+          "count": 5,
+          "value": "0xBA"
+        },
+        {
+          "count": 7,
+          "value": "0xBB"
+        },
+        {
+          "count": 4,
+          "value": "0xC1"
+        },
+        {
+          "count": 1,
+          "value": "0xC2"
+        },
+        {
+          "count": 2,
+          "value": "0xC3"
+        },
+        {
+          "count": 2,
+          "value": "0xC4"
+        },
+        {
+          "count": 5,
+          "value": "0xC8"
+        },
+        {
+          "count": 1,
+          "value": "0xCC"
+        },
+        {
+          "count": 3,
+          "value": "0xD1"
+        },
+        {
+          "count": 33,
+          "value": "0xD3"
+        },
+        {
+          "count": 18,
+          "value": "0xD4"
+        },
+        {
+          "count": 15,
+          "value": "0xD5"
+        },
+        {
+          "count": 14,
+          "value": "0xD8"
+        },
+        {
+          "count": 7,
+          "value": "0xD9"
+        },
+        {
+          "count": 3,
+          "value": "0xDA"
+        },
+        {
+          "count": 2,
+          "value": "0xDB"
+        },
+        {
+          "count": 6,
+          "value": "0xE1"
+        },
+        {
+          "count": 24,
+          "value": "0xE2"
+        },
+        {
+          "count": 3,
+          "value": "0xE3"
+        },
+        {
+          "count": 10,
+          "value": "0xE5"
+        },
+        {
+          "count": 26,
+          "value": "0xE8"
+        },
+        {
+          "count": 24,
+          "value": "0xE9"
+        },
+        {
+          "count": 2,
+          "value": "0xEA"
+        },
+        {
+          "count": 26,
+          "value": "0xEB"
+        },
+        {
+          "count": 58,
+          "value": "0xF0"
+        },
+        {
+          "count": 1,
+          "value": "0xF2"
+        }
+      ],
+      "zero_rows": 39
+    },
+    {
+      "row_shape": "1280 x 2",
+      "span": "D7:BC00..D7:C5FF",
+      "status": "bounded-but-unnamed",
+      "top_values": [
+        {
+          "count": 297,
+          "value": "0x0082"
+        },
+        {
+          "count": 231,
+          "value": "0x0000"
+        },
+        {
+          "count": 196,
+          "value": "0xB010"
+        },
+        {
+          "count": 101,
+          "value": "0x0018"
+        },
+        {
+          "count": 96,
+          "value": "0x00A1"
+        },
+        {
+          "count": 64,
+          "value": "0x0091"
+        },
+        {
+          "count": 60,
+          "value": "0xAF00"
+        },
+        {
+          "count": 38,
+          "value": "0x0085"
+        },
+        {
+          "count": 36,
+          "value": "0x00B1"
+        },
+        {
+          "count": 29,
+          "value": "0x008A"
+        },
+        {
+          "count": 24,
+          "value": "0x0028"
+        },
+        {
+          "count": 22,
+          "value": "0x0081"
+        }
+      ],
+      "unique_values": 19,
+      "value_counts": [
+        {
+          "count": 231,
+          "value": "0x0000"
+        },
+        {
+          "count": 101,
+          "value": "0x0018"
+        },
+        {
+          "count": 12,
+          "value": "0x0020"
+        },
+        {
+          "count": 24,
+          "value": "0x0028"
+        },
+        {
+          "count": 16,
+          "value": "0x0080"
+        },
+        {
+          "count": 22,
+          "value": "0x0081"
+        },
+        {
+          "count": 297,
+          "value": "0x0082"
+        },
+        {
+          "count": 22,
+          "value": "0x0084"
+        },
+        {
+          "count": 38,
+          "value": "0x0085"
+        },
+        {
+          "count": 29,
+          "value": "0x008A"
+        },
+        {
+          "count": 64,
+          "value": "0x0091"
+        },
+        {
+          "count": 21,
+          "value": "0x0099"
+        },
+        {
+          "count": 5,
+          "value": "0x009A"
+        },
+        {
+          "count": 96,
+          "value": "0x00A1"
+        },
+        {
+          "count": 8,
+          "value": "0x00A9"
+        },
+        {
+          "count": 36,
+          "value": "0x00B1"
+        },
+        {
+          "count": 2,
+          "value": "0xAE99"
+        },
+        {
+          "count": 60,
+          "value": "0xAF00"
+        },
+        {
+          "count": 196,
+          "value": "0xB010"
+        }
+      ],
+      "zero_rows": 231
+    }
+  ]
 }

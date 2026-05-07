@@ -187,8 +187,8 @@ def build_triage() -> list[BankTriage]:
                 "generated map data",
                 "data-contract-ready",
                 3,
-                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md` and the complete decoded row artifact in `notes/cf-sector-list-contracts.json`.",
-                ["DOOR_DATA payload variants and OVERWORLD_EVENT_MUSIC_TABLE rows remain unresolved"],
+                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md`, the CF sector-list/event-music contracts, the CF door-data payload contract, and the CF movement-trigger/event-music source-emission summaries.",
+                ["remaining trigger selector gameplay labels are optional polish; source-emission tooling still needs to consume the promoted row artifacts and preserve type 5 no-op payload words as numeric values"],
                 ["door pointers", "door lists", "event music", "sprite placement", "NPC config", "audio tail"],
             ),
         ]
@@ -200,9 +200,9 @@ def build_triage() -> list[BankTriage]:
             "generated map/battle data",
             "data-contract-ready",
             3,
-            "Emit D0 as exact generated map/battle tables plus audio tail using `notes/d0-table-splits.md`, the promoted D0 manifest contracts, and `notes/d0-variable-list-contracts.md`.",
-            ["MAP_TILE_EVENT_CONTROL_TABLE chains still need row-level semantic expansion"],
-            ["door pointers", "screen transitions", "tile events", "enemy placement", "battle entry pointers", "audio tail"],
+            "Emit D0 as exact generated map/battle tables plus audio tail using `notes/d0-table-splits.md`, the promoted D0 manifest contracts, `notes/d0-tile-event-contracts.md`, and `notes/d0-variable-list-contracts.md` for variable-list ownership, BTL entry distributions, and the unpointed battle-group gap.",
+            ["source include generation still needs to consume the promoted D0 row artifacts and preserve the D0:D531..D0:D54C unpointed battle-group gap"],
+            ["door pointers", "screen transitions", "tile events", "enemy placement", "battle entry pointers", "battle-group gap accounting", "audio tail"],
         )
     )
     for bank in bank_sequence("D1", "D4"):
@@ -223,9 +223,9 @@ def build_triage() -> list[BankTriage]:
             "sprite tail plus gameplay tables",
             "data-contract-ready",
             3,
-            "Emit D5 as sprite assets plus exact table source includes using `notes/d5-table-splits.md` and the promoted D5 contracts.",
-            ["timed delivery row subfields remain intentionally raw until consumer-code confirmation"],
-            ["overworld sprite tail", "explicit zero pad", "exact D5 table splits", "promoted D5 data contracts"],
+            "Emit D5 as sprite assets plus exact table source includes using `notes/d5-table-splits.md`, the promoted D5 contracts, and `notes/d5-timed-delivery-row-contracts.md` for effective controller rows, selector coverage, pointer-bank/timer/speed distributions, and source-window byte ownership.",
+            ["story-specific timed-delivery row labels remain optional; source include tooling should preserve the D5:F649 source window versus D5:F645 effective controller base and its 4/196/4 byte ownership model"],
+            ["overworld sprite tail", "explicit zero pad", "exact D5 table splits", "promoted D5 data contracts", "timed-delivery controller rows", "timed-delivery source-window ownership"],
         )
     )
     rows.append(
@@ -245,9 +245,9 @@ def build_triage() -> list[BankTriage]:
             "map tiles/palette/arrangement",
             "asset-and-table-ready",
             3,
-            "Extract map tile chunks and keep the D7 sector metadata contracts regression-tested.",
-            ["two bounded D7 metadata planes and context-word high bits remain unnamed"],
-            ["map tile chunks", "palette/sector attributes", "compressed arrangement stream"],
+            "Extract map tile chunks and use `notes/d7-sector-metadata-contracts.md` for the consumer-backed sector tables, source-emission rows, full value counts for bounded unresolved planes, and numeric-preserve context-word high bits.",
+            ["two bounded D7 metadata planes and context-word high bits remain unnamed until caller evidence proves them; source emission should preserve them numerically"],
+            ["map tile chunks", "consumer-backed sector metadata tables", "source-emission metadata planes", "bounded unresolved metadata planes", "compressed arrangement stream"],
         )
     )
     rows.append(
@@ -256,9 +256,9 @@ def build_triage() -> list[BankTriage]:
             "map collision plus error/audio assets",
             "data-contract-ready",
             3,
-            "Emit D8 as exact collision data, collision pointer tables, warning assets, and audio tail using `notes/d8-table-splits.md` and the promoted D8 contracts.",
-            ["collision row semantics still need decoding beyond pointer-table boundaries"],
-            ["tile collision data", "20 collision pointer tables", "anti-piracy/faulty-game-pak assets", "audio pack"],
+            "Emit D8 as exact collision data, collision pointer tables, warning assets, and audio tail using `notes/d8-table-splits.md`, the central D8 collision contracts, and `notes/d8-collision-subrecord-contracts.md` for source-emission rows, pointer handling, value counts, and runtime-backed bit families.",
+            ["low surface modifier gameplay labels remain optional; row shape, pointer ownership, value counts, and runtime mask roles are already contract-backed"],
+            ["tile collision data", "20 collision pointer tables", "4x4 collision subrecords", "anti-piracy/faulty-game-pak assets", "audio pack"],
         )
     )
 
@@ -280,9 +280,9 @@ def build_triage() -> list[BankTriage]:
             "map arrangement/palette/audio assets",
             "asset-and-table-ready",
             3,
-            "Extract arrangements and palettes, and keep the DA palette pointer/variant contracts regression-tested.",
+            "Extract arrangements and palettes using `notes/da-map-palette-subrecord-contracts.md` for the pointer/variant rows, metadata-word distributions, and script-side palette usage joins.",
             ["event-palette selector runtime dispatch semantics remain deferred"],
-            ["compressed arrangements", "map palettes", "audio pack"],
+            ["compressed arrangements", "map palette pointer/variant rows", "metadata-word and script-usage summaries", "audio pack"],
         )
     )
     rows.append(
@@ -291,9 +291,9 @@ def build_triage() -> list[BankTriage]:
             "map arrangement/music/audio data",
             "asset-and-table-ready",
             3,
-            "Extract arrangements and audio packs, and keep the per-sector music table contract regression-tested.",
-            ["per-sector music option list semantics live in the map-sector bundle contract"],
-            ["compressed arrangements", "per-sector music table", "audio packs"],
+            "Extract arrangements and audio packs, and use `notes/cf-event-music-context-contracts.md` for the CF/DC event-music source-emission rows, selector plane, full second-plane value counts, and numeric-preserve second-plane policy.",
+            ["the second per-sector music byte plane and broader map_music option-list semantics remain intentionally unnamed without direct consumers; source emission should preserve the second plane numerically"],
+            ["compressed arrangements", "consumer-backed event-music selector plane", "numeric-preserve second music byte plane", "audio packs"],
         )
     )
     rows.append(
@@ -302,9 +302,9 @@ def build_triage() -> list[BankTriage]:
             "map graphics plus palette animation data",
             "asset-and-table-ready",
             3,
-            "Extract tileset/animation graphics and keep the landing palette-animation table contracts regression-tested.",
-            ["profile meanings still need naming, but the table/payload split is contract-backed"],
-            ["tileset graphics", "animation graphics", "palette-animation table", "audio pack"],
+            "Extract tileset/animation graphics and landing palette-animation data using `notes/df-landing-palette-animation-contracts.md` for the pointer table, variable profile records, compressed payload rows, and zero-step/audio-boundary sentinel policy.",
+            ["human-facing profile meanings remain optional; table/profile/payload source-emission rows are contract-backed"],
+            ["tileset graphics", "animation graphics", "landing palette-animation source-emission rows", "zero-step sentinel boundary", "audio pack"],
         )
     )
 
@@ -315,18 +315,18 @@ def build_triage() -> list[BankTriage]:
                 "UI/font/town-map/audio assets",
                 "asset-and-table-ready",
                 3,
-                "Extract text-window graphics, fonts, town maps, and audio packs; split the generated text-window/town-map table span.",
-                ["SRAM mystery payload and small generated table span need stronger contracts"],
-                ["text-window graphics", "font data", "town maps", "audio packs"],
+                "Extract text-window graphics, fonts, town maps, and audio packs using `notes/ui-font-town-map-asset-contracts.md` for text-window source-emission rows, the E0 town-map graphics pointer table, and the SRAM save-template preserve policy.",
+                ["reserved SRAM template blocks and per-palette-row presentation labels remain optional semantic polish; source emission should preserve them with the documented numeric policies"],
+                ["text-window graphics", "font data", "SRAM save-template source row", "text-window/town-map source-emission rows", "town maps", "audio packs"],
             ),
             entry(
                 "E1",
                 "text/font/intro/ending/town-map assets",
                 "asset-and-table-ready",
                 3,
-                "Extract flyover text, font, intro/title/ending/cast/town-map assets, and town-map icon placement data.",
-                ["locale text and generated table size handling should stay regression-tested"],
-                ["flyover text", "intro/title/ending assets", "town-map labels/icons", "audio pack"],
+                "Extract flyover text, font, intro/title/ending/cast/town-map assets using `notes/ui-font-town-map-asset-contracts.md` for E1 town-map descriptor/pointer/blink/variable-list rows, title palette/OAM source rows, and landing/cast bundle rows.",
+                ["flyover, photographer, cast-formatting, credits-adjacent, public scene labels, and remaining unknown table field names need caller evidence before promotion"],
+                ["flyover text", "intro/title visual source rows", "ending cast visual source rows", "town-map labels/icons/variable lists", "audio pack"],
             ),
         ]
     )
@@ -500,8 +500,8 @@ def render_markdown(payload: dict[str, object]) -> str:
             "",
             "### Data-contract splitters",
             "",
-            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF door/sprite rows, D0 placement/battle variable lists, and D8 collision rows now have promoted subrecord semantics, with remaining work concentrated in CF packed/event-music payloads, D0 tile-event chains, and source/data emission.",
-            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 and DA now have promoted table/subrecord contracts; remaining work is smaller inferred table/pointer contract polish.",
+            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF trigger/door/event-music rows and trigger-type/event-music source-emission summaries, D0 tile-event and placement/battle variable lists, D5 timed-delivery controller rows/source-window ownership, and D8 collision rows/pointer/value-count summaries now have promoted subrecord semantics, with remaining work concentrated in source/data emission and optional gameplay labels.",
+            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7, DA, DF, E0, and E1 now have promoted table/subrecord contracts; D7 includes source-emission rows and numeric-preserve policies for its unresolved planes/context high bits, DA has metadata-word and script-usage summaries for palette source emission, DF has landing palette-animation pointer/profile/payload rows plus the zero-step/audio-boundary sentinel policy, and E0/E1 carry source-emission rows for text-window palettes, town-map variable lists, title palette/OAM rows, landing/cast bundles, and SRAM template blocks. Remaining work is smaller inferred table/pointer contract polish.",
             "",
             "### Script, text, and VM assets",
             "",

@@ -5,8 +5,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 ## Summary
 
 - schema: `earthbound-decomp.data-contracts.v1`
-- contracts: `167`
-- fields: `686`
+- contracts: `168`
+- fields: `687`
 
 | Contract | Domain | Address | Stride | Count | Struct | Fields | Confidence |
 | --- | --- | --- | ---: | ---: | --- | ---: | --- |
@@ -32,7 +32,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | INITIAL_STATS | rom-table | `D5:F5F5` | `0x15` | 4 | `initial_party_member_stats` | 5 | corroborated |
 | TIMED_DELIVERY_TABLE | rom-table | `D5:F649` | `0x14` | 10 | `timed_delivery_source_window` | 1 | exact-source-window |
 | TIMED_DELIVERY_CONTROLLER_TABLE | rom-table | `D5:F645` | `0x14` | 10 | `timed_delivery_controller_row` | 11 | consumer-corroborated |
-| CF_DOOR_DATA | rom-block | `CF:0000` | `0x264F` | 1 | `cf_door_data_payload` | 1 | exact-boundary |
+| CF_DOOR_DATA | rom-block | `CF:0000` | `0x264F` | 1 | `cf_door_data_payload` | 1 | consumer-corroborated-partial |
 | CF_DOOR_CONFIG_TABLE | rom-variable-table | `CF:264F` | `0x32A0` | 1 | `door_sector_list_block` | 1 | exact-variable-lists |
 | D0_DOOR_POINTER_TABLE | rom-table | `D0:0000` | `0x4` | 1280 | `door_sector_list_far_pointer` | 3 | exact |
 | SCREEN_TRANSITION_CONFIG_TABLE | rom-table | `D0:1400` | `0xC` | 34 | `screen_transition_config` | 12 | corroborated |
@@ -70,6 +70,7 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | MAP_PALETTE_POINTER_TABLE | rom-table | `DA:FAA7` | `0x3` | 32 | `snes_long_pointer24` | 2 | verified |
 | DA_MAP_PALETTE_VARIANT_TABLE | rom-table | `DA:7CA7` | `0xC0` | 168 | `da_map_palette_variant` | 10 | tool-and-script-corroborated |
 | PER_SECTOR_MUSIC_TABLE | rom-table | `DC:D637` | `0x2` | 1280 | `per_sector_music_options_index` | 1 | structural-corroborated |
+| CURRENT_POSITION_EVENT_MUSIC_SELECTOR_TABLE | rom-table | `DC:D637` | `0x1` | 1280 | `current_position_event_music_context_selector` | 1 | consumer-corroborated |
 | LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE | rom-table | `DF:E4E1` | `0x4` | 31 | `far_pointer` | 1 | runtime-corroborated |
 | LANDING_PALETTE_ANIM_PROFILE_0 | rom-variable-table | `DF:E55D` | `0x9` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
 | LANDING_PALETTE_ANIM_PROFILE_1 | rom-variable-table | `DF:E566` | `0x9` | 1 | `landing_palette_anim_profile` | 3 | runtime-corroborated-shape |
@@ -127,8 +128,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 | TOWN_MAP_ICON_PLACEMENT_LIST_3 | rom-variable-table | `E1:F524` | `0x5` | 7 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
 | TOWN_MAP_ICON_PLACEMENT_LIST_4 | rom-variable-table | `E1:F548` | `0x5` | 5 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
 | TOWN_MAP_ICON_PLACEMENT_LIST_5 | rom-variable-table | `E1:F562` | `0x5` | 6 | `town_map_icon_placement_record` | 4 | runtime-corroborated-shape |
-| OVERWORLD_EVENT_MUSIC_POINTER_TABLE | rom-table | `CF:58EF` | `0x2` | 165 | `word_pointer` | 1 | exact |
-| OVERWORLD_EVENT_MUSIC_TABLE | rom-variable-table | `CF:5A39` | `0x7A4` | 1 | `overworld_event_music_rows` | 1 | exact-boundary |
+| OVERWORLD_EVENT_MUSIC_POINTER_TABLE | rom-table | `CF:58EF` | `0x2` | 165 | `word_pointer` | 1 | consumer-corroborated |
+| OVERWORLD_EVENT_MUSIC_TABLE | rom-variable-table | `CF:5A39` | `0x7A4` | 1 | `overworld_event_music_rows` | 1 | consumer-corroborated |
 | CF_INLINE_EVENT_MUSIC_TRAILER | rom-block | `CF:61DD` | `0xA` | 1 | `inline_event_music_trailer` | 1 | exact |
 | SPRITE_PLACEMENT_POINTER_TABLE | rom-table | `CF:61E7` | `0x2` | 1280 | `sprite_placement_sector_pointer` | 1 | exact |
 | SPRITE_PLACEMENT_TABLE | rom-variable-table | `CF:6BE7` | `0x1D9E` | 1 | `sprite_placement_sector_list_block` | 1 | exact-variable-lists |
@@ -747,13 +748,13 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - stride: `0x264F`
 - count: `1`
 - struct: `cf_door_data_payload`
-- confidence: `exact-boundary`
-- note: CF door-data payload block before the 1280 counted sector door-list records.
-- evidence: `notes/cf-table-splits.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`
+- confidence: `consumer-corroborated-partial`
+- note: CF door-data payload block before the 1280 counted sector door-list records. Type 0, type 2, and type 6 payload shapes are decoded by the CF door-data contract; remaining trigger-type parameters stay bounded/raw.
+- evidence: `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `notes/cf-door-data-contracts.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`, `src/c0/c0_6a1b_movement_trigger_type0_queue_door_destination.asm`, `src/c0/c0_6aca_movement_trigger_type2_queue_door_transition.asm`, `src/c0/c0_6bff_run_deferred_script_pointer_and_refresh_transition_state.asm`, `src/c0/c0_65c2_probe_type6_door_candidate.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_payload` | 1 | 9807 | exact CF door-data payload block; subrecords are variable/packed |
+| `0x0` | `raw_payload` | 1 | 9807 | exact CF door-data payload block; see notes/cf-door-data-contracts.json for consumer-backed type 0 event-gated script pointers, type 2 door-transition records, and type 6 cached interaction pointers |
 
 ### CF_DOOR_CONFIG_TABLE
 
@@ -763,12 +764,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `door_sector_list_block`
 - confidence: `exact-variable-lists`
-- note: 1280 D0-pointer-addressed counted door/trigger sector lists with complete decoded rows in notes/cf-sector-list-contracts.json. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.
-- evidence: `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`
+- note: 1280 D0-pointer-addressed counted door/trigger sector lists with complete decoded rows in notes/cf-sector-list-contracts.json and per-type trigger payload semantics in notes/cf-movement-trigger-contracts.json. Source-order physical rows match the map_doors bundle count; a small set of pointer starts overlap prior counted-list tails, so consumers should follow D0 pointers rather than assume a flat sequential table.
+- evidence: `notes/cf-table-splits.md`, `notes/cf-sector-list-contracts.md`, `notes/cf-movement-trigger-contracts.md`, `refs/ebsrc-main/ebsrc-main/src/bankconfig/common/bank0f.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `counted_door_sector_lists` | 1 | 12960 | 1280 D0-pointer-addressed counted sector door/trigger lists; see notes/cf-sector-list-contracts.json for complete decoded lists, overlap rows, and five-byte movement-trigger entries |
+| `0x0` | `counted_door_sector_lists` | 1 | 12960 | 1280 D0-pointer-addressed counted sector door/trigger lists; see notes/cf-sector-list-contracts.json for complete decoded lists and notes/cf-movement-trigger-contracts.json for trigger_payload_word meanings by movement_trigger_type |
 
 ### D0_DOOR_POINTER_TABLE
 
@@ -821,8 +822,8 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `20`
 - struct: `word_pointer`
 - confidence: `exact`
-- note: Word offsets to the 20 MAP_TILE_EVENT chains.
-- evidence: `refs/ebsrc-main/ebsrc-main/src/data/event_control_ptr_table.asm`, `notes/d0-table-splits.md`
+- note: Word offsets to the 20 MAP_TILE_EVENT chains; C0:0703 indexes this table by tileset/event-control id.
+- evidence: `refs/ebsrc-main/ebsrc-main/src/data/event_control_ptr_table.asm`, `notes/d0-table-splits.md`, `notes/d0-tile-event-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -836,12 +837,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1`
 - struct: `map_tile_event_chain_block`
 - confidence: `exact-variable-chains`
-- note: 20 variable MAP_TILE_EVENT chains, each terminated by a zero event flag word.
-- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `notes/d0-table-splits.md`
+- note: 20 variable MAP_TILE_EVENT chains. Each nonzero condition header is event_flag_condition_word plus replacement_pair_count, followed by target/source replacement-block pairs consumed by C0:062A.
+- evidence: `refs/ebsrc-main/ebsrc-main/include/structs.asm`, `notes/d0-table-splits.md`, `notes/d0-tile-event-contracts.md`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_event_chains` | 1 | 704 | 20 variable MAP_TILE_EVENT chains |
+| `0x0` | `raw_event_chains` | 1 | 704 | 20 variable MAP_TILE_EVENT chains; see notes/d0-tile-event-contracts.json for decoded event-condition headers and replacement pairs |
 
 ### MAP_ENEMY_PLACEMENT
 
@@ -944,12 +945,12 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1280`
 - struct: `map_sector_context_word`
 - confidence: `consumer-corroborated-low3`
-- note: 40x32 sector context-word table. C0:0AA1 loads the full word to $438E; C0:2668 consumes the low three bits, which match map-sector Setting for every row.
-- evidence: `notes/d7-sector-metadata-contracts.md`, `notes/map-sector-bundles.md`, `src/c0/c0_0aa1_lookup_position_cell_context_word.asm`, `src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm`
+- note: 40x32 sector context-word table. C0:0AA1 loads the full word to $438E; C0:2668, C0:3A94, and path-lane callers consume the low three bits, which match map-sector Setting for every row.
+- evidence: `notes/d7-sector-metadata-contracts.md`, `notes/map-sector-bundles.md`, `src/c0/c0_0aa1_lookup_position_cell_context_word.asm`, `src/c0/c0_2668_resolve_spawn_probe_candidate_list.asm`, `src/c0/c0_3a94_refresh_position_derived_visual_context_class.asm`, `src/c0/c0_c0b4_copy_path_to_lane_from_party_path.asm`, `src/c0/c0_c19b_copy_path_to_lane_from_party_member_request.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `sector_context_word` | 2 | 1 | per-sector context word loaded by C0:0AA1 into $438E; low three bits match map-sector Setting and are consumed by the C0:2668 spawn candidate resolver |
+| `0x0` | `sector_context_word` | 2 | 1 | per-sector context word loaded by C0:0AA1 into $438E; low three bits match map-sector Setting and feed spawn, visual-context, and path-lane gates |
 
 ### MAP_TILE_COLLISION_DATA
 
@@ -1344,12 +1345,27 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - count: `1280`
 - struct: `per_sector_music_options_index`
 - confidence: `structural-corroborated`
-- note: 40x32 sector-indexed music-options table used by the map sector bundle inventory.
+- note: 40x32 sector-indexed music-options table used by the map sector bundle inventory. The overlapping C0 byte-indexed selector plane is tracked separately as CURRENT_POSITION_EVENT_MUSIC_SELECTOR_TABLE.
 - evidence: `notes/bank-dc-asset-data-map.md`, `notes/map-sector-bundles.md`, `tools/build_map_sector_bundle_contract.py`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
 | `0x0` | `music_options_index` | 2 | 1 | 40x32 sector-indexed word joined to map_music.yml option lists by the map sector bundle contract |
+
+### CURRENT_POSITION_EVENT_MUSIC_SELECTOR_TABLE
+
+- domain: `rom-table`
+- address: `DC:D637`
+- stride: `0x1`
+- count: `1280`
+- struct: `current_position_event_music_context_selector`
+- confidence: `consumer-corroborated`
+- note: The byte-indexed first plane of DC:D637..DC:E036. C0:68F4 computes sector_y*32 + sector_x, reads this byte, and uses it as the selector into CF:58EF; it also matches map-sector Music for every checked sector row.
+- evidence: `notes/cf-event-music-context-contracts.md`, `notes/map-sector-bundles.md`, `notes/c0-current-position-music-refresh-c068f4-c069af.md`, `src/c0/c0_65c2_probe_type6_door_candidate.asm`, `src/ef/ef_dcbc_de1a_debug_check_position_overlay.asm`
+
+| Offset | Field | Size | Count | Note |
+| ---: | --- | ---: | ---: | --- |
+| `0x0` | `event_music_context_selector` | 1 | 1 | byte-indexed first plane at DC:D637; C0:68F4 and the EF debug overlay use this selector to index CF:58EF; matches map-sector Music for all 1280 rows |
 
 ### LANDING_PALETTE_ANIM_PROFILE_POINTER_TABLE
 
@@ -2314,9 +2330,9 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - stride: `0x2`
 - count: `165`
 - struct: `word_pointer`
-- confidence: `exact`
-- note: Offsets into the CF overworld event-music table.
-- evidence: `refs/eb-decompile-4ef92/map_music.yml`, `notes/cf-table-splits.md`
+- confidence: `consumer-corroborated`
+- note: Selector-indexed low-word pointers into the CF current-position event-music context chains; selector 0 is null and selectors 1..164 target CF:5A39..CF:61DC.
+- evidence: `refs/eb-decompile-4ef92/map_music.yml`, `notes/cf-table-splits.md`, `notes/cf-event-music-context-contracts.md`, `src/c0/c0_65c2_probe_type6_door_candidate.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
@@ -2329,13 +2345,13 @@ Generated from local notes plus quarantined reference structs. This is the machi
 - stride: `0x7A4`
 - count: `1`
 - struct: `overworld_event_music_rows`
-- confidence: `exact-boundary`
-- note: Variable-length event flag/music rows ending at the inline bank0f byte block.
-- evidence: `refs/eb-decompile-4ef92/map_music.yml`, `notes/cf-table-splits.md`
+- confidence: `consumer-corroborated`
+- note: Variable-length current-position event-music context chains ending at the inline bank0f byte block; each four-byte row is an event-condition/default row plus music-track and screen-transition-SFX bytes.
+- evidence: `refs/eb-decompile-4ef92/map_music.yml`, `notes/cf-table-splits.md`, `notes/cf-event-music-context-contracts.md`, `notes/c0-current-position-music-refresh-c068f4-c069af.md`, `src/c0/c0_65c2_probe_type6_door_candidate.asm`
 
 | Offset | Field | Size | Count | Note |
 | ---: | --- | ---: | ---: | --- |
-| `0x0` | `raw_event_music_rows` | 1 | 1956 | variable-length event-flag/music rows |
+| `0x0` | `raw_event_music_context_rows` | 1 | 1956 | 164 CF selector-addressed variable chains; see notes/cf-event-music-context-contracts.json for decoded event-flag condition/default rows and music/SFX bytes |
 
 ### CF_INLINE_EVENT_MUSIC_TRAILER
 

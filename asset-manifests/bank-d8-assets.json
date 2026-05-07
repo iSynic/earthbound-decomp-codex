@@ -13,6 +13,8 @@
   },
   "references": [
     "notes/bank-d8-asset-data-map.md",
+    "notes/d8-table-splits.md",
+    "notes/d8-collision-subrecord-contracts.md",
     "refs/ebsrc-main/ebsrc-main/earthbound.yml",
     "refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank18.asm"
   ],
@@ -262,7 +264,9 @@
       "notes": [
         "Source include from ebsrc: data/map/tile_collision_data.asm",
         "Original file offset: 0x180000",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Semantic split: MAP_TILE_COLLISION_DATA (2293 16-byte surface_collision_flags records) plus MAP_DATA_TILE_COLLISION_POINTERS_0..19 (12423 word offsets).",
+        "See notes/d8-collision-subrecord-contracts.md for source-emission rows, value counts, pointer handling, and runtime-backed bit-family summaries."
       ]
     },
     {

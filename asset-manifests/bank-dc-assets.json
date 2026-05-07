@@ -13,6 +13,7 @@
   },
   "references": [
     "notes/bank-dc-asset-data-map.md",
+    "notes/cf-event-music-context-contracts.md",
     "refs/ebsrc-main/ebsrc-main/earthbound.yml",
     "refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank1C.asm"
   ],
@@ -300,7 +301,9 @@
       "notes": [
         "Source include from ebsrc: data/map/per-sector_music.asm",
         "Original file offset: 0x1CD637",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Semantic split: DC_CURRENT_POSITION_EVENT_MUSIC_SELECTOR_PLANE plus DC_UNRESOLVED_PER_SECTOR_MUSIC_SECOND_PLANE.",
+        "See notes/cf-event-music-context-contracts.md for source-emission rows, value counts, and numeric-preserve policy for the unnamed second plane."
       ]
     },
     {

@@ -30,6 +30,12 @@ RESERVED_METADATA_WORDS = {
     32: "sprite_palette",
     48: "flash_effect",
 }
+METADATA_SUMMARY_ROLES = (
+    "event_flag",
+    "event_palette_selector_word",
+    "sprite_palette",
+    "flash_effect",
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -54,6 +60,13 @@ def rel(path: Path) -> str:
 
 def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def top_counter_rows(counter: Counter[int], count: int = 8) -> list[dict[str, int]]:
+    return [
+        {"value": value, "count": seen}
+        for value, seen in counter.most_common(count)
+    ]
 
 
 def build_record_shape(descriptor: dict[str, Any]) -> list[dict[str, Any]]:
@@ -123,6 +136,73 @@ def build_physical_rows(pointer: dict[str, Any]) -> list[dict[str, Any]]:
     return rows
 
 
+def build_metadata_summaries(fts: dict[str, Any]) -> list[dict[str, Any]]:
+    summaries = []
+    for role in METADATA_SUMMARY_ROLES:
+        values = []
+        for entry in fts["entries"]:
+            if role == "event_palette_selector_word":
+                value = int(entry["setting_word_checks"]["event_palette_selector_word"])
+            else:
+                value = int(entry["setting_summary"][role])
+            values.append(value)
+        counter = Counter(values)
+        nonzero_counter = Counter(value for value in values if value)
+        summaries.append(
+            {
+                "field": role,
+                "rows": len(values),
+                "zero_rows": counter[0],
+                "nonzero_rows": len(values) - counter[0],
+                "unique_nonzero_values": len(nonzero_counter),
+                "top_nonzero_values": top_counter_rows(nonzero_counter),
+            }
+        )
+    return summaries
+
+
+def build_event_palette_rows(fts: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = []
+    for entry in fts["entries"]:
+        checks = entry["setting_word_checks"]
+        if not bool(checks["event_palette_selector_present"]):
+            continue
+        rows.append(
+            {
+                "row_id": entry["row_id"],
+                "palette_id": int(entry["tileset_id"]),
+                "variant": int(entry["variant"]),
+                "event_flag": int(entry["setting_summary"]["event_flag"]),
+                "event_palette_selector_word": int(checks["event_palette_selector_word"]),
+                "sprite_palette": int(entry["setting_summary"]["sprite_palette"]),
+                "status": entry["status"],
+                "payload_shape_matches": entry["event_palette_payload"] is not None,
+            }
+        )
+    return rows
+
+
+def build_script_usage_top(command: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = []
+    for row in sorted(command["usage_by_palette_variant"], key=lambda item: (-int(item["hit_count"]), item["row_id"])):
+        rows.append(
+            {
+                "row_id": row["row_id"],
+                "palette_id": int(row["palette_id"]),
+                "variant": int(row["variant"]),
+                "hit_count": int(row["hit_count"]),
+                "durations": row["duration_frames"],
+                "segments": row["segments"],
+                "palette_contract_status": row["palette_contract_status"],
+                "event_flag": int(row["setting_summary"]["event_flag"]),
+                "has_event_palette": bool(row["setting_summary"]["has_event_palette"]),
+                "sprite_palette": int(row["setting_summary"]["sprite_palette"]),
+                "flash_effect": int(row["setting_summary"]["flash_effect"]),
+            }
+        )
+    return rows
+
+
 def build_contract(
     fts_path: Path,
     pointer_path: Path,
@@ -148,6 +228,7 @@ def build_contract(
         (int(row["palette_id"]), int(row["variant"]))
         for row in command["entries"]
     }
+    event_palette_rows = build_event_palette_rows(fts)
 
     descriptor_model = descriptor["summary"]["resolved_cgram_model"]
     if int(descriptor_model["da_map_palette_fit_overflow_cells"]) != 0:
@@ -186,6 +267,11 @@ def build_contract(
             "metadata_word_setting_mismatches": int(fts["summary"]["metadata_word_setting_mismatches"]),
             "script_palette_command_hits": int(command["summary"]["hit_count"]),
             "script_referenced_palette_variants": len(command_variant_keys),
+            "event_palette_selector_rows": len(event_palette_rows),
+            "event_palette_payload_shape_matches": int(fts["summary"]["event_palette_payload_shape_matches"]),
+            "script_referenced_event_palette_rows": sum(
+                1 for row in command["usage_by_palette_variant"] if row["setting_summary"]["has_event_palette"]
+            ),
             "descriptor_palettes_2_7_map_palette_cells": int(descriptor_model["map_palette_cell_count"]),
             "descriptor_palettes_0_1_text_palette_cells": int(descriptor_model["text_palette_cell_count"]),
             "da_map_palette_fit_overflow_cells": int(descriptor_model["da_map_palette_fit_overflow_cells"]),
@@ -193,6 +279,9 @@ def build_contract(
             "fts_status_counts": dict(sorted(status_counts.items())),
             "script_command_status_counts": dict(sorted(command_status_counts.items())),
         },
+        "metadata_word_summaries": build_metadata_summaries(fts),
+        "event_palette_rows": event_palette_rows,
+        "script_usage_top_variants": build_script_usage_top(command),
         "record_shape": {
             "struct": "da_map_palette_variant",
             "size": PALETTE_VARIANT_BYTES,
@@ -249,6 +338,9 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- metadata-word/setting mismatches: `{summary['metadata_word_setting_mismatches']}`",
         f"- script `CHANGE_MAP_PALETTE` hits: `{summary['script_palette_command_hits']}`",
         f"- script-referenced palette variants: `{summary['script_referenced_palette_variants']}`",
+        f"- event-palette selector rows: `{summary['event_palette_selector_rows']}`",
+        f"- event-palette payload shape matches: `{summary['event_palette_payload_shape_matches']}`",
+        f"- script-referenced event-palette rows: `{summary['script_referenced_event_palette_rows']}`",
         f"- DA descriptor-palette overflow cells: `{summary['da_map_palette_fit_overflow_cells']}`",
         "",
         "## Record Shape",
@@ -274,6 +366,38 @@ def render_markdown(contract: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            "## Metadata Word Summary",
+            "",
+            "| Field | Nonzero Rows | Unique Nonzero Values | Top Nonzero Values |",
+            "| --- | ---: | ---: | --- |",
+        ]
+    )
+    for row in contract["metadata_word_summaries"]:
+        top_values = ", ".join(f"`{item['value']}` x {item['count']}" for item in row["top_nonzero_values"]) or "-"
+        lines.append(
+            f"| `{row['field']}` | {row['nonzero_rows']} | {row['unique_nonzero_values']} | {top_values} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Event-Palette Rows",
+            "",
+            "Rows with an event-palette selector/payload are listed for source-emission targeting; selector dispatch semantics remain deferred.",
+            "",
+            "| Row ID | Palette ID | Variant | Event Flag | Selector Word | Sprite Palette | Status |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | --- |",
+        ]
+    )
+    for row in contract["event_palette_rows"]:
+        lines.append(
+            f"| `{row['row_id']}` | {row['palette_id']} | {row['variant']} | {row['event_flag']} | "
+            f"{row['event_palette_selector_word']} | {row['sprite_palette']} | `{row['status']}` |"
+        )
+
+    lines.extend(
+        [
+            "",
             "## Script Command Shape",
             "",
             "`CHANGE_MAP_PALETTE` uses `1F E1 word byte`; all parsed hits match the resolved DA/FTS palette rows.",
@@ -286,6 +410,24 @@ def render_markdown(contract: dict[str, Any]) -> str:
         model = str(field["model"]).replace("|", r"\|")
         lines.append(
             f"| `+0x{field['offset']:X}` | `{field['field']}` | {field['size']} | {model} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Script Usage Snapshot",
+            "",
+            "| Row ID | Palette ID | Variant | Hits | Durations | Segments | Event Palette | Status |",
+            "| --- | ---: | ---: | ---: | --- | --- | --- | --- |",
+        ]
+    )
+    for row in contract["script_usage_top_variants"]:
+        durations = ", ".join(f"`{item['duration']}`:{item['count']}" for item in row["durations"])
+        segments = ", ".join(f"`{item['segment']}`:{item['count']}" for item in row["segments"])
+        event_palette = "yes" if row["has_event_palette"] else "no"
+        lines.append(
+            f"| `{row['row_id']}` | {row['palette_id']} | {row['variant']} | {row['hit_count']} | "
+            f"{durations} | {segments} | {event_palette} | `{row['palette_contract_status']}` |"
         )
 
     lines.extend(

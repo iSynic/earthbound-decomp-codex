@@ -699,7 +699,8 @@
       ],
       "notes": [
         "Source payload path from ebsrc: audiopacks/4.ebm",
-        "Original file offset: 0x1FEC46"
+        "Original file offset: 0x1FEC46",
+        "DF:EC46 is also the zero-step sentinel target for empty landing palette-animation profiles; notes/df-landing-palette-animation-contracts.md preserves that numeric overlap without carving out a palette payload."
       ]
     },
     {
@@ -721,7 +722,8 @@
       "notes": [
         "Source include from ebsrc: data/map/palette_anim_pointer_table.asm",
         "Original file offset: 0x1FE4E1",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Source-emission split is tracked in notes/df-landing-palette-animation-contracts.md as the profile pointer table, 31 variable profile records, eight compressed payloads, and the DF:EC46 zero-step sentinel boundary."
       ]
     },
     {

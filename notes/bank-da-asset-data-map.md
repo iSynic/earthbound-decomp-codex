@@ -80,6 +80,13 @@ reserved metadata-word zeroing, descriptor palettes `2..7` fit the six DA
 subpalettes with zero overflow cells, and every parsed `CHANGE_MAP_PALETTE`
 command resolves to a DA palette id/variant pair.
 
+The generated DA subrecord contract also summarizes the metadata word
+distributions and script joins: 14 event-palette selector rows, 14 matching
+event-palette payload shapes, 23 nonzero sprite-palette metadata rows, 8
+nonzero flash-effect rows, and 33 parsed `CHANGE_MAP_PALETTE` hits across 15
+palette variants. These counts support field-preserving source emission while
+leaving event-palette selector dispatch semantics to a future runtime pass.
+
 ## Coverage Gaps
 
 | CPU span | File span | Bytes |
