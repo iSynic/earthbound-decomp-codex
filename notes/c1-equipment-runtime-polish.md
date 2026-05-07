@@ -114,6 +114,13 @@ item-name tile source, text-entry source/metadata, price-print source, and
 returned menu selection. The adjacent `C1:9D49` status refresh now names the
 comparison-marker reset index and E0 tile-block source pointer.
 
+Source polish follow-up (2026-05-07): the per-character equipment slot loop at
+`C1:A795` now names its selected character, selected family, inventory slot
+scan index, visible-row count, default row, item id, one-based character id,
+item-name tile source, text-entry source/metadata, item-selection result, and
+wallet decimal-print source. This keeps the equipment menu's row builder and
+preview-selection ABI aligned with the shop menu vocabulary above.
+
 ## Decomp Value
 
 This slice turns the editor-facing item/equipment vocabulary into concrete

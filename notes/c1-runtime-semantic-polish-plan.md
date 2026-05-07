@@ -741,3 +741,9 @@ This planning pass is documentation-only.
   shop menu builder distinguishes D5 shop-table selection, visible row index,
   item id, item-row pointer, staged item-name text entry, price-print source,
   comparison callback, and returned selection result.
+- 2026-05-07 follow-up: the per-character equipment slot loop at
+  `C1:A795..AA18` now uses the same source-facing row vocabulary. The pass
+  names the selected family, inventory scan index, visible-row count, default
+  row, item id, one-based character id, staged item-name text entry,
+  item-selection result, C2 preview callback lane, and wallet decimal-print
+  source without altering the C2/C3/C4 helper boundaries.
