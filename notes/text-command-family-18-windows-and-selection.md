@@ -69,6 +69,11 @@ slot snapshot helper before activating `slot + 4`; and `0x18 01/03/05/07/08/09/0
 return named callback low words for the open-window, switch-window,
 force-alignment, register-compare, window-selection, and status-display leaves.
 
+Source polish follow-up (2026-05-06): that dispatcher front now names the
+selector comparisons themselves too. The live `0x18` window-family ladder is
+source-facing for `00/01/02/03/04/05/06/07/08/09/0A/0D`, and the managed-slot
+branch names the saved callback-frame pointer it later writes at `+4`.
+
 Source polish follow-up (2026-05-06): the `0x18 07` comparison body at
 `C1:528D` now names the queued source bytes and callback return inside the leaf
 itself. The source reads `$97BA..$97BD` as the four assembled comparison bytes,

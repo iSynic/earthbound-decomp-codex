@@ -450,6 +450,12 @@ This planning pass is documentation-only.
   status-window display. See `notes/text-command-family-18-windows-and-selection.md`,
   `notes/text-command-family-19-data-and-substitution.md`, and
   `notes/text-command-load-string-pointer-c17796-c17889.md`.
+- 2026-05-06 follow-up: the same `C1:78F7..7AE3` bridge now names the live
+  `0x18` and `0x19` selector ladders directly. The pass covers the window
+  family selectors `00/01/02/03/04/05/06/07/08/09/0A/0D`, the data-return
+  selectors `02/04/05/10/11/14/16/18/19/1A/1B/1C/1D/1E/1F/20..28`, and the
+  callback-frame pointer used when the managed-slot snapshot branch marks the
+  frame active.
 - 2026-05-06 follow-up: the core `C1:86B1..8B2C` nested-text executor and
   callback invoker now names its principal helper-call and callback-root
   surface. The source names the managed-slot initialize/apply helpers,

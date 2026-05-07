@@ -132,6 +132,13 @@ the loaded-string collector entry for `0x19 02`, while the adjacent `C1:790B`
 window-family front now has named callback returns and named window/context
 helper calls.
 
+Source polish follow-up (2026-05-06): the `0x19` side of the same dispatcher
+now names its selector ladder in source. The comparisons cover the live
+data-return map from `0x19 02/04/05/10/11/14/16/18/19/1A/1B/1C/1D/1E/1F/20`
+through the `21..28` food, direction, condiment, landing, and statistic
+selector tail, so the helper-pointer table reads as a family dispatch instead
+of a numeric ladder.
+
 ## Best current case map
 
 ### `0x19 02`

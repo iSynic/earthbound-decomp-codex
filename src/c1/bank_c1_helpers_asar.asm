@@ -17101,6 +17101,7 @@ org $C178F7
 !LoadedStringValueByte3 = $09
 !TextContextSourcePointerLo = $0E
 !TextContextSourcePointerHi = $10
+!WindowFamilyCallbackFramePointer = $0E
 !LoadedStringByteBuffer = $97D7
 !LoadedStringQueueCount = $97CA
 !EscargoStorageItemBytes = $984B
@@ -17133,6 +17134,42 @@ org $C178F7
 !DisplayTextStatisticSelectorCharacterHelperPointer = $7B4C
 !DisplayTextSubstitutionSharedContinuation = $7B51
 !ReturnDisplayTextStaticPointer = $7B54
+!TextCommand1800CloseFocusWindowSubcommand = $0000
+!TextCommand1801OpenTextWindowSubcommand = $0001
+!TextCommand1802SnapshotManagedSlotSubcommand = $0002
+!TextCommand1803SwitchFocusedTextWindowSubcommand = $0003
+!TextCommand1804CloseAllWindowsSubcommand = $0004
+!TextCommand1805ForceTextAlignmentSubcommand = $0005
+!TextCommand1806ClearActiveWindowSubcommand = $0006
+!TextCommand1807CompareQueuedValueSubcommand = $0007
+!TextCommand1808SelectionNoCancelSubcommand = $0008
+!TextCommand1809SelectionSubcommand = $0009
+!TextCommand180ARefreshWalletOrStatusSubcommand = $000A
+!TextCommand180DStatusWindowDisplaySubcommand = $000D
+!TextCommand1902StartLoadedStringSubcommand = $0002
+!TextCommand1904ClearLoadedStringsSubcommand = $0004
+!TextCommand1905InflictStatusSubcommand = $0005
+!TextCommand1910GetCharacterNumberSubcommand = $0010
+!TextCommand1911GetCharacterNameLetterSubcommand = $0011
+!TextCommand1914ReadEscargoStorageByteAndAdvanceSubcommand = $0014
+!TextCommand1916GetCharacterStatusByteSubcommand = $0016
+!TextCommand1918GetExperienceNeededSubcommand = $0018
+!TextCommand1919GetInventorySlotItemSubcommand = $0019
+!TextCommand191AGetEscargoStorageItemSubcommand = $001A
+!TextCommand191BGetLoadedStringCountSubcommand = $001B
+!TextCommand191CQueueDeliveryPickupItemSubcommand = $001C
+!TextCommand191DReadDeliveryPickupQueueItemSubcommand = $001D
+!TextCommand191ELoadPointerSubstitutionSubcommand = $001E
+!TextCommand191FLoadByteSubstitutionSubcommand = $001F
+!TextCommand1920LoadMushroomizedSelectorSubcommand = $0020
+!TextCommand1921FoodCategorySubcommand = $0021
+!TextCommand1922CharacterToObjectDirectionSubcommand = $0022
+!TextCommand1923NpcToObjectDirectionSubcommand = $0023
+!TextCommand1924GeneratedSpriteDirectionSubcommand = $0024
+!TextCommand1925FoodCondimentSubcommand = $0025
+!TextCommand1926TransitionLandingSnapshotSubcommand = $0026
+!TextCommand1927StatisticSelectorValueSubcommand = $0027
+!TextCommand1928StatisticSelectorCharacterSubcommand = $0028
 !ZeroWord = $0000
 CC_19_02:
 !C178F7_StartLoadedStringInlineCollector = CC_19_02
@@ -17153,30 +17190,30 @@ CC_19_02:
     tcd
     pla
     tay
-    sty $0E
+    sty !WindowFamilyCallbackFramePointer
     txa
     beq C17954_StartLoadedStringInlineCollector_L7954
-    cmp.w #$0001
+    cmp.w #!TextCommand1801OpenTextWindowSubcommand
     beq C17959_StartLoadedStringInlineCollector_L7959
-    cmp.w #$0002
+    cmp.w #!TextCommand1802SnapshotManagedSlotSubcommand
     beq C1795E_StartLoadedStringInlineCollector_L795E
-    cmp.w #$0003
+    cmp.w #!TextCommand1803SwitchFocusedTextWindowSubcommand
     beq C17971_StartLoadedStringInlineCollector_L7971
-    cmp.w #$0004
+    cmp.w #!TextCommand1804CloseAllWindowsSubcommand
     beq C17976_StartLoadedStringInlineCollector_L7976
-    cmp.w #$0005
+    cmp.w #!TextCommand1805ForceTextAlignmentSubcommand
     beq C17982_StartLoadedStringInlineCollector_L7982
-    cmp.w #$0006
+    cmp.w #!TextCommand1806ClearActiveWindowSubcommand
     beq C17987_StartLoadedStringInlineCollector_L7987
-    cmp.w #$0007
+    cmp.w #!TextCommand1807CompareQueuedValueSubcommand
     beq C1798C_StartLoadedStringInlineCollector_L798C
-    cmp.w #$0008
+    cmp.w #!TextCommand1808SelectionNoCancelSubcommand
     beq C17991_StartLoadedStringInlineCollector_L7991
-    cmp.w #$0009
+    cmp.w #!TextCommand1809SelectionSubcommand
     beq C17996_StartLoadedStringInlineCollector_L7996
-    cmp.w #$000A
+    cmp.w #!TextCommand180ARefreshWalletOrStatusSubcommand
     beq C1799B_StartLoadedStringInlineCollector_L799B
-    cmp.w #$000D
+    cmp.w #!TextCommand180DStatusWindowDisplaySubcommand
     beq C179A0_StartLoadedStringInlineCollector_L79A0
     bra C179A5_StartLoadedStringInlineCollector_L79A5
 C17954_StartLoadedStringInlineCollector_L7954:
@@ -17191,7 +17228,7 @@ C1795E_StartLoadedStringInlineCollector_L795E:
     adc.w #$0006
     jsl !C20A20_SnapshotManagedTextEventSlotState
     lda.w #$0001
-    ldy $0E
+    ldy !WindowFamilyCallbackFramePointer
     sta $0004,Y
     bra C179A5_StartLoadedStringInlineCollector_L79A5
 C17971_StartLoadedStringInlineCollector_L7971:
@@ -17236,99 +17273,99 @@ C179A8_StartLoadedStringInlineCollector_L79A8:
     tcd
     pla
     txa
-    cmp.w #$0002
+    cmp.w #!TextCommand1902StartLoadedStringSubcommand
     bne C179BD_StartLoadedStringInlineCollector_L79BD
     jmp.w C17A78_StartLoadedStringInlineCollector_L7A78
 C179BD_StartLoadedStringInlineCollector_L79BD:
-    cmp.w #$0004
+    cmp.w #!TextCommand1904ClearLoadedStringsSubcommand
     bne C179C5_StartLoadedStringInlineCollector_L79C5
     jmp.w C17A7E_StartLoadedStringInlineCollector_L7A7E
 C179C5_StartLoadedStringInlineCollector_L79C5:
-    cmp.w #$0005
+    cmp.w #!TextCommand1905InflictStatusSubcommand
     bne C179CD_StartLoadedStringInlineCollector_L79CD
     jmp.w C17A84_StartLoadedStringInlineCollector_L7A84
 C179CD_StartLoadedStringInlineCollector_L79CD:
-    cmp.w #$0010
+    cmp.w #!TextCommand1910GetCharacterNumberSubcommand
     bne C179D5_StartLoadedStringInlineCollector_L79D5
     jmp.w C17A8A_StartLoadedStringInlineCollector_L7A8A
 C179D5_StartLoadedStringInlineCollector_L79D5:
-    cmp.w #$0011
+    cmp.w #!TextCommand1911GetCharacterNameLetterSubcommand
     bne C179DD_StartLoadedStringInlineCollector_L79DD
     jmp.w C17A90_StartLoadedStringInlineCollector_L7A90
 C179DD_StartLoadedStringInlineCollector_L79DD:
-    cmp.w #$0014
+    cmp.w #!TextCommand1914ReadEscargoStorageByteAndAdvanceSubcommand
     bne C179E5_StartLoadedStringInlineCollector_L79E5
     jmp.w C17A96_StartLoadedStringInlineCollector_L7A96
 C179E5_StartLoadedStringInlineCollector_L79E5:
-    cmp.w #$0016
+    cmp.w #!TextCommand1916GetCharacterStatusByteSubcommand
     bne C179ED_StartLoadedStringInlineCollector_L79ED
     jmp.w C17ABB_StartLoadedStringInlineCollector_L7ABB
 C179ED_StartLoadedStringInlineCollector_L79ED:
-    cmp.w #$0018
+    cmp.w #!TextCommand1918GetExperienceNeededSubcommand
     bne C179F5_StartLoadedStringInlineCollector_L79F5
     jmp.w C17AC1_StartLoadedStringInlineCollector_L7AC1
 C179F5_StartLoadedStringInlineCollector_L79F5:
-    cmp.w #$0019
+    cmp.w #!TextCommand1919GetInventorySlotItemSubcommand
     bne C179FD_StartLoadedStringInlineCollector_L79FD
     jmp.w C17AC7_StartLoadedStringInlineCollector_L7AC7
 C179FD_StartLoadedStringInlineCollector_L79FD:
-    cmp.w #$001A
+    cmp.w #!TextCommand191AGetEscargoStorageItemSubcommand
     bne C17A05_StartLoadedStringInlineCollector_L7A05
     jmp.w C17ACD_StartLoadedStringInlineCollector_L7ACD
 C17A05_StartLoadedStringInlineCollector_L7A05:
-    cmp.w #$001B
+    cmp.w #!TextCommand191BGetLoadedStringCountSubcommand
     bne C17A0D_StartLoadedStringInlineCollector_L7A0D
     jmp.w C17AD3_StartLoadedStringInlineCollector_L7AD3
 C17A0D_StartLoadedStringInlineCollector_L7A0D:
-    cmp.w #$001C
+    cmp.w #!TextCommand191CQueueDeliveryPickupItemSubcommand
     bne C17A15_StartLoadedStringInlineCollector_L7A15
     jmp.w C17AD9_StartLoadedStringInlineCollector_L7AD9
 C17A15_StartLoadedStringInlineCollector_L7A15:
-    cmp.w #$001D
+    cmp.w #!TextCommand191DReadDeliveryPickupQueueItemSubcommand
     bne C17A1D_StartLoadedStringInlineCollector_L7A1D
     jmp.w C17ADE_StartLoadedStringInlineCollector_L7ADE
 C17A1D_StartLoadedStringInlineCollector_L7A1D:
-    cmp.w #$001E
+    cmp.w #!TextCommand191ELoadPointerSubstitutionSubcommand
     bne C17A25_StartLoadedStringInlineCollector_L7A25
     jmp !LoadPointerSubstitutionSlotHelper
 C17A25_StartLoadedStringInlineCollector_L7A25:
-    cmp.w #$001F
+    cmp.w #!TextCommand191FLoadByteSubstitutionSubcommand
     bne C17A2D_StartLoadedStringInlineCollector_L7A2D
     jmp !LoadByteSubstitutionSlotHelper
 C17A2D_StartLoadedStringInlineCollector_L7A2D:
-    cmp.w #$0020
+    cmp.w #!TextCommand1920LoadMushroomizedSelectorSubcommand
     bne C17A35_StartLoadedStringInlineCollector_L7A35
     jmp !LoadMushroomizedSelectorByteHelper
 C17A35_StartLoadedStringInlineCollector_L7A35:
-    cmp.w #$0021
+    cmp.w #!TextCommand1921FoodCategorySubcommand
     bne C17A3D_StartLoadedStringInlineCollector_L7A3D
     jmp !DisplayTextFoodCategoryHelperPointer
 C17A3D_StartLoadedStringInlineCollector_L7A3D:
-    cmp.w #$0022
+    cmp.w #!TextCommand1922CharacterToObjectDirectionSubcommand
     bne C17A45_StartLoadedStringInlineCollector_L7A45
     jmp !DisplayTextCharacterToObjectDirectionHelperPointer
 C17A45_StartLoadedStringInlineCollector_L7A45:
-    cmp.w #$0023
+    cmp.w #!TextCommand1923NpcToObjectDirectionSubcommand
     bne C17A4D_StartLoadedStringInlineCollector_L7A4D
     jmp !DisplayTextNpcToObjectDirectionHelperPointer
 C17A4D_StartLoadedStringInlineCollector_L7A4D:
-    cmp.w #$0024
+    cmp.w #!TextCommand1924GeneratedSpriteDirectionSubcommand
     bne C17A55_StartLoadedStringInlineCollector_L7A55
     jmp !DisplayTextGeneratedSpriteDirectionHelperPointer
 C17A55_StartLoadedStringInlineCollector_L7A55:
-    cmp.w #$0025
+    cmp.w #!TextCommand1925FoodCondimentSubcommand
     bne C17A5D_StartLoadedStringInlineCollector_L7A5D
     jmp !DisplayTextFoodCondimentHelperPointer
 C17A5D_StartLoadedStringInlineCollector_L7A5D:
-    cmp.w #$0026
+    cmp.w #!TextCommand1926TransitionLandingSnapshotSubcommand
     bne C17A65_StartLoadedStringInlineCollector_L7A65
     jmp !DisplayTextTransitionLandingSnapshotHelperPointer
 C17A65_StartLoadedStringInlineCollector_L7A65:
-    cmp.w #$0027
+    cmp.w #!TextCommand1927StatisticSelectorValueSubcommand
     bne C17A6D_StartLoadedStringInlineCollector_L7A6D
     jmp !DisplayTextStatisticSelectorValueHelperPointer
 C17A6D_StartLoadedStringInlineCollector_L7A6D:
-    cmp.w #$0028
+    cmp.w #!TextCommand1928StatisticSelectorCharacterSubcommand
     bne C17A75_StartLoadedStringInlineCollector_L7A75
     jmp !DisplayTextStatisticSelectorCharacterHelperPointer
 C17A75_StartLoadedStringInlineCollector_L7A75:
