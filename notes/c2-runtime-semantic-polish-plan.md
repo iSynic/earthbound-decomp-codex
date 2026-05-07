@@ -842,6 +842,12 @@ contract notes for C0/C1/C3/C4 consumers.
   `EF:7DD5` item-name text. See
   `notes/c2-hit-resolution-status-runtime-polish.md` and
   `notes/c2-battle-start-payload-join-runtime-polish.md`.
+- 2026-05-06 one hundred and ninth slice: tightened the local bounded-random
+  math under `C2:6A2D` / `GetRandomBelow`. The Magic Butterfly source now names
+  `C0:9086` as `MultiplyLongByLong_ViaHardwareRegisters` and `C0:926C` as
+  `ShiftUnsignedLongRightByY` inside `C2:69F8`, making the shared scaler read
+  as `floor(random_byte * limit / 256)`. See
+  `notes/c2-instant-win-and-magic-butterfly-helpers-c26189-c2654c.md`.
 
 ## Validation
 

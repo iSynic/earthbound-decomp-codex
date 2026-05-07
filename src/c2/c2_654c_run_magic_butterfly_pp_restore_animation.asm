@@ -15,6 +15,8 @@ C08756_AdvanceFrameOrFlushUpload     = $C08756
 C08E9A_GetRandom16                   = $C08E9A
 C08EED_CopyToLocalTileBuffer         = $C08EED
 C08FF7_ResolveIndexedPointerOffset   = $C08FF7
+C09086_MultiplyLongByLong_ViaHardwareRegisters = $C09086
+C0926C_ShiftUnsignedLongRightByY      = $C0926C
 C0ABE0_SetupVisualPass               = $C0ABE0
 C12DD5_WindowTick                    = $C12DD5
 C426ED_AdvanceEventFrame             = $C426ED
@@ -698,10 +700,11 @@ C269F8_RunMagicButterflyPpRestoreAnimation_L69F8 = TRUNCATE_16_TO_8
     stz $08
     stz $09
     rep #$20
-    jsl $C09086
+    ; Return floor(A_byte * X_limit / 256), used by GetRandomBelow.
+    jsl C09086_MultiplyLongByLong_ViaHardwareRegisters
     sep #$10
     ldy.b #$08
-    jsl $C0926C
+    jsl C0926C_ShiftUnsignedLongRightByY
     lda $06
     rep #$10
     pld
