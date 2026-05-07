@@ -101,6 +101,13 @@ local owner/context/index pointer; and active-context record offsets
 character fields. The result is source-facing only: existing `0x1A` menu-family
 helper calls and return behavior are unchanged.
 
+Source polish follow-up (2026-05-06): the front `0x1A 05/06` menu leaves in
+`C1:4EAB..575D` now use the same source-facing caller vocabulary. The shop-menu
+result path stages its selected item through named `$0E/$10` text-context
+source aliases, while the inventory-menu leaf keeps the deferred character
+queue separate from the preserved window and character arguments used around
+Escargo-window cleanup and inventory-row rendering.
+
 ## Best current case map
 
 ### `0x1A 00`

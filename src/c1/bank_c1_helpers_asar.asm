@@ -10663,6 +10663,10 @@ org $C14EAB
 !WorkValueByte3 = $09
 !TextContextSourcePointerLo = $0E
 !TextContextSourcePointerHi = $10
+!DecimalSourcePointerLo = $0E
+!DecimalSourcePointerHi = $10
+!DisplayInventoryMenuWindowArgument = $0E
+!DisplayInventoryMenuCharacterArgument = $10
 !StatusGroupSelector = $12
 !StatusTargetSelector = $14
 !StatusEffectValue = $02
@@ -10722,9 +10726,9 @@ C14EDB_C14EAB_HandleTextCommand10ParameterizedPause_L4EDB:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $8958
     jsr !C1007E_SetFocusWindowOrContext
@@ -10757,9 +10761,9 @@ C14F0F_C14EAB_HandleTextCommand10ParameterizedPause_L4F0F:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -10791,9 +10795,9 @@ C14F4A_C14EAB_HandleTextCommand10ParameterizedPause_L4F4A:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -10848,9 +10852,9 @@ C14FBD_C14EAB_HandleTextCommand10ParameterizedPause_L4FBD:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C14FD5_C14EAB_HandleTextCommand10ParameterizedPause_L4FD5:
@@ -11076,9 +11080,9 @@ C15150_C14EAB_HandleTextCommand10ParameterizedPause_L5150:
     dec $08
 C1515B_C14EAB_HandleTextCommand10ParameterizedPause_L515B:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15169_C14EAB_HandleTextCommand10ParameterizedPause_L5169:
@@ -11150,9 +11154,9 @@ C151E8_C14EAB_HandleTextCommand10ParameterizedPause_L51E8:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -11223,9 +11227,9 @@ C15279_C14EAB_HandleTextCommand10ParameterizedPause_L5279:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -11351,9 +11355,9 @@ C1536C_C14EAB_HandleTextCommand10ParameterizedPause_L536C:
     dec $08
 C15374_C14EAB_HandleTextCommand10ParameterizedPause_L5374:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15382_C14EAB_HandleTextCommand10ParameterizedPause_L5382:
@@ -11497,9 +11501,9 @@ C1547F_C14EAB_HandleTextCommand10ParameterizedPause_L547F:
     jsr !C103DC_ReadTextCommandArgumentWord
 C15484_C14EAB_HandleTextCommand10ParameterizedPause_L5484:
     lda $06
-    sta $0E
+    sta !DecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !DecimalSourcePointerHi
     jsr !C10DF6_PrintDecimalValueFromCallerPointer
     lda.w #$0000
 C15492_C14EAB_HandleTextCommand10ParameterizedPause_L5492:
@@ -11521,9 +11525,9 @@ CC_1A_05:
     adc.w #$FFEE
     tcd
     pla
-    stx $10
+    stx !DisplayInventoryMenuCharacterArgument
     tay
-    sty $0E
+    sty !DisplayInventoryMenuWindowArgument
     lda.w #$0001
     clc
     sbc !DeferredCommandQueueCount
@@ -11562,7 +11566,7 @@ C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF:
     stz $0010,X
     tax
     stz $000E,X
-    ldy $0E
+    ldy !DisplayInventoryMenuWindowArgument
     tya
     clc
     adc.w #$0006
@@ -11570,7 +11574,7 @@ C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF:
     sep #$20
     stz $5E71
 C15511_C14EAB_HandleTextCommand10ParameterizedPause_L5511:
-    ldx $10
+    ldx !DisplayInventoryMenuCharacterArgument
     beq C1551A_C14EAB_HandleTextCommand10ParameterizedPause_L551A
     rep #$20
     txa
@@ -11600,9 +11604,9 @@ CC_18_08:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -11622,9 +11626,9 @@ CC_18_09:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -11741,9 +11745,9 @@ C15643_C14EAB_HandleTextCommand10ParameterizedPause_L5643:
     jsr !C103DC_ReadTextCommandArgumentWord
 C15648_C14EAB_HandleTextCommand10ParameterizedPause_L5648:
     lda $06
-    sta $0E
+    sta !DecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !DecimalSourcePointerHi
     jsl !C4507A_PrintRightAlignedDecimalValueInActiveWindow
     lda.w #$0000
 C15657_C14EAB_HandleTextCommand10ParameterizedPause_L5657:
@@ -11803,18 +11807,18 @@ C156A7_C14EAB_HandleTextCommand10ParameterizedPause_L56A7:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     ldx $12
     txa
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C156D9_C14EAB_HandleTextCommand10ParameterizedPause_L56D9:
@@ -11875,9 +11879,9 @@ C15728_C14EAB_HandleTextCommand10ParameterizedPause_L5728:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     ldy $12
     tyx
@@ -11886,9 +11890,9 @@ C15728_C14EAB_HandleTextCommand10ParameterizedPause_L5728:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C1575B_C14EAB_HandleTextCommand10ParameterizedPause_L575B:

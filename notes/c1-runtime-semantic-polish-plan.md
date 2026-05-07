@@ -379,6 +379,15 @@ This planning pass is documentation-only.
   `notes/text-command-family-1d-inventory-money.md`,
   `notes/text-command-family-19-data-and-substitution.md`, and
   `notes/jeff-repair-item-name-bridge.md`.
+- 2026-05-06 follow-up: the same `C1:4EAB..575D` corridor now names the
+  remaining caller-frame scratch ABI at the menu/result/display handoffs.
+  Shop selection, buy/sell price, item compatibility, ailment checks,
+  special selector loaders, window-relative selections, give-item-B,
+  remove-by-slot, and numeric/money display now install through named
+  text-context or decimal source pointer aliases instead of raw `$0E/$10`.
+  The `0x1A 05` inventory-menu leaf also distinguishes its preserved window
+  argument from the preserved character argument while leaving descriptor
+  field offsets untouched.
 - 2026-05-06 follow-up: the adjacent `C1:575D..621F` inventory, money, and
   delivery-helper corridor now has no raw helper-call edges. The pass names
   equipped-item reference checks, inventory-slot item reads, compatibility and

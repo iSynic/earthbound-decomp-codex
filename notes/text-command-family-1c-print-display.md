@@ -86,6 +86,13 @@ caller byte before falling back to the next text argument when that assembled
 value is zero; their callback low words are now source aliases rather than raw
 `C1:53AF` / `C1:5573` literals.
 
+Follow-up source polish now carries that display contract into the caller-frame
+scratch slots as well. In `C1:4EAB..575D`, `PRINT_NUMBER` and
+`PRINT_MONEY_AMOUNT` hand their assembled or fallback values to the decimal
+printers through named `$0E/$10` decimal-source aliases, while the adjacent
+`0x1C 14/15` special-selector loaders and `0x18 08/09` selection helpers
+install their results through named text-context source aliases.
+
 Follow-up source polish now names the `0x1C 13` battle visual-effect staging
 leaf in `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm`. The
 source exposes the queued visual token, actor selector, blinking-prompt gate,

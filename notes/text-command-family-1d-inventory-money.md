@@ -147,6 +147,15 @@ selector for give/take item wrappers. The adjacent `0x1D 0D/0E/0F` leaves in
 and remove-by-slot staging, so the source shows the queue contract instead of
 bare `$97BA/$97CA` and low-word self-return literals.
 
+Source polish follow-up (2026-05-06): the adjacent `C1:4EAB..575D` leaves now
+also expose their result handoff slots. `0x1D 0A/0B`, `0x1D 0D`, `0x1D 0E`,
+and `0x1D 0F` stage buy/sell price, ailment predicate, inserted item slot,
+destination character, removed item id, and removal result through named
+text-context source pointer aliases before primary or secondary context
+installation. This aligns the inventory/money family with the shared
+`$06/$08 -> $0E/$10` caller contract used by the surrounding menu and display
+leaves.
+
 Source polish follow-up (2026-05-06): the remaining front possession-selector
 wrappers now use the same vocabulary. `0x1D 04`, `0x1D 05`, and adjacent
 `0x1F 20` queue their one-byte character/source selector in `$97BA`, count it
