@@ -735,3 +735,9 @@ This planning pass is documentation-only.
   text-print, decimal, fixed-string, text-entry metadata, queue index, item id,
   and selection-result handoffs while preserving all existing C1 helper
   boundaries.
+- 2026-05-07 follow-up: the shop/equipment menu join at `C1:9D49..9EE6` now
+  names its local menu-row and item-row ABI. The status refresh exposes its
+  comparison-marker reset index and E0 tile-block source pointer, while the
+  shop menu builder distinguishes D5 shop-table selection, visible row index,
+  item id, item-row pointer, staged item-name text entry, price-print source,
+  comparison callback, and returned selection result.

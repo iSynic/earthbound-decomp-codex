@@ -108,6 +108,12 @@ slots, the per-character equipment loop stages the four C2 preview callbacks
 through named `C1:1F5A` preview-callback slots, and the shop menu names the
 `C1:9B4E` comparison callback install before the shared selection loop.
 
+Source polish follow-up (2026-05-07): the shop item menu builder at
+`C1:9DB5` now names its local row/table selector, item id, item-row pointer,
+item-name tile source, text-entry source/metadata, price-print source, and
+returned menu selection. The adjacent `C1:9D49` status refresh now names the
+comparison-marker reset index and E0 tile-block source pointer.
+
 ## Decomp Value
 
 This slice turns the editor-facing item/equipment vocabulary into concrete

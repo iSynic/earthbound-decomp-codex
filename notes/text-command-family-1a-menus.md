@@ -114,6 +114,12 @@ Escargo storage queue index, item id, text-entry source, and returned selection
 result, while `C1:9441` names the phone-contact entry index, resolved contact
 record offset, title/tile sources, and direct text-entry metadata handoff.
 
+Source polish follow-up (2026-05-07): the shop-menu builder behind `0x1A 06`
+now carries the same local vocabulary. `C1:9DB5` names the D5 shop-table
+selector, visible row index, staged item id, item-row pointer, text-entry
+source/metadata, printed-price source, and final selection result before the
+shared menu selection loop returns to the text command family.
+
 ## Best current case map
 
 ### `0x1A 00`
