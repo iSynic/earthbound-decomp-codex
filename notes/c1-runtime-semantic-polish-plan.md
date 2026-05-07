@@ -728,3 +728,10 @@ This planning pass is documentation-only.
   before calling `C1:1F5A`, `C1:196A`, or `C1:27EF`. This keeps the shared
   menu/selection helper contracts readable without splitting the mixed
   character-prompt core or changing any cross-bank names.
+- 2026-05-06 follow-up: the adjacent menu/display builders at
+  `C1:9441..9B4E` now expose their local source-pointer and scratch-slot ABI.
+  Phone contacts, character status, inventory/equipment rows, the temporary
+  focus selector, and the Escargo storage menu now distinguish title, tile,
+  text-print, decimal, fixed-string, text-entry metadata, queue index, item id,
+  and selection-result handoffs while preserving all existing C1 helper
+  boundaries.

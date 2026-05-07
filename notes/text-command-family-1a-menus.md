@@ -108,6 +108,12 @@ source aliases, while the inventory-menu leaf keeps the deferred character
 queue separate from the preserved window and character arguments used around
 Escargo-window cleanup and inventory-row rendering.
 
+Source polish follow-up (2026-05-06): the direct menu builders behind
+`0x1A 07/0A` now expose their caller-local contracts too. `C1:9A43` names the
+Escargo storage queue index, item id, text-entry source, and returned selection
+result, while `C1:9441` names the phone-contact entry index, resolved contact
+record offset, title/tile sources, and direct text-entry metadata handoff.
+
 ## Best current case map
 
 ### `0x1A 00`

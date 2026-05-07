@@ -40,15 +40,24 @@ selection prompt used by the ally-targeting branch of C1:ADB4.
 
 ## Promotion Boundary
 
-This slice promotes comments and local runtime wording only. It does not decode
-the adjacent phone contact/status-window helpers after C1:9437, and it leaves
-the exact C4:5963 label text names to a later asset/text-table pass.
+This slice promotes comments and local runtime wording only. The adjacent phone
+contact/status-window helpers after C1:9437 now have source-facing local ABI
+names, but the exact C4:5963 label text names remain deferred to a later
+asset/text-table pass.
 
 Source polish follow-up (2026-05-06): the adjacent
 `src/c1/c1_9437_close_target_selection_prompt_label.asm` status-window block
 now names its `C4:599A` required-experience helper edge as
 `C4599A_StoreRequiredExperienceRemainingForCharacter`. The target-prompt close
 and adjacent status-window helper unit now has no raw helper-call edges.
+
+Source polish follow-up (2026-05-06): the same adjacent source unit now names
+the local caller ABI for the phone-contact menu, character status window, and
+inventory/equipment row renderer. `$0E/$10` handoffs are split by role into
+window-title, dynamic-tile-block, text-print, decimal-print, fixed-string, and
+text-entry source pointers; `$12/$14` are named where they seed text-entry
+metadata; and the status/equipment and inventory row scratch slots now expose
+their character, row, item, and window-index meanings.
 
 ## Validation
 

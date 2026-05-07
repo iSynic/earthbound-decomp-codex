@@ -23392,6 +23392,42 @@ org $C19437
 !C43D75_StageGlyphVariantTileState = $C43D75
 !C43F77_PrintGlyphWithTileCleanupSoundDelay = $C43F77
 !C4599A_StoreRequiredExperienceRemainingForCharacter = $C4599A
+!PhoneContactSelectionResult = $02
+!PhoneContactEntryIndex = $18
+!PhoneContactRecordOffset = $16
+!PhoneContactTileBlockSourcePointerLo = $0E
+!PhoneContactTileBlockSourcePointerBank = $10
+!PhoneContactWindowTitleSourcePointerLo = $0E
+!PhoneContactWindowTitleSourcePointerBank = $10
+!PhoneContactTextEntrySourcePointerLo = $0E
+!PhoneContactTextEntrySourcePointerBank = $10
+!PhoneContactTextEntryMetadataLo = $12
+!PhoneContactTextEntryMetadataHi = $14
+!StatusWindowCharacterIndex = $02
+!StatusWindowCharacterRecordOffset = $13
+!StatusWindowEquipmentRowIndex = $13
+!StatusWindowEquipmentByte = $12
+!StatusWindowEquipmentSlotOffset = $04
+!StatusWindowTextPrintSourcePointerLo = $0E
+!StatusWindowTextPrintSourcePointerBank = $10
+!StatusWindowTitleSourcePointerLo = $0E
+!StatusWindowTitleSourcePointerBank = $10
+!StatusWindowDecimalSourcePointerLo = $0E
+!StatusWindowDecimalSourcePointerHi = $10
+!StatusWindowFixedStringSourcePointerLo = $0E
+!StatusWindowFixedStringSourcePointerBank = $10
+!InventoryRowsSlotIndex = $02
+!InventoryRowsCharacterIndex = $04
+!InventoryRowsWindowId = $18
+!InventoryRowsItemId = $16
+!InventoryRowsTitleSourcePointerLo = $0E
+!InventoryRowsTitleSourcePointerBank = $10
+!InventoryRowsTileBlockSourcePointerLo = $0E
+!InventoryRowsTileBlockSourcePointerBank = $10
+!InventoryRowsTextEntrySourcePointerLo = $0E
+!InventoryRowsTextEntrySourcePointerBank = $10
+!InventoryRowsTextEntryMetadataLo = $12
+!InventoryRowsTextEntryMetadataHi = $14
 C19437_CloseTargetSelectionPromptLabel:
     rep #$31
     lda.w #$0028
@@ -23404,23 +23440,23 @@ C19441_BuildPhoneContactSelectionMenu:
     adc.w #$FFE6
     tcd
     lda.w #$0000
-    sta $02
+    sta !PhoneContactSelectionResult
     lda.w #$9C8A
     jsl !C20A20_SnapshotManagedTextEventSlotState
     lda.w #$0007
     jsr CREATE_WINDOW
     lda.w #$5995
-    sta $0E
+    sta !PhoneContactWindowTitleSourcePointerLo
     lda.w #$00C4
-    sta $10
+    sta !PhoneContactWindowTitleSourcePointerBank
     ldx.w #$0005
     lda.w #$0007
     jsl !C2032B_WriteWindowTitleAndUpload
     ldy.w #$0001
-    sty $18
+    sty !PhoneContactEntryIndex
     bra C194D9_c1_9437_target_selection_bridge_L94D9
 C19476_c1_9437_target_selection_bridge_L9476:
-    lda $16
+    lda !PhoneContactRecordOffset
     clc
     adc.w #$0019
     clc
@@ -23435,9 +23471,9 @@ C19476_c1_9437_target_selection_bridge_L9476:
     lda $0C
     sta $08
     lda $06
-    sta $0E
+    sta !PhoneContactTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta !PhoneContactTileBlockSourcePointerBank
     ldx.w #$0019
     lda.w #$9C9F
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
@@ -23453,20 +23489,20 @@ C19476_c1_9437_target_selection_bridge_L9476:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !PhoneContactTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !PhoneContactTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta !PhoneContactTextEntryMetadataLo
     lda.w #$0000
-    sta $14
-    ldy $18
+    sta !PhoneContactTextEntryMetadataHi
+    ldy !PhoneContactEntryIndex
     tya
     jsr !C115F4_CreateTypedTextEntryRecordDirect
 C194D4_c1_9437_target_selection_bridge_L94D4:
-    ldy $18
+    ldy !PhoneContactEntryIndex
     iny
-    sty $18
+    sty !PhoneContactEntryIndex
 C194D9_c1_9437_target_selection_bridge_L94D9:
     lda.w #$7A8F
     sta $06
@@ -23475,7 +23511,7 @@ C194D9_c1_9437_target_selection_bridge_L94D9:
     tya
     ldy.w #$001F
     jsl !C08FF7_ResolveIndexedPointerOffset
-    sta $16
+    sta !PhoneContactRecordOffset
     ldx $06
     stx $0A
     ldx $08
@@ -23498,12 +23534,12 @@ C19504_c1_9437_target_selection_bridge_L9504:
     jsr !C1180D_LayoutActiveTextEntriesAndRefresh
     lda.w #$0001
     jsr !C1196A_RunActiveTextEntrySelectionMenu
-    sta $02
+    sta !PhoneContactSelectionResult
 C19521_c1_9437_target_selection_bridge_L9521:
     jsr CLOSE_FOCUS_WINDOW
     lda.w #$9C8A
     jsl !C20ABC_RestoreManagedTextEventSlotState
-    lda $02
+    lda !PhoneContactSelectionResult
     pld
     rts
 C1952F_RenderCharacterStatusWindowBlock:
@@ -23516,7 +23552,7 @@ C1952F_RenderCharacterStatusWindowBlock:
     pla
     tax
     dec A
-    sta $02
+    sta !StatusWindowCharacterIndex
     jsl !C3E4D4_SetInstantPrinting
     lda.w #$0008
     jsr CREATE_WINDOW
@@ -23524,9 +23560,9 @@ C1952F_RenderCharacterStatusWindowBlock:
     lda.w #$0001
     sta $5E71
     lda.w #$A3B6
-    sta $0E
+    sta !StatusWindowTextPrintSourcePointerLo
     lda.w #$00EF
-    sta $10
+    sta !StatusWindowTextPrintSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     stz $5E71
     lda $98A4
@@ -23536,11 +23572,11 @@ C1952F_RenderCharacterStatusWindowBlock:
     lda.w #$0008
     sta $5E7A
 C19573_c1_9437_target_selection_bridge_L9573:
-    lda $02
+    lda !StatusWindowCharacterIndex
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
     tay
-    sty $13
+    sty !StatusWindowCharacterRecordOffset
     tya
     clc
     adc.w #$99CE
@@ -23552,9 +23588,9 @@ C19573_c1_9437_target_selection_bridge_L9573:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowTitleSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowTitleSourcePointerBank
     ldx.w #$0005
     lda.w #$0008
     jsl !C2032B_WriteWindowTitleAndUpload
@@ -23564,7 +23600,7 @@ C19573_c1_9437_target_selection_bridge_L9573:
     ldx.w #$0000
     lda.w #$0026
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99D3,Y
     sta $06
@@ -23573,23 +23609,23 @@ C19573_c1_9437_target_selection_bridge_L9573:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     lda.w #$0002
     jsr !C10EB4_SetActiveWindowTextModeByte
     ldx.w #$0003
     lda.w #$005E
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     lda $9A13,Y
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0003
     lda.w #$0072
@@ -23599,26 +23635,26 @@ C19573_c1_9437_target_selection_bridge_L9573:
     ldx.w #$0003
     lda.w #$0079
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     lda $99D8,Y
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$005E
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     lda $9A19,Y
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$0072
@@ -23629,19 +23665,19 @@ C19651_RenderCharacterStatusDerivedStats:
     ldx.w #$0004
     lda.w #$0079
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     lda $99DA,Y
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0000
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E3,Y
     sta $06
@@ -23650,14 +23686,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0001
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E4,Y
     sta $06
@@ -23666,14 +23702,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0002
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E5,Y
     sta $06
@@ -23682,14 +23718,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0003
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E6,Y
     sta $06
@@ -23698,14 +23734,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E8,Y
     sta $06
@@ -23714,14 +23750,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0005
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E9,Y
     sta $06
@@ -23730,14 +23766,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0006
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E7,Y
     sta $06
@@ -23746,16 +23782,16 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     lda.w #$0006
     jsr !C10EB4_SetActiveWindowTextModeByte
     ldx.w #$0005
     lda.w #$0061
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     tya
     clc
     adc.w #$99D4
@@ -23785,42 +23821,42 @@ C197B6_c1_9437_target_selection_bridge_L97B6:
     sta $08
 C197BE_c1_9437_target_selection_bridge_L97BE:
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0006
     lda.w #$000A
     jsl !C43D75_StageGlyphVariantTileState
-    lda $02
+    lda !StatusWindowCharacterIndex
     inc A
     jsl !C4599A_StoreRequiredExperienceRemainingForCharacter
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     stz $5E71
     ldx.w #$0000
-    stx $13
+    stx !StatusWindowEquipmentRowIndex
     jmp.w C19882_c1_9437_target_selection_bridge_L9882
 C197F0_c1_9437_target_selection_bridge_L97F0:
-    stx $04
-    lda $02
+    stx !StatusWindowEquipmentSlotOffset
+    lda !StatusWindowCharacterIndex
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$99DC
     clc
-    adc $04
+    adc !StatusWindowEquipmentSlotOffset
     tax
     sep #$20
     lda $0000,X
-    sta $12
+    sta !StatusWindowEquipmentByte
     rep #$20
     and.w #$00FF
     beq C1987D_c1_9437_target_selection_bridge_L987D
-    ldx $13
+    ldx !StatusWindowEquipmentRowIndex
     txa
     beq C19822_c1_9437_target_selection_bridge_L9822
     cmp.w #$0001
@@ -23833,7 +23869,7 @@ C19822_c1_9437_target_selection_bridge_L9822:
     sta $06
     lda.w #$00C4
     sta $08
-    lda $12
+    lda !StatusWindowEquipmentByte
     and.w #$00FF
     dec A
     asl A
@@ -23849,7 +23885,7 @@ C1983D_c1_9437_target_selection_bridge_L983D:
     sta $06
     lda.w #$00C4
     sta $08
-    lda $12
+    lda !StatusWindowEquipmentByte
     and.w #$00FF
     asl A
     asl A
@@ -23871,16 +23907,16 @@ C19865_c1_9437_target_selection_bridge_L9865:
     txa
     jsl !C438A5_SetActiveWindowDescriptorCursorFields
     lda $06
-    sta $0E
+    sta !StatusWindowFixedStringSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowFixedStringSourcePointerBank
     lda.w #$0100
     jsr PRINT_STRING
     bra C1988C_c1_9437_target_selection_bridge_L988C
 C1987D_c1_9437_target_selection_bridge_L987D:
-    ldx $13
+    ldx !StatusWindowEquipmentRowIndex
     inx
-    stx $13
+    stx !StatusWindowEquipmentRowIndex
 C19882_c1_9437_target_selection_bridge_L9882:
     cpx.w #$0007
     bcs C1988C_c1_9437_target_selection_bridge_L988C
@@ -23891,14 +23927,14 @@ C1988C_c1_9437_target_selection_bridge_L988C:
     lda.w #$000B
     jsl !C438A5_SetActiveWindowDescriptorCursorFields
     ldx.w #$0000
-    lda $02
+    lda !StatusWindowCharacterIndex
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$99DC
     jsl !C223D9_LookupStatusTileValueForHpPpWindow
     jsl !C43F77_PrintGlyphWithTileCleanupSoundDelay
-    lda $02
+    lda !StatusWindowCharacterIndex
     cmp.w #$0002
     beq C198D8_c1_9437_target_selection_bridge_L98D8
     lda.w #$0001
@@ -23907,9 +23943,9 @@ C1988C_c1_9437_target_selection_bridge_L988C:
     lda.w #$0024
     jsl !C43D75_StageGlyphVariantTileState
     lda.w #$5B4D
-    sta $0E
+    sta !StatusWindowFixedStringSourcePointerLo
     lda.w #$00C4
-    sta $10
+    sta !StatusWindowFixedStringSourcePointerBank
     lda.w #$0023
     jsr PRINT_STRING
     stz $5E71
@@ -23927,20 +23963,20 @@ INVENTORY_GET_ITEM_NAME:
     tcd
     pla
     txy
-    sty $18
+    sty !InventoryRowsWindowId
     tax
     dec A
-    sta $04
+    sta !InventoryRowsCharacterIndex
     tya
     jsr CREATE_WINDOW
     lda $98A4
     and.w #$00FF
     cmp.w #$0001
     beq C19903_c1_9437_target_selection_bridge_L9903
-    ldy $18
+    ldy !InventoryRowsWindowId
     sty $5E7A
 C19903_c1_9437_target_selection_bridge_L9903:
-    lda $04
+    lda !InventoryRowsCharacterIndex
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
@@ -23953,32 +23989,32 @@ C19903_c1_9437_target_selection_bridge_L9903:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !InventoryRowsTitleSourcePointerLo
     lda $08
-    sta $10
+    sta !InventoryRowsTitleSourcePointerBank
     ldx.w #$0005
-    ldy $18
+    ldy !InventoryRowsWindowId
     tya
     jsl !C2032B_WriteWindowTitleAndUpload
     lda.w #$0000
-    sta $02
+    sta !InventoryRowsSlotIndex
     jmp.w C199EF_c1_9437_target_selection_bridge_L99EF
 C19936_c1_9437_target_selection_bridge_L9936:
-    lda $04
+    lda !InventoryRowsCharacterIndex
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$99F1
     clc
-    adc $02
+    adc !InventoryRowsSlotIndex
     tax
     lda $0000,X
     and.w #$00FF
     tay
-    sty $16
-    ldx $02
+    sty !InventoryRowsItemId
+    ldx !InventoryRowsSlotIndex
     inx
-    lda $04
+    lda !InventoryRowsCharacterIndex
     inc A
     jsl !C3E9A0_CheckEquippedInventorySlotReference
     cmp.w #$0000
@@ -23991,16 +24027,16 @@ C19936_c1_9437_target_selection_bridge_L9936:
     sta $06
     lda.w #$00D5
     sta $08
-    ldy $16
+    ldy !InventoryRowsItemId
     tya
     ldy.w #$0027
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !InventoryRowsTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta !InventoryRowsTileBlockSourcePointerBank
     ldx.w #$0019
     lda.w #$9CA0
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
@@ -24010,23 +24046,23 @@ C19993_c1_9437_target_selection_bridge_L9993:
     sta $06
     lda.w #$00D5
     sta $08
-    ldy $16
+    ldy !InventoryRowsItemId
     tya
     ldy.w #$0027
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !InventoryRowsTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta !InventoryRowsTileBlockSourcePointerBank
     ldx.w #$0019
     lda.w #$9C9F
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
 C199BC_c1_9437_target_selection_bridge_L99BC:
     sep #$20
     stz $9CB8
-    ldy $16
+    ldy !InventoryRowsItemId
     beq C199EB_c1_9437_target_selection_bridge_L99EB
     rep #$20
     lda.w #$9C9F
@@ -24038,21 +24074,21 @@ C199BC_c1_9437_target_selection_bridge_L99BC:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !InventoryRowsTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !InventoryRowsTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta !InventoryRowsTextEntryMetadataLo
     lda.w #$0000
-    sta $14
+    sta !InventoryRowsTextEntryMetadataHi
     jsr !C113D1_InstallTextEntryRecord
 C199EB_c1_9437_target_selection_bridge_L99EB:
     rep #$20
-    inc $02
+    inc !InventoryRowsSlotIndex
 C199EF_c1_9437_target_selection_bridge_L99EF:
     lda.w #$000E
     clc
-    sbc $02
+    sbc !InventoryRowsSlotIndex
     bvs C199FC_c1_9437_target_selection_bridge_L99FC
     bmi C19A01_c1_9437_target_selection_bridge_L9A01
     jmp.w C19936_c1_9437_target_selection_bridge_L9936
@@ -24087,6 +24123,21 @@ org $C19A11
 !C20A20_SnapshotManagedTextEventSlotState = $C20A20
 !C20ABC_RestoreManagedTextEventSlotState = $C20ABC
 !EF0115_CloseOrReleaseEscargoStorageWindow = $EF0115
+!TemporaryFocusOriginalSelector = $0E
+!TemporaryFocusSelectionMode = $10
+!TemporaryFocusSelectionResult = $0E
+!EscargoStorageQueueIndex = $02
+!EscargoStorageSelectedItemId = $16
+!EscargoStorageTitleBufferPointer = $18
+!EscargoStorageSelectionResult = $18
+!EscargoTileBlockSourcePointerLo = $0E
+!EscargoTileBlockSourcePointerBank = $10
+!EscargoWindowTitleSourcePointerLo = $0E
+!EscargoWindowTitleSourcePointerBank = $10
+!EscargoTextEntrySourcePointerLo = $0E
+!EscargoTextEntrySourcePointerBank = $10
+!EscargoTextEntryMetadataLo = $12
+!EscargoTextEntryMetadataHi = $14
 C19A11_RunSelectionHelperWithTemporaryFocus:
     rep #$31
     phd
@@ -24096,22 +24147,22 @@ C19A11_RunSelectionHelperWithTemporaryFocus:
     tcd
     pla
     txy
-    sty $10
+    sty !TemporaryFocusSelectionMode
     tax
-    stx $0E
+    stx !TemporaryFocusOriginalSelector
     lda.w #$9C8A
     jsl !C20A20_SnapshotManagedTextEventSlotState
-    ldx $0E
+    ldx !TemporaryFocusOriginalSelector
     txa
     jsr !C1007E_SetFocusWindowOrContext
-    ldy $10
+    ldy !TemporaryFocusSelectionMode
     tya
     jsr !C1196A_RunActiveTextEntrySelectionMenu
     tax
-    stx $0E
+    stx !TemporaryFocusSelectionResult
     lda.w #$9C8A
     jsl !C20ABC_RestoreManagedTextEventSlotState
-    ldx $0E
+    ldx !TemporaryFocusSelectionResult
     txa
     pld
     rts
@@ -24122,21 +24173,21 @@ C19A43_BuildEscargoStorageSelectionMenu:
     adc.w #$FFE6
     tcd
     ldy.w #$9CAB
-    sty $18
+    sty !EscargoStorageTitleBufferPointer
     lda.w #$9C8A
     jsl !C20A20_SnapshotManagedTextEventSlotState
     lda.w #$000D
     jsr CREATE_WINDOW
     lda.w #$5C10
-    sta $0E
+    sta !EscargoTileBlockSourcePointerLo
     lda.w #$00C4
-    sta $10
+    sta !EscargoTileBlockSourcePointerBank
     ldx.w #$000C
     lda.w #$9C9F
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
     lda.b #$58
-    ldy $18
+    ldy !EscargoStorageTitleBufferPointer
     sta $0000,Y
     tyx
     inx
@@ -24158,21 +24209,21 @@ C19A43_BuildEscargoStorageSelectionMenu:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !EscargoWindowTitleSourcePointerLo
     lda $08
-    sta $10
+    sta !EscargoWindowTitleSourcePointerBank
     ldx.w #$FFFF
     lda.w #$000D
     jsl !C2032B_WriteWindowTitleAndUpload
     lda.w #$0000
-    sta $02
+    sta !EscargoStorageQueueIndex
     bra C19B1C_selection_focus_and_escargo_storage_menu_L9B1C
 C19AB7_selection_focus_and_escargo_storage_menu_L9AB7:
-    ldx $02
+    ldx !EscargoStorageQueueIndex
     lda $984B,X
     and.w #$00FF
     tay
-    sty $16
+    sty !EscargoStorageSelectedItemId
     lda.w #$5000
     sta $06
     lda.w #$00D5
@@ -24183,15 +24234,15 @@ C19AB7_selection_focus_and_escargo_storage_menu_L9AB7:
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !EscargoTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta !EscargoTileBlockSourcePointerBank
     ldx.w #$0019
     lda.w #$9C9F
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
     stz $9CB8
-    ldy $16
+    ldy !EscargoStorageSelectedItemId
     beq C19B18_selection_focus_and_escargo_storage_menu_L9B18
     rep #$20
     lda.w #$9C9F
@@ -24203,19 +24254,19 @@ C19AB7_selection_focus_and_escargo_storage_menu_L9AB7:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !EscargoTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !EscargoTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta !EscargoTextEntryMetadataLo
     lda.w #$0000
-    sta $14
+    sta !EscargoTextEntryMetadataHi
     jsr !C113D1_InstallTextEntryRecord
 C19B18_selection_focus_and_escargo_storage_menu_L9B18:
     rep #$20
-    inc $02
+    inc !EscargoStorageQueueIndex
 C19B1C_selection_focus_and_escargo_storage_menu_L9B1C:
-    lda $02
+    lda !EscargoStorageQueueIndex
     cmp.w #$0024
     bcc C19AB7_selection_focus_and_escargo_storage_menu_L9AB7
     ldy.w #$0001
@@ -24225,13 +24276,13 @@ C19B1C_selection_focus_and_escargo_storage_menu_L9B1C:
     lda.w #$0001
     jsr !C1196A_RunActiveTextEntrySelectionMenu
     tax
-    stx $18
+    stx !EscargoStorageSelectionResult
     lda.w #$000D
     jsl !EF0115_CloseOrReleaseEscargoStorageWindow
     stz $5E71
     lda.w #$9C8A
     jsl !C20ABC_RestoreManagedTextEventSlotState
-    ldx $18
+    ldx !EscargoStorageSelectionResult
     txa
     pld
     rts
