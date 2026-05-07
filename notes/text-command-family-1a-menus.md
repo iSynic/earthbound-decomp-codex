@@ -70,6 +70,56 @@ keeps the menu contract aligned with the surrounding queued text-command
 leaves: one byte is staged before the inventory rows are rendered, and the
 current active menu/window context is restored before returning to the VM.
 
+Source polish follow-up (2026-05-06): the front `C1:7B56` dispatcher now names
+the local `0x1A` subselector comparisons, selection-loop cancel modes, and the
+`$06/$08 -> $0E/$10` primary text-context staging used by the generic
+selection, Escargo, phone-contact, and teleport-destination menu leaves. This
+keeps the menu family source-facing without changing the existing helper
+boundaries.
+
+Source polish follow-up (2026-05-06): the same dispatcher now names the
+`0x1A` family caller-frame offset and uses the shared text-context source
+pointer aliases at the menu-result handoff sites. The byte flow is unchanged:
+selection helpers still stage the menu result in `$06/$08`, then install it
+through the primary text context at `$0E/$10`.
+
+Source polish follow-up (2026-05-06): the UI callers that feed the same menu
+infrastructure now name their callback slots too. Open-menu party prompts,
+equipment, field PSI, battle PSI, shop comparison, and file-select preview
+loops stage display, eligibility, row-formatter, or preview callbacks through
+named `$0E/$10` and `$12/$14` aliases before invoking `C1:27EF` or `C1:1F5A`.
+This documents the menu/text-entry contract at the call sites while preserving
+the existing family dispatcher boundaries.
+
+Source polish follow-up (2026-05-06): the open-menu caller surface at
+`C1:33B0..4103` now names the scratch slots that bridge menu results back into
+text and interaction contexts. The pass covers `$0E/$10` as entry source,
+feedback text source, decimal source, and primary/secondary context source
+pointers; `$1F/$21` as the selected-character value; `$23` as the relevant
+local owner/context/index pointer; and active-context record offsets
+`+17/+1B/+21` for the primary pointer, selected inventory slot, and destination
+character fields. The result is source-facing only: existing `0x1A` menu-family
+helper calls and return behavior are unchanged.
+
+Source polish follow-up (2026-05-06): the front `0x1A 05/06` menu leaves in
+`C1:4EAB..575D` now use the same source-facing caller vocabulary. The shop-menu
+result path stages its selected item through named `$0E/$10` text-context
+source aliases, while the inventory-menu leaf keeps the deferred character
+queue separate from the preserved window and character arguments used around
+Escargo-window cleanup and inventory-row rendering.
+
+Source polish follow-up (2026-05-06): the direct menu builders behind
+`0x1A 07/0A` now expose their caller-local contracts too. `C1:9A43` names the
+Escargo storage queue index, item id, text-entry source, and returned selection
+result, while `C1:9441` names the phone-contact entry index, resolved contact
+record offset, title/tile sources, and direct text-entry metadata handoff.
+
+Source polish follow-up (2026-05-07): the shop-menu builder behind `0x1A 06`
+now carries the same local vocabulary. `C1:9DB5` names the D5 shop-table
+selector, visible row index, staged item id, item-row pointer, text-entry
+source/metadata, printed-price source, and final selection result before the
+shared menu selection loop returns to the text command family.
+
 ## Best current case map
 
 ### `0x1A 00`

@@ -31,14 +31,41 @@ See also:
   routine: the active text-entry selection loop, loaded-text-string clear,
   Escargo storage, phone-contact, teleport-destination, and primary text-context
   install helpers.
+- A follow-up pass also names the `0x1A` subselector ids, the cancellable versus
+  uncancellable `C1:196A` selection-loop mode values, the no-follow-up return
+  value, and the local `$06/$08` menu result staging pair before it is installed
+  as the primary text context.
+- The adjacent `0x1B` memory/context dispatcher now names its `1B 01..06`
+  subselector ids, null primary-context branch tests, four-byte jump-target
+  skip, saved parser argument pointer, primary/secondary context staging pairs,
+  swap temporaries, and `$97CC..$97D4` scratch context snapshot.
 - The battle-facing display leaves now name the `0x1C 0D/0E/0F` contract:
   reflected-hit side article-token setup, attacker/target name-buffer base
   reads, fixed-string preflight printing, and the `$9D12/$9D14` amount pointer
   consumed by the decimal printer.
+- The front `0x1C` dispatcher also names its stable subselector ids for
+  `01..0F` and `11..15`, plus the battle user/target selector values,
+  staged name-buffer pointer bytes, text-context handoff pair, fixed-string
+  preflight length, and no-follow-up return value.
+- The adjacent `0x1D` inventory/money dispatcher now names its live
+  subselector ids for `01..15`, `17..19`, and `20..24`, while keeping the
+  absent `16` and parser-artifact `1C` gaps visible. Its inline `20` and `22`
+  predicate bodies also name their boolean result staging, battle name-buffer
+  comparison, current map-position inputs, map-class mask, and exit-mouse class.
+- The adjacent `0x1E` recovery/stat dispatcher now names its live `01..0E`
+  subselector ids, keeps `00` as the zero branch to HP-percent recovery, and
+  uses the shared no-follow-up return for anything outside the live range.
+- The `0x1F` deferred-callback/event dispatcher now names its wide selector
+  ladder from the low music/sound strip through the `F4` tail, including
+  callback leaves, immediate helper leaves, and the shared no-follow-up return.
 - The later `1F` command corridor now names the text-context snapshot/restore,
   primary/secondary context loads and installs, text input lock/unlock, wait
   gate, transition music restore, interaction-flag helpers, save-current-game
   wrapper, and teleport landing state refresh edges.
+- The immediate `1F` helper leaves now also name the C1-side staging behind
+  teleport landing snapshot/refresh, phone-contact result installation,
+  current-interaction flag set/clear/get, and nearby Magic Truffle direction
+  result installation.
 - The remaining presentation/runtime joins in this source are now named too:
   map-position context lookup, auto sector-music latch writes, the active-window
   glyph-mode flag helper at `C1:0FAC`, nearby Magic Truffle direction lookup,

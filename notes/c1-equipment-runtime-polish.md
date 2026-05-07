@@ -101,6 +101,26 @@ text-event snapshot/restore, C3 window update/close helpers, the C1 active
 window text-mode/content helpers, and the C4 right-aligned decimal/status
 printer.
 
+Source polish follow-up (2026-05-06): the equipment/shop UI callback handoffs
+now expose their caller-side ABI. The party equipment controller stages the
+`C1:A778` display callback for `C1:27EF` through named `$0E/$10` callback
+slots, the per-character equipment loop stages the four C2 preview callbacks
+through named `C1:1F5A` preview-callback slots, and the shop menu names the
+`C1:9B4E` comparison callback install before the shared selection loop.
+
+Source polish follow-up (2026-05-07): the shop item menu builder at
+`C1:9DB5` now names its local row/table selector, item id, item-row pointer,
+item-name tile source, text-entry source/metadata, price-print source, and
+returned menu selection. The adjacent `C1:9D49` status refresh now names the
+comparison-marker reset index and E0 tile-block source pointer.
+
+Source polish follow-up (2026-05-07): the per-character equipment slot loop at
+`C1:A795` now names its selected character, selected family, inventory slot
+scan index, visible-row count, default row, item id, one-based character id,
+item-name tile source, text-entry source/metadata, item-selection result, and
+wallet decimal-print source. This keeps the equipment menu's row builder and
+preview-selection ABI aligned with the shop menu vocabulary above.
+
 ## Decomp Value
 
 This slice turns the editor-facing item/equipment vocabulary into concrete

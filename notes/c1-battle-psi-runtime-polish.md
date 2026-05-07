@@ -111,6 +111,12 @@ Completed followups:
   chain clearing, window update/tick helpers, cursor positioning, fixed-string
   PSI rank printing, battle-sprite row effect clearing, category focus, and the
   `CA72 -> C853` metadata refresh join.
+- `C1:B5B6`, `C1:BB71`, and `C1:CB7F` now name the shared callback pointer ABI
+  at their caller edges. The outer PSI user prompt stages display and
+  eligibility callbacks for `C1:27EF` through named `$0E/$10` and `$12/$14`
+  pairs, while the direct PSI-entry, field-PSI category, finalizer, and ordinary
+  battle-PSI category/entry loops install row formatter callbacks for
+  `C1:1F5A` through named `$0E/$10` pairs.
 
 ## Validation
 

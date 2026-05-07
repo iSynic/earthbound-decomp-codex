@@ -6644,7 +6644,7 @@ org $C133B0
 !C115F4_CreateTypedTextEntryRecordDirect = $15F4
 !C1163C_RefreshActiveTextEntryChain = $163C
 !C1196A_RunActiveTextEntrySelectionMenu = $196A
-!C127EF_RunCharacterSelectionPromptWithCallback = $27EF
+!C127EF_RunCallbackDrivenPartySelectionMenu = $27EF
 !C13187_ResolvePrimaryFrontInteractionOutput = $C13187
 !C1323B_ResolveSecondaryFacingInteractionOutput = $C1323B
 !C13CA1_OpenHpppDisplay = $C13CA1
@@ -6693,6 +6693,29 @@ org $C133B0
 !C4D681_DisplayCurrentPositionTownMap = $C4D681
 !EF01D2_UpdateBattleSpriteFrameEffectState = $EF01D2
 !EF016F_RefreshBattleSpriteScratchFromCurrentEnemy = $EF016F
+!CallbackDrivenPromptDisplayCallbackLo = $0E
+!CallbackDrivenPromptDisplayCallbackBank = $10
+!CallbackDrivenPromptEligibilityCallbackLo = $12
+!CallbackDrivenPromptEligibilityCallbackBank = $14
+!OpenMenuTextSourcePointerLo = $0E
+!OpenMenuTextSourcePointerBank = $10
+!OpenMenuEntrySourcePointerLo = $0E
+!OpenMenuEntrySourcePointerBank = $10
+!OpenMenuPrimaryContextSourcePointerLo = $0E
+!OpenMenuPrimaryContextSourcePointerBank = $10
+!OpenMenuSecondaryContextSourcePointerLo = $0E
+!OpenMenuSecondaryContextSourcePointerBank = $10
+!OpenMenuDecimalSourcePointerLo = $0E
+!OpenMenuDecimalSourcePointerHi = $10
+!OpenMenuSelectedCharacterValueLo = $1F
+!OpenMenuSelectedCharacterValueHi = $21
+!OpenMenuActiveContextRecordPointer = $23
+!OpenMenuSelectedCharacterRecordPointer = $23
+!OpenMenuInventoryOwnerPointer = $23
+!OpenMenuEntryBuildIndex = $23
+!OpenMenuPrimaryContextPointerOffset = $0017
+!OpenMenuSelectedInventorySlotPointerOffset = $001B
+!OpenMenuDestinationCharacterPointerOffset = $0021
 C133B0_RebuildOpenMenuTextEntryRecords:
     rep #$31
     phd
@@ -6768,9 +6791,9 @@ C13417_RebuildOpenMenuTextEntryRecords_L3417:
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !OpenMenuEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuEntrySourcePointerBank
     lda.w #$0000
     sta $12
     lda.w #$0000
@@ -6884,9 +6907,9 @@ C13526_RebuildOpenMenuTextEntryRecords_L3526:
     sta $08
 C13532_RebuildOpenMenuTextEntryRecords_L3532:
     lda $06
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     jmp.w C13C16_FinalizeOpenMenuLoopIteration
 C13541_RebuildOpenMenuTextEntryRecords_L3541:
@@ -6897,7 +6920,7 @@ C13544_RebuildOpenMenuTextEntryRecords_L3544:
     cmp.w #$0001
     bne C13599_RebuildOpenMenuTextEntryRecords_L3599
     ldy.w #$986F
-    sty $23
+    sty !OpenMenuInventoryOwnerPointer
     ldx.w #$0001
     lda $0000,Y
     and.w #$00FF
@@ -6907,11 +6930,11 @@ C13544_RebuildOpenMenuTextEntryRecords_L3544:
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13569_RebuildOpenMenuTextEntryRecords_L3569:
     ldx.w #$0002
-    ldy $23
+    ldy !OpenMenuInventoryOwnerPointer
     lda $0000,Y
     and.w #$00FF
     jsr !C198DE_RenderCharacterInventoryOrEquipmentRows
-    ldy $23
+    ldy !OpenMenuInventoryOwnerPointer
     sep #$20
     lda $0000,Y
     sta $06
@@ -6920,9 +6943,9 @@ C13569_RebuildOpenMenuTextEntryRecords_L3569:
     stz $09
     rep #$20
     lda $06
-    sta $1F
+    sta !OpenMenuSelectedCharacterValueLo
     lda $08
-    sta $21
+    sta !OpenMenuSelectedCharacterValueHi
     lda.w #$0000
     jsl !C43573_SelectFocusedPartyHpPpActorAndBlankRow
     bra C135C8_RebuildOpenMenuTextEntryRecords_L35C8
@@ -6930,22 +6953,22 @@ C13599_RebuildOpenMenuTextEntryRecords_L3599:
     lda.w #$0000
     jsr !C193E7_OpenTargetSelectionPromptLabel
     lda.w #$339E
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     sta $06
     stz $08
     lda $06
-    sta $1F
+    sta !OpenMenuSelectedCharacterValueLo
     lda $08
-    sta $21
+    sta !OpenMenuSelectedCharacterValueHi
 C135C8_RebuildOpenMenuTextEntryRecords_L35C8:
     lda.w #$0000
     sta $0A
@@ -7004,9 +7027,9 @@ C13648_RebuildOpenMenuTextEntryRecords_L3648:
 C13652_RebuildOpenMenuTextEntryRecords_L3652:
     lda.w #$0003
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     dec A
@@ -7033,7 +7056,7 @@ C13689_RebuildOpenMenuTextEntryRecords_L3689:
     ldx.w #$0000
 C1368C_RebuildOpenMenuTextEntryRecords_L368C:
     txy
-    sty $23
+    sty !OpenMenuEntryBuildIndex
     tyx
     lda.w #$0000
     jsl !C438A5_SetActiveWindowDescriptorCursorFields
@@ -7054,9 +7077,9 @@ C13699_RebuildOpenMenuTextEntryRecords_L3699:
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !OpenMenuEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuEntrySourcePointerBank
     lda.w #$0000
     sta $12
     lda.w #$0000
@@ -7065,9 +7088,9 @@ C13699_RebuildOpenMenuTextEntryRecords_L3699:
     jsr !C115F4_CreateTypedTextEntryRecordDirect
     ldx $1B
     txy
-    sty $23
+    sty !OpenMenuEntryBuildIndex
 C136CC_RebuildOpenMenuTextEntryRecords_L36CC:
-    ldy $23
+    ldy !OpenMenuEntryBuildIndex
     cpy.w #$0004
     bcc C13699_RebuildOpenMenuTextEntryRecords_L3699
     ldy.w #$0000
@@ -7129,9 +7152,9 @@ C13749_RebuildOpenMenuTextEntryRecords_L3749:
     lda $1D
     sta $04
     ldx $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     jsr !C1AF74_RunItemUseBattleOrFieldBridgeBody
@@ -7155,13 +7178,13 @@ C13777_HandleOpenMenuStatusChoice:
     rep #$20
     lda.w #$0001
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tay
-    sty $23
+    sty !OpenMenuSelectedCharacterRecordPointer
     lda $1D
     sta $04
     ldx $04
@@ -7187,9 +7210,9 @@ C13777_HandleOpenMenuStatusChoice:
     sta $06
     sty $08
     lda $06
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     lda.w #$0001
     jsl !C3E521_CloseWindowById
@@ -7200,7 +7223,7 @@ C13777_HandleOpenMenuStatusChoice:
     sta $5E6C
     jsr.w C133B0_RebuildOpenMenuTextEntryRecords
     ldx.w #$0002
-    ldy $23
+    ldy !OpenMenuSelectedCharacterRecordPointer
     tya
     jsr !C198DE_RenderCharacterInventoryOrEquipmentRows
     lda.w #$0003
@@ -7217,16 +7240,16 @@ C13810_HandleOpenMenuGoodsChoice:
     lda.w #$0003
     jsr !C193E7_OpenTargetSelectionPromptLabel
     lda.w #$33A7
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0002
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     sta $18
     jsr !C19437_CloseTargetSelectionPromptLabel
     lda.w #$002C
@@ -7239,9 +7262,9 @@ C13810_HandleOpenMenuGoodsChoice:
     sta $1A
     jmp.w C136E3_RebuildOpenMenuTextEntryRecords_L36E3
 C1385C_RebuildOpenMenuTextEntryRecords_L385C:
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $18
     sta $0A
@@ -7270,22 +7293,22 @@ C13874_RebuildOpenMenuTextEntryRecords_L3874:
     lda.w #$0001
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     lda $06
-    sta $0E
+    sta !OpenMenuPrimaryContextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuPrimaryContextSourcePointerBank
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $04
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !OpenMenuSecondaryContextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuSecondaryContextSourcePointerBank
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$C6C9
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     lda.w #$0001
     jsl !C3E521_CloseWindowById
@@ -7355,9 +7378,9 @@ C1394B_RebuildOpenMenuTextEntryRecords_L394B:
     lda.w #$0001
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     jsr !C10301_GetActiveInteractionContextRecord
-    sta $23
+    sta !OpenMenuActiveContextRecordPointer
     clc
-    adc.w #$0017
+    adc.w #!OpenMenuPrimaryContextPointerOffset
     tay
     lda $06
     sta $0000,Y
@@ -7366,9 +7389,9 @@ C1394B_RebuildOpenMenuTextEntryRecords_L394B:
     lda $18
     sta $0A
     stz $0C
-    lda $23
+    lda !OpenMenuActiveContextRecordPointer
     clc
-    adc.w #$0021
+    adc.w #!OpenMenuDestinationCharacterPointerOffset
     tay
     lda $0A
     sta $0000,Y
@@ -7378,9 +7401,9 @@ C1394B_RebuildOpenMenuTextEntryRecords_L394B:
     sta $04
     sta $0A
     stz $0C
-    lda $23
+    lda !OpenMenuActiveContextRecordPointer
     clc
-    adc.w #$001B
+    adc.w #!OpenMenuSelectedInventorySlotPointerOffset
     tay
     lda $0A
     sta $0000,Y
@@ -7424,14 +7447,14 @@ C139DC_RebuildOpenMenuTextEntryRecords_L39DC:
     jmp.w C13AF6_RebuildOpenMenuTextEntryRecords_L3AF6
 C139DF_RebuildOpenMenuTextEntryRecords_L39DF:
     lda.w #$E3FA
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7440,28 +7463,28 @@ C139DF_RebuildOpenMenuTextEntryRecords_L39DF:
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A03_RebuildOpenMenuTextEntryRecords_L3A03:
     lda.w #$E42C
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A14_RebuildOpenMenuTextEntryRecords_L3A14:
     lda.w #$E468
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A25_RebuildOpenMenuTextEntryRecords_L3A25:
     lda.w #$E4A4
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7470,14 +7493,14 @@ C13A25_RebuildOpenMenuTextEntryRecords_L3A25:
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A49_RebuildOpenMenuTextEntryRecords_L3A49:
     lda.w #$E4C3
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7486,14 +7509,14 @@ C13A49_RebuildOpenMenuTextEntryRecords_L3A49:
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A6D_RebuildOpenMenuTextEntryRecords_L3A6D:
     lda.w #$E4E9
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7502,28 +7525,28 @@ C13A6D_RebuildOpenMenuTextEntryRecords_L3A6D:
     bra C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A90_RebuildOpenMenuTextEntryRecords_L3A90:
     lda.w #$E51C
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     bra C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13AA0_RebuildOpenMenuTextEntryRecords_L3AA0:
     lda.w #$E559
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     bra C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13AB0_RebuildOpenMenuTextEntryRecords_L3AB0:
     lda.w #$E5A1
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7532,14 +7555,14 @@ C13AB0_RebuildOpenMenuTextEntryRecords_L3AB0:
     bra C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13AD3_RebuildOpenMenuTextEntryRecords_L3AD3:
     lda.w #$E5C2
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7559,28 +7582,28 @@ C13AF8_ReturnToOpenMenuLoopAfterFeedback:
 C13B10_HandleOpenMenuTalkChoice:
     lda.w #$0001
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
-    sta $0E
+    sta !OpenMenuPrimaryContextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuPrimaryContextSourcePointerBank
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $1D
     sta $04
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !OpenMenuSecondaryContextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuSecondaryContextSourcePointerBank
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$C609
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     lda.w #$0001
     jsl !C3E521_CloseWindowById
@@ -7655,9 +7678,9 @@ C13BE7_RebuildOpenMenuTextEntryRecords_L3BE7:
     sta $08
 C13BF3_RebuildOpenMenuTextEntryRecords_L3BF3:
     lda $06
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     bra C13C16_FinalizeOpenMenuLoopIteration
 C13C01_HandleOpenMenuSpecialChoice:
@@ -7717,9 +7740,9 @@ C13C6D_RebuildOpenMenuTextEntryRecords_L3C6D:
     sta $08
 C13C79_RebuildOpenMenuTextEntryRecords_L3C79:
     lda $06
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     jsl !C3E4CA_ClearInstantPrinting
     jsr !C10A1D_HideHpppWindowsInternal
@@ -7791,9 +7814,9 @@ C13D10_RebuildOpenMenuTextEntryRecords_L3D10:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !OpenMenuDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuDecimalSourcePointerHi
     jsr !C10DF6_PrintDecimalValueFromCallerPointer
     lda.w #$0020
     jsl !C43F77_PrintGlyphWithTileCleanupSoundDelay
@@ -7814,9 +7837,9 @@ C13D53_RebuildOpenMenuTextEntryRecords_L3D53:
     sta $08
 C13D5D_RebuildOpenMenuTextEntryRecords_L3D5D:
     lda $06
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     lda.w #$0100
     jsr !C10EFC_PrintFixedString
     jsl !C3E4CA_ClearInstantPrinting
@@ -7938,9 +7961,9 @@ C13E34_RebuildOpenMenuTextEntryRecords_L3E34:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !OpenMenuDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuDecimalSourcePointerHi
     jsr !C10DF6_PrintDecimalValueFromCallerPointer
     jsl !C3E4CA_ClearInstantPrinting
     jsl !C12DD5_TickWindowTextSystem
@@ -7974,16 +7997,16 @@ DEBUG_SET_CHAR_LEVEL:
     lda.w #$0000
     sta $08
     lda $06
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda $06
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda $08
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     txa
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     sta $02
     cmp.w #$0000
     beq C13EDE_RebuildOpenMenuTextEntryRecords_L3EDE
@@ -8028,9 +8051,9 @@ C13EF4_RebuildOpenMenuTextEntryRecords_L3EF4:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !OpenMenuDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuDecimalSourcePointerHi
     jsr !C10DF6_PrintDecimalValueFromCallerPointer
     ldx.w #$0000
     lda.w #$0003
@@ -8083,16 +8106,16 @@ C13F84_RebuildOpenMenuTextEntryRecords_L3F84:
     lda.w #$0000
     sta $08
     lda $06
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda $06
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda $08
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     txa
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     tay
     sty $16
     beq C13FF8_RebuildOpenMenuTextEntryRecords_L3FF8
@@ -10640,6 +10663,10 @@ org $C14EAB
 !WorkValueByte3 = $09
 !TextContextSourcePointerLo = $0E
 !TextContextSourcePointerHi = $10
+!DecimalSourcePointerLo = $0E
+!DecimalSourcePointerHi = $10
+!DisplayInventoryMenuWindowArgument = $0E
+!DisplayInventoryMenuCharacterArgument = $10
 !StatusGroupSelector = $12
 !StatusTargetSelector = $14
 !StatusEffectValue = $02
@@ -10699,9 +10726,9 @@ C14EDB_C14EAB_HandleTextCommand10ParameterizedPause_L4EDB:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $8958
     jsr !C1007E_SetFocusWindowOrContext
@@ -10734,9 +10761,9 @@ C14F0F_C14EAB_HandleTextCommand10ParameterizedPause_L4F0F:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -10768,9 +10795,9 @@ C14F4A_C14EAB_HandleTextCommand10ParameterizedPause_L4F4A:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -10825,9 +10852,9 @@ C14FBD_C14EAB_HandleTextCommand10ParameterizedPause_L4FBD:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C14FD5_C14EAB_HandleTextCommand10ParameterizedPause_L4FD5:
@@ -11053,9 +11080,9 @@ C15150_C14EAB_HandleTextCommand10ParameterizedPause_L5150:
     dec $08
 C1515B_C14EAB_HandleTextCommand10ParameterizedPause_L515B:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15169_C14EAB_HandleTextCommand10ParameterizedPause_L5169:
@@ -11127,9 +11154,9 @@ C151E8_C14EAB_HandleTextCommand10ParameterizedPause_L51E8:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -11200,9 +11227,9 @@ C15279_C14EAB_HandleTextCommand10ParameterizedPause_L5279:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -11328,9 +11355,9 @@ C1536C_C14EAB_HandleTextCommand10ParameterizedPause_L536C:
     dec $08
 C15374_C14EAB_HandleTextCommand10ParameterizedPause_L5374:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15382_C14EAB_HandleTextCommand10ParameterizedPause_L5382:
@@ -11474,9 +11501,9 @@ C1547F_C14EAB_HandleTextCommand10ParameterizedPause_L547F:
     jsr !C103DC_ReadTextCommandArgumentWord
 C15484_C14EAB_HandleTextCommand10ParameterizedPause_L5484:
     lda $06
-    sta $0E
+    sta !DecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !DecimalSourcePointerHi
     jsr !C10DF6_PrintDecimalValueFromCallerPointer
     lda.w #$0000
 C15492_C14EAB_HandleTextCommand10ParameterizedPause_L5492:
@@ -11498,9 +11525,9 @@ CC_1A_05:
     adc.w #$FFEE
     tcd
     pla
-    stx $10
+    stx !DisplayInventoryMenuCharacterArgument
     tay
-    sty $0E
+    sty !DisplayInventoryMenuWindowArgument
     lda.w #$0001
     clc
     sbc !DeferredCommandQueueCount
@@ -11539,7 +11566,7 @@ C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF:
     stz $0010,X
     tax
     stz $000E,X
-    ldy $0E
+    ldy !DisplayInventoryMenuWindowArgument
     tya
     clc
     adc.w #$0006
@@ -11547,7 +11574,7 @@ C154CF_C14EAB_HandleTextCommand10ParameterizedPause_L54CF:
     sep #$20
     stz $5E71
 C15511_C14EAB_HandleTextCommand10ParameterizedPause_L5511:
-    ldx $10
+    ldx !DisplayInventoryMenuCharacterArgument
     beq C1551A_C14EAB_HandleTextCommand10ParameterizedPause_L551A
     rep #$20
     txa
@@ -11577,9 +11604,9 @@ CC_18_08:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -11599,9 +11626,9 @@ CC_18_09:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -11718,9 +11745,9 @@ C15643_C14EAB_HandleTextCommand10ParameterizedPause_L5643:
     jsr !C103DC_ReadTextCommandArgumentWord
 C15648_C14EAB_HandleTextCommand10ParameterizedPause_L5648:
     lda $06
-    sta $0E
+    sta !DecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !DecimalSourcePointerHi
     jsl !C4507A_PrintRightAlignedDecimalValueInActiveWindow
     lda.w #$0000
 C15657_C14EAB_HandleTextCommand10ParameterizedPause_L5657:
@@ -11780,18 +11807,18 @@ C156A7_C14EAB_HandleTextCommand10ParameterizedPause_L56A7:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     ldx $12
     txa
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C156D9_C14EAB_HandleTextCommand10ParameterizedPause_L56D9:
@@ -11852,9 +11879,9 @@ C15728_C14EAB_HandleTextCommand10ParameterizedPause_L5728:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     ldy $12
     tyx
@@ -11863,9 +11890,9 @@ C15728_C14EAB_HandleTextCommand10ParameterizedPause_L5728:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C1575B_C14EAB_HandleTextCommand10ParameterizedPause_L575B:
@@ -11916,6 +11943,12 @@ org $C1575D
 !WorkValueByte3 = $09
 !QueueScanIndex = $0E
 !DeferredTextCommandArgument = $10
+!TextContextSourcePointerLo = $0E
+!TextContextSourcePointerHi = $10
+!MoneyAmountPointerLo = $0E
+!MoneyAmountPointerHi = $10
+!EscargoStoreSlotArgument = $0E
+!StatusWindowDisplayModeArgument = $0E
 !DeliveryQueueItemInfoPointer = $12
 !DeliveryQueueOwnerInfoPointer = $14
 !QueuedItemId = $02
@@ -12022,9 +12055,9 @@ C157AB_C1575D_TestEquippedItemPresenceForTextCommand_L57AB:
     dec $08
 C157BD_C1575D_TestEquippedItemPresenceForTextCommand_L57BD:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C157CB_C1575D_TestEquippedItemPresenceForTextCommand_L57CB:
@@ -12087,9 +12120,9 @@ C1581B_C1575D_TestEquippedItemPresenceForTextCommand_L581B:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C1583B_C1575D_TestEquippedItemPresenceForTextCommand_L583B:
@@ -12149,9 +12182,9 @@ C1588B_C1575D_TestEquippedItemPresenceForTextCommand_L588B:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$0000
 C158A3_C1575D_TestEquippedItemPresenceForTextCommand_L58A3:
@@ -12167,7 +12200,7 @@ CC_1D_12:
     tcd
     pla
     txy
-    sty $0E
+    sty !EscargoStoreSlotArgument
     lda.w #!DeferredSingleByteArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
@@ -12197,7 +12230,7 @@ C158E0_C1575D_TestEquippedItemPresenceForTextCommand_L58E0:
     lda $06
 C158E5_C1575D_TestEquippedItemPresenceForTextCommand_L58E5:
     sta $02
-    ldy $0E
+    ldy !EscargoStoreSlotArgument
     beq C158EE_C1575D_TestEquippedItemPresenceForTextCommand_L58EE
     tya
     bra C158F3_C1575D_TestEquippedItemPresenceForTextCommand_L58F3
@@ -12266,18 +12299,18 @@ C1594C_C1575D_TestEquippedItemPresenceForTextCommand_L594C:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     ldx $12
     txa
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C1597D_C1575D_TestEquippedItemPresenceForTextCommand_L597D:
@@ -12337,17 +12370,17 @@ C159CD_ReadInventorySlotItemByte:
     sta !WorkValueLo
     stz !WorkValueHi
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda !CharacterSelector
     sta !WorkValueLo
     stz !WorkValueHi
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
 C159F7_ReturnReadCharacterInventorySlotItem:
@@ -12489,9 +12522,9 @@ C15AF4_C1575D_TestEquippedItemPresenceForTextCommand_L5AF4:
     dec $08
 C15AFE_C1575D_TestEquippedItemPresenceForTextCommand_L5AFE:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15B0C_C1575D_TestEquippedItemPresenceForTextCommand_L5B0C:
@@ -12524,9 +12557,9 @@ C15B25_ReadEscargoStorageItemByte:
     stz !WorkValueByte3
     rep #!AccumulatorWidthFlag
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
     pld
@@ -12541,7 +12574,7 @@ CC_18_0D:
     tcd
     pla
     txy
-    sty $0E
+    sty !StatusWindowDisplayModeArgument
     lda.w #!DeferredSingleByteArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
@@ -12571,7 +12604,7 @@ C15B81_C1575D_TestEquippedItemPresenceForTextCommand_L5B81:
     lda $06
 C15B86_C1575D_TestEquippedItemPresenceForTextCommand_L5B86:
     tax
-    ldy $0E
+    ldy !StatusWindowDisplayModeArgument
     tya
     cmp.w #$0001
     beq C15B96_C1575D_TestEquippedItemPresenceForTextCommand_L5B96
@@ -12661,9 +12694,9 @@ C15C13_C1575D_TestEquippedItemPresenceForTextCommand_L5C13:
     stz $08
     jsl !C09086_Multiply32
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15C34_C1575D_TestEquippedItemPresenceForTextCommand_L5C34:
@@ -12683,9 +12716,9 @@ CC_19_1B:
     sta !WorkValueLo
     stz !WorkValueHi
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
     pld
@@ -12828,9 +12861,9 @@ C15D55_C1575D_TestEquippedItemPresenceForTextCommand_L5D55:
     jsr !C103DC_ReadTextCommandArgumentWord
 C15D5A_C1575D_TestEquippedItemPresenceForTextCommand_L5D5A:
     lda $06
-    sta $0E
+    sta !MoneyAmountPointerLo
     lda $08
-    sta $10
+    sta !MoneyAmountPointerHi
     jsl !C2281D_DepositIntoAtm
     lda.w #$0000
 C15D69_C1575D_TestEquippedItemPresenceForTextCommand_L5D69:
@@ -12948,14 +12981,14 @@ C15E3B_C1575D_TestEquippedItemPresenceForTextCommand_L5E3B:
     jsr !C103DC_ReadTextCommandArgumentWord
 C15E40_C1575D_TestEquippedItemPresenceForTextCommand_L5E40:
     lda $06
-    sta $0E
+    sta !MoneyAmountPointerLo
     lda $08
-    sta $10
+    sta !MoneyAmountPointerHi
     jsl !C228B7_WithdrawFromAtm
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15E5A_C1575D_TestEquippedItemPresenceForTextCommand_L5E5A:
@@ -13097,9 +13130,9 @@ C15F57_C1575D_TestEquippedItemPresenceForTextCommand_L5F57:
     dec $08
 C15F61_C1575D_TestEquippedItemPresenceForTextCommand_L5F61:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15F6F_C1575D_TestEquippedItemPresenceForTextCommand_L5F6F:
@@ -13321,9 +13354,9 @@ C160C0_LoadDeliveryQueueEntryPointers:
     stz !WorkValueByte3
     rep #!AccumulatorWidthFlag
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda !DeliveryQueueOwnerInfoPointer
     clc
@@ -13338,9 +13371,9 @@ C160C0_LoadDeliveryQueueEntryPointers:
     stz !WorkValueByte3
     rep #!AccumulatorWidthFlag
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda !QueuedItemId
     beq C1611D_ReturnDeliveryQueueEntryInfo
@@ -13398,9 +13431,9 @@ C1615A_C1575D_TestEquippedItemPresenceForTextCommand_L615A:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -13452,9 +13485,9 @@ C161B6_C1575D_TestEquippedItemPresenceForTextCommand_L61B6:
     dec $08
 C161C1_C1575D_TestEquippedItemPresenceForTextCommand_L61C1:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -13501,9 +13534,9 @@ C16207_C1575D_TestEquippedItemPresenceForTextCommand_L6207:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -13591,49 +13624,92 @@ org $C1621F
 !FiveWord = $0005
 !SixWord = $0006
 !TenWord = $000A
+!FourByteCallbackFrameOffset = $FFEC
+!ThreeByteCallbackFrameOffset = $FFEE
+!FiveByteCallbackFrameOffset = $FFEB
+!TwoByteCallbackFrameOffset = $FFF0
+!SingleWordArgumentFrameOffset = $FFF2
+!PackedDwordCurrentByte = $12
+!PackedDwordLo = $06
+!PackedDwordHi = $08
+!PackedDwordScratchByte1 = $07
+!PackedDwordScratchByte3 = $09
+!PackedDwordPartLo = $0A
+!PackedDwordPartHi = $0C
+!PackedDwordResultLo = $0E
+!PackedDwordResultHi = $10
+!TextPrintSourcePointerLo = $0E
+!TextPrintSourcePointerBank = $10
+!JumpMulti2DestinationTablePointer = $0E
+!JumpMulti2DestinationCountArgument = $10
+!JumpMulti2DestinationTablePointerScratch = $10
+!EntityScriptSelectorHighByte = $10
+!EntityScriptSelectorWordScratch = $02
+!EntityScriptVisualOrPoseSelector = $0E
+!HotspotActivationSelector = $00
+!HotspotActivationTargetSelector = $12
+!HotspotActivationCurrentPayloadByte = $13
+!TextCommandResultLo = $06
+!TextCommandResultHi = $08
+!TextContextSourcePointerLo = $0E
+!TextContextSourcePointerHi = $10
+!EscargoStatusFrameOffset = $FFEA
+!EscargoStorageModeSelector = $14
+!EscargoStorageFullStatusBit = $14
+!EscargoCharacterSelector = $02
+!EscargoInventorySlotOffset = $02
+!EscargoStatusBitScratch = $02
+!EscargoInventorySlotSelector = $12
+!InventoryItemListBase = $99F1
+!InventorySlotItemRecordStride = $0027
+!ItemTableStorageFlagsOffset = $001C
+!ItemCannotBeStoredMask = $0040
+!StorageFullResultBit = $0002
+!ScriptedBattleSelectorHighByte = $12
+!ScriptedBattleSelectorWordScratch = $02
 !TextCommand1FC0JumpMulti2FinalizerCallback = $621F
 !TextCommand1FC0JumpMulti2Callback = $6308
 !TextCommand1FD0JeffRepairBrokenItemCallback = $63A7
-!TextCommand1F13Callback = $63FD
-!TextCommand1F16Callback = $6490
-!TextCommand1F17Callback = $6509
-!TextCommand1F18Callback = $6582
-!TextCommand1F19Callback = $65AA
-!TextCommand1F1ACallback = $65D2
-!TextCommand1F1BCallback = $662A
-!TextCommand1F1CCallback = $666D
-!TextCommand1FE1Callback = $66FE
-!TextCommand1F15Callback = $6744
-!TextCommand1F1ECallback = $67D6
-!TextCommand1F1FCallback = $683B
+!TextCommand1F13UpdateRegistryFrameSelectorCallback = $63FD
+!TextCommand1F16UpdateVisualFrameSelectorCallback = $6490
+!TextCommand1F17InitVisualEntityAndAppendRecordCallback = $6509
+!TextCommand1F18NoOpSevenArgBytesCallback = $6582
+!TextCommand1F19NoOpSevenArgBytesAltCallback = $65AA
+!TextCommand1F1ASpawnVisualAttachedChildCallback = $65D2
+!TextCommand1F1BClearVisualAttachedChildCallback = $662A
+!TextCommand1F1CSpawnRegistryAttachedChildCallback = $666D
+!TextCommand1FE1RunLandingProfileDisplayCallback = $66FE
+!TextCommand1F15InitForcedVisualEntityOrDrainCallback = $6744
+!TextCommand1F1ERunVisualScriptWithCachedPoseCallback = $67D6
+!TextCommand1F1FRunPoseScriptWithCachedPoseCallback = $683B
 !TextCommand1922FacingDirectionCallback = $68A0
 !TextCommand1923FacingDirectionCallback = $6947
-!TextCommand1F62Callback = $69F7
+!TextCommand1F62SetBlinkingTriangleStateCallback = $69F7
 !TextCommand1E08SetCharacterLevelCallback = $6A01
 !TextCommand1924FacingDirectionCallback = $6A7B
-!TextCommand1FE4Callback = $6B2B
-!TextCommand1FE6Callback = $6BAF
-!TextCommand1FE7Callback = $6BF2
-!TextCommand1FE9Callback = $6C40
-!TextCommand1FEACallback = $6C83
-!TextCommand1FEBCallback = $6CC6
-!TextCommand1FECCallback = $6D14
-!TextCommand1FEECallback = $6D62
-!TextCommand1FEFCallback = $6DA5
-!TextCommand1F63Callback = $6DE8
-!TextCommand1FF1Callback = $6EBF
-!TextCommand1FF2Callback = $6F2F
-!TextCommand1F23Callback = $6FD1
+!TextCommand1FE4UpdatePoseFrameSelectorCallback = $6B2B
+!TextCommand1FE6SetVisualSlotFlagsC000Callback = $6BAF
+!TextCommand1FE7SetPoseSlotFlagsC000Callback = $6BF2
+!TextCommand1FE9ClearVisualSlotFlagsC000Callback = $6C40
+!TextCommand1FEAClearPoseSlotFlagsC000Callback = $6C83
+!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback = $6CC6
+!TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback = $6D14
+!TextCommand1FEESelectModeSlotByVisualCallback = $6D62
+!TextCommand1FEFSelectModeSlotByPoseCallback = $6DA5
+!TextCommand1F63EnqueueMovementRecordCallback = $6DE8
+!TextCommand1FF1RunVisualScriptFromRecordCallback = $6EBF
+!TextCommand1FF2RunPoseScriptFromRecordCallback = $6F2F
+!TextCommand1F23InitScriptedBattleCallback = $6FD1
 !TextCommand1D0CCheckEscargoStorageStatusCallback = $7058
-!TextCommand1F66Callback = $711C
-!TextCommand1F67Callback = $7233
-!TextCommand1F04Callback = $7254
+!TextCommand1F66ActivateHotspotCallback = $711C
+!TextCommand1F67DisableHotspotCallback = $7233
+!TextCommand1F04SetTextSoundModeCallback = $7254
 C1621F_FinalizeTextCommand1FC0JumpMulti2Target:
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     sta $12
@@ -13725,9 +13801,9 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     ora $0C
     sta $08
     lda $06
-    sta $0E
+    sta !TextPrintSourcePointerLo
     lda $08
-    sta $10
+    sta !TextPrintSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     lda $12
     tay
@@ -13754,12 +13830,12 @@ CC_1F_C0:
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
-    stx $10
+    stx !JumpMulti2DestinationCountArgument
     tay
-    sty $0E
+    sty !JumpMulti2DestinationTablePointer
     jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda.w #!ZeroWord
     sta $0A
@@ -13773,7 +13849,7 @@ CC_1F_C0:
 C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     beq C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384
     jsr !C1040A_LoadPrimaryInteractionContextPointer
-    ldx $10
+    ldx !JumpMulti2DestinationCountArgument
     txa
     sta $0A
     stz $0C
@@ -13786,20 +13862,20 @@ C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     sta $02
-    ldx $10
+    ldx !JumpMulti2DestinationCountArgument
     txa
     sec
     sbc $02
     sta !RemainingJumpMulti2DestinationCount
-    ldy $0E
-    sty $10
+    ldy !JumpMulti2DestinationTablePointer
+    sty !JumpMulti2DestinationTablePointerScratch
     jsr !C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     dec A
     asl A
     asl A
     pha
-    ldy $10
+    ldy !JumpMulti2DestinationTablePointerScratch
     lda $0000,Y
     sta $06
     lda $0002,Y
@@ -13815,12 +13891,12 @@ C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     lda.w #!TextCommand1FC0JumpMulti2FinalizerCallback
     bra C163A5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63A5
 C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384:
-    ldy $0E
+    ldy !JumpMulti2DestinationTablePointer
     lda $0000,Y
     sta $06
     lda $0002,Y
     sta $08
-    ldx $10
+    ldx !JumpMulti2DestinationCountArgument
     txa
     asl A
     asl A
@@ -13840,7 +13916,7 @@ CC_1F_D0:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     cpx.w #!ZeroWord
@@ -13867,29 +13943,29 @@ C163D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63D1:
     sta $08
 C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     ldx $12
     txa
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #!ZeroWord
     pld
     rts
 CC_1F_13:
-!C163FD_HandleTextCommand1F13 = CC_1F_13
+!C163FD_UpdateRegistryFrameSelectorTextCommand = CC_1F_13
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -13909,7 +13985,7 @@ C16419_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6419:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F13Callback
+    lda.w #!TextCommand1F13UpdateRegistryFrameSelectorCallback
     bra C1646C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L646C
 C1642D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L642D:
     lda !DeferredCommandByteQueue
@@ -13948,12 +14024,12 @@ C1646C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L646C:
     pld
     rts
 CC_1F_14:
-!C1646E_HandleTextCommand1F14 = CC_1F_14
+!C1646E_BroadcastRegistryFrameSelectorTextCommand = CC_1F_14
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     txa
@@ -13971,12 +14047,12 @@ C16484_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6484:
     pld
     rts
 CC_1F_16:
-!C16490_HandleTextCommand1F16 = CC_1F_16
+!C16490_UpdateVisualFrameSelectorTextCommand = CC_1F_16
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -13995,7 +14071,7 @@ C164AB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64AB:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F16Callback
+    lda.w #!TextCommand1F16UpdateVisualFrameSelectorCallback
     bra C16507_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6507
 C164BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64BE:
     sep #$20
@@ -14039,12 +14115,12 @@ C16507_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6507:
     pld
     rts
 CC_1F_17:
-!C16509_HandleTextCommand1F17 = CC_1F_17
+!C16509_InitVisualEntityAndAppendRecordTextCommand = CC_1F_17
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     txy
@@ -14064,7 +14140,7 @@ C16525_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6525:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F17Callback
+    lda.w #!TextCommand1F17InitVisualEntityAndAppendRecordCallback
     bra C16580_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6580
 C16538_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6538:
     sep #$10
@@ -14100,7 +14176,7 @@ C16580_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6580:
     pld
     rts
 CC_1F_18:
-!C16582_HandleTextCommand1F18 = CC_1F_18
+!C16582_NoOpSevenArgBytesTextCommand = CC_1F_18
     rep #$31
     lda.w #!SixWord
     clc
@@ -14117,14 +14193,14 @@ C16593_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6593:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F18Callback
+    lda.w #!TextCommand1F18NoOpSevenArgBytesCallback
     bra C165A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A9
 C165A6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A6:
     lda.w #!ZeroWord
 C165A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A9:
     rts
 CC_1F_19:
-!C165AA_HandleTextCommand1F19 = CC_1F_19
+!C165AA_NoOpSevenArgBytesAltTextCommand = CC_1F_19
     rep #$31
     lda.w #!SixWord
     clc
@@ -14141,19 +14217,19 @@ C165BB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65BB:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F19Callback
+    lda.w #!TextCommand1F19NoOpSevenArgBytesAltCallback
     bra C165D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65D1
 C165CE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65CE:
     lda.w #!ZeroWord
 C165D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65D1:
     rts
 CC_1F_1A:
-!C165D2_HandleTextCommand1F1A = CC_1F_1A
+!C165D2_SpawnVisualAttachedChildTextCommand = CC_1F_1A
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     stx $0E
@@ -14172,7 +14248,7 @@ C165ED_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65ED:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F1ACallback
+    lda.w #!TextCommand1F1ASpawnVisualAttachedChildCallback
     bra C16628_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6628
 C16600_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6600:
     sep #$20
@@ -14195,12 +14271,12 @@ C16628_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6628:
     pld
     rts
 CC_1F_1B:
-!C1662A_HandleTextCommand1F1B = CC_1F_1B
+!C1662A_ClearVisualAttachedChildTextCommand = CC_1F_1B
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -14213,7 +14289,7 @@ CC_1F_1B:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F1BCallback
+    lda.w #!TextCommand1F1BClearVisualAttachedChildCallback
     bra C1666B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L666B
 C16650_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6650:
     sep #$10
@@ -14230,12 +14306,12 @@ C1666B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L666B:
     pld
     rts
 CC_1F_1C:
-!C1666D_HandleTextCommand1F1C = CC_1F_1C
+!C1666D_SpawnRegistryAttachedChildTextCommand = CC_1F_1C
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -14255,7 +14331,7 @@ C16689_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6689:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F1CCallback
+    lda.w #!TextCommand1F1CSpawnRegistryAttachedChildCallback
     bra C166DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66DB
 C1669D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L669D:
     lda !DeferredCommandByteQueue
@@ -14293,12 +14369,12 @@ C166DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66DB:
     pld
     rts
 CC_1F_1D:
-!C166DD_HandleTextCommand1F1D = CC_1F_1D
+!C166DD_ClearRegistryAttachedChildTextCommand = CC_1F_1D
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     txa
@@ -14315,12 +14391,12 @@ C166F3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66F3:
     pld
     rts
 CC_1F_E1:
-!C166FE_HandleTextCommand1FE1 = CC_1F_E1
+!C166FE_RunLandingProfileDisplayTextCommand = CC_1F_E1
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     lda.w #!TwoWord
@@ -14338,7 +14414,7 @@ C16717_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6717:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FE1Callback
+    lda.w #!TextCommand1FE1RunLandingProfileDisplayCallback
     bra C16742_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6742
 C1672A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L672A:
     sep #$20
@@ -14355,12 +14431,12 @@ C16742_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6742:
     pld
     rts
 CC_1F_15:
-!C16744_HandleTextCommand1F15 = CC_1F_15
+!C16744_InitForcedVisualEntityOrDrainTextCommand = CC_1F_15
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $02
@@ -14379,7 +14455,7 @@ C1675F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L675F:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F15Callback
+    lda.w #!TextCommand1F15InitForcedVisualEntityOrDrainCallback
     bra C167D4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D4
 C16773_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6773:
     sep #$10
@@ -14429,12 +14505,12 @@ C167D4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D4:
     pld
     rts
 CC_1F_1E:
-!C167D6_HandleTextCommand1F1E = CC_1F_1E
+!C167D6_RunVisualScriptWithCachedPoseTextCommand = CC_1F_1E
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     stx $02
@@ -14453,7 +14529,7 @@ C167F1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67F1:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F1ECallback
+    lda.w #!TextCommand1F1ERunVisualScriptWithCachedPoseCallback
     bra C16839_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6839
 C16805_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6805:
     sep #$10
@@ -14481,12 +14557,12 @@ C16839_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6839:
     pld
     rts
 CC_1F_1F:
-!C1683B_HandleTextCommand1F1F = CC_1F_1F
+!C1683B_RunPoseScriptWithCachedPoseTextCommand = CC_1F_1F
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     stx $02
@@ -14505,7 +14581,7 @@ C16856_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6856:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F1FCallback
+    lda.w #!TextCommand1F1FRunPoseScriptWithCachedPoseCallback
     bra C1689E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L689E
 C1686A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L686A:
     sep #$10
@@ -14538,7 +14614,7 @@ CC_19_22:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -14613,9 +14689,9 @@ C1691D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691D:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #!ZeroWord
 C16945_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6945:
@@ -14627,7 +14703,7 @@ CC_19_23:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -14706,16 +14782,16 @@ C169D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69D0:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #!ZeroWord
 C169F5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69F5:
     pld
     rts
 CC_1F_62:
-!C169F7_HandleTextCommand1F62 = CC_1F_62
+!C169F7_SetBlinkingTriangleStateTextCommand = CC_1F_62
     rep #$31
     txa
     jsr !C10036_SetBlinkingTriangleState
@@ -14727,7 +14803,7 @@ CC_1E_08:
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     lda.w #!OneWord
@@ -14797,7 +14873,7 @@ CC_19_24:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -14876,21 +14952,21 @@ C16B04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B04:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #!ZeroWord
 C16B29_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B29:
     pld
     rts
 CC_1F_E4:
-!C16B2B_HandleTextCommand1FE4 = CC_1F_E4
+!C16B2B_UpdatePoseFrameSelectorTextCommand = CC_1F_E4
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -14909,7 +14985,7 @@ C16B46_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B46:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FE4Callback
+    lda.w #!TextCommand1FE4UpdatePoseFrameSelectorCallback
     bra C16BA2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BA2
 C16B59_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B59:
     sep #$20
@@ -14953,19 +15029,19 @@ C16BA2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BA2:
     pld
     rts
 CC_1F_E5:
-!C16BA4_HandleTextCommand1FE5 = CC_1F_E5
+!C16BA4_SetRegistrySlotFlagsC000TextCommand = CC_1F_E5
     rep #$31
     txa
     jsl !C46594_SetRegistrySlotFlagsC000
     lda.w #!ZeroWord
     rts
 CC_1F_E6:
-!C16BAF_HandleTextCommand1FE6 = CC_1F_E6
+!C16BAF_SetVisualSlotFlagsC000TextCommand = CC_1F_E6
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -14978,7 +15054,7 @@ CC_1F_E6:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FE6Callback
+    lda.w #!TextCommand1FE6SetVisualSlotFlagsC000Callback
     bra C16BF0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BF0
 C16BD5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BD5:
     sep #$10
@@ -14995,12 +15071,12 @@ C16BF0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BF0:
     pld
     rts
 CC_1F_E7:
-!C16BF2_HandleTextCommand1FE7 = CC_1F_E7
+!C16BF2_SetPoseSlotFlagsC000TextCommand = CC_1F_E7
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -15013,7 +15089,7 @@ CC_1F_E7:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FE7Callback
+    lda.w #!TextCommand1FE7SetPoseSlotFlagsC000Callback
     bra C16C33_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C33
 C16C18_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C18:
     sep #$10
@@ -15030,19 +15106,19 @@ C16C33_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C33:
     pld
     rts
 CC_1F_E8:
-!C16C35_HandleTextCommand1FE8 = CC_1F_E8
+!C16C35_ClearRegistrySlotFlagsC000TextCommand = CC_1F_E8
     rep #$31
     txa
     jsl !C46631_ClearRegistrySlotFlagsC000
     lda.w #!ZeroWord
     rts
 CC_1F_E9:
-!C16C40_HandleTextCommand1FE9 = CC_1F_E9
+!C16C40_ClearVisualSlotFlagsC000TextCommand = CC_1F_E9
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -15055,7 +15131,7 @@ CC_1F_E9:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FE9Callback
+    lda.w #!TextCommand1FE9ClearVisualSlotFlagsC000Callback
     bra C16C81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C81
 C16C66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C66:
     sep #$10
@@ -15072,12 +15148,12 @@ C16C81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C81:
     pld
     rts
 CC_1F_EA:
-!C16C83_HandleTextCommand1FEA = CC_1F_EA
+!C16C83_ClearPoseSlotFlagsC000TextCommand = CC_1F_EA
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -15090,7 +15166,7 @@ CC_1F_EA:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FEACallback
+    lda.w #!TextCommand1FEAClearPoseSlotFlagsC000Callback
     bra C16CC4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CC4
 C16CA9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CA9:
     sep #$10
@@ -15107,12 +15183,12 @@ C16CC4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CC4:
     pld
     rts
 CC_1F_EB:
-!C16CC6_HandleTextCommand1FEB = CC_1F_EB
+!C16CC6_MarkRegistryFlag8000AndAppendRecordTextCommand = CC_1F_EB
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -15131,7 +15207,7 @@ C16CE1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CE1:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FEBCallback
+    lda.w #!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback
     bra C16D12_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D12
 C16CF4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CF4:
     lda !DeferredCommandByteQueue
@@ -15150,12 +15226,12 @@ C16D12_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D12:
     pld
     rts
 CC_1F_EC:
-!C16D14_HandleTextCommand1FEC = CC_1F_EC
+!C16D14_ClearRegistryFlag8000AndAppendRecordTextCommand = CC_1F_EC
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -15174,7 +15250,7 @@ C16D2F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D2F:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FECCallback
+    lda.w #!TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback
     bra C16D60_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D60
 C16D42_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D42:
     lda !DeferredCommandByteQueue
@@ -15193,12 +15269,12 @@ C16D60_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D60:
     pld
     rts
 CC_1F_EE:
-!C16D62_HandleTextCommand1FEE = CC_1F_EE
+!C16D62_SelectModeSlotByVisualTextCommand = CC_1F_EE
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -15211,7 +15287,7 @@ CC_1F_EE:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FEECallback
+    lda.w #!TextCommand1FEESelectModeSlotByVisualCallback
     bra C16DA3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DA3
 C16D88_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D88:
     sep #$10
@@ -15228,12 +15304,12 @@ C16DA3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DA3:
     pld
     rts
 CC_1F_EF:
-!C16DA5_HandleTextCommand1FEF = CC_1F_EF
+!C16DA5_SelectModeSlotByPoseTextCommand = CC_1F_EF
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -15246,7 +15322,7 @@ CC_1F_EF:
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FEFCallback
+    lda.w #!TextCommand1FEFSelectModeSlotByPoseCallback
     bra C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6
 C16DCB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DCB:
     sep #$10
@@ -15263,229 +15339,229 @@ C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6:
     pld
     rts
 CC_1F_63:
-!C16DE8_HandleTextCommand1F63 = CC_1F_63
+!C16DE8_EnqueueMovementRecordTextCommand = CC_1F_63
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     txa
-    sta $12
+    sta !PackedDwordCurrentByte
     lda.w #!ThreeWord
     clc
     sbc !DeferredCommandQueueCount
-    bvc C16E02_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E02
-    bpl C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19
-    bra C16E04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E04
-C16E02_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E02:
-    bmi C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19
-C16E04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E04:
-    lda $12
+    bvc C16E02_CheckMovementRecordArgumentLimitSign
+    bpl C16E19_ApplyQueuedMovementRecord
+    bra C16E04_QueueMovementRecordArgumentByte
+C16E02_CheckMovementRecordArgumentLimitSign:
+    bmi C16E19_ApplyQueuedMovementRecord
+C16E04_QueueMovementRecordArgumentByte:
+    lda !PackedDwordCurrentByte
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F63Callback
-    jmp.w C16EBD_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EBD
-C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
+    lda.w #!TextCommand1F63EnqueueMovementRecordCallback
+    jmp.w C16EBD_ReturnFromMovementRecordTextCommand
+C16E19_ApplyQueuedMovementRecord:
     sep #$10
-    ldy.b #$18
-    lda $12
-    sta $06
-    stz $08
+    ldy.b #!TwentyFourBitShift
+    lda !PackedDwordCurrentByte
+    sta !PackedDwordLo
+    stz !PackedDwordHi
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !PackedDwordHi
     pha
-    lda $06
+    lda !PackedDwordLo
     pha
-    ldy.b #$10
+    ldy.b #!SixteenBitShift
     sep #$20
     lda !DeferredCommandByte2
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !PackedDwordLo
+    stz !PackedDwordScratchByte1
+    stz !PackedDwordHi
+    stz !PackedDwordScratchByte3
     rep #$20
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !PackedDwordHi
     pha
-    lda $06
+    lda !PackedDwordLo
     pha
-    ldy.b #$08
+    ldy.b #!EightBitShift
     sep #$20
     lda !DeferredCommandByte1
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !PackedDwordLo
+    stz !PackedDwordScratchByte1
+    stz !PackedDwordHi
+    stz !PackedDwordScratchByte3
     rep #$20
     jsl !C09246_ShiftLeft32ByY
-    lda $06
-    sta $0A
-    lda $08
-    sta $0C
+    lda !PackedDwordLo
+    sta !PackedDwordPartLo
+    lda !PackedDwordHi
+    sta !PackedDwordPartHi
     sep #$20
     lda !DeferredCommandByteQueue
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !PackedDwordLo
+    stz !PackedDwordScratchByte1
+    stz !PackedDwordHi
+    stz !PackedDwordScratchByte3
     rep #$20
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    lda !PackedDwordLo
+    ora !PackedDwordPartLo
+    sta !PackedDwordLo
+    lda !PackedDwordHi
+    ora !PackedDwordPartHi
+    sta !PackedDwordHi
     pla
-    sta $0A
+    sta !PackedDwordPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta !PackedDwordPartHi
+    lda !PackedDwordLo
+    ora !PackedDwordPartLo
+    sta !PackedDwordLo
+    lda !PackedDwordHi
+    ora !PackedDwordPartHi
+    sta !PackedDwordHi
     pla
-    sta $0A
+    sta !PackedDwordPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta !PackedDwordPartHi
+    lda !PackedDwordLo
+    ora !PackedDwordPartLo
+    sta !PackedDwordLo
+    lda !PackedDwordHi
+    ora !PackedDwordPartHi
+    sta !PackedDwordHi
     lda.w #!LowByteMask
     jsl !C46594_SetRegistrySlotFlagsC000
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !PackedDwordLo
+    sta !PackedDwordResultLo
+    lda !PackedDwordHi
+    sta !PackedDwordResultHi
     lda.w #!TenWord
     jsl !C064E3_EnqueueMovementRecord
     lda.w #!ZeroWord
-C16EBD_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EBD:
+C16EBD_ReturnFromMovementRecordTextCommand:
     pld
     rts
 CC_1F_F1:
-!C16EBF_HandleTextCommand1FF1 = CC_1F_F1
+!C16EBF_RunVisualScriptFromRecordTextCommand = CC_1F_F1
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     txa
-    sta $10
+    sta !EntityScriptSelectorHighByte
     lda.w #!ThreeWord
     clc
     sbc !DeferredCommandQueueCount
-    bvc C16ED9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6ED9
-    bpl C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF
-    bra C16EDB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EDB
-C16ED9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6ED9:
-    bmi C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF
-C16EDB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EDB:
-    lda $10
+    bvc C16ED9_CheckVisualScriptArgumentLimitSign
+    bpl C16EEF_RunQueuedVisualTypeEntityScript
+    bra C16EDB_QueueVisualScriptArgumentByte
+C16ED9_CheckVisualScriptArgumentLimitSign:
+    bmi C16EEF_RunQueuedVisualTypeEntityScript
+C16EDB_QueueVisualScriptArgumentByte:
+    lda !EntityScriptSelectorHighByte
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FF1Callback
-    bra C16F2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F2D
-C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF:
+    lda.w #!TextCommand1FF1RunVisualScriptFromRecordCallback
+    bra C16F2D_ReturnFromVisualScriptTextCommand
+C16EEF_RunQueuedVisualTypeEntityScript:
     sep #$10
-    ldy.b #$08
+    ldy.b #!EightBitShift
     lda !DeferredCommandByte1
     and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
-    sta $02
+    sta !EntityScriptSelectorWordScratch
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
-    ora $02
+    ora !EntityScriptSelectorWordScratch
     rep #$10
     tay
-    sty $0E
+    sty !EntityScriptVisualOrPoseSelector
     sep #$10
-    ldy.b #$08
-    lda $10
+    ldy.b #!EightBitShift
+    lda !EntityScriptSelectorHighByte
     jsl !C0923E_ShiftWordLeftByY
-    sta $02
+    sta !EntityScriptSelectorWordScratch
     lda !DeferredCommandByte2
     and.w #!LowByteMask
-    ora $02
+    ora !EntityScriptSelectorWordScratch
     rep #$10
     tax
-    ldy $0E
+    ldy !EntityScriptVisualOrPoseSelector
     tya
     jsl !C4617C_RunVisualTypeEntityScriptFromRecordC4c4d4
     lda.w #!ZeroWord
-C16F2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F2D:
+C16F2D_ReturnFromVisualScriptTextCommand:
     pld
     rts
 CC_1F_F2:
-!C16F2F_HandleTextCommand1FF2 = CC_1F_F2
+!C16F2F_RunPoseScriptFromRecordTextCommand = CC_1F_F2
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     txa
-    sta $10
+    sta !EntityScriptSelectorHighByte
     lda.w #!ThreeWord
     clc
     sbc !DeferredCommandQueueCount
-    bvc C16F49_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F49
-    bpl C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F
-    bra C16F4B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F4B
-C16F49_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F49:
-    bmi C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F
-C16F4B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F4B:
-    lda $10
+    bvc C16F49_CheckPoseScriptArgumentLimitSign
+    bpl C16F5F_RunQueuedPoseDescriptorEntityScript
+    bra C16F4B_QueuePoseScriptArgumentByte
+C16F49_CheckPoseScriptArgumentLimitSign:
+    bmi C16F5F_RunQueuedPoseDescriptorEntityScript
+C16F4B_QueuePoseScriptArgumentByte:
+    lda !EntityScriptSelectorHighByte
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FF2Callback
-    bra C16F9D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F9D
-C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F:
+    lda.w #!TextCommand1FF2RunPoseScriptFromRecordCallback
+    bra C16F9D_ReturnFromPoseScriptTextCommand
+C16F5F_RunQueuedPoseDescriptorEntityScript:
     sep #$10
-    ldy.b #$08
+    ldy.b #!EightBitShift
     lda !DeferredCommandByte1
     and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
-    sta $02
+    sta !EntityScriptSelectorWordScratch
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
-    ora $02
+    ora !EntityScriptSelectorWordScratch
     rep #$10
     tay
-    sty $0E
+    sty !EntityScriptVisualOrPoseSelector
     sep #$10
-    ldy.b #$08
-    lda $10
+    ldy.b #!EightBitShift
+    lda !EntityScriptSelectorHighByte
     jsl !C0923E_ShiftWordLeftByY
-    sta $02
+    sta !EntityScriptSelectorWordScratch
     lda !DeferredCommandByte2
     and.w #!LowByteMask
-    ora $02
+    ora !EntityScriptSelectorWordScratch
     rep #$10
     tax
-    ldy $0E
+    ldy !EntityScriptVisualOrPoseSelector
     tya
     jsl !C461CC_RunPoseDescriptorEntityScriptFromRecordC4c4d4
     lda.w #!ZeroWord
-C16F9D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F9D:
+C16F9D_ReturnFromPoseScriptTextCommand:
     pld
     rts
 CC_19_25:
@@ -15494,100 +15570,102 @@ CC_19_25:
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     txa
-    beq C16FB2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB2
-    sta $06
-    stz $08
-    bra C16FB5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB5
-C16FB2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB2:
+    beq C16FB2_ReadCondimentFoodItemArgument
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    bra C16FB5_FindCondimentForResolvedFoodItem
+C16FB2_ReadCondimentFoodItemArgument:
     jsr !C103DC_ReadTextCommandArgumentWord
-C16FB5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB5:
+C16FB5_FindCondimentForResolvedFoodItem:
     sep #$20
-    lda $06
+    lda !TextCommandResultLo
     jsl !C1DB33_FindCondimentForFoodItem
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    lda !TextCommandResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
     pld
     rts
 CC_1F_23:
-!C16FD1_HandleTextCommand1F23 = CC_1F_23
+!C16FD1_InitScriptedBattleTextCommand = CC_1F_23
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
     txa
-    sta $12
+    sta !ScriptedBattleSelectorHighByte
     lda !DeferredCommandQueueCount
-    bne C16FF7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FF7
-    lda $12
+    bne C16FF7_ApplyQueuedScriptedBattleInit
+    lda !ScriptedBattleSelectorHighByte
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F23Callback
-    bra C17035_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7035
-C16FF7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FF7:
+    lda.w #!TextCommand1F23InitScriptedBattleCallback
+    bra C17035_ReturnFromScriptedBattleInitTextCommand
+C16FF7_ApplyQueuedScriptedBattleInit:
     sep #$10
-    ldy.b #$08
-    lda $12
+    ldy.b #!EightBitShift
+    lda !ScriptedBattleSelectorHighByte
     jsl !C0923E_ShiftWordLeftByY
-    sta $02
+    sta !ScriptedBattleSelectorWordScratch
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
-    ora $02
-    beq C17013_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7013
-    sta $06
-    stz $08
-    bra C17016_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7016
-C17013_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7013:
+    ora !ScriptedBattleSelectorWordScratch
+    beq C17013_ReadScriptedBattleArgumentWord
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    bra C17016_InitResolvedScriptedBattle
+C17013_ReadScriptedBattleArgumentWord:
     jsr !C103DC_ReadTextCommandArgumentWord
-C17016_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7016:
-    lda $06
+C17016_InitResolvedScriptedBattle:
+    lda !TextCommandResultLo
     jsl !C22F38_InitBattleScripted
     cmp.w #!ZeroWord
-    sta $06
-    stz $08
-    bpl C17027_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7027
-    dec $08
-C17027_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7027:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    bpl C17027_InstallScriptedBattleInitResult
+    dec !TextCommandResultHi
+C17027_InstallScriptedBattleInitResult:
+    lda !TextCommandResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
-C17035_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7035:
+C17035_ReturnFromScriptedBattleInitTextCommand:
     pld
     rts
+CC_19_26:
+!C17037_SnapshotRespawnWarpTargetTextCommand = CC_19_26
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     txa
-    beq C1704A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704A
-    sta $06
-    stz $08
-    bra C1704D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704D
-C1704A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704A:
+    beq C1704A_ReadRespawnWarpSnapshotArgument
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    bra C1704D_SnapshotResolvedRespawnWarpTarget
+C1704A_ReadRespawnWarpSnapshotArgument:
     jsr !C103DC_ReadTextCommandArgumentWord
-C1704D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704D:
-    lda $06
+C1704D_SnapshotResolvedRespawnWarpTarget:
+    lda !TextCommandResultLo
     jsl !C230F3_SnapshotRespawnWarpTargetState
     lda.w #!ZeroWord
     pld
@@ -15598,20 +15676,20 @@ CC_1D_0C:
     phd
     pha
     tdc
-    adc.w #$FFEA
+    adc.w #!EscargoStatusFrameOffset
     tcd
     pla
     txy
-    sty $14
+    sty !EscargoStorageModeSelector
     lda.w #!OneWord
     clc
     sbc !DeferredCommandQueueCount
-    bvc C17072_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7072
-    bpl C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088
-    bra C17074_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7074
-C17072_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7072:
-    bmi C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088
-C17074_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7074:
+    bvc C17072_CheckEscargoStatusArgumentLimitSign
+    bpl C17088_ApplyQueuedEscargoStorageStatusCheck
+    bra C17074_QueueEscargoStorageStatusArgumentByte
+C17072_CheckEscargoStatusArgumentLimitSign:
+    bmi C17088_ApplyQueuedEscargoStorageStatusCheck
+C17074_QueueEscargoStorageStatusArgumentByte:
     tya
     sep #$20
     ldx !DeferredCommandQueueCount
@@ -15619,239 +15697,239 @@ C17074_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7074:
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1D0CCheckEscargoStorageStatusCallback
-    jmp.w C1711A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L711A
-C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088:
+    jmp.w C1711A_ReturnFromEscargoStorageStatusTextCommand
+C17088_ApplyQueuedEscargoStorageStatusCheck:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
-    beq C17094_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7094
+    beq C17094_LoadEscargoCharacterFromPrimaryContext
     txa
-    bra C17099_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7099
-C17094_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7094:
+    bra C17099_StageEscargoCharacterSelector
+C17094_LoadEscargoCharacterFromPrimaryContext:
     jsr !C1040A_LoadPrimaryInteractionContextPointer
-    lda $06
-C17099_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7099:
-    sta $02
-    ldy $14
-    beq C170A2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A2
+    lda !TextCommandResultLo
+C17099_StageEscargoCharacterSelector:
+    sta !EscargoCharacterSelector
+    ldy !EscargoStorageModeSelector
+    beq C170A2_ReadEscargoInventorySlotArgument
     tya
-    bra C170A7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A7
-C170A2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A2:
+    bra C170A7_StageEscargoInventorySlotSelector
+C170A2_ReadEscargoInventorySlotArgument:
     jsr !C103DC_ReadTextCommandArgumentWord
-    lda $06
-C170A7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A7:
+    lda !TextCommandResultLo
+C170A7_StageEscargoInventorySlotSelector:
     tay
-    sty $12
+    sty !EscargoInventorySlotSelector
     jsr !C190F1_CheckEscargoStorageQueueFull
     cmp.w #!ZeroWord
-    beq C170B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70B9
-    ldx.w #!TwoWord
-    stx $14
-    bra C170BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70BE
-C170B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70B9:
+    beq C170B9_StageEscargoStorageHasRoomBit
+    ldx.w #!StorageFullResultBit
+    stx !EscargoStorageFullStatusBit
+    bra C170BE_TestEscargoItemStorageFlag
+C170B9_StageEscargoStorageHasRoomBit:
     ldx.w #!ZeroWord
-    stx $14
-C170BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70BE:
-    ldy $12
+    stx !EscargoStorageFullStatusBit
+C170BE_TestEscargoItemStorageFlag:
+    ldy !EscargoInventorySlotSelector
     tya
     dec A
     pha
-    lda $02
+    lda !EscargoCharacterSelector
     dec A
     ldy.w #!CharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99F1
+    adc.w #!InventoryItemListBase
     ply
-    sty $02
+    sty !EscargoInventorySlotOffset
     clc
-    adc $02
+    adc !EscargoInventorySlotOffset
     tax
     lda $0000,X
     and.w #!LowByteMask
-    ldy.w #$0027
+    ldy.w #!InventorySlotItemRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$001C
+    adc.w #!ItemTableStorageFlagsOffset
     tax
     lda $D55000,X
     and.w #!LowByteMask
-    and.w #$0040
-    beq C170FB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FB
+    and.w #!ItemCannotBeStoredMask
+    beq C170FB_StageEscargoItemStorableBit
     lda.w #!OneWord
-    bra C170FE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FE
-C170FB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FB:
+    bra C170FE_CombineEscargoStorageStatusBits
+C170FB_StageEscargoItemStorableBit:
     lda.w #!ZeroWord
-C170FE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FE:
-    ldx $14
-    stx $02
-    ora $02
-    sta $06
-    stz $08
-    bpl C1710C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L710C
-    dec $08
-C1710C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L710C:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+C170FE_CombineEscargoStorageStatusBits:
+    ldx !EscargoStorageFullStatusBit
+    stx !EscargoStatusBitScratch
+    ora !EscargoStatusBitScratch
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    bpl C1710C_InstallEscargoStorageStatusResult
+    dec !TextCommandResultHi
+C1710C_InstallEscargoStorageStatusResult:
+    lda !TextCommandResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
-C1711A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L711A:
+C1711A_ReturnFromEscargoStorageStatusTextCommand:
     pld
     rts
 CC_1F_66:
-!C1711C_HandleTextCommand1F66 = CC_1F_66
+!C1711C_ActivateHotspotTextCommand = CC_1F_66
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEB
+    adc.w #!FiveByteCallbackFrameOffset
     tcd
     pla
-    stx $13
+    stx !HotspotActivationCurrentPayloadByte
     lda.w #!FiveWord
     clc
     sbc !DeferredCommandQueueCount
-    bvc C17135_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7135
-    bpl C1714B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L714B
-    bra C17137_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7137
-C17135_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7135:
-    bmi C1714B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L714B
-C17137_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7137:
+    bvc C17135_CheckHotspotArgumentLimitSign
+    bpl C1714B_ApplyQueuedHotspotActivation
+    bra C17137_QueueHotspotActivationArgumentByte
+C17135_CheckHotspotArgumentLimitSign:
+    bmi C1714B_ApplyQueuedHotspotActivation
+C17137_QueueHotspotActivationArgumentByte:
     txa
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1F66Callback
-    jmp.w C17231_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7231
-C1714B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L714B:
+    lda.w #!TextCommand1F66ActivateHotspotCallback
+    jmp.w C17231_ReturnFromHotspotActivationTextCommand
+C1714B_ApplyQueuedHotspotActivation:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
-    beq C1715F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L715F
+    beq C1715F_ReadHotspotSelectorArgument
     sep #$20
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    bra C17162_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7162
-C1715F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L715F:
+    sta !PackedDwordLo
+    stz !PackedDwordScratchByte1
+    stz !PackedDwordHi
+    stz !PackedDwordScratchByte3
+    bra C17162_StageHotspotSelectorArgument
+C1715F_ReadHotspotSelectorArgument:
     jsr !C103DC_ReadTextCommandArgumentWord
-C17162_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7162:
+C17162_StageHotspotSelectorArgument:
     sep #$20
-    lda $06
-    sta $00
+    lda !PackedDwordLo
+    sta !HotspotActivationSelector
     rep #$20
     lda !DeferredCommandByte1
     and.w #!LowByteMask
-    beq C1717E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L717E
+    beq C1717E_LoadHotspotTargetFromPrimaryContext
     sep #$20
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    bra C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181
-C1717E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L717E:
+    sta !PackedDwordLo
+    stz !PackedDwordScratchByte1
+    stz !PackedDwordHi
+    stz !PackedDwordScratchByte3
+    bra C17181_StageHotspotTargetSelector
+C1717E_LoadHotspotTargetFromPrimaryContext:
     jsr !C1040A_LoadPrimaryInteractionContextPointer
-C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
+C17181_StageHotspotTargetSelector:
     sep #$20
-    lda $06
-    sta $12
-    ldx $13
+    lda !PackedDwordLo
+    sta !HotspotActivationTargetSelector
+    ldx !HotspotActivationCurrentPayloadByte
     rep #$20
     txa
-    sta $06
-    stz $08
+    sta !PackedDwordLo
+    stz !PackedDwordHi
     sep #$10
-    ldy.b #$18
+    ldy.b #!TwentyFourBitShift
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !PackedDwordHi
     pha
-    lda $06
+    lda !PackedDwordLo
     pha
-    ldy.b #$10
+    ldy.b #!SixteenBitShift
     sep #$20
     lda !DeferredCommandByte4
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !PackedDwordLo
+    stz !PackedDwordScratchByte1
+    stz !PackedDwordHi
+    stz !PackedDwordScratchByte3
     rep #$20
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !PackedDwordHi
     pha
-    lda $06
+    lda !PackedDwordLo
     pha
-    ldy.b #$08
+    ldy.b #!EightBitShift
     sep #$20
     lda !DeferredCommandByte3
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !PackedDwordLo
+    stz !PackedDwordScratchByte1
+    stz !PackedDwordHi
+    stz !PackedDwordScratchByte3
     rep #$20
     jsl !C09246_ShiftLeft32ByY
-    lda $06
-    sta $0A
-    lda $08
-    sta $0C
+    lda !PackedDwordLo
+    sta !PackedDwordPartLo
+    lda !PackedDwordHi
+    sta !PackedDwordPartHi
     sep #$20
     lda !DeferredCommandByte2
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !PackedDwordLo
+    stz !PackedDwordScratchByte1
+    stz !PackedDwordHi
+    stz !PackedDwordScratchByte3
     rep #$20
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    lda !PackedDwordLo
+    ora !PackedDwordPartLo
+    sta !PackedDwordLo
+    lda !PackedDwordHi
+    ora !PackedDwordPartHi
+    sta !PackedDwordHi
     pla
-    sta $0A
+    sta !PackedDwordPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta !PackedDwordPartHi
+    lda !PackedDwordLo
+    ora !PackedDwordPartLo
+    sta !PackedDwordLo
+    lda !PackedDwordHi
+    ora !PackedDwordPartHi
+    sta !PackedDwordHi
     pla
-    sta $0A
+    sta !PackedDwordPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    lda $12
+    sta !PackedDwordPartHi
+    lda !PackedDwordLo
+    ora !PackedDwordPartLo
+    sta !PackedDwordLo
+    lda !PackedDwordHi
+    ora !PackedDwordPartHi
+    sta !PackedDwordHi
+    lda !PackedDwordLo
+    sta !PackedDwordResultLo
+    lda !PackedDwordHi
+    sta !PackedDwordResultHi
+    lda !HotspotActivationTargetSelector
     and.w #!LowByteMask
     rep #$10
     tax
-    lda $00
+    lda !HotspotActivationSelector
     and.w #!LowByteMask
     jsl !C072CF_ActivateHotspot
     lda.w #!ZeroWord
-C17231_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7231:
+C17231_ReturnFromHotspotActivationTextCommand:
     pld
     rts
 CC_1F_67:
-!C17233_HandleTextCommand1F67 = CC_1F_67
+!C17233_DisableHotspotTextCommand = CC_1F_67
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     txa
@@ -15868,12 +15946,12 @@ C17249_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7249:
     pld
     rts
 CC_1F_04:
-!C17254_HandleTextCommand1F04 = CC_1F_04
+!C17254_SetTextSoundModeTextCommand = CC_1F_04
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     txa
@@ -15918,9 +15996,23 @@ org $C17274
 !LowByteMask = $00FF
 !EightBitShift = $08
 !ZeroWord = $0000
+!BankDepositCallerFrameOffset = $FFEA
+!ThreeByteCallbackFrameOffset = $FFEE
+!TwoByteCallbackFrameOffset = $FFF0
+!FourByteCallbackFrameOffset = $FFEC
+!SingleWordArgumentFrameOffset = $FFF2
+!TextCommandResultLo = $06
+!TextCommandResultHi = $08
+!TextContextSourcePointerLo = $0E
+!TextContextSourcePointerHi = $10
+!BankDepositAccumulatorPointer = $12
+!BankDepositCommandSelector = $14
+!AttachedChildCurrentArgument = $0E
+!AttachedChildPoseDescriptorWordScratch = $02
+!BattleVisualActorSelector = $12
 !TextCommand1F40StageSpecialEventArgumentCallback = $72BC
-!TextCommand1FF3SpawnAttachedChildByPoseCallback = $7325
-!TextCommand1FF4ClearAttachedChildByPoseCallback = $737D
+!TextCommand1FF3SpawnAttachedChildByPoseDescriptorCallback = $7325
+!TextCommand1FF4ClearAttachedChildByPoseDescriptorCallback = $737D
 !TextCommand1C13StageBattleVisualEffectResultCallback = $73C0
 CC_1D_24:
 !C17274_StageBankDepositAccumulatorTextValue = CC_1D_24
@@ -15928,34 +16020,34 @@ CC_1D_24:
     phd
     pha
     tdc
-    adc.w #$FFEA
+    adc.w #!BankDepositCallerFrameOffset
     tcd
     pla
-    stx $14
+    stx !BankDepositCommandSelector
     ldy.w #!BankDepositAccumulatorTextValue
-    sty $12
+    sty !BankDepositAccumulatorPointer
     lda $0000,Y
-    sta $06
+    sta !TextCommandResultLo
     lda $0002,Y
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !TextCommandResultHi
+    lda !TextCommandResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    ldx $14
+    ldx !BankDepositCommandSelector
     cpx.w #!ClearBankDepositAccumulatorSelector
-    bne C172B7_c1_7274_stage_bank_deposit_accumulator_text_value_L72B7
+    bne C172B7_ReturnFromBankDepositAccumulatorTextCommand
     lda.w #!ZeroWord
-    sta $06
+    sta !TextCommandResultLo
     lda.w #!ZeroWord
-    sta $08
-    ldy $12
-    lda $06
+    sta !TextCommandResultHi
+    ldy !BankDepositAccumulatorPointer
+    lda !TextCommandResultLo
     sta $0000,Y
-    lda $08
+    lda !TextCommandResultHi
     sta $0002,Y
-C172B7_c1_7274_stage_bank_deposit_accumulator_text_value_L72B7:
+C172B7_ReturnFromBankDepositAccumulatorTextCommand:
     lda.w #!ZeroWord
     pld
     rts
@@ -15963,7 +16055,7 @@ CC_1F_40:
 !C172BC_HandleTextCommand1F40 = CC_1F_40
     rep #$31
     lda !DeferredCommandQueueCount
-    bne C172D6_c1_7274_stage_bank_deposit_accumulator_text_value_L72D6
+    bne C172D6_ReturnNoSpecialEventArgumentCallback
     txa
     sep #$20
     ldx !DeferredCommandQueueCount
@@ -15971,10 +16063,10 @@ CC_1F_40:
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1F40StageSpecialEventArgumentCallback
-    bra C172D9_c1_7274_stage_bank_deposit_accumulator_text_value_L72D9
-C172D6_c1_7274_stage_bank_deposit_accumulator_text_value_L72D6:
+    bra C172D9_ReturnFromSpecialEventArgumentStager
+C172D6_ReturnNoSpecialEventArgumentCallback:
     lda.w #!ZeroWord
-C172D9_c1_7274_stage_bank_deposit_accumulator_text_value_L72D9:
+C172D9_ReturnFromSpecialEventArgumentStager:
     rts
 CC_1F_41:
 !C172DA_HandleTextCommand1F41 = CC_1F_41
@@ -15982,21 +16074,21 @@ CC_1F_41:
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!ThreeByteCallbackFrameOffset
     tcd
     pla
     txa
     jsl !C1BEFC_DispatchTextCommand1F41SpecialEvent
     cmp.w #!ZeroWord
-    sta $06
-    stz $08
-    bpl C172F4_c1_7274_stage_bank_deposit_accumulator_text_value_L72F4
-    dec $08
-C172F4_c1_7274_stage_bank_deposit_accumulator_text_value_L72F4:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    bpl C172F4_InstallSpecialEventResult
+    dec !TextCommandResultHi
+C172F4_InstallSpecialEventResult:
+    lda !TextCommandResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
     pld
@@ -16007,50 +16099,50 @@ CC_1F_D2:
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     txa
-    beq C17317_c1_7274_stage_bank_deposit_accumulator_text_value_L7317
-    sta $06
-    stz $08
-    bra C1731A_c1_7274_stage_bank_deposit_accumulator_text_value_L731A
-C17317_c1_7274_stage_bank_deposit_accumulator_text_value_L7317:
+    beq C17317_ReadPhotographerPhotoIndexArgument
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    bra C1731A_RunResolvedWanderingPhotographerScript
+C17317_ReadPhotographerPhotoIndexArgument:
     jsr !C103DC_ReadTextCommandArgumentWord
-C1731A_c1_7274_stage_bank_deposit_accumulator_text_value_L731A:
-    lda $06
+C1731A_RunResolvedWanderingPhotographerScript:
+    lda !TextCommandResultLo
     jsl !C466C1_RunWanderingPhotographerScriptForPhotoIndex
     lda.w #!ZeroWord
     pld
     rts
 CC_1F_F3:
-!C17325_HandleTextCommand1FF3 = CC_1F_F3
+!C17325_SpawnAttachedChildByPoseDescriptorTextCommand = CC_1F_F3
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
-    stx $0E
+    stx !AttachedChildCurrentArgument
     lda.w #!AttachedChildPoseDescriptorArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C1733E_c1_7274_stage_bank_deposit_accumulator_text_value_L733E
-    bpl C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353
-    bra C17340_c1_7274_stage_bank_deposit_accumulator_text_value_L7340
-C1733E_c1_7274_stage_bank_deposit_accumulator_text_value_L733E:
-    bmi C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353
-C17340_c1_7274_stage_bank_deposit_accumulator_text_value_L7340:
+    bvc C1733E_CheckSpawnAttachedChildArgumentLimitSign
+    bpl C17353_SpawnQueuedAttachedChildByPose
+    bra C17340_QueueSpawnAttachedChildArgumentByte
+C1733E_CheckSpawnAttachedChildArgumentLimitSign:
+    bmi C17353_SpawnQueuedAttachedChildByPose
+C17340_QueueSpawnAttachedChildArgumentByte:
     txa
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FF3SpawnAttachedChildByPoseCallback
-    bra C1737B_c1_7274_stage_bank_deposit_accumulator_text_value_L737B
-C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353:
+    lda.w #!TextCommand1FF3SpawnAttachedChildByPoseDescriptorCallback
+    bra C1737B_ReturnFromSpawnAttachedChildTextCommand
+C17353_SpawnQueuedAttachedChildByPose:
     sep #$20
     lda.b #!EightBitShift
     sep #$10
@@ -16059,50 +16151,50 @@ C17353_c1_7274_stage_bank_deposit_accumulator_text_value_L7353:
     lda !DeferredCommandByte1
     and.w #!LowByteMask
     jsl !C0923E_ShiftWordLeftByY
-    sta $02
+    sta !AttachedChildPoseDescriptorWordScratch
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
-    ora $02
+    ora !AttachedChildPoseDescriptorWordScratch
     rep #$10
-    ldx $0E
+    ldx !AttachedChildCurrentArgument
     jsl !C4B54A_SpawnAttachedChildForPoseDescriptorId
     lda.w #!ZeroWord
-C1737B_c1_7274_stage_bank_deposit_accumulator_text_value_L737B:
+C1737B_ReturnFromSpawnAttachedChildTextCommand:
     pld
     rts
 CC_1F_F4:
-!C1737D_HandleTextCommand1FF4 = CC_1F_F4
+!C1737D_ClearAttachedChildByPoseDescriptorTextCommand = CC_1F_F4
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!TwoByteCallbackFrameOffset
     tcd
     pla
     txa
-    sta $0E
+    sta !AttachedChildCurrentArgument
     lda !DeferredCommandQueueCount
-    bne C173A3_c1_7274_stage_bank_deposit_accumulator_text_value_L73A3
-    lda $0E
+    bne C173A3_ClearQueuedAttachedChildByPose
+    lda !AttachedChildCurrentArgument
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
-    lda.w #!TextCommand1FF4ClearAttachedChildByPoseCallback
-    bra C173BE_c1_7274_stage_bank_deposit_accumulator_text_value_L73BE
-C173A3_c1_7274_stage_bank_deposit_accumulator_text_value_L73A3:
+    lda.w #!TextCommand1FF4ClearAttachedChildByPoseDescriptorCallback
+    bra C173BE_ReturnFromClearAttachedChildTextCommand
+C173A3_ClearQueuedAttachedChildByPose:
     sep #$10
     ldy.b #!EightBitShift
-    lda $0E
+    lda !AttachedChildCurrentArgument
     jsl !C0923E_ShiftWordLeftByY
-    sta $02
+    sta !AttachedChildPoseDescriptorWordScratch
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
-    ora $02
+    ora !AttachedChildPoseDescriptorWordScratch
     jsl !C4B565_ClearAttachedChildForPoseDescriptorId
     lda.w #!ZeroWord
-C173BE_c1_7274_stage_bank_deposit_accumulator_text_value_L73BE:
+C173BE_ReturnFromClearAttachedChildTextCommand:
     pld
     rts
 CC_1C_13:
@@ -16111,19 +16203,19 @@ CC_1C_13:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!FourByteCallbackFrameOffset
     tcd
     pla
-    stx $12
+    stx !BattleVisualActorSelector
     lda.w #!BattleVisualEffectArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C173D9_c1_7274_stage_bank_deposit_accumulator_text_value_L73D9
-    bpl C173EE_c1_7274_stage_bank_deposit_accumulator_text_value_L73EE
-    bra C173DB_c1_7274_stage_bank_deposit_accumulator_text_value_L73DB
-C173D9_c1_7274_stage_bank_deposit_accumulator_text_value_L73D9:
-    bmi C173EE_c1_7274_stage_bank_deposit_accumulator_text_value_L73EE
-C173DB_c1_7274_stage_bank_deposit_accumulator_text_value_L73DB:
+    bvc C173D9_CheckBattleVisualArgumentLimitSign
+    bpl C173EE_ApplyQueuedBattleVisualEffect
+    bra C173DB_QueueBattleVisualArgumentByte
+C173D9_CheckBattleVisualArgumentLimitSign:
+    bmi C173EE_ApplyQueuedBattleVisualEffect
+C173DB_QueueBattleVisualArgumentByte:
     txa
     sep #$20
     ldx !DeferredCommandQueueCount
@@ -16131,51 +16223,51 @@ C173DB_c1_7274_stage_bank_deposit_accumulator_text_value_L73DB:
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1C13StageBattleVisualEffectResultCallback
-    bra C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D
-C173EE_c1_7274_stage_bank_deposit_accumulator_text_value_L73EE:
+    bra C1741D_ReturnFromBattleVisualTextCommand
+C173EE_ApplyQueuedBattleVisualEffect:
     jsr !C10042_ReadBlinkingTriangleState
     cmp.w #!ZeroWord
-    beq C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A
-    ldx $12
+    beq C1741A_ReturnNoBattleVisualResult
+    ldx !BattleVisualActorSelector
     dex
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     dec A
     jsl !C3FAC9_DispatchBattleActorVisualEffectToken
     cmp.w #!ZeroWord
-    sta $06
-    stz $08
-    bpl C1740F_c1_7274_stage_bank_deposit_accumulator_text_value_L740F
-    dec $08
-C1740F_c1_7274_stage_bank_deposit_accumulator_text_value_L740F:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    bpl C1740F_InstallBattleVisualEffectResult
+    dec !TextCommandResultHi
+C1740F_InstallBattleVisualEffectResult:
+    lda !TextCommandResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-C1741A_c1_7274_stage_bank_deposit_accumulator_text_value_L741A:
+C1741A_ReturnNoBattleVisualResult:
     lda.w #!ZeroWord
-C1741D_c1_7274_stage_bank_deposit_accumulator_text_value_L741D:
+C1741D_ReturnFromBattleVisualTextCommand:
     pld
     rts
 CC_1F_07:
-!C1741F_HandleTextCommand1F07 = CC_1F_07
+!C1741F_QueuePresentationSfxTextCommand = CC_1F_07
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #!SingleWordArgumentFrameOffset
     tcd
     pla
     txa
-    beq C17432_c1_7274_stage_bank_deposit_accumulator_text_value_L7432
-    sta $06
-    stz $08
-    bra C17435_c1_7274_stage_bank_deposit_accumulator_text_value_L7435
-C17432_c1_7274_stage_bank_deposit_accumulator_text_value_L7432:
+    beq C17432_ReadPresentationSfxArgument
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    bra C17435_QueueResolvedPresentationSfx
+C17432_ReadPresentationSfxArgument:
     jsr !C103DC_ReadTextCommandArgumentWord
-C17435_c1_7274_stage_bank_deposit_accumulator_text_value_L7435:
-    lda $06
+C17435_QueueResolvedPresentationSfx:
+    lda !TextCommandResultLo
     jsl !C0AC0C_QueuePresentationSfxOrCounter
     lda.w #!ZeroWord
     pld
@@ -16203,6 +16295,19 @@ org $C17440
 !DeferredCommandByte2 = $97BC
 !DeferredCommandByte3 = $97BD
 !DeferredCommandQueueCount = $97CA
+!GiveExperienceCallerFrameOffset = $FFEC
+!StatBoostCallerFrameOffset = $FFF0
+!ExperienceAmountByte3 = $12
+!ExperienceAmountLo = $06
+!ExperienceAmountScratchByte1 = $07
+!ExperienceAmountHi = $08
+!ExperienceAmountScratchByte3 = $09
+!ExperienceAmountPartLo = $0A
+!ExperienceAmountPartHi = $0C
+!ExperienceAwardAmountLo = $0E
+!ExperienceAwardAmountHi = $10
+!StatBoostAmount = $0E
+!StatBoostAddScratch = $00
 !GiveExperienceArgumentLimit = $0004
 !StatBoostArgumentLimit = $0001
 !AwardExperienceModeNormal = $0001
@@ -16236,109 +16341,109 @@ CC_1E_09:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!GiveExperienceCallerFrameOffset
     tcd
     pla
     txa
-    sta $12
+    sta !ExperienceAmountByte3
     lda.w #!GiveExperienceArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C17465_c1_7440_timed_delivery_row_selector_callback_L7465
-    bpl C1747C_c1_7440_timed_delivery_row_selector_callback_L747C
-    bra C17467_c1_7440_timed_delivery_row_selector_callback_L7467
-C17465_c1_7440_timed_delivery_row_selector_callback_L7465:
-    bmi C1747C_c1_7440_timed_delivery_row_selector_callback_L747C
-C17467_c1_7440_timed_delivery_row_selector_callback_L7467:
-    lda $12
+    bvc C17465_CheckExperienceArgumentLimitSign
+    bpl C1747C_ApplyQueuedExperienceAward
+    bra C17467_QueueExperienceArgumentByte
+C17465_CheckExperienceArgumentLimitSign:
+    bmi C1747C_ApplyQueuedExperienceAward
+C17467_QueueExperienceArgumentByte:
+    lda !ExperienceAmountByte3
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E09GiveExperienceCallback
-    jmp.w C17521_c1_7440_timed_delivery_row_selector_callback_L7521
-C1747C_c1_7440_timed_delivery_row_selector_callback_L747C:
+    jmp.w C17521_ReturnFromGiveExperienceTextCommand
+C1747C_ApplyQueuedExperienceAward:
     sep #$10
     ldy.b #!TwentyFourBitShift
-    lda $12
-    sta $06
-    stz $08
+    lda !ExperienceAmountByte3
+    sta !ExperienceAmountLo
+    stz !ExperienceAmountHi
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !ExperienceAmountHi
     pha
-    lda $06
+    lda !ExperienceAmountLo
     pha
     ldy.b #!SixteenBitShift
     sep #$20
     lda !DeferredCommandByte3
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !ExperienceAmountLo
+    stz !ExperienceAmountScratchByte1
+    stz !ExperienceAmountHi
+    stz !ExperienceAmountScratchByte3
     rep #$20
     jsl !C09246_ShiftLeft32ByY
-    lda $08
+    lda !ExperienceAmountHi
     pha
-    lda $06
+    lda !ExperienceAmountLo
     pha
     ldy.b #!EightBitShift
     sep #$20
     lda !DeferredCommandByte2
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !ExperienceAmountLo
+    stz !ExperienceAmountScratchByte1
+    stz !ExperienceAmountHi
+    stz !ExperienceAmountScratchByte3
     rep #$20
     jsl !C09246_ShiftLeft32ByY
-    lda $06
-    sta $0A
-    lda $08
-    sta $0C
+    lda !ExperienceAmountLo
+    sta !ExperienceAmountPartLo
+    lda !ExperienceAmountHi
+    sta !ExperienceAmountPartHi
     sep #$20
     lda !DeferredCommandByte1
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta !ExperienceAmountLo
+    stz !ExperienceAmountScratchByte1
+    stz !ExperienceAmountHi
+    stz !ExperienceAmountScratchByte3
     rep #$20
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    lda !ExperienceAmountLo
+    ora !ExperienceAmountPartLo
+    sta !ExperienceAmountLo
+    lda !ExperienceAmountHi
+    ora !ExperienceAmountPartHi
+    sta !ExperienceAmountHi
     pla
-    sta $0A
+    sta !ExperienceAmountPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta !ExperienceAmountPartHi
+    lda !ExperienceAmountLo
+    ora !ExperienceAmountPartLo
+    sta !ExperienceAmountLo
+    lda !ExperienceAmountHi
+    ora !ExperienceAmountPartHi
+    sta !ExperienceAmountHi
     pla
-    sta $0A
+    sta !ExperienceAmountPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !ExperienceAmountPartHi
+    lda !ExperienceAmountLo
+    ora !ExperienceAmountPartLo
+    sta !ExperienceAmountLo
+    lda !ExperienceAmountHi
+    ora !ExperienceAmountPartHi
+    sta !ExperienceAmountHi
+    lda !ExperienceAmountLo
+    sta !ExperienceAwardAmountLo
+    lda !ExperienceAmountHi
+    sta !ExperienceAwardAmountHi
     rep #$10
     ldx.w #!AwardExperienceModeNormal
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     jsl !C1D9E9_AwardExperienceToCharacter
     lda.w #!ZeroWord
-C17521_c1_7440_timed_delivery_row_selector_callback_L7521:
+C17521_ReturnFromGiveExperienceTextCommand:
     pld
     rts
 CC_1E_0A:
@@ -16347,29 +16452,29 @@ CC_1E_0A:
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!StatBoostCallerFrameOffset
     tcd
     pla
     txa
-    sta $0E
+    sta !StatBoostAmount
     lda.w #!StatBoostArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C1753D_c1_7440_timed_delivery_row_selector_callback_L753D
-    bpl C17553_c1_7440_timed_delivery_row_selector_callback_L7553
-    bra C1753F_c1_7440_timed_delivery_row_selector_callback_L753F
-C1753D_c1_7440_timed_delivery_row_selector_callback_L753D:
-    bmi C17553_c1_7440_timed_delivery_row_selector_callback_L7553
-C1753F_c1_7440_timed_delivery_row_selector_callback_L753F:
-    lda $0E
+    bvc C1753D_CheckBoostIqArgumentLimitSign
+    bpl C17553_ApplyQueuedIqBoost
+    bra C1753F_QueueBoostIqArgumentByte
+C1753D_CheckBoostIqArgumentLimitSign:
+    bmi C17553_ApplyQueuedIqBoost
+C1753F_QueueBoostIqArgumentByte:
+    lda !StatBoostAmount
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E0ABoostIqCallback
-    bra C17582_c1_7440_timed_delivery_row_selector_callback_L7582
-C17553_c1_7440_timed_delivery_row_selector_callback_L7553:
+    bra C17582_ReturnFromBoostIqTextCommand
+C17553_ApplyQueuedIqBoost:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
@@ -16379,19 +16484,19 @@ C17553_c1_7440_timed_delivery_row_selector_callback_L7553:
     clc
     adc.w #!CharacterIqFieldBase
     tay
-    lda $0E
+    lda !StatBoostAmount
     sep #$20
-    sta $00
+    sta !StatBoostAddScratch
     lda $0000,Y
     clc
-    adc $00
+    adc !StatBoostAddScratch
     sta $0000,Y
     rep #$20
     txa
     jsl !C21D7D_RecalculateCharacterDerivedIq
     rep #$20
     lda.w #!ZeroWord
-C17582_c1_7440_timed_delivery_row_selector_callback_L7582:
+C17582_ReturnFromBoostIqTextCommand:
     pld
     rts
 CC_1E_0B:
@@ -16400,29 +16505,29 @@ CC_1E_0B:
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!StatBoostCallerFrameOffset
     tcd
     pla
     txa
-    sta $0E
+    sta !StatBoostAmount
     lda.w #!StatBoostArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C1759E_c1_7440_timed_delivery_row_selector_callback_L759E
-    bpl C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4
-    bra C175A0_c1_7440_timed_delivery_row_selector_callback_L75A0
-C1759E_c1_7440_timed_delivery_row_selector_callback_L759E:
-    bmi C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4
-C175A0_c1_7440_timed_delivery_row_selector_callback_L75A0:
-    lda $0E
+    bvc C1759E_CheckBoostGutsArgumentLimitSign
+    bpl C175B4_ApplyQueuedGutsBoost
+    bra C175A0_QueueBoostGutsArgumentByte
+C1759E_CheckBoostGutsArgumentLimitSign:
+    bmi C175B4_ApplyQueuedGutsBoost
+C175A0_QueueBoostGutsArgumentByte:
+    lda !StatBoostAmount
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E0BBoostGutsCallback
-    bra C175E3_c1_7440_timed_delivery_row_selector_callback_L75E3
-C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4:
+    bra C175E3_ReturnFromBoostGutsTextCommand
+C175B4_ApplyQueuedGutsBoost:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
@@ -16432,19 +16537,19 @@ C175B4_c1_7440_timed_delivery_row_selector_callback_L75B4:
     clc
     adc.w #!CharacterGutsFieldBase
     tay
-    lda $0E
+    lda !StatBoostAmount
     sep #$20
-    sta $00
+    sta !StatBoostAddScratch
     lda $0000,Y
     clc
-    adc $00
+    adc !StatBoostAddScratch
     sta $0000,Y
     rep #$20
     txa
     jsl !C21BA4_RecalculateCharacterDerivedGuts
     rep #$20
     lda.w #!ZeroWord
-C175E3_c1_7440_timed_delivery_row_selector_callback_L75E3:
+C175E3_ReturnFromBoostGutsTextCommand:
     pld
     rts
 CC_1E_0C:
@@ -16453,29 +16558,29 @@ CC_1E_0C:
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!StatBoostCallerFrameOffset
     tcd
     pla
     txa
-    sta $0E
+    sta !StatBoostAmount
     lda.w #!StatBoostArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C175FF_c1_7440_timed_delivery_row_selector_callback_L75FF
-    bpl C17615_c1_7440_timed_delivery_row_selector_callback_L7615
-    bra C17601_c1_7440_timed_delivery_row_selector_callback_L7601
-C175FF_c1_7440_timed_delivery_row_selector_callback_L75FF:
-    bmi C17615_c1_7440_timed_delivery_row_selector_callback_L7615
-C17601_c1_7440_timed_delivery_row_selector_callback_L7601:
-    lda $0E
+    bvc C175FF_CheckBoostSpeedArgumentLimitSign
+    bpl C17615_ApplyQueuedSpeedBoost
+    bra C17601_QueueBoostSpeedArgumentByte
+C175FF_CheckBoostSpeedArgumentLimitSign:
+    bmi C17615_ApplyQueuedSpeedBoost
+C17601_QueueBoostSpeedArgumentByte:
+    lda !StatBoostAmount
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E0CBoostSpeedCallback
-    bra C17644_c1_7440_timed_delivery_row_selector_callback_L7644
-C17615_c1_7440_timed_delivery_row_selector_callback_L7615:
+    bra C17644_ReturnFromBoostSpeedTextCommand
+C17615_ApplyQueuedSpeedBoost:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
@@ -16485,19 +16590,19 @@ C17615_c1_7440_timed_delivery_row_selector_callback_L7615:
     clc
     adc.w #!CharacterSpeedFieldBase
     tay
-    lda $0E
+    lda !StatBoostAmount
     sep #$20
-    sta $00
+    sta !StatBoostAddScratch
     lda $0000,Y
     clc
-    adc $00
+    adc !StatBoostAddScratch
     sta $0000,Y
     rep #$20
     txa
     jsl !C21AEB_RecalculateCharacterDerivedSpeed
     rep #$20
     lda.w #!ZeroWord
-C17644_c1_7440_timed_delivery_row_selector_callback_L7644:
+C17644_ReturnFromBoostSpeedTextCommand:
     pld
     rts
 CC_1E_0D:
@@ -16506,29 +16611,29 @@ CC_1E_0D:
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!StatBoostCallerFrameOffset
     tcd
     pla
     txa
-    sta $0E
+    sta !StatBoostAmount
     lda.w #!StatBoostArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C17660_c1_7440_timed_delivery_row_selector_callback_L7660
-    bpl C17676_c1_7440_timed_delivery_row_selector_callback_L7676
-    bra C17662_c1_7440_timed_delivery_row_selector_callback_L7662
-C17660_c1_7440_timed_delivery_row_selector_callback_L7660:
-    bmi C17676_c1_7440_timed_delivery_row_selector_callback_L7676
-C17662_c1_7440_timed_delivery_row_selector_callback_L7662:
-    lda $0E
+    bvc C17660_CheckBoostVitalityArgumentLimitSign
+    bpl C17676_ApplyQueuedVitalityBoost
+    bra C17662_QueueBoostVitalityArgumentByte
+C17660_CheckBoostVitalityArgumentLimitSign:
+    bmi C17676_ApplyQueuedVitalityBoost
+C17662_QueueBoostVitalityArgumentByte:
+    lda !StatBoostAmount
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E0DBoostVitalityCallback
-    bra C176A5_c1_7440_timed_delivery_row_selector_callback_L76A5
-C17676_c1_7440_timed_delivery_row_selector_callback_L7676:
+    bra C176A5_ReturnFromBoostVitalityTextCommand
+C17676_ApplyQueuedVitalityBoost:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
@@ -16538,19 +16643,19 @@ C17676_c1_7440_timed_delivery_row_selector_callback_L7676:
     clc
     adc.w #!CharacterVitalityFieldBase
     tay
-    lda $0E
+    lda !StatBoostAmount
     sep #$20
-    sta $00
+    sta !StatBoostAddScratch
     lda $0000,Y
     clc
-    adc $00
+    adc !StatBoostAddScratch
     sta $0000,Y
     rep #$20
     txa
     jsl !C21D65_RecalculateCharacterDerivedVitality
     rep #$20
     lda.w #!ZeroWord
-C176A5_c1_7440_timed_delivery_row_selector_callback_L76A5:
+C176A5_ReturnFromBoostVitalityTextCommand:
     pld
     rts
 CC_1E_0E:
@@ -16559,29 +16664,29 @@ CC_1E_0E:
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #!StatBoostCallerFrameOffset
     tcd
     pla
     txa
-    sta $0E
+    sta !StatBoostAmount
     lda.w #!StatBoostArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
-    bvc C176C1_c1_7440_timed_delivery_row_selector_callback_L76C1
-    bpl C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7
-    bra C176C3_c1_7440_timed_delivery_row_selector_callback_L76C3
-C176C1_c1_7440_timed_delivery_row_selector_callback_L76C1:
-    bmi C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7
-C176C3_c1_7440_timed_delivery_row_selector_callback_L76C3:
-    lda $0E
+    bvc C176C1_CheckBoostLuckArgumentLimitSign
+    bpl C176D7_ApplyQueuedLuckBoost
+    bra C176C3_QueueBoostLuckArgumentByte
+C176C1_CheckBoostLuckArgumentLimitSign:
+    bmi C176D7_ApplyQueuedLuckBoost
+C176C3_QueueBoostLuckArgumentByte:
+    lda !StatBoostAmount
     sep #$20
     ldx !DeferredCommandQueueCount
     sta !DeferredCommandByteQueue,X
     rep #$20
     inc !DeferredCommandQueueCount
     lda.w #!TextCommand1E0EBoostLuckCallback
-    bra C17706_c1_7440_timed_delivery_row_selector_callback_L7706
-C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7:
+    bra C17706_ReturnFromBoostLuckTextCommand
+C176D7_ApplyQueuedLuckBoost:
     lda !DeferredCommandByteQueue
     and.w #!LowByteMask
     tax
@@ -16591,19 +16696,19 @@ C176D7_c1_7440_timed_delivery_row_selector_callback_L76D7:
     clc
     adc.w #!CharacterLuckFieldBase
     tay
-    lda $0E
+    lda !StatBoostAmount
     sep #$20
-    sta $00
+    sta !StatBoostAddScratch
     lda $0000,Y
     clc
-    adc $00
+    adc !StatBoostAddScratch
     sta $0000,Y
     rep #$20
     txa
     jsl !C21C5D_RecalculateCharacterDerivedLuck
     rep #$20
     lda.w #!ZeroWord
-C17706_c1_7440_timed_delivery_row_selector_callback_L7706:
+C17706_ReturnFromBoostLuckTextCommand:
     pld
     rts
 
@@ -16996,6 +17101,7 @@ org $C178F7
 !LoadedStringValueByte3 = $09
 !TextContextSourcePointerLo = $0E
 !TextContextSourcePointerHi = $10
+!WindowFamilyCallbackFramePointer = $0E
 !LoadedStringByteBuffer = $97D7
 !LoadedStringQueueCount = $97CA
 !EscargoStorageItemBytes = $984B
@@ -17028,6 +17134,42 @@ org $C178F7
 !DisplayTextStatisticSelectorCharacterHelperPointer = $7B4C
 !DisplayTextSubstitutionSharedContinuation = $7B51
 !ReturnDisplayTextStaticPointer = $7B54
+!TextCommand1800CloseFocusWindowSubcommand = $0000
+!TextCommand1801OpenTextWindowSubcommand = $0001
+!TextCommand1802SnapshotManagedSlotSubcommand = $0002
+!TextCommand1803SwitchFocusedTextWindowSubcommand = $0003
+!TextCommand1804CloseAllWindowsSubcommand = $0004
+!TextCommand1805ForceTextAlignmentSubcommand = $0005
+!TextCommand1806ClearActiveWindowSubcommand = $0006
+!TextCommand1807CompareQueuedValueSubcommand = $0007
+!TextCommand1808SelectionNoCancelSubcommand = $0008
+!TextCommand1809SelectionSubcommand = $0009
+!TextCommand180ARefreshWalletOrStatusSubcommand = $000A
+!TextCommand180DStatusWindowDisplaySubcommand = $000D
+!TextCommand1902StartLoadedStringSubcommand = $0002
+!TextCommand1904ClearLoadedStringsSubcommand = $0004
+!TextCommand1905InflictStatusSubcommand = $0005
+!TextCommand1910GetCharacterNumberSubcommand = $0010
+!TextCommand1911GetCharacterNameLetterSubcommand = $0011
+!TextCommand1914ReadEscargoStorageByteAndAdvanceSubcommand = $0014
+!TextCommand1916GetCharacterStatusByteSubcommand = $0016
+!TextCommand1918GetExperienceNeededSubcommand = $0018
+!TextCommand1919GetInventorySlotItemSubcommand = $0019
+!TextCommand191AGetEscargoStorageItemSubcommand = $001A
+!TextCommand191BGetLoadedStringCountSubcommand = $001B
+!TextCommand191CQueueDeliveryPickupItemSubcommand = $001C
+!TextCommand191DReadDeliveryPickupQueueItemSubcommand = $001D
+!TextCommand191ELoadPointerSubstitutionSubcommand = $001E
+!TextCommand191FLoadByteSubstitutionSubcommand = $001F
+!TextCommand1920LoadMushroomizedSelectorSubcommand = $0020
+!TextCommand1921FoodCategorySubcommand = $0021
+!TextCommand1922CharacterToObjectDirectionSubcommand = $0022
+!TextCommand1923NpcToObjectDirectionSubcommand = $0023
+!TextCommand1924GeneratedSpriteDirectionSubcommand = $0024
+!TextCommand1925FoodCondimentSubcommand = $0025
+!TextCommand1926TransitionLandingSnapshotSubcommand = $0026
+!TextCommand1927StatisticSelectorValueSubcommand = $0027
+!TextCommand1928StatisticSelectorCharacterSubcommand = $0028
 !ZeroWord = $0000
 CC_19_02:
 !C178F7_StartLoadedStringInlineCollector = CC_19_02
@@ -17048,30 +17190,30 @@ CC_19_02:
     tcd
     pla
     tay
-    sty $0E
+    sty !WindowFamilyCallbackFramePointer
     txa
     beq C17954_StartLoadedStringInlineCollector_L7954
-    cmp.w #$0001
+    cmp.w #!TextCommand1801OpenTextWindowSubcommand
     beq C17959_StartLoadedStringInlineCollector_L7959
-    cmp.w #$0002
+    cmp.w #!TextCommand1802SnapshotManagedSlotSubcommand
     beq C1795E_StartLoadedStringInlineCollector_L795E
-    cmp.w #$0003
+    cmp.w #!TextCommand1803SwitchFocusedTextWindowSubcommand
     beq C17971_StartLoadedStringInlineCollector_L7971
-    cmp.w #$0004
+    cmp.w #!TextCommand1804CloseAllWindowsSubcommand
     beq C17976_StartLoadedStringInlineCollector_L7976
-    cmp.w #$0005
+    cmp.w #!TextCommand1805ForceTextAlignmentSubcommand
     beq C17982_StartLoadedStringInlineCollector_L7982
-    cmp.w #$0006
+    cmp.w #!TextCommand1806ClearActiveWindowSubcommand
     beq C17987_StartLoadedStringInlineCollector_L7987
-    cmp.w #$0007
+    cmp.w #!TextCommand1807CompareQueuedValueSubcommand
     beq C1798C_StartLoadedStringInlineCollector_L798C
-    cmp.w #$0008
+    cmp.w #!TextCommand1808SelectionNoCancelSubcommand
     beq C17991_StartLoadedStringInlineCollector_L7991
-    cmp.w #$0009
+    cmp.w #!TextCommand1809SelectionSubcommand
     beq C17996_StartLoadedStringInlineCollector_L7996
-    cmp.w #$000A
+    cmp.w #!TextCommand180ARefreshWalletOrStatusSubcommand
     beq C1799B_StartLoadedStringInlineCollector_L799B
-    cmp.w #$000D
+    cmp.w #!TextCommand180DStatusWindowDisplaySubcommand
     beq C179A0_StartLoadedStringInlineCollector_L79A0
     bra C179A5_StartLoadedStringInlineCollector_L79A5
 C17954_StartLoadedStringInlineCollector_L7954:
@@ -17086,7 +17228,7 @@ C1795E_StartLoadedStringInlineCollector_L795E:
     adc.w #$0006
     jsl !C20A20_SnapshotManagedTextEventSlotState
     lda.w #$0001
-    ldy $0E
+    ldy !WindowFamilyCallbackFramePointer
     sta $0004,Y
     bra C179A5_StartLoadedStringInlineCollector_L79A5
 C17971_StartLoadedStringInlineCollector_L7971:
@@ -17131,99 +17273,99 @@ C179A8_StartLoadedStringInlineCollector_L79A8:
     tcd
     pla
     txa
-    cmp.w #$0002
+    cmp.w #!TextCommand1902StartLoadedStringSubcommand
     bne C179BD_StartLoadedStringInlineCollector_L79BD
     jmp.w C17A78_StartLoadedStringInlineCollector_L7A78
 C179BD_StartLoadedStringInlineCollector_L79BD:
-    cmp.w #$0004
+    cmp.w #!TextCommand1904ClearLoadedStringsSubcommand
     bne C179C5_StartLoadedStringInlineCollector_L79C5
     jmp.w C17A7E_StartLoadedStringInlineCollector_L7A7E
 C179C5_StartLoadedStringInlineCollector_L79C5:
-    cmp.w #$0005
+    cmp.w #!TextCommand1905InflictStatusSubcommand
     bne C179CD_StartLoadedStringInlineCollector_L79CD
     jmp.w C17A84_StartLoadedStringInlineCollector_L7A84
 C179CD_StartLoadedStringInlineCollector_L79CD:
-    cmp.w #$0010
+    cmp.w #!TextCommand1910GetCharacterNumberSubcommand
     bne C179D5_StartLoadedStringInlineCollector_L79D5
     jmp.w C17A8A_StartLoadedStringInlineCollector_L7A8A
 C179D5_StartLoadedStringInlineCollector_L79D5:
-    cmp.w #$0011
+    cmp.w #!TextCommand1911GetCharacterNameLetterSubcommand
     bne C179DD_StartLoadedStringInlineCollector_L79DD
     jmp.w C17A90_StartLoadedStringInlineCollector_L7A90
 C179DD_StartLoadedStringInlineCollector_L79DD:
-    cmp.w #$0014
+    cmp.w #!TextCommand1914ReadEscargoStorageByteAndAdvanceSubcommand
     bne C179E5_StartLoadedStringInlineCollector_L79E5
     jmp.w C17A96_StartLoadedStringInlineCollector_L7A96
 C179E5_StartLoadedStringInlineCollector_L79E5:
-    cmp.w #$0016
+    cmp.w #!TextCommand1916GetCharacterStatusByteSubcommand
     bne C179ED_StartLoadedStringInlineCollector_L79ED
     jmp.w C17ABB_StartLoadedStringInlineCollector_L7ABB
 C179ED_StartLoadedStringInlineCollector_L79ED:
-    cmp.w #$0018
+    cmp.w #!TextCommand1918GetExperienceNeededSubcommand
     bne C179F5_StartLoadedStringInlineCollector_L79F5
     jmp.w C17AC1_StartLoadedStringInlineCollector_L7AC1
 C179F5_StartLoadedStringInlineCollector_L79F5:
-    cmp.w #$0019
+    cmp.w #!TextCommand1919GetInventorySlotItemSubcommand
     bne C179FD_StartLoadedStringInlineCollector_L79FD
     jmp.w C17AC7_StartLoadedStringInlineCollector_L7AC7
 C179FD_StartLoadedStringInlineCollector_L79FD:
-    cmp.w #$001A
+    cmp.w #!TextCommand191AGetEscargoStorageItemSubcommand
     bne C17A05_StartLoadedStringInlineCollector_L7A05
     jmp.w C17ACD_StartLoadedStringInlineCollector_L7ACD
 C17A05_StartLoadedStringInlineCollector_L7A05:
-    cmp.w #$001B
+    cmp.w #!TextCommand191BGetLoadedStringCountSubcommand
     bne C17A0D_StartLoadedStringInlineCollector_L7A0D
     jmp.w C17AD3_StartLoadedStringInlineCollector_L7AD3
 C17A0D_StartLoadedStringInlineCollector_L7A0D:
-    cmp.w #$001C
+    cmp.w #!TextCommand191CQueueDeliveryPickupItemSubcommand
     bne C17A15_StartLoadedStringInlineCollector_L7A15
     jmp.w C17AD9_StartLoadedStringInlineCollector_L7AD9
 C17A15_StartLoadedStringInlineCollector_L7A15:
-    cmp.w #$001D
+    cmp.w #!TextCommand191DReadDeliveryPickupQueueItemSubcommand
     bne C17A1D_StartLoadedStringInlineCollector_L7A1D
     jmp.w C17ADE_StartLoadedStringInlineCollector_L7ADE
 C17A1D_StartLoadedStringInlineCollector_L7A1D:
-    cmp.w #$001E
+    cmp.w #!TextCommand191ELoadPointerSubstitutionSubcommand
     bne C17A25_StartLoadedStringInlineCollector_L7A25
     jmp !LoadPointerSubstitutionSlotHelper
 C17A25_StartLoadedStringInlineCollector_L7A25:
-    cmp.w #$001F
+    cmp.w #!TextCommand191FLoadByteSubstitutionSubcommand
     bne C17A2D_StartLoadedStringInlineCollector_L7A2D
     jmp !LoadByteSubstitutionSlotHelper
 C17A2D_StartLoadedStringInlineCollector_L7A2D:
-    cmp.w #$0020
+    cmp.w #!TextCommand1920LoadMushroomizedSelectorSubcommand
     bne C17A35_StartLoadedStringInlineCollector_L7A35
     jmp !LoadMushroomizedSelectorByteHelper
 C17A35_StartLoadedStringInlineCollector_L7A35:
-    cmp.w #$0021
+    cmp.w #!TextCommand1921FoodCategorySubcommand
     bne C17A3D_StartLoadedStringInlineCollector_L7A3D
     jmp !DisplayTextFoodCategoryHelperPointer
 C17A3D_StartLoadedStringInlineCollector_L7A3D:
-    cmp.w #$0022
+    cmp.w #!TextCommand1922CharacterToObjectDirectionSubcommand
     bne C17A45_StartLoadedStringInlineCollector_L7A45
     jmp !DisplayTextCharacterToObjectDirectionHelperPointer
 C17A45_StartLoadedStringInlineCollector_L7A45:
-    cmp.w #$0023
+    cmp.w #!TextCommand1923NpcToObjectDirectionSubcommand
     bne C17A4D_StartLoadedStringInlineCollector_L7A4D
     jmp !DisplayTextNpcToObjectDirectionHelperPointer
 C17A4D_StartLoadedStringInlineCollector_L7A4D:
-    cmp.w #$0024
+    cmp.w #!TextCommand1924GeneratedSpriteDirectionSubcommand
     bne C17A55_StartLoadedStringInlineCollector_L7A55
     jmp !DisplayTextGeneratedSpriteDirectionHelperPointer
 C17A55_StartLoadedStringInlineCollector_L7A55:
-    cmp.w #$0025
+    cmp.w #!TextCommand1925FoodCondimentSubcommand
     bne C17A5D_StartLoadedStringInlineCollector_L7A5D
     jmp !DisplayTextFoodCondimentHelperPointer
 C17A5D_StartLoadedStringInlineCollector_L7A5D:
-    cmp.w #$0026
+    cmp.w #!TextCommand1926TransitionLandingSnapshotSubcommand
     bne C17A65_StartLoadedStringInlineCollector_L7A65
     jmp !DisplayTextTransitionLandingSnapshotHelperPointer
 C17A65_StartLoadedStringInlineCollector_L7A65:
-    cmp.w #$0027
+    cmp.w #!TextCommand1927StatisticSelectorValueSubcommand
     bne C17A6D_StartLoadedStringInlineCollector_L7A6D
     jmp !DisplayTextStatisticSelectorValueHelperPointer
 C17A6D_StartLoadedStringInlineCollector_L7A6D:
-    cmp.w #$0028
+    cmp.w #!TextCommand1928StatisticSelectorCharacterSubcommand
     bne C17A75_StartLoadedStringInlineCollector_L7A75
     jmp !DisplayTextStatisticSelectorCharacterHelperPointer
 C17A75_StartLoadedStringInlineCollector_L7A75:
@@ -17460,10 +17602,75 @@ org $C17B56
 !C4FD45_SetAutoSectorMusicChanges = $C4FD45
 !DisableAutoSectorMusicChanges = $0000
 !EnableAutoSectorMusicChanges = $0001
+!TextCommand1AFamilyFrameOffset = $FFEE
+!TextCommand1BFamilyFrameOffset = $FFE8
+!TextCommand1CDFamilyFrameOffset = $FFEE
+!TextCommand1DFamilyFrameOffset = $FFEA
+!TextCommand1FFamilyFrameOffset = $FFEC
+!TextCommand1A01PartySelectionSubcommand = $0001
+!TextCommand1A04SelectionMenuNoCancelSubcommand = $0004
+!TextCommand1A05DisplayInventorySubcommand = $0005
+!TextCommand1A06DisplayShopSubcommand = $0006
+!TextCommand1A07EscargoStorageSubcommand = $0007
+!TextCommand1A08PersistentSelectionNoCancelSubcommand = $0008
+!TextCommand1A09PersistentSelectionSubcommand = $0009
+!TextCommand1A0APhoneContactSubcommand = $000A
+!TextCommand1A0BTeleportDestinationSubcommand = $000B
+!SelectionMenuNoCancelMode = $0000
+!SelectionMenuAllowCancelMode = $0001
+!TextCommandNoFollowupCallback = $0000
+!MenuSelectionResultLo = $06
+!MenuSelectionResultBank = $08
+!TextCommand1B01RestoreContextSubcommand = $0001
+!TextCommand1B02JumpIfFalseSubcommand = $0002
+!TextCommand1B03JumpIfTrueSubcommand = $0003
+!TextCommand1B04SwapWorkingArgContextSubcommand = $0004
+!TextCommand1B05CopyActiveContextToScratchSubcommand = $0005
+!TextCommand1B06RestoreActiveContextFromScratchSubcommand = $0006
+!NullTextContextPointerWord = $0000
+!TextCommandJumpTargetByteLength = $0004
+!TextCommand1BArgumentPointer = $16
+!PrimaryContextPointerLo = $06
+!PrimaryContextPointerHi = $08
+!SecondaryContextPointerLo = $0A
+!SecondaryContextPointerHi = $0C
+!SavedPrimaryContextPointerLo = $12
+!SavedPrimaryContextPointerHi = $14
+!ScratchPrimaryContextPointerLo = $97CC
+!ScratchPrimaryContextPointerHi = $97CE
+!ScratchSecondaryContextPointerLo = $97D0
+!ScratchSecondaryContextPointerHi = $97D2
+!ScratchContextWorkmemByte = $97D4
 !LoadedBattleTextAmountPointerLo = $06
 !LoadedBattleTextAmountPointerHi = $08
 !TextContextSourcePointerLo = $0E
 !TextContextSourcePointerHi = $10
+!TextCommand1C01PrintStatisticSubcommand = $0001
+!TextCommand1C02PrintCharacterNameSubcommand = $0002
+!TextCommand1C03PrintCharacterSubcommand = $0003
+!TextCommand1C04ShowHpppWindowsSubcommand = $0004
+!TextCommand1C05PrintItemNameSubcommand = $0005
+!TextCommand1C06PrintTeleportDestinationNameSubcommand = $0006
+!TextCommand1C07PrintHorizontalTextStringSubcommand = $0007
+!TextCommand1C08PrintBattleSpecialGraphicsSubcommand = $0008
+!TextCommand1C09SetActiveWindowTextModeSubcommand = $0009
+!TextCommand1C0APrintNumberSubcommand = $000A
+!TextCommand1C0BPrintMoneyAmountSubcommand = $000B
+!TextCommand1C0CPrintVerticalTextStringSubcommand = $000C
+!TextCommand1C0DPrintActionUserNameSubcommand = $000D
+!TextCommand1C0EPrintActionTargetNameSubcommand = $000E
+!TextCommand1C0FPrintActionAmountSubcommand = $000F
+!TextCommand1C11LoadSpecialSelectorSubcommand = $0011
+!TextCommand1C12PrintPsiNameSubcommand = $0012
+!TextCommand1C13StageBattleVisualEffectResultSubcommand = $0013
+!TextCommand1C14LoadSpecialTextSelectorSubcommand = $0014
+!TextCommand1C15LoadSpecialForJumpMultiSelectorSubcommand = $0015
+!BattleActionUserSideSelector = $0000
+!BattleActionTargetSideSelector = $0001
+!BattleNameBufferPointerLo = $06
+!BattleNameBufferPointerBank = $08
+!BattleNameBufferPointerBankHi = $09
+!FixedStringPreflightLength = $0050
 !TextCommand0A24BitJumpCallback = $4103
 !TextCommand1A00PartySelectionMenuNoCancel = $463B
 !TextCommand1A01PartySelectionMenu = $467D
@@ -17514,6 +17721,46 @@ org $C17B56
 !TextCommand1D21GenerateRandomNumber = $61F0
 !TextCommand1D23ClassifyEquippedItemOffensiveDefensive = $7708
 !TextCommand1D24StageBankDepositAccumulator = $7274
+!TextCommand1D01TakeItemFromCharacterSubcommand = $0001
+!TextCommand1D02CheckItemBroadClassSubcommand = $0002
+!TextCommand1D03FindInventoryRoomSubcommand = $0003
+!TextCommand1D04FindCharacterWithoutItemSubcommand = $0004
+!TextCommand1D05FindCharacterWithItemSubcommand = $0005
+!TextCommand1D06AddToAtmSubcommand = $0006
+!TextCommand1D07TakeFromAtmSubcommand = $0007
+!TextCommand1D08AddToWalletSubcommand = $0008
+!TextCommand1D09TakeFromWalletSubcommand = $0009
+!TextCommand1D0AGetBuyPriceOfItemSubcommand = $000A
+!TextCommand1D0BGetSellPriceOfItemSubcommand = $000B
+!TextCommand1D0CCheckEscargoStorageStatusSubcommand = $000C
+!TextCommand1D0DCharacterHasAilmentSubcommand = $000D
+!TextCommand1D0EGiveItemToCharacterBSubcommand = $000E
+!TextCommand1D0FRemoveInventoryItemBySlotSubcommand = $000F
+!TextCommand1D10CheckItemEquippedSubcommand = $0010
+!TextCommand1D11CheckInventoryItemUsabilitySubcommand = $0011
+!TextCommand1D12StoreInventoryItemWithEscargoSubcommand = $0012
+!TextCommand1D13WithdrawEscargoItemToInventorySubcommand = $0013
+!TextCommand1D14HaveEnoughMoneySubcommand = $0014
+!TextCommand1D15PutValueInArgmemSubcommand = $0015
+!TextCommand1D17HaveEnoughMoneyInAtmSubcommand = $0017
+!TextCommand1D18AddItemToEscargoStorageSubcommand = $0018
+!TextCommand1D19HaveXPartyMembersSubcommand = $0019
+!TextCommand1D20TestUserTargetingSelfSubcommand = $0020
+!TextCommand1D21GenerateRandomNumberSubcommand = $0021
+!TextCommand1D22TestExitMouseUsableSubcommand = $0022
+!TextCommand1D23ClassifyEquippedItemOffensiveDefensiveSubcommand = $0023
+!TextCommand1D24StageBankDepositAccumulatorSubcommand = $0024
+!TextPredicateFalseValue = $0000
+!TextPredicateTrueValue = $0001
+!TextPredicateResultLo = $06
+!TextPredicateResultHi = $08
+!TextPredicateResultScratch = $14
+!BattleTargetNameBufferPointerLo = $12
+!NullNameEntryLetterBoxPointer = $0000
+!CurrentOverworldX = $9877
+!CurrentOverworldY = $987B
+!MapPositionContextClassMask = $0007
+!ExitMouseUsableMapClass = $0002
 !TextCommand1E00RecoverHpPercent = $49B6
 !TextCommand1E01DepleteHpPercent = $4A03
 !TextCommand1E02RecoverHpAmount = $4A50
@@ -17529,37 +17776,51 @@ org $C17B56
 !TextCommand1E0CBoostSpeed = $75E5
 !TextCommand1E0DBoostVitality = $7646
 !TextCommand1E0EBoostLuck = $76A7
+!TextCommand1E01DepleteHpPercentSubcommand = $0001
+!TextCommand1E02RecoverHpAmountSubcommand = $0002
+!TextCommand1E03DepleteHpAmountSubcommand = $0003
+!TextCommand1E04RecoverPpPercentSubcommand = $0004
+!TextCommand1E05DepletePpPercentSubcommand = $0005
+!TextCommand1E06RecoverPpAmountSubcommand = $0006
+!TextCommand1E07DepletePpAmountSubcommand = $0007
+!TextCommand1E08SetCharacterLevelSubcommand = $0008
+!TextCommand1E09GiveExperienceSubcommand = $0009
+!TextCommand1E0ABoostIqSubcommand = $000A
+!TextCommand1E0BBoostGutsSubcommand = $000B
+!TextCommand1E0CBoostSpeedSubcommand = $000C
+!TextCommand1E0DBoostVitalitySubcommand = $000D
+!TextCommand1E0EBoostLuckSubcommand = $000E
 !TextCommand1F00QueueOrApplyMusicTrack = $4751
 !TextCommand1F01StopMusic = $47A0
 !TextCommand1F02PlaySound = $47AB
-!TextCommand1F04Callback = $7254
-!TextCommand1F07Callback = $741F
+!TextCommand1F04SetTextSoundModeCallback = $7254
+!TextCommand1F07QueuePresentationSfxCallback = $741F
 !TextCommand1F11AddToWallet = $5F71
 !TextCommand1F12TakeFromWallet = $5F91
-!TextCommand1F13Callback = $63FD
-!TextCommand1F14Callback = $646E
-!TextCommand1F15Callback = $6744
-!TextCommand1F16Callback = $6490
-!TextCommand1F17Callback = $6509
-!TextCommand1F18Callback = $6582
-!TextCommand1F19Callback = $65AA
-!TextCommand1F1ACallback = $65D2
-!TextCommand1F1BCallback = $662A
-!TextCommand1F1CCallback = $666D
-!TextCommand1F1DCallback = $66DD
-!TextCommand1F1ECallback = $67D6
-!TextCommand1F1FCallback = $683B
+!TextCommand1F13UpdateRegistryFrameSelectorCallback = $63FD
+!TextCommand1F14BroadcastRegistryFrameSelectorCallback = $646E
+!TextCommand1F15InitForcedVisualEntityOrDrainCallback = $6744
+!TextCommand1F16UpdateVisualFrameSelectorCallback = $6490
+!TextCommand1F17InitVisualEntityAndAppendRecordCallback = $6509
+!TextCommand1F18NoOpSevenArgBytesCallback = $6582
+!TextCommand1F19NoOpSevenArgBytesAltCallback = $65AA
+!TextCommand1F1ASpawnVisualAttachedChildCallback = $65D2
+!TextCommand1F1BClearVisualAttachedChildCallback = $662A
+!TextCommand1F1CSpawnRegistryAttachedChildCallback = $666D
+!TextCommand1F1DClearRegistryAttachedChildCallback = $66DD
+!TextCommand1F1ERunVisualScriptWithCachedPoseCallback = $67D6
+!TextCommand1F1FRunPoseScriptWithCachedPoseCallback = $683B
 !TextCommand1F20UseItemOnCharacter = $4DFB
 !TextCommand1F21TeleportToPresetLocation = $4E8C
-!TextCommand1F23Callback = $6FD1
+!TextCommand1F23InitScriptedBattleCallback = $6FD1
 !TextCommand1F40StageSpecialEventArgument = $72BC
 !TextCommand1F41SpecialEventDispatch = $72DA
 !TextCommand1F52CreateNumberSelector = $44A3
 !TextCommand1F60WaitForTextPromptOrInputGate = $5494
-!TextCommand1F62Callback = $69F7
-!TextCommand1F63Callback = $6DE8
-!TextCommand1F66Callback = $711C
-!TextCommand1F67Callback = $7233
+!TextCommand1F62SetBlinkingTriangleStateCallback = $69F7
+!TextCommand1F63EnqueueMovementRecordCallback = $6DE8
+!TextCommand1F66ActivateHotspotCallback = $711C
+!TextCommand1F67DisableHotspotCallback = $7233
 !TextCommand1F71PartyUtility = $5C58
 !TextCommand1F81CheckDirectItemUseCompatibility = $4F6F
 !TextCommand1F83CheckDeferredItemUseCompatibility = $583D
@@ -17567,52 +17828,143 @@ org $C17B56
 !TextCommand1FD0JeffRepairBrokenItem = $63A7
 !TextCommand1FD2WanderingPhotographer = $7304
 !TextCommand1FD3TimedDeliveryRowSelector = $7440
-!TextCommand1FE1Callback = $66FE
-!TextCommand1FE4Callback = $6B2B
-!TextCommand1FE5Callback = $6BA4
-!TextCommand1FE6Callback = $6BAF
-!TextCommand1FE7Callback = $6BF2
-!TextCommand1FE8Callback = $6C35
-!TextCommand1FE9Callback = $6C40
-!TextCommand1FEACallback = $6C83
-!TextCommand1FEBCallback = $6CC6
-!TextCommand1FECCallback = $6D14
-!TextCommand1FEECallback = $6D62
-!TextCommand1FEFCallback = $6DA5
-!TextCommand1FF1Callback = $6EBF
-!TextCommand1FF2Callback = $6F2F
-!TextCommand1FF3Callback = $7325
-!TextCommand1FF4Callback = $737D
+!TextCommand1FE1RunLandingProfileDisplayCallback = $66FE
+!TextCommand1FE4UpdatePoseFrameSelectorCallback = $6B2B
+!TextCommand1FE5SetRegistrySlotFlagsC000Callback = $6BA4
+!TextCommand1FE6SetVisualSlotFlagsC000Callback = $6BAF
+!TextCommand1FE7SetPoseSlotFlagsC000Callback = $6BF2
+!TextCommand1FE8ClearRegistrySlotFlagsC000Callback = $6C35
+!TextCommand1FE9ClearVisualSlotFlagsC000Callback = $6C40
+!TextCommand1FEAClearPoseSlotFlagsC000Callback = $6C83
+!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback = $6CC6
+!TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback = $6D14
+!TextCommand1FEESelectModeSlotByVisualCallback = $6D62
+!TextCommand1FEFSelectModeSlotByPoseCallback = $6DA5
+!TextCommand1FF1RunVisualScriptFromRecordCallback = $6EBF
+!TextCommand1FF2RunPoseScriptFromRecordCallback = $6F2F
+!TextCommand1FF3SpawnAttachedChildByPoseDescriptorCallback = $7325
+!TextCommand1FF4ClearAttachedChildByPoseDescriptorCallback = $737D
+!TextCommand1F01StopMusicSubcommand = $0001
+!TextCommand1F02PlaySoundSubcommand = $0002
+!TextCommand1F03RestoreCurrentMapMusicSubcommand = $0003
+!TextCommand1F04SetTextSoundModeSubcommand = $0004
+!TextCommand1F05DisableSectorMusicChangeSubcommand = $0005
+!TextCommand1F06EnableSectorMusicChangeSubcommand = $0006
+!TextCommand1F07QueuePresentationSfxSubcommand = $0007
+!TextCommand1F11AddToWalletSubcommand = $0011
+!TextCommand1F12TakeFromWalletSubcommand = $0012
+!TextCommand1F13UpdateRegistryFrameSelectorSubcommand = $0013
+!TextCommand1F14BroadcastRegistryFrameSelectorSubcommand = $0014
+!TextCommand1F15InitForcedVisualEntityOrDrainSubcommand = $0015
+!TextCommand1F16UpdateVisualFrameSelectorSubcommand = $0016
+!TextCommand1F17InitVisualEntityAndAppendRecordSubcommand = $0017
+!TextCommand1F18NoOpSevenArgBytesSubcommand = $0018
+!TextCommand1F19NoOpSevenArgBytesAltSubcommand = $0019
+!TextCommand1F1ASpawnVisualAttachedChildSubcommand = $001A
+!TextCommand1F1BClearVisualAttachedChildSubcommand = $001B
+!TextCommand1F1CSpawnRegistryAttachedChildSubcommand = $001C
+!TextCommand1F1DClearRegistryAttachedChildSubcommand = $001D
+!TextCommand1F1ERunVisualScriptWithCachedPoseSubcommand = $001E
+!TextCommand1F1FRunPoseScriptWithCachedPoseSubcommand = $001F
+!TextCommand1F20UseItemOnCharacterSubcommand = $0020
+!TextCommand1F21TeleportToPresetLocationSubcommand = $0021
+!TextCommand1F23InitScriptedBattleSubcommand = $0023
+!TextCommand1F30SetActiveWindowGlyphModeSubcommand = $0030
+!TextCommand1F31SetActiveWindowGlyphModeSubcommand = $0031
+!TextCommand1F40StageSpecialEventArgumentSubcommand = $0040
+!TextCommand1F41SpecialEventDispatchSubcommand = $0041
+!TextCommand1F50LockTextInputSubcommand = $0050
+!TextCommand1F51UnlockTextInputSubcommand = $0051
+!TextCommand1F52CreateNumberSelectorSubcommand = $0052
+!TextCommand1F60WaitForTextPromptOrInputGateSubcommand = $0060
+!TextCommand1F61WaitForTextStateFlagSubcommand = $0061
+!TextCommand1F62SetBlinkingTriangleStateSubcommand = $0062
+!TextCommand1F63EnqueueMovementRecordSubcommand = $0063
+!TextCommand1F64SaveAndClearTemporaryPartySourceStateSubcommand = $0064
+!TextCommand1F65RestoreTemporaryPartySourceStateSubcommand = $0065
+!TextCommand1F66ActivateHotspotSubcommand = $0066
+!TextCommand1F67DisableHotspotSubcommand = $0067
+!TextCommand1F68SnapshotTeleportLandingPositionSubcommand = $0068
+!TextCommand1F69RefreshTeleportLandingStateSubcommand = $0069
+!TextCommand1F71PartyUtilitySubcommand = $0071
+!TextCommand1F81CheckDirectItemUseCompatibilitySubcommand = $0081
+!TextCommand1F83CheckDeferredItemUseCompatibilitySubcommand = $0083
+!TextCommand1F90BuildPhoneContactSelectionMenuSubcommand = $0090
+!TextCommand1FA0SetCurrentInteractionFlagSubcommand = $00A0
+!TextCommand1FA1ClearCurrentInteractionFlagSubcommand = $00A1
+!TextCommand1FA2GetCurrentInteractionFlagSubcommand = $00A2
+!TextCommand1FB0SaveCurrentGameSubcommand = $00B0
+!TextCommand1FC0JumpMulti2Subcommand = $00C0
+!TextCommand1FD0JeffRepairBrokenItemSubcommand = $00D0
+!TextCommand1FD1NearbyMagicTruffleDirectionSubcommand = $00D1
+!TextCommand1FD2WanderingPhotographerSubcommand = $00D2
+!TextCommand1FD3TimedDeliveryRowSelectorSubcommand = $00D3
+!TextCommand1FE1RunLandingProfileDisplaySubcommand = $00E1
+!TextCommand1FE4UpdatePoseFrameSelectorSubcommand = $00E4
+!TextCommand1FE5SetRegistrySlotFlagsC000Subcommand = $00E5
+!TextCommand1FE6SetVisualSlotFlagsC000Subcommand = $00E6
+!TextCommand1FE7SetPoseSlotFlagsC000Subcommand = $00E7
+!TextCommand1FE8ClearRegistrySlotFlagsC000Subcommand = $00E8
+!TextCommand1FE9ClearVisualSlotFlagsC000Subcommand = $00E9
+!TextCommand1FEAClearPoseSlotFlagsC000Subcommand = $00EA
+!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordSubcommand = $00EB
+!TextCommand1FECClearRegistryFlag8000AndAppendRecordSubcommand = $00EC
+!TextCommand1FEDClearSelectedModeSlotSubcommand = $00ED
+!TextCommand1FEESelectModeSlotByVisualSubcommand = $00EE
+!TextCommand1FEFSelectModeSlotByPoseSubcommand = $00EF
+!TextCommand1FF0GetOnBicycleSubcommand = $00F0
+!TextCommand1FF1RunVisualScriptFromRecordSubcommand = $00F1
+!TextCommand1FF2RunPoseScriptFromRecordSubcommand = $00F2
+!TextCommand1FF3SpawnAttachedChildByPoseDescriptorSubcommand = $00F3
+!TextCommand1FF4ClearAttachedChildByPoseDescriptorSubcommand = $00F4
+!TextCommandResultLo = $06
+!TextCommandResultHi = $08
+!TeleportLandingSnapshotX = $98B2
+!TeleportLandingSnapshotY = $98B4
+!TeleportRefreshFlagCursor = $12
+!TeleportRefreshFlagStart = $0001
+!ClearEventFlagOrStateValue = $0000
+!TeleportRefreshFlagEndInclusive = $000A
+!EnableDisplayTransitionState = $0001
+!TeleportVisualStateId = $0073
+!TeleportLandingYWork = $02
+!TeleportLandingXWork = $04
+!TeleportLandingUpdateMode = $0004
+!TeleportLandingQueueState = $2890
+!InvalidTeleportDestinationWord = $FFFF
+!TeleportLandingRefreshSentinel = $5DC4
+!CurrentInteractionFlagSetValue = $0001
+!CurrentInteractionFlagClearValue = $0000
 CC_1A_TREE:
 !C17B56_DispatchDisplayTextDynamicSourceSelector = CC_1A_TREE
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!TextCommand1AFamilyFrameOffset
     tcd
     pla
     txa
     beq C17B99_DispatchDisplayTextDynamicSourceSelector_L7B99
-    cmp.w #$0001
+    cmp.w #!TextCommand1A01PartySelectionSubcommand
     beq C17B9F_DispatchDisplayTextDynamicSourceSelector_L7B9F
-    cmp.w #$0004
+    cmp.w #!TextCommand1A04SelectionMenuNoCancelSubcommand
     beq C17BA5_DispatchDisplayTextDynamicSourceSelector_L7BA5
-    cmp.w #$0005
+    cmp.w #!TextCommand1A05DisplayInventorySubcommand
     beq C17BBF_DispatchDisplayTextDynamicSourceSelector_L7BBF
-    cmp.w #$0006
+    cmp.w #!TextCommand1A06DisplayShopSubcommand
     beq C17BC4_DispatchDisplayTextDynamicSourceSelector_L7BC4
-    cmp.w #$0007
+    cmp.w #!TextCommand1A07EscargoStorageSubcommand
     beq C17BC9_DispatchDisplayTextDynamicSourceSelector_L7BC9
-    cmp.w #$0008
+    cmp.w #!TextCommand1A08PersistentSelectionNoCancelSubcommand
     beq C17BDD_DispatchDisplayTextDynamicSourceSelector_L7BDD
-    cmp.w #$0009
+    cmp.w #!TextCommand1A09PersistentSelectionSubcommand
     beq C17BF4_DispatchDisplayTextDynamicSourceSelector_L7BF4
-    cmp.w #$000A
+    cmp.w #!TextCommand1A0APhoneContactSubcommand
     bne C17B8E_DispatchDisplayTextDynamicSourceSelector_L7B8E
     jmp.w C17C0B_DispatchDisplayTextDynamicSourceSelector_L7C0B
 C17B8E_DispatchDisplayTextDynamicSourceSelector_L7B8E:
-    cmp.w #$000B
+    cmp.w #!TextCommand1A0BTeleportDestinationSubcommand
     bne C17B96_DispatchDisplayTextDynamicSourceSelector_L7B96
     jmp.w C17C1F_DispatchDisplayTextDynamicSourceSelector_L7C1F
 C17B96_DispatchDisplayTextDynamicSourceSelector_L7B96:
@@ -17624,14 +17976,14 @@ C17B9F_DispatchDisplayTextDynamicSourceSelector_L7B9F:
     lda.w #!TextCommand1A01PartySelectionMenu
     jmp.w C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BA5_DispatchDisplayTextDynamicSourceSelector_L7BA5:
-    lda.w #$0000
+    lda.w #!SelectionMenuNoCancelMode
     jsr !C1196A_RunActiveTextEntrySelectionMenu
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !MenuSelectionResultLo
+    stz !MenuSelectionResultBank
+    lda !MenuSelectionResultLo
+    sta !TextContextSourcePointerLo
+    lda !MenuSelectionResultBank
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     jsr !C11383_ClearLoadedTextStrings
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
@@ -17643,57 +17995,57 @@ C17BC4_DispatchDisplayTextDynamicSourceSelector_L7BC4:
     bra C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34
 C17BC9_DispatchDisplayTextDynamicSourceSelector_L7BC9:
     jsr !C19A43_BuildEscargoStorageSelectionMenu
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !MenuSelectionResultLo
+    stz !MenuSelectionResultBank
+    lda !MenuSelectionResultLo
+    sta !TextContextSourcePointerLo
+    lda !MenuSelectionResultBank
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17BDD_DispatchDisplayTextDynamicSourceSelector_L7BDD:
-    lda.w #$0000
+    lda.w #!SelectionMenuNoCancelMode
     jsr !C1196A_RunActiveTextEntrySelectionMenu
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !MenuSelectionResultLo
+    stz !MenuSelectionResultBank
+    lda !MenuSelectionResultLo
+    sta !TextContextSourcePointerLo
+    lda !MenuSelectionResultBank
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17BF4_DispatchDisplayTextDynamicSourceSelector_L7BF4:
-    lda.w #$0001
+    lda.w #!SelectionMenuAllowCancelMode
     jsr !C1196A_RunActiveTextEntrySelectionMenu
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !MenuSelectionResultLo
+    stz !MenuSelectionResultBank
+    lda !MenuSelectionResultLo
+    sta !TextContextSourcePointerLo
+    lda !MenuSelectionResultBank
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17C0B_DispatchDisplayTextDynamicSourceSelector_L7C0B:
     jsr !C1AC00_OpenPhoneContactSelectionMenu
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !MenuSelectionResultLo
+    stz !MenuSelectionResultBank
+    lda !MenuSelectionResultLo
+    sta !TextContextSourcePointerLo
+    lda !MenuSelectionResultBank
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31
 C17C1F_DispatchDisplayTextDynamicSourceSelector_L7C1F:
     jsr !C1AAFA_RunTeleportDestinationSelectionMenu
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !MenuSelectionResultLo
+    stz !MenuSelectionResultBank
+    lda !MenuSelectionResultLo
+    sta !TextContextSourcePointerLo
+    lda !MenuSelectionResultBank
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
 C17C31_DispatchDisplayTextDynamicSourceSelector_L7C31:
-    lda.w #$0000
+    lda.w #!TextCommandNoFollowupCallback
 C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34:
     pld
     rts
@@ -17701,28 +18053,28 @@ C17C34_DispatchDisplayTextDynamicSourceSelector_L7C34:
     phd
     pha
     tdc
-    adc.w #$FFE8
+    adc.w #!TextCommand1BFamilyFrameOffset
     tcd
     pla
     tay
-    sty $16
+    sty !TextCommand1BArgumentPointer
     txa
     beq C17C70_DispatchDisplayTextDynamicSourceSelector_L7C70
-    cmp.w #$0001
+    cmp.w #!TextCommand1B01RestoreContextSubcommand
     beq C17C76_DispatchDisplayTextDynamicSourceSelector_L7C76
-    cmp.w #$0002
+    cmp.w #!TextCommand1B02JumpIfFalseSubcommand
     beq C17C7C_DispatchDisplayTextDynamicSourceSelector_L7C7C
-    cmp.w #$0003
+    cmp.w #!TextCommand1B03JumpIfTrueSubcommand
     beq C17CBA_DispatchDisplayTextDynamicSourceSelector_L7CBA
-    cmp.w #$0004
+    cmp.w #!TextCommand1B04SwapWorkingArgContextSubcommand
     bne C17C5D_DispatchDisplayTextDynamicSourceSelector_L7C5D
     jmp.w C17CF8_DispatchDisplayTextDynamicSourceSelector_L7CF8
 C17C5D_DispatchDisplayTextDynamicSourceSelector_L7C5D:
-    cmp.w #$0005
+    cmp.w #!TextCommand1B05CopyActiveContextToScratchSubcommand
     bne C17C65_DispatchDisplayTextDynamicSourceSelector_L7C65
     jmp.w C17D36_DispatchDisplayTextDynamicSourceSelector_L7D36
 C17C65_DispatchDisplayTextDynamicSourceSelector_L7C65:
-    cmp.w #$0006
+    cmp.w #!TextCommand1B06RestoreActiveContextFromScratchSubcommand
     bne C17C6D_DispatchDisplayTextDynamicSourceSelector_L7C6D
     jmp.w C17D5A_DispatchDisplayTextDynamicSourceSelector_L7D5A
 C17C6D_DispatchDisplayTextDynamicSourceSelector_L7C6D:
@@ -17735,127 +18087,127 @@ C17C76_DispatchDisplayTextDynamicSourceSelector_L7C76:
     jmp.w C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17C7C_DispatchDisplayTextDynamicSourceSelector_L7C7C:
     jsr !C1040A_LoadPrimaryInteractionContextPointer
-    lda.w #$0000
-    sta $0A
-    lda.w #$0000
-    sta $0C
-    lda $08
-    cmp $0C
+    lda.w #!NullTextContextPointerWord
+    sta !SecondaryContextPointerLo
+    lda.w #!NullTextContextPointerWord
+    sta !SecondaryContextPointerHi
+    lda !PrimaryContextPointerHi
+    cmp !SecondaryContextPointerHi
     bne C17C93_DispatchDisplayTextDynamicSourceSelector_L7C93
-    lda $06
-    cmp $0A
+    lda !PrimaryContextPointerLo
+    cmp !SecondaryContextPointerLo
 C17C93_DispatchDisplayTextDynamicSourceSelector_L7C93:
     bne C17C9B_DispatchDisplayTextDynamicSourceSelector_L7C9B
     lda.w #!TextCommand0A24BitJumpCallback
     jmp.w C17D92_DispatchDisplayTextDynamicSourceSelector_L7D92
 C17C9B_DispatchDisplayTextDynamicSourceSelector_L7C9B:
-    ldy $16
+    ldy !TextCommand1BArgumentPointer
     lda $0000,Y
-    sta $06
+    sta !PrimaryContextPointerLo
     lda $0002,Y
-    sta $08
-    lda.w #$0004
+    sta !PrimaryContextPointerHi
+    lda.w #!TextCommandJumpTargetByteLength
     clc
-    adc $06
-    sta $06
+    adc !PrimaryContextPointerLo
+    sta !PrimaryContextPointerLo
     sta $0000,Y
-    lda $08
+    lda !PrimaryContextPointerHi
     sta $0002,Y
     jmp.w C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17CBA_DispatchDisplayTextDynamicSourceSelector_L7CBA:
     jsr !C1040A_LoadPrimaryInteractionContextPointer
-    lda.w #$0000
-    sta $0A
-    lda.w #$0000
-    sta $0C
-    lda $08
-    cmp $0C
+    lda.w #!NullTextContextPointerWord
+    sta !SecondaryContextPointerLo
+    lda.w #!NullTextContextPointerWord
+    sta !SecondaryContextPointerHi
+    lda !PrimaryContextPointerHi
+    cmp !SecondaryContextPointerHi
     bne C17CD1_DispatchDisplayTextDynamicSourceSelector_L7CD1
-    lda $06
-    cmp $0A
+    lda !PrimaryContextPointerLo
+    cmp !SecondaryContextPointerLo
 C17CD1_DispatchDisplayTextDynamicSourceSelector_L7CD1:
     beq C17CD9_DispatchDisplayTextDynamicSourceSelector_L7CD9
     lda.w #!TextCommand0A24BitJumpCallback
     jmp.w C17D92_DispatchDisplayTextDynamicSourceSelector_L7D92
 C17CD9_DispatchDisplayTextDynamicSourceSelector_L7CD9:
-    ldy $16
+    ldy !TextCommand1BArgumentPointer
     lda $0000,Y
-    sta $06
+    sta !PrimaryContextPointerLo
     lda $0002,Y
-    sta $08
-    lda.w #$0004
+    sta !PrimaryContextPointerHi
+    lda.w #!TextCommandJumpTargetByteLength
     clc
-    adc $06
-    sta $06
+    adc !PrimaryContextPointerLo
+    sta !PrimaryContextPointerLo
     sta $0000,Y
-    lda $08
+    lda !PrimaryContextPointerHi
     sta $0002,Y
     jmp.w C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17CF8_DispatchDisplayTextDynamicSourceSelector_L7CF8:
     jsr !C1040A_LoadPrimaryInteractionContextPointer
-    lda $06
-    sta $12
-    lda $08
-    sta $14
+    lda !PrimaryContextPointerLo
+    sta !SavedPrimaryContextPointerLo
+    lda !PrimaryContextPointerHi
+    sta !SavedPrimaryContextPointerHi
     jsr !C103DC_LoadSecondaryInteractionContextPointer
-    lda $06
-    sta $0A
-    lda $08
-    sta $0C
-    lda $0A
-    sta $06
-    lda $0C
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !PrimaryContextPointerLo
+    sta !SecondaryContextPointerLo
+    lda !PrimaryContextPointerHi
+    sta !SecondaryContextPointerHi
+    lda !SecondaryContextPointerLo
+    sta !PrimaryContextPointerLo
+    lda !SecondaryContextPointerHi
+    sta !PrimaryContextPointerHi
+    lda !PrimaryContextPointerLo
+    sta !TextContextSourcePointerLo
+    lda !PrimaryContextPointerHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda $12
-    sta $06
-    lda $14
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !SavedPrimaryContextPointerLo
+    sta !PrimaryContextPointerLo
+    lda !SavedPrimaryContextPointerHi
+    sta !PrimaryContextPointerHi
+    lda !PrimaryContextPointerLo
+    sta !TextContextSourcePointerLo
+    lda !PrimaryContextPointerHi
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     bra C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17D36_DispatchDisplayTextDynamicSourceSelector_L7D36:
     jsr !C1040A_LoadPrimaryInteractionContextPointer
-    lda $06
-    sta $97CC
-    lda $08
-    sta $97CE
+    lda !PrimaryContextPointerLo
+    sta !ScratchPrimaryContextPointerLo
+    lda !PrimaryContextPointerHi
+    sta !ScratchPrimaryContextPointerHi
     jsr !C103DC_LoadSecondaryInteractionContextPointer
-    lda $06
-    sta $97D0
-    lda $08
-    sta $97D2
+    lda !PrimaryContextPointerLo
+    sta !ScratchSecondaryContextPointerLo
+    lda !PrimaryContextPointerHi
+    sta !ScratchSecondaryContextPointerHi
     jsr !C10400_GetCurrentTextContextWorkmem
     sep #$20
-    sta $97D4
+    sta !ScratchContextWorkmemByte
     bra C17D8D_DispatchDisplayTextDynamicSourceSelector_L7D8D
 C17D5A_DispatchDisplayTextDynamicSourceSelector_L7D5A:
-    lda $97CC
-    sta $06
-    lda $97CE
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !ScratchPrimaryContextPointerLo
+    sta !PrimaryContextPointerLo
+    lda !ScratchPrimaryContextPointerHi
+    sta !PrimaryContextPointerHi
+    lda !PrimaryContextPointerLo
+    sta !TextContextSourcePointerLo
+    lda !PrimaryContextPointerHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
-    lda $97D0
-    sta $06
-    lda $97D2
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !ScratchSecondaryContextPointerLo
+    sta !PrimaryContextPointerLo
+    lda !ScratchSecondaryContextPointerHi
+    sta !PrimaryContextPointerHi
+    lda !PrimaryContextPointerLo
+    sta !TextContextSourcePointerLo
+    lda !PrimaryContextPointerHi
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
-    lda $97D4
+    lda !ScratchContextWorkmemByte
     and.b #$FF
     brk #$20
     eor $04,S
@@ -17869,90 +18221,90 @@ C17D92_DispatchDisplayTextDynamicSourceSelector_L7D92:
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #!TextCommand1CDFamilyFrameOffset
     tcd
     pla
     txa
     bne C17DA4_DispatchDisplayTextDynamicSourceSelector_L7DA4
     jmp.w C17E47_DispatchDisplayTextDynamicSourceSelector_L7E47
 C17DA4_DispatchDisplayTextDynamicSourceSelector_L7DA4:
-    cmp.w #$0001
+    cmp.w #!TextCommand1C01PrintStatisticSubcommand
     bne C17DAC_DispatchDisplayTextDynamicSourceSelector_L7DAC
     jmp.w C17E4D_DispatchDisplayTextDynamicSourceSelector_L7E4D
 C17DAC_DispatchDisplayTextDynamicSourceSelector_L7DAC:
-    cmp.w #$0002
+    cmp.w #!TextCommand1C02PrintCharacterNameSubcommand
     bne C17DB4_DispatchDisplayTextDynamicSourceSelector_L7DB4
     jmp.w C17E53_DispatchDisplayTextDynamicSourceSelector_L7E53
 C17DB4_DispatchDisplayTextDynamicSourceSelector_L7DB4:
-    cmp.w #$0003
+    cmp.w #!TextCommand1C03PrintCharacterSubcommand
     bne C17DBC_DispatchDisplayTextDynamicSourceSelector_L7DBC
     jmp.w C17E59_DispatchDisplayTextDynamicSourceSelector_L7E59
 C17DBC_DispatchDisplayTextDynamicSourceSelector_L7DBC:
-    cmp.w #$0004
+    cmp.w #!TextCommand1C04ShowHpppWindowsSubcommand
     bne C17DC4_DispatchDisplayTextDynamicSourceSelector_L7DC4
     jmp.w C17E5F_DispatchDisplayTextDynamicSourceSelector_L7E5F
 C17DC4_DispatchDisplayTextDynamicSourceSelector_L7DC4:
-    cmp.w #$0005
+    cmp.w #!TextCommand1C05PrintItemNameSubcommand
     bne C17DCC_DispatchDisplayTextDynamicSourceSelector_L7DCC
     jmp.w C17E65_DispatchDisplayTextDynamicSourceSelector_L7E65
 C17DCC_DispatchDisplayTextDynamicSourceSelector_L7DCC:
-    cmp.w #$0006
+    cmp.w #!TextCommand1C06PrintTeleportDestinationNameSubcommand
     bne C17DD4_DispatchDisplayTextDynamicSourceSelector_L7DD4
     jmp.w C17E6B_DispatchDisplayTextDynamicSourceSelector_L7E6B
 C17DD4_DispatchDisplayTextDynamicSourceSelector_L7DD4:
-    cmp.w #$0007
+    cmp.w #!TextCommand1C07PrintHorizontalTextStringSubcommand
     bne C17DDC_DispatchDisplayTextDynamicSourceSelector_L7DDC
     jmp.w C17E71_DispatchDisplayTextDynamicSourceSelector_L7E71
 C17DDC_DispatchDisplayTextDynamicSourceSelector_L7DDC:
-    cmp.w #$0008
+    cmp.w #!TextCommand1C08PrintBattleSpecialGraphicsSubcommand
     bne C17DE4_DispatchDisplayTextDynamicSourceSelector_L7DE4
     jmp.w C17E77_DispatchDisplayTextDynamicSourceSelector_L7E77
 C17DE4_DispatchDisplayTextDynamicSourceSelector_L7DE4:
-    cmp.w #$0009
+    cmp.w #!TextCommand1C09SetActiveWindowTextModeSubcommand
     bne C17DEC_DispatchDisplayTextDynamicSourceSelector_L7DEC
     jmp.w C17E7D_DispatchDisplayTextDynamicSourceSelector_L7E7D
 C17DEC_DispatchDisplayTextDynamicSourceSelector_L7DEC:
-    cmp.w #$000A
+    cmp.w #!TextCommand1C0APrintNumberSubcommand
     bne C17DF4_DispatchDisplayTextDynamicSourceSelector_L7DF4
     jmp.w C17E83_DispatchDisplayTextDynamicSourceSelector_L7E83
 C17DF4_DispatchDisplayTextDynamicSourceSelector_L7DF4:
-    cmp.w #$000B
+    cmp.w #!TextCommand1C0BPrintMoneyAmountSubcommand
     bne C17DFC_DispatchDisplayTextDynamicSourceSelector_L7DFC
     jmp.w C17E89_DispatchDisplayTextDynamicSourceSelector_L7E89
 C17DFC_DispatchDisplayTextDynamicSourceSelector_L7DFC:
-    cmp.w #$000C
+    cmp.w #!TextCommand1C0CPrintVerticalTextStringSubcommand
     bne C17E04_DispatchDisplayTextDynamicSourceSelector_L7E04
     jmp.w C17E8F_DispatchDisplayTextDynamicSourceSelector_L7E8F
 C17E04_DispatchDisplayTextDynamicSourceSelector_L7E04:
-    cmp.w #$0014
+    cmp.w #!TextCommand1C14LoadSpecialTextSelectorSubcommand
     bne C17E0C_DispatchDisplayTextDynamicSourceSelector_L7E0C
     jmp.w C17E95_DispatchDisplayTextDynamicSourceSelector_L7E95
 C17E0C_DispatchDisplayTextDynamicSourceSelector_L7E0C:
-    cmp.w #$0015
+    cmp.w #!TextCommand1C15LoadSpecialForJumpMultiSelectorSubcommand
     bne C17E14_DispatchDisplayTextDynamicSourceSelector_L7E14
     jmp.w C17E9A_DispatchDisplayTextDynamicSourceSelector_L7E9A
 C17E14_DispatchDisplayTextDynamicSourceSelector_L7E14:
-    cmp.w #$000D
+    cmp.w #!TextCommand1C0DPrintActionUserNameSubcommand
     bne C17E1C_DispatchDisplayTextDynamicSourceSelector_L7E1C
     jmp.w C17E9F_DispatchDisplayTextDynamicSourceSelector_L7E9F
 C17E1C_DispatchDisplayTextDynamicSourceSelector_L7E1C:
-    cmp.w #$000E
+    cmp.w #!TextCommand1C0EPrintActionTargetNameSubcommand
     bne C17E24_DispatchDisplayTextDynamicSourceSelector_L7E24
     jmp.w C17EC6_DispatchDisplayTextDynamicSourceSelector_L7EC6
 C17E24_DispatchDisplayTextDynamicSourceSelector_L7E24:
-    cmp.w #$000F
+    cmp.w #!TextCommand1C0FPrintActionAmountSubcommand
     bne C17E2C_DispatchDisplayTextDynamicSourceSelector_L7E2C
     jmp.w C17EED_DispatchDisplayTextDynamicSourceSelector_L7EED
 C17E2C_DispatchDisplayTextDynamicSourceSelector_L7E2C:
-    cmp.w #$0011
+    cmp.w #!TextCommand1C11LoadSpecialSelectorSubcommand
     bne C17E34_DispatchDisplayTextDynamicSourceSelector_L7E34
     jmp.w C17EFD_DispatchDisplayTextDynamicSourceSelector_L7EFD
 C17E34_DispatchDisplayTextDynamicSourceSelector_L7E34:
-    cmp.w #$0012
+    cmp.w #!TextCommand1C12PrintPsiNameSubcommand
     bne C17E3C_DispatchDisplayTextDynamicSourceSelector_L7E3C
     jmp.w C17F02_DispatchDisplayTextDynamicSourceSelector_L7F02
 C17E3C_DispatchDisplayTextDynamicSourceSelector_L7E3C:
-    cmp.w #$0013
+    cmp.w #!TextCommand1C13StageBattleVisualEffectResultSubcommand
     bne C17E44_DispatchDisplayTextDynamicSourceSelector_L7E44
     jmp.w C17F07_DispatchDisplayTextDynamicSourceSelector_L7F07
 C17E44_DispatchDisplayTextDynamicSourceSelector_L7E44:
@@ -18003,39 +18355,39 @@ C17E9A_DispatchDisplayTextDynamicSourceSelector_L7E9A:
     lda.w #!TextCommand1C15LoadSpecialForJumpMultiSelector
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17E9F_DispatchDisplayTextDynamicSourceSelector_L7E9F:
-    lda.w #$0000
+    lda.w #!BattleActionUserSideSelector
     jsl !C3E75D_ResolveReflectedHitSideArticleTokens
     jsr !C1AC9B_GetBattleAttackerNameBufferBase
-    sta $06
+    sta !BattleNameBufferPointerLo
     phb
     sep #$20
     pla
-    sta $08
-    stz $09
+    sta !BattleNameBufferPointerBank
+    stz !BattleNameBufferPointerBankHi
     rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    lda.w #$0050
+    lda !BattleNameBufferPointerLo
+    sta !TextContextSourcePointerLo
+    lda !BattleNameBufferPointerBank
+    sta !TextContextSourcePointerHi
+    lda.w #!FixedStringPreflightLength
     jsl !C447FB_PrintFixedStringWithWrapPreflight
     bra C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17EC6_DispatchDisplayTextDynamicSourceSelector_L7EC6:
-    lda.w #$0001
+    lda.w #!BattleActionTargetSideSelector
     jsl !C3E75D_ResolveReflectedHitSideArticleTokens
     jsr !C1ACF2_GetBattleTargetNameBufferBase
-    sta $06
+    sta !BattleNameBufferPointerLo
     phb
     sep #$20
     pla
-    sta $08
-    stz $09
+    sta !BattleNameBufferPointerBank
+    stz !BattleNameBufferPointerBankHi
     rep #$20
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    lda.w #$0050
+    lda !BattleNameBufferPointerLo
+    sta !TextContextSourcePointerLo
+    lda !BattleNameBufferPointerBank
+    sta !TextContextSourcePointerHi
+    lda.w #!FixedStringPreflightLength
     jsl !C447FB_PrintFixedStringWithWrapPreflight
     bra C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C
 C17EED_DispatchDisplayTextDynamicSourceSelector_L7EED:
@@ -18056,7 +18408,7 @@ C17F07_DispatchDisplayTextDynamicSourceSelector_L7F07:
     lda.w #!TextCommand1C13StageBattleVisualEffectResult
     bra C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F
 C17F0C_DispatchDisplayTextDynamicSourceSelector_L7F0C:
-    lda.w #$0000
+    lda.w #!TextCommandNoFollowupCallback
 C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F:
     pld
     rts
@@ -18064,126 +18416,126 @@ C17F0F_DispatchDisplayTextDynamicSourceSelector_L7F0F:
     phd
     pha
     tdc
-    adc.w #$FFEA
+    adc.w #!TextCommand1DFamilyFrameOffset
     tcd
     pla
     txa
     bne C17F21_DispatchDisplayTextDynamicSourceSelector_L7F21
     jmp.w C1800C_DispatchDisplayTextDynamicSourceSelector_L800C
 C17F21_DispatchDisplayTextDynamicSourceSelector_L7F21:
-    cmp.w #$0001
+    cmp.w #!TextCommand1D01TakeItemFromCharacterSubcommand
     bne C17F29_DispatchDisplayTextDynamicSourceSelector_L7F29
     jmp.w C18012_DispatchDisplayTextDynamicSourceSelector_L8012
 C17F29_DispatchDisplayTextDynamicSourceSelector_L7F29:
-    cmp.w #$0002
+    cmp.w #!TextCommand1D02CheckItemBroadClassSubcommand
     bne C17F31_DispatchDisplayTextDynamicSourceSelector_L7F31
     jmp.w C18018_DispatchDisplayTextDynamicSourceSelector_L8018
 C17F31_DispatchDisplayTextDynamicSourceSelector_L7F31:
-    cmp.w #$0003
+    cmp.w #!TextCommand1D03FindInventoryRoomSubcommand
     bne C17F39_DispatchDisplayTextDynamicSourceSelector_L7F39
     jmp.w C1801E_DispatchDisplayTextDynamicSourceSelector_L801E
 C17F39_DispatchDisplayTextDynamicSourceSelector_L7F39:
-    cmp.w #$0004
+    cmp.w #!TextCommand1D04FindCharacterWithoutItemSubcommand
     bne C17F41_DispatchDisplayTextDynamicSourceSelector_L7F41
     jmp.w C18024_DispatchDisplayTextDynamicSourceSelector_L8024
 C17F41_DispatchDisplayTextDynamicSourceSelector_L7F41:
-    cmp.w #$0005
+    cmp.w #!TextCommand1D05FindCharacterWithItemSubcommand
     bne C17F49_DispatchDisplayTextDynamicSourceSelector_L7F49
     jmp.w C1802A_DispatchDisplayTextDynamicSourceSelector_L802A
 C17F49_DispatchDisplayTextDynamicSourceSelector_L7F49:
-    cmp.w #$0006
+    cmp.w #!TextCommand1D06AddToAtmSubcommand
     bne C17F51_DispatchDisplayTextDynamicSourceSelector_L7F51
     jmp.w C18030_DispatchDisplayTextDynamicSourceSelector_L8030
 C17F51_DispatchDisplayTextDynamicSourceSelector_L7F51:
-    cmp.w #$0007
+    cmp.w #!TextCommand1D07TakeFromAtmSubcommand
     bne C17F59_DispatchDisplayTextDynamicSourceSelector_L7F59
     jmp.w C18036_DispatchDisplayTextDynamicSourceSelector_L8036
 C17F59_DispatchDisplayTextDynamicSourceSelector_L7F59:
-    cmp.w #$0008
+    cmp.w #!TextCommand1D08AddToWalletSubcommand
     bne C17F61_DispatchDisplayTextDynamicSourceSelector_L7F61
     jmp.w C1803C_DispatchDisplayTextDynamicSourceSelector_L803C
 C17F61_DispatchDisplayTextDynamicSourceSelector_L7F61:
-    cmp.w #$0009
+    cmp.w #!TextCommand1D09TakeFromWalletSubcommand
     bne C17F69_DispatchDisplayTextDynamicSourceSelector_L7F69
     jmp.w C18042_DispatchDisplayTextDynamicSourceSelector_L8042
 C17F69_DispatchDisplayTextDynamicSourceSelector_L7F69:
-    cmp.w #$000A
+    cmp.w #!TextCommand1D0AGetBuyPriceOfItemSubcommand
     bne C17F71_DispatchDisplayTextDynamicSourceSelector_L7F71
     jmp.w C18048_DispatchDisplayTextDynamicSourceSelector_L8048
 C17F71_DispatchDisplayTextDynamicSourceSelector_L7F71:
-    cmp.w #$000B
+    cmp.w #!TextCommand1D0BGetSellPriceOfItemSubcommand
     bne C17F79_DispatchDisplayTextDynamicSourceSelector_L7F79
     jmp.w C1804E_DispatchDisplayTextDynamicSourceSelector_L804E
 C17F79_DispatchDisplayTextDynamicSourceSelector_L7F79:
-    cmp.w #$000C
+    cmp.w #!TextCommand1D0CCheckEscargoStorageStatusSubcommand
     bne C17F81_DispatchDisplayTextDynamicSourceSelector_L7F81
     jmp.w C18054_DispatchDisplayTextDynamicSourceSelector_L8054
 C17F81_DispatchDisplayTextDynamicSourceSelector_L7F81:
-    cmp.w #$000D
+    cmp.w #!TextCommand1D0DCharacterHasAilmentSubcommand
     bne C17F89_DispatchDisplayTextDynamicSourceSelector_L7F89
     jmp.w C1805A_DispatchDisplayTextDynamicSourceSelector_L805A
 C17F89_DispatchDisplayTextDynamicSourceSelector_L7F89:
-    cmp.w #$000E
+    cmp.w #!TextCommand1D0EGiveItemToCharacterBSubcommand
     bne C17F91_DispatchDisplayTextDynamicSourceSelector_L7F91
     jmp.w C18060_DispatchDisplayTextDynamicSourceSelector_L8060
 C17F91_DispatchDisplayTextDynamicSourceSelector_L7F91:
-    cmp.w #$000F
+    cmp.w #!TextCommand1D0FRemoveInventoryItemBySlotSubcommand
     bne C17F99_DispatchDisplayTextDynamicSourceSelector_L7F99
     jmp.w C18066_DispatchDisplayTextDynamicSourceSelector_L8066
 C17F99_DispatchDisplayTextDynamicSourceSelector_L7F99:
-    cmp.w #$0010
+    cmp.w #!TextCommand1D10CheckItemEquippedSubcommand
     bne C17FA1_DispatchDisplayTextDynamicSourceSelector_L7FA1
     jmp.w C1806C_DispatchDisplayTextDynamicSourceSelector_L806C
 C17FA1_DispatchDisplayTextDynamicSourceSelector_L7FA1:
-    cmp.w #$0011
+    cmp.w #!TextCommand1D11CheckInventoryItemUsabilitySubcommand
     bne C17FA9_DispatchDisplayTextDynamicSourceSelector_L7FA9
     jmp.w C18072_DispatchDisplayTextDynamicSourceSelector_L8072
 C17FA9_DispatchDisplayTextDynamicSourceSelector_L7FA9:
-    cmp.w #$0012
+    cmp.w #!TextCommand1D12StoreInventoryItemWithEscargoSubcommand
     bne C17FB1_DispatchDisplayTextDynamicSourceSelector_L7FB1
     jmp.w C18078_DispatchDisplayTextDynamicSourceSelector_L8078
 C17FB1_DispatchDisplayTextDynamicSourceSelector_L7FB1:
-    cmp.w #$0013
+    cmp.w #!TextCommand1D13WithdrawEscargoItemToInventorySubcommand
     bne C17FB9_DispatchDisplayTextDynamicSourceSelector_L7FB9
     jmp.w C1807E_DispatchDisplayTextDynamicSourceSelector_L807E
 C17FB9_DispatchDisplayTextDynamicSourceSelector_L7FB9:
-    cmp.w #$0014
+    cmp.w #!TextCommand1D14HaveEnoughMoneySubcommand
     bne C17FC1_DispatchDisplayTextDynamicSourceSelector_L7FC1
     jmp.w C18084_DispatchDisplayTextDynamicSourceSelector_L8084
 C17FC1_DispatchDisplayTextDynamicSourceSelector_L7FC1:
-    cmp.w #$0015
+    cmp.w #!TextCommand1D15PutValueInArgmemSubcommand
     bne C17FC9_DispatchDisplayTextDynamicSourceSelector_L7FC9
     jmp.w C1808A_DispatchDisplayTextDynamicSourceSelector_L808A
 C17FC9_DispatchDisplayTextDynamicSourceSelector_L7FC9:
-    cmp.w #$0017
+    cmp.w #!TextCommand1D17HaveEnoughMoneyInAtmSubcommand
     bne C17FD1_DispatchDisplayTextDynamicSourceSelector_L7FD1
     jmp.w C18090_DispatchDisplayTextDynamicSourceSelector_L8090
 C17FD1_DispatchDisplayTextDynamicSourceSelector_L7FD1:
-    cmp.w #$0018
+    cmp.w #!TextCommand1D18AddItemToEscargoStorageSubcommand
     bne C17FD9_DispatchDisplayTextDynamicSourceSelector_L7FD9
     jmp.w C18096_DispatchDisplayTextDynamicSourceSelector_L8096
 C17FD9_DispatchDisplayTextDynamicSourceSelector_L7FD9:
-    cmp.w #$0019
+    cmp.w #!TextCommand1D19HaveXPartyMembersSubcommand
     bne C17FE1_DispatchDisplayTextDynamicSourceSelector_L7FE1
     jmp.w C1809C_DispatchDisplayTextDynamicSourceSelector_L809C
 C17FE1_DispatchDisplayTextDynamicSourceSelector_L7FE1:
-    cmp.w #$0020
+    cmp.w #!TextCommand1D20TestUserTargetingSelfSubcommand
     bne C17FE9_DispatchDisplayTextDynamicSourceSelector_L7FE9
     jmp.w C180A2_DispatchDisplayTextDynamicSourceSelector_L80A2
 C17FE9_DispatchDisplayTextDynamicSourceSelector_L7FE9:
-    cmp.w #$0021
+    cmp.w #!TextCommand1D21GenerateRandomNumberSubcommand
     bne C17FF1_DispatchDisplayTextDynamicSourceSelector_L7FF1
     jmp.w C180D7_DispatchDisplayTextDynamicSourceSelector_L80D7
 C17FF1_DispatchDisplayTextDynamicSourceSelector_L7FF1:
-    cmp.w #$0022
+    cmp.w #!TextCommand1D22TestExitMouseUsableSubcommand
     bne C17FF9_DispatchDisplayTextDynamicSourceSelector_L7FF9
     jmp.w C180DC_DispatchDisplayTextDynamicSourceSelector_L80DC
 C17FF9_DispatchDisplayTextDynamicSourceSelector_L7FF9:
-    cmp.w #$0023
+    cmp.w #!TextCommand1D23ClassifyEquippedItemOffensiveDefensiveSubcommand
     bne C18001_DispatchDisplayTextDynamicSourceSelector_L8001
     jmp.w C18110_DispatchDisplayTextDynamicSourceSelector_L8110
 C18001_DispatchDisplayTextDynamicSourceSelector_L8001:
-    cmp.w #$0024
+    cmp.w #!TextCommand1D24StageBankDepositAccumulatorSubcommand
     bne C18009_DispatchDisplayTextDynamicSourceSelector_L8009
     jmp.w C18115_DispatchDisplayTextDynamicSourceSelector_L8115
 C18009_DispatchDisplayTextDynamicSourceSelector_L8009:
@@ -18264,58 +18616,58 @@ C1809C_DispatchDisplayTextDynamicSourceSelector_L809C:
     lda.w #!TextCommand1D19HaveXPartyMembers
     jmp.w C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C180A2_DispatchDisplayTextDynamicSourceSelector_L80A2:
-    ldy.w #$0000
-    sty $14
+    ldy.w #!TextPredicateFalseValue
+    sty !TextPredicateResultScratch
     jsr !C1ACF2_GetBattleTargetNameBufferBase
-    sta $12
+    sta !BattleTargetNameBufferPointerLo
     jsr !C1AC9B_GetBattleAttackerNameBufferBase
     tax
-    lda $12
+    lda !BattleTargetNameBufferPointerLo
     jsr !C14070_ReadNameEntryLetterBoxPointer
-    cmp.w #$0000
+    cmp.w #!NullNameEntryLetterBoxPointer
     bne C180BF_DispatchDisplayTextDynamicSourceSelector_L80BF
-    ldy.w #$0001
-    sty $14
+    ldy.w #!TextPredicateTrueValue
+    sty !TextPredicateResultScratch
 C180BF_DispatchDisplayTextDynamicSourceSelector_L80BF:
-    ldy $14
+    ldy !TextPredicateResultScratch
     tya
-    sta $06
-    stz $08
+    sta !TextPredicateResultLo
+    stz !TextPredicateResultHi
     bpl C180CA_DispatchDisplayTextDynamicSourceSelector_L80CA
-    dec $08
+    dec !TextPredicateResultHi
 C180CA_DispatchDisplayTextDynamicSourceSelector_L80CA:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !TextPredicateResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextPredicateResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C180D7_DispatchDisplayTextDynamicSourceSelector_L80D7:
     lda.w #!TextCommand1D21GenerateRandomNumber
     bra C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C180DC_DispatchDisplayTextDynamicSourceSelector_L80DC:
-    ldy.w #$0000
-    sty $14
-    ldx $987B
-    lda $9877
+    ldy.w #!TextPredicateFalseValue
+    sty !TextPredicateResultScratch
+    ldx !CurrentOverworldY
+    lda !CurrentOverworldX
     jsl !C00AA1_ReadMapPositionContext
-    and.w #$0007
-    cmp.w #$0002
+    and.w #!MapPositionContextClassMask
+    cmp.w #!ExitMouseUsableMapClass
     bne C180F8_DispatchDisplayTextDynamicSourceSelector_L80F8
-    ldy.w #$0001
-    sty $14
+    ldy.w #!TextPredicateTrueValue
+    sty !TextPredicateResultScratch
 C180F8_DispatchDisplayTextDynamicSourceSelector_L80F8:
-    ldy $14
+    ldy !TextPredicateResultScratch
     tya
-    sta $06
-    stz $08
+    sta !TextPredicateResultLo
+    stz !TextPredicateResultHi
     bpl C18103_DispatchDisplayTextDynamicSourceSelector_L8103
-    dec $08
+    dec !TextPredicateResultHi
 C18103_DispatchDisplayTextDynamicSourceSelector_L8103:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !TextPredicateResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextPredicateResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C1811A_DispatchDisplayTextDynamicSourceSelector_L811A
 C18110_DispatchDisplayTextDynamicSourceSelector_L8110:
@@ -18325,40 +18677,40 @@ C18115_DispatchDisplayTextDynamicSourceSelector_L8115:
     lda.w #!TextCommand1D24StageBankDepositAccumulator
     bra C1811D_DispatchDisplayTextDynamicSourceSelector_L811D
 C1811A_DispatchDisplayTextDynamicSourceSelector_L811A:
-    lda.w #$0000
+    lda.w #!TextCommandNoFollowupCallback
 C1811D_DispatchDisplayTextDynamicSourceSelector_L811D:
     pld
     rts
     rep #$31
     txa
     beq C1816C_DispatchDisplayTextDynamicSourceSelector_L816C
-    cmp.w #$0001
+    cmp.w #!TextCommand1E01DepleteHpPercentSubcommand
     beq C18171_DispatchDisplayTextDynamicSourceSelector_L8171
-    cmp.w #$0002
+    cmp.w #!TextCommand1E02RecoverHpAmountSubcommand
     beq C18176_DispatchDisplayTextDynamicSourceSelector_L8176
-    cmp.w #$0003
+    cmp.w #!TextCommand1E03DepleteHpAmountSubcommand
     beq C1817B_DispatchDisplayTextDynamicSourceSelector_L817B
-    cmp.w #$0004
+    cmp.w #!TextCommand1E04RecoverPpPercentSubcommand
     beq C18180_DispatchDisplayTextDynamicSourceSelector_L8180
-    cmp.w #$0005
+    cmp.w #!TextCommand1E05DepletePpPercentSubcommand
     beq C18185_DispatchDisplayTextDynamicSourceSelector_L8185
-    cmp.w #$0006
+    cmp.w #!TextCommand1E06RecoverPpAmountSubcommand
     beq C1818A_DispatchDisplayTextDynamicSourceSelector_L818A
-    cmp.w #$0007
+    cmp.w #!TextCommand1E07DepletePpAmountSubcommand
     beq C1818F_DispatchDisplayTextDynamicSourceSelector_L818F
-    cmp.w #$0008
+    cmp.w #!TextCommand1E08SetCharacterLevelSubcommand
     beq C18194_DispatchDisplayTextDynamicSourceSelector_L8194
-    cmp.w #$0009
+    cmp.w #!TextCommand1E09GiveExperienceSubcommand
     beq C18199_DispatchDisplayTextDynamicSourceSelector_L8199
-    cmp.w #$000A
+    cmp.w #!TextCommand1E0ABoostIqSubcommand
     beq C1819E_DispatchDisplayTextDynamicSourceSelector_L819E
-    cmp.w #$000B
+    cmp.w #!TextCommand1E0BBoostGutsSubcommand
     beq C181A3_DispatchDisplayTextDynamicSourceSelector_L81A3
-    cmp.w #$000C
+    cmp.w #!TextCommand1E0CBoostSpeedSubcommand
     beq C181A8_DispatchDisplayTextDynamicSourceSelector_L81A8
-    cmp.w #$000D
+    cmp.w #!TextCommand1E0DBoostVitalitySubcommand
     beq C181AD_DispatchDisplayTextDynamicSourceSelector_L81AD
-    cmp.w #$000E
+    cmp.w #!TextCommand1E0EBoostLuckSubcommand
     beq C181B2_DispatchDisplayTextDynamicSourceSelector_L81B2
     bra C181B7_DispatchDisplayTextDynamicSourceSelector_L81B7
 C1816C_DispatchDisplayTextDynamicSourceSelector_L816C:
@@ -18407,309 +18759,309 @@ C181B2_DispatchDisplayTextDynamicSourceSelector_L81B2:
     lda.w #!TextCommand1E0EBoostLuck
     bra C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA
 C181B7_DispatchDisplayTextDynamicSourceSelector_L81B7:
-    lda.w #$0000
+    lda.w #!TextCommandNoFollowupCallback
 C181BA_DispatchDisplayTextDynamicSourceSelector_L81BA:
     rts
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #!TextCommand1FFamilyFrameOffset
     tcd
     pla
     txa
     bne C181CB_DispatchDisplayTextDynamicSourceSelector_L81CB
     jmp.w C18416_DispatchDisplayTextDynamicSourceSelector_L8416
 C181CB_DispatchDisplayTextDynamicSourceSelector_L81CB:
-    cmp.w #$0001
+    cmp.w #!TextCommand1F01StopMusicSubcommand
     bne C181D3_DispatchDisplayTextDynamicSourceSelector_L81D3
     jmp.w C1841C_DispatchDisplayTextDynamicSourceSelector_L841C
 C181D3_DispatchDisplayTextDynamicSourceSelector_L81D3:
-    cmp.w #$0002
+    cmp.w #!TextCommand1F02PlaySoundSubcommand
     bne C181DB_DispatchDisplayTextDynamicSourceSelector_L81DB
     jmp.w C18422_DispatchDisplayTextDynamicSourceSelector_L8422
 C181DB_DispatchDisplayTextDynamicSourceSelector_L81DB:
-    cmp.w #$0003
+    cmp.w #!TextCommand1F03RestoreCurrentMapMusicSubcommand
     bne C181E3_DispatchDisplayTextDynamicSourceSelector_L81E3
     jmp.w C18428_DispatchDisplayTextDynamicSourceSelector_L8428
 C181E3_DispatchDisplayTextDynamicSourceSelector_L81E3:
-    cmp.w #$0004
+    cmp.w #!TextCommand1F04SetTextSoundModeSubcommand
     bne C181EB_DispatchDisplayTextDynamicSourceSelector_L81EB
     jmp.w C18436_DispatchDisplayTextDynamicSourceSelector_L8436
 C181EB_DispatchDisplayTextDynamicSourceSelector_L81EB:
-    cmp.w #$0005
+    cmp.w #!TextCommand1F05DisableSectorMusicChangeSubcommand
     bne C181F3_DispatchDisplayTextDynamicSourceSelector_L81F3
     jmp.w C1843C_DispatchDisplayTextDynamicSourceSelector_L843C
 C181F3_DispatchDisplayTextDynamicSourceSelector_L81F3:
-    cmp.w #$0006
+    cmp.w #!TextCommand1F06EnableSectorMusicChangeSubcommand
     bne C181FB_DispatchDisplayTextDynamicSourceSelector_L81FB
     jmp.w C18446_DispatchDisplayTextDynamicSourceSelector_L8446
 C181FB_DispatchDisplayTextDynamicSourceSelector_L81FB:
-    cmp.w #$0007
+    cmp.w #!TextCommand1F07QueuePresentationSfxSubcommand
     bne C18203_DispatchDisplayTextDynamicSourceSelector_L8203
     jmp.w C18450_DispatchDisplayTextDynamicSourceSelector_L8450
 C18203_DispatchDisplayTextDynamicSourceSelector_L8203:
-    cmp.w #$0011
+    cmp.w #!TextCommand1F11AddToWalletSubcommand
     bne C1820B_DispatchDisplayTextDynamicSourceSelector_L820B
     jmp.w C18456_DispatchDisplayTextDynamicSourceSelector_L8456
 C1820B_DispatchDisplayTextDynamicSourceSelector_L820B:
-    cmp.w #$0012
+    cmp.w #!TextCommand1F12TakeFromWalletSubcommand
     bne C18213_DispatchDisplayTextDynamicSourceSelector_L8213
     jmp.w C1845C_DispatchDisplayTextDynamicSourceSelector_L845C
 C18213_DispatchDisplayTextDynamicSourceSelector_L8213:
-    cmp.w #$0013
+    cmp.w #!TextCommand1F13UpdateRegistryFrameSelectorSubcommand
     bne C1821B_DispatchDisplayTextDynamicSourceSelector_L821B
     jmp.w C18462_DispatchDisplayTextDynamicSourceSelector_L8462
 C1821B_DispatchDisplayTextDynamicSourceSelector_L821B:
-    cmp.w #$0014
+    cmp.w #!TextCommand1F14BroadcastRegistryFrameSelectorSubcommand
     bne C18223_DispatchDisplayTextDynamicSourceSelector_L8223
     jmp.w C18468_DispatchDisplayTextDynamicSourceSelector_L8468
 C18223_DispatchDisplayTextDynamicSourceSelector_L8223:
-    cmp.w #$0015
+    cmp.w #!TextCommand1F15InitForcedVisualEntityOrDrainSubcommand
     bne C1822B_DispatchDisplayTextDynamicSourceSelector_L822B
     jmp.w C1846E_DispatchDisplayTextDynamicSourceSelector_L846E
 C1822B_DispatchDisplayTextDynamicSourceSelector_L822B:
-    cmp.w #$0016
+    cmp.w #!TextCommand1F16UpdateVisualFrameSelectorSubcommand
     bne C18233_DispatchDisplayTextDynamicSourceSelector_L8233
     jmp.w C18474_DispatchDisplayTextDynamicSourceSelector_L8474
 C18233_DispatchDisplayTextDynamicSourceSelector_L8233:
-    cmp.w #$0017
+    cmp.w #!TextCommand1F17InitVisualEntityAndAppendRecordSubcommand
     bne C1823B_DispatchDisplayTextDynamicSourceSelector_L823B
     jmp.w C1847A_DispatchDisplayTextDynamicSourceSelector_L847A
 C1823B_DispatchDisplayTextDynamicSourceSelector_L823B:
-    cmp.w #$0018
+    cmp.w #!TextCommand1F18NoOpSevenArgBytesSubcommand
     bne C18243_DispatchDisplayTextDynamicSourceSelector_L8243
     jmp.w C18480_DispatchDisplayTextDynamicSourceSelector_L8480
 C18243_DispatchDisplayTextDynamicSourceSelector_L8243:
-    cmp.w #$0019
+    cmp.w #!TextCommand1F19NoOpSevenArgBytesAltSubcommand
     bne C1824B_DispatchDisplayTextDynamicSourceSelector_L824B
     jmp.w C18486_DispatchDisplayTextDynamicSourceSelector_L8486
 C1824B_DispatchDisplayTextDynamicSourceSelector_L824B:
-    cmp.w #$001A
+    cmp.w #!TextCommand1F1ASpawnVisualAttachedChildSubcommand
     bne C18253_DispatchDisplayTextDynamicSourceSelector_L8253
     jmp.w C1848C_DispatchDisplayTextDynamicSourceSelector_L848C
 C18253_DispatchDisplayTextDynamicSourceSelector_L8253:
-    cmp.w #$001B
+    cmp.w #!TextCommand1F1BClearVisualAttachedChildSubcommand
     bne C1825B_DispatchDisplayTextDynamicSourceSelector_L825B
     jmp.w C18492_DispatchDisplayTextDynamicSourceSelector_L8492
 C1825B_DispatchDisplayTextDynamicSourceSelector_L825B:
-    cmp.w #$001C
+    cmp.w #!TextCommand1F1CSpawnRegistryAttachedChildSubcommand
     bne C18263_DispatchDisplayTextDynamicSourceSelector_L8263
     jmp.w C18498_DispatchDisplayTextDynamicSourceSelector_L8498
 C18263_DispatchDisplayTextDynamicSourceSelector_L8263:
-    cmp.w #$001D
+    cmp.w #!TextCommand1F1DClearRegistryAttachedChildSubcommand
     bne C1826B_DispatchDisplayTextDynamicSourceSelector_L826B
     jmp.w C1849E_DispatchDisplayTextDynamicSourceSelector_L849E
 C1826B_DispatchDisplayTextDynamicSourceSelector_L826B:
-    cmp.w #$001E
+    cmp.w #!TextCommand1F1ERunVisualScriptWithCachedPoseSubcommand
     bne C18273_DispatchDisplayTextDynamicSourceSelector_L8273
     jmp.w C184A4_DispatchDisplayTextDynamicSourceSelector_L84A4
 C18273_DispatchDisplayTextDynamicSourceSelector_L8273:
-    cmp.w #$001F
+    cmp.w #!TextCommand1F1FRunPoseScriptWithCachedPoseSubcommand
     bne C1827B_DispatchDisplayTextDynamicSourceSelector_L827B
     jmp.w C184AA_DispatchDisplayTextDynamicSourceSelector_L84AA
 C1827B_DispatchDisplayTextDynamicSourceSelector_L827B:
-    cmp.w #$0020
+    cmp.w #!TextCommand1F20UseItemOnCharacterSubcommand
     bne C18283_DispatchDisplayTextDynamicSourceSelector_L8283
     jmp.w C184B0_DispatchDisplayTextDynamicSourceSelector_L84B0
 C18283_DispatchDisplayTextDynamicSourceSelector_L8283:
-    cmp.w #$0021
+    cmp.w #!TextCommand1F21TeleportToPresetLocationSubcommand
     bne C1828B_DispatchDisplayTextDynamicSourceSelector_L828B
     jmp.w C184B6_DispatchDisplayTextDynamicSourceSelector_L84B6
 C1828B_DispatchDisplayTextDynamicSourceSelector_L828B:
-    cmp.w #$0023
+    cmp.w #!TextCommand1F23InitScriptedBattleSubcommand
     bne C18293_DispatchDisplayTextDynamicSourceSelector_L8293
     jmp.w C184BC_DispatchDisplayTextDynamicSourceSelector_L84BC
 C18293_DispatchDisplayTextDynamicSourceSelector_L8293:
-    cmp.w #$0030
+    cmp.w #!TextCommand1F30SetActiveWindowGlyphModeSubcommand
     bne C1829B_DispatchDisplayTextDynamicSourceSelector_L829B
     jmp.w C184C2_DispatchDisplayTextDynamicSourceSelector_L84C2
 C1829B_DispatchDisplayTextDynamicSourceSelector_L829B:
-    cmp.w #$0031
+    cmp.w #!TextCommand1F31SetActiveWindowGlyphModeSubcommand
     bne C182A3_DispatchDisplayTextDynamicSourceSelector_L82A3
     jmp.w C184C2_DispatchDisplayTextDynamicSourceSelector_L84C2
 C182A3_DispatchDisplayTextDynamicSourceSelector_L82A3:
-    cmp.w #$0040
+    cmp.w #!TextCommand1F40StageSpecialEventArgumentSubcommand
     bne C182AB_DispatchDisplayTextDynamicSourceSelector_L82AB
     jmp.w C184C8_DispatchDisplayTextDynamicSourceSelector_L84C8
 C182AB_DispatchDisplayTextDynamicSourceSelector_L82AB:
-    cmp.w #$0041
+    cmp.w #!TextCommand1F41SpecialEventDispatchSubcommand
     bne C182B3_DispatchDisplayTextDynamicSourceSelector_L82B3
     jmp.w C184CE_DispatchDisplayTextDynamicSourceSelector_L84CE
 C182B3_DispatchDisplayTextDynamicSourceSelector_L82B3:
-    cmp.w #$0050
+    cmp.w #!TextCommand1F50LockTextInputSubcommand
     bne C182BB_DispatchDisplayTextDynamicSourceSelector_L82BB
     jmp.w C184D4_DispatchDisplayTextDynamicSourceSelector_L84D4
 C182BB_DispatchDisplayTextDynamicSourceSelector_L82BB:
-    cmp.w #$0051
+    cmp.w #!TextCommand1F51UnlockTextInputSubcommand
     bne C182C3_DispatchDisplayTextDynamicSourceSelector_L82C3
     jmp.w C184DA_DispatchDisplayTextDynamicSourceSelector_L84DA
 C182C3_DispatchDisplayTextDynamicSourceSelector_L82C3:
-    cmp.w #$0052
+    cmp.w #!TextCommand1F52CreateNumberSelectorSubcommand
     bne C182CB_DispatchDisplayTextDynamicSourceSelector_L82CB
     jmp.w C184E0_DispatchDisplayTextDynamicSourceSelector_L84E0
 C182CB_DispatchDisplayTextDynamicSourceSelector_L82CB:
-    cmp.w #$0060
+    cmp.w #!TextCommand1F60WaitForTextPromptOrInputGateSubcommand
     bne C182D3_DispatchDisplayTextDynamicSourceSelector_L82D3
     jmp.w C184E6_DispatchDisplayTextDynamicSourceSelector_L84E6
 C182D3_DispatchDisplayTextDynamicSourceSelector_L82D3:
-    cmp.w #$0061
+    cmp.w #!TextCommand1F61WaitForTextStateFlagSubcommand
     bne C182DB_DispatchDisplayTextDynamicSourceSelector_L82DB
     jmp.w C184EC_DispatchDisplayTextDynamicSourceSelector_L84EC
 C182DB_DispatchDisplayTextDynamicSourceSelector_L82DB:
-    cmp.w #$0062
+    cmp.w #!TextCommand1F62SetBlinkingTriangleStateSubcommand
     bne C182E3_DispatchDisplayTextDynamicSourceSelector_L82E3
     jmp.w C184F2_DispatchDisplayTextDynamicSourceSelector_L84F2
 C182E3_DispatchDisplayTextDynamicSourceSelector_L82E3:
-    cmp.w #$0063
+    cmp.w #!TextCommand1F63EnqueueMovementRecordSubcommand
     bne C182EB_DispatchDisplayTextDynamicSourceSelector_L82EB
     jmp.w C184F8_DispatchDisplayTextDynamicSourceSelector_L84F8
 C182EB_DispatchDisplayTextDynamicSourceSelector_L82EB:
-    cmp.w #$0064
+    cmp.w #!TextCommand1F64SaveAndClearTemporaryPartySourceStateSubcommand
     bne C182F3_DispatchDisplayTextDynamicSourceSelector_L82F3
     jmp.w C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE
 C182F3_DispatchDisplayTextDynamicSourceSelector_L82F3:
-    cmp.w #$0065
+    cmp.w #!TextCommand1F65RestoreTemporaryPartySourceStateSubcommand
     bne C182FB_DispatchDisplayTextDynamicSourceSelector_L82FB
     jmp.w C18505_DispatchDisplayTextDynamicSourceSelector_L8505
 C182FB_DispatchDisplayTextDynamicSourceSelector_L82FB:
-    cmp.w #$0066
+    cmp.w #!TextCommand1F66ActivateHotspotSubcommand
     bne C18303_DispatchDisplayTextDynamicSourceSelector_L8303
     jmp.w C1850C_DispatchDisplayTextDynamicSourceSelector_L850C
 C18303_DispatchDisplayTextDynamicSourceSelector_L8303:
-    cmp.w #$0067
+    cmp.w #!TextCommand1F67DisableHotspotSubcommand
     bne C1830B_DispatchDisplayTextDynamicSourceSelector_L830B
     jmp.w C18512_DispatchDisplayTextDynamicSourceSelector_L8512
 C1830B_DispatchDisplayTextDynamicSourceSelector_L830B:
-    cmp.w #$0068
+    cmp.w #!TextCommand1F68SnapshotTeleportLandingPositionSubcommand
     bne C18313_DispatchDisplayTextDynamicSourceSelector_L8313
     jmp.w C18518_DispatchDisplayTextDynamicSourceSelector_L8518
 C18313_DispatchDisplayTextDynamicSourceSelector_L8313:
-    cmp.w #$0069
+    cmp.w #!TextCommand1F69RefreshTeleportLandingStateSubcommand
     bne C1831B_DispatchDisplayTextDynamicSourceSelector_L831B
     jmp.w C18527_DispatchDisplayTextDynamicSourceSelector_L8527
 C1831B_DispatchDisplayTextDynamicSourceSelector_L831B:
-    cmp.w #$0071
+    cmp.w #!TextCommand1F71PartyUtilitySubcommand
     bne C18323_DispatchDisplayTextDynamicSourceSelector_L8323
     jmp.w C18582_DispatchDisplayTextDynamicSourceSelector_L8582
 C18323_DispatchDisplayTextDynamicSourceSelector_L8323:
-    cmp.w #$0081
+    cmp.w #!TextCommand1F81CheckDirectItemUseCompatibilitySubcommand
     bne C1832B_DispatchDisplayTextDynamicSourceSelector_L832B
     jmp.w C18588_DispatchDisplayTextDynamicSourceSelector_L8588
 C1832B_DispatchDisplayTextDynamicSourceSelector_L832B:
-    cmp.w #$0083
+    cmp.w #!TextCommand1F83CheckDeferredItemUseCompatibilitySubcommand
     bne C18333_DispatchDisplayTextDynamicSourceSelector_L8333
     jmp.w C1858E_DispatchDisplayTextDynamicSourceSelector_L858E
 C18333_DispatchDisplayTextDynamicSourceSelector_L8333:
-    cmp.w #$0090
+    cmp.w #!TextCommand1F90BuildPhoneContactSelectionMenuSubcommand
     bne C1833B_DispatchDisplayTextDynamicSourceSelector_L833B
     jmp.w C18594_DispatchDisplayTextDynamicSourceSelector_L8594
 C1833B_DispatchDisplayTextDynamicSourceSelector_L833B:
-    cmp.w #$00A0
+    cmp.w #!TextCommand1FA0SetCurrentInteractionFlagSubcommand
     bne C18343_DispatchDisplayTextDynamicSourceSelector_L8343
     jmp.w C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9
 C18343_DispatchDisplayTextDynamicSourceSelector_L8343:
-    cmp.w #$00A1
+    cmp.w #!TextCommand1FA1ClearCurrentInteractionFlagSubcommand
     bne C1834B_DispatchDisplayTextDynamicSourceSelector_L834B
     jmp.w C185B3_DispatchDisplayTextDynamicSourceSelector_L85B3
 C1834B_DispatchDisplayTextDynamicSourceSelector_L834B:
-    cmp.w #$00A2
+    cmp.w #!TextCommand1FA2GetCurrentInteractionFlagSubcommand
     bne C18353_DispatchDisplayTextDynamicSourceSelector_L8353
     jmp.w C185BD_DispatchDisplayTextDynamicSourceSelector_L85BD
 C18353_DispatchDisplayTextDynamicSourceSelector_L8353:
-    cmp.w #$00B0
+    cmp.w #!TextCommand1FB0SaveCurrentGameSubcommand
     bne C1835B_DispatchDisplayTextDynamicSourceSelector_L835B
     jmp.w C185DA_DispatchDisplayTextDynamicSourceSelector_L85DA
 C1835B_DispatchDisplayTextDynamicSourceSelector_L835B:
-    cmp.w #$00C0
+    cmp.w #!TextCommand1FC0JumpMulti2Subcommand
     bne C18363_DispatchDisplayTextDynamicSourceSelector_L8363
     jmp.w C185E1_DispatchDisplayTextDynamicSourceSelector_L85E1
 C18363_DispatchDisplayTextDynamicSourceSelector_L8363:
-    cmp.w #$00D0
+    cmp.w #!TextCommand1FD0JeffRepairBrokenItemSubcommand
     bne C1836B_DispatchDisplayTextDynamicSourceSelector_L836B
     jmp.w C185E7_DispatchDisplayTextDynamicSourceSelector_L85E7
 C1836B_DispatchDisplayTextDynamicSourceSelector_L836B:
-    cmp.w #$00D1
+    cmp.w #!TextCommand1FD1NearbyMagicTruffleDirectionSubcommand
     bne C18373_DispatchDisplayTextDynamicSourceSelector_L8373
     jmp.w C185ED_DispatchDisplayTextDynamicSourceSelector_L85ED
 C18373_DispatchDisplayTextDynamicSourceSelector_L8373:
-    cmp.w #$00D2
+    cmp.w #!TextCommand1FD2WanderingPhotographerSubcommand
     bne C1837B_DispatchDisplayTextDynamicSourceSelector_L837B
     jmp.w C18602_DispatchDisplayTextDynamicSourceSelector_L8602
 C1837B_DispatchDisplayTextDynamicSourceSelector_L837B:
-    cmp.w #$00D3
+    cmp.w #!TextCommand1FD3TimedDeliveryRowSelectorSubcommand
     bne C18383_DispatchDisplayTextDynamicSourceSelector_L8383
     jmp.w C18607_DispatchDisplayTextDynamicSourceSelector_L8607
 C18383_DispatchDisplayTextDynamicSourceSelector_L8383:
-    cmp.w #$00E1
+    cmp.w #!TextCommand1FE1RunLandingProfileDisplaySubcommand
     bne C1838B_DispatchDisplayTextDynamicSourceSelector_L838B
     jmp.w C1860C_DispatchDisplayTextDynamicSourceSelector_L860C
 C1838B_DispatchDisplayTextDynamicSourceSelector_L838B:
-    cmp.w #$00E4
+    cmp.w #!TextCommand1FE4UpdatePoseFrameSelectorSubcommand
     bne C18393_DispatchDisplayTextDynamicSourceSelector_L8393
     jmp.w C18611_DispatchDisplayTextDynamicSourceSelector_L8611
 C18393_DispatchDisplayTextDynamicSourceSelector_L8393:
-    cmp.w #$00E5
+    cmp.w #!TextCommand1FE5SetRegistrySlotFlagsC000Subcommand
     bne C1839B_DispatchDisplayTextDynamicSourceSelector_L839B
     jmp.w C18616_DispatchDisplayTextDynamicSourceSelector_L8616
 C1839B_DispatchDisplayTextDynamicSourceSelector_L839B:
-    cmp.w #$00E6
+    cmp.w #!TextCommand1FE6SetVisualSlotFlagsC000Subcommand
     bne C183A3_DispatchDisplayTextDynamicSourceSelector_L83A3
     jmp.w C1861B_DispatchDisplayTextDynamicSourceSelector_L861B
 C183A3_DispatchDisplayTextDynamicSourceSelector_L83A3:
-    cmp.w #$00E7
+    cmp.w #!TextCommand1FE7SetPoseSlotFlagsC000Subcommand
     bne C183AB_DispatchDisplayTextDynamicSourceSelector_L83AB
     jmp.w C18620_DispatchDisplayTextDynamicSourceSelector_L8620
 C183AB_DispatchDisplayTextDynamicSourceSelector_L83AB:
-    cmp.w #$00E8
+    cmp.w #!TextCommand1FE8ClearRegistrySlotFlagsC000Subcommand
     bne C183B3_DispatchDisplayTextDynamicSourceSelector_L83B3
     jmp.w C18625_DispatchDisplayTextDynamicSourceSelector_L8625
 C183B3_DispatchDisplayTextDynamicSourceSelector_L83B3:
-    cmp.w #$00E9
+    cmp.w #!TextCommand1FE9ClearVisualSlotFlagsC000Subcommand
     bne C183BB_DispatchDisplayTextDynamicSourceSelector_L83BB
     jmp.w C1862A_DispatchDisplayTextDynamicSourceSelector_L862A
 C183BB_DispatchDisplayTextDynamicSourceSelector_L83BB:
-    cmp.w #$00EA
+    cmp.w #!TextCommand1FEAClearPoseSlotFlagsC000Subcommand
     bne C183C3_DispatchDisplayTextDynamicSourceSelector_L83C3
     jmp.w C1862F_DispatchDisplayTextDynamicSourceSelector_L862F
 C183C3_DispatchDisplayTextDynamicSourceSelector_L83C3:
-    cmp.w #$00EB
+    cmp.w #!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordSubcommand
     bne C183CB_DispatchDisplayTextDynamicSourceSelector_L83CB
     jmp.w C18634_DispatchDisplayTextDynamicSourceSelector_L8634
 C183CB_DispatchDisplayTextDynamicSourceSelector_L83CB:
-    cmp.w #$00EC
+    cmp.w #!TextCommand1FECClearRegistryFlag8000AndAppendRecordSubcommand
     bne C183D3_DispatchDisplayTextDynamicSourceSelector_L83D3
     jmp.w C18639_DispatchDisplayTextDynamicSourceSelector_L8639
 C183D3_DispatchDisplayTextDynamicSourceSelector_L83D3:
-    cmp.w #$00ED
+    cmp.w #!TextCommand1FEDClearSelectedModeSlotSubcommand
     bne C183DB_DispatchDisplayTextDynamicSourceSelector_L83DB
     jmp.w C1863E_DispatchDisplayTextDynamicSourceSelector_L863E
 C183DB_DispatchDisplayTextDynamicSourceSelector_L83DB:
-    cmp.w #$00EE
+    cmp.w #!TextCommand1FEESelectModeSlotByVisualSubcommand
     bne C183E3_DispatchDisplayTextDynamicSourceSelector_L83E3
     jmp.w C18644_DispatchDisplayTextDynamicSourceSelector_L8644
 C183E3_DispatchDisplayTextDynamicSourceSelector_L83E3:
-    cmp.w #$00EF
+    cmp.w #!TextCommand1FEFSelectModeSlotByPoseSubcommand
     bne C183EB_DispatchDisplayTextDynamicSourceSelector_L83EB
     jmp.w C18649_DispatchDisplayTextDynamicSourceSelector_L8649
 C183EB_DispatchDisplayTextDynamicSourceSelector_L83EB:
-    cmp.w #$00F0
+    cmp.w #!TextCommand1FF0GetOnBicycleSubcommand
     bne C183F3_DispatchDisplayTextDynamicSourceSelector_L83F3
     jmp.w C1864E_DispatchDisplayTextDynamicSourceSelector_L864E
 C183F3_DispatchDisplayTextDynamicSourceSelector_L83F3:
-    cmp.w #$00F1
+    cmp.w #!TextCommand1FF1RunVisualScriptFromRecordSubcommand
     bne C183FB_DispatchDisplayTextDynamicSourceSelector_L83FB
     jmp.w C18654_DispatchDisplayTextDynamicSourceSelector_L8654
 C183FB_DispatchDisplayTextDynamicSourceSelector_L83FB:
-    cmp.w #$00F2
+    cmp.w #!TextCommand1FF2RunPoseScriptFromRecordSubcommand
     bne C18403_DispatchDisplayTextDynamicSourceSelector_L8403
     jmp.w C18659_DispatchDisplayTextDynamicSourceSelector_L8659
 C18403_DispatchDisplayTextDynamicSourceSelector_L8403:
-    cmp.w #$00F3
+    cmp.w #!TextCommand1FF3SpawnAttachedChildByPoseDescriptorSubcommand
     bne C1840B_DispatchDisplayTextDynamicSourceSelector_L840B
     jmp.w C1865E_DispatchDisplayTextDynamicSourceSelector_L865E
 C1840B_DispatchDisplayTextDynamicSourceSelector_L840B:
-    cmp.w #$00F4
+    cmp.w #!TextCommand1FF4ClearAttachedChildByPoseDescriptorSubcommand
     bne C18413_DispatchDisplayTextDynamicSourceSelector_L8413
     jmp.w C18663_DispatchDisplayTextDynamicSourceSelector_L8663
 C18413_DispatchDisplayTextDynamicSourceSelector_L8413:
@@ -18729,7 +19081,7 @@ C18428_DispatchDisplayTextDynamicSourceSelector_L8428:
     jsl !C216AD_ApplyMusicTrackAndSyncMirror
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18436_DispatchDisplayTextDynamicSourceSelector_L8436:
-    lda.w #!TextCommand1F04Callback
+    lda.w #!TextCommand1F04SetTextSoundModeCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1843C_DispatchDisplayTextDynamicSourceSelector_L843C:
     lda.w #!DisableAutoSectorMusicChanges
@@ -18740,7 +19092,7 @@ C18446_DispatchDisplayTextDynamicSourceSelector_L8446:
     jsl !C4FD45_SetAutoSectorMusicChanges
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18450_DispatchDisplayTextDynamicSourceSelector_L8450:
-    lda.w #!TextCommand1F07Callback
+    lda.w #!TextCommand1F07QueuePresentationSfxCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18456_DispatchDisplayTextDynamicSourceSelector_L8456:
     lda.w #!TextCommand1F11AddToWallet
@@ -18749,43 +19101,43 @@ C1845C_DispatchDisplayTextDynamicSourceSelector_L845C:
     lda.w #!TextCommand1F12TakeFromWallet
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18462_DispatchDisplayTextDynamicSourceSelector_L8462:
-    lda.w #!TextCommand1F13Callback
+    lda.w #!TextCommand1F13UpdateRegistryFrameSelectorCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18468_DispatchDisplayTextDynamicSourceSelector_L8468:
-    lda.w #!TextCommand1F14Callback
+    lda.w #!TextCommand1F14BroadcastRegistryFrameSelectorCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1846E_DispatchDisplayTextDynamicSourceSelector_L846E:
-    lda.w #!TextCommand1F15Callback
+    lda.w #!TextCommand1F15InitForcedVisualEntityOrDrainCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18474_DispatchDisplayTextDynamicSourceSelector_L8474:
-    lda.w #!TextCommand1F16Callback
+    lda.w #!TextCommand1F16UpdateVisualFrameSelectorCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1847A_DispatchDisplayTextDynamicSourceSelector_L847A:
-    lda.w #!TextCommand1F17Callback
+    lda.w #!TextCommand1F17InitVisualEntityAndAppendRecordCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18480_DispatchDisplayTextDynamicSourceSelector_L8480:
-    lda.w #!TextCommand1F18Callback
+    lda.w #!TextCommand1F18NoOpSevenArgBytesCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18486_DispatchDisplayTextDynamicSourceSelector_L8486:
-    lda.w #!TextCommand1F19Callback
+    lda.w #!TextCommand1F19NoOpSevenArgBytesAltCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1848C_DispatchDisplayTextDynamicSourceSelector_L848C:
-    lda.w #!TextCommand1F1ACallback
+    lda.w #!TextCommand1F1ASpawnVisualAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18492_DispatchDisplayTextDynamicSourceSelector_L8492:
-    lda.w #!TextCommand1F1BCallback
+    lda.w #!TextCommand1F1BClearVisualAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18498_DispatchDisplayTextDynamicSourceSelector_L8498:
-    lda.w #!TextCommand1F1CCallback
+    lda.w #!TextCommand1F1CSpawnRegistryAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1849E_DispatchDisplayTextDynamicSourceSelector_L849E:
-    lda.w #!TextCommand1F1DCallback
+    lda.w #!TextCommand1F1DClearRegistryAttachedChildCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184A4_DispatchDisplayTextDynamicSourceSelector_L84A4:
-    lda.w #!TextCommand1F1ECallback
+    lda.w #!TextCommand1F1ERunVisualScriptWithCachedPoseCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184AA_DispatchDisplayTextDynamicSourceSelector_L84AA:
-    lda.w #!TextCommand1F1FCallback
+    lda.w #!TextCommand1F1FRunPoseScriptWithCachedPoseCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184B0_DispatchDisplayTextDynamicSourceSelector_L84B0:
     lda.w #!TextCommand1F20UseItemOnCharacter
@@ -18794,7 +19146,7 @@ C184B6_DispatchDisplayTextDynamicSourceSelector_L84B6:
     lda.w #!TextCommand1F21TeleportToPresetLocation
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184BC_DispatchDisplayTextDynamicSourceSelector_L84BC:
-    lda.w #!TextCommand1F23Callback
+    lda.w #!TextCommand1F23InitScriptedBattleCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184C2_DispatchDisplayTextDynamicSourceSelector_L84C2:
     jsr !C10FAC_SetActiveWindowGlyphModeFlag
@@ -18821,10 +19173,10 @@ C184EC_DispatchDisplayTextDynamicSourceSelector_L84EC:
     jsr !C102D0_WaitForTextStateFlag9641
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C184F2_DispatchDisplayTextDynamicSourceSelector_L84F2:
-    lda.w #!TextCommand1F62Callback
+    lda.w #!TextCommand1F62SetBlinkingTriangleStateCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184F8_DispatchDisplayTextDynamicSourceSelector_L84F8:
-    lda.w #!TextCommand1F63Callback
+    lda.w #!TextCommand1F63EnqueueMovementRecordCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE:
 !C184FE_SaveAndClearTemporaryPartySourceStateTextCommand = C184FE_DispatchDisplayTextDynamicSourceSelector_L84FE
@@ -18835,54 +19187,54 @@ C18505_DispatchDisplayTextDynamicSourceSelector_L8505:
     jsl !C2307B_RestoreTemporaryPartySourceState
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C1850C_DispatchDisplayTextDynamicSourceSelector_L850C:
-    lda.w #!TextCommand1F66Callback
+    lda.w #!TextCommand1F66ActivateHotspotCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18512_DispatchDisplayTextDynamicSourceSelector_L8512:
-    lda.w #!TextCommand1F67Callback
+    lda.w #!TextCommand1F67DisableHotspotCallback
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18518_DispatchDisplayTextDynamicSourceSelector_L8518:
-    lda $9877
-    sta $98B2
-    lda $987B
-    sta $98B4
+    lda !CurrentOverworldX
+    sta !TeleportLandingSnapshotX
+    lda !CurrentOverworldY
+    sta !TeleportLandingSnapshotY
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18527_DispatchDisplayTextDynamicSourceSelector_L8527:
-    ldy.w #$0001
-    sty $12
+    ldy.w #!TeleportRefreshFlagStart
+    sty !TeleportRefreshFlagCursor
     bra C1853B_DispatchDisplayTextDynamicSourceSelector_L853B
 C1852E_DispatchDisplayTextDynamicSourceSelector_L852E:
-    ldx.w #$0000
+    ldx.w #!ClearEventFlagOrStateValue
     tya
     jsl !C2165E_SetEventFlagOrState
-    ldy $12
+    ldy !TeleportRefreshFlagCursor
     iny
-    sty $12
+    sty !TeleportRefreshFlagCursor
 C1853B_DispatchDisplayTextDynamicSourceSelector_L853B:
-    cpy.w #$000A
+    cpy.w #!TeleportRefreshFlagEndInclusive
     bcc C1852E_DispatchDisplayTextDynamicSourceSelector_L852E
     beq C1852E_DispatchDisplayTextDynamicSourceSelector_L852E
-    ldx.w #$0001
+    ldx.w #!EnableDisplayTransitionState
     txa
     jsl !C0887A_ClearDisplayTransitionState
-    lda.w #$0073
+    lda.w #!TeleportVisualStateId
     jsl !C0ABE0_PrepareTeleportVisualState
-    lda $98B2
-    sta $04
-    lda $98B4
-    sta $02
-    ldx $02
-    lda $04
+    lda !TeleportLandingSnapshotX
+    sta !TeleportLandingXWork
+    lda !TeleportLandingSnapshotY
+    sta !TeleportLandingYWork
+    ldx !TeleportLandingYWork
+    lda !TeleportLandingXWork
     jsl !C013F6_SetTeleportLandingDirection
-    stz $2890
-    ldy.w #$0004
-    ldx $02
-    lda $04
+    stz !TeleportLandingQueueState
+    ldy.w #!TeleportLandingUpdateMode
+    ldx !TeleportLandingYWork
+    lda !TeleportLandingXWork
     jsl !C03FA9_UpdateTeleportLandingPosition
-    ldx.w #$0001
+    ldx.w #!EnableDisplayTransitionState
     txa
     jsl !C0886C_SetDisplayTransitionState
-    lda.w #$FFFF
-    sta $5DC4
+    lda.w #!InvalidTeleportDestinationWord
+    sta !TeleportLandingRefreshSentinel
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18582_DispatchDisplayTextDynamicSourceSelector_L8582:
     lda.w #!TextCommand1F71PartyUtility
@@ -18895,37 +19247,37 @@ C1858E_DispatchDisplayTextDynamicSourceSelector_L858E:
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18594_DispatchDisplayTextDynamicSourceSelector_L8594:
     jsr !C19441_BuildPhoneContactSelectionMenu
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    lda !TextCommandResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9:
 !C185A9_SetCurrentInteractionFlagTextCommand = C185A9_DispatchDisplayTextDynamicSourceSelector_L85A9
-    lda.w #$0001
+    lda.w #!CurrentInteractionFlagSetValue
     jsl !C226C5_SetCurrent9C88FlagAndRefresh5D64
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185B3_DispatchDisplayTextDynamicSourceSelector_L85B3:
 !C185B3_ClearCurrentInteractionFlagTextCommand = C185B3_DispatchDisplayTextDynamicSourceSelector_L85B3
-    lda.w #$0000
+    lda.w #!CurrentInteractionFlagClearValue
     jsl !C226C5_SetCurrent9C88FlagAndRefresh5D64
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185BD_DispatchDisplayTextDynamicSourceSelector_L85BD:
 !C185BD_GetCurrentInteractionFlagTextCommand = C185BD_DispatchDisplayTextDynamicSourceSelector_L85BD
     jsl !C226E6_GetCurrent9C88Flag
-    cmp.w #$0000
-    sta $06
-    stz $08
+    cmp.w #!CurrentInteractionFlagClearValue
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
     bpl C185CC_DispatchDisplayTextDynamicSourceSelector_L85CC
-    dec $08
+    dec !TextCommandResultHi
 C185CC_DispatchDisplayTextDynamicSourceSelector_L85CC:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda !TextCommandResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     jmp.w C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C185DA_DispatchDisplayTextDynamicSourceSelector_L85DA:
@@ -18940,12 +19292,12 @@ C185E7_DispatchDisplayTextDynamicSourceSelector_L85E7:
     jmp.w C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C185ED_DispatchDisplayTextDynamicSourceSelector_L85ED:
     jsl !C490EE_GetNearbyMagicTruffleDirection
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !TextCommandResultLo
+    stz !TextCommandResultHi
+    lda !TextCommandResultLo
+    sta !TextContextSourcePointerLo
+    lda !TextCommandResultHi
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18602_DispatchDisplayTextDynamicSourceSelector_L8602:
@@ -18955,61 +19307,61 @@ C18607_DispatchDisplayTextDynamicSourceSelector_L8607:
     lda.w #!TextCommand1FD3TimedDeliveryRowSelector
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1860C_DispatchDisplayTextDynamicSourceSelector_L860C:
-    lda.w #!TextCommand1FE1Callback
+    lda.w #!TextCommand1FE1RunLandingProfileDisplayCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18611_DispatchDisplayTextDynamicSourceSelector_L8611:
-    lda.w #!TextCommand1FE4Callback
+    lda.w #!TextCommand1FE4UpdatePoseFrameSelectorCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18616_DispatchDisplayTextDynamicSourceSelector_L8616:
-    lda.w #!TextCommand1FE5Callback
+    lda.w #!TextCommand1FE5SetRegistrySlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1861B_DispatchDisplayTextDynamicSourceSelector_L861B:
-    lda.w #!TextCommand1FE6Callback
+    lda.w #!TextCommand1FE6SetVisualSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18620_DispatchDisplayTextDynamicSourceSelector_L8620:
-    lda.w #!TextCommand1FE7Callback
+    lda.w #!TextCommand1FE7SetPoseSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18625_DispatchDisplayTextDynamicSourceSelector_L8625:
-    lda.w #!TextCommand1FE8Callback
+    lda.w #!TextCommand1FE8ClearRegistrySlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1862A_DispatchDisplayTextDynamicSourceSelector_L862A:
-    lda.w #!TextCommand1FE9Callback
+    lda.w #!TextCommand1FE9ClearVisualSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1862F_DispatchDisplayTextDynamicSourceSelector_L862F:
-    lda.w #!TextCommand1FEACallback
+    lda.w #!TextCommand1FEAClearPoseSlotFlagsC000Callback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18634_DispatchDisplayTextDynamicSourceSelector_L8634:
-    lda.w #!TextCommand1FEBCallback
+    lda.w #!TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18639_DispatchDisplayTextDynamicSourceSelector_L8639:
-    lda.w #!TextCommand1FECCallback
+    lda.w #!TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1863E_DispatchDisplayTextDynamicSourceSelector_L863E:
     jsl !C466B8_ClearSelectedModeSlot
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18644_DispatchDisplayTextDynamicSourceSelector_L8644:
-    lda.w #!TextCommand1FEECallback
+    lda.w #!TextCommand1FEESelectModeSlotByVisualCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18649_DispatchDisplayTextDynamicSourceSelector_L8649:
-    lda.w #!TextCommand1FEFCallback
+    lda.w #!TextCommand1FEFSelectModeSlotByPoseCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1864E_DispatchDisplayTextDynamicSourceSelector_L864E:
     jsl !C03C5E_GetOnBicycle
     bra C18668_DispatchDisplayTextDynamicSourceSelector_L8668
 C18654_DispatchDisplayTextDynamicSourceSelector_L8654:
-    lda.w #!TextCommand1FF1Callback
+    lda.w #!TextCommand1FF1RunVisualScriptFromRecordCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18659_DispatchDisplayTextDynamicSourceSelector_L8659:
-    lda.w #!TextCommand1FF2Callback
+    lda.w #!TextCommand1FF2RunPoseScriptFromRecordCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C1865E_DispatchDisplayTextDynamicSourceSelector_L865E:
-    lda.w #!TextCommand1FF3Callback
+    lda.w #!TextCommand1FF3SpawnAttachedChildByPoseDescriptorCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18663_DispatchDisplayTextDynamicSourceSelector_L8663:
-    lda.w #!TextCommand1FF4Callback
+    lda.w #!TextCommand1FF4ClearAttachedChildByPoseDescriptorCallback
     bra C1866B_DispatchDisplayTextDynamicSourceSelector_L866B
 C18668_DispatchDisplayTextDynamicSourceSelector_L8668:
-    lda.w #$0000
+    lda.w #!TextCommandNoFollowupCallback
 C1866B_DispatchDisplayTextDynamicSourceSelector_L866B:
     pld
     rts
@@ -19926,6 +20278,8 @@ org $C1242E
 !C3E521_CloseWindowById = $C3E521
 !C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow = $C3E6F8
 !C43573_SelectFocusedPartyHpPpActorAndBlankRow = $C43573
+!SelectionPromptDisplayCallbackLo = $0E
+!SelectionPromptDisplayCallbackBank = $10
 C1242E_DispatchCharacterSelectionPromptMode:
     rep #$31
     phd
@@ -20545,9 +20899,9 @@ C128F4_DispatchCharacterSelectionPromptMode_L28F4:
     lda $0C
     sta $08
     lda $06
-    sta $0E
+    sta !SelectionPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta !SelectionPromptDisplayCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
     lda $32
     jsr !C1196A_RunActiveTextEntrySelectionMenu
@@ -21117,431 +21471,480 @@ org $C187CC
 !DispatchTextCommand1DInventoryMoneyFamily = $7F11
 !DispatchTextCommand1EStatRecoveryFamily = $811F
 !DispatchTextCommand1FDeferredCallbackFamily = $81BB
+!RtsCallbackLowWordScratch = $02
+!WorkingPointerLo = $06
+!WorkingPointerHi = $08
+!CurrentManagedTextStreamLo = $0A
+!CurrentManagedTextStreamBank = $0C
+!StagedTextPointerLo = $0E
+!StagedTextPointerHi = $10
+!ManagedTextEventSlotPointer = $12
+!CallbackDispatchArgumentByte = $14
+!ActiveTextStreamPointerLo = $1A
+!ActiveTextStreamPointerBank = $1C
+!ActiveSameBankCallbackLowWord = $1E
+!NestedTextReturnPointerLo = $2A
+!NestedTextReturnPointerBank = $2C
+!DeferredArgumentCount = $97CA
+!CallbackAArgumentAbsoluteSlot = $00C0
+!TextOpcodeLineBreak = $0000
+!TextOpcodeStartNewLine = $0001
+!TextOpcodeEndBlock = $0002
+!TextOpcodeHaltWithPrompt = $0003
+!TextOpcodeSetEventFlag = $0004
+!TextOpcodeClearEventFlag = $0005
+!TextOpcodeJumpIfFlagSet = $0006
+!TextOpcodeCheckEventFlag = $0007
+!TextOpcodeCallText = $0008
+!TextOpcodeJumpMulti = $0009
+!TextOpcodeJump24 = $000A
+!TextOpcodeTestWorkmemTrue = $000B
+!TextOpcodeTestWorkmemFalse = $000C
+!TextOpcodeCopyToArgmem = $000D
+!TextOpcodeStoreToArgmem = $000E
+!TextOpcodeIncrementWorkmem = $000F
+!TextOpcodeParameterizedPause = $0010
+!TextOpcodeCreateSelectionMenu = $0011
+!TextOpcodeClearActiveDisplayLine = $0012
+!TextOpcodeHaltWithoutPrompt = $0013
+!TextOpcodeHaltWithAlternateMode = $0014
+!TextOpcodeCompressedBank1Pointer = $0015
+!TextOpcodeCompressedBank2Pointer = $0016
+!TextOpcodeCompressedBank3Pointer = $0017
+!TextOpcodeWindowFamily = $0018
+!TextOpcodeDataSubstitutionFamily = $0019
+!TextOpcodeMenuFamily = $001A
+!TextOpcodeMemoryContextFamily = $001B
+!TextOpcodePrintDisplayFamily = $001C
+!TextOpcodeInventoryMoneyFamily = $001D
+!TextOpcodeStatRecoveryFamily = $001E
+!TextOpcodeDeferredCallbackFamily = $001F
+!TextOpcodeFirstLiteralGlyph = $0020
 C187CC_InvokeTextEngineCallbackLowWord:
-    ldy $1E
-    beq C187ED_InvokeTextEngineCallbackLowWord_L87ED
-    lda $14
+    ldy !ActiveSameBankCallbackLowWord
+    beq C187ED_DispatchTextOpcodeFromArgumentByte
+    lda !CallbackDispatchArgumentByte
     tax
-    lda $12
-    sta $02
-    sty $02
-    sta $00C0
+    lda !ManagedTextEventSlotPointer
+    sta !RtsCallbackLowWordScratch
+    sty !RtsCallbackLowWordScratch
+    sta !CallbackAArgumentAbsoluteSlot
     pea $87E6
-    lda $02
+    lda !RtsCallbackLowWordScratch
     dec A
     pha
-    lda $00C0
+    lda !CallbackAArgumentAbsoluteSlot
     rts
     tay
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C187ED_InvokeTextEngineCallbackLowWord_L87ED:
-    lda $14
-    cmp.w #$0015
-    beq C18804_InvokeTextEngineCallbackLowWord_L8804
-    cmp.w #$0016
-    beq C1885E_InvokeTextEngineCallbackLowWord_L885E
-    cmp.w #$0017
-    bne C18801_InvokeTextEngineCallbackLowWord_L8801
-    jmp.w C188B7_InvokeTextEngineCallbackLowWord_L88B7
-C18801_InvokeTextEngineCallbackLowWord_L8801:
-    jmp.w C1890E_InvokeTextEngineCallbackLowWord_L890E
-C18804_InvokeTextEngineCallbackLowWord_L8804:
-    lda $12
-    sta $02
-    ldx $02
+C187ED_DispatchTextOpcodeFromArgumentByte:
+    lda !CallbackDispatchArgumentByte
+    cmp.w #!TextOpcodeCompressedBank1Pointer
+    beq C18804_ResolveCompressedBank1NestedTextPointer
+    cmp.w #!TextOpcodeCompressedBank2Pointer
+    beq C1885E_ResolveCompressedBank2NestedTextPointer
+    cmp.w #!TextOpcodeCompressedBank3Pointer
+    bne C18801_DispatchOrdinaryTextOpcode
+    jmp.w C188B7_ResolveCompressedBank3NestedTextPointer
+C18801_DispatchOrdinaryTextOpcode:
+    jmp.w C1890E_DispatchOrdinaryTextOpcodeOrGlyph
+C18804_ResolveCompressedBank1NestedTextPointer:
+    lda !ManagedTextEventSlotPointer
+    sta !RtsCallbackLowWordScratch
+    ldx !RtsCallbackLowWordScratch
     txy
     lda $0000,Y
-    sta $0A
+    sta !CurrentManagedTextStreamLo
     lda $0002,Y
-    sta $0C
+    sta !CurrentManagedTextStreamBank
     lda.w #!CompressedBank1TextPointerTableLo
-    sta $06
+    sta !WorkingPointerLo
     lda.w #!CompressedTextPointerTableBank
-    sta $08
-    lda [$0A]
+    sta !WorkingPointerHi
+    lda [!CurrentManagedTextStreamLo]
     and.w #$00FF
     asl A
     asl A
     clc
-    adc $06
-    sta $06
+    adc !WorkingPointerLo
+    sta !WorkingPointerLo
     ldy.w #$0002
-    lda [$06],Y
+    lda [!WorkingPointerLo],Y
     tay
-    lda [$06]
-    sta $06
-    sty $08
-    inc $0A
+    lda [!WorkingPointerLo]
+    sta !WorkingPointerLo
+    sty !WorkingPointerHi
+    inc !CurrentManagedTextStreamLo
     txy
-    lda $0A
+    lda !CurrentManagedTextStreamLo
     sta $0000,Y
-    lda $0C
+    lda !CurrentManagedTextStreamBank
     sta $0002,Y
-    lda [$06]
+    lda [!WorkingPointerLo]
     and.w #$00FF
-    ldx $06
-    stx $0A
-    ldx $08
-    stx $0C
-    inc $0A
-    ldx $0A
-    stx $1A
-    ldx $0C
-    stx $1C
-    jmp.w C1890E_InvokeTextEngineCallbackLowWord_L890E
-C1885E_InvokeTextEngineCallbackLowWord_L885E:
-    lda $12
-    sta $02
-    ldx $02
+    ldx !WorkingPointerLo
+    stx !CurrentManagedTextStreamLo
+    ldx !WorkingPointerHi
+    stx !CurrentManagedTextStreamBank
+    inc !CurrentManagedTextStreamLo
+    ldx !CurrentManagedTextStreamLo
+    stx !ActiveTextStreamPointerLo
+    ldx !CurrentManagedTextStreamBank
+    stx !ActiveTextStreamPointerBank
+    jmp.w C1890E_DispatchOrdinaryTextOpcodeOrGlyph
+C1885E_ResolveCompressedBank2NestedTextPointer:
+    lda !ManagedTextEventSlotPointer
+    sta !RtsCallbackLowWordScratch
+    ldx !RtsCallbackLowWordScratch
     txy
     lda $0000,Y
-    sta $0A
+    sta !CurrentManagedTextStreamLo
     lda $0002,Y
-    sta $0C
+    sta !CurrentManagedTextStreamBank
     lda.w #!CompressedBank2TextPointerTableLo
-    sta $06
+    sta !WorkingPointerLo
     lda.w #!CompressedTextPointerTableBank
-    sta $08
-    lda [$0A]
+    sta !WorkingPointerHi
+    lda [!CurrentManagedTextStreamLo]
     and.w #$00FF
     asl A
     asl A
     clc
-    adc $06
-    sta $06
+    adc !WorkingPointerLo
+    sta !WorkingPointerLo
     ldy.w #$0002
-    lda [$06],Y
+    lda [!WorkingPointerLo],Y
     tay
-    lda [$06]
-    sta $06
-    sty $08
-    inc $0A
+    lda [!WorkingPointerLo]
+    sta !WorkingPointerLo
+    sty !WorkingPointerHi
+    inc !CurrentManagedTextStreamLo
     txy
-    lda $0A
+    lda !CurrentManagedTextStreamLo
     sta $0000,Y
-    lda $0C
+    lda !CurrentManagedTextStreamBank
     sta $0002,Y
-    lda [$06]
+    lda [!WorkingPointerLo]
     and.w #$00FF
-    ldx $06
-    stx $0A
-    ldx $08
-    stx $0C
-    inc $0A
-    ldx $0A
-    stx $1A
-    ldx $0C
-    stx $1C
-    bra C1890E_InvokeTextEngineCallbackLowWord_L890E
-C188B7_InvokeTextEngineCallbackLowWord_L88B7:
-    lda $12
-    sta $02
-    ldx $02
+    ldx !WorkingPointerLo
+    stx !CurrentManagedTextStreamLo
+    ldx !WorkingPointerHi
+    stx !CurrentManagedTextStreamBank
+    inc !CurrentManagedTextStreamLo
+    ldx !CurrentManagedTextStreamLo
+    stx !ActiveTextStreamPointerLo
+    ldx !CurrentManagedTextStreamBank
+    stx !ActiveTextStreamPointerBank
+    bra C1890E_DispatchOrdinaryTextOpcodeOrGlyph
+C188B7_ResolveCompressedBank3NestedTextPointer:
+    lda !ManagedTextEventSlotPointer
+    sta !RtsCallbackLowWordScratch
+    ldx !RtsCallbackLowWordScratch
     txy
     lda $0000,Y
-    sta $0A
+    sta !CurrentManagedTextStreamLo
     lda $0002,Y
-    sta $0C
+    sta !CurrentManagedTextStreamBank
     lda.w #!CompressedBank3TextPointerTableLo
-    sta $06
+    sta !WorkingPointerLo
     lda.w #!CompressedTextPointerTableBank
-    sta $08
-    lda [$0A]
+    sta !WorkingPointerHi
+    lda [!CurrentManagedTextStreamLo]
     and.w #$00FF
     asl A
     asl A
     clc
-    adc $06
-    sta $06
+    adc !WorkingPointerLo
+    sta !WorkingPointerLo
     ldy.w #$0002
-    lda [$06],Y
+    lda [!WorkingPointerLo],Y
     tay
-    lda [$06]
-    sta $06
-    sty $08
-    inc $0A
+    lda [!WorkingPointerLo]
+    sta !WorkingPointerLo
+    sty !WorkingPointerHi
+    inc !CurrentManagedTextStreamLo
     txy
-    lda $0A
+    lda !CurrentManagedTextStreamLo
     sta $0000,Y
-    lda $0C
+    lda !CurrentManagedTextStreamBank
     sta $0002,Y
-    lda [$06]
+    lda [!WorkingPointerLo]
     and.w #$00FF
-    ldx $06
-    stx $0A
-    ldx $08
-    stx $0C
-    inc $0A
-    ldx $0A
-    stx $1A
-    ldx $0C
-    stx $1C
-C1890E_InvokeTextEngineCallbackLowWord_L890E:
-    cmp.w #$0020
+    ldx !WorkingPointerLo
+    stx !CurrentManagedTextStreamLo
+    ldx !WorkingPointerHi
+    stx !CurrentManagedTextStreamBank
+    inc !CurrentManagedTextStreamLo
+    ldx !CurrentManagedTextStreamLo
+    stx !ActiveTextStreamPointerLo
+    ldx !CurrentManagedTextStreamBank
+    stx !ActiveTextStreamPointerBank
+C1890E_DispatchOrdinaryTextOpcodeOrGlyph:
+    cmp.w #!TextOpcodeFirstLiteralGlyph
     bcc C18916_InvokeTextEngineCallbackLowWord_L8916
-    jmp.w C18B04_InvokeTextEngineCallbackLowWord_L8B04
+    jmp.w C18B04_PrintLiteralGlyphByte
 C18916_InvokeTextEngineCallbackLowWord_L8916:
-    stz $97CA
-    cmp.w #$0000
+    stz !DeferredArgumentCount
+    cmp.w #!TextOpcodeLineBreak
     bne C18921_InvokeTextEngineCallbackLowWord_L8921
-    jmp.w C18A04_InvokeTextEngineCallbackLowWord_L8A04
+    jmp.w C18A04_TextCommand00LineBreak
 C18921_InvokeTextEngineCallbackLowWord_L8921:
-    cmp.w #$0001
+    cmp.w #!TextOpcodeStartNewLine
     bne C18929_InvokeTextEngineCallbackLowWord_L8929
-    jmp.w C18A0B_InvokeTextEngineCallbackLowWord_L8A0B
+    jmp.w C18A0B_TextCommand01StartNewLineIfNeeded
 C18929_InvokeTextEngineCallbackLowWord_L8929:
-    cmp.w #$0002
+    cmp.w #!TextOpcodeEndBlock
     bne C18931_InvokeTextEngineCallbackLowWord_L8931
-    jmp.w C18B0A_InvokeTextEngineCallbackLowWord_L8B0A
+    jmp.w C18B0A_TextCommand02EndBlockRestoreManagedSlotSnapshot
 C18931_InvokeTextEngineCallbackLowWord_L8931:
-    cmp.w #$0003
+    cmp.w #!TextOpcodeHaltWithPrompt
     bne C18939_InvokeTextEngineCallbackLowWord_L8939
-    jmp.w C18A1D_InvokeTextEngineCallbackLowWord_L8A1D
+    jmp.w C18A1D_TextCommand03HaltWithPrompt
 C18939_InvokeTextEngineCallbackLowWord_L8939:
-    cmp.w #$0004
+    cmp.w #!TextOpcodeSetEventFlag
     bne C18941_InvokeTextEngineCallbackLowWord_L8941
-    jmp.w C18A29_InvokeTextEngineCallbackLowWord_L8A29
+    jmp.w C18A29_InstallTextCommand04SetEventFlag
 C18941_InvokeTextEngineCallbackLowWord_L8941:
-    cmp.w #$0005
+    cmp.w #!TextOpcodeClearEventFlag
     bne C18949_InvokeTextEngineCallbackLowWord_L8949
-    jmp.w C18A31_InvokeTextEngineCallbackLowWord_L8A31
+    jmp.w C18A31_InstallTextCommand05ClearEventFlag
 C18949_InvokeTextEngineCallbackLowWord_L8949:
-    cmp.w #$0006
+    cmp.w #!TextOpcodeJumpIfFlagSet
     bne C18951_InvokeTextEngineCallbackLowWord_L8951
-    jmp.w C18A39_InvokeTextEngineCallbackLowWord_L8A39
+    jmp.w C18A39_InstallTextCommand06JumpIfFlagSet
 C18951_InvokeTextEngineCallbackLowWord_L8951:
-    cmp.w #$0007
+    cmp.w #!TextOpcodeCheckEventFlag
     bne C18959_InvokeTextEngineCallbackLowWord_L8959
-    jmp.w C18A41_InvokeTextEngineCallbackLowWord_L8A41
+    jmp.w C18A41_InstallTextCommand07CheckEventFlag
 C18959_InvokeTextEngineCallbackLowWord_L8959:
-    cmp.w #$0008
+    cmp.w #!TextOpcodeCallText
     bne C18961_InvokeTextEngineCallbackLowWord_L8961
-    jmp.w C18A49_InvokeTextEngineCallbackLowWord_L8A49
+    jmp.w C18A49_InstallTextCommand08CallText
 C18961_InvokeTextEngineCallbackLowWord_L8961:
-    cmp.w #$0009
+    cmp.w #!TextOpcodeJumpMulti
     bne C18969_InvokeTextEngineCallbackLowWord_L8969
-    jmp.w C18A51_InvokeTextEngineCallbackLowWord_L8A51
+    jmp.w C18A51_InstallTextCommand09JumpMulti
 C18969_InvokeTextEngineCallbackLowWord_L8969:
-    cmp.w #$000A
+    cmp.w #!TextOpcodeJump24
     bne C18971_InvokeTextEngineCallbackLowWord_L8971
-    jmp.w C18A59_InvokeTextEngineCallbackLowWord_L8A59
+    jmp.w C18A59_InstallTextCommand0AJump24
 C18971_InvokeTextEngineCallbackLowWord_L8971:
-    cmp.w #$000B
+    cmp.w #!TextOpcodeTestWorkmemTrue
     bne C18979_InvokeTextEngineCallbackLowWord_L8979
-    jmp.w C18A61_InvokeTextEngineCallbackLowWord_L8A61
+    jmp.w C18A61_InstallTextCommand0BTestWorkmemTrue
 C18979_InvokeTextEngineCallbackLowWord_L8979:
-    cmp.w #$000C
+    cmp.w #!TextOpcodeTestWorkmemFalse
     bne C18981_InvokeTextEngineCallbackLowWord_L8981
-    jmp.w C18A69_InvokeTextEngineCallbackLowWord_L8A69
+    jmp.w C18A69_InstallTextCommand0CTestWorkmemFalse
 C18981_InvokeTextEngineCallbackLowWord_L8981:
-    cmp.w #$000D
+    cmp.w #!TextOpcodeCopyToArgmem
     bne C18989_InvokeTextEngineCallbackLowWord_L8989
-    jmp.w C18A71_InvokeTextEngineCallbackLowWord_L8A71
+    jmp.w C18A71_InstallTextCommand0DCopyToArgmem
 C18989_InvokeTextEngineCallbackLowWord_L8989:
-    cmp.w #$000E
+    cmp.w #!TextOpcodeStoreToArgmem
     bne C18991_InvokeTextEngineCallbackLowWord_L8991
-    jmp.w C18A79_InvokeTextEngineCallbackLowWord_L8A79
+    jmp.w C18A79_InstallTextCommand0EStoreToArgmem
 C18991_InvokeTextEngineCallbackLowWord_L8991:
-    cmp.w #$000F
+    cmp.w #!TextOpcodeIncrementWorkmem
     bne C18999_InvokeTextEngineCallbackLowWord_L8999
-    jmp.w C18A81_InvokeTextEngineCallbackLowWord_L8A81
+    jmp.w C18A81_TextCommand0FIncrementCurrentWorkmem
 C18999_InvokeTextEngineCallbackLowWord_L8999:
-    cmp.w #$0010
+    cmp.w #!TextOpcodeParameterizedPause
     bne C189A1_InvokeTextEngineCallbackLowWord_L89A1
-    jmp.w C18A87_InvokeTextEngineCallbackLowWord_L8A87
+    jmp.w C18A87_InstallTextCommand10ParameterizedPause
 C189A1_InvokeTextEngineCallbackLowWord_L89A1:
-    cmp.w #$0011
+    cmp.w #!TextOpcodeCreateSelectionMenu
     bne C189A9_InvokeTextEngineCallbackLowWord_L89A9
-    jmp.w C18A8F_InvokeTextEngineCallbackLowWord_L8A8F
+    jmp.w C18A8F_TextCommand11CreateSelectionMenu
 C189A9_InvokeTextEngineCallbackLowWord_L89A9:
-    cmp.w #$0012
+    cmp.w #!TextOpcodeClearActiveDisplayLine
     bne C189B1_InvokeTextEngineCallbackLowWord_L89B1
-    jmp.w C18AAA_InvokeTextEngineCallbackLowWord_L8AAA
+    jmp.w C18AAA_TextCommand12ClearActiveDisplayLine
 C189B1_InvokeTextEngineCallbackLowWord_L89B1:
-    cmp.w #$0013
+    cmp.w #!TextOpcodeHaltWithoutPrompt
     bne C189B9_InvokeTextEngineCallbackLowWord_L89B9
-    jmp.w C18AB0_InvokeTextEngineCallbackLowWord_L8AB0
+    jmp.w C18AB0_TextCommand13HaltWithoutPrompt
 C189B9_InvokeTextEngineCallbackLowWord_L89B9:
-    cmp.w #$0014
+    cmp.w #!TextOpcodeHaltWithAlternateMode
     bne C189C1_InvokeTextEngineCallbackLowWord_L89C1
-    jmp.w C18ABA_InvokeTextEngineCallbackLowWord_L8ABA
+    jmp.w C18ABA_TextCommand14HaltWithAlternateMode
 C189C1_InvokeTextEngineCallbackLowWord_L89C1:
-    cmp.w #$0018
+    cmp.w #!TextOpcodeWindowFamily
     bne C189C9_InvokeTextEngineCallbackLowWord_L89C9
-    jmp.w C18AC4_InvokeTextEngineCallbackLowWord_L8AC4
+    jmp.w C18AC4_InstallTextCommand18WindowFamily
 C189C9_InvokeTextEngineCallbackLowWord_L89C9:
-    cmp.w #$0019
+    cmp.w #!TextOpcodeDataSubstitutionFamily
     bne C189D1_InvokeTextEngineCallbackLowWord_L89D1
-    jmp.w C18ACC_InvokeTextEngineCallbackLowWord_L8ACC
+    jmp.w C18ACC_InstallTextCommand19DataSubstitutionFamily
 C189D1_InvokeTextEngineCallbackLowWord_L89D1:
-    cmp.w #$001A
+    cmp.w #!TextOpcodeMenuFamily
     bne C189D9_InvokeTextEngineCallbackLowWord_L89D9
-    jmp.w C18AD4_InvokeTextEngineCallbackLowWord_L8AD4
+    jmp.w C18AD4_InstallTextCommand1AMenuFamily
 C189D9_InvokeTextEngineCallbackLowWord_L89D9:
-    cmp.w #$001B
+    cmp.w #!TextOpcodeMemoryContextFamily
     bne C189E1_InvokeTextEngineCallbackLowWord_L89E1
-    jmp.w C18ADC_InvokeTextEngineCallbackLowWord_L8ADC
+    jmp.w C18ADC_InstallTextCommand1BMemoryContextFamily
 C189E1_InvokeTextEngineCallbackLowWord_L89E1:
-    cmp.w #$001C
+    cmp.w #!TextOpcodePrintDisplayFamily
     bne C189E9_InvokeTextEngineCallbackLowWord_L89E9
-    jmp.w C18AE4_InvokeTextEngineCallbackLowWord_L8AE4
+    jmp.w C18AE4_InstallTextCommand1CPrintDisplayFamily
 C189E9_InvokeTextEngineCallbackLowWord_L89E9:
-    cmp.w #$001D
+    cmp.w #!TextOpcodeInventoryMoneyFamily
     bne C189F1_InvokeTextEngineCallbackLowWord_L89F1
-    jmp.w C18AEC_InvokeTextEngineCallbackLowWord_L8AEC
+    jmp.w C18AEC_InstallTextCommand1DInventoryMoneyFamily
 C189F1_InvokeTextEngineCallbackLowWord_L89F1:
-    cmp.w #$001E
+    cmp.w #!TextOpcodeStatRecoveryFamily
     bne C189F9_InvokeTextEngineCallbackLowWord_L89F9
-    jmp.w C18AF4_InvokeTextEngineCallbackLowWord_L8AF4
+    jmp.w C18AF4_InstallTextCommand1EStatRecoveryFamily
 C189F9_InvokeTextEngineCallbackLowWord_L89F9:
-    cmp.w #$001F
-    bne C18A01_InvokeTextEngineCallbackLowWord_L8A01
-    jmp.w C18AFC_InvokeTextEngineCallbackLowWord_L8AFC
-C18A01_InvokeTextEngineCallbackLowWord_L8A01:
+    cmp.w #!TextOpcodeDeferredCallbackFamily
+    bne C18A01_UnsupportedLowTextCommandContinue
+    jmp.w C18AFC_InstallTextCommand1FDeferredCallbackFamily
+C18A01_UnsupportedLowTextCommandContinue:
     jmp !ContinueNestedTextAfterCallback
-C18A04_InvokeTextEngineCallbackLowWord_L8A04:
+C18A04_TextCommand00LineBreak:
     jsl !C438B1_AdvanceActiveWindowLineOrScroll
     jmp !ContinueNestedTextAfterCallback
-C18A0B_InvokeTextEngineCallbackLowWord_L8A0B:
+C18A0B_TextCommand01StartNewLineIfNeeded:
     jsr !C104B5_GetCurrentTextContextLineState
     cmp.w #$0000
-    bne C18A16_InvokeTextEngineCallbackLowWord_L8A16
+    bne C18A16_AdvanceActiveWindowLineForCommand01
     jmp !ContinueNestedTextAfterCallback
-C18A16_InvokeTextEngineCallbackLowWord_L8A16:
+C18A16_AdvanceActiveWindowLineForCommand01:
     jsl !C438B1_AdvanceActiveWindowLineOrScroll
     jmp !ContinueNestedTextAfterCallback
-C18A1D_InvokeTextEngineCallbackLowWord_L8A1D:
+C18A1D_TextCommand03HaltWithPrompt:
     ldx.w #$0000
     lda.w #$0001
     jsr !C10166_RunTextHaltControlWorker
     jmp !ContinueNestedTextAfterCallback
-C18A29_InvokeTextEngineCallbackLowWord_L8A29:
+C18A29_InstallTextCommand04SetEventFlag:
     ldy.w #!HandleTextCommand04SetEventFlag
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A31_InvokeTextEngineCallbackLowWord_L8A31:
+C18A31_InstallTextCommand05ClearEventFlag:
     ldy.w #!HandleTextCommand05ClearEventFlag
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A39_InvokeTextEngineCallbackLowWord_L8A39:
+C18A39_InstallTextCommand06JumpIfFlagSet:
     ldy.w #!HandleTextCommand06JumpIfFlagSet
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A41_InvokeTextEngineCallbackLowWord_L8A41:
+C18A41_InstallTextCommand07CheckEventFlag:
     ldy.w #!HandleTextCommand07CheckEventFlag
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A49_InvokeTextEngineCallbackLowWord_L8A49:
+C18A49_InstallTextCommand08CallText:
     ldy.w #!BuildCallTextFarPointerAndDispatch
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A51_InvokeTextEngineCallbackLowWord_L8A51:
+C18A51_InstallTextCommand09JumpMulti:
     ldy.w #!HandleTextCommand09JumpMulti
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A59_InvokeTextEngineCallbackLowWord_L8A59:
+C18A59_InstallTextCommand0AJump24:
     ldy.w #!BuildTextCommand24BitJumpTarget
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A61_InvokeTextEngineCallbackLowWord_L8A61:
+C18A61_InstallTextCommand0BTestWorkmemTrue:
     ldy.w #!HandleTextCommand0BTestWorkmemTrue
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A69_InvokeTextEngineCallbackLowWord_L8A69:
+C18A69_InstallTextCommand0CTestWorkmemFalse:
     ldy.w #!HandleTextCommand0CTestWorkmemFalse
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A71_InvokeTextEngineCallbackLowWord_L8A71:
+C18A71_InstallTextCommand0DCopyToArgmem:
     ldy.w #!HandleTextCommand0DCopyToArgmem
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A79_InvokeTextEngineCallbackLowWord_L8A79:
+C18A79_InstallTextCommand0EStoreToArgmem:
     ldy.w #!HandleTextCommand0EStoreToArgmem
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A81_InvokeTextEngineCallbackLowWord_L8A81:
+C18A81_TextCommand0FIncrementCurrentWorkmem:
     jsr !C1042E_IncrementCurrentTextContextWorkmem
     jmp !ContinueNestedTextAfterCallback
-C18A87_InvokeTextEngineCallbackLowWord_L8A87:
+C18A87_InstallTextCommand10ParameterizedPause:
     ldy.w #!HandleTextCommand10ParameterizedPause
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18A8F_InvokeTextEngineCallbackLowWord_L8A8F:
+C18A8F_TextCommand11CreateSelectionMenu:
     lda.w #$0001
     jsr !C1196A_RunActiveTextEntrySelectionMenu
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta !WorkingPointerLo
+    stz !WorkingPointerHi
+    lda !WorkingPointerLo
+    sta !StagedTextPointerLo
+    lda !WorkingPointerHi
+    sta !StagedTextPointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     jsr !C11383_ClearLoadedTextStrings
     jmp !ContinueNestedTextAfterCallback
-C18AAA_InvokeTextEngineCallbackLowWord_L8AAA:
+C18AAA_TextCommand12ClearActiveDisplayLine:
     jsr !C10BD3_ClearActiveTextDisplayLine
     jmp !ContinueNestedTextAfterCallback
-C18AB0_InvokeTextEngineCallbackLowWord_L8AB0:
+C18AB0_TextCommand13HaltWithoutPrompt:
     ldx.w #$0000
     txa
     jsr !C10166_RunTextHaltControlWorker
     jmp !ContinueNestedTextAfterCallback
-C18ABA_InvokeTextEngineCallbackLowWord_L8ABA:
+C18ABA_TextCommand14HaltWithAlternateMode:
     ldx.w #$0001
     txa
     jsr !C10166_RunTextHaltControlWorker
     jmp !ContinueNestedTextAfterCallback
-C18AC4_InvokeTextEngineCallbackLowWord_L8AC4:
+C18AC4_InstallTextCommand18WindowFamily:
     ldy.w #!DispatchTextCommand18WindowFamily
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18ACC_InvokeTextEngineCallbackLowWord_L8ACC:
+C18ACC_InstallTextCommand19DataSubstitutionFamily:
     ldy.w #!DispatchTextCommand19DataSubstitutionFamily
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18AD4_InvokeTextEngineCallbackLowWord_L8AD4:
+C18AD4_InstallTextCommand1AMenuFamily:
     ldy.w #!DispatchDisplayTextDynamicSourceSelector
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18ADC_InvokeTextEngineCallbackLowWord_L8ADC:
+C18ADC_InstallTextCommand1BMemoryContextFamily:
     ldy.w #!DispatchTextCommand1BMemoryContextFamily
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18AE4_InvokeTextEngineCallbackLowWord_L8AE4:
+C18AE4_InstallTextCommand1CPrintDisplayFamily:
     ldy.w #!DispatchTextCommand1CPrintDisplayFamily
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18AEC_InvokeTextEngineCallbackLowWord_L8AEC:
+C18AEC_InstallTextCommand1DInventoryMoneyFamily:
     ldy.w #!DispatchTextCommand1DInventoryMoneyFamily
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18AF4_InvokeTextEngineCallbackLowWord_L8AF4:
+C18AF4_InstallTextCommand1EStatRecoveryFamily:
     ldy.w #!DispatchTextCommand1EStatRecoveryFamily
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18AFC_InvokeTextEngineCallbackLowWord_L8AFC:
+C18AFC_InstallTextCommand1FDeferredCallbackFamily:
     ldy.w #!DispatchTextCommand1FDeferredCallbackFamily
-    sty $1E
+    sty !ActiveSameBankCallbackLowWord
     jmp !ContinueNestedTextAfterCallback
-C18B04_InvokeTextEngineCallbackLowWord_L8B04:
+C18B04_PrintLiteralGlyphByte:
     jsr !C10CB6_PrintGlyphWithSoundAndDelay
     jmp !ContinueNestedTextAfterCallback
-C18B0A_InvokeTextEngineCallbackLowWord_L8B0A:
-    lda $12
-    sta $02
-    ldy $02
+C18B0A_TextCommand02EndBlockRestoreManagedSlotSnapshot:
+    lda !ManagedTextEventSlotPointer
+    sta !RtsCallbackLowWordScratch
+    ldy !RtsCallbackLowWordScratch
     lda $0000,Y
-    sta $06
+    sta !WorkingPointerLo
     lda $0002,Y
-    sta $08
-    lda $02
+    sta !WorkingPointerHi
+    lda !RtsCallbackLowWordScratch
     jsr !C1869D_ApplyActiveManagedTextEventSlotSnapshot
     jsr !C14049_RetreatNameEntryLetterBoxPointer
-    lda $06
-    sta $2A
-    lda $08
-    sta $2C
+    lda !WorkingPointerLo
+    sta !NestedTextReturnPointerLo
+    lda !WorkingPointerHi
+    sta !NestedTextReturnPointerBank
     pld
     rtl
 
@@ -22446,12 +22849,21 @@ C190E4_c1_9066_dispatch_equipped_slot_subtype_update_L90E4:
 hirom
 org $C190E6
 
+!EscargoStorageRemainingCapacity = $0E
+!EscargoStorageScanIndex = $02
+!ActiveEscargoRequesterBytes = $98AB
+!EscargoStorageItemBytes = $984B
+!EscargoStorageLogicalCapacity = $0024
+!ActiveEscargoRequesterCount = $0003
+!LowByteMask = $00FF
+!ZeroWord = $0000
+!OneWord = $0001
 C190E6_ReadActiveOverworldRegistryTypeCode:
     rep #$31
     tax
     dex
     lda $988B,X
-    and.w #$00FF
+    and.w #!LowByteMask
     rts
 C190F1_CheckEscargoStorageQueueFull:
     rep #$31
@@ -22459,44 +22871,44 @@ C190F1_CheckEscargoStorageQueueFull:
     tdc
     adc.w #$FFF0
     tcd
-    lda.w #$0024
-    sta $0E
-    ldx.w #$0000
+    lda.w #!EscargoStorageLogicalCapacity
+    sta !EscargoStorageRemainingCapacity
+    ldx.w #!ZeroWord
     bra C19111_c1_90e6_read_active_overworld_registry_type_code_L9111
 C19103_c1_90e6_read_active_overworld_registry_type_code_L9103:
-    lda $98AB,X
-    and.w #$00FF
+    lda !ActiveEscargoRequesterBytes,X
+    and.w #!LowByteMask
     beq C19110_c1_90e6_read_active_overworld_registry_type_code_L9110
-    lda $0E
+    lda !EscargoStorageRemainingCapacity
     dec A
-    sta $0E
+    sta !EscargoStorageRemainingCapacity
 C19110_c1_90e6_read_active_overworld_registry_type_code_L9110:
     inx
 C19111_c1_90e6_read_active_overworld_registry_type_code_L9111:
-    cpx.w #$0003
+    cpx.w #!ActiveEscargoRequesterCount
     bcc C19103_c1_90e6_read_active_overworld_registry_type_code_L9103
-    ldx.w #$0000
+    ldx.w #!ZeroWord
     bra C19129_c1_90e6_read_active_overworld_registry_type_code_L9129
 C1911B_c1_90e6_read_active_overworld_registry_type_code_L911B:
-    lda $984B,X
-    and.w #$00FF
+    lda !EscargoStorageItemBytes,X
+    and.w #!LowByteMask
     bne C19128_c1_90e6_read_active_overworld_registry_type_code_L9128
-    lda.w #$0000
+    lda.w #!ZeroWord
     bra C1913B_c1_90e6_read_active_overworld_registry_type_code_L913B
 C19128_c1_90e6_read_active_overworld_registry_type_code_L9128:
     inx
 C19129_c1_90e6_read_active_overworld_registry_type_code_L9129:
-    stx $02
-    lda $0E
+    stx !EscargoStorageScanIndex
+    lda !EscargoStorageRemainingCapacity
     clc
-    sbc $02
+    sbc !EscargoStorageScanIndex
     bvs C19136_c1_90e6_read_active_overworld_registry_type_code_L9136
     bpl C1911B_c1_90e6_read_active_overworld_registry_type_code_L911B
     bra C19138_c1_90e6_read_active_overworld_registry_type_code_L9138
 C19136_c1_90e6_read_active_overworld_registry_type_code_L9136:
     bmi C1911B_c1_90e6_read_active_overworld_registry_type_code_L911B
 C19138_c1_90e6_read_active_overworld_registry_type_code_L9138:
-    lda.w #$0001
+    lda.w #!OneWord
 C1913B_c1_90e6_read_active_overworld_registry_type_code_L913B:
     pld
     rts
@@ -22511,6 +22923,13 @@ org $C1913D
 
 !C18C27_RemoveItemFromCharacterInventorySlot = $8C27
 !C3E977_ReadCharacterInventorySlotByte = $C3E977
+!EscargoPendingItemScanIndex = $0E
+!EscargoMoveSourceCharacter = $0E
+!EscargoPendingItemSlotIndex = $02
+!EscargoPendingItemBytes = $984B
+!EscargoPendingItemCapacity = $0024
+!ZeroWord = $0000
+!LowByteMask = $00FF
 ESCARGO_EXPRESS_STORE:
 !C1913D_EnqueuePendingItemId = ESCARGO_EXPRESS_STORE
     rep #$31
@@ -22521,16 +22940,16 @@ ESCARGO_EXPRESS_STORE:
     tcd
     pla
     tay
-    lda.w #$0000
-    sta $0E
+    lda.w #!ZeroWord
+    sta !EscargoPendingItemScanIndex
     bra C1916E_c1_913d_enqueue_pending_item_id_L916E
 C1914F_c1_913d_enqueue_pending_item_id_L914F:
-    lda $0E
+    lda !EscargoPendingItemScanIndex
     clc
-    adc.w #$984B
+    adc.w #!EscargoPendingItemBytes
     tax
     lda $0000,X
-    and.w #$00FF
+    and.w #!LowByteMask
     bne C19169_c1_913d_enqueue_pending_item_id_L9169
     tya
     sep #$20
@@ -22539,21 +22958,21 @@ C1914F_c1_913d_enqueue_pending_item_id_L914F:
     tya
     bra C19181_c1_913d_enqueue_pending_item_id_L9181
 C19169_c1_913d_enqueue_pending_item_id_L9169:
-    lda $0E
+    lda !EscargoPendingItemScanIndex
     inc A
-    sta $0E
+    sta !EscargoPendingItemScanIndex
 C1916E_c1_913d_enqueue_pending_item_id_L916E:
-    sta $02
-    lda.w #$0024
+    sta !EscargoPendingItemSlotIndex
+    lda.w #!EscargoPendingItemCapacity
     clc
-    sbc $02
+    sbc !EscargoPendingItemSlotIndex
     bvs C1917C_c1_913d_enqueue_pending_item_id_L917C
     bpl C1914F_c1_913d_enqueue_pending_item_id_L914F
     bra C1917E_c1_913d_enqueue_pending_item_id_L917E
 C1917C_c1_913d_enqueue_pending_item_id_L917C:
     bmi C1914F_c1_913d_enqueue_pending_item_id_L914F
 C1917E_c1_913d_enqueue_pending_item_id_L917E:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C19181_c1_913d_enqueue_pending_item_id_L9181:
     pld
     rts
@@ -22566,22 +22985,22 @@ ESCARGO_EXPRESS_MOVE:
     adc.w #$FFF0
     tcd
     pla
-    stx $02
+    stx !EscargoPendingItemSlotIndex
     tay
-    sty $0E
-    ldx $02
+    sty !EscargoMoveSourceCharacter
+    ldx !EscargoPendingItemSlotIndex
     tya
     jsl !C3E977_ReadCharacterInventorySlotByte
     jsr.w ESCARGO_EXPRESS_STORE
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     beq C191AB_c1_913d_enqueue_pending_item_id_L91AB
-    ldx $02
-    ldy $0E
+    ldx !EscargoPendingItemSlotIndex
+    ldy !EscargoMoveSourceCharacter
     tya
     jsr REMOVE_ITEM_FROM_INVENTORY
     bra C191AE_c1_913d_enqueue_pending_item_id_L91AE
 C191AB_c1_913d_enqueue_pending_item_id_L91AB:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C191AE_c1_913d_enqueue_pending_item_id_L91AE:
     pld
     rts
@@ -22594,6 +23013,13 @@ C191AE_c1_913d_enqueue_pending_item_id_L91AE:
 hirom
 org $C191B0
 
+!EscargoPendingItemRemovedValue = $01
+!EscargoPendingItemShiftByte = $00
+!EscargoPendingItemNextIndex = $0E
+!EscargoPendingItemBytes = $984B
+!EscargoPendingItemNextByteOffset = $984C
+!EscargoPendingItemCapacity = $0024
+!LowByteMask = $00FF
 C191B0_RemovePendingItemIdAtIndex:
     rep #$31
     phd
@@ -22605,35 +23031,35 @@ C191B0_RemovePendingItemIdAtIndex:
     tax
     dex
     sep #$20
-    lda $984B,X
-    sta $01
+    lda !EscargoPendingItemBytes,X
+    sta !EscargoPendingItemRemovedValue
     bra C191D1_c1_91b0_remove_pending_item_id_at_index_L91D1
 C191C5_c1_91b0_remove_pending_item_id_at_index_L91C5:
     sep #$20
-    lda $00
-    sta $984B,X
+    lda !EscargoPendingItemShiftByte
+    sta !EscargoPendingItemBytes,X
     rep #$20
-    lda $0E
+    lda !EscargoPendingItemNextIndex
     tax
 C191D1_c1_91b0_remove_pending_item_id_at_index_L91D1:
     sep #$20
-    lda $984C,X
-    sta $00
+    lda !EscargoPendingItemNextByteOffset,X
+    sta !EscargoPendingItemShiftByte
     rep #$20
-    lda $00
-    and.w #$00FF
+    lda !EscargoPendingItemShiftByte
+    and.w #!LowByteMask
     beq C191EA_c1_91b0_remove_pending_item_id_at_index_L91EA
     txa
     inc A
-    sta $0E
-    cmp.w #$0024
+    sta !EscargoPendingItemNextIndex
+    cmp.w #!EscargoPendingItemCapacity
     bcc C191C5_c1_91b0_remove_pending_item_id_at_index_L91C5
 C191EA_c1_91b0_remove_pending_item_id_at_index_L91EA:
     sep #$20
-    stz $984B,X
+    stz !EscargoPendingItemBytes,X
     rep #$20
-    lda $01
-    and.w #$00FF
+    lda !EscargoPendingItemRemovedValue
+    and.w #!LowByteMask
     pld
     rts
 
@@ -22966,6 +23392,42 @@ org $C19437
 !C43D75_StageGlyphVariantTileState = $C43D75
 !C43F77_PrintGlyphWithTileCleanupSoundDelay = $C43F77
 !C4599A_StoreRequiredExperienceRemainingForCharacter = $C4599A
+!PhoneContactSelectionResult = $02
+!PhoneContactEntryIndex = $18
+!PhoneContactRecordOffset = $16
+!PhoneContactTileBlockSourcePointerLo = $0E
+!PhoneContactTileBlockSourcePointerBank = $10
+!PhoneContactWindowTitleSourcePointerLo = $0E
+!PhoneContactWindowTitleSourcePointerBank = $10
+!PhoneContactTextEntrySourcePointerLo = $0E
+!PhoneContactTextEntrySourcePointerBank = $10
+!PhoneContactTextEntryMetadataLo = $12
+!PhoneContactTextEntryMetadataHi = $14
+!StatusWindowCharacterIndex = $02
+!StatusWindowCharacterRecordOffset = $13
+!StatusWindowEquipmentRowIndex = $13
+!StatusWindowEquipmentByte = $12
+!StatusWindowEquipmentSlotOffset = $04
+!StatusWindowTextPrintSourcePointerLo = $0E
+!StatusWindowTextPrintSourcePointerBank = $10
+!StatusWindowTitleSourcePointerLo = $0E
+!StatusWindowTitleSourcePointerBank = $10
+!StatusWindowDecimalSourcePointerLo = $0E
+!StatusWindowDecimalSourcePointerHi = $10
+!StatusWindowFixedStringSourcePointerLo = $0E
+!StatusWindowFixedStringSourcePointerBank = $10
+!InventoryRowsSlotIndex = $02
+!InventoryRowsCharacterIndex = $04
+!InventoryRowsWindowId = $18
+!InventoryRowsItemId = $16
+!InventoryRowsTitleSourcePointerLo = $0E
+!InventoryRowsTitleSourcePointerBank = $10
+!InventoryRowsTileBlockSourcePointerLo = $0E
+!InventoryRowsTileBlockSourcePointerBank = $10
+!InventoryRowsTextEntrySourcePointerLo = $0E
+!InventoryRowsTextEntrySourcePointerBank = $10
+!InventoryRowsTextEntryMetadataLo = $12
+!InventoryRowsTextEntryMetadataHi = $14
 C19437_CloseTargetSelectionPromptLabel:
     rep #$31
     lda.w #$0028
@@ -22978,23 +23440,23 @@ C19441_BuildPhoneContactSelectionMenu:
     adc.w #$FFE6
     tcd
     lda.w #$0000
-    sta $02
+    sta !PhoneContactSelectionResult
     lda.w #$9C8A
     jsl !C20A20_SnapshotManagedTextEventSlotState
     lda.w #$0007
     jsr CREATE_WINDOW
     lda.w #$5995
-    sta $0E
+    sta !PhoneContactWindowTitleSourcePointerLo
     lda.w #$00C4
-    sta $10
+    sta !PhoneContactWindowTitleSourcePointerBank
     ldx.w #$0005
     lda.w #$0007
     jsl !C2032B_WriteWindowTitleAndUpload
     ldy.w #$0001
-    sty $18
+    sty !PhoneContactEntryIndex
     bra C194D9_c1_9437_target_selection_bridge_L94D9
 C19476_c1_9437_target_selection_bridge_L9476:
-    lda $16
+    lda !PhoneContactRecordOffset
     clc
     adc.w #$0019
     clc
@@ -23009,9 +23471,9 @@ C19476_c1_9437_target_selection_bridge_L9476:
     lda $0C
     sta $08
     lda $06
-    sta $0E
+    sta !PhoneContactTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta !PhoneContactTileBlockSourcePointerBank
     ldx.w #$0019
     lda.w #$9C9F
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
@@ -23027,20 +23489,20 @@ C19476_c1_9437_target_selection_bridge_L9476:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !PhoneContactTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !PhoneContactTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta !PhoneContactTextEntryMetadataLo
     lda.w #$0000
-    sta $14
-    ldy $18
+    sta !PhoneContactTextEntryMetadataHi
+    ldy !PhoneContactEntryIndex
     tya
     jsr !C115F4_CreateTypedTextEntryRecordDirect
 C194D4_c1_9437_target_selection_bridge_L94D4:
-    ldy $18
+    ldy !PhoneContactEntryIndex
     iny
-    sty $18
+    sty !PhoneContactEntryIndex
 C194D9_c1_9437_target_selection_bridge_L94D9:
     lda.w #$7A8F
     sta $06
@@ -23049,7 +23511,7 @@ C194D9_c1_9437_target_selection_bridge_L94D9:
     tya
     ldy.w #$001F
     jsl !C08FF7_ResolveIndexedPointerOffset
-    sta $16
+    sta !PhoneContactRecordOffset
     ldx $06
     stx $0A
     ldx $08
@@ -23072,12 +23534,12 @@ C19504_c1_9437_target_selection_bridge_L9504:
     jsr !C1180D_LayoutActiveTextEntriesAndRefresh
     lda.w #$0001
     jsr !C1196A_RunActiveTextEntrySelectionMenu
-    sta $02
+    sta !PhoneContactSelectionResult
 C19521_c1_9437_target_selection_bridge_L9521:
     jsr CLOSE_FOCUS_WINDOW
     lda.w #$9C8A
     jsl !C20ABC_RestoreManagedTextEventSlotState
-    lda $02
+    lda !PhoneContactSelectionResult
     pld
     rts
 C1952F_RenderCharacterStatusWindowBlock:
@@ -23090,7 +23552,7 @@ C1952F_RenderCharacterStatusWindowBlock:
     pla
     tax
     dec A
-    sta $02
+    sta !StatusWindowCharacterIndex
     jsl !C3E4D4_SetInstantPrinting
     lda.w #$0008
     jsr CREATE_WINDOW
@@ -23098,9 +23560,9 @@ C1952F_RenderCharacterStatusWindowBlock:
     lda.w #$0001
     sta $5E71
     lda.w #$A3B6
-    sta $0E
+    sta !StatusWindowTextPrintSourcePointerLo
     lda.w #$00EF
-    sta $10
+    sta !StatusWindowTextPrintSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     stz $5E71
     lda $98A4
@@ -23110,11 +23572,11 @@ C1952F_RenderCharacterStatusWindowBlock:
     lda.w #$0008
     sta $5E7A
 C19573_c1_9437_target_selection_bridge_L9573:
-    lda $02
+    lda !StatusWindowCharacterIndex
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
     tay
-    sty $13
+    sty !StatusWindowCharacterRecordOffset
     tya
     clc
     adc.w #$99CE
@@ -23126,9 +23588,9 @@ C19573_c1_9437_target_selection_bridge_L9573:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowTitleSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowTitleSourcePointerBank
     ldx.w #$0005
     lda.w #$0008
     jsl !C2032B_WriteWindowTitleAndUpload
@@ -23138,7 +23600,7 @@ C19573_c1_9437_target_selection_bridge_L9573:
     ldx.w #$0000
     lda.w #$0026
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99D3,Y
     sta $06
@@ -23147,23 +23609,23 @@ C19573_c1_9437_target_selection_bridge_L9573:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     lda.w #$0002
     jsr !C10EB4_SetActiveWindowTextModeByte
     ldx.w #$0003
     lda.w #$005E
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     lda $9A13,Y
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0003
     lda.w #$0072
@@ -23173,26 +23635,26 @@ C19573_c1_9437_target_selection_bridge_L9573:
     ldx.w #$0003
     lda.w #$0079
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     lda $99D8,Y
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$005E
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     lda $9A19,Y
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$0072
@@ -23203,19 +23665,19 @@ C19651_RenderCharacterStatusDerivedStats:
     ldx.w #$0004
     lda.w #$0079
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     lda $99DA,Y
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0000
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E3,Y
     sta $06
@@ -23224,14 +23686,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0001
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E4,Y
     sta $06
@@ -23240,14 +23702,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0002
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E5,Y
     sta $06
@@ -23256,14 +23718,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0003
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E6,Y
     sta $06
@@ -23272,14 +23734,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0004
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E8,Y
     sta $06
@@ -23288,14 +23750,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0005
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E9,Y
     sta $06
@@ -23304,14 +23766,14 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0006
     lda.w #$00C7
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     sep #$20
     lda $99E7,Y
     sta $06
@@ -23320,16 +23782,16 @@ C19651_RenderCharacterStatusDerivedStats:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     lda.w #$0006
     jsr !C10EB4_SetActiveWindowTextModeByte
     ldx.w #$0005
     lda.w #$0061
     jsl !C43D75_StageGlyphVariantTileState
-    ldy $13
+    ldy !StatusWindowCharacterRecordOffset
     tya
     clc
     adc.w #$99D4
@@ -23359,42 +23821,42 @@ C197B6_c1_9437_target_selection_bridge_L97B6:
     sta $08
 C197BE_c1_9437_target_selection_bridge_L97BE:
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     ldx.w #$0006
     lda.w #$000A
     jsl !C43D75_StageGlyphVariantTileState
-    lda $02
+    lda !StatusWindowCharacterIndex
     inc A
     jsl !C4599A_StoreRequiredExperienceRemainingForCharacter
     lda $06
-    sta $0E
+    sta !StatusWindowDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowDecimalSourcePointerHi
     jsr PRINT_NUMBER
     stz $5E71
     ldx.w #$0000
-    stx $13
+    stx !StatusWindowEquipmentRowIndex
     jmp.w C19882_c1_9437_target_selection_bridge_L9882
 C197F0_c1_9437_target_selection_bridge_L97F0:
-    stx $04
-    lda $02
+    stx !StatusWindowEquipmentSlotOffset
+    lda !StatusWindowCharacterIndex
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$99DC
     clc
-    adc $04
+    adc !StatusWindowEquipmentSlotOffset
     tax
     sep #$20
     lda $0000,X
-    sta $12
+    sta !StatusWindowEquipmentByte
     rep #$20
     and.w #$00FF
     beq C1987D_c1_9437_target_selection_bridge_L987D
-    ldx $13
+    ldx !StatusWindowEquipmentRowIndex
     txa
     beq C19822_c1_9437_target_selection_bridge_L9822
     cmp.w #$0001
@@ -23407,7 +23869,7 @@ C19822_c1_9437_target_selection_bridge_L9822:
     sta $06
     lda.w #$00C4
     sta $08
-    lda $12
+    lda !StatusWindowEquipmentByte
     and.w #$00FF
     dec A
     asl A
@@ -23423,7 +23885,7 @@ C1983D_c1_9437_target_selection_bridge_L983D:
     sta $06
     lda.w #$00C4
     sta $08
-    lda $12
+    lda !StatusWindowEquipmentByte
     and.w #$00FF
     asl A
     asl A
@@ -23445,16 +23907,16 @@ C19865_c1_9437_target_selection_bridge_L9865:
     txa
     jsl !C438A5_SetActiveWindowDescriptorCursorFields
     lda $06
-    sta $0E
+    sta !StatusWindowFixedStringSourcePointerLo
     lda $08
-    sta $10
+    sta !StatusWindowFixedStringSourcePointerBank
     lda.w #$0100
     jsr PRINT_STRING
     bra C1988C_c1_9437_target_selection_bridge_L988C
 C1987D_c1_9437_target_selection_bridge_L987D:
-    ldx $13
+    ldx !StatusWindowEquipmentRowIndex
     inx
-    stx $13
+    stx !StatusWindowEquipmentRowIndex
 C19882_c1_9437_target_selection_bridge_L9882:
     cpx.w #$0007
     bcs C1988C_c1_9437_target_selection_bridge_L988C
@@ -23465,14 +23927,14 @@ C1988C_c1_9437_target_selection_bridge_L988C:
     lda.w #$000B
     jsl !C438A5_SetActiveWindowDescriptorCursorFields
     ldx.w #$0000
-    lda $02
+    lda !StatusWindowCharacterIndex
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$99DC
     jsl !C223D9_LookupStatusTileValueForHpPpWindow
     jsl !C43F77_PrintGlyphWithTileCleanupSoundDelay
-    lda $02
+    lda !StatusWindowCharacterIndex
     cmp.w #$0002
     beq C198D8_c1_9437_target_selection_bridge_L98D8
     lda.w #$0001
@@ -23481,9 +23943,9 @@ C1988C_c1_9437_target_selection_bridge_L988C:
     lda.w #$0024
     jsl !C43D75_StageGlyphVariantTileState
     lda.w #$5B4D
-    sta $0E
+    sta !StatusWindowFixedStringSourcePointerLo
     lda.w #$00C4
-    sta $10
+    sta !StatusWindowFixedStringSourcePointerBank
     lda.w #$0023
     jsr PRINT_STRING
     stz $5E71
@@ -23501,20 +23963,20 @@ INVENTORY_GET_ITEM_NAME:
     tcd
     pla
     txy
-    sty $18
+    sty !InventoryRowsWindowId
     tax
     dec A
-    sta $04
+    sta !InventoryRowsCharacterIndex
     tya
     jsr CREATE_WINDOW
     lda $98A4
     and.w #$00FF
     cmp.w #$0001
     beq C19903_c1_9437_target_selection_bridge_L9903
-    ldy $18
+    ldy !InventoryRowsWindowId
     sty $5E7A
 C19903_c1_9437_target_selection_bridge_L9903:
-    lda $04
+    lda !InventoryRowsCharacterIndex
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
@@ -23527,32 +23989,32 @@ C19903_c1_9437_target_selection_bridge_L9903:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !InventoryRowsTitleSourcePointerLo
     lda $08
-    sta $10
+    sta !InventoryRowsTitleSourcePointerBank
     ldx.w #$0005
-    ldy $18
+    ldy !InventoryRowsWindowId
     tya
     jsl !C2032B_WriteWindowTitleAndUpload
     lda.w #$0000
-    sta $02
+    sta !InventoryRowsSlotIndex
     jmp.w C199EF_c1_9437_target_selection_bridge_L99EF
 C19936_c1_9437_target_selection_bridge_L9936:
-    lda $04
+    lda !InventoryRowsCharacterIndex
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$99F1
     clc
-    adc $02
+    adc !InventoryRowsSlotIndex
     tax
     lda $0000,X
     and.w #$00FF
     tay
-    sty $16
-    ldx $02
+    sty !InventoryRowsItemId
+    ldx !InventoryRowsSlotIndex
     inx
-    lda $04
+    lda !InventoryRowsCharacterIndex
     inc A
     jsl !C3E9A0_CheckEquippedInventorySlotReference
     cmp.w #$0000
@@ -23565,16 +24027,16 @@ C19936_c1_9437_target_selection_bridge_L9936:
     sta $06
     lda.w #$00D5
     sta $08
-    ldy $16
+    ldy !InventoryRowsItemId
     tya
     ldy.w #$0027
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !InventoryRowsTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta !InventoryRowsTileBlockSourcePointerBank
     ldx.w #$0019
     lda.w #$9CA0
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
@@ -23584,23 +24046,23 @@ C19993_c1_9437_target_selection_bridge_L9993:
     sta $06
     lda.w #$00D5
     sta $08
-    ldy $16
+    ldy !InventoryRowsItemId
     tya
     ldy.w #$0027
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !InventoryRowsTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta !InventoryRowsTileBlockSourcePointerBank
     ldx.w #$0019
     lda.w #$9C9F
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
 C199BC_c1_9437_target_selection_bridge_L99BC:
     sep #$20
     stz $9CB8
-    ldy $16
+    ldy !InventoryRowsItemId
     beq C199EB_c1_9437_target_selection_bridge_L99EB
     rep #$20
     lda.w #$9C9F
@@ -23612,21 +24074,21 @@ C199BC_c1_9437_target_selection_bridge_L99BC:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !InventoryRowsTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !InventoryRowsTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta !InventoryRowsTextEntryMetadataLo
     lda.w #$0000
-    sta $14
+    sta !InventoryRowsTextEntryMetadataHi
     jsr !C113D1_InstallTextEntryRecord
 C199EB_c1_9437_target_selection_bridge_L99EB:
     rep #$20
-    inc $02
+    inc !InventoryRowsSlotIndex
 C199EF_c1_9437_target_selection_bridge_L99EF:
     lda.w #$000E
     clc
-    sbc $02
+    sbc !InventoryRowsSlotIndex
     bvs C199FC_c1_9437_target_selection_bridge_L99FC
     bmi C19A01_c1_9437_target_selection_bridge_L9A01
     jmp.w C19936_c1_9437_target_selection_bridge_L9936
@@ -23661,6 +24123,21 @@ org $C19A11
 !C20A20_SnapshotManagedTextEventSlotState = $C20A20
 !C20ABC_RestoreManagedTextEventSlotState = $C20ABC
 !EF0115_CloseOrReleaseEscargoStorageWindow = $EF0115
+!TemporaryFocusOriginalSelector = $0E
+!TemporaryFocusSelectionMode = $10
+!TemporaryFocusSelectionResult = $0E
+!EscargoStorageQueueIndex = $02
+!EscargoStorageSelectedItemId = $16
+!EscargoStorageTitleBufferPointer = $18
+!EscargoStorageSelectionResult = $18
+!EscargoTileBlockSourcePointerLo = $0E
+!EscargoTileBlockSourcePointerBank = $10
+!EscargoWindowTitleSourcePointerLo = $0E
+!EscargoWindowTitleSourcePointerBank = $10
+!EscargoTextEntrySourcePointerLo = $0E
+!EscargoTextEntrySourcePointerBank = $10
+!EscargoTextEntryMetadataLo = $12
+!EscargoTextEntryMetadataHi = $14
 C19A11_RunSelectionHelperWithTemporaryFocus:
     rep #$31
     phd
@@ -23670,22 +24147,22 @@ C19A11_RunSelectionHelperWithTemporaryFocus:
     tcd
     pla
     txy
-    sty $10
+    sty !TemporaryFocusSelectionMode
     tax
-    stx $0E
+    stx !TemporaryFocusOriginalSelector
     lda.w #$9C8A
     jsl !C20A20_SnapshotManagedTextEventSlotState
-    ldx $0E
+    ldx !TemporaryFocusOriginalSelector
     txa
     jsr !C1007E_SetFocusWindowOrContext
-    ldy $10
+    ldy !TemporaryFocusSelectionMode
     tya
     jsr !C1196A_RunActiveTextEntrySelectionMenu
     tax
-    stx $0E
+    stx !TemporaryFocusSelectionResult
     lda.w #$9C8A
     jsl !C20ABC_RestoreManagedTextEventSlotState
-    ldx $0E
+    ldx !TemporaryFocusSelectionResult
     txa
     pld
     rts
@@ -23696,21 +24173,21 @@ C19A43_BuildEscargoStorageSelectionMenu:
     adc.w #$FFE6
     tcd
     ldy.w #$9CAB
-    sty $18
+    sty !EscargoStorageTitleBufferPointer
     lda.w #$9C8A
     jsl !C20A20_SnapshotManagedTextEventSlotState
     lda.w #$000D
     jsr CREATE_WINDOW
     lda.w #$5C10
-    sta $0E
+    sta !EscargoTileBlockSourcePointerLo
     lda.w #$00C4
-    sta $10
+    sta !EscargoTileBlockSourcePointerBank
     ldx.w #$000C
     lda.w #$9C9F
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
     lda.b #$58
-    ldy $18
+    ldy !EscargoStorageTitleBufferPointer
     sta $0000,Y
     tyx
     inx
@@ -23732,21 +24209,21 @@ C19A43_BuildEscargoStorageSelectionMenu:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !EscargoWindowTitleSourcePointerLo
     lda $08
-    sta $10
+    sta !EscargoWindowTitleSourcePointerBank
     ldx.w #$FFFF
     lda.w #$000D
     jsl !C2032B_WriteWindowTitleAndUpload
     lda.w #$0000
-    sta $02
+    sta !EscargoStorageQueueIndex
     bra C19B1C_selection_focus_and_escargo_storage_menu_L9B1C
 C19AB7_selection_focus_and_escargo_storage_menu_L9AB7:
-    ldx $02
+    ldx !EscargoStorageQueueIndex
     lda $984B,X
     and.w #$00FF
     tay
-    sty $16
+    sty !EscargoStorageSelectedItemId
     lda.w #$5000
     sta $06
     lda.w #$00D5
@@ -23757,15 +24234,15 @@ C19AB7_selection_focus_and_escargo_storage_menu_L9AB7:
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !EscargoTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta !EscargoTileBlockSourcePointerBank
     ldx.w #$0019
     lda.w #$9C9F
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
     stz $9CB8
-    ldy $16
+    ldy !EscargoStorageSelectedItemId
     beq C19B18_selection_focus_and_escargo_storage_menu_L9B18
     rep #$20
     lda.w #$9C9F
@@ -23777,19 +24254,19 @@ C19AB7_selection_focus_and_escargo_storage_menu_L9AB7:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !EscargoTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !EscargoTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta !EscargoTextEntryMetadataLo
     lda.w #$0000
-    sta $14
+    sta !EscargoTextEntryMetadataHi
     jsr !C113D1_InstallTextEntryRecord
 C19B18_selection_focus_and_escargo_storage_menu_L9B18:
     rep #$20
-    inc $02
+    inc !EscargoStorageQueueIndex
 C19B1C_selection_focus_and_escargo_storage_menu_L9B1C:
-    lda $02
+    lda !EscargoStorageQueueIndex
     cmp.w #$0024
     bcc C19AB7_selection_focus_and_escargo_storage_menu_L9AB7
     ldy.w #$0001
@@ -23799,13 +24276,13 @@ C19B1C_selection_focus_and_escargo_storage_menu_L9B1C:
     lda.w #$0001
     jsr !C1196A_RunActiveTextEntrySelectionMenu
     tax
-    stx $18
+    stx !EscargoStorageSelectionResult
     lda.w #$000D
     jsl !EF0115_CloseOrReleaseEscargoStorageWindow
     stz $5E71
     lda.w #$9C8A
     jsl !C20ABC_RestoreManagedTextEventSlotState
-    ldx $18
+    ldx !EscargoStorageSelectionResult
     txa
     pld
     rts
@@ -24093,6 +24570,28 @@ org $C19D49
 !ShopItemTable = $D576B2
 !ShopStatusRowOffsetTable = $E01FB9
 !ShopStatusTilemapRows = $E01FC8
+!ShopMenuComparisonCallbackLo = $0E
+!ShopMenuComparisonCallbackBank = $10
+!ShopStatusComparisonCharacterIndex = $12
+!ShopStatusRowIndexScratch = $04
+!ShopStatusTileBlockSourcePointerLo = $0E
+!ShopStatusTileBlockSourcePointerBank = $10
+!ShopMenuTableSelector = $1E
+!ShopMenuRowIndex = $1C
+!ShopMenuRowScratch = $04
+!ShopMenuItemId = $1A
+!ShopMenuSelectionResult = $1A
+!ShopMenuItemRecordOffset = $02
+!ShopMenuItemRowPointerLo = $16
+!ShopMenuItemRowPointerBank = $18
+!ShopMenuTileBlockSourcePointerLo = $0E
+!ShopMenuTileBlockSourcePointerBank = $10
+!ShopMenuTextEntrySourcePointerLo = $0E
+!ShopMenuTextEntrySourcePointerBank = $10
+!ShopMenuTextEntryMetadataLo = $12
+!ShopMenuTextEntryMetadataHi = $14
+!ShopMenuPriceSourcePointerLo = $0E
+!ShopMenuPriceSourcePointerHi = $10
 C19D49_PrepareEquipmentMenuStatusDisplay:
     rep #$31
     phd
@@ -24100,7 +24599,7 @@ C19D49_PrepareEquipmentMenuStatusDisplay:
     adc.w #$FFEC
     tcd
     lda.w #$0000
-    sta $12
+    sta !ShopStatusComparisonCharacterIndex
     bra C19D6B_CheckNextCharacterMarker
 C19D58_ResetCharacterMarker:
     ldy.w #!CharacterRecordStride
@@ -24108,9 +24607,9 @@ C19D58_ResetCharacterMarker:
     tax
     lda.w #!DefaultEquipmentComparisonMarker
     sta !EquipmentComparisonMarkers,X
-    lda $12
+    lda !ShopStatusComparisonCharacterIndex
     inc A
-    sta $12
+    sta !ShopStatusComparisonCharacterIndex
 C19D6B_CheckNextCharacterMarker:
     cmp.w #$0004
     bcc C19D58_ResetCharacterMarker
@@ -24121,9 +24620,9 @@ C19D6B_CheckNextCharacterMarker:
     lda $99CD
     and.w #$00FF
     dec A
-    sta $04
+    sta !ShopStatusRowIndexScratch
     asl A
-    adc $04
+    adc !ShopStatusRowIndexScratch
     tax
     lda !ShopStatusRowOffsetTable,X
     clc
@@ -24131,9 +24630,9 @@ C19D6B_CheckNextCharacterMarker:
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !ShopStatusTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta !ShopStatusTileBlockSourcePointerBank
     ldx.w #$0008
     lda.w #$0218
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
@@ -24153,7 +24652,7 @@ C19DB5_RunShopItemSelectionMenu:
     adc.w #$FFE0
     tcd
     pla
-    sta $1E
+    sta !ShopMenuTableSelector
     jsr !C1AA18_RefreshWalletOrStatusDisplay
     jsl !C3E4D4_PrepareMenuDisplayContext
     lda.w #!MenuContextSnapshotBuffer
@@ -24163,25 +24662,25 @@ C19DB5_RunShopItemSelectionMenu:
     lda.w #$0005
     jsr !C10EB4_ClearOrPrepareWindowContent
     lda.w #$0000
-    sta $04
-    sta $1C
+    sta !ShopMenuRowScratch
+    sta !ShopMenuRowIndex
     jmp.w C19E99_CheckNextShopItemRow
 C19DE5_BuildShopItemTextEntry:
-    lda $1E
-    sta $04
+    lda !ShopMenuTableSelector
+    sta !ShopMenuRowScratch
     asl A
-    adc $04
+    adc !ShopMenuRowScratch
     asl A
-    adc $04
-    ldx $1C
-    stx $04
+    adc !ShopMenuRowScratch
+    ldx !ShopMenuRowIndex
+    stx !ShopMenuRowScratch
     clc
-    adc $04
+    adc !ShopMenuRowScratch
     tax
     lda !ShopItemTable,X
     and.w #$00FF
     tay
-    sty $1A
+    sty !ShopMenuItemId
     bne C19E06_CopyShopItemName
     jmp.w C19E93_AdvanceShopItemRow
 C19E06_CopyShopItemName:
@@ -24190,19 +24689,19 @@ C19E06_CopyShopItemName:
     lda.w #$00D5
     sta $08
     lda $06
-    sta $16
+    sta !ShopMenuItemRowPointerLo
     lda $08
-    sta $18
+    sta !ShopMenuItemRowPointerBank
     tya
     ldy.w #!ItemRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
-    sta $02
+    sta !ShopMenuItemRecordOffset
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !ShopMenuTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta !ShopMenuTileBlockSourcePointerBank
     ldx.w #$0019
     lda.w #!ItemNameStagingBuffer
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
@@ -24218,25 +24717,25 @@ C19E06_CopyShopItemName:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !ShopMenuTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !ShopMenuTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta !ShopMenuTextEntryMetadataLo
     lda.w #$0000
-    sta $14
-    ldy $1A
+    sta !ShopMenuTextEntryMetadataHi
+    ldy !ShopMenuItemId
     tya
     jsr !C115F4_CreateTypedTextEntryRecordDirect
-    ldx $04
+    ldx !ShopMenuRowScratch
     lda.w #$0000
     jsl !C438A5_ConfigureTextEntryRowPosition
-    lda $02
+    lda !ShopMenuItemRecordOffset
     clc
     adc.w #$001A
-    ldx $16
+    ldx !ShopMenuItemRowPointerLo
     stx $06
-    ldx $18
+    ldx !ShopMenuItemRowPointerBank
     stx $08
     clc
     adc $06
@@ -24245,16 +24744,16 @@ C19E06_CopyShopItemName:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !ShopMenuPriceSourcePointerLo
     lda $08
-    sta $10
+    sta !ShopMenuPriceSourcePointerHi
     jsl !C4507A_PrintActiveWindowRightAlignedDecimal
 C19E93_AdvanceShopItemRow:
-    inc $04
-    lda $04
-    sta $1C
+    inc !ShopMenuRowScratch
+    lda !ShopMenuRowScratch
+    sta !ShopMenuRowIndex
 C19E99_CheckNextShopItemRow:
-    lda $04
+    lda !ShopMenuRowScratch
     cmp.w #$0007
     bcs C19EA5_RunShopMenuSelection
     beq C19EA5_RunShopMenuSelection
@@ -24268,21 +24767,21 @@ C19EA5_RunShopMenuSelection:
     lda.w #$0001
     jsr !C1180D_LayoutActiveTextEntriesAndRefresh
     lda.w #$9B4E
-    sta $0E
+    sta !ShopMenuComparisonCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !ShopMenuComparisonCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
     jsr !C19CDD_InitializeEquipmentComparisonMarkersDefault
     lda.w #$0001
     jsr !C1196A_RunActiveTextEntrySelectionMenu
     tax
-    stx $1A
+    stx !ShopMenuSelectionResult
     jsr.w C19D49_PrepareEquipmentMenuStatusDisplay
     jsr !C10084_CloseCurrentFocusWindowOrContext
     lda.w #!MenuContextSnapshotBuffer
     jsl !C20ABC_RestoreManagedTextEventSlotState
     jsl !C3E4CA_FinalizeOrRefreshMenuDisplay
-    ldx $1A
+    ldx !ShopMenuSelectionResult
     txa
     pld
     rts
@@ -25429,6 +25928,27 @@ org $C1A795
 !C457CA_ClearCharmEquipmentSlot = $C457CA
 !C45815_ClearBraceletEquipmentSlot = $C45815
 !C45860_ClearHeadgearEquipmentSlot = $C45860
+!SelectionPromptPreviewCallbackLo = $0E
+!SelectionPromptPreviewCallbackBank = $10
+!EquipmentMenuCharacterIndex = $1E
+!EquipmentMenuSelectedFamily = $1C
+!EquipmentMenuTitleSourcePointerLo = $0E
+!EquipmentMenuTitleSourcePointerBank = $10
+!EquipmentMenuTitleTextLength = $1A
+!EquipmentMenuVisibleRowCount = $04
+!EquipmentMenuDefaultSelectionRow = $18
+!EquipmentMenuItemSelectionResult = $18
+!EquipmentMenuInventorySlotIndex = $02
+!EquipmentMenuItemId = $16
+!EquipmentMenuOneBasedCharacterId = $1A
+!EquipmentMenuItemNameTileSourcePointerLo = $0E
+!EquipmentMenuItemNameTileSourcePointerBank = $10
+!EquipmentMenuTextEntrySourcePointerLo = $0E
+!EquipmentMenuTextEntrySourcePointerBank = $10
+!EquipmentMenuTextEntryMetadataLo = $12
+!EquipmentMenuTextEntryMetadataHi = $14
+!WalletDecimalSourcePointerLo = $0E
+!WalletDecimalSourcePointerHi = $10
 C1A795_RunCharacterEquipmentSlotSelectionLoop:
     rep #$31
     phd
@@ -25439,7 +25959,7 @@ C1A795_RunCharacterEquipmentSlotSelectionLoop:
     pla
     tax
     dec A
-    sta $1E
+    sta !EquipmentMenuCharacterIndex
 C1A7A3_RunCharacterEquipmentSlotSelectionLoop_LA7A3:
     lda.w #$0004
     jsr !C193E7_OpenTargetSelectionPromptLabel
@@ -25447,9 +25967,9 @@ C1A7A3_RunCharacterEquipmentSlotSelectionLoop_LA7A3:
     jsr !C1007E_SetFocusWindowOrContext
     lda.w #$0001
     jsr !C1196A_RunActiveTextEntrySelectionMenu
-    sta $1C
+    sta !EquipmentMenuSelectedFamily
     jsr !C19437_CloseTargetSelectionPromptLabel
-    lda $1C
+    lda !EquipmentMenuSelectedFamily
     bne C1A7C1_RunCharacterEquipmentSlotSelectionLoop_LA7C1
     jmp.w C1AA16_RunCharacterEquipmentSlotSelectionLoop_LAA16
 C1A7C1_RunCharacterEquipmentSlotSelectionLoop_LA7C1:
@@ -25459,7 +25979,7 @@ C1A7C1_RunCharacterEquipmentSlotSelectionLoop_LA7C1:
     sta $06
     lda.w #$00C4
     sta $08
-    lda $1C
+    lda !EquipmentMenuSelectedFamily
     dec A
     asl A
     asl A
@@ -25467,39 +25987,39 @@ C1A7C1_RunCharacterEquipmentSlotSelectionLoop_LA7C1:
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !EquipmentMenuTitleSourcePointerLo
     lda $08
-    sta $10
+    sta !EquipmentMenuTitleSourcePointerBank
     jsl !C08F22_MeasureTerminatedTextLength
-    sta $1A
+    sta !EquipmentMenuTitleTextLength
     lda $06
-    sta $0E
+    sta !EquipmentMenuTitleSourcePointerLo
     lda $08
-    sta $10
-    lda $1A
+    sta !EquipmentMenuTitleSourcePointerBank
+    lda !EquipmentMenuTitleTextLength
     tax
     lda.w #$0007
     jsl !C2032B_WriteWindowTitleAndUpload
     lda.w #$0000
-    sta $04
+    sta !EquipmentMenuVisibleRowCount
     lda.w #$FFFF
-    sta $18
+    sta !EquipmentMenuDefaultSelectionRow
     lda.w #$0000
-    sta $02
+    sta !EquipmentMenuInventorySlotIndex
     jmp.w C1A906_RunCharacterEquipmentSlotSelectionLoop_LA906
 C1A80C_RunCharacterEquipmentSlotSelectionLoop_LA80C:
-    lda $1E
+    lda !EquipmentMenuCharacterIndex
     ldy.w #$005F
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$99F1
     clc
-    adc $02
+    adc !EquipmentMenuInventorySlotIndex
     tax
     lda $0000,X
     and.w #$00FF
     tay
-    sty $16
+    sty !EquipmentMenuItemId
     bne C1A82B_RunCharacterEquipmentSlotSelectionLoop_LA82B
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
 C1A82B_RunCharacterEquipmentSlotSelectionLoop_LA82B:
@@ -25509,27 +26029,27 @@ C1A82B_RunCharacterEquipmentSlotSelectionLoop_LA82B:
     beq C1A837_RunCharacterEquipmentSlotSelectionLoop_LA837
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
 C1A837_RunCharacterEquipmentSlotSelectionLoop_LA837:
-    ldy $16
+    ldy !EquipmentMenuItemId
     tya
     jsl !C224E1_ClassifyEquipmentSlotFamily
-    cmp $1C
+    cmp !EquipmentMenuSelectedFamily
     beq C1A845_RunCharacterEquipmentSlotSelectionLoop_LA845
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
 C1A845_RunCharacterEquipmentSlotSelectionLoop_LA845:
-    lda $1E
+    lda !EquipmentMenuCharacterIndex
     inc A
-    sta $1A
-    ldy $16
+    sta !EquipmentMenuOneBasedCharacterId
+    ldy !EquipmentMenuItemId
     tyx
-    lda $1A
+    lda !EquipmentMenuOneBasedCharacterId
     jsl !C3EE14_TestCharacterCanEquipItem
     cmp.w #$0000
     bne C1A85B_RunCharacterEquipmentSlotSelectionLoop_LA85B
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
 C1A85B_RunCharacterEquipmentSlotSelectionLoop_LA85B:
-    ldx $02
+    ldx !EquipmentMenuInventorySlotIndex
     inx
-    lda $1A
+    lda !EquipmentMenuOneBasedCharacterId
     jsl !C3E9A0_TestEquippedItemPrefixMarker
     cmp.w #$0000
     beq C1A8A1_RunCharacterEquipmentSlotSelectionLoop_LA8A1
@@ -25541,37 +26061,37 @@ C1A85B_RunCharacterEquipmentSlotSelectionLoop_LA85B:
     sta $06
     lda.w #$00D5
     sta $08
-    ldy $16
+    ldy !EquipmentMenuItemId
     tya
     ldy.w #$0027
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !EquipmentMenuItemNameTileSourcePointerLo
     lda $08
-    sta $10
+    sta !EquipmentMenuItemNameTileSourcePointerBank
     ldx.w #$0019
     lda.w #$9CA0
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
-    lda $04
-    sta $18
+    lda !EquipmentMenuVisibleRowCount
+    sta !EquipmentMenuDefaultSelectionRow
     bra C1A8CA_RunCharacterEquipmentSlotSelectionLoop_LA8CA
 C1A8A1_RunCharacterEquipmentSlotSelectionLoop_LA8A1:
     lda.w #$5000
     sta $06
     lda.w #$00D5
     sta $08
-    ldy $16
+    ldy !EquipmentMenuItemId
     tya
     ldy.w #$0027
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !EquipmentMenuItemNameTileSourcePointerLo
     lda $08
-    sta $10
+    sta !EquipmentMenuItemNameTileSourcePointerBank
     ldx.w #$0019
     lda.w #$9C9F
     jsl !C08ED2_QueueOrTransferDynamicTileBlock
@@ -25588,14 +26108,14 @@ C1A8CA_RunCharacterEquipmentSlotSelectionLoop_LA8CA:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !EquipmentMenuTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !EquipmentMenuTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta !EquipmentMenuTextEntryMetadataLo
     lda.w #$0000
-    sta $14
-    lda $02
+    sta !EquipmentMenuTextEntryMetadataHi
+    lda !EquipmentMenuInventorySlotIndex
     inc A
     jsr !C115F4_CreateTypedTextEntryRecordDirect
     tax
@@ -25603,36 +26123,36 @@ C1A8CA_RunCharacterEquipmentSlotSelectionLoop_LA8CA:
     lda.b #$73
     sta $000E,X
     rep #$20
-    inc $04
+    inc !EquipmentMenuVisibleRowCount
 C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904:
-    inc $02
+    inc !EquipmentMenuInventorySlotIndex
 C1A906_RunCharacterEquipmentSlotSelectionLoop_LA906:
-    lda $02
+    lda !EquipmentMenuInventorySlotIndex
     cmp.w #$000E
     bcs C1A912_RunCharacterEquipmentSlotSelectionLoop_LA912
     beq C1A912_RunCharacterEquipmentSlotSelectionLoop_LA912
     jmp.w C1A80C_RunCharacterEquipmentSlotSelectionLoop_LA80C
 C1A912_RunCharacterEquipmentSlotSelectionLoop_LA912:
     lda.w #$5C82
-    sta $0E
+    sta !EquipmentMenuTextEntrySourcePointerLo
     lda.w #$00C4
-    sta $10
+    sta !EquipmentMenuTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta !EquipmentMenuTextEntryMetadataLo
     lda.w #$0000
-    sta $14
+    sta !EquipmentMenuTextEntryMetadataHi
     lda.w #$FFFF
     jsr !C115F4_CreateTypedTextEntryRecordDirect
-    ldy $18
+    ldy !EquipmentMenuDefaultSelectionRow
     ldx.w #$0000
     lda.w #$0001
     jsr !C1181B_SelectActiveTextEntryByY
-    lda $1E
+    lda !EquipmentMenuCharacterIndex
     sep #$20
     inc A
     sta $9CD6
     rep #$20
-    lda $1C
+    lda !EquipmentMenuSelectedFamily
     cmp.w #$0001
     beq C1A959_RunCharacterEquipmentSlotSelectionLoop_LA959
     cmp.w #$0002
@@ -25644,30 +26164,30 @@ C1A912_RunCharacterEquipmentSlotSelectionLoop_LA912:
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A959_RunCharacterEquipmentSlotSelectionLoop_LA959:
     lda.w #$2562
-    sta $0E
+    sta !SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta !SelectionPromptPreviewCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A968_RunCharacterEquipmentSlotSelectionLoop_LA968:
     lda.w #$25AC
-    sta $0E
+    sta !SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta !SelectionPromptPreviewCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A977_RunCharacterEquipmentSlotSelectionLoop_LA977:
     lda.w #$260D
-    sta $0E
+    sta !SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta !SelectionPromptPreviewCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A986_RunCharacterEquipmentSlotSelectionLoop_LA986:
     lda.w #$2673
-    sta $0E
+    sta !SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta !SelectionPromptPreviewCallbackBank
     jsr !C11F5A_InstallSelectionPromptCallback
 C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993:
     lda.w #$0001
@@ -25676,13 +26196,13 @@ C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993:
     lda.w #$0001
     jsr !C1196A_RunActiveTextEntrySelectionMenu
     tax
-    stx $18
+    stx !EquipmentMenuItemSelectionResult
     jsr !C19437_CloseTargetSelectionPromptLabel
     jsr !C11F8A_ClearActiveSelectionPromptScratch
-    ldx $18
+    ldx !EquipmentMenuItemSelectionResult
     cpx.w #$FFFF
     bne C1A9FA_RunCharacterEquipmentSlotSelectionLoop_LA9FA
-    lda $1C
+    lda !EquipmentMenuSelectedFamily
     cmp.w #$0001
     beq C1A9CA_RunCharacterEquipmentSlotSelectionLoop_LA9CA
     cmp.w #$0002
@@ -25694,38 +26214,38 @@ C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993:
     bra C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
 C1A9CA_RunCharacterEquipmentSlotSelectionLoop_LA9CA:
     ldx.w #$0000
-    lda $1E
+    lda !EquipmentMenuCharacterIndex
     inc A
     jsl !C4577D_ClearWeaponEquipmentSlot
     bra C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
 C1A9D6_RunCharacterEquipmentSlotSelectionLoop_LA9D6:
     ldx.w #$0000
-    lda $1E
+    lda !EquipmentMenuCharacterIndex
     inc A
     jsl !C457CA_ClearCharmEquipmentSlot
     bra C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
 C1A9E2_RunCharacterEquipmentSlotSelectionLoop_LA9E2:
     ldx.w #$0000
-    lda $1E
+    lda !EquipmentMenuCharacterIndex
     inc A
     jsl !C45815_ClearBraceletEquipmentSlot
     bra C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
 C1A9EE_RunCharacterEquipmentSlotSelectionLoop_LA9EE:
     ldx.w #$0000
-    lda $1E
+    lda !EquipmentMenuCharacterIndex
     inc A
     jsl !C45860_ClearHeadgearEquipmentSlot
     bra C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
 C1A9FA_RunCharacterEquipmentSlotSelectionLoop_LA9FA:
     cpx.w #$0000
     beq C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
-    lda $1E
+    lda !EquipmentMenuCharacterIndex
     inc A
     jsr !C19066_DispatchEquippedSlotSubtypeUpdate
 C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05:
     lda.w #$0007
     jsl !C3E521_CloseWindowAndReleaseTileState
-    lda $1E
+    lda !EquipmentMenuCharacterIndex
     inc A
     jsl C1A778_RefreshSelectedCharacterEquipmentDisplay
     jmp.w C1A7A3_RunCharacterEquipmentSlotSelectionLoop_LA7A3
@@ -25751,9 +26271,9 @@ C1AA18_RefreshWalletOrStatusDisplay:
     lda $9833
     sta $08
     lda $06
-    sta $0E
+    sta !WalletDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !WalletDecimalSourcePointerHi
     jsl !C4507A_PrintRightAlignedDecimalValueInActiveWindow
     jsl !C3E4CA_ClearInstantPrinting
     lda.w #$9C8A
@@ -25774,7 +26294,7 @@ org $C1AA5D
 !C115F4_CreateTypedTextEntryRecordDirect = $15F4
 !C1180D_LayoutActiveTextEntriesAndRefresh = $180D
 !C1196A_RunActiveTextEntrySelectionMenu = $196A
-!C127EF_RunCharacterSelectionPromptWithCallback = $27EF
+!C127EF_RunCallbackDrivenPartySelectionMenu = $27EF
 !C12BD5_CountActiveTextEntriesOrMenuRows = $2BD5
 !C193E7_OpenTargetSelectionPromptLabel = $93E7
 !C19437_CloseTargetSelectionPromptLabel = $9437
@@ -25790,6 +26310,10 @@ org $C1AA5D
 !C21628_CheckEventFlag = $C21628
 !C3E521_CloseWindowById = $C3E521
 !C43573_SelectPartyMemberForEquipmentMenu = $C43573
+!CallbackDrivenPromptDisplayCallbackLo = $0E
+!CallbackDrivenPromptDisplayCallbackBank = $10
+!CallbackDrivenPromptEligibilityCallbackLo = $12
+!CallbackDrivenPromptEligibilityCallbackBank = $14
 C1AA5D_RunPartyEquipmentMenuController:
     rep #$31
     phd
@@ -25818,16 +26342,16 @@ C1AA87_RunPartyEquipmentMenuController_LAA87:
     lda.w #$0000
     jsr !C193E7_OpenTargetSelectionPromptLabel
     lda.w #$A778
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     tax
     stx $16
     jsr !C19437_CloseTargetSelectionPromptLabel
@@ -27672,6 +28196,8 @@ org $C1F616
 !WindowDescriptorStride = $0052
 !TextEntryRecordTableBase = $89D4
 !TextEntryRecordStride = $002D
+!MenuRowFormatterCallbackLo = $0E
+!MenuRowFormatterCallbackBank = $10
 !TextEntryNextRecordOffset = $0002
 !TextEntryCursorColumnOffset = $0008
 !TextEntryCursorRowOffset = $000A
@@ -27796,6 +28322,27 @@ org $C1F616
 !StartSelectedFileTextBank = $00C7
 !NoCursorLimit = $FFFF
 !ZeroWord = $0000
+!SoundSettingRefreshMode = $16
+!SoundSettingActiveTextEntryPointer = $14
+!SoundSettingSelectionResult = $12
+!SoundSettingRedrawTextSourcePointerLo = $0E
+!SoundSettingRedrawTextSourcePointerBank = $10
+!WindowFlavourPromptSourcePointerLo = $0E
+!WindowFlavourPromptSourcePointerBank = $10
+!WindowFlavourOptionSourcePointerLo = $0E
+!WindowFlavourOptionSourcePointerBank = $10
+!WindowFlavourTextEntryMetadataLo = $12
+!WindowFlavourTextEntryMetadataHi = $14
+!WindowFlavourSettingPointer = $18
+!WindowFlavourSelectionResult = $16
+!NamingFlowWorkingFieldIndex = $04
+!NamingFlowCurrentFieldIndex = $24
+!NamingFlowAdvanceDelta = $02
+!NamingFlowAdvanceDeltaMirror = $20
+!NamingFlowPartyNameDestinationIndex = $22
+!NamingPromptSourcePointerLo = $0E
+!NamingPromptSourcePointerBank = $10
+!NamingPromptEntryStrideScratch = $12
 C1F616_OpenOrRefreshSoundSettingSelection:
     rep #$31
     phd
@@ -27805,11 +28352,11 @@ C1F616_OpenOrRefreshSoundSettingSelection:
     tcd
     pla
     tax
-    stx $16
+    stx !SoundSettingRefreshMode
     lda.w #!SoundSettingMenuWindowId
     sta !ActiveWindowFocus
     jsl !C3E4D4_EnterWindowUpdateScope
-    ldx $16
+    ldx !SoundSettingRefreshMode
     bne C1F634_OpenOrRefreshSoundSettingSelection_LF634
     jmp.w C1F6C0_OpenOrRefreshSoundSettingSelection_LF6C0
 C1F634_OpenOrRefreshSoundSettingSelection_LF634:
@@ -27827,7 +28374,7 @@ C1F634_OpenOrRefreshSoundSettingSelection_LF634:
     clc
     adc.w #!TextEntryRecordTableBase
     tay
-    sty $14
+    sty !SoundSettingActiveTextEntryPointer
     lda !CurrentSoundSetting
     and.w #$00FF
     tax
@@ -27840,19 +28387,19 @@ C1F662_OpenOrRefreshSoundSettingSelection_LF662:
     clc
     adc.w #!TextEntryRecordTableBase
     tay
-    sty $14
+    sty !SoundSettingActiveTextEntryPointer
     dex
 C1F674_OpenOrRefreshSoundSettingSelection_LF674:
     bne C1F662_OpenOrRefreshSoundSettingSelection_LF662
     lda.w #!RedrawSelectedSetupRowMode
     jsr !C10FEA_ClearOrPrepareWindowContent
-    ldy $14
+    ldy !SoundSettingActiveTextEntryPointer
     lda !TextEntryCursorRowOffset,Y
     tax
     lda !TextEntryCursorColumnOffset,Y
     inc A
     jsl !C438A5_SetTextCursorPosition
-    ldy $14
+    ldy !SoundSettingActiveTextEntryPointer
     tya
     clc
     adc.w #!TextEntryBodyTextOffset
@@ -27864,9 +28411,9 @@ C1F674_OpenOrRefreshSoundSettingSelection_LF674:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !SoundSettingRedrawTextSourcePointerLo
     lda $08
-    sta $10
+    sta !SoundSettingRedrawTextSourcePointerBank
     ldx.w #!MenuSelectionEnabled
     lda.w #!NoCursorLimit
     jsl !C43BB9_PrintTextFromPointer
@@ -27875,13 +28422,13 @@ C1F674_OpenOrRefreshSoundSettingSelection_LF674:
     lda !CurrentSoundSetting
     and.w #$00FF
     tax
-    stx $12
+    stx !SoundSettingSelectionResult
     bra C1F6DE_OpenOrRefreshSoundSettingSelection_LF6DE
 C1F6C0_OpenOrRefreshSoundSettingSelection_LF6C0:
     lda.w #$0001
     jsr !C1196A_OpenMenuSelectionLoop
     tax
-    stx $12
+    stx !SoundSettingSelectionResult
     beq C1F6D1_OpenOrRefreshSoundSettingSelection_LF6D1
     txa
     sep #$20
@@ -27893,7 +28440,7 @@ C1F6D1_OpenOrRefreshSoundSettingSelection_LF6D1:
     dec A
     jsl !EF0A4D_SaveGameSlot
 C1F6DE_OpenOrRefreshSoundSettingSelection_LF6DE:
-    ldx $12
+    ldx !SoundSettingSelectionResult
     txa
     pld
     rts
@@ -27908,9 +28455,9 @@ OPEN_FLAVOUR_MENU:
     jsr !C104EE_SetWindowFocus
     jsl !C3E4D4_EnterWindowUpdateScope
     lda.w #!WindowFlavourPromptTextLo
-    sta $0E
+    sta !WindowFlavourPromptSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourPromptSourcePointerBank
     lda.w #!WindowFlavourPromptPrintLength
     jsr !C10EFC_PrintTextFromPointerLocal
     lda.w #!ZeroWord
@@ -27918,57 +28465,57 @@ OPEN_FLAVOUR_MENU:
     lda.w #!ZeroWord
     sta $08
     lda.w #!WindowFlavourOption1TextLo
-    sta $0E
+    sta !WindowFlavourOptionSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourOptionSourcePointerBank
     lda $06
-    sta $12
+    sta !WindowFlavourTextEntryMetadataLo
     lda $08
-    sta $14
+    sta !WindowFlavourTextEntryMetadataHi
     ldx.w #!WindowFlavourFirstChoice
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #!WindowFlavourOption2TextLo
-    sta $0E
+    sta !WindowFlavourOptionSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourOptionSourcePointerBank
     lda $06
-    sta $12
+    sta !WindowFlavourTextEntryMetadataLo
     lda $08
-    sta $14
+    sta !WindowFlavourTextEntryMetadataHi
     ldx.w #!WindowFlavourSecondChoice
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #!WindowFlavourOption3TextLo
-    sta $0E
+    sta !WindowFlavourOptionSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourOptionSourcePointerBank
     lda $06
-    sta $12
+    sta !WindowFlavourTextEntryMetadataLo
     lda $08
-    sta $14
+    sta !WindowFlavourTextEntryMetadataHi
     ldx.w #!WindowFlavourThirdChoice
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #!WindowFlavourOption4TextLo
-    sta $0E
+    sta !WindowFlavourOptionSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourOptionSourcePointerBank
     lda $06
-    sta $12
+    sta !WindowFlavourTextEntryMetadataLo
     lda $08
-    sta $14
+    sta !WindowFlavourTextEntryMetadataHi
     ldx.w #!WindowFlavourFourthChoice
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
     lda.w #!WindowFlavourOption5TextLo
-    sta $0E
+    sta !WindowFlavourOptionSourcePointerLo
     lda.w #!C4FileSelectMenuTextBank
-    sta $10
+    sta !WindowFlavourOptionSourcePointerBank
     lda $06
-    sta $12
+    sta !WindowFlavourTextEntryMetadataLo
     lda $08
-    sta $14
+    sta !WindowFlavourTextEntryMetadataHi
     ldx.w #!WindowFlavourFifthChoice
     lda.w #!ZeroWord
     jsr !C114B1_CreateTextEntryRecordWithDisplayMetadata
@@ -27981,29 +28528,29 @@ OPEN_FLAVOUR_MENU:
     sta $0000,X
 C1F7A8_OpenOrRefreshSoundSettingSelection_LF7A8:
     ldx.w #!CurrentWindowFlavourSetting
-    stx $18
+    stx !WindowFlavourSettingPointer
     rep #$20
     lda $0000,X
     and.w #$00FF
     dec A
     jsr !C11887_SelectActiveTextEntryByA
     lda.w #!C1EC8F_WindowFlavourPreviewCallbackLow
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #!C1EC8F_WindowFlavourPreviewCallbackBank
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #!MenuSelectionEnabled
     jsr !C1196A_OpenMenuSelectionLoop
     tay
-    sty $16
+    sty !WindowFlavourSelectionResult
     beq C1F7DB_OpenOrRefreshSoundSettingSelection_LF7DB
     tya
     sep #$20
-    ldx $18
+    ldx !WindowFlavourSettingPointer
     sta $0000,X
     bra C1F7F3_OpenOrRefreshSoundSettingSelection_LF7F3
 C1F7DB_OpenOrRefreshSoundSettingSelection_LF7DB:
-    ldx $18
+    ldx !WindowFlavourSettingPointer
     lda $0000,X
     and.b #$FF
     brk #$F0
@@ -28019,7 +28566,7 @@ C1F7F3_OpenOrRefreshSoundSettingSelection_LF7F3:
     and.w #$00FF
     dec A
     jsl !EF0A4D_SaveGameSlot
-    ldy $16
+    ldy !WindowFlavourSelectionResult
     tya
     pld
     rts
@@ -28137,11 +28684,11 @@ C1F8FB_OpenOrRefreshSoundSettingSelection_LF8FB:
 C1F902_OpenOrRefreshSoundSettingSelection_LF902:
     jsr !C1008E_CloseAndDrainAllWindows
     lda.w #!ZeroWord
-    sta $04
-    sta $24
+    sta !NamingFlowWorkingFieldIndex
+    sta !NamingFlowCurrentFieldIndex
     jmp.w C1FAAE_OpenOrRefreshSoundSettingSelection_LFAAE
 C1F90F_ResumeFileSelectNamingOrSetupFlow:
-    lda $04
+    lda !NamingFlowWorkingFieldIndex
     cmp.w #!NamingFieldRetrySentinel
     bne C1F935_OpenOrRefreshSoundSettingSelection_LF935
     jsr !C1008E_CloseAndDrainAllWindows
@@ -28155,11 +28702,11 @@ C1F90F_ResumeFileSelectNamingOrSetupFlow:
     jsl !C4FBBD_ChangeMusic
     bra C1F8EA_OpenOrRefreshSoundSettingSelection_LF8EA
 C1F935_OpenOrRefreshSoundSettingSelection_LF935:
-    lda $04
+    lda !NamingFlowWorkingFieldIndex
     jsl !C4D7D9_UpdateNameEntrySelection
     lda.w #!PlayableCharacterNameFieldLimit
     clc
-    sbc $04
+    sbc !NamingFlowWorkingFieldIndex
     bvc C1F947_OpenOrRefreshSoundSettingSelection_LF947
     bpl C1F9A5_OpenOrRefreshSoundSettingSelection_LF9A5
     bra C1F949_OpenOrRefreshSoundSettingSelection_LF949
@@ -28170,182 +28717,182 @@ C1F949_OpenOrRefreshSoundSettingSelection_LF949:
     sta $06
     lda.w #!C4FileSelectMenuTextBank
     sta $08
-    lda $04
-    sta $04
+    lda !NamingFlowWorkingFieldIndex
+    sta !NamingFlowWorkingFieldIndex
     asl A
     asl A
-    adc $04
+    adc !NamingFlowWorkingFieldIndex
     asl A
     asl A
     asl A
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !NamingPromptSourcePointerLo
     lda $08
-    sta $10
+    sta !NamingPromptSourcePointerBank
     lda.w #!NameEntryPromptTableEntryStride
-    sta $12
-    lda $24
-    sta $04
-    ldy $04
-    sty $22
-    lda $04
+    sta !NamingPromptEntryStrideScratch
+    lda !NamingFlowCurrentFieldIndex
+    sta !NamingFlowWorkingFieldIndex
+    ldy !NamingFlowWorkingFieldIndex
+    sty !NamingFlowPartyNameDestinationIndex
+    lda !NamingFlowWorkingFieldIndex
     ldy.w #!PartyCharacterRecordStride
     jsl !C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #!PartyCharacterRecordBase
     tax
     lda.w #!PartyCharacterNameWidth
-    ldy $22
+    ldy !NamingFlowPartyNameDestinationIndex
     jsr !C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #!MenuSelectionCancel
     beq C1F99B_OpenOrRefreshSoundSettingSelection_LF99B
     lda.w #!NamingFieldRetrySentinel
-    sta $02
-    sta $20
+    sta !NamingFlowAdvanceDelta
+    sta !NamingFlowAdvanceDeltaMirror
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F99B_OpenOrRefreshSoundSettingSelection_LF99B:
     lda.w #!NamingFlowAdvanceStep
-    sta $02
-    sta $20
+    sta !NamingFlowAdvanceDelta
+    sta !NamingFlowAdvanceDeltaMirror
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F9A5_OpenOrRefreshSoundSettingSelection_LF9A5:
-    lda $04
+    lda !NamingFlowWorkingFieldIndex
     cmp.w #!PetNameFieldIndex
     bne C1F9F9_OpenOrRefreshSoundSettingSelection_LF9F9
     lda.w #!NameEntryPromptTableTextLo
     sta $06
     lda.w #!C4FileSelectMenuTextBank
     sta $08
-    lda $04
-    sta $04
+    lda !NamingFlowWorkingFieldIndex
+    sta !NamingFlowWorkingFieldIndex
     asl A
     asl A
-    adc $04
+    adc !NamingFlowWorkingFieldIndex
     asl A
     asl A
     asl A
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !NamingPromptSourcePointerLo
     lda $08
-    sta $10
+    sta !NamingPromptSourcePointerBank
     lda.w #!NameEntryPromptTableEntryStride
-    sta $12
-    lda $24
-    sta $04
-    ldy $04
+    sta !NamingPromptEntryStrideScratch
+    lda !NamingFlowCurrentFieldIndex
+    sta !NamingFlowWorkingFieldIndex
+    ldy !NamingFlowWorkingFieldIndex
     ldx.w #!PetNameBuffer
     lda.w #!PetNameWidth
     jsr !C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #!MenuSelectionCancel
     beq C1F9EF_OpenOrRefreshSoundSettingSelection_LF9EF
     lda.w #!NamingFieldRetrySentinel
-    sta $02
-    sta $20
+    sta !NamingFlowAdvanceDelta
+    sta !NamingFlowAdvanceDeltaMirror
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F9EF_OpenOrRefreshSoundSettingSelection_LF9EF:
     lda.w #!NamingFlowAdvanceStep
-    sta $02
-    sta $20
+    sta !NamingFlowAdvanceDelta
+    sta !NamingFlowAdvanceDeltaMirror
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F9F9_OpenOrRefreshSoundSettingSelection_LF9F9:
-    lda $04
+    lda !NamingFlowWorkingFieldIndex
     cmp.w #!FavoriteFoodFieldIndex
     bne C1FA4B_OpenOrRefreshSoundSettingSelection_LFA4B
     lda.w #!NameEntryPromptTableTextLo
     sta $06
     lda.w #!C4FileSelectMenuTextBank
     sta $08
-    lda $04
-    sta $04
+    lda !NamingFlowWorkingFieldIndex
+    sta !NamingFlowWorkingFieldIndex
     asl A
     asl A
-    adc $04
+    adc !NamingFlowWorkingFieldIndex
     asl A
     asl A
     asl A
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !NamingPromptSourcePointerLo
     lda $08
-    sta $10
+    sta !NamingPromptSourcePointerBank
     lda.w #!NameEntryPromptTableEntryStride
-    sta $12
-    lda $24
-    sta $04
-    ldy $04
+    sta !NamingPromptEntryStrideScratch
+    lda !NamingFlowCurrentFieldIndex
+    sta !NamingFlowWorkingFieldIndex
+    ldy !NamingFlowWorkingFieldIndex
     ldx.w #!FavoriteFoodBuffer
     lda.w #!FavoriteFoodWidth
     jsr !C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #!MenuSelectionCancel
     beq C1FA42_OpenOrRefreshSoundSettingSelection_LFA42
     lda.w #!NamingFieldRetrySentinel
-    sta $02
-    sta $20
+    sta !NamingFlowAdvanceDelta
+    sta !NamingFlowAdvanceDeltaMirror
     bra C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1FA42_OpenOrRefreshSoundSettingSelection_LFA42:
     lda.w #!NamingFlowAdvanceStep
-    sta $02
-    sta $20
+    sta !NamingFlowAdvanceDelta
+    sta !NamingFlowAdvanceDeltaMirror
     bra C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1FA4B_OpenOrRefreshSoundSettingSelection_LFA4B:
-    lda $04
+    lda !NamingFlowWorkingFieldIndex
     cmp.w #!FavoriteThingFieldIndex
     bne C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
     lda.w #!NameEntryPromptTableTextLo
     sta $06
     lda.w #!C4FileSelectMenuTextBank
     sta $08
-    lda $04
-    sta $04
+    lda !NamingFlowWorkingFieldIndex
+    sta !NamingFlowWorkingFieldIndex
     asl A
     asl A
-    adc $04
+    adc !NamingFlowWorkingFieldIndex
     asl A
     asl A
     asl A
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !NamingPromptSourcePointerLo
     lda $08
-    sta $10
+    sta !NamingPromptSourcePointerBank
     lda.w #!NameEntryPromptTableEntryStride
-    sta $12
-    lda $24
-    sta $04
-    ldy $04
+    sta !NamingPromptEntryStrideScratch
+    lda !NamingFlowCurrentFieldIndex
+    sta !NamingFlowWorkingFieldIndex
+    ldy !NamingFlowWorkingFieldIndex
     ldx.w #!FavoriteThingSuffixBuffer
     lda.w #!FavoriteThingSuffixWidth
     jsr !C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #!MenuSelectionCancel
     beq C1FA94_OpenOrRefreshSoundSettingSelection_LFA94
     lda.w #!NamingFieldRetrySentinel
-    sta $02
-    sta $20
+    sta !NamingFlowAdvanceDelta
+    sta !NamingFlowAdvanceDeltaMirror
     bra C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1FA94_OpenOrRefreshSoundSettingSelection_LFA94:
     lda.w #!NamingFlowAdvanceStep
-    sta $02
-    sta $20
+    sta !NamingFlowAdvanceDelta
+    sta !NamingFlowAdvanceDeltaMirror
 C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B:
-    lda $04
+    lda !NamingFlowWorkingFieldIndex
     jsl !C4D830_RunFileSelectPoseEntityScriptList
-    lda $20
-    sta $02
-    lda $04
+    lda !NamingFlowAdvanceDeltaMirror
+    sta !NamingFlowAdvanceDelta
+    lda !NamingFlowWorkingFieldIndex
     clc
-    adc $02
-    sta $04
-    sta $24
+    adc !NamingFlowAdvanceDelta
+    sta !NamingFlowWorkingFieldIndex
+    sta !NamingFlowCurrentFieldIndex
 C1FAAE_OpenOrRefreshSoundSettingSelection_LFAAE:
     lda.w #!NamingFlowDoneFieldIndex
     clc
-    sbc $04
+    sbc !NamingFlowWorkingFieldIndex
     bvs C1FABB_OpenOrRefreshSoundSettingSelection_LFABB
     bmi C1FAC0_OpenOrRefreshSoundSettingSelection_LFAC0
     jmp.w C1F90F_ResumeFileSelectNamingOrSetupFlow
@@ -28909,7 +29456,7 @@ org $C1ADB4
 !C10489_InstallSecondaryInteractionContextPointer = $0489
 !C104EE_SetWindowFocus = $04EE
 !C18C27_RemoveItemFromCharacterInventorySlot = $8C27
-!C127EF_RunCharacterSelectionPromptWithCallback = $27EF
+!C127EF_RunCallbackDrivenPartySelectionMenu = $27EF
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C03C4B_ProbeCurrentPositionHighCollisionBits = $C03C4B
 !C0923E_ShiftTargettingClassToFlags = $C0923E
@@ -28972,6 +29519,10 @@ org $C1ADB4
 !NpcConfigTableBank = $00CF
 !NpcConfigTableRowSize = $0011
 !NpcConfigTextPointerOffset = $000D
+!CallbackDrivenPromptDisplayCallbackLo = $0E
+!CallbackDrivenPromptDisplayCallbackBank = $10
+!CallbackDrivenPromptEligibilityCallbackLo = $12
+!CallbackDrivenPromptEligibilityCallbackBank = $14
 DETERMINE_TARGETTING:
 !C1ADB4_DetermineBattleTargetting = DETERMINE_TARGETTING
     rep #$31
@@ -29143,16 +29694,16 @@ C1AEDB_DetermineBattleTargetting_LAEDB:
     lda.w #$0000
     sta $08
     lda $06
-    sta $0E
+    sta !CallbackDrivenPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta !CallbackDrivenPromptDisplayCallbackBank
     lda $06
-    sta $12
+    sta !CallbackDrivenPromptEligibilityCallbackLo
     lda $08
-    sta $14
+    sta !CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     txa
-    jsr !C127EF_RunCharacterSelectionPromptWithCallback
+    jsr !C127EF_RunCallbackDrivenPartySelectionMenu
     sep #$20
     sta $01
     jsr !C19437_CloseCharacterSelectTargetPrompt
@@ -30827,6 +31378,12 @@ org $C1B5B6
 !C3E521_CloseWindow = $C3E521
 !C3ED2C_PrepareBattlePsiSnapshotWindowState = $C3ED2C
 !C3EE4D_RestoreBattleSelectionState = $C3EE4D
+!CallbackDrivenMenuDisplayCallbackLo = $0E
+!CallbackDrivenMenuDisplayCallbackBank = $10
+!CallbackDrivenMenuEligibilityCallbackLo = $12
+!CallbackDrivenMenuEligibilityCallbackBank = $14
+!MenuRowFormatterCallbackLo = $0E
+!MenuRowFormatterCallbackBank = $10
 !BattlePsiSelectedUserByte = $9D16
 !BattlePsiSingleUserFastPathLatch = $9D18
 !BattlePsiHighlightedRowByte = $9D19
@@ -30918,13 +31475,13 @@ C1B5FE_OpenBattlePsiUserSelection_LB5FE:
     lda.w #$0000
     jsr !C193E7_OpenTargetSelectionPromptLabel
     lda.w #!C1C853_BuildBattlePsiMenuMetadata
-    sta $0E
+    sta !CallbackDrivenMenuDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !CallbackDrivenMenuDisplayCallbackBank
     lda.w #!C1C367_CheckBattlePsiUserEligibility
-    sta $12
+    sta !CallbackDrivenMenuEligibilityCallbackLo
     lda.w #$00C1
-    sta $14
+    sta !CallbackDrivenMenuEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
     jsr !C127EF_RunCallbackDrivenPartySelectionMenu
@@ -30957,9 +31514,9 @@ C1B642_OpenBattlePsiUserSelection_LB642:
     jsr !C1163C_RefreshTextEntryChainState
 C1B65D_OpenBattlePsiUserSelection_LB65D:
     lda.w #!C1C8BC_FormatBattlePsiMenuEntryRow
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr !C1196A_RunSelectionMenu
@@ -32706,6 +33263,8 @@ org $C1CB7F
 !C1CAF5_BuildBattlePsiCategoryEntryListLong = $C1CAF5
 !C3E4D4_WindowScopedUpdate = $C3E4D4
 !C3E521_OpenWindowFocus = $C3E521
+!MenuRowFormatterCallbackLo = $0E
+!MenuRowFormatterCallbackBank = $10
 !BattlePsiAbilityTableLo = $8A50
 !BattlePsiAbilityTableBank = $00D5
 !BattlePsiAbilityTableAbsoluteBase = $D58A50
@@ -32845,9 +33404,9 @@ C1CC37_HasBattlePsiCategoryEntries_LCC37:
     inc $1E
 C1CC39_OpenBattlePsiMenuController:
     lda.w #!C1CAF5_BuildBattlePsiCategoryEntryList
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr !C1196A_OpenMenuSelectionLoop
@@ -32873,9 +33432,9 @@ C1CC6F_HasBattlePsiCategoryEntries_LCC6F:
     lda $02
     jsl !C1CAF5_BuildBattlePsiCategoryEntryListLong
     lda.w #!C1C8BC_FormatBattlePsiMenuEntryRow
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr !C1196A_OpenMenuSelectionLoop
@@ -33585,6 +34144,35 @@ org $C1ECD1
 !C43B15_FlushTextWindowState = $C43B15
 !C4FBBD_ChangeMusic = $C4FBBD
 !EF0A68_CheckSaveSlotChecksum = $EF0A68
+!MenuRowFormatterCallbackLo = $0E
+!MenuRowFormatterCallbackBank = $10
+!CorruptSaveSlotIndex = $12
+!CorruptSaveLoopCompareScratch = $02
+!CorruptSaveSubstitutionSourceLo = $0E
+!CorruptSaveSubstitutionSourceHi = $10
+!CorruptSaveNoticeTextPointerLo = $0E
+!CorruptSaveNoticeTextPointerBank = $10
+!FileSelectSlotChoiceMode = $02
+!FileSelectSlotIndex = $1E
+!FileSelectPreviewSlotIndex = $1A
+!FileSelectOneBasedSlot = $04
+!FileSelectPackedRowMetadata = $1C
+!FileSelectTextEntrySourcePointerLo = $0E
+!FileSelectTextEntrySourcePointerBank = $10
+!FileSelectTextEntryMetadataLo = $12
+!FileSelectTextEntryMetadataHi = $14
+!FileSelectCopyDestinationPointerLo = $0E
+!FileSelectCopyDestinationPointerBank = $10
+!FileSelectCopySourcePointerLo = $12
+!FileSelectCopySourcePointerBank = $14
+!FileSelectPrintSourcePointerLo = $0E
+!FileSelectPrintSourcePointerBank = $10
+!FileSelectDecimalSourcePointerLo = $0E
+!FileSelectDecimalSourcePointerHi = $10
+!FileSelectPreservedPrintBufferLo = $16
+!FileSelectPreservedPrintBufferBank = $18
+!FileSelectTextWidthScratch = $04
+!FileSelectActiveTextEntryPointer = $1C
 C1ECD1_PreviewPackedHighByteWindowFlavour:
     rep #$31
     xba
@@ -33606,7 +34194,7 @@ CORRUPTION_CHECK:
     lda.w #$002F
     jsr !C104EE_SetWindowFocus
     ldx.w #$0000
-    stx $12
+    stx !CorruptSaveSlotIndex
     bra C1ED38_PreviewPackedHighByteWindowFlavour_LED38
 C1ED00_PreviewPackedHighByteWindowFlavour_LED00:
     sep #$20
@@ -33623,24 +34211,24 @@ C1ED00_PreviewPackedHighByteWindowFlavour_LED00:
     dec $08
 C1ED1A_PreviewPackedHighByteWindowFlavour_LED1A:
     lda $06
-    sta $0E
+    sta !CorruptSaveSubstitutionSourceLo
     lda $08
-    sta $10
+    sta !CorruptSaveSubstitutionSourceHi
     jsr !C1AD0A_StageBattleTextSubstitutionPointer
     lda.w #$C973
-    sta $0E
+    sta !CorruptSaveNoticeTextPointerLo
     lda.w #$00C7
-    sta $10
+    sta !CorruptSaveNoticeTextPointerBank
     jsl !C186B1_PrintTextFromPointer
 C1ED33_PreviewPackedHighByteWindowFlavour_LED33:
-    ldx $12
+    ldx !CorruptSaveSlotIndex
     inx
-    stx $12
+    stx !CorruptSaveSlotIndex
 C1ED38_PreviewPackedHighByteWindowFlavour_LED38:
-    stx $02
+    stx !CorruptSaveLoopCompareScratch
     lda.w #$0003
     clc
-    sbc $02
+    sbc !CorruptSaveLoopCompareScratch
     bvs C1ED46_PreviewPackedHighByteWindowFlavour_LED46
     bpl C1ED00_PreviewPackedHighByteWindowFlavour_LED00
     bra C1ED48_PreviewPackedHighByteWindowFlavour_LED48
@@ -33665,11 +34253,11 @@ FILE_SELECT_MENU:
     adc.w #$FFE0
     tcd
     pla
-    sta $02
+    sta !FileSelectSlotChoiceMode
     lda.w #$0013
     jsr !C104EE_SetWindowFocus
     ldy.w #$0000
-    sty $1E
+    sty !FileSelectSlotIndex
     jmp.w C1EE58_PreviewPackedHighByteWindowFlavour_LEE58
 C1ED75_PreviewPackedHighByteWindowFlavour_LED75:
     tya
@@ -33683,7 +34271,7 @@ C1ED75_PreviewPackedHighByteWindowFlavour_LED75:
     rep #$20
     lda.w #$9C9F
     jsl !C08EFC_CommitTileBufferToStaging
-    ldy $1E
+    ldy !FileSelectSlotIndex
     tya
     sep #$20
     clc
@@ -33720,10 +34308,10 @@ C1EDC7_PreviewPackedHighByteWindowFlavour_LEDC7:
     and.w #$00FF
     xba
     and.w #$FF00
-    sta $1C
+    sta !FileSelectPackedRowMetadata
     bra C1EE28_PreviewPackedHighByteWindowFlavour_LEE28
 C1EDE1_PreviewPackedHighByteWindowFlavour_LEDE1:
-    ldy $1E
+    ldy !FileSelectSlotIndex
     tya
     sep #$20
     clc
@@ -33739,26 +34327,26 @@ C1EDE1_PreviewPackedHighByteWindowFlavour_LEDE1:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !FileSelectCopyDestinationPointerLo
     lda $08
-    sta $10
+    sta !FileSelectCopyDestinationPointerBank
     lda.w #$C05E
-    sta $12
+    sta !FileSelectCopySourcePointerLo
     lda.w #$00C4
-    sta $14
+    sta !FileSelectCopySourcePointerBank
     lda.w #$0010
     jsl !C08EED_CopyToVramOrRendererBuffer
     sep #$20
     stz $9CB0
-    ldy $1E
+    ldy !FileSelectSlotIndex
     tyx
     stz $B49E,X
     rep #$20
     lda.w #$0100
-    sta $1C
+    sta !FileSelectPackedRowMetadata
 C1EE28_PreviewPackedHighByteWindowFlavour_LEE28:
-    sty $04
-    inc $04
+    sty !FileSelectOneBasedSlot
+    inc !FileSelectOneBasedSlot
     lda.w #$9C9F
     sta $06
     phb
@@ -33768,18 +34356,18 @@ C1EE28_PreviewPackedHighByteWindowFlavour_LEE28:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !FileSelectTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !FileSelectTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta !FileSelectTextEntryMetadataLo
     lda.w #$0000
-    sta $14
-    lda $1C
-    ora $04
+    sta !FileSelectTextEntryMetadataHi
+    lda !FileSelectPackedRowMetadata
+    ora !FileSelectOneBasedSlot
     jsr !C115F4_CreateTypedTextEntryRecordDirect
-    ldy $04
-    sty $1E
+    ldy !FileSelectOneBasedSlot
+    sty !FileSelectSlotIndex
 C1EE58_PreviewPackedHighByteWindowFlavour_LEE58:
     cpy.w #$0003
     bcs C1EE62_PreviewPackedHighByteWindowFlavour_LEE62
@@ -33791,7 +34379,7 @@ C1EE62_PreviewPackedHighByteWindowFlavour_LEE62:
     lda.w #$0001
     jsr !C1180D_LayoutActiveTextEntriesAndRefresh
     ldy.w #$0000
-    sty $1A
+    sty !FileSelectPreviewSlotIndex
     jmp.w C1EFCE_PreviewPackedHighByteWindowFlavour_LEFCE
 C1EE74_PreviewPackedHighByteWindowFlavour_LEE74:
     tya
@@ -33810,26 +34398,26 @@ C1EE84_PreviewPackedHighByteWindowFlavour_LEE84:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !FileSelectCopyDestinationPointerLo
     lda $08
-    sta $10
+    sta !FileSelectCopyDestinationPointerBank
     lda.w #$C06E
-    sta $12
+    sta !FileSelectCopySourcePointerLo
     lda.w #$00C4
-    sta $14
+    sta !FileSelectCopySourcePointerBank
     lda.w #$0006
     jsl !C08EED_CopyToVramOrRendererBuffer
     sep #$20
     stz $9CA5
-    ldy $1A
+    ldy !FileSelectPreviewSlotIndex
     tyx
     rep #$20
     lda.w #$0009
     jsl !C438A5_SetTextPosition
     lda $06
-    sta $0E
+    sta !FileSelectPrintSourcePointerLo
     lda $08
-    sta $10
+    sta !FileSelectPrintSourcePointerBank
     lda.w #$0020
     jsr !C10EFC_PrintTextFromPointerLocal
     sep #$20
@@ -33840,9 +34428,9 @@ C1EE84_PreviewPackedHighByteWindowFlavour_LEE84:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !FileSelectDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !FileSelectDecimalSourcePointerHi
     jsr !C10D7C_FormatDecimalDigitsTo8960
     tax
     cpx.w #$0001
@@ -33850,10 +34438,10 @@ C1EE84_PreviewPackedHighByteWindowFlavour_LEE84:
     lda.w #$0050
     bra C1EF03_PreviewPackedHighByteWindowFlavour_LEF03
 C1EEF0_PreviewPackedHighByteWindowFlavour_LEEF0:
-    stx $04
+    stx !FileSelectTextWidthScratch
     lda.w #$0007
     sec
-    sbc $04
+    sbc !FileSelectTextWidthScratch
     tax
     lda $895A,X
     and.w #$00FF
@@ -33867,7 +34455,7 @@ C1EF03_PreviewPackedHighByteWindowFlavour_LEF03:
     adc.b #$60
     sta $9CA0
     stz $9CA1
-    ldy $1A
+    ldy !FileSelectPreviewSlotIndex
     tyx
     rep #$20
     lda.w #$000D
@@ -33881,23 +34469,23 @@ C1EF03_PreviewPackedHighByteWindowFlavour_LEF03:
     stz $09
     rep #$20
     lda $06
-    sta $16
+    sta !FileSelectPreservedPrintBufferLo
     lda $08
-    sta $18
+    sta !FileSelectPreservedPrintBufferBank
     lda $06
-    sta $0E
+    sta !FileSelectPrintSourcePointerLo
     lda $08
-    sta $10
+    sta !FileSelectPrintSourcePointerBank
     lda.w #$0020
     jsr !C10EFC_PrintTextFromPointerLocal
     lda $06
-    sta $0E
+    sta !FileSelectCopyDestinationPointerLo
     lda $08
-    sta $10
+    sta !FileSelectCopyDestinationPointerBank
     lda.w #$C074
-    sta $12
+    sta !FileSelectCopySourcePointerLo
     lda.w #$00C4
-    sta $14
+    sta !FileSelectCopySourcePointerBank
     lda.w #$000B
     jsl !C08EED_CopyToVramOrRendererBuffer
     sep #$20
@@ -33913,9 +34501,9 @@ C1EF03_PreviewPackedHighByteWindowFlavour_LEF03:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !FileSelectCopyDestinationPointerLo
     lda $08
-    sta $10
+    sta !FileSelectCopyDestinationPointerBank
     lda.w #$C07F
     sta $06
     lda.w #$00C4
@@ -33923,44 +34511,44 @@ C1EF03_PreviewPackedHighByteWindowFlavour_LEF03:
     lda $98B6
     and.w #$00FF
     dec A
-    sta $04
+    sta !FileSelectTextWidthScratch
     asl A
-    adc $04
+    adc !FileSelectTextWidthScratch
     asl A
-    adc $04
+    adc !FileSelectTextWidthScratch
     clc
     adc $06
     sta $06
-    sta $12
+    sta !FileSelectCopySourcePointerLo
     lda $08
-    sta $14
+    sta !FileSelectCopySourcePointerBank
     lda.w #$0007
     jsl !C08EED_CopyToVramOrRendererBuffer
-    ldy $1A
+    ldy !FileSelectPreviewSlotIndex
     tyx
     lda.w #$0010
     jsl !C438A5_SetTextPosition
-    lda $16
+    lda !FileSelectPreservedPrintBufferLo
     sta $06
-    lda $18
+    lda !FileSelectPreservedPrintBufferBank
     sta $08
     lda $06
-    sta $0E
+    sta !FileSelectPrintSourcePointerLo
     lda $08
-    sta $10
+    sta !FileSelectPrintSourcePointerBank
     lda.w #$0020
     jsr !C10EFC_PrintTextFromPointerLocal
 C1EFC9_PreviewPackedHighByteWindowFlavour_LEFC9:
-    ldy $1A
+    ldy !FileSelectPreviewSlotIndex
     iny
-    sty $1A
+    sty !FileSelectPreviewSlotIndex
 C1EFCE_PreviewPackedHighByteWindowFlavour_LEFCE:
     cpy.w #$0003
     bcs C1EFD8_PreviewPackedHighByteWindowFlavour_LEFD8
     beq C1EFD8_PreviewPackedHighByteWindowFlavour_LEFD8
     jmp.w C1EE74_PreviewPackedHighByteWindowFlavour_LEE74
 C1EFD8_PreviewPackedHighByteWindowFlavour_LEFD8:
-    lda $02
+    lda !FileSelectSlotChoiceMode
     beq C1F03E_RunFileSelectSlotChoiceAndPreview
     lda $8958
     asl A
@@ -33975,7 +34563,7 @@ C1EFD8_PreviewPackedHighByteWindowFlavour_LEFD8:
     clc
     adc.w #$89D4
     tay
-    sty $1C
+    sty !FileSelectActiveTextEntryPointer
     lda $B4A1
     and.w #$00FF
     tax
@@ -33988,13 +34576,13 @@ C1F007_PreviewPackedHighByteWindowFlavour_LF007:
     clc
     adc.w #$89D4
     tay
-    sty $1C
+    sty !FileSelectActiveTextEntryPointer
     dex
 C1F019_PreviewPackedHighByteWindowFlavour_LF019:
     bne C1F007_PreviewPackedHighByteWindowFlavour_LF007
     lda.w #$0006
     jsr !C10FEA_PrintSignedOrStatusValue
-    ldy $1C
+    ldy !FileSelectActiveTextEntryPointer
     lda $000A,Y
     tax
     lda $0008,Y
@@ -34014,9 +34602,9 @@ C1F041_PreviewPackedHighByteWindowFlavour_LF041:
     lda.w #$0003
     jsl !C4FBBD_ChangeMusic
     lda.w #!C1ECD1_PreviewPackedHighByteWindowFlavour
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #$0000
     jsr !C1196A_OpenMenuSelectionLoop
@@ -36449,6 +37037,12 @@ org $C1BB71
 !C1CAF5_BuildBattlePsiCategoryEntryList = $CAF5
 !C3E4E0_TickWindowWithoutInstantPrinting = $C3E4E0
 !C3E521_CloseWindowAndReleaseTileState = $C3E521
+!CallbackDrivenMenuDisplayCallbackLo = $0E
+!CallbackDrivenMenuDisplayCallbackBank = $10
+!CallbackDrivenMenuEligibilityCallbackLo = $12
+!CallbackDrivenMenuEligibilityCallbackBank = $14
+!MenuRowFormatterCallbackLo = $0E
+!MenuRowFormatterCallbackBank = $10
 C1BB71_OpenFieldPsiDestinationMenu:
     rep #$31
     phd
@@ -36460,13 +37054,13 @@ C1BB79_OpenFieldPsiDestinationMenu_LBB79:
     sta $5E71
 C1BB7F_OpenFieldPsiDestinationMenu_LBB7F:
     lda.w #!C1952F_RunSimpleSelectionHelper
-    sta $0E
+    sta !CallbackDrivenMenuDisplayCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !CallbackDrivenMenuDisplayCallbackBank
     lda.w #$0000
-    sta $12
+    sta !CallbackDrivenMenuEligibilityCallbackLo
     lda.w #$0000
-    sta $14
+    sta !CallbackDrivenMenuEligibilityCallbackBank
     ldx.w #$0001
     lda.w #$0000
     jsr !C127EF_RunCallbackDrivenPartySelectionMenu
@@ -36532,9 +37126,9 @@ C1BC0C_OpenFieldPsiDestinationMenu_LBC0C:
     sta $8958
     stz $5E71
     lda.w #!C1CAF5_BuildBattlePsiCategoryEntryList
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
     lda.w #$0001
     jsr !C1196A_OpenMenuSelectionLoop
@@ -36552,9 +37146,9 @@ C1BC0C_OpenFieldPsiDestinationMenu_LBC0C:
     lda.w #$00FF
     sta $9D19
     lda.w #!C1BB06_FinalizeBattlePsiSelectionState
-    sta $0E
+    sta !MenuRowFormatterCallbackLo
     lda.w #$00C1
-    sta $10
+    sta !MenuRowFormatterCallbackBank
     jsr !C11F5A_SetMenuRowFormatterCallback
 C1BC5C_OpenFieldPsiDestinationMenu_LBC5C:
     lda.w #$0001

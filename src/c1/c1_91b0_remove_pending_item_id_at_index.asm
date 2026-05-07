@@ -13,6 +13,14 @@
 
 ; No named external contracts were supplied or recognized.
 
+EscargoPendingItemRemovedValue = $01
+EscargoPendingItemShiftByte = $00
+EscargoPendingItemNextIndex = $0E
+EscargoPendingItemBytes = $984B
+EscargoPendingItemNextByteOffset = $984C
+EscargoPendingItemCapacity = $0024
+LowByteMask = $00FF
+
 ; ---------------------------------------------------------------------------
 ; C1:91B0
 
@@ -27,34 +35,34 @@ C191B0_RemovePendingItemIdAtIndex:
     tax
     dex
     sep #$20
-    lda $984B,X
-    sta $01
+    lda EscargoPendingItemBytes,X
+    sta EscargoPendingItemRemovedValue
     bra C191D1_c1_91b0_remove_pending_item_id_at_index_L91D1
 C191C5_c1_91b0_remove_pending_item_id_at_index_L91C5:
     sep #$20
-    lda $00
-    sta $984B,X
+    lda EscargoPendingItemShiftByte
+    sta EscargoPendingItemBytes,X
     rep #$20
-    lda $0E
+    lda EscargoPendingItemNextIndex
     tax
 C191D1_c1_91b0_remove_pending_item_id_at_index_L91D1:
     sep #$20
-    lda $984C,X
-    sta $00
+    lda EscargoPendingItemNextByteOffset,X
+    sta EscargoPendingItemShiftByte
     rep #$20
-    lda $00
-    and.w #$00FF
+    lda EscargoPendingItemShiftByte
+    and.w #LowByteMask
     beq C191EA_c1_91b0_remove_pending_item_id_at_index_L91EA
     txa
     inc A
-    sta $0E
-    cmp.w #$0024
+    sta EscargoPendingItemNextIndex
+    cmp.w #EscargoPendingItemCapacity
     bcc C191C5_c1_91b0_remove_pending_item_id_at_index_L91C5
 C191EA_c1_91b0_remove_pending_item_id_at_index_L91EA:
     sep #$20
-    stz $984B,X
+    stz EscargoPendingItemBytes,X
     rep #$20
-    lda $01
-    and.w #$00FF
+    lda EscargoPendingItemRemovedValue
+    and.w #LowByteMask
     pld
     rts

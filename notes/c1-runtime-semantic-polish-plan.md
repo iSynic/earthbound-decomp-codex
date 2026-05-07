@@ -325,6 +325,14 @@ This planning pass is documentation-only.
   `C1:AF74`, `C1:03DC`, and `C1:0FEA` edges, leaving the source unit with no
   raw helper-call edges. See
   `notes/open-menu-prelude-helpers-c1339e-c133b0.md`.
+- 2026-05-06 follow-up: the `C1:33B0..4103` open-menu loop now names the
+  local scratch ABI used by its menu/text caller contracts. The pass covers
+  top-level Talk/Check fallback text pointers, open-menu text-entry source
+  pointers, selected-character value staging, Goods/Talk primary and secondary
+  interaction-context installs, active context offsets `+17/+1B/+21`, status
+  item text output, and debug decimal/fixed-string display sources. This keeps
+  the open-menu caller side aligned with the `0x1A` menu family and
+  text-entry helper contracts without changing helper boundaries.
 - 2026-05-06 follow-up: small C1 text/window helper cleanup named the local
   helper edges in the interaction-output selectors, the active-window
   descriptor initializer, and the `$89D4` text-entry constructor chain. This
@@ -371,6 +379,15 @@ This planning pass is documentation-only.
   `notes/text-command-family-1d-inventory-money.md`,
   `notes/text-command-family-19-data-and-substitution.md`, and
   `notes/jeff-repair-item-name-bridge.md`.
+- 2026-05-06 follow-up: the same `C1:4EAB..575D` corridor now names the
+  remaining caller-frame scratch ABI at the menu/result/display handoffs.
+  Shop selection, buy/sell price, item compatibility, ailment checks,
+  special selector loaders, window-relative selections, give-item-B,
+  remove-by-slot, and numeric/money display now install through named
+  text-context or decimal source pointer aliases instead of raw `$0E/$10`.
+  The `0x1A 05` inventory-menu leaf also distinguishes its preserved window
+  argument from the preserved character argument while leaving descriptor
+  field offsets untouched.
 - 2026-05-06 follow-up: the adjacent `C1:575D..621F` inventory, money, and
   delivery-helper corridor now has no raw helper-call edges. The pass names
   equipped-item reference checks, inventory-slot item reads, compatibility and
@@ -385,6 +402,16 @@ This planning pass is documentation-only.
   `notes/text-command-family-1c-print-display.md`,
   `notes/pending-item-queue-984b.md`, and
   `notes/equipped-item-presence-predicate-c3e9a0.md`.
+- 2026-05-06 follow-up: the same `C1:575D..621F` continuation now carries
+  source-facing names for its caller-frame result ABI. Equipped-item and
+  inventory-usability booleans, deferred item compatibility, Escargo
+  store/withdraw handoffs, character inventory-slot reads, wallet/ATM
+  predicates and mutations, Escargo storage byte reads, loaded-string counts,
+  delivery queue item/owner outputs, equipment-slot classifiers,
+  party-count predicates, and random-number output now stage through named
+  text-context or money-amount pointer aliases rather than raw `$0E/$10`.
+  The Escargo store and status-window display leaves also distinguish their
+  preserved caller argument slots.
 - 2026-05-06 follow-up: the `C1:621F..7440` mixed callback and event-helper
   tail now names its helper-call surface through the `C1:7274..7440` sibling
   module. The pass covers the `1F C0`/`JUMP_MULTI2` target finalizer, Jeff
@@ -399,6 +426,13 @@ This planning pass is documentation-only.
   `notes/text-command-family-1e-stat-recovery.md`,
   `notes/bank-deposit-accumulator-98b9-98bb.md`, and
   `notes/respawn-warp-target-snapshot-helper-c230f3.md`.
+- 2026-05-06 follow-up: the front half of `C1:621F..7274` now also names its
+  local callback-frame and result handoff scratch. The `1F C0`/`JUMP_MULTI2`
+  path distinguishes the packed text pointer printed before table adjustment,
+  the destination table pointer, the destination-count argument, and the
+  scratch copy used while patching the table. The `1F D0` Jeff-repair leaf and
+  `0x19 22..24` direction helpers now install their primary or secondary text
+  results through named text-context source aliases rather than raw `$0E/$10`.
 - 2026-05-06 follow-up: the adjacent `C1:7440..7708` timed-delivery and
   `0x1E 09..0E` experience/stat tail now has no raw helper-call edges. The
   source names the `EF:0EAD` delivery row sprite/placeholder adapter,
@@ -416,6 +450,12 @@ This planning pass is documentation-only.
   status-window display. See `notes/text-command-family-18-windows-and-selection.md`,
   `notes/text-command-family-19-data-and-substitution.md`, and
   `notes/text-command-load-string-pointer-c17796-c17889.md`.
+- 2026-05-06 follow-up: the same `C1:78F7..7AE3` bridge now names the live
+  `0x18` and `0x19` selector ladders directly. The pass covers the window
+  family selectors `00/01/02/03/04/05/06/07/08/09/0A/0D`, the data-return
+  selectors `02/04/05/10/11/14/16/18/19/1A/1B/1C/1D/1E/1F/20..28`, and the
+  callback-frame pointer used when the managed-slot snapshot branch marks the
+  frame active.
 - 2026-05-06 follow-up: the core `C1:86B1..8B2C` nested-text executor and
   callback invoker now names its principal helper-call and callback-root
   surface. The source names the managed-slot initialize/apply helpers,
@@ -443,6 +483,12 @@ This planning pass is documentation-only.
   selected-inventory-slot-to-`$984B` queue transfer before the `C1:8C27`
   removal worker. See `notes/pending-item-queue-984b.md` and
   `notes/item-slot-helper-pair-c3e977-c3ee14.md`.
+- 2026-05-06 follow-up: the nearby Escargo queue/storage helpers now name their
+  local scan and compaction scratch. `C1:90F1` exposes the active requester
+  bytes at `$98AB`, packed storage bytes at `$984B`, remaining capacity, and
+  scan index; `C1:913D/9183` expose the pending-item scan index, capacity,
+  source character, and selected slot; and `C1:91B0` exposes the removed byte,
+  shift byte, next index, and compaction window.
 - 2026-05-06 follow-up: the `C1:9437..9A11` display/status helper bridge and
   `C1:A795..AA5D` per-character equipment loop now name their remaining
   helper-call edges. This closes the raw helper-call surface in those source
@@ -571,6 +617,55 @@ This planning pass is documentation-only.
   table pointer, `$9625/$9627/$9629/$964B` timing state, and final C7
   start-file text pointer. The scaffold was regenerated from source; exact
   byte-equivalence remains pending on the same missing-ROM/asar gates.
+- 2026-05-06 follow-up: the front `0x1A` menu dispatcher in
+  `C1:7B56..7C34` now names its subselector ids, cancellable/uncancellable
+  selection-loop modes, no-follow-up return value, and `$06/$08` menu result
+  staging pair before primary text-context installation. This tightens the
+  menu/text-entry contract without expanding the pass into the later `0x1B`,
+  `0x1C`, `0x1D`, or `0x1F` dispatcher bodies.
+- 2026-05-06 follow-up: the adjacent `0x1B` memory/context dispatcher in
+  `C1:7C36..7D8D` now names its subselector ids, null primary-context branch
+  tests, four-byte jump-target skip, saved parser argument pointer, primary and
+  secondary text-context staging pairs, swap temporaries, and `$97CC..$97D4`
+  scratch context snapshot. This keeps the source aligned with the existing
+  `text-command-family-1b-memory-context` contract while leaving the later
+  `0x1C`, `0x1D`, and `0x1F` bodies for separate fenced passes.
+- 2026-05-06 follow-up: the front `0x1C` print/display dispatcher in
+  `C1:7D94..7F0F` now names its stable subselector ids for `01..0F` and
+  `11..15`, plus the battle user/target selector values, `$06/$08/$09`
+  name-buffer pointer staging, `$0E/$10` text-context handoff, fixed-string
+  preflight length, and no-follow-up return value. This continues the adjacent
+  text-command-family sweep while leaving the later `0x1D` inventory/money
+  ladder for its own pass.
+- 2026-05-06 follow-up: the adjacent `0x1D` inventory/money dispatcher in
+  `C1:7F11..811D` now names the live selector ids for `01..15`, `17..19`, and
+  `20..24`, preserving the `16` and `1C` gaps as non-live cases. The inline
+  `1D 20` and `1D 22` predicate bodies now expose their battle-name-buffer
+  comparison, current map-position lookup, map-class mask, exit-mouse class,
+  boolean scratch/result staging, `$0E/$10` text-context handoff, and
+  no-follow-up return contract.
+- 2026-05-06 follow-up: the adjacent `0x1E` recovery/stat dispatcher in
+  `C1:811F..81BA` now names its live selector ids for `01..0E`, preserves
+  `00` as the zero-branch HP-percent recovery case, and returns the shared
+  no-follow-up value for anything outside the live range. This keeps the
+  parser-side high `0x1E` artifacts outside the runtime dispatcher contract.
+- 2026-05-06 follow-up: the adjacent `0x1F` deferred-callback/event dispatcher
+  in `C1:81BB..866D` now names its wide selector ladder from the low
+  music/sound strip through `11..23`, `30/31`, `40/41`, `50..69`, `71`,
+  `81/83`, `90`, `A0..A2`, `B0`, `C0`, `D0..D3`, `E1`, `E4..F4`, and the
+  shared no-follow-up return. The pass leaves the downstream callback and
+  immediate helper bodies on their existing contracts.
+- 2026-05-06 follow-up: the immediate `0x1F` helper leaves in
+  `C1:8518..85ED` now name their C1-side staging. The pass covers
+  teleport-position snapshot/refresh workmem, the refresh flag loop, landing
+  visual state and sentinel values, phone-contact and Magic Truffle result
+  installation through `$06/$08 -> $0E/$10`, and current-interaction flag
+  set/clear/get staging values.
+- 2026-05-06 follow-up: the late `0x1E` stat-tail callbacks in
+  `C1:744B..7706` now name their local staging. The source exposes the
+  experience amount dword assembly scratch and `$0E/$10` award handoff for
+  `0x1E 09`, plus the one-byte boost payload, byte-add scratch, and queue/apply
+  exits for the IQ, Guts, Speed, Vitality, and Luck leaves.
 - 2026-05-06 follow-up: the fenced `C1:242E..2BF3` character-selection prompt
   core no longer presents mixed payload bytes as raw local `JMP`/`JSR` edges.
   The byte stream is unchanged, but the unaligned generated decode fragments
@@ -582,3 +677,91 @@ This planning pass is documentation-only.
   `$97BA/$97CA`, the one-byte argument limit, and self-return callback low
   words for `0x1D 04`, `0x1D 05`, and adjacent `0x1F 20`, matching the
   already-polished lower queued callback ABI.
+- 2026-05-06 follow-up: the lower `0x1F` callback corridor in
+  `C1:6DE8..7231` now names its packed-payload staging. `1F 63` exposes the
+  movement-record dword before `C0:64E3`, `1F 66` exposes the hotspot selector,
+  target selector, and five-byte payload before `C0:72CF`, and `1F F1/F2`
+  expose their visual-type or pose-descriptor script selector pairs.
+- 2026-05-06 follow-up: the adjacent Escargo/condiment source polish in
+  `C1:6F9F..711A` names the `0x19 25` food-condiment result staging and the
+  `0x1D 0C` Escargo storage-status classifier. The latter now exposes its
+  queued selector, storage-full bit, selected inventory item lookup, item
+  storage flag mask, and final two-bit status result path.
+- 2026-05-06 follow-up: the adjacent `C1:6FD1..7058` strip now names
+  `1F 23` scripted-battle init staging and the `19 26` transition-landing
+  snapshot adapter. The source exposes the queued high-byte selector, zero
+  fallback to direct text argument, signed result staging, and the explicit
+  `C1:7037 -> C2:30F3` handoff label.
+- 2026-05-06 follow-up: the dynamic source selector dispatcher now names its
+  family-frame offsets for `0x1A`, `0x1B`, `0x1C`, `0x1D`, and `0x1F`, and the
+  front `1A/1B` result/context reinstall sites use the shared `$0E/$10`
+  text-context source pointer aliases. This closes the last raw frame-offset
+  and installer-handoff literals in `C1:7B56..866D` without moving any
+  dispatcher boundaries.
+- 2026-05-06 follow-up: the `C1:621F..7274` deferred-callback corridor now
+  names the entity-helper callback leaves behind `1F 13..1F` and `1F E1/E4..EF`
+  at both the callback bodies and the `C1:81BB` dispatcher return table. The
+  pass promotes frame-selector updates, dynamic visual entity setup, attached
+  child spawn/clear leaves, no-op seven-byte absorbers, landing-profile display,
+  C4 entity flag set/clear leaves, registry `8000` mark/clear leaves, and
+  visual/pose mode-slot selectors.
+- 2026-05-06 follow-up: the remaining generic `0x1F` callback returns now use
+  source-facing behavior names. `C1:621F..7274`, `C1:7274..7440`, and the
+  `C1:81BB` dispatcher table name the text sound-mode setter, presentation SFX
+  queue, scripted-battle init, blinking-triangle state setter, movement-record
+  enqueuer, hotspot activate/disable leaves, record-backed visual/pose script
+  runners, and pose-descriptor attached-child spawn/clear leaves.
+- 2026-05-06 follow-up: the top-level text invoker at `C1:87CC..8B2C` now
+  names the central callback ABI and low-strip parser leaves. `$1E`, `$14`,
+  `$12`, `$02`, and `$00C0` are exposed as the active same-bank callback low
+  word, fetched opcode/argument byte, managed text-event slot pointer, RTS
+  low-word scratch, and preserved `A` argument scratch. The same pass names the
+  `0x15..17` compressed-bank pseudo-opcode resolver paths and the `0x11`
+  selection-menu context installer, and the dispatcher's `0x00..1F` compare
+  literals now use `TextOpcode*` aliases. This ties the ordinary parser root
+  back to the deferred callback family without touching C2/C4/EF.
+- 2026-05-06 follow-up: the UI caller-side callback ABI now has source-facing
+  names at its major call sites. `C1:33B0`, `C1:AA5D`, `C1:ADB4`,
+  `C1:B5B6`, `C1:BB71`, `C1:CB7F`, `C1:242E`, `C1:9D49`, `C1:A795`,
+  `C1:ECD1`, and `C1:F616` now stage `$0E/$10` and `$12/$14` through
+  menu-row, prompt-display, prompt-eligibility, or preview-callback aliases
+  before calling `C1:1F5A`, `C1:196A`, or `C1:27EF`. This keeps the shared
+  menu/selection helper contracts readable without splitting the mixed
+  character-prompt core or changing any cross-bank names.
+- 2026-05-06 follow-up: the adjacent menu/display builders at
+  `C1:9441..9B4E` now expose their local source-pointer and scratch-slot ABI.
+  Phone contacts, character status, inventory/equipment rows, the temporary
+  focus selector, and the Escargo storage menu now distinguish title, tile,
+  text-print, decimal, fixed-string, text-entry metadata, queue index, item id,
+  and selection-result handoffs while preserving all existing C1 helper
+  boundaries.
+- 2026-05-07 follow-up: the shop/equipment menu join at `C1:9D49..9EE6` now
+  names its local menu-row and item-row ABI. The status refresh exposes its
+  comparison-marker reset index and E0 tile-block source pointer, while the
+  shop menu builder distinguishes D5 shop-table selection, visible row index,
+  item id, item-row pointer, staged item-name text entry, price-print source,
+  comparison callback, and returned selection result.
+- 2026-05-07 follow-up: the per-character equipment slot loop at
+  `C1:A795..AA18` now uses the same source-facing row vocabulary. The pass
+  names the selected family, inventory scan index, visible-row count, default
+  row, item id, one-based character id, staged item-name text entry,
+  item-selection result, C2 preview callback lane, and wallet decimal-print
+  source without altering the C2/C3/C4 helper boundaries.
+- 2026-05-07 follow-up: the file-select slot-choice source at
+  `C1:ECD1..F07E` now names the save-slot menu caller ABI. The pass covers the
+  corrupt-save notice loop, battle-text substitution source, slot-choice mode,
+  save-slot row and preview indices, packed row metadata, text-entry
+  source/metadata, C4 copy source/destination pairs, level decimal print
+  source, preserved print buffer, and active text-entry pointer for selected
+  slot redraws.
+- 2026-05-07 follow-up: the file-select setup wrappers at `C1:F616..F7F3`
+  now name the sound-setting refresh/result ABI and window-flavour
+  prompt/option text-entry ABI. The source distinguishes refresh mode, active
+  text-entry pointer, redraw source, option text sources, metadata, persisted
+  setting pointer, preview callback, and final selection result while leaving
+  EF save persistence and C4 text assets untouched.
+- 2026-05-07 follow-up: the adjacent new-file naming loop at
+  `C1:F902..FAAE` now names the field-index and advance-step ABI used between
+  the file-select setup menus and the naming-buffer commit helper. The source
+  exposes working/current field slots, retry/advance delta slots, the
+  party-name destination index, and C4 prompt-table pointer/stride staging.

@@ -60,6 +60,13 @@ Follow-up source polish also names the adjacent battle-name display pair. The
 setup, `C1:AC9B/C1:ACF2` attacker/target name-buffer base reads, and the
 `C4:47FB` fixed-string preflight printer by contract names.
 
+The decoded `C1:7D94` dispatcher now carries the front `0x1C` contract
+directly too. Its jump ladder names the stable `0x1C 01..0F` and `0x1C 11..15`
+subselector ids, while the battle-name pair names the user/target side
+selector values, the `$06/$08/$09` staged name-buffer pointer, the `$0E/$10`
+text-context handoff, the fixed-string preflight length, and the no-follow-up
+return value.
+
 Follow-up source polish now covers the front display leaves in
 `src/c1/c1_4eab_handle_text_command10_parameterized_pause.asm` as well. The
 `0x1C 02`, `0x1C 0A`, `0x1C 0B`, and `0x1C 14/15` paths name the character
@@ -78,6 +85,18 @@ Follow-up source polish now names the deferred-byte ABI inside the
 caller byte before falling back to the next text argument when that assembled
 value is zero; their callback low words are now source aliases rather than raw
 `C1:53AF` / `C1:5573` literals.
+
+Follow-up source polish now carries that display contract into the caller-frame
+scratch slots as well. In `C1:4EAB..575D`, `PRINT_NUMBER` and
+`PRINT_MONEY_AMOUNT` hand their assembled or fallback values to the decimal
+printers through named `$0E/$10` decimal-source aliases, while the adjacent
+`0x1C 14/15` special-selector loaders and `0x18 08/09` selection helpers
+install their results through named text-context source aliases.
+
+Follow-up source polish now names the `0x1C 13` battle visual-effect staging
+leaf in `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm`. The
+source exposes the queued visual token, actor selector, blinking-prompt gate,
+`C3:FAC9` dispatch, and signed `$06/$08 -> $0E/$10` result installation.
 
 ## Best current interpretation
 

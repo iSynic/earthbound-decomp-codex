@@ -69,6 +69,11 @@ slot snapshot helper before activating `slot + 4`; and `0x18 01/03/05/07/08/09/0
 return named callback low words for the open-window, switch-window,
 force-alignment, register-compare, window-selection, and status-display leaves.
 
+Source polish follow-up (2026-05-06): that dispatcher front now names the
+selector comparisons themselves too. The live `0x18` window-family ladder is
+source-facing for `00/01/02/03/04/05/06/07/08/09/0A/0D`, and the managed-slot
+branch names the saved callback-frame pointer it later writes at `+4`.
+
 Source polish follow-up (2026-05-06): the `0x18 07` comparison body at
 `C1:528D` now names the queued source bytes and callback return inside the leaf
 itself. The source reads `$97BA..$97BD` as the four assembled comparison bytes,
@@ -81,10 +86,21 @@ return inside the leaf. The body still leaves the submode split cautious, but
 the staged selector and status-window display handoff now use the same source
 vocabulary as the adjacent inventory/money callback leaves.
 
+Source polish follow-up (2026-05-06): the same `0x18 0D` leaf now names its
+preserved caller submode slot as `StatusWindowDisplayModeArgument`. That keeps
+the source clear about the split between the deferred character selector and
+the display-mode argument used to choose the status-rendering branch.
+
 Source polish follow-up (2026-05-06): the adjacent `0x18 05` forced-alignment
 leaf at `C1:4509` now names its one-byte queued argument, queue count,
 self-return callback low word, low-byte mask, and C4 glyph-versus-cursor staging
 helpers in the source unit that also houses `CALL_TEXT`.
+
+Source polish follow-up (2026-05-06): the shared temporary-focus selector at
+`C1:9A11` now names the saved focus/window selector, preserved selection mode,
+and restored selection result around the managed text-event slot snapshot. The
+routine remains a generic UI caller helper; this pass only makes its local ABI
+visible to the `0x18`/`0x1A` selection-family call sites.
 
 ## Best current case map
 

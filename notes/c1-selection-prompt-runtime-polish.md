@@ -68,6 +68,14 @@ the same byte stream, but raw edge scans no longer report false local helper
 contracts for payload/control bytes that land inside unrelated instruction
 streams.
 
+2026-05-06 follow-up: caller-side prompt callback staging now uses explicit
+ABI names. The C1:244C prompt core labels the `$0E/$10` display-callback
+install before `C1:1F5A`, while open-menu, equipment, battle targetting, and
+PSI callers stage their `C1:27EF` display and eligibility callbacks through
+named `$0E/$10` and `$12/$14` pairs. This keeps the shared callback-driven
+party selection helper readable from callers without overpromoting the mixed
+C1:244C body.
+
 Open followups:
 
 - split and polish the C1:244C character-select prompt core once its mixed

@@ -88,43 +88,87 @@ FiveWord                         = $0005
 SixWord                          = $0006
 TenWord                          = $000A
 
+FourByteCallbackFrameOffset                  = $FFEC
+ThreeByteCallbackFrameOffset                 = $FFEE
+FiveByteCallbackFrameOffset                  = $FFEB
+TwoByteCallbackFrameOffset                   = $FFF0
+SingleWordArgumentFrameOffset                = $FFF2
+PackedDwordCurrentByte                       = $12
+PackedDwordLo                                = $06
+PackedDwordHi                                = $08
+PackedDwordScratchByte1                      = $07
+PackedDwordScratchByte3                      = $09
+PackedDwordPartLo                            = $0A
+PackedDwordPartHi                            = $0C
+PackedDwordResultLo                          = $0E
+PackedDwordResultHi                          = $10
+TextPrintSourcePointerLo                     = $0E
+TextPrintSourcePointerBank                   = $10
+JumpMulti2DestinationTablePointer            = $0E
+JumpMulti2DestinationCountArgument           = $10
+JumpMulti2DestinationTablePointerScratch     = $10
+EntityScriptSelectorHighByte                 = $10
+EntityScriptSelectorWordScratch              = $02
+EntityScriptVisualOrPoseSelector             = $0E
+HotspotActivationSelector                    = $00
+HotspotActivationTargetSelector              = $12
+HotspotActivationCurrentPayloadByte          = $13
+TextCommandResultLo                          = $06
+TextCommandResultHi                          = $08
+TextContextSourcePointerLo                   = $0E
+TextContextSourcePointerHi                   = $10
+EscargoStatusFrameOffset                     = $FFEA
+EscargoStorageModeSelector                   = $14
+EscargoStorageFullStatusBit                  = $14
+EscargoCharacterSelector                     = $02
+EscargoInventorySlotOffset                   = $02
+EscargoStatusBitScratch                      = $02
+EscargoInventorySlotSelector                 = $12
+InventoryItemListBase                        = $99F1
+InventorySlotItemRecordStride                = $0027
+ItemTableStorageFlagsOffset                  = $001C
+ItemCannotBeStoredMask                       = $0040
+StorageFullResultBit                         = $0002
+ScriptedBattleSelectorHighByte               = $12
+ScriptedBattleSelectorWordScratch            = $02
+
 TextCommand1FC0JumpMulti2FinalizerCallback    = $621F
 TextCommand1FC0JumpMulti2Callback             = $6308
 TextCommand1FD0JeffRepairBrokenItemCallback   = $63A7
-TextCommand1F13Callback                       = $63FD
-TextCommand1F16Callback                       = $6490
-TextCommand1F17Callback                       = $6509
-TextCommand1F18Callback                       = $6582
-TextCommand1F19Callback                       = $65AA
-TextCommand1F1ACallback                       = $65D2
-TextCommand1F1BCallback                       = $662A
-TextCommand1F1CCallback                       = $666D
-TextCommand1FE1Callback                       = $66FE
-TextCommand1F15Callback                       = $6744
-TextCommand1F1ECallback                       = $67D6
-TextCommand1F1FCallback                       = $683B
+TextCommand1F13UpdateRegistryFrameSelectorCallback                       = $63FD
+TextCommand1F16UpdateVisualFrameSelectorCallback                       = $6490
+TextCommand1F17InitVisualEntityAndAppendRecordCallback                       = $6509
+TextCommand1F18NoOpSevenArgBytesCallback                       = $6582
+TextCommand1F19NoOpSevenArgBytesAltCallback                       = $65AA
+TextCommand1F1ASpawnVisualAttachedChildCallback                       = $65D2
+TextCommand1F1BClearVisualAttachedChildCallback                       = $662A
+TextCommand1F1CSpawnRegistryAttachedChildCallback                       = $666D
+TextCommand1FE1RunLandingProfileDisplayCallback                       = $66FE
+TextCommand1F15InitForcedVisualEntityOrDrainCallback                       = $6744
+TextCommand1F1ERunVisualScriptWithCachedPoseCallback                       = $67D6
+TextCommand1F1FRunPoseScriptWithCachedPoseCallback                       = $683B
 TextCommand1922FacingDirectionCallback        = $68A0
 TextCommand1923FacingDirectionCallback        = $6947
-TextCommand1F62Callback                       = $69F7
+TextCommand1F62SetBlinkingTriangleStateCallback = $69F7
 TextCommand1E08SetCharacterLevelCallback      = $6A01
 TextCommand1924FacingDirectionCallback        = $6A7B
-TextCommand1FE4Callback                       = $6B2B
-TextCommand1FE6Callback                       = $6BAF
-TextCommand1FE7Callback                       = $6BF2
-TextCommand1FE9Callback                       = $6C40
-TextCommand1FEACallback                       = $6C83
-TextCommand1FEBCallback                       = $6CC6
-TextCommand1FECCallback                       = $6D14
-TextCommand1FEECallback                       = $6D62
-TextCommand1FEFCallback                       = $6DA5
-TextCommand1F63Callback                       = $6DE8
-TextCommand1FF1Callback                       = $6EBF
-TextCommand1FF2Callback                       = $6F2F
-TextCommand1F23Callback                       = $6FD1
+TextCommand1FE4UpdatePoseFrameSelectorCallback                       = $6B2B
+TextCommand1FE6SetVisualSlotFlagsC000Callback                       = $6BAF
+TextCommand1FE7SetPoseSlotFlagsC000Callback                       = $6BF2
+TextCommand1FE9ClearVisualSlotFlagsC000Callback                       = $6C40
+TextCommand1FEAClearPoseSlotFlagsC000Callback                       = $6C83
+TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback                       = $6CC6
+TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback                       = $6D14
+TextCommand1FEESelectModeSlotByVisualCallback                       = $6D62
+TextCommand1FEFSelectModeSlotByPoseCallback                       = $6DA5
+TextCommand1F63EnqueueMovementRecordCallback = $6DE8
+TextCommand1FF1RunVisualScriptFromRecordCallback = $6EBF
+TextCommand1FF2RunPoseScriptFromRecordCallback = $6F2F
+TextCommand1F23InitScriptedBattleCallback    = $6FD1
 TextCommand1D0CCheckEscargoStorageStatusCallback = $7058
-TextCommand1F66Callback                       = $711C
-TextCommand1F67Callback                       = $7233
-TextCommand1F04Callback                       = $7254
+TextCommand1F66ActivateHotspotCallback       = $711C
+TextCommand1F67DisableHotspotCallback        = $7233
+TextCommand1F04SetTextSoundModeCallback      = $7254
 
 ; ---------------------------------------------------------------------------
 ; C1:621F
@@ -134,7 +178,7 @@ C1621F_FinalizeTextCommand1FC0JumpMulti2Target:
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #FourByteCallbackFrameOffset
     tcd
     pla
     sta $12
@@ -226,9 +270,9 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     ora $0C
     sta $08
     lda $06
-    sta $0E
+    sta TextPrintSourcePointerLo
     lda $08
-    sta $10
+    sta TextPrintSourcePointerBank
     jsl C186B1_PrintTextFromPointer
     lda $12
     tay
@@ -255,12 +299,12 @@ C16308_HandleTextCommand1FC0JumpMulti2 = CC_1F_C0
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #ThreeByteCallbackFrameOffset
     tcd
     pla
-    stx $10
+    stx JumpMulti2DestinationCountArgument
     tay
-    sty $0E
+    sty JumpMulti2DestinationTablePointer
     jsr C1040A_LoadPrimaryInteractionContextPointer
     lda.w #ZeroWord
     sta $0A
@@ -274,7 +318,7 @@ C16308_HandleTextCommand1FC0JumpMulti2 = CC_1F_C0
 C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     beq C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384
     jsr C1040A_LoadPrimaryInteractionContextPointer
-    ldx $10
+    ldx JumpMulti2DestinationCountArgument
     txa
     sta $0A
     stz $0C
@@ -287,20 +331,20 @@ C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     jsr C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     sta $02
-    ldx $10
+    ldx JumpMulti2DestinationCountArgument
     txa
     sec
     sbc $02
     sta RemainingJumpMulti2DestinationCount
-    ldy $0E
-    sty $10
+    ldy JumpMulti2DestinationTablePointer
+    sty JumpMulti2DestinationTablePointerScratch
     jsr C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     dec A
     asl A
     asl A
     pha
-    ldy $10
+    ldy JumpMulti2DestinationTablePointerScratch
     lda $0000,Y
     sta $06
     lda $0002,Y
@@ -316,12 +360,12 @@ C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     lda.w #TextCommand1FC0JumpMulti2FinalizerCallback
     bra C163A5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63A5
 C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384:
-    ldy $0E
+    ldy JumpMulti2DestinationTablePointer
     lda $0000,Y
     sta $06
     lda $0002,Y
     sta $08
-    ldx $10
+    ldx JumpMulti2DestinationCountArgument
     txa
     asl A
     asl A
@@ -341,7 +385,7 @@ C163A7_RunJeffRepairBrokenItemCallback = CC_1F_D0
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #FourByteCallbackFrameOffset
     tcd
     pla
     cpx.w #ZeroWord
@@ -368,29 +412,29 @@ C163D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63D1:
     sta $08
 C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB:
     lda $06
-    sta $0E
+    sta TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta TextContextSourcePointerHi
     jsr C1045D_InstallPrimaryInteractionContextPointer
     ldx $12
     txa
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta TextContextSourcePointerHi
     jsr C10489_InstallSecondaryInteractionContextPointer
     lda.w #ZeroWord
     pld
     rts
 CC_1F_13:
-C163FD_HandleTextCommand1F13 = CC_1F_13
+C163FD_UpdateRegistryFrameSelectorTextCommand = CC_1F_13
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -410,7 +454,7 @@ C16419_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6419:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F13Callback
+    lda.w #TextCommand1F13UpdateRegistryFrameSelectorCallback
     bra C1646C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L646C
 C1642D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L642D:
     lda DeferredCommandByteQueue
@@ -449,12 +493,12 @@ C1646C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L646C:
     pld
     rts
 CC_1F_14:
-C1646E_HandleTextCommand1F14 = CC_1F_14
+C1646E_BroadcastRegistryFrameSelectorTextCommand = CC_1F_14
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #SingleWordArgumentFrameOffset
     tcd
     pla
     txa
@@ -472,12 +516,12 @@ C16484_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6484:
     pld
     rts
 CC_1F_16:
-C16490_HandleTextCommand1F16 = CC_1F_16
+C16490_UpdateVisualFrameSelectorTextCommand = CC_1F_16
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -496,7 +540,7 @@ C164AB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64AB:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F16Callback
+    lda.w #TextCommand1F16UpdateVisualFrameSelectorCallback
     bra C16507_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6507
 C164BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L64BE:
     sep #$20
@@ -540,12 +584,12 @@ C16507_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6507:
     pld
     rts
 CC_1F_17:
-C16509_HandleTextCommand1F17 = CC_1F_17
+C16509_InitVisualEntityAndAppendRecordTextCommand = CC_1F_17
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #ThreeByteCallbackFrameOffset
     tcd
     pla
     txy
@@ -565,7 +609,7 @@ C16525_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6525:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F17Callback
+    lda.w #TextCommand1F17InitVisualEntityAndAppendRecordCallback
     bra C16580_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6580
 C16538_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6538:
     sep #$10
@@ -601,7 +645,7 @@ C16580_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6580:
     pld
     rts
 CC_1F_18:
-C16582_HandleTextCommand1F18 = CC_1F_18
+C16582_NoOpSevenArgBytesTextCommand = CC_1F_18
     rep #$31
     lda.w #SixWord
     clc
@@ -618,14 +662,14 @@ C16593_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6593:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F18Callback
+    lda.w #TextCommand1F18NoOpSevenArgBytesCallback
     bra C165A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A9
 C165A6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A6:
     lda.w #ZeroWord
 C165A9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65A9:
     rts
 CC_1F_19:
-C165AA_HandleTextCommand1F19 = CC_1F_19
+C165AA_NoOpSevenArgBytesAltTextCommand = CC_1F_19
     rep #$31
     lda.w #SixWord
     clc
@@ -642,19 +686,19 @@ C165BB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65BB:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F19Callback
+    lda.w #TextCommand1F19NoOpSevenArgBytesAltCallback
     bra C165D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65D1
 C165CE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65CE:
     lda.w #ZeroWord
 C165D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65D1:
     rts
 CC_1F_1A:
-C165D2_HandleTextCommand1F1A = CC_1F_1A
+C165D2_SpawnVisualAttachedChildTextCommand = CC_1F_1A
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     stx $0E
@@ -673,7 +717,7 @@ C165ED_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L65ED:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F1ACallback
+    lda.w #TextCommand1F1ASpawnVisualAttachedChildCallback
     bra C16628_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6628
 C16600_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6600:
     sep #$20
@@ -696,12 +740,12 @@ C16628_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6628:
     pld
     rts
 CC_1F_1B:
-C1662A_HandleTextCommand1F1B = CC_1F_1B
+C1662A_ClearVisualAttachedChildTextCommand = CC_1F_1B
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -714,7 +758,7 @@ C1662A_HandleTextCommand1F1B = CC_1F_1B
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F1BCallback
+    lda.w #TextCommand1F1BClearVisualAttachedChildCallback
     bra C1666B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L666B
 C16650_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6650:
     sep #$10
@@ -731,12 +775,12 @@ C1666B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L666B:
     pld
     rts
 CC_1F_1C:
-C1666D_HandleTextCommand1F1C = CC_1F_1C
+C1666D_SpawnRegistryAttachedChildTextCommand = CC_1F_1C
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -756,7 +800,7 @@ C16689_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6689:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F1CCallback
+    lda.w #TextCommand1F1CSpawnRegistryAttachedChildCallback
     bra C166DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66DB
 C1669D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L669D:
     lda DeferredCommandByteQueue
@@ -794,12 +838,12 @@ C166DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66DB:
     pld
     rts
 CC_1F_1D:
-C166DD_HandleTextCommand1F1D = CC_1F_1D
+C166DD_ClearRegistryAttachedChildTextCommand = CC_1F_1D
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #SingleWordArgumentFrameOffset
     tcd
     pla
     txa
@@ -816,12 +860,12 @@ C166F3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L66F3:
     pld
     rts
 CC_1F_E1:
-C166FE_HandleTextCommand1FE1 = CC_1F_E1
+C166FE_RunLandingProfileDisplayTextCommand = CC_1F_E1
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     lda.w #TwoWord
@@ -839,7 +883,7 @@ C16717_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6717:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FE1Callback
+    lda.w #TextCommand1FE1RunLandingProfileDisplayCallback
     bra C16742_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6742
 C1672A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L672A:
     sep #$20
@@ -856,12 +900,12 @@ C16742_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6742:
     pld
     rts
 CC_1F_15:
-C16744_HandleTextCommand1F15 = CC_1F_15
+C16744_InitForcedVisualEntityOrDrainTextCommand = CC_1F_15
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $02
@@ -880,7 +924,7 @@ C1675F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L675F:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F15Callback
+    lda.w #TextCommand1F15InitForcedVisualEntityOrDrainCallback
     bra C167D4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D4
 C16773_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6773:
     sep #$10
@@ -930,12 +974,12 @@ C167D4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67D4:
     pld
     rts
 CC_1F_1E:
-C167D6_HandleTextCommand1F1E = CC_1F_1E
+C167D6_RunVisualScriptWithCachedPoseTextCommand = CC_1F_1E
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     stx $02
@@ -954,7 +998,7 @@ C167F1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L67F1:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F1ECallback
+    lda.w #TextCommand1F1ERunVisualScriptWithCachedPoseCallback
     bra C16839_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6839
 C16805_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6805:
     sep #$10
@@ -982,12 +1026,12 @@ C16839_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6839:
     pld
     rts
 CC_1F_1F:
-C1683B_HandleTextCommand1F1F = CC_1F_1F
+C1683B_RunPoseScriptWithCachedPoseTextCommand = CC_1F_1F
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     stx $02
@@ -1006,7 +1050,7 @@ C16856_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6856:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F1FCallback
+    lda.w #TextCommand1F1FRunPoseScriptWithCachedPoseCallback
     bra C1689E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L689E
 C1686A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L686A:
     sep #$10
@@ -1039,7 +1083,7 @@ C168A0_ResolveFacingDirectionCommand22 = CC_19_22
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #FourByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -1114,9 +1158,9 @@ C1691D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691D:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta TextContextSourcePointerHi
     jsr C10489_InstallSecondaryInteractionContextPointer
     lda.w #ZeroWord
 C16945_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6945:
@@ -1128,7 +1172,7 @@ C16947_ResolveFacingDirectionCommand23 = CC_19_23
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #FourByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -1207,16 +1251,16 @@ C169D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69D0:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta TextContextSourcePointerHi
     jsr C10489_InstallSecondaryInteractionContextPointer
     lda.w #ZeroWord
 C169F5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69F5:
     pld
     rts
 CC_1F_62:
-C169F7_HandleTextCommand1F62 = CC_1F_62
+C169F7_SetBlinkingTriangleStateTextCommand = CC_1F_62
     rep #$31
     txa
     jsr C10036_SetBlinkingTriangleState
@@ -1228,7 +1272,7 @@ C16A01_SetCharacterLevelTextCommand = CC_1E_08
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #SingleWordArgumentFrameOffset
     tcd
     pla
     lda.w #OneWord
@@ -1298,7 +1342,7 @@ C16A7B_ResolveFacingDirectionCommand24 = CC_19_24
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #FourByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -1377,21 +1421,21 @@ C16B04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B04:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta TextContextSourcePointerHi
     jsr C10489_InstallSecondaryInteractionContextPointer
     lda.w #ZeroWord
 C16B29_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B29:
     pld
     rts
 CC_1F_E4:
-C16B2B_HandleTextCommand1FE4 = CC_1F_E4
+C16B2B_UpdatePoseFrameSelectorTextCommand = CC_1F_E4
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -1410,7 +1454,7 @@ C16B46_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B46:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FE4Callback
+    lda.w #TextCommand1FE4UpdatePoseFrameSelectorCallback
     bra C16BA2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BA2
 C16B59_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B59:
     sep #$20
@@ -1454,19 +1498,19 @@ C16BA2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BA2:
     pld
     rts
 CC_1F_E5:
-C16BA4_HandleTextCommand1FE5 = CC_1F_E5
+C16BA4_SetRegistrySlotFlagsC000TextCommand = CC_1F_E5
     rep #$31
     txa
     jsl C46594_SetRegistrySlotFlagsC000
     lda.w #ZeroWord
     rts
 CC_1F_E6:
-C16BAF_HandleTextCommand1FE6 = CC_1F_E6
+C16BAF_SetVisualSlotFlagsC000TextCommand = CC_1F_E6
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -1479,7 +1523,7 @@ C16BAF_HandleTextCommand1FE6 = CC_1F_E6
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FE6Callback
+    lda.w #TextCommand1FE6SetVisualSlotFlagsC000Callback
     bra C16BF0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BF0
 C16BD5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BD5:
     sep #$10
@@ -1496,12 +1540,12 @@ C16BF0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6BF0:
     pld
     rts
 CC_1F_E7:
-C16BF2_HandleTextCommand1FE7 = CC_1F_E7
+C16BF2_SetPoseSlotFlagsC000TextCommand = CC_1F_E7
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -1514,7 +1558,7 @@ C16BF2_HandleTextCommand1FE7 = CC_1F_E7
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FE7Callback
+    lda.w #TextCommand1FE7SetPoseSlotFlagsC000Callback
     bra C16C33_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C33
 C16C18_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C18:
     sep #$10
@@ -1531,19 +1575,19 @@ C16C33_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C33:
     pld
     rts
 CC_1F_E8:
-C16C35_HandleTextCommand1FE8 = CC_1F_E8
+C16C35_ClearRegistrySlotFlagsC000TextCommand = CC_1F_E8
     rep #$31
     txa
     jsl C46631_ClearRegistrySlotFlagsC000
     lda.w #ZeroWord
     rts
 CC_1F_E9:
-C16C40_HandleTextCommand1FE9 = CC_1F_E9
+C16C40_ClearVisualSlotFlagsC000TextCommand = CC_1F_E9
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -1556,7 +1600,7 @@ C16C40_HandleTextCommand1FE9 = CC_1F_E9
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FE9Callback
+    lda.w #TextCommand1FE9ClearVisualSlotFlagsC000Callback
     bra C16C81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C81
 C16C66_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C66:
     sep #$10
@@ -1573,12 +1617,12 @@ C16C81_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6C81:
     pld
     rts
 CC_1F_EA:
-C16C83_HandleTextCommand1FEA = CC_1F_EA
+C16C83_ClearPoseSlotFlagsC000TextCommand = CC_1F_EA
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -1591,7 +1635,7 @@ C16C83_HandleTextCommand1FEA = CC_1F_EA
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FEACallback
+    lda.w #TextCommand1FEAClearPoseSlotFlagsC000Callback
     bra C16CC4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CC4
 C16CA9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CA9:
     sep #$10
@@ -1608,12 +1652,12 @@ C16CC4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CC4:
     pld
     rts
 CC_1F_EB:
-C16CC6_HandleTextCommand1FEB = CC_1F_EB
+C16CC6_MarkRegistryFlag8000AndAppendRecordTextCommand = CC_1F_EB
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -1632,7 +1676,7 @@ C16CE1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CE1:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FEBCallback
+    lda.w #TextCommand1FEBMarkRegistryFlag8000AndAppendRecordCallback
     bra C16D12_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D12
 C16CF4_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6CF4:
     lda DeferredCommandByteQueue
@@ -1651,12 +1695,12 @@ C16D12_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D12:
     pld
     rts
 CC_1F_EC:
-C16D14_HandleTextCommand1FEC = CC_1F_EC
+C16D14_ClearRegistryFlag8000AndAppendRecordTextCommand = CC_1F_EC
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #ThreeByteCallbackFrameOffset
     tcd
     pla
     stx $10
@@ -1675,7 +1719,7 @@ C16D2F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D2F:
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FECCallback
+    lda.w #TextCommand1FECClearRegistryFlag8000AndAppendRecordCallback
     bra C16D60_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D60
 C16D42_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D42:
     lda DeferredCommandByteQueue
@@ -1694,12 +1738,12 @@ C16D60_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D60:
     pld
     rts
 CC_1F_EE:
-C16D62_HandleTextCommand1FEE = CC_1F_EE
+C16D62_SelectModeSlotByVisualTextCommand = CC_1F_EE
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -1712,7 +1756,7 @@ C16D62_HandleTextCommand1FEE = CC_1F_EE
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FEECallback
+    lda.w #TextCommand1FEESelectModeSlotByVisualCallback
     bra C16DA3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DA3
 C16D88_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6D88:
     sep #$10
@@ -1729,12 +1773,12 @@ C16DA3_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DA3:
     pld
     rts
 CC_1F_EF:
-C16DA5_HandleTextCommand1FEF = CC_1F_EF
+C16DA5_SelectModeSlotByPoseTextCommand = CC_1F_EF
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF0
+    adc.w #TwoByteCallbackFrameOffset
     tcd
     pla
     txa
@@ -1747,7 +1791,7 @@ C16DA5_HandleTextCommand1FEF = CC_1F_EF
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FEFCallback
+    lda.w #TextCommand1FEFSelectModeSlotByPoseCallback
     bra C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6
 C16DCB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DCB:
     sep #$10
@@ -1764,229 +1808,229 @@ C16DE6_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6DE6:
     pld
     rts
 CC_1F_63:
-C16DE8_HandleTextCommand1F63 = CC_1F_63
+C16DE8_EnqueueMovementRecordTextCommand = CC_1F_63
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #FourByteCallbackFrameOffset
     tcd
     pla
     txa
-    sta $12
+    sta PackedDwordCurrentByte
     lda.w #ThreeWord
     clc
     sbc DeferredCommandQueueCount
-    bvc C16E02_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E02
-    bpl C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19
-    bra C16E04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E04
-C16E02_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E02:
-    bmi C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19
-C16E04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E04:
-    lda $12
+    bvc C16E02_CheckMovementRecordArgumentLimitSign
+    bpl C16E19_ApplyQueuedMovementRecord
+    bra C16E04_QueueMovementRecordArgumentByte
+C16E02_CheckMovementRecordArgumentLimitSign:
+    bmi C16E19_ApplyQueuedMovementRecord
+C16E04_QueueMovementRecordArgumentByte:
+    lda PackedDwordCurrentByte
     sep #$20
     ldx DeferredCommandQueueCount
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F63Callback
-    jmp.w C16EBD_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EBD
-C16E19_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6E19:
+    lda.w #TextCommand1F63EnqueueMovementRecordCallback
+    jmp.w C16EBD_ReturnFromMovementRecordTextCommand
+C16E19_ApplyQueuedMovementRecord:
     sep #$10
-    ldy.b #$18
-    lda $12
-    sta $06
-    stz $08
+    ldy.b #TwentyFourBitShift
+    lda PackedDwordCurrentByte
+    sta PackedDwordLo
+    stz PackedDwordHi
     jsl C09246_ShiftLeft32ByY
-    lda $08
+    lda PackedDwordHi
     pha
-    lda $06
+    lda PackedDwordLo
     pha
-    ldy.b #$10
+    ldy.b #SixteenBitShift
     sep #$20
     lda DeferredCommandByte2
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta PackedDwordLo
+    stz PackedDwordScratchByte1
+    stz PackedDwordHi
+    stz PackedDwordScratchByte3
     rep #$20
     jsl C09246_ShiftLeft32ByY
-    lda $08
+    lda PackedDwordHi
     pha
-    lda $06
+    lda PackedDwordLo
     pha
-    ldy.b #$08
+    ldy.b #EightBitShift
     sep #$20
     lda DeferredCommandByte1
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta PackedDwordLo
+    stz PackedDwordScratchByte1
+    stz PackedDwordHi
+    stz PackedDwordScratchByte3
     rep #$20
     jsl C09246_ShiftLeft32ByY
-    lda $06
-    sta $0A
-    lda $08
-    sta $0C
+    lda PackedDwordLo
+    sta PackedDwordPartLo
+    lda PackedDwordHi
+    sta PackedDwordPartHi
     sep #$20
     lda DeferredCommandByteQueue
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta PackedDwordLo
+    stz PackedDwordScratchByte1
+    stz PackedDwordHi
+    stz PackedDwordScratchByte3
     rep #$20
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    lda PackedDwordLo
+    ora PackedDwordPartLo
+    sta PackedDwordLo
+    lda PackedDwordHi
+    ora PackedDwordPartHi
+    sta PackedDwordHi
     pla
-    sta $0A
+    sta PackedDwordPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta PackedDwordPartHi
+    lda PackedDwordLo
+    ora PackedDwordPartLo
+    sta PackedDwordLo
+    lda PackedDwordHi
+    ora PackedDwordPartHi
+    sta PackedDwordHi
     pla
-    sta $0A
+    sta PackedDwordPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta PackedDwordPartHi
+    lda PackedDwordLo
+    ora PackedDwordPartLo
+    sta PackedDwordLo
+    lda PackedDwordHi
+    ora PackedDwordPartHi
+    sta PackedDwordHi
     lda.w #LowByteMask
     jsl C46594_SetRegistrySlotFlagsC000
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    lda PackedDwordLo
+    sta PackedDwordResultLo
+    lda PackedDwordHi
+    sta PackedDwordResultHi
     lda.w #TenWord
     jsl C064E3_EnqueueMovementRecord
     lda.w #ZeroWord
-C16EBD_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EBD:
+C16EBD_ReturnFromMovementRecordTextCommand:
     pld
     rts
 CC_1F_F1:
-C16EBF_HandleTextCommand1FF1 = CC_1F_F1
+C16EBF_RunVisualScriptFromRecordTextCommand = CC_1F_F1
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #ThreeByteCallbackFrameOffset
     tcd
     pla
     txa
-    sta $10
+    sta EntityScriptSelectorHighByte
     lda.w #ThreeWord
     clc
     sbc DeferredCommandQueueCount
-    bvc C16ED9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6ED9
-    bpl C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF
-    bra C16EDB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EDB
-C16ED9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6ED9:
-    bmi C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF
-C16EDB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EDB:
-    lda $10
+    bvc C16ED9_CheckVisualScriptArgumentLimitSign
+    bpl C16EEF_RunQueuedVisualTypeEntityScript
+    bra C16EDB_QueueVisualScriptArgumentByte
+C16ED9_CheckVisualScriptArgumentLimitSign:
+    bmi C16EEF_RunQueuedVisualTypeEntityScript
+C16EDB_QueueVisualScriptArgumentByte:
+    lda EntityScriptSelectorHighByte
     sep #$20
     ldx DeferredCommandQueueCount
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FF1Callback
-    bra C16F2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F2D
-C16EEF_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6EEF:
+    lda.w #TextCommand1FF1RunVisualScriptFromRecordCallback
+    bra C16F2D_ReturnFromVisualScriptTextCommand
+C16EEF_RunQueuedVisualTypeEntityScript:
     sep #$10
-    ldy.b #$08
+    ldy.b #EightBitShift
     lda DeferredCommandByte1
     and.w #LowByteMask
     jsl C0923E_ShiftWordLeftByY
-    sta $02
+    sta EntityScriptSelectorWordScratch
     lda DeferredCommandByteQueue
     and.w #LowByteMask
-    ora $02
+    ora EntityScriptSelectorWordScratch
     rep #$10
     tay
-    sty $0E
+    sty EntityScriptVisualOrPoseSelector
     sep #$10
-    ldy.b #$08
-    lda $10
+    ldy.b #EightBitShift
+    lda EntityScriptSelectorHighByte
     jsl C0923E_ShiftWordLeftByY
-    sta $02
+    sta EntityScriptSelectorWordScratch
     lda DeferredCommandByte2
     and.w #LowByteMask
-    ora $02
+    ora EntityScriptSelectorWordScratch
     rep #$10
     tax
-    ldy $0E
+    ldy EntityScriptVisualOrPoseSelector
     tya
     jsl C4617C_RunVisualTypeEntityScriptFromRecordC4c4d4
     lda.w #ZeroWord
-C16F2D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F2D:
+C16F2D_ReturnFromVisualScriptTextCommand:
     pld
     rts
 CC_1F_F2:
-C16F2F_HandleTextCommand1FF2 = CC_1F_F2
+C16F2F_RunPoseScriptFromRecordTextCommand = CC_1F_F2
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #ThreeByteCallbackFrameOffset
     tcd
     pla
     txa
-    sta $10
+    sta EntityScriptSelectorHighByte
     lda.w #ThreeWord
     clc
     sbc DeferredCommandQueueCount
-    bvc C16F49_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F49
-    bpl C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F
-    bra C16F4B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F4B
-C16F49_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F49:
-    bmi C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F
-C16F4B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F4B:
-    lda $10
+    bvc C16F49_CheckPoseScriptArgumentLimitSign
+    bpl C16F5F_RunQueuedPoseDescriptorEntityScript
+    bra C16F4B_QueuePoseScriptArgumentByte
+C16F49_CheckPoseScriptArgumentLimitSign:
+    bmi C16F5F_RunQueuedPoseDescriptorEntityScript
+C16F4B_QueuePoseScriptArgumentByte:
+    lda EntityScriptSelectorHighByte
     sep #$20
     ldx DeferredCommandQueueCount
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1FF2Callback
-    bra C16F9D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F9D
-C16F5F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F5F:
+    lda.w #TextCommand1FF2RunPoseScriptFromRecordCallback
+    bra C16F9D_ReturnFromPoseScriptTextCommand
+C16F5F_RunQueuedPoseDescriptorEntityScript:
     sep #$10
-    ldy.b #$08
+    ldy.b #EightBitShift
     lda DeferredCommandByte1
     and.w #LowByteMask
     jsl C0923E_ShiftWordLeftByY
-    sta $02
+    sta EntityScriptSelectorWordScratch
     lda DeferredCommandByteQueue
     and.w #LowByteMask
-    ora $02
+    ora EntityScriptSelectorWordScratch
     rep #$10
     tay
-    sty $0E
+    sty EntityScriptVisualOrPoseSelector
     sep #$10
-    ldy.b #$08
-    lda $10
+    ldy.b #EightBitShift
+    lda EntityScriptSelectorHighByte
     jsl C0923E_ShiftWordLeftByY
-    sta $02
+    sta EntityScriptSelectorWordScratch
     lda DeferredCommandByte2
     and.w #LowByteMask
-    ora $02
+    ora EntityScriptSelectorWordScratch
     rep #$10
     tax
-    ldy $0E
+    ldy EntityScriptVisualOrPoseSelector
     tya
     jsl C461CC_RunPoseDescriptorEntityScriptFromRecordC4c4d4
     lda.w #ZeroWord
-C16F9D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6F9D:
+C16F9D_ReturnFromPoseScriptTextCommand:
     pld
     rts
 CC_19_25:
@@ -1995,100 +2039,102 @@ C16F9F_ClassifyCondimentItemTextCommand = CC_19_25
     phd
     pha
     tdc
-    adc.w #$FFEE
+    adc.w #ThreeByteCallbackFrameOffset
     tcd
     pla
     txa
-    beq C16FB2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB2
-    sta $06
-    stz $08
-    bra C16FB5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB5
-C16FB2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB2:
+    beq C16FB2_ReadCondimentFoodItemArgument
+    sta TextCommandResultLo
+    stz TextCommandResultHi
+    bra C16FB5_FindCondimentForResolvedFoodItem
+C16FB2_ReadCondimentFoodItemArgument:
     jsr C103DC_ReadTextCommandArgumentWord
-C16FB5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FB5:
+C16FB5_FindCondimentForResolvedFoodItem:
     sep #$20
-    lda $06
+    lda TextCommandResultLo
     jsl C1DB33_FindCondimentForFoodItem
-    sta $06
-    stz $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta TextCommandResultLo
+    stz TextCommandResultHi
+    lda TextCommandResultLo
+    sta TextContextSourcePointerLo
+    lda TextCommandResultHi
+    sta TextContextSourcePointerHi
     jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #ZeroWord
     pld
     rts
 CC_1F_23:
-C16FD1_HandleTextCommand1F23 = CC_1F_23
+C16FD1_InitScriptedBattleTextCommand = CC_1F_23
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEC
+    adc.w #FourByteCallbackFrameOffset
     tcd
     pla
     txa
-    sta $12
+    sta ScriptedBattleSelectorHighByte
     lda DeferredCommandQueueCount
-    bne C16FF7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FF7
-    lda $12
+    bne C16FF7_ApplyQueuedScriptedBattleInit
+    lda ScriptedBattleSelectorHighByte
     sep #$20
     ldx DeferredCommandQueueCount
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F23Callback
-    bra C17035_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7035
-C16FF7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6FF7:
+    lda.w #TextCommand1F23InitScriptedBattleCallback
+    bra C17035_ReturnFromScriptedBattleInitTextCommand
+C16FF7_ApplyQueuedScriptedBattleInit:
     sep #$10
-    ldy.b #$08
-    lda $12
+    ldy.b #EightBitShift
+    lda ScriptedBattleSelectorHighByte
     jsl C0923E_ShiftWordLeftByY
-    sta $02
+    sta ScriptedBattleSelectorWordScratch
     lda DeferredCommandByteQueue
     and.w #LowByteMask
-    ora $02
-    beq C17013_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7013
-    sta $06
-    stz $08
-    bra C17016_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7016
-C17013_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7013:
+    ora ScriptedBattleSelectorWordScratch
+    beq C17013_ReadScriptedBattleArgumentWord
+    sta TextCommandResultLo
+    stz TextCommandResultHi
+    bra C17016_InitResolvedScriptedBattle
+C17013_ReadScriptedBattleArgumentWord:
     jsr C103DC_ReadTextCommandArgumentWord
-C17016_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7016:
-    lda $06
+C17016_InitResolvedScriptedBattle:
+    lda TextCommandResultLo
     jsl C22F38_InitBattleScripted
     cmp.w #ZeroWord
-    sta $06
-    stz $08
-    bpl C17027_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7027
-    dec $08
-C17027_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7027:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+    sta TextCommandResultLo
+    stz TextCommandResultHi
+    bpl C17027_InstallScriptedBattleInitResult
+    dec TextCommandResultHi
+C17027_InstallScriptedBattleInitResult:
+    lda TextCommandResultLo
+    sta TextContextSourcePointerLo
+    lda TextCommandResultHi
+    sta TextContextSourcePointerHi
     jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #ZeroWord
-C17035_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7035:
+C17035_ReturnFromScriptedBattleInitTextCommand:
     pld
     rts
+CC_19_26:
+C17037_SnapshotRespawnWarpTargetTextCommand = CC_19_26
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #SingleWordArgumentFrameOffset
     tcd
     pla
     txa
-    beq C1704A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704A
-    sta $06
-    stz $08
-    bra C1704D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704D
-C1704A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704A:
+    beq C1704A_ReadRespawnWarpSnapshotArgument
+    sta TextCommandResultLo
+    stz TextCommandResultHi
+    bra C1704D_SnapshotResolvedRespawnWarpTarget
+C1704A_ReadRespawnWarpSnapshotArgument:
     jsr C103DC_ReadTextCommandArgumentWord
-C1704D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L704D:
-    lda $06
+C1704D_SnapshotResolvedRespawnWarpTarget:
+    lda TextCommandResultLo
     jsl C230F3_SnapshotRespawnWarpTargetState
     lda.w #ZeroWord
     pld
@@ -2099,20 +2145,20 @@ C17058_CheckEscargoStorageStatusTextCommand = CC_1D_0C
     phd
     pha
     tdc
-    adc.w #$FFEA
+    adc.w #EscargoStatusFrameOffset
     tcd
     pla
     txy
-    sty $14
+    sty EscargoStorageModeSelector
     lda.w #OneWord
     clc
     sbc DeferredCommandQueueCount
-    bvc C17072_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7072
-    bpl C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088
-    bra C17074_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7074
-C17072_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7072:
-    bmi C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088
-C17074_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7074:
+    bvc C17072_CheckEscargoStatusArgumentLimitSign
+    bpl C17088_ApplyQueuedEscargoStorageStatusCheck
+    bra C17074_QueueEscargoStorageStatusArgumentByte
+C17072_CheckEscargoStatusArgumentLimitSign:
+    bmi C17088_ApplyQueuedEscargoStorageStatusCheck
+C17074_QueueEscargoStorageStatusArgumentByte:
     tya
     sep #$20
     ldx DeferredCommandQueueCount
@@ -2120,239 +2166,239 @@ C17074_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7074:
     rep #$20
     inc DeferredCommandQueueCount
     lda.w #TextCommand1D0CCheckEscargoStorageStatusCallback
-    jmp.w C1711A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L711A
-C17088_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7088:
+    jmp.w C1711A_ReturnFromEscargoStorageStatusTextCommand
+C17088_ApplyQueuedEscargoStorageStatusCheck:
     lda DeferredCommandByteQueue
     and.w #LowByteMask
     tax
-    beq C17094_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7094
+    beq C17094_LoadEscargoCharacterFromPrimaryContext
     txa
-    bra C17099_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7099
-C17094_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7094:
+    bra C17099_StageEscargoCharacterSelector
+C17094_LoadEscargoCharacterFromPrimaryContext:
     jsr C1040A_LoadPrimaryInteractionContextPointer
-    lda $06
-C17099_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7099:
-    sta $02
-    ldy $14
-    beq C170A2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A2
+    lda TextCommandResultLo
+C17099_StageEscargoCharacterSelector:
+    sta EscargoCharacterSelector
+    ldy EscargoStorageModeSelector
+    beq C170A2_ReadEscargoInventorySlotArgument
     tya
-    bra C170A7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A7
-C170A2_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A2:
+    bra C170A7_StageEscargoInventorySlotSelector
+C170A2_ReadEscargoInventorySlotArgument:
     jsr C103DC_ReadTextCommandArgumentWord
-    lda $06
-C170A7_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70A7:
+    lda TextCommandResultLo
+C170A7_StageEscargoInventorySlotSelector:
     tay
-    sty $12
+    sty EscargoInventorySlotSelector
     jsr C190F1_CheckEscargoStorageQueueFull
     cmp.w #ZeroWord
-    beq C170B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70B9
-    ldx.w #TwoWord
-    stx $14
-    bra C170BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70BE
-C170B9_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70B9:
+    beq C170B9_StageEscargoStorageHasRoomBit
+    ldx.w #StorageFullResultBit
+    stx EscargoStorageFullStatusBit
+    bra C170BE_TestEscargoItemStorageFlag
+C170B9_StageEscargoStorageHasRoomBit:
     ldx.w #ZeroWord
-    stx $14
-C170BE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70BE:
-    ldy $12
+    stx EscargoStorageFullStatusBit
+C170BE_TestEscargoItemStorageFlag:
+    ldy EscargoInventorySlotSelector
     tya
     dec A
     pha
-    lda $02
+    lda EscargoCharacterSelector
     dec A
     ldy.w #CharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99F1
+    adc.w #InventoryItemListBase
     ply
-    sty $02
+    sty EscargoInventorySlotOffset
     clc
-    adc $02
+    adc EscargoInventorySlotOffset
     tax
     lda $0000,X
     and.w #LowByteMask
-    ldy.w #$0027
+    ldy.w #InventorySlotItemRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$001C
+    adc.w #ItemTableStorageFlagsOffset
     tax
     lda $D55000,X
     and.w #LowByteMask
-    and.w #$0040
-    beq C170FB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FB
+    and.w #ItemCannotBeStoredMask
+    beq C170FB_StageEscargoItemStorableBit
     lda.w #OneWord
-    bra C170FE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FE
-C170FB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FB:
+    bra C170FE_CombineEscargoStorageStatusBits
+C170FB_StageEscargoItemStorableBit:
     lda.w #ZeroWord
-C170FE_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L70FE:
-    ldx $14
-    stx $02
-    ora $02
-    sta $06
-    stz $08
-    bpl C1710C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L710C
-    dec $08
-C1710C_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L710C:
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
+C170FE_CombineEscargoStorageStatusBits:
+    ldx EscargoStorageFullStatusBit
+    stx EscargoStatusBitScratch
+    ora EscargoStatusBitScratch
+    sta TextCommandResultLo
+    stz TextCommandResultHi
+    bpl C1710C_InstallEscargoStorageStatusResult
+    dec TextCommandResultHi
+C1710C_InstallEscargoStorageStatusResult:
+    lda TextCommandResultLo
+    sta TextContextSourcePointerLo
+    lda TextCommandResultHi
+    sta TextContextSourcePointerHi
     jsr C1045D_InstallPrimaryInteractionContextPointer
     lda.w #ZeroWord
-C1711A_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L711A:
+C1711A_ReturnFromEscargoStorageStatusTextCommand:
     pld
     rts
 CC_1F_66:
-C1711C_HandleTextCommand1F66 = CC_1F_66
+C1711C_ActivateHotspotTextCommand = CC_1F_66
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFEB
+    adc.w #FiveByteCallbackFrameOffset
     tcd
     pla
-    stx $13
+    stx HotspotActivationCurrentPayloadByte
     lda.w #FiveWord
     clc
     sbc DeferredCommandQueueCount
-    bvc C17135_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7135
-    bpl C1714B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L714B
-    bra C17137_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7137
-C17135_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7135:
-    bmi C1714B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L714B
-C17137_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7137:
+    bvc C17135_CheckHotspotArgumentLimitSign
+    bpl C1714B_ApplyQueuedHotspotActivation
+    bra C17137_QueueHotspotActivationArgumentByte
+C17135_CheckHotspotArgumentLimitSign:
+    bmi C1714B_ApplyQueuedHotspotActivation
+C17137_QueueHotspotActivationArgumentByte:
     txa
     sep #$20
     ldx DeferredCommandQueueCount
     sta DeferredCommandByteQueue,X
     rep #$20
     inc DeferredCommandQueueCount
-    lda.w #TextCommand1F66Callback
-    jmp.w C17231_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7231
-C1714B_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L714B:
+    lda.w #TextCommand1F66ActivateHotspotCallback
+    jmp.w C17231_ReturnFromHotspotActivationTextCommand
+C1714B_ApplyQueuedHotspotActivation:
     lda DeferredCommandByteQueue
     and.w #LowByteMask
-    beq C1715F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L715F
+    beq C1715F_ReadHotspotSelectorArgument
     sep #$20
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    bra C17162_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7162
-C1715F_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L715F:
+    sta PackedDwordLo
+    stz PackedDwordScratchByte1
+    stz PackedDwordHi
+    stz PackedDwordScratchByte3
+    bra C17162_StageHotspotSelectorArgument
+C1715F_ReadHotspotSelectorArgument:
     jsr C103DC_ReadTextCommandArgumentWord
-C17162_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7162:
+C17162_StageHotspotSelectorArgument:
     sep #$20
-    lda $06
-    sta $00
+    lda PackedDwordLo
+    sta HotspotActivationSelector
     rep #$20
     lda DeferredCommandByte1
     and.w #LowByteMask
-    beq C1717E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L717E
+    beq C1717E_LoadHotspotTargetFromPrimaryContext
     sep #$20
-    sta $06
-    stz $07
-    stz $08
-    stz $09
-    bra C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181
-C1717E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L717E:
+    sta PackedDwordLo
+    stz PackedDwordScratchByte1
+    stz PackedDwordHi
+    stz PackedDwordScratchByte3
+    bra C17181_StageHotspotTargetSelector
+C1717E_LoadHotspotTargetFromPrimaryContext:
     jsr C1040A_LoadPrimaryInteractionContextPointer
-C17181_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7181:
+C17181_StageHotspotTargetSelector:
     sep #$20
-    lda $06
-    sta $12
-    ldx $13
+    lda PackedDwordLo
+    sta HotspotActivationTargetSelector
+    ldx HotspotActivationCurrentPayloadByte
     rep #$20
     txa
-    sta $06
-    stz $08
+    sta PackedDwordLo
+    stz PackedDwordHi
     sep #$10
-    ldy.b #$18
+    ldy.b #TwentyFourBitShift
     jsl C09246_ShiftLeft32ByY
-    lda $08
+    lda PackedDwordHi
     pha
-    lda $06
+    lda PackedDwordLo
     pha
-    ldy.b #$10
+    ldy.b #SixteenBitShift
     sep #$20
     lda DeferredCommandByte4
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta PackedDwordLo
+    stz PackedDwordScratchByte1
+    stz PackedDwordHi
+    stz PackedDwordScratchByte3
     rep #$20
     jsl C09246_ShiftLeft32ByY
-    lda $08
+    lda PackedDwordHi
     pha
-    lda $06
+    lda PackedDwordLo
     pha
-    ldy.b #$08
+    ldy.b #EightBitShift
     sep #$20
     lda DeferredCommandByte3
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta PackedDwordLo
+    stz PackedDwordScratchByte1
+    stz PackedDwordHi
+    stz PackedDwordScratchByte3
     rep #$20
     jsl C09246_ShiftLeft32ByY
-    lda $06
-    sta $0A
-    lda $08
-    sta $0C
+    lda PackedDwordLo
+    sta PackedDwordPartLo
+    lda PackedDwordHi
+    sta PackedDwordPartHi
     sep #$20
     lda DeferredCommandByte2
-    sta $06
-    stz $07
-    stz $08
-    stz $09
+    sta PackedDwordLo
+    stz PackedDwordScratchByte1
+    stz PackedDwordHi
+    stz PackedDwordScratchByte3
     rep #$20
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    lda PackedDwordLo
+    ora PackedDwordPartLo
+    sta PackedDwordLo
+    lda PackedDwordHi
+    ora PackedDwordPartHi
+    sta PackedDwordHi
     pla
-    sta $0A
+    sta PackedDwordPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
+    sta PackedDwordPartHi
+    lda PackedDwordLo
+    ora PackedDwordPartLo
+    sta PackedDwordLo
+    lda PackedDwordHi
+    ora PackedDwordPartHi
+    sta PackedDwordHi
     pla
-    sta $0A
+    sta PackedDwordPartLo
     pla
-    sta $0C
-    lda $06
-    ora $0A
-    sta $06
-    lda $08
-    ora $0C
-    sta $08
-    lda $06
-    sta $0E
-    lda $08
-    sta $10
-    lda $12
+    sta PackedDwordPartHi
+    lda PackedDwordLo
+    ora PackedDwordPartLo
+    sta PackedDwordLo
+    lda PackedDwordHi
+    ora PackedDwordPartHi
+    sta PackedDwordHi
+    lda PackedDwordLo
+    sta PackedDwordResultLo
+    lda PackedDwordHi
+    sta PackedDwordResultHi
+    lda HotspotActivationTargetSelector
     and.w #LowByteMask
     rep #$10
     tax
-    lda $00
+    lda HotspotActivationSelector
     and.w #LowByteMask
     jsl C072CF_ActivateHotspot
     lda.w #ZeroWord
-C17231_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7231:
+C17231_ReturnFromHotspotActivationTextCommand:
     pld
     rts
 CC_1F_67:
-C17233_HandleTextCommand1F67 = CC_1F_67
+C17233_DisableHotspotTextCommand = CC_1F_67
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #SingleWordArgumentFrameOffset
     tcd
     pla
     txa
@@ -2369,12 +2415,12 @@ C17249_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L7249:
     pld
     rts
 CC_1F_04:
-C17254_HandleTextCommand1F04 = CC_1F_04
+C17254_SetTextSoundModeTextCommand = CC_1F_04
     rep #$31
     phd
     pha
     tdc
-    adc.w #$FFF2
+    adc.w #SingleWordArgumentFrameOffset
     tcd
     pla
     txa

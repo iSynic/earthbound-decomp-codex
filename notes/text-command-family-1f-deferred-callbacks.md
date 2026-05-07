@@ -56,6 +56,14 @@ the C0 hotspot/movement queue joins, the C2 scripted-battle bridge, and the C4
 entity frame, flag, script, attached-child, visual-record, and landing-profile
 helpers by contract name.
 
+Source polish follow-up (2026-05-06): the same corridor now names the
+caller-frame scratch behind the front callback leaves. `1F C0` distinguishes
+the packed text pointer it prints, the destination table pointer, the
+destination-count argument, and the table-pointer scratch used after computing
+the remaining destination count. `1F D0` now stages Jeff repair's mapped item
+and original repair-result value through named primary and secondary
+text-context source aliases.
+
 The lower `C1:461A..4819` text-command source now also names the nearby
 `1F 00..02` music/sound leaves and the queued-byte storage used by the deferred
 music-track command, while the dynamic source-selector corridor names the
@@ -73,6 +81,14 @@ pair stages `1` or `0` into `C2:26C5`, which falls through to the C2 refresh
 tail that uses `$9C88` and `$5D64`; the read leaf calls `C2:26E6` and stages
 the returned flag state into the active text context.
 
+Follow-up source polish (2026-05-06): the immediate helper leaves in the same
+dynamic dispatcher now expose their C1 staging layer. `1F 68/69` name the
+current-position snapshot at `$98B2/$98B4`, the teleport refresh flag loop, the
+teleport visual-state id, the `$02/$04` landing work pair, `$2890`, and the
+`$5DC4` invalid-destination sentinel. `1F 90`, `1F A2`, and `1F D1` now share
+named `$06/$08 -> $0E/$10` result staging, while `1F A0/A1` name the set/clear
+values passed to the C2 current-interaction-flag wrapper.
+
 The `1F B0` save-game leaf now calls the C2 `SaveCurrentGame` wrapper by name.
 That wrapper reads the one-based current save slot at `$B4A1`, converts it to
 the zero-based slot index expected by `EF:0A4D`, and delegates to the EF
@@ -85,9 +101,18 @@ special-event dispatcher, wandering-photographer C4 helper, pose-descriptor
 attached-child spawn/clear helpers, battle visual effect token dispatcher, and
 shared context installers are all explicit in source.
 
+Source polish follow-up (2026-05-06): the same sibling source now names its
+local staging layer. `1F 40` exposes the one-byte special-event argument
+callback queue, `1F 41` exposes signed special-event result staging,
+`1F D2/07` name their direct-argument fallbacks, and `1F F3/F4` expose the
+pose-descriptor word assembly before the attached-child spawn/clear helpers.
+
 Source polish follow-up (2026-05-06): the adjacent `C1:7440` callback adapter
 now names its direct `EF:0EAD` call as the delivery row sprite/placeholder
 instantiator, so the `0x1F D3` callback handoff is explicit at the source edge.
+The same source corridor now names the neighboring `0x1E 09..0E` queue/apply
+branch exits and local staging scratch, keeping the timed-delivery adapter and
+late stat-tail callback ABI readable in one place.
 
 Source polish follow-up (2026-05-06): the dynamic source-selector dispatcher
 now names the `0x1F` callback low-word returns directly. The `1F 00..02`,
@@ -97,6 +122,12 @@ source-facing aliases instead of raw `$xxxx` literals. The immediate helper
 leaves in the same dispatcher, including `1F 03`, `64/65`, `A0/A1/A2`, `B0`,
 `D1`, `ED`, and `F0`, keep their direct helper-call contracts.
 
+Source polish follow-up (2026-05-06): the same `C1:81BB` dispatcher now names
+its wide selector ladder directly. The source exposes the live `1F` selector ids
+from the low music/sound strip through `11..23`, `30/31`, `40/41`, `50..69`,
+`71`, `81/83`, `90`, `A0..A2`, `B0`, `C0`, `D0..D3`, `E1`, `E4..F4`, and the
+shared no-follow-up return for immediate helper leaves or unsupported cases.
+
 Source polish follow-up (2026-05-06): the callback leaves in
 `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm` and
 `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm` now name the
@@ -105,6 +136,37 @@ argument bytes, `$97CA` reads as the deferred argument count, and each staged
 leaf returns a named callback low word while it waits for more bytes. The
 `1F C0`, `1F 13..23`, `1F 62/63/66/67`, `1F D0`, `1F E1/E4..EC/EE/EF`, and
 `1F F1..F4` source bodies are therefore aligned with the dispatcher table.
+
+Source polish follow-up (2026-05-06): the lower callback corridor now names
+the C1-side payload assembly behind `1F 63`, `1F 66`, `1F F1`, and `1F F2`.
+`1F 63` exposes its four-byte packed movement-record payload before
+`C0:64E3`; `1F 66` exposes the hotspot selector, target selector, and
+five-byte packed payload before `C0:72CF`; and `1F F1/F2` expose the paired
+visual-type or pose-descriptor script selectors before their C4 script runners.
+
+Source polish follow-up (2026-05-06): the generic low-word names in the
+adjacent entity-helper cluster are now promoted too. The `1F 13..1F` callback
+returns expose registry and visual frame-selector updates, dynamic visual entity
+creation, no-op seven-byte absorbers, visual/registry attached-child
+spawn/clear leaves, and cached-pose visual/pose script runners. The
+`1F E1/E4..EF` strip now names the landing-profile display, pose-frame update,
+registry/visual/pose `C000` flag set/clear leaves, registry `8000` mark/clear
+leaves, and visual/pose mode-slot selectors at both the dispatcher and callback
+body definitions.
+
+Source polish follow-up (2026-05-06): the remaining generic low-word returns in
+this callback band now have C1-facing behavior names too. The source now names
+`1F 04` as the text sound-mode setter, `1F 07` as the presentation SFX queue,
+`1F 23` as scripted-battle init, `1F 62` as the blinking-triangle state setter,
+`1F 63` as the packed movement-record enqueuer, `1F 66/67` as hotspot
+activate/disable leaves, `1F F1/F2` as record-backed visual/pose script
+runners, and `1F F3/F4` as pose-descriptor attached-child spawn/clear leaves.
+
+Source polish follow-up (2026-05-06): the adjacent `1F 23` leaf now names its
+scripted-battle init selector staging. The source shows the queued high byte,
+fallback to a direct text argument when the packed selector is zero, the
+`C2:2F38` handoff, and the signed result installation through the shared text
+context result pair.
 
 Source polish follow-up (2026-05-06): the lower deferred-callback siblings in
 `src/c1/c1_575d_test_equipped_item_presence_for_text_command.asm` now match

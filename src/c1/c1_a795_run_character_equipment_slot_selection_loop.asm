@@ -54,6 +54,28 @@ C457CA_ClearCharmEquipmentSlot                = $C457CA
 C45815_ClearBraceletEquipmentSlot             = $C45815
 C45860_ClearHeadgearEquipmentSlot             = $C45860
 
+SelectionPromptPreviewCallbackLo             = $0E
+SelectionPromptPreviewCallbackBank           = $10
+EquipmentMenuCharacterIndex                  = $1E
+EquipmentMenuSelectedFamily                  = $1C
+EquipmentMenuTitleSourcePointerLo            = $0E
+EquipmentMenuTitleSourcePointerBank          = $10
+EquipmentMenuTitleTextLength                 = $1A
+EquipmentMenuVisibleRowCount                 = $04
+EquipmentMenuDefaultSelectionRow             = $18
+EquipmentMenuItemSelectionResult             = $18
+EquipmentMenuInventorySlotIndex              = $02
+EquipmentMenuItemId                          = $16
+EquipmentMenuOneBasedCharacterId             = $1A
+EquipmentMenuItemNameTileSourcePointerLo     = $0E
+EquipmentMenuItemNameTileSourcePointerBank   = $10
+EquipmentMenuTextEntrySourcePointerLo        = $0E
+EquipmentMenuTextEntrySourcePointerBank      = $10
+EquipmentMenuTextEntryMetadataLo             = $12
+EquipmentMenuTextEntryMetadataHi             = $14
+WalletDecimalSourcePointerLo                 = $0E
+WalletDecimalSourcePointerHi                 = $10
+
 ; ---------------------------------------------------------------------------
 ; C1:A795
 
@@ -67,7 +89,7 @@ C1A795_RunCharacterEquipmentSlotSelectionLoop:
     pla
     tax
     dec A
-    sta $1E
+    sta EquipmentMenuCharacterIndex
 C1A7A3_RunCharacterEquipmentSlotSelectionLoop_LA7A3:
     lda.w #$0004
     jsr C193E7_OpenTargetSelectionPromptLabel
@@ -75,9 +97,9 @@ C1A7A3_RunCharacterEquipmentSlotSelectionLoop_LA7A3:
     jsr C1007E_SetFocusWindowOrContext
     lda.w #$0001
     jsr C1196A_RunActiveTextEntrySelectionMenu
-    sta $1C
+    sta EquipmentMenuSelectedFamily
     jsr C19437_CloseTargetSelectionPromptLabel
-    lda $1C
+    lda EquipmentMenuSelectedFamily
     bne C1A7C1_RunCharacterEquipmentSlotSelectionLoop_LA7C1
     jmp.w C1AA16_RunCharacterEquipmentSlotSelectionLoop_LAA16
 C1A7C1_RunCharacterEquipmentSlotSelectionLoop_LA7C1:
@@ -87,7 +109,7 @@ C1A7C1_RunCharacterEquipmentSlotSelectionLoop_LA7C1:
     sta $06
     lda.w #$00C4
     sta $08
-    lda $1C
+    lda EquipmentMenuSelectedFamily
     dec A
     asl A
     asl A
@@ -95,39 +117,39 @@ C1A7C1_RunCharacterEquipmentSlotSelectionLoop_LA7C1:
     clc
     adc $06
     sta $06
-    sta $0E
+    sta EquipmentMenuTitleSourcePointerLo
     lda $08
-    sta $10
+    sta EquipmentMenuTitleSourcePointerBank
     jsl C08F22_MeasureTerminatedTextLength
-    sta $1A
+    sta EquipmentMenuTitleTextLength
     lda $06
-    sta $0E
+    sta EquipmentMenuTitleSourcePointerLo
     lda $08
-    sta $10
-    lda $1A
+    sta EquipmentMenuTitleSourcePointerBank
+    lda EquipmentMenuTitleTextLength
     tax
     lda.w #$0007
     jsl C2032B_WriteWindowTitleAndUpload
     lda.w #$0000
-    sta $04
+    sta EquipmentMenuVisibleRowCount
     lda.w #$FFFF
-    sta $18
+    sta EquipmentMenuDefaultSelectionRow
     lda.w #$0000
-    sta $02
+    sta EquipmentMenuInventorySlotIndex
     jmp.w C1A906_RunCharacterEquipmentSlotSelectionLoop_LA906
 C1A80C_RunCharacterEquipmentSlotSelectionLoop_LA80C:
-    lda $1E
+    lda EquipmentMenuCharacterIndex
     ldy.w #$005F
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #$99F1
     clc
-    adc $02
+    adc EquipmentMenuInventorySlotIndex
     tax
     lda $0000,X
     and.w #$00FF
     tay
-    sty $16
+    sty EquipmentMenuItemId
     bne C1A82B_RunCharacterEquipmentSlotSelectionLoop_LA82B
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
 C1A82B_RunCharacterEquipmentSlotSelectionLoop_LA82B:
@@ -137,27 +159,27 @@ C1A82B_RunCharacterEquipmentSlotSelectionLoop_LA82B:
     beq C1A837_RunCharacterEquipmentSlotSelectionLoop_LA837
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
 C1A837_RunCharacterEquipmentSlotSelectionLoop_LA837:
-    ldy $16
+    ldy EquipmentMenuItemId
     tya
     jsl C224E1_ClassifyEquipmentSlotFamily
-    cmp $1C
+    cmp EquipmentMenuSelectedFamily
     beq C1A845_RunCharacterEquipmentSlotSelectionLoop_LA845
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
 C1A845_RunCharacterEquipmentSlotSelectionLoop_LA845:
-    lda $1E
+    lda EquipmentMenuCharacterIndex
     inc A
-    sta $1A
-    ldy $16
+    sta EquipmentMenuOneBasedCharacterId
+    ldy EquipmentMenuItemId
     tyx
-    lda $1A
+    lda EquipmentMenuOneBasedCharacterId
     jsl C3EE14_TestCharacterCanEquipItem
     cmp.w #$0000
     bne C1A85B_RunCharacterEquipmentSlotSelectionLoop_LA85B
     jmp.w C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904
 C1A85B_RunCharacterEquipmentSlotSelectionLoop_LA85B:
-    ldx $02
+    ldx EquipmentMenuInventorySlotIndex
     inx
-    lda $1A
+    lda EquipmentMenuOneBasedCharacterId
     jsl C3E9A0_TestEquippedItemPrefixMarker
     cmp.w #$0000
     beq C1A8A1_RunCharacterEquipmentSlotSelectionLoop_LA8A1
@@ -169,37 +191,37 @@ C1A85B_RunCharacterEquipmentSlotSelectionLoop_LA85B:
     sta $06
     lda.w #$00D5
     sta $08
-    ldy $16
+    ldy EquipmentMenuItemId
     tya
     ldy.w #$0027
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
     sta $06
-    sta $0E
+    sta EquipmentMenuItemNameTileSourcePointerLo
     lda $08
-    sta $10
+    sta EquipmentMenuItemNameTileSourcePointerBank
     ldx.w #$0019
     lda.w #$9CA0
     jsl C08ED2_QueueOrTransferDynamicTileBlock
-    lda $04
-    sta $18
+    lda EquipmentMenuVisibleRowCount
+    sta EquipmentMenuDefaultSelectionRow
     bra C1A8CA_RunCharacterEquipmentSlotSelectionLoop_LA8CA
 C1A8A1_RunCharacterEquipmentSlotSelectionLoop_LA8A1:
     lda.w #$5000
     sta $06
     lda.w #$00D5
     sta $08
-    ldy $16
+    ldy EquipmentMenuItemId
     tya
     ldy.w #$0027
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
     adc $06
     sta $06
-    sta $0E
+    sta EquipmentMenuItemNameTileSourcePointerLo
     lda $08
-    sta $10
+    sta EquipmentMenuItemNameTileSourcePointerBank
     ldx.w #$0019
     lda.w #$9C9F
     jsl C08ED2_QueueOrTransferDynamicTileBlock
@@ -216,14 +238,14 @@ C1A8CA_RunCharacterEquipmentSlotSelectionLoop_LA8CA:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta EquipmentMenuTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta EquipmentMenuTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta EquipmentMenuTextEntryMetadataLo
     lda.w #$0000
-    sta $14
-    lda $02
+    sta EquipmentMenuTextEntryMetadataHi
+    lda EquipmentMenuInventorySlotIndex
     inc A
     jsr C115F4_CreateTypedTextEntryRecordDirect
     tax
@@ -231,36 +253,36 @@ C1A8CA_RunCharacterEquipmentSlotSelectionLoop_LA8CA:
     lda.b #$73
     sta $000E,X
     rep #$20
-    inc $04
+    inc EquipmentMenuVisibleRowCount
 C1A904_RunCharacterEquipmentSlotSelectionLoop_LA904:
-    inc $02
+    inc EquipmentMenuInventorySlotIndex
 C1A906_RunCharacterEquipmentSlotSelectionLoop_LA906:
-    lda $02
+    lda EquipmentMenuInventorySlotIndex
     cmp.w #$000E
     bcs C1A912_RunCharacterEquipmentSlotSelectionLoop_LA912
     beq C1A912_RunCharacterEquipmentSlotSelectionLoop_LA912
     jmp.w C1A80C_RunCharacterEquipmentSlotSelectionLoop_LA80C
 C1A912_RunCharacterEquipmentSlotSelectionLoop_LA912:
     lda.w #$5C82
-    sta $0E
+    sta EquipmentMenuTextEntrySourcePointerLo
     lda.w #$00C4
-    sta $10
+    sta EquipmentMenuTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta EquipmentMenuTextEntryMetadataLo
     lda.w #$0000
-    sta $14
+    sta EquipmentMenuTextEntryMetadataHi
     lda.w #$FFFF
     jsr C115F4_CreateTypedTextEntryRecordDirect
-    ldy $18
+    ldy EquipmentMenuDefaultSelectionRow
     ldx.w #$0000
     lda.w #$0001
     jsr C1181B_SelectActiveTextEntryByY
-    lda $1E
+    lda EquipmentMenuCharacterIndex
     sep #$20
     inc A
     sta $9CD6
     rep #$20
-    lda $1C
+    lda EquipmentMenuSelectedFamily
     cmp.w #$0001
     beq C1A959_RunCharacterEquipmentSlotSelectionLoop_LA959
     cmp.w #$0002
@@ -273,33 +295,33 @@ C1A912_RunCharacterEquipmentSlotSelectionLoop_LA912:
 C1A959_RunCharacterEquipmentSlotSelectionLoop_LA959:
     ; Category 1 preview callback: weapon shadow slot `$9CD0`.
     lda.w #$2562
-    sta $0E
+    sta SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta SelectionPromptPreviewCallbackBank
     jsr C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A968_RunCharacterEquipmentSlotSelectionLoop_LA968:
     ; Category 2 preview callback: charm/pendant/cloak shadow slot `$9CD1`.
     lda.w #$25AC
-    sta $0E
+    sta SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta SelectionPromptPreviewCallbackBank
     jsr C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A977_RunCharacterEquipmentSlotSelectionLoop_LA977:
     ; Category 3 preview callback: bracelet/band shadow slot `$9CD2`.
     lda.w #$260D
-    sta $0E
+    sta SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta SelectionPromptPreviewCallbackBank
     jsr C11F5A_InstallSelectionPromptCallback
     bra C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993
 C1A986_RunCharacterEquipmentSlotSelectionLoop_LA986:
     ; Category 4 preview callback: cap/ribbon/coin shadow slot `$9CD3`.
     lda.w #$2673
-    sta $0E
+    sta SelectionPromptPreviewCallbackLo
     lda.w #$00C2
-    sta $10
+    sta SelectionPromptPreviewCallbackBank
     jsr C11F5A_InstallSelectionPromptCallback
 C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993:
     lda.w #$0001
@@ -308,13 +330,13 @@ C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993:
     lda.w #$0001
     jsr C1196A_RunActiveTextEntrySelectionMenu
     tax
-    stx $18
+    stx EquipmentMenuItemSelectionResult
     jsr C19437_CloseTargetSelectionPromptLabel
     jsr C11F8A_ClearActiveSelectionPromptScratch
-    ldx $18
+    ldx EquipmentMenuItemSelectionResult
     cpx.w #$FFFF
     bne C1A9FA_RunCharacterEquipmentSlotSelectionLoop_LA9FA
-    lda $1C
+    lda EquipmentMenuSelectedFamily
     cmp.w #$0001
     beq C1A9CA_RunCharacterEquipmentSlotSelectionLoop_LA9CA
     cmp.w #$0002
@@ -326,38 +348,38 @@ C1A993_RunCharacterEquipmentSlotSelectionLoop_LA993:
     bra C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
 C1A9CA_RunCharacterEquipmentSlotSelectionLoop_LA9CA:
     ldx.w #$0000
-    lda $1E
+    lda EquipmentMenuCharacterIndex
     inc A
     jsl C4577D_ClearWeaponEquipmentSlot
     bra C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
 C1A9D6_RunCharacterEquipmentSlotSelectionLoop_LA9D6:
     ldx.w #$0000
-    lda $1E
+    lda EquipmentMenuCharacterIndex
     inc A
     jsl C457CA_ClearCharmEquipmentSlot
     bra C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
 C1A9E2_RunCharacterEquipmentSlotSelectionLoop_LA9E2:
     ldx.w #$0000
-    lda $1E
+    lda EquipmentMenuCharacterIndex
     inc A
     jsl C45815_ClearBraceletEquipmentSlot
     bra C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
 C1A9EE_RunCharacterEquipmentSlotSelectionLoop_LA9EE:
     ldx.w #$0000
-    lda $1E
+    lda EquipmentMenuCharacterIndex
     inc A
     jsl C45860_ClearHeadgearEquipmentSlot
     bra C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
 C1A9FA_RunCharacterEquipmentSlotSelectionLoop_LA9FA:
     cpx.w #$0000
     beq C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05
-    lda $1E
+    lda EquipmentMenuCharacterIndex
     inc A
     jsr C19066_DispatchEquippedSlotSubtypeUpdate
 C1AA05_RunCharacterEquipmentSlotSelectionLoop_LAA05:
     lda.w #$0007
     jsl C3E521_CloseWindowAndReleaseTileState
-    lda $1E
+    lda EquipmentMenuCharacterIndex
     inc A
     jsl C1A778_RefreshSelectedCharacterEquipmentDisplay
     jmp.w C1A7A3_RunCharacterEquipmentSlotSelectionLoop_LA7A3
@@ -387,9 +409,9 @@ C1AA18_RefreshWalletOrStatusDisplay:
     lda $9833
     sta $08
     lda $06
-    sta $0E
+    sta WalletDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta WalletDecimalSourcePointerHi
     jsl C4507A_PrintRightAlignedDecimalValueInActiveWindow
     jsl C3E4CA_ClearInstantPrinting
     lda.w #$9C8A

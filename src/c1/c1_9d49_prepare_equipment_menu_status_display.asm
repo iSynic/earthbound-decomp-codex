@@ -41,6 +41,28 @@ MenuContextSnapshotBuffer = $9C8A
 ShopItemTable = $D576B2
 ShopStatusRowOffsetTable = $E01FB9
 ShopStatusTilemapRows = $E01FC8
+ShopMenuComparisonCallbackLo = $0E
+ShopMenuComparisonCallbackBank = $10
+ShopStatusComparisonCharacterIndex = $12
+ShopStatusRowIndexScratch = $04
+ShopStatusTileBlockSourcePointerLo = $0E
+ShopStatusTileBlockSourcePointerBank = $10
+ShopMenuTableSelector = $1E
+ShopMenuRowIndex = $1C
+ShopMenuRowScratch = $04
+ShopMenuItemId = $1A
+ShopMenuSelectionResult = $1A
+ShopMenuItemRecordOffset = $02
+ShopMenuItemRowPointerLo = $16
+ShopMenuItemRowPointerBank = $18
+ShopMenuTileBlockSourcePointerLo = $0E
+ShopMenuTileBlockSourcePointerBank = $10
+ShopMenuTextEntrySourcePointerLo = $0E
+ShopMenuTextEntrySourcePointerBank = $10
+ShopMenuTextEntryMetadataLo = $12
+ShopMenuTextEntryMetadataHi = $14
+ShopMenuPriceSourcePointerLo = $0E
+ShopMenuPriceSourcePointerHi = $10
 
 ; ---------------------------------------------------------------------------
 ; C1:9D49
@@ -52,7 +74,7 @@ C19D49_PrepareEquipmentMenuStatusDisplay:
     adc.w #$FFEC
     tcd
     lda.w #$0000
-    sta $12
+    sta ShopStatusComparisonCharacterIndex
     bra C19D6B_CheckNextCharacterMarker
 
 C19D58_ResetCharacterMarker:
@@ -61,9 +83,9 @@ C19D58_ResetCharacterMarker:
     tax
     lda.w #DefaultEquipmentComparisonMarker
     sta EquipmentComparisonMarkers,X
-    lda $12
+    lda ShopStatusComparisonCharacterIndex
     inc A
-    sta $12
+    sta ShopStatusComparisonCharacterIndex
 
 C19D6B_CheckNextCharacterMarker:
     cmp.w #$0004
@@ -75,9 +97,9 @@ C19D6B_CheckNextCharacterMarker:
     lda $99CD
     and.w #$00FF
     dec A
-    sta $04
+    sta ShopStatusRowIndexScratch
     asl A
-    adc $04
+    adc ShopStatusRowIndexScratch
     tax
     lda ShopStatusRowOffsetTable,X
     clc
@@ -85,9 +107,9 @@ C19D6B_CheckNextCharacterMarker:
     clc
     adc $06
     sta $06
-    sta $0E
+    sta ShopStatusTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta ShopStatusTileBlockSourcePointerBank
     ldx.w #$0008
     lda.w #$0218
     jsl C08ED2_QueueOrTransferDynamicTileBlock
@@ -111,7 +133,7 @@ C19DB5_RunShopItemSelectionMenu:
     adc.w #$FFE0
     tcd
     pla
-    sta $1E
+    sta ShopMenuTableSelector
     jsr C1AA18_RefreshWalletOrStatusDisplay
     jsl C3E4D4_PrepareMenuDisplayContext
     lda.w #MenuContextSnapshotBuffer
@@ -121,26 +143,26 @@ C19DB5_RunShopItemSelectionMenu:
     lda.w #$0005
     jsr C10EB4_ClearOrPrepareWindowContent
     lda.w #$0000
-    sta $04
-    sta $1C
+    sta ShopMenuRowScratch
+    sta ShopMenuRowIndex
     jmp.w C19E99_CheckNextShopItemRow
 
 C19DE5_BuildShopItemTextEntry:
-    lda $1E
-    sta $04
+    lda ShopMenuTableSelector
+    sta ShopMenuRowScratch
     asl A
-    adc $04
+    adc ShopMenuRowScratch
     asl A
-    adc $04
-    ldx $1C
-    stx $04
+    adc ShopMenuRowScratch
+    ldx ShopMenuRowIndex
+    stx ShopMenuRowScratch
     clc
-    adc $04
+    adc ShopMenuRowScratch
     tax
     lda ShopItemTable,X
     and.w #$00FF
     tay
-    sty $1A
+    sty ShopMenuItemId
     bne C19E06_CopyShopItemName
     jmp.w C19E93_AdvanceShopItemRow
 
@@ -150,19 +172,19 @@ C19E06_CopyShopItemName:
     lda.w #$00D5
     sta $08
     lda $06
-    sta $16
+    sta ShopMenuItemRowPointerLo
     lda $08
-    sta $18
+    sta ShopMenuItemRowPointerBank
     tya
     ldy.w #ItemRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
-    sta $02
+    sta ShopMenuItemRecordOffset
     clc
     adc $06
     sta $06
-    sta $0E
+    sta ShopMenuTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta ShopMenuTileBlockSourcePointerBank
     ldx.w #$0019
     lda.w #ItemNameStagingBuffer
     jsl C08ED2_QueueOrTransferDynamicTileBlock
@@ -178,25 +200,25 @@ C19E06_CopyShopItemName:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta ShopMenuTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta ShopMenuTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta ShopMenuTextEntryMetadataLo
     lda.w #$0000
-    sta $14
-    ldy $1A
+    sta ShopMenuTextEntryMetadataHi
+    ldy ShopMenuItemId
     tya
     jsr C115F4_CreateTypedTextEntryRecordDirect
-    ldx $04
+    ldx ShopMenuRowScratch
     lda.w #$0000
     jsl C438A5_ConfigureTextEntryRowPosition
-    lda $02
+    lda ShopMenuItemRecordOffset
     clc
     adc.w #$001A
-    ldx $16
+    ldx ShopMenuItemRowPointerLo
     stx $06
-    ldx $18
+    ldx ShopMenuItemRowPointerBank
     stx $08
     clc
     adc $06
@@ -205,18 +227,18 @@ C19E06_CopyShopItemName:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta ShopMenuPriceSourcePointerLo
     lda $08
-    sta $10
+    sta ShopMenuPriceSourcePointerHi
     jsl C4507A_PrintActiveWindowRightAlignedDecimal
 
 C19E93_AdvanceShopItemRow:
-    inc $04
-    lda $04
-    sta $1C
+    inc ShopMenuRowScratch
+    lda ShopMenuRowScratch
+    sta ShopMenuRowIndex
 
 C19E99_CheckNextShopItemRow:
-    lda $04
+    lda ShopMenuRowScratch
     cmp.w #$0007
     bcs C19EA5_RunShopMenuSelection
     beq C19EA5_RunShopMenuSelection
@@ -231,21 +253,21 @@ C19EA5_RunShopMenuSelection:
     lda.w #$0001
     jsr C1180D_LayoutActiveTextEntriesAndRefresh
     lda.w #$9B4E
-    sta $0E
+    sta ShopMenuComparisonCallbackLo
     lda.w #$00C1
-    sta $10
+    sta ShopMenuComparisonCallbackBank
     jsr C11F5A_InstallSelectionPromptCallback
     jsr C19CDD_InitializeEquipmentComparisonMarkersDefault
     lda.w #$0001
     jsr C1196A_RunActiveTextEntrySelectionMenu
     tax
-    stx $1A
+    stx ShopMenuSelectionResult
     jsr.w C19D49_PrepareEquipmentMenuStatusDisplay
     jsr C10084_CloseCurrentFocusWindowOrContext
     lda.w #MenuContextSnapshotBuffer
     jsl C20ABC_RestoreManagedTextEventSlotState
     jsl C3E4CA_FinalizeOrRefreshMenuDisplay
-    ldx $1A
+    ldx ShopMenuSelectionResult
     txa
     pld
     rts

@@ -120,6 +120,57 @@ callback bodies name their queued-byte slots, queue count, callback self-return
 low words, 24-bit assembly scratch, event-flag staging, and call-text or
 forced-alignment output slots.
 
+Source polish follow-up (2026-05-06): the lower `0x1F` consumer corridor now
+also names packed-payload assembly for `1F 63` and `1F 66`, plus the paired
+selector assembly for `1F F1/F2`. The callback low words are unchanged, but
+the movement-record, hotspot-activation, visual-script, and pose-script
+handoffs are now readable at the source boundary.
+
+Source polish follow-up (2026-05-06): the same `0x1F` corridor now promotes
+the neighboring entity-helper callback names rather than leaving them as
+numbered callback placeholders. The dispatcher and callback source now name the
+`13..1F` frame-selector, dynamic visual entity, attached-child, no-op absorber,
+and cached-pose script leaves, plus the `E1/E4..EF` landing-profile, C4 entity
+flag, registry `8000`, and mode-slot selector leaves.
+
+Source polish follow-up (2026-05-06): the remaining named-but-generic `0x1F`
+low-word returns now expose their contracts as well: text sound mode,
+presentation SFX, scripted-battle init, blinking-triangle state, movement
+record enqueue, hotspot activation/disable, record-backed visual/pose scripts,
+and pose-descriptor attached-child spawn/clear. This leaves the high-family
+callback map readable by behavior rather than by numbered placeholders.
+
+Source polish follow-up (2026-05-06): the adjacent `0x19 25` and `0x1D 0C`
+consumer leaves in `C1:6F9F..711A` now expose their result staging too. The
+condiment helper and Escargo storage-status classifier both install their
+outputs through the shared text-context result pair instead of bare direct-page
+scratch names.
+
+Source polish follow-up (2026-05-06): the same corridor now names `1F 23` and
+`19 26` staging. The scripted-battle init leaf shows its queued selector and
+signed result install, while the transition-landing snapshot leaf is labeled at
+`C1:7037` with its direct-argument fallback into `C2:30F3`.
+
+Source polish follow-up (2026-05-06): the dynamic source selector dispatcher at
+`C1:7B56..866D` now exposes the family-specific caller-frame offsets for
+`0x1A`, `0x1B`, `0x1C`, `0x1D`, and `0x1F`. The front `1A/1B` result and
+context reinstall sites now use the same `$0E/$10` text-context source pointer
+aliases used by the print/display and predicate leaves, keeping the dispatcher
+ABI readable across all high families.
+
+Source polish follow-up (2026-05-06): the top-level invoker/parser root at
+`C1:87CC..8B2C` now names its local callback ABI and lower-strip leaves. The
+source exposes `$1E` as the active same-bank callback low word, `$14` as the
+current callback argument or opcode byte, and `$12` as the managed text-event
+slot pointer. It also names the `0x15..17` compressed-bank pseudo-opcode
+resolver paths and the `0x11` selection-menu context installer, so the lower
+control strip now reads from the same source-facing contract vocabulary as the
+deferred `0x1F` callback leaves.
+
+The same pass replaced the root dispatcher's raw compare literals with
+`TextOpcode*` aliases through `0x1F`, including the `0x15..17` compressed-bank
+sentinels and the first literal-glyph cutoff at `0x20`.
+
 ## Pairings and system shape
 
 A few family pairings are now important enough to state at the top level:

@@ -172,6 +172,25 @@ This slice makes the file-select path useful to future SRAM/setup work:
 - the main file-select loop now has named source edges for its submenu
   dispatch, setup-menu backtracking, file-select pose/entity refresh, and final
   party-overlay sync
+- the save-slot and window-flavour selection loops now name their preview row
+  formatter callback installs through the shared `C1:1F5A` `$0E/$10` callback
+  ABI, including the save-slot corruption/preview adapter at `C1:ECD1` and the
+  setup-window flavour preview callback at `C1:EC8F`
+- the `C1:ECD1..F07E` save-slot menu source now also names the corrupt-save
+  notice loop index, battle-text substitution source, slot-choice mode,
+  save-slot row index, one-based row result, packed row metadata, text-entry
+  source/metadata, C4 copy source/destination pairs, level decimal source,
+  preserved print buffer, and active text-entry pointer used for selected-slot
+  redraws
+- the setup-menu wrappers at `C1:F616` and `C1:F6E3` now name their refresh
+  mode/result slots, active text-entry pointer, redraw text source,
+  window-flavour prompt/option text sources, text-entry metadata, persisted
+  setting pointer, and preview-selection result around the shared setup
+  selection loops
+- the new-file naming loop at `C1:F902..FAAE` now exposes its working/current
+  field index pair, advance delta/mirror, party-name destination index, and
+  C4 prompt-table pointer/stride staging before each `C1:EC04` naming-buffer
+  commit
 
 ## Remaining Soft Spots
 

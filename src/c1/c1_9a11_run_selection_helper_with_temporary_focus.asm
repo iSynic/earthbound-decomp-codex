@@ -23,6 +23,23 @@ C20A20_SnapshotManagedTextEventSlotState      = $C20A20
 C20ABC_RestoreManagedTextEventSlotState       = $C20ABC
 EF0115_CloseOrReleaseEscargoStorageWindow     = $EF0115
 
+TemporaryFocusOriginalSelector                = $0E
+TemporaryFocusSelectionMode                   = $10
+TemporaryFocusSelectionResult                 = $0E
+
+EscargoStorageQueueIndex                      = $02
+EscargoStorageSelectedItemId                  = $16
+EscargoStorageTitleBufferPointer              = $18
+EscargoStorageSelectionResult                 = $18
+EscargoTileBlockSourcePointerLo               = $0E
+EscargoTileBlockSourcePointerBank             = $10
+EscargoWindowTitleSourcePointerLo             = $0E
+EscargoWindowTitleSourcePointerBank           = $10
+EscargoTextEntrySourcePointerLo               = $0E
+EscargoTextEntrySourcePointerBank             = $10
+EscargoTextEntryMetadataLo                    = $12
+EscargoTextEntryMetadataHi                    = $14
+
 ; ---------------------------------------------------------------------------
 ; C1:9A11
 
@@ -35,22 +52,22 @@ C19A11_RunSelectionHelperWithTemporaryFocus:
     tcd
     pla
     txy
-    sty $10
+    sty TemporaryFocusSelectionMode
     tax
-    stx $0E
+    stx TemporaryFocusOriginalSelector
     lda.w #$9C8A
     jsl C20A20_SnapshotManagedTextEventSlotState
-    ldx $0E
+    ldx TemporaryFocusOriginalSelector
     txa
     jsr C1007E_SetFocusWindowOrContext
-    ldy $10
+    ldy TemporaryFocusSelectionMode
     tya
     jsr C1196A_RunActiveTextEntrySelectionMenu
     tax
-    stx $0E
+    stx TemporaryFocusSelectionResult
     lda.w #$9C8A
     jsl C20ABC_RestoreManagedTextEventSlotState
-    ldx $0E
+    ldx TemporaryFocusSelectionResult
     txa
     pld
     rts
@@ -61,21 +78,21 @@ C19A43_BuildEscargoStorageSelectionMenu:
     adc.w #$FFE6
     tcd
     ldy.w #$9CAB
-    sty $18
+    sty EscargoStorageTitleBufferPointer
     lda.w #$9C8A
     jsl C20A20_SnapshotManagedTextEventSlotState
     lda.w #$000D
     jsr CREATE_WINDOW
     lda.w #$5C10
-    sta $0E
+    sta EscargoTileBlockSourcePointerLo
     lda.w #$00C4
-    sta $10
+    sta EscargoTileBlockSourcePointerBank
     ldx.w #$000C
     lda.w #$9C9F
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
     lda.b #$58
-    ldy $18
+    ldy EscargoStorageTitleBufferPointer
     sta $0000,Y
     tyx
     inx
@@ -97,21 +114,21 @@ C19A43_BuildEscargoStorageSelectionMenu:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta EscargoWindowTitleSourcePointerLo
     lda $08
-    sta $10
+    sta EscargoWindowTitleSourcePointerBank
     ldx.w #$FFFF
     lda.w #$000D
     jsl C2032B_WriteWindowTitleAndUpload
     lda.w #$0000
-    sta $02
+    sta EscargoStorageQueueIndex
     bra C19B1C_selection_focus_and_escargo_storage_menu_L9B1C
 C19AB7_selection_focus_and_escargo_storage_menu_L9AB7:
-    ldx $02
+    ldx EscargoStorageQueueIndex
     lda $984B,X
     and.w #$00FF
     tay
-    sty $16
+    sty EscargoStorageSelectedItemId
     lda.w #$5000
     sta $06
     lda.w #$00D5
@@ -122,15 +139,15 @@ C19AB7_selection_focus_and_escargo_storage_menu_L9AB7:
     clc
     adc $06
     sta $06
-    sta $0E
+    sta EscargoTileBlockSourcePointerLo
     lda $08
-    sta $10
+    sta EscargoTileBlockSourcePointerBank
     ldx.w #$0019
     lda.w #$9C9F
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
     stz $9CB8
-    ldy $16
+    ldy EscargoStorageSelectedItemId
     beq C19B18_selection_focus_and_escargo_storage_menu_L9B18
     rep #$20
     lda.w #$9C9F
@@ -142,19 +159,19 @@ C19AB7_selection_focus_and_escargo_storage_menu_L9AB7:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta EscargoTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta EscargoTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta EscargoTextEntryMetadataLo
     lda.w #$0000
-    sta $14
+    sta EscargoTextEntryMetadataHi
     jsr C113D1_InstallTextEntryRecord
 C19B18_selection_focus_and_escargo_storage_menu_L9B18:
     rep #$20
-    inc $02
+    inc EscargoStorageQueueIndex
 C19B1C_selection_focus_and_escargo_storage_menu_L9B1C:
-    lda $02
+    lda EscargoStorageQueueIndex
     cmp.w #$0024
     bcc C19AB7_selection_focus_and_escargo_storage_menu_L9AB7
     ldy.w #$0001
@@ -164,13 +181,13 @@ C19B1C_selection_focus_and_escargo_storage_menu_L9B1C:
     lda.w #$0001
     jsr C1196A_RunActiveTextEntrySelectionMenu
     tax
-    stx $18
+    stx EscargoStorageSelectionResult
     lda.w #$000D
     jsl EF0115_CloseOrReleaseEscargoStorageWindow
     stz $5E71
     lda.w #$9C8A
     jsl C20ABC_RestoreManagedTextEventSlotState
-    ldx $18
+    ldx EscargoStorageSelectionResult
     txa
     pld
     rts

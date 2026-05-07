@@ -83,3 +83,14 @@ callback continuation target, the managed-slot snapshot apply helper at
 `C1:869D`, and the ordinary `00..1F` callback-root installs. The RTS-as-JSR
 mechanism is unchanged, but the surrounding parser and slot-management edges no
 longer appear as raw address calls in source.
+
+Source polish follow-up (2026-05-06): the same source now exposes the local
+callback ABI directly instead of leaving it in raw direct-page slots. `$1E` is
+`ActiveSameBankCallbackLowWord`, `$14` is the fetched
+`CallbackDispatchArgumentByte`, `$12` is the `ManagedTextEventSlotPointer`,
+`$02` is the RTS callback-low-word scratch, and `$00C0` is the absolute
+scratch slot used to preserve the callback's `A` argument across the manual
+stack setup. The source also names the adjacent `0x15..17` compressed-bank
+pseudo-opcode stream handoff and the `0x11` selection-menu text-context install
+leaf, keeping the invoker readable as both the callback bridge and the ordinary
+low-strip parser root.

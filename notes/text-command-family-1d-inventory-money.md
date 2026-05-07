@@ -130,6 +130,15 @@ wallet/ATM mutations call locally named C2 contracts while preserving the
 existing byte-equivalence gate.
 
 Source polish follow-up (2026-05-06): the same `C1:575D..621F` continuation
+now names the caller-frame result handoffs for the inventory/money leaves.
+`0x1D 10/11/13/14/17/19/21`, adjacent `0x1F 83`, and the ATM mutation leaves
+stage their booleans, selected slots, withdrawn character, wallet/ATM
+predicates, party-count predicate, random value, and C2 ATM mutation amounts
+through named `$0E/$10` text-context or money-amount pointer aliases. The
+Escargo store leaf also preserves its slot argument under a local name rather
+than a bare frame offset.
+
+Source polish follow-up (2026-05-06): the same `C1:575D..621F` continuation
 now names the deferred-byte and state ABI used by those leaves. `0x1D
 10/11/12/13` share the one-byte character/source selector queue, `0x1D
 14/06/07/17` share the three-byte amount queue, `0x1D 14` compares against
@@ -147,11 +156,37 @@ selector for give/take item wrappers. The adjacent `0x1D 0D/0E/0F` leaves in
 and remove-by-slot staging, so the source shows the queue contract instead of
 bare `$97BA/$97CA` and low-word self-return literals.
 
+Source polish follow-up (2026-05-06): the adjacent `C1:4EAB..575D` leaves now
+also expose their result handoff slots. `0x1D 0A/0B`, `0x1D 0D`, `0x1D 0E`,
+and `0x1D 0F` stage buy/sell price, ailment predicate, inserted item slot,
+destination character, removed item id, and removal result through named
+text-context source pointer aliases before primary or secondary context
+installation. This aligns the inventory/money family with the shared
+`$06/$08 -> $0E/$10` caller contract used by the surrounding menu and display
+leaves.
+
 Source polish follow-up (2026-05-06): the remaining front possession-selector
 wrappers now use the same vocabulary. `0x1D 04`, `0x1D 05`, and adjacent
 `0x1F 20` queue their one-byte character/source selector in `$97BA`, count it
 with `$97CA`, and return through named self-callback low words at `C1:4D24`,
 `C1:4D93`, and `C1:4DFB`.
+
+Source polish follow-up (2026-05-06): the live `C1:7F11` family dispatcher now
+names its selector ladder directly in `src/c1/c1_7b56_dispatch_display_text_dynamic_source_selector.asm`.
+The source names the stable `0x1D 01..15`, `17..19`, and `20..24`
+subselector ids, preserving the live absences for `0x16` and `0x1C`. The two
+inline predicate bodies are named too: `0x1D 20` exposes the battle
+user-targeting-self helper chain and boolean text-context staging, while
+`0x1D 22` exposes the current-map-position lookup, map-class mask, exit-mouse
+usable class, and the same boolean text-context staging.
+
+Source polish follow-up (2026-05-06): the `0x1D 0C` Escargo storage status
+leaf in `src/c1/c1_621f_finalize_text_command1_fc0_jump_multi2_target.asm`
+now names its C1-side staging directly. The source exposes the queued storage
+selector, primary-context fallback, inventory-slot argument fallback,
+storage-full bit, selected inventory item lookup at `$99F1`, item-table
+storage flag byte `+0x1C`, not-storable mask `0x40`, and final two-bit status
+result installation through `$06/$08 -> $0E/$10`.
 
 ### Item give/take and possession checks
 
@@ -263,6 +298,11 @@ That makes the return-value structure much clearer than before:
 
 `C1:90F1` itself now reads cleanly as the storage-capacity side of that split. It starts from `#$0024`, subtracts one for each nonzero byte in `$98AB[0..2]`, then scans `$984B` until it reaches either the first zero slot or the remaining capacity limit. It returns `1` only when no free queue entry exists within that remaining capacity, which is exactly the shape we would expect for a "storage full" bit. This helper is now source-backed in `src/c1/c1_90e6_read_active_overworld_registry_type_code.asm` as `CheckEscargoStorageQueueFull`.
 
+Source polish follow-up (2026-05-06): `C1:90F1` now names that capacity
+calculation inside source too. `$98AB[0..2]` reads as the active Escargo
+requester bytes, `$984B` as the packed storage queue, `$0E` as the remaining
+capacity, and `$02` as the scan index used to decide whether the queue is full.
+
 The script distribution lines up with that unusually well. This command is almost entirely confined to `ESHOP3`, and the hits cluster around Escargo-style request, refusal, and follow-up branches, including the path that sets `flag 0x0285` and triggers timed event row `0x03`. The community control-code docs also match the local return structure closely by describing `0x1D 0C` as "Check If Item Can Be Stored By Escargo Express."
 
 So the safest current read is no longer just "small service/item classifier." `0x1D 0C` is a compact Escargo storage result code composed from one live storage-capacity bit and one per-item storable/not-storable bit from item byte `+0x1C` bit `0x40`.
@@ -350,6 +390,12 @@ The strongest shared local anchor is the packed pending-item queue rooted at `$9
 
 `C1:913D` is now a firm queue-insertion helper over the packed `0x24`-entry `$984B..$986E` item-id block; see [pending-item-queue-984b.md](notes/pending-item-queue-984b.md). It stores the selected item id into the first free slot and returns success only when a free entry exists. That matches both the `ESHOP3` script neighborhoods and the community control-code wording unusually well: `[1D 18 XX]` is described as adding item `XX` to Escargo Express inventory.
 
+Source polish follow-up (2026-05-06): the queue insertion/removal helpers now
+name the scan/compaction scratch used by those storage leaves. The source
+distinguishes the pending-item scan index, source character, selected inventory
+slot, removed queue byte, shift byte, next index, and the `0x24` queue capacity
+instead of leaving the packed `$984B` helpers as raw DP temporaries.
+
 So the safest current read is: `0x18` is the queue-add side of the same service-side pending-item family as `0x12/0x13`, not a generic customer predicate.
 
 ### `0x1D 24`
@@ -357,6 +403,11 @@ So the safest current read is: `0x18` is the queue-add side of the same service-
 `0x1D 24` is now in much better shape. Its live leaf is `C1:7274`, and the best current model is [bank-deposit-accumulator-98b9-98bb.md](notes/bank-deposit-accumulator-98b9-98bb.md): it stages the cached 32-bit value at `$98B9/$98BB` through `C1:045D`, and command argument `2` clears that accumulator after staging it.
 
 This leaf is now source-backed in `src/c1/c1_7274_stage_bank_deposit_accumulator_text_value.asm` as `StageBankDepositAccumulatorTextValue`.
+
+Source polish follow-up (2026-05-06): that source now names the local
+bank-deposit staging ABI directly. The leaf exposes the `$98B9/$98BB`
+accumulator pointer, `$06/$08 -> $0E/$10` text-context handoff, command
+selector `2` clear path, and zeroing writes back into the cached accumulator.
 
 The local writer side is what corrected the old model. Bank-`C2` code at `C2:5F3D..5F7D` and `C2:6279..62B9` is doing real arithmetic on `$98B9/$98BB`, adding converted 16-bit amounts into it as a dword total. That is a much better fit for the `ESHOP3` script neighborhood too:
 

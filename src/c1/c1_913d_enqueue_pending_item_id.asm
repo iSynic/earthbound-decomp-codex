@@ -14,6 +14,14 @@
 C18C27_RemoveItemFromCharacterInventorySlot = $8C27
 C3E977_ReadCharacterInventorySlotByte = $C3E977
 
+EscargoPendingItemScanIndex = $0E
+EscargoMoveSourceCharacter = $0E
+EscargoPendingItemSlotIndex = $02
+EscargoPendingItemBytes = $984B
+EscargoPendingItemCapacity = $0024
+ZeroWord = $0000
+LowByteMask = $00FF
+
 ; ---------------------------------------------------------------------------
 ; C1:913D
 
@@ -27,16 +35,16 @@ C1913D_EnqueuePendingItemId = ESCARGO_EXPRESS_STORE
     tcd
     pla
     tay
-    lda.w #$0000
-    sta $0E
+    lda.w #ZeroWord
+    sta EscargoPendingItemScanIndex
     bra C1916E_c1_913d_enqueue_pending_item_id_L916E
 C1914F_c1_913d_enqueue_pending_item_id_L914F:
-    lda $0E
+    lda EscargoPendingItemScanIndex
     clc
-    adc.w #$984B
+    adc.w #EscargoPendingItemBytes
     tax
     lda $0000,X
-    and.w #$00FF
+    and.w #LowByteMask
     bne C19169_c1_913d_enqueue_pending_item_id_L9169
     tya
     sep #$20
@@ -45,21 +53,21 @@ C1914F_c1_913d_enqueue_pending_item_id_L914F:
     tya
     bra C19181_c1_913d_enqueue_pending_item_id_L9181
 C19169_c1_913d_enqueue_pending_item_id_L9169:
-    lda $0E
+    lda EscargoPendingItemScanIndex
     inc A
-    sta $0E
+    sta EscargoPendingItemScanIndex
 C1916E_c1_913d_enqueue_pending_item_id_L916E:
-    sta $02
-    lda.w #$0024
+    sta EscargoPendingItemSlotIndex
+    lda.w #EscargoPendingItemCapacity
     clc
-    sbc $02
+    sbc EscargoPendingItemSlotIndex
     bvs C1917C_c1_913d_enqueue_pending_item_id_L917C
     bpl C1914F_c1_913d_enqueue_pending_item_id_L914F
     bra C1917E_c1_913d_enqueue_pending_item_id_L917E
 C1917C_c1_913d_enqueue_pending_item_id_L917C:
     bmi C1914F_c1_913d_enqueue_pending_item_id_L914F
 C1917E_c1_913d_enqueue_pending_item_id_L917E:
-    lda.w #$0000
+    lda.w #ZeroWord
 C19181_c1_913d_enqueue_pending_item_id_L9181:
     pld
     rts
@@ -72,22 +80,22 @@ C19183_StoreInventorySlotItemInPendingQueue = ESCARGO_EXPRESS_MOVE
     adc.w #$FFF0
     tcd
     pla
-    stx $02
+    stx EscargoPendingItemSlotIndex
     tay
-    sty $0E
-    ldx $02
+    sty EscargoMoveSourceCharacter
+    ldx EscargoPendingItemSlotIndex
     tya
     jsl C3E977_ReadCharacterInventorySlotByte
     jsr.w ESCARGO_EXPRESS_STORE
-    cmp.w #$0000
+    cmp.w #ZeroWord
     beq C191AB_c1_913d_enqueue_pending_item_id_L91AB
-    ldx $02
-    ldy $0E
+    ldx EscargoPendingItemSlotIndex
+    ldy EscargoMoveSourceCharacter
     tya
     jsr REMOVE_ITEM_FROM_INVENTORY
     bra C191AE_c1_913d_enqueue_pending_item_id_L91AE
 C191AB_c1_913d_enqueue_pending_item_id_L91AB:
-    lda.w #$0000
+    lda.w #ZeroWord
 C191AE_c1_913d_enqueue_pending_item_id_L91AE:
     pld
     rts

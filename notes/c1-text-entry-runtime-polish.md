@@ -19,6 +19,7 @@ selection helpers, and current-window clear worker.
 | `src/c1/c1_153b_create_typed_text_entry_record.asm` | Typed constructor that stores caller selector/value at record `+0C` and marks record `+00 = 2`. |
 | `src/c1/c1_1596_create_typed_text_entry_record_with_extra_byte.asm` | Typed constructor variant that stores one extra caller byte at record `+0E`. |
 | `src/c1/c1_15f4_create_typed_text_entry_record_direct.asm` | Direct typed constructor plus C1:163C active-chain renderer over `$89D4` records. |
+| `src/c1/c1_33b0_rebuild_open_menu_text_entry_records.asm` | Open-menu caller surface now names the text-entry source pointer slots, selected-character staging, Goods/Talk interaction-context installs, status/check/talk feedback text sources, and debug decimal/fixed-string display sources. |
 | `src/c1/c1_17e2_measure_bounded_string_length.asm` | Bounded byte-string length helper using caller pointer plus maximum count. |
 | `src/c1/c1_180d_layout_active_text_entries_and_refresh.asm` | Thin wrapper over C4:51FA active-chain layout plus C1:163C render/refresh. |
 | `src/c1/c1_181b_select_active_text_entry_by_y.asm` | Selects an active `$89D4` entry by ordinal in `Y`, then copies record `+06` into descriptor `+33`. |
@@ -71,6 +72,17 @@ Open followups:
   rendering helpers
 - carry this record contract into text-command family notes for window and
   selection opcodes
+
+## Open-Menu Caller Contract
+
+The open-menu controller builds on the same text-entry helpers but also feeds
+menu results back into the text VM and interaction-context layer. Current source
+names in `C1:33B0..4103` distinguish the local `$0E/$10` scratch pair as entry
+source pointers, feedback text pointers, decimal print sources, and
+primary/secondary context-install sources. `$1F/$21` holds the selected
+character value reused by Goods, Status, and Talk branches, while the active
+context record offsets `+17/+1B/+21` carry the primary pointer, selected
+inventory slot, and destination character fields for later text/menu work.
 
 ## Validation
 

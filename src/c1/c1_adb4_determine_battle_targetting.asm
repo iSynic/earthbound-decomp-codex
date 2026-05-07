@@ -30,7 +30,7 @@ C1045D_InstallPrimaryInteractionContextPointer = $045D
 C10489_InstallSecondaryInteractionContextPointer = $0489
 C104EE_SetWindowFocus                   = $04EE
 C18C27_RemoveItemFromCharacterInventorySlot = $8C27
-C127EF_RunCharacterSelectionPromptWithCallback = $27EF
+C127EF_RunCallbackDrivenPartySelectionMenu = $27EF
 C08FF7_ResolveIndexedPointerOffset      = $C08FF7
 C03C4B_ProbeCurrentPositionHighCollisionBits = $C03C4B
 C0923E_ShiftTargettingClassToFlags      = $C0923E
@@ -98,6 +98,11 @@ NpcConfigTableLo                        = $8985
 NpcConfigTableBank                      = $00CF
 NpcConfigTableRowSize                   = $0011
 NpcConfigTextPointerOffset              = $000D
+
+CallbackDrivenPromptDisplayCallbackLo   = $0E
+CallbackDrivenPromptDisplayCallbackBank = $10
+CallbackDrivenPromptEligibilityCallbackLo = $12
+CallbackDrivenPromptEligibilityCallbackBank = $14
 
 ; ---------------------------------------------------------------------------
 ; C1:ADB4
@@ -280,16 +285,16 @@ C1AEDB_DetermineBattleTargetting_LAEDB:
     lda.w #$0000
     sta $08
     lda $06
-    sta $0E
+    sta CallbackDrivenPromptDisplayCallbackLo
     lda $08
-    sta $10
+    sta CallbackDrivenPromptDisplayCallbackBank
     lda $06
-    sta $12
+    sta CallbackDrivenPromptEligibilityCallbackLo
     lda $08
-    sta $14
+    sta CallbackDrivenPromptEligibilityCallbackBank
     ldx.w #$0001
     txa
-    jsr C127EF_RunCharacterSelectionPromptWithCallback
+    jsr C127EF_RunCallbackDrivenPartySelectionMenu
     sep #$20
     sta $01
     jsr C19437_CloseCharacterSelectTargetPrompt

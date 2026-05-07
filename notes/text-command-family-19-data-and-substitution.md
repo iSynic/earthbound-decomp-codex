@@ -92,11 +92,37 @@ reader, delivery/pickup queue writer, and delivery/pickup queue reader all
 stage one byte through `$97BA/$97CA` and now return named callback low words,
 so the `0x19` queue helpers match the surrounding `0x1D` source vocabulary.
 
+Source polish follow-up (2026-05-06): the `C1:575D..621F` data-return leaves
+now expose their caller-frame output ABI too. `0x19 19`, `0x19 1A`, `0x19 1B`,
+and `0x19 1D` stage inventory-slot item bytes, selected character ids, Escargo
+storage bytes, loaded-string counts, and delivery queue owner/item bytes
+through named `$0E/$10` text-context source aliases before primary or
+secondary context installation. The queue scan temporaries remain named only
+where they are used as real scan state.
+
 Source polish follow-up (2026-05-06): the `C1:621F..7274` module now names the
 helper edges for `0x19 22/23/24/25/26` directly. The three direction helpers
 call the C4 registry, visual-type, and pose-descriptor facing-octant helpers by
 name; the condiment leaf calls the C1 condiment lookup helper; and the landing
 snapshot leaf calls `C2:30F3` by name after resolving its staged argument.
+
+Source polish follow-up (2026-05-06): the three `0x19 22/23/24` direction
+helpers now name their output staging too. Each helper increments the C4-facing
+octant result and installs it through the named `$0E/$10` text-context source
+aliases before returning through the secondary context, matching the adjacent
+condiment and scripted-battle result handoffs.
+
+Source polish follow-up (2026-05-06): the `0x19 25` condiment leaf now also
+names its local staging in the same source module. It resolves either the
+incoming food-item byte or the next text argument, calls the condiment lookup
+helper, and installs the result through the shared `$06/$08 -> $0E/$10`
+text-context result path.
+
+Source polish follow-up (2026-05-06): the adjacent `0x19 26` leaf now has an
+explicit source label at `C1:7037` and names its one-word argument fallback
+before the `C2:30F3` snapshot handoff. This keeps the local transition-landing
+snapshot adapter visible without promoting the broader respawn/warp wording
+into the C1 source name.
 
 Source polish follow-up (2026-05-06): the `C1:78F7..7AE3` dispatcher module now
 also names the shared `0x18` window-helper edge surface that lives beside the
@@ -105,6 +131,13 @@ it makes the mixed module's two dispatcher roles explicit: `C1:78F7` remains
 the loaded-string collector entry for `0x19 02`, while the adjacent `C1:790B`
 window-family front now has named callback returns and named window/context
 helper calls.
+
+Source polish follow-up (2026-05-06): the `0x19` side of the same dispatcher
+now names its selector ladder in source. The comparisons cover the live
+data-return map from `0x19 02/04/05/10/11/14/16/18/19/1A/1B/1C/1D/1E/1F/20`
+through the `21..28` food, direction, condiment, landing, and statistic
+selector tail, so the helper-pointer table reads as a family dispatch instead
+of a numeric ladder.
 
 ## Best current case map
 
@@ -583,5 +616,3 @@ The cleanest next move is probably the success-side branch of `0x19 26` or the s
 
 - `0x19 26` is no longer structurally mysterious; the remaining gap is the exact meaning of `$9F3F` and the landing modes in `$9F41`
 - the statistics tail now has a real shared local anchor and a partial late-table crosswalk, so the next gain there is to name the remaining early and middle `C4:550F` selectors
-
-
