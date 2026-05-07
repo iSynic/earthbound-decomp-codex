@@ -463,6 +463,11 @@ closure.
   signed RGB555 component clamps, saved/work palette row bases, row counts,
   current-slot signed magnitude reads, upload selector writes, and fixed-color
   math modes. See `notes/palette-brightness-row-adjusters-c473b2-c474a8.md`.
+- 2026-05-06 battle-background selector/latch follow-up: split the brightness
+  row batch wrapper's `#$18` full-CGRAM selector value from the `$0030`
+  display-selector latch name, keeping C4's side effect to the `$0240` adjusted
+  rows plus latch write while leaving C0/NMI upload interpretation external.
+  See `notes/palette-brightness-row-adjusters-c473b2-c474a8.md`.
 - 2026-05-06 screen-origin/palette-export follow-up: tightened the tail of the
   window/color note around `$3C22..$3C30` fixed-point screen-origin staging,
   C0 projection/map-refresh caller joins, live-slot screen-relative rebasing,

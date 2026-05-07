@@ -46,8 +46,8 @@ PaletteComponent5BitMax                    = $001F
 PaletteComponentSignedNegativeBoundary     = $8000
 PaletteComponentLowByteMask                = $00FF
 PaletteComponentHighByteMask               = $FF00
-FullCgramUploadSelector                    = $18
-DisplayTransferSelector30                  = $0030
+FullCgramUploadSelector18                  = $18
+DisplaySelectorLatch30                     = $0030
 FixedColorMathAddMode33                    = $0033
 FixedColorMathSubModeB3                    = $00B3
 SignedWordInvertMask                       = $FFFF
@@ -200,8 +200,8 @@ C47462_BattleBgLoadAndPaletteBrightnessHelpers_L7462:
     bcc C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8
     pld
     rts
-; Applies the signed offset in A to all palette rows and marks the display
-; transfer selector for the full CGRAM/palette upload path.
+; Applies the signed offset in A to all palette rows and writes selector #$18
+; into the $0030 display-selector latch. C0/NMI owns the actual CGRAM upload.
 C4746B_ApplySignedBrightnessOffsetToPaletteRowsAndUpload:
     rep #$31
     phd
@@ -225,8 +225,8 @@ C47489_BattleBgLoadAndPaletteBrightnessHelpers_L7489:
     cpy.w #PaletteRowColorCount
     bcc C4747E_BattleBgLoadAndPaletteBrightnessHelpers_L747E
     sep #$20
-    lda.b #FullCgramUploadSelector
-    sta DisplayTransferSelector30
+    lda.b #FullCgramUploadSelector18
+    sta DisplaySelectorLatch30
     rep #$20
     pld
     rtl

@@ -24736,8 +24736,8 @@ org $C47370
 !PaletteComponentSignedNegativeBoundary = $8000
 !PaletteComponentLowByteMask = $00FF
 !PaletteComponentHighByteMask = $FF00
-!FullCgramUploadSelector = $18
-!DisplayTransferSelector30 = $0030
+!FullCgramUploadSelector18 = $18
+!DisplaySelectorLatch30 = $0030
 !FixedColorMathAddMode33 = $0033
 !FixedColorMathSubModeB3 = $00B3
 !SignedWordInvertMask = $FFFF
@@ -24906,8 +24906,8 @@ C47489_BattleBgLoadAndPaletteBrightnessHelpers_L7489:
     cpy.w #!PaletteRowColorCount
     bcc C4747E_BattleBgLoadAndPaletteBrightnessHelpers_L747E
     sep #$20
-    lda.b #!FullCgramUploadSelector
-    sta !DisplayTransferSelector30
+    lda.b #!FullCgramUploadSelector18
+    sta !DisplaySelectorLatch30
     rep #$20
     pld
     rtl
