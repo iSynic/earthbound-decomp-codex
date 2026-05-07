@@ -32,6 +32,8 @@ from decode_event_script import (
     ACTIONSCRIPT_SOUND_EFFECT_IDS,
     ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_WORDS,
     ACTIONSCRIPT_SURFACE_FLAGS_BYTES,
+    ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES,
+    ACTIONSCRIPT_VISUAL_STATE_BYTES,
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
     OPCODES,
@@ -3595,6 +3597,26 @@ def call_arg_expr(
                 value,
                 ACTIONSCRIPT_SURFACE_FLAGS_BYTES,
                 prefix="SURFACE_FLAGS",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
+        if field == "visual_state_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_VISUAL_STATE_BYTES,
+                prefix="VISUAL_STATE",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
+        if field == "countdown_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES,
+                prefix="VISUAL_COUNTDOWN",
                 formatter=fmt_byte,
                 constants=constants,
             )

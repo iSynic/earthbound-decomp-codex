@@ -14,6 +14,8 @@ from decode_event_script import (
     ACTIONSCRIPT_ANIMATION_IDS,
     ACTIONSCRIPT_DIRECTION_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
+    ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES,
+    ACTIONSCRIPT_VISUAL_STATE_BYTES,
     Address,
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
@@ -51,6 +53,8 @@ UNKNOWN_CALL_TARGET_RE = re.compile(
 ANIMATION_ID_RE = re.compile(r"EVENT_SET_ANIMATION\s+animation_id=\$([0-9A-F]{2})")
 FIELD2B32_WORD_RE = re.compile(r"field2b32_word=\$([0-9A-F]{4})")
 TEMPVAR_WORD_RE = re.compile(r"EVENT_WRITE_WORD_TEMPVAR\s+value_word=\$([0-9A-F]{4})")
+VISUAL_STATE_BYTE_RE = re.compile(r"visual_state_byte=\$([0-9A-F]{2})")
+VISUAL_COUNTDOWN_BYTE_RE = re.compile(r"countdown_byte=\$([0-9A-F]{2})")
 DECODED_ADDRESS_RE = re.compile(r"^([0-9A-F]{2}:[0-9A-F]{4})")
 RANDOM_CHOICES_RE = re.compile(r"EVENT_CALLROUTINE\s+\$C0:9F82\b.*choices=\d+\s+\[([^\]]+)\]")
 
@@ -184,6 +188,8 @@ def build_opcode_catalog() -> list[dict[str, Any]]:
 def collect_operand_value_signals(rows: list[dict[str, Any]]) -> dict[str, dict[str, int]]:
     animation_ids: Counter[str] = Counter()
     field2b32_words: Counter[str] = Counter()
+    visual_state_bytes: Counter[str] = Counter()
+    visual_countdown_bytes: Counter[str] = Counter()
     tempvar_direction_word_candidates: Counter[str] = Counter()
     direction_values = set(ACTIONSCRIPT_DIRECTION_WORDS)
 
@@ -193,6 +199,10 @@ def collect_operand_value_signals(rows: list[dict[str, Any]]) -> dict[str, dict[
                 animation_ids[f"${int(match.group(1), 16):02X}"] += 1
             if match := FIELD2B32_WORD_RE.search(line):
                 field2b32_words[f"${int(match.group(1), 16):04X}"] += 1
+            if match := VISUAL_STATE_BYTE_RE.search(line):
+                visual_state_bytes[f"${int(match.group(1), 16):02X}"] += 1
+            if match := VISUAL_COUNTDOWN_BYTE_RE.search(line):
+                visual_countdown_bytes[f"${int(match.group(1), 16):02X}"] += 1
             if match := TEMPVAR_WORD_RE.search(line):
                 value = int(match.group(1), 16)
                 if value in direction_values:
@@ -201,6 +211,8 @@ def collect_operand_value_signals(rows: list[dict[str, Any]]) -> dict[str, dict[
     return {
         "animation_ids": dict(animation_ids.most_common()),
         "field2b32_words": dict(field2b32_words.most_common()),
+        "visual_state_bytes": dict(visual_state_bytes.most_common()),
+        "visual_countdown_bytes": dict(visual_countdown_bytes.most_common()),
         "tempvar_direction_word_candidates": dict(
             tempvar_direction_word_candidates.most_common()
         ),
@@ -933,6 +945,38 @@ def render_markdown(audit: dict[str, Any]) -> str:
         render_operand_rows(
             ACTIONSCRIPT_ANIMATION_IDS,
             operand_values["animation_ids"],
+            width=2,
+        )
+    )
+    lines.extend(
+        [
+            "",
+            "### Visual countdown state bytes",
+            "",
+            "| Value | Name | Decode count | Contract |",
+            "| --- | --- | ---: | --- |",
+        ]
+    )
+    lines.extend(
+        render_operand_rows(
+            ACTIONSCRIPT_VISUAL_STATE_BYTES,
+            operand_values["visual_state_bytes"],
+            width=2,
+        )
+    )
+    lines.extend(
+        [
+            "",
+            "### Visual countdown seed bytes",
+            "",
+            "| Value | Name | Decode count | Contract |",
+            "| --- | --- | ---: | --- |",
+        ]
+    )
+    lines.extend(
+        render_operand_rows(
+            ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES,
+            operand_values["visual_countdown_bytes"],
             width=2,
         )
     )

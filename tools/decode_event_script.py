@@ -1054,6 +1054,22 @@ ACTIONSCRIPT_SURFACE_FLAGS_BYTES: dict[int, dict[str, str]] = {
     },
 }
 
+ACTIONSCRIPT_VISUAL_STATE_BYTES: dict[int, dict[str, str]] = {
+    value: {
+        "name": f"visual_state_{value:02x}",
+        "contract": f"visual-state byte ${value:02X} stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown",
+    }
+    for value in range(0x08)
+}
+
+ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES: dict[int, dict[str, str]] = {
+    value: {
+        "name": f"visual_countdown_seed_{value:02x}",
+        "contract": f"visual countdown seed byte ${value:02X} read by C0:AA6E; zero-visual path writes it raw to $10F2/$2892, existing-visual path doubles it into $10F2 and records the slot in $2896",
+    }
+    for value in (0x00, 0x01)
+}
+
 ACTIONSCRIPT_LANDING_PALETTE_SCALE_BYTES: dict[int, dict[str, str]] = {
     value: {
         "name": f"scale_{value:02x}",
@@ -1632,6 +1648,10 @@ def format_call_arg_value(
             return f"{field}={format_named_byte(value, ACTIONSCRIPT_DIRECTION_WORDS)}", cursor + 1
         if field == "surface_flags_byte":
             return f"{field}={format_named_byte(value, ACTIONSCRIPT_SURFACE_FLAGS_BYTES)}", cursor + 1
+        if field == "visual_state_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_VISUAL_STATE_BYTES)}", cursor + 1
+        if field == "countdown_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES)}", cursor + 1
         return f"{field}={format_byte(value)}", cursor + 1
     if width == 2:
         value = raw_args[cursor] | (raw_args[cursor + 1] << 8)

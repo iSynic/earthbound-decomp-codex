@@ -102,6 +102,26 @@ These names are source-pilot readability seeds from recurring decoded C3 actions
 | `$01` | `animation_frame1` | 32 | alternate/second script animation frame selector; often paired with $00 |
 | `$FF` | `animation_hidden_or_off` | 10 | sentinel/off-frame animation selector used by blink or disappearance-style pulses |
 
+### Visual countdown state bytes
+
+| Value | Name | Decode count | Contract |
+| --- | --- | ---: | --- |
+| `$00` | `visual_state_00` | 12 | visual-state byte $00 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$01` | `visual_state_01` | 1 | visual-state byte $01 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$02` | `visual_state_02` | 15 | visual-state byte $02 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$03` | `visual_state_03` | 1 | visual-state byte $03 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$04` | `visual_state_04` | 16 | visual-state byte $04 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$05` | `visual_state_05` | 1 | visual-state byte $05 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$06` | `visual_state_06` | 19 | visual-state byte $06 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+| `$07` | `visual_state_07` | 1 | visual-state byte $07 stored to current slot $2AF6 by C0:AA6E before the C0:A4C4/C0:A794 visual-profile refresh path; exact profile-frame meaning remains local-unknown |
+
+### Visual countdown seed bytes
+
+| Value | Name | Decode count | Contract |
+| --- | --- | ---: | --- |
+| `$00` | `visual_countdown_seed_00` | 40 | visual countdown seed byte $00 read by C0:AA6E; zero-visual path writes it raw to $10F2/$2892, existing-visual path doubles it into $10F2 and records the slot in $2896 |
+| `$01` | `visual_countdown_seed_01` | 26 | visual countdown seed byte $01 read by C0:AA6E; zero-visual path writes it raw to $10F2/$2892, existing-visual path doubles it into $10F2 and records the slot in $2896 |
+
 ### Field $2B32 movement words
 
 | Value | Name | Observed count | Contract |
@@ -566,14 +586,14 @@ C3:0263  29 D8 00             EVENT_SET_Y y_word=$00D8
 C3:0266  0E 06 80 1D          EVENT_SET_VAR script_var=var6, value_word=$1D80
 C3:026A  0E 07 D8 00          EVENT_SET_VAR script_var=var7, value_word=$00D8
 C3:026E  1A 95 02             EVENT_SHORTCALL call_target=$C3:0295 <MoveActiveEntityLeftToScriptVarsAndWait>
-C3:0271  42 6E AA C0 02 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$02, countdown_byte=$00
+C3:0271  42 6E AA C0 02 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$02 <visual_state_02>, countdown_byte=$00 <visual_countdown_seed_00>
 C3:0277  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
 C3:027B  06 01                EVENT_PAUSE frames=$01
 C3:027D  15 9A 5D 00 00       EVENT_WRITE_WORD_WRAM wram_addr=$5D9A <queue_pending_or_special_state_flag>, value_word=$0000
 C3:0282  0E 06 D0 1D          EVENT_SET_VAR script_var=var6, value_word=$1DD0
 C3:0286  1A 59 AB             EVENT_SHORTCALL call_target=$C3:AB59 <WaitForActiveEntityMovementToFinish>
 C3:0289  13                   EVENT_END_LAST_TASK
-C3:028A  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$06, countdown_byte=$00
+C3:028A  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$06 <visual_state_06>, countdown_byte=$00 <visual_countdown_seed_00>
 C3:0290  42 46 6E C4          EVENT_CALLROUTINE $C4:6E46 <SetYieldToTextLatch9641>
 C3:0294  09                   EVENT_HALT
 ```
@@ -587,7 +607,7 @@ C3:0294  09                   EVENT_HALT
 
 ```text
 C3:0295  1A 38 AA             EVENT_SHORTCALL call_target=$C3:AA38 <InitActionScriptMovementState>
-C3:0298  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$06, countdown_byte=$00
+C3:0298  42 6E AA C0 06 00    EVENT_CALLROUTINE $C0:AA6E <Script_ApplyCurrentSlotVisualCountdownState>, visual_state_byte=$06 <visual_state_06>, countdown_byte=$00 <visual_countdown_seed_00>
 C3:029E  42 85 A6 C0 00 01    EVENT_CALLROUTINE $C0:A685 <Script_SetCurrentSlotField2B32>, field2b32_word=$0100 <field2b32_step_0100>
 C3:02A4  0E 05 01 00          EVENT_SET_VAR script_var=var5, value_word=$0001
 C3:02A8  1A 59 AB             EVENT_SHORTCALL call_target=$C3:AB59 <WaitForActiveEntityMovementToFinish>

@@ -171,6 +171,14 @@ pilots:
   palette existing-work mask word, palette scale byte, and fade frame-count
   byte forwarded to the C4 landing/flyover palette fade driver.
 
+`C0:AA6E` sites now name the two inline bytes without overclaiming the exact
+frame art. The first byte is a `visual_state_byte`: the C0 wrapper stores it in
+current-slot `$2AF6` before the `C0:A4C4`/`C0:A794` visual-profile refresh
+path. The observed C3 values are `$00-$07`. The second byte is a
+`countdown_byte` seed: `$00/$01` are observed, with the zero-visual path writing
+the seed raw to `$10F2/$2892` and the existing-visual path doubling it into
+`$10F2` before recording the current slot in `$2896`.
+
 The C3-local battle-bg value catalog only names observed pilot values:
 `$00FF` as the event-340 Winters transition layer 1, `$0000` as the disabled
 layer-2 sentinel, and `$0107/$0108` as the coffee/tea layer pair. These are
