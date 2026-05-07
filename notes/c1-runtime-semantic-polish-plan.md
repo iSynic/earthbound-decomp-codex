@@ -747,3 +747,10 @@ This planning pass is documentation-only.
   row, item id, one-based character id, staged item-name text entry,
   item-selection result, C2 preview callback lane, and wallet decimal-print
   source without altering the C2/C3/C4 helper boundaries.
+- 2026-05-07 follow-up: the file-select slot-choice source at
+  `C1:ECD1..F07E` now names the save-slot menu caller ABI. The pass covers the
+  corrupt-save notice loop, battle-text substitution source, slot-choice mode,
+  save-slot row and preview indices, packed row metadata, text-entry
+  source/metadata, C4 copy source/destination pairs, level decimal print
+  source, preserved print buffer, and active text-entry pointer for selected
+  slot redraws.

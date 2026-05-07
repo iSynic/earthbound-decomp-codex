@@ -34125,6 +34125,33 @@ org $C1ECD1
 !EF0A68_CheckSaveSlotChecksum = $EF0A68
 !MenuRowFormatterCallbackLo = $0E
 !MenuRowFormatterCallbackBank = $10
+!CorruptSaveSlotIndex = $12
+!CorruptSaveLoopCompareScratch = $02
+!CorruptSaveSubstitutionSourceLo = $0E
+!CorruptSaveSubstitutionSourceHi = $10
+!CorruptSaveNoticeTextPointerLo = $0E
+!CorruptSaveNoticeTextPointerBank = $10
+!FileSelectSlotChoiceMode = $02
+!FileSelectSlotIndex = $1E
+!FileSelectPreviewSlotIndex = $1A
+!FileSelectOneBasedSlot = $04
+!FileSelectPackedRowMetadata = $1C
+!FileSelectTextEntrySourcePointerLo = $0E
+!FileSelectTextEntrySourcePointerBank = $10
+!FileSelectTextEntryMetadataLo = $12
+!FileSelectTextEntryMetadataHi = $14
+!FileSelectCopyDestinationPointerLo = $0E
+!FileSelectCopyDestinationPointerBank = $10
+!FileSelectCopySourcePointerLo = $12
+!FileSelectCopySourcePointerBank = $14
+!FileSelectPrintSourcePointerLo = $0E
+!FileSelectPrintSourcePointerBank = $10
+!FileSelectDecimalSourcePointerLo = $0E
+!FileSelectDecimalSourcePointerHi = $10
+!FileSelectPreservedPrintBufferLo = $16
+!FileSelectPreservedPrintBufferBank = $18
+!FileSelectTextWidthScratch = $04
+!FileSelectActiveTextEntryPointer = $1C
 C1ECD1_PreviewPackedHighByteWindowFlavour:
     rep #$31
     xba
@@ -34146,7 +34173,7 @@ CORRUPTION_CHECK:
     lda.w #$002F
     jsr !C104EE_SetWindowFocus
     ldx.w #$0000
-    stx $12
+    stx !CorruptSaveSlotIndex
     bra C1ED38_PreviewPackedHighByteWindowFlavour_LED38
 C1ED00_PreviewPackedHighByteWindowFlavour_LED00:
     sep #$20
@@ -34163,24 +34190,24 @@ C1ED00_PreviewPackedHighByteWindowFlavour_LED00:
     dec $08
 C1ED1A_PreviewPackedHighByteWindowFlavour_LED1A:
     lda $06
-    sta $0E
+    sta !CorruptSaveSubstitutionSourceLo
     lda $08
-    sta $10
+    sta !CorruptSaveSubstitutionSourceHi
     jsr !C1AD0A_StageBattleTextSubstitutionPointer
     lda.w #$C973
-    sta $0E
+    sta !CorruptSaveNoticeTextPointerLo
     lda.w #$00C7
-    sta $10
+    sta !CorruptSaveNoticeTextPointerBank
     jsl !C186B1_PrintTextFromPointer
 C1ED33_PreviewPackedHighByteWindowFlavour_LED33:
-    ldx $12
+    ldx !CorruptSaveSlotIndex
     inx
-    stx $12
+    stx !CorruptSaveSlotIndex
 C1ED38_PreviewPackedHighByteWindowFlavour_LED38:
-    stx $02
+    stx !CorruptSaveLoopCompareScratch
     lda.w #$0003
     clc
-    sbc $02
+    sbc !CorruptSaveLoopCompareScratch
     bvs C1ED46_PreviewPackedHighByteWindowFlavour_LED46
     bpl C1ED00_PreviewPackedHighByteWindowFlavour_LED00
     bra C1ED48_PreviewPackedHighByteWindowFlavour_LED48
@@ -34205,11 +34232,11 @@ FILE_SELECT_MENU:
     adc.w #$FFE0
     tcd
     pla
-    sta $02
+    sta !FileSelectSlotChoiceMode
     lda.w #$0013
     jsr !C104EE_SetWindowFocus
     ldy.w #$0000
-    sty $1E
+    sty !FileSelectSlotIndex
     jmp.w C1EE58_PreviewPackedHighByteWindowFlavour_LEE58
 C1ED75_PreviewPackedHighByteWindowFlavour_LED75:
     tya
@@ -34223,7 +34250,7 @@ C1ED75_PreviewPackedHighByteWindowFlavour_LED75:
     rep #$20
     lda.w #$9C9F
     jsl !C08EFC_CommitTileBufferToStaging
-    ldy $1E
+    ldy !FileSelectSlotIndex
     tya
     sep #$20
     clc
@@ -34260,10 +34287,10 @@ C1EDC7_PreviewPackedHighByteWindowFlavour_LEDC7:
     and.w #$00FF
     xba
     and.w #$FF00
-    sta $1C
+    sta !FileSelectPackedRowMetadata
     bra C1EE28_PreviewPackedHighByteWindowFlavour_LEE28
 C1EDE1_PreviewPackedHighByteWindowFlavour_LEDE1:
-    ldy $1E
+    ldy !FileSelectSlotIndex
     tya
     sep #$20
     clc
@@ -34279,26 +34306,26 @@ C1EDE1_PreviewPackedHighByteWindowFlavour_LEDE1:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !FileSelectCopyDestinationPointerLo
     lda $08
-    sta $10
+    sta !FileSelectCopyDestinationPointerBank
     lda.w #$C05E
-    sta $12
+    sta !FileSelectCopySourcePointerLo
     lda.w #$00C4
-    sta $14
+    sta !FileSelectCopySourcePointerBank
     lda.w #$0010
     jsl !C08EED_CopyToVramOrRendererBuffer
     sep #$20
     stz $9CB0
-    ldy $1E
+    ldy !FileSelectSlotIndex
     tyx
     stz $B49E,X
     rep #$20
     lda.w #$0100
-    sta $1C
+    sta !FileSelectPackedRowMetadata
 C1EE28_PreviewPackedHighByteWindowFlavour_LEE28:
-    sty $04
-    inc $04
+    sty !FileSelectOneBasedSlot
+    inc !FileSelectOneBasedSlot
     lda.w #$9C9F
     sta $06
     phb
@@ -34308,18 +34335,18 @@ C1EE28_PreviewPackedHighByteWindowFlavour_LEE28:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !FileSelectTextEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !FileSelectTextEntrySourcePointerBank
     lda.w #$0000
-    sta $12
+    sta !FileSelectTextEntryMetadataLo
     lda.w #$0000
-    sta $14
-    lda $1C
-    ora $04
+    sta !FileSelectTextEntryMetadataHi
+    lda !FileSelectPackedRowMetadata
+    ora !FileSelectOneBasedSlot
     jsr !C115F4_CreateTypedTextEntryRecordDirect
-    ldy $04
-    sty $1E
+    ldy !FileSelectOneBasedSlot
+    sty !FileSelectSlotIndex
 C1EE58_PreviewPackedHighByteWindowFlavour_LEE58:
     cpy.w #$0003
     bcs C1EE62_PreviewPackedHighByteWindowFlavour_LEE62
@@ -34331,7 +34358,7 @@ C1EE62_PreviewPackedHighByteWindowFlavour_LEE62:
     lda.w #$0001
     jsr !C1180D_LayoutActiveTextEntriesAndRefresh
     ldy.w #$0000
-    sty $1A
+    sty !FileSelectPreviewSlotIndex
     jmp.w C1EFCE_PreviewPackedHighByteWindowFlavour_LEFCE
 C1EE74_PreviewPackedHighByteWindowFlavour_LEE74:
     tya
@@ -34350,26 +34377,26 @@ C1EE84_PreviewPackedHighByteWindowFlavour_LEE84:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !FileSelectCopyDestinationPointerLo
     lda $08
-    sta $10
+    sta !FileSelectCopyDestinationPointerBank
     lda.w #$C06E
-    sta $12
+    sta !FileSelectCopySourcePointerLo
     lda.w #$00C4
-    sta $14
+    sta !FileSelectCopySourcePointerBank
     lda.w #$0006
     jsl !C08EED_CopyToVramOrRendererBuffer
     sep #$20
     stz $9CA5
-    ldy $1A
+    ldy !FileSelectPreviewSlotIndex
     tyx
     rep #$20
     lda.w #$0009
     jsl !C438A5_SetTextPosition
     lda $06
-    sta $0E
+    sta !FileSelectPrintSourcePointerLo
     lda $08
-    sta $10
+    sta !FileSelectPrintSourcePointerBank
     lda.w #$0020
     jsr !C10EFC_PrintTextFromPointerLocal
     sep #$20
@@ -34380,9 +34407,9 @@ C1EE84_PreviewPackedHighByteWindowFlavour_LEE84:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !FileSelectDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !FileSelectDecimalSourcePointerHi
     jsr !C10D7C_FormatDecimalDigitsTo8960
     tax
     cpx.w #$0001
@@ -34390,10 +34417,10 @@ C1EE84_PreviewPackedHighByteWindowFlavour_LEE84:
     lda.w #$0050
     bra C1EF03_PreviewPackedHighByteWindowFlavour_LEF03
 C1EEF0_PreviewPackedHighByteWindowFlavour_LEEF0:
-    stx $04
+    stx !FileSelectTextWidthScratch
     lda.w #$0007
     sec
-    sbc $04
+    sbc !FileSelectTextWidthScratch
     tax
     lda $895A,X
     and.w #$00FF
@@ -34407,7 +34434,7 @@ C1EF03_PreviewPackedHighByteWindowFlavour_LEF03:
     adc.b #$60
     sta $9CA0
     stz $9CA1
-    ldy $1A
+    ldy !FileSelectPreviewSlotIndex
     tyx
     rep #$20
     lda.w #$000D
@@ -34421,23 +34448,23 @@ C1EF03_PreviewPackedHighByteWindowFlavour_LEF03:
     stz $09
     rep #$20
     lda $06
-    sta $16
+    sta !FileSelectPreservedPrintBufferLo
     lda $08
-    sta $18
+    sta !FileSelectPreservedPrintBufferBank
     lda $06
-    sta $0E
+    sta !FileSelectPrintSourcePointerLo
     lda $08
-    sta $10
+    sta !FileSelectPrintSourcePointerBank
     lda.w #$0020
     jsr !C10EFC_PrintTextFromPointerLocal
     lda $06
-    sta $0E
+    sta !FileSelectCopyDestinationPointerLo
     lda $08
-    sta $10
+    sta !FileSelectCopyDestinationPointerBank
     lda.w #$C074
-    sta $12
+    sta !FileSelectCopySourcePointerLo
     lda.w #$00C4
-    sta $14
+    sta !FileSelectCopySourcePointerBank
     lda.w #$000B
     jsl !C08EED_CopyToVramOrRendererBuffer
     sep #$20
@@ -34453,9 +34480,9 @@ C1EF03_PreviewPackedHighByteWindowFlavour_LEF03:
     stz $09
     rep #$20
     lda $06
-    sta $0E
+    sta !FileSelectCopyDestinationPointerLo
     lda $08
-    sta $10
+    sta !FileSelectCopyDestinationPointerBank
     lda.w #$C07F
     sta $06
     lda.w #$00C4
@@ -34463,44 +34490,44 @@ C1EF03_PreviewPackedHighByteWindowFlavour_LEF03:
     lda $98B6
     and.w #$00FF
     dec A
-    sta $04
+    sta !FileSelectTextWidthScratch
     asl A
-    adc $04
+    adc !FileSelectTextWidthScratch
     asl A
-    adc $04
+    adc !FileSelectTextWidthScratch
     clc
     adc $06
     sta $06
-    sta $12
+    sta !FileSelectCopySourcePointerLo
     lda $08
-    sta $14
+    sta !FileSelectCopySourcePointerBank
     lda.w #$0007
     jsl !C08EED_CopyToVramOrRendererBuffer
-    ldy $1A
+    ldy !FileSelectPreviewSlotIndex
     tyx
     lda.w #$0010
     jsl !C438A5_SetTextPosition
-    lda $16
+    lda !FileSelectPreservedPrintBufferLo
     sta $06
-    lda $18
+    lda !FileSelectPreservedPrintBufferBank
     sta $08
     lda $06
-    sta $0E
+    sta !FileSelectPrintSourcePointerLo
     lda $08
-    sta $10
+    sta !FileSelectPrintSourcePointerBank
     lda.w #$0020
     jsr !C10EFC_PrintTextFromPointerLocal
 C1EFC9_PreviewPackedHighByteWindowFlavour_LEFC9:
-    ldy $1A
+    ldy !FileSelectPreviewSlotIndex
     iny
-    sty $1A
+    sty !FileSelectPreviewSlotIndex
 C1EFCE_PreviewPackedHighByteWindowFlavour_LEFCE:
     cpy.w #$0003
     bcs C1EFD8_PreviewPackedHighByteWindowFlavour_LEFD8
     beq C1EFD8_PreviewPackedHighByteWindowFlavour_LEFD8
     jmp.w C1EE74_PreviewPackedHighByteWindowFlavour_LEE74
 C1EFD8_PreviewPackedHighByteWindowFlavour_LEFD8:
-    lda $02
+    lda !FileSelectSlotChoiceMode
     beq C1F03E_RunFileSelectSlotChoiceAndPreview
     lda $8958
     asl A
@@ -34515,7 +34542,7 @@ C1EFD8_PreviewPackedHighByteWindowFlavour_LEFD8:
     clc
     adc.w #$89D4
     tay
-    sty $1C
+    sty !FileSelectActiveTextEntryPointer
     lda $B4A1
     and.w #$00FF
     tax
@@ -34528,13 +34555,13 @@ C1F007_PreviewPackedHighByteWindowFlavour_LF007:
     clc
     adc.w #$89D4
     tay
-    sty $1C
+    sty !FileSelectActiveTextEntryPointer
     dex
 C1F019_PreviewPackedHighByteWindowFlavour_LF019:
     bne C1F007_PreviewPackedHighByteWindowFlavour_LF007
     lda.w #$0006
     jsr !C10FEA_PrintSignedOrStatusValue
-    ldy $1C
+    ldy !FileSelectActiveTextEntryPointer
     lda $000A,Y
     tax
     lda $0008,Y

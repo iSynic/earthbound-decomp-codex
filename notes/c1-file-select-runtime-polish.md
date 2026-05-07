@@ -176,6 +176,12 @@ This slice makes the file-select path useful to future SRAM/setup work:
   formatter callback installs through the shared `C1:1F5A` `$0E/$10` callback
   ABI, including the save-slot corruption/preview adapter at `C1:ECD1` and the
   setup-window flavour preview callback at `C1:EC8F`
+- the `C1:ECD1..F07E` save-slot menu source now also names the corrupt-save
+  notice loop index, battle-text substitution source, slot-choice mode,
+  save-slot row index, one-based row result, packed row metadata, text-entry
+  source/metadata, C4 copy source/destination pairs, level decimal source,
+  preserved print buffer, and active text-entry pointer used for selected-slot
+  redraws
 
 ## Remaining Soft Spots
 
