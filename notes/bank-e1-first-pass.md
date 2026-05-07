@@ -90,6 +90,12 @@ glow title palette animation subpayloads, while
 ending cast-scene prelude graphics bundle. The missing-yml fact remains useful
 provenance, but these ranges are no longer open semantic blockers.
 
+`notes/ui-font-town-map-asset-contracts.md` now gathers the source-emission
+rows for the E1 side of this boundary: town-map icon descriptor/pointer/blink
+tables, six variable placement lists, title palette animation subpayloads, the
+title-letter OAM row set, and landing/cast visual bundle rows are emit-ready
+with documented preserve policies.
+
 ## Current E1 confidence boundary
 
 High confidence:
@@ -101,7 +107,9 @@ High confidence:
 - `src/e1/bank_e1_helpers_asar.asm` protects the full bank through the reusable
   source-bank scaffold pipeline. The inferred missing payload groups remain
   byte-exact; their checked-in semantic contracts now cover the title palette
-  animation and ending cast-name visual support ranges.
+  animation and ending cast-name visual support ranges. The town-map icon
+  support span also has source-emission rows for descriptor lists, pointer and
+  blink tables, and FF-terminated placement variable lists.
 
 Still intentionally out of scope:
 
@@ -116,7 +124,8 @@ Still intentionally out of scope:
 
 E1 is now closed for byte-preserving scaffold purposes. The remaining work is
 semantic polish: use the intro/title, title-palette, title-letter OAM, landing
-display, ending cast, and town-map icon contracts for source emission; preserve
-missing-yml notes for provenance; promote photographer/flyover/credits-adjacent
-table spans only when caller evidence supports field names; and optionally add
-render fixtures for the intro/title/ending/town-map assets.
+display, ending cast, and town-map icon source-emission rows in
+`notes/ui-font-town-map-asset-contracts.md`; preserve missing-yml notes for
+provenance; promote photographer/flyover/credits-adjacent table spans only when
+caller evidence supports field names; and optionally add render fixtures for the
+intro/title/ending/town-map assets.

@@ -25,7 +25,7 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 | Mixed asset/table banks | `CF, D0` | `contract-backed-with-known-followups` | 7 | 131072 | 95 | 0 | 0 | 0 | CF/D0 table contracts are now useful for source planning; remaining polish is generated source-emission polish, preserving the D0 battle-group gap and CF type-5 no-op numeric payloads, plus optional gameplay labels for the already-bounded CF trigger selectors. |
 | Overworld sprites | `D1, D2, D3, D4, D5` | `contract-backed` | 1148 | 327680 | 45056 | 0 | 0 | 0 | Only polish alias labels, D5 story-specific timed-delivery row labels, and unowned payload explanations as needed for contributor ergonomics. |
 | Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | `contract-backed-with-known-followups` | 130 | 655360 | 1456 | 0 | 0 | 0 | Map contracts are phase-good-enough: D7 sector metadata source-emission rows/value counts, D8 collision source-emission rows/value counts, DA palette subrecords/script joins, and the DC current-position event-music selector plus second-plane numeric-preserve policy are contract-backed, while D7/DC unresolved planes are value-bounded without promoted names; collision low modifier labels, DA event-palette selector runtime behavior, DF profile names, and remaining D7 high-bit/DC second-plane semantics are deferred caller-evidence polish. |
-| UI, fonts, and town-map assets | `E0, E1` | `contract-seeded` | 69 | 131072 | 91 | 5 | 5 | 0 | Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, landing/cast visual, and SRAM template shapes are split; remaining palette-row and renderer-control flag names are bounded semantic polish. |
+| UI, fonts, and town-map assets | `E0, E1` | `contract-backed-with-known-followups` | 69 | 131072 | 91 | 5 | 5 | 0 | UI/font/town-map contracts are phase-good-enough for source emission: variable-list town-map rows, title palette/OAM rows, landing/cast visual bundles, and SRAM template blocks have preserve policies. Remaining palette-row, renderer-control flag, flyover/credits/photographer, and public-facing scene names are bounded semantic polish. |
 | Audio packs | `E2, E3, E4, E5, E6, E7, E8, E9, EA, EB, EC, ED, EE` | `raw-pack-manifest` | 171 | 851968 | 28699 | 0 | 0 | 0 | Split EBM/audio packs into pack, sample, sequence, and pointer contracts once the format boundary is selected. |
 | EF debug and late-tail data | `EF` | `seed-contract` | 5 | 65536 | 0 | 0 | 0 | 0 | Split EF front mixed data/code into save/debug/map/tile/sprite/text contracts as EF semantics are refined. |
 
@@ -65,8 +65,8 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 
 ### UI, fonts, and town-map assets
 
-- maturity: `contract-seeded`
-- proof: raw/decompressed/preview recipes exist, and the generated UI/font/town-map contract groups assets by runtime-facing family with C4 town-map caller evidence, E0 text-window skin palette splits, metric-backed font bundle joins, E1 intro/title scene splits, E1 title palette animation and title-letter OAM table decoding, E1 landing/cast visual runtime-owner splits, and an E0 SRAM save-block template contract
+- maturity: `contract-backed-with-known-followups`
+- proof: raw/decompressed/preview recipes exist, and the generated UI/font/town-map contract groups assets by runtime-facing family with source-emission rows for E0 text-window selector/palette tables, E0 town-map graphics pointers, E1 town-map descriptor/pointer/blink/variable placement lists, title palette animation subpayloads, title-letter OAM rows, landing/cast visual bundles, and the E0 SRAM save-block template
 - checked docs: `notes/ui-font-town-map-asset-contracts.md`, `notes/text-window-skin-bundle-contracts.md`, `notes/font-bundle-contracts.md`, `notes/intro-title-visual-bundle-contracts.md`, `notes/title-screen-palette-animation-contracts.md`, `notes/title-screen-letter-oam-contracts.md`, `notes/landing-cast-visual-contracts.md`, `notes/sram-template-contracts.md`, `notes/bank-e0-asset-data-map.md`, `notes/bank-e1-asset-data-map.md`, `notes/town-map-selection-rendering-c4d274-c4d744.md`, `notes/your-sanctuary-location-coordinate-table-c4de78.md`
 - category mix: `graphics` 41, `binary-asset` 13, `raw-table` 10, `audio` 3, +1 more
 - output recipe mix: `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, +4 more
@@ -113,8 +113,8 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 | `DD` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 8 | 65536 | 14 | `graphics` 6, `audio` 1, `raw-gap` 1 | `raw` 8, `earthbound_lzhal` 6 | 8 | 0 |
 | `DE` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 13 | 65536 | 29 | `graphics` 11, `audio` 1, `raw-gap` 1 | `raw` 13, `earthbound_lzhal` 11, `earthbound_lzhal_snes_4bpp_tiles_png` 5 | 44 | 0 |
 | `DF` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 24 | 65536 | 60 | `graphics` 21, `audio` 1, `raw-gap` 1, +1 more | `raw` 24, `earthbound_lzhal` 21, `earthbound_lzhal_snes_4bpp_tiles_png` 15 | 18 | 0 |
-| `E0` | `ui_font_town_map_assets` | `contract-seeded` | 16 | 65536 | 27 | `binary-asset` 8, `graphics` 4, `audio` 2, +2 more | `raw` 16, `earthbound_lzhal` 9, `earthbound_lzhal_snes_4bpp_tiles_png` 1, +1 more | 77 | 0 |
-| `E1` | `ui_font_town_map_assets` | `contract-seeded` | 53 | 65536 | 125 | `graphics` 37, `raw-table` 9, `binary-asset` 5, +2 more | `raw` 53, `earthbound_lzhal` 32, `earthbound_lzhal_snes_4bpp_tiles_png` 12, +5 more | 14 | 0 |
+| `E0` | `ui_font_town_map_assets` | `contract-backed-with-known-followups` | 16 | 65536 | 27 | `binary-asset` 8, `graphics` 4, `audio` 2, +2 more | `raw` 16, `earthbound_lzhal` 9, `earthbound_lzhal_snes_4bpp_tiles_png` 1, +1 more | 77 | 0 |
+| `E1` | `ui_font_town_map_assets` | `contract-backed-with-known-followups` | 53 | 65536 | 125 | `graphics` 37, `raw-table` 9, `binary-asset` 5, +2 more | `raw` 53, `earthbound_lzhal` 32, `earthbound_lzhal_snes_4bpp_tiles_png` 12, +5 more | 14 | 0 |
 | `E2` | `audio_packs` | `raw-pack-manifest` | 5 | 65536 | 5 | `audio` 4, `raw-gap` 1 | `raw` 5 | 3 | 0 |
 | `E3` | `audio_packs` | `raw-pack-manifest` | 5 | 65536 | 5 | `audio` 4, `raw-gap` 1 | `raw` 5 | 14 | 0 |
 | `E4` | `audio_packs` | `raw-pack-manifest` | 6 | 65536 | 6 | `audio` 5, `raw-gap` 1 | `raw` 6 | 7 | 0 |
@@ -132,7 +132,7 @@ ROM-derived asset outputs are still local-only under ignored `build/assets`; thi
 
 ## Recommended Next Manual Seams
 
-1. `ui_font_town_map_assets`: Phase-good-enough contract-seeded; text-window skins, font bundles, town-map tables, intro/title visuals, title palette animation, title-letter OAM, landing/cast visuals, and SRAM template blocks now have splits. Remaining work is narrow semantic naming, not asset/data discovery.
+1. `ui_font_town_map_assets`: Phase-good-enough source-emission rows now cover text-window palettes, town-map pointers and variable icon lists, title palette/OAM tables, landing/cast bundles, and SRAM template blocks. Remaining work is narrow semantic naming, not asset/data discovery.
 2. `battle_visual_assets`: Phase-good-enough contract-seeded; battle backgrounds, PSI animations, battle sprites, and swirls now have joins. Remaining work is optional alias/internal decode polish.
 3. `map_tilesets_and_runtime_tables`: The map milestone is phase-good-enough; D7 and DC unresolved planes now have numeric-preserve source-emission policy, while DA event-palette selector dispatch remains bounded runtime-semantics polish.
 4. `audio_packs`: Large byte volume remains raw-pack level; defer until we choose an audio-pack contract boundary.

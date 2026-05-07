@@ -834,7 +834,8 @@
         "Source payload path from ebsrc: E1AE7C.bin.lzhal",
         "Original file offset: 0x21AE7C",
         "Payload is marked compressed in earthbound.yml or inferred from its extension.",
-        "Span was inferred from the next known asset because yml metadata was missing."
+        "Span was inferred from the next known asset because yml metadata was missing.",
+        "Source-emission split is tracked in notes/ui-font-town-map-asset-contracts.md as three title palette-animation subpayloads."
       ]
     },
     {
@@ -1426,7 +1427,8 @@
       "notes": [
         "Source include from ebsrc: data/unknown/E1CE08.asm",
         "Original file offset: 0x21CE08",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Source-emission split is tracked in notes/ui-font-town-map-asset-contracts.md as title-screen letter OAM records plus the local pointer table."
       ]
     },
     {
@@ -1492,7 +1494,8 @@
       "notes": [
         "Source include from ebsrc: data/unknown/E1F203.asm",
         "Original file offset: 0x21F203",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Source-emission split is tracked in notes/ui-font-town-map-asset-contracts.md as town-map icon descriptor lists, pointer/blink tables, and six variable placement lists."
       ]
     },
     {

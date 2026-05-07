@@ -59,7 +59,11 @@ known binary asset starts at `E0:21A8`, the manifest safely treats
 `E0:1FB9..E0:21A7` as one combined generated table span. The span is now split
 semantically by `notes/text-window-skin-bundle-contracts.md` into the flavour
 selector table, window palette blocks, movement-text palette row, and six-entry
-town-map graphics pointer tail.
+town-map graphics pointer tail. `notes/ui-font-town-map-asset-contracts.md`
+now carries the source-emission rows for that split: text-window selectors,
+palette blocks, movement text palette, and the E0 town-map graphics pointer
+table are emit-ready, while non-consumer-backed palette row labels remain
+numeric/preserved.
 
 ## Tooling behavior
 
@@ -69,7 +73,10 @@ recovers `COMPRESSED_SRAM` as `E0:09B4..E0:1358` while still reporting
 `mystery_sram.bin.lzhal` as missing payload metadata. Separately,
 `notes/sram-template-contracts.md` resolves the decompressed payload as eight
 0x500-byte `save_block` records with three primary/backup user save-slot pairs
-and two preserved reserve template blocks.
+and two preserved reserve template blocks. The UI/font/town-map contract uses
+that evidence as the E0 SRAM source-emission policy: emit the compressed source
+payload with decoded block inventory available to tooling, and keep reserve
+blocks 6 and 7 as reserve records until narrower owner evidence appears.
 
 The parser also now accepts indented labels, which resolves labels inside
 conditional blocks such as `MOTHER2_ROMAJI_FONT`, `COMPRESSED_SRAM`,
@@ -102,7 +109,7 @@ Still intentionally out of scope:
 ## Recommended next move
 
 E0 is now closed for byte-preserving scaffold purposes. The remaining work is
-semantic polish: use `notes/sram-template-contracts.md` and
-`notes/text-window-skin-bundle-contracts.md` for source emission, preserve the
-missing-yml metadata note for provenance, and optionally add render fixtures for
-UI graphics, fonts, and town maps.
+semantic polish: use `notes/ui-font-town-map-asset-contracts.md` for the E0
+text-window, town-map pointer, and SRAM template source-emission rows; preserve
+the missing-yml metadata note for provenance; and optionally add render fixtures
+for UI graphics, fonts, and town maps.

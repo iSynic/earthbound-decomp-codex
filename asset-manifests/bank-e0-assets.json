@@ -133,7 +133,8 @@
         "Source payload path from ebsrc: mystery_sram.bin.lzhal",
         "Original file offset: 0x2009B4",
         "Payload is marked compressed in earthbound.yml or inferred from its extension.",
-        "Span was inferred from the next known asset because yml metadata was missing."
+        "Span was inferred from the next known asset because yml metadata was missing.",
+        "Source-emission policy is tracked in notes/ui-font-town-map-asset-contracts.md and notes/sram-template-contracts.md as an eight-block SRAM save template with blocks 6/7 preserved as reserve records."
       ]
     },
     {
@@ -400,7 +401,8 @@
       "notes": [
         "Source include from ebsrc: data/text_window_properties.asm",
         "Original file offset: 0x201FB9",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Source-emission split is tracked in notes/ui-font-town-map-asset-contracts.md as text-window selector/palette rows plus the town-map graphics pointer table."
       ]
     },
     {

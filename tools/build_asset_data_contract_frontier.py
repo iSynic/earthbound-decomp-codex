@@ -104,8 +104,8 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
         "id": "ui_font_town_map_assets",
         "label": "UI, fonts, and town-map assets",
         "banks": ["E0", "E1"],
-        "maturity": "contract-seeded",
-        "proof": "raw/decompressed/preview recipes exist, and the generated UI/font/town-map contract groups assets by runtime-facing family with C4 town-map caller evidence, E0 text-window skin palette splits, metric-backed font bundle joins, E1 intro/title scene splits, E1 title palette animation and title-letter OAM table decoding, E1 landing/cast visual runtime-owner splits, and an E0 SRAM save-block template contract",
+        "maturity": "contract-backed-with-known-followups",
+        "proof": "raw/decompressed/preview recipes exist, and the generated UI/font/town-map contract groups assets by runtime-facing family with source-emission rows for E0 text-window selector/palette tables, E0 town-map graphics pointers, E1 town-map descriptor/pointer/blink/variable placement lists, title palette animation subpayloads, title-letter OAM rows, landing/cast visual bundles, and the E0 SRAM save-block template",
         "docs": [
             "notes/ui-font-town-map-asset-contracts.md",
             "notes/text-window-skin-bundle-contracts.md",
@@ -120,7 +120,7 @@ CONTRACT_FAMILIES: list[dict[str, Any]] = [
             "notes/town-map-selection-rendering-c4d274-c4d744.md",
             "notes/your-sanctuary-location-coordinate-table-c4de78.md",
         ],
-        "next_contract": "Text-window skin, font, town-map, intro/title scene, title palette animation, title-letter OAM, landing/cast visual, and SRAM template shapes are split; remaining palette-row and renderer-control flag names are bounded semantic polish.",
+        "next_contract": "UI/font/town-map contracts are phase-good-enough for source emission: variable-list town-map rows, title palette/OAM rows, landing/cast visual bundles, and SRAM template blocks have preserve policies. Remaining palette-row, renderer-control flag, flyover/credits/photographer, and public-facing scene names are bounded semantic polish.",
     },
     {
         "id": "audio_packs",
@@ -341,7 +341,7 @@ def build_frontier(manifest_dir: Path) -> dict[str, Any]:
             {
                 "rank": 1,
                 "family": "ui_font_town_map_assets",
-                "why": "Phase-good-enough contract-seeded; text-window skins, font bundles, town-map tables, intro/title visuals, title palette animation, title-letter OAM, landing/cast visuals, and SRAM template blocks now have splits. Remaining work is narrow semantic naming, not asset/data discovery.",
+                "why": "Phase-good-enough source-emission rows now cover text-window palettes, town-map pointers and variable icon lists, title palette/OAM tables, landing/cast bundles, and SRAM template blocks. Remaining work is narrow semantic naming, not asset/data discovery.",
             },
             {
                 "rank": 2,

@@ -127,6 +127,141 @@ FAMILIES: dict[str, dict[str, Any]] = {
 }
 
 
+SOURCE_EMISSION_ROWS: list[dict[str, Any]] = [
+    {
+        "id": "text_window_skin_tables_and_palettes",
+        "family": "text_window_skin",
+        "bank": "E0",
+        "range": "E0:1FB9..E0:2190",
+        "status": "runtime-corroborated-source-row",
+        "emission_contract": "Split the generated E0 table include into five 3-byte flavour-selector records, seven 0x40-byte window palette blocks, and the standalone eight-byte movement-text palette row.",
+        "preserve_policy": "Keep palette rows other than the known selector offsets and +$18 equipment/status row numerically named; preserve block 6 as an unused/nonselectable extra system block until caller proof appears.",
+        "evidence": [
+            "notes/text-window-skin-bundle-contracts.md",
+            "notes/text-window-rendering-primitives-c1078d-c10d7c.md",
+        ],
+    },
+    {
+        "id": "town_map_graphics_pointer_table",
+        "family": "town_maps",
+        "bank": "E0",
+        "range": "E0:2190..E0:21A8",
+        "status": "runtime-corroborated-source-row",
+        "emission_contract": "Emit six town-map graphics pointer entries keyed by the zero-based town-map id consumed by C4:D553.",
+        "preserve_policy": "Keep the pointer targets as source-owned town-map graphics asset references; no map-name labels beyond the manifest payload names are required for byte-preserving emission.",
+        "evidence": [
+            "notes/town-map-selection-rendering-c4d274-c4d744.md",
+            "notes/bank-e0-asset-data-map.md",
+        ],
+    },
+    {
+        "id": "town_map_icon_descriptor_and_control_tables",
+        "family": "town_maps",
+        "bank": "E1",
+        "range": "E1:F203..E1:F491",
+        "status": "runtime-corroborated-source-row",
+        "emission_contract": "Split E1:F203 into 22 five-byte icon descriptor lists, then emit the 23-entry icon pointer table and 23 one-byte blink/suppress table.",
+        "preserve_policy": "Use consumer-backed field names for signed offsets, tile/attribute words, and control flags; keep control bit 0 generically named and bits 1..6 reserved because the checked-in descriptor rows never set them.",
+        "evidence": [
+            "notes/town-map-selection-rendering-c4d274-c4d744.md",
+        ],
+    },
+    {
+        "id": "town_map_icon_placement_variable_lists",
+        "family": "town_maps",
+        "bank": "E1",
+        "range": "E1:F491..E1:F581",
+        "status": "runtime-corroborated-variable-list",
+        "emission_contract": "Emit the six long-pointer placement heads and six FF-terminated icon placement lists, totaling 42 five-byte records with x, y, icon id, and event-flag draw polarity.",
+        "preserve_policy": "Keep event flag words numeric aside from the high-bit draw-polarity contract; gameplay-facing place names are optional labels, not required source fields.",
+        "evidence": [
+            "notes/town-map-selection-rendering-c4d274-c4d744.md",
+            "notes/text-command-1f41-special-event-dispatch-c1befc.md",
+        ],
+    },
+    {
+        "id": "sram_save_template_blocks",
+        "family": "sram_save_template",
+        "bank": "E0",
+        "range": "E0:09B4..E0:1359",
+        "status": "decompressed-struct-backed-source-row",
+        "emission_contract": "Emit the compressed SRAM template with its decoded eight 0x500-byte save_block inventory available to tooling; three primary/backup slot pairs and two reserve template blocks are contract-covered.",
+        "preserve_policy": "Preserve reserve blocks 6 and 7 as reserve template records until prototype/tool evidence proves a narrower owner; do not invent live-slot semantics for them.",
+        "evidence": [
+            "notes/sram-template-contracts.md",
+            "notes/bank-e0-asset-data-map.md",
+        ],
+    },
+    {
+        "id": "title_palette_animation_subpayloads",
+        "family": "intro_and_title_visuals",
+        "bank": "E1",
+        "range": "E1:AE7C..E1:AF7D",
+        "status": "legacy-and-runtime-corroborated-source-row",
+        "emission_contract": "Split the former single title-palette blob into the initial title palette, 14-frame title-letter palette animation, and 20-frame title-glow palette animation subpayloads.",
+        "preserve_policy": "Keep destination palette selector values numeric until the title event temp-variable mapping is fully named.",
+        "evidence": [
+            "notes/title-screen-palette-animation-contracts.md",
+            "notes/title-screen-logo-palette-event-helpers-c0ebe0-c0ee53.md",
+        ],
+    },
+    {
+        "id": "title_screen_letter_oam_rows",
+        "family": "intro_and_title_visuals",
+        "bank": "E1",
+        "range": "E1:CE08..E1:CFAF",
+        "status": "legacy-corroborated-source-row",
+        "emission_contract": "Emit nine TitleScreenLetterOAMData records of 0x2D bytes plus the nine-entry local pointer table at E1:CF9D.",
+        "preserve_policy": "Use the EARTHOUND record labels and OAM-ish y/tile/attrs/x/control fields; preserve the absent B record as a documented contract boundary rather than fabricating a row.",
+        "evidence": [
+            "notes/title-screen-letter-oam-contracts.md",
+            "notes/intro-title-visual-bundle-contracts.md",
+        ],
+    },
+    {
+        "id": "landing_and_cast_visual_bundles",
+        "family": "landing_display_visuals",
+        "bank": "E1",
+        "range": "E1:CFAF..E1:E528",
+        "status": "runtime-loader-backed-source-row",
+        "emission_contract": "Emit the saved-coordinate landing scene as graphics/arrangement/palette components and the ending cast-name visual support as prelude graphics, support table, cast-name graphics, and palette data.",
+        "preserve_policy": "Keep public-facing scene names and the 32-byte cast support-table field names as semantic polish until more caller evidence is promoted.",
+        "evidence": [
+            "notes/landing-cast-visual-contracts.md",
+            "notes/saved-landing-display-stage-c4c2de-c4c64d.md",
+            "notes/cast-scene-scroll-helpers-c4e4da-c4e583.md",
+        ],
+    },
+    {
+        "id": "flyover_credits_photographer_raw_tables",
+        "family": "flyover_credits_photo_tables",
+        "bank": "E1",
+        "range": "E1:0000..E1:0C7A, E1:2EFA..E1:374A, E1:413F..E1:4EC1, E1:E924..E1:EA50",
+        "status": "raw-table-preserve",
+        "emission_contract": "Emit flyover text, cast formatting, photographer, credits, and credits-adjacent table spans as structured table assets first.",
+        "preserve_policy": "Do not promote field names inside these spans until caller/tool evidence proves record boundaries and field roles.",
+        "evidence": [
+            "notes/c3-flyover-intro-text-release-paths-source-pilot.md",
+            "notes/bank-e1-asset-data-map.md",
+        ],
+    },
+    {
+        "id": "embedded_audio_tails_and_padding",
+        "family": "audio_pack_tails",
+        "bank": "E0/E1",
+        "range": "E0:ED03..E0:FFB3, E1:F581..E1:10000",
+        "status": "raw-pack-and-padding-preserve",
+        "emission_contract": "Keep E0/E1 audio tails in the broader audio-pack family and preserve bank-end padding as byte-accounting gaps.",
+        "preserve_policy": "Do not fold audio payloads into UI visual source rows; audio pack internals remain deferred to the E2-EE audio-pack boundary decision.",
+        "evidence": [
+            "notes/bank-e2-ee-audio-pack-run.md",
+            "notes/bank-e0-asset-data-map.md",
+            "notes/bank-e1-asset-data-map.md",
+        ],
+    },
+]
+
+
 def load_assets() -> list[dict[str, Any]]:
     assets: list[dict[str, Any]] = []
     for manifest_path in MANIFEST_PATHS:
@@ -273,6 +408,14 @@ def build_contract() -> dict[str, Any]:
             }
         )
 
+    source_emission_rows = [
+        {
+            **row,
+            "evidence": [doc for doc in row["evidence"] if (ROOT / doc).exists()],
+        }
+        for row in SOURCE_EMISSION_ROWS
+    ]
+
     return {
         "schema": "earthbound-decomp.ui-font-town-map-asset-contracts.v1",
         "scope": "E0/E1 UI, font, town-map, intro/title, table, and embedded audio-tail payloads",
@@ -280,9 +423,11 @@ def build_contract() -> dict[str, Any]:
         "generated_json": rel(DEFAULT_JSON_OUT),
         "tracked_markdown": rel(DEFAULT_MARKDOWN_OUT),
         "families": families,
+        "source_emission_rows": source_emission_rows,
         "totals": {
             "assets": len(assets),
             "bytes": sum(sum(int(asset["bytes"]) for asset in family["assets"]) for family in families),
+            "source_emission_rows": len(source_emission_rows),
             "manifest_inferred_payload_units": sum(
                 int(family["manifest_inferred_payload_units"]) for family in families
             ),
@@ -596,6 +741,7 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- assets/tables/gaps represented: `{totals['assets']}`",
         f"- source bytes represented: `{totals['bytes']}`",
         f"- contract families: `{totals['families']}`",
+        f"- source-emission rows: `{totals['source_emission_rows']}`",
         f"- manifest-inferred payload units: `{totals['manifest_inferred_payload_units']}`",
         f"- contract-covered inferred payload units: `{totals['contract_covered_inferred_payload_units']}`",
         f"- unresolved missing payload metadata units: `{totals['unresolved_missing_payload_metadata_units']}`",
@@ -623,6 +769,22 @@ def render_markdown(contract: dict[str, Any]) -> str:
     lines.extend(["", "## Known Runtime Shapes", ""])
     for shape in contract["known_runtime_shapes"]:
         lines.append(f"- `{shape['id']}`: {shape['shape']} Source: `{shape['source']}`.")
+
+    lines.extend(["", "## Source-Emission Rows", ""])
+    lines.append("| Row | Range | Status | Emission contract | Preserve policy | Evidence |")
+    lines.append("| --- | --- | --- | --- | --- | --- |")
+    for row in contract["source_emission_rows"]:
+        evidence = ", ".join(f"`{doc}`" for doc in row["evidence"]) or "-"
+        lines.append(
+            "| `{id}` | `{range}` | `{status}` | {emission} | {preserve} | {evidence} |".format(
+                id=row["id"],
+                range=row["range"],
+                status=row["status"],
+                emission=row["emission_contract"],
+                preserve=row["preserve_policy"],
+                evidence=evidence,
+            )
+        )
 
     lines.extend(
         [
