@@ -46,6 +46,8 @@ Status: representative independent-emulator capture jobs are packaged for extern
 ## Validation After Imports
 
 - `python tools/validate_audio_independent_oracle_capture_packet.py`
+- `python tools/build_audio_independent_oracle_handoff_matrix.py`
+- `python tools/validate_audio_independent_oracle_handoff_matrix.py`
 - `python tools/run_audio_independent_oracle_campaign.py --mode audit-existing-captures`
 - `python tools/validate_audio_independent_oracle_campaign_run_summary.py`
 - `python tools/collect_audio_oracle_comparison_results.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --summary build/audio/oracle-comparison-all-tracks/oracle-comparison-summary.json`

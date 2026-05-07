@@ -121,6 +121,8 @@ def validate(data: dict[str, Any]) -> None:
             "run_audio_independent_oracle_campaign.py --mode audit-existing-captures",
             "build_audio_independent_oracle_capture_packet.py",
             "validate_audio_independent_oracle_capture_packet.py",
+            "build_audio_independent_oracle_handoff_matrix.py",
+            "validate_audio_independent_oracle_handoff_matrix.py",
             "import_audio_oracle_reference_capture.py",
             "validate_audio_oracle_verification_report.py",
         ],

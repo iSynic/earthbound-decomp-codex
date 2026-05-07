@@ -48,6 +48,8 @@ REQUIRED_METADATA_FIELDS = {
 }
 REQUIRED_POST_COMMANDS = {
     "python tools/validate_audio_independent_oracle_capture_packet.py",
+    "python tools/build_audio_independent_oracle_handoff_matrix.py",
+    "python tools/validate_audio_independent_oracle_handoff_matrix.py",
     "python tools/run_audio_independent_oracle_campaign.py --mode audit-existing-captures",
     "python tools/validate_audio_independent_oracle_campaign_run_summary.py",
     "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
