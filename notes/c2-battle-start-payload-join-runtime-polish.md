@@ -48,6 +48,9 @@ and comments while preserving byte-equivalence.
   `C1:DD47`. The `C2:311B` menu/present controller now names its opening
   `C2:FEF9` palette load/dim call as the same `LoadOrDimBattlePaletteSet`
   contract.
+- Variable-source overlay follow-up: the same `C2:4A8A` interactive loop now
+  calls `C4:A67E` as `StartBattleOverlayScriptState` when `$006D & 0x8000`
+  advances the `$AA72/$AA74` overlay mode/profile pair.
 - STEAL/result-cleanup follow-up now names the battle-start front/back helper
   joins that were already source-backed elsewhere: `C2:4316` selects a
   stealable candidate for action `0x42`, `C2:4348` guards the pending stolen
@@ -121,6 +124,10 @@ vocabulary when the generated party/enemy candidate pool reaches the
 interactive selection frame. This keeps the pool producer, enemy-select C1
 join, and post-selection present text setup tied to one battle-start contract
 instead of leaving those calls as raw display helpers.
+
+Its overlay branch now uses the C4 source-facing name for `C4:A67E`, making the
+`$AA72/$AA74` counters read as overlay script mode/profile state for the
+interactive battle-start presentation loop.
 
 The STEAL row (`0x42`) now reads as a full argument lifecycle in the
 battle-start front/back sources: select a candidate item into the action

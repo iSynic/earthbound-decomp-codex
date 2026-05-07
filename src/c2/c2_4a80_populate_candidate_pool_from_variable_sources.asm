@@ -25,6 +25,7 @@ C2B6EB_ApplyCandidateRecordPayload           = $C2B6EB
 C2B930_InitializeCandidateRecordFromSource   = $C2B930
 C2DB3F_RunBattleBgPerFrameUpdateBody         = $C2DB3F
 C2E116_AdvanceBattleVisualEffectOrSwirlState = $C2E116
+C4A67E_StartBattleOverlayScriptState         = $C4A67E
 C4FBBD_ChangeMusic                           = $C4FBBD
 C12DD5_WindowTick                            = $C12DD5
 
@@ -253,7 +254,7 @@ C24C44_C24A8A_PopulateCandidatePoolFromVariableSources_L4C44:
 C24C4F_C24A8A_PopulateCandidatePoolFromVariableSources_L4C4F:
     ldx $AA74
     lda $AA72
-    jsl $C4A67E
+    jsl C4A67E_StartBattleOverlayScriptState
     ldx $AA72
     inx
     stx $AA72

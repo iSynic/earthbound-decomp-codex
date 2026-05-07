@@ -848,6 +848,11 @@ contract notes for C0/C1/C3/C4 consumers.
   `ShiftUnsignedLongRightByY` inside `C2:69F8`, making the shared scaler read
   as `floor(random_byte * limit / 256)`. See
   `notes/c2-instant-win-and-magic-butterfly-helpers-c26189-c2654c.md`.
+- 2026-05-06 one hundred and tenth slice: tightened the battle-start
+  variable-source overlay join. `C2:4A8A` now calls `C4:A67E` as
+  `StartBattleOverlayScriptState` while advancing the `$AA72/$AA74` overlay
+  mode/profile pair in the interactive candidate-pool loop. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md`.
 
 ## Validation
 
