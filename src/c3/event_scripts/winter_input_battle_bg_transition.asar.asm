@@ -5,6 +5,8 @@ hirom
 
 ; External constants and action-script variable slots.
 !ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_BATTLE_BG_LAYER1_ID_EVENT340_WINTERS_TRANSITION = $00FF
+!ACTIONSCRIPT_BATTLE_BG_LAYER2_ID_NONE = $0000
 !ACTIONSCRIPT_DIRECTION_UP = $04
 !ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
 !ACTIONSCRIPT_VARS_V0 = $00
@@ -46,11 +48,11 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_BATTLE_BG_ANIMATION_PRESENTATION_SPRITE_RESOURCE(target, battle_bg_animation_word, presentation_sprite_resource_word)
+macro EVENT_CALLROUTINE_BATTLE_BG_LAYER1_ID_BATTLE_BG_LAYER2_ID(target, battle_bg_layer1_id_word, battle_bg_layer2_id_word)
     db $42
     dl <target>
-    dw <battle_bg_animation_word>
-    dw <presentation_sprite_resource_word>
+    dw <battle_bg_layer1_id_word>
+    dw <battle_bg_layer2_id_word>
 endmacro
 
 macro EVENT_CALLROUTINE_DISPLAY_TRANSITION_MODE_DISPLAY_TRANSITION_X_DISPLAY_TRANSITION_Y(target, display_transition_mode_word, display_transition_x_word, display_transition_y_word)
@@ -205,7 +207,7 @@ LoopEvent340_WaitForInputB:
     %EVENT_LOOP_END() ; C3:1959  02
     %EVENT_LOOP_END() ; C3:195A  02
     %EVENT_CALLROUTINE_DISPLAY_TRANSITION_MODE_DISPLAY_TRANSITION_X_DISPLAY_TRANSITION_Y(!ActionScript_FadeOutWithMosaic, $0001, $0001, $0000) ; C3:195B  42 07 AA C0 01 00 01 00 00 00
-    %EVENT_CALLROUTINE_BATTLE_BG_ANIMATION_PRESENTATION_SPRITE_RESOURCE(!Movement_LoadBattleBg, $00FF, $0000) ; C3:1965  42 77 A9 C0 FF 00 00 00
+    %EVENT_CALLROUTINE_BATTLE_BG_LAYER1_ID_BATTLE_BG_LAYER2_ID(!Movement_LoadBattleBg, !ACTIONSCRIPT_BATTLE_BG_LAYER1_ID_EVENT340_WINTERS_TRANSITION, !ACTIONSCRIPT_BATTLE_BG_LAYER2_ID_NONE) ; C3:1965  42 77 A9 C0 FF 00 00 00
     %EVENT_SET_X($0080) ; C3:196D  28 80 00
     %EVENT_SET_Y($0070) ; C3:1970  29 70 00
     %EVENT_CALLROUTINE_FADEIN_EFFECT(!ActionScript_FadeInWrapper, $0101) ; C3:1973  42 AE 9F C0 01 01

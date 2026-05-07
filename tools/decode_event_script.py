@@ -888,8 +888,8 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
     "C0:A977": {
         "name": "Movement_LoadBattleBg",
         "group": "presentation-render",
-        "contract": "read battle-background animation and presentation-sprite resource words, then load the battle-bg presentation state for a movement script",
-        "args": "battle_bg_animation_word, presentation_sprite_resource_word",
+        "contract": "read layer-1 and optional layer-2 battle-background config ids, then load the battle-bg presentation state for a movement script",
+        "args": "battle_bg_layer1_id_word, battle_bg_layer2_id_word",
     },
     "C0:A98B": {
         "name": "SpawnEntityAtCurrentSlotAnchor_ReadTwoWords",
@@ -1051,6 +1051,28 @@ ACTIONSCRIPT_SURFACE_FLAGS_BYTES: dict[int, dict[str, str]] = {
     0x03: {
         "name": "surface_flags_bit0_bit1",
         "contract": "surface-flags byte $03 written by C0:A679 to current slot field $2BAA; bits 0 and 1 set, exact runtime meanings still local-unknown",
+    },
+}
+
+ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS: dict[int, dict[str, str]] = {
+    0x00FF: {
+        "name": "event340_winters_transition",
+        "contract": "layer-1 battle-background config id used by the Winters event-340 input-gated transition",
+    },
+    0x0107: {
+        "name": "coffee_tea_layer1",
+        "contract": "layer-1 battle-background config id used by the coffee/tea visual gatekeeper",
+    },
+}
+
+ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS: dict[int, dict[str, str]] = {
+    0x0000: {
+        "name": "none",
+        "contract": "optional layer-2 battle-background config id $0000; C2:D121 skips layer-2 setup when X is zero",
+    },
+    0x0108: {
+        "name": "coffee_tea_layer2",
+        "contract": "optional layer-2 battle-background config id paired with coffee/tea layer 1",
     },
 }
 
@@ -1428,6 +1450,10 @@ def format_call_arg_value(
         value = raw_args[cursor] | (raw_args[cursor + 1] << 8)
         if field == "field2b32_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_FIELD2B32_WORDS)}", cursor + 2
+        if field == "battle_bg_layer1_id_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS)}", cursor + 2
+        if field == "battle_bg_layer2_id_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS)}", cursor + 2
         if field == "sound_effect_id_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_SOUND_EFFECT_IDS)}", cursor + 2
         return f"{field}={format_word(value)}", cursor + 2

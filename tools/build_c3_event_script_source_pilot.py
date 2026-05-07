@@ -13,6 +13,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from decode_event_script import (
     ACTIONSCRIPT_ANIMATION_IDS,
+    ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS,
+    ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS,
     ACTIONSCRIPT_DIRECTION_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
     ACTIONSCRIPT_SOUND_EFFECT_IDS,
@@ -3559,6 +3561,26 @@ def call_arg_expr(
                 value,
                 ACTIONSCRIPT_FIELD2B32_WORDS,
                 prefix="FIELD2B32",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "battle_bg_layer1_id_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS,
+                prefix="BATTLE_BG_LAYER1_ID",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "battle_bg_layer2_id_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS,
+                prefix="BATTLE_BG_LAYER2_ID",
                 formatter=fmt_word,
                 constants=constants,
             )

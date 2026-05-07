@@ -2712,6 +2712,8 @@ Event338_TransitionSnapshotMovementRelease:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_BATTLE_BG_LAYER1_ID_EVENT340_WINTERS_TRANSITION = $00FF
+!ACTIONSCRIPT_BATTLE_BG_LAYER2_ID_NONE = $0000
 !ActionScript_FadeInWrapper = $C09FAE
 !ActionScript_FadeOutWithMosaic = $C0AA07
 !AnimatedBackgroundCallback = $C48BDA
@@ -2722,11 +2724,11 @@ Event338_TransitionSnapshotMovementRelease:
 ; Minimal macro vocabulary used by this source pilot.
 
 
-macro EVENT_CALLROUTINE_BATTLE_BG_ANIMATION_PRESENTATION_SPRITE_RESOURCE(target, battle_bg_animation_word, presentation_sprite_resource_word)
+macro EVENT_CALLROUTINE_BATTLE_BG_LAYER1_ID_BATTLE_BG_LAYER2_ID(target, battle_bg_layer1_id_word, battle_bg_layer2_id_word)
     db $42
     dl <target>
-    dw <battle_bg_animation_word>
-    dw <presentation_sprite_resource_word>
+    dw <battle_bg_layer1_id_word>
+    dw <battle_bg_layer2_id_word>
 endmacro
 
 macro EVENT_CALLROUTINE_DISPLAY_TRANSITION_MODE_DISPLAY_TRANSITION_X_DISPLAY_TRANSITION_Y(target, display_transition_mode_word, display_transition_x_word, display_transition_y_word)
@@ -2811,7 +2813,7 @@ LoopEvent340_WaitForInputB:
     %EVENT_LOOP_END() ; C3:1959  02
     %EVENT_LOOP_END() ; C3:195A  02
     %EVENT_CALLROUTINE_DISPLAY_TRANSITION_MODE_DISPLAY_TRANSITION_X_DISPLAY_TRANSITION_Y(!ActionScript_FadeOutWithMosaic, $0001, $0001, $0000) ; C3:195B  42 07 AA C0 01 00 01 00 00 00
-    %EVENT_CALLROUTINE_BATTLE_BG_ANIMATION_PRESENTATION_SPRITE_RESOURCE(!Movement_LoadBattleBg, $00FF, $0000) ; C3:1965  42 77 A9 C0 FF 00 00 00
+    %EVENT_CALLROUTINE_BATTLE_BG_LAYER1_ID_BATTLE_BG_LAYER2_ID(!Movement_LoadBattleBg, !ACTIONSCRIPT_BATTLE_BG_LAYER1_ID_EVENT340_WINTERS_TRANSITION, !ACTIONSCRIPT_BATTLE_BG_LAYER2_ID_NONE) ; C3:1965  42 77 A9 C0 FF 00 00 00
     %EVENT_SET_X($0080) ; C3:196D  28 80 00
     %EVENT_SET_Y($0070) ; C3:1970  29 70 00
     %EVENT_CALLROUTINE_FADEIN_EFFECT(!ActionScript_FadeInWrapper, $0101) ; C3:1973  42 AE 9F C0 01 01
@@ -14823,6 +14825,8 @@ Event743_TownHallMovementSoundPath:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_BATTLE_BG_LAYER1_ID_COFFEE_TEA_LAYER1 = $0107
+!ACTIONSCRIPT_BATTLE_BG_LAYER2_ID_COFFEE_TEA_LAYER2 = $0108
 !BeginCoffeeTeaBattleBgVisualState = $C49841
 !PrepareBattleSwirlFootprintVisualReturn = $9AC7
 !StepBattleOverlayScriptState = $C4A7B0
@@ -15202,7 +15206,7 @@ LoopEvent757_StepBattleOverlayTask:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:9404  39
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF) ; C3:9405  3B FF
     %EVENT_CALLROUTINE_DISPLAY_TRANSITION_MODE_DISPLAY_TRANSITION_X_DISPLAY_TRANSITION_Y(!ActionScript_FadeOutWithMosaic, $0001, $0001, $0000) ; C3:9407  42 07 AA C0 01 00 01 00 00 00
-    %EVENT_CALLROUTINE_BATTLE_BG_ANIMATION_PRESENTATION_SPRITE_RESOURCE(!Movement_LoadBattleBg, $0107, $0108) ; C3:9411  42 77 A9 C0 07 01 08 01
+    %EVENT_CALLROUTINE_BATTLE_BG_LAYER1_ID_BATTLE_BG_LAYER2_ID(!Movement_LoadBattleBg, !ACTIONSCRIPT_BATTLE_BG_LAYER1_ID_COFFEE_TEA_LAYER1, !ACTIONSCRIPT_BATTLE_BG_LAYER2_ID_COFFEE_TEA_LAYER2) ; C3:9411  42 77 A9 C0 07 01 08 01
     %EVENT_SET_X($0080) ; C3:9419  28 80 00
     %EVENT_SET_Y($0070) ; C3:941C  29 70 00
     %EVENT_CALLROUTINE_FADEIN_EFFECT(!ActionScript_FadeInWrapper, $0101) ; C3:941F  42 AE 9F C0 01 01

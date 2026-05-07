@@ -148,9 +148,11 @@ show up in town hall, coffee/tea, teleport, and battle-background transition
 pilots:
 
 - `C0:9FAE` -> `ActionScript_FadeInWrapper`: one `fadein_effect_word`.
-- `C0:A977` -> `Movement_LoadBattleBg`: `battle_bg_animation_word` plus
-  `presentation_sprite_resource_word`, matching the C0 wrapper into the C4
-  battle-bg presentation loader.
+- `C0:A977` -> `Movement_LoadBattleBg`: `battle_bg_layer1_id_word` plus
+  `battle_bg_layer2_id_word`. The C0 wrapper reads the first word into A and
+  the second into X before calling `C4:7370`; that helper fixes Y to `$0004`
+  and forwards A/X/Y to `C2:D121`, whose runtime contract names A as layer 1,
+  X as optional layer 2, and Y as layout flags.
 - `C0:AA07` -> `ActionScript_FadeOutWithMosaic`: three display-transition
   words passed to the mosaic fade-out transition helper.
 - `C0:AA23` -> `Script_StageMosaicWh0Mask_ReadThreeWords`: left-X, Y, and
@@ -162,9 +164,11 @@ pilots:
   palette selector word, palette scale byte, and fade frame-count byte
   forwarded to the C4 landing/flyover palette fade driver.
 
-These are byte-shape contracts only. Exact visual-effect naming can stay with
-the C0/C4 presentation notes; C3 pilots only need the operand widths and roles
-to avoid anonymous byte lists.
+The C3-local battle-bg value catalog only names observed pilot values:
+`$00FF` as the event-340 Winters transition layer 1, `$0000` as the disabled
+layer-2 sentinel, and `$0107/$0108` as the coffee/tea layer pair. These are
+byte-shape contracts plus narrow source-pilot aliases; exact visual-effect
+naming can stay with the C0/C2/C4 presentation notes.
 
 ## Surface-Flag Operands
 
