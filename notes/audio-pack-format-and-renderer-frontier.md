@@ -114,6 +114,8 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate focused loop-point evidence run summary: `python tools/validate_audio_loop_point_evidence_run_summary.py`.
 - Build frame-normalized loop-point tail metrics: `python tools/build_audio_loop_point_tail_metrics.py`.
 - Validate frame-normalized loop-point tail metrics: `python tools/validate_audio_loop_point_tail_metrics.py`.
+- Build loop/hold classification packet: `python tools/build_audio_loop_hold_classification_packet.py`.
+- Validate loop/hold classification packet: `python tools/validate_audio_loop_hold_classification_packet.py`.
 - Build focused finite-ending evidence plan: `python tools/build_audio_finite_ending_evidence_plan.py`.
 - Validate focused finite-ending evidence plan: `python tools/validate_audio_finite_ending_evidence_plan.py`.
 - Audit focused finite-ending evidence readiness: `python tools/run_audio_finite_ending_evidence_plan.py --mode audit-current-export`.

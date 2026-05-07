@@ -274,6 +274,8 @@ def build_plan(
             "track_refs": track_refs(loop_records),
             "job_ids": job_ids(loop_records),
             "commands": [
+                "python tools/build_audio_loop_hold_classification_packet.py",
+                "python tools/validate_audio_loop_hold_classification_packet.py",
                 "python tools/run_audio_loop_point_evidence_plan.py --mode audit-current-export",
                 "python tools/validate_audio_loop_point_evidence_run_summary.py",
                 "python tools/build_audio_loop_point_tail_metrics.py",

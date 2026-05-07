@@ -184,7 +184,15 @@ def validate(data: dict[str, Any]) -> None:
     require(int(loop["counts"].get("active_through_render_boundary_count", 0)) == 5, "loop active-through-boundary count mismatch")
     require(int(loop["counts"].get("missing_exact_loop_field_count", 0)) == 20, "loop missing field count mismatch")
     require(track_ids(loop) == {5, 6, 115, 183, 184}, "loop track coverage mismatch")
-    require_commands(loop, ["run_audio_loop_point_evidence_plan.py", "build_audio_loop_point_tail_metrics.py"])
+    require_commands(
+        loop,
+        [
+            "build_audio_loop_hold_classification_packet.py",
+            "validate_audio_loop_hold_classification_packet.py",
+            "run_audio_loop_point_evidence_plan.py",
+            "build_audio_loop_point_tail_metrics.py",
+        ],
+    )
 
     residual = by_id["residual_public_exact_blockers"]
     require(int(residual["counts"].get("record_count", 0)) == 8, "residual record count mismatch")
