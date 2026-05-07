@@ -853,6 +853,14 @@ contract notes for C0/C1/C3/C4 consumers.
   `StartBattleOverlayScriptState` while advancing the `$AA72/$AA74` overlay
   mode/profile pair in the interactive candidate-pool loop. See
   `notes/c2-battle-start-payload-join-runtime-polish.md`.
+- 2026-05-06 one hundred and eleventh slice: tightened the Final Prayer battle
+  visual selector calls. The shared `C2:C21F` edge is now named
+  `ApplyFinalPrayerBattleVisualSelector` across the stage-transition helper,
+  phase-1 follow-up, phase-7 handoff, narrative transition tail, and finale
+  opening handoff, while the softer `C2:C32C` companion remains raw. See
+  `notes/c2-final-prayer-runtime-polish.md`,
+  `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`, and
+  `notes/class2-final-prayer-family-c2c572-c2c6f0.md`.
 
 ## Validation
 

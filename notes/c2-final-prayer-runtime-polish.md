@@ -84,6 +84,10 @@ sites call `C2:C41F` as `RunFinalPrayerNarrativeTransition`. The opening
 transition also names its `C0:ABE0` presentation cue dispatch as
 `QueueSoundEffectOrPlayApuPort3Cue`.
 
+Battle-visual selector follow-up: Final Prayer callers now name `C2:C21F` as
+`ApplyFinalPrayerBattleVisualSelector`, preserving the existing A/X selector
+contract while leaving the less-decoded `C2:C32C` companion raw.
+
 ## Finale Opening
 
 `C2:C6F0` interleaves four late narrative text blocks with four larger damage
@@ -127,6 +131,8 @@ bodies into a runtime contract:
 - the phase ladder and finale now call the shared prayer transition, damage,
   and narrative helpers by source-facing contract names instead of raw local
   addresses
+- the shared `C2:C21F` battle visual selector is named at the Final Prayer
+  callsites that feed it A/X visual parameters
 - the finale is connected to battle-background distortion and overlay helpers
 - opening and finale cue/sprite/presentation joins now reuse existing
   source-facing presentation contracts instead of raw cross-call addresses

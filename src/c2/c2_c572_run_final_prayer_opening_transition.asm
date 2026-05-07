@@ -20,6 +20,7 @@
 C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C269BE_WaitFrames                   = $69BE
+C2C21F_ApplyFinalPrayerBattleVisualSelector = $C21F
 C2C37A_RunFinalPrayerStageTransition = $C37A
 
 C9_BattleTextScriptBank       = $00C9
@@ -64,6 +65,6 @@ C2C572_RunFinalPrayerOpeningTransition = BTLACT_GIYGAS_PRAYER_1
     jsr $C32C
     ldx.w #$0000
     lda.w #$01DF
-    jsr $C21F
+    jsr C2C21F_ApplyFinalPrayerBattleVisualSelector
     pld
     rtl

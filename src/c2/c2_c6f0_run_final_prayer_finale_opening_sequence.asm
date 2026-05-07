@@ -28,6 +28,7 @@ C12DD5_WindowTick              = $C12DD5
 C20F9A_ClampHpPpRollTargetsToLiveValues = $C20F9A
 C2E8C4_StartBattleSwirlOverlayAndRecordMode = $C2E8C4
 C2E9C8_PollBattleTransitionComplete = $C2E9C8
+C2C21F_ApplyFinalPrayerBattleVisualSelector = $C21F
 C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
 C2C41F_RunFinalPrayerNarrativeTransition = $C41F
 C2DAE3_PrimeLayer1BattleBgDistortionSwap = $C2DAE3
@@ -249,7 +250,7 @@ C2C8A4_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A4:
     jsl C0ABC6_ClearPresentationQueues
     ldx.w #$0000
     lda.w #$01E3
-    jsr $C21F
+    jsr C2C21F_ApplyFinalPrayerBattleVisualSelector
     lda.w #$01E0
     jsr C269BE_WaitFrames
     lda.w #$0003

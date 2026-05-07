@@ -31,6 +31,7 @@ C1DD5F_WaitForTextOrMenuAcknowledge  = $C1DD5F
 C4FBBD_ChangeMusic                   = $C4FBBD
 C269BE_WaitFrames                    = $69BE
 C269DE_WaitForDisplayTransitionBusyClear = $69DE
+C2C21F_ApplyFinalPrayerBattleVisualSelector = $C21F
 
 C8_BattleTextScriptBank        = $00C8
 C8MSG_MechPokeyFirstSpeechTail = $FC2E
@@ -117,7 +118,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     jsr $C32C
     ldx.w #$00BA
     lda.w #$01DC
-    jsr $C21F
+    jsr C2C21F_ApplyFinalPrayerBattleVisualSelector
     lda.w #C8MSG_MechPokeyFirstSpeechTail
     sta $0E
     lda.w #C8_BattleTextScriptBank
@@ -133,7 +134,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     jsr $C32C
     ldx.w #$0049
     lda.w #$01DD
-    jsr $C21F
+    jsr C2C21F_ApplyFinalPrayerBattleVisualSelector
     lda.w #$0001
     sta $AA92
     pld

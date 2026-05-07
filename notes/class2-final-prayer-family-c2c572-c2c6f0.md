@@ -75,7 +75,8 @@ Its body is richer than the later prayer damage rows:
 - displays `C9:F86A` through `C1:DC1C`
 - writes `$A97A = 5`
 - calls `C2:C32C` with `0x01E5`
-- calls `C2:C21F` with `X = 0`, `A = 0x01DF`
+- calls `C2:C21F` / `ApplyFinalPrayerBattleVisualSelector` with `X = 0`,
+  `A = 0x01DF`
 
 So the healthiest local read is:
 

@@ -45,7 +45,8 @@ Its local body does the same broad sequence every time:
 - runs `C1:DD5F`
 - displays the caller-selected text through `C1:DC1C`
 - switches display mode again through `C0:887A`
-- routes the incoming `A/X` pair through `C2:C21F`
+- routes the incoming `A/X` pair through `C2:C21F` /
+  `ApplyFinalPrayerBattleVisualSelector`
 - restores `$9643 = 1`
 - runs `C1:DD3B` / `RefreshBattlePresentationForSelectedRow` and
   `C1:DD47` / `OpenBattleTextWindow`

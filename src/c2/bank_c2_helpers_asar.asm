@@ -21861,6 +21861,7 @@ org $C2C37A
 !C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 !C269BE_WaitFrames = $69BE
 !C269DE_WaitForDisplayTransitionBusyClear = $69DE
+!C2C21F_ApplyFinalPrayerBattleVisualSelector = $C21F
 C2C37A_RunFinalPrayerStageTransition:
     rep #$31
     phd
@@ -21895,7 +21896,7 @@ C2C37A_RunFinalPrayerStageTransition:
     ldx $02
     ldy $12
     tya
-    jsr $C21F
+    jsr !C2C21F_ApplyFinalPrayerBattleVisualSelector
     lda.w #$0001
     sta $9643
     jsl !C1DD3B_RefreshBattlePresentationForSelectedRow
@@ -22810,6 +22811,7 @@ org $C2C572
 !C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C269BE_WaitFrames = $69BE
+!C2C21F_ApplyFinalPrayerBattleVisualSelector = $C21F
 !C2C37A_RunFinalPrayerStageTransition = $C37A
 !C9_BattleTextScriptBank = $00C9
 !C9MSG_FinalPrayerDamagePhase1 = $F86A
@@ -22848,7 +22850,7 @@ BTLACT_GIYGAS_PRAYER_1:
     jsr $C32C
     ldx.w #$0000
     lda.w #$01DF
-    jsr $C21F
+    jsr !C2C21F_ApplyFinalPrayerBattleVisualSelector
     pld
     rtl
 
@@ -23017,6 +23019,7 @@ org $C2C69E
 
 !C2C37A_RunFinalPrayerStageTransition = $C37A
 !C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
+!C2C21F_ApplyFinalPrayerBattleVisualSelector = $C21F
 BTLACT_GIYGAS_PRAYER_7:
 !C2C69E_RunFinalPrayerDamagePhase7 = BTLACT_GIYGAS_PRAYER_7
     rep #$31
@@ -23037,7 +23040,7 @@ BTLACT_GIYGAS_PRAYER_7:
     sta $A97A
     ldx.w #$004A
     lda.w #$01E0
-    jsr $C21F
+    jsr !C2C21F_ApplyFinalPrayerBattleVisualSelector
     pld
     rtl
 
@@ -24502,6 +24505,7 @@ org $C2C41F
 !C4FBBD_ChangeMusic = $C4FBBD
 !C269BE_WaitFrames = $69BE
 !C269DE_WaitForDisplayTransitionBusyClear = $69DE
+!C2C21F_ApplyFinalPrayerBattleVisualSelector = $C21F
 !C8_BattleTextScriptBank = $00C8
 !C8MSG_MechPokeyFirstSpeechTail = $FC2E
 C2C41F_RunFinalPrayerNarrativeTransition:
@@ -24580,7 +24584,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     jsr $C32C
     ldx.w #$00BA
     lda.w #$01DC
-    jsr $C21F
+    jsr !C2C21F_ApplyFinalPrayerBattleVisualSelector
     lda.w #!C8MSG_MechPokeyFirstSpeechTail
     sta $0E
     lda.w #!C8_BattleTextScriptBank
@@ -24596,7 +24600,7 @@ C2C41F_RunFinalPrayerNarrativeTransition:
     jsr $C32C
     ldx.w #$0049
     lda.w #$01DD
-    jsr $C21F
+    jsr !C2C21F_ApplyFinalPrayerBattleVisualSelector
     lda.w #$0001
     sta $AA92
     pld
@@ -26456,6 +26460,7 @@ org $C2C6F0
 !C20F9A_ClampHpPpRollTargetsToLiveValues = $C20F9A
 !C2E8C4_StartBattleSwirlOverlayAndRecordMode = $C2E8C4
 !C2E9C8_PollBattleTransitionComplete = $C2E9C8
+!C2C21F_ApplyFinalPrayerBattleVisualSelector = $C21F
 !C2C3E2_ApplyFinalPrayerDamageStep = $C3E2
 !C2C41F_RunFinalPrayerNarrativeTransition = $C41F
 !C2DAE3_PrimeLayer1BattleBgDistortionSwap = $C2DAE3
@@ -26665,7 +26670,7 @@ C2C8A4_C2C6F0_RunFinalPrayerFinaleOpeningSequence_LC8A4:
     jsl !C0ABC6_ClearPresentationQueues
     ldx.w #$0000
     lda.w #$01E3
-    jsr $C21F
+    jsr !C2C21F_ApplyFinalPrayerBattleVisualSelector
     lda.w #$01E0
     jsr !C269BE_WaitFrames
     lda.w #$0003

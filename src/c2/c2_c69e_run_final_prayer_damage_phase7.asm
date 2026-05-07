@@ -19,6 +19,7 @@
 
 C2C37A_RunFinalPrayerStageTransition = $C37A
 C2C3E2_ApplyFinalPrayerDamageStep    = $C3E2
+C2C21F_ApplyFinalPrayerBattleVisualSelector = $C21F
 
 ; ---------------------------------------------------------------------------
 ; C2:C69E
@@ -44,6 +45,6 @@ C2C69E_RunFinalPrayerDamagePhase7 = BTLACT_GIYGAS_PRAYER_7
     sta $A97A
     ldx.w #$004A
     lda.w #$01E0
-    jsr $C21F
+    jsr C2C21F_ApplyFinalPrayerBattleVisualSelector
     pld
     rtl
