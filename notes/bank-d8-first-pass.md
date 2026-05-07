@@ -86,6 +86,10 @@ High confidence:
   runtime masks back the high-collision, special-surface latch, and
   terrain-compatibility bit families in
   `notes/d8-collision-subrecord-contracts.md`.
+- The subrecord contract now carries source-emission summaries for the 2293
+  D8 records, 12423 pointer-table entries, 8057 implicit all-zero `.fts` tail
+  metatiles, D8/pointer-expanded value counts, and the numeric-preserve boundary
+  for low surface modifier bits.
 - The warning assets and `AUDIO_PACK_61` have exact spans.
 - Only `23` bytes at the end of the bank are unclaimed slack.
 
@@ -99,7 +103,8 @@ Still intentionally out of scope:
 ## Recommended next move
 
 Treat D8 as structurally complete and byte-protected for the current
-bank-coverage phase. For D8 itself, the next step is caller-side naming for the
-low surface modifier bits rather than boundary or row-shape discovery. At the
-project level, the remaining priority-2 non-source blocker is C3
-script/actionscript separation.
+bank-coverage phase. Source emission should consume the promoted D8 rows,
+pointer-table offset contracts, and value-count summaries directly; caller-side
+gameplay labels for the low surface modifier bits remain optional polish rather
+than boundary or row-shape discovery. At the project level, the remaining
+priority-2 non-source blocker is C3 script/actionscript separation.

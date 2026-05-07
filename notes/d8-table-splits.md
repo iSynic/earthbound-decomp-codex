@@ -53,8 +53,9 @@ The `D8:0000..D8:F05D` generated tile-collision region now reconciles exactly.
 - `MAP_TILE_COLLISION_DATA` is a 2293-record pool of 16-byte 4x4 metatile-cell `surface_collision_flags` grids; it ends at `D8:8F4F`, and the first pointer table begins at `D8:8F50`.
 - Each `MAP_DATA_TILE_COLLISION_POINTERS_n` span is an exact word-offset table into the D8 collision data family.
 - `notes/d8-collision-subrecord-contracts.md` promotes the row shape and C0-backed masks: observed high collision `0x80`, special-surface latch `0x10`, entity terrain-compatibility class `0x04/0x08`, and still-provisional low surface modifiers `0x01/0x02`.
+- The same contract now records source-emission rows, D8 pool versus pointer-expanded value counts, and the `.fts` implicit zero-tail boundary: `12423` pointer entries match covered `.fts` values, `8057` all-zero trailing `.fts` metatiles are not extra D8 records, and trailing nonzero `.fts` cells outside pointer coverage are `0`.
 - `D8:F05E` is the first warning-screen asset byte, so all generated collision data ends exactly at `D8:F05D`.
 
 ## Recommended next move
 
-Use the central manifest plus `notes/d8-collision-subrecord-contracts.md` for source emission. The remaining D8 collision work is optional low surface modifier gameplay labels, not boundary discovery or row-shape decoding.
+Use the central manifest plus `notes/d8-collision-subrecord-contracts.md` for source emission. The remaining D8 collision work is optional low surface modifier gameplay labels, not boundary discovery, row-shape decoding, or pointer-table ownership.

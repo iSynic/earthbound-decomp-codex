@@ -256,8 +256,8 @@ def build_triage() -> list[BankTriage]:
             "map collision plus error/audio assets",
             "data-contract-ready",
             3,
-            "Emit D8 as exact collision data, collision pointer tables, warning assets, and audio tail using `notes/d8-table-splits.md`, the central D8 collision contracts, and `notes/d8-collision-subrecord-contracts.md`.",
-            ["low surface modifier gameplay labels remain optional; row shape and runtime mask roles are already contract-backed"],
+            "Emit D8 as exact collision data, collision pointer tables, warning assets, and audio tail using `notes/d8-table-splits.md`, the central D8 collision contracts, and `notes/d8-collision-subrecord-contracts.md` for source-emission rows, pointer handling, value counts, and runtime-backed bit families.",
+            ["low surface modifier gameplay labels remain optional; row shape, pointer ownership, value counts, and runtime mask roles are already contract-backed"],
             ["tile collision data", "20 collision pointer tables", "4x4 collision subrecords", "anti-piracy/faulty-game-pak assets", "audio pack"],
         )
     )
@@ -500,7 +500,7 @@ def render_markdown(payload: dict[str, object]) -> str:
             "",
             "### Data-contract splitters",
             "",
-            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF trigger/door/event-music rows and trigger-type source-emission summaries, D0 tile-event and placement/battle variable lists, D5 timed-delivery controller rows/source-window ownership, and D8 collision rows now have promoted subrecord semantics, with remaining work concentrated in source/data emission and optional gameplay labels.",
+            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF trigger/door/event-music rows and trigger-type source-emission summaries, D0 tile-event and placement/battle variable lists, D5 timed-delivery controller rows/source-window ownership, and D8 collision rows/pointer/value-count summaries now have promoted subrecord semantics, with remaining work concentrated in source/data emission and optional gameplay labels.",
             "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 and DA now have promoted table/subrecord contracts; DA also has metadata-word and script-usage summaries for palette source emission. Remaining work is smaller inferred table/pointer contract polish.",
             "",
             "### Script, text, and VM assets",
