@@ -4,6 +4,7 @@
   "references": [
     "manifests/audio-sequence-command-semantics.json",
     "manifests/audio-spc700-control-reader-frontier.json",
+    "manifests/audio-spc700-source-effect-frontier.json",
     "refs/earthbound-sounddriver-byte-perfect/main.asm",
     "refs/earthbound-sounddriver-byte-perfect/ram.asm"
   ],
@@ -13,7 +14,8 @@
     "runtime_read_count": 6,
     "reader_pc_count": 3,
     "exact_duration_promotion_allowed": false,
-    "semantic_status": "fd_fe_timing_effects_unproven"
+    "semantic_status": "fd_fe_timing_effects_unproven",
+    "source_effect_capture_requirement_count": 8
   },
   "commands": [
     {
@@ -23,6 +25,41 @@
       "arg_length": 0,
       "source_role": "source_backed_vcmd",
       "effect_proof_status": "runtime_effect_pending",
+      "source_effect_status": "source_backed_fast_forward_flag_write_runtime_timing_pending",
+      "source_effect_flow": [
+        "increments A before falling through to VCMD_FastForwardOff",
+        "writes A into fast_forward_flag ($1B)",
+        "jumps to L_0787, which clears $0491/$04B1/$04B5 and ORs the non-SFX voice mask into $0046"
+      ],
+      "source_effect_state_slots": {
+        "fast_forward_flag": {
+          "name": "fast_forward_flag",
+          "address": "0x001B",
+          "comment": null
+        },
+        "sfx_voices": {
+          "name": "sfx_voices",
+          "address": "0x001A",
+          "comment": "Voices currently playing sound effects"
+        },
+        "helper_reset_slots": [
+          "0x0491",
+          "0x04B1",
+          "0x04B5",
+          "0x0046"
+        ],
+        "music_effect_fastforward_timer": {
+          "name": "mfx_fastforward_timer",
+          "address": "0x0438",
+          "comment": null
+        }
+      },
+      "source_effect_capture_requirements": [
+        "$1B before and after FD",
+        "$0491/$04B1/$04B5/$0046 before and after the L_0787 helper",
+        "tempo/tick counters around the affected phrase",
+        "separate VCMD fast_forward_flag behavior from MFX_05 mfx_fastforward_timer behavior"
+      ],
       "duration_promotion_status": "blocked_pending_local_effect_proof",
       "exact_duration_promotion_allowed": false,
       "sequence_control_read_count": 1,
@@ -49,6 +86,40 @@
       "arg_length": 0,
       "source_role": "source_backed_vcmd",
       "effect_proof_status": "runtime_effect_pending",
+      "source_effect_status": "source_backed_fast_forward_flag_write_runtime_timing_pending",
+      "source_effect_flow": [
+        "writes A into fast_forward_flag ($1B)",
+        "jumps to L_0787, which clears $0491/$04B1/$04B5 and ORs the non-SFX voice mask into $0046"
+      ],
+      "source_effect_state_slots": {
+        "fast_forward_flag": {
+          "name": "fast_forward_flag",
+          "address": "0x001B",
+          "comment": null
+        },
+        "sfx_voices": {
+          "name": "sfx_voices",
+          "address": "0x001A",
+          "comment": "Voices currently playing sound effects"
+        },
+        "helper_reset_slots": [
+          "0x0491",
+          "0x04B1",
+          "0x04B5",
+          "0x0046"
+        ],
+        "music_effect_fastforward_timer": {
+          "name": "mfx_fastforward_timer",
+          "address": "0x0438",
+          "comment": null
+        }
+      },
+      "source_effect_capture_requirements": [
+        "$1B before and after FE",
+        "$0491/$04B1/$04B5/$0046 before and after the L_0787 helper",
+        "tempo/tick counters around the affected phrase",
+        "separate VCMD fast_forward_flag behavior from MFX_05 mfx_fastforward_timer behavior"
+      ],
       "duration_promotion_status": "blocked_pending_local_effect_proof",
       "exact_duration_promotion_allowed": false,
       "sequence_control_read_count": 5,
@@ -78,6 +149,7 @@
   ],
   "promotion_policy": [
     "FD and FE have source-backed VCMD labels and zero argument bytes.",
+    "FD/FE source-effect facts prove the fast_forward_flag write and L_0787 helper path, but not the duration impact.",
     "Source labels identify the timing lane, but do not prove export duration math.",
     "Exact-duration export remains blocked until local runtime timing effects are captured."
   ],

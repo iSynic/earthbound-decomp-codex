@@ -40,6 +40,16 @@
       "source_target": null,
       "arg_length": null,
       "source_role": "zero_control_pending",
+      "source_effect_status": "source_backed_zero_reader_paths_effect_pending_runtime_context",
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "static_dispatch_target": null,
       "static_dispatch_target_source": null,
       "semantic_status": "pending_earthbound_zero_control_effect_proof",

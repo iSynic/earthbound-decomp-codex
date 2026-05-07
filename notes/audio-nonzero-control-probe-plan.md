@@ -38,7 +38,7 @@ Status: targeted EF/FD/FE/FF reader-PC probe jobs are planned; runtime effect pr
 - This plan creates diagnostic jobs only and cannot promote sequence-derived public exact-duration exports.
 - 0xFF remains a static-walk blocker until EarthBound reader-path effect is locally classified.
 - EF evidence must describe call/return state, not just command reads.
-- FD/FE evidence must describe timing or tempo state before exact duration math can depend on it.
+- FD/FE evidence must describe source-backed fast_forward_flag and helper reset state before exact duration math can depend on it.
 
 ## Next Work
 

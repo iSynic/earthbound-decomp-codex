@@ -114,6 +114,12 @@ def validate(data: dict[str, Any]) -> None:
     required_fields = set(runner_contract.get("required_capture_fields", []))
     missing_fields = REQUIRED_CAPTURE_FIELD_SUBSET - required_fields
     require(not missing_fields, f"runner contract missing fields {sorted(missing_fields)}")
+    source_requirements = set(runner_contract.get("source_effect_capture_requirements", []))
+    require(
+        runner_contract.get("source_effect_frontier") == "earthbound-decomp.audio-spc700-source-effect-frontier.v1",
+        "missing source-effect frontier reference",
+    )
+    require(len(source_requirements) >= 8, "source-effect capture requirements too thin")
     require("independent emulator oracle" in str(runner_contract.get("independent_oracle_scope", "")), "missing oracle scope boundary")
 
     reader_pcs = data.get("reader_pc_targets", [])
@@ -156,6 +162,10 @@ def validate(data: dict[str, Any]) -> None:
         require("zero_runtime_effect_proof" in job.get("pre_promotion_blockers", []), f"{job_id}: missing zero proof blocker")
         require(job.get("promotion_question"), f"{job_id}: missing promotion question")
         require(set(job.get("required_capture_fields", [])) == required_fields, f"{job_id}: capture fields differ")
+        require(
+            set(job.get("source_effect_capture_requirements", [])) == source_requirements,
+            f"{job_id}: source-effect capture requirements differ",
+        )
         require(set(job.get("reader_pc_targets", [])) == seen_pcs, f"{job_id}: reader PC targets differ")
         require(job.get("promotion_allowed_by_plan") is False, f"{job_id}: promotion must be blocked by plan")
         validate_source(job)

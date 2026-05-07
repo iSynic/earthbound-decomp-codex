@@ -51,8 +51,9 @@ def parse_source_labels(main_path: Path = DEFAULT_MAIN) -> dict[str, SourceLabel
     lines = main_path.read_text(encoding="utf-8").splitlines()
     labels: dict[str, SourceLabel] = {}
     current_addr: int | None = None
-    addr_re = re.compile(r"^;\s+\$(?P<addr>[0-9A-F]{4})$")
+    addr_re = re.compile(r"^;\s+\$(?P<addr>[0-9A-F]{4})(?:\b.*)?$")
     label_re = re.compile(r"^(?P<label>[A-Za-z0-9_]+):")
+    byte_comment_re = re.compile(r";\s*(?P<bytes>(?:[0-9A-F]{2}\s*)+)$", re.IGNORECASE)
 
     for line in lines:
         addr_match = addr_re.match(line.strip())
@@ -62,7 +63,22 @@ def parse_source_labels(main_path: Path = DEFAULT_MAIN) -> dict[str, SourceLabel
         label_match = label_re.match(line.strip())
         if label_match and current_addr is not None:
             label = label_match.group("label")
-            labels[label] = SourceLabel(label, current_addr)
+            if label.startswith("L_") and re.fullmatch(r"L_[0-9A-Fa-f]{4}", label):
+                label_addr = int(label.split("_", 1)[1], 16)
+            else:
+                label_addr = current_addr
+            labels[label] = SourceLabel(label, label_addr)
+        if current_addr is None:
+            continue
+        byte_match = byte_comment_re.search(line)
+        if byte_match:
+            current_addr += len(byte_match.group("bytes").split())
+            continue
+        stripped = line.strip()
+        if stripped.startswith("dw "):
+            current_addr += 2 * len([chunk for chunk in stripped.split("dw ", 1)[1].split(";", 1)[0].split(",") if chunk.strip()])
+        elif stripped.startswith("db "):
+            current_addr += len([chunk for chunk in stripped.split("db ", 1)[1].split(";", 1)[0].split(",") if chunk.strip()])
     return labels
 
 

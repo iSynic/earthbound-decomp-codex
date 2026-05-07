@@ -220,6 +220,8 @@
     "tools/validate_audio_spc700_driver_dispatch_frontier.py",
     "tools/build_audio_spc700_sounddriver_source_ingest.py",
     "tools/validate_audio_spc700_sounddriver_source_ingest.py",
+    "tools/build_audio_spc700_source_effect_frontier.py",
+    "tools/validate_audio_spc700_source_effect_frontier.py",
     "tools/build_audio_spc700_ff_target_review.py",
     "tools/validate_audio_spc700_ff_target_review.py",
     "tools/build_audio_fd_fe_timing_frontier.py",

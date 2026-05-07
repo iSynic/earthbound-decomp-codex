@@ -154,6 +154,7 @@ def build_jobs(frontier: dict[str, Any], oracle_plan: dict[str, Any], output_roo
                     },
                     "reader_pc_targets": [record["pc"] for record in reader_pcs],
                     "required_capture_fields": REQUIRED_CAPTURE_FIELDS,
+                    "source_effect_capture_requirements": frontier.get("source_effects", {}).get("runtime_capture_requirements", []),
                     "success_criteria": [
                         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
                         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -222,6 +223,8 @@ def build_plan(frontier: dict[str, Any], oracle_plan: dict[str, Any], output_roo
             "behavior_change_allowed": False,
             "public_exact_promotion_allowed": False,
             "required_capture_fields": REQUIRED_CAPTURE_FIELDS,
+            "source_effect_frontier": frontier.get("source_effects", {}).get("source_effect_frontier"),
+            "source_effect_capture_requirements": frontier.get("source_effects", {}).get("runtime_capture_requirements", []),
             "accepted_zero_effect_classifications": [
                 "true_end",
                 "ef_return",
@@ -301,6 +304,7 @@ def render_markdown(plan: dict[str, Any]) -> str:
             f"- behavior change allowed: `{plan['runner_contract']['behavior_change_allowed']}`",
             f"- public exact promotion allowed: `{plan['runner_contract']['public_exact_promotion_allowed']}`",
             f"- required capture fields: `{plan['runner_contract']['required_capture_fields']}`",
+            f"- source-effect capture requirements: `{plan['runner_contract']['source_effect_capture_requirements']}`",
             f"- accepted classifications: `{plan['runner_contract']['accepted_zero_effect_classifications']}`",
             f"- independent oracle scope: {plan['runner_contract']['independent_oracle_scope']}",
             "",

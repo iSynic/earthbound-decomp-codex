@@ -51,7 +51,19 @@ def validate(data: dict[str, Any]) -> None:
     require(summary.get("sequence_promotion_allowed") is False, "frontier must not directly promote sequence exact duration")
     require("https://sneslab.net/wiki/N-SPC_Engine" in data.get("references", []), "missing N-SPC reference")
     require(data.get("runtime_zero_evidence"), "missing runtime zero evidence")
+    require(data.get("source_effects"), "missing source effect summary")
     require(data.get("promotion_policy"), "missing promotion policy")
+    source_effects = data.get("source_effects", {})
+    require(
+        source_effects.get("source_effect_frontier") == "earthbound-decomp.audio-spc700-source-effect-frontier.v1",
+        "missing source-effect frontier schema",
+    )
+    require(source_effects.get("voice_zero_reader"), "missing voice zero reader source address")
+    require(source_effects.get("pattern_zero_reader"), "missing pattern zero reader source address")
+    require(source_effects.get("ef_handler"), "missing EF handler source address")
+    require(int(source_effects.get("voice_zero_branch_count", 0)) >= 3, "expected voice zero branches")
+    require(int(source_effects.get("pattern_zero_branch_count", 0)) >= 4, "expected pattern zero branches")
+    require(len(source_effects.get("runtime_capture_requirements", [])) >= 8, "source capture requirements too thin")
     pack_classes: Counter[str] = Counter()
     trace_focus_counts: Counter[str] = Counter()
     action_counts: Counter[str] = Counter()
@@ -89,8 +101,14 @@ def validate(data: dict[str, Any]) -> None:
     command_semantics = data.get("command_semantics", {})
     require(command_semantics.get("zero", {}).get("semantic_status"), "missing zero semantic status")
     require(command_semantics.get("ef", {}).get("semantic_status"), "missing EF semantic status")
+    require(command_semantics.get("zero", {}).get("source_effect_status"), "missing zero source effect status")
+    require(command_semantics.get("ef", {}).get("source_effect_status"), "missing EF source effect status")
     probe_plan = data.get("runtime_probe_plan", {})
     require(probe_plan.get("reader_pc_plan"), "missing runtime reader PC probe plan")
+    require(
+        set(probe_plan.get("source_capture_requirements", [])) == set(source_effects.get("runtime_capture_requirements", [])),
+        "probe plan source capture requirements mismatch",
+    )
     for record in probe_plan.get("reader_pc_plan", []):
         require(record.get("pc"), "probe plan record missing PC")
         require(int(record.get("read_count", 0)) > 0, f"probe plan {record.get('pc')}: missing read count")

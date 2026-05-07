@@ -12,6 +12,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_COMMAND_SEMANTICS = ROOT / "manifests" / "audio-sequence-command-semantics.json"
 DEFAULT_CONTROL_READER = ROOT / "manifests" / "audio-spc700-control-reader-frontier.json"
+DEFAULT_SOURCE_EFFECTS = ROOT / "manifests" / "audio-spc700-source-effect-frontier.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-fd-fe-timing-frontier.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-fd-fe-timing-frontier.md"
 COMMANDS = ("0xFD", "0xFE")
@@ -21,6 +22,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build FD/FE fast-forward timing frontier.")
     parser.add_argument("--command-semantics", default=str(DEFAULT_COMMAND_SEMANTICS), help="Command semantics JSON.")
     parser.add_argument("--control-reader", default=str(DEFAULT_CONTROL_READER), help="SPC700 control reader frontier JSON.")
+    parser.add_argument("--source-effects", default=str(DEFAULT_SOURCE_EFFECTS), help="SPC700 source-effect frontier JSON.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Manifest output JSON.")
     parser.add_argument("--notes", default=str(DEFAULT_NOTES), help="Markdown output.")
     return parser.parse_args()
@@ -51,12 +53,13 @@ def reader_records(control_reader: dict[str, Any], command: str) -> list[dict[st
     return records
 
 
-def build_frontier(command_semantics: dict[str, Any], control_reader: dict[str, Any]) -> dict[str, Any]:
+def build_frontier(command_semantics: dict[str, Any], control_reader: dict[str, Any], source_effects: dict[str, Any]) -> dict[str, Any]:
     commands = command_semantics.get("commands", {})
     records = []
     for command in COMMANDS:
         semantic = commands.get(command, {})
         trace = semantic.get("trace_evidence", {})
+        source_effect = source_effects.get("effects", {}).get(command, {})
         records.append(
             {
                 "command": command,
@@ -65,6 +68,10 @@ def build_frontier(command_semantics: dict[str, Any], control_reader: dict[str, 
                 "arg_length": semantic.get("arg_length"),
                 "source_role": semantic.get("source_role"),
                 "effect_proof_status": semantic.get("effect_proof_status"),
+                "source_effect_status": source_effect.get("source_effect_status"),
+                "source_effect_flow": source_effect.get("handler_flow", []),
+                "source_effect_state_slots": source_effect.get("state_slots", {}),
+                "source_effect_capture_requirements": source_effect.get("runtime_capture_requirements", []),
                 "duration_promotion_status": semantic.get("duration_promotion_status"),
                 "exact_duration_promotion_allowed": bool(semantic.get("exact_duration_promotion_allowed")),
                 "sequence_control_read_count": int(trace.get("sequence_control_read_count", 0)),
@@ -83,6 +90,7 @@ def build_frontier(command_semantics: dict[str, Any], control_reader: dict[str, 
         "references": [
             "manifests/audio-sequence-command-semantics.json",
             "manifests/audio-spc700-control-reader-frontier.json",
+            "manifests/audio-spc700-source-effect-frontier.json",
             "refs/earthbound-sounddriver-byte-perfect/main.asm",
             "refs/earthbound-sounddriver-byte-perfect/ram.asm",
         ],
@@ -93,10 +101,12 @@ def build_frontier(command_semantics: dict[str, Any], control_reader: dict[str, 
             "reader_pc_count": sum(len(record["reader_pc_records"]) for record in records),
             "exact_duration_promotion_allowed": False,
             "semantic_status": "fd_fe_timing_effects_unproven",
+            "source_effect_capture_requirement_count": sum(len(record["source_effect_capture_requirements"]) for record in records),
         },
         "commands": records,
         "promotion_policy": [
             "FD and FE have source-backed VCMD labels and zero argument bytes.",
+            "FD/FE source-effect facts prove the fast_forward_flag write and L_0787 helper path, but not the duration impact.",
             "Source labels identify the timing lane, but do not prove export duration math.",
             "Exact-duration export remains blocked until local runtime timing effects are captured.",
         ],
@@ -157,7 +167,11 @@ def render_markdown(data: dict[str, Any]) -> str:
 
 def main() -> int:
     args = parse_args()
-    data = build_frontier(load_json(Path(args.command_semantics)), load_json(Path(args.control_reader)))
+    data = build_frontier(
+        load_json(Path(args.command_semantics)),
+        load_json(Path(args.control_reader)),
+        load_json(Path(args.source_effects)),
+    )
     output = Path(args.output)
     notes = Path(args.notes)
     output.parent.mkdir(parents=True, exist_ok=True)

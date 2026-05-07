@@ -68,6 +68,20 @@
       "zero_effect_classification",
       "classification_evidence"
     ],
+    "source_effect_frontier": "earthbound-decomp.audio-spc700-source-effect-frontier.v1",
+    "source_effect_capture_requirements": [
+      "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+      "$0230+x/$0231+x saved return pointer",
+      "$30+x/$31+x before the zero read and after the post-zero branch",
+      "$80+x before and after the zero read",
+      "$80+x call count after EF",
+      "EF operands and resulting $0240+x/$0241+x subroutine target",
+      "capture $1B when the 0x80/0x81 pattern-control path is taken",
+      "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+      "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+      "later 0x00 branch result that consumes or restores this EF state",
+      "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+    ],
     "accepted_zero_effect_classifications": [
       "true_end",
       "ef_return",
@@ -244,6 +258,19 @@
         "zero_effect_classification",
         "classification_evidence"
       ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -343,6 +370,19 @@
         "zero_effect_classification",
         "classification_evidence"
       ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -439,6 +479,19 @@
         "voice_slot_state",
         "zero_effect_classification",
         "classification_evidence"
+      ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
       ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
@@ -546,6 +599,19 @@
         "zero_effect_classification",
         "classification_evidence"
       ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -651,6 +717,19 @@
         "voice_slot_state",
         "zero_effect_classification",
         "classification_evidence"
+      ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
       ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
@@ -758,6 +837,19 @@
         "zero_effect_classification",
         "classification_evidence"
       ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -863,6 +955,19 @@
         "voice_slot_state",
         "zero_effect_classification",
         "classification_evidence"
+      ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
       ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
@@ -970,6 +1075,19 @@
         "zero_effect_classification",
         "classification_evidence"
       ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -1075,6 +1193,19 @@
         "voice_slot_state",
         "zero_effect_classification",
         "classification_evidence"
+      ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
       ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
@@ -1182,6 +1313,19 @@
         "zero_effect_classification",
         "classification_evidence"
       ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -1288,6 +1432,19 @@
         "zero_effect_classification",
         "classification_evidence"
       ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -1384,6 +1541,19 @@
         "voice_slot_state",
         "zero_effect_classification",
         "classification_evidence"
+      ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
       ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
@@ -1483,6 +1653,19 @@
         "zero_effect_classification",
         "classification_evidence"
       ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -1580,6 +1763,19 @@
         "voice_slot_state",
         "zero_effect_classification",
         "classification_evidence"
+      ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
       ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
@@ -1679,6 +1875,19 @@
         "zero_effect_classification",
         "classification_evidence"
       ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -1777,6 +1986,19 @@
         "zero_effect_classification",
         "classification_evidence"
       ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -1874,6 +2096,19 @@
         "voice_slot_state",
         "zero_effect_classification",
         "classification_evidence"
+      ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
       ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
@@ -1974,6 +2209,19 @@
         "zero_effect_classification",
         "classification_evidence"
       ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",
         "classify post-0x00 behavior as true_end, ef_return, loop_or_hold_continues, or unresolved",
@@ -2071,6 +2319,19 @@
         "voice_slot_state",
         "zero_effect_classification",
         "classification_evidence"
+      ],
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$0230+x/$0231+x saved return pointer",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "later 0x00 branch result that consumes or restores this EF state",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
       ],
       "success_criteria": [
         "capture at least one 0x00 sequence read for this track or explain why the source state cannot reach it",

@@ -39,6 +39,7 @@ Status: promoted command semantics are evidence-gated; current checked-in traces
 - Existing PCM silence evidence may still support finite trim candidates independently of sequence-command promotion.
 - The source-backed VCMD table and N-SPC hypothesis both shift exact finite-end work from FF toward 0x00 phrase/VCMD termination evidence.
 - Runtime traces now identify control-byte reader PCs, but those reader paths still need effect decoding before this manifest can unblock exact sequence semantics.
+- Source-effect facts now name the EF return slots and FD/FE timing state that runtime probes must capture.
 
 ## Next Work
 

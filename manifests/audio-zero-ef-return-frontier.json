@@ -7,7 +7,8 @@
     "manifests/audio-sequence-walk-frontier.json",
     "manifests/audio-sequence-command-semantics.json",
     "manifests/audio-spc700-dispatch-trace-frontier.json",
-    "manifests/audio-spc700-control-reader-frontier.json"
+    "manifests/audio-spc700-control-reader-frontier.json",
+    "manifests/audio-spc700-source-effect-frontier.json"
   ],
   "summary": {
     "candidate_pack_count": 10,
@@ -34,17 +35,43 @@
     "zero_runtime_read_count": 5931,
     "zero_runtime_reader_pc_count": 10,
     "sequence_promotion_allowed": false,
-    "semantic_status": "static_zero_context_classified_runtime_zero_reader_proof_pending"
+    "semantic_status": "static_zero_context_classified_runtime_zero_reader_proof_pending",
+    "source_effect_capture_requirement_count": 11
   },
   "command_semantics": {
     "zero": {
       "semantic_status": "pending_earthbound_zero_control_effect_proof",
-      "exact_duration_promotion_allowed": false
+      "exact_duration_promotion_allowed": false,
+      "source_effect_status": "source_backed_zero_reader_paths_effect_pending_runtime_context"
     },
     "ef": {
       "semantic_status": "runtime_interpreter_read_observed_dispatch_decode_pending",
-      "exact_duration_promotion_allowed": false
+      "exact_duration_promotion_allowed": false,
+      "source_effect_status": "source_backed_call_return_slots_runtime_effect_pending"
     }
+  },
+  "source_effects": {
+    "source_effect_frontier": "earthbound-decomp.audio-spc700-source-effect-frontier.v1",
+    "zero_source_effect_status": "source_backed_zero_reader_paths_effect_pending_runtime_context",
+    "ef_source_effect_status": "source_backed_call_return_slots_runtime_effect_pending",
+    "voice_zero_reader": "0x0882",
+    "pattern_zero_reader": "0x081A",
+    "ef_handler": "0x0AAC",
+    "voice_zero_branch_count": 3,
+    "pattern_zero_branch_count": 4,
+    "runtime_capture_requirements": [
+      "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+      "$0230+x/$0231+x saved return pointer",
+      "$30+x/$31+x before the zero read and after the post-zero branch",
+      "$80+x before and after the zero read",
+      "$80+x call count after EF",
+      "EF operands and resulting $0240+x/$0241+x subroutine target",
+      "capture $1B when the 0x80/0x81 pattern-control path is taken",
+      "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+      "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+      "later 0x00 branch result that consumes or restores this EF state",
+      "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+    ]
   },
   "runtime_zero_evidence": {
     "dispatch_trace_status": "runtime_fetch_observed_dispatch_bridge_pending",
@@ -1462,6 +1489,19 @@
         "required_observation": "record command pointer, EF stack/return state, voice slot, and post-read branch/effect for 0x00"
       }
     ],
+    "source_capture_requirements": [
+      "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+      "$0230+x/$0231+x saved return pointer",
+      "$30+x/$31+x before the zero read and after the post-zero branch",
+      "$80+x before and after the zero read",
+      "$80+x call count after EF",
+      "EF operands and resulting $0240+x/$0241+x subroutine target",
+      "capture $1B when the 0x80/0x81 pattern-control path is taken",
+      "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+      "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+      "later 0x00 branch result that consumes or restores this EF state",
+      "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+    ],
     "first_pack_focus": [
       {
         "pack_id": 25,
@@ -2538,11 +2578,13 @@
     "Static 0x00 context can prioritize work, but cannot decide exact end-vs-return semantics alone.",
     "A 0x00 on a path with an EF call edge remains ambiguous until the EF return stack model is proven.",
     "A 0x00 on a path without an EF call edge is an end candidate, but still needs EarthBound runtime/disassembly proof before public exact export.",
+    "The source-backed 0x00 reader shows loop/return and pattern-control paths; runtime proof must capture which path each candidate takes.",
     "No record in this frontier directly promotes sequence exact-duration exports."
   ],
   "findings": [
     "The new frontier identifies which 0x00 candidates need an EF return stack model first.",
     "Runtime 0x00 reader evidence is currently taken from the dispatch/control-reader manifests; older traces may report zero reads until regenerated with the widened harness contract.",
+    "Source-effect evidence now provides the exact voice-reader, pattern-reader, and EF state slots that the runtime proof must capture.",
     "Pack-level export promotion remains blocked even for phrase-end-looking candidates."
   ],
   "next_work": [

@@ -81,6 +81,7 @@ This contract keeps ares, snes_spc, and optional reference renderers outside the
 - audio exact-duration triage: `python tools/build_audio_exact_duration_triage.py` then `python tools/validate_audio_exact_duration_triage.py`.
 - audio FF terminator review: `python tools/build_audio_ff_terminator_review.py` then `python tools/validate_audio_ff_terminator_review.py`.
 - audio SPC700 source ingest: `python tools/build_audio_spc700_sounddriver_source_ingest.py` then `python tools/validate_audio_spc700_sounddriver_source_ingest.py`.
+- audio SPC700 source-effect frontier: `python tools/build_audio_spc700_source_effect_frontier.py` then `python tools/validate_audio_spc700_source_effect_frontier.py`.
 - audio SPC700 driver dispatch frontier: `python tools/build_audio_spc700_driver_dispatch_frontier.py` then `python tools/validate_audio_spc700_driver_dispatch_frontier.py`.
 - audio SPC700 FF target review: `python tools/build_audio_spc700_ff_target_review.py` then `python tools/validate_audio_spc700_ff_target_review.py`.
 - audio FD/FE timing frontier: `python tools/build_audio_fd_fe_timing_frontier.py` then `python tools/validate_audio_fd_fe_timing_frontier.py`.

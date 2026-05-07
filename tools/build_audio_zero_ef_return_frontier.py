@@ -16,6 +16,7 @@ DEFAULT_WALK_FRONTIER = ROOT / "manifests" / "audio-sequence-walk-frontier.json"
 DEFAULT_COMMAND_SEMANTICS = ROOT / "manifests" / "audio-sequence-command-semantics.json"
 DEFAULT_DISPATCH_TRACE = ROOT / "manifests" / "audio-spc700-dispatch-trace-frontier.json"
 DEFAULT_CONTROL_READER = ROOT / "manifests" / "audio-spc700-control-reader-frontier.json"
+DEFAULT_SOURCE_EFFECTS = ROOT / "manifests" / "audio-spc700-source-effect-frontier.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-zero-ef-return-frontier.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-zero-ef-return-frontier.md"
 
@@ -27,6 +28,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--command-semantics", default=str(DEFAULT_COMMAND_SEMANTICS), help="Command semantics JSON.")
     parser.add_argument("--dispatch-trace", default=str(DEFAULT_DISPATCH_TRACE), help="Runtime dispatch trace frontier JSON.")
     parser.add_argument("--control-reader", default=str(DEFAULT_CONTROL_READER), help="Control reader frontier JSON.")
+    parser.add_argument("--source-effects", default=str(DEFAULT_SOURCE_EFFECTS), help="SPC700 source-effect frontier JSON.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Manifest output JSON.")
     parser.add_argument("--notes", default=str(DEFAULT_NOTES), help="Markdown note output.")
     return parser.parse_args()
@@ -102,17 +104,41 @@ def runtime_probe_pc_plan(zero_trace: dict[str, Any], zero_reader_records: list[
     return plan
 
 
+def zero_source_summary(source_effects: dict[str, Any]) -> dict[str, Any]:
+    zero = source_effects.get("effects", {}).get("0x00", {})
+    ef = source_effects.get("effects", {}).get("0xEF", {})
+    voice = zero.get("voice_reader", {})
+    pattern = zero.get("pattern_reader", {})
+    return {
+        "source_effect_frontier": source_effects.get("schema"),
+        "zero_source_effect_status": zero.get("source_effect_status"),
+        "ef_source_effect_status": ef.get("source_effect_status"),
+        "voice_zero_reader": voice.get("reader_address"),
+        "pattern_zero_reader": pattern.get("reader_address"),
+        "ef_handler": ef.get("source_target"),
+        "voice_zero_branch_count": len(voice.get("zero_branches", [])),
+        "pattern_zero_branch_count": len(pattern.get("zero_pair_branches", [])),
+        "runtime_capture_requirements": sorted(
+            set(voice.get("runtime_capture_requirements", []))
+            | set(pattern.get("runtime_capture_requirements", []))
+            | set(ef.get("runtime_capture_requirements", []))
+        ),
+    }
+
+
 def build_frontier(
     zero_review: dict[str, Any],
     walk_frontier: dict[str, Any],
     command_semantics: dict[str, Any],
     dispatch_trace: dict[str, Any],
     control_reader: dict[str, Any],
+    source_effects: dict[str, Any],
 ) -> dict[str, Any]:
     priority_by_pack = {int(pack["pack_id"]): pack for pack in walk_frontier.get("priority_packs", [])}
     summary_by_pack = {int(pack["pack_id"]): pack for pack in walk_frontier.get("pack_summaries", [])}
     zero_semantics = command_semantics.get("commands", {}).get("0x00", {})
     ef_semantics = command_semantics.get("commands", {}).get("0xEF", {})
+    source_summary = zero_source_summary(source_effects)
     zero_trace = dispatch_trace.get("control_command_semantics", {}).get("0x00", {})
     zero_reader_records = [
         record
@@ -174,6 +200,7 @@ def build_frontier(
             "manifests/audio-sequence-command-semantics.json",
             "manifests/audio-spc700-dispatch-trace-frontier.json",
             "manifests/audio-spc700-control-reader-frontier.json",
+            "manifests/audio-spc700-source-effect-frontier.json",
         ],
         "summary": {
             "candidate_pack_count": len(pack_records),
@@ -189,17 +216,21 @@ def build_frontier(
             "zero_runtime_reader_pc_count": len(zero_reader_records),
             "sequence_promotion_allowed": False,
             "semantic_status": "static_zero_context_classified_runtime_zero_reader_proof_pending",
+            "source_effect_capture_requirement_count": len(source_summary["runtime_capture_requirements"]),
         },
         "command_semantics": {
             "zero": {
                 "semantic_status": zero_semantics.get("semantic_status", "missing_command_semantics"),
                 "exact_duration_promotion_allowed": bool(zero_semantics.get("exact_duration_promotion_allowed")),
+                "source_effect_status": source_summary.get("zero_source_effect_status"),
             },
             "ef": {
                 "semantic_status": ef_semantics.get("semantic_status", "missing_command_semantics"),
                 "exact_duration_promotion_allowed": bool(ef_semantics.get("exact_duration_promotion_allowed")),
+                "source_effect_status": source_summary.get("ef_source_effect_status"),
             },
         },
+        "source_effects": source_summary,
         "runtime_zero_evidence": {
             "dispatch_trace_status": zero_trace.get("semantic_status", "missing_zero_trace_status"),
             "sequence_control_read_count": int(zero_trace.get("sequence_control_read_count", 0)),
@@ -209,6 +240,7 @@ def build_frontier(
         },
         "runtime_probe_plan": {
             "reader_pc_plan": runtime_probe_pc_plan(zero_trace, zero_reader_records),
+            "source_capture_requirements": source_summary["runtime_capture_requirements"],
             "first_pack_focus": [
                 {
                     "pack_id": pack["pack_id"],
@@ -224,11 +256,13 @@ def build_frontier(
             "Static 0x00 context can prioritize work, but cannot decide exact end-vs-return semantics alone.",
             "A 0x00 on a path with an EF call edge remains ambiguous until the EF return stack model is proven.",
             "A 0x00 on a path without an EF call edge is an end candidate, but still needs EarthBound runtime/disassembly proof before public exact export.",
+            "The source-backed 0x00 reader shows loop/return and pattern-control paths; runtime proof must capture which path each candidate takes.",
             "No record in this frontier directly promotes sequence exact-duration exports.",
         ],
         "findings": [
             "The new frontier identifies which 0x00 candidates need an EF return stack model first.",
             "Runtime 0x00 reader evidence is currently taken from the dispatch/control-reader manifests; older traces may report zero reads until regenerated with the widened harness contract.",
+            "Source-effect evidence now provides the exact voice-reader, pattern-reader, and EF state slots that the runtime proof must capture.",
             "Pack-level export promotion remains blocked even for phrase-end-looking candidates.",
         ],
         "next_work": [
@@ -317,6 +351,7 @@ def main() -> int:
         load_json(Path(args.command_semantics)),
         load_json(Path(args.dispatch_trace)),
         load_json(Path(args.control_reader)),
+        load_json(Path(args.source_effects)),
     )
     output = Path(args.output)
     notes = Path(args.notes)

@@ -42,6 +42,14 @@ def validate(data: dict[str, Any]) -> None:
         require(str(record.get("source_label", "")).startswith("VCMD_FastForward"), f"{command}: unexpected source label")
         require(record.get("arg_length") == 0, f"{command}: FD/FE arg length must be zero")
         require(record.get("effect_proof_status") == "runtime_effect_pending", f"{command}: effect proof must remain pending")
+        require(record.get("source_effect_status"), f"{command}: missing source effect status")
+        require(record.get("source_effect_flow"), f"{command}: missing source effect flow")
+        require(record.get("source_effect_state_slots", {}).get("fast_forward_flag", {}).get("name") == "fast_forward_flag", f"{command}: missing fast-forward flag source slot")
+        require(
+            record.get("source_effect_state_slots", {}).get("music_effect_fastforward_timer", {}).get("name") == "mfx_fastforward_timer",
+            f"{command}: missing MFX fast-forward timer boundary",
+        )
+        require(len(record.get("source_effect_capture_requirements", [])) >= 4, f"{command}: source capture requirements too thin")
         require(record.get("duration_promotion_status") == "blocked_pending_local_effect_proof", f"{command}: duration promotion should remain blocked")
         require(record.get("exact_duration_promotion_allowed") is False, f"{command}: promotion must be blocked")
         require(len(record.get("required_next_evidence", [])) >= 4, f"{command}: required evidence too thin")

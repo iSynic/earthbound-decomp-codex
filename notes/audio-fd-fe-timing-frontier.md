@@ -21,6 +21,7 @@ Status: FD/FE are source-backed VCMDs, but fast-forward timing effects remain un
 ## Promotion Policy
 
 - FD and FE have source-backed VCMD labels and zero argument bytes.
+- FD/FE source-effect facts prove the fast_forward_flag write and L_0787 helper path, but not the duration impact.
 - Source labels identify the timing lane, but do not prove export duration math.
 - Exact-duration export remains blocked until local runtime timing effects are captured.
 

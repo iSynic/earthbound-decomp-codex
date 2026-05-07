@@ -47,12 +47,14 @@ Status: 0x00 candidates are grouped by EF context; runtime proof is still requir
 - Static 0x00 context can prioritize work, but cannot decide exact end-vs-return semantics alone.
 - A 0x00 on a path with an EF call edge remains ambiguous until the EF return stack model is proven.
 - A 0x00 on a path without an EF call edge is an end candidate, but still needs EarthBound runtime/disassembly proof before public exact export.
+- The source-backed 0x00 reader shows loop/return and pattern-control paths; runtime proof must capture which path each candidate takes.
 - No record in this frontier directly promotes sequence exact-duration exports.
 
 ## Findings
 
 - The new frontier identifies which 0x00 candidates need an EF return stack model first.
 - Runtime 0x00 reader evidence is currently taken from the dispatch/control-reader manifests; older traces may report zero reads until regenerated with the widened harness contract.
+- Source-effect evidence now provides the exact voice-reader, pattern-reader, and EF state slots that the runtime proof must capture.
 - Pack-level export promotion remains blocked even for phrase-end-looking candidates.
 
 ## Next Work

@@ -7,6 +7,7 @@
     "manifests/audio-spc700-control-reader-frontier.json",
     "manifests/audio-spc700-driver-dispatch-frontier.json",
     "manifests/audio-spc700-ff-target-review.json",
+    "manifests/audio-spc700-source-effect-frontier.json",
     "tools/ares_audio_harness/main.cpp"
   ],
   "summary": {
@@ -20,6 +21,8 @@
     "source_backed_vcmd_count": 3,
     "zero_control_pending_count": 1,
     "outside_vcmd_table_count": 1,
+    "source_effect_command_count": 5,
+    "source_effect_capture_requirement_count": 21,
     "external_semantic_family": "n_spc",
     "external_semantic_family_promotes_exact_duration": false
   },
@@ -80,6 +83,16 @@
       "source_target": null,
       "arg_length": null,
       "source_role": "zero_control_pending",
+      "source_effect_status": "source_backed_zero_reader_paths_effect_pending_runtime_context",
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x and $0240+x/$0241+x for active EF context",
+        "$30+x/$31+x before the zero read and after the post-zero branch",
+        "$80+x before and after the zero read",
+        "capture $1B when the 0x80/0x81 pattern-control path is taken",
+        "capture the byte following pattern-level 0x00 before classifying StopMusic or fast-forward behavior",
+        "distinguish voice-stream zero reads from pattern-pointer 0x00 control pairs",
+        "whether post-zero execution branches to L_081A, L_0AC4, L_0882, or restored-return flow"
+      ],
       "static_dispatch_target": null,
       "static_dispatch_target_source": null,
       "semantic_status": "pending_earthbound_zero_control_effect_proof",
@@ -121,6 +134,13 @@
       "source_target": "0x0AAC",
       "arg_length": 3,
       "source_role": "source_backed_vcmd",
+      "source_effect_status": "source_backed_call_return_slots_runtime_effect_pending",
+      "source_effect_capture_requirements": [
+        "$0230+x/$0231+x saved return pointer",
+        "$80+x call count after EF",
+        "EF operands and resulting $0240+x/$0241+x subroutine target",
+        "later 0x00 branch result that consumes or restores this EF state"
+      ],
       "static_dispatch_target": "0x0AAC",
       "static_dispatch_target_source": "audio-spc700-driver-dispatch-frontier",
       "semantic_status": "runtime_interpreter_read_observed_dispatch_decode_pending",
@@ -155,6 +175,13 @@
       "source_target": "0x0B7E",
       "arg_length": 0,
       "source_role": "source_backed_vcmd",
+      "source_effect_status": "source_backed_fast_forward_flag_write_runtime_timing_pending",
+      "source_effect_capture_requirements": [
+        "$0491/$04B1/$04B5/$0046 before and after the L_0787 helper",
+        "$1B before and after FD",
+        "separate VCMD fast_forward_flag behavior from MFX_05 mfx_fastforward_timer behavior",
+        "tempo/tick counters around the affected phrase"
+      ],
       "static_dispatch_target": "0x0B7E",
       "static_dispatch_target_source": "audio-spc700-driver-dispatch-frontier",
       "semantic_status": "runtime_interpreter_read_observed_dispatch_decode_pending",
@@ -187,6 +214,13 @@
       "source_target": "0x0B7F",
       "arg_length": 0,
       "source_role": "source_backed_vcmd",
+      "source_effect_status": "source_backed_fast_forward_flag_write_runtime_timing_pending",
+      "source_effect_capture_requirements": [
+        "$0491/$04B1/$04B5/$0046 before and after the L_0787 helper",
+        "$1B before and after FE",
+        "separate VCMD fast_forward_flag behavior from MFX_05 mfx_fastforward_timer behavior",
+        "tempo/tick counters around the affected phrase"
+      ],
       "static_dispatch_target": "0x0B7F",
       "static_dispatch_target_source": "audio-spc700-driver-dispatch-frontier",
       "semantic_status": "runtime_interpreter_read_observed_dispatch_decode_pending",
@@ -220,6 +254,11 @@
       "source_target": null,
       "arg_length": null,
       "source_role": "outside_vcmd_table",
+      "source_effect_status": "outside_vcmd_table_no_source_handler",
+      "source_effect_capture_requirements": [
+        "prove whether 0xFF is unreachable data, static-walk overrun, or an EarthBound-specific reader-path effect",
+        "reader PC and post-read branch for any observed 0xFF byte"
+      ],
       "static_dispatch_target": null,
       "static_dispatch_target_source": null,
       "semantic_status": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof",
@@ -249,7 +288,8 @@
     "The current checked-in evidence does not yet permit sequence-command exact-duration promotion.",
     "Existing PCM silence evidence may still support finite trim candidates independently of sequence-command promotion.",
     "The source-backed VCMD table and N-SPC hypothesis both shift exact finite-end work from FF toward 0x00 phrase/VCMD termination evidence.",
-    "Runtime traces now identify control-byte reader PCs, but those reader paths still need effect decoding before this manifest can unblock exact sequence semantics."
+    "Runtime traces now identify control-byte reader PCs, but those reader paths still need effect decoding before this manifest can unblock exact sequence semantics.",
+    "Source-effect facts now name the EF return slots and FD/FE timing state that runtime probes must capture."
   ],
   "next_work": [
     "trace or disassemble EarthBound handling of 0x00 phrase/VCMD termination and EF return behavior",

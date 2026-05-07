@@ -51,6 +51,8 @@ def validate(data: dict[str, Any]) -> None:
         require(record.get("semantic_status"), f"{command}: missing semantic status")
         require(record.get("source_role"), f"{command}: missing source role")
         require(record.get("effect_proof_status"), f"{command}: missing effect proof status")
+        require(record.get("source_effect_status"), f"{command}: missing source effect status")
+        require(record.get("source_effect_capture_requirements"), f"{command}: missing source effect capture requirements")
         require(record.get("duration_promotion_status"), f"{command}: missing duration promotion status")
         require(record.get("eligible_next_export_action"), f"{command}: missing next export action")
         require("n_spc_reference_semantics" in record, f"{command}: missing N-SPC reference semantics field")
@@ -80,6 +82,7 @@ def validate(data: dict[str, Any]) -> None:
             require(record.get("source_role") == "outside_vcmd_table", "0xFF must be outside the source-backed VCMD table")
             require(record.get("effect_proof_status") == "outside_vcmd_table", "0xFF must carry outside-VCMD effect status")
             require(record.get("source_label") is None, "0xFF must not have a source-backed VCMD label")
+            require("outside" in str(record.get("source_effect_status")), "0xFF must carry outside-table source effect status")
             require(
                 not policy.get("candidate_terminator"),
                 "0xFF must not be treated as a promoted/static terminator under the N-SPC hypothesis",
@@ -89,12 +92,15 @@ def validate(data: dict[str, Any]) -> None:
             require(record.get("source_role") == "zero_control_pending", "0x00 must use zero-control source role")
             require(record.get("effect_proof_status") == "zero_control_pending", "0x00 must remain zero-control pending")
             require(policy.get("candidate_terminator"), "0x00 should be the primary N-SPC terminator candidate")
+            require(len(record.get("source_effect_capture_requirements", [])) >= 7, "0x00 source capture requirements too thin")
         if command in {"0xEF", "0xFD", "0xFE"}:
             require(record.get("source_role") == "source_backed_vcmd", f"{command}: expected source-backed VCMD role")
             require(record.get("effect_proof_status") == "runtime_effect_pending", f"{command}: expected runtime effect pending")
             require(record.get("source_label", "").startswith("VCMD_"), f"{command}: missing source VCMD label")
             require(record.get("source_target") == record.get("static_dispatch_target"), f"{command}: target mismatch")
             require(isinstance(record.get("arg_length"), int), f"{command}: missing arg length")
+            require("source_backed" in str(record.get("source_effect_status")), f"{command}: expected source-backed effect status")
+            require(len(record.get("source_effect_capture_requirements", [])) >= 4, f"{command}: source capture requirements too thin")
     require(summary.get("confirmed_for_exact_duration_count") == confirmed, "confirmed count mismatch")
     require(summary.get("pending_count") == pending, "pending count mismatch")
     require(summary.get("blocked_or_contradicted_count") == blocked, "blocked count mismatch")
@@ -107,6 +113,8 @@ def validate(data: dict[str, Any]) -> None:
     require(summary.get("source_backed_vcmd_count") == 3, "expected three source-backed control VCMDs")
     require(summary.get("zero_control_pending_count") == 1, "expected one zero-control pending command")
     require(summary.get("outside_vcmd_table_count") == 1, "expected one outside-VCMD command")
+    require(summary.get("source_effect_command_count") == 5, "expected source effect coverage for five commands")
+    require(int(summary.get("source_effect_capture_requirement_count", 0)) >= 20, "source effect capture requirement count too low")
     require(data.get("promotion_policy"), "missing promotion policy")
     require(data.get("findings"), "missing findings")
     require(data.get("next_work"), "missing next work")

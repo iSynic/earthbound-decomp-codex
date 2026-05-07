@@ -82,6 +82,7 @@ def validate(data: dict[str, Any]) -> None:
         "manifests/audio-duration-uncertainty-register.json",
         "manifests/audio-sequence-command-semantics.json",
         "manifests/audio-oracle-comparison-plan-all-tracks.json",
+        "manifests/audio-spc700-source-effect-frontier.json",
     ):
         require(reference in references, f"missing reference {reference}")
 
@@ -97,6 +98,10 @@ def validate(data: dict[str, Any]) -> None:
     fields = set(runner_contract.get("required_capture_fields", []))
     missing = REQUIRED_FIELDS - fields
     require(not missing, f"runner contract missing fields {sorted(missing)}")
+    require(
+        runner_contract.get("source_effect_frontier") == "earthbound-decomp.audio-spc700-source-effect-frontier.v1",
+        "missing source-effect frontier reference",
+    )
     classifications = set(runner_contract.get("accepted_control_effect_classifications", []))
     for classification in ("ef_call_return", "timing_toggle", "earthbound_variant_ff", "unresolved"):
         require(classification in classifications, f"missing classification {classification}")
@@ -129,6 +134,8 @@ def validate(data: dict[str, Any]) -> None:
         require(job.get("affected_kind") in ALLOWED_KINDS, f"{job_id}: unexpected affected kind")
         require(job.get("promotion_question"), f"{job_id}: missing promotion question")
         require(job.get("priority_reason"), f"{job_id}: missing priority reason")
+        require(job.get("source_effect_status"), f"{job_id}: missing source effect status")
+        require(job.get("source_effect_capture_requirements"), f"{job_id}: missing source effect capture requirements")
         require(set(job.get("required_capture_fields", [])) == fields, f"{job_id}: capture fields differ")
         require(job.get("promotion_allowed_by_plan") is False, f"{job_id}: promotion must stay blocked")
         require(len(job.get("success_criteria", [])) >= 4, f"{job_id}: success criteria too thin")
@@ -146,10 +153,16 @@ def validate(data: dict[str, Any]) -> None:
             require(int(job.get("priority_rank", 0)) >= 100, "0x0957 FF job should be highest priority")
         if command == "0xFF":
             require(job.get("affected_kind") == "static_walk_blocker", "FF job must be static-walk blocker")
+            require("outside" in str(job.get("source_effect_status")), "FF job must carry outside-table source status")
         if command in {"0xFD", "0xFE"}:
             require(job.get("affected_kind") == "timing_toggle_context", f"{command}: expected timing context")
+            require(
+                job.get("source_effect_state_slots", {}).get("fast_forward_flag", {}).get("name") == "fast_forward_flag",
+                f"{command}: missing fast-forward flag source slot",
+            )
         if command == "0xEF":
             require(job.get("affected_kind") == "return_stack_context", "EF job must be return-stack context")
+            require("ef_return_pointer" in job.get("source_effect_state_slots", {}), "EF job missing return pointer source slot")
     require(command_set == REQUIRED_COMMANDS, "command coverage mismatch")
     require(has_0957_ff, "missing priority 0x0957 FF job")
     require(int(summary.get("source_candidate_count", -1)) == source_candidate_count, "source candidate count mismatch")
@@ -157,6 +170,7 @@ def validate(data: dict[str, Any]) -> None:
         int(summary.get("source_candidate_with_oracle_job_count", -1)) == source_join_count,
         "source candidate oracle join count mismatch",
     )
+    require(int(summary.get("source_effect_job_count", -1)) == len(jobs), "source effect job count mismatch")
     require(data.get("promotion_policy"), "missing promotion policy")
     require(data.get("next_work"), "missing next work")
 

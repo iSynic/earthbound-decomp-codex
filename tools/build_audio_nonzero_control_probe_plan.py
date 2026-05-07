@@ -13,6 +13,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_FRONTIER = ROOT / "manifests" / "audio-nonzero-control-semantics-frontier.json"
 DEFAULT_ORACLE_PLAN = ROOT / "manifests" / "audio-oracle-comparison-plan-all-tracks.json"
+DEFAULT_SOURCE_EFFECTS = ROOT / "manifests" / "audio-spc700-source-effect-frontier.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-nonzero-control-probe-plan.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-nonzero-control-probe-plan.md"
 DEFAULT_OUTPUT_ROOT = "build/audio/nonzero-control-probe"
@@ -61,6 +62,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build the audio non-0x00 control probe plan.")
     parser.add_argument("--frontier", default=str(DEFAULT_FRONTIER), help="Nonzero control frontier JSON.")
     parser.add_argument("--oracle-plan", default=str(DEFAULT_ORACLE_PLAN), help="All-track oracle plan JSON.")
+    parser.add_argument("--source-effects", default=str(DEFAULT_SOURCE_EFFECTS), help="SPC700 source-effect frontier JSON.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Probe plan output JSON.")
     parser.add_argument("--notes", default=str(DEFAULT_NOTES), help="Probe plan markdown output.")
     parser.add_argument(
@@ -161,7 +163,16 @@ def priority_rank(command: str, pc: str) -> int:
     return 50
 
 
-def build_jobs(frontier: dict[str, Any], oracle_plan: dict[str, Any], output_root: str) -> list[dict[str, Any]]:
+def source_effect_for_command(source_effects: dict[str, Any], command: str) -> dict[str, Any]:
+    effect = source_effects.get("effects", {}).get(command, {})
+    return {
+        "source_effect_status": effect.get("source_effect_status"),
+        "source_effect_capture_requirements": effect.get("runtime_capture_requirements", []),
+        "source_effect_state_slots": effect.get("state_slots", {}),
+    }
+
+
+def build_jobs(frontier: dict[str, Any], oracle_plan: dict[str, Any], source_effects: dict[str, Any], output_root: str) -> list[dict[str, Any]]:
     oracle_by_track = oracle_jobs_by_track(oracle_plan)
     jobs: list[dict[str, Any]] = []
     for command_record in frontier.get("command_frontier", []):
@@ -169,6 +180,7 @@ def build_jobs(frontier: dict[str, Any], oracle_plan: dict[str, Any], output_roo
         for reader in command_record.get("reader_pc_records", []):
             pc = str(reader["pc"])
             job_id = f"nonzero-probe-{command.lower().replace('0x', '')}-pc-{pc.lower().replace('0x', '')}"
+            source_effect = source_effect_for_command(source_effects, command)
             jobs.append(
                 {
                     "job_id": job_id,
@@ -182,6 +194,7 @@ def build_jobs(frontier: dict[str, Any], oracle_plan: dict[str, Any], output_roo
                     "priority_rank": priority_rank(command, pc),
                     "priority_reason": command_record.get("priority_reason"),
                     "promotion_question": COMMAND_QUESTIONS[command],
+                    **source_effect,
                     "source_candidates": source_candidates(frontier, reader, command, oracle_by_track),
                     "required_capture_fields": REQUIRED_CAPTURE_FIELDS,
                     "accepted_control_effect_classifications": CLASSIFICATIONS,
@@ -206,8 +219,8 @@ def count_jobs(jobs: list[dict[str, Any]], key: str) -> dict[str, int]:
     return dict(sorted(counts.items()))
 
 
-def build_plan(frontier: dict[str, Any], oracle_plan: dict[str, Any], output_root: str) -> dict[str, Any]:
-    jobs = build_jobs(frontier, oracle_plan, output_root)
+def build_plan(frontier: dict[str, Any], oracle_plan: dict[str, Any], source_effects: dict[str, Any], output_root: str) -> dict[str, Any]:
+    jobs = build_jobs(frontier, oracle_plan, source_effects, output_root)
     source_candidate_count = sum(len(job.get("source_candidates", [])) for job in jobs)
     source_join_count = sum(
         1
@@ -223,6 +236,7 @@ def build_plan(frontier: dict[str, Any], oracle_plan: dict[str, Any], output_roo
             "manifests/audio-duration-uncertainty-register.json",
             "manifests/audio-sequence-command-semantics.json",
             "manifests/audio-oracle-comparison-plan-all-tracks.json",
+            "manifests/audio-spc700-source-effect-frontier.json",
         ],
         "source_policy": {
             "requires_user_supplied_rom": True,
@@ -237,6 +251,7 @@ def build_plan(frontier: dict[str, Any], oracle_plan: dict[str, Any], output_roo
             "affected_kind_job_counts": count_jobs(jobs, "affected_kind"),
             "source_candidate_count": source_candidate_count,
             "source_candidate_with_oracle_job_count": source_join_count,
+            "source_effect_job_count": sum(1 for job in jobs if job.get("source_effect_status")),
             "frontier_track_count": int(frontier.get("summary", {}).get("track_count", 0)),
             "frontier_pack_count": int(frontier.get("summary", {}).get("pack_count", 0)),
             "sequence_promotion_allowed": False,
@@ -247,6 +262,7 @@ def build_plan(frontier: dict[str, Any], oracle_plan: dict[str, Any], output_roo
             "behavior_change_allowed": False,
             "public_exact_promotion_allowed": False,
             "required_capture_fields": REQUIRED_CAPTURE_FIELDS,
+            "source_effect_frontier": source_effects.get("schema"),
             "accepted_control_effect_classifications": CLASSIFICATIONS,
             "result_schema_required_fields": [
                 "job_id",
@@ -266,7 +282,7 @@ def build_plan(frontier: dict[str, Any], oracle_plan: dict[str, Any], output_roo
             "This plan creates diagnostic jobs only and cannot promote sequence-derived public exact-duration exports.",
             "0xFF remains a static-walk blocker until EarthBound reader-path effect is locally classified.",
             "EF evidence must describe call/return state, not just command reads.",
-            "FD/FE evidence must describe timing or tempo state before exact duration math can depend on it.",
+            "FD/FE evidence must describe source-backed fast_forward_flag and helper reset state before exact duration math can depend on it.",
         ],
         "next_work": [
             "run the 0x0957 FF/FE/EF jobs first because that reader PC spans the highest-value command mix",
@@ -335,7 +351,12 @@ def render_markdown(plan: dict[str, Any]) -> str:
 
 def main() -> int:
     args = parse_args()
-    plan = build_plan(load_json(Path(args.frontier)), load_json(Path(args.oracle_plan)), args.output_root)
+    plan = build_plan(
+        load_json(Path(args.frontier)),
+        load_json(Path(args.oracle_plan)),
+        load_json(Path(args.source_effects)),
+        args.output_root,
+    )
     output = Path(args.output)
     notes = Path(args.notes)
     output.parent.mkdir(parents=True, exist_ok=True)

@@ -62,9 +62,19 @@ def validate(data: dict[str, Any]) -> None:
             if "blocked_command_statuses" in status:
                 require("blocked_command_source_roles" in status, f"pack {pack.get('pack_id')} missing blocked command source roles")
                 require("blocked_command_effect_proof_statuses" in status, f"pack {pack.get('pack_id')} missing blocked command effect statuses")
+                require("blocked_command_source_effect_statuses" in status, f"pack {pack.get('pack_id')} missing blocked command source effect statuses")
+                require(
+                    "blocked_command_source_effect_capture_requirement_counts" in status,
+                    f"pack {pack.get('pack_id')} missing blocked command source capture counts",
+                )
             else:
                 require("source_role" in status, f"pack {pack.get('pack_id')} missing source role")
                 require("effect_proof_status" in status, f"pack {pack.get('pack_id')} missing effect proof status")
+                require("source_effect_status" in status, f"pack {pack.get('pack_id')} missing source effect status")
+                require(
+                    "source_effect_capture_requirement_count" in status,
+                    f"pack {pack.get('pack_id')} missing source effect capture count",
+                )
             require("recommended_next_step" in pack, f"pack {pack.get('pack_id')} missing next step")
             require("terminator_counts_by_command" in pack, f"pack {pack.get('pack_id')} missing terminator command counts")
 

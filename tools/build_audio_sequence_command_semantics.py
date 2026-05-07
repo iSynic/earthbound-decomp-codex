@@ -20,6 +20,7 @@ DEFAULT_DISPATCH_TRACE = ROOT / "manifests" / "audio-spc700-dispatch-trace-front
 DEFAULT_DRIVER_DISPATCH = ROOT / "manifests" / "audio-spc700-driver-dispatch-frontier.json"
 DEFAULT_FF_TARGET_REVIEW = ROOT / "manifests" / "audio-spc700-ff-target-review.json"
 DEFAULT_CONTROL_READER_FRONTIER = ROOT / "manifests" / "audio-spc700-control-reader-frontier.json"
+DEFAULT_SOURCE_EFFECTS = ROOT / "manifests" / "audio-spc700-source-effect-frontier.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-sequence-command-semantics.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-sequence-command-semantics.md"
 CONTROL_COMMANDS = ("0x00", "0xEF", "0xFD", "0xFE", "0xFF")
@@ -50,6 +51,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--driver-dispatch", default=str(DEFAULT_DRIVER_DISPATCH), help="Static driver dispatch frontier JSON.")
     parser.add_argument("--ff-target-review", default=str(DEFAULT_FF_TARGET_REVIEW), help="FF target review JSON.")
     parser.add_argument("--control-reader-frontier", default=str(DEFAULT_CONTROL_READER_FRONTIER), help="Control reader frontier JSON.")
+    parser.add_argument("--source-effects", default=str(DEFAULT_SOURCE_EFFECTS), help="SPC700 source-effect frontier JSON.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Manifest output JSON.")
     parser.add_argument("--notes", default=str(DEFAULT_NOTES), help="Markdown note output.")
     return parser.parse_args()
@@ -192,11 +194,21 @@ def static_walk_policy(command: str, status: str, promotion_allowed: bool) -> di
     }
 
 
+def source_effect_requirements(source_effects: dict[str, Any], command: str) -> list[str]:
+    effect = source_effects.get("effects", {}).get(command, {})
+    requirements = list(effect.get("runtime_capture_requirements", []))
+    if command == "0x00":
+        requirements.extend(effect.get("voice_reader", {}).get("runtime_capture_requirements", []))
+        requirements.extend(effect.get("pattern_reader", {}).get("runtime_capture_requirements", []))
+    return sorted(set(str(requirement) for requirement in requirements))
+
+
 def build_semantics(
     dispatch_trace: dict[str, Any],
     driver_dispatch: dict[str, Any],
     ff_target_review: dict[str, Any],
     control_reader_frontier: dict[str, Any],
+    source_effects: dict[str, Any],
 ) -> dict[str, Any]:
     entries = driver_entries(driver_dispatch)
     trace_records = dispatch_trace.get("records", [])
@@ -206,6 +218,7 @@ def build_semantics(
     blocked_count = 0
     for command in CONTROL_COMMANDS:
         entry = entries.get(command, {})
+        source_effect = source_effects.get("effects", {}).get(command, {})
         source_role = source_role_for_command(command, entry)
         effect_proof_status = effect_proof_status_for_command(command, source_role)
         post_pcs = post_pc_counts(trace_records, command)
@@ -235,6 +248,8 @@ def build_semantics(
             "source_target": entry.get("source_target") or entry.get("target"),
             "arg_length": entry.get("arg_length"),
             "source_role": source_role,
+            "source_effect_status": source_effect.get("source_effect_status"),
+            "source_effect_capture_requirements": source_effect_requirements(source_effects, command),
             "static_dispatch_target": entry.get("target"),
             "static_dispatch_target_source": "audio-spc700-driver-dispatch-frontier" if entry.get("target") else None,
             "semantic_status": status,
@@ -267,6 +282,7 @@ def build_semantics(
             "manifests/audio-spc700-control-reader-frontier.json",
             "manifests/audio-spc700-driver-dispatch-frontier.json",
             "manifests/audio-spc700-ff-target-review.json",
+            "manifests/audio-spc700-source-effect-frontier.json",
             "tools/ares_audio_harness/main.cpp",
         ],
         "summary": {
@@ -285,6 +301,10 @@ def build_semantics(
             ),
             "outside_vcmd_table_count": sum(
                 1 for record in commands.values() if record.get("source_role") == "outside_vcmd_table"
+            ),
+            "source_effect_command_count": sum(1 for record in commands.values() if record.get("source_effect_status")),
+            "source_effect_capture_requirement_count": sum(
+                len(record.get("source_effect_capture_requirements", [])) for record in commands.values()
             ),
             "external_semantic_family": "n_spc",
             "external_semantic_family_promotes_exact_duration": False,
@@ -309,6 +329,7 @@ def build_semantics(
             "Existing PCM silence evidence may still support finite trim candidates independently of sequence-command promotion.",
             "The source-backed VCMD table and N-SPC hypothesis both shift exact finite-end work from FF toward 0x00 phrase/VCMD termination evidence.",
             "Runtime traces now identify control-byte reader PCs, but those reader paths still need effect decoding before this manifest can unblock exact sequence semantics.",
+            "Source-effect facts now name the EF return slots and FD/FE timing state that runtime probes must capture.",
         ],
         "next_work": [
             "trace or disassemble EarthBound handling of 0x00 phrase/VCMD termination and EF return behavior",
@@ -383,6 +404,7 @@ def main() -> int:
         load_json(Path(args.driver_dispatch)),
         load_json(Path(args.ff_target_review)),
         load_json(Path(args.control_reader_frontier)) if Path(args.control_reader_frontier).exists() else {},
+        load_json(Path(args.source_effects)) if Path(args.source_effects).exists() else {},
     )
     output = Path(args.output)
     notes = Path(args.notes)
