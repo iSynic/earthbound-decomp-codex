@@ -110,10 +110,15 @@ The EBATTLE1 action tail has a proved late status row-message cluster:
 
 | Action-table row | Row `+4` EF pointer | Current consumer read |
 | ---: | --- | --- |
+| `62`, `63` | `EF:9A47`, `EF:9A5E` | Nakama0 / Tanemaki0 row presentations |
 | `64`, `65` | `EF:9A7E/9A9E` | Explosive row messages over the shared `C2:A821` behavior body |
+| `66..74` | `EF:9ABB..9C02` | EBATTLE1 exact `MSG_BTL_*` item/status/action row presentations |
 | `75..76` | `EF:9C30/9C51` | Persistent-status row messages; behavior bodies emit success `EF:6B81/6B98` or fallback `EF:766E` |
+| `77` | `EF:9C7E` | YoiKaori row presentation |
 | `78..87` | `EF:9CAD..9DDA` | Temporary-status row messages; behavior bodies emit success `EF:6BBB..6C3A` or fallback `EF:766E` |
+| `88`, `89` | `EF:9E05`, `EF:9E22` | Typhoon / Coffee row presentations |
 | `90` | `EF:9E47` | Asleep row message; the `+8` body emits success `EF:6C55` or fallback `EF:766E` |
+| `91..94` | `EF:9E69..9ED7` | EBATTLE1 exact `MSG_BTL_*` elemental/special row presentations |
 
 The row-message crosswalk expands this into the currently source-backed status
 rows (`53`, `58`, `75`, `76`, `78..87`, `90`, `159`, and `207`) plus late
@@ -121,7 +126,9 @@ physical, special, item, and event rows (`99..102`, `104`, `117`, `118`,
 `140`, `228`, `232..234`, `243`, `244`, `247`, `248`, `273`, and `290`).
 It also now records the recovered Lifeup/offense PSI rows (`32..35`, `48`,
 `49`), numeric-effect rows (`95..98`, `233`, `234`), explosive rows
-(`64`, `65`), the proved EBATTLE2 exact `MSG_BTL_*` action rows
+(`64`, `65`), the proved EBATTLE1 exact `MSG_BTL_*` action rows
+(`62/63`, `66..74`, `77`, `88/89`, and `91..94`), the proved EBATTLE2 exact
+`MSG_BTL_*` action rows
 (`103`, `105..116`, `201..206`, `208..210`, and `238`), and the proved
 EBATTLE3 exact rows (`160/161/176`, `211..227`, `229..231`, `235/236`,
 `241/242`, and `274/300..307`). The latest pointer-recovery passes add the

@@ -143,6 +143,20 @@ row-presentation labels with the original symbol stem.
 | `241`, `242` | `EF:8D72`, `EF:8DC1` `NebieBeam` and `Makitsuki` row texts | `C2:8B6D`, `8CB8` | Special/status row presentations |
 | `274`, `300..307` | `EF:8F17`, `EF:8EE2`, `EF:8F4A` Lightning row texts | `C2:987D`, `9647`, `99EF` | Lightning alpha/beta/gamma presentation reused across PSI wrappers |
 
+## EBATTLE1 Proved Action-Tail Row Messages
+
+The EBATTLE1 action-tail exact `MSG_BTL_*` subset now has concrete row `+4/+8`
+evidence. EGOODS2 item-use scripts retain their item-use labels and remain
+outside this battle-action naming set.
+
+| Row | Row `+4` EF message | Row `+8` C2 body | Current behavior read |
+| ---: | --- | --- | --- |
+| `62`, `63` | `EF:9A47`, `EF:9A5E` `Nakama0` and `Tanemaki0` row texts | `C2:C145`, `C13C` | Late action-tail special row presentations |
+| `66..74` | `EF:9ABB..9C02` `Goods` through `TumetaiIki` row texts | mixed item/status bodies | Item/status/action row presentations |
+| `77` | `EF:9C7E` `YoiKaoriRowPresentationText` | `C2:8E3B` | Status/recovery row presentation |
+| `88`, `89` | `EF:9E05`, `EF:9E22` `Typhoon` and `Coffee` row texts | `C2:99EF`, `95AB` | PSI/special row presentations |
+| `91..94` | `EF:9E69..9ED7` `SyoukaEki` through `FireBreath` row texts | `C2:95BD`, `987D`, `95C6`, `95BD` | Elemental/special row presentations |
+
 ## Flavor-Only No-Op Row Messages
 
 These rows have no-op or tiny row `+8` behavior tails, so the row `+4` message

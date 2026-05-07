@@ -6875,7 +6875,7 @@ db $1F,$17,$B5,$59,$13,$02
 
 EF98D3_EBattle9BranchGrfdSysmsgGutsYes:
 
-; Original data gap before EF9A47_EBattle1MsgBtlNakama0:
+; Original data gap before EF9A47_EBattle1Nakama0RowPresentationText:
 db $70,$58,$89,$9F,$A5,$17,$5E,$15,$42,$16,$07,$16,$C1,$94,$15,$76
 db $5C,$10,$0F,$17,$11,$15,$0D,$92,$17,$7A,$92,$91,$94,$15,$9D,$98
 db $A5,$A2,$A4,$15,$3F,$92,$17,$14,$5C,$03,$00,$70,$15,$6A,$17,$5E
@@ -6901,13 +6901,13 @@ db $15,$B2,$9C,$99,$96,$16,$46,$97,$15,$7E,$5C,$10,$0F,$15,$22,$A3
 db $A5,$A2,$A6,$17,$C9,$5E,$10,$1E,$16,$BA,$15,$D7,$15,$BF,$16,$77
 db $5E,$59,$13,$02
 
-EF9A47_EBattle1MsgBtlNakama0:
+EF9A47_EBattle1Nakama0RowPresentationText:
 
-; Original data gap before EF9A5E_EBattle1MsgBtlTanemaki0:
+; Original data gap before EF9A5E_EBattle1Tanemaki0RowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$15,$FE,$95,$94,$00,$50,$15,$0F,$17
 db $8D,$51,$1F,$02,$48,$03,$02
 
-EF9A5E_EBattle1MsgBtlTanemaki0:
+EF9A5E_EBattle1Tanemaki0RowPresentationText:
 
 ; Original data gap before EF9A7E_EBattle1ExplosionRowPresentationText:
 db $1F,$02,$19,$01,$70,$1C,$0D,$16,$7C,$A7,$95,$94,$00,$50,$15,$1C
@@ -6923,11 +6923,11 @@ db $00,$50,$16,$0B,$92,$99,$A4,$A3,$51,$1F,$02,$5B,$03,$10,$1E,$02
 ; EBATTLE1: row 65 row +4 burst-into-flames presentation text.
 EF9A9E_EBattle1BurstIntoFlamesRowPresentationText:
 
-; Original data gap before EF9ABB_EBattle1MsgBtlGoods:
+; Original data gap before EF9ABB_EBattle1GoodsRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$4E,$A2,$A3,$A4,$00,$50,$16,$0B
 db $96,$9C,$17,$78,$A3,$51,$1F,$02,$4B,$03,$10,$1E,$02
 
-EF9ABB_EBattle1MsgBtlGoods:
+EF9ABB_EBattle1GoodsRowPresentationText:
 
 ; Original data gap before EF9AE8_EBattle1BranchBtlGoodsFailed:
 db $01,$70,$1C,$0D,$19,$1F,$1B,$02,$E8,$9A,$EF,$00,$1B,$04,$50,$A3
@@ -6936,58 +6936,58 @@ db $A5,$A3,$99,$9F,$9E,$15,$09,$92,$17,$14,$51,$03,$02
 
 EF9AE8_EBattle1BranchBtlGoodsFailed:
 
-; Original data gap before EF9B02_EBattle1MsgBtlTimestop:
+; Original data gap before EF9B02_EBattle1TimestopRowPresentationText:
 db $50,$A4,$17,$B0,$15,$90,$00,$50,$50,$A3,$A4,$17,$C1,$15,$35,$15
 db $C7,$96,$91,$99,$9C,$95,$94,$51,$03,$02
 
-EF9B02_EBattle1MsgBtlTimestop:
+EF9B02_EBattle1TimestopRowPresentationText:
 
-; Original data gap before EF9B20_EBattle1MsgBtlManazashi:
+; Original data gap before EF9B20_EBattle1ManazashiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$96,$A2,$9F,$AA,$95,$00,$50,$15
 db $22,$99,$9E,$15,$55,$51,$1F,$00,$00,$04,$03,$10,$01,$02
 
-EF9B20_EBattle1MsgBtlManazashi:
+EF9B20_EBattle1ManazashiRowPresentationText:
 
-; Original data gap before EF9B43_EBattle1MsgBtlKaidenpa:
+; Original data gap before EF9B43_EBattle1KaidenpaRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$9C,$91,$17,$45,$00,$50,$15
 db $2E,$99,$17,$DA,$95,$95,$A2,$99,$95,$50,$95,$A9,$95,$A3,$51,$03
 db $10,$01,$02
 
-EF9B43_EBattle1MsgBtlKaidenpa:
+EF9B43_EBattle1KaidenpaRowPresentationText:
 
-; Original data gap before EF9B73_EBattle1MsgBtlYoroKaidenpa:
+; Original data gap before EF9B73_EBattle1YoroKaidenpaRowPresentationText:
 db $1F,$02,$19,$01,$70,$1C,$0D,$50,$97,$95,$17,$E2,$16,$66,$94,$00
 db $50,$15,$BC,$9D,$A9,$A3,$16,$06,$16,$81,$50,$95,$9C,$16,$A5,$A2
 db $99,$93,$50,$96,$99,$95,$9C,$94,$51,$1F,$02,$4D,$03,$10,$01,$02
 
-EF9B73_EBattle1MsgBtlYoroKaidenpa:
+EF9B73_EBattle1YoroKaidenpaRowPresentationText:
 
-; Original data gap before EF9B96_EBattle1MsgBtlGeppuIki:
+; Original data gap before EF9B96_EBattle1GeppuIkiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$17,$E5,$9D,$16,$86,$94,$15,$C7
 db $96,$99,$17,$7C,$91,$15,$B9,$15,$BD,$91,$9D,$5E,$1F,$02,$4D,$03
 db $10,$01,$02
 
-EF9B96_EBattle1MsgBtlGeppuIki:
+EF9B96_EBattle1GeppuIkiRowPresentationText:
 
-; Original data gap before EF9BC3_EBattle1MsgBtlDokubari:
+; Original data gap before EF9BC3_EBattle1DokubariRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$4E,$A2,$A0,$95,$94,$00,$50,$15
 db $04,$16,$86,$A7,$16,$D9,$9E,$91,$16,$4B,$91,$16,$B5,$92,$16,$82
 db $98,$50,$91,$17,$2B,$51,$1F,$02,$4E,$03,$10,$01,$02
 
-EF9BC3_EBattle1MsgBtlDokubari:
+EF9BC3_EBattle1DokubariRowPresentationText:
 
-; Original data gap before EF9BE6_EBattle1MsgBtlDeathKiss:
+; Original data gap before EF9BE6_EBattle1DeathKissRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$17,$E5,$9E,$97,$00,$50,$15,$2E
 db $99,$17,$DA,$A0,$9F,$99,$A3,$17,$86,$A3,$16,$35,$95,$A2,$51,$03
 db $10,$01,$02
 
-EF9BE6_EBattle1MsgBtlDeathKiss:
+EF9BE6_EBattle1DeathKissRowPresentationText:
 
-; Original data gap before EF9C02_EBattle1MsgBtlTumetaiIki:
+; Original data gap before EF9C02_EBattle1TumetaiIkiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$17,$40,$00,$15,$95,$9B,$99
 db $A3,$16,$5C,$94,$17,$39,$98,$51,$03,$10,$01,$02
 
-EF9C02_EBattle1MsgBtlTumetaiIki:
+EF9C02_EBattle1TumetaiIkiRowPresentationText:
 
 ; Original data gap before EF9C30_EBattle1MushroomSporesRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$A8,$98,$91,$9C,$95,$94,$00
@@ -7004,12 +7004,12 @@ db $02
 ; EBATTLE1: row 76 possessed persistent-status row message.
 EF9C51_EBattle1PossessedStatusRowPresentationText:
 
-; Original data gap before EF9C7E_EBattle1MsgBtlYoiKaori:
+; Original data gap before EF9C7E_EBattle1YoiKaoriRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A4,$17,$B0,$15,$90,$00,$50,$50
 db $17,$E9,$A3,$95,$A3,$16,$79,$16,$E0,$96,$A2,$15,$BB,$95,$9E,$15
 db $1B,$17,$D2,$9E,$17,$88,$1F,$02,$60,$03,$10,$01,$02
 
-EF9C7E_EBattle1MsgBtlYoiKaori:
+EF9C7E_EBattle1YoiKaoriRowPresentationText:
 
 ; Original data gap before EF9CAD_EBattle1CryingMoldSporesRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$A2,$99,$9E,$9B,$9C,$95,$94
@@ -7085,18 +7085,18 @@ db $1B,$A5,$A0,$16,$26,$99,$A4,$A5,$15,$5E,$51,$03,$02
 ; EBATTLE1: row 87 all-target crying-family row message.
 EF9DDA_EBattle1CryingBreathRowPresentationText:
 
-; Original data gap before EF9E05_EBattle1MsgBtlTyphoon:
+; Original data gap before EF9E05_EBattle1TyphoonRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$A8,$98,$91,$9C,$95,$94,$00
 db $50,$17,$33,$9C,$91,$A3,$17,$1D,$A3,$A4,$99,$9E,$9B,$A9,$50,$92
 db $16,$82,$98,$51,$1F,$02,$5C,$03,$10,$01,$02
 
-EF9E05_EBattle1MsgBtlTyphoon:
+EF9E05_EBattle1TyphoonRowPresentationText:
 
-; Original data gap before EF9E22_EBattle1MsgBtlCoffee:
+; Original data gap before EF9E22_EBattle1CoffeeRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$B3,$9D,$9D,$15,$7E,$94,$00,$50
 db $50,$91,$16,$F1,$9D,$51,$1F,$02,$56,$03,$10,$01,$02
 
-EF9E22_EBattle1MsgBtlCoffee:
+EF9E22_EBattle1CoffeeRowPresentationText:
 
 ; Original data gap before EF9E47_EBattle1AsleepMusicRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$16,$08,$95,$94,$00,$50,$15
@@ -7105,33 +7105,33 @@ db $A3,$9F,$51,$03,$02
 
 EF9E47_EBattle1AsleepMusicRowPresentationText:
 
-; Original data gap before EF9E69_EBattle1MsgBtlSyoukaEki:
+; Original data gap before EF9E69_EBattle1SyoukaEkiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$17,$36,$A9,$95,$94,$00,$50,$15
 db $BC,$98,$91,$A5,$9E,$16,$B5,$9D,$95,$9C,$9F,$94,$A9,$51,$03,$10
 db $01,$02
 
-EF9E69_EBattle1MsgBtlSyoukaEki:
+EF9E69_EBattle1SyoukaEkiRowPresentationText:
 
-; Original data gap before EF9E92_EBattle1MsgBtlKaminari:
+; Original data gap before EF9E92_EBattle1KaminariRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$A3,$A0,$17,$C7,$95,$94,$00
 db $50,$50,$15,$A2,$95,$A8,$16,$35,$A5,$17,$C8,$15,$1B,$92,$9C,$16
 db $A6,$51,$1F,$02,$58,$03,$10,$01,$02
 
-EF9E92_EBattle1MsgBtlKaminari:
+EF9E92_EBattle1KaminariRowPresentationText:
 
-; Original data gap before EF9EB4_EBattle1MsgBtlFire:
+; Original data gap before EF9EB4_EBattle1FireRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$AC,$91,$00,$50,$50,$73,$A2,$91
 db $A3,$98,$15,$1B,$72,$9F,$9F,$9D,$50,$72,$91,$9E,$97,$15,$DB,$51
 db $03,$02
 
-EF9EB4_EBattle1MsgBtlFire:
+EF9EB4_EBattle1FireRowPresentationText:
 
-; Original data gap before EF9ED7_EBattle1MsgBtlFireBreath:
+; Original data gap before EF9ED7_EBattle1FireBreathRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DF,$A4,$15,$93,$00,$50,$15,$BC
 db $A3,$A0,$A2,$91,$A9,$15,$4F,$96,$99,$A2,$95,$51,$1F,$02,$4B,$03
 db $10,$01,$02
 
-EF9ED7_EBattle1MsgBtlFireBreath:
+EF9ED7_EBattle1FireBreathRowPresentationText:
 
 ; Original data gap before EF9EF4_EGoods2MsgBtlEscapeMouse:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$92,$16,$82,$98,$95,$94,$00,$50

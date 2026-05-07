@@ -3148,16 +3148,15 @@ EF98D3_EBattle9BranchGrfdSysmsgGutsYes:
 ; ---------------------------------------------------------------------------
 ; EF:9A47
 
-; EBATTLE1 action-tail island: status/flavor/item row-message candidates.
-; Promote gameplay-facing names only after C2 row +8 behavior joins prove them.
-; EBATTLE1: `MSG_BTL_NAKAMA0` action payload text.
-EF9A47_EBattle1MsgBtlNakama0:
+; EBATTLE1 action-tail island: row-backed action/status payload anchors.
+; EBATTLE1: row 62 row +4 `MSG_BTL_NAKAMA0` presentation text.
+EF9A47_EBattle1Nakama0RowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9A5E
 
-; EBATTLE1: `MSG_BTL_TANEMAKI0` action payload text.
-EF9A5E_EBattle1MsgBtlTanemaki0:
+; EBATTLE1: row 63 row +4 `MSG_BTL_TANEMAKI0` presentation text.
+EF9A5E_EBattle1Tanemaki0RowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9A7E
@@ -3174,8 +3173,8 @@ EF9A9E_EBattle1BurstIntoFlamesRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:9ABB
 
-; EBATTLE1: `MSG_BTL_GOODS` action payload text.
-EF9ABB_EBattle1MsgBtlGoods:
+; EBATTLE1: row 66 row +4 `MSG_BTL_GOODS` presentation text.
+EF9ABB_EBattle1GoodsRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9AE8
@@ -3186,50 +3185,50 @@ EF9AE8_EBattle1BranchBtlGoodsFailed:
 ; ---------------------------------------------------------------------------
 ; EF:9B02
 
-; EBATTLE1: `MSG_BTL_TIMESTOP` action payload text.
-EF9B02_EBattle1MsgBtlTimestop:
+; EBATTLE1: row 67 row +4 `MSG_BTL_TIMESTOP` presentation text.
+EF9B02_EBattle1TimestopRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9B20
 
-; EBATTLE1: `MSG_BTL_MANAZASHI` action payload text.
-EF9B20_EBattle1MsgBtlManazashi:
+; EBATTLE1: row 68 row +4 `MSG_BTL_MANAZASHI` presentation text.
+EF9B20_EBattle1ManazashiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9B43
 
-; EBATTLE1: `MSG_BTL_KAIDENPA` action payload text.
-EF9B43_EBattle1MsgBtlKaidenpa:
+; EBATTLE1: row 69 row +4 `MSG_BTL_KAIDENPA` presentation text.
+EF9B43_EBattle1KaidenpaRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9B73
 
-; EBATTLE1: `MSG_BTL_YORO_KAIDENPA` action payload text.
-EF9B73_EBattle1MsgBtlYoroKaidenpa:
+; EBATTLE1: row 70 row +4 `MSG_BTL_YORO_KAIDENPA` presentation text.
+EF9B73_EBattle1YoroKaidenpaRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9B96
 
-; EBATTLE1: `MSG_BTL_GEPPU_IKI` action payload text.
-EF9B96_EBattle1MsgBtlGeppuIki:
+; EBATTLE1: row 71 row +4 `MSG_BTL_GEPPU_IKI` presentation text.
+EF9B96_EBattle1GeppuIkiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9BC3
 
-; EBATTLE1: `MSG_BTL_DOKUBARI` action payload text.
-EF9BC3_EBattle1MsgBtlDokubari:
+; EBATTLE1: row 72 row +4 `MSG_BTL_DOKUBARI` presentation text.
+EF9BC3_EBattle1DokubariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9BE6
 
-; EBATTLE1: `MSG_BTL_DEATH_KISS` action payload text.
-EF9BE6_EBattle1MsgBtlDeathKiss:
+; EBATTLE1: row 73 row +4 `MSG_BTL_DEATH_KISS` presentation text.
+EF9BE6_EBattle1DeathKissRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9C02
 
-; EBATTLE1: `MSG_BTL_TUMETAI_IKI` action payload text.
-EF9C02_EBattle1MsgBtlTumetaiIki:
+; EBATTLE1: row 74 row +4 `MSG_BTL_TUMETAI_IKI` presentation text.
+EF9C02_EBattle1TumetaiIkiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9C30
@@ -3246,8 +3245,8 @@ EF9C51_EBattle1PossessedStatusRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:9C7E
 
-; EBATTLE1: `MSG_BTL_YOI_KAORI` action payload text.
-EF9C7E_EBattle1MsgBtlYoiKaori:
+; EBATTLE1: row 77 row +4 `MSG_BTL_YOI_KAORI` presentation text.
+EF9C7E_EBattle1YoiKaoriRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9CAD
@@ -3312,14 +3311,14 @@ EF9DDA_EBattle1CryingBreathRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:9E05
 
-; EBATTLE1: `MSG_BTL_TYPHOON` action payload text.
-EF9E05_EBattle1MsgBtlTyphoon:
+; EBATTLE1: row 88 row +4 `MSG_BTL_TYPHOON` presentation text.
+EF9E05_EBattle1TyphoonRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9E22
 
-; EBATTLE1: `MSG_BTL_COFFEE` action payload text.
-EF9E22_EBattle1MsgBtlCoffee:
+; EBATTLE1: row 89 row +4 `MSG_BTL_COFFEE` presentation text.
+EF9E22_EBattle1CoffeeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9E47
@@ -3330,26 +3329,26 @@ EF9E47_EBattle1AsleepMusicRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:9E69
 
-; EBATTLE1: `MSG_BTL_SYOUKA_EKI` action payload text.
-EF9E69_EBattle1MsgBtlSyoukaEki:
+; EBATTLE1: row 91 row +4 `MSG_BTL_SYOUKA_EKI` presentation text.
+EF9E69_EBattle1SyoukaEkiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9E92
 
-; EBATTLE1: `MSG_BTL_KAMINARI` action payload text.
-EF9E92_EBattle1MsgBtlKaminari:
+; EBATTLE1: row 92 row +4 `MSG_BTL_KAMINARI` presentation text.
+EF9E92_EBattle1KaminariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9EB4
 
-; EBATTLE1: `MSG_BTL_FIRE` action payload text.
-EF9EB4_EBattle1MsgBtlFire:
+; EBATTLE1: row 93 row +4 `MSG_BTL_FIRE` presentation text.
+EF9EB4_EBattle1FireRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9ED7
 
-; EBATTLE1: `MSG_BTL_FIRE_BREATH` action payload text.
-EF9ED7_EBattle1MsgBtlFireBreath:
+; EBATTLE1: row 94 row +4 `MSG_BTL_FIRE_BREATH` presentation text.
+EF9ED7_EBattle1FireBreathRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9EF4

@@ -175,9 +175,10 @@ macros.
   Paula/graveyard branches, signpost/boss/girl text, and the Guts tutorial
   system-message branches.
 - `EF:9A47..9EF4` now splits the later EBATTLE1 action-tail include into
-  symbol-derived action payload anchors from `MSG_BTL_NAKAMA0` through
-  `MSG_BTL_FIRE_BREATH`. The proved late status rows inside this tail now use
-  `RowPresentationText` names for rows `75`, `76`, `78..87`, and `90`.
+  row-backed action payload anchors from `MSG_BTL_NAKAMA0` through
+  `MSG_BTL_FIRE_BREATH`. The proved action-tail rows now use
+  `RowPresentationText` names for rows `62..94` that land in EF, while EGOODS2
+  item-use scripts after `EF:9EF4` keep item-use labels.
 - `EF:9EF4..A2FA` now splits the EGOODS2 item-use include around the Exit
   Mouse, Hieroglyph, Town Map, and Onett traveler-shack payload branches.
 - `EF:A2FA..C51B` now splits the remaining EF text-payload tail into the
@@ -509,10 +510,9 @@ EF anchor renames.
 
 The row-pointer recovery frontier now records the resolved set and the remaining
 local frontier. The ROM-backed inspector is available in this checkout, so the
-next EF pass can focus on the remaining exact EBATTLE1 action-tail
-`MSG_BTL_*` rows rather than the already proved EBATTLE2/EBATTLE3 action rows,
-Lifeup, numeric-effect, explosive, main no-op/flavor, complete `C2:9039`, and
-neighboring no-op-tail joins.
+the row-backed exact battle-action frontier is now closed. The remaining
+row-backed `MsgBtl` labels are the guarded EGOODS2 item-use scripts
+`EF:9EF4`, `EF:A0DC`, and `EF:A2AB`, not unresolved battle-action anchors.
 
 The neighboring no-op-tail pass is now also complete. `C2:903C` only joins row
 `9` to a C7 empty/default message, while `C2:903F`, `9042`, `9045`, `9048`,
