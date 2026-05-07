@@ -428,6 +428,8 @@
         "finite-ending-track-176-battle_swirl4"
       ],
       "commands": [
+        "python tools/build_audio_finite_transition_classification_packet.py",
+        "python tools/validate_audio_finite_transition_classification_packet.py",
         "python tools/run_audio_finite_ending_evidence_plan.py --mode audit-current-export",
         "python tools/validate_audio_finite_ending_evidence_run_summary.py",
         "python tools/build_audio_finite_ending_tail_metrics.py",

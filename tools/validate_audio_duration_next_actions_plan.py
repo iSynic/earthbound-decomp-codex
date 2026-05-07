@@ -169,7 +169,15 @@ def validate(data: dict[str, Any]) -> None:
     require(int(finite["counts"].get("nonzero_after_candidate_end_count", 0)) == 5, "finite nonzero tail count mismatch")
     require(int(finite["counts"].get("active_through_render_boundary_count", 0)) == 3, "finite active-through-boundary count mismatch")
     require(track_ids(finite) == {8, 9, 11, 123, 176}, "finite track coverage mismatch")
-    require_commands(finite, ["run_audio_finite_ending_evidence_plan.py", "build_audio_finite_ending_tail_metrics.py"])
+    require_commands(
+        finite,
+        [
+            "build_audio_finite_transition_classification_packet.py",
+            "validate_audio_finite_transition_classification_packet.py",
+            "run_audio_finite_ending_evidence_plan.py",
+            "build_audio_finite_ending_tail_metrics.py",
+        ],
+    )
 
     loop = by_id["loop_point_or_hold_classification"]
     require(int(loop["counts"].get("track_count", 0)) == 5, "loop track count mismatch")

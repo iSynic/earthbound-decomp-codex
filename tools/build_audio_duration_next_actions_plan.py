@@ -239,6 +239,8 @@ def build_plan(
             "track_refs": track_refs(finite_records),
             "job_ids": job_ids(finite_records),
             "commands": [
+                "python tools/build_audio_finite_transition_classification_packet.py",
+                "python tools/validate_audio_finite_transition_classification_packet.py",
                 "python tools/run_audio_finite_ending_evidence_plan.py --mode audit-current-export",
                 "python tools/validate_audio_finite_ending_evidence_run_summary.py",
                 "python tools/build_audio_finite_ending_tail_metrics.py",
