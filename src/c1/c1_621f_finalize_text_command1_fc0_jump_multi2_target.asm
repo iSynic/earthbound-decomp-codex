@@ -102,6 +102,11 @@ PackedDwordPartLo                            = $0A
 PackedDwordPartHi                            = $0C
 PackedDwordResultLo                          = $0E
 PackedDwordResultHi                          = $10
+TextPrintSourcePointerLo                     = $0E
+TextPrintSourcePointerBank                   = $10
+JumpMulti2DestinationTablePointer            = $0E
+JumpMulti2DestinationCountArgument           = $10
+JumpMulti2DestinationTablePointerScratch     = $10
 EntityScriptSelectorHighByte                 = $10
 EntityScriptSelectorWordScratch              = $02
 EntityScriptVisualOrPoseSelector             = $0E
@@ -265,9 +270,9 @@ C1624E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L624E:
     ora $0C
     sta $08
     lda $06
-    sta $0E
+    sta TextPrintSourcePointerLo
     lda $08
-    sta $10
+    sta TextPrintSourcePointerBank
     jsl C186B1_PrintTextFromPointer
     lda $12
     tay
@@ -297,9 +302,9 @@ C16308_HandleTextCommand1FC0JumpMulti2 = CC_1F_C0
     adc.w #ThreeByteCallbackFrameOffset
     tcd
     pla
-    stx $10
+    stx JumpMulti2DestinationCountArgument
     tay
-    sty $0E
+    sty JumpMulti2DestinationTablePointer
     jsr C1040A_LoadPrimaryInteractionContextPointer
     lda.w #ZeroWord
     sta $0A
@@ -313,7 +318,7 @@ C16308_HandleTextCommand1FC0JumpMulti2 = CC_1F_C0
 C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     beq C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384
     jsr C1040A_LoadPrimaryInteractionContextPointer
-    ldx $10
+    ldx JumpMulti2DestinationCountArgument
     txa
     sta $0A
     stz $0C
@@ -326,20 +331,20 @@ C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     jsr C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     sta $02
-    ldx $10
+    ldx JumpMulti2DestinationCountArgument
     txa
     sec
     sbc $02
     sta RemainingJumpMulti2DestinationCount
-    ldy $0E
-    sty $10
+    ldy JumpMulti2DestinationTablePointer
+    sty JumpMulti2DestinationTablePointerScratch
     jsr C1040A_LoadPrimaryInteractionContextPointer
     lda $06
     dec A
     asl A
     asl A
     pha
-    ldy $10
+    ldy JumpMulti2DestinationTablePointerScratch
     lda $0000,Y
     sta $06
     lda $0002,Y
@@ -355,12 +360,12 @@ C1632E_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L632E:
     lda.w #TextCommand1FC0JumpMulti2FinalizerCallback
     bra C163A5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63A5
 C16384_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6384:
-    ldy $0E
+    ldy JumpMulti2DestinationTablePointer
     lda $0000,Y
     sta $06
     lda $0002,Y
     sta $08
-    ldx $10
+    ldx JumpMulti2DestinationCountArgument
     txa
     asl A
     asl A
@@ -407,18 +412,18 @@ C163D1_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63D1:
     sta $08
 C163DB_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L63DB:
     lda $06
-    sta $0E
+    sta TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta TextContextSourcePointerHi
     jsr C1045D_InstallPrimaryInteractionContextPointer
     ldx $12
     txa
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta TextContextSourcePointerHi
     jsr C10489_InstallSecondaryInteractionContextPointer
     lda.w #ZeroWord
     pld
@@ -1153,9 +1158,9 @@ C1691D_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L691D:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta TextContextSourcePointerHi
     jsr C10489_InstallSecondaryInteractionContextPointer
     lda.w #ZeroWord
 C16945_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6945:
@@ -1246,9 +1251,9 @@ C169D0_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69D0:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta TextContextSourcePointerHi
     jsr C10489_InstallSecondaryInteractionContextPointer
     lda.w #ZeroWord
 C169F5_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L69F5:
@@ -1416,9 +1421,9 @@ C16B04_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B04:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta TextContextSourcePointerHi
     jsr C10489_InstallSecondaryInteractionContextPointer
     lda.w #ZeroWord
 C16B29_C1621F_FinalizeTextCommand1FC0JumpMulti2Target_L6B29:

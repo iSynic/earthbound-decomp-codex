@@ -426,6 +426,13 @@ This planning pass is documentation-only.
   `notes/text-command-family-1e-stat-recovery.md`,
   `notes/bank-deposit-accumulator-98b9-98bb.md`, and
   `notes/respawn-warp-target-snapshot-helper-c230f3.md`.
+- 2026-05-06 follow-up: the front half of `C1:621F..7274` now also names its
+  local callback-frame and result handoff scratch. The `1F C0`/`JUMP_MULTI2`
+  path distinguishes the packed text pointer printed before table adjustment,
+  the destination table pointer, the destination-count argument, and the
+  scratch copy used while patching the table. The `1F D0` Jeff-repair leaf and
+  `0x19 22..24` direction helpers now install their primary or secondary text
+  results through named text-context source aliases rather than raw `$0E/$10`.
 - 2026-05-06 follow-up: the adjacent `C1:7440..7708` timed-delivery and
   `0x1E 09..0E` experience/stat tail now has no raw helper-call edges. The
   source names the `EF:0EAD` delivery row sprite/placeholder adapter,

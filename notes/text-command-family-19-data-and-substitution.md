@@ -106,6 +106,12 @@ call the C4 registry, visual-type, and pose-descriptor facing-octant helpers by
 name; the condiment leaf calls the C1 condiment lookup helper; and the landing
 snapshot leaf calls `C2:30F3` by name after resolving its staged argument.
 
+Source polish follow-up (2026-05-06): the three `0x19 22/23/24` direction
+helpers now name their output staging too. Each helper increments the C4-facing
+octant result and installs it through the named `$0E/$10` text-context source
+aliases before returning through the secondary context, matching the adjacent
+condiment and scripted-battle result handoffs.
+
 Source polish follow-up (2026-05-06): the `0x19 25` condiment leaf now also
 names its local staging in the same source module. It resolves either the
 incoming food-item byte or the next text argument, calls the condiment lookup

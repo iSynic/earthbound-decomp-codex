@@ -56,6 +56,14 @@ the C0 hotspot/movement queue joins, the C2 scripted-battle bridge, and the C4
 entity frame, flag, script, attached-child, visual-record, and landing-profile
 helpers by contract name.
 
+Source polish follow-up (2026-05-06): the same corridor now names the
+caller-frame scratch behind the front callback leaves. `1F C0` distinguishes
+the packed text pointer it prints, the destination table pointer, the
+destination-count argument, and the table-pointer scratch used after computing
+the remaining destination count. `1F D0` now stages Jeff repair's mapped item
+and original repair-result value through named primary and secondary
+text-context source aliases.
+
 The lower `C1:461A..4819` text-command source now also names the nearby
 `1F 00..02` music/sound leaves and the queued-byte storage used by the deferred
 music-track command, while the dynamic source-selector corridor names the
