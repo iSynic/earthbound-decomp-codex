@@ -39,12 +39,18 @@ span where consumer and map-sector-bundle evidence are strong enough:
   sector contract lists the landing, movement-strip, secondary-descriptor,
   spawn-list, and tile-arrangement consumers.
 - `D7:AD00..D7:B1FF`: bounded 1280-byte metadata plane, still unnamed; value
-  distributions are summarized without promoted field names.
+  distributions and full value counts are summarized without promoted field
+  names.
 - `D7:B200..D7:BBFF`: `D7_SECTOR_CONTEXT_WORD_TABLE`, 1280 two-byte sector
   rows. Low bits `0..2` match the sector `Setting` and feed spawn,
-  visual-context, and path-lane gates; high bits remain unnamed.
+  visual-context, and path-lane gates; high bits remain unnamed and must
+  round-trip numerically.
 - `D7:BC00..D7:C5FF`: bounded 1280-word metadata plane, still unnamed; value
-  distributions are summarized without promoted field names.
+  distributions and full value counts are summarized without promoted field
+  names.
+- Source emission should keep all four planes contiguous and use the contract's
+  field policy: typed tileset/palette bytes, numeric-preserve byte plane, typed
+  low-three/numeric-high context words, and numeric-preserve word plane.
 
 ## Coverage Gaps
 

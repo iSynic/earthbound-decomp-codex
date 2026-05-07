@@ -13,6 +13,7 @@
   },
   "references": [
     "notes/bank-d7-asset-data-map.md",
+    "notes/d7-sector-metadata-contracts.md",
     "refs/ebsrc-main/ebsrc-main/earthbound.yml",
     "refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank17.asm"
   ],
@@ -159,7 +160,9 @@
       "notes": [
         "Source include from ebsrc: data/map/global_tileset_palette_data.asm",
         "Original file offset: 0x17A800",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Semantic split: D7_SECTOR_TILESET_PALETTE_TABLE, D7_UNRESOLVED_METADATA_BYTE_PLANE, D7_SECTOR_CONTEXT_WORD_TABLE, and D7_UNRESOLVED_METADATA_WORD_PLANE.",
+        "See notes/d7-sector-metadata-contracts.md for source-emission rows, value counts, and numeric-preserve policies for unnamed planes and context-word high bits."
       ]
     },
     {

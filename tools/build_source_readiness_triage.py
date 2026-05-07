@@ -245,9 +245,9 @@ def build_triage() -> list[BankTriage]:
             "map tiles/palette/arrangement",
             "asset-and-table-ready",
             3,
-            "Extract map tile chunks and use `notes/d7-sector-metadata-contracts.md` for the consumer-backed sector tables and bounded unresolved-plane summaries.",
-            ["two bounded D7 metadata planes and context-word high bits remain unnamed until caller evidence proves them"],
-            ["map tile chunks", "consumer-backed sector metadata tables", "bounded unresolved metadata planes", "compressed arrangement stream"],
+            "Extract map tile chunks and use `notes/d7-sector-metadata-contracts.md` for the consumer-backed sector tables, source-emission rows, full value counts for bounded unresolved planes, and numeric-preserve context-word high bits.",
+            ["two bounded D7 metadata planes and context-word high bits remain unnamed until caller evidence proves them; source emission should preserve them numerically"],
+            ["map tile chunks", "consumer-backed sector metadata tables", "source-emission metadata planes", "bounded unresolved metadata planes", "compressed arrangement stream"],
         )
     )
     rows.append(
@@ -501,7 +501,7 @@ def render_markdown(payload: dict[str, object]) -> str:
             "### Data-contract splitters",
             "",
             "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF trigger/door/event-music rows and trigger-type source-emission summaries, D0 tile-event and placement/battle variable lists, D5 timed-delivery controller rows/source-window ownership, and D8 collision rows/pointer/value-count summaries now have promoted subrecord semantics, with remaining work concentrated in source/data emission and optional gameplay labels.",
-            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 and DA now have promoted table/subrecord contracts; DA also has metadata-word and script-usage summaries for palette source emission. Remaining work is smaller inferred table/pointer contract polish.",
+            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 and DA now have promoted table/subrecord contracts; D7 includes source-emission rows and numeric-preserve policies for its unresolved planes/context high bits, while DA has metadata-word and script-usage summaries for palette source emission. Remaining work is smaller inferred table/pointer contract polish.",
             "",
             "### Script, text, and VM assets",
             "",

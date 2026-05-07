@@ -128,6 +128,13 @@ def top_counter_rows(counter: Counter[int], count: int = 12, width: int = 4) -> 
     ]
 
 
+def counter_rows(counter: Counter[int], width: int = 4) -> list[dict[str, Any]]:
+    return [
+        {"value": f"0x{value:0{width}X}", "count": counter[value]}
+        for value in sorted(counter)
+    ]
+
+
 def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
     data = source_bytes(d7_helper, SOURCE_NAME)
     expected_len = METADATA_END - METADATA_START
@@ -144,6 +151,7 @@ def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
     setting_counts: Counter[str] = Counter()
     context_word_counts: Counter[int] = Counter()
     context_low3_counts: Counter[int] = Counter()
+    context_high_payload_counts: Counter[int] = Counter()
     unresolved_byte_plane_counts: Counter[int] = Counter()
     unresolved_word_plane_counts: Counter[int] = Counter()
 
@@ -191,6 +199,7 @@ def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
         setting_counts[setting] += 1
         context_word_counts[sector_context_word] += 1
         context_low3_counts[sector_setting_code] += 1
+        context_high_payload_counts[sector_context_word & 0xFFF8] += 1
         unresolved_byte_plane_counts[unresolved_byte] += 1
         unresolved_word_plane_counts[unresolved_word] += 1
         rows.append(
@@ -250,6 +259,52 @@ def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
             "status": "bounded-but-unnamed",
         },
     ]
+    source_emission_rows = [
+        {
+            "family": "D7_SECTOR_TILESET_PALETTE_TABLE",
+            "span": "D7:A800..D7:AD00",
+            "rows": SECTOR_COUNT,
+            "stride": 1,
+            "field_policy": "typed",
+            "source_emission_note": (
+                "Emit one byte per sector as `packed_tileset_palette`; bits 3..7 are "
+                "`tileset_id` and bits 0..2 are `palette_variant`."
+            ),
+        },
+        {
+            "family": "D7_UNRESOLVED_METADATA_BYTE_PLANE",
+            "span": "D7:AD00..D7:B200",
+            "rows": SECTOR_COUNT,
+            "stride": 1,
+            "field_policy": "numeric-preserve",
+            "source_emission_note": (
+                "Emit one numeric byte per sector under a bounded plane label; do not promote "
+                "field names until a direct consumer proves semantics."
+            ),
+        },
+        {
+            "family": "D7_SECTOR_CONTEXT_WORD_TABLE",
+            "span": "D7:B200..D7:BC00",
+            "rows": SECTOR_COUNT,
+            "stride": 2,
+            "field_policy": "typed-low3/numeric-high13",
+            "source_emission_note": (
+                "Emit one full word per sector as `sector_context_word`; bits 0..2 are "
+                "`sector_setting_code`, while bits 3..15 must round-trip numerically."
+            ),
+        },
+        {
+            "family": "D7_UNRESOLVED_METADATA_WORD_PLANE",
+            "span": "D7:BC00..D7:C600",
+            "rows": SECTOR_COUNT,
+            "stride": 2,
+            "field_policy": "numeric-preserve",
+            "source_emission_note": (
+                "Emit one numeric word per sector under a bounded plane label; do not promote "
+                "field names until a direct consumer proves semantics."
+            ),
+        },
+    ]
 
     return {
         "schema": SCHEMA,
@@ -277,12 +332,16 @@ def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
             "unique_palette_variants": len(palette_counts),
             "unique_sector_context_words": len(context_word_counts),
             "unique_sector_setting_codes": len(context_low3_counts),
+            "unique_context_high_payloads": len(context_high_payload_counts),
+            "context_high_payload_nonzero_rows": SECTOR_COUNT - context_high_payload_counts[0],
             "unique_unresolved_byte_plane_values": len(unresolved_byte_plane_counts),
             "unique_unresolved_word_plane_values": len(unresolved_word_plane_counts),
             "setting_counts": setting_counter_dict(setting_counts),
             "context_word_top_values": top_counter_rows(context_word_counts),
+            "context_high_payload_top_values": top_counter_rows(context_high_payload_counts),
         },
         "spans": spans,
+        "source_emission_rows": source_emission_rows,
         "record_shapes": {
             "map_sector_tileset_palette": [
                 {
@@ -378,6 +437,7 @@ def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
                 "unique_values": len(unresolved_byte_plane_counts),
                 "zero_rows": unresolved_byte_plane_counts[0],
                 "top_values": top_counter_rows(unresolved_byte_plane_counts, width=2),
+                "value_counts": counter_rows(unresolved_byte_plane_counts, width=2),
             },
             {
                 "span": "D7:BC00..D7:C5FF",
@@ -386,6 +446,7 @@ def build_contract(d7_helper: Path, sector_bundles: Path) -> dict[str, Any]:
                 "unique_values": len(unresolved_word_plane_counts),
                 "zero_rows": unresolved_word_plane_counts[0],
                 "top_values": top_counter_rows(unresolved_word_plane_counts),
+                "value_counts": counter_rows(unresolved_word_plane_counts),
             },
         ],
         "mismatches": {
@@ -419,14 +480,33 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- unique tileset ids: `{summary['unique_tileset_ids']}`",
         f"- unique palette variants: `{summary['unique_palette_variants']}`",
         f"- unique sector context words: `{summary['unique_sector_context_words']}`",
+        f"- unique context high-bit payloads: `{summary['unique_context_high_payloads']}`",
+        f"- context words with nonzero high-bit payload: `{summary['context_high_payload_nonzero_rows']}`",
         f"- unresolved byte-plane unique values: `{summary['unique_unresolved_byte_plane_values']}`",
         f"- unresolved word-plane unique values: `{summary['unique_unresolved_word_plane_values']}`",
         "",
+        "## Source-Emission Summary",
+        "",
+        "The generated `D7:A800..D7:C5FF` metadata span should be emitted as four contiguous per-sector planes. Only the two consumer-backed fields below get typed names; the other planes and the high context-word bits round-trip numerically.",
+        "",
+        "| Family | Span | Rows | Stride | Field Policy | Source Emission Note |",
+        "| --- | --- | ---: | ---: | --- | --- |",
+    ]
+    for row in contract["source_emission_rows"]:
+        lines.append(
+            f"| `{row['family']}` | `{row['span']}` | {row['rows']} | "
+            f"`0x{int(row['stride']):X}` | `{row['field_policy']}` | {row['source_emission_note']} |"
+        )
+
+    lines.extend(
+        [
+            "",
         "## Span Split",
         "",
         "| Span | Bytes | Row Shape | Status |",
         "| --- | ---: | --- | --- |",
-    ]
+        ]
+    )
     for span in contract["spans"]:
         lines.append(
             f"| `{span['address']}..{span['end_exclusive']}` | {span['bytes']} | "
@@ -508,6 +588,20 @@ def render_markdown(contract: dict[str, Any]) -> str:
         ]
     )
     for row in summary["context_word_top_values"]:
+        lines.append(f"| `{row['value']}` | {row['count']} |")
+
+    lines.extend(
+        [
+            "",
+            "### Top context high-bit payloads",
+            "",
+            "These are `sector_context_word & 0xFFF8`; only the low three setting bits have promoted names.",
+            "",
+            "| High payload | Count |",
+            "| ---: | ---: |",
+        ]
+    )
+    for row in summary["context_high_payload_top_values"]:
         lines.append(f"| `{row['value']}` | {row['count']} |")
 
     lines.extend(
