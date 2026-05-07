@@ -33,12 +33,12 @@ Generated asset-output and source-range reports are freshness-checked together w
 - manifests: `38`
 - assets/tables/gaps represented: `2219`
 - source bytes represented by manifests: `2490368`
-- output recipes: `6336`
+- output recipes: `6337`
 - assets with preview/swatch recipes: `1720`
-- assets with decoder recipes beyond raw extraction: `1995`
+- assets with decoder recipes beyond raw extraction: `1996`
 - manifests with typed output summaries: `38`
 - banks linked to smoke fixtures: `23`
-- smoke fixture links from manifests: `122`
+- smoke fixture links from manifests: `124`
 - coverage gap bytes still represented as raw gaps: `75549`
 - manifest-inferred payload metadata count: `5`
 - contract-covered inferred payload metadata count: `5`
@@ -88,7 +88,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 - proof: map object, sector, tileset, FTS, collision, palette, movement, sprite-usage, and scene-composition contracts exist
 - checked docs: `notes/map-milestone-closure.md`, `notes/map-object-bundles.md`, `notes/map-sector-bundles.md`, `notes/map-tileset-bundles.md`, `notes/map-fts-format-audit.md`, `notes/map-collision-runtime-bit-contract.md`, `notes/map-palette-descriptor-context.md`, `notes/map-scene-composition-contract.md`
 - category mix: `graphics` 97, `binary-asset` 10, `audio` 9, `raw-gap` 9, +1 more
-- output recipe mix: `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, +4 more
+- output recipe mix: `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, +5 more
 
 ### UI, fonts, and town-map assets
 
@@ -131,7 +131,7 @@ Generated asset-output and source-range reports are freshness-checked together w
 | `D4` | `overworld_sprites` | `contract-backed` | 335 | 65536 | 1005 | `graphics` 335 | `raw` 335, `snes_4bpp_tiles_palette_png` 335, `snes_4bpp_tiles_png` 335 | 0 | 0 |
 | `D5` | `overworld_sprites` | `contract-backed` | 120 | 65536 | 356 | `graphics` 118, `raw-gap` 1, `raw-table` 1 | `raw` 120, `snes_4bpp_tiles_palette_png` 118, `snes_4bpp_tiles_png` 118 | 45056 | 0 |
 | `D6` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 6 | 65536 | 12 | `binary-asset` 6 | `map_tile_chunk_index_json` 6, `raw` 6 | 0 | 0 |
-| `D7` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 7 | 65536 | 12 | `binary-asset` 4, `graphics` 1, `raw-gap` 1, +1 more | `raw` 7, `map_tile_chunk_index_json` 4, `earthbound_lzhal` 1 | 1048 | 0 |
+| `D7` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 7 | 65536 | 13 | `binary-asset` 4, `graphics` 1, `raw-gap` 1, +1 more | `raw` 7, `map_tile_chunk_index_json` 4, `earthbound_lzhal` 1, +1 more | 1048 | 0 |
 | `D8` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 8 | 65536 | 16 | `graphics` 5, `audio` 1, `raw-gap` 1, +1 more | `raw` 8, `earthbound_lzhal` 4, `earthbound_lzhal_snes_4bpp_tiles_png` 2, +2 more | 23 | 0 |
 | `D9` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 7 | 65536 | 12 | `graphics` 5, `audio` 1, `raw-gap` 1 | `raw` 7, `earthbound_lzhal` 5 | 31 | 0 |
 | `DA` | `map_tilesets_and_runtime_tables` | `contract-backed-with-known-followups` | 38 | 65536 | 106 | `graphics` 35, `audio` 1, `raw-gap` 1, +1 more | `raw` 38, `snes_palette_json` 32, `snes_palette_swatch_png` 32, +2 more | 18 | 0 |

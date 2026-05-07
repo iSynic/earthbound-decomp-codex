@@ -1013,6 +1013,19 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
         notes.append(
             "Decoded as the 80-by-32 map-sector destination/music row lookup consumed by C0:68F4 before resolving the current map music track."
         )
+    if bank.upper() == "D7" and include == "data/map/global_tileset_palette_data.asm" and size == 7680:
+        outputs.append(
+            {
+                "kind": "map_global_tileset_palette_data_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "column_count": 80,
+                "row_count": 32,
+                "attribute_word_table_offset": 2560,
+            }
+        )
+        notes.append(
+            "Decoded as the 80-by-32 D7:A800 context-byte table plus the 80-by-32 D7:B200 per-sector attribute word table consumed by C0/C4 map loaders."
+        )
     if bank.upper() == "DA" and include == "data/map/unknown_map_palette_pointer_table.asm" and size == 96:
         outputs.append(
             {

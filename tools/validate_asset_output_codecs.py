@@ -221,6 +221,20 @@ def make_map_sector_music_table() -> bytes:
     return bytes(data)
 
 
+def make_map_global_tileset_palette_data() -> bytes:
+    data = bytearray()
+    for sector_x in range(80):
+        for sector_y in range(32):
+            group_id = (sector_x + sector_y) % 31
+            palette_variant_id = (sector_x * 3 + sector_y) % 8
+            data.append((group_id << 3) | palette_variant_id)
+    for sector_x in range(80):
+        for sector_y in range(32):
+            attribute_word = ((sector_x & 0x1F) << 3) | (sector_y % 7)
+            data.extend(attribute_word.to_bytes(2, "little"))
+    return bytes(data)
+
+
 def make_map_palette_pointer_table() -> bytes:
     data = bytearray()
     for palette_id in range(32):
@@ -281,6 +295,26 @@ def output_cases() -> list[dict[str, Any]]:
                 "distinct_entry_count": 17,
                 "min_entry_id": 0,
                 "max_entry_id": 16,
+            },
+        },
+        {
+            "id": "map-global-tileset-palette-data",
+            "data": make_map_global_tileset_palette_data(),
+            "spec": {
+                "kind": "map_global_tileset_palette_data_json",
+                "path": "map_global_tileset_palette_data.json",
+                "column_count": 80,
+                "row_count": 32,
+                "attribute_word_table_offset": 2560,
+            },
+            "expected_metadata": {
+                "sector_count": 2560,
+                "distinct_context_byte_count": 248,
+                "distinct_group_count": 31,
+                "distinct_palette_variant_count": 8,
+                "distinct_attribute_word_count": 224,
+                "nonzero_attribute_word_count": 2545,
+                "max_group_id": 30,
             },
         },
         {

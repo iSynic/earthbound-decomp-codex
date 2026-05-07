@@ -233,6 +233,17 @@ MAP_SECTOR_MUSIC_COLUMN_COUNT = 80
 MAP_SECTOR_MUSIC_ROW_COUNT = 32
 MAP_SECTOR_MUSIC_EXPECTED_BYTES = MAP_SECTOR_MUSIC_COLUMN_COUNT * MAP_SECTOR_MUSIC_ROW_COUNT
 
+MAP_GLOBAL_TILESET_PALETTE_TABLE_START = 0xA800
+MAP_GLOBAL_TILESET_PALETTE_COLUMN_COUNT = 80
+MAP_GLOBAL_TILESET_PALETTE_ROW_COUNT = 32
+MAP_GLOBAL_TILESET_PALETTE_CONTEXT_BYTES = (
+    MAP_GLOBAL_TILESET_PALETTE_COLUMN_COUNT * MAP_GLOBAL_TILESET_PALETTE_ROW_COUNT
+)
+MAP_GLOBAL_TILESET_PALETTE_ATTRIBUTE_BYTES = MAP_GLOBAL_TILESET_PALETTE_CONTEXT_BYTES * 2
+MAP_GLOBAL_TILESET_PALETTE_EXPECTED_BYTES = (
+    MAP_GLOBAL_TILESET_PALETTE_CONTEXT_BYTES + MAP_GLOBAL_TILESET_PALETTE_ATTRIBUTE_BYTES
+)
+
 MAP_PALETTE_POINTER_TABLE_START = 0xFAA7
 MAP_PALETTE_POINTER_ENTRY_COUNT = 32
 MAP_PALETTE_POINTER_ENTRY_SIZE = 3
@@ -250,6 +261,12 @@ def da_table_range(table_start: int, offset: int, size: int) -> str:
     start = table_start + offset
     end = start + size
     return f"DA:{start:04X}..DA:{end:04X}"
+
+
+def d7_table_range(table_start: int, offset: int, size: int) -> str:
+    start = table_start + offset
+    end = start + size
+    return f"D7:{start:04X}..D7:{end:04X}"
 
 
 def write_map_sector_music_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
@@ -318,6 +335,160 @@ def write_map_sector_music_table_json(data: bytes, path: Path, spec: dict[str, A
         "distinct_entry_count": len(distinct_values),
         "min_entry_id": min(values),
         "max_entry_id": max(values),
+    }
+
+
+def write_map_global_tileset_palette_data_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    column_count = int(spec["column_count"])
+    row_count = int(spec["row_count"])
+    attribute_word_table_offset = int(spec["attribute_word_table_offset"])
+    if column_count != MAP_GLOBAL_TILESET_PALETTE_COLUMN_COUNT:
+        raise ValueError(f"Map global tileset/palette column_count must be 80, got {column_count}")
+    if row_count != MAP_GLOBAL_TILESET_PALETTE_ROW_COUNT:
+        raise ValueError(f"Map global tileset/palette row_count must be 32, got {row_count}")
+    if attribute_word_table_offset != MAP_GLOBAL_TILESET_PALETTE_CONTEXT_BYTES:
+        raise ValueError(
+            "Map global tileset/palette attribute_word_table_offset must be "
+            f"{MAP_GLOBAL_TILESET_PALETTE_CONTEXT_BYTES}, got {attribute_word_table_offset}"
+        )
+    if len(data) != MAP_GLOBAL_TILESET_PALETTE_EXPECTED_BYTES:
+        raise ValueError(
+            "Map global tileset/palette data expected "
+            f"{MAP_GLOBAL_TILESET_PALETTE_EXPECTED_BYTES} bytes, got {len(data)}"
+        )
+
+    context_bytes = data[:attribute_word_table_offset]
+    attribute_bytes = data[attribute_word_table_offset:]
+    attribute_words = [
+        attribute_bytes[offset] | (attribute_bytes[offset + 1] << 8)
+        for offset in range(0, len(attribute_bytes), 2)
+    ]
+
+    entries = []
+    columns = []
+    for sector_x in range(column_count):
+        column_context_bytes = []
+        column_group_ids = []
+        column_palette_variant_ids = []
+        column_attribute_words = []
+        for sector_y in range(row_count):
+            table_index = sector_x * row_count + sector_y
+            context_byte = context_bytes[table_index]
+            group_id = context_byte >> 3
+            palette_variant_id = context_byte & 0x07
+            attribute_word = attribute_words[table_index]
+            column_context_bytes.append(context_byte)
+            column_group_ids.append(group_id)
+            column_palette_variant_ids.append(palette_variant_id)
+            column_attribute_words.append(attribute_word)
+            entries.append(
+                {
+                    "sector_x": sector_x,
+                    "sector_y": sector_y,
+                    "table_index": table_index,
+                    "context_byte_range": d7_table_range(
+                        MAP_GLOBAL_TILESET_PALETTE_TABLE_START,
+                        table_index,
+                        1,
+                    ),
+                    "context_byte": context_byte,
+                    "tileset_palette_group_id": group_id,
+                    "palette_variant_id": palette_variant_id,
+                    "attribute_word_range": d7_table_range(
+                        MAP_GLOBAL_TILESET_PALETTE_TABLE_START,
+                        attribute_word_table_offset + table_index * 2,
+                        2,
+                    ),
+                    "sector_attribute_word": attribute_word,
+                    "sector_attribute_low3": attribute_word & 0x0007,
+                    "raw_attribute_bytes": [
+                        attribute_bytes[table_index * 2],
+                        attribute_bytes[table_index * 2 + 1],
+                    ],
+                }
+            )
+        columns.append(
+            {
+                "sector_x": sector_x,
+                "context_byte_range": d7_table_range(
+                    MAP_GLOBAL_TILESET_PALETTE_TABLE_START,
+                    sector_x * row_count,
+                    row_count,
+                ),
+                "attribute_word_range": d7_table_range(
+                    MAP_GLOBAL_TILESET_PALETTE_TABLE_START,
+                    attribute_word_table_offset + sector_x * row_count * 2,
+                    row_count * 2,
+                ),
+                "context_bytes": column_context_bytes,
+                "tileset_palette_group_ids": column_group_ids,
+                "palette_variant_ids": column_palette_variant_ids,
+                "sector_attribute_words": column_attribute_words,
+            }
+        )
+
+    distinct_context_bytes = sorted(set(context_bytes))
+    distinct_group_ids = sorted({value >> 3 for value in context_bytes})
+    distinct_palette_variant_ids = sorted({value & 0x07 for value in context_bytes})
+    distinct_attribute_words = sorted(set(attribute_words))
+    payload = {
+        "schema": "earthbound-decomp.map-global-tileset-palette-data.v1",
+        "decoder": "map_global_tileset_palette_data",
+        "byte_order": "context bytes plus little-endian attribute words",
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "column_count": column_count,
+        "row_count": row_count,
+        "sector_count": len(context_bytes),
+        "index_formula": "table_index = sector_x * 32 + sector_y",
+        "table_layout": {
+            "context_byte_table": {
+                "range": "D7:A800..D7:B200",
+                "bytes": len(context_bytes),
+                "entry_size_bytes": 1,
+                "fields": {
+                    "tileset_palette_group_id": "context_byte >> 3",
+                    "palette_variant_id": "context_byte & 0x07",
+                },
+            },
+            "sector_attribute_word_table": {
+                "range": "D7:B200..D7:C600",
+                "bytes": len(attribute_bytes),
+                "entry_size_bytes": 2,
+                "fields": {
+                    "sector_attribute_word": "little-endian word",
+                    "sector_attribute_low3": "sector_attribute_word & 0x0007",
+                },
+            },
+        },
+        "consumer_evidence": [
+            "C0:0AC5 and C0:0BDC compare D7:A800[sector_x * 32 + sector_y] >> 3 with the active map group before loading movement strips.",
+            "C0:08CF uses the same context byte; the high bits select the EF:101B landing profile and the low three bits are retained as the landing variant.",
+            "C0:0AA1 stores D7:B200[sector_x * 32 + sector_y] as the current position cell context word.",
+            "C0:2668 reads D7:B200[sector_x * 32 + sector_y] & 7 as spawn-probe gating data and also gates entity candidate lists with D7:A800 high bits.",
+        ],
+        "distinct_context_byte_count": len(distinct_context_bytes),
+        "distinct_context_bytes": distinct_context_bytes,
+        "distinct_group_count": len(distinct_group_ids),
+        "distinct_tileset_palette_group_ids": distinct_group_ids,
+        "max_group_id": max(distinct_group_ids),
+        "distinct_palette_variant_count": len(distinct_palette_variant_ids),
+        "distinct_palette_variant_ids": distinct_palette_variant_ids,
+        "distinct_attribute_word_count": len(distinct_attribute_words),
+        "nonzero_attribute_word_count": sum(1 for value in attribute_words if value),
+        "columns": columns,
+        "entries": entries,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "sector_count": len(context_bytes),
+        "distinct_context_byte_count": len(distinct_context_bytes),
+        "distinct_group_count": len(distinct_group_ids),
+        "distinct_palette_variant_count": len(distinct_palette_variant_ids),
+        "distinct_attribute_word_count": len(distinct_attribute_words),
+        "nonzero_attribute_word_count": payload["nonzero_attribute_word_count"],
+        "max_group_id": max(distinct_group_ids),
     }
 
 
@@ -2263,6 +2434,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_map_tile_chunk_index_json(data, path, spec))
     elif kind == "map_sector_music_table_json":
         metadata.update(write_map_sector_music_table_json(data, path, spec))
+    elif kind == "map_global_tileset_palette_data_json":
+        metadata.update(write_map_global_tileset_palette_data_json(data, path, spec))
     elif kind == "map_palette_pointer_table_json":
         metadata.update(write_map_palette_pointer_table_json(data, path, spec))
     elif kind == "battle_swirl_frame_json":

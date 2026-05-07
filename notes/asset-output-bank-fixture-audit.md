@@ -31,7 +31,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `D4` | `ok` | 670 | `renderer` 670 | `asset.d4.sprite_0693` | `snes_4bpp_tiles_png` | `d4/overworld_sprites/gfx/0693_4bpp_preview.png` |
 | `D5` | `ok` | 236 | `renderer` 236 | `asset.d5.sprite_1028` | `snes_4bpp_tiles_png` | `d5/overworld_sprites/gfx/1028_4bpp_preview.png` |
 | `D6` | `ok` | 6 | `decoder_only` 6 | `asset.d6.map_data_tile_table_chunk_1` | `map_tile_chunk_index_json` | `d6/maps/tiles/chunk_01_tile_index.json` |
-| `D7` | `ok` | 5 | `decoder_only` 5 | `asset.d7.map_data_tile_arrangement_0` | `earthbound_lzhal` | `d7/maps/arrangements/0.arr` |
+| `D7` | `ok` | 6 | `decoder_only` 6 | `asset.d7.map_data_tile_arrangement_0` | `earthbound_lzhal` | `d7/maps/arrangements/0.arr` |
 | `D8` | `ok` | 8 | `decoder_only` 5, `renderer` 3 | `asset.d8.anti_piracy_notice_graphics` | `earthbound_lzhal_snes_4bpp_tiles_png` | `d8/errors/antipiracy_4bpp_preview.png` |
 | `D9` | `ok` | 5 | `decoder_only` 5 | `asset.d9.map_data_tile_arrangement_1` | `earthbound_lzhal` | `d9/maps/arrangements/1.arr` |
 | `DA` | `ok` | 68 | `decoder_only` 36, `renderer` 32 | `asset.da.map_data_palette_0` | `snes_palette_swatch_png` | `da/maps/palettes/0_palette.png` |

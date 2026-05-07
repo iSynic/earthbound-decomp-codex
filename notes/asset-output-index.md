@@ -20,15 +20,15 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 
 - status: `ok`
 - assets with typed outputs: `2219`
-- typed output records: `6336`
-- output recipe kinds: `32`
-- decoder-backed outputs: `4117`
+- typed output records: `6337`
+- output recipe kinds: `33`
+- decoder-backed outputs: `4118`
 - renderer-backed outputs: `3266`
 - PNG preview/render outputs: `3266`
-- smoke fixture selectors: `122`
-- distinct smoke target outputs: `59`
-- smoke fixture assets: `49`
-- raw-only assets: `224`
+- smoke fixture selectors: `124`
+- distinct smoke target outputs: `60`
+- smoke fixture assets: `50`
+- raw-only assets: `223`
 - preview geometry status mix: `known` 2785, `requires_decode` 481
 
 ## Family Output Coverage
@@ -38,7 +38,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | Battle visual assets | 689 | 2256 | 1567 | 886 | 886 | 25 | 19 | 8 | `raw` 689, `earthbound_lzhal` 361, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 234, `earthbound_lzhal_snes_4bpp_tiles_png` 202, `snes_palette_json` 181, +15 more | `palette_tile_sheet` 234, `grayscale_tile_sheet` 202, `palette_swatch` 181, `battle_sprite` 166, `battle_background_arrangement` 103 |
 | Mixed asset/table banks | 7 | 7 | 0 | 0 | 0 | 0 | 0 | 7 | `raw` 7 | - |
 | Overworld sprites | 1148 | 3440 | 2292 | 2292 | 2292 | 6 | 5 | 2 | `raw` 1148, `snes_4bpp_tiles_palette_png` 1146, `snes_4bpp_tiles_png` 1146 | `grayscale_tile_sheet` 1146, `palette_tile_sheet` 1146 |
-| Map tilesets and runtime tables | 130 | 294 | 164 | 55 | 55 | 14 | 13 | 21 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22, +3 more | `palette_swatch` 33, `grayscale_tile_sheet` 22 |
+| Map tilesets and runtime tables | 130 | 295 | 165 | 55 | 55 | 15 | 14 | 20 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22, +4 more | `palette_swatch` 33, `grayscale_tile_sheet` 22 |
 | UI, fonts, and town-map assets | 69 | 161 | 92 | 31 | 31 | 13 | 11 | 12 | `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, `earthbound_lzhal_snes_palette_swatch_png` 10, +8 more | `grayscale_tile_sheet` 19, `palette_swatch` 12 |
 | Audio packs | 171 | 171 | 0 | 0 | 0 | 0 | 0 | 171 | `raw` 171 | - |
 | EF debug and late-tail data | 5 | 7 | 2 | 2 | 2 | 1 | 1 | 3 | `raw` 5, `snes_2bpp_tiles_png` 2 | `grayscale_tile_sheet` 2 |
@@ -65,6 +65,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `earthbound_lzhal_snes_palette_json` | 10 | 10 | `earthbound_lzhal+snes_palette` | - | 1 | - |
 | `earthbound_lzhal_snes_palette_swatch_png` | 10 | 10 | `earthbound_lzhal+snes_palette` | `palette_swatch` | 1 | `requires_decode` 10 |
 | `font_metric_widths_json` | 5 | 5 | `font_metric_widths` | - | 1 | - |
+| `map_global_tileset_palette_data_json` | 1 | 1 | `map_global_tileset_palette_data` | - | 1 | - |
 | `map_palette_pointer_table_json` | 1 | 1 | `map_palette_pointer_table` | - | 1 | - |
 | `map_sector_music_table_json` | 1 | 1 | `map_sector_music_table` | - | 1 | - |
 | `map_tile_chunk_index_json` | 10 | 10 | `map_tile_chunk_index` | - | 1 | - |
