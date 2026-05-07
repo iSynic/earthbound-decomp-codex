@@ -20,6 +20,7 @@ C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
 C23D05_BuildBattleTargetTextContext             = $C23D05
+C4572B_FindPartyMemberWithInventoryRoomWildcard = $C4572B
 C2698B_GetBattleActionType                      = $698B
 C269BE_WaitFrames                               = $69BE
 C269F8_Truncate16To8                            = $69F8
@@ -64,6 +65,7 @@ SelectedRowShieldCounterByte  = $0025
 TimedSubstatePowerShield      = $0003
 TimedSubstateShield           = $0004
 BattlePresentItemByte         = $AA10
+CheckPresentRecipientCharacterId = $0003
 
 EF_BattleTextScriptBank          = $00EF
 EFMSG_CheckOffense               = $69EA
@@ -1276,8 +1278,8 @@ C28860_RunHitResolutionAndStatusActionCluster_L8860:
     and.w #$00FF
     cmp.w #$0001
     bne C28899_RunHitResolutionAndStatusActionCluster_L8899
-    lda.w #$0003
-    jsl $C4572B
+    lda.w #CheckPresentRecipientCharacterId
+    jsl C4572B_FindPartyMemberWithInventoryRoomWildcard
     cmp.w #$0000
     beq C28899_RunHitResolutionAndStatusActionCluster_L8899
     lda BattlePresentItemByte

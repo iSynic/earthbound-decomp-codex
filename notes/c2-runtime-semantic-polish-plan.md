@@ -834,6 +834,14 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-stat-consequence-runtime-polish.md`,
   `notes/c2-selected-row-controller-runtime-polish.md`, and
   `notes/c2-battle-sprite-runtime-polish.md`.
+- 2026-05-06 one hundred and eighth slice: tightened the Check Present
+  inventory-room gate inside the hit-resolution/status cluster. `C2:8881` now
+  calls `C4:572B` as `FindPartyMemberWithInventoryRoomWildcard` after loading
+  fixed recipient id `3`, making the branch read as: conscious target,
+  recipient can carry the present, staged `BattlePresentItemByte`, then
+  `EF:7DD5` item-name text. See
+  `notes/c2-hit-resolution-status-runtime-polish.md` and
+  `notes/c2-battle-start-payload-join-runtime-polish.md`.
 
 ## Validation
 

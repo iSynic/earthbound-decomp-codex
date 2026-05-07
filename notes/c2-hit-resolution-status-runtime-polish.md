@@ -94,14 +94,16 @@ The source now calls the named selected-row slot writer directly at each tail.
 The `C2:8881` Check Present / Spy tail now names the same
 `BattlePresentItemByte` (`$AA10`) slot used by the battle-start present path:
 
-- if the selected target exposes a present byte, C2 stages it through
-  `C1:DD7C` into `$9D11`;
+- if the selected target exposes a present byte and the fixed Check Present
+  recipient id `3` has inventory room through `C4:572B`, C2 stages the item
+  byte through `C1:DD7C` into `$9D11`;
 - `EF:7DD5` (`MSG_BTL_CHECK_PRESENT_GET`) consumes it through `0x19 0x1F`
   before printing the item name;
 - C2 clears `BattlePresentItemByte` after the preview text displays.
 
 This keeps the Check Present branch tied to the C1/EF byte-substitution
-contract rather than treating `$AA10` as a generic battle-start scratch byte.
+contract and the C4 inventory-room predicate rather than treating `$AA10` as a
+generic battle-start scratch byte.
 
 ## Follow-Up Mask Join
 

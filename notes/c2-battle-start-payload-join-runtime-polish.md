@@ -73,7 +73,9 @@ byte-substitution bridge:
 - `EF:7BDF` (`MSG_BTL_PRESENT`) later consumes it through the `0x19 0x1F`
   byte-substitution command before printing the item name.
 - `C2:8881` uses the same byte slot for the Check Present / Spy companion
-  script at `EF:7DD5`, then clears the slot after display.
+  script at `EF:7DD5`; that branch first asks the C4 inventory-room helper
+  whether fixed recipient id `3` can carry the item, then clears the slot after
+  display.
 
 The victory scripts continue to use `C1:DC66` with `$12/$14` populated from the
 accumulated result pointer/value pair, keeping them separate from direct
