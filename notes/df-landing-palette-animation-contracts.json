@@ -55,6 +55,36 @@
     ],
     "nonzero_step_bytes": 35
   },
+  "source_emission_rows": [
+    {
+      "id": "landing_palette_profile_pointer_table",
+      "range": "DF:E4E1..DF:E55C",
+      "status": "runtime-indexed-source-row",
+      "emission_contract": "Emit 31 four-byte far pointers indexed by C0:023F from the landing profile selector value `$02A0 - 1`.",
+      "preserve_policy": "Pointer targets remain numeric profile-row addresses until human-facing profile labels are proven."
+    },
+    {
+      "id": "landing_palette_profile_records",
+      "range": "DF:E55D..DF:E61A",
+      "status": "consumer-backed-variable-records",
+      "emission_contract": "Emit 31 variable profile records totaling 190 bytes: a compressed payload pointer, one step_count byte, and step_count one-byte duration values copied into `$4460`.",
+      "preserve_policy": "Profiles with zero steps keep the `DF:EC46` sentinel target as a numeric no-decompress target; active profile meanings remain optional labels."
+    },
+    {
+      "id": "landing_palette_compressed_payloads",
+      "range": "DF:E61B..DF:EC45",
+      "status": "profile-selected-compressed-payloads",
+      "emission_contract": "Emit eight compressed palette-animation payload rows selected by the eight non-empty profile records; C0:023F decompresses these to 7E:B800.",
+      "preserve_policy": "Do not name the decompressed palette-row format until a renderer-side consumer proves row fields; preserve payloads as compressed source assets with profile joins."
+    },
+    {
+      "id": "landing_palette_empty_sentinel_boundary",
+      "range": "DF:EC46",
+      "status": "zero-step-sentinel-over-audio-boundary",
+      "emission_contract": "Treat DF:EC46 as the zero-step target for 23 empty profiles; no decompression occurs because step_count is zero.",
+      "preserve_policy": "Do not carve DF:EC46 out as a palette payload: it is also the start of AUDIO_PACK_4, so source emission should preserve the numeric sentinel/address overlap."
+    }
+  ],
   "record_shape": [
     {
       "offset": "0x00",

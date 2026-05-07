@@ -179,6 +179,36 @@ def build_payload(manifest_path: Path | None = None) -> dict[str, object]:
             "step_counts": [row.step_count for row in profile_rows],
             "nonzero_step_bytes": sum(row.step_count for row in non_empty_profiles),
         },
+        "source_emission_rows": [
+            {
+                "id": "landing_palette_profile_pointer_table",
+                "range": f"{pointer_table.address}..{contract_end(pointer_table)}",
+                "status": "runtime-indexed-source-row",
+                "emission_contract": "Emit 31 four-byte far pointers indexed by C0:023F from the landing profile selector value `$02A0 - 1`.",
+                "preserve_policy": "Pointer targets remain numeric profile-row addresses until human-facing profile labels are proven.",
+            },
+            {
+                "id": "landing_palette_profile_records",
+                "range": f"{profile_start}..{profile_end}",
+                "status": "consumer-backed-variable-records",
+                "emission_contract": f"Emit 31 variable profile records totaling {profile_bytes} bytes: a compressed payload pointer, one step_count byte, and step_count one-byte duration values copied into `$4460`.",
+                "preserve_policy": f"Profiles with zero steps keep the `{empty_profiles[0].payload}` sentinel target as a numeric no-decompress target; active profile meanings remain optional labels.",
+            },
+            {
+                "id": "landing_palette_compressed_payloads",
+                "range": f"{payload_start}..{payload_end}",
+                "status": "profile-selected-compressed-payloads",
+                "emission_contract": f"Emit eight compressed palette-animation payload rows selected by the eight non-empty profile records; C0:023F decompresses these to 7E:B800.",
+                "preserve_policy": "Do not name the decompressed palette-row format until a renderer-side consumer proves row fields; preserve payloads as compressed source assets with profile joins.",
+            },
+            {
+                "id": "landing_palette_empty_sentinel_boundary",
+                "range": "DF:EC46",
+                "status": "zero-step-sentinel-over-audio-boundary",
+                "emission_contract": f"Treat DF:EC46 as the zero-step target for {len(empty_profiles)} empty profiles; no decompression occurs because step_count is zero.",
+                "preserve_policy": "Do not carve DF:EC46 out as a palette payload: it is also the start of AUDIO_PACK_4, so source emission should preserve the numeric sentinel/address overlap.",
+            },
+        ],
         "record_shape": [
             {
                 "offset": "0x00",
@@ -234,15 +264,31 @@ def format_payload_table(rows: list[dict[str, object]]) -> list[str]:
     return lines
 
 
+def format_source_emission_table(rows: list[dict[str, object]]) -> list[str]:
+    lines = [
+        "| Row | Range | Status | Emission contract | Preserve policy |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for row in rows:
+        lines.append(
+            "| `{id}` | `{range}` | `{status}` | {emission_contract} | {preserve_policy} |".format(
+                **row
+            )
+        )
+    return lines
+
+
 def render_markdown(payload: dict[str, object]) -> str:
     summary = payload["summary"]
     assert isinstance(summary, dict)
     profiles = payload["profiles"]
     payloads = payload["payloads"]
+    source_emission_rows = payload["source_emission_rows"]
     record_shape = payload["record_shape"]
     interpretation_boundary = payload["interpretation_boundary"]
     assert isinstance(profiles, list)
     assert isinstance(payloads, list)
+    assert isinstance(source_emission_rows, list)
     assert isinstance(record_shape, list)
     assert isinstance(interpretation_boundary, list)
 
@@ -259,6 +305,10 @@ def render_markdown(payload: dict[str, object]) -> str:
         f"- compressed payloads: `{summary['payload_count']}` payloads across `{summary['payload_span']}`, `{summary['payload_bytes']}` bytes",
         f"- zero-step sentinel: `{summary['zero_step_sentinel']}`",
         f"- nonzero step bytes copied into `$4460`: `{summary['nonzero_step_bytes']}`",
+        "",
+        "## Source-emission summary",
+        "",
+        *format_source_emission_table(source_emission_rows),
         "",
         "## Record shape",
         "",

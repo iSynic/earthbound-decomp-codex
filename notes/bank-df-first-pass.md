@@ -59,7 +59,11 @@ consumers and the generated DF scaffold now support an internal split:
 `LANDING_PALETTE_ANIM_PAYLOAD_0..7`.
 `notes/df-landing-palette-animation-contracts.md` summarizes the 31 profile
 rows, eight compressed payload rows, empty-profile sentinel rows, and the
-source-emission boundary for this family.
+source-emission boundary for this family. It now records explicit
+source-emission rows for the pointer table, variable profile records, compressed
+payload rows, and the `DF:EC46` zero-step sentinel. The sentinel is also the
+start of `AUDIO_PACK_4`, so source emission should preserve that numeric
+address overlap instead of carving it into a synthetic palette payload.
 
 ## Current DF confidence boundary
 
@@ -80,6 +84,7 @@ Still intentionally out of scope:
 ## Recommended next move
 
 Use `notes/df-landing-palette-animation-contracts.md` plus the central manifest
-contracts for source emission. Remaining DF semantic work is optional
-human-facing profile names and render fixtures, not table/payload split
-discovery.
+contracts for source emission. The table/profile/payload rows and the
+zero-step/audio-boundary sentinel policy are now source-emission ready. Remaining
+DF semantic work is optional human-facing profile names and render fixtures, not
+table/payload split discovery.

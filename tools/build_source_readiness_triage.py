@@ -302,9 +302,9 @@ def build_triage() -> list[BankTriage]:
             "map graphics plus palette animation data",
             "asset-and-table-ready",
             3,
-            "Extract tileset/animation graphics and landing palette-animation data using `notes/df-landing-palette-animation-contracts.md` and the central manifest contracts.",
-            ["human-facing profile meanings remain optional; table/profile/payload split is contract-backed"],
-            ["tileset graphics", "animation graphics", "landing palette-animation profile/payload contracts", "audio pack"],
+            "Extract tileset/animation graphics and landing palette-animation data using `notes/df-landing-palette-animation-contracts.md` for the pointer table, variable profile records, compressed payload rows, and zero-step/audio-boundary sentinel policy.",
+            ["human-facing profile meanings remain optional; table/profile/payload source-emission rows are contract-backed"],
+            ["tileset graphics", "animation graphics", "landing palette-animation source-emission rows", "zero-step sentinel boundary", "audio pack"],
         )
     )
 
@@ -501,7 +501,7 @@ def render_markdown(payload: dict[str, object]) -> str:
             "### Data-contract splitters",
             "",
             "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF trigger/door/event-music rows and trigger-type/event-music source-emission summaries, D0 tile-event and placement/battle variable lists, D5 timed-delivery controller rows/source-window ownership, and D8 collision rows/pointer/value-count summaries now have promoted subrecord semantics, with remaining work concentrated in source/data emission and optional gameplay labels.",
-            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7, DA, E0, and E1 now have promoted table/subrecord contracts; D7 includes source-emission rows and numeric-preserve policies for its unresolved planes/context high bits, DA has metadata-word and script-usage summaries for palette source emission, and E0/E1 now carry source-emission rows for text-window palettes, town-map variable lists, title palette/OAM rows, landing/cast bundles, and SRAM template blocks. Remaining work is smaller inferred table/pointer contract polish.",
+            "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7, DA, DF, E0, and E1 now have promoted table/subrecord contracts; D7 includes source-emission rows and numeric-preserve policies for its unresolved planes/context high bits, DA has metadata-word and script-usage summaries for palette source emission, DF has landing palette-animation pointer/profile/payload rows plus the zero-step/audio-boundary sentinel policy, and E0/E1 carry source-emission rows for text-window palettes, town-map variable lists, title palette/OAM rows, landing/cast bundles, and SRAM template blocks. Remaining work is smaller inferred table/pointer contract polish.",
             "",
             "### Script, text, and VM assets",
             "",
