@@ -149,9 +149,18 @@ def build_preflight(plan: dict[str, Any], verification: dict[str, Any], handoff:
     status_counts = Counter(str(record.get("collector_preflight_status")) for record in records)
     focus_counts = Counter(str(record.get("diagnostic_focus")) for record in records)
     gates = verification_gates(verification)
+    ready_count = int(status_counts.get("collector_ready_for_job", 0))
+    source_blocked_count = int(status_counts.get("collector_blocked_missing_source_evidence", 0))
+    pending_reference_count = int(status_counts.get("collector_pending_reference_capture", 0))
+    if source_blocked_count:
+        status = "oracle_source_evidence_preflight_blocked_missing_ignored_artifacts"
+    elif ready_count == len(records):
+        status = "oracle_source_evidence_preflight_ready_for_collection"
+    else:
+        status = "oracle_source_evidence_preflight_source_ready_reference_captures_pending"
     return {
         "schema": "earthbound-decomp.audio-oracle-source-evidence-preflight.v1",
-        "status": "oracle_source_evidence_preflight_blocked_missing_ignored_artifacts",
+        "status": status,
         "references": [
             "manifests/audio-oracle-comparison-plan-all-tracks.json",
             "manifests/audio-oracle-verification-report-all-tracks.json",
@@ -162,9 +171,9 @@ def build_preflight(plan: dict[str, Any], verification: dict[str, Any], handoff:
         "source_handoff_status": handoff.get("status"),
         "summary": {
             "job_count": len(records),
-            "collector_ready_job_count": int(status_counts.get("collector_ready_for_job", 0)),
-            "collector_blocked_missing_source_evidence_count": int(status_counts.get("collector_blocked_missing_source_evidence", 0)),
-            "collector_pending_reference_capture_count": int(status_counts.get("collector_pending_reference_capture", 0)),
+            "collector_ready_job_count": ready_count,
+            "collector_blocked_missing_source_evidence_count": source_blocked_count,
+            "collector_pending_reference_capture_count": pending_reference_count,
             "source_spc_present_count": sum(1 for record in records if record["source_spc"]["exists"]),
             "source_render_wav_present_count": sum(1 for record in records if record["source_render"]["exists"]),
             "reference_spc_present_count": sum(1 for record in records if record["reference_outputs"]["spc_snapshot_exists"]),
@@ -204,12 +213,20 @@ def build_preflight(plan: dict[str, Any], verification: dict[str, Any], handoff:
             "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
             "python tools/validate_audio_independent_oracle_handoff_matrix.py",
             "python tools/validate_audio_independent_oracle_capture_packet.py",
+            "python tools/build_audio_oracle_source_regeneration_plan.py",
+            "python tools/validate_audio_oracle_source_regeneration_plan.py",
         ],
     }
 
 
 def render_markdown(data: dict[str, Any]) -> str:
     summary = data["summary"]
+    if summary["collector_blocked_missing_source_evidence_count"]:
+        status_line = "Status: oracle comparison collection is blocked in this workspace by missing ignored source/reference artifacts; playback/export behavior is preserved."
+    elif summary["collector_ready_job_count"] == summary["job_count"]:
+        status_line = "Status: oracle comparison source and reference artifacts are ready for collection; playback/export behavior is preserved."
+    else:
+        status_line = "Status: oracle comparison source artifacts are ready, but independent reference captures are still pending; playback/export behavior is preserved."
     status_rows = [
         "| `{status}` | {count} | `{tracks}` |".format(
             status=batch["collector_preflight_status"],
@@ -234,7 +251,7 @@ def render_markdown(data: dict[str, Any]) -> str:
         [
             "# Audio Oracle Source Evidence Preflight",
             "",
-            "Status: oracle comparison collection is blocked in this workspace by missing ignored source/reference artifacts; playback/export behavior is preserved.",
+            status_line,
             "",
             "## Summary",
             "",

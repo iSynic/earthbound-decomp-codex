@@ -53,6 +53,8 @@ Status: oracle comparison collection is blocked in this workspace by missing ign
 - `python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass`
 - `python tools/validate_audio_independent_oracle_handoff_matrix.py`
 - `python tools/validate_audio_independent_oracle_capture_packet.py`
+- `python tools/build_audio_oracle_source_regeneration_plan.py`
+- `python tools/validate_audio_oracle_source_regeneration_plan.py`
 
 ## Preflight Policy
 

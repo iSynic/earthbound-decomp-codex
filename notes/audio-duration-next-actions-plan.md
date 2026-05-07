@@ -33,6 +33,8 @@ Status: next evidence actions are ranked; current playback/export behavior is pr
 - `python tools/validate_audio_duration_readiness_rollup.py`
 - `python tools/build_audio_duration_next_actions_plan.py`
 - `python tools/validate_audio_duration_next_actions_plan.py`
+- `python tools/build_audio_oracle_source_regeneration_plan.py`
+- `python tools/validate_audio_oracle_source_regeneration_plan.py`
 - `python tools/validate_audio_export_plan.py`
 - `python tools/validate_audio_duration_uncertainty_register.py`
 - `python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass`

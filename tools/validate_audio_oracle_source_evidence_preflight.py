@@ -18,15 +18,6 @@ REQUIRED_REFERENCES = {
     "manifests/audio-oracle-verification-report-all-tracks.json",
     "manifests/audio-independent-oracle-handoff-matrix.json",
 }
-REQUIRED_BLOCKING_COUNTS = {
-    "missing_capture_metadata": 190,
-    "missing_comparison_result": 190,
-    "missing_reference_spc": 190,
-    "missing_reference_wav": 190,
-    "missing_source_render_wav": 190,
-    "missing_source_spc": 190,
-}
-REQUIRED_STATUS_COUNTS = {"collector_blocked_missing_source_evidence": 190}
 REQUIRED_FOCUS_COUNTS = {
     "active_through_preview_or_loop_candidate": 149,
     "finite_tail_or_transition_end": 26,
@@ -67,19 +58,13 @@ def validate_paths(record: dict[str, Any]) -> None:
     require(str(source_spc.get("path", "")).endswith(".spc"), f"{job_id}: source SPC path missing")
     require(bool(SHA1_RE.match(str(source_spc.get("expected_sha1", "")))), f"{job_id}: invalid source SPC sha1")
     require(int(source_spc.get("expected_bytes", 0)) == 66048, f"{job_id}: source SPC expected bytes mismatch")
-    require(source_spc.get("exists") is False, f"{job_id}: source SPC should be absent in this preflight")
     require(str(source_render.get("path", "")).endswith(".wav"), f"{job_id}: source render path missing")
     require(bool(SHA1_RE.match(str(source_render.get("expected_sha1", "")))), f"{job_id}: invalid source render sha1")
     require(int(source_render.get("expected_bytes", 0)) > 0, f"{job_id}: source render expected bytes missing")
-    require(source_render.get("exists") is False, f"{job_id}: source render should be absent in this preflight")
     require(str(reference.get("spc_snapshot", "")).startswith("build/audio/oracle-comparison-all-tracks/"), f"{job_id}: bad reference SPC path")
-    require(reference.get("spc_snapshot_exists") is False, f"{job_id}: reference SPC should be absent")
     require(str(reference.get("pcm_wav", "")).startswith("build/audio/oracle-comparison-all-tracks/"), f"{job_id}: bad reference WAV path")
-    require(reference.get("pcm_wav_exists") is False, f"{job_id}: reference WAV should be absent")
     require(str(reference.get("capture_metadata", "")).endswith("reference-capture.json"), f"{job_id}: bad capture metadata path")
-    require(reference.get("capture_metadata_exists") is False, f"{job_id}: capture metadata should be absent")
     require(str(reference.get("comparison_result", "")).endswith("oracle-comparison-result.json"), f"{job_id}: bad comparison result path")
-    require(reference.get("comparison_result_exists") is False, f"{job_id}: comparison result should be absent")
 
 
 def validate_record(record: dict[str, Any]) -> None:
@@ -90,9 +75,33 @@ def validate_record(record: dict[str, Any]) -> None:
     require(record.get("diagnostic_focus") in REQUIRED_FOCUS_COUNTS, f"{job_id}: unexpected diagnostic focus")
     require(record.get("source_state") == "full_change_music_real_c0ab06_live_driver_zero_burst_keyon_snapshot", f"{job_id}: source state mismatch")
     validate_paths(record)
-    require(record.get("collector_preflight_status") == "collector_blocked_missing_source_evidence", f"{job_id}: collector status mismatch")
-    require(set(record.get("blocking_reasons", [])) == set(REQUIRED_BLOCKING_COUNTS), f"{job_id}: blocking reasons mismatch")
-    require(record.get("collect_summary_validation_ready") is False, f"{job_id}: collect summary should not be ready")
+    source_spc_exists = bool(record.get("source_spc", {}).get("exists"))
+    source_render_exists = bool(record.get("source_render", {}).get("exists"))
+    reference = record.get("reference_outputs", {})
+    reference_spc_exists = bool(reference.get("spc_snapshot_exists"))
+    reference_wav_exists = bool(reference.get("pcm_wav_exists"))
+    expected_reasons: set[str] = set()
+    if not source_spc_exists:
+        expected_reasons.add("missing_source_spc")
+    if not source_render_exists:
+        expected_reasons.add("missing_source_render_wav")
+    if not reference_spc_exists:
+        expected_reasons.add("missing_reference_spc")
+    if not reference_wav_exists:
+        expected_reasons.add("missing_reference_wav")
+    if not bool(reference.get("capture_metadata_exists")):
+        expected_reasons.add("missing_capture_metadata")
+    if not bool(reference.get("comparison_result_exists")):
+        expected_reasons.add("missing_comparison_result")
+    if source_spc_exists and source_render_exists and reference_spc_exists and reference_wav_exists:
+        expected_status = "collector_ready_for_job"
+    elif not source_spc_exists or not source_render_exists:
+        expected_status = "collector_blocked_missing_source_evidence"
+    else:
+        expected_status = "collector_pending_reference_capture"
+    require(record.get("collector_preflight_status") == expected_status, f"{job_id}: collector status mismatch")
+    require(set(record.get("blocking_reasons", [])) == expected_reasons, f"{job_id}: blocking reasons mismatch")
+    require(record.get("collect_summary_validation_ready") is (expected_status == "collector_ready_for_job"), f"{job_id}: collect readiness mismatch")
     require(record.get("behavior_change_allowed") is False, f"{job_id}: behavior changes should be blocked")
     if record.get("independent_representative"):
         require(track_id in REQUIRED_REPRESENTATIVE_TRACK_IDS, f"{job_id}: unexpected representative track")
@@ -118,7 +127,7 @@ def validate_batches(data: dict[str, Any]) -> None:
         batch.get("representative_phase"): int(batch.get("job_count", 0))
         for batch in batches.get("by_representative_phase", [])
     }
-    require(status_batches == REQUIRED_STATUS_COUNTS, "collector status batches mismatch")
+    require(status_batches, "collector status batches missing")
     require(focus_batches == REQUIRED_FOCUS_COUNTS, "diagnostic focus batches mismatch")
     require(phase_batches == REQUIRED_REP_PHASE_COUNTS, "representative phase batches mismatch")
     for group in batches.values():
@@ -130,7 +139,15 @@ def validate_batches(data: dict[str, Any]) -> None:
 
 def validate(data: dict[str, Any]) -> None:
     require(data.get("schema") == "earthbound-decomp.audio-oracle-source-evidence-preflight.v1", "unexpected schema")
-    require(data.get("status") == "oracle_source_evidence_preflight_blocked_missing_ignored_artifacts", "unexpected status")
+    require(
+        data.get("status")
+        in {
+            "oracle_source_evidence_preflight_blocked_missing_ignored_artifacts",
+            "oracle_source_evidence_preflight_source_ready_reference_captures_pending",
+            "oracle_source_evidence_preflight_ready_for_collection",
+        },
+        "unexpected status",
+    )
     require(data.get("source_plan_status") == "oracle_plan_ready_no_reference_captures_yet", "unexpected plan status")
     require(data.get("source_verification_status") == "all_track_near_oracle_passed_independent_oracle_pending", "unexpected verification status")
     require(data.get("source_handoff_status") == "independent_oracle_handoff_matrix_ready_external_inputs_required", "unexpected handoff status")
@@ -139,21 +156,32 @@ def validate(data: dict[str, Any]) -> None:
     records = data.get("records", [])
     require(int(summary.get("job_count", 0)) == 190, "expected 190 oracle jobs")
     require(len(records) == 190, "record count mismatch")
-    require(int(summary.get("collector_ready_job_count", -1)) == 0, "collector-ready count mismatch")
-    require(int(summary.get("collector_blocked_missing_source_evidence_count", 0)) == 190, "source-blocked count mismatch")
-    require(int(summary.get("collector_pending_reference_capture_count", -1)) == 0, "pending-reference-only count mismatch")
-    for key in (
-        "source_spc_present_count",
-        "source_render_wav_present_count",
-        "reference_spc_present_count",
-        "reference_wav_present_count",
-        "capture_metadata_present_count",
-        "comparison_result_present_count",
-    ):
-        require(int(summary.get(key, -1)) == 0, f"{key} should be zero")
+    ready_count = sum(1 for record in records if record.get("collector_preflight_status") == "collector_ready_for_job")
+    source_blocked_count = sum(
+        1 for record in records if record.get("collector_preflight_status") == "collector_blocked_missing_source_evidence"
+    )
+    pending_reference_count = sum(
+        1 for record in records if record.get("collector_preflight_status") == "collector_pending_reference_capture"
+    )
+    require(int(summary.get("collector_ready_job_count", -1)) == ready_count, "collector-ready count mismatch")
+    require(int(summary.get("collector_blocked_missing_source_evidence_count", -1)) == source_blocked_count, "source-blocked count mismatch")
+    require(int(summary.get("collector_pending_reference_capture_count", -1)) == pending_reference_count, "pending-reference-only count mismatch")
+    expected_presence_counts = {
+        "source_spc_present_count": sum(1 for record in records if record.get("source_spc", {}).get("exists")),
+        "source_render_wav_present_count": sum(1 for record in records if record.get("source_render", {}).get("exists")),
+        "reference_spc_present_count": sum(1 for record in records if record.get("reference_outputs", {}).get("spc_snapshot_exists")),
+        "reference_wav_present_count": sum(1 for record in records if record.get("reference_outputs", {}).get("pcm_wav_exists")),
+        "capture_metadata_present_count": sum(1 for record in records if record.get("reference_outputs", {}).get("capture_metadata_exists")),
+        "comparison_result_present_count": sum(1 for record in records if record.get("reference_outputs", {}).get("comparison_result_exists")),
+    }
+    for key, count in expected_presence_counts.items():
+        require(int(summary.get(key, -1)) == count, f"{key} count mismatch")
     require(int(summary.get("representative_job_count", 0)) == 16, "representative job count mismatch")
-    require(summary.get("blocking_reason_counts") == REQUIRED_BLOCKING_COUNTS, "blocking reason counts mismatch")
-    require(summary.get("collector_preflight_status_counts") == REQUIRED_STATUS_COUNTS, "collector status counts mismatch")
+    expected_blocking_counts: Counter[str] = Counter()
+    for record in records:
+        expected_blocking_counts.update(str(reason) for reason in record.get("blocking_reasons", []))
+    require(summary.get("blocking_reason_counts") == dict(sorted(expected_blocking_counts.items())), "blocking reason counts mismatch")
+    require(summary.get("collector_preflight_status_counts") == count_records(records, "collector_preflight_status"), "collector status counts mismatch")
     require(summary.get("diagnostic_focus_counts") == REQUIRED_FOCUS_COUNTS, "focus counts mismatch")
     require(summary.get("representative_oracle_gate_passed") is True, "representative near-oracle gate should pass")
     require(summary.get("all_track_oracle_gate_passed") is True, "all-track near-oracle gate should pass")
@@ -182,6 +210,8 @@ def validate(data: dict[str, Any]) -> None:
         "python tools/validate_audio_oracle_verification_report.py manifests/audio-oracle-verification-report-all-tracks.json --require-representative-pass",
         "python tools/validate_audio_independent_oracle_handoff_matrix.py",
         "python tools/validate_audio_independent_oracle_capture_packet.py",
+        "python tools/build_audio_oracle_source_regeneration_plan.py",
+        "python tools/validate_audio_oracle_source_regeneration_plan.py",
     }
     require(required_commands <= set(data.get("post_preflight_validation_commands", [])), "missing post-preflight validation commands")
 
