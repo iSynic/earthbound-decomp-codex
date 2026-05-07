@@ -760,3 +760,8 @@ This planning pass is documentation-only.
   text-entry pointer, redraw source, option text sources, metadata, persisted
   setting pointer, preview callback, and final selection result while leaving
   EF save persistence and C4 text assets untouched.
+- 2026-05-07 follow-up: the adjacent new-file naming loop at
+  `C1:F902..FAAE` now names the field-index and advance-step ABI used between
+  the file-select setup menus and the naming-buffer commit helper. The source
+  exposes working/current field slots, retry/advance delta slots, the
+  party-name destination index, and C4 prompt-table pointer/stride staging.

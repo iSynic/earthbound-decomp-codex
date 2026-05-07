@@ -187,6 +187,10 @@ This slice makes the file-select path useful to future SRAM/setup work:
   window-flavour prompt/option text sources, text-entry metadata, persisted
   setting pointer, and preview-selection result around the shared setup
   selection loops
+- the new-file naming loop at `C1:F902..FAAE` now exposes its working/current
+  field index pair, advance delta/mirror, party-name destination index, and
+  C4 prompt-table pointer/stride staging before each `C1:EC04` naming-buffer
+  commit
 
 ## Remaining Soft Spots
 

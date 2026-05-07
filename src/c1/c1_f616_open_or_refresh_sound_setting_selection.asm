@@ -227,6 +227,14 @@ WindowFlavourTextEntryMetadataLo = $12
 WindowFlavourTextEntryMetadataHi = $14
 WindowFlavourSettingPointer = $18
 WindowFlavourSelectionResult = $16
+NamingFlowWorkingFieldIndex = $04
+NamingFlowCurrentFieldIndex = $24
+NamingFlowAdvanceDelta = $02
+NamingFlowAdvanceDeltaMirror = $20
+NamingFlowPartyNameDestinationIndex = $22
+NamingPromptSourcePointerLo = $0E
+NamingPromptSourcePointerBank = $10
+NamingPromptEntryStrideScratch = $12
 
 ; ---------------------------------------------------------------------------
 ; C1:F616
@@ -573,11 +581,11 @@ C1F8FB_OpenOrRefreshSoundSettingSelection_LF8FB:
 C1F902_OpenOrRefreshSoundSettingSelection_LF902:
     jsr C1008E_CloseAndDrainAllWindows
     lda.w #ZeroWord
-    sta $04
-    sta $24
+    sta NamingFlowWorkingFieldIndex
+    sta NamingFlowCurrentFieldIndex
     jmp.w C1FAAE_OpenOrRefreshSoundSettingSelection_LFAAE
 C1F90F_ResumeFileSelectNamingOrSetupFlow:
-    lda $04
+    lda NamingFlowWorkingFieldIndex
     cmp.w #NamingFieldRetrySentinel
     bne C1F935_OpenOrRefreshSoundSettingSelection_LF935
     jsr C1008E_CloseAndDrainAllWindows
@@ -591,11 +599,11 @@ C1F90F_ResumeFileSelectNamingOrSetupFlow:
     jsl C4FBBD_ChangeMusic
     bra C1F8EA_OpenOrRefreshSoundSettingSelection_LF8EA
 C1F935_OpenOrRefreshSoundSettingSelection_LF935:
-    lda $04
+    lda NamingFlowWorkingFieldIndex
     jsl C4D7D9_UpdateNameEntrySelection
     lda.w #PlayableCharacterNameFieldLimit
     clc
-    sbc $04
+    sbc NamingFlowWorkingFieldIndex
     bvc C1F947_OpenOrRefreshSoundSettingSelection_LF947
     bpl C1F9A5_OpenOrRefreshSoundSettingSelection_LF9A5
     bra C1F949_OpenOrRefreshSoundSettingSelection_LF949
@@ -606,182 +614,182 @@ C1F949_OpenOrRefreshSoundSettingSelection_LF949:
     sta $06
     lda.w #C4FileSelectMenuTextBank
     sta $08
-    lda $04
-    sta $04
+    lda NamingFlowWorkingFieldIndex
+    sta NamingFlowWorkingFieldIndex
     asl A
     asl A
-    adc $04
+    adc NamingFlowWorkingFieldIndex
     asl A
     asl A
     asl A
     clc
     adc $06
     sta $06
-    sta $0E
+    sta NamingPromptSourcePointerLo
     lda $08
-    sta $10
+    sta NamingPromptSourcePointerBank
     lda.w #NameEntryPromptTableEntryStride
-    sta $12
-    lda $24
-    sta $04
-    ldy $04
-    sty $22
-    lda $04
+    sta NamingPromptEntryStrideScratch
+    lda NamingFlowCurrentFieldIndex
+    sta NamingFlowWorkingFieldIndex
+    ldy NamingFlowWorkingFieldIndex
+    sty NamingFlowPartyNameDestinationIndex
+    lda NamingFlowWorkingFieldIndex
     ldy.w #PartyCharacterRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
     adc.w #PartyCharacterRecordBase
     tax
     lda.w #PartyCharacterNameWidth
-    ldy $22
+    ldy NamingFlowPartyNameDestinationIndex
     jsr C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #MenuSelectionCancel
     beq C1F99B_OpenOrRefreshSoundSettingSelection_LF99B
     lda.w #NamingFieldRetrySentinel
-    sta $02
-    sta $20
+    sta NamingFlowAdvanceDelta
+    sta NamingFlowAdvanceDeltaMirror
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F99B_OpenOrRefreshSoundSettingSelection_LF99B:
     lda.w #NamingFlowAdvanceStep
-    sta $02
-    sta $20
+    sta NamingFlowAdvanceDelta
+    sta NamingFlowAdvanceDeltaMirror
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F9A5_OpenOrRefreshSoundSettingSelection_LF9A5:
-    lda $04
+    lda NamingFlowWorkingFieldIndex
     cmp.w #PetNameFieldIndex
     bne C1F9F9_OpenOrRefreshSoundSettingSelection_LF9F9
     lda.w #NameEntryPromptTableTextLo
     sta $06
     lda.w #C4FileSelectMenuTextBank
     sta $08
-    lda $04
-    sta $04
+    lda NamingFlowWorkingFieldIndex
+    sta NamingFlowWorkingFieldIndex
     asl A
     asl A
-    adc $04
+    adc NamingFlowWorkingFieldIndex
     asl A
     asl A
     asl A
     clc
     adc $06
     sta $06
-    sta $0E
+    sta NamingPromptSourcePointerLo
     lda $08
-    sta $10
+    sta NamingPromptSourcePointerBank
     lda.w #NameEntryPromptTableEntryStride
-    sta $12
-    lda $24
-    sta $04
-    ldy $04
+    sta NamingPromptEntryStrideScratch
+    lda NamingFlowCurrentFieldIndex
+    sta NamingFlowWorkingFieldIndex
+    ldy NamingFlowWorkingFieldIndex
     ldx.w #PetNameBuffer
     lda.w #PetNameWidth
     jsr C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #MenuSelectionCancel
     beq C1F9EF_OpenOrRefreshSoundSettingSelection_LF9EF
     lda.w #NamingFieldRetrySentinel
-    sta $02
-    sta $20
+    sta NamingFlowAdvanceDelta
+    sta NamingFlowAdvanceDeltaMirror
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F9EF_OpenOrRefreshSoundSettingSelection_LF9EF:
     lda.w #NamingFlowAdvanceStep
-    sta $02
-    sta $20
+    sta NamingFlowAdvanceDelta
+    sta NamingFlowAdvanceDeltaMirror
     jmp.w C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1F9F9_OpenOrRefreshSoundSettingSelection_LF9F9:
-    lda $04
+    lda NamingFlowWorkingFieldIndex
     cmp.w #FavoriteFoodFieldIndex
     bne C1FA4B_OpenOrRefreshSoundSettingSelection_LFA4B
     lda.w #NameEntryPromptTableTextLo
     sta $06
     lda.w #C4FileSelectMenuTextBank
     sta $08
-    lda $04
-    sta $04
+    lda NamingFlowWorkingFieldIndex
+    sta NamingFlowWorkingFieldIndex
     asl A
     asl A
-    adc $04
+    adc NamingFlowWorkingFieldIndex
     asl A
     asl A
     asl A
     clc
     adc $06
     sta $06
-    sta $0E
+    sta NamingPromptSourcePointerLo
     lda $08
-    sta $10
+    sta NamingPromptSourcePointerBank
     lda.w #NameEntryPromptTableEntryStride
-    sta $12
-    lda $24
-    sta $04
-    ldy $04
+    sta NamingPromptEntryStrideScratch
+    lda NamingFlowCurrentFieldIndex
+    sta NamingFlowWorkingFieldIndex
+    ldy NamingFlowWorkingFieldIndex
     ldx.w #FavoriteFoodBuffer
     lda.w #FavoriteFoodWidth
     jsr C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #MenuSelectionCancel
     beq C1FA42_OpenOrRefreshSoundSettingSelection_LFA42
     lda.w #NamingFieldRetrySentinel
-    sta $02
-    sta $20
+    sta NamingFlowAdvanceDelta
+    sta NamingFlowAdvanceDeltaMirror
     bra C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1FA42_OpenOrRefreshSoundSettingSelection_LFA42:
     lda.w #NamingFlowAdvanceStep
-    sta $02
-    sta $20
+    sta NamingFlowAdvanceDelta
+    sta NamingFlowAdvanceDeltaMirror
     bra C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1FA4B_OpenOrRefreshSoundSettingSelection_LFA4B:
-    lda $04
+    lda NamingFlowWorkingFieldIndex
     cmp.w #FavoriteThingFieldIndex
     bne C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
     lda.w #NameEntryPromptTableTextLo
     sta $06
     lda.w #C4FileSelectMenuTextBank
     sta $08
-    lda $04
-    sta $04
+    lda NamingFlowWorkingFieldIndex
+    sta NamingFlowWorkingFieldIndex
     asl A
     asl A
-    adc $04
+    adc NamingFlowWorkingFieldIndex
     asl A
     asl A
     asl A
     clc
     adc $06
     sta $06
-    sta $0E
+    sta NamingPromptSourcePointerLo
     lda $08
-    sta $10
+    sta NamingPromptSourcePointerBank
     lda.w #NameEntryPromptTableEntryStride
-    sta $12
-    lda $24
-    sta $04
-    ldy $04
+    sta NamingPromptEntryStrideScratch
+    lda NamingFlowCurrentFieldIndex
+    sta NamingFlowWorkingFieldIndex
+    ldy NamingFlowWorkingFieldIndex
     ldx.w #FavoriteThingSuffixBuffer
     lda.w #FavoriteThingSuffixWidth
     jsr C1EC04_CommitNamingBufferFieldWithPreview
     cmp.w #MenuSelectionCancel
     beq C1FA94_OpenOrRefreshSoundSettingSelection_LFA94
     lda.w #NamingFieldRetrySentinel
-    sta $02
-    sta $20
+    sta NamingFlowAdvanceDelta
+    sta NamingFlowAdvanceDeltaMirror
     bra C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B
 C1FA94_OpenOrRefreshSoundSettingSelection_LFA94:
     lda.w #NamingFlowAdvanceStep
-    sta $02
-    sta $20
+    sta NamingFlowAdvanceDelta
+    sta NamingFlowAdvanceDeltaMirror
 C1FA9B_OpenOrRefreshSoundSettingSelection_LFA9B:
-    lda $04
+    lda NamingFlowWorkingFieldIndex
     jsl C4D830_RunFileSelectPoseEntityScriptList
-    lda $20
-    sta $02
-    lda $04
+    lda NamingFlowAdvanceDeltaMirror
+    sta NamingFlowAdvanceDelta
+    lda NamingFlowWorkingFieldIndex
     clc
-    adc $02
-    sta $04
-    sta $24
+    adc NamingFlowAdvanceDelta
+    sta NamingFlowWorkingFieldIndex
+    sta NamingFlowCurrentFieldIndex
 C1FAAE_OpenOrRefreshSoundSettingSelection_LFAAE:
     lda.w #NamingFlowDoneFieldIndex
     clc
-    sbc $04
+    sbc NamingFlowWorkingFieldIndex
     bvs C1FABB_OpenOrRefreshSoundSettingSelection_LFABB
     bmi C1FAC0_OpenOrRefreshSoundSettingSelection_LFAC0
     jmp.w C1F90F_ResumeFileSelectNamingOrSetupFlow
