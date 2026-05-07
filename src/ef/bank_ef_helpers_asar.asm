@@ -4216,85 +4216,85 @@ db $A4,$17,$1A,$17,$42,$99,$95,$15,$53,$03,$18,$04,$02
 
 EF6954_E07GpftBranchThrkBossGraveDieHave:
 
-; Original data gap before EF69A1_EBattle5MsgBtlHpMaxRecovered:
+; Original data gap before EF69A1_EBattle5HpAlreadyMaxedRecoveryText:
 db $70,$79,$16,$CD,$15,$33,$97,$95,$16,$0E,$76,$15,$9D,$78,$17,$3E
 db $15,$04,$97,$A5,$9C,$A0,$15,$CA,$17,$9F,$5E,$03,$00,$70,$7D,$17
 db $1E,$50,$72,$95,$9C,$93,$98,$15,$04,$79,$50,$9C,$16,$61,$50,$76
 db $15,$9D,$78,$17,$3E,$5E,$10,$14,$00,$50,$50,$77,$A9,$9F,$A2,$97
 db $50,$77,$A9,$9F,$A2,$97,$51,$15,$03,$03,$18,$04,$02
 
-EF69A1_EBattle5MsgBtlHpMaxRecovered:
+EF69A1_EBattle5HpAlreadyMaxedRecoveryText:
 
-; Original data gap before EF69BA_EBattle5MsgBtlHpRecoveredActionAmount:
+; Original data gap before EF69BA_EBattle5HpRecoveredActionAmount:
 db $01,$70,$1C,$0E,$15,$39,$78,$80,$17,$61,$00,$50,$17,$DF,$A8,$95
 db $94,$15,$93,$51,$1F,$02,$24,$03,$02
 
-EF69BA_EBattle5MsgBtlHpRecoveredActionAmount:
+EF69BA_EBattle5HpRecoveredActionAmount:
 
-; Original data gap before EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
+; Original data gap before EF69D2_EBattle5PpRecoveredActionAmount:
 db $01,$70,$1C,$0E,$50,$A2,$16,$88,$95,$94,$00,$50,$50,$1C,$0F,$50
 db $78,$80,$51,$1F,$02,$24,$03,$02
 
-EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
+EF69D2_EBattle5PpRecoveredActionAmount:
 
-; Original data gap before EF69EA_EBattle5MsgBtlCheckOffenseActionAmount:
+; Original data gap before EF69EA_EBattle5SpyOffenseReadoutActionAmount:
 db $01,$70,$1C,$0E,$50,$A2,$16,$88,$95,$94,$00,$50,$50,$1C,$0F,$50
 db $80,$80,$51,$1F,$02,$24,$03,$02
 
-EF69EA_EBattle5MsgBtlCheckOffenseActionAmount:
+EF69EA_EBattle5SpyOffenseReadoutActionAmount:
 
-; Original data gap before EF69FF_EBattle5MsgBtlCheckDefenseActionAmount:
+; Original data gap before EF69FF_EBattle5SpyDefenseReadoutActionAmount:
 db $01,$70,$1C,$0E,$57,$A3,$00,$50,$50,$7F,$96,$96,$17,$C7,$16,$46
 db $1C,$0F,$51,$03,$02
 
-EF69FF_EBattle5MsgBtlCheckDefenseActionAmount:
+EF69FF_EBattle5SpyDefenseReadoutActionAmount:
 
-; Original data gap before EF6A0D_EBattle5MsgBtlCheckAntiFire:
+; Original data gap before EF6A0D_EBattle5SpyFireVulnerabilityReadoutText:
 db $01,$70,$74,$95,$96,$17,$C7,$16,$46,$1C,$0F,$51,$03,$02
 
-EF6A0D_EBattle5MsgBtlCheckAntiFire:
+EF6A0D_EBattle5SpyFireVulnerabilityReadoutText:
 
-; Original data gap before EF6A24_EBattle5MsgBtlCheckAntiFreeze:
+; Original data gap before EF6A24_EBattle5SpyFreezeVulnerabilityReadoutText:
 db $01,$70,$86,$A5,$9C,$17,$E2,$91,$92,$9C,$15,$56,$80,$83,$79,$50
 db $76,$99,$A2,$95,$51,$03,$02
 
-EF6A24_EBattle5MsgBtlCheckAntiFreeze:
+EF6A24_EBattle5SpyFreezeVulnerabilityReadoutText:
 
-; Original data gap before EF6A3C_EBattle5MsgBtlCheckAntiFlash:
+; Original data gap before EF6A3C_EBattle5SpyFlashVulnerabilityReadoutText:
 db $01,$70,$86,$A5,$9C,$17,$E2,$91,$92,$9C,$15,$56,$80,$83,$79,$50
 db $76,$16,$FA,$AA,$95,$51,$03,$02
 
-EF6A3C_EBattle5MsgBtlCheckAntiFlash:
+EF6A3C_EBattle5SpyFlashVulnerabilityReadoutText:
 
-; Original data gap before EF6A54_EBattle5MsgBtlCheckAntiParalysis:
+; Original data gap before EF6A54_EBattle5SpyParalysisVulnerabilityReadoutText:
 db $01,$70,$86,$A5,$9C,$17,$E2,$91,$92,$9C,$15,$56,$80,$83,$79,$50
 db $76,$9C,$91,$A3,$98,$51,$03,$02
 
-EF6A54_EBattle5MsgBtlCheckAntiParalysis:
+EF6A54_EBattle5SpyParalysisVulnerabilityReadoutText:
 
-; Original data gap before EF6A6C_EBattle5MsgBtlCheckBrainLevel0:
+; Original data gap before EF6A6C_EBattle5SpyHypnosisSusceptibilityReadoutText:
 db $01,$70,$86,$A5,$9C,$17,$E2,$91,$92,$9C,$15,$56,$80,$91,$A2,$91
 db $9C,$A9,$A3,$99,$A3,$51,$03,$02
 
-EF6A6C_EBattle5MsgBtlCheckBrainLevel0:
+EF6A6C_EBattle5SpyHypnosisSusceptibilityReadoutText:
 
-; Original data gap before EF6A7F_EBattle5MsgBtlCheckBrainLevel3:
+; Original data gap before EF6A7F_EBattle5SpyBrainshockSusceptibilityReadoutText:
 db $01,$70,$7F,$A0,$95,$9E,$15,$0C,$78,$A9,$A0,$9E,$9F,$A3,$99,$A3
 db $51,$03,$02
 
-EF6A7F_EBattle5MsgBtlCheckBrainLevel3:
+EF6A7F_EBattle5SpyBrainshockSusceptibilityReadoutText:
 
-; Original data gap before EF6A99_EBattle5MsgBtlMetamorphoseOk:
+; Original data gap before EF6A99_EBattle5MetamorphoseSuccessResultText:
 db $01,$70,$83,$A5,$A3,$93,$95,$A0,$A4,$99,$92,$9C,$15,$56,$72,$A2
 db $16,$43,$50,$83,$98,$17,$5A,$5E,$03,$02
 
-EF6A99_EBattle5MsgBtlMetamorphoseOk:
+EF6A99_EBattle5MetamorphoseSuccessResultText:
 
-; Original data gap before EF6AB3_EBattle5MsgBtlMetamorphoseFailed:
+; Original data gap before EF6AB3_EBattle5MetamorphoseFailureResultText:
 db $01,$70,$89,$17,$9E,$A3,$51,$50,$1C,$0D,$50,$17,$3C,$15,$57,$17
 db $EB,$9F,$00,$50,$50,$1C,$0E,$51,$03,$02
 
-EF6AB3_EBattle5MsgBtlMetamorphoseFailed:
+EF6AB3_EBattle5MetamorphoseFailureResultText:
 
 ; Original data gap before EF6AC7_EBattle5DiamondizedStatusResultText:
 db $01,$70,$1C,$0D,$15,$91,$16,$07,$50,$17,$3C,$00,$50,$16,$0B,$1C
@@ -4400,17 +4400,17 @@ db $17,$35,$9E,$97,$15,$34,$1F,$02,$53,$03,$02
 ; bodies, not a row +4 presentation message.
 EF6C55_EBattle5AsleepStatusResultText:
 
-; Original data gap before EF6C6B_EBattle5MsgBtlIncapacitated:
+; Original data gap before EF6C6B_EBattle5PlayerIncapacitatedCollapseText:
 db $01,$70,$1C,$0E,$50,$96,$16,$7F,$00,$50,$50,$91,$A3,$9C,$15,$C9
 db $51,$1F,$02,$53,$03,$02
 
-EF6C6B_EBattle5MsgBtlIncapacitated:
+EF6C6B_EBattle5PlayerIncapacitatedCollapseText:
 
-; Original data gap before EF6C84_EBattle5MsgSysNpcDeadFlyingMan:
+; Original data gap before EF6C84_EBattle5FlyingManDeathText:
 db $01,$70,$1C,$0E,$16,$4D,$98,$A5,$A2,$A4,$15,$04,$93,$16,$F9,$A0
 db $A3,$95,$16,$29,$1F,$02,$20,$03,$02
 
-EF6C84_EBattle5MsgSysNpcDeadFlyingMan:
+EF6C84_EBattle5FlyingManDeathText:
 
 ; Original data gap before EF6CC7_EBattle5FlyingManDeadBranchB:
 db $01,$70,$1C,$0E,$16,$4D,$98,$A5,$A2,$A4,$00,$50,$15,$04,$93,$16
@@ -4462,78 +4462,78 @@ db $1B,$01,$0B,$0E,$1B,$02,$26,$6D,$EF,$00,$1F,$12,$0E,$02
 
 EF6D26_EBattle5FlyingManRemoveBranch5:
 
-; Original data gap before EF6D2A_EBattle5MsgSysNpcDeadTeddyBear:
+; Original data gap before EF6D2A_EBattle5TeddyBearDestroyedText:
 db $1F,$12,$0F,$02
 
-EF6D2A_EBattle5MsgSysNpcDeadTeddyBear:
+EF6D2A_EBattle5TeddyBearDestroyedText:
 
-; Original data gap before EF6D4C_EBattle5MsgSysNpcDeadSuperPlushBear:
+; Original data gap before EF6D4C_EBattle5SuperPlushBearDestroyedText:
 db $01,$70,$1C,$0E,$15,$BD,$17,$76,$00,$50,$15,$BC,$A0,$99,$9C,$15
 db $43,$96,$9C,$A5,$96,$96,$15,$03,$1F,$02,$20,$03,$00,$1D,$01,$FF
 db $02,$02
 
-EF6D4C_EBattle5MsgSysNpcDeadSuperPlushBear:
+EF6D4C_EBattle5SuperPlushBearDestroyedText:
 
-; Original data gap before EF6D71_EBattle5MsgBtlEnemyDefeated:
+; Original data gap before EF6D71_EBattle5EnemyDefeatedText:
 db $01,$70,$1C,$0E,$15,$BD,$17,$76,$00,$50,$17,$33,$99,$97,$50,$A0
 db $99,$9C,$15,$43,$96,$9C,$A5,$96,$96,$15,$03,$1F,$02,$20,$03,$00
 db $1D,$01,$FF,$03,$02
 
-EF6D71_EBattle5MsgBtlEnemyDefeated:
+EF6D71_EBattle5EnemyDefeatedText:
 
-; Original data gap before EF6D83_EBattle5MsgBtlEnemyStoppedMoving:
+; Original data gap before EF6D83_EBattle5EnemyStoppedMovingDefeatText:
 db $01,$70,$1C,$0E,$15,$C4,$94,$95,$96,$95,$16,$66,$94,$51,$1F,$02
 db $21,$02
 
-EF6D83_EBattle5MsgBtlEnemyStoppedMoving:
+EF6D83_EBattle5EnemyStoppedMovingDefeatText:
 
-; Original data gap before EF6D96_EBattle5MsgBtlEnemyBecameTame:
+; Original data gap before EF6D96_EBattle5EnemyBecameTameDefeatText:
 db $01,$70,$1C,$0E,$50,$17,$91,$A0,$15,$57,$9D,$9F,$A6,$17,$7D,$1F
 db $02,$21,$02
 
-EF6D96_EBattle5MsgBtlEnemyBecameTame:
+EF6D96_EBattle5EnemyBecameTameDefeatText:
 
-; Original data gap before EF6DA7_EBattle5MsgBtlEnemyDisappeared:
+; Original data gap before EF6DA7_EBattle5EnemyDisappearedDefeatText:
 db $01,$70,$1C,$0E,$15,$BD,$17,$76,$50,$A4,$17,$78,$51,$1F,$02,$21
 db $02
 
-EF6DA7_EBattle5MsgBtlEnemyDisappeared:
+EF6DA7_EBattle5EnemyDisappearedDefeatText:
 
-; Original data gap before EF6DB8_EBattle5MsgBtlEnemyMeltedAway:
+; Original data gap before EF6DB8_EBattle5EnemyMeltedAwayDefeatText:
 db $01,$70,$1C,$0E,$16,$B1,$A3,$16,$56,$91,$17,$45,$51,$1F,$02,$21
 db $02
 
-EF6DB8_EBattle5MsgBtlEnemyMeltedAway:
+EF6DB8_EBattle5EnemyMeltedAwayDefeatText:
 
-; Original data gap before EF6DD8_EBattle5MsgBtlEnemyBrokeIntoPieces:
+; Original data gap before EF6DD8_EBattle5EnemyBrokeIntoPiecesDefeatText:
 db $01,$15,$14,$96,$99,$97,$A5,$A2,$15,$43,$1C,$0E,$15,$B8,$9C,$A4
 db $95,$94,$16,$0B,$A4,$98,$17,$68,$91,$99,$A2,$51,$1F,$02,$21,$02
 
-EF6DD8_EBattle5MsgBtlEnemyBrokeIntoPieces:
+EF6DD8_EBattle5EnemyBrokeIntoPiecesDefeatText:
 
-; Original data gap before EF6DF0_EBattle5MsgBtlEnemyDestroyed:
+; Original data gap before EF6DF0_EBattle5EnemyDestroyedDefeatText:
 db $01,$70,$1C,$0E,$15,$C4,$92,$A2,$17,$09,$9E,$16,$0B,$A0,$99,$95
 db $93,$95,$A3,$51,$1F,$02,$21,$02
 
-EF6DF0_EBattle5MsgBtlEnemyDestroyed:
+EF6DF0_EBattle5EnemyDestroyedDefeatText:
 
-; Original data gap before EF6E03_EBattle5MsgBtlEnemyScrapped:
+; Original data gap before EF6E03_EBattle5EnemyScrappedDefeatText:
 db $01,$70,$1C,$0E,$15,$C4,$94,$15,$F9,$A2,$9F,$A9,$95,$94,$51,$1F
 db $02,$21,$02
 
-EF6E03_EBattle5MsgBtlEnemyScrapped:
+EF6E03_EBattle5EnemyScrappedDefeatText:
 
-; Original data gap before EF6E19_EBattle5MsgBtlEnemyReturnedToNormal:
+; Original data gap before EF6E19_EBattle5EnemyReturnedToNormalDefeatText:
 db $01,$70,$1C,$0E,$15,$C4,$A4,$9F,$A4,$15,$DD,$A3,$93,$A2,$16,$56
 db $94,$51,$1F,$02,$21,$02
 
-EF6E19_EBattle5MsgBtlEnemyReturnedToNormal:
+EF6E19_EBattle5EnemyReturnedToNormalDefeatText:
 
-; Original data gap before EF6E31_EBattle5MsgBtlEnemyReturnedToDust:
+; Original data gap before EF6E31_EBattle5EnemyReturnedToDustDefeatText:
 db $01,$70,$1C,$0E,$50,$17,$3C,$95,$94,$15,$85,$15,$0C,$9E,$9F,$A2
 db $9D,$91,$9C,$51,$1F,$02,$21,$02
 
-EF6E31_EBattle5MsgBtlEnemyReturnedToDust:
+EF6E31_EBattle5EnemyReturnedToDustDefeatText:
 
 ; Original data gap before EF6E4A_EBattle5DiamondizedRecoveryResultText:
 db $01,$70,$1C,$0E,$50,$16,$97,$95,$94,$15,$06,$94,$17,$E6,$15,$09
@@ -4582,6 +4582,8 @@ EF6EED_EBattle5ImmobilizedRecoveryResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$00,$50,$15,$5B,$17,$6F
 db $A6,$15,$57,$96,$16,$FA,$9C,$A9,$51,$1F,$02,$25,$03,$02
 
+; EBATTLE5: row 255 row +4 text with the C2:9045 tiny no-op tail; also a
+; frozen/solidified movement recovery result script.
 EF6F0B_EBattle5FrozenMovementRecoveryResultText:
 
 ; Original data gap before EF6F1E_EBattle5StrangeRecoveryResultText:
@@ -4607,156 +4609,164 @@ db $01,$70,$1C,$0E,$50,$A7,$17,$09,$17,$B8,$51,$1F,$02,$25,$03,$02
 
 EF6F64_EBattle5PsiSealRecoveryResultText:
 
-; Original data gap before EF6F7C_EBattle5MsgBtlRevived:
+; Original data gap before EF6F7C_EBattle5ReviveSuccessResultText:
 db $01,$70,$1C,$0E,$17,$B1,$00,$50,$15,$6F,$16,$57,$93,$15,$9E,$A2
 db $16,$66,$51,$1F,$02,$25,$03,$02
 
-EF6F7C_EBattle5MsgBtlRevived:
+EF6F7C_EBattle5ReviveSuccessResultText:
 
-; Original data gap before EF6F8E_EBattle5MsgBtlReviveFailed:
+; Original data gap before EF6F8E_EBattle5ReviveFailureResultText:
 db $01,$70,$1C,$0E,$15,$C4,$A2,$95,$A6,$17,$C9,$94,$51,$1F,$02,$25
 db $03,$02
 
-EF6F8E_EBattle5MsgBtlReviveFailed:
+EF6F8E_EBattle5ReviveFailureResultText:
 
-; Original data gap before EF6F9A_EBattle5MsgBtlShieldInstalled:
+; Original data gap before EF6F9A_EBattle5ShieldInstalledResultText:
 db $01,$16,$F4,$15,$CB,$16,$90,$9B,$15,$03,$03,$02
 
-EF6F9A_EBattle5MsgBtlShieldInstalled:
+EF6F9A_EBattle5ShieldInstalledResultText:
 
-; Original data gap before EF6FBD_EBattle5MsgBtlShieldStrengthened:
+; Original data gap before EF6FBD_EBattle5ShieldStrengthenedResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$A9,$16,$26,$98,$99,$95,$9C,$16,$34,$9C,$15,$BB
 db $51,$03,$02
 
-EF6FBD_EBattle5MsgBtlShieldStrengthened:
+EF6FBD_EBattle5ShieldStrengthenedResultText:
 
-; Original data gap before EF6FD3_EBattle5MsgBtlPowerShieldInstalled:
+; Original data gap before EF6FD3_EBattle5PowerShieldInstalledResultText:
 db $01,$70,$1C,$0E,$15,$39,$17,$E8,$95,$9C,$94,$15,$BD,$17,$76,$15
 db $9F,$95,$A2,$51,$03,$02
 
-EF6FD3_EBattle5MsgBtlPowerShieldInstalled:
+EF6FD3_EBattle5PowerShieldInstalledResultText:
 
-; Original data gap before EF6FF4_EBattle5MsgBtlPowerShieldStrengthened:
+; Original data gap before EF6FF4_EBattle5PowerShieldStrengthenedResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$A9,$15,$25,$15,$FB,$17,$E8,$95,$9C,$94,$51,$03
 db $02
 
-EF6FF4_EBattle5MsgBtlPowerShieldStrengthened:
+EF6FF4_EBattle5PowerShieldStrengthenedResultText:
 
-; Original data gap before EF700C_EBattle5MsgBtlPsychicShieldInstalled:
+; Original data gap before EF700C_EBattle5PsychicShieldInstalledResultText:
 db $01,$70,$1C,$0E,$57,$A3,$15,$FB,$17,$E8,$95,$9C,$94,$15,$BD,$17
 db $76,$15,$9F,$95,$A2,$51,$03,$02
 
-EF700C_EBattle5MsgBtlPsychicShieldInstalled:
+EF700C_EBattle5PsychicShieldInstalledResultText:
 
-; Original data gap before EF7032_EBattle5MsgBtlPsychicShieldStrengthened:
+; Original data gap before EF7032_EBattle5PsychicShieldStrengthenedResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$16,$54,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5,$99
 db $95,$9C,$94,$51,$03,$02
 
-EF7032_EBattle5MsgBtlPsychicShieldStrengthened:
+EF7032_EBattle5PsychicShieldStrengthenedResultText:
 
-; Original data gap before EF7050_EBattle5MsgBtlPsychicPowerShieldInstalled:
+; Original data gap before EF7050_EBattle5PsychicPowerShieldInstalledResultText:
 db $01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5,$99
 db $95,$9C,$94,$15,$BD,$17,$76,$15,$9F,$95,$A2,$51,$03,$02
 
-EF7050_EBattle5MsgBtlPsychicPowerShieldInstalled:
+EF7050_EBattle5PsychicPowerShieldInstalledResultText:
 
-; Original data gap before EF707A_EBattle5MsgBtlPsychicPowerShieldStrengthened:
+; Original data gap before EF707A_EBattle5PsychicPowerShieldStrengthenedResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$15,$C4,$17,$4F,$A4,$95
 db $93,$16,$B6,$92,$A9,$03,$00,$15,$95,$A0,$A3,$A9,$93,$98,$99,$93
 db $15,$FB,$17,$E8,$95,$9C,$94,$51,$03,$02
 
-EF707A_EBattle5MsgBtlPsychicPowerShieldStrengthened:
+EF707A_EBattle5PsychicPowerShieldStrengthenedResultText:
 
-; Original data gap before EF7099_EBattle5MsgBtlShieldExpired:
+; Original data gap before EF7099_EBattle5ShieldExpiredResultText:
 db $01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$15,$FB,$17
 db $E8,$95,$9C,$94,$15,$BD,$17,$76,$15,$9F,$95,$A2,$51,$03,$02
 
-EF7099_EBattle5MsgBtlShieldExpired:
+EF7099_EBattle5ShieldExpiredResultText:
 
-; Original data gap before EF70B1_EBattle5MsgBtlPowerShieldReflectsAttack:
+; Original data gap before EF70B1_EBattle5PowerShieldReflectsAttackResultText:
 db $01,$70,$1C,$0E,$15,$39,$17,$E8,$95,$9C,$94,$00,$50,$16,$B1,$A3
 db $16,$56,$91,$17,$45,$51,$03,$02
 
-EF70B1_EBattle5MsgBtlPowerShieldReflectsAttack:
+EF70B1_EBattle5PowerShieldReflectsAttackResultText:
 
-; Original data gap before EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiNameByteSubstitutionText:
+; Original data gap before EF70D2_EBattle5PsychicPowerShieldReflectsPsiNameByteSubstitutionResultText:
 db $01,$15,$7F,$15,$FB,$17,$E8,$95,$9C,$94,$00,$50,$16,$E7,$96,$9C
 db $16,$A5,$15,$4A,$91,$A4,$A4,$17,$16,$51,$1F,$02,$5D,$10,$1E,$03
 db $02
 
-EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiNameByteSubstitutionText:
+EF70D2_EBattle5PsychicPowerShieldReflectsPsiNameByteSubstitutionResultText:
 
-; Original data gap before EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiNameByteSubstitutionText:
+; Original data gap before EF70FA_EBattle5PsychicShieldNullifiesPsiNameByteSubstitutionResultText:
 db $01,$15,$14,$A0,$A3,$A9,$93,$98,$99,$93,$15,$FB,$17,$E8,$95,$9C
 db $94,$00,$19,$1F,$1B,$04,$50,$16,$E7,$96,$9C,$95,$93,$16,$B6,$1C
 db $12,$00,$51,$1F,$02,$5D,$03,$02
 
-EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiNameByteSubstitutionText:
+EF70FA_EBattle5PsychicShieldNullifiesPsiNameByteSubstitutionResultText:
 
-; Original data gap before EF7123_EBattle5MsgBtlNeutralizeResult:
+; Original data gap before EF7123_EBattle5NeutralizeResultText:
 db $01,$70,$1C,$0E,$15,$39,$A0,$A3,$A9,$93,$98,$99,$93,$17,$F5,$99
 db $95,$9C,$94,$17,$DF,$94,$95,$19,$1F,$1B,$04,$50,$1C,$12,$00,$16
 db $B1,$A3,$16,$56,$91,$A2,$51,$03,$02
 
-EF7123_EBattle5MsgBtlNeutralizeResult:
+EF7123_EBattle5NeutralizeResultText:
 
-; Original data gap before EF7142_EBattle5MsgBtlNeutralizeMetamorph:
+; Original data gap before EF7142_EBattle5NeutralizeMetamorphResultText:
 db $01,$15,$14,$95,$96,$96,$16,$A5,$16,$5C,$80,$83,$79,$17,$50,$00
 db $50,$50,$1C,$0E,$15,$21,$97,$15,$7E,$51,$1F,$02,$29,$03,$02
 
-EF7142_EBattle5MsgBtlNeutralizeMetamorph:
+EF7142_EBattle5NeutralizeMetamorphResultText:
 
-; Original data gap before EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
+; Original data gap before EF7160_EBattle5FranklinBadgeReflectsThunderResultText:
 db $01,$70,$1C,$01,$4A,$50,$16,$97,$95,$94,$00,$50,$15,$90,$16,$D9
 db $9F,$A2,$99,$97,$99,$9E,$91,$9C,$16,$12,$9D,$51,$03,$02
 
-EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
+EF7160_EBattle5FranklinBadgeReflectsThunderResultText:
 
-; Original data gap before EF7186_EBattle4MsgBtlDiamondizedCannotMove:
+; Original data gap before EF7186_EBattle4DiamondizedActionBlockedStatusText:
 db $01,$15,$14,$76,$A2,$91,$9E,$9B,$9C,$17,$68,$72,$91,$94,$97,$95
 db $16,$E7,$96,$9C,$16,$A5,$95,$94,$00,$15,$95,$9C,$15,$BB,$16,$50
 db $51,$1F,$02,$5D,$03,$02
 
-EF7186_EBattle4MsgBtlDiamondizedCannotMove:
+EF7186_EBattle4DiamondizedActionBlockedStatusText:
 
-; Original data gap before EF7192_EBattle4MsgBtlParalysisCannotMove:
+; Original data gap before EF7192_EBattle4ParalysisActionBlockedStatusText:
 db $01,$70,$1C,$0D,$15,$C0,$9D,$16,$61,$51,$03,$02
 
-EF7192_EBattle4MsgBtlParalysisCannotMove:
+; EBATTLE4: row 252 row +4 action-blocked status text with the C2:9042 tiny
+; no-op tail.
+EF7192_EBattle4ParalysisActionBlockedStatusText:
 
-; Original data gap before EF71B4_EBattle4MsgBtlNauseaCannotMove:
+; Original data gap before EF71B4_EBattle4NauseaActionBlockedStatusText:
 db $01,$70,$1C,$0D,$15,$39,$92,$9F,$94,$A9,$16,$00,$00,$50,$50,$9E
 db $A5,$9D,$92,$15,$04,$08,$02,$E6,$C7,$00,$15,$61,$9D,$16,$61,$51
 db $03,$02
 
-EF71B4_EBattle4MsgBtlNauseaCannotMove:
+EF71B4_EBattle4NauseaActionBlockedStatusText:
 
-; Original data gap before EF71CC_EBattle4MsgBtlPoisonStatus:
+; Original data gap before EF71CC_EBattle4PoisonActionBlockedStatusText:
 db $01,$70,$1C,$0D,$17,$20,$A3,$00,$50,$16,$40,$50,$A3,$15,$FA,$15
 db $0C,$9D,$9F,$A6,$15,$34,$03,$02
 
-EF71CC_EBattle4MsgBtlPoisonStatus:
+EF71CC_EBattle4PoisonActionBlockedStatusText:
 
-; Original data gap before EF71DF_EBattle4MsgBtlAsleepStatus:
+; Original data gap before EF71DF_EBattle4AsleepActionBlockedStatusText:
 db $01,$70,$1C,$0E,$16,$00,$00,$50,$50,$A0,$9F,$99,$A3,$15,$7E,$94
 db $51,$03,$02
 
-EF71DF_EBattle4MsgBtlAsleepStatus:
+; EBATTLE4: row 253 row +4 action-blocked status text with the C2:904B tiny
+; no-op tail.
+EF71DF_EBattle4AsleepActionBlockedStatusText:
 
-; Original data gap before EF71F6_EBattle4MsgBtlImmobilizedStatus:
+; Original data gap before EF71F6_EBattle4ImmobilizedActionBlockedStatusText:
 db $01,$70,$1C,$0D,$16,$0C,$A3,$00,$50,$50,$96,$15,$D8,$17,$46,$91
 db $A3,$9C,$15,$C9,$51,$03,$02
 
-EF71F6_EBattle4MsgBtlImmobilizedStatus:
+; EBATTLE4: row 254 row +4 action-blocked status text with the C2:903F tiny
+; no-op tail.
+EF71F6_EBattle4ImmobilizedActionBlockedStatusText:
 
-; Original data gap before EF720C_EBattle4MsgBtlPsiSealStatus:
+; Original data gap before EF720C_EBattle4PsiSealActionBlockedStatusText:
 db $01,$70,$1C,$0D,$17,$77,$9E,$16,$07,$00,$50,$50,$9D,$16,$61,$50
 db $91,$17,$10,$51,$03,$02
 
-EF720C_EBattle4MsgBtlPsiSealStatus:
+; EBATTLE4: row 256 row +4 PSI-seal status text with the C2:9048 tiny no-op
+; tail.
+EF720C_EBattle4PsiSealActionBlockedStatusText:
 
 ; Original data gap before EF721E_EBattle4PsiSealPlayerSideSoundBranch:
 db $01,$1F,$41,$08,$1B,$02,$1E,$72,$EF,$00,$1F,$02,$37,$0A,$21,$72
@@ -4764,65 +4774,66 @@ db $EF,$00
 
 EF721E_EBattle4PsiSealPlayerSideSoundBranch:
 
-; Original data gap before EF7221_EBattle4PsiSealResultText:
+; Original data gap before EF7221_EBattle4PsiSealByteSubstitutionResultText:
 db $1F,$02,$1D
 
-EF7221_EBattle4PsiSealResultText:
+EF7221_EBattle4PsiSealByteSubstitutionResultText:
 
-; Original data gap before EF7249_EBattle4MsgBtlGuardOn:
+; Original data gap before EF7249_EBattle4GuardOnFlavorText:
 db $70,$1C,$0D,$19,$1F,$1B,$04,$50,$A4,$17,$B0,$00,$50,$50,$1C,$12
 db $00,$51,$1F,$02,$57,$03,$00,$16,$DE,$15,$6C,$15,$CB,$16,$90,$9B
 db $15,$67,$A7,$16,$7F,$51,$03,$02
 
-EF7249_EBattle4MsgBtlGuardOn:
+EF7249_EBattle4GuardOnFlavorText:
 
-; Original data gap before EF725A_EBattle4MsgBtlFlyHoneyMindLost:
+; Original data gap before EF725A_EBattle4FlyHoneyMindLostEventText:
 db $01,$70,$1C,$0E,$16,$00,$00,$50,$16,$BC,$97,$A5,$16,$73,$51,$03
 db $02
 
-EF725A_EBattle4MsgBtlFlyHoneyMindLost:
+EF725A_EBattle4FlyHoneyMindLostEventText:
 
-; Original data gap before EF727F_EBattle4MsgBtlHomesickRandom:
+; Original data gap before EF727F_EBattle4HomesickRandomThoughtDispatcher:
 db $01,$70,$1C,$0D,$17,$53,$A3,$A4,$00,$50,$16,$D9,$17,$84,$94,$15
 db $F5,$A7,$9F,$9C,$96,$15,$1B,$17,$9F,$50,$6C,$76,$15,$9D,$78,$17
 db $3E,$6E,$51,$03,$02
 
-EF727F_EBattle4MsgBtlHomesickRandom:
+; EBATTLE4: row 251 row +4 homesick dispatcher with the C2:904E tiny no-op tail.
+EF727F_EBattle4HomesickRandomThoughtDispatcher:
 
-; Original data gap before EF72A0_EBattle4MsgBtlHomesickThoughtMom:
+; Original data gap before EF72A0_EBattle4HomesickThoughtOfMomBranch:
 db $1D,$21,$03,$09,$03,$A0,$72,$EF,$00,$B9,$72,$EF,$00,$DB,$72,$EF
 db $00,$01,$70,$1C,$0D,$50,$9D,$99,$A3,$A3,$95,$A3,$16,$FF,$5E,$03
 db $02
 
-EF72A0_EBattle4MsgBtlHomesickThoughtMom:
+EF72A0_EBattle4HomesickThoughtOfMomBranch:
 
-; Original data gap before EF72B9_EBattle4MsgBtlHomesickCravingFood:
+; Original data gap before EF72B9_EBattle4HomesickCravingFoodBranch:
 db $01,$70,$1C,$0D,$17,$B3,$94,$94,$95,$9E,$9C,$A9,$15,$80,$15,$07
 db $16,$55,$50,$7D,$9F,$9D,$5E,$03,$02
 
-EF72B9_EBattle4MsgBtlHomesickCravingFood:
+EF72B9_EBattle4HomesickCravingFoodBranch:
 
-; Original data gap before EF72DB_EBattle4MsgBtlHomesickLostMotivation:
+; Original data gap before EF72DB_EBattle4HomesickLostMotivationBranch:
 db $01,$70,$1C,$0D,$15,$80,$15,$07,$95,$91,$16,$35,$15,$1C,$1C,$01
 db $04,$15,$04,$16,$9F,$A2,$16,$B6,$93,$A2,$91,$A6,$15,$1B,$17,$B5
 db $03,$02
 
-EF72DB_EBattle4MsgBtlHomesickLostMotivation:
+EF72DB_EBattle4HomesickLostMotivationBranch:
 
-; Original data gap before EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
+; Original data gap before EF72F6_EBattle4RunawayFiveBreakInRowPresentationText:
 db $01,$70,$1C,$0D,$50,$9C,$17,$62,$15,$BF,$9D,$9F,$A4,$99,$A6,$15
 db $5E,$00,$50,$15,$3F,$92,$17,$14,$5E,$03,$02
 
 ; EBATTLE4: row 243 `DD9F` presentation; C2 behavior selects the continuation.
-EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
+EF72F6_EBattle4RunawayFiveBreakInRowPresentationText:
 
-; Original data gap before EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
+; Original data gap before EF72F7_EBattle4RunawayFiveBreakInFailureResultText:
 db $02
 
 ; EBATTLE4: row 243 direct-result continuation, not row +4 presentation text.
-EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
+EF72F7_EBattle4RunawayFiveBreakInFailureResultText:
 
-; Original data gap before EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
+; Original data gap before EF733D_EBattle4RunawayFiveBreakInSuccessResultText:
 db $01,$70,$72,$9C,$17,$16,$50,$A3,$9D,$17,$09,$50,$A0,$9F,$A5,$17
 db $7C,$17,$A4,$00,$50,$50,$1C,$0D,$15,$39,$92,$9F,$94,$A9,$51,$14
 db $00,$70,$08,$D7,$E6,$C7,$00,$17,$B1,$00,$50,$15,$CF,$15,$9C,$92
@@ -4830,9 +4841,9 @@ db $A9,$16,$26,$9D,$17,$09,$51,$14,$00,$70,$89,$15,$6E,$A3,$95,$17
 db $99,$15,$9B,$51,$14,$02
 
 ; EBATTLE4: row 243 direct-result continuation, not row +4 presentation text.
-EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
+EF733D_EBattle4RunawayFiveBreakInSuccessResultText:
 
-; Original data gap before EF7415_EBattle4MsgBtlPooBreakIn:
+; Original data gap before EF7415_EBattle4PooBreakInRowPresentationText:
 db $01,$70,$71,$9C,$9C,$15,$4F,$91,$17,$B3,$94,$94,$95,$9E,$5C,$00
 db $50,$15,$1C,$97,$A5,$A9,$A3,$50,$A2,$A5,$A3,$98,$95,$94,$16,$0B
 db $15,$68,$16,$71,$51,$14,$1F,$00,$00,$95,$10,$3C,$01,$70,$79,$15
@@ -4849,147 +4860,147 @@ db $A5,$15,$FA,$50,$15,$B1,$17,$7D,$6E,$14,$10,$3C,$1F,$62,$01,$18
 db $00,$18,$01,$0E,$04,$3E,$01,$02
 
 ; EBATTLE4: row 244 `DD9F` presentation before the Poo/Starstorm event result.
-EF7415_EBattle4MsgBtlPooBreakIn:
+EF7415_EBattle4PooBreakInRowPresentationText:
 
-; Original data gap before EF743B_EBattle4MsgBtlPooStarstormReveal:
+; Original data gap before EF743B_EBattle4PooStarstormRevealResultText:
 db $1F,$71,$04,$02,$01,$70,$83,$A5,$94,$94,$95,$9E,$9C,$A9,$5C,$50
 db $1C,$02,$04,$50,$A3,$A7,$9F,$9F,$A0,$15,$57,$17,$9F,$00,$50,$15
 db $52,$A3,$9B,$A9,$51,$02
 
 ; EBATTLE4: row 244 direct-result continuation, not row +4 presentation text.
-EF743B_EBattle4MsgBtlPooStarstormReveal:
+EF743B_EBattle4PooStarstormRevealResultText:
 
-; Original data gap before EF745F_EBattle4MsgBtlPokeyTalkRandom:
+; Original data gap before EF745F_EBattle4PokeyRandomTalkDispatcher:
 db $01,$70,$1C,$02,$04,$16,$AC,$16,$55,$50,$9E,$95,$A7,$50,$16,$FE
 db $5C,$14,$00,$50,$50,$80,$83,$79,$50,$83,$A4,$91,$A2,$17,$60,$9D
 db $51,$14,$00,$02
 
-EF745F_EBattle4MsgBtlPokeyTalkRandom:
+EF745F_EBattle4PokeyRandomTalkDispatcher:
 
-; Original data gap before EF749D_EBattle4MsgBtlPokeyPlayedDead:
+; Original data gap before EF749D_EBattle4PokeyRandomTalkPlayedDeadBranch:
 db $1D,$21,$08,$09,$08,$9D,$74,$EF,$00,$B0,$74,$EF,$00,$C9,$74,$EF
 db $00,$E6,$74,$EF,$00,$FA,$74,$EF,$00,$14,$75,$EF,$00,$30,$75,$EF
 db $00,$48,$75,$EF,$00,$01,$70,$80,$17,$09,$A9,$16,$AC,$1C,$01,$08
 db $00,$50,$50,$91,$16,$F5,$17,$E8,$95,$9C,$94,$51,$03,$02
 
-EF749D_EBattle4MsgBtlPokeyPlayedDead:
+EF749D_EBattle4PokeyRandomTalkPlayedDeadBranch:
 
-; Original data gap before EF74B0_EBattle4MsgBtlPokeyPretendedCry:
+; Original data gap before EF74B0_EBattle4PokeyRandomTalkPretendedCryBranch:
 db $01,$70,$80,$17,$09,$A9,$50,$17,$36,$A9,$15,$57,$94,$95,$91,$94
 db $51,$03,$02
 
-EF74B0_EBattle4MsgBtlPokeyPretendedCry:
+EF74B0_EBattle4PokeyRandomTalkPretendedCryBranch:
 
-; Original data gap before EF74C9_EBattle4MsgBtlPokeyApologized:
+; Original data gap before EF74C9_EBattle4PokeyRandomTalkApologyBranch:
 db $01,$70,$80,$17,$09,$A9,$50,$A0,$A2,$95,$A4,$16,$74,$95,$94,$00
 db $50,$15,$0C,$93,$A2,$A9,$51,$03,$02
 
-EF74C9_EBattle4MsgBtlPokeyApologized:
+EF74C9_EBattle4PokeyRandomTalkApologyBranch:
 
-; Original data gap before EF74E6_EBattle4MsgBtlPokeyThoughtToSelf:
+; Original data gap before EF74E6_EBattle4PokeyRandomTalkThoughtToSelfBranch:
 db $01,$70,$80,$17,$09,$A9,$50,$91,$A0,$9F,$9C,$9F,$97,$99,$AA,$95
 db $94,$00,$50,$17,$96,$96,$16,$4B,$9C,$A9,$51,$03,$02
 
-EF74E6_EBattle4MsgBtlPokeyThoughtToSelf:
+EF74E6_EBattle4PokeyRandomTalkThoughtToSelfBranch:
 
-; Original data gap before EF74FA_EBattle4MsgBtlPokeyActedInnocent:
+; Original data gap before EF74FA_EBattle4PokeyRandomTalkInnocentActBranch:
 db $01,$70,$80,$17,$09,$A9,$15,$80,$00,$50,$15,$0C,$98,$99,$9D,$16
 db $EB,$51,$03,$02
 
-EF74FA_EBattle4MsgBtlPokeyActedInnocent:
+EF74FA_EBattle4PokeyRandomTalkInnocentActBranch:
 
-; Original data gap before EF7514_EBattle4MsgBtlPokeySmiledSincerely:
+; Original data gap before EF7514_EBattle4PokeyRandomTalkSincereSmileBranch:
 db $01,$70,$80,$17,$09,$A9,$50,$17,$9D,$95,$94,$00,$50,$50,$15,$BF
 db $99,$9E,$9E,$9F,$93,$15,$9E,$51,$03,$02
 
-EF7514_EBattle4MsgBtlPokeySmiledSincerely:
+EF7514_EBattle4PokeyRandomTalkSincereSmileBranch:
 
-; Original data gap before EF7530_EBattle4MsgBtlPokeyComplained:
+; Original data gap before EF7530_EBattle4PokeyRandomTalkComplaintBranch:
 db $01,$70,$80,$17,$09,$A9,$50,$A3,$9D,$99,$9C,$95,$94,$00,$50,$15
 db $8C,$A3,$99,$17,$CE,$A2,$95,$9C,$A9,$51,$03,$02
 
-EF7530_EBattle4MsgBtlPokeyComplained:
+EF7530_EBattle4PokeyRandomTalkComplaintBranch:
 
-; Original data gap before EF7548_EBattle4MsgBtlPokeyEdgedCloser:
+; Original data gap before EF7548_EBattle4PokeyRandomTalkEdgeCloserBranch:
 db $01,$70,$80,$17,$09,$A9,$16,$C5,$A0,$9C,$16,$43,$95,$94,$00,$50
 db $15,$0C,$1C,$01,$08,$51,$03,$02
 
-EF7548_EBattle4MsgBtlPokeyEdgedCloser:
+EF7548_EBattle4PokeyRandomTalkEdgeCloserBranch:
 
-; Original data gap before EF7569_EBattle4MsgBtlMyDogHowling:
+; Original data gap before EF7569_EBattle4CompanionMyDogHowlingText:
 db $01,$70,$80,$17,$09,$A9,$50,$A4,$17,$B0,$15,$90,$00,$50,$50,$95
 db $94,$97,$95,$50,$93,$9C,$9F,$17,$AB,$15,$06,$17,$42,$A9,$51,$03
 db $02
 
-EF7569_EBattle4MsgBtlMyDogHowling:
+EF7569_EBattle4CompanionMyDogHowlingText:
 
-; Original data gap before EF7579_EBattle4MsgBtlPickeyTalk:
+; Original data gap before EF7579_EBattle4CompanionPickeyTalkText:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$92,$17,$25,$17,$7D,$03,$02
 
-EF7579_EBattle4MsgBtlPickeyTalk:
+EF7579_EBattle4CompanionPickeyTalkText:
 
-; Original data gap before EF7591_EBattle4MsgBtlTonyTalk:
+; Original data gap before EF7591_EBattle4CompanionTonyTalkText:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$17,$EF,$16,$DC,$16,$96,$9D,$17
 db $BE,$17,$F4,$16,$7F,$51,$03,$02
 
-EF7591_EBattle4MsgBtlTonyTalk:
+EF7591_EBattle4CompanionTonyTalkText:
 
-; Original data gap before EF7593_EBattle4MsgBtlBalmonTalk:
+; Original data gap before EF7593_EBattle4CompanionBalmonTalkText:
 db $01,$02
 
-EF7593_EBattle4MsgBtlBalmonTalk:
+EF7593_EBattle4CompanionBalmonTalkText:
 
-; Original data gap before EF75AB_EBattle4MsgBtlDamageActionAmount:
+; Original data gap before EF75AB_EBattle4DamageActionAmount:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$A3,$93,$A2,$91,$A4,$17,$97
 db $97,$16,$D9,$17,$29,$51,$03,$02
 
-EF75AB_EBattle4MsgBtlDamageActionAmount:
+EF75AB_EBattle4DamageActionAmount:
 
-; Original data gap before EF75C2_EBattle4MsgBtlMortalDamageActionAmount:
+; Original data gap before EF75C2_EBattle4MortalDamageActionAmount:
 db $01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75C2_EBattle4MsgBtlMortalDamageActionAmount:
+EF75C2_EBattle4MortalDamageActionAmount:
 
-; Original data gap before EF75D9_EBattle4MsgBtlSmashDamageActionAmount:
+; Original data gap before EF75D9_EBattle4SmashDamageActionAmount:
 db $01,$1F,$02,$1E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75D9_EBattle4MsgBtlSmashDamageActionAmount:
+EF75D9_EBattle4SmashDamageActionAmount:
 
-; Original data gap before EF75F0_EBattle4MsgBtlMortalSmashDamageActionAmount:
+; Original data gap before EF75F0_EBattle4MortalSmashDamageActionAmount:
 db $01,$1F,$02,$2E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF75F0_EBattle4MsgBtlMortalSmashDamageActionAmount:
+EF75F0_EBattle4MortalSmashDamageActionAmount:
 
-; Original data gap before EF7607_EBattle4MsgBtlDamageToDeathActionAmount:
+; Original data gap before EF7607_EBattle4DamageToDeathActionAmount:
 db $01,$1F,$02,$1E,$70,$1C,$0F,$50,$78,$80,$15,$86,$15,$D6,$00,$50
 db $15,$0C,$1C,$0E,$51,$03,$02
 
-EF7607_EBattle4MsgBtlDamageToDeathActionAmount:
+EF7607_EBattle4DamageToDeathActionAmount:
 
-; Original data gap before EF7624_EBattle4MsgBtlSmashPlayer:
+; Original data gap before EF7624_EBattle4PlayerSmashPresentationText:
 db $01,$1F,$02,$2F,$70,$1C,$0F,$50,$78,$80,$15,$4F,$9D,$9F,$A2,$A4
 db $91,$9C,$15,$D6,$00,$50,$15,$0C,$1C,$0E,$51,$03,$02
 
-EF7624_EBattle4MsgBtlSmashPlayer:
+EF7624_EBattle4PlayerSmashPresentationText:
 
-; Original data gap before EF7630_EBattle4MsgBtlSmashMonster:
+; Original data gap before EF7630_EBattle4MonsterSmashPresentationText:
 db $01,$1F,$02,$1F,$50,$50,$1C,$08,$01,$00,$03,$02
 
-EF7630_EBattle4MsgBtlSmashMonster:
+EF7630_EBattle4MonsterSmashPresentationText:
 
-; Original data gap before EF763C_EBattle4MsgBtlShootDodged:
+; Original data gap before EF763C_EBattle4ShootDodgedText:
 db $01,$50,$50,$1C,$08,$01,$00,$1F,$02,$2F,$03,$02
 
-EF763C_EBattle4MsgBtlShootDodged:
+EF763C_EBattle4ShootDodgedText:
 
-; Original data gap before EF7655_EBattle4MsgBtlBashDodged:
+; Original data gap before EF7655_EBattle4BashDodgedText:
 db $01,$1F,$02,$23,$70,$1C,$0E,$16,$33,$94,$97,$95,$94,$00,$50,$50
 db $A1,$A5,$15,$FA,$9C,$A9,$51,$03,$02
 
-EF7655_EBattle4MsgBtlBashDodged:
+EF7655_EBattle4BashDodgedText:
 
 ; Original data gap before EF766E_EBattle4StatusNoEffectResultText:
 db $01,$1F,$02,$23,$70,$1C,$0E,$16,$33,$94,$97,$95,$94,$00,$50,$50
@@ -5005,177 +5016,177 @@ db $0E,$51,$03,$02
 
 EF7682_EBattle4AdjacentNoEffectText:
 
-; Original data gap before EF7696_EBattle4MsgBtlNoVisibleEffect:
+; Original data gap before EF7696_EBattle4NoVisibleEffectText:
 db $01,$15,$DA,$94,$99,$94,$15,$81,$16,$90,$9B,$00,$50,$16,$BC,$1C
 db $0E,$51,$03,$02
 
-EF7696_EBattle4MsgBtlNoVisibleEffect:
+EF7696_EBattle4NoVisibleEffectText:
 
-; Original data gap before EF76B3_EBattle4MsgBtlNoEffectVariantC:
+; Original data gap before EF76B3_EBattle4NoEffectVariantCText:
 db $01,$15,$DA,$98,$91,$94,$17,$58,$50,$A6,$99,$A3,$99,$17,$98,$95
 db $96,$96,$16,$A5,$00,$50,$16,$BC,$1C,$0E,$51,$03,$02
 
-EF76B3_EBattle4MsgBtlNoEffectVariantC:
+EF76B3_EBattle4NoEffectVariantCText:
 
-; Original data gap before EF76C7_EBattle4MsgBtlMissPhysical:
+; Original data gap before EF76C7_EBattle4PhysicalMissText:
 db $01,$15,$DA,$94,$99,$94,$15,$81,$16,$90,$9B,$00,$50,$16,$BC,$1C
 db $0E,$51,$03,$02
 
-EF76C7_EBattle4MsgBtlMissPhysical:
+EF76C7_EBattle4PhysicalMissText:
 
-; Original data gap before EF76D8_EBattle4MsgBtlMissShoot:
+; Original data gap before EF76D8_EBattle4ShootMissText:
 db $01,$1F,$02,$22,$70,$7A,$16,$A0,$9D,$99,$A3,$A3,$95,$94,$51,$03
 db $02
 
-EF76D8_EBattle4MsgBtlMissShoot:
+EF76D8_EBattle4ShootMissText:
 
-; Original data gap before EF76FD_EBattle4MsgBtlTargetNotExist:
+; Original data gap before EF76FD_EBattle4TargetGoneText:
 db $01,$1F,$02,$22,$15,$37,$9E,$91,$A2,$17,$5B,$15,$9D,$9D,$99,$A3
 db $A3,$95,$94,$00,$50,$50,$98,$99,$A4,$A4,$15,$EB,$50,$A4,$91,$A2
 db $16,$23,$51,$03,$02
 
-EF76FD_EBattle4MsgBtlTargetNotExist:
+EF76FD_EBattle4TargetGoneText:
 
-; Original data gap before EF7710_EBattle4MsgBtlHpSuckSelfDrain:
+; Original data gap before EF7710_EBattle4HpSuckerSelfDrainText:
 db $01,$16,$DE,$50,$1C,$0E,$17,$B1,$00,$50,$15,$70,$97,$9F,$9E,$15
 db $34,$03,$02
 
-EF7710_EBattle4MsgBtlHpSuckSelfDrain:
+EF7710_EBattle4HpSuckerSelfDrainText:
 
-; Original data gap before EF7729_EBattle4MsgBtlHpSuckActionAmount:
+; Original data gap before EF7729_EBattle4HpSuckerDrainActionAmount:
 db $01,$70,$1C,$0D,$50,$94,$A2,$16,$43,$15,$57,$08,$6E,$E6,$C7,$00
 db $50,$17,$F0,$50,$78,$80,$51,$03,$02
 
-EF7729_EBattle4MsgBtlHpSuckActionAmount:
+EF7729_EBattle4HpSuckerDrainActionAmount:
 
-; Original data gap before EF773F_EBattle4MsgBtlPpDrainActionAmount:
+; Original data gap before EF773F_EBattle4PpDrainActionAmount:
 db $01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F,$50,$78,$80,$00,$50,$15
 db $2B,$1C,$0E,$51,$03,$02
 
-EF773F_EBattle4MsgBtlPpDrainActionAmount:
+EF773F_EBattle4PpDrainActionAmount:
 
-; Original data gap before EF7755_EBattle4MsgBtlPpDrainTargetActionAmount:
+; Original data gap before EF7755_EBattle4TargetPpDrainActionAmount:
 db $01,$70,$74,$A2,$16,$43,$15,$57,$1C,$0F,$50,$80,$80,$00,$50,$15
 db $2B,$1C,$0E,$51,$03,$02
 
 ; EBATTLE4: target-side PP drain amount text; consumes C1:DC66/1C 0F.
-EF7755_EBattle4MsgBtlPpDrainTargetActionAmount:
+EF7755_EBattle4TargetPpDrainActionAmount:
 
-; Original data gap before EF7768_EBattle4MsgBtlStrangeDamageActionAmount:
+; Original data gap before EF7768_EBattle4StrangeDamageActionAmount:
 db $01,$70,$1C,$0E,$17,$53,$A3,$A4,$00,$50,$50,$1C,$0F,$50,$80,$80
 db $51,$03,$02
 
 ; EBATTLE4: strange/status periodic damage amount text; consumes C1:DC66/1C 0F.
-EF7768_EBattle4MsgBtlStrangeDamageActionAmount:
+EF7768_EBattle4StrangeDamageActionAmount:
 
-; Original data gap before EF7787_EBattle4MsgBtlPoisonDamageActionAmount:
+; Original data gap before EF7787_EBattle4PoisonDamageActionAmount:
 db $01,$70,$1C,$0D,$50,$96,$95,$9C,$A4,$50,$A3,$15,$FA,$00,$50,$15
 db $04,$A4,$17,$37,$50,$1C,$0F,$50,$78,$80,$15,$D6,$51,$03,$02
 
 ; EBATTLE4: poison periodic damage amount text; consumes C1:DC66/1C 0F.
-EF7787_EBattle4MsgBtlPoisonDamageActionAmount:
+EF7787_EBattle4PoisonDamageActionAmount:
 
-; Original data gap before EF77B1_EBattle4MsgBtlSunstrokeDamageActionAmount:
+; Original data gap before EF77B1_EBattle4SunstrokeDamageActionAmount:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$50,$A0,$16,$43,$00,$50,$15
 db $52,$A0,$9F,$99,$A3,$9F,$9E,$03,$00,$50,$15,$04,$A4,$17,$37,$50
 db $1C,$0F,$50,$78,$80,$15,$D6,$5E,$03,$02
 
 ; EBATTLE4: sunstroke periodic damage amount text; consumes C1:DC66/1C 0F.
-EF77B1_EBattle4MsgBtlSunstrokeDamageActionAmount:
+EF77B1_EBattle4SunstrokeDamageActionAmount:
 
-; Original data gap before EF77DB_EBattle4MsgBtlColdDamageActionAmount:
+; Original data gap before EF77DB_EBattle4ColdDamageActionAmount:
 db $01,$70,$1C,$0E,$50,$96,$95,$9C,$A4,$16,$B1,$AA,$AA,$A9,$00,$50
 db $15,$04,$A7,$95,$91,$9B,$15,$04,$A2,$95,$93,$95,$99,$A6,$15,$57
 db $1C,$0F,$50,$78,$80,$15,$D6,$51,$03,$02
 
 ; EBATTLE4: cold periodic damage amount text; consumes C1:DC66/1C 0F.
-EF77DB_EBattle4MsgBtlColdDamageActionAmount:
+EF77DB_EBattle4ColdDamageActionAmount:
 
-; Original data gap before EF77FD_EBattle8MsgBtlCallForHelpEnemyJoined:
+; Original data gap before EF77FD_EBattle8CallForHelpEnemyJoinedResultText:
 db $01,$70,$1C,$0E,$50,$A3,$9E,$95,$95,$AA,$95,$94,$00,$50,$15,$04
 db $A2,$95,$93,$95,$99,$A6,$15,$57,$1C,$0F,$50,$78,$80,$15,$D6,$51
 db $03,$02
 
-EF77FD_EBattle8MsgBtlCallForHelpEnemyJoined:
+EF77FD_EBattle8CallForHelpEnemyJoinedResultText:
 
-; Original data gap before EF7810_EBattle8MsgBtlCallForHelpSeedSprouted:
+; Original data gap before EF7810_EBattle8CallForHelpSeedSproutedResultText:
 db $01,$70,$1C,$0E,$50,$9A,$9F,$16,$B9,$94,$00,$50,$16,$76,$17,$14
 db $5E,$03,$02
 
-EF7810_EBattle8MsgBtlCallForHelpSeedSprouted:
+EF7810_EBattle8CallForHelpSeedSproutedResultText:
 
-; Original data gap before EF7824_EBattle8MsgBtlCallForHelpNoOneCame:
+; Original data gap before EF7824_EBattle8CallForHelpNoOneCameResultText:
 db $01,$70,$1C,$0E,$16,$51,$A2,$A4,$95,$94,$00,$50,$15,$0C,$97,$17
 db $5B,$5E,$03,$02
 
-EF7824_EBattle8MsgBtlCallForHelpNoOneCame:
+EF7824_EBattle8CallForHelpNoOneCameResultText:
 
-; Original data gap before EF7830_EBattle8MsgBtlCallForHelpSeedNoSprout:
+; Original data gap before EF7830_EBattle8CallForHelpSeedNoSproutResultText:
 db $01,$16,$DE,$17,$58,$16,$9B,$17,$76,$5E,$03,$02
 
-EF7830_EBattle8MsgBtlCallForHelpSeedNoSprout:
+EF7830_EBattle8CallForHelpSeedNoSproutResultText:
 
-; Original data gap before EF7843_EBattle8MsgBtlTimeStopReturn:
+; Original data gap before EF7843_EBattle8TimeStopReturnResultText:
 db $01,$16,$DE,$5C,$16,$26,$95,$95,$94,$15,$CB,$A3,$A0,$A2,$16,$17
 db $5E,$03,$02
 
-EF7843_EBattle8MsgBtlTimeStopReturn:
+EF7843_EBattle8TimeStopReturnResultText:
 
-; Original data gap before EF7858_EBattle8MsgBtlAppearAttacked:
+; Original data gap before EF7858_EBattle8EncounterAttackedOpeningText:
 db $1F,$00,$00,$62,$01,$70,$84,$99,$9D,$95,$16,$51,$A2,$A4,$95,$94
 db $15,$5B,$5E,$03,$02
 
-EF7858_EBattle8MsgBtlAppearAttacked:
+EF7858_EBattle8EncounterAttackedOpeningText:
 
-; Original data gap before EF7866_EBattle8MsgBtlAppearBlockedWay:
+; Original data gap before EF7866_EBattle8EncounterBlockedWayOpeningText:
 db $01,$70,$08,$0B,$79,$EF,$00,$15,$DB,$95,$94,$51,$03,$02
 
-EF7866_EBattle8MsgBtlAppearBlockedWay:
+EF7866_EBattle8EncounterBlockedWayOpeningText:
 
-; Original data gap before EF7879_EBattle8MsgBtlAppearCameAfterYou:
+; Original data gap before EF7879_EBattle8EncounterCameAfterYouOpeningText:
 db $01,$70,$08,$0B,$79,$EF,$00,$50,$92,$9C,$17,$5A,$15,$4A,$16,$B0
 db $51,$03,$02
 
-EF7879_EBattle8MsgBtlAppearCameAfterYou:
+EF7879_EBattle8EncounterCameAfterYouOpeningText:
 
-; Original data gap before EF788B_EBattle8MsgBtlAppearTrappedYou:
+; Original data gap before EF788B_EBattle8EncounterTrappedYouOpeningText:
 db $01,$70,$08,$0B,$79,$EF,$00,$50,$17,$76,$50,$17,$2D,$15,$23,$51
 db $03,$02
 
-EF788B_EBattle8MsgBtlAppearTrappedYou:
+EF788B_EBattle8EncounterTrappedYouOpeningText:
 
-; Original data gap before EF789C_EBattle8MsgBtlFinalEncounter4:
+; Original data gap before EF789C_EBattle8FinalEncounterVariant4OpeningText:
 db $01,$70,$08,$0B,$79,$EF,$00,$16,$EF,$16,$56,$94,$15,$23,$51,$03
 db $02
 
-EF789C_EBattle8MsgBtlFinalEncounter4:
+EF789C_EBattle8FinalEncounterVariant4OpeningText:
 
-; Original data gap before EF78AB_EBattle8MsgBtlFinalEncounter5:
+; Original data gap before EF78AB_EBattle8FinalEncounterVariant5OpeningText:
 db $15,$11,$95,$9E,$17,$22,$15,$E0,$08,$4B,$79,$EF,$00,$03,$02
 
-EF78AB_EBattle8MsgBtlFinalEncounter5:
+EF78AB_EBattle8FinalEncounterVariant5OpeningText:
 
-; Original data gap before EF78B8_EBattle8MsgBtlFinalEncounter6:
+; Original data gap before EF78B8_EBattle8FinalEncounterVariant6OpeningText:
 db $15,$11,$9D,$95,$17,$85,$08,$4B,$79,$EF,$00,$03,$02
 
-EF78B8_EBattle8MsgBtlFinalEncounter6:
+EF78B8_EBattle8FinalEncounterVariant6OpeningText:
 
-; Original data gap before EF78C7_EBattle8MsgBtlFinalEncounter7:
+; Original data gap before EF78C7_EBattle8FinalEncounterVariant7OpeningText:
 db $15,$11,$95,$9E,$97,$16,$01,$50,$08,$4B,$79,$EF,$00,$03,$02
 
-EF78C7_EBattle8MsgBtlFinalEncounter7:
+EF78C7_EBattle8FinalEncounterVariant7OpeningText:
 
-; Original data gap before EF78D8_EBattle8MsgBtlSurpriseOpeningPlayer:
+; Original data gap before EF78D8_EBattle8PlayerSurpriseOpeningText:
 db $15,$11,$16,$57,$96,$A2,$9F,$9E,$A4,$50,$08,$4B,$79,$EF,$00,$03
 db $02
 
-EF78D8_EBattle8MsgBtlSurpriseOpeningPlayer:
+EF78D8_EBattle8PlayerSurpriseOpeningText:
 
-; Original data gap before EF78F7_EBattle8MsgBtlSurpriseOpeningMonster:
+; Original data gap before EF78F7_EBattle8MonsterSurpriseOpeningText:
 db $01,$17,$A7,$16,$46,$91,$17,$EF,$17,$01,$00,$50,$15,$4C,$A3,$A5
 db $A2,$A0,$A2,$99,$16,$C2,$17,$59,$16,$50,$15,$DB,$51,$03,$02
 
-EF78F7_EBattle8MsgBtlSurpriseOpeningMonster:
+EF78F7_EBattle8MonsterSurpriseOpeningText:
 
 ; Original data gap before EF790B_EBattle8GroupActorOpeningHelper:
 db $01,$17,$A7,$16,$46,$08,$8F,$79,$EF,$00,$50,$17,$59,$16,$50,$15
@@ -5243,126 +5254,128 @@ db $1C,$0D,$15,$04,$99,$17,$DA,$93,$9F,$98,$9F,$A2,$A4,$57,$A3,$02
 
 EF79C6_EBattle8GroupActorPossessiveCohorts:
 
-; Original data gap before EF79D7_EBattle8MsgBtlPlayerWin:
+; Original data gap before EF79D7_EBattle8PlayerVictoryText:
 db $1C,$0D,$15,$04,$99,$17,$DA,$93,$9F,$98,$9F,$A2,$A4,$A3,$57,$A3
 db $02
 
-EF79D7_EBattle8MsgBtlPlayerWin:
+EF79D7_EBattle8PlayerVictoryText:
 
-; Original data gap before EF79E6_EBattle8PlayerWinEventBranch:
+; Original data gap before EF79E6_EBattle8PlayerVictoryEventBranch:
 db $18,$06,$1F,$00,$00,$05,$00,$15,$1D,$1C,$08,$02,$00,$10,$78
 
-EF79E6_EBattle8PlayerWinEventBranch:
+EF79E6_EBattle8PlayerVictoryEventBranch:
 
-; Original data gap before EF79EF_EBattle8PlayerWinExperienceText:
+; Original data gap before EF79EF_EBattle8PlayerVictoryExperienceText:
 db $1F,$41,$11,$1B,$03,$0A,$7A,$EF,$00
 
-EF79EF_EBattle8PlayerWinExperienceText:
+EF79EF_EBattle8PlayerVictoryExperienceText:
 
-; Original data gap before EF7A0A_EBattle8PlayerWinHomesickBranch:
+; Original data gap before EF7A0A_EBattle8PlayerVictoryHomesickBranch:
 db $03,$00,$70,$08,$D7,$E6,$C7,$00,$50,$97,$16,$43,$15,$57,$1C,$0F
 db $50,$95,$A8,$A0,$08,$AD,$8F,$EF,$00,$14,$02
 
-EF7A0A_EBattle8PlayerWinHomesickBranch:
+EF7A0A_EBattle8PlayerVictoryHomesickBranch:
 
-; Original data gap before EF7A14_EBattle8MsgBtlPlayerWinBoss:
+; Original data gap before EF7A14_EBattle8BossVictoryText:
 db $19,$05,$01,$06,$02,$0A,$EF,$79,$EF,$00
 
-EF7A14_EBattle8MsgBtlPlayerWinBoss:
+EF7A14_EBattle8BossVictoryText:
 
-; Original data gap before EF7A28_EBattle8MsgBtlPlayerWinForce:
+; Original data gap before EF7A28_EBattle8ForcedVictoryText:
 db $18,$06,$1F,$00,$00,$B8,$00,$15,$1D,$1C,$08,$02,$00,$10,$78,$0A
 db $E6,$79,$EF,$00
 
-EF7A28_EBattle8MsgBtlPlayerWinForce:
+EF7A28_EBattle8ForcedVictoryText:
 
-; Original data gap before EF7A4D_EBattle8MsgBtlMonsterWin:
+; Original data gap before EF7A4D_EBattle8MonsterVictoryText:
 db $18,$06,$00,$15,$1D,$1C,$08,$02,$00,$10,$5A,$00,$70,$08,$D7,$E6
 db $C7,$00,$50,$97,$16,$43,$15,$57,$1C,$0F,$50,$95,$A8,$A0,$08,$AD
 db $8F,$EF,$00,$14,$02
 
-EF7A4D_EBattle8MsgBtlMonsterWin:
+EF7A4D_EBattle8MonsterVictoryText:
 
-; Original data gap before EF7A66_EBattle8MsgBtlLevelUp:
+; Original data gap before EF7A66_EBattle8LevelUpAnnouncementText:
 db $01,$10,$0A,$1F,$00,$00,$07,$70,$08,$D7,$E6,$C7,$00,$17,$53,$A3
 db $15,$36,$92,$17,$14,$15,$03,$14,$02
 
-EF7A66_EBattle8MsgBtlLevelUp:
+EF7A66_EBattle8LevelUpAnnouncementText:
 
-; Original data gap before EF7A7D_EBattle8MsgBtlLevelOffenseUpActionAmount:
+; Original data gap before EF7A7D_EBattle8LevelOffenseUpActionAmount:
 db $01,$70,$1C,$0E,$15,$39,$9C,$95,$A6,$95,$9C,$16,$00,$00,$50,$16
 db $8E,$50,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up offense gain amount text; consumes C1:AD0A/1C 0F.
-EF7A7D_EBattle8MsgBtlLevelOffenseUpActionAmount:
+EF7A7D_EBattle8LevelOffenseUpActionAmount:
 
-; Original data gap before EF7A97_EBattle8MsgBtlLevelDefenseUpActionAmount:
+; Original data gap before EF7A97_EBattle8LevelDefenseUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$7F,$96,$96,$95,$9E,$16,$C2,$A7,$16
 db $32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up defense gain amount text; consumes C1:AD0A/1C 0F.
-EF7A97_EBattle8MsgBtlLevelDefenseUpActionAmount:
+EF7A97_EBattle8LevelDefenseUpActionAmount:
 
-; Original data gap before EF7AB1_EBattle8MsgBtlLevelSpeedUpActionAmount:
+; Original data gap before EF7AB1_EBattle8LevelSpeedUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$74,$95,$96,$95,$9E,$16,$C2,$A7,$16
 db $32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up speed gain amount text; consumes C1:AD0A/1C 0F.
-EF7AB1_EBattle8MsgBtlLevelSpeedUpActionAmount:
+EF7AB1_EBattle8LevelSpeedUpActionAmount:
 
-; Original data gap before EF7AC9_EBattle8MsgBtlLevelGutsUpActionAmount:
+; Original data gap before EF7AC9_EBattle8LevelGutsUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$83,$A0,$95,$15,$57,$A7,$16,$32,$A5
 db $A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up guts gain amount text; consumes C1:AD0A/1C 0F.
-EF7AC9_EBattle8MsgBtlLevelGutsUpActionAmount:
+EF7AC9_EBattle8LevelGutsUpActionAmount:
 
-; Original data gap before EF7AE0_EBattle8MsgBtlLevelVitalityUpActionAmount:
+; Original data gap before EF7AE0_EBattle8LevelVitalityUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$77,$A5,$17,$DA,$A7,$16,$32,$A5,$A0
 db $15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up vitality gain amount text; consumes C1:AD0A/1C 0F.
-EF7AE0_EBattle8MsgBtlLevelVitalityUpActionAmount:
+EF7AE0_EBattle8LevelVitalityUpActionAmount:
 
-; Original data gap before EF7AFB_EBattle8MsgBtlLevelIqUpActionAmount:
+; Original data gap before EF7AFB_EBattle8LevelIqUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$86,$99,$A4,$91,$9C,$17,$C5,$50,$A7
 db $16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up IQ gain amount text; consumes C1:AD0A/1C 0F.
-EF7AFB_EBattle8MsgBtlLevelIqUpActionAmount:
+EF7AFB_EBattle8LevelIqUpActionAmount:
 
-; Original data gap before EF7B11_EBattle8MsgBtlLevelLuckUpActionAmount:
+; Original data gap before EF7B11_EBattle8LevelLuckUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$79,$81,$50,$A7,$16,$32,$A5,$A0,$15
 db $F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up luck gain amount text; consumes C1:AD0A/1C 0F.
-EF7B11_EBattle8MsgBtlLevelLuckUpActionAmount:
+EF7B11_EBattle8LevelLuckUpActionAmount:
 
-; Original data gap before EF7B28_EBattle8MsgBtlLevelMaxHpUpActionAmount:
+; Original data gap before EF7B28_EBattle8LevelMaxHpUpActionAmount:
 db $01,$70,$08,$BF,$7B,$EF,$00,$7C,$17,$D0,$50,$A7,$16,$32,$A5,$A0
 db $15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up maximum HP gain amount text; consumes C1:AD0A/1C 0F.
-EF7B28_EBattle8MsgBtlLevelMaxHpUpActionAmount:
+EF7B28_EBattle8LevelMaxHpUpActionAmount:
 
-; Original data gap before EF7B46_EBattle8MsgBtlLevelMaxPpUpActionAmount:
+; Original data gap before EF7B46_EBattle8LevelMaxPpUpActionAmount:
 db $01,$70,$08,$83,$7B,$EF,$00,$7D,$91,$A8,$99,$9D,$A5,$9D,$50,$78
 db $80,$50,$A7,$16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 ; EBATTLE8: level-up maximum PP gain amount text; consumes C1:AD0A/1C 0F.
-EF7B46_EBattle8MsgBtlLevelMaxPpUpActionAmount:
+EF7B46_EBattle8LevelMaxPpUpActionAmount:
 
-; Original data gap before EF7B64_EBattle8MsgBtlLearnPsi:
+; Original data gap before EF7B64_EBattle8LearnedPsiLeadInText:
 db $01,$70,$08,$A0,$7B,$EF,$00,$7D,$91,$A8,$99,$9D,$A5,$9D,$50,$80
 db $80,$50,$A7,$16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
-EF7B64_EBattle8MsgBtlLearnPsi:
+EF7B64_EBattle8LearnedPsiLeadInText:
 
-; Original data gap before EF7B77_EBattle8PsiNameByteSubstitutionText:
+; Original data gap before EF7B77_EBattle8PsiNameByteSubstitutionPayloadText:
 db $01,$1F,$02,$67,$70,$1C,$0E,$16,$C4,$9C,$99,$AA,$15,$4A,$16,$FE
 db $15,$86,$00
 
-EF7B77_EBattle8PsiNameByteSubstitutionText:
+; EBATTLE8: learned-PSI name payload text; consumes the C1:DD7C byte slot
+; through 19 1F.
+EF7B77_EBattle8PsiNameByteSubstitutionPayloadText:
 
 ; Original data gap before EF7B83_EBattle8PointerSubstitutionIntroState:
 db $19,$1F,$1B,$04,$50,$50,$1C,$12,$00,$5E,$14,$02
@@ -5396,13 +5409,15 @@ db $1B,$00
 
 EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
 
-; Original data gap before EF7BDF_EBattle8MsgBtlPresentItemByteSubstitutionText:
+; Original data gap before EF7BDF_EBattle8PresentItemByteSubstitutionPayloadText:
 db $19,$1E,$18,$07,$03,$00,$00,$00,$00,$1B,$02,$DC,$7B,$EF,$00,$7F
 db $98,$5C,$50,$92,$91,$92,$A9,$51,$00,$50,$50,$1B,$01,$02
 
-EF7BDF_EBattle8MsgBtlPresentItemByteSubstitutionText:
+; EBATTLE8: present item-name payload text; consumes the C1:DD7C item byte
+; through 19 1F.
+EF7BDF_EBattle8PresentItemByteSubstitutionPayloadText:
 
-; Original data gap before EF7C42_EBattle8PresentRecipientDeadText:
+; Original data gap before EF7C42_EBattle8PresentRecipientCannotReceiveResultText:
 db $01,$15,$7F,$15,$F3,$17,$EC,$96,$17,$0D,$16,$AF,$15,$9E,$51,$14
 db $00,$1F,$02,$10,$10,$01,$70,$79,$9E,$A3,$99,$94,$15,$15,$16,$AF
 db $15,$9E,$5C,$00,$19,$1F,$1B,$04,$50,$15,$79,$A7,$91,$16,$F5,$1C
@@ -5411,49 +5426,49 @@ db $08,$85,$DC,$C7,$00,$1B,$03,$42,$7C,$EF,$00,$1B,$01,$1B,$04,$70
 db $1C,$02,$00,$1B,$04,$16,$40,$9B,$17,$8F,$1D,$0E,$00,$00,$1F,$02
 db $74,$14,$02
 
-EF7C42_EBattle8PresentRecipientDeadText:
+EF7C42_EBattle8PresentRecipientCannotReceiveResultText:
 
-; Original data gap before EF7C73_EBattle8PresentInventoryFullText:
+; Original data gap before EF7C73_EBattle8PresentInventoryFullResultText:
 db $19,$10,$01,$1B,$04,$01,$70,$1C,$02,$00,$50,$91,$94,$94,$95,$94
 db $1B,$01,$15,$18,$1C,$05,$00,$15,$90,$00,$50,$50,$1B,$04,$1C,$02
 db $00,$57,$A3,$15,$C8,$5E,$1B,$04,$1D,$0E,$00,$00,$1F,$02,$74,$14
 db $02
 
-EF7C73_EBattle8PresentInventoryFullText:
+EF7C73_EBattle8PresentInventoryFullResultText:
 
-; Original data gap before EF7C89_EBattle8PresentThrowAwayPrompt:
+; Original data gap before EF7C89_EBattle8PresentThrowAwayPromptText:
 db $16,$DE,$5C,$50,$08,$D7,$E6,$C7,$00,$15,$C0,$16,$AB,$17,$BF,$17
 db $0B,$15,$C8,$5E,$14,$00
 
-EF7C89_EBattle8PresentThrowAwayPrompt:
+EF7C89_EBattle8PresentThrowAwayPromptText:
 
-; Original data gap before EF7CB4_EBattle8PresentAbandonPrompt:
+; Original data gap before EF7CB4_EBattle8PresentAbandonPromptText:
 db $15,$1E,$A4,$98,$17,$5B,$00,$50,$15,$0A,$16,$C9,$6F,$14,$00,$19
 db $02,$89,$95,$A3,$02,$50,$50,$19,$02,$7E,$9F,$02,$1C,$07,$02,$11
 db $12,$09,$02,$0F,$7D,$EF,$00,$B4,$7C,$EF,$00
 
-EF7CB4_EBattle8PresentAbandonPrompt:
+EF7CB4_EBattle8PresentAbandonPromptText:
 
-; Original data gap before EF7CED_EBattle8PresentAbandonRetryText:
+; Original data gap before EF7CED_EBattle8PresentAbandonRetryPromptText:
 db $19,$1F,$1B,$04,$15,$7F,$9E,$5C,$50,$A7,$99,$15,$C5,$9C,$17,$AE
 db $00,$15,$95,$1C,$05,$00,$15,$BD,$98,$99,$9E,$94,$6F,$14,$00,$19
 db $02,$89,$95,$A3,$02,$19,$02,$7E,$9F,$02,$1C,$07,$02,$11,$12,$09
 db $02,$F8,$7C,$EF,$00,$ED,$7C,$EF,$00
 
-EF7CED_EBattle8PresentAbandonRetryText:
+EF7CED_EBattle8PresentAbandonRetryPromptText:
 
-; Original data gap before EF7CF8_EBattle8PresentAbandonConfirmedText:
+; Original data gap before EF7CF8_EBattle8PresentAbandonConfirmedResultText:
 db $15,$7F,$9E,$5C,$14,$00,$0A,$89,$7C,$EF,$00
 
-EF7CF8_EBattle8PresentAbandonConfirmedText:
+EF7CF8_EBattle8PresentAbandonConfirmedResultText:
 
-; Original data gap before EF7D0F_EBattle8PresentDropSelectionPrompt:
+; Original data gap before EF7D0F_EBattle8PresentDropSelectionPromptText:
 db $70,$08,$4E,$E7,$C7,$00,$50,$91,$92,$16,$EA,$15,$7E,$94,$00,$15
 db $95,$1C,$05,$00,$5E,$14,$02
 
-EF7D0F_EBattle8PresentDropSelectionPrompt:
+EF7D0F_EBattle8PresentDropSelectionPromptText:
 
-; Original data gap before EF7D83_EBattle8PresentDropConfirmedText:
+; Original data gap before EF7D83_EBattle8PresentDropConfirmedResultText:
 db $01,$15,$7B,$94,$9F,$15,$26,$A4,$98,$17,$5B,$50,$16,$C9,$6F,$14
 db $08,$C3,$E4,$C5,$00,$01,$1B,$02,$B4,$7C,$EF,$00,$1B,$00,$19,$19
 db $00,$00,$1D,$0B,$00,$1B,$02,$BE,$7D,$EF,$00,$1B,$01,$19,$19,$00
@@ -5463,427 +5478,450 @@ db $A9,$02,$19,$02,$74,$9F,$9E,$57,$A4,$50,$94,$9F,$50,$99,$A4,$02
 db $1C,$07,$02,$11,$12,$09,$02,$83,$7D,$EF,$00,$B4,$7C,$EF,$00,$0A
 db $B4,$7C,$EF,$00
 
-EF7D83_EBattle8PresentDropConfirmedText:
+EF7D83_EBattle8PresentDropConfirmedResultText:
 
-; Original data gap before EF7DBE_EBattle8PresentDropForbiddenText:
+; Original data gap before EF7DBE_EBattle8PresentDropForbiddenResultText:
 db $1B,$01,$1D,$0F,$00,$00,$1B,$04,$70,$1C,$02,$00,$1B,$04,$50,$A4
 db $98,$A2,$95,$A7,$15,$18,$1C,$05,$00,$50,$16,$C9,$14,$00,$1B,$04
 db $19,$1F,$1B,$04,$70,$16,$4F,$A4,$17,$37,$15,$18,$1C,$05,$00,$5E
 db $1D,$0E,$00,$00,$1F,$02,$74,$10,$01,$03,$02
 
-EF7DBE_EBattle8PresentDropForbiddenText:
+EF7DBE_EBattle8PresentDropForbiddenResultText:
 
-; Original data gap before EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
+; Original data gap before EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionPayloadText:
 db $17,$94,$15,$81,$A4,$98,$17,$5B,$15,$18,$1C,$05,$00,$50,$16,$C9
 db $5E,$14,$0A,$0F,$7D,$EF,$00
 
-EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
+; EBATTLE8: check-present get-item payload text; consumes the C1:DD7C item byte
+; through 19 1F.
+EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionPayloadText:
 
-; Original data gap before EF7E25_EBattle2MsgBtlPpDown:
+; Original data gap before EF7E25_EBattle2PpReductionRowPresentationText:
 db $01,$70,$1C,$0D,$17,$CA,$A7,$00,$50,$15,$BC,$16,$AF,$16,$32,$92
 db $95,$98,$99,$15,$B4,$17,$42,$A9,$5E,$03,$00,$1F,$02,$10,$70,$79
 db $9E,$A3,$99,$94,$15,$15,$16,$AF,$15,$9E,$5C,$00,$19,$1F,$1B,$04
 db $50,$15,$79,$A7,$91,$16,$F5,$1C,$05,$00,$5E,$03,$00,$70,$1C,$02
 db $03,$50,$17,$0F,$A3,$17,$8F,$1D,$0E,$03,$00,$1F,$02,$74,$03,$02
 
-EF7E25_EBattle2MsgBtlPpDown:
+; EBATTLE2: row 95 row +4 PP-reduction presentation text.
+EF7E25_EBattle2PpReductionRowPresentationText:
 
-; Original data gap before EF7E3E_EBattle2MsgBtlOkoru:
+; Original data gap before EF7E3E_EBattle2SteamedOffenseUpRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$DF,$94,$95,$00,$50,$15,$0A,$A3
 db $A0,$17,$68,$91,$17,$10,$51,$03,$02
 
-EF7E3E_EBattle2MsgBtlOkoru:
+; EBATTLE2: row 96 row +4 steamed/offense-up presentation text.
+EF7E3E_EBattle2SteamedOffenseUpRowPresentationText:
 
-; Original data gap before EF7E55_EBattle2MsgBtlKitanaiKotoba:
+; Original data gap before EF7E55_EBattle2DirtyWordsGutsReductionRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$53,$A3,$A4,$00,$50,$16,$D9,$A4
 db $95,$9D,$16,$A1,$51,$03,$02
 
-EF7E55_EBattle2MsgBtlKitanaiKotoba:
+; EBATTLE2: row 97 row +4 dirty-words/guts-reduction presentation text.
+EF7E55_EBattle2DirtyWordsGutsReductionRowPresentationText:
 
-; Original data gap before EF7E70_EBattle2MsgBtlSuibun:
+; Original data gap before EF7E70_EBattle2MoistureSuckedOffenseDefenseReductionRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$CA,$99,$94,$00,$50,$15,$0A,$9E
 db $16,$A6,$A9,$51,$1F,$02,$54,$03,$10,$01,$02
 
-EF7E70_EBattle2MsgBtlSuibun:
+; EBATTLE2: row 98 row +4 moisture-sucked offense/defense reduction text.
+EF7E70_EBattle2MoistureSuckedOffenseDefenseReductionRowPresentationText:
 
-; Original data gap before EF7E88_EBattle2MsgBtlEnergy:
+; Original data gap before EF7E88_EBattle2FuelSupplyFullHealRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$AC,$91,$00,$50,$50,$A6,$91,$93
 db $A5,$A5,$9D,$15,$DB,$51,$03,$02
 
-; EBATTLE2: row 99 row +4 full-heal/fuel-supply presentation message.
-EF7E88_EBattle2MsgBtlEnergy:
+; EBATTLE2: row 99 row +4 full-heal/fuel-supply presentation text.
+EF7E88_EBattle2FuelSupplyFullHealRowPresentationText:
 
-; Original data gap before EF7EAC_EBattle2MsgBtlDokuKamituki:
+; Original data gap before EF7EAC_EBattle2PoisonFangsRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$48,$17,$05,$9E,$17,$C8,$15,$57
 db $91,$50,$96,$A5,$95,$9C,$17,$B3,$A0,$A0,$9C,$A9,$51,$1F,$02,$59
 db $03,$10,$01,$02
 
-EF7EAC_EBattle2MsgBtlDokuKamituki:
+EF7EAC_EBattle2PoisonFangsRowPresentationText:
 
-; Original data gap before EF7ED5_EBattle2MsgBtlYoroMissile:
+; Original data gap before EF7ED5_EBattle2FiredMissileRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$40,$9B,$17,$33,$17,$15,$00,$50
 db $50,$A5,$A3,$15,$1B,$99,$17,$DA,$A0,$9F,$99,$A3,$9F,$9E,$17,$26
 db $50,$96,$91,$9E,$97,$A3,$51,$03,$02
 
-; EBATTLE2: row 101 row +4 projectile/explosive presentation message.
-EF7ED5_EBattle2MsgBtlYoroMissile:
+; EBATTLE2: row 101 row +4 fired-missile presentation text.
+EF7ED5_EBattle2FiredMissileRowPresentationText:
 
-; Original data gap before EF7F02_EBattle2MsgBtlMultiAttack:
+; Original data gap before EF7F02_EBattle2AttackContinuouslyRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$96,$99,$17,$45,$00,$50,$15,$BC
 db $9D,$99,$A3,$A3,$99,$9C,$17,$07,$9D,$91,$15,$E9,$99,$A4,$16,$EB
 db $16,$B1,$AA,$AA,$A9,$5E,$1F,$02,$46,$03,$10,$01,$02
 
-EF7F02_EBattle2MsgBtlMultiAttack:
+EF7F02_EBattle2AttackContinuouslyRowPresentationText:
 
-; Original data gap before EF7F1E_EBattle2MsgBtlMigamae:
+; Original data gap before EF7F1E_EBattle2MigamaeRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$51,$A2,$16,$B6,$91,$00,$50,$17
 db $43,$A4,$99,$9E,$A5,$17,$26,$15,$DB,$51,$03,$02
 
-EF7F1E_EBattle2MsgBtlMigamae:
+EF7F1E_EBattle2MigamaeRowPresentationText:
 
-; Original data gap before EF7F32_EBattle2MsgBtlFireball:
+; Original data gap before EF7F32_EBattle2FlamingFireballRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$16,$BC,$97,$A5,$16
 db $73,$5E,$03,$02
 
-EF7F32_EBattle2MsgBtlFireball:
+EF7F32_EBattle2FlamingFireballRowPresentationText:
 
-; Original data gap before EF7F5A_EBattle2MsgBtlGekitotu:
+; Original data gap before EF7F5A_EBattle2GekitotuRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$95,$A7,$95,$94,$15,$93,$00
 db $50,$15,$BC,$96,$9C,$91,$9D,$15,$1B,$96,$99,$A2,$95,$92,$15,$D8
 db $51,$1F,$02,$4B,$03,$10,$01,$02
 
-EF7F5A_EBattle2MsgBtlGekitotu:
+EF7F5A_EBattle2GekitotuRowPresentationText:
 
-; Original data gap before EF7F7B_EBattle2MsgBtlKarate:
+; Original data gap before EF7F7B_EBattle2KarateRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A2,$A5,$A3,$98,$15,$57,$99,$9E
 db $5C,$00,$50,$15,$04,$16,$5D,$A4,$A7,$16,$B9,$94,$15,$8A,$51,$03
 db $02
 
-EF7F7B_EBattle2MsgBtlKarate:
+EF7F7B_EBattle2KarateRowPresentationText:
 
-; Original data gap before EF7F9A_EBattle2MsgBtlTomoe:
+; Original data gap before EF7F9A_EBattle2TomoeRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$15,$DB,$95,$94,$00,$50,$15,$2E,$91
 db $50,$93,$A2,$A5,$A3,$98,$15,$1B,$93,$98,$9F,$A0,$51,$03,$02
 
-EF7F9A_EBattle2MsgBtlTomoe:
+EF7F9A_EBattle2TomoeRowPresentationText:
 
-; Original data gap before EF7FC3_EBattle2MsgBtlBousou:
+; Original data gap before EF7FC3_EBattle2BousouRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$A2,$91,$A0,$17,$05,$94,$15
 db $04,$16,$4B,$94,$00,$50,$16,$D9,$A3,$A5,$92,$9D,$99,$A3,$A3,$99
 db $9F,$9E,$16,$58,$9C,$94,$51,$03,$02
 
-EF7FC3_EBattle2MsgBtlBousou:
+EF7FC3_EBattle2BousouRowPresentationText:
 
-; Original data gap before EF7FE0_EBattle2MsgBtlKnife:
+; Original data gap before EF7FE0_EBattle2KnifeRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$48,$A6,$A6,$95,$94,$15,$04,$91
 db $93,$93,$95,$9C,$95,$A2,$16,$66,$94,$51,$00,$03,$02
 
-EF7FE0_EBattle2MsgBtlKnife:
+EF7FE0_EBattle2KnifeRowPresentationText:
 
-; Original data gap before EF7FFC_EBattle2MsgBtlTossin:
+; Original data gap before EF7FFC_EBattle2TossinRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$92,$A2,$16,$EA,$17,$C8,$95,$94
 db $00,$50,$15,$BC,$9B,$9E,$99,$96,$95,$51,$03,$02
 
-EF7FFC_EBattle2MsgBtlTossin:
+EF7FFC_EBattle2TossinRowPresentationText:
 
-; Original data gap before EF8010_EBattle2MsgBtlKamituki:
+; Original data gap before EF8010_EBattle2KamitukiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$15,$90,$A2,$95,$00,$50,$16,$0B,$15
 db $6A,$51,$03,$02
 
-EF8010_EBattle2MsgBtlKamituki:
+EF8010_EBattle2KamitukiRowPresentationText:
 
-; Original data gap before EF8026_EBattle2MsgBtlHikkaki:
+; Original data gap before EF8026_EBattle2HikkakiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$AC,$91,$00,$50,$50,$92,$99,$16
 db $35,$15,$DB,$51,$03,$02
 
-EF8026_EBattle2MsgBtlHikkaki:
+EF8026_EBattle2HikkakiRowPresentationText:
 
-; Original data gap before EF804B_EBattle2MsgBtlSippo:
+; Original data gap before EF804B_EBattle2SippoRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$93,$9C,$91,$A7,$95,$94,$00,$50
 db $15,$2E,$08,$6E,$E6,$C7,$00,$17,$F5,$91,$A2,$A0,$50,$9E,$91,$99
 db $9C,$A3,$51,$03,$02
 
-EF804B_EBattle2MsgBtlSippo:
+EF804B_EBattle2SippoRowPresentationText:
 
-; Original data gap before EF806D_EBattle2MsgBtlNoshikakari:
+; Original data gap before EF806D_EBattle2NoshikakariRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$A7,$A5,$9E,$97,$00,$50,$50
 db $08,$6E,$E6,$C7,$00,$50,$A4,$91,$99,$9C,$15,$67,$98,$16,$73,$51
 db $03,$02
 
-EF806D_EBattle2MsgBtlNoshikakari:
+EF806D_EBattle2NoshikakariRowPresentationText:
 
-; Original data gap before EF808D_EBattle2MsgBtlKamibukuro:
+; Original data gap before EF808D_EBattle2KamibukuroRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$17,$5B,$9C,$95,$94,$00,$50
 db $15,$04,$9C,$A5,$9E,$97,$95,$94,$16,$12,$A7,$16,$73,$51,$03,$02
 
-EF808D_EBattle2MsgBtlKamibukuro:
+EF808D_EBattle2KamibukuroRowPresentationText:
 
-; Original data gap before EF80AC_EBattle2MsgBtlKonbou:
+; Original data gap before EF80AC_EBattle2KonbouRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A7,$99,$95,$9C,$94,$95,$94,$00
 db $50,$50,$91,$16,$DF,$A0,$A0,$15,$1B,$92,$91,$97,$51,$03,$02
 
-EF80AC_EBattle2MsgBtlKonbou:
+EF80AC_EBattle2KonbouRowPresentationText:
 
-; Original data gap before EF80C4_EBattle2MsgBtlTatumaki:
+; Original data gap before EF80C4_EBattle2TornadoRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$A7,$A5,$9E,$97,$00,$50,$15
 db $BC,$93,$9C,$A5,$92,$51,$03,$02
 
-EF80C4_EBattle2MsgBtlTatumaki:
+EF80C4_EBattle2TornadoRowPresentationText:
 
-; Original data gap before EF80E4_EBattle2MsgBtlWater:
+; Original data gap before EF80E4_EBattle2GiganticBlastRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$95,$17,$E2,$16,$66,$94,$00
 db $50,$50,$91,$15,$90,$A2,$9E,$91,$94,$9F,$51,$1F,$02,$5A,$03,$02
 
-EF80E4_EBattle2MsgBtlWater:
+EF80E4_EBattle2GiganticBlastRowPresentationText:
 
-; Original data gap before EF8109_EBattle2MsgBtlFutekiSmile:
+; Original data gap before EF8109_EBattle2DefiantSmileFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$A2,$91,$A9,$15,$57,$91,$50
 db $97,$99,$97,$16,$DC,$99,$93,$50,$92,$9C,$91,$A3,$17,$1D,$A7,$16
 db $41,$51,$00,$03,$02
 
-EF8109_EBattle2MsgBtlFutekiSmile:
+; EBATTLE2: row 119 row +4 defiant-smile flavor presentation text.
+EF8109_EBattle2DefiantSmileFlavorRowPresentationText:
 
-; Original data gap before EF812B_EBattle2MsgBtlLoudSmile:
+; Original data gap before EF812B_EBattle2LoudSmileFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$96,$9C,$91,$A3,$98,$95,$94,$00
 db $50,$50,$91,$15,$B8,$9E,$91,$93,$15,$1B,$A3,$9D,$99,$9C,$95,$51
 db $03,$02
 
-EF812B_EBattle2MsgBtlLoudSmile:
+; EBATTLE2: row 120 row +4 loud-smile flavor presentation text.
+EF812B_EBattle2LoudSmileFlavorRowPresentationText:
 
-; Original data gap before EF814F_EBattle2MsgBtlNijiriyoru:
+; Original data gap before EF814F_EBattle2EdgeCloserFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$51,$A2,$A4,$95,$94,$00,$50,$50
 db $9C,$91,$A5,$97,$98,$15,$1B,$98,$A9,$A3,$16,$06,$99,$93,$15,$D8
 db $A9,$51,$03,$02
 
-EF814F_EBattle2MsgBtlNijiriyoru:
+; EBATTLE2: row 121 row +4 edge-closer flavor presentation text.
+EF814F_EBattle2EdgeCloserFlavorRowPresentationText:
 
-; Original data gap before EF8167_EBattle2MsgBtlTubuyaki1:
+; Original data gap before EF8167_EBattle2Mutter1FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$94,$97,$95,$94,$00,$50,$50
 db $93,$9C,$9F,$17,$AB,$51,$03,$02
 
-EF8167_EBattle2MsgBtlTubuyaki1:
+; EBATTLE2: row 124 row +4 mutter-1 flavor presentation text.
+EF8167_EBattle2Mutter1FlavorRowPresentationText:
 
-; Original data gap before EF8186_EBattle2MsgBtlTubuyaki2:
+; Original data gap before EF8186_EBattle2Mutter2FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$9D,$A5,$A4,$16,$06,$95,$94,$00
 db $1F,$04,$02,$50,$50,$6C,$61,$15,$03,$6E,$1F,$04,$01,$03,$02
 
-EF8186_EBattle2MsgBtlTubuyaki2:
+; EBATTLE2: row 123 row +4 mutter-2 flavor presentation text.
+EF8186_EBattle2Mutter2FlavorRowPresentationText:
 
-; Original data gap before EF81A5_EBattle2MsgBtlTubuyaki3:
+; Original data gap before EF81A5_EBattle2Mutter3FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$9D,$A5,$A2,$9D,$A5,$17,$45,$00
 db $1F,$04,$02,$50,$50,$6C,$62,$15,$03,$6E,$1F,$04,$01,$03,$02
 
-EF81A5_EBattle2MsgBtlTubuyaki3:
+; EBATTLE2: row 122 row +4 mutter-3 flavor presentation text.
+EF81A5_EBattle2Mutter3FlavorRowPresentationText:
 
-; Original data gap before EF81C4_EBattle2MsgBtlKorobu:
+; Original data gap before EF81C4_EBattle2FellDownFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A7,$16,$55,$16,$A1,$95,$94,$00
 db $1F,$04,$02,$50,$50,$6C,$63,$15,$03,$6E,$1F,$04,$01,$03,$02
 
-EF81C4_EBattle2MsgBtlKorobu:
+; EBATTLE2: row 125 row +4 fell-down flavor presentation text.
+EF81C4_EBattle2FellDownFlavorRowPresentationText:
 
-; Original data gap before EF81D7_EBattle2MsgBtlBootto:
+; Original data gap before EF81D7_EBattle2AbsentMindedFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$96,$17,$49,$17,$9F,$51,$1F,$02
 db $22,$03,$02
 
-EF81D7_EBattle2MsgBtlBootto:
+; EBATTLE2: row 126 row +4 absent-minded flavor presentation text.
+EF81D7_EBattle2AbsentMindedFlavorRowPresentationText:
 
-; Original data gap before EF81F1_EBattle2MsgBtlJyouki:
+; Original data gap before EF81F1_EBattle2SteamCloudFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$15,$21,$17,$13,$00,$50,$50,$91,$92
 db $A3,$15,$9E,$17,$84,$94,$16,$92,$03,$02
 
-EF81F1_EBattle2MsgBtlJyouki:
+; EBATTLE2: row 127 row +4 steam-cloud flavor presentation text.
+EF81F1_EBattle2SteamCloudFlavorRowPresentationText:
 
-; Original data gap before EF8211_EBattle2MsgBtlYoroyoro:
+; Original data gap before EF8211_EBattle2WobblyFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$95,$17,$E2,$16,$66,$94,$00
 db $50,$17,$33,$A5,$A2,$A3,$17,$1D,$A3,$A4,$95,$91,$9D,$51,$03,$02
 
-EF8211_EBattle2MsgBtlYoroyoro:
+; EBATTLE2: row 128 row +4 wobbly flavor presentation text.
+EF8211_EBattle2WobblyFlavorRowPresentationText:
 
-; Original data gap before EF8226_EBattle2MsgBtlFurafura:
+; Original data gap before EF8226_EBattle2StaggerFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$50,$A7,$9F,$92,$92
 db $9C,$A9,$5E,$03,$02
 
-EF8226_EBattle2MsgBtlFurafura:
+; EBATTLE2: row 129 row +4 stagger flavor presentation text.
+EF8226_EBattle2StaggerFlavorRowPresentationText:
 
-; Original data gap before EF8239_EBattle2MsgBtlNitanita:
+; Original data gap before EF8239_EBattle2GrinFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$17,$48,$95,$9C,$16
 db $44,$03,$02
 
-EF8239_EBattle2MsgBtlNitanita:
+; EBATTLE2: row 130 row +4 grin flavor presentation text.
+EF8239_EBattle2GrinFlavorRowPresentationText:
 
-; Original data gap before EF825C_EBattle2MsgBtlKokyuu:
+; Original data gap before EF825C_EBattle2DeepBreathFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$0C,$A3,$00,$50,$17,$33,$99,$97
 db $50,$97,$A2,$99,$9E,$16,$BC,$08,$6E,$E6,$C7,$00,$50,$96,$17,$87
 db $5E,$03,$02
 
-EF825C_EBattle2MsgBtlKokyuu:
+; EBATTLE2: row 131 row +4 deep-breath flavor presentation text.
+EF825C_EBattle2DeepBreathFlavorRowPresentationText:
 
-; Original data gap before EF8281_EBattle2MsgBtlAisatu:
+; Original data gap before EF8281_EBattle2GreetingFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$15,$21,$A4,$91,$15,$E9,$94,$15,$C9
 db $50,$92,$16,$82,$98,$A3,$15,$27,$17,$4C,$50,$17,$D1,$91,$A5,$9C
 db $A4,$5E,$00,$03,$02
 
-EF8281_EBattle2MsgBtlAisatu:
+; EBATTLE2: row 132 row +4 greeting flavor presentation text.
+EF8281_EBattle2GreetingFlavorRowPresentationText:
 
-; Original data gap before EF8299_EBattle2MsgBtlUnari:
+; Original data gap before EF8299_EBattle2RoarFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DB,$9E,$94,$A3,$00,$50,$15,$BC
 db $97,$16,$FA,$16,$35,$51,$03,$02
 
-EF8299_EBattle2MsgBtlUnari:
+; EBATTLE2: row 133 row +4 roar flavor presentation text.
+EF8299_EBattle2RoarFlavorRowPresentationText:
 
-; Original data gap before EF82BC_EBattle2MsgBtlKachikachi:
+; Original data gap before EF82BC_EBattle2TeethChatterFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$17,$DF,$9B,$16,$96
 db $9C,$9F,$A5,$94,$5C,$50,$A0,$99,$95,$A2,$93,$15,$1B,$17,$5D,$9C
 db $5E,$03,$02
 
-EF82BC_EBattle2MsgBtlKachikachi:
+; EBATTLE2: row 134 row +4 teeth-chatter flavor presentation text.
+EF82BC_EBattle2TeethChatterFlavorRowPresentationText:
 
-; Original data gap before EF82D7_EBattle2MsgBtlMabusiiHikari:
+; Original data gap before EF82D7_EBattle2MabusiiHikariRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$17,$CA,$16,$9D,$6C
 db $A4,$15,$FA,$5D,$A4,$17,$5A,$5E,$6E,$03,$02
 
-EF82D7_EBattle2MsgBtlMabusiiHikari:
+EF82D7_EBattle2MabusiiHikariRowPresentationText:
 
-; Original data gap before EF82F7_EBattle2MsgBtlBiribiri:
+; Original data gap before EF82F7_EBattle2BiribiriRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$9D,$99,$A4,$A4,$95,$94,$00
 db $50,$15,$BC,$97,$9C,$9F,$A2,$16,$81,$50,$9C,$15,$BB,$51,$03,$02
 
-EF82F7_EBattle2MsgBtlBiribiri:
+EF82F7_EBattle2BiribiriRowPresentationText:
 
-; Original data gap before EF8317_EBattle2MsgBtlKafun:
+; Original data gap before EF8317_EBattle2KafunRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$AC,$91,$9E,$00,$50,$50,$95,$9C
 db $16,$A5,$A2,$99,$93,$91,$9C,$16,$DF,$93,$9B,$15,$DB,$51,$03,$02
 
-EF8317_EBattle2MsgBtlKafun:
+EF8317_EBattle2KafunRowPresentationText:
 
-; Original data gap before EF833E_EBattle2MsgBtlColdHand:
+; Original data gap before EF833E_EBattle2ColdHandRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$91,$A4,$16,$06,$95,$94
 db $00,$50,$15,$6C,$A3,$50,$A0,$9F,$9C,$9C,$17,$46,$91,$17,$10,$51
 db $1F,$02,$52,$03,$10,$01,$02
 
-EF833E_EBattle2MsgBtlColdHand:
+EF833E_EBattle2ColdHandRowPresentationText:
 
-; Original data gap before EF835C_EBattle2MsgBtlPoisonBreath:
+; Original data gap before EF835C_EBattle2PoisonBreathRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$C4,$16,$E6,$94,$00,$50,$15,$93
 db $15,$2E,$99,$17,$DA,$99,$93,$A9,$50,$17,$75,$5E,$03,$02
 
-EF835C_EBattle2MsgBtlPoisonBreath:
+EF835C_EBattle2PoisonBreathRowPresentationText:
 
-; Original data gap before EF838A_EBattle2MsgBtlHaikiGas:
+; Original data gap before EF838A_EBattle2HaikiGasRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$17,$36,$A9,$95,$94,$00,$50,$15
 db $BC,$96,$9C,$A5,$A4,$95,$15,$2E,$08,$6E,$E6,$C7,$00,$50,$A0,$9F
 db $99,$A3,$9F,$9E,$17,$26,$50,$92,$16,$82,$98,$51,$03,$02
 
-EF838A_EBattle2MsgBtlHaikiGas:
+EF838A_EBattle2HaikiGasRowPresentationText:
 
-; Original data gap before EF83A8_EBattle2MsgBtlLaughHen:
+; Original data gap before EF83A8_EBattle2StrangeStatusLaughRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$95,$A7,$95,$94,$00,$50,$50
 db $95,$A8,$98,$91,$16,$A0,$96,$A5,$9D,$95,$A3,$51,$03,$02
 
-EF83A8_EBattle2MsgBtlLaughHen:
+EF83A8_EBattle2StrangeStatusLaughRowPresentationText:
 
-; Original data gap before EF83CA_EBattle2MsgBtlFue:
+; Original data gap before EF83CA_EBattle2FueRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$51,$A2,$A4,$95,$94,$00,$50,$50
 db $9C,$91,$A5,$97,$98,$15,$1B,$17,$D2,$99,$91,$93,$15,$D8,$A9,$51
 db $03,$02
 
-EF83CA_EBattle2MsgBtlFue:
+EF83CA_EBattle2FueRowPresentationText:
 
-; Original data gap before EF83ED_EBattle2MsgBtlJumpToFace:
+; Original data gap before EF83ED_EBattle2JumpToFaceRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$92,$16,$82,$98,$95,$94,$00,$50
 db $15,$3F,$16,$38,$50,$08,$6E,$E6,$C7,$00,$50,$96,$9C,$A5,$A4,$95
 db $51,$03,$02
 
-EF83ED_EBattle2MsgBtlJumpToFace:
+EF83ED_EBattle2JumpToFaceRowPresentationText:
 
-; Original data gap before EF8413_EBattle2MsgBtlChouOnpa:
+; Original data gap before EF8413_EBattle2ChouOnpaRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$EC,$91,$A0,$95,$94,$00,$50,$16
 db $12,$A7,$16,$73,$15,$04,$A3,$A0,$15,$B6,$94,$15,$6C,$A3,$50,$A7
 db $15,$4E,$A3,$51,$03,$02
 
-EF8413_EBattle2MsgBtlChouOnpa:
+EF8413_EBattle2ChouOnpaRowPresentationText:
 
-; Original data gap before EF843F_EBattle0MsgAtStartAsleep:
+; Original data gap before EF843F_EBattle0BattleStartAsleepStatusAnnouncementText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$15,$BD,$17,$76,$00,$50,$15,$28,$9C
 db $A9,$15,$04,$91,$96,$96,$95,$93,$16,$11,$16,$66,$51,$03,$00,$15
 db $11,$92,$17,$16,$95,$94,$17,$3B,$5E,$00,$03,$02
 
-EF843F_EBattle0MsgAtStartAsleep:
+EF843F_EBattle0BattleStartAsleepStatusAnnouncementText:
 
-; Original data gap before EF8444_EBattle0MsgAtStartPsiSeal:
+; Original data gap before EF8444_EBattle0BattleStartPsiSealStatusAnnouncementText:
 db $0A,$DF,$71,$EF,$00
 
-EF8444_EBattle0MsgAtStartPsiSeal:
+EF8444_EBattle0BattleStartPsiSealStatusAnnouncementText:
 
-; Original data gap before EF8445_EBattle0MsgAtStartStrange:
+; Original data gap before EF8445_EBattle0BattleStartStrangeStatusAnnouncementText:
 db $02
 
-EF8445_EBattle0MsgAtStartStrange:
+EF8445_EBattle0BattleStartStrangeStatusAnnouncementText:
 
-; Original data gap before EF845D_EBattle0MsgRandomActStrange:
+; Original data gap before EF845D_EBattle0RandomActionStrangeStatusText:
 db $01,$70,$1C,$0E,$15,$21,$91,$93,$16,$35,$00,$50,$50,$91,$15,$5F
 db $92,$99,$A4,$15,$B9,$5E,$03,$02
 
-EF845D_EBattle0MsgRandomActStrange:
+EF845D_EBattle0RandomActionStrangeStatusText:
 
-; Original data gap before EF8477_EBattle0MsgRandomActMushroom:
+; Original data gap before EF8477_EBattle0RandomActionMushroomStatusText:
 db $01,$70,$1C,$0D,$15,$21,$91,$93,$16,$35,$00,$50,$17,$33,$17,$67
 db $A5,$9E,$A5,$A3,$A5,$91,$9C,$5E,$03,$02
 
-EF8477_EBattle0MsgRandomActMushroom:
+EF8477_EBattle0RandomActionMushroomStatusText:
 
-; Original data gap before EF848C_EBattle1MsgBtlAttack:
+; Original data gap before EF848C_EBattle1BashAttackRowPresentationText:
 db $01,$70,$1C,$0D,$16,$00,$00,$50,$50,$17,$CC,$16,$A3,$96,$A5,$9E
 db $9B,$A9,$5E,$03,$02
 
-EF848C_EBattle1MsgBtlAttack:
+EF848C_EBattle1BashAttackRowPresentationText:
 
-; Original data gap before EF84A7_EBattle1AttackPlayerSideBranch:
+; Original data gap before EF84A7_EBattle1BashAttackPlayerSideBranch:
 db $01,$1F,$41,$08,$1B,$02,$A7,$84,$EF,$00,$1F,$02,$19,$70,$1C,$0D
 db $16,$00,$15,$DB,$17,$7D,$1F,$02,$1A,$03,$02
 
-EF84A7_EBattle1AttackPlayerSideBranch:
+EF84A7_EBattle1BashAttackPlayerSideBranch:
 
-; Original data gap before EF84B6_EBattle1MsgBtlShoot:
+; Original data gap before EF84B6_EBattle1ShootRowPresentationText:
 db $1F,$02,$18,$70,$1C,$0D,$15,$DB,$A3,$51,$1F,$02,$1A,$03,$02
 
-EF84B6_EBattle1MsgBtlShoot:
+EF84B6_EBattle1ShootRowPresentationText:
 
-; Original data gap before EF84C6_EBattle1MsgBtlGuard:
+; Original data gap before EF84C6_EBattle1GuardCommandText:
 db $01,$1F,$02,$18,$70,$1C,$0D,$15,$DB,$A3,$51,$1F,$02,$1B,$03,$02
 
-EF84C6_EBattle1MsgBtlGuard:
+EF84C6_EBattle1GuardCommandText:
 
-; Original data gap before EF84D4_EBattle1MsgBtlMetamorphose:
+; Original data gap before EF84D4_EBattle1MetamorphoseAttemptText:
 db $01,$70,$1C,$0D,$15,$21,$17,$86,$97,$A5,$16,$73,$5E,$02
 
-EF84D4_EBattle1MsgBtlMetamorphose:
+EF84D4_EBattle1MetamorphoseAttemptText:
 
-; Original data gap before EF84F3_EBattle1MsgBtlPlayerFlee:
+; Original data gap before EF84F3_EBattle1PlayerFleeSuccessText:
 db $01,$70,$1C,$0D,$17,$48,$9C,$91,$A8,$95,$94,$00,$50,$15,$04,$A4
 db $17,$37,$15,$BC,$94,$15,$C9,$50,$92,$16,$82,$98,$5E,$03,$02
 
-EF84F3_EBattle1MsgBtlPlayerFlee:
+; EBATTLE1: successful player flee text; row 279 also uses it as row +4 text
+; with the C2:9039 default/no-op body.
+EF84F3_EBattle1PlayerFleeSuccessText:
 
-; Original data gap before EF8511_EBattle1MsgBtlPlayerFleeFailed:
+; Original data gap before EF8511_EBattle1PlayerFleeFailureText:
 db $01,$70,$08,$D7,$E6,$C7,$00,$16,$EF,$99,$15,$33,$16,$5B,$16,$C9
 db $5C,$10,$3C,$03,$00,$70,$16,$4F,$94,$99,$94,$51,$03,$02
 
-EF8511_EBattle1MsgBtlPlayerFleeFailed:
+EF8511_EBattle1PlayerFleeFailureText:
 
-; Original data gap before EF8530_EBattle1MsgBtlCheck:
+; Original data gap before EF8530_EBattle1SpyCheckRowPresentationText:
 db $01,$70,$08,$D7,$E6,$C7,$00,$16,$EF,$99,$15,$33,$16,$5B,$16,$C9
 db $5C,$10,$3C,$03,$00,$16,$BF,$93,$16,$EC,$17,$08,$51,$03,$02
 
-EF8530_EBattle1MsgBtlCheck:
+EF8530_EBattle1SpyCheckRowPresentationText:
 
-; Original data gap before EF8543_EBattle1MsgBtlPsiByteSubstitutionText:
+; Original data gap before EF8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText:
 db $01,$70,$1C,$0D,$17,$F4,$99,$17,$52,$9F,$9E,$00,$50,$50,$1C,$0E
 db $51,$03,$02
 
-; EBATTLE1: shared PSI row +4 presentation for rows 10..31, 53, and 58;
-; Lifeup rows 32..35 still need local row +4 recovery.
-EF8543_EBattle1MsgBtlPsiByteSubstitutionText:
+; EBATTLE1: shared PSI row +4 presentation for rows 10..35, 48, 49, 53, 58, 60, and 61.
+EF8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText:
 
 ; Original data gap before EF8568_EBattle1PsiPlayerSideBranch:
 db $01,$1F,$41,$08,$1B,$02,$68,$85,$EF,$00,$1F,$02,$37,$70,$1C,$0D
@@ -5997,21 +6035,21 @@ db $29,$00,$10,$1F,$1F,$02,$3A,$10,$1B,$1F,$02,$3A,$10,$14,$02
 
 EF8813_EBattle1PsiEffectBranch13:
 
-; Original data gap before EF8814_EBattle1MsgBtlThunderSmall:
+; Original data gap before EF8814_EBattle1SmallThunderPresentationText:
 db $02
 
-EF8814_EBattle1MsgBtlThunderSmall:
+EF8814_EBattle1SmallThunderPresentationText:
 
-; Original data gap before EF8823_EBattle1MsgBtlThunderLarge:
+; Original data gap before EF8823_EBattle1LargeThunderPresentationText:
 db $1F,$02,$3D,$1C,$13,$2E,$21,$10,$16,$1F,$02,$3F,$10,$1E,$02
 
-EF8823_EBattle1MsgBtlThunderLarge:
+EF8823_EBattle1LargeThunderPresentationText:
 
-; Original data gap before EF8837_EBattle1MsgBtlThunderMissSound:
+; Original data gap before EF8837_EBattle1ThunderMissSoundPresentationText:
 db $1F,$02,$3E,$1C,$13,$2E,$22,$10,$16,$1F,$02,$3F,$10,$17,$1F,$02
 db $3F,$10,$1E,$02
 
-EF8837_EBattle1MsgBtlThunderMissSound:
+EF8837_EBattle1ThunderMissSoundPresentationText:
 
 ; Original data gap before EF883D_EBattle1PsiEffectBranch17:
 db $1F,$02,$3C,$10,$3C,$02
@@ -6147,231 +6185,234 @@ db $4C,$02
 
 EF89CE_EBattle1PsiEffectBranch50:
 
-; Original data gap before EF89E0_EBattle1MsgBtlPray:
+; Original data gap before EF89E0_EBattle1PrayRowPresentationText:
 db $10,$14,$1F,$02,$50,$1C,$13,$00,$03,$10,$28,$1C,$13,$2F,$00,$10
 db $80,$02
 
-EF89E0_EBattle1MsgBtlPray:
+EF89E0_EBattle1PrayRowPresentationText:
 
-; Original data gap before EF89FE_EBattle3MsgBtlJihibiki:
+; Original data gap before EF89FE_EBattle3JihibikiRowPresentationText:
 db $01,$1F,$02,$1C,$70,$1C,$0D,$50,$A0,$A2,$91,$A9,$95,$94,$00,$50
 db $15,$2E,$17,$B4,$16,$6E,$9C,$95,$15,$D1,$A4,$51,$03,$02
 
-EF89FE_EBattle3MsgBtlJihibiki:
+EF89FE_EBattle3JihibikiRowPresentationText:
 
-; Original data gap before EF8A18_EBattle3MsgBtlOsaetsuke:
+; Original data gap before EF8A18_EBattle3OsaetsukeRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$16,$E1,$91,$00,$50,$17,$53,$A5
 db $94,$50,$A2,$A5,$9D,$16,$86,$51,$03,$02
 
-EF8A18_EBattle3MsgBtlOsaetsuke:
+EF8A18_EBattle3OsaetsukeRowPresentationText:
 
-; Original data gap before EF8A33_EBattle3MsgBtlCurseWord:
+; Original data gap before EF8A33_EBattle3CurseWordRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$91,$A6,$16,$20,$00,$50,$50
 db $91,$16,$03,$17,$AF,$98,$A5,$97,$5E,$03,$02
 
-EF8A33_EBattle3MsgBtlCurseWord:
+EF8A33_EBattle3CurseWordRowPresentationText:
 
-; Original data gap before EF8A52_EBattle3MsgBtlJimi:
+; Original data gap before EF8A52_EBattle3JimiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$EC,$A4,$17,$53,$9F,$A3,$95,$00
 db $50,$15,$2E,$91,$16,$0C,$93,$15,$E9,$93,$16,$8D,$5E,$03,$02
 
-EF8A52_EBattle3MsgBtlJimi:
+EF8A52_EBattle3JimiRowPresentationText:
 
-; Original data gap before EF8A6F_EBattle3MsgBtlPenki:
+; Original data gap before EF8A6F_EBattle3PenkiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$A2,$94,$00,$50,$50,$08,$6E,$E6
 db $C7,$00,$50,$9D,$99,$17,$AB,$A9,$15,$DB,$51,$03,$02
 
-EF8A6F_EBattle3MsgBtlPenki:
+EF8A6F_EBattle3PenkiRowPresentationText:
 
-; Original data gap before EF8A8C_EBattle3MsgBtlNaguriKakari:
+; Original data gap before EF8A8C_EBattle3NaguriKakariRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A5,$A4,$99,$9C,$99,$AA,$15,$57
 db $91,$00,$50,$50,$A0,$16,$43,$A4,$15,$DB,$51,$03,$02
 
-EF8A8C_EBattle3MsgBtlNaguriKakari:
+EF8A8C_EBattle3NaguriKakariRowPresentationText:
 
-; Original data gap before EF8AA3_EBattle3MsgBtlClaw:
+; Original data gap before EF8AA3_EBattle3ClawRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$17,$76,$15,$93,$00,$50,$50,$A3
 db $A7,$15,$4E,$17,$7D,$03,$02
 
-EF8AA3_EBattle3MsgBtlClaw:
+EF8AA3_EBattle3ClawRowPresentationText:
 
-; Original data gap before EF8AC2_EBattle3MsgBtlKuchibashi:
+; Original data gap before EF8AC2_EBattle3KuchibashiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$A2,$91,$A4,$16,$E6,$94
 db $00,$50,$15,$2E,$99,$17,$DA,$93,$9C,$91,$A7,$A3,$51,$03,$02
 
-EF8AC2_EBattle3MsgBtlKuchibashi:
+EF8AC2_EBattle3KuchibashiRowPresentationText:
 
-; Original data gap before EF8ADD_EBattle3MsgBtlTsuno:
+; Original data gap before EF8ADD_EBattle3TsunoRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A0,$95,$93,$9B,$95,$94,$00,$50
 db $50,$91,$16,$0E,$95,$A9,$95,$A3,$51,$03,$02
 
-EF8ADD_EBattle3MsgBtlTsuno:
+EF8ADD_EBattle3TsunoRowPresentationText:
 
-; Original data gap before EF8AF8_EBattle3MsgBtlPunch:
+; Original data gap before EF8AF8_EBattle3PunchRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A2,$91,$9D,$9D,$95,$94,$15,$04
 db $17,$35,$9D,$17,$05,$94,$15,$23,$51,$03,$02
 
-EF8AF8_EBattle3MsgBtlPunch:
+EF8AF8_EBattle3PunchRowPresentationText:
 
-; Original data gap before EF8B11_EBattle3MsgBtlPumpkin:
+; Original data gap before EF8B11_EBattle3PumpkinRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A4,$98,$A2,$95,$A7,$00,$50,$15
 db $BC,$A0,$A5,$9E,$93,$98,$51,$03,$02
 
-EF8B11_EBattle3MsgBtlPumpkin:
+EF8B11_EBattle3PumpkinRowPresentationText:
 
-; Original data gap before EF8B2F_EBattle3MsgBtlBeam:
+; Original data gap before EF8B2F_EBattle3BeamRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$99,$A4,$00,$50,$15,$6C,$A3
 db $50,$A0,$A5,$9D,$A0,$17,$B7,$17,$A1,$94,$A3,$51,$03,$02
 
-EF8B2F_EBattle3MsgBtlBeam:
+EF8B2F_EBattle3BeamRowPresentationText:
 
-; Original data gap before EF8B4A_EBattle3MsgBtlYari:
+; Original data gap before EF8B4A_EBattle3YariRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$96,$99,$17,$45,$00,$50,$17,$33
 db $95,$91,$9D,$51,$1F,$02,$4D,$03,$10,$01,$02
 
-EF8B4A_EBattle3MsgBtlYari:
+EF8B4A_EBattle3YariRowPresentationText:
 
-; Original data gap before EF8B65_EBattle3MsgBtlFumitsuke:
+; Original data gap before EF8B65_EBattle3FumitsukeRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$9A,$91,$92,$92,$95,$94,$00,$50
 db $15,$2E,$91,$50,$A3,$A0,$15,$EA,$51,$03,$02
 
-EF8B65_EBattle3MsgBtlFumitsuke:
+EF8B65_EBattle3FumitsukeRowPresentationText:
 
-; Original data gap before EF8B89_EBattle3MsgBtlFurafuupu:
+; Original data gap before EF8B89_EBattle3FurafuupuRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$A4,$9F,$9D,$A0,$95,$94,$00
 db $50,$15,$2E,$08,$6E,$E6,$C7,$00,$17,$F1,$97,$95,$50,$96,$9F,$9F
 db $A4,$51,$03,$02
 
-EF8B89_EBattle3MsgBtlFurafuupu:
+EF8B89_EBattle3FurafuupuRowPresentationText:
 
-; Original data gap before EF8BA8_EBattle3MsgBtlTaiatari:
+; Original data gap before EF8BA8_EBattle3TaiatariRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$A7,$A5,$9E,$97,$00,$50,$16
 db $D9,$98,$A5,$9C,$91,$16,$58,$9F,$A0,$5E,$1F,$02,$1A,$03,$02
 
-EF8BA8_EBattle3MsgBtlTaiatari:
+EF8BA8_EBattle3TaiatariRowPresentationText:
 
-; Original data gap before EF8BC0_EBattle3MsgBtlSkateboard:
+; Original data gap before EF8BC0_EBattle3SkateboardRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$EF,$91,$A2,$97,$95,$94,$00,$50
 db $16,$12,$A7,$16,$73,$51,$03,$02
 
-EF8BC0_EBattle3MsgBtlSkateboard:
+EF8BC0_EBattle3SkateboardRowPresentationText:
 
-; Original data gap before EF8BE8_EBattle3MsgBtlKamitsukiDiamond:
+; Original data gap before EF8BE8_EBattle3DiamondizeBiteRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F5,$17,$45,$94,$95,$94,$00,$50
 db $50,$96,$99,$95,$A2,$93,$95,$9C,$A9,$16,$BC,$91,$50,$A3,$9B,$16
 db $66,$92,$9F,$16,$73,$51,$03,$02
 
-EF8BE8_EBattle3MsgBtlKamitsukiDiamond:
+EF8BE8_EBattle3DiamondizeBiteRowPresentationText:
 
-; Original data gap before EF8BFB_EBattle3MsgBtlKudamaki:
+; Original data gap before EF8BFB_EBattle3KudamakiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$92,$99,$17,$2B,$00,$50,$17,$2F
 db $51,$03,$02
 
-EF8BFB_EBattle3MsgBtlKudamaki:
+EF8BFB_EBattle3KudamakiRowPresentationText:
 
-; Original data gap before EF8C1D_EBattle3MsgBtlSekkyou:
+; Original data gap before EF8C1D_EBattle3SekkyouRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$A2,$A5,$9D,$16,$86,$94,$00
 db $50,$15,$D4,$9F,$16,$60,$57,$A3,$15,$23,$A4,$98,$51,$1F,$02,$54
 db $03,$02
 
-EF8C1D_EBattle3MsgBtlSekkyou:
+EF8C1D_EBattle3SekkyouRowPresentationText:
 
-; Original data gap before EF8C3A_EBattle3MsgBtlShikaritsuke:
+; Original data gap before EF8C3A_EBattle3ShikaritsukeRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$51,$A2,$A4,$95,$94,$00,$50,$50
 db $9C,$16,$A5,$A5,$A2,$16,$1F,$51,$1F,$02,$54,$03,$02
 
-EF8C3A_EBattle3MsgBtlShikaritsuke:
+EF8C3A_EBattle3ShikaritsukeRowPresentationText:
 
-; Original data gap before EF8C58_EBattle3MsgBtlBadSmell:
+; Original data gap before EF8C58_EBattle3BadSmellOdorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$9F,$A7,$9C,$95,$94,$00
 db $50,$17,$F5,$91,$A2,$A0,$9C,$A9,$51,$1F,$02,$54,$03,$02
 
-EF8C58_EBattle3MsgBtlBadSmell:
+EF8C58_EBattle3BadSmellOdorRowPresentationText:
 
-; Original data gap before EF8C75_EBattle3MsgBtlLoudVoice:
+; Original data gap before EF8C75_EBattle3LoudVoiceOffenseDefenseReductionRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$16,$F6,$95,$94,$00,$50,$15,$BC
 db $16,$06,$A2,$99,$17,$98,$9F,$94,$9F,$A2,$51,$03,$02
 
-EF8C75_EBattle3MsgBtlLoudVoice:
+; EBATTLE3: row 233 row +4 loud-voice offense/defense reduction text.
+EF8C75_EBattle3LoudVoiceOffenseDefenseReductionRowPresentationText:
 
-; Original data gap before EF8C92_EBattle3MsgBtlOtakebi:
+; Original data gap before EF8C92_EBattle3WarCryOffenseDefenseReductionRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DF,$A5,$A4,$95,$94,$00,$50,$15
 db $8C,$17,$1F,$A5,$94,$50,$A6,$9F,$16,$C1,$51,$03,$02
 
-EF8C92_EBattle3MsgBtlOtakebi:
+; EBATTLE3: row 234 row +4 war-cry offense/defense reduction text.
+EF8C92_EBattle3WarCryOffenseDefenseReductionRowPresentationText:
 
-; Original data gap before EF8CAC_EBattle3MsgBtlFakeDead:
+; Original data gap before EF8CAC_EBattle3FakeDeadFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F5,$A2,$99,$95,$9B,$15,$57,$91
 db $16,$80,$A2,$50,$93,$A2,$A9,$51,$03,$02
 
-EF8CAC_EBattle3MsgBtlFakeDead:
+EF8CAC_EBattle3FakeDeadFlavorRowPresentationText:
 
-; Original data gap before EF8CC7_EBattle3MsgBtlYudan:
+; Original data gap before EF8CC7_EBattle3YudanFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$9B,$9E,$99,$A4,$A4,$95,$94,$00
 db $50,$15,$6C,$A3,$50,$92,$17,$5B,$51,$03,$02
 
-EF8CC7_EBattle3MsgBtlYudan:
+EF8CC7_EBattle3YudanFlavorRowPresentationText:
 
-; Original data gap before EF8CDD_EBattle3MsgBtlYudan1:
+; Original data gap before EF8CDD_EBattle3Yudan1FlavorRowPresentationText:
 db $1D,$21,$03,$09,$03,$FB,$8C,$EF,$00,$17,$8D,$EF,$00,$2F,$8D,$EF
 db $00,$0A,$DD,$8C,$EF,$00
 
-EF8CDD_EBattle3MsgBtlYudan1:
+EF8CDD_EBattle3Yudan1FlavorRowPresentationText:
 
-; Original data gap before EF8CFB_EBattle3MsgBtlYudan2:
+; Original data gap before EF8CFB_EBattle3Yudan2FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$53,$A3,$A4,$00,$50,$15,$BC,$97
 db $15,$EA,$16,$B8,$15,$1C,$92,$9F,$9C,$A4,$A3,$51,$03,$02
 
-EF8CFB_EBattle3MsgBtlYudan2:
+EF8CFB_EBattle3Yudan2FlavorRowPresentationText:
 
-; Original data gap before EF8D17_EBattle3MsgBtlYudan3:
+; Original data gap before EF8D17_EBattle3Yudan3FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$48,$5D,$91,$A0,$A0,$9C,$99,$95
 db $94,$00,$50,$17,$33,$16,$EA,$16,$01,$51,$03,$02
 
-EF8D17_EBattle3MsgBtlYudan3:
+EF8D17_EBattle3Yudan3FlavorRowPresentationText:
 
-; Original data gap before EF8D2F_EBattle3MsgBtlYudan4:
+; Original data gap before EF8D2F_EBattle3Yudan4FlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$93,$9C,$95,$91,$9E,$95,$94,$00
 db $15,$95,$91,$15,$B6,$51,$03,$02
 
-EF8D2F_EBattle3MsgBtlYudan4:
+EF8D2F_EBattle3Yudan4FlavorRowPresentationText:
 
-; Original data gap before EF8D4C_EBattle3MsgBtlYudanLifeup:
+; Original data gap before EF8D4C_EBattle3EnemyLifeupFlavorRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$CD,$15,$33,$97,$9F,$00,$50,$15
 db $04,$16,$5B,$91,$17,$DB,$A4,$16,$06,$A9,$51,$03,$02
 
-; EBATTLE3: enemy Lifeup flavor, not row +4 Lifeup presentation for rows 32..35.
-EF8D4C_EBattle3MsgBtlYudanLifeup:
+; EBATTLE3: row 313 row +4 enemy Lifeup flavor presentation text, not
+; the PSI Lifeup presentation for rows 32..35.
+EF8D4C_EBattle3EnemyLifeupFlavorRowPresentationText:
 
-; Original data gap before EF8D72_EBattle3MsgBtlNebieBeam:
+; Original data gap before EF8D72_EBattle3NebieBeamRowPresentationText:
 db $01,$70,$1C,$0D,$50,$16,$66,$50,$91,$00,$50,$17,$47,$9C,$9F,$97
 db $9E,$95,$50,$A3,$16,$EA,$A7,$99,$93,$98,$51,$1F,$02,$44,$03,$00
 db $08,$A1,$69,$EF,$00,$02
 
-EF8D72_EBattle3MsgBtlNebieBeam:
+EF8D72_EBattle3NebieBeamRowPresentationText:
 
-; Original data gap before EF8D9F_EBattle3MsgBtlNeutralizeSparkle:
+; Original data gap before EF8D9F_EBattle3NeutralizeSparkleRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DF,$A4,$50,$91,$00,$50,$15,$BD
 db $91,$9D,$90,$A4,$16,$E9,$90,$93,$91,$16,$4B,$A3,$90,$16,$E2,$5D
 db $16,$7A,$90,$17,$E5,$96,$96,$99,$16,$09,$51,$03,$02
 
-EF8D9F_EBattle3MsgBtlNeutralizeSparkle:
+EF8D9F_EBattle3NeutralizeSparkleRowPresentationText:
 
-; Original data gap before EF8DC1_EBattle3MsgBtlMakitsuki:
+; Original data gap before EF8DC1_EBattle3MakitsukiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$9D,$99,$A4,$A4,$95,$94,$00
 db $50,$15,$BC,$A0,$91,$9C,$95,$50,$97,$A2,$17,$7A,$9C,$15,$BB,$51
 db $03,$02
 
-EF8DC1_EBattle3MsgBtlMakitsuki:
+EF8DC1_EBattle3MakitsukiRowPresentationText:
 
-; Original data gap before EF8DDE_EBattle3MsgBtlToDiamondDog:
+; Original data gap before EF8DDE_EBattle3RainbowColorsEventRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$93,$9F,$99,$9C,$95,$94,$00,$50
 db $15,$AB,$15,$6A,$16,$B8,$15,$DB,$95,$94,$51,$03,$02
 
-; EBATTLE3: row 290 row +4 rainbow-colors / Master Belch-side event text.
-EF8DDE_EBattle3MsgBtlToDiamondDog:
+; EBATTLE3: row 290 row +4 rainbow-colors event presentation text.
+EF8DDE_EBattle3RainbowColorsEventRowPresentationText:
 
-; Original data gap before EF8E27_EBattle3MsgBtlWarpNear:
+; Original data gap before EF8E27_EBattle3SharedNamedItemRowPresentationText:
 db $01,$70,$71,$9C,$9C,$15,$4F,$91,$17,$B3,$94,$94,$95,$9E,$5C,$03
 db $00,$70,$1C,$0D,$50,$97,$17,$40,$17,$3B,$00,$50,$15,$BC,$A2,$16
 db $43,$92,$9F,$A7,$15,$4F,$93,$9F,$9C,$9F,$A2,$A3,$51,$1F,$02,$41
@@ -6380,70 +6421,70 @@ db $02,$41,$1C,$13,$28,$00,$10,$1E,$02
 
 ; EBATTLE3: rows 140 and 247 intentionally reuse this row +4 anchor with
 ; different C2 behavior bodies.
-EF8E27_EBattle3MsgBtlWarpNear:
+EF8E27_EBattle3SharedNamedItemRowPresentationText:
 
-; Original data gap before EF8E3C_EBattle3MsgBtlAntipsi:
+; Original data gap before EF8E3C_EBattle3ConcentrationPsiSealRowPresentationText:
 db $01,$70,$1C,$0D,$19,$1F,$1B,$04,$16,$AC,$16,$47,$00,$50,$50,$1C
 db $05,$00,$51,$03,$02
 
-EF8E3C_EBattle3MsgBtlAntipsi:
+EF8E3C_EBattle3ConcentrationPsiSealRowPresentationText:
 
-; Original data gap before EF8E5E_EBattle3MsgBtlHpsuck:
+; Original data gap before EF8E5E_EBattle3HpsuckRowPresentationText:
 db $01,$70,$1C,$0D,$19,$1F,$1B,$04,$16,$AC,$16,$47,$00,$50,$50,$1C
 db $05,$00,$51,$10,$1E,$1F,$02,$36,$10,$1E,$1C,$13,$00,$01,$10,$3C
 db $03,$02
 
-EF8E5E_EBattle3MsgBtlHpsuck:
+EF8E5E_EBattle3HpsuckRowPresentationText:
 
-; Original data gap before EF8E7E_EBattle3MsgBtlHpsucksp:
+; Original data gap before EF8E7E_EBattle3HpsuckspRowPresentationText:
 db $01,$70,$1C,$0D,$19,$1F,$1B,$04,$16,$AC,$16,$47,$00,$50,$50,$1C
 db $05,$00,$51,$10,$1E,$1F,$02,$3B,$1C,$13,$00,$04,$10,$3C,$03,$02
 
-EF8E7E_EBattle3MsgBtlHpsucksp:
+EF8E7E_EBattle3HpsuckspRowPresentationText:
 
-; Original data gap before EF8E9E_EBattle3MsgBtlShieldkill:
+; Original data gap before EF8E9E_EBattle3ShieldkillRowPresentationText:
 db $01,$70,$1C,$0D,$19,$1F,$1B,$04,$16,$AC,$16,$47,$00,$50,$50,$1C
 db $05,$00,$51,$10,$1E,$1F,$02,$3B,$1C,$13,$00,$1E,$10,$3C,$03,$02
 
-EF8E9E_EBattle3MsgBtlShieldkill:
+EF8E9E_EBattle3ShieldkillRowPresentationText:
 
-; Original data gap before EF8EBE_EBattle3MsgBtlBadSmellGas:
+; Original data gap before EF8EBE_EBattle3BadSmellGasRowPresentationText:
 db $01,$70,$1C,$0D,$19,$1F,$1B,$04,$16,$AC,$16,$47,$00,$50,$50,$1C
 db $05,$00,$51,$10,$1E,$1F,$02,$63,$1C,$13,$00,$1B,$10,$3C,$03,$02
 
-EF8EBE_EBattle3MsgBtlBadSmellGas:
+EF8EBE_EBattle3BadSmellGasRowPresentationText:
 
-; Original data gap before EF8EE2_EBattle3MsgBtlLightning:
+; Original data gap before EF8EE2_EBattle3LightningRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$A3,$93,$98,$91,$A2,$97,$95
 db $94,$00,$50,$50,$91,$15,$67,$A3,$A4,$99,$9E,$9B,$A9,$50,$97,$91
 db $A3,$51,$03,$02
 
-EF8EE2_EBattle3MsgBtlLightning:
+EF8EE2_EBattle3LightningRowPresentationText:
 
-; Original data gap before EF8F17_EBattle3MsgBtlLightningB:
+; Original data gap before EF8F17_EBattle3LightningBRowPresentationText:
 db $08,$2F,$EE,$C9,$00,$10,$28,$18,$06,$16,$1A,$15,$C0,$97,$A2,$91
 db $A3,$A0,$16,$52,$A2,$A5,$95,$16,$12,$9D,$00,$50,$15,$4F,$1C,$0D
 db $57,$15,$DB,$51,$1C,$13,$31,$00,$1C,$13,$36,$00,$1F,$02,$51,$10
 db $28,$1F,$02,$51,$02
 
-EF8F17_EBattle3MsgBtlLightningB:
+EF8F17_EBattle3LightningBRowPresentationText:
 
-; Original data gap before EF8F4A_EBattle3MsgBtlLightningC:
+; Original data gap before EF8F4A_EBattle3LightningCRowPresentationText:
 db $08,$68,$EE,$C9,$00,$18,$06,$16,$1A,$15,$C0,$97,$A2,$91,$A3,$A0
 db $16,$52,$A2,$A5,$95,$16,$12,$9D,$00,$50,$15,$4F,$1C,$0D,$57,$15
 db $DB,$51,$1C,$13,$31,$00,$1C,$13,$36,$00,$1F,$02,$51,$10,$28,$1F
 db $02,$51,$02
 
-EF8F4A_EBattle3MsgBtlLightningC:
+EF8F4A_EBattle3LightningCRowPresentationText:
 
-; Original data gap before EF8F91_EBattle3MsgBtlGyiyyig3:
+; Original data gap before EF8F91_EBattle3Gyiyyig3FlavorRowPresentationText:
 db $08,$2F,$EE,$C9,$00,$10,$28,$18,$06,$08,$2F,$EE,$C9,$00,$10,$28
 db $18,$06,$08,$2F,$EE,$C9,$00,$10,$28,$18,$06,$16,$1A,$15,$C0,$97
 db $A2,$91,$A3,$A0,$16,$52,$A2,$A5,$95,$16,$12,$9D,$00,$50,$15,$4F
 db $1C,$0D,$57,$15,$DB,$51,$1C,$13,$31,$00,$1C,$13,$36,$00,$1F,$02
 db $51,$10,$28,$1F,$02,$51,$02
 
-EF8F91_EBattle3MsgBtlGyiyyig3:
+EF8F91_EBattle3Gyiyyig3FlavorRowPresentationText:
 
 ; Original data gap before EF8FAD_EBattle9SubSorezoreHelper:
 db $08,$2F,$EE,$C9,$00,$10,$28,$18,$06,$08,$2F,$EE,$C9,$00,$10,$28
@@ -6840,7 +6881,7 @@ db $1F,$17,$B5,$59,$13,$02
 
 EF98D3_EBattle9BranchGrfdSysmsgGutsYes:
 
-; Original data gap before EF9A47_EBattle1MsgBtlNakama0:
+; Original data gap before EF9A47_EBattle1Nakama0RowPresentationText:
 db $70,$58,$89,$9F,$A5,$17,$5E,$15,$42,$16,$07,$16,$C1,$94,$15,$76
 db $5C,$10,$0F,$17,$11,$15,$0D,$92,$17,$7A,$92,$91,$94,$15,$9D,$98
 db $A5,$A2,$A4,$15,$3F,$92,$17,$14,$5C,$03,$00,$70,$15,$6A,$17,$5E
@@ -6866,33 +6907,33 @@ db $15,$B2,$9C,$99,$96,$16,$46,$97,$15,$7E,$5C,$10,$0F,$15,$22,$A3
 db $A5,$A2,$A6,$17,$C9,$5E,$10,$1E,$16,$BA,$15,$D7,$15,$BF,$16,$77
 db $5E,$59,$13,$02
 
-EF9A47_EBattle1MsgBtlNakama0:
+EF9A47_EBattle1Nakama0RowPresentationText:
 
-; Original data gap before EF9A5E_EBattle1MsgBtlTanemaki0:
+; Original data gap before EF9A5E_EBattle1Tanemaki0RowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$15,$FE,$95,$94,$00,$50,$15,$0F,$17
 db $8D,$51,$1F,$02,$48,$03,$02
 
-EF9A5E_EBattle1MsgBtlTanemaki0:
+EF9A5E_EBattle1Tanemaki0RowPresentationText:
 
-; Original data gap before EF9A7E_EBattle1MsgBtlExplosion:
+; Original data gap before EF9A7E_EBattle1ExplosionRowPresentationText:
 db $1F,$02,$19,$01,$70,$1C,$0D,$16,$7C,$A7,$95,$94,$00,$50,$15,$1C
 db $16,$67,$94,$A3,$15,$AB,$99,$A4,$16,$EB,$51,$1F,$02,$48,$03,$02
 
-; EBATTLE1: candidate explosive flavor near rows 64/65; row +4 pointers unrecovered.
-EF9A7E_EBattle1MsgBtlExplosion:
+; EBATTLE1: row 64 row +4 explosive presentation text.
+EF9A7E_EBattle1ExplosionRowPresentationText:
 
-; Original data gap before EF9A9E_EBattle1MsgBtlBurn:
+; Original data gap before EF9A9E_EBattle1BurstIntoFlamesRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$A8,$A0,$9C,$9F,$94,$95,$94
 db $00,$50,$16,$0B,$92,$99,$A4,$A3,$51,$1F,$02,$5B,$03,$10,$1E,$02
 
-; EBATTLE1: candidate explosive flavor near rows 64/65; row +4 pointers unrecovered.
-EF9A9E_EBattle1MsgBtlBurn:
+; EBATTLE1: row 65 row +4 burst-into-flames presentation text.
+EF9A9E_EBattle1BurstIntoFlamesRowPresentationText:
 
-; Original data gap before EF9ABB_EBattle1MsgBtlGoods:
+; Original data gap before EF9ABB_EBattle1GoodsRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$4E,$A2,$A3,$A4,$00,$50,$16,$0B
 db $96,$9C,$17,$78,$A3,$51,$1F,$02,$4B,$03,$10,$1E,$02
 
-EF9ABB_EBattle1MsgBtlGoods:
+EF9ABB_EBattle1GoodsRowPresentationText:
 
 ; Original data gap before EF9AE8_EBattle1BranchBtlGoodsFailed:
 db $01,$70,$1C,$0D,$19,$1F,$1B,$02,$E8,$9A,$EF,$00,$1B,$04,$50,$A3
@@ -6901,208 +6942,210 @@ db $A5,$A3,$99,$9F,$9E,$15,$09,$92,$17,$14,$51,$03,$02
 
 EF9AE8_EBattle1BranchBtlGoodsFailed:
 
-; Original data gap before EF9B02_EBattle1MsgBtlTimestop:
+; Original data gap before EF9B02_EBattle1TimestopRowPresentationText:
 db $50,$A4,$17,$B0,$15,$90,$00,$50,$50,$A3,$A4,$17,$C1,$15,$35,$15
 db $C7,$96,$91,$99,$9C,$95,$94,$51,$03,$02
 
-EF9B02_EBattle1MsgBtlTimestop:
+EF9B02_EBattle1TimestopRowPresentationText:
 
-; Original data gap before EF9B20_EBattle1MsgBtlManazashi:
+; Original data gap before EF9B20_EBattle1ManazashiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$96,$A2,$9F,$AA,$95,$00,$50,$15
 db $22,$99,$9E,$15,$55,$51,$1F,$00,$00,$04,$03,$10,$01,$02
 
-EF9B20_EBattle1MsgBtlManazashi:
+EF9B20_EBattle1ManazashiRowPresentationText:
 
-; Original data gap before EF9B43_EBattle1MsgBtlKaidenpa:
+; Original data gap before EF9B43_EBattle1KaidenpaRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$9C,$91,$17,$45,$00,$50,$15
 db $2E,$99,$17,$DA,$95,$95,$A2,$99,$95,$50,$95,$A9,$95,$A3,$51,$03
 db $10,$01,$02
 
-EF9B43_EBattle1MsgBtlKaidenpa:
+EF9B43_EBattle1KaidenpaRowPresentationText:
 
-; Original data gap before EF9B73_EBattle1MsgBtlYoroKaidenpa:
+; Original data gap before EF9B73_EBattle1YoroKaidenpaRowPresentationText:
 db $1F,$02,$19,$01,$70,$1C,$0D,$50,$97,$95,$17,$E2,$16,$66,$94,$00
 db $50,$15,$BC,$9D,$A9,$A3,$16,$06,$16,$81,$50,$95,$9C,$16,$A5,$A2
 db $99,$93,$50,$96,$99,$95,$9C,$94,$51,$1F,$02,$4D,$03,$10,$01,$02
 
-EF9B73_EBattle1MsgBtlYoroKaidenpa:
+EF9B73_EBattle1YoroKaidenpaRowPresentationText:
 
-; Original data gap before EF9B96_EBattle1MsgBtlGeppuIki:
+; Original data gap before EF9B96_EBattle1GeppuIkiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$17,$E5,$9D,$16,$86,$94,$15,$C7
 db $96,$99,$17,$7C,$91,$15,$B9,$15,$BD,$91,$9D,$5E,$1F,$02,$4D,$03
 db $10,$01,$02
 
-EF9B96_EBattle1MsgBtlGeppuIki:
+EF9B96_EBattle1GeppuIkiRowPresentationText:
 
-; Original data gap before EF9BC3_EBattle1MsgBtlDokubari:
+; Original data gap before EF9BC3_EBattle1DokubariRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$4E,$A2,$A0,$95,$94,$00,$50,$15
 db $04,$16,$86,$A7,$16,$D9,$9E,$91,$16,$4B,$91,$16,$B5,$92,$16,$82
 db $98,$50,$91,$17,$2B,$51,$1F,$02,$4E,$03,$10,$01,$02
 
-EF9BC3_EBattle1MsgBtlDokubari:
+EF9BC3_EBattle1DokubariRowPresentationText:
 
-; Original data gap before EF9BE6_EBattle1MsgBtlDeathKiss:
+; Original data gap before EF9BE6_EBattle1DeathKissRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$17,$E5,$9E,$97,$00,$50,$15,$2E
 db $99,$17,$DA,$A0,$9F,$99,$A3,$17,$86,$A3,$16,$35,$95,$A2,$51,$03
 db $10,$01,$02
 
-EF9BE6_EBattle1MsgBtlDeathKiss:
+EF9BE6_EBattle1DeathKissRowPresentationText:
 
-; Original data gap before EF9C02_EBattle1MsgBtlTumetaiIki:
+; Original data gap before EF9C02_EBattle1TumetaiIkiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$97,$17,$40,$00,$15,$95,$9B,$99
 db $A3,$16,$5C,$94,$17,$39,$98,$51,$03,$10,$01,$02
 
-EF9C02_EBattle1MsgBtlTumetaiIki:
+EF9C02_EBattle1TumetaiIkiRowPresentationText:
 
-; Original data gap before EF9C30_EBattle1MsgBtlHoushi:
+; Original data gap before EF9C30_EBattle1MushroomSporesRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$A8,$98,$91,$9C,$95,$94,$00
 db $50,$50,$08,$6E,$E6,$C7,$00,$50,$91,$A2,$93,$A4,$99,$93,$5D,$93
 db $17,$8E,$92,$16,$82,$98,$51,$1F,$02,$51,$03,$10,$01,$02
 
-EF9C30_EBattle1MsgBtlHoushi:
+EF9C30_EBattle1MushroomSporesRowPresentationText:
 
-; Original data gap before EF9C51_EBattle1MsgBtlTorituki:
+; Original data gap before EF9C51_EBattle1PossessedStatusRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$91,$A4,$16,$06,$95,$94
 db $00,$50,$15,$1C,$A3,$A0,$9F,$17,$51,$51,$1F,$02,$52,$03,$10,$01
 db $02
 
 ; EBATTLE1: row 76 possessed persistent-status row message.
-EF9C51_EBattle1MsgBtlTorituki:
+EF9C51_EBattle1PossessedStatusRowPresentationText:
 
-; Original data gap before EF9C7E_EBattle1MsgBtlYoiKaori:
+; Original data gap before EF9C7E_EBattle1YoiKaoriRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A4,$17,$B0,$15,$90,$00,$50,$50
 db $17,$E9,$A3,$95,$A3,$16,$79,$16,$E0,$96,$A2,$15,$BB,$95,$9E,$15
 db $1B,$17,$D2,$9E,$17,$88,$1F,$02,$60,$03,$10,$01,$02
 
-EF9C7E_EBattle1MsgBtlYoiKaori:
+EF9C7E_EBattle1YoiKaoriRowPresentationText:
 
-; Original data gap before EF9CAD_EBattle1MsgBtlKabiHousi:
+; Original data gap before EF9CAD_EBattle1CryingMoldSporesRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$A2,$99,$9E,$9B,$9C,$95,$94
 db $15,$AB,$17,$72,$50,$A7,$9F,$16,$DA,$16,$E8,$5D,$A3,$9D,$95,$9C
 db $16,$A3,$A0,$9F,$A7,$94,$17,$88,$1F,$02,$52,$03,$10,$01,$02
 
-EF9CAD_EBattle1MsgBtlKabiHousi:
+EF9CAD_EBattle1CryingMoldSporesRowPresentationText:
 
-; Original data gap before EF9CD1_EBattle1MsgBtlShibari:
+; Original data gap before EF9CD1_EBattle1ImmobilizingBindingRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$A3,$93,$91,$A4,$16,$06,$95,$94
 db $00,$50,$15,$1C,$9D,$17,$8E,$A3,$A0,$9F,$17,$51,$51,$1F,$02,$52
 db $03,$10,$01,$02
 
 ; EBATTLE1: row 79 immobilized/could-not-move row message.
-EF9CD1_EBattle1MsgBtlShibari:
+EF9CD1_EBattle1ImmobilizingBindingRowPresentationText:
 
-; Original data gap before EF9CF1_EBattle1MsgBtlNeneki:
+; Original data gap before EF9CF1_EBattle1ImmobilizingMucusRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$9D,$A0,$9C,$9F,$A9,$95,$94
 db $00,$50,$17,$33,$99,$9E,$94,$15,$4E,$15,$DB,$51,$03,$10,$01,$02
 
 ; EBATTLE1: row 80 immobilized/could-not-move row message.
-EF9CF1_EBattle1MsgBtlNeneki:
+EF9CF1_EBattle1ImmobilizingMucusRowPresentationText:
 
-; Original data gap before EF9D14_EBattle1MsgBtlHaemitu:
+; Original data gap before EF9D14_EBattle1ImmobilizingFlyHoneyRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$99,$A4,$15,$93,$50,$15,$BC
 db $A3,$A4,$15,$FA,$A9,$50,$9D,$A5,$93,$A5,$A3,$51,$1F,$02,$51,$03
 db $10,$01,$02
 
 ; EBATTLE1: row 81 immobilized/could-not-move row message.
-EF9D14_EBattle1MsgBtlHaemitu:
+EF9D14_EBattle1ImmobilizingFlyHoneyRowPresentationText:
 
-; Original data gap before EF9D3E_EBattle1MsgBtlOshiriIto:
+; Original data gap before EF9D3E_EBattle1ImmobilizingThreadRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$95,$A7,$95,$94,$00,$50,$50
 db $6C,$76,$15,$9D,$78,$17,$3E,$6E,$16,$2A,$9F,$96,$16,$D9,$9D,$16
 db $17,$98,$51,$1F,$02,$51,$03,$10,$01,$02
 
 ; EBATTLE1: row 82 immobilized/could-not-move row message.
-EF9D3E_EBattle1MsgBtlOshiriIto:
+EF9D3E_EBattle1ImmobilizingThreadRowPresentationText:
 
-; Original data gap before EF9D62_EBattle1MsgBtlKowaiKotoba:
+; Original data gap before EF9D62_EBattle1SolidificationScaryWordsRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DF,$A4,$00,$50,$17,$F4,$99,$94
 db $15,$E0,$A3,$99,$9C,$9B,$16,$2A,$9F,$96,$15,$6C,$A3,$17,$47,$94
 db $A9,$51,$03,$02
 
 ; EBATTLE1: row 83 solidification row message.
-EF9D62_EBattle1MsgBtlKowaiKotoba:
+EF9D62_EBattle1SolidificationScaryWordsRowPresentationText:
 
-; Original data gap before EF9D81_EBattle1MsgBtlAyashiKoto:
+; Original data gap before EF9D81_EBattle1StrangeStatusSuspiciousThingRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$CA,$99,$94,$00,$50,$15,$0A,$A2
 db $95,$15,$DD,$A3,$16,$EE,$A9,$51,$1F,$02,$54,$03,$10,$01,$02
 
 ; EBATTLE1: row 84 resist-checked strange-status row message.
-EF9D81_EBattle1MsgBtlAyashiKoto:
+EF9D81_EBattle1StrangeStatusSuspiciousThingRowPresentationText:
 
-; Original data gap before EF9DA1_EBattle1MsgBtlFuuin:
+; Original data gap before EF9DA1_EBattle1ConcentrationPsiSealRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$94,$00,$50,$15,$0A,$15,$ED
 db $50,$9D,$A9,$A3,$16,$06,$16,$81,$51,$1F,$02,$55,$03,$10,$01,$02
 
 ; EBATTLE1: row 85 concentration/PSI-seal row message.
-EF9DA1_EBattle1MsgBtlFuuin:
+EF9DA1_EBattle1ConcentrationPsiSealRowPresentationText:
 
-; Original data gap before EF9DBD_EBattle1MsgBtlTachibaThink:
+; Original data gap before EF9DBD_EBattle1StrangeStatusThoughtRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$A3,$A2,$A5,$A0,$A4,$95,$94
 db $00,$50,$15,$0E,$A3,$17,$C7,$95,$A3,$51,$03,$02
 
 ; EBATTLE1: row 86 direct strange-status sibling row message.
-EF9DBD_EBattle1MsgBtlTachibaThink:
+EF9DBD_EBattle1StrangeStatusThoughtRowPresentationText:
 
-; Original data gap before EF9DDA_EBattle1MsgBtlKogeppuIki:
+; Original data gap before EF9DDA_EBattle1CryingBreathRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$00,$00,$50,$50,$A3,$99,$AA,$15
 db $1B,$A5,$A0,$16,$26,$99,$A4,$A5,$15,$5E,$51,$03,$02
 
 ; EBATTLE1: row 87 all-target crying-family row message.
-EF9DDA_EBattle1MsgBtlKogeppuIki:
+EF9DDA_EBattle1CryingBreathRowPresentationText:
 
-; Original data gap before EF9E05_EBattle1MsgBtlTyphoon:
+; Original data gap before EF9E05_EBattle1TyphoonRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$95,$A8,$98,$91,$9C,$95,$94,$00
 db $50,$17,$33,$9C,$91,$A3,$17,$1D,$A3,$A4,$99,$9E,$9B,$A9,$50,$92
 db $16,$82,$98,$51,$1F,$02,$5C,$03,$10,$01,$02
 
-EF9E05_EBattle1MsgBtlTyphoon:
+EF9E05_EBattle1TyphoonRowPresentationText:
 
-; Original data gap before EF9E22_EBattle1MsgBtlCoffee:
+; Original data gap before EF9E22_EBattle1CoffeeRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$B3,$9D,$9D,$15,$7E,$94,$00,$50
 db $50,$91,$16,$F1,$9D,$51,$1F,$02,$56,$03,$10,$01,$02
 
-EF9E22_EBattle1MsgBtlCoffee:
+EF9E22_EBattle1CoffeeRowPresentationText:
 
-; Original data gap before EF9E47_EBattle1MsgBtlMusic:
+; Original data gap before EF9E47_EBattle1AsleepMusicRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$17,$F4,$16,$08,$95,$94,$00,$50,$15
 db $1C,$A3,$93,$91,$9C,$94,$15,$1B,$98,$9F,$A4,$50,$95,$A3,$16,$AF
 db $A3,$9F,$51,$03,$02
 
-EF9E47_EBattle1MsgBtlMusic:
+EF9E47_EBattle1AsleepMusicRowPresentationText:
 
-; Original data gap before EF9E69_EBattle1MsgBtlSyoukaEki:
+; Original data gap before EF9E69_EBattle1SyoukaEkiRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$17,$36,$A9,$95,$94,$00,$50,$15
 db $BC,$98,$91,$A5,$9E,$16,$B5,$9D,$95,$9C,$9F,$94,$A9,$51,$03,$10
 db $01,$02
 
-EF9E69_EBattle1MsgBtlSyoukaEki:
+EF9E69_EBattle1SyoukaEkiRowPresentationText:
 
-; Original data gap before EF9E92_EBattle1MsgBtlKaminari:
+; Original data gap before EF9E92_EBattle1KaminariRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$B1,$A3,$A0,$17,$C7,$95,$94,$00
 db $50,$50,$15,$A2,$95,$A8,$16,$35,$A5,$17,$C8,$15,$1B,$92,$9C,$16
 db $A6,$51,$1F,$02,$58,$03,$10,$01,$02
 
-EF9E92_EBattle1MsgBtlKaminari:
+EF9E92_EBattle1KaminariRowPresentationText:
 
-; Original data gap before EF9EB4_EBattle1MsgBtlFire:
+; Original data gap before EF9EB4_EBattle1FireRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$AC,$91,$00,$50,$50,$73,$A2,$91
 db $A3,$98,$15,$1B,$72,$9F,$9F,$9D,$50,$72,$91,$9E,$97,$15,$DB,$51
 db $03,$02
 
-EF9EB4_EBattle1MsgBtlFire:
+EF9EB4_EBattle1FireRowPresentationText:
 
-; Original data gap before EF9ED7_EBattle1MsgBtlFireBreath:
+; Original data gap before EF9ED7_EBattle1FireBreathRowPresentationText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$16,$DF,$A4,$15,$93,$00,$50,$15,$BC
 db $A3,$A0,$A2,$91,$A9,$15,$4F,$96,$99,$A2,$95,$51,$1F,$02,$4B,$03
 db $10,$01,$02
 
-EF9ED7_EBattle1MsgBtlFireBreath:
+EF9ED7_EBattle1FireBreathRowPresentationText:
 
-; Original data gap before EF9EF4_EGoods2MsgBtlEscapeMouse:
+; Original data gap before EF9EF4_EGoods2ExitMouseItemUsePayloadText:
 db $01,$1F,$02,$19,$70,$1C,$0D,$50,$92,$16,$82,$98,$95,$94,$00,$50
 db $50,$96,$99,$A2,$95,$51,$1F,$02,$4B,$03,$10,$01,$02
 
-EF9EF4_EGoods2MsgBtlEscapeMouse:
+; EGOODS2: row 259 +4 Exit Mouse item-use payload with the C2:9039
+; default/no-op body.
+EF9EF4_EGoods2ExitMouseItemUsePayloadText:
 
 ; Original data gap before EF9F9F_EGoods2BranchMouseNotDungeon:
 db $1B,$00,$01,$1D,$22,$1B,$02,$9F,$9F,$EF,$00,$06,$0A,$03,$E2,$9F
@@ -7159,14 +7202,16 @@ db $A8,$17,$67,$7D,$9F,$16,$4B,$51,$02
 
 EFA0B7_EGoods2BranchBtlEscapeMouseCapsule:
 
-; Original data gap before EFA0DC_EGoods2MsgBtlHiero:
+; Original data gap before EFA0DC_EGoods2HieroglyphItemUsePayloadText:
 db $70,$76,$9F,$A2,$15,$1C,$15,$B6,$A3,$9F,$9E,$15,$E5,$95,$A8,$99
 db $A4,$17,$6F,$17,$55,$99,$15,$E7,$92,$95,$16,$D6,$97,$16,$FA,$91
 db $16,$86,$5E,$13,$02
 
-EFA0DC_EGoods2MsgBtlHiero:
+; EGOODS2: row 270 +4 Hieroglyph item-use payload with the C2:9039
+; default/no-op body.
+EFA0DC_EGoods2HieroglyphItemUsePayloadText:
 
-; Original data gap before EFA2AB_EGoods2MsgBtlTownMap:
+; Original data gap before EFA2AB_EGoods2TownMapItemUsePayloadText:
 db $1B,$04,$70,$1C,$02,$00,$16,$C4,$94,$15,$18,$98,$99,$95,$A2,$9F
 db $97,$9C,$A9,$A0,$98,$A3,$5E,$03,$00,$70,$6C,$84,$9F,$50,$96,$15
 db $BB,$15,$5B,$A3,$15,$36,$99,$9E,$A6,$91,$94,$17,$B9,$5C,$16,$85
@@ -7197,7 +7242,9 @@ db $95,$9F,$5E,$03,$00,$70,$16,$4E,$53,$00,$50,$50,$64,$16,$4E,$63
 db $00,$16,$4E,$62,$50,$65,$03,$00,$70,$74,$17,$01,$15,$3F,$96,$A2
 db $9F,$9E,$A4,$15,$09,$83,$A0,$98,$99,$9E,$A8,$51,$6E,$13,$02
 
-EFA2AB_EGoods2MsgBtlTownMap:
+; EGOODS2: Town Map item-use payload text; row 271 also uses it as row +4 text
+; with the C2:9039 default/no-op body.
+EFA2AB_EGoods2TownMapItemUsePayloadText:
 
 ; Original data gap before EFA2B5_EGoods2BranchTownMapNg:
 db $1F,$41,$07,$1B,$02,$B5,$A2,$EF,$00,$02

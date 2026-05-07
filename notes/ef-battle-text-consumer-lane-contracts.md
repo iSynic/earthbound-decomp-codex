@@ -46,9 +46,11 @@ Examples:
 - row `140 -> EF:8E27 -> C2:9AD8` and row `247 -> EF:8E27 -> C2:90C6`
   intentionally reuse one EF row-message anchor with different C2 behavior
   bodies.
-- rows `53` and `58` reuse shared `EF:8543` PSI `ByteSubstitution`
-  presentation text, while their behavior bodies emit asleep or strange result
-  text through `DC1C`.
+- Bash/attack `EF:848C`, Shoot `EF:84B6`, Spy/check `EF:8530`, shared PSI
+  `EF:8543`, and Pray `EF:89E0` are proved EF row `+4` presentation anchors.
+- rows `53` and `58` reuse shared
+  `EF:8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText`, while
+  their behavior bodies emit asleep or strange result text through `DC1C`.
 
 ## Direct Result Lane
 
@@ -60,15 +62,47 @@ Examples:
 
 - `EF:6C55`, `EF:6C3A`, `EF:6C0B`, and `EF:766E` are status success/failure
   result scripts emitted by C2 behavior bodies.
+- Spy vulnerability/susceptibility readouts at `EF:6A0D..6A7F` are direct
+  readout text selected by C2 Spy resistance checks, while `EF:6A99/6AB3` are
+  metamorphose result text emitted by the normalization tail.
 - `StatusResultText` EF anchors such as `EF:6AC7..6C55` and `EF:766E` are
   direct-result lane names; they should not be promoted as row `+4` action
   messages without separate `D5:7B68` row-pointer evidence.
 - `RecoveryResultText` and `RemovalResultText` EF anchors such as
   `EF:6E4A..6F64` are the cleanup side of the same direct-result lane.
-- `EF:72F7`, `EF:733D`, and `EF:743B` are special-event continuations emitted
-  after rows `243` and `244` present their row messages.
+- Death/defeat text at `EF:6C6B..6E31` is direct death/defeat payload flow:
+  player collapse, Flying Man/teddy-bear death payloads, and enemy defeat
+  flavor variants. Do not promote these as row `+4` presentation text.
+- Revive, shield, Neutralizer, and Franklin Badge anchors in `EF:6F7C..7160`
+  are also direct result lane text; `EF:70D2/70FA` additionally keep the
+  `ByteSubstitution` suffix because they consume the staged PSI-name byte.
+- EBATTLE4 action-blocking status anchors in `EF:7186..720C` explain a blocked
+  turn; the adjacent PSI-seal result at `EF:7221` is a
+  `ByteSubstitutionResultText` consumer, not a row presentation anchor.
+- EBATTLE0 battle-start status announcements at `EF:843F/8444/8445` and
+  random-action status text at `EF:845D/8477` are direct `DC1C` emissions
+  around target-context setup and row-message selection; they are not EBATTLE1
+  row `+4` presentation text.
+- `EF:7249..72DB` names the guard-on, Fly-Honey, and homesick branch front of
+  the EBATTLE4 event/flavor corridor. These labels are source anchors only
+  until caller evidence proves a row-presentation or direct-result lane.
+- `EF:72F6` and `EF:7415` are special-event row `+4` presentation anchors for
+  rows `243` and `244`; `EF:72F7`, `EF:733D`, and `EF:743B` are the separate
+  C2 behavior-emitted result continuations.
+- `EF:745F..7593` names the Pokey random-talk dispatcher/branches and
+  companion talk tail as flavor/event text islands. These labels are useful
+  source anchors, but they are not row-presentation or direct-result lane
+  promotions until a caller proves that consumer shape.
 - `EF:7142` and queued `EF:7123` belong to normalization result flow, separate
   from the row `247`/`248` presentation messages.
+- `EF:77FD..7830` are the four call-for-help result exits and `EF:7843` is the
+  Time Stop return result. They are direct-result anchors, while the
+  encounter-opening text at `EF:7858+` remains a separate presentation island.
+- `EF:7858..78F7` names EBATTLE8 encounter and surprise `OpeningText`
+  presentation variants, with group-actor helper branches at `EF:790B..79C6`.
+- `EF:79D7..7A66` names EBATTLE8 victory/loss and level-up narration text.
+  The adjacent stat-gain scripts at `EF:7A7D..7B46` are `ActionAmount`
+  consumers staged by C1 level-up leaves, not C2 action rows.
 
 Naming rule: direct-result scripts can receive gameplay-facing result names
 when their C2 caller proves the role, even if the surrounding action-message
@@ -84,9 +118,15 @@ should keep the `ActionAmount` suffix when the script uses
 
 Examples:
 
-- HP/PP recovery scripts consume staged recovery amounts.
+- HP/PP recovery amount scripts `EF:69BA/69D2` consume staged recovery
+  amounts. The adjacent HP-already-maxed text at `EF:69A1` is the non-amount
+  recovery branch.
+- Spy offense/defense readouts at `EF:69EA/69FF` are `ActionAmount` consumers
+  staged by C2 Spy setup through `DC66`.
 - damage, drain, stat-up, stat-down, and HP-sucker scripts consume staged
-  amount payloads.
+  amount payloads. EBATTLE4 examples include damage `EF:75AB..7607`,
+  HP-sucker `EF:7729`, PP drain `EF:773F/7755`, and periodic damage
+  `EF:7768..77DB`.
 - EF periodic damage and PP-loss scripts such as `EF:7755`, `EF:7768`,
   `EF:7787`, `EF:77B1`, and `EF:77DB` are `ActionAmount` result scripts when
   emitted through `DC66`.
@@ -98,9 +138,17 @@ Examples:
 
 `C1:DD7C` stages `$9D11` for `LOAD_BYTE_SUBSTITUTION (19 1F)`. EF anchors that
 consume that byte should keep the `ByteSubstitution` suffix. Present/item-name
-and PSI-name examples are the current high-confidence cases: `EF:7BDF` and
-`EF:7DD5` for present item names, `EF:7B77` and shared row text `EF:8543` for
-PSI names, plus shield PSI-name result scripts `EF:70D2` and `EF:70FA`.
+and PSI-name examples are the current high-confidence cases:
+`EF:7BDF_EBattle8PresentItemByteSubstitutionText` and
+`EF:7DD5_EBattle8CheckPresentGetItemByteSubstitutionText` for present item
+names, `EF:7B77` and shared row text
+`EF:8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText` for PSI
+names, plus shield PSI-name result scripts `EF:70D2` and `EF:70FA`.
+
+The present continuation at `EF:7C42..7DBE` is downstream result/prompt flow
+after the present item byte has been consumed. Its result and prompt labels
+should not be promoted as row `+4` presentation text without separate row
+evidence.
 
 `LOAD_POINTER_SUBSTITUTION (19 1E)` consumes `$9D12/$9D14`; EF branches that
 depend on that pointer should keep the `PointerSubstitution` suffix. Current
@@ -132,12 +180,14 @@ name EF result scripts if the C2 behavior body later emits an EF pointer.
 - Do not treat direct `DC1C` result scripts as row `+4` presentation messages.
 - Do not treat C8/C9 amount or narrative scripts as EF anchor evidence.
 - Do not infer row messages from nearby English-looking EF action flavor text.
-- Do not fold Lifeup rows `32..35` into the shared `EF:8543` PSI bucket until
-  their row `+4` pointers are recovered.
+- Lifeup rows `32..35` now have recovered `EF:8543` row `+4` pointers; keep
+  their `DD9F` presentation lane separate from HP recovery result text.
 - Do not treat Lifeup explanation text `EF:5173..51BB`, enemy Lifeup flavor
-  `EF:8D4C`, or explosive flavor candidates `EF:9A7E/9A9E` as row-message
-  joins for rows `32..35` or `64/65` until row `+4` pointer recovery proves
-  them.
+  `EF:8D4C`, or unrelated nearby action flavor as row-message joins without
+  row `+4` pointer evidence.
+- Explosive rows `64/65` now have recovered `EF:9A7E/9A9E` row `+4` pointers;
+  keep those presentation scripts separate from row `101 -> EF:7ED5` and the
+  shared `C2:A821` behavior body.
 - Do not collapse no-op behavior rows into "no effect" result text; a no-op
   row `+8` body can still have meaningful row `+4` presentation text.
 

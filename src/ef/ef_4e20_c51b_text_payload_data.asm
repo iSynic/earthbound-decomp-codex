@@ -638,79 +638,79 @@ EF6954_E07GpftBranchThrkBossGraveDieHave:
 ; EF:69A1
 
 ; EBATTLE5: HP already maxed recovery text.
-EF69A1_EBattle5MsgBtlHpMaxRecovered:
+EF69A1_EBattle5HpAlreadyMaxedRecoveryText:
 
 ; ---------------------------------------------------------------------------
 ; EF:69BA
 
 ; EBATTLE5: HP recovery text; C2 stages delta HP through C1:DC66/1C 0F.
-EF69BA_EBattle5MsgBtlHpRecoveredActionAmount:
+EF69BA_EBattle5HpRecoveredActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:69D2
 
 ; EBATTLE5: PP recovery text; C2 stages delta PP through C1:DC66/1C 0F.
-EF69D2_EBattle5MsgBtlPpRecoveredActionAmount:
+EF69D2_EBattle5PpRecoveredActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:69EA
 
 ; EBATTLE5: Spy offense readout text; C2 stages offense through C1:DC66/1C 0F.
-EF69EA_EBattle5MsgBtlCheckOffenseActionAmount:
+EF69EA_EBattle5SpyOffenseReadoutActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:69FF
 
 ; EBATTLE5: Spy defense readout text; C2 stages defense through C1:DC66/1C 0F.
-EF69FF_EBattle5MsgBtlCheckDefenseActionAmount:
+EF69FF_EBattle5SpyDefenseReadoutActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A0D
 
 ; EBATTLE5: Spy fire-vulnerability direct readout text.
-EF6A0D_EBattle5MsgBtlCheckAntiFire:
+EF6A0D_EBattle5SpyFireVulnerabilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A24
 
 ; EBATTLE5: Spy freeze-vulnerability direct readout text.
-EF6A24_EBattle5MsgBtlCheckAntiFreeze:
+EF6A24_EBattle5SpyFreezeVulnerabilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A3C
 
 ; EBATTLE5: Spy flash-vulnerability direct readout text.
-EF6A3C_EBattle5MsgBtlCheckAntiFlash:
+EF6A3C_EBattle5SpyFlashVulnerabilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A54
 
 ; EBATTLE5: Spy paralysis-vulnerability direct readout text.
-EF6A54_EBattle5MsgBtlCheckAntiParalysis:
+EF6A54_EBattle5SpyParalysisVulnerabilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A6C
 
 ; EBATTLE5: Spy hypnosis susceptibility direct readout text.
-EF6A6C_EBattle5MsgBtlCheckBrainLevel0:
+EF6A6C_EBattle5SpyHypnosisSusceptibilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A7F
 
 ; EBATTLE5: Spy brainshock susceptibility direct readout text.
-EF6A7F_EBattle5MsgBtlCheckBrainLevel3:
+EF6A7F_EBattle5SpyBrainshockSusceptibilityReadoutText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6A99
 
 ; EBATTLE5: metamorphose success text used by the C2 normalization tail.
-EF6A99_EBattle5MsgBtlMetamorphoseOk:
+EF6A99_EBattle5MetamorphoseSuccessResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6AB3
 
 ; EBATTLE5: metamorphose failure text used by the C2 normalization tail.
-EF6AB3_EBattle5MsgBtlMetamorphoseFailed:
+EF6AB3_EBattle5MetamorphoseFailureResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6AC7
@@ -809,13 +809,13 @@ EF6C55_EBattle5AsleepStatusResultText:
 ; EF:6C6B
 
 ; EBATTLE5: player-side incapacitated/collapsed text.
-EF6C6B_EBattle5MsgBtlIncapacitated:
+EF6C6B_EBattle5PlayerIncapacitatedCollapseText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6C84
 
 ; EBATTLE5: Flying Man death text and party-removal branch driver.
-EF6C84_EBattle5MsgSysNpcDeadFlyingMan:
+EF6C84_EBattle5FlyingManDeathText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6CC7
@@ -875,73 +875,73 @@ EF6D26_EBattle5FlyingManRemoveBranch5:
 ; EF:6D2A
 
 ; EBATTLE5: teddy bear destroyed text.
-EF6D2A_EBattle5MsgSysNpcDeadTeddyBear:
+EF6D2A_EBattle5TeddyBearDestroyedText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6D4C
 
 ; EBATTLE5: super plush bear destroyed text.
-EF6D4C_EBattle5MsgSysNpcDeadSuperPlushBear:
+EF6D4C_EBattle5SuperPlushBearDestroyedText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6D71
 
 ; EBATTLE5: enemy defeated text.
-EF6D71_EBattle5MsgBtlEnemyDefeated:
+EF6D71_EBattle5EnemyDefeatedText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6D83
 
 ; EBATTLE5: enemy stopped moving defeat text.
-EF6D83_EBattle5MsgBtlEnemyStoppedMoving:
+EF6D83_EBattle5EnemyStoppedMovingDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6D96
 
 ; EBATTLE5: enemy became tame defeat text.
-EF6D96_EBattle5MsgBtlEnemyBecameTame:
+EF6D96_EBattle5EnemyBecameTameDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6DA7
 
 ; EBATTLE5: enemy disappeared defeat text.
-EF6DA7_EBattle5MsgBtlEnemyDisappeared:
+EF6DA7_EBattle5EnemyDisappearedDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6DB8
 
 ; EBATTLE5: enemy figure melted away defeat text.
-EF6DB8_EBattle5MsgBtlEnemyMeltedAway:
+EF6DB8_EBattle5EnemyMeltedAwayDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6DD8
 
 ; EBATTLE5: enemy broke into pieces defeat text.
-EF6DD8_EBattle5MsgBtlEnemyBrokeIntoPieces:
+EF6DD8_EBattle5EnemyBrokeIntoPiecesDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6DF0
 
 ; EBATTLE5: enemy destroyed defeat text.
-EF6DF0_EBattle5MsgBtlEnemyDestroyed:
+EF6DF0_EBattle5EnemyDestroyedDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6E03
 
 ; EBATTLE5: enemy scrapped defeat text.
-EF6E03_EBattle5MsgBtlEnemyScrapped:
+EF6E03_EBattle5EnemyScrappedDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6E19
 
 ; EBATTLE5: enemy turned back to normal defeat text.
-EF6E19_EBattle5MsgBtlEnemyReturnedToNormal:
+EF6E19_EBattle5EnemyReturnedToNormalDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6E31
 
 ; EBATTLE5: enemy returned to dust defeat text.
-EF6E31_EBattle5MsgBtlEnemyReturnedToDust:
+EF6E31_EBattle5EnemyReturnedToDustDefeatText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6E4A
@@ -988,7 +988,8 @@ EF6EED_EBattle5ImmobilizedRecoveryResultText:
 ; ---------------------------------------------------------------------------
 ; EF:6F0B
 
-; EBATTLE5: frozen/solidified movement recovery direct-result text.
+; EBATTLE5: frozen/solidified movement recovery direct-result text. D5:7B68
+; row 255 also uses this as row +4 text with the `C2:9045` tiny no-op tail.
 EF6F0B_EBattle5FrozenMovementRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
@@ -1018,146 +1019,150 @@ EF6F64_EBattle5PsiSealRecoveryResultText:
 ; ---------------------------------------------------------------------------
 ; EF:6F7C
 
-; EBATTLE5: revived text.
-EF6F7C_EBattle5MsgBtlRevived:
+; EBATTLE5: revive success direct-result text.
+EF6F7C_EBattle5ReviveSuccessResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6F8E
 
-; EBATTLE5: revive failed text.
-EF6F8E_EBattle5MsgBtlReviveFailed:
+; EBATTLE5: revive failure direct-result text.
+EF6F8E_EBattle5ReviveFailureResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6F9A
 
 ; EBATTLE5: shield installed timed substate result text.
-EF6F9A_EBattle5MsgBtlShieldInstalled:
+EF6F9A_EBattle5ShieldInstalledResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6FBD
 
 ; EBATTLE5: shield strengthened timed substate result text.
-EF6FBD_EBattle5MsgBtlShieldStrengthened:
+EF6FBD_EBattle5ShieldStrengthenedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6FD3
 
 ; EBATTLE5: power shield installed timed substate result text.
-EF6FD3_EBattle5MsgBtlPowerShieldInstalled:
+EF6FD3_EBattle5PowerShieldInstalledResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:6FF4
 
 ; EBATTLE5: power shield strengthened timed substate result text.
-EF6FF4_EBattle5MsgBtlPowerShieldStrengthened:
+EF6FF4_EBattle5PowerShieldStrengthenedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:700C
 
 ; EBATTLE5: psychic shield installed timed substate result text.
-EF700C_EBattle5MsgBtlPsychicShieldInstalled:
+EF700C_EBattle5PsychicShieldInstalledResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7032
 
 ; EBATTLE5: psychic shield strengthened timed substate result text.
-EF7032_EBattle5MsgBtlPsychicShieldStrengthened:
+EF7032_EBattle5PsychicShieldStrengthenedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7050
 
 ; EBATTLE5: psychic power shield installed timed substate result text.
-EF7050_EBattle5MsgBtlPsychicPowerShieldInstalled:
+EF7050_EBattle5PsychicPowerShieldInstalledResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:707A
 
 ; EBATTLE5: psychic power shield strengthened timed substate result text.
-EF707A_EBattle5MsgBtlPsychicPowerShieldStrengthened:
+EF707A_EBattle5PsychicPowerShieldStrengthenedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7099
 
-; EBATTLE5: shield expired/vanished timed substate text.
-EF7099_EBattle5MsgBtlShieldExpired:
+; EBATTLE5: shield expired/vanished timed substate result text.
+EF7099_EBattle5ShieldExpiredResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:70B1
 
-; EBATTLE5: power shield reflected the attack text.
-EF70B1_EBattle5MsgBtlPowerShieldReflectsAttack:
+; EBATTLE5: power shield reflected the attack result text.
+EF70B1_EBattle5PowerShieldReflectsAttackResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:70D2
 
 ; EBATTLE5: psychic power shield reflected PSI-name byte-substitution text.
-EF70D2_EBattle5MsgBtlPsychicPowerShieldReflectsPsiNameByteSubstitutionText:
+EF70D2_EBattle5PsychicPowerShieldReflectsPsiNameByteSubstitutionResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:70FA
 
 ; EBATTLE5: psychic shield nullified PSI-name byte-substitution text.
-EF70FA_EBattle5MsgBtlPsychicShieldNullifiesPsiNameByteSubstitutionText:
+EF70FA_EBattle5PsychicShieldNullifiesPsiNameByteSubstitutionResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7123
 
 ; EBATTLE5: Neutralizer result text.
-EF7123_EBattle5MsgBtlNeutralizeResult:
+EF7123_EBattle5NeutralizeResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7142
 
 ; EBATTLE5: neutralized-transformation result text.
-EF7142_EBattle5MsgBtlNeutralizeMetamorph:
+EF7142_EBattle5NeutralizeMetamorphResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7160
 
 ; EBATTLE5: Franklin Badge reflected Thunder text.
-EF7160_EBattle5MsgBtlFranklinBadgeReflectsThunder:
+EF7160_EBattle5FranklinBadgeReflectsThunderResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7186
 
-; EBATTLE4: diamondized cannot-move status text.
-EF7186_EBattle4MsgBtlDiamondizedCannotMove:
+; EBATTLE4: diamondized action-blocked status text.
+EF7186_EBattle4DiamondizedActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7192
 
-; EBATTLE4: paralysis cannot-move status text.
-EF7192_EBattle4MsgBtlParalysisCannotMove:
+; EBATTLE4: paralysis action-blocked status text. D5:7B68 row 252 also uses
+; this as row +4 text with the `C2:9042` tiny no-op tail.
+EF7192_EBattle4ParalysisActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:71B4
 
-; EBATTLE4: nausea cannot-move status text.
-EF71B4_EBattle4MsgBtlNauseaCannotMove:
+; EBATTLE4: nausea action-blocked status text.
+EF71B4_EBattle4NauseaActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:71CC
 
-; EBATTLE4: poison status text.
-EF71CC_EBattle4MsgBtlPoisonStatus:
+; EBATTLE4: poison action-blocked status text.
+EF71CC_EBattle4PoisonActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:71DF
 
-; EBATTLE4: asleep status text.
-EF71DF_EBattle4MsgBtlAsleepStatus:
+; EBATTLE4: asleep action-blocked status text. D5:7B68 row 253 also uses this
+; as row +4 text with the `C2:904B` tiny no-op tail.
+EF71DF_EBattle4AsleepActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:71F6
 
-; EBATTLE4: immobilized status text.
-EF71F6_EBattle4MsgBtlImmobilizedStatus:
+; EBATTLE4: immobilized action-blocked status text. D5:7B68 row 254 also uses
+; this as row +4 text with the `C2:903F` tiny no-op tail.
+EF71F6_EBattle4ImmobilizedActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:720C
 
-; EBATTLE4: PSI-seal status text.
-EF720C_EBattle4MsgBtlPsiSealStatus:
+; EBATTLE4: PSI-seal action-blocked status text. D5:7B68 row 256 also uses
+; this as row +4 text with the `C2:9048` tiny no-op tail.
+EF720C_EBattle4PsiSealActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:721E
@@ -1168,212 +1173,211 @@ EF721E_EBattle4PsiSealPlayerSideSoundBranch:
 ; ---------------------------------------------------------------------------
 ; EF:7221
 
-; EBATTLE4: PSI-seal result text.
-EF7221_EBattle4PsiSealResultText:
+; EBATTLE4: PSI-seal result text; consumes the PSI-name byte through 19 1F.
+EF7221_EBattle4PsiSealByteSubstitutionResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7249
 
-; EBATTLE4: guard-on text.
-EF7249_EBattle4MsgBtlGuardOn:
+; EBATTLE4: guard-on event/flavor text.
+EF7249_EBattle4GuardOnFlavorText:
 
 ; ---------------------------------------------------------------------------
 ; EF:725A
 
-; EBATTLE4: Fly Honey mind-loss text.
-EF725A_EBattle4MsgBtlFlyHoneyMindLost:
+; EBATTLE4: Fly Honey mind-loss event text.
+EF725A_EBattle4FlyHoneyMindLostEventText:
 
 ; ---------------------------------------------------------------------------
 ; EF:727F
 
-; EBATTLE4: homesick random branch dispatcher.
-EF727F_EBattle4MsgBtlHomesickRandom:
+; EBATTLE4: homesick random branch dispatcher. D5:7B68 row 251 also uses this
+; as row +4 text with the `C2:904E` tiny no-op tail.
+EF727F_EBattle4HomesickRandomThoughtDispatcher:
 
 ; ---------------------------------------------------------------------------
 ; EF:72A0
 
 ; EBATTLE4: homesick thought-of-mom branch.
-EF72A0_EBattle4MsgBtlHomesickThoughtMom:
+EF72A0_EBattle4HomesickThoughtOfMomBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:72B9
 
 ; EBATTLE4: homesick craving-food branch.
-EF72B9_EBattle4MsgBtlHomesickCravingFood:
+EF72B9_EBattle4HomesickCravingFoodBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:72DB
 
 ; EBATTLE4: homesick lost-motivation branch.
-EF72DB_EBattle4MsgBtlHomesickLostMotivation:
+EF72DB_EBattle4HomesickLostMotivationBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:72F6
 
-; EBATTLE4: Runaway Five break-in root text; D5:7B68 row 243 uses this as the
-; row +4 `DD9F` presentation message before the C2 event body selects a
-; continuation.
-EF72F6_EBattle4MsgBtlRunawayFiveBreakIn:
+; EBATTLE4: Runaway Five break-in row +4 `DD9F` presentation text for row 243.
+EF72F6_EBattle4RunawayFiveBreakInRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:72F7
 
 ; EBATTLE4: Runaway Five break-in failure text; direct-result continuation
 ; emitted by the row 243 C2 behavior body, not a row +4 presentation anchor.
-EF72F7_EBattle4MsgBtlRunawayFiveBreakInFailed:
+EF72F7_EBattle4RunawayFiveBreakInFailureResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:733D
 
 ; EBATTLE4: Runaway Five break-in success text; direct-result continuation
 ; emitted by the row 243 C2 behavior body, not a row +4 presentation anchor.
-EF733D_EBattle4MsgBtlRunawayFiveBreakInSucceeded:
+EF733D_EBattle4RunawayFiveBreakInSuccessResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7415
 
 ; EBATTLE4: Poo break-in PSI realization text; D5:7B68 row 244 uses this as
 ; the row +4 `DD9F` presentation message before the C2 event result.
-EF7415_EBattle4MsgBtlPooBreakIn:
+EF7415_EBattle4PooBreakInRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:743B
 
 ; EBATTLE4: Poo Starstorm reveal text; direct-result continuation emitted by
 ; the row 244 C2 behavior body, not a row +4 presentation anchor.
-EF743B_EBattle4MsgBtlPooStarstormReveal:
+EF743B_EBattle4PooStarstormRevealResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:745F
 
 ; EBATTLE4: Pokey talk random branch dispatcher.
-EF745F_EBattle4MsgBtlPokeyTalkRandom:
+EF745F_EBattle4PokeyRandomTalkDispatcher:
 
 ; ---------------------------------------------------------------------------
 ; EF:749D
 
 ; EBATTLE4: Pokey played-dead talk branch.
-EF749D_EBattle4MsgBtlPokeyPlayedDead:
+EF749D_EBattle4PokeyRandomTalkPlayedDeadBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:74B0
 
 ; EBATTLE4: Pokey pretended-to-cry talk branch.
-EF74B0_EBattle4MsgBtlPokeyPretendedCry:
+EF74B0_EBattle4PokeyRandomTalkPretendedCryBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:74C9
 
 ; EBATTLE4: Pokey apology talk branch.
-EF74C9_EBattle4MsgBtlPokeyApologized:
+EF74C9_EBattle4PokeyRandomTalkApologyBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:74E6
 
 ; EBATTLE4: Pokey thought-to-self talk branch.
-EF74E6_EBattle4MsgBtlPokeyThoughtToSelf:
+EF74E6_EBattle4PokeyRandomTalkThoughtToSelfBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:74FA
 
 ; EBATTLE4: Pokey innocent-act talk branch.
-EF74FA_EBattle4MsgBtlPokeyActedInnocent:
+EF74FA_EBattle4PokeyRandomTalkInnocentActBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7514
 
 ; EBATTLE4: Pokey sincere-smile talk branch.
-EF7514_EBattle4MsgBtlPokeySmiledSincerely:
+EF7514_EBattle4PokeyRandomTalkSincereSmileBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7530
 
 ; EBATTLE4: Pokey complaint talk branch.
-EF7530_EBattle4MsgBtlPokeyComplained:
+EF7530_EBattle4PokeyRandomTalkComplaintBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7548
 
 ; EBATTLE4: Pokey edge-closer talk branch.
-EF7548_EBattle4MsgBtlPokeyEdgedCloser:
+EF7548_EBattle4PokeyRandomTalkEdgeCloserBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7569
 
 ; EBATTLE4: My Dog howling text.
-EF7569_EBattle4MsgBtlMyDogHowling:
+EF7569_EBattle4CompanionMyDogHowlingText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7579
 
 ; EBATTLE4: Pickey talk text.
-EF7579_EBattle4MsgBtlPickeyTalk:
+EF7579_EBattle4CompanionPickeyTalkText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7591
 
 ; EBATTLE4: Tony talk text.
-EF7591_EBattle4MsgBtlTonyTalk:
+EF7591_EBattle4CompanionTonyTalkText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7593
 
 ; EBATTLE4: Balmon talk text.
-EF7593_EBattle4MsgBtlBalmonTalk:
+EF7593_EBattle4CompanionBalmonTalkText:
 
 ; ---------------------------------------------------------------------------
 ; EF:75AB
 
 ; EBATTLE4: ordinary damage text; C2 stages HP damage through C1:DC66/1C 0F.
-EF75AB_EBattle4MsgBtlDamageActionAmount:
+EF75AB_EBattle4DamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:75C2
 
 ; EBATTLE4: mortal damage text; C2 stages HP damage through C1:DC66/1C 0F.
-EF75C2_EBattle4MsgBtlMortalDamageActionAmount:
+EF75C2_EBattle4MortalDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:75D9
 
 ; EBATTLE4: SMAAAASH damage text; C2 stages HP damage through C1:DC66/1C 0F.
-EF75D9_EBattle4MsgBtlSmashDamageActionAmount:
+EF75D9_EBattle4SmashDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:75F0
 
 ; EBATTLE4: mortal SMAAAASH damage text; C2 stages HP damage through C1:DC66/1C 0F.
-EF75F0_EBattle4MsgBtlMortalSmashDamageActionAmount:
+EF75F0_EBattle4MortalSmashDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7607
 
 ; EBATTLE4: mortal damage-to-death text; C2 stages HP damage through C1:DC66/1C 0F.
-EF7607_EBattle4MsgBtlDamageToDeathActionAmount:
+EF7607_EBattle4DamageToDeathActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7624
 
 ; EBATTLE4: player-side SMAAAASH presentation text.
-EF7624_EBattle4MsgBtlSmashPlayer:
+EF7624_EBattle4PlayerSmashPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7630
 
 ; EBATTLE4: monster-side SMAAAASH presentation text.
-EF7630_EBattle4MsgBtlSmashMonster:
+EF7630_EBattle4MonsterSmashPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:763C
 
 ; EBATTLE4: shooting/action dodge text.
-EF763C_EBattle4MsgBtlShootDodged:
+EF763C_EBattle4ShootDodgedText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7655
 
 ; EBATTLE4: bash/physical dodge text.
-EF7655_EBattle4MsgBtlBashDodged:
+EF7655_EBattle4BashDodgedText:
 
 ; ---------------------------------------------------------------------------
 ; EF:766E
@@ -1392,174 +1396,174 @@ EF7682_EBattle4AdjacentNoEffectText:
 ; EF:7696
 
 ; EBATTLE4: no visible effect text.
-EF7696_EBattle4MsgBtlNoVisibleEffect:
+EF7696_EBattle4NoVisibleEffectText:
 
 ; ---------------------------------------------------------------------------
 ; EF:76B3
 
 ; EBATTLE4: third no-effect variant before miss and drain text.
-EF76B3_EBattle4MsgBtlNoEffectVariantC:
+EF76B3_EBattle4NoEffectVariantCText:
 
 ; ---------------------------------------------------------------------------
 ; EF:76C7
 
 ; EBATTLE4: physical miss text.
-EF76C7_EBattle4MsgBtlMissPhysical:
+EF76C7_EBattle4PhysicalMissText:
 
 ; ---------------------------------------------------------------------------
 ; EF:76D8
 
 ; EBATTLE4: shoot miss text.
-EF76D8_EBattle4MsgBtlMissShoot:
+EF76D8_EBattle4ShootMissText:
 
 ; ---------------------------------------------------------------------------
 ; EF:76FD
 
 ; EBATTLE4: target no-longer-exists text before HP-sucker results.
-EF76FD_EBattle4MsgBtlTargetNotExist:
+EF76FD_EBattle4TargetGoneText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7710
 
 ; EBATTLE4: HP-sucker self-drain direct text.
-EF7710_EBattle4MsgBtlHpSuckSelfDrain:
+EF7710_EBattle4HpSuckerSelfDrainText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7729
 
 ; EBATTLE4: HP-sucker drain text; C2 stages drained HP through C1:DC66/1C 0F.
-EF7729_EBattle4MsgBtlHpSuckActionAmount:
+EF7729_EBattle4HpSuckerDrainActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:773F
 
 ; EBATTLE4: PP drain text; C2 stages drained PP through C1:DC66/1C 0F.
-EF773F_EBattle4MsgBtlPpDrainActionAmount:
+EF773F_EBattle4PpDrainActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7755
 
 ; EBATTLE4: target-side PP drain text; C2 stages drained PP through
 ; C1:DC66/1C 0F.
-EF7755_EBattle4MsgBtlPpDrainTargetActionAmount:
+EF7755_EBattle4TargetPpDrainActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7768
 
 ; EBATTLE4: strange/status periodic damage text; C2 stages HP damage through
 ; C1:DC66/1C 0F.
-EF7768_EBattle4MsgBtlStrangeDamageActionAmount:
+EF7768_EBattle4StrangeDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7787
 
 ; EBATTLE4: poison periodic damage text; C2 stages HP damage through
 ; C1:DC66/1C 0F.
-EF7787_EBattle4MsgBtlPoisonDamageActionAmount:
+EF7787_EBattle4PoisonDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:77B1
 
 ; EBATTLE4: sunstroke periodic damage text; C2 stages HP damage through
 ; C1:DC66/1C 0F.
-EF77B1_EBattle4MsgBtlSunstrokeDamageActionAmount:
+EF77B1_EBattle4SunstrokeDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:77DB
 
 ; EBATTLE4: cold periodic damage text; C2 stages HP damage through
 ; C1:DC66/1C 0F.
-EF77DB_EBattle4MsgBtlColdDamageActionAmount:
+EF77DB_EBattle4ColdDamageActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:77FD
 
 ; EBATTLE8: ordinary call-for-help success text.
-EF77FD_EBattle8MsgBtlCallForHelpEnemyJoined:
+EF77FD_EBattle8CallForHelpEnemyJoinedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7810
 
 ; EBATTLE8: seed/sprout-flavored call-for-help success text.
-EF7810_EBattle8MsgBtlCallForHelpSeedSprouted:
+EF7810_EBattle8CallForHelpSeedSproutedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7824
 
 ; EBATTLE8: ordinary call-for-help failure text.
-EF7824_EBattle8MsgBtlCallForHelpNoOneCame:
+EF7824_EBattle8CallForHelpNoOneCameResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7830
 
 ; EBATTLE8: seed/sprout-flavored call-for-help failure text.
-EF7830_EBattle8MsgBtlCallForHelpSeedNoSprout:
+EF7830_EBattle8CallForHelpSeedNoSproutResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7843
 
 ; EBATTLE8: Time Stop return text used by the C2 hit-resolution cluster.
-EF7843_EBattle8MsgBtlTimeStopReturn:
+EF7843_EBattle8TimeStopReturnResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7858
 
 ; EBATTLE8: enemy attacked encounter-opening text.
-EF7858_EBattle8MsgBtlAppearAttacked:
+EF7858_EBattle8EncounterAttackedOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7866
 
 ; EBATTLE8: enemy blocked-the-way encounter-opening text.
-EF7866_EBattle8MsgBtlAppearBlockedWay:
+EF7866_EBattle8EncounterBlockedWayOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7879
 
 ; EBATTLE8: enemy came-after-you encounter-opening text.
-EF7879_EBattle8MsgBtlAppearCameAfterYou:
+EF7879_EBattle8EncounterCameAfterYouOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:788B
 
 ; EBATTLE8: enemy trapped-you encounter-opening text.
-EF788B_EBattle8MsgBtlAppearTrappedYou:
+EF788B_EBattle8EncounterTrappedYouOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:789C
 
 ; EBATTLE8: final-encounter wording variant 4.
-EF789C_EBattle8MsgBtlFinalEncounter4:
+EF789C_EBattle8FinalEncounterVariant4OpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:78AB
 
 ; EBATTLE8: final-encounter wording variant 5.
-EF78AB_EBattle8MsgBtlFinalEncounter5:
+EF78AB_EBattle8FinalEncounterVariant5OpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:78B8
 
 ; EBATTLE8: final-encounter wording variant 6.
-EF78B8_EBattle8MsgBtlFinalEncounter6:
+EF78B8_EBattle8FinalEncounterVariant6OpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:78C7
 
 ; EBATTLE8: final-encounter wording variant 7.
-EF78C7_EBattle8MsgBtlFinalEncounter7:
+EF78C7_EBattle8FinalEncounterVariant7OpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:78D8
 
 ; EBATTLE8: player-side surprise opening attack text.
-EF78D8_EBattle8MsgBtlSurpriseOpeningPlayer:
+EF78D8_EBattle8PlayerSurpriseOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:78F7
 
 ; EBATTLE8: monster-side surprise opening attack text.
-EF78F7_EBattle8MsgBtlSurpriseOpeningMonster:
+EF78F7_EBattle8MonsterSurpriseOpeningText:
 
 ; ---------------------------------------------------------------------------
 ; EF:790B
@@ -1637,124 +1641,125 @@ EF79C6_EBattle8GroupActorPossessiveCohorts:
 ; EF:79D7
 
 ; EBATTLE8: ordinary player-victory text.
-EF79D7_EBattle8MsgBtlPlayerWin:
+EF79D7_EBattle8PlayerVictoryText:
 
 ; ---------------------------------------------------------------------------
 ; EF:79E6
 
 ; EBATTLE8: player-victory event/homesick branch.
-EF79E6_EBattle8PlayerWinEventBranch:
+EF79E6_EBattle8PlayerVictoryEventBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:79EF
 
 ; EBATTLE8: player-victory experience gain text.
-EF79EF_EBattle8PlayerWinExperienceText:
+EF79EF_EBattle8PlayerVictoryExperienceText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A0A
 
 ; EBATTLE8: player-victory homesick branch.
-EF7A0A_EBattle8PlayerWinHomesickBranch:
+EF7A0A_EBattle8PlayerVictoryHomesickBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A14
 
 ; EBATTLE8: boss player-victory text.
-EF7A14_EBattle8MsgBtlPlayerWinBoss:
+EF7A14_EBattle8BossVictoryText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A28
 
 ; EBATTLE8: forced player-victory text.
-EF7A28_EBattle8MsgBtlPlayerWinForce:
+EF7A28_EBattle8ForcedVictoryText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A4D
 
 ; EBATTLE8: monster-victory text.
-EF7A4D_EBattle8MsgBtlMonsterWin:
+EF7A4D_EBattle8MonsterVictoryText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A66
 
 ; EBATTLE8: level-up announcement text.
-EF7A66_EBattle8MsgBtlLevelUp:
+EF7A66_EBattle8LevelUpAnnouncementText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A7D
 
 ; EBATTLE8: level-up offense gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7A7D_EBattle8MsgBtlLevelOffenseUpActionAmount:
+EF7A7D_EBattle8LevelOffenseUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7A97
 
 ; EBATTLE8: level-up defense gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7A97_EBattle8MsgBtlLevelDefenseUpActionAmount:
+EF7A97_EBattle8LevelDefenseUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AB1
 
 ; EBATTLE8: level-up speed gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7AB1_EBattle8MsgBtlLevelSpeedUpActionAmount:
+EF7AB1_EBattle8LevelSpeedUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AC9
 
 ; EBATTLE8: level-up guts gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7AC9_EBattle8MsgBtlLevelGutsUpActionAmount:
+EF7AC9_EBattle8LevelGutsUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AE0
 
 ; EBATTLE8: level-up vitality gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7AE0_EBattle8MsgBtlLevelVitalityUpActionAmount:
+EF7AE0_EBattle8LevelVitalityUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7AFB
 
 ; EBATTLE8: level-up IQ gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7AFB_EBattle8MsgBtlLevelIqUpActionAmount:
+EF7AFB_EBattle8LevelIqUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B11
 
 ; EBATTLE8: level-up luck gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7B11_EBattle8MsgBtlLevelLuckUpActionAmount:
+EF7B11_EBattle8LevelLuckUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B28
 
 ; EBATTLE8: level-up maximum HP gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7B28_EBattle8MsgBtlLevelMaxHpUpActionAmount:
+EF7B28_EBattle8LevelMaxHpUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B46
 
 ; EBATTLE8: level-up maximum PP gain text; C1 stages the delta through
 ; C1:AD0A/$9D12/$9D14 before 1C 0F.
-EF7B46_EBattle8MsgBtlLevelMaxPpUpActionAmount:
+EF7B46_EBattle8LevelMaxPpUpActionAmount:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B64
 
 ; EBATTLE8: learned-PSI announcement leading into 19 1F PSI-name text.
-EF7B64_EBattle8MsgBtlLearnPsi:
+EF7B64_EBattle8LearnedPsiLeadInText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B77
 
-; EBATTLE8: PSI-name text; consumes C1:DD7C byte slot through 19 1F.
-EF7B77_EBattle8PsiNameByteSubstitutionText:
+; EBATTLE8: learned-PSI name payload text; consumes the C1:DD7C byte slot
+; through 19 1F.
+EF7B77_EBattle8PsiNameByteSubstitutionPayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B83
@@ -1795,68 +1800,70 @@ EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
 ; ---------------------------------------------------------------------------
 ; EF:7BDF
 
-; EBATTLE8: present item text; consumes C1:DD7C item byte through 19 1F.
-EF7BDF_EBattle8MsgBtlPresentItemByteSubstitutionText:
+; EBATTLE8: present item-name payload text; consumes the C1:DD7C item byte
+; through 19 1F.
+EF7BDF_EBattle8PresentItemByteSubstitutionPayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7C42
 
 ; EBATTLE8: present item result when recipient cannot receive directly.
-EF7C42_EBattle8PresentRecipientDeadText:
+EF7C42_EBattle8PresentRecipientCannotReceiveResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7C73
 
 ; EBATTLE8: present result when party inventory is full.
-EF7C73_EBattle8PresentInventoryFullText:
+EF7C73_EBattle8PresentInventoryFullResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7C89
 
 ; EBATTLE8: present full-inventory throw-away prompt.
-EF7C89_EBattle8PresentThrowAwayPrompt:
+EF7C89_EBattle8PresentThrowAwayPromptText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7CB4
 
 ; EBATTLE8: present abandon confirmation prompt.
-EF7CB4_EBattle8PresentAbandonPrompt:
+EF7CB4_EBattle8PresentAbandonPromptText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7CED
 
 ; EBATTLE8: present abandon retry text.
-EF7CED_EBattle8PresentAbandonRetryText:
+EF7CED_EBattle8PresentAbandonRetryPromptText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7CF8
 
 ; EBATTLE8: present abandon confirmed text.
-EF7CF8_EBattle8PresentAbandonConfirmedText:
+EF7CF8_EBattle8PresentAbandonConfirmedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7D0F
 
 ; EBATTLE8: present drop selection prompt.
-EF7D0F_EBattle8PresentDropSelectionPrompt:
+EF7D0F_EBattle8PresentDropSelectionPromptText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7D83
 
 ; EBATTLE8: present drop confirmed text.
-EF7D83_EBattle8PresentDropConfirmedText:
+EF7D83_EBattle8PresentDropConfirmedResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7DBE
 
 ; EBATTLE8: present drop forbidden text.
-EF7DBE_EBattle8PresentDropForbiddenText:
+EF7DBE_EBattle8PresentDropForbiddenResultText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7DD5
 
-; EBATTLE8: check-present-get text; consumes C1:DD7C item byte through 19 1F.
-EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
+; EBATTLE8: check-present get-item payload text; consumes the C1:DD7C item byte
+; through 19 1F.
+EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionPayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7E25
@@ -1864,335 +1871,332 @@ EF7DD5_EBattle8MsgBtlCheckPresentGetItemByteSubstitutionText:
 ; EBATTLE2 action island: exact MSG_BTL anchors for D5:7B68 row-message
 ; candidates. Keep symbol-derived names until a row +4 EF pointer and row +8
 ; C2 behavior body are joined.
-; EBATTLE2: `MSG_BTL_PPDOWN` action-flavor text.
-EF7E25_EBattle2MsgBtlPpDown:
+; EBATTLE2: row 95 row +4 PP-reduction presentation text.
+EF7E25_EBattle2PpReductionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7E3E
 
-; EBATTLE2: `MSG_BTL_OKORU` action-flavor text.
-EF7E3E_EBattle2MsgBtlOkoru:
+; EBATTLE2: row 96 row +4 steamed/offense-up presentation text.
+EF7E3E_EBattle2SteamedOffenseUpRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7E55
 
-; EBATTLE2: `MSG_BTL_KITANAI_KOTOBA` action-flavor text.
-EF7E55_EBattle2MsgBtlKitanaiKotoba:
+; EBATTLE2: row 97 row +4 dirty-words/guts-reduction presentation text.
+EF7E55_EBattle2DirtyWordsGutsReductionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7E70
 
-; EBATTLE2: `MSG_BTL_SUIBUN` action-flavor text.
-EF7E70_EBattle2MsgBtlSuibun:
+; EBATTLE2: row 98 row +4 moisture-sucked offense/defense reduction text.
+EF7E70_EBattle2MoistureSuckedOffenseDefenseReductionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7E88
 
-; EBATTLE2: `MSG_BTL_ENERGY` action-flavor text; D5:7B68 row 99 uses this as a
-; row +4 full-heal/fuel-supply presentation message.
-EF7E88_EBattle2MsgBtlEnergy:
+; EBATTLE2: row 99 row +4 full-heal/fuel-supply presentation text.
+EF7E88_EBattle2FuelSupplyFullHealRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7EAC
 
-; EBATTLE2: `MSG_BTL_DOKU_KAMITUKI` action-flavor text.
-EF7EAC_EBattle2MsgBtlDokuKamituki:
+; EBATTLE2: row 100 row +4 poison-fangs presentation text.
+EF7EAC_EBattle2PoisonFangsRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7ED5
 
-; EBATTLE2: `MSG_BTL_YORO_MISSILE` action-flavor text; D5:7B68 row 101 uses
-; this as a row +4 projectile/explosive presentation message.
-EF7ED5_EBattle2MsgBtlYoroMissile:
+; EBATTLE2: row 101 row +4 fired-missile presentation text.
+EF7ED5_EBattle2FiredMissileRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F02
 
-; EBATTLE2: `MSG_BTL_MULTI_ATTACK` action-flavor text.
-EF7F02_EBattle2MsgBtlMultiAttack:
+; EBATTLE2: row 102 row +4 attack-continuously presentation text.
+EF7F02_EBattle2AttackContinuouslyRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F1E
 
-; EBATTLE2: `MSG_BTL_MIGAMAE` action-flavor text.
-EF7F1E_EBattle2MsgBtlMigamae:
+; EBATTLE2: row 103 row +4 `MSG_BTL_MIGAMAE` presentation text.
+EF7F1E_EBattle2MigamaeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F32
 
-; EBATTLE2: `MSG_BTL_FIREBALL` action-flavor text.
-EF7F32_EBattle2MsgBtlFireball:
+; EBATTLE2: row 104 row +4 flaming-fireball presentation text.
+EF7F32_EBattle2FlamingFireballRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F5A
 
-; EBATTLE2: `MSG_BTL_GEKITOTU` action-flavor text.
-EF7F5A_EBattle2MsgBtlGekitotu:
+; EBATTLE2: row 105 row +4 `MSG_BTL_GEKITOTU` presentation text.
+EF7F5A_EBattle2GekitotuRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F7B
 
-; EBATTLE2: `MSG_BTL_KARATE` action-flavor text.
-EF7F7B_EBattle2MsgBtlKarate:
+; EBATTLE2: row 106 row +4 `MSG_BTL_KARATE` presentation text.
+EF7F7B_EBattle2KarateRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F9A
 
-; EBATTLE2: `MSG_BTL_TOMOE` action-flavor text.
-EF7F9A_EBattle2MsgBtlTomoe:
+; EBATTLE2: row 107 row +4 `MSG_BTL_TOMOE` presentation text.
+EF7F9A_EBattle2TomoeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7FC3
 
-; EBATTLE2: `MSG_BTL_BOUSOU` action-flavor text.
-EF7FC3_EBattle2MsgBtlBousou:
+; EBATTLE2: row 108 row +4 `MSG_BTL_BOUSOU` presentation text.
+EF7FC3_EBattle2BousouRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7FE0
 
-; EBATTLE2: `MSG_BTL_KNIFE` action-flavor text.
-EF7FE0_EBattle2MsgBtlKnife:
+; EBATTLE2: row 109 row +4 `MSG_BTL_KNIFE` presentation text.
+EF7FE0_EBattle2KnifeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7FFC
 
-; EBATTLE2: `MSG_BTL_TOSSIN` action-flavor text.
-EF7FFC_EBattle2MsgBtlTossin:
+; EBATTLE2: row 110 row +4 `MSG_BTL_TOSSIN` presentation text.
+EF7FFC_EBattle2TossinRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8010
 
-; EBATTLE2: `MSG_BTL_KAMITUKI` action-flavor text.
-EF8010_EBattle2MsgBtlKamituki:
+; EBATTLE2: rows 111 and 238 row +4 `MSG_BTL_KAMITUKI` presentation text.
+EF8010_EBattle2KamitukiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8026
 
-; EBATTLE2: `MSG_BTL_HIKKAKI` action-flavor text.
-EF8026_EBattle2MsgBtlHikkaki:
+; EBATTLE2: row 112 row +4 `MSG_BTL_HIKKAKI` presentation text.
+EF8026_EBattle2HikkakiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:804B
 
-; EBATTLE2: `MSG_BTL_SIPPO` action-flavor text.
-EF804B_EBattle2MsgBtlSippo:
+; EBATTLE2: row 113 row +4 `MSG_BTL_SIPPO` presentation text.
+EF804B_EBattle2SippoRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:806D
 
-; EBATTLE2: `MSG_BTL_NOSHIKAKARI` action-flavor text.
-EF806D_EBattle2MsgBtlNoshikakari:
+; EBATTLE2: row 114 row +4 `MSG_BTL_NOSHIKAKARI` presentation text.
+EF806D_EBattle2NoshikakariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:808D
 
-; EBATTLE2: `MSG_BTL_KAMIBUKURO` action-flavor text.
-EF808D_EBattle2MsgBtlKamibukuro:
+; EBATTLE2: row 115 row +4 `MSG_BTL_KAMIBUKURO` presentation text.
+EF808D_EBattle2KamibukuroRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:80AC
 
-; EBATTLE2: `MSG_BTL_KONBOU` action-flavor text.
-EF80AC_EBattle2MsgBtlKonbou:
+; EBATTLE2: row 116 row +4 `MSG_BTL_KONBOU` presentation text.
+EF80AC_EBattle2KonbouRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:80C4
 
-; EBATTLE2: `MSG_BTL_TATUMAKI` action-flavor text.
-EF80C4_EBattle2MsgBtlTatumaki:
+; EBATTLE2: row 117 row +4 tornado presentation text.
+EF80C4_EBattle2TornadoRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:80E4
 
-; EBATTLE2: `MSG_BTL_WATER` action-flavor text.
-EF80E4_EBattle2MsgBtlWater:
+; EBATTLE2: row 118 row +4 gigantic-blast presentation text.
+EF80E4_EBattle2GiganticBlastRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8109
 
-; EBATTLE2: `MSG_BTL_FUTEKI_SMILE` action-flavor text.
-EF8109_EBattle2MsgBtlFutekiSmile:
+; EBATTLE2: row 119 row +4 defiant-smile flavor presentation text.
+EF8109_EBattle2DefiantSmileFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:812B
 
-; EBATTLE2: `MSG_BTL_LOUD_SMILE` action-flavor text.
-EF812B_EBattle2MsgBtlLoudSmile:
+; EBATTLE2: row 120 row +4 loud-smile flavor presentation text.
+EF812B_EBattle2LoudSmileFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:814F
 
-; EBATTLE2: `MSG_BTL_NIJIRIYORU` action-flavor text.
-EF814F_EBattle2MsgBtlNijiriyoru:
+; EBATTLE2: row 121 row +4 edge-closer flavor presentation text.
+EF814F_EBattle2EdgeCloserFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8167
 
-; EBATTLE2: `MSG_BTL_TUBUYAKI1` action-flavor text.
-EF8167_EBattle2MsgBtlTubuyaki1:
+; EBATTLE2: row 124 row +4 mutter-1 flavor presentation text.
+EF8167_EBattle2Mutter1FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8186
 
-; EBATTLE2: `MSG_BTL_TUBUYAKI2` action-flavor text.
-EF8186_EBattle2MsgBtlTubuyaki2:
+; EBATTLE2: row 123 row +4 mutter-2 flavor presentation text.
+EF8186_EBattle2Mutter2FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:81A5
 
-; EBATTLE2: `MSG_BTL_TUBUYAKI3` action-flavor text.
-EF81A5_EBattle2MsgBtlTubuyaki3:
+; EBATTLE2: row 122 row +4 mutter-3 flavor presentation text.
+EF81A5_EBattle2Mutter3FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:81C4
 
-; EBATTLE2: `MSG_BTL_KOROBU` action-flavor text.
-EF81C4_EBattle2MsgBtlKorobu:
+; EBATTLE2: row 125 row +4 fell-down flavor presentation text.
+EF81C4_EBattle2FellDownFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:81D7
 
-; EBATTLE2: `MSG_BTL_BOOTTO` action-flavor text.
-EF81D7_EBattle2MsgBtlBootto:
+; EBATTLE2: row 126 row +4 absent-minded flavor presentation text.
+EF81D7_EBattle2AbsentMindedFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:81F1
 
-; EBATTLE2: `MSG_BTL_JYOUKI` action-flavor text.
-EF81F1_EBattle2MsgBtlJyouki:
+; EBATTLE2: row 127 row +4 steam-cloud flavor presentation text.
+EF81F1_EBattle2SteamCloudFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8211
 
-; EBATTLE2: `MSG_BTL_YOROYORO` action-flavor text.
-EF8211_EBattle2MsgBtlYoroyoro:
+; EBATTLE2: row 128 row +4 wobbly flavor presentation text.
+EF8211_EBattle2WobblyFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8226
 
-; EBATTLE2: `MSG_BTL_FURAFURA` action-flavor text.
-EF8226_EBattle2MsgBtlFurafura:
+; EBATTLE2: row 129 row +4 stagger flavor presentation text.
+EF8226_EBattle2StaggerFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8239
 
-; EBATTLE2: `MSG_BTL_NITANITA` action-flavor text.
-EF8239_EBattle2MsgBtlNitanita:
+; EBATTLE2: row 130 row +4 grin flavor presentation text.
+EF8239_EBattle2GrinFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:825C
 
-; EBATTLE2: `MSG_BTL_KOKYUU` action-flavor text.
-EF825C_EBattle2MsgBtlKokyuu:
+; EBATTLE2: row 131 row +4 deep-breath flavor presentation text.
+EF825C_EBattle2DeepBreathFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8281
 
-; EBATTLE2: `MSG_BTL_AISATU` action-flavor text.
-EF8281_EBattle2MsgBtlAisatu:
+; EBATTLE2: row 132 row +4 greeting flavor presentation text.
+EF8281_EBattle2GreetingFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8299
 
-; EBATTLE2: `MSG_BTL_UNARI` action-flavor text.
-EF8299_EBattle2MsgBtlUnari:
+; EBATTLE2: row 133 row +4 roar flavor presentation text.
+EF8299_EBattle2RoarFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:82BC
 
-; EBATTLE2: `MSG_BTL_KACHIKACHI` action-flavor text.
-EF82BC_EBattle2MsgBtlKachikachi:
+; EBATTLE2: row 134 row +4 teeth-chatter flavor presentation text.
+EF82BC_EBattle2TeethChatterFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:82D7
 
-; EBATTLE2: `MSG_BTL_MABUSII_HIKARI` action-flavor text.
-EF82D7_EBattle2MsgBtlMabusiiHikari:
+; EBATTLE2: row 201 row +4 `MSG_BTL_MABUSII_HIKARI` presentation text.
+EF82D7_EBattle2MabusiiHikariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:82F7
 
-; EBATTLE2: `MSG_BTL_BIRIBIRI` action-flavor text.
-EF82F7_EBattle2MsgBtlBiribiri:
+; EBATTLE2: row 202 row +4 `MSG_BTL_BIRIBIRI` presentation text.
+EF82F7_EBattle2BiribiriRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8317
 
-; EBATTLE2: `MSG_BTL_KAFUN` action-flavor text.
-EF8317_EBattle2MsgBtlKafun:
+; EBATTLE2: row 203 row +4 `MSG_BTL_KAFUN` presentation text.
+EF8317_EBattle2KafunRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:833E
 
-; EBATTLE2: `MSG_BTL_COLD_HAND` action-flavor text.
-EF833E_EBattle2MsgBtlColdHand:
+; EBATTLE2: row 204 row +4 `MSG_BTL_COLD_HAND` presentation text.
+EF833E_EBattle2ColdHandRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:835C
 
-; EBATTLE2: `MSG_BTL_POISON_BREATH` action-flavor text.
-EF835C_EBattle2MsgBtlPoisonBreath:
+; EBATTLE2: row 205 row +4 `MSG_BTL_POISON_BREATH` presentation text.
+EF835C_EBattle2PoisonBreathRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:838A
 
-; EBATTLE2: `MSG_BTL_HAIKI_GAS` action-flavor text.
-EF838A_EBattle2MsgBtlHaikiGas:
+; EBATTLE2: row 206 row +4 `MSG_BTL_HAIKI_GAS` presentation text.
+EF838A_EBattle2HaikiGasRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:83A8
 
-; EBATTLE2: `MSG_BTL_LAUGH_HEN` action-flavor text; D5:7B68 row 207 reuses
-; the C2 strange-status wrapper body.
-EF83A8_EBattle2MsgBtlLaughHen:
+; EBATTLE2: row 207 row +4 strange-status laugh presentation text.
+EF83A8_EBattle2StrangeStatusLaughRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:83CA
 
-; EBATTLE2: `MSG_BTL_FUE` action-flavor text.
-EF83CA_EBattle2MsgBtlFue:
+; EBATTLE2: row 208 row +4 `MSG_BTL_FUE` presentation text.
+EF83CA_EBattle2FueRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:83ED
 
-; EBATTLE2: `MSG_BTL_JUMP_TO_FACE` action-flavor text.
-EF83ED_EBattle2MsgBtlJumpToFace:
+; EBATTLE2: row 209 row +4 `MSG_BTL_JUMP_TO_FACE` presentation text.
+EF83ED_EBattle2JumpToFaceRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8413
 
-; EBATTLE2: `MSG_BTL_CHOU_ONPA` action-flavor text.
-EF8413_EBattle2MsgBtlChouOnpa:
+; EBATTLE2: row 210 row +4 `MSG_BTL_CHOU_ONPA` presentation text.
+EF8413_EBattle2ChouOnpaRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:843F
 
 ; EBATTLE0: battle-start asleep announcement.
-EF843F_EBattle0MsgAtStartAsleep:
+EF843F_EBattle0BattleStartAsleepStatusAnnouncementText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8444
 
 ; EBATTLE0: battle-start PSI-seal announcement.
-EF8444_EBattle0MsgAtStartPsiSeal:
+EF8444_EBattle0BattleStartPsiSealStatusAnnouncementText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8445
 
 ; EBATTLE0: battle-start strange-status announcement.
-EF8445_EBattle0MsgAtStartStrange:
+EF8445_EBattle0BattleStartStrangeStatusAnnouncementText:
 
 ; ---------------------------------------------------------------------------
 ; EF:845D
 
 ; EBATTLE0: random action strange-status text.
-EF845D_EBattle0MsgRandomActStrange:
+EF845D_EBattle0RandomActionStrangeStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8477
 
 ; EBATTLE0: random action mushroom-status text.
-EF8477_EBattle0MsgRandomActMushroom:
+EF8477_EBattle0RandomActionMushroomStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:848C
@@ -2201,57 +2205,58 @@ EF8477_EBattle0MsgRandomActMushroom:
 ; through C1:DD9F. Proved row-message anchors include Bash, Shoot, Spy, shared
 ; PSI, and Pray.
 ; EBATTLE1: Bash/attack text, with enemy/player-side branches.
-EF848C_EBattle1MsgBtlAttack:
+EF848C_EBattle1BashAttackRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:84A7
 
 ; EBATTLE1: player-side Bash/attack branch.
-EF84A7_EBattle1AttackPlayerSideBranch:
+EF84A7_EBattle1BashAttackPlayerSideBranch:
 
 ; ---------------------------------------------------------------------------
 ; EF:84B6
 
 ; EBATTLE1: Shoot/attack text.
-EF84B6_EBattle1MsgBtlShoot:
+EF84B6_EBattle1ShootRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:84C6
 
 ; EBATTLE1: Guard text.
-EF84C6_EBattle1MsgBtlGuard:
+EF84C6_EBattle1GuardCommandText:
 
 ; ---------------------------------------------------------------------------
 ; EF:84D4
 
 ; EBATTLE1: Metamorphose attempt text.
-EF84D4_EBattle1MsgBtlMetamorphose:
+EF84D4_EBattle1MetamorphoseAttemptText:
 
 ; ---------------------------------------------------------------------------
 ; EF:84F3
 
-; EBATTLE1: successful player flee text.
-EF84F3_EBattle1MsgBtlPlayerFlee:
+; EBATTLE1: successful player flee text. D5:7B68 row 279 also uses this as row
+; +4 text with the `C2:9039` default/no-op body.
+EF84F3_EBattle1PlayerFleeSuccessText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8511
 
 ; EBATTLE1: failed player flee text.
-EF8511_EBattle1MsgBtlPlayerFleeFailed:
+EF8511_EBattle1PlayerFleeFailureText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8530
 
 ; EBATTLE1: Spy/check text.
-EF8530_EBattle1MsgBtlCheck:
+EF8530_EBattle1SpyCheckRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8543
 
-; EBATTLE1: shared PSI action text with PSI-name byte substitution. D5:7B68
-; rows 10..31 plus PSI-status rows 53 and 58 use this as row +4 `DD9F`
-; presentation text; Lifeup rows 32..35 still need local row +4 recovery.
-EF8543_EBattle1MsgBtlPsiByteSubstitutionText:
+; EBATTLE1: shared PSI row presentation text with PSI-name byte substitution.
+; D5:7B68 rows 10..35, 48, 49, 53, 58, 60, and 61 use this as row +4 `DD9F`
+; presentation text.
+EF8543_EBattle1SharedPsiNameByteSubstitutionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8568
@@ -2347,19 +2352,19 @@ EF8813_EBattle1PsiEffectBranch13:
 ; EF:8814
 
 ; EBATTLE1: small Thunder presentation text/effect block.
-EF8814_EBattle1MsgBtlThunderSmall:
+EF8814_EBattle1SmallThunderPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8823
 
 ; EBATTLE1: large Thunder presentation text/effect block.
-EF8823_EBattle1MsgBtlThunderLarge:
+EF8823_EBattle1LargeThunderPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8837
 
 ; EBATTLE1: Thunder miss sound-effect presentation block.
-EF8837_EBattle1MsgBtlThunderMissSound:
+EF8837_EBattle1ThunderMissSoundPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:883D
@@ -2515,285 +2520,279 @@ EF89CE_EBattle1PsiEffectBranch50:
 ; EF:89E0
 
 ; EBATTLE1: Pray action opening text.
-EF89E0_EBattle1MsgBtlPray:
+EF89E0_EBattle1PrayRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:89FE
 
-; EBATTLE3 enemy-action island: exact MSG_BTL anchors preserved for later
-; D5:7B68 row-message crosswalk work.
-; EBATTLE3: `MSG_BTL_JIHIBIKI` enemy-action text.
-EF89FE_EBattle3MsgBtlJihibiki:
+; EBATTLE3 enemy-action island: row-backed MSG_BTL row-presentation anchors.
+; EBATTLE3: row 211 row +4 `MSG_BTL_JIHIBIKI` presentation text.
+EF89FE_EBattle3JihibikiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8A18
 
-; EBATTLE3: `MSG_BTL_OSAETSUKE` enemy-action text.
-EF8A18_EBattle3MsgBtlOsaetsuke:
+; EBATTLE3: row 212 row +4 `MSG_BTL_OSAETSUKE` presentation text.
+EF8A18_EBattle3OsaetsukeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8A33
 
-; EBATTLE3: `MSG_BTL_CURSE_WORD` enemy-action text.
-EF8A33_EBattle3MsgBtlCurseWord:
+; EBATTLE3: row 213 row +4 `MSG_BTL_CURSE_WORD` presentation text.
+EF8A33_EBattle3CurseWordRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8A52
 
-; EBATTLE3: `MSG_BTL_JIMI` enemy-action text.
-EF8A52_EBattle3MsgBtlJimi:
+; EBATTLE3: row 214 row +4 `MSG_BTL_JIMI` presentation text.
+EF8A52_EBattle3JimiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8A6F
 
-; EBATTLE3: `MSG_BTL_PENKI` enemy-action text.
-EF8A6F_EBattle3MsgBtlPenki:
+; EBATTLE3: row 215 row +4 `MSG_BTL_PENKI` presentation text.
+EF8A6F_EBattle3PenkiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8A8C
 
-; EBATTLE3: `MSG_BTL_NAGURI_KAKARI` enemy-action text.
-EF8A8C_EBattle3MsgBtlNaguriKakari:
+; EBATTLE3: row 216 row +4 `MSG_BTL_NAGURI_KAKARI` presentation text.
+EF8A8C_EBattle3NaguriKakariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8AA3
 
-; EBATTLE3: `MSG_BTL_CLAW` enemy-action text.
-EF8AA3_EBattle3MsgBtlClaw:
+; EBATTLE3: row 217 row +4 `MSG_BTL_CLAW` presentation text.
+EF8AA3_EBattle3ClawRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8AC2
 
-; EBATTLE3: `MSG_BTL_KUCHIBASHI` enemy-action text.
-EF8AC2_EBattle3MsgBtlKuchibashi:
+; EBATTLE3: row 218 row +4 `MSG_BTL_KUCHIBASHI` presentation text.
+EF8AC2_EBattle3KuchibashiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8ADD
 
-; EBATTLE3: `MSG_BTL_TSUNO` enemy-action text.
-EF8ADD_EBattle3MsgBtlTsuno:
+; EBATTLE3: row 219 row +4 `MSG_BTL_TSUNO` presentation text.
+EF8ADD_EBattle3TsunoRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8AF8
 
-; EBATTLE3: `MSG_BTL_PUNCH` enemy-action text.
-EF8AF8_EBattle3MsgBtlPunch:
+; EBATTLE3: row 220 row +4 `MSG_BTL_PUNCH` presentation text.
+EF8AF8_EBattle3PunchRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8B11
 
-; EBATTLE3: `MSG_BTL_PUMPKIN` enemy-action text.
-EF8B11_EBattle3MsgBtlPumpkin:
+; EBATTLE3: row 221 row +4 `MSG_BTL_PUMPKIN` presentation text.
+EF8B11_EBattle3PumpkinRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8B2F
 
-; EBATTLE3: `MSG_BTL_BEAM` enemy-action text.
-EF8B2F_EBattle3MsgBtlBeam:
+; EBATTLE3: row 222 row +4 `MSG_BTL_BEAM` presentation text.
+EF8B2F_EBattle3BeamRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8B4A
 
-; EBATTLE3: `MSG_BTL_YARI` enemy-action text.
-EF8B4A_EBattle3MsgBtlYari:
+; EBATTLE3: row 223 row +4 `MSG_BTL_YARI` presentation text.
+EF8B4A_EBattle3YariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8B65
 
-; EBATTLE3: `MSG_BTL_FUMITSUKE` enemy-action text.
-EF8B65_EBattle3MsgBtlFumitsuke:
+; EBATTLE3: row 224 row +4 `MSG_BTL_FUMITSUKE` presentation text.
+EF8B65_EBattle3FumitsukeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8B89
 
-; EBATTLE3: `MSG_BTL_FURAFUUPU` enemy-action text.
-EF8B89_EBattle3MsgBtlFurafuupu:
+; EBATTLE3: row 225 row +4 `MSG_BTL_FURAFUUPU` presentation text.
+EF8B89_EBattle3FurafuupuRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8BA8
 
-; EBATTLE3: `MSG_BTL_TAIATARI` enemy-action text.
-EF8BA8_EBattle3MsgBtlTaiatari:
+; EBATTLE3: row 226 row +4 `MSG_BTL_TAIATARI` presentation text.
+EF8BA8_EBattle3TaiatariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8BC0
 
-; EBATTLE3: `MSG_BTL_SKATEBOARD` enemy-action text.
-EF8BC0_EBattle3MsgBtlSkateboard:
+; EBATTLE3: row 227 row +4 `MSG_BTL_SKATEBOARD` presentation text.
+EF8BC0_EBattle3SkateboardRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8BE8
 
-; EBATTLE3: `MSG_BTL_KAMITSUKI_DIAMOND` enemy-action text; D5:7B68 row 228
-; uses this as the one-target diamondize row message.
-EF8BE8_EBattle3MsgBtlKamitsukiDiamond:
+; EBATTLE3: row 228 row +4 diamondize-bite presentation text.
+EF8BE8_EBattle3DiamondizeBiteRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8BFB
 
-; EBATTLE3: `MSG_BTL_KUDAMAKI` enemy-action text.
-EF8BFB_EBattle3MsgBtlKudamaki:
+; EBATTLE3: row 229 row +4 `MSG_BTL_KUDAMAKI` presentation text.
+EF8BFB_EBattle3KudamakiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8C1D
 
-; EBATTLE3: `MSG_BTL_SEKKYOU` enemy-action text.
-EF8C1D_EBattle3MsgBtlSekkyou:
+; EBATTLE3: row 230 row +4 `MSG_BTL_SEKKYOU` presentation text.
+EF8C1D_EBattle3SekkyouRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8C3A
 
-; EBATTLE3: `MSG_BTL_SHIKARITSUKE` enemy-action text.
-EF8C3A_EBattle3MsgBtlShikaritsuke:
+; EBATTLE3: row 231 row +4 `MSG_BTL_SHIKARITSUKE` presentation text.
+EF8C3A_EBattle3ShikaritsukeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8C58
 
-; EBATTLE3: `MSG_BTL_BAD_SMELL` enemy-action text; D5:7B68 row 232 uses this
-; as an odor/offense-reduction row message.
-EF8C58_EBattle3MsgBtlBadSmell:
+; EBATTLE3: row 232 row +4 bad-smell odor presentation text.
+EF8C58_EBattle3BadSmellOdorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8C75
 
-; EBATTLE3: `MSG_BTL_LOUD_VOICE` enemy-action text.
-EF8C75_EBattle3MsgBtlLoudVoice:
+; EBATTLE3: row 233 row +4 loud-voice offense/defense reduction text.
+EF8C75_EBattle3LoudVoiceOffenseDefenseReductionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8C92
 
-; EBATTLE3: `MSG_BTL_OTAKEBI` enemy-action text.
-EF8C92_EBattle3MsgBtlOtakebi:
+; EBATTLE3: row 234 row +4 war-cry offense/defense reduction text.
+EF8C92_EBattle3WarCryOffenseDefenseReductionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8CAC
 
-; EBATTLE3: `MSG_BTL_FAKE_DEAD` enemy-action text.
-EF8CAC_EBattle3MsgBtlFakeDead:
+; EBATTLE3: row 235 row +4 `MSG_BTL_FAKE_DEAD` flavor presentation text.
+EF8CAC_EBattle3FakeDeadFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8CC7
 
-; EBATTLE3: `MSG_BTL_YUDAN` enemy-action text.
-EF8CC7_EBattle3MsgBtlYudan:
+; EBATTLE3: row 236 row +4 `MSG_BTL_YUDAN` flavor presentation text.
+EF8CC7_EBattle3YudanFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8CDD
 
-; EBATTLE3: `MSG_BTL_YUDAN_1` enemy-action text.
-EF8CDD_EBattle3MsgBtlYudan1:
+; EBATTLE3: row 314 row +4 `MSG_BTL_YUDAN_1` flavor presentation text.
+EF8CDD_EBattle3Yudan1FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8CFB
 
-; EBATTLE3: `MSG_BTL_YUDAN_2` enemy-action text.
-EF8CFB_EBattle3MsgBtlYudan2:
+; EBATTLE3: row 315 row +4 `MSG_BTL_YUDAN_2` flavor presentation text.
+EF8CFB_EBattle3Yudan2FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8D17
 
-; EBATTLE3: `MSG_BTL_YUDAN_3` enemy-action text.
-EF8D17_EBattle3MsgBtlYudan3:
+; EBATTLE3: row 316 row +4 `MSG_BTL_YUDAN_3` flavor presentation text.
+EF8D17_EBattle3Yudan3FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8D2F
 
-; EBATTLE3: `MSG_BTL_YUDAN_4` enemy-action text.
-EF8D2F_EBattle3MsgBtlYudan4:
+; EBATTLE3: row 317 row +4 `MSG_BTL_YUDAN_4` flavor presentation text.
+EF8D2F_EBattle3Yudan4FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8D4C
 
-; EBATTLE3: `MSG_BTL_YUDAN_LIFEUP` enemy-action text, not the unproved
-; row +4 Lifeup presentation for action rows 32..35.
-EF8D4C_EBattle3MsgBtlYudanLifeup:
+; EBATTLE3: row 313 row +4 enemy Lifeup flavor presentation text, not
+; the PSI Lifeup presentation for action rows 32..35.
+EF8D4C_EBattle3EnemyLifeupFlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8D72
 
-; EBATTLE3: `MSG_BTL_NEBIE_BEAM` enemy-action text.
-EF8D72_EBattle3MsgBtlNebieBeam:
+; EBATTLE3: row 241 row +4 `MSG_BTL_NEBIE_BEAM` presentation text.
+EF8D72_EBattle3NebieBeamRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8D9F
 
-; EBATTLE3: `MSG_BTL_NEUTRALIZE_SPARKLE` enemy-action text.
-EF8D9F_EBattle3MsgBtlNeutralizeSparkle:
+; EBATTLE3: row 248 row +4 neutralizer-sparkle presentation text.
+EF8D9F_EBattle3NeutralizeSparkleRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8DC1
 
-; EBATTLE3: `MSG_BTL_MAKITSUKI` enemy-action text.
-EF8DC1_EBattle3MsgBtlMakitsuki:
+; EBATTLE3: row 242 row +4 `MSG_BTL_MAKITSUKI` presentation text.
+EF8DC1_EBattle3MakitsukiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8DDE
 
-; EBATTLE3: `MSG_BTL_TO_DIAMOND_DOG` enemy-action text; D5:7B68 row 290 uses
-; this as the row +4 rainbow-colors / Master Belch-side event presentation.
-EF8DDE_EBattle3MsgBtlToDiamondDog:
+; EBATTLE3: row 290 row +4 rainbow-colors event presentation text.
+EF8DDE_EBattle3RainbowColorsEventRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8E27
 
-; EBATTLE3: `MSG_BTL_WARP_NEAR` enemy-action text; D5:7B68 rows 140 and 247
-; intentionally reuse this row +4 anchor with different C2 behavior bodies.
-EF8E27_EBattle3MsgBtlWarpNear:
+; EBATTLE3: rows 140 and 247 row +4 shared named-item presentation text.
+EF8E27_EBattle3SharedNamedItemRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8E3C
 
-; EBATTLE3: `MSG_BTL_ANTIPSI` enemy-action text; D5:7B68 row 159 uses this as
-; the item-side concentration/PSI-seal row message.
-EF8E3C_EBattle3MsgBtlAntipsi:
+; EBATTLE3: row 159 row +4 concentration/PSI-seal presentation text.
+EF8E3C_EBattle3ConcentrationPsiSealRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8E5E
 
-; EBATTLE3: `MSG_BTL_HPSUCK` enemy-action text.
-EF8E5E_EBattle3MsgBtlHpsuck:
+; EBATTLE3: row 161 row +4 `MSG_BTL_HPSUCK` presentation text.
+EF8E5E_EBattle3HpsuckRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8E7E
 
-; EBATTLE3: `MSG_BTL_HPSUCKSP` enemy-action text.
-EF8E7E_EBattle3MsgBtlHpsucksp:
+; EBATTLE3: row 176 row +4 `MSG_BTL_HPSUCKSP` presentation text.
+EF8E7E_EBattle3HpsuckspRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8E9E
 
-; EBATTLE3: `MSG_BTL_SHIELDKILL` enemy-action text.
-EF8E9E_EBattle3MsgBtlShieldkill:
+; EBATTLE3: row 160 row +4 `MSG_BTL_SHIELDKILL` presentation text.
+EF8E9E_EBattle3ShieldkillRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8EBE
 
-; EBATTLE3: `MSG_BTL_BAD_SMELL_GAS` enemy-action text.
-EF8EBE_EBattle3MsgBtlBadSmellGas:
+; EBATTLE3: row 273 row +4 bad-smell gas presentation text.
+EF8EBE_EBattle3BadSmellGasRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8EE2
 
-; EBATTLE3: `MSG_BTL_LIGHTNING` enemy-action text.
-EF8EE2_EBattle3MsgBtlLightning:
+; EBATTLE3: rows 302..304 row +4 `MSG_BTL_LIGHTNING` presentation text.
+EF8EE2_EBattle3LightningRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8F17
 
-; EBATTLE3: `MSG_BTL_LIGHTNING_B` enemy-action text.
-EF8F17_EBattle3MsgBtlLightningB:
+; EBATTLE3: rows 274, 300, and 301 row +4 `MSG_BTL_LIGHTNING_B` presentation text.
+EF8F17_EBattle3LightningBRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8F4A
 
-; EBATTLE3: `MSG_BTL_LIGHTNING_C` enemy-action text.
-EF8F4A_EBattle3MsgBtlLightningC:
+; EBATTLE3: rows 305..307 row +4 `MSG_BTL_LIGHTNING_C` presentation text.
+EF8F4A_EBattle3LightningCRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8F91
 
-; EBATTLE3: `MSG_BTL_GYIYYIG_3` enemy-action text.
-EF8F91_EBattle3MsgBtlGyiyyig3:
+; EBATTLE3: row 309 row +4 `MSG_BTL_GYIYYIG_3` flavor presentation text.
+EF8F91_EBattle3Gyiyyig3FlavorRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8FAD
@@ -3152,36 +3151,33 @@ EF98D3_EBattle9BranchGrfdSysmsgGutsYes:
 ; ---------------------------------------------------------------------------
 ; EF:9A47
 
-; EBATTLE1 action-tail island: status/flavor/item row-message candidates.
-; Promote gameplay-facing names only after C2 row +8 behavior joins prove them.
-; EBATTLE1: `MSG_BTL_NAKAMA0` action payload text.
-EF9A47_EBattle1MsgBtlNakama0:
+; EBATTLE1 action-tail island: row-backed action/status payload anchors.
+; EBATTLE1: row 62 row +4 `MSG_BTL_NAKAMA0` presentation text.
+EF9A47_EBattle1Nakama0RowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9A5E
 
-; EBATTLE1: `MSG_BTL_TANEMAKI0` action payload text.
-EF9A5E_EBattle1MsgBtlTanemaki0:
+; EBATTLE1: row 63 row +4 `MSG_BTL_TANEMAKI0` presentation text.
+EF9A5E_EBattle1Tanemaki0RowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9A7E
 
-; EBATTLE1: `MSG_BTL_EXPLOSION` action payload text. Candidate explosive
-; flavor near rows 64/65, but row +4 pointers are still unrecovered.
-EF9A7E_EBattle1MsgBtlExplosion:
+; EBATTLE1: row 64 row +4 explosive presentation text.
+EF9A7E_EBattle1ExplosionRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9A9E
 
-; EBATTLE1: `MSG_BTL_BURN` action payload text. Candidate explosive flavor
-; near rows 64/65, but row +4 pointers are still unrecovered.
-EF9A9E_EBattle1MsgBtlBurn:
+; EBATTLE1: row 65 row +4 burst-into-flames presentation text.
+EF9A9E_EBattle1BurstIntoFlamesRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9ABB
 
-; EBATTLE1: `MSG_BTL_GOODS` action payload text.
-EF9ABB_EBattle1MsgBtlGoods:
+; EBATTLE1: row 66 row +4 `MSG_BTL_GOODS` presentation text.
+EF9ABB_EBattle1GoodsRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9AE8
@@ -3192,189 +3188,177 @@ EF9AE8_EBattle1BranchBtlGoodsFailed:
 ; ---------------------------------------------------------------------------
 ; EF:9B02
 
-; EBATTLE1: `MSG_BTL_TIMESTOP` action payload text.
-EF9B02_EBattle1MsgBtlTimestop:
+; EBATTLE1: row 67 row +4 `MSG_BTL_TIMESTOP` presentation text.
+EF9B02_EBattle1TimestopRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9B20
 
-; EBATTLE1: `MSG_BTL_MANAZASHI` action payload text.
-EF9B20_EBattle1MsgBtlManazashi:
+; EBATTLE1: row 68 row +4 `MSG_BTL_MANAZASHI` presentation text.
+EF9B20_EBattle1ManazashiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9B43
 
-; EBATTLE1: `MSG_BTL_KAIDENPA` action payload text.
-EF9B43_EBattle1MsgBtlKaidenpa:
+; EBATTLE1: row 69 row +4 `MSG_BTL_KAIDENPA` presentation text.
+EF9B43_EBattle1KaidenpaRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9B73
 
-; EBATTLE1: `MSG_BTL_YORO_KAIDENPA` action payload text.
-EF9B73_EBattle1MsgBtlYoroKaidenpa:
+; EBATTLE1: row 70 row +4 `MSG_BTL_YORO_KAIDENPA` presentation text.
+EF9B73_EBattle1YoroKaidenpaRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9B96
 
-; EBATTLE1: `MSG_BTL_GEPPU_IKI` action payload text.
-EF9B96_EBattle1MsgBtlGeppuIki:
+; EBATTLE1: row 71 row +4 `MSG_BTL_GEPPU_IKI` presentation text.
+EF9B96_EBattle1GeppuIkiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9BC3
 
-; EBATTLE1: `MSG_BTL_DOKUBARI` action payload text.
-EF9BC3_EBattle1MsgBtlDokubari:
+; EBATTLE1: row 72 row +4 `MSG_BTL_DOKUBARI` presentation text.
+EF9BC3_EBattle1DokubariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9BE6
 
-; EBATTLE1: `MSG_BTL_DEATH_KISS` action payload text.
-EF9BE6_EBattle1MsgBtlDeathKiss:
+; EBATTLE1: row 73 row +4 `MSG_BTL_DEATH_KISS` presentation text.
+EF9BE6_EBattle1DeathKissRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9C02
 
-; EBATTLE1: `MSG_BTL_TUMETAI_IKI` action payload text.
-EF9C02_EBattle1MsgBtlTumetaiIki:
+; EBATTLE1: row 74 row +4 `MSG_BTL_TUMETAI_IKI` presentation text.
+EF9C02_EBattle1TumetaiIkiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9C30
 
-; EBATTLE1: `MSG_BTL_HOUSHI` action payload text; D5:7B68 row 75 starts the
-; source-backed persistent-status row-message pair.
-EF9C30_EBattle1MsgBtlHoushi:
+; EBATTLE1: row 75 row +4 mushroom-spores presentation text.
+EF9C30_EBattle1MushroomSporesRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9C51
 
-; EBATTLE1: `MSG_BTL_TORITUKI` action payload text; D5:7B68 row 76 is the
-; possessed persistent-status row message.
-EF9C51_EBattle1MsgBtlTorituki:
+; EBATTLE1: row 76 row +4 possessed-status presentation text.
+EF9C51_EBattle1PossessedStatusRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9C7E
 
-; EBATTLE1: `MSG_BTL_YOI_KAORI` action payload text.
-EF9C7E_EBattle1MsgBtlYoiKaori:
+; EBATTLE1: row 77 row +4 `MSG_BTL_YOI_KAORI` presentation text.
+EF9C7E_EBattle1YoiKaoriRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9CAD
 
-; EBATTLE1: `MSG_BTL_KABI_HOUSI` action payload text; D5:7B68 row 78 starts
-; the source-backed temporary-status row-message cluster.
-EF9CAD_EBattle1MsgBtlKabiHousi:
+; EBATTLE1: row 78 row +4 crying mold-spores presentation text.
+EF9CAD_EBattle1CryingMoldSporesRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9CD1
 
-; EBATTLE1: `MSG_BTL_SHIBARI` action payload text; D5:7B68 row 79 is part of
-; the immobilized/could-not-move row-message cluster.
-EF9CD1_EBattle1MsgBtlShibari:
+; EBATTLE1: row 79 row +4 immobilizing binding presentation text.
+EF9CD1_EBattle1ImmobilizingBindingRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9CF1
 
-; EBATTLE1: `MSG_BTL_NENEKI` action payload text; D5:7B68 row 80 is part of
-; the immobilized/could-not-move row-message cluster.
-EF9CF1_EBattle1MsgBtlNeneki:
+; EBATTLE1: row 80 row +4 immobilizing mucus presentation text.
+EF9CF1_EBattle1ImmobilizingMucusRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D14
 
-; EBATTLE1: `MSG_BTL_HAEMITU` action payload text; D5:7B68 row 81 is part of
-; the immobilized/could-not-move row-message cluster.
-EF9D14_EBattle1MsgBtlHaemitu:
+; EBATTLE1: row 81 row +4 immobilizing Fly Honey presentation text.
+EF9D14_EBattle1ImmobilizingFlyHoneyRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D3E
 
-; EBATTLE1: `MSG_BTL_OSHIRI_ITO` action payload text; D5:7B68 row 82 is part
-; of the immobilized/could-not-move row-message cluster.
-EF9D3E_EBattle1MsgBtlOshiriIto:
+; EBATTLE1: row 82 row +4 immobilizing thread presentation text.
+EF9D3E_EBattle1ImmobilizingThreadRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D62
 
-; EBATTLE1: `MSG_BTL_KOWAI_KOTOBA` action payload text; D5:7B68 row 83 is the
-; solidification row message.
-EF9D62_EBattle1MsgBtlKowaiKotoba:
+; EBATTLE1: row 83 row +4 solidification scary-words presentation text.
+EF9D62_EBattle1SolidificationScaryWordsRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9D81
 
-; EBATTLE1: `MSG_BTL_AYASHI_KOTO` action payload text; D5:7B68 row 84 reuses
-; the resist-checked strange-status behavior body.
-EF9D81_EBattle1MsgBtlAyashiKoto:
+; EBATTLE1: row 84 row +4 strange-status suspicious-thing presentation text.
+EF9D81_EBattle1StrangeStatusSuspiciousThingRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9DA1
 
-; EBATTLE1: `MSG_BTL_FUUIN` action payload text; D5:7B68 row 85 is the
-; concentration/PSI-seal row message.
-EF9DA1_EBattle1MsgBtlFuuin:
+; EBATTLE1: row 85 row +4 concentration/PSI-seal presentation text.
+EF9DA1_EBattle1ConcentrationPsiSealRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9DBD
 
-; EBATTLE1: `MSG_BTL_TACHIBA_THINK` action payload text; D5:7B68 row 86 is the
-; direct strange-status sibling row message.
-EF9DBD_EBattle1MsgBtlTachibaThink:
+; EBATTLE1: row 86 row +4 strange-status thought presentation text.
+EF9DBD_EBattle1StrangeStatusThoughtRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9DDA
 
-; EBATTLE1: `MSG_BTL_KOGEPPU_IKI` action payload text; D5:7B68 row 87 is the
-; all-target crying-family row message.
-EF9DDA_EBattle1MsgBtlKogeppuIki:
+; EBATTLE1: row 87 row +4 crying breath presentation text.
+EF9DDA_EBattle1CryingBreathRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9E05
 
-; EBATTLE1: `MSG_BTL_TYPHOON` action payload text.
-EF9E05_EBattle1MsgBtlTyphoon:
+; EBATTLE1: row 88 row +4 `MSG_BTL_TYPHOON` presentation text.
+EF9E05_EBattle1TyphoonRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9E22
 
-; EBATTLE1: `MSG_BTL_COFFEE` action payload text.
-EF9E22_EBattle1MsgBtlCoffee:
+; EBATTLE1: row 89 row +4 `MSG_BTL_COFFEE` presentation text.
+EF9E22_EBattle1CoffeeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9E47
 
-; EBATTLE1: `MSG_BTL_MUSIC` action payload text; D5:7B68 row 90 reuses the
-; all-target asleep-status wrapper body.
-EF9E47_EBattle1MsgBtlMusic:
+; EBATTLE1: row 90 row +4 asleep music presentation text.
+EF9E47_EBattle1AsleepMusicRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9E69
 
-; EBATTLE1: `MSG_BTL_SYOUKA_EKI` action payload text.
-EF9E69_EBattle1MsgBtlSyoukaEki:
+; EBATTLE1: row 91 row +4 `MSG_BTL_SYOUKA_EKI` presentation text.
+EF9E69_EBattle1SyoukaEkiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9E92
 
-; EBATTLE1: `MSG_BTL_KAMINARI` action payload text.
-EF9E92_EBattle1MsgBtlKaminari:
+; EBATTLE1: row 92 row +4 `MSG_BTL_KAMINARI` presentation text.
+EF9E92_EBattle1KaminariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9EB4
 
-; EBATTLE1: `MSG_BTL_FIRE` action payload text.
-EF9EB4_EBattle1MsgBtlFire:
+; EBATTLE1: row 93 row +4 `MSG_BTL_FIRE` presentation text.
+EF9EB4_EBattle1FireRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9ED7
 
-; EBATTLE1: `MSG_BTL_FIRE_BREATH` action payload text.
-EF9ED7_EBattle1MsgBtlFireBreath:
+; EBATTLE1: row 94 row +4 `MSG_BTL_FIRE_BREATH` presentation text.
+EF9ED7_EBattle1FireBreathRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9EF4
 
-; EGOODS2: Exit Mouse use payload text.
-EF9EF4_EGoods2MsgBtlEscapeMouse:
+; EGOODS2: Exit Mouse item-use payload text. D5:7B68 row 259 also uses this
+; as row +4 text with the `C2:9039` default/no-op body.
+EF9EF4_EGoods2ExitMouseItemUsePayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:9F9F
@@ -3415,14 +3399,16 @@ EFA0B7_EGoods2BranchBtlEscapeMouseCapsule:
 ; ---------------------------------------------------------------------------
 ; EF:A0DC
 
-; EGOODS2: Hieroglyph item-use payload text.
-EFA0DC_EGoods2MsgBtlHiero:
+; EGOODS2: Hieroglyph item-use payload text. D5:7B68 row 270 also uses this
+; as row +4 text with the `C2:9039` default/no-op body.
+EFA0DC_EGoods2HieroglyphItemUsePayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:A2AB
 
-; EGOODS2: Town Map item-use payload text.
-EFA2AB_EGoods2MsgBtlTownMap:
+; EGOODS2: Town Map item-use payload text. D5:7B68 row 271 also uses this as
+; row +4 text with the `C2:9039` default/no-op body.
+EFA2AB_EGoods2TownMapItemUsePayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:A2B5

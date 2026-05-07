@@ -121,6 +121,14 @@ This planning pass does not split EF source corridors or regenerate the bank.
   direct fire/freeze/flash/paralysis/hypnosis/Brain Shock vulnerability
   readouts, metamorphose success/failure text, and the diamondized status text
   adjacent to the existing paralysis/status payload anchors.
+- 2026-05-06: EF Spy/metamorphose naming follow-up tightened that corridor:
+  `EF:69EA/69FF` now carry Spy `ActionAmount` readout names, `EF:6A0D..6A7F`
+  carry direct Spy vulnerability/susceptibility readout names, and
+  `EF:6A99/6AB3` carry metamorphose `ResultText` names.
+- 2026-05-06: EF HP/PP recovery naming follow-up tightened the EBATTLE5
+  recovery front: `EF:69A1` now names HP already-maxed recovery text, while
+  `EF:69BA/69D2` carry HP/PP recovered `ActionAmount` names for C2 staged
+  delta paths.
 - 2026-05-05: EF EBATTLE8 call-for-help/Time Stop follow-up split the
   `EF:77FD..7B77` corridor into the four C2 call-for-help result scripts at
   `EF:77FD`, `EF:7810`, `EF:7824`, and `EF:7830`, the C2 hit-resolution
@@ -131,21 +139,56 @@ This planning pass does not split EF source corridors or regenerate the bank.
   SMAAAASH presentation, shooting/physical dodge, shared no-effect variants,
   physical/shoot miss text, target-gone text, HP/PP drain text, and periodic
   strange/poison/sunstroke/cold damage scripts.
+- 2026-05-06: EF EBATTLE4 damage/drain naming follow-up tightened
+  `EF:75AB..77DB`: damage/drain/periodic-damage labels now carry
+  `ActionAmount`, SMAAAASH carries presentation text, and miss/no-effect/
+  target-gone/self-drain labels stay direct text anchors.
 - 2026-05-05: EF EBATTLE5 recovery/death follow-up split the
   `EF:6C6B..6F9A` corridor into player collapse, Flying Man/teddy-bear death,
   enemy defeat flavor, affliction recovery/removal, revive success/failure, and
   shield-adjacent recovery payload anchors.
+- 2026-05-06: EF death/defeat naming follow-up tightened `EF:6C6B..6E31`:
+  player collapse, Flying Man/teddy-bear death payloads, and enemy defeat
+  flavor variants now have source names without inherited `MsgBtl`/`MsgSys`
+  shells, while Flying Man branch/helper labels remain control-flow anchors.
 - 2026-05-05: EF EBATTLE8 present-result follow-up split the
   `EF:7C42..7DD5` continuation behind `MSG_BTL_PRESENT` into
-  dead-recipient, full-inventory, throw-away prompt, abandon confirmation,
-  drop-selection, drop-confirmed, and forbidden-drop text anchors. This extends
-  the C2/C1 present byte-substitution bridge without converting EB text bytes
-  to macro source.
+  recipient-cannot-receive, full-inventory, throw-away prompt, abandon
+  confirmation, drop-selection, drop-confirmed, and forbidden-drop text
+  anchors. This extends the C2/C1 present byte-substitution bridge without
+  converting EB text bytes to macro source.
+- 2026-05-06: EF EBATTLE8 present-item naming follow-up tightened those source
+  anchors: `EF:7BDF/7DD5` now name present item `ByteSubstitutionPayloadText`
+  consumers directly, and `EF:7C42..7DBE` separates result text from prompt
+  text inside the present continuation.
+- 2026-05-06: EF byte-substitution payload suffix follow-up renamed the bare
+  `EF:7B77`, `EF:7BDF`, and `EF:7DD5` `19 1F` consumers as
+  `ByteSubstitutionPayloadText`, making the staged DD7C payload lane explicit
+  without folding it into row-presentation or result-text suffixes.
 - 2026-05-05: EF EBATTLE4 status/event prelude follow-up split the
   `EF:7186..75AB` corridor into action-blocking status text, PSI-seal result
   branches, guard/Fly-Honey/homesick flavor, Runaway Five and Poo/Starstorm
   event text, Pokey random talk branches, and companion talk anchors before
   the already split damage pipeline.
+- 2026-05-06: EF EBATTLE4 random-talk naming follow-up tightened the tail of
+  that corridor: `EF:745F` now marks the Pokey random-talk dispatcher,
+  `EF:749D..7548` mark the individual talk branches, and `EF:7569..7593`
+  marks the adjacent companion talk text without promoting those flavor/event
+  anchors into row-message joins.
+- 2026-05-06: EF EBATTLE4 guard/Fly-Honey/homesick naming follow-up tightened
+  the front of the same event corridor: `EF:7249` now names guard-on flavor
+  text, `EF:725A` names Fly-Honey event text, and `EF:727F..72DB` names the
+  homesick random-thought dispatcher plus branches without claiming a row `+4`
+  join.
+- 2026-05-06: EF EBATTLE8 call-for-help/Time Stop naming follow-up tightened
+  the proved direct-result exits: `EF:77FD..7830` now carry call-for-help
+  `ResultText` names and `EF:7843` carries the Time Stop return `ResultText`
+  name before the encounter-opening island begins.
+- 2026-05-06: EF EBATTLE8 encounter/victory naming follow-up tightened
+  `EF:7858..7B64`: encounter/surprise variants now use `OpeningText`, the
+  victory/loss and level-up announcement labels no longer inherit `MsgBtl`,
+  the level-up stat leaves keep C1-staged `ActionAmount` suffixes, and the
+  learned-PSI lead-in is separate from the `EF:7B77` byte-substitution text.
 - 2026-05-05: EF EBATTLE8 encounter/victory/level-up follow-up split the
   remaining `EF:7858..7B77` tail into encounter-opening variants, group-actor
   helper branches, ordinary/boss/forced victory text, monster-win text,
@@ -155,9 +198,28 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:7E25..843F` island into exact `MSG_BTL_*` payload anchors from
   `MSG_BTL_PPDOWN` through `MSG_BTL_CHOU_ONPA`. The names are intentionally
   symbol-derived pending a later C2 action-table consumer pass.
+- 2026-05-06: EF EBATTLE2 proved-row naming follow-up promoted rows `99`,
+  `100`, `101`, `102`, `104`, `117`, and `118` to gameplay-facing
+  `RowPresentationText` anchors, leaving the remaining unproved EBATTLE2
+  action-flavor labels as exact `MSG_BTL_*` symbols.
+- 2026-05-06: EF EBATTLE2 row `207` follow-up promoted `EF:83A8` to a
+  strange-status `RowPresentationText` anchor, closing the proved status-row
+  outlier that reuses the `C2:8D3A -> C2:A056` body.
+- 2026-05-06: EF row-message crosswalk consolidation updated proved early
+  command/PSI joins and rows `243/244` to show their promoted source labels,
+  keeping the exact `MSG_BTL_*` policy only for unproved action islands.
 - 2026-05-05: EF EBATTLE1 battle-command front follow-up split
   `EF:848C..8814` into Bash/attack, Shoot, Guard, Metamorphose, flee, Spy,
   shared PSI action text, and the first PSI animation/effect dispatch branches.
+- 2026-05-06: EF EBATTLE1 row-presentation naming follow-up tightened that
+  front so Bash/Shoot/Spy/shared-PSI/Pray carry `RowPresentationText`,
+  `EF:8543` keeps the shared PSI-name `ByteSubstitution` role, and Thunder
+  common anchors carry presentation-text names without changing C1/C2 source.
+- 2026-05-06: EF EBATTLE0 status naming follow-up tightened `EF:843F..8477`:
+  battle-start asleep/PSI-seal/strange text now names the target-context
+  `DC1C` status-announcement lane, and random-action strange/mushroom text now
+  names the pre-`DD9F` direct status lane without inherited `MsgAtStart` or
+  `MsgRandomAct` shells.
 - 2026-05-05: EF EBATTLE1 Thunder/effect/Pray follow-up split
   `EF:8814..89FE` into small/large Thunder presentation text, Thunder miss
   sound text, PBFX presentation branches 17-50, and the Pray action opening
@@ -165,11 +227,19 @@ This planning pass does not split EF source corridors or regenerate the bank.
 - 2026-05-05: EF EBATTLE3 action-flavor follow-up split the complete
   `EF:89FE..8FAD` enemy-action text include into exact `MSG_BTL_*` anchors
   from `MSG_BTL_JIHIBIKI` through `MSG_BTL_GYIYYIG_3`.
+- 2026-05-06: EF EBATTLE3 proved-row naming follow-up promoted rows `159`,
+  `228`, `232`, `248`, `273`, and `290`, plus shared rows `140/247`, to
+  gameplay-facing `RowPresentationText` anchors while keeping the remaining
+  EBATTLE3 action-flavor labels as exact `MSG_BTL_*` symbols.
 - 2026-05-05: EF EBATTLE9 field/graveyard follow-up split the complete
   `EF:8FAD..9A47` include into field-monster, graveyard/Paula, boss/girl, and
   Guts tutorial message anchors.
 - 2026-05-05: EF EBATTLE1 action-tail follow-up split `EF:9A47..9EF4` into
   action payload anchors from `MSG_BTL_NAKAMA0` through `MSG_BTL_FIRE_BREATH`.
+- 2026-05-06: EF EBATTLE1 late-status naming follow-up promoted proved
+  action-tail status rows `75`, `76`, `78..87`, and `90` to
+  `RowPresentationText` anchors while keeping their behavior-emitted
+  success/fallback direct-result scripts separate.
 - 2026-05-05: EF EGOODS2 item-use follow-up split `EF:9EF4..A2FA` into Exit
   Mouse, Hieroglyph, Town Map, and traveler-shack payload branches.
 - 2026-05-05: EF tail follow-up split `EF:A2FA..C51B` into unknown event,
@@ -207,8 +277,8 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `D5:7B68` rows onto EF row-message anchors and the secondary result scripts
   emitted by their C2 row `+8` behavior bodies.
 - 2026-05-06: EF row-message frontier follow-up tightened that crosswalk around
-  evidence boundaries: behavior-known numeric-effect and no-op/flavor rows are
-  now listed as blocked on row `+4` EF pointer recovery rather than treated as
+  evidence boundaries: behavior-known numeric-effect and no-op/flavor rows were
+  listed as blocked on row `+4` EF pointer recovery rather than treated as
   nameable action-message joins.
 - 2026-05-06: EF special-event row-message follow-up promoted the locally
   proved row `243` and `244` joins into the same crosswalk, keeping their
@@ -222,13 +292,23 @@ This planning pass does not split EF source corridors or regenerate the bank.
   into the crosswalk as shared `EF:8543` PSI presentation rows with separate
   asleep/strange result payloads emitted by their C2 behavior bodies, and
   extended the non-EF C9 item lane to later bomb-family rows `310` and `311`.
-  The same follow-up marks explosive rows `64` and `65` as behavior-known but
-  still blocked on exact row `+4` EF pointer recovery, and adds PSI-side Lifeup
-  rows `32..35` to the pointer-recovery frontier.
+  A later pointer-recovery pass resolved the temporary blocker for explosive
+  rows `64/65` and PSI-side Lifeup rows `32..35`.
 - 2026-05-06: EF row-pointer recovery frontier follow-up added
-  `notes/ef-battle-text-row-pointer-recovery-frontier.md`, pinning the exact
+  `notes/ef-battle-text-row-pointer-recovery-frontier.md`, pinning the initial
   local blocker and recovery commands for remaining row `+4` joins before any
   further EF action-anchor promotion.
+- 2026-05-06: EF row-pointer recovery follow-up used the local ROM-backed
+  action inspector to promote Lifeup rows `32..35`, PSI offense-up rows
+  `48/49`, numeric-effect rows `95..98/233/234`, and explosive rows `64/65`
+  into the concrete EF row-message crosswalk. Source labels now carry
+  `RowPresentationText` names for those anchors while C8/HP result lanes remain
+  separate.
+- 2026-05-06: EF no-op/flavor row-pointer follow-up recovered rows
+  `119..134`, `251..257`, and `260..266` as EF row-message joins over
+  `C2:9033` or tiny no-op tails. Rows `119..134` now carry EBATTLE2
+  `FlavorRowPresentationText` source labels; the EBATTLE4/status dual-use
+  anchors stay named by event/status/result role.
 - 2026-05-06: EF consumer-lane contract follow-up added
   `notes/ef-battle-text-consumer-lane-contracts.md`, a compact EF-side decision
   table for row presentation, direct result, amount, byte/pointer substitution,
@@ -245,9 +325,8 @@ This planning pass does not split EF source corridors or regenerate the bank.
   comments at `EF:6B81..6C55` and `EF:766E` to keep C2 row `+8` `DC1C`
   result emissions separate from row `+4` presentation messages in the source.
 - 2026-05-06: EF negative-guardrail source follow-up added byte-neutral
-  comments at Lifeup-looking and explosive-looking anchors so rows `32..35`
-  and `64/65` remain blocked on row `+4` pointer recovery rather than nearby
-  EF flavor text.
+  comments at Lifeup-looking anchors so `EF:5173..51BB` and `EF:8D4C` remain
+  separate from the recovered row `32..35 -> EF:8543` presentation join.
 - 2026-05-06: EF amount-result suffix follow-up renamed `EF:7755..77DB`
   PP-loss and periodic damage anchors as `ActionAmount` scripts so their
   `DC66`/`1C 0F` payload contract is visible in source.
@@ -262,6 +341,31 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:7B85/7BA2/7BC1` branch anchors so the lane noun leads the label, and
   documented that the adjacent `EF:7B83/7BA0/7BBF` anchors are branch-state
   separators rather than parsed `19 1E` consumer sites.
+- 2026-05-06: EF `C2:9039` default/item-use follow-up completed the broad
+  default bucket by row `+4` bank. The EF side now records shared PSI rows
+  `60/61`, EGOODS2 item-use rows `259`, `270`, and `271`, flee row `279`, and
+  EBATTLE3 flavor rows `309` and `313..317`; C7/C9/C6 rows such as
+  `190..200`, `272/276`, `281/282`, `284..289`, `308`, and `312` remain
+  consumer-contract notes rather than EF anchor-renaming evidence.
+- 2026-05-06: EF neighboring no-op-tail follow-up completed the
+  `C2:903C/903F..904E` bank-first classification. Row `9` stays non-EF C7,
+  while rows `251..256` remain EF homesick/action-blocked/recovery row-message
+  joins with dual-use labels and source comments instead of new anchor names.
+- 2026-05-06: EF EBATTLE2 exact-message follow-up promoted the row-backed
+  `MSG_BTL_*` anchors for rows `103`, `105..116`, `201..206`, `208..210`, and
+  reuse row `238` to `RowPresentationText`, preserving symbol stems while
+  removing that EBATTLE2 island from the exact-anchor frontier.
+- 2026-05-06: EF EBATTLE3 exact-message follow-up promoted the row-backed
+  `MSG_BTL_*` anchors for rows `160/161/176`, `211..227`, `229..231`,
+  `241/242`, and `274/300..307` to `RowPresentationText`, with no-op rows
+  `235/236` carrying `FlavorRowPresentationText`.
+- 2026-05-06: EF EBATTLE1 action-tail exact-message follow-up promoted the
+  row-backed `MSG_BTL_*` anchors for rows `62/63`, `66..74`, `77`, `88/89`,
+  and `91..94` to `RowPresentationText`, closing the exact battle-action
+  anchor frontier while preserving EGOODS2 item-use payload semantics.
+- 2026-05-06: EF EGOODS2 item-use guardrail follow-up renamed the remaining
+  inherited battle-message shells at `EF:9EF4`, `EF:A0DC`, and `EF:A2AB` as
+  `ItemUsePayloadText`, closing the row-backed legacy-shell inventory entirely.
 - 2026-05-06: EF status-result label follow-up renamed the proved direct
   `DC1C` status-result anchors across `EF:6AC7..6C55` and shared fallback
   `EF:766E` with `StatusResultText`, keeping them distinct from `DD9F` row
@@ -270,3 +374,12 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `EF:6E4A..6F64` cleanup scripts with `RecoveryResultText` or
   `RemovalResultText` so the C2 affliction-recovery direct-result lane is
   visible in source.
+- 2026-05-06: EF revive/shield result label follow-up renamed `EF:6F7C..7160`
+  direct result scripts with `ResultText`, preserving `ByteSubstitution` on
+  `EF:70D2/70FA` because those PSI shield result scripts consume `19 1F`.
+- 2026-05-06: EF EBATTLE4 action-blocked status follow-up renamed
+  `EF:7186..720C` with `ActionBlockedStatusText` and marked `EF:7221` as the
+  PSI-seal `ByteSubstitutionResultText` consumer behind the player-side branch.
+- 2026-05-06: EF special-event lane label follow-up renamed row `243/244`
+  anchors so `EF:72F6/7415` are `RowPresentationText` and
+  `EF:72F7/733D/743B` are behavior-emitted `ResultText` continuations.

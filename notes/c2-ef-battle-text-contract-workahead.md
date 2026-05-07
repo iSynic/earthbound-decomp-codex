@@ -95,6 +95,13 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   scripts at `EF:69EA`, `EF:69FF`, `EF:6A0D`, `EF:6A24`, `EF:6A3C`,
   `EF:6A54`, `EF:6A6C`, and `EF:6A7F`, plus the neighboring metamorphose
   and diamondized scripts at `EF:6A99`, `EF:6AB3`, and `EF:6AC7`.
+- 2026-05-06: EF Spy/metamorphose naming follow-up removed inherited
+  `MsgBtlCheck*` labels from `EF:69EA..6A7F`, keeping Spy offense/defense as
+  `ActionAmount` readouts and resistance buckets as direct readout text, then
+  named `EF:6A99/6AB3` as metamorphose `ResultText`.
+- 2026-05-06: EF HP/PP recovery naming follow-up tightened `EF:69A1..69D2`:
+  HP already-maxed stays a recovery text anchor, while HP and PP recovered
+  paths carry `ActionAmount` names for the C2 `DC66` staged-delta paths.
 - 2026-05-05: EF EBATTLE8 follow-up added source anchors for the four
   call-for-help result scripts (`EF:77FD`, `EF:7810`, `EF:7824`, `EF:7830`)
   and the Time Stop return script at `EF:7843`.
@@ -111,6 +118,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `notes/class2-d57b68-battle-action-table-match.md`: ordinary Bash/attack
   `EF:848C`, Spy/check `EF:8530`, and shared PSI `ByteSubstitution` text
   `EF:8543`, plus the adjacent PSI animation/effect dispatch branches.
+- 2026-05-06: EF EBATTLE1 row-presentation naming follow-up renamed the proved
+  Bash/Shoot/Spy/shared-PSI/Pray anchors with `RowPresentationText`, kept
+  shared PSI as a `ByteSubstitution` consumer, and converted the adjacent
+  Thunder common labels to presentation text without editing C1/C2 source.
 - 2026-05-05: C1-side DD9F tail follow-up named the source-side consumer of
   the action-table Bash/Shoot text and companion payload offsets. The
   `C1:DD9F..E1A2` source now keeps `$00BC/$00BE` current text pointers
@@ -125,6 +136,32 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:89FE..8FAD` include into exact `MSG_BTL_*` anchors, from
   `MSG_BTL_JIHIBIKI` through `MSG_BTL_GYIYYIG_3`, ready for a later C2
   action-table consumer pass.
+- 2026-05-06: EF EBATTLE3 proved-row naming follow-up promoted the row-message
+  anchors for rows `159`, `228`, `232`, `248`, `273`, and `290`, plus shared
+  rows `140/247`, into `RowPresentationText` labels while leaving unproved
+  EBATTLE3 action-flavor payloads symbol-derived.
+- 2026-05-06: EF EBATTLE1 late-status naming follow-up promoted proved
+  action-tail status rows `75`, `76`, `78..87`, and `90` from inherited
+  `MSG_BTL_*` labels into `RowPresentationText` anchors, keeping their
+  behavior-emitted success/fallback result scripts separate.
+- 2026-05-06: EF EBATTLE2 row `207` follow-up promoted `EF:83A8` from the
+  inherited `MSG_BTL_LAUGH_HEN` shell into a strange-status
+  `RowPresentationText` anchor, matching its `C2:8D3A -> C2:A056` behavior
+  join.
+- 2026-05-06: EF row-message crosswalk consolidation updated the proved early
+  command/PSI joins and rows `243/244` to use their promoted source labels
+  directly, leaving only unproved action islands under the exact `MSG_BTL_*`
+  naming policy.
+- 2026-05-06: EF row-pointer recovery follow-up used the local ROM-backed
+  action inspector to prove Lifeup rows `32..35`, PSI offense-up rows `48/49`,
+  numeric-effect rows `95..98/233/234`, and explosive rows `64/65` as concrete
+  EF row `+4` presentation joins. The EF source now promotes those anchors to
+  `RowPresentationText` names while keeping C8/HP amount-result lanes separate.
+- 2026-05-06: EF no-op/flavor row-pointer follow-up proved rows `119..134`,
+  `251..257`, and `260..266` as EF row `+4` presentation joins over
+  `C2:9033` or tiny no-op tails. The EBATTLE2 `119..134` strip now uses
+  `FlavorRowPresentationText` source labels, while dual-use EBATTLE4/status
+  anchors remain named for their event/status/result roles.
 - 2026-05-05: EF EBATTLE9 field/graveyard follow-up split the complete
   `EF:8FAD..9A47` include into the `_SUB_SOREZORE` helper, Sanctuary
   field-monster payloads, graveyard/Paula branches, and the Guts tutorial
@@ -147,6 +184,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:763C`, `EF:7655`), miss/target-gone and HP-sucker scripts
   (`EF:76C7`, `EF:76D8`, `EF:76FD`, `EF:7710`, `EF:7729`), and periodic
   status damage scripts (`EF:7768`, `EF:7787`, `EF:77B1`, `EF:77DB`).
+- 2026-05-06: EF EBATTLE4 damage/drain naming follow-up removed inherited
+  `MsgBtl` shells from `EF:75AB..77DB`, keeping HP/PP damage/drain and
+  periodic damage anchors as `ActionAmount`, SMAAAASH as presentation text,
+  and no-effect/miss/target-gone/HP-sucker self-drain as direct text anchors.
 - 2026-05-05: EF EBATTLE4 prelude follow-up added source anchors for the
   preceding `EF:7186..75AB` status/event scripts: action-blocking status
   flavor, PSI-seal result text, guard/Fly-Honey/homesick text, Runaway Five
@@ -158,12 +199,44 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `EF:6F1E`, sunstroke cured `EF:6F38`, asleep recovered `EF:6F54`, and
   PSI-seal recovered `EF:6F64`, plus adjacent collapse/death/revive result
   payloads in `EF:6C6B..6F9A`.
+- 2026-05-06: EF death/defeat naming follow-up removed inherited
+  `MsgBtl`/`MsgSys` prose from `EF:6C6B..6E31`, naming player collapse,
+  Flying Man/teddy-bear death, and enemy defeat flavor anchors while leaving
+  Flying Man branch/helper labels as control-flow anchors.
 - 2026-05-06: EF source-only naming follow-up tightened the payload anchor
   suffixes used by C1/C2 joins. `ActionAmount` now names EF scripts that
   consume `C1:DC66` secondary payloads through `$9D12/$9D14 -> 1C 0F`;
   `ByteSubstitution` names `C1:DD7C -> $9D11 -> 19 1F` consumers; and
   `PointerSubstitution` names the `19 1E` payload branches. No C2 source was
   edited in this pass.
+- 2026-05-06: EF EBATTLE4 random-talk follow-up renamed the Pokey random-talk
+  dispatcher at `EF:745F`, its branch texts through `EF:7548`, and the
+  adjacent My Dog/Pickey/Tony/Balmon companion talk anchors through `EF:7593`.
+  These remain flavor/event text islands until a C2 caller or row-pointer pass
+  proves a stronger consumer lane.
+- 2026-05-06: EF EBATTLE0 status naming follow-up removed the inherited
+  `MsgAtStart`/`MsgRandomAct` shells from `EF:843F..8477`. Battle-start
+  asleep/PSI-seal/strange anchors now name `BattleStart...StatusAnnouncementText`
+  direct `DC1C` emissions, while random-action strange/mushroom anchors name
+  `RandomAction...StatusText` before the `DD9F` row-message lane.
+- 2026-05-06: EF EBATTLE2 proved-row naming follow-up promoted rows `99`,
+  `100`, `101`, `102`, `104`, `117`, and `118` from inherited `MSG_BTL_*`
+  labels into `RowPresentationText` anchors while leaving unproved EBATTLE2
+  action-flavor payloads symbol-derived.
+- 2026-05-06: EF EBATTLE4 guard/Fly-Honey/homesick naming follow-up renamed
+  `EF:7249..72DB` from inherited `MsgBtl` anchors into guard-on flavor,
+  Fly-Honey event, homesick dispatcher, and homesick branch labels. The pass
+  deliberately left them as event/flavor anchors rather than row-presentation
+  joins.
+- 2026-05-06: EF EBATTLE8 call-for-help/Time Stop naming follow-up renamed
+  the four proved call-for-help `DC1C` exits at `EF:77FD..7830` and the Time
+  Stop return at `EF:7843` with `ResultText` suffixes, leaving the encounter
+  opening island at `EF:7858+` separate.
+- 2026-05-06: EF EBATTLE8 encounter/victory naming follow-up tightened the
+  `EF:7858..7B64` tail: encounter and surprise variants now carry
+  `OpeningText`, victory/loss and level-up announcement labels drop inherited
+  `MsgBtl` prose, and `EF:7A7D..7B46` keep C1 level-up `ActionAmount`
+  semantics before the learned-PSI lead-in.
 - 2026-05-06: EF action-island frontier follow-up documented the remaining
   `MSG_BTL_*` row-message islands separately from direct result payloads. The
   handoff note names the `C1:DD9F` row `+4` message lane, the row `+8`
@@ -174,9 +247,9 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   normalization/event rows. See
   `notes/ef-battle-text-row-message-crosswalk.md`.
 - 2026-05-06: EF row-message frontier follow-up separated behavior-known rows
-  from proved EF message joins. Numeric-effect and no-op/flavor rows with known
-  C2 row `+8` bodies now remain explicitly blocked on local row `+4` pointer
-  recovery before EF action-message labels are promoted.
+  from proved EF message joins. This initially kept numeric-effect and
+  no-op/flavor rows deferred until local row `+4` pointer recovery could prove
+  their EF action-message labels.
 - 2026-05-06: EF special-event row-message follow-up promoted rows `243` and
   `244` into the row-message crosswalk: `EF:72F6 -> C2:9298` and
   `EF:7415 -> C2:92EE`, with their behavior continuations kept as separate
@@ -188,14 +261,14 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   shared `EF:8543` PSI `ByteSubstitution` presentation joins whose C2 bodies
   emit asleep and strange direct-result scripts separately. The same pass
   extended the non-EF C9 item row-message lane to the later bomb-family rows
-  `310` and `311`, and marked explosive rows `64` and `65` as blocked on exact
-  row `+4` EF pointer recovery. It also records PSI-side Lifeup rows `32..35`
-  as behavior-known but not yet row-message-pointer joined.
+  `310` and `311`. The later row-pointer recovery pass resolved the temporary
+  blocker for explosive rows `64/65` and PSI-side Lifeup rows `32..35`.
 - 2026-05-06: EF row-pointer recovery frontier follow-up added
   `notes/ef-battle-text-row-pointer-recovery-frontier.md`, documenting the
-  current local blocker for new row `+4` joins: D5 source preserves the table
-  as a data gap, the ROM-backed inspector has no local ROM, and the older
-  `eb-decompile-4ef92` table reference is absent from this worktree.
+  original local blocker for new row `+4` joins: D5 source preserves the table
+  as a data gap and the inspector needs a local ROM. The local ROM is now
+  present, so the note tracks recovered joins and the remaining default/item-use
+  classification frontier.
 - 2026-05-06: EF consumer-lane contract follow-up added
   `notes/ef-battle-text-consumer-lane-contracts.md`, consolidating the
   `DD9F`, `DC1C`, `DC66`, `DD7C`, pointer-substitution, and non-EF C7/C8/C9
@@ -219,10 +292,20 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
 - 2026-05-06: EF recovery/removal label follow-up applied the same direct
   result-lane contract to `EF:6E4A..6F64`, using `RecoveryResultText` and
   `RemovalResultText` anchors for the C2 affliction-cleanup helper emissions.
+- 2026-05-06: EF revive/shield result label follow-up carried `ResultText`
+  through `EF:6F7C..7160`, including revive success/failure, shield
+  install/strengthen pairs, expiry/reflection, Neutralizer, Franklin Badge, and
+  PSI-name shield `ByteSubstitutionResultText` scripts.
+- 2026-05-06: EF EBATTLE4 status-block label follow-up renamed
+  `EF:7186..720C` as `ActionBlockedStatusText` anchors and kept the PSI-seal
+  `EF:7221` branch as `ByteSubstitutionResultText`.
+- 2026-05-06: EF special-event lane label follow-up renamed row `243/244`
+  event anchors so `EF:72F6/7415` carry `RowPresentationText` and
+  `EF:72F7/733D/743B` carry `ResultText` continuation semantics.
 - 2026-05-06: EF negative-guardrail source follow-up marked Lifeup explanation
-  and enemy-flavor anchors plus explosive `EF:9A7E/9A9E` candidates as not-yet
-  row-message joins, preserving rows `32..35` and `64/65` for row `+4` pointer
-  recovery.
+  and enemy-flavor anchors as not row-message joins. The later pointer-recovery
+  pass proved `EF:8543` for rows `32..35` and `EF:9A7E/9A9E` for rows `64/65`,
+  so those guardrails now only prevent adjacent-lane confusion.
 - 2026-05-06: EF amount-result suffix follow-up renamed the `EF:7755..77DB`
   PP-loss and periodic-damage result anchors with `ActionAmount` suffixes,
   matching their `C1:DC66 -> 1C 0F` payload consumption.
@@ -230,6 +313,31 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   `ActionAmount` naming contract to `EF:7A7D..7B46`, while documenting that
   these are C1 level-up narration consumers staged through `C1:AD0A`, not C2
   action-row messages.
+- 2026-05-06: EF `C2:9039` default/item-use follow-up completed the broad
+  default bucket by row `+4` bank. Rows `60/61`, `259`, `270`, `271`, `279`,
+  `309`, and `313..317` now have EF joins, with EBATTLE3 flavor anchors
+  promoted to `FlavorRowPresentationText`; rows `190..200`, `272/276`,
+  `281/282`, `284..289`, `308`, and `312` stay in non-EF C7/C9/C6
+  presentation lanes.
+- 2026-05-06: EF neighboring no-op-tail follow-up classified `C2:903C` and
+  `C2:903F..904E`. Row `9` is the only `C2:903C` non-EF C7 lane, and rows
+  `251..256` are the only `903F..904E` EF joins, already named as
+  homesick/action-blocked/recovery payloads rather than pure flavor anchors.
+- 2026-05-06: EF EBATTLE2 exact-message follow-up promoted row-backed
+  `MSG_BTL_*` anchors `103`, `105..116`, `201..206`, `208..210`, and `238` to
+  `RowPresentationText`, leaving later exact-anchor passes to discharge the
+  other row-backed islands.
+- 2026-05-06: EF EBATTLE3 exact-message follow-up promoted row-backed
+  `MSG_BTL_*` anchors `160/161/176`, `211..227`, `229..231`, `241/242`, and
+  `274/300..307` to `RowPresentationText`, with no-op rows `235/236` using
+  `FlavorRowPresentationText`.
+- 2026-05-06: EF EBATTLE1 action-tail exact-message follow-up promoted
+  row-backed `MSG_BTL_*` anchors `62/63`, `66..74`, `77`, `88/89`, and
+  `91..94` to `RowPresentationText`. EGOODS2 item-use payloads stay out of
+  battle-action anchor naming.
+- 2026-05-06: EF EGOODS2 item-use guardrail follow-up removed the last
+  inherited battle-message shells by renaming `EF:9EF4`, `EF:A0DC`, and `EF:A2AB`
+  as `ItemUsePayloadText` anchors for Exit Mouse, Hieroglyph, and Town Map.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 
@@ -358,6 +466,7 @@ Concrete script evidence (exact parsed hits via `tools/find_ebtext_command.py 19
 These occur in the same decoded script region as the present/UFO byte-substitution examples (see `tools/disasm_ebtext_script.py EF:7B70`):
 
 - `EF:7B77` uses `LOAD_BYTE_SUBSTITUTION` (`19 1F`) and prints a PSI name
+  through a `ByteSubstitutionPayloadText` anchor.
 - `EF:7B85` / `EF:7BA2` / `EF:7BC1` use `LOAD_POINTER_SUBSTITUTION` (`19 1E`) and branch on active-memory values
   - source labels keep the lane first:
     `PointerSubstitutionSweetBranch`, `PointerSubstitutionTearsBranch`, and
@@ -473,10 +582,11 @@ Promotion effect: name these callers as “select enemy record pointer + emit ba
 ### HP/PP recovery feedback (paired `DC1C` + `DC66` contract)
 
 - `C2:7294` (`src/c2/c2_7294_apply_battler_hp_recovery_feedback.asm`)
-  - chooses among `EF:69A1` (maxed), `EF:69BA` (amount-bearing), `EF:7696` (no visible effect)
+  - chooses among `EF:69A1` (HP already maxed recovery text), `EF:69BA`
+    (HP recovered amount-bearing text), `EF:7696` (no visible effect)
   - uses `DC66` only on the path where the EF script prints `PRINT_ACTION_AMOUNT` (`1C 0F`)
 - `C2:7318` (`src/c2/c2_7318_apply_battler_pp_recovery_feedback.asm`)
-  - emits `EF:69D2` via `DC66` (amount-bearing PP recovered)
+  - emits `EF:69D2` via `DC66` (PP recovered amount-bearing text)
 
 Promotion effect: keep the “amount-bearing EF script requires staged delta” invariant explicit in naming and parameter shaping.
 
@@ -560,8 +670,8 @@ EF payload anchor suffixes should mirror those wrapper contracts:
 
 - `ActionAmount`: EF script consumes the `C1:DC66` secondary payload through
   `PRINT_ACTION_AMOUNT (1C 0F)`.
-- `ByteSubstitution`: EF script consumes the `C1:DD7C` byte slot through
-  `LOAD_BYTE_SUBSTITUTION (19 1F)`.
+- `ByteSubstitutionPayloadText`: EF script consumes the `C1:DD7C` byte slot
+  through `LOAD_BYTE_SUBSTITUTION (19 1F)`.
   High-confidence EF consumers now include present item text `EF:7BDF/7DD5`,
   learned/shared PSI text `EF:7B77/8543`, and shield PSI-name scripts
   `EF:70D2/70FA`.
@@ -630,6 +740,15 @@ And for the most actionable C2 call-site families:
   forbidden-drop text anchors. The C2 side still treats `$AA10` as
   `BattlePresentItemByte`; EF now exposes the downstream result branches that
   run after `EF:7BDF` consumes that byte through `19 1F`.
+- 2026-05-06: EF present-item naming follow-up removed inherited `MsgBtl`
+  prose from the `EF:7BDF` and `EF:7DD5` item `ByteSubstitutionPayloadText`
+  anchors,
+  and split the `EF:7C42..7DBE` continuation labels into present result versus
+  prompt text roles. No C1/C2 source was edited in this pass.
+- 2026-05-06: EF byte-substitution payload suffix follow-up renamed the bare
+  `EF:7B77`, `EF:7BDF`, and `EF:7DD5` consumers as
+  `ByteSubstitutionPayloadText`, separating staged DD7C payload scripts from
+  row-presentation and direct-result substitution anchors.
 - 2026-05-01: `src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm`
   now names the Spy readout target battler offsets for offense, defense, fire/
   freeze/flash/paralysis resistance, hypnosis resistance, brainshock
