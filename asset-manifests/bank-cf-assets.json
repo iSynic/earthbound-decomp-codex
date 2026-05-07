@@ -13,6 +13,7 @@
   },
   "references": [
     "notes/bank-cf-asset-data-map.md",
+    "notes/cf-event-music-context-contracts.md",
     "refs/ebsrc-main/ebsrc-main/earthbound.yml",
     "refs/ebsrc-main/ebsrc-main/src/bankconfig/US/bank0F.asm"
   ],
@@ -90,7 +91,9 @@
       "notes": [
         "Source include from ebsrc: data/map/door_data.asm",
         "Original file offset: 0x0F0000",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Semantic split includes CF_EVENT_MUSIC_CONTEXT_POINTER_TABLE and CF_EVENT_MUSIC_CONTEXT_TABLE.",
+        "See notes/cf-event-music-context-contracts.md for event-music source-emission rows and variable-list chain handling."
       ]
     },
     {

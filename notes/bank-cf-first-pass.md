@@ -120,7 +120,10 @@ High confidence:
   selectors 1..164 target 164 CF chains, and the chain parser decodes 489
   four-byte rows through `CF:61DD`. The row fields are named only where C0
   reads them: `event_flag_condition_word`, `music_track`, and
-  `screen_transition_sfx`.
+  `screen_transition_sfx`. The same contract now records source-emission
+  handling for the 165 pointer rows and 164 variable-list chains, including the
+  zero-word default-row terminator and numeric-preserve policy for event flags,
+  track ids, and SFX ids.
 - The audio tail contains US retail `AUDIO_PACK_94` and `AUDIO_PACK_96`.
 - Only `CF:FFF9..CF:FFFF` remains unclaimed tail slack.
 
@@ -139,4 +142,5 @@ Still intentionally out of scope:
 Use the checked-in CF door-data, sector-list, and event-music-context JSON
 artifacts, plus the movement-trigger parameter contract, for source emission
 planning. The remaining CF semantic work is optional gameplay-label polish and
-teaching source-emission tooling to consume the promoted row artifacts.
+teaching source-emission tooling to consume the promoted row artifacts,
+including the event-music variable-list chain boundaries.

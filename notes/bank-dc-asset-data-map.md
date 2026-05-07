@@ -42,8 +42,10 @@ span where consumer and map-sector-bundle evidence are strong enough:
   pointer table at `CF:58EF`, uses selectors `1..164`, and matches map-sector
   `Music` for all 1280 checked sectors.
 - `DC:DB37..DC:E036`: bounded 1280-byte second plane. It has 104 unique values
-  in the current contract summary, but remains unnamed until a direct consumer
-  proves field semantics.
+  and no zero rows in the current contract summary, but remains unnamed until a
+  direct consumer proves field semantics.
+- Source emission should use the contract's field policy: typed selector bytes
+  for the first plane and numeric-preserve bytes for the second plane.
 
 ## Coverage Gaps
 

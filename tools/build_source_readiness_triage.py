@@ -187,7 +187,7 @@ def build_triage() -> list[BankTriage]:
                 "generated map data",
                 "data-contract-ready",
                 3,
-                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md`, the CF sector-list/event-music contracts, the CF door-data payload contract, and the CF movement-trigger source-emission summaries.",
+                "Emit CF as exact generated map-data tables plus audio tail using `notes/cf-table-splits.md`, the CF sector-list/event-music contracts, the CF door-data payload contract, and the CF movement-trigger/event-music source-emission summaries.",
                 ["remaining trigger selector gameplay labels are optional polish; source-emission tooling still needs to consume the promoted row artifacts and preserve type 5 no-op payload words as numeric values"],
                 ["door pointers", "door lists", "event music", "sprite placement", "NPC config", "audio tail"],
             ),
@@ -291,9 +291,9 @@ def build_triage() -> list[BankTriage]:
             "map arrangement/music/audio data",
             "asset-and-table-ready",
             3,
-            "Extract arrangements and audio packs, and use `notes/cf-event-music-context-contracts.md` for the CF/DC event-music selector plane and bounded second-plane summary.",
-            ["the second per-sector music byte plane and broader map_music option-list semantics remain intentionally unnamed without direct consumers"],
-            ["compressed arrangements", "consumer-backed event-music selector plane", "bounded second music byte plane", "audio packs"],
+            "Extract arrangements and audio packs, and use `notes/cf-event-music-context-contracts.md` for the CF/DC event-music source-emission rows, selector plane, full second-plane value counts, and numeric-preserve second-plane policy.",
+            ["the second per-sector music byte plane and broader map_music option-list semantics remain intentionally unnamed without direct consumers; source emission should preserve the second plane numerically"],
+            ["compressed arrangements", "consumer-backed event-music selector plane", "numeric-preserve second music byte plane", "audio packs"],
         )
     )
     rows.append(
@@ -500,7 +500,7 @@ def render_markdown(payload: dict[str, object]) -> str:
             "",
             "### Data-contract splitters",
             "",
-            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF trigger/door/event-music rows and trigger-type source-emission summaries, D0 tile-event and placement/battle variable lists, D5 timed-delivery controller rows/source-window ownership, and D8 collision rows/pointer/value-count summaries now have promoted subrecord semantics, with remaining work concentrated in source/data emission and optional gameplay labels.",
+            "- `D5`, `CF`, `D0`, and `D8`: complete as first table splitters; CF trigger/door/event-music rows and trigger-type/event-music source-emission summaries, D0 tile-event and placement/battle variable lists, D5 timed-delivery controller rows/source-window ownership, and D8 collision rows/pointer/value-count summaries now have promoted subrecord semantics, with remaining work concentrated in source/data emission and optional gameplay labels.",
             "- `D7`, `DA`, `DC`, `DF`, `E0`, `E1`: D7 and DA now have promoted table/subrecord contracts; D7 includes source-emission rows and numeric-preserve policies for its unresolved planes/context high bits, while DA has metadata-word and script-usage summaries for palette source emission. Remaining work is smaller inferred table/pointer contract polish.",
             "",
             "### Script, text, and VM assets",

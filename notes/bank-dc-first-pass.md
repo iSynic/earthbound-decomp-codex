@@ -57,7 +57,8 @@ The consumer-backed subshape now has a narrow contract:
   for all 1280 checked sector rows.
 - The second 1280 bytes remain byte-accounted and distribution-summarized but
   intentionally unnamed here; this pass did not find a cited C0/EF consumer for
-  that plane.
+  that plane. The contract now carries a numeric-preserve source-emission row,
+  104 full value counts, and confirms the second plane has no zero rows.
 
 ## Current DC confidence boundary
 
@@ -68,18 +69,25 @@ High confidence:
   for the US retail build.
 - The first per-sector music byte plane is tied to the CF event-music context
   contract, C0/EF consumers, and the map-sector `Music` inventory.
+- `notes/cf-event-music-context-contracts.md` now carries source-emission rows
+  for the CF pointer table, CF variable-list context table, typed DC selector
+  plane, and numeric-preserve DC second plane.
 - Only `110` bytes at the end of the bank are unclaimed slack.
 
 Still intentionally out of scope:
 
 - The second per-sector music byte plane and human names for map_music option
-  lists.
+  lists. The central manifest still carries a separate word-level
+  per-sector-music options contract; the CF/DC event-music context contract
+  narrows only the C0/EF selector-plane path.
 - Decompressing or rendering arrangements/tileset graphics.
 - Audio-pack internals.
 
 ## Recommended next move
 
 Keep the CF/DC event-music selector contract regression-tested while source
-emission work proceeds. The remaining DC semantic work is the unnamed
-distribution-bounded second per-sector byte plane and optional arrangement/music
-cross-reference fixtures.
+emission work proceeds. Source emission should split `DC:D637..DC:E036` into
+the typed current-position selector plane and the numeric-preserve second plane
+recorded in `notes/cf-event-music-context-contracts.md`. The remaining DC
+semantic work is identifying the unnamed second per-sector byte plane if a
+consumer proves it, plus optional arrangement/music cross-reference fixtures.

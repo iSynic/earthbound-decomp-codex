@@ -36,7 +36,7 @@ The `CF:0000..CF:F2B4` generated map-data region now reconciles exactly.
 - `notes/cf-door-data-contracts.md` decodes the consumer-backed `DOOR_DATA` type `0`, type `2`, and type `6` payload variants.
 - `notes/cf-movement-trigger-contracts.md` decodes `DOOR_CONFIG_TABLE` trigger payload meanings for all source-order physical rows and records source-emission handling by trigger type, including the 1127 typed `DOOR_DATA` joins and the type `5` no-op payload boundary.
 - `DOOR_CONFIG_TABLE` and `SPRITE_PLACEMENT_TABLE` are variable-length counted sector lists.
-- `notes/cf-event-music-context-contracts.md` decodes `OVERWORLD_EVENT_MUSIC_POINTER_TABLE` and `OVERWORLD_EVENT_MUSIC_TABLE` as selector-addressed current-position music/SFX context chains.
+- `notes/cf-event-music-context-contracts.md` decodes `OVERWORLD_EVENT_MUSIC_POINTER_TABLE` and `OVERWORLD_EVENT_MUSIC_TABLE` as selector-addressed current-position music/SFX context chains, and now records source-emission handling for 165 selector pointers and 164 variable-list chains terminated by zero event-condition rows.
 - `NPC_CONFIG_TABLE` uses the ebsrc `npc_config` struct size of 17 bytes and the eb-decompile row count of 1584.
 - `CF:F2B5` is the first audio-pack byte, so all generated map data ends exactly at `CF:F2B4`.
 

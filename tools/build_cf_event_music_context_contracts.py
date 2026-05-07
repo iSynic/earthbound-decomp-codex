@@ -65,6 +65,13 @@ def top_counter_rows(counter: Counter[int], count: int = 12, width: int = 2) -> 
     ]
 
 
+def counter_rows(counter: Counter[int], width: int = 2) -> list[dict[str, Any]]:
+    return [
+        {"value": f"0x{value:0{width}X}", "count": counter[value]}
+        for value in sorted(counter)
+    ]
+
+
 def load_sector_music_ids(path: Path) -> list[int]:
     data = json.loads(path.read_text(encoding="utf-8"))
     sectors = data["sectors"]
@@ -172,6 +179,8 @@ def build_contract(cf_source: Path, dc_source: Path, sector_bundles: Path) -> di
 
     first_plane = sector_data[:DC_SELECTOR_ROWS]
     second_plane = sector_data[DC_SELECTOR_ROWS:]
+    first_plane_counts = Counter(first_plane)
+    second_plane_counts = Counter(second_plane)
     invalid_selectors = sorted({value for value in first_plane if value >= CF_POINTER_ROWS})
     if invalid_selectors:
         raise ValueError(f"DC selector plane references invalid CF selectors: {invalid_selectors}")
@@ -199,6 +208,53 @@ def build_contract(cf_source: Path, dc_source: Path, sector_bundles: Path) -> di
                 "pointer_target": pointer_row["target"],
             }
         )
+
+    source_emission_rows = [
+        {
+            "family": "CF_EVENT_MUSIC_CONTEXT_POINTER_TABLE",
+            "span": f"{cpu(0xCF, CF_POINTER_START)}..{cpu(0xCF, CF_TABLE_START)}",
+            "rows": CF_POINTER_ROWS,
+            "stride": 2,
+            "field_policy": "typed-pointer-or-null",
+            "source_emission_note": (
+                "Emit 165 selector-indexed low-word pointers; selector 0 is the only null row, "
+                "and nonzero targets stay inside the CF event-music context table."
+            ),
+        },
+        {
+            "family": "CF_EVENT_MUSIC_CONTEXT_TABLE",
+            "span": f"{cpu(0xCF, CF_TABLE_START)}..{cpu(0xCF, CF_TABLE_END)}",
+            "rows": len(rows),
+            "stride": 4,
+            "field_policy": "variable-list-rows",
+            "source_emission_note": (
+                "Emit 164 selector chains as four-byte rows terminated by a zero "
+                "`event_flag_condition_word`; preserve numeric event flags, tracks, and SFX ids."
+            ),
+        },
+        {
+            "family": "DC_CURRENT_POSITION_EVENT_MUSIC_SELECTOR_PLANE",
+            "span": f"{cpu(0xDC, DC_SELECTOR_START)}..{cpu(0xDC, DC_SELECTOR_START + DC_SELECTOR_ROWS)}",
+            "rows": DC_SELECTOR_ROWS,
+            "stride": 1,
+            "field_policy": "typed-selector",
+            "source_emission_note": (
+                "Emit one selector byte per 32x40 sector; values are CF pointer-table selector ids "
+                "and match map-sector `Music` for all checked rows."
+            ),
+        },
+        {
+            "family": "DC_UNRESOLVED_PER_SECTOR_MUSIC_SECOND_PLANE",
+            "span": f"{cpu(0xDC, DC_SELECTOR_START + DC_SELECTOR_ROWS)}..{cpu(0xDC, DC_SELECTOR_START + DC_SELECTOR_ROWS * 2)}",
+            "rows": DC_SELECTOR_ROWS,
+            "stride": 1,
+            "field_policy": "numeric-preserve",
+            "source_emission_note": (
+                "Emit one numeric byte per sector under a bounded second-plane label; do not "
+                "promote field names until a direct consumer proves semantics."
+            ),
+        },
+    ]
 
     return {
         "schema": SCHEMA,
@@ -288,10 +344,12 @@ def build_contract(cf_source: Path, dc_source: Path, sector_bundles: Path) -> di
             "current_position_selector_rows": len(selector_rows),
             "current_position_selector_unique_count": len(set(first_plane)),
             "current_position_selector_range": [min(first_plane), max(first_plane)],
+            "current_position_selector_null_references": first_plane_counts[0],
             "current_position_selector_map_sector_music_matches": DC_SELECTOR_ROWS - len(sector_music_mismatches),
             "current_position_selector_map_sector_music_mismatches": len(sector_music_mismatches),
-            "current_position_selector_histogram": counter_dict(Counter(first_plane)),
-            "current_position_selector_top_values": top_counter_rows(Counter(first_plane)),
+            "current_position_selector_histogram": counter_dict(first_plane_counts),
+            "current_position_selector_value_counts": counter_rows(first_plane_counts),
+            "current_position_selector_top_values": top_counter_rows(first_plane_counts),
             "chain_row_count_histogram": counter_dict(Counter(chain["row_count"] for chain in chains)),
             "chain_conditional_row_count_histogram": counter_dict(Counter(chain["conditional_rows"] for chain in chains)),
             "music_track_histogram": hex_counter_dict(Counter(row["music_track"] for row in rows)),
@@ -300,8 +358,11 @@ def build_contract(cf_source: Path, dc_source: Path, sector_bundles: Path) -> di
             "screen_transition_sfx_top_values": top_counter_rows(Counter(row["screen_transition_sfx"] for row in rows)),
             "second_plane_value_range": [min(second_plane), max(second_plane)],
             "second_plane_unique_count": len(set(second_plane)),
-            "second_plane_top_values": top_counter_rows(Counter(second_plane)),
+            "second_plane_zero_rows": second_plane_counts[0],
+            "second_plane_value_counts": counter_rows(second_plane_counts),
+            "second_plane_top_values": top_counter_rows(second_plane_counts),
         },
+        "source_emission_rows": source_emission_rows,
         "current_position_selector_map_sector_music_mismatches": sector_music_mismatches,
         "event_music_context_pointer_rows": pointer_rows,
         "event_music_context_chains": chains,
@@ -329,17 +390,36 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- DC current-position selector rows: `{summary['current_position_selector_rows']}`",
         f"- DC selector unique count: `{summary['current_position_selector_unique_count']}`",
         f"- DC selector range: `{summary['current_position_selector_range']}`",
+        f"- DC selector null references: `{summary['current_position_selector_null_references']}`",
         f"- DC selector/map-sector Music matches: `{summary['current_position_selector_map_sector_music_matches']}`",
         f"- DC selector/map-sector Music mismatches: `{summary['current_position_selector_map_sector_music_mismatches']}`",
         f"- DC second-plane unique count: `{summary['second_plane_unique_count']}`",
         f"- DC second-plane range: `{summary['second_plane_value_range']}`",
+        f"- DC second-plane zero rows: `{summary['second_plane_zero_rows']}`",
         f"- chain row-count histogram: `{summary['chain_row_count_histogram']}`",
         "",
+        "## Source-Emission Summary",
+        "",
+        "For the C0/EF current-position selector path, the CF/DC event-music family should be represented as one CF pointer table, one CF variable-list context table, and two DC per-sector planes. Only the first DC plane is field-named by this contract; the second plane round-trips numerically here, while the broader map-music word contract remains separate.",
+        "",
+        "| Family | Span | Rows | Stride | Field Policy | Source Emission Note |",
+        "| --- | --- | ---: | ---: | --- | --- |",
+    ]
+    for row in contract["source_emission_rows"]:
+        lines.append(
+            f"| `{row['family']}` | `{row['span']}` | {row['rows']} | "
+            f"`0x{int(row['stride']):X}` | `{row['field_policy']}` | {row['source_emission_note']} |"
+        )
+
+    lines.extend(
+        [
+            "",
         "## Record Shapes",
         "",
         "| Record | Offset | Field | Size | Consumer evidence |",
         "| --- | ---: | --- | ---: | --- |",
-    ]
+        ]
+    )
     for record_name, fields in contract["record_shapes"].items():
         for field in fields:
             lines.append(
@@ -432,6 +512,7 @@ def render_markdown(contract: dict[str, Any]) -> str:
             "- The first `DC:D637` byte plane matches map-sector `Music` for every checked sector row, but C0/EF evidence proves the runtime role as a CF event-music context selector.",
             "- A zero `event_flag_condition_word` is the selected default row; C0 still reads `music_track` and `screen_transition_sfx` from that row.",
             "- The second 1280-byte half of `DC:D637..DC:E036` is byte-accounted and distribution-summarized here, but remains unnamed because the C0/EF consumers cited in this pass read only the first plane.",
+            "- `DC:D637..DC:E036` also has a separate word-level per-sector music-options contract in the central manifest; this CF/DC contract narrows only the C0/EF current-position selector path and does not promote a standalone name for the second byte plane.",
             "- Track ids, SFX ids, and individual event flags are left as numeric ids; this contract does not assign human names to them.",
             "",
             "## Evidence",

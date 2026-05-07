@@ -48,8 +48,9 @@ consumer-backed row contracts:
   Type `5` is especially source-sensitive: its 124 unique no-op payload values
   are inside the `DOOR_DATA` range but are not promoted as pointers because the
   selected C0 helper body is no-op.
-- `notes/cf-event-music-context-contracts.md`: event-music pointer chains and
-  CF/DC current-position selector context.
+- `notes/cf-event-music-context-contracts.md`: event-music pointer chains,
+  variable-list context rows, source-emission handling, and CF/DC
+  current-position selector context.
 
 ## Coverage Gaps
 
