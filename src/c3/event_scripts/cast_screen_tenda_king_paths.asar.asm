@@ -42,17 +42,17 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(target, entity_visual_type_word, entity_initializer_word)
-    db $42
-    dl <target>
-    dw <entity_visual_type_word>
-    dw <entity_initializer_word>
-endmacro
-
 macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
     dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(target, sprite_pose_descriptor_word, entity_script_id_word)
+    db $42
+    dl <target>
+    dw <sprite_pose_descriptor_word>
+    dw <entity_script_id_word>
 endmacro
 
 macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
@@ -116,7 +116,7 @@ endmacro
 
 org $C36834
 SpawnKingThenReleaseCurrentVisualEntity:
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0027, $0322) ; C3:6834  42 8B A9 C0 27 00 22 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0027, $0322) ; C3:6834  42 8B A9 C0 27 00 22 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:683C  19 04 A2
 Event845_DownFacingShortWaitSpawnRelease:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:683F  1A B6 5F
@@ -247,7 +247,7 @@ Event853_LeftFacingPauseSpawnKing:
     %EVENT_PAUSE($8C) ; C3:69AB  06 8C
     %EVENT_PAUSE($3C) ; C3:69AD  06 3C
 SpawnEvent854KingThenReleaseCurrentVisualEntity:
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0028, $0356) ; C3:69AF  42 8B A9 C0 28 00 56 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0028, $0356) ; C3:69AF  42 8B A9 C0 28 00 56 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:69B7  19 04 A2
 Event854_LeftFacingHalt:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:69BA  1A B6 5F
@@ -287,7 +287,7 @@ Event857_DownFacingPauseSpawnNessPosing:
     %EVENT_PAUSE($38) ; C3:6A1C  06 38
     %EVENT_SET_VELOCITIES_ZERO() ; C3:6A1E  39
 SpawnEvent858NessPosingThenReleaseCurrentVisualEntity:
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $000E, $035A) ; C3:6A1F  42 8B A9 C0 0E 00 5A 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $000E, $035A) ; C3:6A1F  42 8B A9 C0 0E 00 5A 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6A27  19 04 A2
 Event858_DownFacingProjectedPoseHalt:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:6A2A  39

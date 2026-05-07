@@ -37,17 +37,17 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(target, entity_visual_type_word, entity_initializer_word)
-    db $42
-    dl <target>
-    dw <entity_visual_type_word>
-    dw <entity_initializer_word>
-endmacro
-
 macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
     db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(target, sprite_pose_descriptor_word, entity_script_id_word)
+    db $42
+    dl <target>
+    dw <sprite_pose_descriptor_word>
+    dw <entity_script_id_word>
 endmacro
 
 macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
@@ -146,13 +146,13 @@ Event782_PartyLyingDownSpawnRecovery:
     %EVENT_PAUSE($04) ; C3:9F04  06 04
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9F06  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:9F0A  06 01
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0010, $030F) ; C3:9F0C  42 8B A9 C0 10 00 0F 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0010, $030F) ; C3:9F0C  42 8B A9 C0 10 00 0F 03
     %EVENT_SHORTCALL(Event782_RunRecoveryColorPulseSequence) ; C3:9F14  1A 3F 9F
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0189, $030F) ; C3:9F17  42 8B A9 C0 89 01 0F 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0189, $030F) ; C3:9F17  42 8B A9 C0 89 01 0F 03
     %EVENT_SHORTCALL(Event782_RunRecoveryColorPulseSequence) ; C3:9F1F  1A 3F 9F
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $018A, $030F) ; C3:9F22  42 8B A9 C0 8A 01 0F 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $018A, $030F) ; C3:9F22  42 8B A9 C0 8A 01 0F 03
     %EVENT_SHORTCALL(Event782_RunRecoveryColorPulseSequence) ; C3:9F2A  1A 3F 9F
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $018B, $030F) ; C3:9F2D  42 8B A9 C0 8B 01 0F 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $018B, $030F) ; C3:9F2D  42 8B A9 C0 8B 01 0F 03
     %EVENT_SHORTCALL(Event782_RunRecoveryColorPulseSequence) ; C3:9F35  1A 3F 9F
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:9F38  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:9F3C  19 04 A2

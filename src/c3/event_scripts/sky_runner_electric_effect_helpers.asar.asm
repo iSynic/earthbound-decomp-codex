@@ -16,17 +16,17 @@ hirom
 !SpawnEntityAtCurrentSlotAnchor_ReadTwoWords = $C0A98B
 
 ; Minimal macro vocabulary used by this source pilot.
-macro EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(target, entity_visual_type_word, entity_initializer_word)
-    db $42
-    dl <target>
-    dw <entity_visual_type_word>
-    dw <entity_initializer_word>
-endmacro
-
 macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
     db $42
     dl <target>
     dw <pose_descriptor_slot_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(target, sprite_pose_descriptor_word, entity_script_id_word)
+    db $42
+    dl <target>
+    dw <sprite_pose_descriptor_word>
+    dw <entity_script_id_word>
 endmacro
 
 macro EVENT_PAUSE(frames)
@@ -49,7 +49,7 @@ LoopSpawnSkyRunnerElectricEffect:
     %EVENT_PAUSE($78) ; C3:CEA2  06 78
     %EVENT_PAUSE($78) ; C3:CEA4  06 78
     %EVENT_PAUSE($78) ; C3:CEA6  06 78
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $01A5, $00A3) ; C3:CEA8  42 8B A9 C0 A5 01 A3 00
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $01A5, $00A3) ; C3:CEA8  42 8B A9 C0 A5 01 A3 00
     %EVENT_PAUSE($78) ; C3:CEB0  06 78
     %EVENT_PAUSE($78) ; C3:CEB2  06 78
     %EVENT_PAUSE($78) ; C3:CEB4  06 78

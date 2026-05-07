@@ -50,17 +50,17 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(target, entity_visual_type_word, entity_initializer_word)
-    db $42
-    dl <target>
-    dw <entity_visual_type_word>
-    dw <entity_initializer_word>
-endmacro
-
 macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
     dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(target, sprite_pose_descriptor_word, entity_script_id_word)
+    db $42
+    dl <target>
+    dw <sprite_pose_descriptor_word>
+    dw <entity_script_id_word>
 endmacro
 
 macro EVENT_HALT()
@@ -187,7 +187,7 @@ CastScreenFallRelease:
     %EVENT_LOOP_END() ; C3:63B5  02
     %EVENT_SET_Y_VELOCITY($0055) ; C3:63B6  40 55 00
     %EVENT_PAUSE($A8) ; C3:63B9  06 A8
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $002E, $0326) ; C3:63BB  42 8B A9 C0 2E 00 26 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $002E, $0326) ; C3:63BB  42 8B A9 C0 2E 00 26 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:63C3  19 04 A2
 CastScreenFacingPulseUntilGone:
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera39) ; C3:63C6  23 55 A0

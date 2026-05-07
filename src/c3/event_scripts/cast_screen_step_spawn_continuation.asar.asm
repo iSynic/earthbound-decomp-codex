@@ -50,13 +50,6 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(target, entity_visual_type_word, entity_initializer_word)
-    db $42
-    dl <target>
-    dw <entity_visual_type_word>
-    dw <entity_initializer_word>
-endmacro
-
 macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
@@ -67,6 +60,13 @@ macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
     db $42
     dl <target>
     dw <pose_descriptor_slot_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(target, sprite_pose_descriptor_word, entity_script_id_word)
+    db $42
+    dl <target>
+    dw <sprite_pose_descriptor_word>
+    dw <entity_script_id_word>
 endmacro
 
 macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
@@ -242,7 +242,7 @@ CastScreenSpawnPooRelease:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:66C9  42 BF A4 C0
     %EVENT_PAUSE($8C) ; C3:66CD  06 8C
     %EVENT_PAUSE($8C) ; C3:66CF  06 8C
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0004, $0322) ; C3:66D1  42 8B A9 C0 04 00 22 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0004, $0322) ; C3:66D1  42 8B A9 C0 04 00 22 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:66D9  19 04 A2
 CastScreenStarMasterSpawnRelease:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:66DC  1A B6 5F
@@ -265,7 +265,7 @@ LoopCastScreenStarMasterArc:
     %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00A9) ; C3:6710  42 6F A8 C0 A9 00
     %EVENT_CALLROUTINE_0(!ProjectSlot0e5eAngleAndRefreshFacing_Mode0) ; C3:6716  42 E7 A8 C0
     %EVENT_LOOP_END() ; C3:671A  02
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0062, $0343) ; C3:671B  42 8B A9 C0 62 00 43 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0062, $0343) ; C3:671B  42 8B A9 C0 62 00 43 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:6723  19 04 A2
 CastScreenVisualCountdownHalt:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:6726  1A B6 5F
@@ -330,7 +330,7 @@ CastScreenTendaSpawnRelease:
     %EVENT_WRITE_WORD_TEMPVAR($0006) ; C3:67D3  1D 06 00
     %EVENT_SHORTCALL(!ApplyTempDirectionAndRefreshMovementVector) ; C3:67D6  1A 1E AA
     %EVENT_PAUSE($30) ; C3:67D9  06 30
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0061, $034C) ; C3:67DB  42 8B A9 C0 61 00 4C 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $0061, $034C) ; C3:67DB  42 8B A9 C0 61 00 4C 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:67E3  19 04 A2
 CastScreenTendaFacingHalt:
     %EVENT_SHORTCALL(!InitFlatCastScreenActorWithRefreshTask) ; C3:67E6  1A B6 5F

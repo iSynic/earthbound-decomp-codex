@@ -26,7 +26,7 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 ## Source Readability
 
-- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER`, `%EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT`.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT`, `%EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID`.
 
 ## Next Promotion Step
 

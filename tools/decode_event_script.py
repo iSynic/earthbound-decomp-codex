@@ -894,14 +894,14 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
     "C0:A98B": {
         "name": "SpawnEntityAtCurrentSlotAnchor_ReadTwoWords",
         "group": "entity-spawn",
-        "contract": "read two entity initializer words and spawn or initialize an entity at the current slot anchor",
-        "args": "entity_visual_type_word, entity_initializer_word",
+        "contract": "read a sprite-pose descriptor index and entity script id, then spawn an entity at the current slot anchor through C01E49",
+        "args": "sprite_pose_descriptor_word, entity_script_id_word",
     },
     "C0:A99F": {
         "name": "SpawnEntityRelative_ReadTwoWords",
         "group": "entity-spawn",
-        "contract": "read visual-type and initializer words, then spawn a cast-scene entity at the staged script var0/var1 position relative to the live BG3 scroll",
-        "args": "entity_visual_type_word, entity_initializer_word",
+        "contract": "read a sprite-pose descriptor index and entity script id, then spawn a cast-scene entity at the staged script var0/var1 position relative to the live BG3 scroll through C01E49",
+        "args": "sprite_pose_descriptor_word, entity_script_id_word",
     },
     "C0:A9B3": {
         "name": "PrintCastNameParty_ReadThreeWords",

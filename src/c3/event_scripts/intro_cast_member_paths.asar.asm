@@ -41,17 +41,17 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(target, entity_visual_type_word, entity_initializer_word)
-    db $42
-    dl <target>
-    dw <entity_visual_type_word>
-    dw <entity_initializer_word>
-endmacro
-
 macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
     dw <field2b32_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(target, sprite_pose_descriptor_word, entity_script_id_word)
+    db $42
+    dl <target>
+    dw <sprite_pose_descriptor_word>
+    dw <entity_script_id_word>
 endmacro
 
 macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
@@ -437,5 +437,5 @@ Event825_CastBrokenPhaseDistorterSpawn:
     %EVENT_PAUSE($8C) ; C3:62AF  06 8C
     %EVENT_PAUSE($14) ; C3:62B1  06 14
     %EVENT_PAUSE($40) ; C3:62B3  06 40
-    %EVENT_CALLROUTINE_ENTITY_VISUAL_TYPE_ENTITY_INITIALIZER(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $00F0, $033B) ; C3:62B5  42 8B A9 C0 F0 00 3B 03
+    %EVENT_CALLROUTINE_SPRITE_POSE_DESCRIPTOR_ENTITY_SCRIPT_ID(!SpawnEntityAtCurrentSlotAnchor_ReadTwoWords, $00F0, $033B) ; C3:62B5  42 8B A9 C0 F0 00 3B 03
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:62BD  19 04 A2

@@ -110,17 +110,26 @@ implementation into C3 ownership.
 The large event-801 cast-scroll pilot now has field-shaped wrappers for its
 high-volume C0 helper calls:
 
-- `C0:A99F` -> `SpawnEntityRelative_ReadTwoWords`: reads visual-type and
-  initializer words, then calls the C4 cast-scene spawn helper that combines
-  staged script `var0/var1` with the live BG3 scroll.
+- `C0:A99F` -> `SpawnEntityRelative_ReadTwoWords`: reads a sprite-pose
+  descriptor index and entity script id, then calls the C4 cast-scene spawn
+  helper that combines staged script `var0/var1` with the live BG3 scroll.
 - `C0:A9B3` -> `PrintCastNameParty_ReadThreeWords`
 - `C0:A9CF` -> `PrintCastNameEntityVar0_ReadThreeWords`
 - `C0:A9EB` -> `PrintCastNameCurrentThreshold_ReadThreeWords`
 
 Those cast-name helpers render as
 `cast_name_source_word, cast_name_tile_x_word, cast_name_tile_y_word`; the
-entity spawner renders as `entity_visual_type_word, entity_initializer_word`.
-The contracts are imported from the C0 wrapper strip and
+entity spawner renders as `sprite_pose_descriptor_word,
+entity_script_id_word`.  The spawn contract is based on the C4 spawn wrappers
+(`C4:6534` and `C4:ECAD`) forwarding A/X into `C0:1E49`, where A (`$2B`)
+indexes the `EF:133F` sprite-pose descriptor table and X (`$2D`) is passed to
+the delayed-action state initializer as the entity script id. `C4:ED0E` names
+`$0321` as `CastSceneDriverScriptId`, matching the `$0322+` values seen in the
+cast-scroll spawn pilot as entity script ids. Individual descriptor and script
+id labels remain uncataloged here. The same operand pair applies to `C0:A98B`
+`SpawnEntityAtCurrentSlotAnchor_ReadTwoWords`; only the anchor source differs.
+
+The contracts are imported from the C0/C4 wrapper strip and
 `notes/cast-scene-scroll-helpers-c4e4da-c4e583.md`, then applied only as C3
 decoder/source-pilot metadata.
 
