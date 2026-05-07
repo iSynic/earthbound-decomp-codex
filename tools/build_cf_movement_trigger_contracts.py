@@ -40,6 +40,46 @@ def hex_counter_dict(counter: Counter[int]) -> dict[str, int]:
     return {hex_word(key): counter[key] for key in sorted(counter)}
 
 
+def format_histogram(histogram: dict[str, int]) -> str:
+    return ", ".join(f"`{key}`: {value}" for key, value in histogram.items()) or "-"
+
+
+def source_emission_note(trigger_type: int) -> str:
+    notes = {
+        0: "join payload word to a type 0 DOOR_DATA event-gated script pointer record",
+        1: "emit payload as numeric state selector; zero selects 0x0007, nonzero selects 0x0008",
+        2: "join payload word to a type 2 DOOR_DATA transition record",
+        3: "emit payload as numeric offset-step mode word; bit 15 is the resume branch",
+        4: "emit payload as numeric staged-movement mode word; high byte is selector 0..3",
+        5: "emit payload as no-op numeric word; many values are pointer-like but the selected C0 body is no-op",
+        6: "join payload word to a type 6 DOOR_DATA cached-interaction pointer record",
+    }
+    return notes.get(trigger_type, "emit payload as raw numeric word until a consumer names it")
+
+
+def build_type_summaries(annotated: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    rows = []
+    for trigger_type in sorted({row["movement_trigger_type"] for row in annotated}):
+        type_rows = [row for row in annotated if row["movement_trigger_type"] == trigger_type]
+        addresses = sorted((row["address"] for row in type_rows), key=cpu_address)
+        payloads = [row["trigger_payload_word"] for row in type_rows]
+        sectors = {(row["sector"]["x"], row["sector"]["y"]) for row in type_rows}
+        rows.append(
+            {
+                "trigger_type": trigger_type,
+                "parameter_family": type_rows[0]["parameter_family"],
+                "physical_rows": len(type_rows),
+                "sector_count": len(sectors),
+                "unique_payloads": len(set(payloads)),
+                "payload_min": min(payloads),
+                "payload_max": max(payloads),
+                "address_range": f"{addresses[0]}..{addresses[-1]}",
+                "source_emission_note": source_emission_note(trigger_type),
+            }
+        )
+    return rows
+
+
 def door_data_targets(door_data_contract: dict[str, Any]) -> dict[tuple[int, int], dict[str, Any]]:
     targets: dict[tuple[int, int], dict[str, Any]] = {}
     for record in door_data_contract["type0_event_gated_script_pointer_records"]:
@@ -151,6 +191,9 @@ def build_contract(sector_contract_path: Path, door_data_contract_path: Path) ->
     )
     type4_selector_counts = Counter(row["staged_movement_selector"] for row in annotated if row["movement_trigger_type"] == 4)
     type5_payloads = sorted({row["trigger_payload_word"] for row in annotated if row["movement_trigger_type"] == 5})
+    door_data_bytes = int(door_data_contract["summary"]["door_data_bytes"])
+    door_joined_types = {0, 2, 6}
+    type_summaries = build_type_summaries(annotated)
 
     return {
         "schema": SCHEMA,
@@ -246,10 +289,20 @@ def build_contract(sector_contract_path: Path, door_data_contract_path: Path) ->
             "type3_offset_step_selector_counts": counter_dict(type3_selector_counts),
             "type3_resume_rows": sum(1 for row in annotated if row["movement_trigger_type"] == 3 and row["resume_staged_offset_step"]),
             "type4_staged_movement_selector_counts": counter_dict(type4_selector_counts),
+            "trigger_type_sector_counts": {
+                str(row["trigger_type"]): row["sector_count"]
+                for row in type_summaries
+            },
+            "door_data_joined_trigger_rows": sum(1 for row in annotated if row["movement_trigger_type"] in door_joined_types),
+            "non_door_payload_trigger_rows": sum(1 for row in annotated if row["movement_trigger_type"] not in door_joined_types),
             "type5_unique_no_op_payloads": len(type5_payloads),
             "type5_payload_min": min(type5_payloads),
             "type5_payload_max": max(type5_payloads),
+            "type5_payload_min_hex": hex_word(min(type5_payloads)),
+            "type5_payload_max_hex": hex_word(max(type5_payloads)),
+            "type5_payloads_within_door_data_range": sum(1 for payload in type5_payloads if 0 <= payload < door_data_bytes),
         },
+        "trigger_type_summaries": type_summaries,
         "movement_trigger_entries": annotated,
     }
 
@@ -270,7 +323,12 @@ def render_markdown(contract: dict[str, Any]) -> str:
         f"- type 3 offset-step selectors: `{summary['type3_offset_step_selector_counts']}`",
         f"- type 3 resume rows: `{summary['type3_resume_rows']}`",
         f"- type 4 staged-movement selectors: `{summary['type4_staged_movement_selector_counts']}`",
+        f"- trigger type sector counts: `{summary['trigger_type_sector_counts']}`",
+        f"- door-data joined trigger rows: `{summary['door_data_joined_trigger_rows']}`",
+        f"- non-door payload trigger rows: `{summary['non_door_payload_trigger_rows']}`",
         f"- type 5 unique no-op payloads: `{summary['type5_unique_no_op_payloads']}`",
+        f"- type 5 no-op payload range: `{summary['type5_payload_min_hex']}..{summary['type5_payload_max_hex']}`",
+        f"- type 5 unique payloads inside DOOR_DATA range: `{summary['type5_payloads_within_door_data_range']}`",
         "",
         "## Trigger Payload Fields",
         "",
@@ -279,6 +337,37 @@ def render_markdown(contract: dict[str, Any]) -> str:
     ]
     for row in contract["record_shapes"]["trigger_payload_word_by_type"]:
         lines.append(f"| {row['trigger_type']} | `{row['field']}` | {row['consumer']} |")
+
+    lines.extend(
+        [
+            "",
+            "## Source-Emission Summary",
+            "",
+            "| Type | Rows | Sectors | Unique Payloads | Payload Range | Address Range | Parameter Family | Source-Emission Handling |",
+            "| ---: | ---: | ---: | ---: | --- | --- | --- | --- |",
+        ]
+    )
+    for row in contract["trigger_type_summaries"]:
+        lines.append(
+            f"| {row['trigger_type']} | {row['physical_rows']} | {row['sector_count']} | {row['unique_payloads']} | "
+            f"`{hex_word(row['payload_min'])}..{hex_word(row['payload_max'])}` | `{row['address_range']}` | "
+            f"`{row['parameter_family']}` | {row['source_emission_note']} |"
+        )
+
+    lines.extend(
+        [
+            "",
+            "## Distribution Snapshot",
+            "",
+            "| Metric | Values |",
+            "| --- | --- |",
+            f"| trigger type sector counts | {format_histogram(summary['trigger_type_sector_counts'])} |",
+            f"| payload unique counts by type | {format_histogram(summary['payload_unique_counts_by_type'])} |",
+            f"| type 1 selected movement states | {format_histogram(summary['type1_selected_state_counts'])} |",
+            f"| type 3 offset-step selectors | {format_histogram(summary['type3_offset_step_selector_counts'])} |",
+            f"| type 4 staged-movement selectors | {format_histogram(summary['type4_staged_movement_selector_counts'])} |",
+        ]
+    )
 
     sample_by_type: dict[int, list[dict[str, Any]]] = {}
     for row in contract["movement_trigger_entries"]:

@@ -117,10 +117,103 @@
       "2": 18,
       "3": 18
     },
+    "trigger_type_sector_counts": {
+      "0": 3,
+      "1": 71,
+      "2": 519,
+      "3": 9,
+      "4": 31,
+      "5": 100,
+      "6": 11
+    },
+    "door_data_joined_trigger_rows": 1127,
+    "non_door_payload_trigger_rows": 953,
     "type5_unique_no_op_payloads": 124,
     "type5_payload_min": 1408,
-    "type5_payload_max": 9803
+    "type5_payload_max": 9803,
+    "type5_payload_min_hex": "0x0580",
+    "type5_payload_max_hex": "0x264B",
+    "type5_payloads_within_door_data_range": 124
   },
+  "trigger_type_summaries": [
+    {
+      "trigger_type": 0,
+      "parameter_family": "type0_event_gated_script_pointer",
+      "physical_rows": 6,
+      "sector_count": 3,
+      "unique_payloads": 6,
+      "payload_min": 8014,
+      "payload_max": 8429,
+      "address_range": "CF:3DEC..CF:3F94",
+      "source_emission_note": "join payload word to a type 0 DOOR_DATA event-gated script pointer record"
+    },
+    {
+      "trigger_type": 1,
+      "parameter_family": "type1_state07_or08_selector",
+      "physical_rows": 641,
+      "sector_count": 71,
+      "unique_payloads": 2,
+      "payload_min": 0,
+      "payload_max": 32768,
+      "address_range": "CF:26E6..CF:562E",
+      "source_emission_note": "emit payload as numeric state selector; zero selects 0x0007, nonzero selects 0x0008"
+    },
+    {
+      "trigger_type": 2,
+      "parameter_family": "type2_door_transition_record",
+      "physical_rows": 1072,
+      "sector_count": 519,
+      "unique_payloads": 840,
+      "payload_min": 0,
+      "payload_max": 9784,
+      "address_range": "CF:2658..CF:58EA",
+      "source_emission_note": "join payload word to a type 2 DOOR_DATA transition record"
+    },
+    {
+      "trigger_type": 3,
+      "parameter_family": "type3_offset_step_mode_word",
+      "physical_rows": 20,
+      "sector_count": 9,
+      "unique_payloads": 5,
+      "payload_min": 0,
+      "payload_max": 32768,
+      "address_range": "CF:4692..CF:4D9D",
+      "source_emission_note": "emit payload as numeric offset-step mode word; bit 15 is the resume branch"
+    },
+    {
+      "trigger_type": 4,
+      "parameter_family": "type4_staged_movement_mode_word",
+      "physical_rows": 72,
+      "sector_count": 31,
+      "unique_payloads": 4,
+      "payload_min": 0,
+      "payload_max": 768,
+      "address_range": "CF:2E2D..CF:56F1",
+      "source_emission_note": "emit payload as numeric staged-movement mode word; high byte is selector 0..3"
+    },
+    {
+      "trigger_type": 5,
+      "parameter_family": "type5_or7_dispatch_no_op_payload",
+      "physical_rows": 220,
+      "sector_count": 100,
+      "unique_payloads": 124,
+      "payload_min": 1408,
+      "payload_max": 9803,
+      "address_range": "CF:2651..CF:5759",
+      "source_emission_note": "emit payload as no-op numeric word; many values are pointer-like but the selected C0 body is no-op"
+    },
+    {
+      "trigger_type": 6,
+      "parameter_family": "type6_cached_interaction_pointer",
+      "physical_rows": 49,
+      "sector_count": 11,
+      "unique_payloads": 6,
+      "payload_min": 7071,
+      "payload_max": 9659,
+      "address_range": "CF:3CB9..CF:4555",
+      "source_emission_note": "join payload word to a type 6 DOOR_DATA cached-interaction pointer record"
+    }
+  ],
   "movement_trigger_entries": [
     {
       "physical_entry_index": 0,

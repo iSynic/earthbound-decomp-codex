@@ -103,6 +103,13 @@ High confidence:
   `0x0007`/`0x0008`, type `3` and type `4` feed staged movement selectors,
   and type `5` is bounded as a local no-op payload rather than promoted as a
   pointer family.
+- `notes/cf-movement-trigger-contracts.md` now includes a source-emission
+  summary by trigger type: 1127 physical rows join to typed `DOOR_DATA`
+  records (types `0`, `2`, and `6`), while 953 rows remain non-door numeric
+  payloads. Type `5` contributes 220 rows across 100 sectors and 124 unique
+  payload words; all 124 unique values fall inside the `DOOR_DATA` byte range,
+  but the selected C0 helper is a no-op, so the contract preserves them as
+  `no_op_payload_word` instead of pointer offsets.
 - `SPRITE_PLACEMENT_POINTER_TABLE` and `SPRITE_PLACEMENT_TABLE` now have a
   counted-list contract: 627 non-empty sector lists, 1582 four-byte placement
   rows, and consumer-backed `npc_config_id`, `sector_local_y`, and
