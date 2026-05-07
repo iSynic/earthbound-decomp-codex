@@ -1069,6 +1069,17 @@ ACTIONSCRIPT_COLDATA_COMPONENT_BYTES: dict[int, dict[str, str]] = {
     },
 }
 
+ACTIONSCRIPT_FADE_EFFECT_WORDS: dict[int, dict[str, str]] = {
+    0x0101: {
+        "name": "fade_effect_0101",
+        "contract": "display fade effect word $0101 passed through C0:9FAE/C0:9FBB; low byte seeds the display wait counter and high byte seeds companion display bytes $0029-$002A",
+    },
+    0x0701: {
+        "name": "fade_effect_0701",
+        "contract": "display fade effect word $0701 passed through C0:9FAE/C0:9FBB; low byte seeds the display wait counter and high byte seeds companion display bytes $0029-$002A",
+    },
+}
+
 ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS: dict[int, dict[str, str]] = {
     0x00FF: {
         "name": "event340_winters_transition",
@@ -1492,6 +1503,8 @@ def format_call_arg_value(
             return f"{field}={format_named_word(value, ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS)}", cursor + 2
         if field == "landing_palette_existing_work_mask_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS)}", cursor + 2
+        if field in {"fadein_effect_word", "fadeout_effect_word"}:
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_FADE_EFFECT_WORDS)}", cursor + 2
         if field == "sound_effect_id_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_SOUND_EFFECT_IDS)}", cursor + 2
         return f"{field}={format_word(value)}", cursor + 2

@@ -148,6 +148,7 @@ show up in town hall, coffee/tea, teleport, and battle-background transition
 pilots:
 
 - `C0:9FAE` -> `ActionScript_FadeInWrapper`: one `fadein_effect_word`.
+- `C0:9FBB` -> `ActionScript_FadeOutWrapper`: one `fadeout_effect_word`.
 - `C0:A977` -> `Movement_LoadBattleBg`: `battle_bg_layer1_id_word` plus
   `battle_bg_layer2_id_word`. The C0 wrapper reads the first word into A and
   the second into X before calling `C4:7370`; that helper fixes Y to `$0004`
@@ -183,6 +184,13 @@ to `$9E37-$9E39`; `C4:2439` then writes them to `$2132 COLDATA` with the red,
 green, and blue selector bits applied. These source-pilot aliases preserve the
 component-value contract without trying to name the exact screen effect from
 the script site alone.
+
+The C3-local fade effect catalog names only the observed words passed through
+`C0:9FAE/C0:9FBB`: `$0101` and `$0701`. The wrappers preserve the word in A
+and move the byte-swapped copy through X before calling `C0:886C` or
+`C0:887A`; those helpers seed `$0028` from the low byte and `$0029-$002A` from
+the high byte. Source pilots keep these as fade effect words until the display
+state machine has stronger player-facing effect names.
 
 ## Surface-Flag Operands
 
