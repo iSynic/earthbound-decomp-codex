@@ -140,6 +140,8 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate independent oracle capture packet: `python tools/validate_audio_independent_oracle_capture_packet.py`.
 - Build independent oracle handoff matrix: `python tools/build_audio_independent_oracle_handoff_matrix.py`.
 - Validate independent oracle handoff matrix: `python tools/validate_audio_independent_oracle_handoff_matrix.py`.
+- Build oracle source evidence preflight: `python tools/build_audio_oracle_source_evidence_preflight.py`.
+- Validate oracle source evidence preflight: `python tools/validate_audio_oracle_source_evidence_preflight.py`.
 - Build residual uncertainty coverage report: `python tools/build_audio_residual_uncertainty_coverage_report.py`.
 - Validate residual uncertainty coverage report: `python tools/validate_audio_residual_uncertainty_coverage_report.py`.
 - Build audio duration next-actions plan: `python tools/build_audio_duration_next_actions_plan.py`.
