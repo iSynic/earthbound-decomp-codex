@@ -36,7 +36,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `D9` | `ok` | 5 | `decoder_only` 5 | `asset.d9.map_data_tile_arrangement_1` | `earthbound_lzhal` | `d9/maps/arrangements/1.arr` |
 | `DA` | `ok` | 67 | `decoder_only` 35, `renderer` 32 | `asset.da.map_data_palette_0` | `snes_palette_swatch_png` | `da/maps/palettes/0_palette.png` |
 | `DB` | `ok` | 6 | `decoder_only` 6 | `asset.db.map_data_tile_arrangement_10` | `earthbound_lzhal` | `db/maps/arrangements/10.arr` |
-| `DC` | `ok` | 7 | `decoder_only` 7 | `asset.dc.map_data_tile_arrangement_12` | `earthbound_lzhal` | `dc/maps/arrangements/12.arr` |
+| `DC` | `ok` | 8 | `decoder_only` 8 | `asset.dc.map_data_tile_arrangement_12` | `earthbound_lzhal` | `dc/maps/arrangements/12.arr` |
 | `DD` | `ok` | 6 | `decoder_only` 6 | `asset.dd.map_data_tile_set_graphics_0` | `earthbound_lzhal` | `dd/maps/gfx/0.gfx` |
 | `DE` | `ok` | 16 | `decoder_only` 11, `renderer` 5 | `asset.de.map_data_tile_animation_gfx_15` | `earthbound_lzhal_snes_4bpp_tiles_png` | `de/maps/anim_gfx/15_4bpp_preview.png` |
 | `DF` | `ok` | 36 | `decoder_only` 21, `renderer` 15 | `asset.df.map_data_tile_animation_gfx_0` | `earthbound_lzhal_snes_4bpp_tiles_png` | `df/maps/anim_gfx/0_4bpp_preview.png` |

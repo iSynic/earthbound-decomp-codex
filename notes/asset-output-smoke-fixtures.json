@@ -13,13 +13,13 @@
     "default_output_root": "build/asset-output-smoke-fixtures"
   },
   "coverage": {
-    "fixture_count": 118,
-    "unique_selected_assets": 47,
-    "unique_selected_manifest_asset_pairs": 47,
-    "recipe_kinds_covered": 30,
+    "fixture_count": 120,
+    "unique_selected_assets": 48,
+    "unique_selected_manifest_asset_pairs": 48,
+    "recipe_kinds_covered": 31,
     "family_renderer_pairs_covered": 12,
     "family_renderer_geometry_pairs_covered": 14,
-    "family_decoder_pairs_covered": 34,
+    "family_decoder_pairs_covered": 35,
     "target_bank_output_fixture_policy_banks": 22,
     "bank_output_fixture_banks_covered": 22,
     "target_banks_without_typed_non_raw_outputs": [],
@@ -34,16 +34,16 @@
     },
     "fixture_type_counts": {
       "bank_output": 22,
-      "family_decoder": 34,
+      "family_decoder": 35,
       "family_renderer": 12,
       "family_renderer_geometry": 14,
-      "recipe_kind": 30,
+      "recipe_kind": 31,
       "recipe_option": 6
     },
     "fixture_family_counts": {
       "battle_visual_assets": 55,
       "ef_debug_and_late_tail": 3,
-      "map_tilesets_and_runtime_tables": 19,
+      "map_tilesets_and_runtime_tables": 21,
       "overworld_sprites": 15,
       "ui_font_town_map_assets": 26
     }
@@ -118,6 +118,7 @@
     "map_tilesets_and_runtime_tables": {
       "earthbound_lzhal": 64,
       "earthbound_lzhal_snes_4bpp_tiles_png": 22,
+      "map_sector_music_table_json": 1,
       "map_tile_chunk_index_json": 10,
       "raw": 130,
       "snes_palette_json": 33,
@@ -571,6 +572,29 @@
       },
       "all_output_kinds": [
         "font_metric_widths_json",
+        "raw"
+      ]
+    },
+    {
+      "id": "fixture.recipe_kind.map_sector_music_table_json",
+      "type": "recipe_kind",
+      "key": "map_sector_music_table_json",
+      "reason": "Covers one typed output recipe kind.",
+      "family": "map_tilesets_and_runtime_tables",
+      "bank": "DC",
+      "manifest_path": "asset-manifests/bank-dc-assets.json",
+      "asset_id": "table.dc.007_data_map_per_sector_music_asm",
+      "title": "data/map/per-sector_music.asm",
+      "category": "raw-table",
+      "bytes": 2560,
+      "target_output": {
+        "kind": "map_sector_music_table_json",
+        "path": "dc/tables/007_data_map_per_sector_music_asm_decoded.json",
+        "decoder": "map_sector_music_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "map_sector_music_table_json",
         "raw"
       ]
     },
@@ -2699,6 +2723,29 @@
       ]
     },
     {
+      "id": "fixture.family_decoder.map_tilesets_and_runtime_tables_map_sector_music_table",
+      "type": "family_decoder",
+      "key": "map_tilesets_and_runtime_tables.map_sector_music_table",
+      "reason": "Covers one decoder chain in one asset family.",
+      "family": "map_tilesets_and_runtime_tables",
+      "bank": "DC",
+      "manifest_path": "asset-manifests/bank-dc-assets.json",
+      "asset_id": "table.dc.007_data_map_per_sector_music_asm",
+      "title": "data/map/per-sector_music.asm",
+      "category": "raw-table",
+      "bytes": 2560,
+      "target_output": {
+        "kind": "map_sector_music_table_json",
+        "path": "dc/tables/007_data_map_per_sector_music_asm_decoded.json",
+        "decoder": "map_sector_music_table",
+        "renderer": null
+      },
+      "all_output_kinds": [
+        "map_sector_music_table_json",
+        "raw"
+      ]
+    },
+    {
       "id": "fixture.family_decoder.map_tilesets_and_runtime_tables_map_tile_chunk_index",
       "type": "family_decoder",
       "key": "map_tilesets_and_runtime_tables.map_tile_chunk_index",
@@ -3159,9 +3206,10 @@
     {
       "manifest_path": "asset-manifests/bank-dc-assets.json",
       "asset_ids": [
-        "asset.dc.map_data_tile_arrangement_12"
+        "asset.dc.map_data_tile_arrangement_12",
+        "table.dc.007_data_map_per_sector_music_asm"
       ],
-      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-dc-assets.json --asset-id asset.dc.map_data_tile_arrangement_12 --out build/asset-output-smoke-fixtures"
+      "extract_command": "python tools/extract_assets.py --manifest asset-manifests/bank-dc-assets.json --asset-id asset.dc.map_data_tile_arrangement_12 --asset-id table.dc.007_data_map_per_sector_music_asm --out build/asset-output-smoke-fixtures"
     },
     {
       "manifest_path": "asset-manifests/bank-dd-assets.json",

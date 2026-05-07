@@ -8,20 +8,20 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 
 ## Snapshot
 
-- fixture selectors: `118`
-- unique selected assets: `47`
-- recipe kinds covered: `30`
+- fixture selectors: `120`
+- unique selected assets: `48`
+- recipe kinds covered: `31`
 - family/renderer pairs covered: `12`
 - family/renderer/geometry-status pairs covered: `14`
-- family/decoder pairs covered: `34`
+- family/decoder pairs covered: `35`
 - target bank-output policy banks: `22`
 - target banks with bank-output fixtures: `22`
 - target banks without typed non-raw outputs: -
 - fixture target source refs: `27`
 - fixture source-ref status mix: `manifest_asset` 21, `known_external` 6
 - fixture source-ref field mix: `palette_source` 21, `graphics_source` 6
-- fixture type mix: `family_decoder` 34, `recipe_kind` 30, `bank_output` 22, `family_renderer_geometry` 14, `family_renderer` 12, +1 more
-- fixture family mix: `battle_visual_assets` 55, `ui_font_town_map_assets` 26, `map_tilesets_and_runtime_tables` 19, `overworld_sprites` 15, `ef_debug_and_late_tail` 3
+- fixture type mix: `family_decoder` 35, `recipe_kind` 31, `bank_output` 22, `family_renderer_geometry` 14, `family_renderer` 12, +1 more
+- fixture family mix: `battle_visual_assets` 55, `ui_font_town_map_assets` 26, `map_tilesets_and_runtime_tables` 21, `overworld_sprites` 15, `ef_debug_and_late_tail` 3
 
 ## Runner
 
@@ -61,6 +61,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `earthbound_lzhal_snes_palette_json` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `e1/intro/logos/ape_palette.json` | `earthbound_lzhal+snes_palette` | - |
 | `earthbound_lzhal_snes_palette_swatch_png` | `asset.e1.ape_palette` | `asset-manifests/bank-e1-assets.json` | `e1/intro/logos/ape_palette.png` | `earthbound_lzhal+snes_palette` | `palette_swatch` |
 | `font_metric_widths_json` | `asset.e0.mrsaturn_font_data` | `asset-manifests/bank-e0-assets.json` | `e0/fonts/mrsaturn_widths.json` | `font_metric_widths` | - |
+| `map_sector_music_table_json` | `table.dc.007_data_map_per_sector_music_asm` | `asset-manifests/bank-dc-assets.json` | `dc/tables/007_data_map_per_sector_music_asm_decoded.json` | `map_sector_music_table` | - |
 | `map_tile_chunk_index_json` | `asset.d6.map_data_tile_table_chunk_1` | `asset-manifests/bank-d6-assets.json` | `d6/maps/tiles/chunk_01_tile_index.json` | `map_tile_chunk_index` | - |
 | `photographer_config_table_json` | `table.e1.012_data_photographer_cfg_asm` | `asset-manifests/bank-e1-assets.json` | `e1/tables/012_data_photographer_cfg_asm_decoded.json` | `photographer_config_table` | - |
 | `psi_anim_config_table_json` | `table.cc.043_data_psi_anim_cfg_asm` | `asset-manifests/bank-cc-assets.json` | `cc/tables/043_data_psi_anim_cfg_asm_decoded.json` | `psi_animation_config_table` | - |
@@ -172,6 +173,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `ef_debug_and_late_tail.snes_2bpp_tiles` | `asset.debug.cursor_graphics` | `asset-manifests/ef-debug-assets.json` | `snes_2bpp_tiles_png` | `ef/debug_cursor_preview.png` |
 | `map_tilesets_and_runtime_tables.earthbound_lzhal` | `asset.d7.map_data_tile_arrangement_0` | `asset-manifests/bank-d7-assets.json` | `earthbound_lzhal` | `d7/maps/arrangements/0.arr` |
 | `map_tilesets_and_runtime_tables.earthbound_lzhal+snes_4bpp_tiles` | `asset.d8.anti_piracy_notice_graphics` | `asset-manifests/bank-d8-assets.json` | `earthbound_lzhal_snes_4bpp_tiles_png` | `d8/errors/antipiracy_4bpp_preview.png` |
+| `map_tilesets_and_runtime_tables.map_sector_music_table` | `table.dc.007_data_map_per_sector_music_asm` | `asset-manifests/bank-dc-assets.json` | `map_sector_music_table_json` | `dc/tables/007_data_map_per_sector_music_asm_decoded.json` |
 | `map_tilesets_and_runtime_tables.map_tile_chunk_index` | `asset.d6.map_data_tile_table_chunk_1` | `asset-manifests/bank-d6-assets.json` | `map_tile_chunk_index_json` | `d6/maps/tiles/chunk_01_tile_index.json` |
 | `map_tilesets_and_runtime_tables.snes_palette` | `asset.d8.warning_palette` | `asset-manifests/bank-d8-assets.json` | `snes_palette_json` | `d8/errors/shared_palette.json` |
 | `overworld_sprites.snes_4bpp_tiles` | `asset.d1.sprite_0000` | `asset-manifests/bank-d1-assets.json` | `snes_4bpp_tiles_png` | `d1/overworld_sprites/gfx/0000_4bpp_preview.png` |
@@ -207,7 +209,7 @@ Target-bank `bank_output` selector policy is audited in `notes/asset-output-bank
 | `asset-manifests/bank-d9-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-d9-assets.json --asset-id asset.d9.map_data_tile_arrangement_1 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-da-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-da-assets.json --asset-id asset.da.map_data_palette_0 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-db-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-db-assets.json --asset-id asset.db.map_data_tile_arrangement_10 --out build/asset-output-smoke-fixtures` |
-| `asset-manifests/bank-dc-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-dc-assets.json --asset-id asset.dc.map_data_tile_arrangement_12 --out build/asset-output-smoke-fixtures` |
+| `asset-manifests/bank-dc-assets.json` | 2 | `python tools/extract_assets.py --manifest asset-manifests/bank-dc-assets.json --asset-id asset.dc.map_data_tile_arrangement_12 --asset-id table.dc.007_data_map_per_sector_music_asm --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-dd-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-dd-assets.json --asset-id asset.dd.map_data_tile_set_graphics_0 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-de-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-de-assets.json --asset-id asset.de.map_data_tile_animation_gfx_15 --out build/asset-output-smoke-fixtures` |
 | `asset-manifests/bank-df-assets.json` | 1 | `python tools/extract_assets.py --manifest asset-manifests/bank-df-assets.json --asset-id asset.df.map_data_tile_animation_gfx_0 --out build/asset-output-smoke-fixtures` |

@@ -228,6 +228,87 @@ def write_map_tile_chunk_index_json(data: bytes, path: Path, spec: dict[str, Any
     }
 
 
+MAP_SECTOR_MUSIC_TABLE_START = 0xD637
+MAP_SECTOR_MUSIC_COLUMN_COUNT = 80
+MAP_SECTOR_MUSIC_ROW_COUNT = 32
+MAP_SECTOR_MUSIC_EXPECTED_BYTES = MAP_SECTOR_MUSIC_COLUMN_COUNT * MAP_SECTOR_MUSIC_ROW_COUNT
+
+
+def dc_table_range(table_start: int, offset: int, size: int) -> str:
+    start = table_start + offset
+    end = start + size
+    return f"DC:{start:04X}..DC:{end:04X}"
+
+
+def write_map_sector_music_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    column_count = int(spec["column_count"])
+    row_count = int(spec["row_count"])
+    if column_count != MAP_SECTOR_MUSIC_COLUMN_COUNT:
+        raise ValueError(f"Map sector music column_count must be 80, got {column_count}")
+    if row_count != MAP_SECTOR_MUSIC_ROW_COUNT:
+        raise ValueError(f"Map sector music row_count must be 32, got {row_count}")
+    if len(data) != MAP_SECTOR_MUSIC_EXPECTED_BYTES:
+        raise ValueError(
+            f"Map sector music table expected {MAP_SECTOR_MUSIC_EXPECTED_BYTES} bytes, got {len(data)}"
+        )
+
+    values = list(data)
+    distinct_values = sorted(set(values))
+    sectors = []
+    columns = []
+    for sector_x in range(column_count):
+        column_entries = []
+        for sector_y in range(row_count):
+            offset = sector_x * row_count + sector_y
+            entry_id = data[offset]
+            entry = {
+                "sector_x": sector_x,
+                "sector_y": sector_y,
+                "table_index": offset,
+                "range": dc_table_range(MAP_SECTOR_MUSIC_TABLE_START, offset, 1),
+                "destination_music_row_id": entry_id,
+            }
+            sectors.append(entry)
+            column_entries.append(entry_id)
+        columns.append(
+            {
+                "sector_x": sector_x,
+                "range": dc_table_range(MAP_SECTOR_MUSIC_TABLE_START, sector_x * row_count, row_count),
+                "entries": column_entries,
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.map-sector-music-table.v1",
+        "decoder": "map_sector_music_table",
+        "byte_order": "byte",
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "column_count": column_count,
+        "row_count": row_count,
+        "sector_count": len(values),
+        "index_formula": "table_index = sector_x * 32 + sector_y",
+        "consumer_evidence": [
+            "C0:68F4 divides the world X coordinate by 0x80, combines it with the Y high byte, and loads DCD637[sector_x * 32 + sector_y].",
+            "The loaded byte selects a CF door/destination music row; C0:68F4 then reads that row's +2 music-track byte into $5DD6.",
+        ],
+        "distinct_entry_count": len(distinct_values),
+        "min_entry_id": min(values),
+        "max_entry_id": max(values),
+        "distinct_entry_ids": distinct_values,
+        "columns": columns,
+        "sectors": sectors,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "sector_count": len(values),
+        "distinct_entry_count": len(distinct_values),
+        "min_entry_id": min(values),
+        "max_entry_id": max(values),
+    }
+
+
 def write_battle_swirl_frame_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
     if not data:
         raise ValueError("Battle swirl frame metadata requires a non-empty payload")
@@ -2087,6 +2168,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata["decompressed_bytes"] = len(decompressed)
     elif kind == "map_tile_chunk_index_json":
         metadata.update(write_map_tile_chunk_index_json(data, path, spec))
+    elif kind == "map_sector_music_table_json":
+        metadata.update(write_map_sector_music_table_json(data, path, spec))
     elif kind == "battle_swirl_frame_json":
         metadata.update(write_battle_swirl_frame_json(data, path, spec))
     elif kind == "battle_swirl_pointer_table_json":

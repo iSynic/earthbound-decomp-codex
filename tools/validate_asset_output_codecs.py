@@ -213,6 +213,14 @@ def make_photographer_config_table() -> bytes:
     return bytes(data)
 
 
+def make_map_sector_music_table() -> bytes:
+    data = bytearray()
+    for sector_x in range(80):
+        for sector_y in range(32):
+            data.append((sector_x * 3 + sector_y) % 17)
+    return bytes(data)
+
+
 def synthetic_rom(palette: bytes, graphics: bytes) -> bytes:
     rom = bytearray(ROM_SIZE)
     palette_offset = 0x1000
@@ -249,6 +257,22 @@ def output_cases() -> list[dict[str, Any]]:
                 "min_tile_id": 0,
                 "max_tile_id": 170,
                 "distinct_tile_ids": 3,
+            },
+        },
+        {
+            "id": "map-sector-music-table",
+            "data": make_map_sector_music_table(),
+            "spec": {
+                "kind": "map_sector_music_table_json",
+                "path": "map_sector_music.json",
+                "column_count": 80,
+                "row_count": 32,
+            },
+            "expected_metadata": {
+                "sector_count": 2560,
+                "distinct_entry_count": 17,
+                "min_entry_id": 0,
+                "max_entry_id": 16,
             },
         },
         {

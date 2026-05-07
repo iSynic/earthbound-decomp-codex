@@ -1001,6 +1001,18 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
         notes.append(
             "Decoded as 32 photographer/photo-scene records; rows preserve event flag, map-load position, background offset, slide vector, photo anchor, visual positions, and spawned entity rows."
         )
+    if bank.upper() == "DC" and include == "data/map/per-sector_music.asm" and size == 2560:
+        outputs.append(
+            {
+                "kind": "map_sector_music_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "column_count": 80,
+                "row_count": 32,
+            }
+        )
+        notes.append(
+            "Decoded as the 80-by-32 map-sector destination/music row lookup consumed by C0:68F4 before resolving the current map music track."
+        )
     if bank.upper() == "CA":
         battle_bg_pointer_output = battle_bg_pointer_table_output(raw_path, include, size)
         if battle_bg_pointer_output is not None:
