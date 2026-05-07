@@ -948,8 +948,8 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
     "C0:AAB5": {
         "name": "Script_RunLandingPaletteFade_ReadWordByteByte",
         "group": "presentation-render",
-        "contract": "read a palette selector word, palette scale byte, and fade frame-count byte, then forward them to C4:97C0",
-        "args": "landing_palette_selector_word, palette_scale_byte, fade_frame_count_byte",
+        "contract": "read a landing-palette existing-work block mask, palette scale byte, and fade frame-count byte, then forward them to C4:97C0",
+        "args": "landing_palette_existing_work_mask_word, palette_scale_byte, fade_frame_count_byte",
     },
     "EF:0CA7": {
         "name": "CheckCurrentDeliveryRetryThreshold",
@@ -1073,6 +1073,21 @@ ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS: dict[int, dict[str, str]] = {
     0x0108: {
         "name": "coffee_tea_layer2",
         "contract": "optional layer-2 battle-background config id paired with coffee/tea layer 1",
+    },
+}
+
+ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS: dict[int, dict[str, str]] = {
+    0x2000: {
+        "name": "block13_existing",
+        "contract": "landing palette interpolation mask; bit 13 reuses the existing $7F:0000 work block while other 16-color blocks use the template/source palette",
+    },
+    0xDFFC: {
+        "name": "blocks_2_to_15_except_13_existing",
+        "contract": "landing palette interpolation mask; blocks 2-12 and 14-15 reuse existing $7F:0000 work blocks while blocks 0-1 and 13 use the template/source palette",
+    },
+    0xFFFC: {
+        "name": "blocks_2_to_15_existing",
+        "contract": "landing palette interpolation mask; blocks 2-15 reuse existing $7F:0000 work blocks while blocks 0-1 use the template/source palette",
     },
 }
 
@@ -1454,6 +1469,8 @@ def format_call_arg_value(
             return f"{field}={format_named_word(value, ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS)}", cursor + 2
         if field == "battle_bg_layer2_id_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS)}", cursor + 2
+        if field == "landing_palette_existing_work_mask_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS)}", cursor + 2
         if field == "sound_effect_id_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_SOUND_EFFECT_IDS)}", cursor + 2
         return f"{field}={format_word(value)}", cursor + 2

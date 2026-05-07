@@ -17,6 +17,7 @@ from decode_event_script import (
     ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS,
     ACTIONSCRIPT_DIRECTION_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
+    ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS,
     ACTIONSCRIPT_SOUND_EFFECT_IDS,
     ACTIONSCRIPT_SURFACE_FLAGS_BYTES,
     CALL_ARG_COUNTS,
@@ -3581,6 +3582,16 @@ def call_arg_expr(
                 value,
                 ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS,
                 prefix="BATTLE_BG_LAYER2_ID",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "landing_palette_existing_work_mask_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS,
+                prefix="LANDING_PALETTE_EXISTING_WORK_MASK",
                 formatter=fmt_word,
                 constants=constants,
             )

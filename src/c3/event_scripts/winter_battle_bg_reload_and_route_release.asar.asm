@@ -9,6 +9,7 @@ hirom
 !ACTIONSCRIPT_FIELD2B32_STEP_0040 = $0040
 !ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
 !ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASK_BLOCKS_2_TO_15_EXISTING = $FFFC
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -78,10 +79,10 @@ macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     dw <field2b32_word>
 endmacro
 
-macro EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(target, landing_palette_selector_word, palette_scale_byte, fade_frame_count_byte)
+macro EVENT_CALLROUTINE_LANDING_PALETTE_EXISTING_WORK_MASK_PALETTE_SCALE_FADE_FRAME_COUNT(target, landing_palette_existing_work_mask_word, palette_scale_byte, fade_frame_count_byte)
     db $42
     dl <target>
-    dw <landing_palette_selector_word>
+    dw <landing_palette_existing_work_mask_word>
     db <palette_scale_byte>
     db <fade_frame_count_byte>
 endmacro
@@ -198,7 +199,7 @@ Local_C319C0:
     %EVENT_SHORTCALL_CONDITIONAL(Local_C319C0) ; C3:19D1  0A C0 19
     %EVENT_CLEAR_TICK_CALLBACK() ; C3:19D4  0F
     %EVENT_CALLROUTINE_0(!CopyCgramShadow0200To4476) ; C3:19D5  42 8E 97 C4
-    %EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, $FFFC, $00, $64) ; C3:19D9  42 B5 AA C0 FC FF 00 64
+    %EVENT_CALLROUTINE_LANDING_PALETTE_EXISTING_WORK_MASK_PALETTE_SCALE_FADE_FRAME_COUNT(!Script_RunLandingPaletteFade_ReadWordByteByte, !ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASK_BLOCKS_2_TO_15_EXISTING, $00, $64) ; C3:19D9  42 B5 AA C0 FC FF 00 64
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:19E1  42 46 6E C4
     %EVENT_PAUSE($01) ; C3:19E5  06 01
 Local_C319E7:

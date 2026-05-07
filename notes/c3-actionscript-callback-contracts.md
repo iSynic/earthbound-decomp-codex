@@ -161,14 +161,21 @@ pilots:
   and blue bytes loaded before the C4 color-math/fixed-color writer runs with
   the caller-supplied mode selector.
 - `C0:AAB5` -> `Script_RunLandingPaletteFade_ReadWordByteByte`: a landing
-  palette selector word, palette scale byte, and fade frame-count byte
-  forwarded to the C4 landing/flyover palette fade driver.
+  palette existing-work mask word, palette scale byte, and fade frame-count
+  byte forwarded to the C4 landing/flyover palette fade driver.
 
 The C3-local battle-bg value catalog only names observed pilot values:
 `$00FF` as the event-340 Winters transition layer 1, `$0000` as the disabled
 layer-2 sentinel, and `$0107/$0108` as the coffee/tea layer pair. These are
 byte-shape contracts plus narrow source-pilot aliases; exact visual-effect
 naming can stay with the C0/C2/C4 presentation notes.
+
+The C3-local landing palette mask catalog names the three observed first-word
+values passed through `C0:AAB5`. `C4:958E` shifts this word once per 16-color
+palette block; a set bit reuses the existing `$7F:0000` work block and a clear
+bit reloads the source/template word. Source pilots therefore render `$FFFC`,
+`$DFFC`, and `$2000` as block-pattern masks rather than opaque palette
+selectors.
 
 ## Surface-Flag Operands
 

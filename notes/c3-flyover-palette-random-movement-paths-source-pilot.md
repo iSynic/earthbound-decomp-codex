@@ -29,7 +29,7 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 - Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
 - `C0:A685` calls render through `%EVENT_CALLROUTINE_FIELD2B32(..., field2b32_word)`, preserving the same little-endian bytes with a word-shaped operand.
 - Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants.
-- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_DIRECTION_CLASS`, `%EVENT_CALLROUTINE_EVENT_FLAG`, `%EVENT_CALLROUTINE_FIELD2B32`, `%EVENT_CALLROUTINE_LANDING_PALETTE_SELECTOR_PALETTE_SCALE_FADE_FRAME_COUNT`, +4.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_DIRECTION_CLASS`, `%EVENT_CALLROUTINE_EVENT_FLAG`, `%EVENT_CALLROUTINE_FIELD2B32`, `%EVENT_CALLROUTINE_LANDING_PALETTE_EXISTING_WORK_MASK_PALETTE_SCALE_FADE_FRAME_COUNT`, +4.
 
 ## Next Promotion Step
 
