@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -17,6 +16,7 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 import audio_pack_contracts
+import audio_spc700_source
 import rom_tools
 from build_audio_sequence_semantics_frontier import COMMAND_HYPOTHESES
 
@@ -25,8 +25,8 @@ DEFAULT_CONTRACT = ROOT / "manifests" / "audio-pack-contracts.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-spc700-driver-dispatch-frontier.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-spc700-driver-dispatch-frontier.md"
 DEFAULT_SOURCE_MAIN = ROOT / "refs" / "earthbound-sounddriver-byte-perfect" / "main.asm"
-HIGH_COMMAND_FIRST = 0xE0
-HIGH_COMMAND_LAST = 0xFE
+HIGH_COMMAND_FIRST = audio_spc700_source.HIGH_COMMAND_FIRST
+HIGH_COMMAND_LAST = audio_spc700_source.HIGH_COMMAND_LAST
 
 
 def parse_args() -> argparse.Namespace:
@@ -94,76 +94,32 @@ def target_profile(payload: bytes, base: int, target: int) -> dict[str, Any]:
     }
 
 
-def parse_source_main(path: Path) -> tuple[dict[str, int], dict[str, int], list[dict[str, Any]]]:
-    lines = path.read_text(encoding="utf-8").splitlines()
-    label_to_addr: dict[str, int] = {}
-    addr_re = re.compile(r"^;\s+\$(?P<addr>[0-9A-F]{4})$")
-    label_re = re.compile(r"^(?P<label>[A-Za-z0-9_]+):")
-    current_addr: int | None = None
-
-    for line in lines:
-        addr_match = addr_re.match(line.strip())
-        if addr_match:
-            current_addr = int(addr_match.group("addr"), 16)
-            continue
-        label_match = label_re.match(line.strip())
-        if label_match and current_addr is not None:
-            label_to_addr[label_match.group("label")] = current_addr
-
-    table_index = next(index for index, line in enumerate(lines) if line.strip().startswith("VCMD_Jump_Table:"))
-    arg_index = next(index for index, line in enumerate(lines) if line.strip().startswith("VCMD_Arg_Length:"))
-
-    entries: list[dict[str, Any]] = []
-    command = HIGH_COMMAND_FIRST
-    for line in lines[table_index + 1:arg_index]:
-        stripped = line.strip()
-        if not stripped.startswith("dw "):
-            continue
-        label = stripped.split("dw ", 1)[1].split(";")[0].strip()
-        if label not in label_to_addr:
-            continue
-        hypothesis = COMMAND_HYPOTHESES.get(command, {})
-        entries.append(
-            {
-                "command": hex_byte(command),
-                "hypothesis": hypothesis.get("name", label),
-                "confidence": hypothesis.get("confidence", "source_backed"),
-                "source_label": label,
-                "target": hex_word(label_to_addr[label]),
-            }
-        )
-        command += 1
-
-    arg_lengths: dict[str, int] = {}
-    command = HIGH_COMMAND_FIRST
-    for line in lines[arg_index + 1:]:
-        stripped = line.strip()
-        if not stripped.startswith("db "):
-            if arg_lengths:
-                break
-            continue
-        bytes_part = stripped.split("db ", 1)[1].split(";")[0]
-        for chunk in bytes_part.split(","):
-            value = chunk.strip()
-            if not value:
-                continue
-            arg_lengths[hex_byte(command)] = int(value, 0)
-            command += 1
-
-    return label_to_addr, arg_lengths, entries
-
-
 def build_frontier(contract: dict[str, Any], rom: bytes, source_main: Path) -> dict[str, Any]:
     driver, payload, base = extract_driver_payload(contract, rom)
-    label_to_addr, arg_lengths, entries = parse_source_main(source_main)
+    labels = audio_spc700_source.parse_source_labels(source_main)
+    source_summary = audio_spc700_source.source_table_summary(source_main)
+    entries: list[dict[str, Any]] = []
+    for source_entry in audio_spc700_source.parse_vcmd_entries(source_main):
+        hypothesis = COMMAND_HYPOTHESES.get(source_entry.command, {})
+        entries.append(
+            {
+                "command": hex_byte(source_entry.command),
+                "hypothesis": hypothesis.get("name", source_entry.source_label),
+                "confidence": "source_backed",
+                "source_label": source_entry.source_label,
+                "source_target": hex_word(source_entry.source_target),
+                "source_role": source_entry.source_role,
+                "target": hex_word(source_entry.source_target),
+                "arg_length": source_entry.arg_length,
+            }
+        )
     for entry in entries:
-        entry["arg_length"] = arg_lengths.get(entry["command"])
         entry["target_profile"] = target_profile(payload, base, parse_hex_int(entry["target"]))
 
     high_command = {
         "status": "source_backed_vcmd_jump_table_ingested",
-        "table_base": hex_word(label_to_addr["VCMD_Jump_Table"]),
-        "arg_length_table_base": hex_word(label_to_addr["VCMD_Arg_Length"]),
+        "table_base": hex_word(labels["VCMD_Jump_Table"].address),
+        "arg_length_table_base": hex_word(labels["VCMD_Arg_Length"].address),
         "command_range": f"{hex_byte(HIGH_COMMAND_FIRST)}..{hex_byte(HIGH_COMMAND_LAST)}",
         "entry_count": len(entries),
         "entries": entries,
@@ -186,9 +142,13 @@ def build_frontier(contract: dict[str, Any], rom: bytes, source_main: Path) -> d
             "high_command_table_base": high_command["table_base"],
             "high_command_entry_count": high_command["entry_count"],
             "arg_length_table_base": high_command["arg_length_table_base"],
+            "get_next_byte": source_summary["get_next_byte"],
+            "skip_byte": source_summary["skip_byte"],
+            "ram_alias_count": source_summary["ram_alias_count"],
             "unresolved_control_bytes": high_command["unresolved_control_bytes"],
             "semantic_status": "source_backed_vcmd_labels_known_ff_reader_effect_unconfirmed",
         },
+        "source_navigation": source_summary,
         "high_command_dispatch_candidate": high_command,
         "indirect_jump_candidates": [],
         "findings": [
@@ -229,6 +189,8 @@ def render_markdown(data: dict[str, Any]) -> str:
             f"- driver block: pack `{data['driver']['pack_id']}` block `{data['driver']['block_index']}` at `{data['driver']['destination']}`, `{data['driver']['count']}` bytes",
             f"- source-backed VCMD table: `{summary['high_command_table_base']}`",
             f"- source-backed arg-length table: `{summary['arg_length_table_base']}`",
+            f"- source-backed reader labels: `GetNextByte={summary['get_next_byte']}`, `SkipByte={summary['skip_byte']}`",
+            f"- RAM aliases parsed: `{summary['ram_alias_count']}`",
             f"- source-backed command range: `{high['command_range']}`",
             f"- unresolved control bytes: `{summary['unresolved_control_bytes']}`",
             f"- semantic status: `{summary['semantic_status']}`",
@@ -237,6 +199,8 @@ def render_markdown(data: dict[str, Any]) -> str:
             "",
             f"- `VCMD_Jump_Table`: `{high['table_base']}`",
             f"- `VCMD_Arg_Length`: `{high['arg_length_table_base']}`",
+            f"- `GetNextByte`: `{summary['get_next_byte']}`",
+            f"- `SkipByte`: `{summary['skip_byte']}`",
             "- commands `0xE0..0xFE` now come from checked-in source labels, not static table guesses",
             "- `0xFF` remains outside the source-backed VCMD table and still needs reader-path classification",
             "",

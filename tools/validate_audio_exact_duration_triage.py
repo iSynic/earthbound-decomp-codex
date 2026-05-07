@@ -56,6 +56,15 @@ def validate(data: dict[str, Any]) -> None:
             require("pack_id" in pack, "pack missing id")
             require("tracks" in pack, f"pack {pack.get('pack_id')} missing tracks")
             require("command_semantic_status" in pack, f"pack {pack.get('pack_id')} missing command semantic status")
+            status = pack.get("command_semantic_status", {})
+            require("evidence_status" in status, f"pack {pack.get('pack_id')} missing evidence status")
+            require("exact_duration_promotion_allowed" in status, f"pack {pack.get('pack_id')} missing promotion flag")
+            if "blocked_command_statuses" in status:
+                require("blocked_command_source_roles" in status, f"pack {pack.get('pack_id')} missing blocked command source roles")
+                require("blocked_command_effect_proof_statuses" in status, f"pack {pack.get('pack_id')} missing blocked command effect statuses")
+            else:
+                require("source_role" in status, f"pack {pack.get('pack_id')} missing source role")
+                require("effect_proof_status" in status, f"pack {pack.get('pack_id')} missing effect proof status")
             require("recommended_next_step" in pack, f"pack {pack.get('pack_id')} missing next step")
             require("terminator_counts_by_command" in pack, f"pack {pack.get('pack_id')} missing terminator command counts")
 

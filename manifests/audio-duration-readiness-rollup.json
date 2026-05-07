@@ -11,7 +11,10 @@
     "manifests/audio-probe-campaign-plan.json",
     "manifests/audio-nonzero-control-coverage-report.json",
     "manifests/audio-zero-runtime-coverage-report.json",
-    "manifests/audio-residual-uncertainty-coverage-report.json"
+    "manifests/audio-residual-uncertainty-coverage-report.json",
+    "manifests/audio-zero-ef-return-frontier.json",
+    "manifests/audio-fd-fe-timing-frontier.json",
+    "manifests/audio-spc700-ff-target-review.json"
   ],
   "summary": {
     "track_count": 192,
@@ -37,6 +40,9 @@
     "nonzero_blocker_tracks_without_source_candidate": 146,
     "zero_coverage_probe_jobs": 19,
     "zero_runtime_reader_pc_targets": 10,
+    "zero_ef_frontier_candidate_packs": 10,
+    "fd_fe_frontier_runtime_reads": 6,
+    "ff_review_runtime_reads": 10,
     "residual_uncertainty_records": 8,
     "residual_public_exact_blocked": 2,
     "release_ready": false,
@@ -160,6 +166,7 @@
     "Nonzero control coverage maps representative probe anchors but does not replace imported runtime probe outputs.",
     "Zero runtime coverage maps every current zero blocker to a probe job but still requires imported runtime classifications.",
     "Residual uncertainty coverage keeps PCM-trim public readiness separate from sequence-intent promotion.",
+    "Source-backed zero/EF, FD/FE, and FF frontiers identify proof targets but do not promote exact duration.",
     "Release-quality exact-duration readiness requires public exact duration coverage plus independent oracle and lane-specific runtime evidence."
   ]
 }

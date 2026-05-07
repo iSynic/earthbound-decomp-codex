@@ -38,6 +38,9 @@
       "release_sequence_promotion_allowed": false,
       "semantic_status": "promotions_require_runtime_dispatch_and_effect_evidence",
       "control_reader_pc_count": 10,
+      "source_backed_vcmd_count": 3,
+      "zero_control_pending_count": 1,
+      "outside_vcmd_table_count": 1,
       "external_semantic_family": "n_spc",
       "external_semantic_family_promotes_exact_duration": false
     }
@@ -183,6 +186,9 @@
         "blocker_counts": {},
         "command_semantic_status": {
           "evidence_status": "pending_earthbound_zero_control_effect_proof",
+          "source_role": "zero_control_pending",
+          "effect_proof_status": "zero_control_pending",
+          "duration_promotion_status": "blocked_pending_local_effect_proof",
           "exact_duration_promotion_allowed": false,
           "eligible_next_export_action": "keep_public_exact_promotion_blocked"
         },
@@ -230,6 +236,9 @@
         "blocker_counts": {},
         "command_semantic_status": {
           "evidence_status": "pending_earthbound_zero_control_effect_proof",
+          "source_role": "zero_control_pending",
+          "effect_proof_status": "zero_control_pending",
+          "duration_promotion_status": "blocked_pending_local_effect_proof",
           "exact_duration_promotion_allowed": false,
           "eligible_next_export_action": "keep_public_exact_promotion_blocked"
         },
@@ -277,6 +286,9 @@
         "blocker_counts": {},
         "command_semantic_status": {
           "evidence_status": "pending_earthbound_zero_control_effect_proof",
+          "source_role": "zero_control_pending",
+          "effect_proof_status": "zero_control_pending",
+          "duration_promotion_status": "blocked_pending_local_effect_proof",
           "exact_duration_promotion_allowed": false,
           "eligible_next_export_action": "keep_public_exact_promotion_blocked"
         },
@@ -314,6 +326,9 @@
         "blocker_counts": {},
         "command_semantic_status": {
           "evidence_status": "pending_earthbound_zero_control_effect_proof",
+          "source_role": "zero_control_pending",
+          "effect_proof_status": "zero_control_pending",
+          "duration_promotion_status": "blocked_pending_local_effect_proof",
           "exact_duration_promotion_allowed": false,
           "eligible_next_export_action": "keep_public_exact_promotion_blocked"
         },
@@ -351,6 +366,9 @@
         "blocker_counts": {},
         "command_semantic_status": {
           "evidence_status": "pending_earthbound_zero_control_effect_proof",
+          "source_role": "zero_control_pending",
+          "effect_proof_status": "zero_control_pending",
+          "duration_promotion_status": "blocked_pending_local_effect_proof",
           "exact_duration_promotion_allowed": false,
           "eligible_next_export_action": "keep_public_exact_promotion_blocked"
         },
@@ -388,6 +406,9 @@
         "blocker_counts": {},
         "command_semantic_status": {
           "evidence_status": "pending_earthbound_zero_control_effect_proof",
+          "source_role": "zero_control_pending",
+          "effect_proof_status": "zero_control_pending",
+          "duration_promotion_status": "blocked_pending_local_effect_proof",
           "exact_duration_promotion_allowed": false,
           "eligible_next_export_action": "keep_public_exact_promotion_blocked"
         },
@@ -426,6 +447,9 @@
         "blocker_counts": {},
         "command_semantic_status": {
           "evidence_status": "pending_earthbound_zero_control_effect_proof",
+          "source_role": "zero_control_pending",
+          "effect_proof_status": "zero_control_pending",
+          "duration_promotion_status": "blocked_pending_local_effect_proof",
           "exact_duration_promotion_allowed": false,
           "eligible_next_export_action": "keep_public_exact_promotion_blocked"
         },
@@ -462,6 +486,9 @@
         "blocker_counts": {},
         "command_semantic_status": {
           "evidence_status": "pending_earthbound_zero_control_effect_proof",
+          "source_role": "zero_control_pending",
+          "effect_proof_status": "zero_control_pending",
+          "duration_promotion_status": "blocked_pending_local_effect_proof",
           "exact_duration_promotion_allowed": false,
           "eligible_next_export_action": "keep_public_exact_promotion_blocked"
         },
@@ -499,6 +526,9 @@
         "blocker_counts": {},
         "command_semantic_status": {
           "evidence_status": "pending_earthbound_zero_control_effect_proof",
+          "source_role": "zero_control_pending",
+          "effect_proof_status": "zero_control_pending",
+          "duration_promotion_status": "blocked_pending_local_effect_proof",
           "exact_duration_promotion_allowed": false,
           "eligible_next_export_action": "keep_public_exact_promotion_blocked"
         },
@@ -535,6 +565,9 @@
         "blocker_counts": {},
         "command_semantic_status": {
           "evidence_status": "pending_earthbound_zero_control_effect_proof",
+          "source_role": "zero_control_pending",
+          "effect_proof_status": "zero_control_pending",
+          "duration_promotion_status": "blocked_pending_local_effect_proof",
           "exact_duration_promotion_allowed": false,
           "eligible_next_export_action": "keep_public_exact_promotion_blocked"
         },
@@ -665,6 +698,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -739,6 +782,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -812,6 +865,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -886,6 +949,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -950,6 +1023,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1014,6 +1097,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1077,6 +1170,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1140,6 +1243,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1204,6 +1317,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1267,6 +1390,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1331,6 +1464,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1385,6 +1528,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1439,6 +1592,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1493,6 +1656,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1547,6 +1720,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1601,6 +1784,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1656,6 +1849,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1710,6 +1913,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1765,6 +1978,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1819,6 +2042,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1874,6 +2107,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1928,6 +2171,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -1982,6 +2235,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2036,6 +2299,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2090,6 +2363,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2144,6 +2427,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2189,6 +2482,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2233,6 +2536,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2278,6 +2591,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2323,6 +2646,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2368,6 +2701,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2413,6 +2756,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2458,6 +2811,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2503,6 +2866,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2548,6 +2921,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2593,6 +2976,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2638,6 +3031,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2683,6 +3086,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2728,6 +3141,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2773,6 +3196,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2818,6 +3251,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2863,6 +3306,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2908,6 +3361,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2953,6 +3416,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -2998,6 +3471,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3043,6 +3526,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3088,6 +3581,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3133,6 +3636,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3178,6 +3691,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3223,6 +3746,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3268,6 +3801,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3313,6 +3856,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3358,6 +3911,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3403,6 +3966,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3448,6 +4021,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3493,6 +4076,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3538,6 +4131,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3583,6 +4186,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3628,6 +4241,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3673,6 +4296,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3718,6 +4351,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3763,6 +4406,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3808,6 +4461,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3853,6 +4516,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3898,6 +4571,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3943,6 +4626,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -3988,6 +4681,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4033,6 +4736,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4078,6 +4791,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4123,6 +4846,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4168,6 +4901,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4213,6 +4956,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4258,6 +5011,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4303,6 +5066,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4348,6 +5121,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4393,6 +5176,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4438,6 +5231,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4483,6 +5286,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4528,6 +5341,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4573,6 +5396,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4618,6 +5451,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4663,6 +5506,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4708,6 +5561,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4753,6 +5616,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4798,6 +5671,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4843,6 +5726,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4888,6 +5781,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4933,6 +5836,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -4978,6 +5891,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5023,6 +5946,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5068,6 +6001,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5113,6 +6056,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5158,6 +6111,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5203,6 +6166,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5248,6 +6221,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5293,6 +6276,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5338,6 +6331,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5383,6 +6386,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5428,6 +6441,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5473,6 +6496,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5518,6 +6551,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5563,6 +6606,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5608,6 +6661,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5653,6 +6716,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5698,6 +6771,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5743,6 +6826,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5788,6 +6881,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5833,6 +6936,16 @@
             "0xFD": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFE": "runtime_interpreter_read_observed_dispatch_decode_pending",
             "0xFF": "contradicted_by_stock_n_spc_pending_earthbound_variant_proof"
+          },
+          "blocked_command_source_roles": {
+            "0xFD": "source_backed_vcmd",
+            "0xFE": "source_backed_vcmd",
+            "0xFF": "outside_vcmd_table"
+          },
+          "blocked_command_effect_proof_statuses": {
+            "0xFD": "runtime_effect_pending",
+            "0xFE": "runtime_effect_pending",
+            "0xFF": "outside_vcmd_table"
           }
         },
         "recommended_next_step": "decode FD/FE/FF command behavior through SPC700 driver dispatch before exact duration promotion"
@@ -5874,6 +6987,9 @@
         },
         "command_semantic_status": {
           "evidence_status": "not_promoted_by_command_semantics",
+          "source_role": "no_sequence_semantics_needed",
+          "effect_proof_status": "no_sequence_effect_proof_needed",
+          "duration_promotion_status": "not_promoted_by_command_semantics",
           "exact_duration_promotion_allowed": false,
           "eligible_next_export_action": "keep_current_export_policy"
         },

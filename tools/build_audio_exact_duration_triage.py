@@ -55,6 +55,9 @@ def lane_semantic_status(category: str, command_semantics: dict[str, Any]) -> di
         zero = commands.get("0x00", {})
         return {
             "evidence_status": zero.get("semantic_status", "missing_command_semantics"),
+            "source_role": zero.get("source_role", "missing_source_role"),
+            "effect_proof_status": zero.get("effect_proof_status", "missing_effect_proof_status"),
+            "duration_promotion_status": zero.get("duration_promotion_status", "missing_duration_promotion_status"),
             "exact_duration_promotion_allowed": bool(zero.get("exact_duration_promotion_allowed")),
             "eligible_next_export_action": zero.get("eligible_next_export_action", "keep_public_exact_promotion_blocked"),
         }
@@ -62,6 +65,9 @@ def lane_semantic_status(category: str, command_semantics: dict[str, Any]) -> di
         ff = commands.get("0xFF", {})
         return {
             "evidence_status": ff.get("semantic_status", "missing_command_semantics"),
+            "source_role": ff.get("source_role", "missing_source_role"),
+            "effect_proof_status": ff.get("effect_proof_status", "missing_effect_proof_status"),
+            "duration_promotion_status": ff.get("duration_promotion_status", "missing_duration_promotion_status"),
             "exact_duration_promotion_allowed": bool(ff.get("exact_duration_promotion_allowed")),
             "eligible_next_export_action": ff.get("eligible_next_export_action", "keep_public_exact_promotion_blocked"),
         }
@@ -75,9 +81,20 @@ def lane_semantic_status(category: str, command_semantics: dict[str, Any]) -> di
             "exact_duration_promotion_allowed": False,
             "eligible_next_export_action": "decode_unpromoted_control_before_public_exact_promotion",
             "blocked_command_statuses": blocked,
+            "blocked_command_source_roles": {
+                command: commands.get(command, {}).get("source_role", "missing_source_role")
+                for command in ("0xFD", "0xFE", "0xFF")
+            },
+            "blocked_command_effect_proof_statuses": {
+                command: commands.get(command, {}).get("effect_proof_status", "missing_effect_proof_status")
+                for command in ("0xFD", "0xFE", "0xFF")
+            },
         }
     return {
         "evidence_status": "not_promoted_by_command_semantics",
+        "source_role": "no_sequence_semantics_needed",
+        "effect_proof_status": "no_sequence_effect_proof_needed",
+        "duration_promotion_status": "not_promoted_by_command_semantics",
         "exact_duration_promotion_allowed": False,
         "eligible_next_export_action": "keep_current_export_policy",
     }

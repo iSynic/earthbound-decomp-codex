@@ -32,6 +32,17 @@
       "role": "sound_effect_sequence_data"
     }
   ],
+  "source_navigation": {
+    "main_path": "refs/earthbound-sounddriver-byte-perfect/main.asm",
+    "ram_path": "refs/earthbound-sounddriver-byte-perfect/ram.asm",
+    "vcmd_table": "0x0BE3",
+    "vcmd_arg_length_table": "0x0C21",
+    "get_next_byte": "0x0955",
+    "skip_byte": "0x0957",
+    "vcmd_command_range": "0xE0..0xFE",
+    "vcmd_entry_count": 31,
+    "ram_alias_count": 63
+  },
   "source_backed_facts": [
     {
       "topic": "driver_base",
@@ -43,11 +54,11 @@
     },
     {
       "topic": "vcmd_dispatch",
-      "value": "VCMD_Jump_Table starts at 0x0BE3 and names handlers for E0..FE"
+      "value": "VCMD_Jump_Table starts at 0x0BE3 and names handlers for 0xE0..0xFE"
     },
     {
       "topic": "vcmd_arg_lengths",
-      "value": "VCMD_Arg_Length starts at 0x0C21 and defines argument lengths for E0..FE"
+      "value": "VCMD_Arg_Length starts at 0x0C21 and defines argument lengths for 0xE0..0xFE"
     },
     {
       "topic": "refuted_static_guess",

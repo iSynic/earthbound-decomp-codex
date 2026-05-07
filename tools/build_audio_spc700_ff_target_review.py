@@ -1,58 +1,25 @@
 #!/usr/bin/env python3
-"""Build a focused static review of the provisional SPC700 FF target.
-
-The dispatch frontier gives the FF lane a concrete address under the current
-E0..FF table mapping. This script reviews that address without embedding ROM
-payload bytes and, importantly, without promoting the runtime effect. The aim is
-to capture why a trace/disassembly pass is still required.
-"""
+"""Build the source-backed 0xFF outside-VCMD proof lane."""
 
 from __future__ import annotations
 
 import argparse
 import json
-import sys
-from collections import Counter
 from pathlib import Path
 from typing import Any
 
 
 ROOT = Path(__file__).resolve().parent.parent
-SCRIPT_DIR = Path(__file__).resolve().parent
-if str(SCRIPT_DIR) not in sys.path:
-    sys.path.insert(0, str(SCRIPT_DIR))
-
-import rom_tools
-from build_audio_spc700_driver_dispatch_frontier import (
-    extract_driver_payload,
-    hex_byte,
-    hex_word,
-    pointer_run,
-)
-
-
-DEFAULT_CONTRACT = ROOT / "manifests" / "audio-pack-contracts.json"
 DEFAULT_DISPATCH = ROOT / "manifests" / "audio-spc700-driver-dispatch-frontier.json"
+DEFAULT_CONTROL_READER = ROOT / "manifests" / "audio-spc700-control-reader-frontier.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-spc700-ff-target-review.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-spc700-ff-target-review.md"
 
-CONTROL_TRANSFER_OPCODES = {
-    0x1F: "jmp_abs_indexed_indirect",
-    0x2F: "bra_relative",
-    0x3F: "call_absolute",
-    0x5F: "jmp_absolute",
-    0x6F: "ret",
-    0xD0: "bne_relative",
-    0xF0: "beq_relative",
-}
-DIRECT_ABSOLUTE_CONTROL_OPCODES = {0x3F: "call_absolute", 0x5F: "jmp_absolute"}
-
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Build the SPC700 FF target review.")
-    parser.add_argument("--contract", default=str(DEFAULT_CONTRACT), help="Audio pack contract JSON.")
+    parser = argparse.ArgumentParser(description="Build the SPC700 FF outside-VCMD proof lane.")
     parser.add_argument("--dispatch", default=str(DEFAULT_DISPATCH), help="SPC700 driver dispatch frontier JSON.")
-    parser.add_argument("--rom", help="Optional explicit EarthBound US ROM path.")
+    parser.add_argument("--control-reader", default=str(DEFAULT_CONTROL_READER), help="SPC700 control reader frontier JSON.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Manifest output JSON.")
     parser.add_argument("--notes", default=str(DEFAULT_NOTES), help="Markdown note output.")
     return parser.parse_args()
@@ -62,195 +29,129 @@ def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def parse_hex_int(text: str) -> int:
-    return int(text, 16)
-
-
-def apu_offset(address: int, base: int, payload: bytes) -> int:
-    offset = address - base
-    if offset < 0 or offset >= len(payload):
-        raise ValueError(f"address {hex_word(address)} is outside driver payload")
-    return offset
-
-
-def byte_profile(payload: bytes, base_address: int) -> dict[str, Any]:
-    counts = Counter(payload)
-    control_counts = Counter(CONTROL_TRANSFER_OPCODES[value] for value in payload if value in CONTROL_TRANSFER_OPCODES)
-    high_command_like = sum(count for value, count in counts.items() if value >= 0xE0)
-    note_or_rest_like = sum(count for value, count in counts.items() if 0x80 <= value <= 0xC9)
-    duration_or_arg_like = sum(count for value, count in counts.items() if value < 0x80)
-    return {
-        "base_address": hex_word(base_address),
-        "byte_count": len(payload),
-        "zero_count": counts.get(0, 0),
-        "high_command_like_count": high_command_like,
-        "note_or_rest_like_count": note_or_rest_like,
-        "duration_or_argument_like_count": duration_or_arg_like,
-        "control_transfer_opcode_counts": dict(sorted(control_counts.items())),
-        "top_bytes": [
-            {"byte": hex_byte(value), "count": count}
-            for value, count in counts.most_common(12)
-        ],
-    }
-
-
-def word_references(payload: bytes, base: int, target: int) -> list[str]:
-    refs = []
-    lo = target & 0xFF
-    hi = (target >> 8) & 0xFF
-    for offset in range(len(payload) - 1):
-        if payload[offset] == lo and payload[offset + 1] == hi:
-            refs.append(hex_word(base + offset))
-    return refs
-
-
-def direct_control_refs(payload: bytes, base: int, target: int) -> list[dict[str, str]]:
-    refs = []
-    lo = target & 0xFF
-    hi = (target >> 8) & 0xFF
-    for offset in range(len(payload) - 2):
-        opcode = payload[offset]
-        if opcode not in DIRECT_ABSOLUTE_CONTROL_OPCODES:
+def reader_records_for_ff(control_reader: dict[str, Any]) -> list[dict[str, Any]]:
+    records = []
+    for record in control_reader.get("reader_pcs", []):
+        count = int(record.get("command_counts", {}).get("0xFF", 0))
+        if count <= 0:
             continue
-        if payload[offset + 1] == lo and payload[offset + 2] == hi:
-            refs.append({"address": hex_word(base + offset), "opcode": hex_byte(opcode), "kind": DIRECT_ABSOLUTE_CONTROL_OPCODES[opcode]})
-    return refs
+        records.append(
+            {
+                "pc": record.get("pc"),
+                "source_label": record.get("source_label"),
+                "driver_offset": record.get("driver_offset"),
+                "read_count": count,
+                "sample_reads": [
+                    sample for sample in record.get("sample_reads", []) if sample.get("command") == "0xFF"
+                ][:8],
+            }
+        )
+    records.sort(key=lambda item: int(item["read_count"]), reverse=True)
+    return records
 
 
-def command_entry(entries: list[dict[str, Any]], command: int) -> dict[str, Any]:
-    wanted = hex_byte(command)
-    for entry in entries:
-        if entry.get("command") == wanted:
-            return entry
-    raise ValueError(f"dispatch frontier missing command {wanted}")
-
-
-def build_review(contract: dict[str, Any], dispatch: dict[str, Any], rom: bytes) -> dict[str, Any]:
-    driver, payload, base = extract_driver_payload(contract, rom)
+def build_review(dispatch: dict[str, Any], control_reader: dict[str, Any]) -> dict[str, Any]:
     high = dispatch["high_command_dispatch_candidate"]
-    entries = high["entries"]
-    ff_entry = command_entry(entries, 0xFF)
-    fe_entry = command_entry(entries, 0xFE)
-    fd_entry = command_entry(entries, 0xFD)
-    target = parse_hex_int(ff_entry["target"])
-    target_offset = apu_offset(target, base, payload)
-
-    full_run = pointer_run(payload, base, parse_hex_int(high["table_base"]), limit=64)
-    ff_run_index = full_run.index(target)
-    next_target = full_run[ff_run_index + 1] if ff_run_index + 1 < len(full_run) else base + len(payload)
-    span = payload[target_offset:apu_offset(next_target, base, payload)]
-    follow_window = payload[target_offset:min(len(payload), target_offset + 512)]
-    refs = word_references(payload, base, target)
-    control_refs = direct_control_refs(payload, base, target)
-
-    profile = byte_profile(span, target)
-    follow_profile = byte_profile(follow_window, target)
-    classification = "ff_target_address_identified_effect_blocked_by_data_like_span"
-    if profile["control_transfer_opcode_counts"]:
-        classification = "ff_target_address_identified_has_local_control_transfer_static_effect_pending"
-
+    entries = high.get("entries", [])
+    commands = [entry.get("command") for entry in entries]
+    ff_readers = reader_records_for_ff(control_reader)
+    ff_in_vcmd_table = "0xFF" in commands
     return {
         "schema": "earthbound-decomp.audio-spc700-ff-target-review.v1",
-        "status": classification,
+        "status": "ff_outside_source_backed_vcmd_table_reader_effect_pending",
         "references": [
             "manifests/audio-spc700-driver-dispatch-frontier.json",
-            "manifests/audio-spc700-dispatch-trace-frontier.json",
-            "manifests/audio-ff-terminator-review.json",
-            "manifests/audio-sequence-walk-frontier.json",
+            "manifests/audio-spc700-control-reader-frontier.json",
+            "refs/earthbound-sounddriver-byte-perfect/main.asm",
+            "https://sneslab.net/wiki/N-SPC_Engine",
         ],
-        "driver": driver,
         "dispatch_context": {
-            "table_base": high["table_base"],
-            "source_indirect_jump_addresses": high["source_indirect_jump_addresses"],
-            "mapping_assumption": "FF target uses the current E0..FF zero-based high-command table mapping from the dispatch frontier.",
-            "neighbor_entries": [
-                {"command": fd_entry["command"], "target": fd_entry["target"], "hypothesis": fd_entry["hypothesis"]},
-                {"command": fe_entry["command"], "target": fe_entry["target"], "hypothesis": fe_entry["hypothesis"]},
-                {"command": ff_entry["command"], "target": ff_entry["target"], "hypothesis": ff_entry["hypothesis"]},
+            "source_backed_table_base": high["table_base"],
+            "source_backed_arg_length_table_base": high["arg_length_table_base"],
+            "source_backed_command_range": high["command_range"],
+            "source_backed_entry_count": len(entries),
+            "ff_in_source_backed_vcmd_table": ff_in_vcmd_table,
+            "source_role": "outside_vcmd_table",
+        },
+        "ff_review": {
+            "command": "0xFF",
+            "source_label": None,
+            "source_target": None,
+            "arg_length": None,
+            "source_role": "outside_vcmd_table",
+            "effect_proof_status": "outside_vcmd_table_reader_effect_pending",
+            "duration_promotion_status": "blocked_pending_local_effect_proof",
+            "reader_pc_records": ff_readers,
+            "required_next_evidence": [
+                "prove whether FF bytes are consumed as reachable EarthBound sequence control",
+                "record reader PC, sequence pointer, voice slot, and branch/effect immediately after read",
+                "classify each observation as unreachable padding, data-like table byte, or EarthBound-specific control effect",
+                "keep public exact-duration promotion blocked until a local effect is proven",
             ],
         },
-        "target_review": {
-            "command": "0xFF",
-            "target": hex_word(target),
-            "next_pointer_run_target": hex_word(next_target),
-            "span_byte_count": len(span),
-            "word_references": refs,
-            "direct_call_or_jump_references": control_refs,
-            "span_profile": profile,
-            "first_512_byte_profile": follow_profile,
-        },
         "summary": {
-            "ff_target": hex_word(target),
-            "next_pointer_run_target": hex_word(next_target),
-            "span_byte_count": len(span),
-            "word_reference_count": len(refs),
-            "direct_call_or_jump_reference_count": len(control_refs),
-            "span_note_or_rest_like_count": profile["note_or_rest_like_count"],
-            "span_high_command_like_count": profile["high_command_like_count"],
-            "span_control_transfer_opcode_count": sum(profile["control_transfer_opcode_counts"].values()),
-            "first_512_control_transfer_opcode_count": sum(follow_profile["control_transfer_opcode_counts"].values()),
-            "semantic_status": classification,
+            "ff_in_source_backed_vcmd_table": ff_in_vcmd_table,
+            "source_backed_command_range": high["command_range"],
+            "source_backed_entry_count": len(entries),
+            "ff_reader_pc_count": len(ff_readers),
+            "ff_runtime_read_count": sum(int(record["read_count"]) for record in ff_readers),
+            "exact_duration_promotion_allowed": False,
+            "semantic_status": "outside_vcmd_table_reader_effect_pending",
         },
         "findings": [
-            "The provisional FF target is only referenced as a little-endian word at the dispatch table entry; no direct CALL/JMP immediate reference to that target was found in the driver payload.",
-            "The span from the FF target to the next pointer-run target is dominated by note/rest-like and high-command-like byte values, which makes static promotion to executable end/return semantics unsafe.",
-            "No RET, JMP, CALL, BRA, or conditional branch marker appears in the target-to-next-pointer span or the first 512 bytes starting at the FF target under this byte-level scan.",
-            "This strengthens the next task definition: capture live execution around the 0x12FD indirect dispatch and prove whether the current table mapping is executed as code, data, or a second-level sequence target.",
-            "The current dispatch trace frontier records sampled sequence-region reads of FF bytes, but no 0x12FD, live 0x1F, or 0x1A81-window hits, so this remains a fetch-to-handler bridge tracing problem.",
+            "The checked-in byte-perfect source backs VCMD entries for 0xE0..0xFE only.",
+            "0xFF has no source-backed VCMD label, target, or argument length.",
+            "Runtime reader traces still observe FF bytes, so FF remains a focused reader-effect proof lane rather than a dispatch-table entry.",
         ],
         "next_work": [
-            "instrument the SPC700 probe to record PC hits around 0x12FD, the X index used by the 0x1F dispatch, and the post-dispatch PC for a track that reaches FF",
-            "if post-dispatch PC reaches 0x1A81, disassemble/trace enough live instructions to find the state mutation that ends, returns, stops, or advances the channel",
-            "if runtime never jumps to 0x1A81 for FF, revise the high-command table mapping before promoting any FF terminator candidates",
+            "trace reader PC 0x0957 FF observations and record the post-read effect",
+            "classify observed FF bytes as unreachable/data-like or EarthBound-specific control behavior",
+            "feed only locally proven FF effects back into sequence command semantics",
         ],
     }
 
 
 def render_markdown(data: dict[str, Any]) -> str:
     summary = data["summary"]
-    review = data["target_review"]
-    span = review["span_profile"]
-    follow = review["first_512_byte_profile"]
-    neighbors = data["dispatch_context"]["neighbor_entries"]
-    neighbor_rows = [
-        f"| `{entry['command']}` | `{entry['target']}` | `{entry['hypothesis']}` |"
-        for entry in neighbors
+    review = data["ff_review"]
+    rows = [
+        "| `{pc}` | `{label}` | `{offset}` | {reads} |".format(
+            pc=record["pc"],
+            label=record.get("source_label"),
+            offset=record.get("driver_offset"),
+            reads=record["read_count"],
+        )
+        for record in review["reader_pc_records"]
     ]
     return "\n".join(
         [
             "# Audio SPC700 FF Target Review",
             "",
-            "Status: FF target address reviewed; runtime effect still blocked pending live trace.",
+            "Status: FF is outside the source-backed VCMD table; reader effect proof is still pending.",
             "",
             "## Summary",
             "",
-            f"- FF target: `{summary['ff_target']}`",
-            f"- next pointer-run target: `{summary['next_pointer_run_target']}`",
-            f"- target span bytes: `{summary['span_byte_count']}`",
-            f"- word references: `{summary['word_reference_count']}`",
-            f"- direct CALL/JMP references: `{summary['direct_call_or_jump_reference_count']}`",
-            f"- span note/rest-like bytes: `{summary['span_note_or_rest_like_count']}`",
-            f"- span high-command-like bytes: `{summary['span_high_command_like_count']}`",
-            f"- span control-transfer markers: `{summary['span_control_transfer_opcode_count']}`",
-            f"- first-512 control-transfer markers: `{summary['first_512_control_transfer_opcode_count']}`",
+            f"- FF in source-backed VCMD table: `{summary['ff_in_source_backed_vcmd_table']}`",
+            f"- source-backed command range: `{summary['source_backed_command_range']}`",
+            f"- source-backed VCMD entries: `{summary['source_backed_entry_count']}`",
+            f"- FF reader PCs: `{summary['ff_reader_pc_count']}`",
+            f"- FF runtime reads: `{summary['ff_runtime_read_count']}`",
+            f"- exact-duration promotion allowed: `{summary['exact_duration_promotion_allowed']}`",
             f"- semantic status: `{summary['semantic_status']}`",
             "",
-            "## Dispatch Context",
+            "## Source Boundary",
             "",
-            f"- table base: `{data['dispatch_context']['table_base']}`",
-            f"- source indirect jump addresses: `{data['dispatch_context']['source_indirect_jump_addresses']}`",
-            f"- mapping assumption: {data['dispatch_context']['mapping_assumption']}",
+            f"- source role: `{review['source_role']}`",
+            f"- source label: `{review['source_label']}`",
+            f"- source target: `{review['source_target']}`",
+            f"- arg length: `{review['arg_length']}`",
+            f"- effect proof status: `{review['effect_proof_status']}`",
             "",
-            "| Command | Target | Current hypothesis |",
-            "| --- | ---: | --- |",
-            *neighbor_rows,
+            "## Reader PCs",
             "",
-            "## Target Profile",
-            "",
-            f"- span profile: `{span}`",
-            f"- first-512 profile: `{follow}`",
-            f"- word references: `{review['word_references']}`",
-            f"- direct CALL/JMP references: `{review['direct_call_or_jump_references']}`",
+            "| Reader PC | Source label | Driver offset | FF reads |",
+            "| --- | --- | --- | ---: |",
+            *rows,
             "",
             "## Findings",
             "",
@@ -266,10 +167,7 @@ def render_markdown(data: dict[str, Any]) -> str:
 
 def main() -> int:
     args = parse_args()
-    contract = load_json(Path(args.contract))
-    dispatch = load_json(Path(args.dispatch))
-    rom = rom_tools.load_rom(rom_tools.find_rom(args.rom))
-    data = build_review(contract, dispatch, rom)
+    data = build_review(load_json(Path(args.dispatch)), load_json(Path(args.control_reader)))
     output = Path(args.output)
     notes = Path(args.notes)
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -278,8 +176,8 @@ def main() -> int:
     notes.write_text(render_markdown(data), encoding="utf-8")
     print(
         "Built audio SPC700 FF target review: "
-        f"{data['summary']['ff_target']} span {data['summary']['span_byte_count']} bytes, "
-        f"status {data['summary']['semantic_status']}"
+        f"outside VCMD table={not data['summary']['ff_in_source_backed_vcmd_table']}, "
+        f"{data['summary']['ff_runtime_read_count']} reader reads"
     )
     print(f"Wrote {output}")
     print(f"Wrote {notes}")

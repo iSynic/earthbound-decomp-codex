@@ -64,6 +64,26 @@ def driver_entries(driver_dispatch: dict[str, Any]) -> dict[str, dict[str, Any]]
     return {str(entry.get("command")): entry for entry in entries}
 
 
+def source_role_for_command(command: str, entry: dict[str, Any]) -> str:
+    if command == "0x00":
+        return "zero_control_pending"
+    if command == "0xFF":
+        return "outside_vcmd_table"
+    if entry.get("source_role") == "source_backed_vcmd":
+        return "source_backed_vcmd"
+    return "runtime_effect_pending"
+
+
+def effect_proof_status_for_command(command: str, source_role: str) -> str:
+    if command == "0x00":
+        return "zero_control_pending"
+    if command == "0xFF":
+        return "outside_vcmd_table"
+    if source_role == "source_backed_vcmd":
+        return "runtime_effect_pending"
+    return "runtime_effect_pending"
+
+
 def post_pc_counts(records: list[dict[str, Any]], command: str) -> Counter[str]:
     counts: Counter[str] = Counter()
     for record in records:
@@ -186,6 +206,8 @@ def build_semantics(
     blocked_count = 0
     for command in CONTROL_COMMANDS:
         entry = entries.get(command, {})
+        source_role = source_role_for_command(command, entry)
+        effect_proof_status = effect_proof_status_for_command(command, source_role)
         post_pcs = post_pc_counts(trace_records, command)
         mapped_hits = mapped_dispatch_count(dispatch_trace, command)
         seq_reads = sequence_read_count(dispatch_trace, command)
@@ -209,9 +231,15 @@ def build_semantics(
             "command": command,
             "hypothesis": NSPC_REFERENCE["voice_commands"].get(command, entry.get("hypothesis")),
             "n_spc_reference_semantics": NSPC_REFERENCE["voice_commands"].get(command),
+            "source_label": entry.get("source_label"),
+            "source_target": entry.get("source_target") or entry.get("target"),
+            "arg_length": entry.get("arg_length"),
+            "source_role": source_role,
             "static_dispatch_target": entry.get("target"),
             "static_dispatch_target_source": "audio-spc700-driver-dispatch-frontier" if entry.get("target") else None,
             "semantic_status": status,
+            "effect_proof_status": effect_proof_status,
+            "duration_promotion_status": "blocked_pending_local_effect_proof" if not promotion_allowed else "promoted_by_local_effect_proof",
             "exact_duration_promotion_allowed": promotion_allowed,
             "eligible_next_export_action": (
                 "allow_sequence_exact_duration_promotion"
@@ -249,6 +277,15 @@ def build_semantics(
             "release_sequence_promotion_allowed": release_allowed,
             "semantic_status": "promotions_require_runtime_dispatch_and_effect_evidence",
             "control_reader_pc_count": int(control_reader_frontier.get("summary", {}).get("reader_pc_count", 0)),
+            "source_backed_vcmd_count": sum(
+                1 for record in commands.values() if record.get("source_role") == "source_backed_vcmd"
+            ),
+            "zero_control_pending_count": sum(
+                1 for record in commands.values() if record.get("source_role") == "zero_control_pending"
+            ),
+            "outside_vcmd_table_count": sum(
+                1 for record in commands.values() if record.get("source_role") == "outside_vcmd_table"
+            ),
             "external_semantic_family": "n_spc",
             "external_semantic_family_promotes_exact_duration": False,
         },
@@ -285,11 +322,13 @@ def build_semantics(
 def render_markdown(data: dict[str, Any]) -> str:
     summary = data["summary"]
     rows = [
-        "| `{command}` | `{hypothesis}` | `{target}` | `{status}` | `{reads}` | `{hits}` | `{allowed}` | `{action}` |".format(
+        "| `{command}` | `{hypothesis}` | `{source}` | `{target}` | `{status}` | `{proof}` | `{reads}` | `{hits}` | `{allowed}` | `{action}` |".format(
             command=command,
             hypothesis=record.get("hypothesis"),
+            source=record.get("source_role"),
             target=record.get("static_dispatch_target"),
             status=record["semantic_status"],
+            proof=record["effect_proof_status"],
             reads=record["trace_evidence"]["sequence_control_read_count"],
             hits=record["trace_evidence"]["mapped_dispatch_hit_count"],
             allowed=record["exact_duration_promotion_allowed"],
@@ -309,6 +348,9 @@ def render_markdown(data: dict[str, Any]) -> str:
             f"- confirmed for exact duration: `{summary['confirmed_for_exact_duration_count']}`",
             f"- pending: `{summary['pending_count']}`",
             f"- blocked or contradicted: `{summary['blocked_or_contradicted_count']}`",
+            f"- source-backed VCMD commands: `{summary['source_backed_vcmd_count']}`",
+            f"- zero-control pending commands: `{summary['zero_control_pending_count']}`",
+            f"- outside-VCMD-table commands: `{summary['outside_vcmd_table_count']}`",
             f"- sequence promotion allowed: `{summary['release_sequence_promotion_allowed']}`",
             f"- semantic status: `{summary['semantic_status']}`",
             "",
@@ -318,8 +360,8 @@ def render_markdown(data: dict[str, Any]) -> str:
             "",
             "## Commands",
             "",
-            "| Command | Hypothesis | Static target | Semantic status | Seq reads | Dispatch hits | Promotion allowed | Next export action |",
-            "| --- | --- | ---: | --- | ---: | ---: | --- | --- |",
+            "| Command | Hypothesis | Source role | Static target | Semantic status | Effect proof | Seq reads | Dispatch hits | Promotion allowed | Next export action |",
+            "| --- | --- | --- | ---: | --- | --- | ---: | ---: | --- | --- |",
             *rows,
             "",
             "## Findings",

@@ -8,6 +8,9 @@ Status: promoted command semantics are evidence-gated; current checked-in traces
 - confirmed for exact duration: `0`
 - pending: `1`
 - blocked or contradicted: `4`
+- source-backed VCMD commands: `3`
+- zero-control pending commands: `1`
+- outside-VCMD-table commands: `1`
 - sequence promotion allowed: `False`
 - semantic status: `promotions_require_runtime_dispatch_and_effect_evidence`
 
@@ -22,13 +25,13 @@ Status: promoted command semantics are evidence-gated; current checked-in traces
 
 ## Commands
 
-| Command | Hypothesis | Static target | Semantic status | Seq reads | Dispatch hits | Promotion allowed | Next export action |
-| --- | --- | ---: | --- | ---: | ---: | --- | --- |
-| `0x00` | `phrase_termination_or_end_of_subroutine` | `None` | `pending_earthbound_zero_control_effect_proof` | `5931` | `0` | `False` | `keep_public_exact_promotion_blocked` |
-| `0xEF` | `subroutine` | `0x0AAC` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `475` | `0` | `False` | `keep_public_exact_promotion_blocked` |
-| `0xFD` | `fast_forward_on` | `0x0B7E` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `1` | `0` | `False` | `keep_public_exact_promotion_blocked` |
-| `0xFE` | `fast_forward_off` | `0x0B7F` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `5` | `0` | `False` | `keep_public_exact_promotion_blocked` |
-| `0xFF` | `invalid_stock_n_spc_vcmd` | `None` | `contradicted_by_stock_n_spc_pending_earthbound_variant_proof` | `12` | `0` | `False` | `keep_public_exact_promotion_blocked` |
+| Command | Hypothesis | Source role | Static target | Semantic status | Effect proof | Seq reads | Dispatch hits | Promotion allowed | Next export action |
+| --- | --- | --- | ---: | --- | --- | ---: | ---: | --- | --- |
+| `0x00` | `phrase_termination_or_end_of_subroutine` | `zero_control_pending` | `None` | `pending_earthbound_zero_control_effect_proof` | `zero_control_pending` | `5931` | `0` | `False` | `keep_public_exact_promotion_blocked` |
+| `0xEF` | `subroutine` | `source_backed_vcmd` | `0x0AAC` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `runtime_effect_pending` | `475` | `0` | `False` | `keep_public_exact_promotion_blocked` |
+| `0xFD` | `fast_forward_on` | `source_backed_vcmd` | `0x0B7E` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `runtime_effect_pending` | `1` | `0` | `False` | `keep_public_exact_promotion_blocked` |
+| `0xFE` | `fast_forward_off` | `source_backed_vcmd` | `0x0B7F` | `runtime_interpreter_read_observed_dispatch_decode_pending` | `runtime_effect_pending` | `5` | `0` | `False` | `keep_public_exact_promotion_blocked` |
+| `0xFF` | `invalid_stock_n_spc_vcmd` | `outside_vcmd_table` | `None` | `contradicted_by_stock_n_spc_pending_earthbound_variant_proof` | `outside_vcmd_table` | `12` | `0` | `False` | `keep_public_exact_promotion_blocked` |
 
 ## Findings
 

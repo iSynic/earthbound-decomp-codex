@@ -71,6 +71,9 @@ def validate(data: dict[str, Any]) -> None:
     reader_pc_counts = {}
     for command, record in command_by_id.items():
         require(record.get("semantic_status"), f"{command}: missing semantic status")
+        require(record.get("source_role"), f"{command}: missing source role")
+        require(record.get("effect_proof_status"), f"{command}: missing effect proof status")
+        require(record.get("duration_promotion_status"), f"{command}: missing duration promotion status")
         require(record.get("exact_duration_promotion_allowed") is False, f"{command}: promotion must remain blocked")
         require(record.get("eligible_next_export_action") == "keep_public_exact_promotion_blocked", f"{command}: unexpected export action")
         require(record.get("affected_kind") in ALLOWED_AFFECTED_KIND, f"{command}: unexpected affected kind")
@@ -85,10 +88,15 @@ def validate(data: dict[str, Any]) -> None:
             require(int(pc_record.get("read_count", 0)) > 0, f"{command}: reader PC missing read count")
         if command == "0xFF":
             require(record.get("affected_kind") == "static_walk_blocker", "0xFF must be static walk blocker")
+            require(record.get("source_role") == "outside_vcmd_table", "0xFF must stay outside VCMD table")
             require(int(record.get("affected_observation_count", 0)) == int(summary.get("ff_static_blocker_count", -1)), "FF blocker count mismatch")
         if command == "0xEF":
             require(record.get("affected_kind") == "return_stack_context", "0xEF must be return stack context")
+            require(record.get("source_role") == "source_backed_vcmd", "0xEF must be source-backed")
             require(int(record.get("affected_observation_count", 0)) == int(summary.get("ef_call_edge_count", -1)), "EF edge count mismatch")
+        if command in {"0xFD", "0xFE"}:
+            require(record.get("source_role") == "source_backed_vcmd", f"{command}: must be source-backed")
+            require(record.get("effect_proof_status") == "runtime_effect_pending", f"{command}: effect proof must be pending")
     require(summary.get("command_runtime_read_counts") == dict(sorted(read_counts.items())), "command read counts mismatch")
     require(summary.get("command_reader_pc_counts") == dict(sorted(reader_pc_counts.items())), "reader PC counts mismatch")
 

@@ -18,11 +18,13 @@ if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
 import audio_pack_contracts
+import audio_spc700_source
 import rom_tools
 
 
 DEFAULT_DISPATCH_TRACE = ROOT / "manifests" / "audio-spc700-dispatch-trace-frontier.json"
 DEFAULT_CONTRACT = ROOT / "manifests" / "audio-pack-contracts.json"
+DEFAULT_SOURCE_MAIN = ROOT / "refs" / "earthbound-sounddriver-byte-perfect" / "main.asm"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-spc700-control-reader-frontier.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-spc700-control-reader-frontier.md"
 CONTROL_COMMANDS = ("0x00", "0xEF", "0xFD", "0xFE", "0xFF")
@@ -33,6 +35,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dispatch-trace", default=str(DEFAULT_DISPATCH_TRACE), help="Dispatch trace frontier JSON.")
     parser.add_argument("--contract", default=str(DEFAULT_CONTRACT), help="Audio pack contract JSON.")
     parser.add_argument("--rom", help="Optional explicit EarthBound US ROM path.")
+    parser.add_argument("--source-main", default=str(DEFAULT_SOURCE_MAIN), help="Checked-in byte-perfect sound-driver main.asm.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Manifest output JSON.")
     parser.add_argument("--notes", default=str(DEFAULT_NOTES), help="Markdown note output.")
     return parser.parse_args()
@@ -115,10 +118,25 @@ def collect_reader_records(dispatch_trace: dict[str, Any], payload: bytes, desti
     return records
 
 
-def build_frontier(dispatch_trace: dict[str, Any], contract: dict[str, Any], rom: bytes) -> dict[str, Any]:
+def add_source_reader_labels(records: list[dict[str, Any]], source_main: Path) -> dict[str, str]:
+    labels = audio_spc700_source.parse_source_labels(source_main)
+    source_reader_labels = {
+        audio_spc700_source.hex_word(labels["GetNextByte"].address): "GetNextByte",
+        audio_spc700_source.hex_word(labels["SkipByte"].address): "SkipByte",
+    }
+    for record in records:
+        label = source_reader_labels.get(str(record.get("pc")))
+        if label:
+            record["source_label"] = label
+            record["source_role"] = "source_backed_reader_helper"
+    return source_reader_labels
+
+
+def build_frontier(dispatch_trace: dict[str, Any], contract: dict[str, Any], rom: bytes, source_main: Path) -> dict[str, Any]:
     block, payload = driver_payload(contract, rom)
     destination = parse_hex_int(block["destination"])
     records = collect_reader_records(dispatch_trace, payload, destination)
+    source_reader_labels = add_source_reader_labels(records, source_main)
     command_totals: Counter[str] = Counter()
     for record in records:
         command_totals.update(record["command_counts"])
@@ -141,12 +159,14 @@ def build_frontier(dispatch_trace: dict[str, Any], contract: dict[str, Any], rom
             "reader_pc_count": len(records),
             "control_read_count": sum(int(record["total_control_reads"]) for record in records),
             "command_counts": dict(sorted(command_totals.items())),
+            "source_backed_reader_labels": source_reader_labels,
             "exact_duration_promotion_allowed": False,
             "semantic_status": "reader_paths_known_effects_unpromoted",
         },
         "reader_pcs": records,
         "findings": [
             "Runtime traces now identify concrete SPC700 PCs that read sequence control bytes.",
+            "The checked-in byte-perfect source labels the strongest helper readers as GetNextByte and SkipByte.",
             "The control reader PCs are stronger next targets than the provisional high-command dispatch table for current exact-duration work.",
             "This frontier records offsets, counts, hashes, and sampled register context only; it does not embed ROM-derived driver byte windows.",
         ],
@@ -162,8 +182,9 @@ def build_frontier(dispatch_trace: dict[str, Any], contract: dict[str, Any], rom
 def render_markdown(data: dict[str, Any]) -> str:
     summary = data["summary"]
     rows = [
-        "| `{pc}` | {count} | `{commands}` | `{offset}` | `{first}` | `{sha1}` |".format(
+        "| `{pc}` | `{label}` | {count} | `{commands}` | `{offset}` | `{first}` | `{sha1}` |".format(
             pc=record["pc"],
+            label=record.get("source_label"),
             count=record["total_control_reads"],
             commands=record["command_counts"],
             offset=record["driver_offset"],
@@ -183,13 +204,14 @@ def render_markdown(data: dict[str, Any]) -> str:
             f"- reader PCs: `{summary['reader_pc_count']}`",
             f"- control reads: `{summary['control_read_count']}`",
             f"- command counts: `{summary['command_counts']}`",
+            f"- source-backed reader labels: `{summary['source_backed_reader_labels']}`",
             f"- exact-duration promotion allowed: `{summary['exact_duration_promotion_allowed']}`",
             f"- semantic status: `{summary['semantic_status']}`",
             "",
             "## Reader PCs",
             "",
-            "| PC | Control reads | Commands | Driver offset | First byte | Window SHA-1 |",
-            "| ---: | ---: | --- | ---: | ---: | --- |",
+            "| PC | Source label | Control reads | Commands | Driver offset | First byte | Window SHA-1 |",
+            "| ---: | --- | ---: | --- | ---: | ---: | --- |",
             *rows,
             "",
             "## Findings",
@@ -209,7 +231,7 @@ def main() -> int:
     dispatch_trace = load_json(Path(args.dispatch_trace))
     contract = load_json(Path(args.contract))
     rom = rom_tools.load_rom(rom_tools.find_rom(args.rom))
-    data = build_frontier(dispatch_trace, contract, rom)
+    data = build_frontier(dispatch_trace, contract, rom, Path(args.source_main))
     output = Path(args.output)
     notes = Path(args.notes)
     output.parent.mkdir(parents=True, exist_ok=True)

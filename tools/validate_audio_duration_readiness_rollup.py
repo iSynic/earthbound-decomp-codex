@@ -22,6 +22,9 @@ REQUIRED_REFERENCES = {
     "manifests/audio-nonzero-control-coverage-report.json",
     "manifests/audio-zero-runtime-coverage-report.json",
     "manifests/audio-residual-uncertainty-coverage-report.json",
+    "manifests/audio-zero-ef-return-frontier.json",
+    "manifests/audio-fd-fe-timing-frontier.json",
+    "manifests/audio-spc700-ff-target-review.json",
 }
 REQUIRED_GATES = {
     "public_exact_duration_gate",
@@ -80,6 +83,9 @@ def validate(data: dict[str, Any]) -> None:
     )
     require(int(summary.get("zero_coverage_probe_jobs", 0)) == 19, "expected 19 zero coverage probe jobs")
     require(int(summary.get("zero_runtime_reader_pc_targets", 0)) == 10, "expected 10 zero runtime reader PC targets")
+    require(int(summary.get("zero_ef_frontier_candidate_packs", 0)) == 10, "expected 10 zero/EF frontier packs")
+    require(int(summary.get("fd_fe_frontier_runtime_reads", 0)) == 6, "expected 6 FD/FE runtime reads")
+    require(int(summary.get("ff_review_runtime_reads", 0)) == 10, "expected 10 FF runtime reads")
     require(int(summary.get("residual_uncertainty_records", 0)) == 8, "expected 8 residual uncertainty records")
     require(int(summary.get("residual_public_exact_blocked", -1)) == 2, "expected 2 residual public-exact blockers")
     require(summary.get("release_ready") is False, "release readiness should remain blocked")

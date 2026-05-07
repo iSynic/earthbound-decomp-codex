@@ -20,6 +20,9 @@ DEFAULT_PROBE_CAMPAIGN = ROOT / "manifests" / "audio-probe-campaign-plan.json"
 DEFAULT_NONZERO_COVERAGE = ROOT / "manifests" / "audio-nonzero-control-coverage-report.json"
 DEFAULT_ZERO_COVERAGE = ROOT / "manifests" / "audio-zero-runtime-coverage-report.json"
 DEFAULT_RESIDUAL_COVERAGE = ROOT / "manifests" / "audio-residual-uncertainty-coverage-report.json"
+DEFAULT_ZERO_EF_FRONTIER = ROOT / "manifests" / "audio-zero-ef-return-frontier.json"
+DEFAULT_FD_FE_FRONTIER = ROOT / "manifests" / "audio-fd-fe-timing-frontier.json"
+DEFAULT_FF_REVIEW = ROOT / "manifests" / "audio-spc700-ff-target-review.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "audio-duration-readiness-rollup.json"
 DEFAULT_NOTES = ROOT / "notes" / "audio-duration-readiness-rollup.md"
 
@@ -36,6 +39,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--nonzero-coverage", default=str(DEFAULT_NONZERO_COVERAGE), help="Nonzero control coverage report JSON.")
     parser.add_argument("--zero-coverage", default=str(DEFAULT_ZERO_COVERAGE), help="0x00 runtime coverage report JSON.")
     parser.add_argument("--residual-coverage", default=str(DEFAULT_RESIDUAL_COVERAGE), help="Residual uncertainty coverage report JSON.")
+    parser.add_argument("--zero-ef-frontier", default=str(DEFAULT_ZERO_EF_FRONTIER), help="0x00/EF return frontier JSON.")
+    parser.add_argument("--fd-fe-frontier", default=str(DEFAULT_FD_FE_FRONTIER), help="FD/FE timing frontier JSON.")
+    parser.add_argument("--ff-review", default=str(DEFAULT_FF_REVIEW), help="FF outside-VCMD review JSON.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Rollup JSON output.")
     parser.add_argument("--notes", default=str(DEFAULT_NOTES), help="Rollup markdown output.")
     return parser.parse_args()
@@ -56,6 +62,9 @@ def build_rollup(
     nonzero_coverage: dict[str, Any],
     zero_coverage: dict[str, Any],
     residual_coverage: dict[str, Any],
+    zero_ef_frontier: dict[str, Any],
+    fd_fe_frontier: dict[str, Any],
+    ff_review: dict[str, Any],
 ) -> dict[str, Any]:
     uncertainty_summary = uncertainty.get("summary", {})
     oracle_gates = oracle_report.get("gate_results", {})
@@ -67,6 +76,9 @@ def build_rollup(
     nonzero_summary = nonzero_coverage.get("summary", {})
     zero_summary = zero_coverage.get("summary", {})
     residual_summary = residual_coverage.get("summary", {})
+    zero_ef_summary = zero_ef_frontier.get("summary", {})
+    fd_fe_summary = fd_fe_frontier.get("summary", {})
+    ff_summary = ff_review.get("summary", {})
     public_exact_count = int(uncertainty_summary.get("public_exact_duration_track_count", 0))
     track_count = int(uncertainty_summary.get("track_count", 0))
     primary_counts = uncertainty_summary.get("primary_uncertainty_track_counts", {})
@@ -186,6 +198,9 @@ def build_rollup(
             "manifests/audio-nonzero-control-coverage-report.json",
             "manifests/audio-zero-runtime-coverage-report.json",
             "manifests/audio-residual-uncertainty-coverage-report.json",
+            "manifests/audio-zero-ef-return-frontier.json",
+            "manifests/audio-fd-fe-timing-frontier.json",
+            "manifests/audio-spc700-ff-target-review.json",
         ],
         "summary": {
             "track_count": track_count,
@@ -206,6 +221,9 @@ def build_rollup(
             ),
             "zero_coverage_probe_jobs": int(zero_summary.get("probe_job_count", 0)),
             "zero_runtime_reader_pc_targets": int(zero_summary.get("reader_pc_target_count", 0)),
+            "zero_ef_frontier_candidate_packs": int(zero_ef_summary.get("candidate_pack_count", 0)),
+            "fd_fe_frontier_runtime_reads": int(fd_fe_summary.get("runtime_read_count", 0)),
+            "ff_review_runtime_reads": int(ff_summary.get("ff_runtime_read_count", 0)),
             "residual_uncertainty_records": int(residual_summary.get("record_count", 0)),
             "residual_public_exact_blocked": int(residual_summary.get("public_exact_blocked_count", 0)),
             "release_ready": release_ready,
@@ -221,6 +239,7 @@ def build_rollup(
             "Nonzero control coverage maps representative probe anchors but does not replace imported runtime probe outputs.",
             "Zero runtime coverage maps every current zero blocker to a probe job but still requires imported runtime classifications.",
             "Residual uncertainty coverage keeps PCM-trim public readiness separate from sequence-intent promotion.",
+            "Source-backed zero/EF, FD/FE, and FF frontiers identify proof targets but do not promote exact duration.",
             "Release-quality exact-duration readiness requires public exact duration coverage plus independent oracle and lane-specific runtime evidence.",
         ],
     }
@@ -265,9 +284,12 @@ def render_markdown(data: dict[str, Any]) -> str:
             f"- probe campaign jobs: `{summary['probe_campaign_jobs']}`",
             f"- nonzero coverage probe jobs: `{summary['nonzero_coverage_probe_jobs']}`",
             f"- nonzero blocker tracks without source candidate: `{summary['nonzero_blocker_tracks_without_source_candidate']}`",
-            f"- zero coverage probe jobs: `{summary['zero_coverage_probe_jobs']}`",
-            f"- zero runtime reader PC targets: `{summary['zero_runtime_reader_pc_targets']}`",
-            f"- residual uncertainty records: `{summary['residual_uncertainty_records']}`",
+        f"- zero coverage probe jobs: `{summary['zero_coverage_probe_jobs']}`",
+        f"- zero runtime reader PC targets: `{summary['zero_runtime_reader_pc_targets']}`",
+        f"- zero/EF frontier candidate packs: `{summary['zero_ef_frontier_candidate_packs']}`",
+        f"- FD/FE frontier runtime reads: `{summary['fd_fe_frontier_runtime_reads']}`",
+        f"- FF review runtime reads: `{summary['ff_review_runtime_reads']}`",
+        f"- residual uncertainty records: `{summary['residual_uncertainty_records']}`",
             f"- residual public exact blocked: `{summary['residual_public_exact_blocked']}`",
             f"- release ready: `{summary['release_ready']}`",
             "",
@@ -310,6 +332,9 @@ def main() -> int:
         load_json(Path(args.nonzero_coverage)),
         load_json(Path(args.zero_coverage)),
         load_json(Path(args.residual_coverage)),
+        load_json(Path(args.zero_ef_frontier)),
+        load_json(Path(args.fd_fe_frontier)),
+        load_json(Path(args.ff_review)),
     )
     output = Path(args.output)
     notes = Path(args.notes)

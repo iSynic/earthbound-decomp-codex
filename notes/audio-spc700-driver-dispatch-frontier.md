@@ -7,6 +7,8 @@ Status: byte-perfect source-backed VCMD labels are known; FF runtime effect stil
 - driver block: pack `1` block `2` at `0x0500`, `16779` bytes
 - source-backed VCMD table: `0x0BE3`
 - source-backed arg-length table: `0x0C21`
+- source-backed reader labels: `GetNextByte=0x0955`, `SkipByte=0x0957`
+- RAM aliases parsed: `63`
 - source-backed command range: `0xE0..0xFE`
 - unresolved control bytes: `['0x00', '0xFF']`
 - semantic status: `source_backed_vcmd_labels_known_ff_reader_effect_unconfirmed`
@@ -15,6 +17,8 @@ Status: byte-perfect source-backed VCMD labels are known; FF runtime effect stil
 
 - `VCMD_Jump_Table`: `0x0BE3`
 - `VCMD_Arg_Length`: `0x0C21`
+- `GetNextByte`: `0x0955`
+- `SkipByte`: `0x0957`
 - commands `0xE0..0xFE` now come from checked-in source labels, not static table guesses
 - `0xFF` remains outside the source-backed VCMD table and still needs reader-path classification
 

@@ -80,8 +80,11 @@ This contract keeps ares, snes_spc, and optional reference renderers outside the
 - audio sequence walk frontier: `python tools/build_audio_sequence_walk_frontier.py` then `python tools/validate_audio_sequence_walk_frontier.py`.
 - audio exact-duration triage: `python tools/build_audio_exact_duration_triage.py` then `python tools/validate_audio_exact_duration_triage.py`.
 - audio FF terminator review: `python tools/build_audio_ff_terminator_review.py` then `python tools/validate_audio_ff_terminator_review.py`.
+- audio SPC700 source ingest: `python tools/build_audio_spc700_sounddriver_source_ingest.py` then `python tools/validate_audio_spc700_sounddriver_source_ingest.py`.
 - audio SPC700 driver dispatch frontier: `python tools/build_audio_spc700_driver_dispatch_frontier.py` then `python tools/validate_audio_spc700_driver_dispatch_frontier.py`.
 - audio SPC700 FF target review: `python tools/build_audio_spc700_ff_target_review.py` then `python tools/validate_audio_spc700_ff_target_review.py`.
+- audio FD/FE timing frontier: `python tools/build_audio_fd_fe_timing_frontier.py` then `python tools/validate_audio_fd_fe_timing_frontier.py`.
+- audio 0x00/EF return frontier: `python tools/build_audio_zero_ef_return_frontier.py` then `python tools/validate_audio_zero_ef_return_frontier.py`.
 - audio SPC700 dispatch trace frontier: `python tools/build_audio_spc700_dispatch_trace_frontier.py` then `python tools/validate_audio_spc700_dispatch_trace_frontier.py`.
 - eb-decompile audio reference alignment: `python tools/build_audio_ebdecompile_ref_alignment.py` then `python tools/validate_audio_ebdecompile_ref_alignment.py`.
 - audio oracle comparison plan: `python tools/build_audio_oracle_comparison_plan.py` then `python tools/validate_audio_oracle_comparison_plan.py`.

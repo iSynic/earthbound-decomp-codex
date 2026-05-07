@@ -23,6 +23,10 @@
       "0xFE": 5,
       "0xFF": 10
     },
+    "source_backed_reader_labels": {
+      "0x0955": "GetNextByte",
+      "0x0957": "SkipByte"
+    },
     "exact_duration_promotion_allowed": false,
     "semantic_status": "reader_paths_known_effects_unpromoted"
   },
@@ -873,7 +877,9 @@
             "dp_12_13": "0x00C0"
           }
         }
-      ]
+      ],
+      "source_label": "SkipByte",
+      "source_role": "source_backed_reader_helper"
     },
     {
       "pc": "0x0847",
@@ -1352,6 +1358,7 @@
   ],
   "findings": [
     "Runtime traces now identify concrete SPC700 PCs that read sequence control bytes.",
+    "The checked-in byte-perfect source labels the strongest helper readers as GetNextByte and SkipByte.",
     "The control reader PCs are stronger next targets than the provisional high-command dispatch table for current exact-duration work.",
     "This frontier records offsets, counts, hashes, and sampled register context only; it does not embed ROM-derived driver byte windows."
   ],

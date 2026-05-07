@@ -18,6 +18,9 @@ Status: exact-duration readiness remains blocked; current playback/export behavi
 - nonzero blocker tracks without source candidate: `146`
 - zero coverage probe jobs: `19`
 - zero runtime reader PC targets: `10`
+- zero/EF frontier candidate packs: `10`
+- FD/FE frontier runtime reads: `6`
+- FF review runtime reads: `10`
 - residual uncertainty records: `8`
 - residual public exact blocked: `2`
 - release ready: `False`
@@ -55,6 +58,7 @@ Status: exact-duration readiness remains blocked; current playback/export behavi
 - Nonzero control coverage maps representative probe anchors but does not replace imported runtime probe outputs.
 - Zero runtime coverage maps every current zero blocker to a probe job but still requires imported runtime classifications.
 - Residual uncertainty coverage keeps PCM-trim public readiness separate from sequence-intent promotion.
+- Source-backed zero/EF, FD/FE, and FF frontiers identify proof targets but do not promote exact duration.
 - Release-quality exact-duration readiness requires public exact duration coverage plus independent oracle and lane-specific runtime evidence.
 
 ## Remaining Uncertainty

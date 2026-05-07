@@ -103,6 +103,12 @@ def command_frontier_records(
             {
                 "command": command,
                 "hypothesis": semantic.get("hypothesis"),
+                "source_label": semantic.get("source_label"),
+                "source_target": semantic.get("source_target"),
+                "arg_length": semantic.get("arg_length"),
+                "source_role": semantic.get("source_role"),
+                "effect_proof_status": semantic.get("effect_proof_status"),
+                "duration_promotion_status": semantic.get("duration_promotion_status"),
                 "semantic_status": semantic.get("semantic_status"),
                 "exact_duration_promotion_allowed": bool(semantic.get("exact_duration_promotion_allowed")),
                 "static_dispatch_target": semantic.get("static_dispatch_target"),
