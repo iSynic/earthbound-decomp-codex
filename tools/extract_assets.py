@@ -198,6 +198,1881 @@ def write_snes_palette_json(data: bytes, path: Path, spec: dict[str, Any]) -> in
     return len(entries)
 
 
+def write_map_tile_chunk_index_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    if len(data) % 2 != 0:
+        raise ValueError(f"Map tile chunk data must have an even byte count, got {len(data)}")
+    chunk_index = int(spec["chunk_index"])
+    values = [data[offset] | (data[offset + 1] << 8) for offset in range(0, len(data), 2)]
+    distinct_values = len(set(values))
+    payload = {
+        "schema": "earthbound-decomp.map-tile-chunk-index.v1",
+        "decoder": "map_tile_chunk_index",
+        "chunk_index": chunk_index,
+        "byte_order": "little",
+        "entry_size_bytes": 2,
+        "source_bytes": len(data),
+        "entry_count": len(values),
+        "min_tile_id": min(values) if values else 0,
+        "max_tile_id": max(values) if values else 0,
+        "distinct_tile_ids": distinct_values,
+        "tile_ids": values,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "chunk_index": chunk_index,
+        "entry_count": len(values),
+        "min_tile_id": payload["min_tile_id"],
+        "max_tile_id": payload["max_tile_id"],
+        "distinct_tile_ids": distinct_values,
+    }
+
+
+MAP_SECTOR_MUSIC_TABLE_START = 0xD637
+MAP_SECTOR_MUSIC_COLUMN_COUNT = 80
+MAP_SECTOR_MUSIC_ROW_COUNT = 32
+MAP_SECTOR_MUSIC_EXPECTED_BYTES = MAP_SECTOR_MUSIC_COLUMN_COUNT * MAP_SECTOR_MUSIC_ROW_COUNT
+
+MAP_GLOBAL_TILESET_PALETTE_TABLE_START = 0xA800
+MAP_GLOBAL_TILESET_PALETTE_COLUMN_COUNT = 80
+MAP_GLOBAL_TILESET_PALETTE_ROW_COUNT = 32
+MAP_GLOBAL_TILESET_PALETTE_CONTEXT_BYTES = (
+    MAP_GLOBAL_TILESET_PALETTE_COLUMN_COUNT * MAP_GLOBAL_TILESET_PALETTE_ROW_COUNT
+)
+MAP_GLOBAL_TILESET_PALETTE_ATTRIBUTE_BYTES = MAP_GLOBAL_TILESET_PALETTE_CONTEXT_BYTES * 2
+MAP_GLOBAL_TILESET_PALETTE_EXPECTED_BYTES = (
+    MAP_GLOBAL_TILESET_PALETTE_CONTEXT_BYTES + MAP_GLOBAL_TILESET_PALETTE_ATTRIBUTE_BYTES
+)
+
+MAP_PALETTE_POINTER_TABLE_START = 0xFAA7
+MAP_PALETTE_POINTER_ENTRY_COUNT = 32
+MAP_PALETTE_POINTER_ENTRY_SIZE = 3
+MAP_PALETTE_POINTER_EXPECTED_BYTES = MAP_PALETTE_POINTER_ENTRY_COUNT * MAP_PALETTE_POINTER_ENTRY_SIZE
+MAP_PALETTE_VARIANT_BYTES = 192
+
+
+def dc_table_range(table_start: int, offset: int, size: int) -> str:
+    start = table_start + offset
+    end = start + size
+    return f"DC:{start:04X}..DC:{end:04X}"
+
+
+def da_table_range(table_start: int, offset: int, size: int) -> str:
+    start = table_start + offset
+    end = start + size
+    return f"DA:{start:04X}..DA:{end:04X}"
+
+
+def d7_table_range(table_start: int, offset: int, size: int) -> str:
+    start = table_start + offset
+    end = start + size
+    return f"D7:{start:04X}..D7:{end:04X}"
+
+
+def write_map_sector_music_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    column_count = int(spec["column_count"])
+    row_count = int(spec["row_count"])
+    if column_count != MAP_SECTOR_MUSIC_COLUMN_COUNT:
+        raise ValueError(f"Map sector music column_count must be 80, got {column_count}")
+    if row_count != MAP_SECTOR_MUSIC_ROW_COUNT:
+        raise ValueError(f"Map sector music row_count must be 32, got {row_count}")
+    if len(data) != MAP_SECTOR_MUSIC_EXPECTED_BYTES:
+        raise ValueError(
+            f"Map sector music table expected {MAP_SECTOR_MUSIC_EXPECTED_BYTES} bytes, got {len(data)}"
+        )
+
+    values = list(data)
+    distinct_values = sorted(set(values))
+    sectors = []
+    columns = []
+    for sector_x in range(column_count):
+        column_entries = []
+        for sector_y in range(row_count):
+            offset = sector_x * row_count + sector_y
+            entry_id = data[offset]
+            entry = {
+                "sector_x": sector_x,
+                "sector_y": sector_y,
+                "table_index": offset,
+                "range": dc_table_range(MAP_SECTOR_MUSIC_TABLE_START, offset, 1),
+                "destination_music_row_id": entry_id,
+            }
+            sectors.append(entry)
+            column_entries.append(entry_id)
+        columns.append(
+            {
+                "sector_x": sector_x,
+                "range": dc_table_range(MAP_SECTOR_MUSIC_TABLE_START, sector_x * row_count, row_count),
+                "entries": column_entries,
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.map-sector-music-table.v1",
+        "decoder": "map_sector_music_table",
+        "byte_order": "byte",
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "column_count": column_count,
+        "row_count": row_count,
+        "sector_count": len(values),
+        "index_formula": "table_index = sector_x * 32 + sector_y",
+        "consumer_evidence": [
+            "C0:68F4 divides the world X coordinate by 0x80, combines it with the Y high byte, and loads DCD637[sector_x * 32 + sector_y].",
+            "The loaded byte selects a CF door/destination music row; C0:68F4 then reads that row's +2 music-track byte into $5DD6.",
+        ],
+        "distinct_entry_count": len(distinct_values),
+        "min_entry_id": min(values),
+        "max_entry_id": max(values),
+        "distinct_entry_ids": distinct_values,
+        "columns": columns,
+        "sectors": sectors,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "sector_count": len(values),
+        "distinct_entry_count": len(distinct_values),
+        "min_entry_id": min(values),
+        "max_entry_id": max(values),
+    }
+
+
+def write_map_global_tileset_palette_data_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    column_count = int(spec["column_count"])
+    row_count = int(spec["row_count"])
+    attribute_word_table_offset = int(spec["attribute_word_table_offset"])
+    if column_count != MAP_GLOBAL_TILESET_PALETTE_COLUMN_COUNT:
+        raise ValueError(f"Map global tileset/palette column_count must be 80, got {column_count}")
+    if row_count != MAP_GLOBAL_TILESET_PALETTE_ROW_COUNT:
+        raise ValueError(f"Map global tileset/palette row_count must be 32, got {row_count}")
+    if attribute_word_table_offset != MAP_GLOBAL_TILESET_PALETTE_CONTEXT_BYTES:
+        raise ValueError(
+            "Map global tileset/palette attribute_word_table_offset must be "
+            f"{MAP_GLOBAL_TILESET_PALETTE_CONTEXT_BYTES}, got {attribute_word_table_offset}"
+        )
+    if len(data) != MAP_GLOBAL_TILESET_PALETTE_EXPECTED_BYTES:
+        raise ValueError(
+            "Map global tileset/palette data expected "
+            f"{MAP_GLOBAL_TILESET_PALETTE_EXPECTED_BYTES} bytes, got {len(data)}"
+        )
+
+    context_bytes = data[:attribute_word_table_offset]
+    attribute_bytes = data[attribute_word_table_offset:]
+    attribute_words = [
+        attribute_bytes[offset] | (attribute_bytes[offset + 1] << 8)
+        for offset in range(0, len(attribute_bytes), 2)
+    ]
+
+    entries = []
+    columns = []
+    for sector_x in range(column_count):
+        column_context_bytes = []
+        column_group_ids = []
+        column_palette_variant_ids = []
+        column_attribute_words = []
+        for sector_y in range(row_count):
+            table_index = sector_x * row_count + sector_y
+            context_byte = context_bytes[table_index]
+            group_id = context_byte >> 3
+            palette_variant_id = context_byte & 0x07
+            attribute_word = attribute_words[table_index]
+            column_context_bytes.append(context_byte)
+            column_group_ids.append(group_id)
+            column_palette_variant_ids.append(palette_variant_id)
+            column_attribute_words.append(attribute_word)
+            entries.append(
+                {
+                    "sector_x": sector_x,
+                    "sector_y": sector_y,
+                    "table_index": table_index,
+                    "context_byte_range": d7_table_range(
+                        MAP_GLOBAL_TILESET_PALETTE_TABLE_START,
+                        table_index,
+                        1,
+                    ),
+                    "context_byte": context_byte,
+                    "tileset_palette_group_id": group_id,
+                    "palette_variant_id": palette_variant_id,
+                    "attribute_word_range": d7_table_range(
+                        MAP_GLOBAL_TILESET_PALETTE_TABLE_START,
+                        attribute_word_table_offset + table_index * 2,
+                        2,
+                    ),
+                    "sector_attribute_word": attribute_word,
+                    "sector_attribute_low3": attribute_word & 0x0007,
+                    "raw_attribute_bytes": [
+                        attribute_bytes[table_index * 2],
+                        attribute_bytes[table_index * 2 + 1],
+                    ],
+                }
+            )
+        columns.append(
+            {
+                "sector_x": sector_x,
+                "context_byte_range": d7_table_range(
+                    MAP_GLOBAL_TILESET_PALETTE_TABLE_START,
+                    sector_x * row_count,
+                    row_count,
+                ),
+                "attribute_word_range": d7_table_range(
+                    MAP_GLOBAL_TILESET_PALETTE_TABLE_START,
+                    attribute_word_table_offset + sector_x * row_count * 2,
+                    row_count * 2,
+                ),
+                "context_bytes": column_context_bytes,
+                "tileset_palette_group_ids": column_group_ids,
+                "palette_variant_ids": column_palette_variant_ids,
+                "sector_attribute_words": column_attribute_words,
+            }
+        )
+
+    distinct_context_bytes = sorted(set(context_bytes))
+    distinct_group_ids = sorted({value >> 3 for value in context_bytes})
+    distinct_palette_variant_ids = sorted({value & 0x07 for value in context_bytes})
+    distinct_attribute_words = sorted(set(attribute_words))
+    payload = {
+        "schema": "earthbound-decomp.map-global-tileset-palette-data.v1",
+        "decoder": "map_global_tileset_palette_data",
+        "byte_order": "context bytes plus little-endian attribute words",
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "column_count": column_count,
+        "row_count": row_count,
+        "sector_count": len(context_bytes),
+        "index_formula": "table_index = sector_x * 32 + sector_y",
+        "table_layout": {
+            "context_byte_table": {
+                "range": "D7:A800..D7:B200",
+                "bytes": len(context_bytes),
+                "entry_size_bytes": 1,
+                "fields": {
+                    "tileset_palette_group_id": "context_byte >> 3",
+                    "palette_variant_id": "context_byte & 0x07",
+                },
+            },
+            "sector_attribute_word_table": {
+                "range": "D7:B200..D7:C600",
+                "bytes": len(attribute_bytes),
+                "entry_size_bytes": 2,
+                "fields": {
+                    "sector_attribute_word": "little-endian word",
+                    "sector_attribute_low3": "sector_attribute_word & 0x0007",
+                },
+            },
+        },
+        "consumer_evidence": [
+            "C0:0AC5 and C0:0BDC compare D7:A800[sector_x * 32 + sector_y] >> 3 with the active map group before loading movement strips.",
+            "C0:08CF uses the same context byte; the high bits select the EF:101B landing profile and the low three bits are retained as the landing variant.",
+            "C0:0AA1 stores D7:B200[sector_x * 32 + sector_y] as the current position cell context word.",
+            "C0:2668 reads D7:B200[sector_x * 32 + sector_y] & 7 as spawn-probe gating data and also gates entity candidate lists with D7:A800 high bits.",
+        ],
+        "distinct_context_byte_count": len(distinct_context_bytes),
+        "distinct_context_bytes": distinct_context_bytes,
+        "distinct_group_count": len(distinct_group_ids),
+        "distinct_tileset_palette_group_ids": distinct_group_ids,
+        "max_group_id": max(distinct_group_ids),
+        "distinct_palette_variant_count": len(distinct_palette_variant_ids),
+        "distinct_palette_variant_ids": distinct_palette_variant_ids,
+        "distinct_attribute_word_count": len(distinct_attribute_words),
+        "nonzero_attribute_word_count": sum(1 for value in attribute_words if value),
+        "columns": columns,
+        "entries": entries,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "sector_count": len(context_bytes),
+        "distinct_context_byte_count": len(distinct_context_bytes),
+        "distinct_group_count": len(distinct_group_ids),
+        "distinct_palette_variant_count": len(distinct_palette_variant_ids),
+        "distinct_attribute_word_count": len(distinct_attribute_words),
+        "nonzero_attribute_word_count": payload["nonzero_attribute_word_count"],
+        "max_group_id": max(distinct_group_ids),
+    }
+
+
+def write_map_palette_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    entry_count = int(spec["entry_count"])
+    pointer_bank = int(spec["pointer_bank"])
+    if entry_count != MAP_PALETTE_POINTER_ENTRY_COUNT:
+        raise ValueError(f"Map palette pointer table entry_count must be 32, got {entry_count}")
+    if pointer_bank != 0xDA:
+        raise ValueError(f"Map palette pointer table pointer_bank must be 0xDA, got 0x{pointer_bank:02X}")
+    if len(data) != MAP_PALETTE_POINTER_EXPECTED_BYTES:
+        raise ValueError(
+            "Map palette pointer table expected "
+            f"{MAP_PALETTE_POINTER_EXPECTED_BYTES} bytes, got {len(data)}"
+        )
+
+    entries = []
+    packed_pointers = []
+    target_banks = set()
+    sequential_palette_id_count = 0
+    for palette_id in range(entry_count):
+        offset = palette_id * MAP_PALETTE_POINTER_ENTRY_SIZE
+        packed_pointer = read_u24_le(data, offset)
+        bank = packed_pointer >> 16
+        low_word = packed_pointer & 0xFFFF
+        packed_pointers.append(packed_pointer)
+        target_banks.add(bank)
+        if palette_id == len(entries):
+            sequential_palette_id_count += 1
+        entries.append(
+            {
+                "palette_id": palette_id,
+                "range": da_table_range(MAP_PALETTE_POINTER_TABLE_START, offset, MAP_PALETTE_POINTER_ENTRY_SIZE),
+                "target": f"{bank:02X}:{low_word:04X}",
+                "target_bank": bank,
+                "target_offset_in_bank": low_word,
+                "packed_pointer": packed_pointer,
+                "expected_asset_title": f"MAP_DATA_PALETTE_{palette_id}",
+                "expected_palette_variant_size_bytes": MAP_PALETTE_VARIANT_BYTES,
+                "raw_bytes": list(data[offset : offset + MAP_PALETTE_POINTER_ENTRY_SIZE]),
+            }
+        )
+    if target_banks != {pointer_bank}:
+        actual = ", ".join(f"0x{bank:02X}" for bank in sorted(target_banks))
+        raise ValueError(f"Map palette pointer table expected only bank 0x{pointer_bank:02X}, got {actual}")
+
+    payload = {
+        "schema": "earthbound-decomp.map-palette-pointer-table.v1",
+        "decoder": "map_palette_pointer_table",
+        "byte_order": "little",
+        "entry_size_bytes": MAP_PALETTE_POINTER_ENTRY_SIZE,
+        "entry_count": entry_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "pointer_bank": pointer_bank,
+        "target_banks": [f"{bank:02X}" for bank in sorted(target_banks)],
+        "distinct_target_banks": len(target_banks),
+        "min_pointer": min(packed_pointers),
+        "max_pointer": max(packed_pointers),
+        "distinct_pointers": len(set(packed_pointers)),
+        "sequential_palette_id_count": sequential_palette_id_count,
+        "consumer_contract": "notes/map-palette-pointer-table-contract.md",
+        "interpretation_boundary": (
+            "Entries identify MAP_DATA_PALETTE_N payload starts. Palette variant "
+            "selection and subpalette role semantics remain covered by the map "
+            "palette contracts."
+        ),
+        "entries": entries,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "entry_count": entry_count,
+        "pointer_bank": pointer_bank,
+        "distinct_pointers": len(set(packed_pointers)),
+        "distinct_target_banks": len(target_banks),
+        "sequential_palette_id_count": sequential_palette_id_count,
+    }
+
+
+def write_battle_swirl_frame_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    if not data:
+        raise ValueError("Battle swirl frame metadata requires a non-empty payload")
+    swirl_id = int(spec["swirl_id"])
+    sequence_id = int(spec["sequence_id"])
+    sequence_frame_index = int(spec["sequence_frame_index"])
+    sequence_speed = int(spec["sequence_speed"])
+    sequence_frame_count = int(spec["sequence_frame_count"])
+    if sequence_frame_index < 0 or sequence_frame_index >= sequence_frame_count:
+        raise ValueError(
+            "Battle swirl sequence frame index must be within the sequence frame count: "
+            f"{sequence_frame_index}/{sequence_frame_count}"
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.battle-swirl-frame-metadata.v1",
+        "decoder": "battle_swirl_frame_metadata",
+        "bytecode_status": "raw-preserved",
+        "swirl_id": swirl_id,
+        "sequence_id": sequence_id,
+        "sequence_frame_index": sequence_frame_index,
+        "sequence_speed": sequence_speed,
+        "sequence_frame_count": sequence_frame_count,
+        "source_bytes": len(data),
+        "first_opcode": data[0],
+        "last_byte": data[-1],
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "swirl_id": swirl_id,
+        "sequence_id": sequence_id,
+        "sequence_frame_index": sequence_frame_index,
+        "sequence_speed": sequence_speed,
+        "sequence_frame_count": sequence_frame_count,
+        "payload_bytes": len(data),
+        "first_opcode": data[0],
+    }
+
+
+def write_battle_swirl_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    entry_count = int(spec["entry_count"])
+    pointer_bank = int(spec["pointer_bank"])
+    expected_bytes = entry_count * 2
+    if entry_count <= 0:
+        raise ValueError(f"Battle swirl pointer table entry_count must be positive, got {entry_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle swirl pointer table expected {expected_bytes} bytes, got {len(data)}")
+
+    values = [data[offset] | (data[offset + 1] << 8) for offset in range(0, len(data), 2)]
+    payload = {
+        "schema": "earthbound-decomp.battle-swirl-pointer-table.v1",
+        "decoder": "battle_swirl_pointer_table",
+        "byte_order": "little",
+        "pointer_bank": pointer_bank,
+        "entry_size_bytes": 2,
+        "entry_count": entry_count,
+        "min_pointer": min(values),
+        "max_pointer": max(values),
+        "distinct_pointers": len(set(values)),
+        "pointers": [
+            {
+                "swirl_id": index,
+                "address": f"{pointer_bank:02X}:{value:04X}",
+                "offset_in_bank": value,
+            }
+            for index, value in enumerate(values)
+        ],
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "entry_count": entry_count,
+        "pointer_bank": pointer_bank,
+        "min_pointer": payload["min_pointer"],
+        "max_pointer": payload["max_pointer"],
+        "distinct_pointers": payload["distinct_pointers"],
+    }
+
+
+def write_battle_swirl_sequence_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    expected_bytes = row_count * 4
+    if row_count <= 0:
+        raise ValueError(f"Battle swirl sequence table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle swirl sequence table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    visible_sequence_count = 0
+    total_frame_count = 0
+    max_sequence_speed = 0
+    for offset in range(0, len(data), 4):
+        sequence_id = offset // 4
+        speed, first_payload_index, frame_count, reserved_zero = data[offset : offset + 4]
+        if frame_count:
+            visible_sequence_count += 1
+            total_frame_count += frame_count
+            max_sequence_speed = max(max_sequence_speed, speed)
+        rows.append(
+            {
+                "sequence_id": sequence_id,
+                "speed": speed,
+                "first_payload_index": first_payload_index,
+                "frame_count": frame_count,
+                "reserved_zero": reserved_zero,
+                "last_payload_index": first_payload_index + frame_count - 1 if frame_count else None,
+                "status": "visible" if frame_count else "disabled",
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.battle-swirl-sequence-table.v1",
+        "decoder": "battle_swirl_sequence_table",
+        "row_size_bytes": 4,
+        "row_count": row_count,
+        "visible_sequence_count": visible_sequence_count,
+        "total_frame_count": total_frame_count,
+        "max_sequence_speed": max_sequence_speed,
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "visible_sequence_count": visible_sequence_count,
+        "total_frame_count": total_frame_count,
+        "max_sequence_speed": max_sequence_speed,
+    }
+
+
+def write_battle_bg_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    entry_count = int(spec["entry_count"])
+    table_id = int(spec["table_id"])
+    table_role = str(spec["table_role"])
+    expected_bytes = entry_count * 4
+    if entry_count <= 0:
+        raise ValueError(f"Battle background pointer table entry_count must be positive, got {entry_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle background pointer table expected {expected_bytes} bytes, got {len(data)}")
+
+    entries = []
+    packed_pointers = []
+    target_banks = set()
+    for offset in range(0, len(data), 4):
+        low_word = data[offset] | (data[offset + 1] << 8)
+        bank = data[offset + 2]
+        padding = data[offset + 3]
+        if padding != 0:
+            raise ValueError(
+                "Battle background pointer table expected zero in fourth byte "
+                f"for row {offset // 4}, got 0x{padding:02X}"
+            )
+        packed_pointer = (bank << 16) | low_word
+        packed_pointers.append(packed_pointer)
+        target_banks.add(bank)
+        entries.append(
+            {
+                "index": offset // 4,
+                "address": f"{bank:02X}:{low_word:04X}",
+                "bank": bank,
+                "offset_in_bank": low_word,
+                "packed_pointer": packed_pointer,
+                "raw_bytes": list(data[offset : offset + 4]),
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.battle-bg-pointer-table.v1",
+        "decoder": "battle_background_pointer_table",
+        "byte_order": "little",
+        "table_id": table_id,
+        "table_role": table_role,
+        "entry_size_bytes": 4,
+        "entry_count": entry_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "zero_padding_byte": True,
+        "min_pointer": min(packed_pointers),
+        "max_pointer": max(packed_pointers),
+        "distinct_pointers": len(set(packed_pointers)),
+        "distinct_banks": len(target_banks),
+        "target_banks": [f"{bank:02X}" for bank in sorted(target_banks)],
+        "entries": entries,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "entry_count": entry_count,
+        "min_pointer": payload["min_pointer"],
+        "max_pointer": payload["max_pointer"],
+        "distinct_pointers": payload["distinct_pointers"],
+        "distinct_banks": payload["distinct_banks"],
+    }
+
+
+def read_u16_le(data: bytes, offset: int) -> int:
+    return data[offset] | (data[offset + 1] << 8)
+
+
+def read_u24_le(data: bytes, offset: int) -> int:
+    return data[offset] | (data[offset + 1] << 8) | (data[offset + 2] << 16)
+
+
+def read_s16_le(data: bytes, offset: int) -> int:
+    value = read_u16_le(data, offset)
+    return value - 0x10000 if value & 0x8000 else value
+
+
+def read_s8(value: int) -> int:
+    return value - 0x100 if value & 0x80 else value
+
+
+PSI_ANIM_TARGET_MODES = {
+    0: "current_enemy_centered",
+    1: "same_enemy_row",
+    2: "all_enemies_fixed_y",
+    3: "current_enemy_centered_alt",
+}
+
+ANIMATION_SEQUENCE_LABELS = [
+    "NULL",
+    "ANIMATIONDATA_CARPAINTER_LIGHTNING_REFLECT",
+    "ANIMATIONDATA_CARPAINTER_LIGHTNING_STRIKE",
+    "ANIMATIONDATA_STARMAN_JR_TELEPORT",
+    "ANIMATIONDATA_BOOM",
+    "ANIMATIONDATA_ZOMBIES",
+    "ANIMATIONDATA_THE_END",
+]
+
+TEXT_WINDOW_FLAVOR_NAMES = [
+    "Plain flavor",
+    "Mint flavor",
+    "Strawberry flavor",
+    "Banana flavor",
+    "Peanut flavor",
+]
+
+TEXT_WINDOW_TABLE_START = 0x1FB9
+TEXT_WINDOW_SELECTOR_OFFSET = 0x0000
+TEXT_WINDOW_SELECTOR_BYTES = 0x000F
+TEXT_WINDOW_PALETTE_BLOCK_OFFSET = 0x000F
+TEXT_WINDOW_PALETTE_BLOCK_SIZE = 0x0040
+TEXT_WINDOW_PALETTE_BLOCK_COUNT = 7
+TEXT_WINDOW_MOVEMENT_PALETTE_OFFSET = (
+    TEXT_WINDOW_PALETTE_BLOCK_OFFSET + TEXT_WINDOW_PALETTE_BLOCK_SIZE * TEXT_WINDOW_PALETTE_BLOCK_COUNT
+)
+TEXT_WINDOW_MOVEMENT_PALETTE_BYTES = 0x0008
+TEXT_WINDOW_TOWN_MAP_POINTER_OFFSET = TEXT_WINDOW_MOVEMENT_PALETTE_OFFSET + TEXT_WINDOW_MOVEMENT_PALETTE_BYTES
+TEXT_WINDOW_TOWN_MAP_POINTER_BYTES = 0x0018
+TEXT_WINDOW_EXPECTED_BYTES = TEXT_WINDOW_TOWN_MAP_POINTER_OFFSET + TEXT_WINDOW_TOWN_MAP_POINTER_BYTES
+
+TOWN_MAP_ICON_TABLE_START = 0xF203
+TOWN_MAP_ICON_DESCRIPTOR_OFFSET = 0x0000
+TOWN_MAP_ICON_DESCRIPTOR_BYTES = 0x0249
+TOWN_MAP_ICON_POINTER_OFFSET = 0x0249
+TOWN_MAP_ICON_POINTER_BYTES = 0x002E
+TOWN_MAP_BLINK_SUPPRESS_OFFSET = 0x0277
+TOWN_MAP_BLINK_SUPPRESS_BYTES = 0x0017
+TOWN_MAP_PLACEMENT_POINTER_OFFSET = 0x028E
+TOWN_MAP_PLACEMENT_POINTER_BYTES = 0x0018
+TOWN_MAP_PLACEMENT_RECORD_OFFSET = 0x02A6
+TOWN_MAP_PLACEMENT_RECORD_BYTES = 0x00D8
+TOWN_MAP_ICON_EXPECTED_BYTES = TOWN_MAP_PLACEMENT_RECORD_OFFSET + TOWN_MAP_PLACEMENT_RECORD_BYTES
+
+PHOTOGRAPHER_CONFIG_TABLE_START = 0x2F8A
+PHOTOGRAPHER_CONFIG_RECORD_COUNT = 0x20
+PHOTOGRAPHER_CONFIG_RECORD_SIZE = 0x3E
+PHOTOGRAPHER_CONFIG_EXPECTED_BYTES = PHOTOGRAPHER_CONFIG_RECORD_COUNT * PHOTOGRAPHER_CONFIG_RECORD_SIZE
+PHOTOGRAPHER_VISUAL_POSITION_OFFSET = 0x0E
+PHOTOGRAPHER_VISUAL_POSITION_COUNT = 6
+PHOTOGRAPHER_VISUAL_POSITION_SIZE = 4
+PHOTOGRAPHER_SPAWNED_ENTITY_OFFSET = 0x26
+PHOTOGRAPHER_SPAWNED_ENTITY_COUNT = 4
+PHOTOGRAPHER_SPAWNED_ENTITY_SIZE = 6
+
+
+def bgr555_components(raw: int) -> dict[str, int]:
+    return {
+        "raw": raw,
+        "red": raw & 0x1F,
+        "green": (raw >> 5) & 0x1F,
+        "blue": (raw >> 10) & 0x1F,
+    }
+
+
+def snes_color_hex(raw: int) -> str:
+    color = bgr555_components(raw)
+    red = int(color["red"])
+    green = int(color["green"])
+    blue = int(color["blue"])
+    return f"#{(red << 3) | (red >> 2):02X}{(green << 3) | (green >> 2):02X}{(blue << 3) | (blue >> 2):02X}"
+
+
+def text_window_table_range(offset: int, size: int) -> str:
+    start = TEXT_WINDOW_TABLE_START + offset
+    end = start + size
+    return f"E0:{start:04X}..E0:{end:04X}"
+
+
+def e1_table_range(table_start: int, offset: int, size: int) -> str:
+    start = table_start + offset
+    end = start + size
+    return f"E1:{start:04X}..E1:{end:04X}"
+
+
+def text_window_palette_row(data: bytes, offset: int) -> list[dict[str, Any]]:
+    colors = []
+    for index in range(4):
+        raw = read_u16_le(data, offset + index * 2)
+        colors.append(
+            {
+                **bgr555_components(raw),
+                "snes": f"${raw:04X}",
+                "rgb888": snes_color_hex(raw),
+            }
+        )
+    return colors
+
+
+def read_long_pointer_row(data: bytes, offset: int, table_name: str) -> dict[str, Any]:
+    low_word = read_u16_le(data, offset)
+    bank = data[offset + 2]
+    padding = data[offset + 3]
+    if padding != 0:
+        raise ValueError(
+            f"{table_name} expected zero in fourth byte for row {offset // 4}, got 0x{padding:02X}"
+        )
+    if low_word == 0 and bank == 0:
+        return {
+            "address": None,
+            "bank": None,
+            "offset_in_bank": None,
+            "packed_pointer": 0,
+            "raw_bytes": list(data[offset : offset + 4]),
+        }
+    return {
+        "address": f"{bank:02X}:{low_word:04X}",
+        "bank": bank,
+        "offset_in_bank": low_word,
+        "packed_pointer": (bank << 16) | low_word,
+        "raw_bytes": list(data[offset : offset + 4]),
+    }
+
+
+def write_text_window_properties_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    selector_count = int(spec["selector_count"])
+    palette_block_count = int(spec["palette_block_count"])
+    town_map_pointer_count = int(spec["town_map_pointer_count"])
+    if selector_count != 5:
+        raise ValueError(f"Text-window selector_count must be 5, got {selector_count}")
+    if palette_block_count != TEXT_WINDOW_PALETTE_BLOCK_COUNT:
+        raise ValueError(
+            f"Text-window palette_block_count must be {TEXT_WINDOW_PALETTE_BLOCK_COUNT}, got {palette_block_count}"
+        )
+    if town_map_pointer_count != 6:
+        raise ValueError(f"Text-window town_map_pointer_count must be 6, got {town_map_pointer_count}")
+    if len(data) != TEXT_WINDOW_EXPECTED_BYTES:
+        raise ValueError(f"Text-window properties table expected {TEXT_WINDOW_EXPECTED_BYTES} bytes, got {len(data)}")
+
+    selectors = []
+    for index, name in enumerate(TEXT_WINDOW_FLAVOR_NAMES):
+        offset = TEXT_WINDOW_SELECTOR_OFFSET + index * 3
+        palette_block_offset = read_u16_le(data, offset)
+        expected_offset = index * TEXT_WINDOW_PALETTE_BLOCK_SIZE
+        if palette_block_offset != expected_offset:
+            raise ValueError(
+                "Text-window flavor selector offset mismatch for "
+                f"{name}: 0x{palette_block_offset:04X} != 0x{expected_offset:04X}"
+            )
+        selectors.append(
+            {
+                "flavor_value": index + 1,
+                "selectable_index": index,
+                "name": name,
+                "range": text_window_table_range(offset, 3),
+                "palette_block_index": palette_block_offset // TEXT_WINDOW_PALETTE_BLOCK_SIZE,
+                "palette_block_offset": palette_block_offset,
+                "raw_aux_byte": data[offset + 2],
+                "raw_bytes": list(data[offset : offset + 3]),
+            }
+        )
+
+    palette_blocks = []
+    for block_index in range(TEXT_WINDOW_PALETTE_BLOCK_COUNT):
+        block_offset = TEXT_WINDOW_PALETTE_BLOCK_OFFSET + block_index * TEXT_WINDOW_PALETTE_BLOCK_SIZE
+        if block_index < len(TEXT_WINDOW_FLAVOR_NAMES):
+            name = TEXT_WINDOW_FLAVOR_NAMES[block_index]
+            selection_role = "selectable_flavor"
+        elif block_index == 5:
+            name = "lead-entity override / nonselectable system block"
+            selection_role = "lead_entity_override"
+        else:
+            name = "unused extra system window block"
+            selection_role = "preserved_nonselectable_extra"
+        rows = []
+        for row_index in range(8):
+            row_offset = block_offset + row_index * 8
+            roles = []
+            if row_index == 3 and block_index < len(TEXT_WINDOW_FLAVOR_NAMES):
+                roles.append("equipment_status_palette_row")
+            rows.append(
+                {
+                    "row_index": row_index,
+                    "range": text_window_table_range(row_offset, 8),
+                    "colors": text_window_palette_row(data, row_offset),
+                    "roles": roles,
+                }
+            )
+        palette_blocks.append(
+            {
+                "block_index": block_index,
+                "name": name,
+                "range": text_window_table_range(block_offset, TEXT_WINDOW_PALETTE_BLOCK_SIZE),
+                "selectable": block_index < len(TEXT_WINDOW_FLAVOR_NAMES),
+                "flavor_value": block_index + 1 if block_index < len(TEXT_WINDOW_FLAVOR_NAMES) else None,
+                "selection_role": selection_role,
+                "source_offset_from_palette_base": block_index * TEXT_WINDOW_PALETTE_BLOCK_SIZE,
+                "rows": rows,
+            }
+        )
+
+    movement_palette = {
+        "range": text_window_table_range(TEXT_WINDOW_MOVEMENT_PALETTE_OFFSET, TEXT_WINDOW_MOVEMENT_PALETTE_BYTES),
+        "colors": text_window_palette_row(data, TEXT_WINDOW_MOVEMENT_PALETTE_OFFSET),
+        "role": "movement_text_string_palette",
+    }
+
+    town_map_pointers = []
+    packed_pointers = []
+    for index in range(town_map_pointer_count):
+        offset = TEXT_WINDOW_TOWN_MAP_POINTER_OFFSET + index * 4
+        low_word = read_u16_le(data, offset)
+        bank = data[offset + 2]
+        padding = data[offset + 3]
+        if padding != 0:
+            raise ValueError(f"Text-window town-map pointer {index} expected zero padding, got 0x{padding:02X}")
+        packed_pointer = (bank << 16) | low_word
+        packed_pointers.append(packed_pointer)
+        town_map_pointers.append(
+            {
+                "town_map_index": index,
+                "range": text_window_table_range(offset, 4),
+                "address": f"{bank:02X}:{low_word:04X}",
+                "bank": bank,
+                "offset_in_bank": low_word,
+                "packed_pointer": packed_pointer,
+                "raw_bytes": list(data[offset : offset + 4]),
+            }
+        )
+
+    expected_pointers = [0xE021A8, 0xE04920, 0xE06721, 0xE08379, 0xE0ADB4, 0xE0C7F1]
+    if packed_pointers != expected_pointers:
+        actual = [f"0x{pointer:06X}" for pointer in packed_pointers]
+        raise ValueError(f"Unexpected text-window town-map graphics pointers: {actual}")
+
+    palette_row_count = palette_block_count * 8 + 1
+    payload = {
+        "schema": "earthbound-decomp.text-window-properties-table.v1",
+        "decoder": "text_window_properties_table",
+        "byte_order": "little",
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "sections": [
+            {
+                "id": "flavor_selector_table",
+                "range": text_window_table_range(TEXT_WINDOW_SELECTOR_OFFSET, TEXT_WINDOW_SELECTOR_BYTES),
+                "bytes": TEXT_WINDOW_SELECTOR_BYTES,
+                "record_count": selector_count,
+                "record_size_bytes": 3,
+            },
+            {
+                "id": "window_palette_blocks",
+                "range": text_window_table_range(
+                    TEXT_WINDOW_PALETTE_BLOCK_OFFSET,
+                    TEXT_WINDOW_PALETTE_BLOCK_SIZE * TEXT_WINDOW_PALETTE_BLOCK_COUNT,
+                ),
+                "bytes": TEXT_WINDOW_PALETTE_BLOCK_SIZE * TEXT_WINDOW_PALETTE_BLOCK_COUNT,
+                "record_count": palette_block_count,
+                "record_size_bytes": TEXT_WINDOW_PALETTE_BLOCK_SIZE,
+            },
+            {
+                "id": "movement_text_string_palette",
+                "range": text_window_table_range(TEXT_WINDOW_MOVEMENT_PALETTE_OFFSET, TEXT_WINDOW_MOVEMENT_PALETTE_BYTES),
+                "bytes": TEXT_WINDOW_MOVEMENT_PALETTE_BYTES,
+                "record_count": 1,
+                "record_size_bytes": TEXT_WINDOW_MOVEMENT_PALETTE_BYTES,
+            },
+            {
+                "id": "town_map_graphics_pointer_table",
+                "range": text_window_table_range(TEXT_WINDOW_TOWN_MAP_POINTER_OFFSET, TEXT_WINDOW_TOWN_MAP_POINTER_BYTES),
+                "bytes": TEXT_WINDOW_TOWN_MAP_POINTER_BYTES,
+                "record_count": town_map_pointer_count,
+                "record_size_bytes": 4,
+            },
+        ],
+        "selector_count": selector_count,
+        "palette_block_count": palette_block_count,
+        "palette_row_count": palette_row_count,
+        "town_map_pointer_count": town_map_pointer_count,
+        "selectors": selectors,
+        "palette_blocks": palette_blocks,
+        "movement_palette": movement_palette,
+        "town_map_pointers": town_map_pointers,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "selector_count": selector_count,
+        "palette_block_count": palette_block_count,
+        "palette_row_count": palette_row_count,
+        "town_map_pointer_count": town_map_pointer_count,
+    }
+
+
+def parse_town_map_icon_descriptor_record(data: bytes, offset: int, record_index: int) -> dict[str, Any]:
+    control_flags = data[offset + 4]
+    return {
+        "record_index": record_index,
+        "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, offset, 5),
+        "relative_y_offset": read_s8(data[offset]),
+        "tile_attribute_word": read_u16_le(data, offset + 1),
+        "relative_x_offset": read_s8(data[offset + 3]),
+        "control_flags": control_flags,
+        "is_terminal": bool(control_flags & 0x80),
+        "uses_renderer_attribute_bit": bool(control_flags & 0x01),
+        "reserved_flag_bits": control_flags & 0x7E,
+        "raw_bytes": list(data[offset : offset + 5]),
+    }
+
+
+def parse_town_map_descriptor_list(data: bytes, start: int, list_index: int, icon_ids: list[int]) -> dict[str, Any]:
+    if start < TOWN_MAP_ICON_DESCRIPTOR_OFFSET or start >= TOWN_MAP_ICON_POINTER_OFFSET:
+        raise ValueError(f"Town-map descriptor list {list_index} starts outside descriptor span: 0x{start:04X}")
+    if start % 5 != 0:
+        raise ValueError(f"Town-map descriptor list {list_index} does not start on a five-byte record: 0x{start:04X}")
+
+    records = []
+    cursor = start
+    while cursor < TOWN_MAP_ICON_POINTER_OFFSET:
+        record = parse_town_map_icon_descriptor_record(data, cursor, cursor // 5)
+        records.append(record)
+        cursor += 5
+        if record["is_terminal"]:
+            break
+    if not records or not records[-1]["is_terminal"]:
+        raise ValueError(f"Town-map descriptor list {list_index} has no terminal control flag")
+
+    return {
+        "descriptor_list_index": list_index,
+        "icon_ids": icon_ids,
+        "target": f"E1:{TOWN_MAP_ICON_TABLE_START + start:04X}",
+        "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, start, cursor - start),
+        "record_count": len(records),
+        "records": records,
+    }
+
+
+def parse_town_map_placement_list(data: bytes, start: int, town_map_index: int) -> dict[str, Any]:
+    if start < TOWN_MAP_PLACEMENT_RECORD_OFFSET or start >= TOWN_MAP_ICON_EXPECTED_BYTES:
+        raise ValueError(f"Town-map placement list {town_map_index} starts outside placement span: 0x{start:04X}")
+
+    records = []
+    cursor = start
+    while cursor < TOWN_MAP_ICON_EXPECTED_BYTES:
+        if data[cursor] == 0xFF:
+            terminator_offset = cursor
+            cursor += 1
+            break
+        if cursor + 5 > TOWN_MAP_ICON_EXPECTED_BYTES:
+            raise ValueError(f"Town-map placement list {town_map_index} overruns table")
+        event_flag_word = read_u16_le(data, cursor + 3)
+        records.append(
+            {
+                "record_index": len(records),
+                "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, cursor, 5),
+                "x": data[cursor],
+                "y": data[cursor + 1],
+                "icon_id": data[cursor + 2],
+                "event_flag_word": event_flag_word,
+                "event_flag_id": event_flag_word & 0x7FFF,
+                "draw_when_event_flag_set": bool(event_flag_word & 0x8000),
+                "raw_bytes": list(data[cursor : cursor + 5]),
+            }
+        )
+        cursor += 5
+    else:
+        raise ValueError(f"Town-map placement list {town_map_index} has no FF terminator")
+
+    return {
+        "town_map_index": town_map_index,
+        "target": f"E1:{TOWN_MAP_ICON_TABLE_START + start:04X}",
+        "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, start, cursor - start),
+        "record_count": len(records),
+        "terminator_range": e1_table_range(TOWN_MAP_ICON_TABLE_START, terminator_offset, 1),
+        "records": records,
+    }
+
+
+def write_town_map_icon_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    icon_count = int(spec["icon_count"])
+    town_map_count = int(spec["town_map_count"])
+    if icon_count != 23:
+        raise ValueError(f"Town-map icon_count must be 23, got {icon_count}")
+    if town_map_count != 6:
+        raise ValueError(f"Town-map town_map_count must be 6, got {town_map_count}")
+    if len(data) != TOWN_MAP_ICON_EXPECTED_BYTES:
+        raise ValueError(f"Town-map icon table expected {TOWN_MAP_ICON_EXPECTED_BYTES} bytes, got {len(data)}")
+
+    icon_pointers = []
+    descriptor_starts_by_icon: dict[int, list[int]] = {}
+    for icon_id in range(icon_count):
+        offset = TOWN_MAP_ICON_POINTER_OFFSET + icon_id * 2
+        pointer = read_u16_le(data, offset)
+        relative = pointer - TOWN_MAP_ICON_TABLE_START
+        if relative < TOWN_MAP_ICON_DESCRIPTOR_OFFSET or relative >= TOWN_MAP_ICON_POINTER_OFFSET:
+            raise ValueError(f"Town-map icon pointer {icon_id} targets outside descriptor span: E1:{pointer:04X}")
+        descriptor_starts_by_icon.setdefault(relative, []).append(icon_id)
+        icon_pointers.append(
+            {
+                "icon_id": icon_id,
+                "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, offset, 2),
+                "target": f"E1:{pointer:04X}",
+                "descriptor_relative_offset": relative,
+                "raw_word": pointer,
+            }
+        )
+
+    descriptor_lists = []
+    for list_index, (relative, icon_ids) in enumerate(sorted(descriptor_starts_by_icon.items())):
+        descriptor_lists.append(parse_town_map_descriptor_list(data, relative, list_index, icon_ids))
+
+    descriptor_records = [
+        parse_town_map_icon_descriptor_record(data, offset, offset // 5)
+        for offset in range(TOWN_MAP_ICON_DESCRIPTOR_OFFSET, TOWN_MAP_ICON_POINTER_OFFSET, 5)
+    ]
+    if len(descriptor_records) * 5 != TOWN_MAP_ICON_DESCRIPTOR_BYTES:
+        raise ValueError("Town-map icon descriptor span is not an even set of five-byte records")
+    reserved_flag_records = sum(1 for record in descriptor_records if int(record["reserved_flag_bits"]) != 0)
+
+    blink_flags = []
+    blink_suppress_count = 0
+    for icon_id in range(icon_count):
+        offset = TOWN_MAP_BLINK_SUPPRESS_OFFSET + icon_id
+        value = data[offset]
+        if value:
+            blink_suppress_count += 1
+        blink_flags.append(
+            {
+                "icon_id": icon_id,
+                "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, offset, 1),
+                "blink_suppress_flag": value,
+                "suppressed_during_hidden_phase": value != 0,
+            }
+        )
+
+    placement_pointers = []
+    placement_lists = []
+    for town_map_index in range(town_map_count):
+        offset = TOWN_MAP_PLACEMENT_POINTER_OFFSET + town_map_index * 4
+        low_word = read_u16_le(data, offset)
+        bank = data[offset + 2]
+        padding = data[offset + 3]
+        if bank != 0xE1 or padding != 0:
+            raise ValueError(
+                "Town-map placement pointer expected E1 bank and zero padding for "
+                f"town map {town_map_index}, got bank 0x{bank:02X} pad 0x{padding:02X}"
+            )
+        relative = low_word - TOWN_MAP_ICON_TABLE_START
+        placement_pointers.append(
+            {
+                "town_map_index": town_map_index,
+                "range": e1_table_range(TOWN_MAP_ICON_TABLE_START, offset, 4),
+                "target": f"E1:{low_word:04X}",
+                "placement_relative_offset": relative,
+                "raw_bytes": list(data[offset : offset + 4]),
+            }
+        )
+        placement_lists.append(parse_town_map_placement_list(data, relative, town_map_index))
+
+    expected_targets = ["E1:F4A9", "E1:F4CD", "E1:F4F6", "E1:F524", "E1:F548", "E1:F562"]
+    actual_targets = [pointer["target"] for pointer in placement_pointers]
+    if actual_targets != expected_targets:
+        raise ValueError(f"Unexpected town-map placement pointer targets: {actual_targets}")
+
+    placement_record_count = sum(placement_list["record_count"] for placement_list in placement_lists)
+    terminal_descriptor_count = sum(1 for record in descriptor_records if record["is_terminal"])
+    descriptor_flag_bit_count = sum(1 for record in descriptor_records if record["uses_renderer_attribute_bit"])
+    payload = {
+        "schema": "earthbound-decomp.town-map-icon-table.v1",
+        "decoder": "town_map_icon_table",
+        "byte_order": "little",
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "sections": [
+            {
+                "id": "icon_graphic_descriptor_records",
+                "range": "E1:F203..E1:F44C",
+                "bytes": TOWN_MAP_ICON_DESCRIPTOR_BYTES,
+                "record_count": len(descriptor_records),
+                "record_size_bytes": 5,
+            },
+            {
+                "id": "icon_graphic_pointer_table",
+                "range": "E1:F44C..E1:F47A",
+                "bytes": TOWN_MAP_ICON_POINTER_BYTES,
+                "record_count": icon_count,
+                "record_size_bytes": 2,
+            },
+            {
+                "id": "blink_suppress_table",
+                "range": "E1:F47A..E1:F491",
+                "bytes": TOWN_MAP_BLINK_SUPPRESS_BYTES,
+                "record_count": icon_count,
+                "record_size_bytes": 1,
+            },
+            {
+                "id": "icon_placement_pointer_table",
+                "range": "E1:F491..E1:F4A9",
+                "bytes": TOWN_MAP_PLACEMENT_POINTER_BYTES,
+                "record_count": town_map_count,
+                "record_size_bytes": 4,
+            },
+            {
+                "id": "icon_placement_records",
+                "range": "E1:F4A9..E1:F581",
+                "bytes": TOWN_MAP_PLACEMENT_RECORD_BYTES,
+                "record_count": placement_record_count,
+                "record_size_bytes": 5,
+                "terminator_bytes": town_map_count,
+            },
+        ],
+        "icon_count": icon_count,
+        "town_map_count": town_map_count,
+        "unique_descriptor_list_count": len(descriptor_lists),
+        "descriptor_record_count": len(descriptor_records),
+        "terminal_descriptor_count": terminal_descriptor_count,
+        "descriptor_flag_bit_count": descriptor_flag_bit_count,
+        "reserved_descriptor_flag_records": reserved_flag_records,
+        "blink_suppress_count": blink_suppress_count,
+        "placement_record_count": placement_record_count,
+        "icon_pointers": icon_pointers,
+        "descriptor_lists": descriptor_lists,
+        "blink_flags": blink_flags,
+        "placement_pointers": placement_pointers,
+        "placement_lists": placement_lists,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "icon_count": icon_count,
+        "unique_descriptor_list_count": len(descriptor_lists),
+        "descriptor_record_count": len(descriptor_records),
+        "blink_suppress_count": blink_suppress_count,
+        "placement_record_count": placement_record_count,
+    }
+
+
+def parse_photographer_position_pair(
+    data: bytes,
+    record_base: int,
+    relative_offset: int,
+    table_start: int,
+) -> dict[str, int | str]:
+    x_tile = read_u16_le(data, record_base + relative_offset)
+    y_tile = read_u16_le(data, record_base + relative_offset + 2)
+    return {
+        "range": e1_table_range(table_start, record_base + relative_offset, 4),
+        "x_tile": x_tile,
+        "y_tile": y_tile,
+        "x_world": x_tile * 8,
+        "y_world": y_tile * 8,
+    }
+
+
+def parse_photographer_config_record(data: bytes, record_index: int) -> dict[str, Any]:
+    record_base = record_index * PHOTOGRAPHER_CONFIG_RECORD_SIZE
+    record = data[record_base : record_base + PHOTOGRAPHER_CONFIG_RECORD_SIZE]
+    event_flag_word = read_u16_le(data, record_base)
+    background_tile_offset = read_u16_le(data, record_base + 6)
+    slide_direction_angle = data[record_base + 8]
+    slide_frame_count = data[record_base + 9]
+
+    visual_positions = []
+    for slot_index in range(PHOTOGRAPHER_VISUAL_POSITION_COUNT):
+        offset = (
+            PHOTOGRAPHER_VISUAL_POSITION_OFFSET
+            + slot_index * PHOTOGRAPHER_VISUAL_POSITION_SIZE
+        )
+        position = parse_photographer_position_pair(
+            data,
+            record_base,
+            offset,
+            PHOTOGRAPHER_CONFIG_TABLE_START,
+        )
+        visual_positions.append(
+            {
+                "slot_index": slot_index,
+                "is_empty": position["x_tile"] == 0 and position["y_tile"] == 0,
+                **position,
+            }
+        )
+
+    spawned_entities = []
+    for slot_index in range(PHOTOGRAPHER_SPAWNED_ENTITY_COUNT):
+        offset = (
+            PHOTOGRAPHER_SPAWNED_ENTITY_OFFSET
+            + slot_index * PHOTOGRAPHER_SPAWNED_ENTITY_SIZE
+        )
+        position = parse_photographer_position_pair(
+            data,
+            record_base,
+            offset,
+            PHOTOGRAPHER_CONFIG_TABLE_START,
+        )
+        entity_type_id = read_u16_le(data, record_base + offset + 4)
+        spawned_entities.append(
+            {
+                "slot_index": slot_index,
+                "range": e1_table_range(
+                    PHOTOGRAPHER_CONFIG_TABLE_START,
+                    record_base + offset,
+                    PHOTOGRAPHER_SPAWNED_ENTITY_SIZE,
+                ),
+                "is_empty": entity_type_id == 0,
+                "x_tile": position["x_tile"],
+                "y_tile": position["y_tile"],
+                "x_world": position["x_world"],
+                "y_world": position["y_world"],
+                "entity_type_id": entity_type_id,
+                "raw_bytes": list(
+                    data[
+                        record_base
+                        + offset : record_base
+                        + offset
+                        + PHOTOGRAPHER_SPAWNED_ENTITY_SIZE
+                    ]
+                ),
+            }
+        )
+
+    return {
+        "record_index": record_index,
+        "range": e1_table_range(
+            PHOTOGRAPHER_CONFIG_TABLE_START,
+            record_base,
+            PHOTOGRAPHER_CONFIG_RECORD_SIZE,
+        ),
+        "event_flag_word": event_flag_word,
+        "event_flag_id": event_flag_word & 0x7FFF,
+        "event_flag_high_bit": bool(event_flag_word & 0x8000),
+        "map_load_position": parse_photographer_position_pair(
+            data,
+            record_base,
+            2,
+            PHOTOGRAPHER_CONFIG_TABLE_START,
+        ),
+        "background_tile_offset": background_tile_offset,
+        "has_background_tile_offset": background_tile_offset != 0,
+        "slide_direction_angle": slide_direction_angle,
+        "slide_frame_count": slide_frame_count,
+        "has_slide_vector": slide_direction_angle != 0 or slide_frame_count != 0,
+        "photo_scene_anchor": parse_photographer_position_pair(
+            data,
+            record_base,
+            0x0A,
+            PHOTOGRAPHER_CONFIG_TABLE_START,
+        ),
+        "visual_attachment_positions": visual_positions,
+        "spawned_entities": spawned_entities,
+        "raw_bytes": list(record),
+    }
+
+
+def write_photographer_config_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    record_size = int(spec["record_size_bytes"])
+    if row_count != PHOTOGRAPHER_CONFIG_RECORD_COUNT:
+        raise ValueError(f"Photographer config table row_count must be 32, got {row_count}")
+    if record_size != PHOTOGRAPHER_CONFIG_RECORD_SIZE:
+        raise ValueError(f"Photographer config record size must be 62, got {record_size}")
+    if len(data) != PHOTOGRAPHER_CONFIG_EXPECTED_BYTES:
+        raise ValueError(
+            "Photographer config table expected "
+            f"{PHOTOGRAPHER_CONFIG_EXPECTED_BYTES} bytes, got {len(data)}"
+        )
+
+    records = [parse_photographer_config_record(data, index) for index in range(row_count)]
+    enabled_event_flag_count = sum(1 for record in records if int(record["event_flag_word"]) != 0)
+    background_offset_count = sum(1 for record in records if record["has_background_tile_offset"])
+    slide_vector_count = sum(1 for record in records if record["has_slide_vector"])
+    visual_position_count = sum(
+        1
+        for record in records
+        for position in record["visual_attachment_positions"]
+        if not position["is_empty"]
+    )
+    spawned_entity_count = sum(
+        1
+        for record in records
+        for entity in record["spawned_entities"]
+        if not entity["is_empty"]
+    )
+    max_event_flag_id = max(int(record["event_flag_id"]) for record in records)
+    max_background_tile_offset = max(int(record["background_tile_offset"]) for record in records)
+
+    payload = {
+        "schema": "earthbound-decomp.photographer-config-table.v1",
+        "decoder": "photographer_config_table",
+        "byte_order": "little",
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "record_count": row_count,
+        "record_size_bytes": record_size,
+        "sections": [
+            {
+                "id": "photographer_config_records",
+                "range": "E1:2F8A..E1:374A",
+                "bytes": len(data),
+                "record_count": row_count,
+                "record_size_bytes": record_size,
+            }
+        ],
+        "consumer_evidence": [
+            "C4:F264 uses +0 event flag, +2/+4 map-load position, +0E..+24 visual attachment positions, and +26..+3D spawned entity rows.",
+            "C4:F46F uses +8/+9 as slide direction and frame-count bytes.",
+            "C4:6D4B uses +0A/+0C as the photo-scene live anchor selected by $9E35.",
+            "C0:07B6 uses +6 as an offset into the decompressed E1:374A photograph background stream.",
+        ],
+        "enabled_event_flag_count": enabled_event_flag_count,
+        "background_offset_count": background_offset_count,
+        "slide_vector_count": slide_vector_count,
+        "visual_position_count": visual_position_count,
+        "spawned_entity_count": spawned_entity_count,
+        "max_event_flag_id": max_event_flag_id,
+        "max_background_tile_offset": max_background_tile_offset,
+        "records": records,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "enabled_event_flag_count": enabled_event_flag_count,
+        "background_offset_count": background_offset_count,
+        "slide_vector_count": slide_vector_count,
+        "visual_position_count": visual_position_count,
+        "spawned_entity_count": spawned_entity_count,
+    }
+
+
+def write_psi_anim_config_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    row_size = 12
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"PSI animation config table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"PSI animation config table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    target_modes = set()
+    nonzero_enemy_colour_count = 0
+    for offset in range(0, len(data), row_size):
+        row = data[offset : offset + row_size]
+        target_mode = row[7]
+        target_modes.add(target_mode)
+        enemy_colour = read_u16_le(row, 10)
+        if enemy_colour != 0:
+            nonzero_enemy_colour_count += 1
+        rows.append(
+            {
+                "animation_id": offset // row_size,
+                "gfx_address": f"CC:{read_u16_le(row, 0):04X}",
+                "gfx_offset_in_bank": read_u16_le(row, 0),
+                "frame_hold_frames": row[2],
+                "palette_animation_frames": row[3],
+                "palette_animation_lower_index": row[4],
+                "palette_animation_upper_index": row[5],
+                "total_frames": row[6],
+                "target_mode": target_mode,
+                "target_mode_name": PSI_ANIM_TARGET_MODES.get(target_mode, f"unknown_{target_mode:02X}"),
+                "enemy_colour_change_start_frames_left": row[8],
+                "enemy_colour_change_frames_left": row[9],
+                "enemy_colour_change_bgr555": bgr555_components(enemy_colour),
+                "raw_bytes": list(row),
+            }
+        )
+
+    target_mode_counts = {
+        PSI_ANIM_TARGET_MODES.get(mode, f"unknown_{mode:02X}"): sum(
+            1 for row in rows if int(row["target_mode"]) == mode
+        )
+        for mode in sorted(target_modes)
+    }
+    payload = {
+        "schema": "earthbound-decomp.psi-animation-config-table.v1",
+        "decoder": "psi_animation_config_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "max_frame_hold_frames": max(row["frame_hold_frames"] for row in rows),
+        "max_total_frames": max(row["total_frames"] for row in rows),
+        "distinct_target_modes": len(target_modes),
+        "target_mode_counts": target_mode_counts,
+        "nonzero_enemy_colour_count": nonzero_enemy_colour_count,
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "max_frame_hold_frames": payload["max_frame_hold_frames"],
+        "max_total_frames": payload["max_total_frames"],
+        "distinct_target_modes": payload["distinct_target_modes"],
+        "nonzero_enemy_colour_count": nonzero_enemy_colour_count,
+    }
+
+
+def write_psi_anim_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    entry_count = int(spec["entry_count"])
+    row_size = 4
+    expected_bytes = entry_count * row_size
+    if entry_count <= 0:
+        raise ValueError(f"PSI animation pointer table entry_count must be positive, got {entry_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"PSI animation pointer table expected {expected_bytes} bytes, got {len(data)}")
+
+    entries = []
+    target_banks = set()
+    packed_pointers = []
+    for offset in range(0, len(data), row_size):
+        pointer = read_long_pointer_row(data, offset, "PSI animation pointer table")
+        packed_pointer = int(pointer["packed_pointer"])
+        if pointer["bank"] is not None:
+            target_banks.add(int(pointer["bank"]))
+            packed_pointers.append(packed_pointer)
+        entries.append(
+            {
+                "animation_id": offset // row_size,
+                **pointer,
+            }
+        )
+
+    if not packed_pointers:
+        raise ValueError("PSI animation pointer table must contain at least one non-null pointer")
+    payload = {
+        "schema": "earthbound-decomp.psi-animation-pointer-table.v1",
+        "decoder": "psi_animation_pointer_table",
+        "byte_order": "little",
+        "entry_size_bytes": row_size,
+        "entry_count": entry_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "zero_padding_byte": True,
+        "min_pointer": min(packed_pointers),
+        "max_pointer": max(packed_pointers),
+        "distinct_pointers": len(set(packed_pointers)),
+        "distinct_banks": len(target_banks),
+        "target_banks": [f"{bank:02X}" for bank in sorted(target_banks)],
+        "entries": entries,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "entry_count": entry_count,
+        "min_pointer": payload["min_pointer"],
+        "max_pointer": payload["max_pointer"],
+        "distinct_pointers": payload["distinct_pointers"],
+        "distinct_banks": payload["distinct_banks"],
+    }
+
+
+def write_animation_sequence_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    row_size = 8
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"Animation sequence pointer table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Animation sequence pointer table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    pointer_banks = set()
+    max_parameter_byte = 0
+    nonnull_pointer_count = 0
+    for offset in range(0, len(data), row_size):
+        row_index = offset // row_size
+        pointer = read_long_pointer_row(data, offset, "Animation sequence pointer table")
+        parameters = list(data[offset + 4 : offset + 8])
+        max_parameter_byte = max(max_parameter_byte, max(parameters))
+        if pointer["bank"] is not None:
+            pointer_banks.add(int(pointer["bank"]))
+            nonnull_pointer_count += 1
+        rows.append(
+            {
+                "sequence_index": row_index,
+                "label": ANIMATION_SEQUENCE_LABELS[row_index] if row_index < len(ANIMATION_SEQUENCE_LABELS) else None,
+                **pointer,
+                "parameters": {
+                    "byte_0": parameters[0],
+                    "byte_1": parameters[1],
+                    "byte_2": parameters[2],
+                    "byte_3": parameters[3],
+                },
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.animation-sequence-pointer-table.v1",
+        "decoder": "animation_sequence_pointer_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "zero_padding_byte": True,
+        "nonnull_pointer_count": nonnull_pointer_count,
+        "max_parameter_byte": max_parameter_byte,
+        "distinct_pointer_banks": len(pointer_banks),
+        "target_banks": [f"{bank:02X}" for bank in sorted(pointer_banks)],
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "nonnull_pointer_count": nonnull_pointer_count,
+        "max_parameter_byte": max_parameter_byte,
+        "distinct_pointer_banks": len(pointer_banks),
+    }
+
+
+def write_battle_bg_config_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    row_size = 17
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"Battle background config table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle background config table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    for offset in range(0, len(data), row_size):
+        row = data[offset : offset + row_size]
+        decoded = {
+            "index": offset // row_size,
+            "graphics_index": row[0],
+            "arrangement_index": row[0],
+            "palette_index": row[1],
+            "bits_per_pixel": row[2],
+            "unknown_palette_shift_style": row[3],
+            "palette_cycle_1_first": row[4],
+            "palette_cycle_1_last": row[5],
+            "palette_cycle_2_first": row[6],
+            "palette_cycle_2_last": row[7],
+            "palette_change_speed": row[8],
+            "scrolling_movements": list(row[9:13]),
+            "distortion_styles": list(row[13:17]),
+            "raw_bytes": list(row),
+        }
+        rows.append(decoded)
+
+    max_scrolling_movement = max(max(row["scrolling_movements"]) for row in rows)
+    max_distortion_style = max(max(row["distortion_styles"]) for row in rows)
+    payload = {
+        "schema": "earthbound-decomp.battle-bg-config-table.v1",
+        "decoder": "battle_background_config_table",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "max_graphics_index": max(row["graphics_index"] for row in rows),
+        "max_palette_index": max(row["palette_index"] for row in rows),
+        "max_scrolling_movement": max_scrolling_movement,
+        "max_distortion_style": max_distortion_style,
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "max_graphics_index": payload["max_graphics_index"],
+        "max_palette_index": payload["max_palette_index"],
+        "max_scrolling_movement": max_scrolling_movement,
+        "max_distortion_style": max_distortion_style,
+    }
+
+
+def write_battle_bg_scrolling_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    row_size = 10
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"Battle background scrolling table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle background scrolling table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    motion_vectors = set()
+    for offset in range(0, len(data), row_size):
+        row = data[offset : offset + row_size]
+        motion = (
+            read_s16_le(row, 2),
+            read_s16_le(row, 4),
+            read_s16_le(row, 6),
+            read_s16_le(row, 8),
+        )
+        motion_vectors.add(motion)
+        rows.append(
+            {
+                "index": offset // row_size,
+                "duration": read_u16_le(row, 0),
+                "horizontal_movement": motion[0],
+                "vertical_movement": motion[1],
+                "horizontal_acceleration": motion[2],
+                "vertical_acceleration": motion[3],
+                "raw_words": [read_u16_le(row, word_offset) for word_offset in range(0, row_size, 2)],
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.battle-bg-scrolling-table.v1",
+        "decoder": "battle_background_scrolling_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "max_duration": max(row["duration"] for row in rows),
+        "nonzero_duration_count": sum(1 for row in rows if row["duration"] != 0),
+        "distinct_motion_vectors": len(motion_vectors),
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "max_duration": payload["max_duration"],
+        "nonzero_duration_count": payload["nonzero_duration_count"],
+        "distinct_motion_vectors": payload["distinct_motion_vectors"],
+    }
+
+
+def write_battle_bg_distortion_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    row_size = 17
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"Battle background distortion table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle background distortion table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    distortion_types = set()
+    for offset in range(0, len(data), row_size):
+        row = data[offset : offset + row_size]
+        distortion_type = row[2]
+        distortion_types.add(distortion_type)
+        rows.append(
+            {
+                "index": offset // row_size,
+                "duration": read_u16_le(row, 0),
+                "distortion_type": distortion_type,
+                "ripple_frequency": read_s16_le(row, 3),
+                "ripple_amplitude": read_s16_le(row, 5),
+                "speed": row[7],
+                "compression_rate": read_s16_le(row, 8),
+                "ripple_frequency_acceleration": read_s16_le(row, 10),
+                "ripple_amplitude_acceleration": read_s16_le(row, 12),
+                "speed_acceleration": row[14],
+                "compression_rate_acceleration": read_s16_le(row, 15),
+                "raw_bytes": list(row),
+            }
+        )
+
+    payload = {
+        "schema": "earthbound-decomp.battle-bg-distortion-table.v1",
+        "decoder": "battle_background_distortion_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "max_duration": max(row["duration"] for row in rows),
+        "nonzero_duration_count": sum(1 for row in rows if row["duration"] != 0),
+        "distinct_distortion_types": len(distortion_types),
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "max_duration": payload["max_duration"],
+        "nonzero_duration_count": payload["nonzero_duration_count"],
+        "distinct_distortion_types": payload["distinct_distortion_types"],
+    }
+
+
+def write_battle_bg_layer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    config_row_count = spec.get("config_row_count")
+    config_row_count = int(config_row_count) if config_row_count is not None else None
+    row_size = 4
+    expected_bytes = row_count * row_size
+    if row_count <= 0:
+        raise ValueError(f"Battle background layer table row_count must be positive, got {row_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle background layer table expected {expected_bytes} bytes, got {len(data)}")
+
+    rows = []
+    layer_refs = set()
+    invalid_refs = []
+    two_layer_entry_count = 0
+    for offset in range(0, len(data), row_size):
+        entry_index = offset // row_size
+        layer_1 = read_u16_le(data, offset)
+        layer_2 = read_u16_le(data, offset + 2)
+        enabled_layers = []
+        for slot, value in [(1, layer_1), (2, layer_2)]:
+            enabled = value != 0
+            if enabled:
+                layer_refs.add(value)
+                enabled_layers.append(
+                    {
+                        "slot": slot,
+                        "layer_config_index": value,
+                    }
+                )
+                if config_row_count is not None and value >= config_row_count:
+                    invalid_refs.append({"battle_entry_index": entry_index, "slot": slot, "layer_config_index": value})
+        if len(enabled_layers) == 2:
+            two_layer_entry_count += 1
+        rows.append(
+            {
+                "battle_entry_index": entry_index,
+                "layer_1_config_index": layer_1,
+                "layer_2_config_index": layer_2,
+                "layer_1_enabled": layer_1 != 0,
+                "layer_2_enabled": layer_2 != 0,
+                "enabled_layers": enabled_layers,
+                "raw_words": [layer_1, layer_2],
+            }
+        )
+
+    max_layer_config_index = max(layer_refs) if layer_refs else 0
+    payload = {
+        "schema": "earthbound-decomp.battle-bg-layer-table.v1",
+        "decoder": "battle_background_layer_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "row_count": row_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "config_row_count": config_row_count,
+        "all_layer_refs_within_config_rows": not invalid_refs if config_row_count is not None else None,
+        "invalid_layer_refs": invalid_refs,
+        "max_layer_config_index": max_layer_config_index,
+        "distinct_layer_refs": len(layer_refs),
+        "empty_entry_count": sum(1 for row in rows if not row["enabled_layers"]),
+        "one_layer_entry_count": sum(1 for row in rows if len(row["enabled_layers"]) == 1),
+        "two_layer_entry_count": two_layer_entry_count,
+        "rows": rows,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "max_layer_config_index": max_layer_config_index,
+        "distinct_layer_refs": len(layer_refs),
+        "two_layer_entry_count": two_layer_entry_count,
+    }
+
+
+BATTLE_SPRITE_SIZE_CODES = {
+    1: ("_32X32", 32, 32),
+    2: ("_64X32", 64, 32),
+    3: ("_32X64", 32, 64),
+    4: ("_64X64", 64, 64),
+    5: ("_128X64", 128, 64),
+    6: ("_128X128", 128, 128),
+}
+
+
+def write_battle_sprite_pointer_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    entry_count = int(spec["entry_count"])
+    row_size = 5
+    expected_bytes = entry_count * row_size
+    if entry_count <= 0:
+        raise ValueError(f"Battle sprite pointer table entry_count must be positive, got {entry_count}")
+    if len(data) != expected_bytes:
+        raise ValueError(f"Battle sprite pointer table expected {expected_bytes} bytes, got {len(data)}")
+
+    entries = []
+    target_banks = set()
+    size_codes = set()
+    max_width = 0
+    max_height = 0
+    for offset in range(0, len(data), row_size):
+        low_word = data[offset] | (data[offset + 1] << 8)
+        bank = data[offset + 2]
+        padding = data[offset + 3]
+        if padding != 0:
+            raise ValueError(
+                "Battle sprite pointer table expected zero in fourth byte "
+                f"for row {offset // row_size}, got 0x{padding:02X}"
+            )
+        size_code = data[offset + 4]
+        size = BATTLE_SPRITE_SIZE_CODES.get(size_code)
+        if size is None:
+            raise ValueError(f"Unknown battle sprite size code 0x{size_code:02X} in row {offset // row_size}")
+        size_label, width, height = size
+        target_banks.add(bank)
+        size_codes.add(size_code)
+        max_width = max(max_width, width)
+        max_height = max(max_height, height)
+        entries.append(
+            {
+                "sprite_id": offset // row_size,
+                "address": f"{bank:02X}:{low_word:04X}",
+                "bank": bank,
+                "offset_in_bank": low_word,
+                "packed_pointer": (bank << 16) | low_word,
+                "size_code": size_code,
+                "size_label": size_label,
+                "width": width,
+                "height": height,
+                "raw_bytes": list(data[offset : offset + row_size]),
+            }
+        )
+
+    size_counts = {
+        str(code): sum(1 for entry in entries if int(entry["size_code"]) == code)
+        for code in sorted(size_codes)
+    }
+    payload = {
+        "schema": "earthbound-decomp.battle-sprite-pointer-table.v1",
+        "decoder": "battle_sprite_pointer_table",
+        "byte_order": "little",
+        "row_size_bytes": row_size,
+        "entry_count": entry_count,
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "zero_padding_byte": True,
+        "distinct_size_codes": len(size_codes),
+        "size_code_counts": size_counts,
+        "distinct_banks": len(target_banks),
+        "target_banks": [f"{bank:02X}" for bank in sorted(target_banks)],
+        "max_width": max_width,
+        "max_height": max_height,
+        "entries": entries,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "entry_count": entry_count,
+        "max_width": max_width,
+        "max_height": max_height,
+        "distinct_size_codes": len(size_codes),
+        "distinct_banks": len(target_banks),
+    }
+
+
+def write_font_metric_widths_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    font_id = int(spec["font_id"])
+    entry_count = int(spec["entry_count"])
+    first_character_code = int(spec["first_character_code"])
+    if entry_count <= 0:
+        raise ValueError(f"Font metric entry_count must be positive, got {entry_count}")
+    if len(data) != entry_count:
+        raise ValueError(f"Font metric table expected {entry_count} bytes, got {len(data)}")
+
+    widths = list(data)
+    payload = {
+        "schema": "earthbound-decomp.font-metric-widths.v1",
+        "decoder": "font_metric_widths",
+        "font_id": font_id,
+        "first_character_code": first_character_code,
+        "entry_count": entry_count,
+        "entry_size_bytes": 1,
+        "width_units": "pixels",
+        "min_width": min(widths),
+        "max_width": max(widths),
+        "distinct_widths": len(set(widths)),
+        "sentinel_ff_count": widths.count(0xFF),
+        "widths": [
+            {"character_code": first_character_code + index, "width": width}
+            for index, width in enumerate(widths)
+        ],
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "font_id": font_id,
+        "entry_count": entry_count,
+        "first_character_code": first_character_code,
+        "max_width": payload["max_width"],
+        "distinct_widths": payload["distinct_widths"],
+        "sentinel_ff_count": payload["sentinel_ff_count"],
+    }
+
+
 def write_snes_palette_swatch_png(data: bytes, path: Path, spec: dict[str, Any]) -> int:
     entries = decode_snes_bgr555_palette(data, count=palette_entry_count(data, spec))
     per_row = int(spec.get("per_row", 16))
@@ -489,6 +2364,7 @@ def write_battle_bg_arrangement_png(
         "max_tile": max_tile,
         "width": width_tiles * 8,
         "height": height_tiles * 8,
+        "tiles": width_tiles * height_tiles,
     }
 
 
@@ -554,6 +2430,46 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         write_raw(decompressed, path)
         metadata["compressed_bytes_consumed"] = consumed
         metadata["decompressed_bytes"] = len(decompressed)
+    elif kind == "map_tile_chunk_index_json":
+        metadata.update(write_map_tile_chunk_index_json(data, path, spec))
+    elif kind == "map_sector_music_table_json":
+        metadata.update(write_map_sector_music_table_json(data, path, spec))
+    elif kind == "map_global_tileset_palette_data_json":
+        metadata.update(write_map_global_tileset_palette_data_json(data, path, spec))
+    elif kind == "map_palette_pointer_table_json":
+        metadata.update(write_map_palette_pointer_table_json(data, path, spec))
+    elif kind == "battle_swirl_frame_json":
+        metadata.update(write_battle_swirl_frame_json(data, path, spec))
+    elif kind == "battle_swirl_pointer_table_json":
+        metadata.update(write_battle_swirl_pointer_table_json(data, path, spec))
+    elif kind == "battle_swirl_sequence_table_json":
+        metadata.update(write_battle_swirl_sequence_table_json(data, path, spec))
+    elif kind == "battle_bg_pointer_table_json":
+        metadata.update(write_battle_bg_pointer_table_json(data, path, spec))
+    elif kind == "battle_bg_config_table_json":
+        metadata.update(write_battle_bg_config_table_json(data, path, spec))
+    elif kind == "battle_bg_scrolling_table_json":
+        metadata.update(write_battle_bg_scrolling_table_json(data, path, spec))
+    elif kind == "battle_bg_distortion_table_json":
+        metadata.update(write_battle_bg_distortion_table_json(data, path, spec))
+    elif kind == "battle_bg_layer_table_json":
+        metadata.update(write_battle_bg_layer_table_json(data, path, spec))
+    elif kind == "battle_sprite_pointer_table_json":
+        metadata.update(write_battle_sprite_pointer_table_json(data, path, spec))
+    elif kind == "psi_anim_config_table_json":
+        metadata.update(write_psi_anim_config_table_json(data, path, spec))
+    elif kind == "psi_anim_pointer_table_json":
+        metadata.update(write_psi_anim_pointer_table_json(data, path, spec))
+    elif kind == "animation_sequence_pointer_table_json":
+        metadata.update(write_animation_sequence_pointer_table_json(data, path, spec))
+    elif kind == "font_metric_widths_json":
+        metadata.update(write_font_metric_widths_json(data, path, spec))
+    elif kind == "text_window_properties_table_json":
+        metadata.update(write_text_window_properties_table_json(data, path, spec))
+    elif kind == "town_map_icon_table_json":
+        metadata.update(write_town_map_icon_table_json(data, path, spec))
+    elif kind == "photographer_config_table_json":
+        metadata.update(write_photographer_config_table_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         tile_data = trim_trailing_bytes(data, spec)

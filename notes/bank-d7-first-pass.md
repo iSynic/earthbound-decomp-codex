@@ -37,7 +37,8 @@ The high-level D7 layout is:
 - `D7:2800..D7:4FFF`: `MAP_DATA_TILE_TABLE_CHUNK_8`, `10240` bytes.
 - `D7:5000..D7:7FFF`: `MAP_DATA_TILE_TABLE_CHUNK_9`, `12288` bytes.
 - `D7:8000..D7:A7FF`: `MAP_DATA_TILE_TABLE_CHUNK_10`, `10240` bytes.
-- `D7:A800..D7:C5FF`: generated map metadata span, `7680` bytes.
+- `D7:A800..D7:B1FF`: global map context byte table, `2560` bytes.
+- `D7:B200..D7:C5FF`: per-sector attribute word table, `5120` bytes.
 - `D7:C600..D7:FBE7`: `MAP_DATA_TILE_ARRANGEMENT_0`, `13800` bytes.
 - `D7:FBE8..D7:FFFF`: tail slack, `1048` bytes.
 
@@ -50,9 +51,9 @@ arrangement payload:
 - `data/map/per-sector_attributes.asm`
 
 Those source files are absent from the checked-in reference tree. The next known
-binary asset starts at `D7:C600`, so the asset manifest still treats the combined
-`D7:A800..D7:C5FF` span as generated map metadata. The consumer-backed semantic
-split is now:
+binary asset starts at `D7:C600`, so the source scaffold still preserves the
+combined `D7:A800..D7:C5FF` span as one generated map metadata corridor. The
+consumer-backed semantic split is now:
 
 - `D7:A800..D7:ACFF`: `D7_SECTOR_TILESET_PALETTE_TABLE`, 1280 one-byte rows.
   Bits `3..7` are `tileset_id`; bits `0..2` are `palette_variant`. This matches
@@ -70,6 +71,16 @@ split is now:
 - `D7:BC00..D7:C5FF`: bounded 1280-word metadata plane. No field names are
   promoted yet; the D7 sector contract records value distributions only.
 
+The asset emitter exposes the strongest decoded halves as reproducible
+runtime-consumer tables:
+
+- `D7:A800..D7:B1FF`: `80 x 32` context bytes indexed as
+  `sector_x * 32 + sector_y`; consumers use `byte >> 3` as the tileset/palette
+  group and keep `byte & 7` as a variant/low-bit selector.
+- `D7:B200..D7:C5FF`: `80 x 32` little-endian sector attribute words using the
+  same index; `C0:0AA1` stores the full word as the position cell context, while
+  `C0:2668` uses the low three bits for spawn-probe gating.
+
 ## Current D7 confidence boundary
 
 High confidence:
@@ -83,6 +94,9 @@ High confidence:
 - `notes/d7-sector-metadata-contracts.md` now carries source-emission rows for
   all four D7 metadata planes, including numeric-preserve policies and full
   value counts for the two bounded-but-unnamed planes.
+- `D7:A800..D7:C5FF` is generated map metadata named by the bank config and now
+  has a typed extraction sidecar that exposes the context-byte and attribute-word
+  halves without splitting the source scaffold.
 - `D7:C600..D7:FBE7` is compressed map arrangement payload `0`.
 - `src/d7/bank_d7_helpers_asar.asm` protects the full bank through the reusable
   source-bank scaffold pipeline.
@@ -104,4 +118,4 @@ per-sector planes in `notes/d7-sector-metadata-contracts.md`, preserving the two
 unnamed planes and context-word high bits numerically. The remaining D7 work is
 narrow semantic polish: identify the two bounded unresolved metadata planes,
 decode the high bits of the sector context words if a consumer proves them, and
-optionally connect the map tile and arrangement payloads to render fixtures.
+connect the map tile and arrangement payloads to render fixtures.

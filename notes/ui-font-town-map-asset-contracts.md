@@ -18,13 +18,13 @@ No ROM-derived payloads are checked in by this report.
 
 | Family | Assets | Bytes | Inferred payloads | Contract-covered | Unresolved metadata | Categories | Output recipes | Runtime contract |
 | --- | ---: | ---: | ---: | ---: | ---: | --- | --- | --- |
-| Text window skins and text palettes | 3 | 2447 | 0 | 0 | 0 | `graphics` 2, `raw-table` 1 | `raw` 3, `earthbound_lzhal` 2, `earthbound_lzhal_snes_4bpp_tiles_png` 1 | C0/C4 text-window upload and palette-flavour callers consume these as window graphics, window-property rows, and palette/font-colour data. |
-| Font data and glyph graphics | 11 | 12532 | 0 | 0 | 0 | `graphics` 6, `binary-asset` 5 | `raw` 11, `snes_4bpp_tiles_png` 5 | Font data assets are fixed-width metric/spacing rows paired with raw or 4bpp glyph graphics consumed by the text and presentation renderers. |
-| Town-map graphics, labels, icons, and placement tables | 9 | 54924 | 0 | 0 | 0 | `binary-asset` 6, `graphics` 2, `raw-table` 1 | `raw` 9, `earthbound_lzhal` 7, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | C4:D553 selects E0 town-map graphics through E0:2190; C4:D43F walks E1 town-map icon records from E1:F491 and draws icons mapped through E1:F44C. |
+| Text window skins and text palettes | 3 | 2447 | 0 | 0 | 0 | `graphics` 2, `raw-table` 1 | `raw` 3, `earthbound_lzhal` 2, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `text_window_properties_table_json` 1 | C0/C4 text-window upload and palette-flavour callers consume these as window graphics, window-property rows, and palette/font-colour data. |
+| Font data and glyph graphics | 11 | 12532 | 0 | 0 | 0 | `graphics` 6, `binary-asset` 5 | `raw` 11, `font_metric_widths_json` 5, `snes_4bpp_tiles_png` 5, `snes_2bpp_tiles_png` 1 | Font data assets are fixed-width metric/spacing rows paired with raw or 4bpp glyph graphics consumed by the text and presentation renderers. |
+| Town-map graphics, labels, icons, and placement tables | 9 | 54924 | 0 | 0 | 0 | `binary-asset` 6, `graphics` 2, `raw-table` 1 | `raw` 9, `earthbound_lzhal` 7, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1, `town_map_icon_table_json` 1 | C4:D553 selects E0 town-map graphics through E0:2190; C4:D43F walks E1 town-map icon records from E1:F491 and draws icons mapped through E1:F44C. |
 | Intro, logo, title, and attract visuals | 24 | 35132 | 3 | 3 | 0 | `graphics` 23, `binary-asset` 1 | `earthbound_lzhal` 24, `raw` 24, `earthbound_lzhal_snes_palette_json` 8, `earthbound_lzhal_snes_palette_swatch_png` 8, `earthbound_lzhal_snes_4bpp_tiles_png` 7 | C4 intro/presentation loaders consume compressed arrangement, graphics, and palette triples for logos, gas-station intro, title screen, Itoi/Nintendo presentation, and related attract payloads. |
 | Saved-coordinate landing display visuals | 3 | 1842 | 0 | 0 | 0 | `graphics` 3 | `earthbound_lzhal` 3, `raw` 3, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `earthbound_lzhal_snes_palette_json` 1, `earthbound_lzhal_snes_palette_swatch_png` 1 | C4:C2DE decompresses E1:CFAF, E1:D5E8, and E1:D4F4 as the saved-coordinate landing display graphics, arrangement, and palette bundle. |
 | Ending cast-name visuals | 4 | 3655 | 1 | 1 | 0 | `graphics` 3, `raw-table` 1 | `raw` 4, `earthbound_lzhal` 3, `earthbound_lzhal_snes_4bpp_tiles_png` 2, `earthbound_lzhal_snes_palette_json` 1, `earthbound_lzhal_snes_palette_swatch_png` 1 | C4:E369 loads E1:D6E1, E1:D815, E1:D835, and E1:E4E6 into the ending cast-name display path. |
-| Flyover, credits, cast, and photographer tables | 9 | 10523 | 0 | 0 | 0 | `raw-table` 7, `graphics` 2 | `raw` 9, `earthbound_lzhal` 1, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | These table spans feed scripted flyover text, cast formatting, photographer records, and credits/cast display helpers rather than raw image decoding. |
+| Flyover, credits, cast, and photographer tables | 9 | 10523 | 0 | 0 | 0 | `raw-table` 7, `graphics` 2 | `raw` 9, `earthbound_lzhal` 1, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `photographer_config_table_json` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | These table spans feed scripted flyover text, cast formatting, photographer records, and credits/cast display helpers rather than raw image decoding. |
 | Compressed SRAM save-block template | 1 | 2469 | 1 | 1 | 0 | `binary-asset` 1 | `earthbound_lzhal` 1, `raw` 1 | E0:09B4 decompresses to eight 0x500-byte save_block records; EF save helpers use blocks 0/1, 2/3, and 4/5 as three primary/backup user save-slot pairs, while blocks 6/7 are preserved reserve template records outside the retail slot loops. |
 | Embedded audio pack tails | 3 | 7457 | 0 | 0 | 0 | `audio` 3 | `raw` 3 | E0/E1 end with audio-pack payloads that belong to the broader E2-EE audio-pack contract family, not the UI visual family. |
 | Unresolved UI-adjacent binary payloads | 0 | 0 | 0 | 0 | 0 | - | - | These ranges are byte-accounted and extractable, but the exact runtime owner is not pinned tightly enough to fold them into a UI/font/town-map family. |
@@ -120,7 +120,7 @@ No ROM-derived payloads are checked in by this report.
 | --- | --- | ---: | --- | --- |
 | `asset.e0.text_window_gfx` | `E0:0000..E0:0754` | 1876 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | - |
 | `asset.e0.flavoured_text_gfx` | `E0:0754..E0:07A0` | 76 | `raw`, `earthbound_lzhal` | - |
-| `table.e0.006_data_text_window_properties_asm` | `E0:1FB9..E0:21A8` | 495 | `raw` | raw-table |
+| `table.e0.006_data_text_window_properties_asm` | `E0:1FB9..E0:21A8` | 495 | `raw`, `text_window_properties_table_json` | raw-table |
 
 ### Font data and glyph graphics
 
@@ -129,16 +129,16 @@ No ROM-derived payloads are checked in by this report.
 
 | Asset | Range | Bytes | Outputs | Notes |
 | --- | --- | ---: | --- | --- |
-| `asset.e0.mother2_romaji_font` | `E0:07A0..E0:09B4` | 532 | `raw` | - |
-| `asset.e0.mrsaturn_font_data` | `E0:1359..E0:13B9` | 96 | `raw` | - |
+| `asset.e0.mother2_romaji_font` | `E0:07A0..E0:09B4` | 532 | `raw`, `snes_2bpp_tiles_png` | - |
+| `asset.e0.mrsaturn_font_data` | `E0:1359..E0:13B9` | 96 | `raw`, `font_metric_widths_json` | - |
 | `asset.e0.mrsaturn_font_gfx` | `E0:13B9..E0:1FB9` | 3072 | `raw`, `snes_4bpp_tiles_png` | - |
-| `asset.e1.main_font_data` | `E1:0C7A..E1:0CDA` | 96 | `raw` | - |
+| `asset.e1.main_font_data` | `E1:0C7A..E1:0CDA` | 96 | `raw`, `font_metric_widths_json` | - |
 | `asset.e1.main_font_gfx` | `E1:0CDA..E1:18DA` | 3072 | `raw`, `snes_4bpp_tiles_png` | - |
-| `asset.e1.battle_font_data` | `E1:18DA..E1:193A` | 96 | `raw` | - |
+| `asset.e1.battle_font_data` | `E1:18DA..E1:193A` | 96 | `raw`, `font_metric_widths_json` | - |
 | `asset.e1.battle_font_gfx` | `E1:193A..E1:1F3A` | 1536 | `raw`, `snes_4bpp_tiles_png` | - |
-| `asset.e1.tiny_font_data` | `E1:1F3A..E1:1F9A` | 96 | `raw` | - |
+| `asset.e1.tiny_font_data` | `E1:1F3A..E1:1F9A` | 96 | `raw`, `font_metric_widths_json` | - |
 | `asset.e1.tiny_font_gfx` | `E1:1F9A..E1:229A` | 768 | `raw`, `snes_4bpp_tiles_png` | - |
-| `asset.e1.large_font_data` | `E1:229A..E1:22FA` | 96 | `raw` | - |
+| `asset.e1.large_font_data` | `E1:229A..E1:22FA` | 96 | `raw`, `font_metric_widths_json` | - |
 | `asset.e1.large_font_gfx` | `E1:22FA..E1:2EFA` | 3072 | `raw`, `snes_4bpp_tiles_png` | - |
 
 ### Town-map graphics, labels, icons, and placement tables
@@ -156,7 +156,7 @@ No ROM-derived payloads are checked in by this report.
 | `asset.e0.town_map_summers` | `E0:C7F1..E0:ED03` | 9490 | `raw`, `earthbound_lzhal` | - |
 | `asset.e1.town_map_label_gfx` | `E1:EA50..E1:F1C3` | 1907 | `raw`, `earthbound_lzhal`, `earthbound_lzhal_snes_4bpp_tiles_png` | - |
 | `asset.e1.town_map_icon_palette` | `E1:F1C3..E1:F203` | 64 | `raw`, `snes_palette_json`, `snes_palette_swatch_png` | - |
-| `table.e1.055_data_unknown_e1f203_asm` | `E1:F203..E1:F581` | 894 | `raw` | raw-table |
+| `table.e1.055_data_unknown_e1f203_asm` | `E1:F203..E1:F581` | 894 | `raw`, `town_map_icon_table_json` | raw-table |
 
 ### Intro, logo, title, and attract visuals
 
@@ -224,7 +224,7 @@ No ROM-derived payloads are checked in by this report.
 | `asset.e1.staff_credits_font_palette` | `E1:E914..E1:E924` | 16 | `raw`, `snes_palette_json`, `snes_palette_swatch_png` | - |
 | `table.e1.000_localeinclude_coffee_flyover` | `E1:0000..E1:0C7A` | 3194 | `raw` | raw-table |
 | `table.e1.011_data_cast_sequence_formatting_asm` | `E1:2EFA..E1:2F8A` | 144 | `raw` | raw-table |
-| `table.e1.012_data_photographer_cfg_asm` | `E1:2F8A..E1:374A` | 1984 | `raw` | raw-table |
+| `table.e1.012_data_photographer_cfg_asm` | `E1:2F8A..E1:374A` | 1984 | `raw`, `photographer_config_table_json` | raw-table |
 | `table.e1.014_data_credits_asm` | `E1:413F..E1:4DE8` | 3241 | `raw` | raw-table |
 | `table.e1.015_unknown_e1_e14de8_asm` | `E1:4DE8..E1:4EC1` | 217 | `raw` | raw-table |
 | `table.e1.041_data_unknown_e1ce08_asm` | `E1:CE08..E1:CFAF` | 423 | `raw` | raw-table |

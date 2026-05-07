@@ -9,12 +9,10 @@ No ROM-derived payloads or reference images are checked in by this report.
 - assets/tables/gaps represented: `689`
 - source bytes represented: `327680`
 - contract families: `17`
-- assets with decoder/preview recipes beyond raw extraction: `542`
+- assets with decoder/preview recipes beyond raw extraction: `681`
 
 ## Reference Counts
 
-- ignored EBDecomp BattleBG PNG refs: `327`
-- ignored EBDecomp swirl frame groups: 1: 23, 2: 15, 3: 22, 4: 21, 5: 28, 6: 17
 
 ## Family Contracts
 
@@ -23,17 +21,17 @@ No ROM-derived payloads or reference images are checked in by this report.
 | Battle background graphics | 103 | 61657 | `CB` 88, `CA` 15 | `graphics` 103 | `earthbound_lzhal` 103, `raw` 103, `earthbound_lzhal_snes_4bpp_tiles_png` 90, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 68 | Compressed 4bpp graphics payloads selected by battle-background graphics pointers and uploaded by the C2 battle-background loader. |
 | Battle background arrangements | 103 | 46018 | `CB` 98, `CA` 5 | `graphics` 103 | `earthbound_lzhal` 103, `earthbound_lzhal_battle_bg_arrangement_png` 103, `raw` 103 | Compressed arrangement/tilemap payloads selected alongside background graphics to compose battle-background scenes. |
 | Battle background palettes | 114 | 2976 | `CB` 114 | `graphics` 114 | `raw` 114, `snes_palette_json` 114, `snes_palette_swatch_png` 114 | Palette payloads and palette pointers used by C2 palette/effect setup during battle-background loading. |
-| Battle background runtime tables | 7 | 12270 | `CA` 6, `CB` 1 | `raw-table` 7 | `raw` 7 | Pointer, config, scrolling, distortion, and battle-entry background tables that bind battle backgrounds to runtime effects. |
+| Battle background runtime tables | 7 | 12270 | `CA` 6, `CB` 1 | `raw-table` 7 | `raw` 7, `battle_bg_pointer_table_json` 3, `battle_bg_config_table_json` 1, `battle_bg_distortion_table_json` 1, `battle_bg_layer_table_json` 1, `battle_bg_scrolling_table_json` 1 | Pointer, config, scrolling, distortion, and battle-entry background tables that bind battle backgrounds to runtime effects. |
 | Scripted animation data | 6 | 11745 | `CC` 6 | `binary-asset` 6 | `earthbound_lzhal` 6, `raw` 6 | Named animation data payloads for Car Painter lightning, Starman Jr teleport, Boom, Zombies, and The End sequences. |
 | PSI animation arrangements | 34 | 46574 | `CC` 34 | `graphics` 34 | `earthbound_lzhal` 34, `raw` 34 | Compressed PSI animation arrangement payloads selected by PSI animation config/pointer tables. |
 | PSI animation graphics sets | 4 | 3808 | `CC` 4 | `graphics` 4 | `earthbound_lzhal` 4, `raw` 4, `earthbound_lzhal_snes_4bpp_tiles_png` 1 | Compressed graphics sets shared by PSI animation arrangements. |
 | PSI animation palettes | 34 | 272 | `CC` 34 | `graphics` 34 | `raw` 34, `snes_palette_json` 34, `snes_palette_swatch_png` 34 | Small SNES palette payloads used by PSI animation rendering. |
-| PSI animation runtime tables | 3 | 600 | `CC` 3 | `raw-table` 3 | `raw` 3 | Animation sequence, PSI config, and PSI pointer tables joining animation payloads to runtime effects. |
+| PSI animation runtime tables | 3 | 600 | `CC` 3 | `raw-table` 3 | `raw` 3, `animation_sequence_pointer_table_json` 1, `psi_anim_config_table_json` 1, `psi_anim_pointer_table_json` 1 | Animation sequence, PSI config, and PSI pointer tables joining animation payloads to runtime effects. |
 | Battle sprite graphics | 110 | 90862 | `CD` 55, `CE` 55 | `graphics` 110 | `earthbound_lzhal_battle_sprite_png` 166, `earthbound_lzhal_snes_4bpp_tiles_palette_png` 166, `earthbound_lzhal` 110, `earthbound_lzhal_snes_4bpp_tiles_png` 110, `raw` 110 | Compressed battle sprite graphics payloads selected by the CE pointer table and rendered by the C2 battle-sprite path. |
 | Battle sprite palettes | 32 | 1024 | `CE` 32 | `graphics` 32 | `raw` 32, `snes_palette_json` 32, `snes_palette_swatch_png` 32 | SNES palettes consumed by the battle sprite renderer and palette tail. |
-| Battle sprite runtime tables | 1 | 550 | `CE` 1 | `raw-table` 1 | `raw` 1 | Battle sprite pointer tables that bind sprite ids to compressed graphics payloads. |
-| Swirl frame payloads | 126 | 29489 | `CE` 126 | `binary-asset` 126 | `raw` 126 | Swirl data payloads selected by battle/overworld swirl transition code. |
-| Swirl runtime tables | 2 | 280 | `CE` 2 | `raw-table` 2 | `raw` 2 | Swirl pointer and primary tables that sequence the CE swirl payloads. |
+| Battle sprite runtime tables | 1 | 550 | `CE` 1 | `raw-table` 1 | `battle_sprite_pointer_table_json` 1, `raw` 1 | Battle sprite pointer tables that bind sprite ids to compressed graphics payloads. |
+| Swirl frame payloads | 126 | 29489 | `CE` 126 | `binary-asset` 126 | `battle_swirl_frame_json` 126, `raw` 126 | Swirl data payloads selected by battle/overworld swirl transition code. |
+| Swirl runtime tables | 2 | 280 | `CE` 2 | `raw-table` 2 | `raw` 2, `battle_swirl_pointer_table_json` 1, `battle_swirl_sequence_table_json` 1 | Swirl pointer and primary tables that sequence the CE swirl payloads. |
 | Sound Stone visual assets | 2 | 7017 | `CE` 2 | `graphics` 2 | `raw` 2, `earthbound_lzhal` 1, `earthbound_lzhal_snes_4bpp_tiles_png` 1, `snes_palette_json` 1, `snes_palette_swatch_png` 1 | Compressed Sound Stone graphics and palette payloads used by presentation/display code. |
 | Embedded audio pack tails | 4 | 12386 | `CB` 2, `CC` 1, `CE` 1 | `audio` 4 | `raw` 4 | Audio pack payloads embedded in otherwise visual banks; they belong to the broader audio-pack contract lane. |
 | Bank-end padding and raw gaps | 4 | 152 | `CA` 1, `CB` 1, `CC` 1, `CE` 1 | `raw-gap` 4 | `raw` 4 | Small byte-protected tail gaps/slack ranges. |
@@ -398,13 +396,13 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 | Asset | Range | Bytes | Outputs |
 | --- | --- | ---: | --- |
-| `table.ca.020_data_battle_backgrounds_graphics_pointers_asm` | `CA:D7A1..CA:D93D` | 412 | `raw` |
-| `table.ca.021_data_battle_backgrounds_arrangement_pointers_asm` | `CA:D93D..CA:DAD9` | 412 | `raw` |
-| `table.ca.022_data_battle_backgrounds_palette_pointers_asm` | `CA:DAD9..CA:DCA1` | 456 | `raw` |
-| `table.ca.023_data_battle_backgrounds_config_table_asm` | `CA:DCA1..CA:F258` | 5559 | `raw` |
-| `table.ca.024_data_battle_backgrounds_scrolling_table_asm` | `CA:F258..CA:F708` | 1200 | `raw` |
-| `table.ca.025_data_battle_backgrounds_distortion_table_asm` | `CA:F708..CA:FFFF` | 2295 | `raw` |
-| `table.cb.300_data_battle_background_layer_table_asm` | `CB:D89A..CB:E02A` | 1936 | `raw` |
+| `table.ca.020_data_battle_backgrounds_graphics_pointers_asm` | `CA:D7A1..CA:D93D` | 412 | `raw`, `battle_bg_pointer_table_json` |
+| `table.ca.021_data_battle_backgrounds_arrangement_pointers_asm` | `CA:D93D..CA:DAD9` | 412 | `raw`, `battle_bg_pointer_table_json` |
+| `table.ca.022_data_battle_backgrounds_palette_pointers_asm` | `CA:DAD9..CA:DCA1` | 456 | `raw`, `battle_bg_pointer_table_json` |
+| `table.ca.023_data_battle_backgrounds_config_table_asm` | `CA:DCA1..CA:F258` | 5559 | `raw`, `battle_bg_config_table_json` |
+| `table.ca.024_data_battle_backgrounds_scrolling_table_asm` | `CA:F258..CA:F708` | 1200 | `raw`, `battle_bg_scrolling_table_json` |
+| `table.ca.025_data_battle_backgrounds_distortion_table_asm` | `CA:F708..CA:FFFF` | 2295 | `raw`, `battle_bg_distortion_table_json` |
+| `table.cb.300_data_battle_background_layer_table_asm` | `CB:D89A..CB:E02A` | 1936 | `raw`, `battle_bg_layer_table_json` |
 
 ### Scripted animation data
 
@@ -523,9 +521,9 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 | Asset | Range | Bytes | Outputs |
 | --- | --- | ---: | --- |
-| `table.cc.006_data_animation_sequence_pointers_asm` | `CC:2DE1..CC:2E19` | 56 | `raw` |
-| `table.cc.043_data_psi_anim_cfg_asm` | `CC:F04D..CC:F1E5` | 408 | `raw` |
-| `table.cc.080_data_psi_anim_pointers_asm` | `CC:F58F..CC:F617` | 136 | `raw` |
+| `table.cc.006_data_animation_sequence_pointers_asm` | `CC:2DE1..CC:2E19` | 56 | `raw`, `animation_sequence_pointer_table_json` |
+| `table.cc.043_data_psi_anim_cfg_asm` | `CC:F04D..CC:F1E5` | 408 | `raw`, `psi_anim_config_table_json` |
+| `table.cc.080_data_psi_anim_pointers_asm` | `CC:F58F..CC:F617` | 136 | `raw`, `psi_anim_pointer_table_json` |
 
 ### Battle sprite graphics
 
@@ -692,7 +690,7 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 | Asset | Range | Bytes | Outputs |
 | --- | --- | ---: | --- |
-| `table.ce.055_data_battle_battle_sprites_pointers_asm` | `CE:62EE..CE:6514` | 550 | `raw` |
+| `table.ce.055_data_battle_battle_sprites_pointers_asm` | `CE:62EE..CE:6514` | 550 | `raw`, `battle_sprite_pointer_table_json` |
 
 ### Swirl frame payloads
 
@@ -701,132 +699,132 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 | Asset | Range | Bytes | Outputs |
 | --- | --- | ---: | --- |
-| `asset.ce.swirl_data_0` | `CE:6914..CE:691C` | 8 | `raw` |
-| `asset.ce.swirl_data_1` | `CE:691C..CE:6933` | 23 | `raw` |
-| `asset.ce.swirl_data_2` | `CE:6933..CE:6984` | 81 | `raw` |
-| `asset.ce.swirl_data_3` | `CE:6984..CE:6A05` | 129 | `raw` |
-| `asset.ce.swirl_data_4` | `CE:6A05..CE:6A9D` | 152 | `raw` |
-| `asset.ce.swirl_data_5` | `CE:6A9D..CE:6B48` | 171 | `raw` |
-| `asset.ce.swirl_data_6` | `CE:6B48..CE:6C1A` | 210 | `raw` |
-| `asset.ce.swirl_data_7` | `CE:6C1A..CE:6CF8` | 222 | `raw` |
-| `asset.ce.swirl_data_8` | `CE:6CF8..CE:6DEA` | 242 | `raw` |
-| `asset.ce.swirl_data_9` | `CE:6DEA..CE:6F02` | 280 | `raw` |
-| `asset.ce.swirl_data_10` | `CE:6F02..CE:701F` | 285 | `raw` |
-| `asset.ce.swirl_data_11` | `CE:701F..CE:718B` | 364 | `raw` |
-| `asset.ce.swirl_data_12` | `CE:718B..CE:7307` | 380 | `raw` |
-| `asset.ce.swirl_data_13` | `CE:7307..CE:74D2` | 459 | `raw` |
-| `asset.ce.swirl_data_14` | `CE:74D2..CE:76B1` | 479 | `raw` |
-| `asset.ce.swirl_data_15` | `CE:76B1..CE:78DF` | 558 | `raw` |
-| `asset.ce.swirl_data_16` | `CE:78DF..CE:7B3C` | 605 | `raw` |
-| `asset.ce.swirl_data_17` | `CE:7B3C..CE:7DD9` | 669 | `raw` |
-| `asset.ce.swirl_data_18` | `CE:7DD9..CE:80F2` | 793 | `raw` |
-| `asset.ce.swirl_data_19` | `CE:80F2..CE:83DE` | 748 | `raw` |
-| `asset.ce.swirl_data_20` | `CE:83DE..CE:8523` | 325 | `raw` |
-| `asset.ce.swirl_data_21` | `CE:8523..CE:85B9` | 150 | `raw` |
-| `asset.ce.swirl_data_22` | `CE:85B9..CE:85C1` | 8 | `raw` |
-| `asset.ce.swirl_data_23` | `CE:85C1..CE:85C9` | 8 | `raw` |
-| `asset.ce.swirl_data_24` | `CE:85C9..CE:8616` | 77 | `raw` |
-| `asset.ce.swirl_data_25` | `CE:8616..CE:865B` | 69 | `raw` |
-| `asset.ce.swirl_data_26` | `CE:865B..CE:86AE` | 83 | `raw` |
-| `asset.ce.swirl_data_27` | `CE:86AE..CE:870D` | 95 | `raw` |
-| `asset.ce.swirl_data_28` | `CE:870D..CE:876A` | 93 | `raw` |
-| `asset.ce.swirl_data_29` | `CE:876A..CE:87CF` | 101 | `raw` |
-| `asset.ce.swirl_data_30` | `CE:87CF..CE:883E` | 111 | `raw` |
-| `asset.ce.swirl_data_31` | `CE:883E..CE:88C3` | 133 | `raw` |
-| `asset.ce.swirl_data_32` | `CE:88C3..CE:8956` | 147 | `raw` |
-| `asset.ce.swirl_data_33` | `CE:8956..CE:8A0D` | 183 | `raw` |
-| `asset.ce.swirl_data_34` | `CE:8A0D..CE:8AE2` | 213 | `raw` |
-| `asset.ce.swirl_data_35` | `CE:8AE2..CE:8BFF` | 285 | `raw` |
-| `asset.ce.swirl_data_36` | `CE:8BFF..CE:8D94` | 405 | `raw` |
-| `asset.ce.swirl_data_37` | `CE:8D94..CE:9013` | 639 | `raw` |
-| `asset.ce.swirl_data_38` | `CE:9013..CE:9066` | 83 | `raw` |
-| `asset.ce.swirl_data_39` | `CE:9066..CE:90BB` | 85 | `raw` |
-| `asset.ce.swirl_data_40` | `CE:90BB..CE:9105` | 74 | `raw` |
-| `asset.ce.swirl_data_41` | `CE:9105..CE:9148` | 67 | `raw` |
-| `asset.ce.swirl_data_42` | `CE:9148..CE:91A7` | 95 | `raw` |
-| `asset.ce.swirl_data_43` | `CE:91A7..CE:9212` | 107 | `raw` |
-| `asset.ce.swirl_data_44` | `CE:9212..CE:9277` | 101 | `raw` |
-| `asset.ce.swirl_data_45` | `CE:9277..CE:92D8` | 97 | `raw` |
-| `asset.ce.swirl_data_46` | `CE:92D8..CE:934B` | 115 | `raw` |
-| `asset.ce.swirl_data_47` | `CE:934B..CE:93E6` | 155 | `raw` |
-| `asset.ce.swirl_data_48` | `CE:93E6..CE:9481` | 155 | `raw` |
-| `asset.ce.swirl_data_49` | `CE:9481..CE:9509` | 136 | `raw` |
-| `asset.ce.swirl_data_50` | `CE:9509..CE:95A4` | 155 | `raw` |
-| `asset.ce.swirl_data_51` | `CE:95A4..CE:969F` | 251 | `raw` |
-| `asset.ce.swirl_data_52` | `CE:969F..CE:97B2` | 275 | `raw` |
-| `asset.ce.swirl_data_53` | `CE:97B2..CE:98C8` | 278 | `raw` |
-| `asset.ce.swirl_data_54` | `CE:98C8..CE:9A34` | 364 | `raw` |
-| `asset.ce.swirl_data_55` | `CE:9A34..CE:9CFA` | 710 | `raw` |
-| `asset.ce.swirl_data_56` | `CE:9CFA..CE:A069` | 879 | `raw` |
-| `asset.ce.swirl_data_57` | `CE:A069..CE:A3A3` | 826 | `raw` |
-| `asset.ce.swirl_data_58` | `CE:A3A3..CE:A5AD` | 522 | `raw` |
-| `asset.ce.swirl_data_59` | `CE:A5AD..CE:A5B5` | 8 | `raw` |
-| `asset.ce.swirl_data_60` | `CE:A5B5..CE:A5C6` | 17 | `raw` |
-| `asset.ce.swirl_data_61` | `CE:A5C6..CE:A5DF` | 25 | `raw` |
-| `asset.ce.swirl_data_62` | `CE:A5DF..CE:A610` | 49 | `raw` |
-| `asset.ce.swirl_data_63` | `CE:A610..CE:A661` | 81 | `raw` |
-| `asset.ce.swirl_data_64` | `CE:A661..CE:A6EA` | 137 | `raw` |
-| `asset.ce.swirl_data_65` | `CE:A6EA..CE:A7BB` | 209 | `raw` |
-| `asset.ce.swirl_data_66` | `CE:A7BB..CE:A8DC` | 289 | `raw` |
-| `asset.ce.swirl_data_67` | `CE:A8DC..CE:AA65` | 393 | `raw` |
-| `asset.ce.swirl_data_68` | `CE:AA65..CE:AC5E` | 505 | `raw` |
-| `asset.ce.swirl_data_69` | `CE:AC5E..CE:AEE0` | 642 | `raw` |
-| `asset.ce.swirl_data_70` | `CE:AEE0..CE:B1F2` | 786 | `raw` |
-| `asset.ce.swirl_data_71` | `CE:B1F2..CE:B576` | 900 | `raw` |
-| `asset.ce.swirl_data_72` | `CE:B576..CE:B8FA` | 900 | `raw` |
-| `asset.ce.swirl_data_73` | `CE:B8FA..CE:BC7E` | 900 | `raw` |
-| `asset.ce.swirl_data_74` | `CE:BC7E..CE:C002` | 900 | `raw` |
-| `asset.ce.swirl_data_75` | `CE:C002..CE:C386` | 900 | `raw` |
-| `asset.ce.swirl_data_76` | `CE:C386..CE:C54A` | 452 | `raw` |
-| `asset.ce.swirl_data_77` | `CE:C54A..CE:C817` | 717 | `raw` |
-| `asset.ce.swirl_data_78` | `CE:C817..CE:C8F8` | 225 | `raw` |
-| `asset.ce.swirl_data_79` | `CE:C8F8..CE:C950` | 88 | `raw` |
-| `asset.ce.swirl_data_80` | `CE:C950..CE:C958` | 8 | `raw` |
-| `asset.ce.swirl_data_81` | `CE:C958..CE:C960` | 8 | `raw` |
-| `asset.ce.swirl_data_82` | `CE:C960..CE:C96B` | 11 | `raw` |
-| `asset.ce.swirl_data_83` | `CE:C96B..CE:C982` | 23 | `raw` |
-| `asset.ce.swirl_data_84` | `CE:C982..CE:C999` | 23 | `raw` |
-| `asset.ce.swirl_data_85` | `CE:C999..CE:C9B0` | 23 | `raw` |
-| `asset.ce.swirl_data_86` | `CE:C9B0..CE:C9BB` | 11 | `raw` |
-| `asset.ce.swirl_data_87` | `CE:C9BB..CE:C9C6` | 11 | `raw` |
-| `asset.ce.swirl_data_88` | `CE:C9C6..CE:C9D1` | 11 | `raw` |
-| `asset.ce.swirl_data_89` | `CE:C9D1..CE:C9DC` | 11 | `raw` |
-| `asset.ce.swirl_data_90` | `CE:C9DC..CE:C9E7` | 11 | `raw` |
-| `asset.ce.swirl_data_91` | `CE:C9E7..CE:C9F2` | 11 | `raw` |
-| `asset.ce.swirl_data_92` | `CE:C9F2..CE:C9FD` | 11 | `raw` |
-| `asset.ce.swirl_data_93` | `CE:C9FD..CE:CA08` | 11 | `raw` |
-| `asset.ce.swirl_data_94` | `CE:CA08..CE:CA13` | 11 | `raw` |
-| `asset.ce.swirl_data_95` | `CE:CA13..CE:CA1E` | 11 | `raw` |
-| `asset.ce.swirl_data_96` | `CE:CA1E..CE:CA29` | 11 | `raw` |
-| `asset.ce.swirl_data_97` | `CE:CA29..CE:CA34` | 11 | `raw` |
-| `asset.ce.swirl_data_98` | `CE:CA34..CE:CA3F` | 11 | `raw` |
-| `asset.ce.swirl_data_99` | `CE:CA3F..CE:CA4A` | 11 | `raw` |
-| `asset.ce.swirl_data_100` | `CE:CA4A..CE:CA55` | 11 | `raw` |
-| `asset.ce.swirl_data_101` | `CE:CA55..CE:CA60` | 11 | `raw` |
-| `asset.ce.swirl_data_102` | `CE:CA60..CE:CA6B` | 11 | `raw` |
-| `asset.ce.swirl_data_103` | `CE:CA6B..CE:CA76` | 11 | `raw` |
-| `asset.ce.swirl_data_104` | `CE:CA76..CE:CA81` | 11 | `raw` |
-| `asset.ce.swirl_data_105` | `CE:CA81..CE:CA8C` | 11 | `raw` |
-| `asset.ce.swirl_data_106` | `CE:CA8C..CE:CA97` | 11 | `raw` |
-| `asset.ce.swirl_data_107` | `CE:CA97..CE:CAA2` | 11 | `raw` |
-| `asset.ce.swirl_data_108` | `CE:CAA2..CE:CAAA` | 8 | `raw` |
-| `asset.ce.swirl_data_109` | `CE:CAAA..CE:CAB2` | 8 | `raw` |
-| `asset.ce.swirl_data_110` | `CE:CAB2..CE:CAE1` | 47 | `raw` |
-| `asset.ce.swirl_data_111` | `CE:CAE1..CE:CB8D` | 172 | `raw` |
-| `asset.ce.swirl_data_112` | `CE:CB8D..CE:CC8D` | 256 | `raw` |
-| `asset.ce.swirl_data_113` | `CE:CC8D..CE:CDE1` | 340 | `raw` |
-| `asset.ce.swirl_data_114` | `CE:CDE1..CE:CF51` | 368 | `raw` |
-| `asset.ce.swirl_data_115` | `CE:CF51..CE:D0DD` | 396 | `raw` |
-| `asset.ce.swirl_data_116` | `CE:D0DD..CE:D285` | 424 | `raw` |
-| `asset.ce.swirl_data_117` | `CE:D285..CE:D449` | 452 | `raw` |
-| `asset.ce.swirl_data_118` | `CE:D449..CE:D5F0` | 423 | `raw` |
-| `asset.ce.swirl_data_119` | `CE:D5F0..CE:D77B` | 395 | `raw` |
-| `asset.ce.swirl_data_120` | `CE:D77B..CE:D8EA` | 367 | `raw` |
-| `asset.ce.swirl_data_121` | `CE:D8EA..CE:DA3C` | 338 | `raw` |
-| `asset.ce.swirl_data_122` | `CE:DA3C..CE:DB3A` | 254 | `raw` |
-| `asset.ce.swirl_data_123` | `CE:DB3A..CE:DBE4` | 170 | `raw` |
-| `asset.ce.swirl_data_124` | `CE:DBE4..CE:DC3A` | 86 | `raw` |
-| `asset.ce.swirl_data_125` | `CE:DC3A..CE:DC45` | 11 | `raw` |
+| `asset.ce.swirl_data_0` | `CE:6914..CE:691C` | 8 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_1` | `CE:691C..CE:6933` | 23 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_2` | `CE:6933..CE:6984` | 81 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_3` | `CE:6984..CE:6A05` | 129 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_4` | `CE:6A05..CE:6A9D` | 152 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_5` | `CE:6A9D..CE:6B48` | 171 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_6` | `CE:6B48..CE:6C1A` | 210 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_7` | `CE:6C1A..CE:6CF8` | 222 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_8` | `CE:6CF8..CE:6DEA` | 242 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_9` | `CE:6DEA..CE:6F02` | 280 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_10` | `CE:6F02..CE:701F` | 285 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_11` | `CE:701F..CE:718B` | 364 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_12` | `CE:718B..CE:7307` | 380 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_13` | `CE:7307..CE:74D2` | 459 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_14` | `CE:74D2..CE:76B1` | 479 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_15` | `CE:76B1..CE:78DF` | 558 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_16` | `CE:78DF..CE:7B3C` | 605 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_17` | `CE:7B3C..CE:7DD9` | 669 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_18` | `CE:7DD9..CE:80F2` | 793 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_19` | `CE:80F2..CE:83DE` | 748 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_20` | `CE:83DE..CE:8523` | 325 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_21` | `CE:8523..CE:85B9` | 150 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_22` | `CE:85B9..CE:85C1` | 8 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_23` | `CE:85C1..CE:85C9` | 8 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_24` | `CE:85C9..CE:8616` | 77 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_25` | `CE:8616..CE:865B` | 69 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_26` | `CE:865B..CE:86AE` | 83 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_27` | `CE:86AE..CE:870D` | 95 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_28` | `CE:870D..CE:876A` | 93 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_29` | `CE:876A..CE:87CF` | 101 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_30` | `CE:87CF..CE:883E` | 111 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_31` | `CE:883E..CE:88C3` | 133 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_32` | `CE:88C3..CE:8956` | 147 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_33` | `CE:8956..CE:8A0D` | 183 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_34` | `CE:8A0D..CE:8AE2` | 213 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_35` | `CE:8AE2..CE:8BFF` | 285 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_36` | `CE:8BFF..CE:8D94` | 405 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_37` | `CE:8D94..CE:9013` | 639 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_38` | `CE:9013..CE:9066` | 83 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_39` | `CE:9066..CE:90BB` | 85 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_40` | `CE:90BB..CE:9105` | 74 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_41` | `CE:9105..CE:9148` | 67 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_42` | `CE:9148..CE:91A7` | 95 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_43` | `CE:91A7..CE:9212` | 107 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_44` | `CE:9212..CE:9277` | 101 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_45` | `CE:9277..CE:92D8` | 97 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_46` | `CE:92D8..CE:934B` | 115 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_47` | `CE:934B..CE:93E6` | 155 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_48` | `CE:93E6..CE:9481` | 155 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_49` | `CE:9481..CE:9509` | 136 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_50` | `CE:9509..CE:95A4` | 155 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_51` | `CE:95A4..CE:969F` | 251 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_52` | `CE:969F..CE:97B2` | 275 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_53` | `CE:97B2..CE:98C8` | 278 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_54` | `CE:98C8..CE:9A34` | 364 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_55` | `CE:9A34..CE:9CFA` | 710 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_56` | `CE:9CFA..CE:A069` | 879 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_57` | `CE:A069..CE:A3A3` | 826 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_58` | `CE:A3A3..CE:A5AD` | 522 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_59` | `CE:A5AD..CE:A5B5` | 8 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_60` | `CE:A5B5..CE:A5C6` | 17 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_61` | `CE:A5C6..CE:A5DF` | 25 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_62` | `CE:A5DF..CE:A610` | 49 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_63` | `CE:A610..CE:A661` | 81 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_64` | `CE:A661..CE:A6EA` | 137 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_65` | `CE:A6EA..CE:A7BB` | 209 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_66` | `CE:A7BB..CE:A8DC` | 289 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_67` | `CE:A8DC..CE:AA65` | 393 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_68` | `CE:AA65..CE:AC5E` | 505 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_69` | `CE:AC5E..CE:AEE0` | 642 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_70` | `CE:AEE0..CE:B1F2` | 786 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_71` | `CE:B1F2..CE:B576` | 900 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_72` | `CE:B576..CE:B8FA` | 900 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_73` | `CE:B8FA..CE:BC7E` | 900 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_74` | `CE:BC7E..CE:C002` | 900 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_75` | `CE:C002..CE:C386` | 900 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_76` | `CE:C386..CE:C54A` | 452 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_77` | `CE:C54A..CE:C817` | 717 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_78` | `CE:C817..CE:C8F8` | 225 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_79` | `CE:C8F8..CE:C950` | 88 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_80` | `CE:C950..CE:C958` | 8 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_81` | `CE:C958..CE:C960` | 8 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_82` | `CE:C960..CE:C96B` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_83` | `CE:C96B..CE:C982` | 23 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_84` | `CE:C982..CE:C999` | 23 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_85` | `CE:C999..CE:C9B0` | 23 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_86` | `CE:C9B0..CE:C9BB` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_87` | `CE:C9BB..CE:C9C6` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_88` | `CE:C9C6..CE:C9D1` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_89` | `CE:C9D1..CE:C9DC` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_90` | `CE:C9DC..CE:C9E7` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_91` | `CE:C9E7..CE:C9F2` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_92` | `CE:C9F2..CE:C9FD` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_93` | `CE:C9FD..CE:CA08` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_94` | `CE:CA08..CE:CA13` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_95` | `CE:CA13..CE:CA1E` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_96` | `CE:CA1E..CE:CA29` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_97` | `CE:CA29..CE:CA34` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_98` | `CE:CA34..CE:CA3F` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_99` | `CE:CA3F..CE:CA4A` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_100` | `CE:CA4A..CE:CA55` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_101` | `CE:CA55..CE:CA60` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_102` | `CE:CA60..CE:CA6B` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_103` | `CE:CA6B..CE:CA76` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_104` | `CE:CA76..CE:CA81` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_105` | `CE:CA81..CE:CA8C` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_106` | `CE:CA8C..CE:CA97` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_107` | `CE:CA97..CE:CAA2` | 11 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_108` | `CE:CAA2..CE:CAAA` | 8 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_109` | `CE:CAAA..CE:CAB2` | 8 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_110` | `CE:CAB2..CE:CAE1` | 47 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_111` | `CE:CAE1..CE:CB8D` | 172 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_112` | `CE:CB8D..CE:CC8D` | 256 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_113` | `CE:CC8D..CE:CDE1` | 340 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_114` | `CE:CDE1..CE:CF51` | 368 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_115` | `CE:CF51..CE:D0DD` | 396 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_116` | `CE:D0DD..CE:D285` | 424 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_117` | `CE:D285..CE:D449` | 452 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_118` | `CE:D449..CE:D5F0` | 423 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_119` | `CE:D5F0..CE:D77B` | 395 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_120` | `CE:D77B..CE:D8EA` | 367 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_121` | `CE:D8EA..CE:DA3C` | 338 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_122` | `CE:DA3C..CE:DB3A` | 254 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_123` | `CE:DB3A..CE:DBE4` | 170 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_124` | `CE:DBE4..CE:DC3A` | 86 | `raw`, `battle_swirl_frame_json` |
+| `asset.ce.swirl_data_125` | `CE:DC3A..CE:DC45` | 11 | `raw`, `battle_swirl_frame_json` |
 
 ### Swirl runtime tables
 
@@ -835,8 +833,8 @@ No ROM-derived payloads or reference images are checked in by this report.
 
 | Asset | Range | Bytes | Outputs |
 | --- | --- | ---: | --- |
-| `table.ce.214_data_battle_swirl_pointers_asm` | `CE:DC45..CE:DD41` | 252 | `raw` |
-| `table.ce.215_inline_swirl_primary_table` | `CE:DD41..CE:DD5D` | 28 | `raw` |
+| `table.ce.214_data_battle_swirl_pointers_asm` | `CE:DC45..CE:DD41` | 252 | `raw`, `battle_swirl_pointer_table_json` |
+| `table.ce.215_inline_swirl_primary_table` | `CE:DD41..CE:DD5D` | 28 | `raw`, `battle_swirl_sequence_table_json` |
 
 ### Sound Stone visual assets
 

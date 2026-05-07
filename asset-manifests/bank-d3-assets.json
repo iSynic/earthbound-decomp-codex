@@ -54,10 +54,16 @@
       "grayscale_tile_sheet": 339,
       "palette_tile_sheet": 339
     },
-    "smoke_fixture_count": 0,
-    "smoke_fixture_asset_ids": [],
-    "smoke_fixture_type_counts": {},
-    "smoke_fixture_target_kind_counts": {}
+    "smoke_fixture_count": 1,
+    "smoke_fixture_asset_ids": [
+      "asset.d3.sprite_0354"
+    ],
+    "smoke_fixture_type_counts": {
+      "bank_output": 1
+    },
+    "smoke_fixture_target_kind_counts": {
+      "snes_4bpp_tiles_png": 1
+    }
   },
   "assets": [
     {

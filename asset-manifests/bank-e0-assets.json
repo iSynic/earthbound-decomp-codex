@@ -38,40 +38,55 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 16,
-    "output_recipe_count": 27,
-    "typed_output_kind_count": 4,
-    "decoder_output_recipe_count": 11,
-    "renderer_output_recipe_count": 2,
-    "preview_png_recipe_count": 2,
+    "output_recipe_count": 30,
+    "typed_output_kind_count": 7,
+    "decoder_output_recipe_count": 14,
+    "renderer_output_recipe_count": 3,
+    "preview_png_recipe_count": 3,
     "output_kind_counts": {
       "earthbound_lzhal": 9,
       "earthbound_lzhal_snes_4bpp_tiles_png": 1,
+      "font_metric_widths_json": 1,
       "raw": 16,
-      "snes_4bpp_tiles_png": 1
+      "snes_2bpp_tiles_png": 1,
+      "snes_4bpp_tiles_png": 1,
+      "text_window_properties_table_json": 1
     },
     "decoder_counts": {
       "earthbound_lzhal": 9,
       "earthbound_lzhal+snes_4bpp_tiles": 1,
-      "snes_4bpp_tiles": 1
+      "font_metric_widths": 1,
+      "snes_2bpp_tiles": 1,
+      "snes_4bpp_tiles": 1,
+      "text_window_properties_table": 1
     },
     "renderer_counts": {
-      "grayscale_tile_sheet": 2
+      "grayscale_tile_sheet": 3
     },
-    "smoke_fixture_count": 6,
+    "smoke_fixture_count": 14,
     "smoke_fixture_asset_ids": [
       "asset.e0.compressed_sram",
+      "asset.e0.mother2_romaji_font",
+      "asset.e0.mrsaturn_font_data",
       "asset.e0.mrsaturn_font_gfx",
-      "asset.e0.text_window_gfx"
+      "asset.e0.text_window_gfx",
+      "table.e0.006_data_text_window_properties_asm"
     ],
     "smoke_fixture_type_counts": {
-      "family_decoder": 3,
+      "bank_output": 1,
+      "family_decoder": 6,
       "family_renderer": 1,
-      "family_renderer_geometry": 2
+      "family_renderer_geometry": 2,
+      "recipe_kind": 3,
+      "recipe_option": 1
     },
     "smoke_fixture_target_kind_counts": {
       "earthbound_lzhal": 1,
       "earthbound_lzhal_snes_4bpp_tiles_png": 2,
-      "snes_4bpp_tiles_png": 3
+      "font_metric_widths_json": 2,
+      "snes_2bpp_tiles_png": 6,
+      "snes_4bpp_tiles_png": 1,
+      "text_window_properties_table_json": 2
     }
   },
   "assets": [
@@ -146,11 +161,18 @@
         {
           "kind": "raw",
           "path": "e0/fonts/romaji.gfx"
+        },
+        {
+          "kind": "snes_2bpp_tiles_png",
+          "path": "e0/fonts/romaji_2bpp_preview.png",
+          "columns": 11,
+          "trim_trailing_bytes": 4
         }
       ],
       "notes": [
         "Source payload path from ebsrc: fonts/romaji.gfx",
-        "Original file offset: 0x2007A0"
+        "Original file offset: 0x2007A0",
+        "528 bytes after the 4-byte trailer decode as 33 SNES 2bpp-compatible 8x8 glyph records."
       ]
     },
     {
@@ -195,11 +217,19 @@
         {
           "kind": "raw",
           "path": "e0/fonts/mrsaturn.bin"
+        },
+        {
+          "kind": "font_metric_widths_json",
+          "path": "e0/fonts/mrsaturn_widths.json",
+          "font_id": 1,
+          "entry_count": 96,
+          "first_character_code": 80
         }
       ],
       "notes": [
         "Source payload path from ebsrc: fonts/mrsaturn.bin",
-        "Original file offset: 0x201359"
+        "Original file offset: 0x201359",
+        "Decoded as the first 96 one-byte font metric widths used by the text/window glyph measurement path; font id matches tools/build_font_bundle_contracts.py CORE_FONTS ref_width_id."
       ]
     },
     {
@@ -440,13 +470,21 @@
         {
           "kind": "raw",
           "path": "e0/tables/006_data_text_window_properties_asm.bin"
+        },
+        {
+          "kind": "text_window_properties_table_json",
+          "path": "e0/tables/006_data_text_window_properties_asm_decoded.json",
+          "selector_count": 5,
+          "palette_block_count": 7,
+          "town_map_pointer_count": 6
         }
       ],
       "notes": [
         "Source include from ebsrc: data/text_window_properties.asm",
         "Original file offset: 0x201FB9",
         "Size was inferred from the next known binary asset boundary.",
-        "Source-emission split is tracked in notes/ui-font-town-map-asset-contracts.md as text-window selector/palette rows plus the town-map graphics pointer table."
+        "Source-emission split is tracked in notes/ui-font-town-map-asset-contracts.md as text-window selector/palette rows plus the town-map graphics pointer table.",
+        "Decoded as the combined text-window flavor selector, palette-block, movement-text palette, and town-map graphics pointer table."
       ]
     },
     {

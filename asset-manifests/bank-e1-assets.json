@@ -40,9 +40,9 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 53,
-    "output_recipe_count": 125,
-    "typed_output_kind_count": 8,
-    "decoder_output_recipe_count": 72,
+    "output_recipe_count": 131,
+    "typed_output_kind_count": 11,
+    "decoder_output_recipe_count": 78,
     "renderer_output_recipe_count": 28,
     "preview_png_recipe_count": 28,
     "output_kind_counts": {
@@ -50,38 +50,51 @@
       "earthbound_lzhal_snes_4bpp_tiles_png": 12,
       "earthbound_lzhal_snes_palette_json": 10,
       "earthbound_lzhal_snes_palette_swatch_png": 10,
+      "font_metric_widths_json": 4,
+      "photographer_config_table_json": 1,
       "raw": 53,
       "snes_4bpp_tiles_png": 4,
       "snes_palette_json": 2,
-      "snes_palette_swatch_png": 2
+      "snes_palette_swatch_png": 2,
+      "town_map_icon_table_json": 1
     },
     "decoder_counts": {
       "earthbound_lzhal": 32,
       "earthbound_lzhal+snes_4bpp_tiles": 12,
       "earthbound_lzhal+snes_palette": 20,
+      "font_metric_widths": 4,
+      "photographer_config_table": 1,
       "snes_4bpp_tiles": 4,
-      "snes_palette": 4
+      "snes_palette": 4,
+      "town_map_icon_table": 1
     },
     "renderer_counts": {
       "grayscale_tile_sheet": 16,
       "palette_swatch": 12
     },
-    "smoke_fixture_count": 7,
+    "smoke_fixture_count": 12,
     "smoke_fixture_asset_ids": [
+      "asset.e1.ape_graphics",
       "asset.e1.ape_palette",
-      "asset.e1.staff_credits_font_palette"
+      "asset.e1.staff_credits_font_palette",
+      "table.e1.012_data_photographer_cfg_asm",
+      "table.e1.055_data_unknown_e1f203_asm"
     ],
     "smoke_fixture_type_counts": {
-      "family_decoder": 2,
+      "bank_output": 1,
+      "family_decoder": 4,
       "family_renderer": 1,
       "family_renderer_geometry": 2,
-      "recipe_kind": 2
+      "recipe_kind": 4
     },
     "smoke_fixture_target_kind_counts": {
+      "earthbound_lzhal_snes_4bpp_tiles_png": 1,
       "earthbound_lzhal_snes_palette_json": 2,
       "earthbound_lzhal_snes_palette_swatch_png": 3,
+      "photographer_config_table_json": 2,
       "snes_palette_json": 1,
-      "snes_palette_swatch_png": 1
+      "snes_palette_swatch_png": 1,
+      "town_map_icon_table_json": 2
     }
   },
   "assets": [
@@ -99,11 +112,19 @@
         {
           "kind": "raw",
           "path": "e1/fonts/main.bin"
+        },
+        {
+          "kind": "font_metric_widths_json",
+          "path": "e1/fonts/main_widths.json",
+          "font_id": 0,
+          "entry_count": 96,
+          "first_character_code": 80
         }
       ],
       "notes": [
         "Source payload path from ebsrc: fonts/main.bin",
-        "Original file offset: 0x210C7A"
+        "Original file offset: 0x210C7A",
+        "Decoded as the first 96 one-byte font metric widths used by the text/window glyph measurement path; font id matches tools/build_font_bundle_contracts.py CORE_FONTS ref_width_id."
       ]
     },
     {
@@ -146,11 +167,19 @@
         {
           "kind": "raw",
           "path": "e1/fonts/battle.bin"
+        },
+        {
+          "kind": "font_metric_widths_json",
+          "path": "e1/fonts/battle_widths.json",
+          "font_id": 3,
+          "entry_count": 96,
+          "first_character_code": 80
         }
       ],
       "notes": [
         "Source payload path from ebsrc: fonts/battle.bin",
-        "Original file offset: 0x2118DA"
+        "Original file offset: 0x2118DA",
+        "Decoded as the first 96 one-byte font metric widths used by the text/window glyph measurement path; font id matches tools/build_font_bundle_contracts.py CORE_FONTS ref_width_id."
       ]
     },
     {
@@ -193,11 +222,19 @@
         {
           "kind": "raw",
           "path": "e1/fonts/tiny.bin"
+        },
+        {
+          "kind": "font_metric_widths_json",
+          "path": "e1/fonts/tiny_widths.json",
+          "font_id": 4,
+          "entry_count": 96,
+          "first_character_code": 80
         }
       ],
       "notes": [
         "Source payload path from ebsrc: fonts/tiny.bin",
-        "Original file offset: 0x211F3A"
+        "Original file offset: 0x211F3A",
+        "Decoded as the first 96 one-byte font metric widths used by the text/window glyph measurement path; font id matches tools/build_font_bundle_contracts.py CORE_FONTS ref_width_id."
       ]
     },
     {
@@ -240,11 +277,19 @@
         {
           "kind": "raw",
           "path": "e1/fonts/large.bin"
+        },
+        {
+          "kind": "font_metric_widths_json",
+          "path": "e1/fonts/large_widths.json",
+          "font_id": 2,
+          "entry_count": 96,
+          "first_character_code": 80
         }
       ],
       "notes": [
         "Source payload path from ebsrc: fonts/large.bin",
-        "Original file offset: 0x21229A"
+        "Original file offset: 0x21229A",
+        "Decoded as the first 96 one-byte font metric widths used by the text/window glyph measurement path; font id matches tools/build_font_bundle_contracts.py CORE_FONTS ref_width_id."
       ]
     },
     {
@@ -1409,12 +1454,19 @@
         {
           "kind": "raw",
           "path": "e1/tables/012_data_photographer_cfg_asm.bin"
+        },
+        {
+          "kind": "photographer_config_table_json",
+          "path": "e1/tables/012_data_photographer_cfg_asm_decoded.json",
+          "row_count": 32,
+          "record_size_bytes": 62
         }
       ],
       "notes": [
         "Source include from ebsrc: data/photographer_cfg.asm",
         "Original file offset: 0x212F8A",
-        "Size was inferred from the next known binary asset boundary."
+        "Size was inferred from the next known binary asset boundary.",
+        "Decoded as 32 photographer/photo-scene records; rows preserve event flag, map-load position, background offset, slide vector, photo anchor, visual positions, and spawned entity rows."
       ]
     },
     {
@@ -1541,13 +1593,20 @@
         {
           "kind": "raw",
           "path": "e1/tables/055_data_unknown_e1f203_asm.bin"
+        },
+        {
+          "kind": "town_map_icon_table_json",
+          "path": "e1/tables/055_data_unknown_e1f203_asm_decoded.json",
+          "icon_count": 23,
+          "town_map_count": 6
         }
       ],
       "notes": [
         "Source include from ebsrc: data/unknown/E1F203.asm",
         "Original file offset: 0x21F203",
         "Size was inferred from the next known binary asset boundary.",
-        "Source-emission split is tracked in notes/ui-font-town-map-asset-contracts.md as town-map icon descriptor lists, pointer/blink tables, and six variable placement lists."
+        "Source-emission split is tracked in notes/ui-font-town-map-asset-contracts.md as town-map icon descriptor lists, pointer/blink tables, and six variable placement lists.",
+        "Decoded as the town-map icon descriptor, icon pointer, blink suppress, placement pointer, and placement record table."
       ]
     },
     {

@@ -9,15 +9,15 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 ## Snapshot
 
 - status: `ok`
-- PNG preview/render recipes: `3265`
-- statically known geometries: `2784`
+- PNG preview/render recipes: `3266`
+- statically known geometries: `2785`
 - geometries requiring ROM decode: `481`
 - invalid geometries: `0`
-- distinct known dimensions: `27`
+- distinct known dimensions: `28`
 
 ## Known Dimension Mix
 
-`64x8` 1956, `64x16` 311, `256x16` 118, `256x256` 103, `32x64` 64, `64x24` 63, `64x64` 57, `32x32` 35, `64x48` 17, `256x768` 9, `256x384` 6, `64x32` 6, +15 more
+`64x8` 1956, `64x16` 311, `256x16` 118, `256x256` 103, `32x64` 64, `64x24` 63, `64x64` 57, `32x32` 35, `64x48` 17, `256x768` 9, `256x384` 6, `64x32` 6, +16 more
 
 ## Recipe Kind Geometry
 
@@ -28,7 +28,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `earthbound_lzhal_snes_4bpp_tiles_palette_png` | 0 | 234 | 0 |
 | `earthbound_lzhal_snes_4bpp_tiles_png` | 0 | 237 | 0 |
 | `earthbound_lzhal_snes_palette_swatch_png` | 0 | 10 | 0 |
-| `snes_2bpp_tiles_png` | 2 | 0 | 0 |
+| `snes_2bpp_tiles_png` | 3 | 0 | 0 |
 | `snes_4bpp_tiles_palette_png` | 1146 | 0 | 0 |
 | `snes_4bpp_tiles_png` | 1151 | 0 | 0 |
 | `snes_palette_swatch_png` | 216 | 0 | 0 |
@@ -40,7 +40,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | Battle visual assets | 450 | 436 | 0 |
 | Overworld sprites | 2292 | 0 | 0 |
 | Map tilesets and runtime tables | 33 | 22 | 0 |
-| UI, fonts, and town-map assets | 7 | 23 | 0 |
+| UI, fonts, and town-map assets | 8 | 23 | 0 |
 | EF debug and late-tail data | 2 | 0 | 0 |
 
 ## Decode-Required Reasons

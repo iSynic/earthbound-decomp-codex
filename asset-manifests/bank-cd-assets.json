@@ -58,17 +58,21 @@
       "grayscale_tile_sheet": 55,
       "palette_tile_sheet": 77
     },
-    "smoke_fixture_count": 3,
+    "smoke_fixture_count": 6,
     "smoke_fixture_asset_ids": [
       "asset.cd.battle_sprite_10"
     ],
     "smoke_fixture_type_counts": {
+      "bank_output": 1,
       "family_renderer": 1,
       "family_renderer_geometry": 1,
-      "recipe_kind": 1
+      "recipe_kind": 1,
+      "recipe_option": 2
     },
     "smoke_fixture_target_kind_counts": {
-      "earthbound_lzhal_battle_sprite_png": 3
+      "earthbound_lzhal_battle_sprite_png": 3,
+      "earthbound_lzhal_snes_4bpp_tiles_palette_png": 2,
+      "earthbound_lzhal_snes_4bpp_tiles_png": 1
     }
   },
   "assets": [

@@ -38,28 +38,36 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 7,
-    "output_recipe_count": 8,
-    "typed_output_kind_count": 2,
-    "decoder_output_recipe_count": 1,
+    "output_recipe_count": 13,
+    "typed_output_kind_count": 4,
+    "decoder_output_recipe_count": 6,
     "renderer_output_recipe_count": 0,
     "preview_png_recipe_count": 0,
     "output_kind_counts": {
       "earthbound_lzhal": 1,
+      "map_global_tileset_palette_data_json": 1,
+      "map_tile_chunk_index_json": 4,
       "raw": 7
     },
     "decoder_counts": {
-      "earthbound_lzhal": 1
+      "earthbound_lzhal": 1,
+      "map_global_tileset_palette_data": 1,
+      "map_tile_chunk_index": 4
     },
     "renderer_counts": {},
-    "smoke_fixture_count": 1,
+    "smoke_fixture_count": 4,
     "smoke_fixture_asset_ids": [
-      "asset.d7.map_data_tile_arrangement_0"
+      "asset.d7.map_data_tile_arrangement_0",
+      "table.d7.004_data_map_global_tileset_palette_data_asm"
     ],
     "smoke_fixture_type_counts": {
-      "family_decoder": 1
+      "bank_output": 1,
+      "family_decoder": 2,
+      "recipe_kind": 1
     },
     "smoke_fixture_target_kind_counts": {
-      "earthbound_lzhal": 1
+      "earthbound_lzhal": 2,
+      "map_global_tileset_palette_data_json": 2
     }
   },
   "assets": [
@@ -77,6 +85,11 @@
         {
           "kind": "raw",
           "path": "d7/maps/tiles/chunk_07.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d7/maps/tiles/chunk_07_tile_index.json",
+          "chunk_index": 7
         }
       ],
       "notes": [
@@ -98,6 +111,11 @@
         {
           "kind": "raw",
           "path": "d7/maps/tiles/chunk_08.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d7/maps/tiles/chunk_08_tile_index.json",
+          "chunk_index": 8
         }
       ],
       "notes": [
@@ -119,6 +137,11 @@
         {
           "kind": "raw",
           "path": "d7/maps/tiles/chunk_09.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d7/maps/tiles/chunk_09_tile_index.json",
+          "chunk_index": 9
         }
       ],
       "notes": [
@@ -140,6 +163,11 @@
         {
           "kind": "raw",
           "path": "d7/maps/tiles/chunk_10.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d7/maps/tiles/chunk_10_tile_index.json",
+          "chunk_index": 10
         }
       ],
       "notes": [
@@ -187,6 +215,13 @@
         {
           "kind": "raw",
           "path": "d7/tables/004_data_map_global_tileset_palette_data_asm.bin"
+        },
+        {
+          "kind": "map_global_tileset_palette_data_json",
+          "path": "d7/tables/004_data_map_global_tileset_palette_data_asm_decoded.json",
+          "column_count": 80,
+          "row_count": 32,
+          "attribute_word_table_offset": 2560
         }
       ],
       "notes": [
@@ -194,7 +229,8 @@
         "Original file offset: 0x17A800",
         "Size was inferred from the next known binary asset boundary.",
         "Semantic split: D7_SECTOR_TILESET_PALETTE_TABLE, D7_UNRESOLVED_METADATA_BYTE_PLANE, D7_SECTOR_CONTEXT_WORD_TABLE, and D7_UNRESOLVED_METADATA_WORD_PLANE.",
-        "See notes/d7-sector-metadata-contracts.md for source-emission rows, value counts, and numeric-preserve policies for unnamed planes and context-word high bits."
+        "See notes/d7-sector-metadata-contracts.md for source-emission rows, value counts, and numeric-preserve policies for unnamed planes and context-word high bits.",
+        "Decoded as the 80-by-32 D7:A800 context-byte table plus the 80-by-32 D7:B200 per-sector attribute word table consumed by C0/C4 map loaders."
       ]
     },
     {

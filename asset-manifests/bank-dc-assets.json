@@ -39,23 +39,35 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 11,
-    "output_recipe_count": 18,
-    "typed_output_kind_count": 2,
-    "decoder_output_recipe_count": 7,
+    "output_recipe_count": 19,
+    "typed_output_kind_count": 3,
+    "decoder_output_recipe_count": 8,
     "renderer_output_recipe_count": 0,
     "preview_png_recipe_count": 0,
     "output_kind_counts": {
       "earthbound_lzhal": 7,
+      "map_sector_music_table_json": 1,
       "raw": 11
     },
     "decoder_counts": {
-      "earthbound_lzhal": 7
+      "earthbound_lzhal": 7,
+      "map_sector_music_table": 1
     },
     "renderer_counts": {},
-    "smoke_fixture_count": 0,
-    "smoke_fixture_asset_ids": [],
-    "smoke_fixture_type_counts": {},
-    "smoke_fixture_target_kind_counts": {}
+    "smoke_fixture_count": 3,
+    "smoke_fixture_asset_ids": [
+      "asset.dc.map_data_tile_arrangement_12",
+      "table.dc.007_data_map_per_sector_music_asm"
+    ],
+    "smoke_fixture_type_counts": {
+      "bank_output": 1,
+      "family_decoder": 1,
+      "recipe_kind": 1
+    },
+    "smoke_fixture_target_kind_counts": {
+      "earthbound_lzhal": 1,
+      "map_sector_music_table_json": 2
+    }
   },
   "assets": [
     {
@@ -296,6 +308,12 @@
         {
           "kind": "raw",
           "path": "dc/tables/007_data_map_per_sector_music_asm.bin"
+        },
+        {
+          "kind": "map_sector_music_table_json",
+          "path": "dc/tables/007_data_map_per_sector_music_asm_decoded.json",
+          "column_count": 80,
+          "row_count": 32
         }
       ],
       "notes": [
@@ -303,7 +321,8 @@
         "Original file offset: 0x1CD637",
         "Size was inferred from the next known binary asset boundary.",
         "Semantic split: DC_CURRENT_POSITION_EVENT_MUSIC_SELECTOR_PLANE plus DC_UNRESOLVED_PER_SECTOR_MUSIC_SECOND_PLANE.",
-        "See notes/cf-event-music-context-contracts.md for source-emission rows, value counts, and numeric-preserve policy for the unnamed second plane."
+        "See notes/cf-event-music-context-contracts.md for source-emission rows, value counts, and numeric-preserve policy for the unnamed second plane.",
+        "Decoded as the 80-by-32 map-sector destination/music row lookup consumed by C0:68F4 before resolving the current map music track."
       ]
     },
     {

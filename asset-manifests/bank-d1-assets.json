@@ -54,19 +54,21 @@
       "grayscale_tile_sheet": 123,
       "palette_tile_sheet": 123
     },
-    "smoke_fixture_count": 8,
+    "smoke_fixture_count": 11,
     "smoke_fixture_asset_ids": [
       "asset.d1.sprite_0000"
     ],
     "smoke_fixture_type_counts": {
+      "bank_output": 1,
       "family_decoder": 2,
       "family_renderer": 2,
       "family_renderer_geometry": 2,
-      "recipe_kind": 2
+      "recipe_kind": 2,
+      "recipe_option": 2
     },
     "smoke_fixture_target_kind_counts": {
-      "snes_4bpp_tiles_palette_png": 4,
-      "snes_4bpp_tiles_png": 4
+      "snes_4bpp_tiles_palette_png": 6,
+      "snes_4bpp_tiles_png": 5
     }
   },
   "assets": [

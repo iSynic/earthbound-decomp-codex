@@ -22,9 +22,11 @@ ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MANIFEST_DIR = ROOT / "asset-manifests"
 DEFAULT_JSON_OUT = ROOT / "build" / "asset-output-index.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "asset-output-index.md"
+BANK_FIXTURE_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-bank-fixture-audit.md"
 SOURCE_REFS_MARKDOWN = ROOT / "notes" / "asset-output-source-refs.md"
 PATH_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-path-audit.md"
 RAW_ONLY_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-raw-only-audit.md"
+RECIPE_OPTION_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-recipe-option-audit.md"
 
 
 def load_smoke_plan(manifest_dir: Path) -> dict[str, Any]:
@@ -275,9 +277,11 @@ def build_index(
             "contains_rom_derived_outputs": False,
             "records_typed_output_recipes_only": True,
         },
+        "bank_fixture_audit_report": rel(BANK_FIXTURE_AUDIT_MARKDOWN),
         "source_refs_report": rel(SOURCE_REFS_MARKDOWN),
         "path_audit_report": rel(PATH_AUDIT_MARKDOWN),
         "raw_only_audit_report": rel(RAW_ONLY_AUDIT_MARKDOWN),
+        "recipe_option_audit_report": rel(RECIPE_OPTION_AUDIT_MARKDOWN),
         "totals": {
             "assets": len(asset_profiles),
             "outputs": len(records),
@@ -311,11 +315,15 @@ def render_markdown(index: dict[str, Any]) -> str:
         "",
         "This is a ROM-free inventory of typed asset outputs. The machine-readable record list is written to ignored `build/asset-output-index.json`; this checked-in note summarizes coverage pressure and fixture links.",
         "",
+        "Target-bank smoke selector coverage for these outputs is audited in `notes/asset-output-bank-fixture-audit.md`.",
+        "",
         "Palette and graphics source-reference coverage for these outputs is tracked in `notes/asset-output-source-refs.md`.",
         "",
         "Output path uniqueness and bank-root coverage for these records are tracked in `notes/asset-output-path-audit.md`.",
         "",
         "Extract-only asset pressure for these records is tracked in `notes/asset-output-raw-only-audit.md`.",
+        "",
+        "Optional typed recipe field coverage for these records is tracked in `notes/asset-output-recipe-option-audit.md`.",
         "",
         "Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
         "",

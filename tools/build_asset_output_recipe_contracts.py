@@ -20,6 +20,8 @@ DEFAULT_JSON_OUT = ROOT / "build" / "asset-output-recipe-contracts.json"
 DEFAULT_MARKDOWN_OUT = ROOT / "notes" / "asset-output-recipe-contracts.md"
 SMOKE_FIXTURES_JSON = ROOT / "notes" / "asset-output-smoke-fixtures.json"
 SMOKE_FIXTURES_MARKDOWN = ROOT / "notes" / "asset-output-smoke-fixtures.md"
+BANK_FIXTURE_AUDIT_JSON = ROOT / "build" / "asset-output-bank-fixture-audit.json"
+BANK_FIXTURE_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-bank-fixture-audit.md"
 CODEC_VALIDATION_JSON = ROOT / "build" / "asset-output-codec-validation.json"
 CODEC_VALIDATION_MARKDOWN = ROOT / "notes" / "asset-output-codec-validation.md"
 PREVIEW_GEOMETRY_JSON = ROOT / "build" / "asset-output-preview-geometry.json"
@@ -32,6 +34,8 @@ PATH_AUDIT_JSON = ROOT / "build" / "asset-output-path-audit.json"
 PATH_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-path-audit.md"
 RAW_ONLY_AUDIT_JSON = ROOT / "build" / "asset-output-raw-only-audit.json"
 RAW_ONLY_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-raw-only-audit.md"
+RECIPE_OPTION_AUDIT_JSON = ROOT / "build" / "asset-output-recipe-option-audit.json"
+RECIPE_OPTION_AUDIT_MARKDOWN = ROOT / "notes" / "asset-output-recipe-option-audit.md"
 
 
 FAMILIES: list[dict[str, Any]] = [
@@ -299,6 +303,11 @@ def build_contract(manifest_dir: Path) -> dict[str, Any]:
             "tracked_markdown": rel(SMOKE_FIXTURES_MARKDOWN),
             "runner": "tools/run_asset_output_smoke_fixtures.py",
         },
+        "bank_fixture_audit": {
+            "generated_json": rel(BANK_FIXTURE_AUDIT_JSON),
+            "tracked_markdown": rel(BANK_FIXTURE_AUDIT_MARKDOWN),
+            "runner": "tools/build_asset_output_bank_fixture_audit.py",
+        },
         "codec_validation": {
             "generated_json": rel(CODEC_VALIDATION_JSON),
             "tracked_markdown": rel(CODEC_VALIDATION_MARKDOWN),
@@ -329,6 +338,11 @@ def build_contract(manifest_dir: Path) -> dict[str, Any]:
             "tracked_markdown": rel(RAW_ONLY_AUDIT_MARKDOWN),
             "runner": "tools/build_asset_output_raw_only_audit.py",
         },
+        "recipe_option_audit": {
+            "generated_json": rel(RECIPE_OPTION_AUDIT_JSON),
+            "tracked_markdown": rel(RECIPE_OPTION_AUDIT_MARKDOWN),
+            "runner": "tools/build_asset_output_recipe_option_audit.py",
+        },
         "source_policy": {
             "contains_rom_derived_outputs": False,
             "validates_recipes_for_user_rom_extraction": True,
@@ -357,6 +371,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "",
         "Reproducible smoke selectors for these recipe kinds are tracked in `notes/asset-output-smoke-fixtures.md` and executable with `tools/run_asset_output_smoke_fixtures.py`.",
         "",
+        "Target-bank smoke selector coverage is audited in `notes/asset-output-bank-fixture-audit.md` and rebuildable via `tools/build_asset_output_bank_fixture_audit.py`.",
+        "",
         "Offline codec/render validation for every typed output kind is tracked in `notes/asset-output-codec-validation.md` and executable without a ROM via `tools/validate_asset_output_codecs.py`.",
         "",
         "Static preview geometry for PNG recipe outputs is tracked in `notes/asset-output-preview-geometry.md` and rebuildable without a ROM via `tools/build_asset_output_preview_geometry.py`.",
@@ -368,6 +384,8 @@ def render_markdown(contract: dict[str, Any]) -> str:
         "Output path uniqueness and bank-root coverage are tracked in `notes/asset-output-path-audit.md` and rebuildable via `tools/build_asset_output_path_audit.py`.",
         "",
         "Extract-only asset pressure is tracked in `notes/asset-output-raw-only-audit.md` and rebuildable via `tools/build_asset_output_raw_only_audit.py`.",
+        "",
+        "Optional typed recipe field coverage is tracked in `notes/asset-output-recipe-option-audit.md` and rebuildable via `tools/build_asset_output_recipe_option_audit.py`.",
         "",
         "Generated asset-output reports are freshness-checked together with `tools/validate_asset_output_reports.py`.",
         "",

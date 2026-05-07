@@ -135,6 +135,14 @@ def without_lzhal_suffix(raw_path: str) -> str:
     return f"{raw_path}.decompressed"
 
 
+def map_tile_chunk_index(payload: str) -> int | None:
+    normalized = payload.replace("\\", "/").lower()
+    match = re.match(r"^maps/tiles/chunk_(\d+)\.bin$", normalized)
+    if match is None:
+        return None
+    return int(match.group(1))
+
+
 def read_entry_bytes(rom: bytes, entry: dict[str, Any]) -> bytes:
     offset = int(str(entry["file_offset"]), 16)
     size = int(entry["size"])
@@ -204,6 +212,92 @@ def overworld_sprite_asset_number(entry: dict[str, Any]) -> int | None:
     if match is None:
         return None
     return int(match.group(1))
+
+
+def battle_swirl_asset_number(entry: dict[str, Any]) -> int | None:
+    payload = str(entry.get("payload_path") or "").replace("\\", "/").lower()
+    match = re.match(r"^swirls/(\d+)\.swirl$", payload)
+    if match is None:
+        return None
+    return int(match.group(1))
+
+
+def battle_swirl_sequence_context(swirl_id: int) -> dict[str, int] | None:
+    sequence_rows = [
+        {"sequence_id": 1, "sequence_speed": 2, "first": 0, "sequence_frame_count": 23},
+        {"sequence_id": 2, "sequence_speed": 4, "first": 23, "sequence_frame_count": 15},
+        {"sequence_id": 3, "sequence_speed": 3, "first": 38, "sequence_frame_count": 22},
+        {"sequence_id": 4, "sequence_speed": 4, "first": 60, "sequence_frame_count": 21},
+        {"sequence_id": 5, "sequence_speed": 2, "first": 81, "sequence_frame_count": 28},
+        {"sequence_id": 6, "sequence_speed": 3, "first": 109, "sequence_frame_count": 17},
+    ]
+    for row in sequence_rows:
+        first = row["first"]
+        count = row["sequence_frame_count"]
+        if first <= swirl_id < first + count:
+            return {
+                "sequence_id": row["sequence_id"],
+                "sequence_frame_index": swirl_id - first,
+                "sequence_speed": row["sequence_speed"],
+                "sequence_frame_count": count,
+            }
+    return None
+
+
+def battle_swirl_frame_metadata_output(raw_path: str, entry: dict[str, Any]) -> dict[str, Any] | None:
+    swirl_id = battle_swirl_asset_number(entry)
+    if swirl_id is None:
+        return None
+    context = battle_swirl_sequence_context(swirl_id)
+    if context is None:
+        return None
+    return {
+        "kind": "battle_swirl_frame_json",
+        "path": sidecar_path(raw_path, "frame", ".json"),
+        "swirl_id": swirl_id,
+        **context,
+    }
+
+
+FONT_METRIC_IDS = {
+    "fonts/main.bin": 0,
+    "fonts/mrsaturn.bin": 1,
+    "fonts/large.bin": 2,
+    "fonts/battle.bin": 3,
+    "fonts/tiny.bin": 4,
+}
+
+
+def font_metric_widths_output(raw_path: str, entry: dict[str, Any]) -> dict[str, Any] | None:
+    payload = str(entry.get("payload_path") or "").replace("\\", "/").lower()
+    font_id = FONT_METRIC_IDS.get(payload)
+    if font_id is None or int(entry["size"]) != 96:
+        return None
+    return {
+        "kind": "font_metric_widths_json",
+        "path": sidecar_path(raw_path, "widths", ".json"),
+        "font_id": font_id,
+        "entry_count": 96,
+        "first_character_code": 0x50,
+    }
+
+
+def romaji_font_2bpp_preview_output(raw_path: str, entry: dict[str, Any]) -> dict[str, Any] | None:
+    payload = str(entry.get("payload_path") or "").replace("\\", "/").lower()
+    size = int(entry["size"])
+    if payload != "fonts/romaji.gfx":
+        return None
+    trim = size % 16
+    if trim == 0:
+        trim = 0
+    elif (size - trim) <= 0:
+        return None
+    return {
+        "kind": "snes_2bpp_tiles_png",
+        "path": preview_path(raw_path, "2bpp_preview"),
+        "columns": 11,
+        **({"trim_trailing_bytes": trim} if trim else {}),
+    }
 
 
 def load_battle_bg_palette_registry(
@@ -552,6 +646,15 @@ def binary_outputs(
     extension = str(entry.get("extension", "")).lower()
     size = int(entry["size"])
     compressed = bool(entry.get("compressed")) or payload.lower().endswith(".lzhal")
+    chunk_index = map_tile_chunk_index(payload)
+    if chunk_index is not None and not compressed and size % 2 == 0:
+        outputs.append(
+            {
+                "kind": "map_tile_chunk_index_json",
+                "path": sidecar_path(raw_path, "tile_index", ".json"),
+                "chunk_index": chunk_index,
+            }
+        )
     if compressed:
         decompressed_path = without_lzhal_suffix(raw_path)
         outputs.append(
@@ -625,8 +728,18 @@ def binary_outputs(
                 overworld_sprite_palette_registry,
             )
         )
+    if extension == "gfx" and not compressed:
+        romaji_preview = romaji_font_2bpp_preview_output(raw_path, entry)
+        if romaji_preview is not None:
+            outputs.append(romaji_preview)
     if extension == "pal" and not compressed and size % 2 == 0:
         outputs.extend(palette_outputs(raw_path, compressed=False))
+    swirl_metadata = battle_swirl_frame_metadata_output(raw_path, entry)
+    if swirl_metadata is not None:
+        outputs.append(swirl_metadata)
+    font_metrics = font_metric_widths_output(raw_path, entry)
+    if font_metrics is not None:
+        outputs.append(font_metrics)
     return outputs
 
 
@@ -637,6 +750,71 @@ def make_source(entry: dict[str, Any], rom: bytes) -> dict[str, Any]:
         "range": inclusive_span_to_exclusive_range(str(entry["cpu_start"]), str(entry["cpu_end"])),
         "bytes": size,
         "sha1": rom_slice_sha1(rom, str(entry["file_offset"]), size),
+    }
+
+
+BATTLE_BG_POINTER_TABLES = {
+    "data/battle/backgrounds/graphics_pointers.asm": {
+        "table_id": 0,
+        "table_role": "graphics",
+        "description": "graphics payload",
+    },
+    "data/battle/backgrounds/arrangement_pointers.asm": {
+        "table_id": 1,
+        "table_role": "arrangement",
+        "description": "tile arrangement payload",
+    },
+    "data/battle/backgrounds/palette_pointers.asm": {
+        "table_id": 2,
+        "table_role": "palette",
+        "description": "palette payload",
+    },
+}
+
+
+BATTLE_BG_RUNTIME_TABLES = {
+    "data/battle/backgrounds/config_table.asm": {
+        "kind": "battle_bg_config_table_json",
+        "row_size": 17,
+        "description": "327-row battle background layer config table",
+    },
+    "data/battle/backgrounds/scrolling_table.asm": {
+        "kind": "battle_bg_scrolling_table_json",
+        "row_size": 10,
+        "description": "120-row battle background scrolling movement table",
+    },
+    "data/battle/backgrounds/distortion_table.asm": {
+        "kind": "battle_bg_distortion_table_json",
+        "row_size": 17,
+        "description": "135-row battle background distortion effect table",
+    },
+}
+
+
+def battle_bg_pointer_table_output(raw_path: str, include: str, size: int) -> dict[str, Any] | None:
+    table = BATTLE_BG_POINTER_TABLES.get(include)
+    if table is None or size % 4:
+        return None
+    return {
+        "kind": "battle_bg_pointer_table_json",
+        "path": sidecar_path(raw_path, "decoded", ".json"),
+        "entry_count": size // 4,
+        "table_id": table["table_id"],
+        "table_role": table["table_role"],
+    }
+
+
+def battle_bg_runtime_table_output(raw_path: str, include: str, size: int) -> dict[str, Any] | None:
+    table = BATTLE_BG_RUNTIME_TABLES.get(include)
+    if table is None:
+        return None
+    row_size = int(table["row_size"])
+    if size % row_size:
+        return None
+    return {
+        "kind": table["kind"],
+        "path": sidecar_path(raw_path, "decoded", ".json"),
+        "row_count": size // row_size,
     }
 
 
@@ -700,17 +878,187 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
     if entry.get("inferred_from_next_asset"):
         notes.append("Size was inferred from the next known binary asset boundary.")
 
+    raw_path = f"{bank.lower()}/tables/{int(entry['order']):03d}_{stable_name}.bin"
+    outputs = [
+        {
+            "kind": "raw",
+            "path": raw_path,
+        }
+    ]
+    if bank.upper() == "CE" and include == "data/battle/swirl_pointers.asm" and size == 252:
+        outputs.append(
+            {
+                "kind": "battle_swirl_pointer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "entry_count": 126,
+                "pointer_bank": 0xCE,
+            }
+        )
+        notes.append(
+            "Decoded as the 126-entry little-endian pointer table for CE SWIRL_DATA payload frames."
+        )
+    if bank.upper() == "CE" and include == "inline:SWIRL_PRIMARY_TABLE" and size == 28:
+        outputs.append(
+            {
+                "kind": "battle_swirl_sequence_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "row_count": 7,
+            }
+        )
+        notes.append(
+            "Decoded as the seven-row primary battle swirl sequence table; rows preserve speed, first payload, and frame count."
+        )
+    if bank.upper() == "CE" and include == "data/battle/battle_sprites_pointers.asm" and size % 5 == 0:
+        outputs.append(
+            {
+                "kind": "battle_sprite_pointer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "entry_count": size // 5,
+            }
+        )
+        notes.append(
+            "Decoded as the battle sprite pointer/size table; rows preserve long pointer target and sprite dimensions."
+        )
+    if bank.upper() == "CB" and include == "data/battle/background_layer_table.asm" and size % 4 == 0:
+        outputs.append(
+            {
+                "kind": "battle_bg_layer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "row_count": size // 4,
+                "config_row_count": 327,
+            }
+        )
+        notes.append(
+            "Decoded as the battle-entry background layer table; rows preserve two CA layer config references."
+        )
+    if bank.upper() == "CC" and include == "data/animation_sequence_pointers.asm" and size % 8 == 0:
+        outputs.append(
+            {
+                "kind": "animation_sequence_pointer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "row_count": size // 8,
+            }
+        )
+        notes.append(
+            "Decoded as the named animation sequence pointer table; rows preserve the long pointer and four caller parameter bytes."
+        )
+    if bank.upper() == "CC" and include == "data/psi_anim_cfg.asm" and size % 12 == 0:
+        outputs.append(
+            {
+                "kind": "psi_anim_config_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "row_count": size // 12,
+            }
+        )
+        notes.append(
+            "Decoded as 12-byte PSI animation config rows used by SHOW_PSI_ANIMATION for graphics, timing, target mode, and enemy-color state."
+        )
+    if bank.upper() == "CC" and include == "data/psi_anim_pointers.asm" and size % 4 == 0:
+        outputs.append(
+            {
+                "kind": "psi_anim_pointer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "entry_count": size // 4,
+            }
+        )
+        notes.append(
+            "Decoded as the PSI animation arrangement pointer table; one long pointer per PSI animation id."
+        )
+    if bank.upper() == "E0" and include == "data/text_window_properties.asm" and size == 495:
+        outputs.append(
+            {
+                "kind": "text_window_properties_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "selector_count": 5,
+                "palette_block_count": 7,
+                "town_map_pointer_count": 6,
+            }
+        )
+        notes.append(
+            "Decoded as the combined text-window flavor selector, palette-block, movement-text palette, and town-map graphics pointer table."
+        )
+    if bank.upper() == "E1" and include == "data/unknown/E1F203.asm" and size == 894:
+        outputs.append(
+            {
+                "kind": "town_map_icon_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "icon_count": 23,
+                "town_map_count": 6,
+            }
+        )
+        notes.append(
+            "Decoded as the town-map icon descriptor, icon pointer, blink suppress, placement pointer, and placement record table."
+        )
+    if bank.upper() == "E1" and include == "data/photographer_cfg.asm" and size == 1984:
+        outputs.append(
+            {
+                "kind": "photographer_config_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "row_count": 32,
+                "record_size_bytes": 62,
+            }
+        )
+        notes.append(
+            "Decoded as 32 photographer/photo-scene records; rows preserve event flag, map-load position, background offset, slide vector, photo anchor, visual positions, and spawned entity rows."
+        )
+    if bank.upper() == "DC" and include == "data/map/per-sector_music.asm" and size == 2560:
+        outputs.append(
+            {
+                "kind": "map_sector_music_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "column_count": 80,
+                "row_count": 32,
+            }
+        )
+        notes.append(
+            "Decoded as the 80-by-32 map-sector destination/music row lookup consumed by C0:68F4 before resolving the current map music track."
+        )
+    if bank.upper() == "D7" and include == "data/map/global_tileset_palette_data.asm" and size == 7680:
+        outputs.append(
+            {
+                "kind": "map_global_tileset_palette_data_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "column_count": 80,
+                "row_count": 32,
+                "attribute_word_table_offset": 2560,
+            }
+        )
+        notes.append(
+            "Decoded as the 80-by-32 D7:A800 context-byte table plus the 80-by-32 D7:B200 per-sector attribute word table consumed by C0/C4 map loaders."
+        )
+    if bank.upper() == "DA" and include == "data/map/unknown_map_palette_pointer_table.asm" and size == 96:
+        outputs.append(
+            {
+                "kind": "map_palette_pointer_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "entry_count": 32,
+                "pointer_bank": 0xDA,
+            }
+        )
+        notes.append(
+            "Decoded as the 32-entry DA map palette long-pointer table; entries target MAP_DATA_PALETTE_0..31 payload starts."
+        )
+    if bank.upper() == "CA":
+        battle_bg_pointer_output = battle_bg_pointer_table_output(raw_path, include, size)
+        if battle_bg_pointer_output is not None:
+            outputs.append(battle_bg_pointer_output)
+            table = BATTLE_BG_POINTER_TABLES[include]
+            notes.append(
+                "Decoded as a 4-byte little-endian battle background pointer table "
+                f"for {table['description']} targets."
+            )
+        battle_bg_runtime_output = battle_bg_runtime_table_output(raw_path, include, size)
+        if battle_bg_runtime_output is not None:
+            outputs.append(battle_bg_runtime_output)
+            table = BATTLE_BG_RUNTIME_TABLES[include]
+            notes.append(f"Decoded as the {table['description']}.")
+
     return {
         "id": f"table.{bank.lower()}.{int(entry['order']):03d}_{stable_name}",
         "title": include,
         "category": "raw-table",
         "source": make_source(entry, rom),
-        "outputs": [
-            {
-                "kind": "raw",
-                "path": f"{bank.lower()}/tables/{int(entry['order']):03d}_{stable_name}.bin",
-            }
-        ],
+        "outputs": outputs,
         "notes": notes,
     }
 

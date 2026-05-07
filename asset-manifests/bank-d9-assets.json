@@ -51,10 +51,16 @@
       "earthbound_lzhal": 5
     },
     "renderer_counts": {},
-    "smoke_fixture_count": 0,
-    "smoke_fixture_asset_ids": [],
-    "smoke_fixture_type_counts": {},
-    "smoke_fixture_target_kind_counts": {}
+    "smoke_fixture_count": 1,
+    "smoke_fixture_asset_ids": [
+      "asset.d9.map_data_tile_arrangement_1"
+    ],
+    "smoke_fixture_type_counts": {
+      "bank_output": 1
+    },
+    "smoke_fixture_target_kind_counts": {
+      "earthbound_lzhal": 1
+    }
   },
   "assets": [
     {

@@ -39,12 +39,16 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 220,
-    "output_recipe_count": 576,
-    "typed_output_kind_count": 7,
-    "decoder_output_recipe_count": 356,
+    "output_recipe_count": 705,
+    "typed_output_kind_count": 11,
+    "decoder_output_recipe_count": 485,
     "renderer_output_recipe_count": 267,
     "preview_png_recipe_count": 267,
     "output_kind_counts": {
+      "battle_sprite_pointer_table_json": 1,
+      "battle_swirl_frame_json": 126,
+      "battle_swirl_pointer_table_json": 1,
+      "battle_swirl_sequence_table_json": 1,
       "earthbound_lzhal": 56,
       "earthbound_lzhal_battle_sprite_png": 89,
       "earthbound_lzhal_snes_4bpp_tiles_palette_png": 89,
@@ -54,6 +58,10 @@
       "snes_palette_swatch_png": 33
     },
     "decoder_counts": {
+      "battle_sprite_pointer_table": 1,
+      "battle_swirl_frame_metadata": 126,
+      "battle_swirl_pointer_table": 1,
+      "battle_swirl_sequence_table": 1,
       "earthbound_lzhal": 56,
       "earthbound_lzhal+snes_4bpp_tiles": 56,
       "earthbound_lzhal+snes_4bpp_tiles+snes_palette": 178,
@@ -65,10 +73,26 @@
       "palette_swatch": 33,
       "palette_tile_sheet": 89
     },
-    "smoke_fixture_count": 0,
-    "smoke_fixture_asset_ids": [],
-    "smoke_fixture_type_counts": {},
-    "smoke_fixture_target_kind_counts": {}
+    "smoke_fixture_count": 9,
+    "smoke_fixture_asset_ids": [
+      "asset.ce.battle_sprite_0",
+      "asset.ce.swirl_data_0",
+      "table.ce.055_data_battle_battle_sprites_pointers_asm",
+      "table.ce.214_data_battle_swirl_pointers_asm",
+      "table.ce.215_inline_swirl_primary_table"
+    ],
+    "smoke_fixture_type_counts": {
+      "bank_output": 1,
+      "family_decoder": 4,
+      "recipe_kind": 4
+    },
+    "smoke_fixture_target_kind_counts": {
+      "battle_sprite_pointer_table_json": 2,
+      "battle_swirl_frame_json": 2,
+      "battle_swirl_pointer_table_json": 2,
+      "battle_swirl_sequence_table_json": 2,
+      "earthbound_lzhal_snes_4bpp_tiles_png": 1
+    }
   },
   "assets": [
     {
@@ -5363,11 +5387,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/0.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/0_frame.json",
+          "swirl_id": 0,
+          "sequence_id": 1,
+          "sequence_frame_index": 0,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/0.swirl",
-        "Original file offset: 0x0E6914"
+        "Original file offset: 0x0E6914",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5384,11 +5418,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/1.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/1_frame.json",
+          "swirl_id": 1,
+          "sequence_id": 1,
+          "sequence_frame_index": 1,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/1.swirl",
-        "Original file offset: 0x0E691C"
+        "Original file offset: 0x0E691C",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5405,11 +5449,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/2.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/2_frame.json",
+          "swirl_id": 2,
+          "sequence_id": 1,
+          "sequence_frame_index": 2,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/2.swirl",
-        "Original file offset: 0x0E6933"
+        "Original file offset: 0x0E6933",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5426,11 +5480,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/3.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/3_frame.json",
+          "swirl_id": 3,
+          "sequence_id": 1,
+          "sequence_frame_index": 3,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/3.swirl",
-        "Original file offset: 0x0E6984"
+        "Original file offset: 0x0E6984",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5447,11 +5511,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/4.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/4_frame.json",
+          "swirl_id": 4,
+          "sequence_id": 1,
+          "sequence_frame_index": 4,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/4.swirl",
-        "Original file offset: 0x0E6A05"
+        "Original file offset: 0x0E6A05",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5468,11 +5542,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/5.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/5_frame.json",
+          "swirl_id": 5,
+          "sequence_id": 1,
+          "sequence_frame_index": 5,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/5.swirl",
-        "Original file offset: 0x0E6A9D"
+        "Original file offset: 0x0E6A9D",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5489,11 +5573,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/6.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/6_frame.json",
+          "swirl_id": 6,
+          "sequence_id": 1,
+          "sequence_frame_index": 6,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/6.swirl",
-        "Original file offset: 0x0E6B48"
+        "Original file offset: 0x0E6B48",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5510,11 +5604,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/7.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/7_frame.json",
+          "swirl_id": 7,
+          "sequence_id": 1,
+          "sequence_frame_index": 7,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/7.swirl",
-        "Original file offset: 0x0E6C1A"
+        "Original file offset: 0x0E6C1A",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5531,11 +5635,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/8.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/8_frame.json",
+          "swirl_id": 8,
+          "sequence_id": 1,
+          "sequence_frame_index": 8,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/8.swirl",
-        "Original file offset: 0x0E6CF8"
+        "Original file offset: 0x0E6CF8",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5552,11 +5666,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/9.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/9_frame.json",
+          "swirl_id": 9,
+          "sequence_id": 1,
+          "sequence_frame_index": 9,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/9.swirl",
-        "Original file offset: 0x0E6DEA"
+        "Original file offset: 0x0E6DEA",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5573,11 +5697,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/10.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/10_frame.json",
+          "swirl_id": 10,
+          "sequence_id": 1,
+          "sequence_frame_index": 10,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/10.swirl",
-        "Original file offset: 0x0E6F02"
+        "Original file offset: 0x0E6F02",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5594,11 +5728,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/11.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/11_frame.json",
+          "swirl_id": 11,
+          "sequence_id": 1,
+          "sequence_frame_index": 11,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/11.swirl",
-        "Original file offset: 0x0E701F"
+        "Original file offset: 0x0E701F",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5615,11 +5759,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/12.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/12_frame.json",
+          "swirl_id": 12,
+          "sequence_id": 1,
+          "sequence_frame_index": 12,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/12.swirl",
-        "Original file offset: 0x0E718B"
+        "Original file offset: 0x0E718B",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5636,11 +5790,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/13.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/13_frame.json",
+          "swirl_id": 13,
+          "sequence_id": 1,
+          "sequence_frame_index": 13,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/13.swirl",
-        "Original file offset: 0x0E7307"
+        "Original file offset: 0x0E7307",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5657,11 +5821,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/14.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/14_frame.json",
+          "swirl_id": 14,
+          "sequence_id": 1,
+          "sequence_frame_index": 14,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/14.swirl",
-        "Original file offset: 0x0E74D2"
+        "Original file offset: 0x0E74D2",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5678,11 +5852,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/15.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/15_frame.json",
+          "swirl_id": 15,
+          "sequence_id": 1,
+          "sequence_frame_index": 15,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/15.swirl",
-        "Original file offset: 0x0E76B1"
+        "Original file offset: 0x0E76B1",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5699,11 +5883,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/16.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/16_frame.json",
+          "swirl_id": 16,
+          "sequence_id": 1,
+          "sequence_frame_index": 16,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/16.swirl",
-        "Original file offset: 0x0E78DF"
+        "Original file offset: 0x0E78DF",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5720,11 +5914,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/17.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/17_frame.json",
+          "swirl_id": 17,
+          "sequence_id": 1,
+          "sequence_frame_index": 17,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/17.swirl",
-        "Original file offset: 0x0E7B3C"
+        "Original file offset: 0x0E7B3C",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5741,11 +5945,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/18.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/18_frame.json",
+          "swirl_id": 18,
+          "sequence_id": 1,
+          "sequence_frame_index": 18,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/18.swirl",
-        "Original file offset: 0x0E7DD9"
+        "Original file offset: 0x0E7DD9",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5762,11 +5976,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/19.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/19_frame.json",
+          "swirl_id": 19,
+          "sequence_id": 1,
+          "sequence_frame_index": 19,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/19.swirl",
-        "Original file offset: 0x0E80F2"
+        "Original file offset: 0x0E80F2",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5783,11 +6007,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/20.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/20_frame.json",
+          "swirl_id": 20,
+          "sequence_id": 1,
+          "sequence_frame_index": 20,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/20.swirl",
-        "Original file offset: 0x0E83DE"
+        "Original file offset: 0x0E83DE",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5804,11 +6038,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/21.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/21_frame.json",
+          "swirl_id": 21,
+          "sequence_id": 1,
+          "sequence_frame_index": 21,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/21.swirl",
-        "Original file offset: 0x0E8523"
+        "Original file offset: 0x0E8523",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5825,11 +6069,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/22.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/22_frame.json",
+          "swirl_id": 22,
+          "sequence_id": 1,
+          "sequence_frame_index": 22,
+          "sequence_speed": 2,
+          "sequence_frame_count": 23
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/22.swirl",
-        "Original file offset: 0x0E85B9"
+        "Original file offset: 0x0E85B9",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5846,11 +6100,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/23.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/23_frame.json",
+          "swirl_id": 23,
+          "sequence_id": 2,
+          "sequence_frame_index": 0,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/23.swirl",
-        "Original file offset: 0x0E85C1"
+        "Original file offset: 0x0E85C1",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5867,11 +6131,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/24.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/24_frame.json",
+          "swirl_id": 24,
+          "sequence_id": 2,
+          "sequence_frame_index": 1,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/24.swirl",
-        "Original file offset: 0x0E85C9"
+        "Original file offset: 0x0E85C9",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5888,11 +6162,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/25.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/25_frame.json",
+          "swirl_id": 25,
+          "sequence_id": 2,
+          "sequence_frame_index": 2,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/25.swirl",
-        "Original file offset: 0x0E8616"
+        "Original file offset: 0x0E8616",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5909,11 +6193,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/26.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/26_frame.json",
+          "swirl_id": 26,
+          "sequence_id": 2,
+          "sequence_frame_index": 3,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/26.swirl",
-        "Original file offset: 0x0E865B"
+        "Original file offset: 0x0E865B",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5930,11 +6224,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/27.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/27_frame.json",
+          "swirl_id": 27,
+          "sequence_id": 2,
+          "sequence_frame_index": 4,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/27.swirl",
-        "Original file offset: 0x0E86AE"
+        "Original file offset: 0x0E86AE",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5951,11 +6255,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/28.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/28_frame.json",
+          "swirl_id": 28,
+          "sequence_id": 2,
+          "sequence_frame_index": 5,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/28.swirl",
-        "Original file offset: 0x0E870D"
+        "Original file offset: 0x0E870D",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5972,11 +6286,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/29.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/29_frame.json",
+          "swirl_id": 29,
+          "sequence_id": 2,
+          "sequence_frame_index": 6,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/29.swirl",
-        "Original file offset: 0x0E876A"
+        "Original file offset: 0x0E876A",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -5993,11 +6317,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/30.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/30_frame.json",
+          "swirl_id": 30,
+          "sequence_id": 2,
+          "sequence_frame_index": 7,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/30.swirl",
-        "Original file offset: 0x0E87CF"
+        "Original file offset: 0x0E87CF",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6014,11 +6348,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/31.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/31_frame.json",
+          "swirl_id": 31,
+          "sequence_id": 2,
+          "sequence_frame_index": 8,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/31.swirl",
-        "Original file offset: 0x0E883E"
+        "Original file offset: 0x0E883E",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6035,11 +6379,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/32.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/32_frame.json",
+          "swirl_id": 32,
+          "sequence_id": 2,
+          "sequence_frame_index": 9,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/32.swirl",
-        "Original file offset: 0x0E88C3"
+        "Original file offset: 0x0E88C3",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6056,11 +6410,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/33.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/33_frame.json",
+          "swirl_id": 33,
+          "sequence_id": 2,
+          "sequence_frame_index": 10,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/33.swirl",
-        "Original file offset: 0x0E8956"
+        "Original file offset: 0x0E8956",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6077,11 +6441,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/34.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/34_frame.json",
+          "swirl_id": 34,
+          "sequence_id": 2,
+          "sequence_frame_index": 11,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/34.swirl",
-        "Original file offset: 0x0E8A0D"
+        "Original file offset: 0x0E8A0D",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6098,11 +6472,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/35.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/35_frame.json",
+          "swirl_id": 35,
+          "sequence_id": 2,
+          "sequence_frame_index": 12,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/35.swirl",
-        "Original file offset: 0x0E8AE2"
+        "Original file offset: 0x0E8AE2",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6119,11 +6503,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/36.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/36_frame.json",
+          "swirl_id": 36,
+          "sequence_id": 2,
+          "sequence_frame_index": 13,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/36.swirl",
-        "Original file offset: 0x0E8BFF"
+        "Original file offset: 0x0E8BFF",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6140,11 +6534,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/37.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/37_frame.json",
+          "swirl_id": 37,
+          "sequence_id": 2,
+          "sequence_frame_index": 14,
+          "sequence_speed": 4,
+          "sequence_frame_count": 15
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/37.swirl",
-        "Original file offset: 0x0E8D94"
+        "Original file offset: 0x0E8D94",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6161,11 +6565,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/38.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/38_frame.json",
+          "swirl_id": 38,
+          "sequence_id": 3,
+          "sequence_frame_index": 0,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/38.swirl",
-        "Original file offset: 0x0E9013"
+        "Original file offset: 0x0E9013",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6182,11 +6596,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/39.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/39_frame.json",
+          "swirl_id": 39,
+          "sequence_id": 3,
+          "sequence_frame_index": 1,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/39.swirl",
-        "Original file offset: 0x0E9066"
+        "Original file offset: 0x0E9066",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6203,11 +6627,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/40.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/40_frame.json",
+          "swirl_id": 40,
+          "sequence_id": 3,
+          "sequence_frame_index": 2,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/40.swirl",
-        "Original file offset: 0x0E90BB"
+        "Original file offset: 0x0E90BB",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6224,11 +6658,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/41.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/41_frame.json",
+          "swirl_id": 41,
+          "sequence_id": 3,
+          "sequence_frame_index": 3,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/41.swirl",
-        "Original file offset: 0x0E9105"
+        "Original file offset: 0x0E9105",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6245,11 +6689,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/42.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/42_frame.json",
+          "swirl_id": 42,
+          "sequence_id": 3,
+          "sequence_frame_index": 4,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/42.swirl",
-        "Original file offset: 0x0E9148"
+        "Original file offset: 0x0E9148",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6266,11 +6720,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/43.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/43_frame.json",
+          "swirl_id": 43,
+          "sequence_id": 3,
+          "sequence_frame_index": 5,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/43.swirl",
-        "Original file offset: 0x0E91A7"
+        "Original file offset: 0x0E91A7",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6287,11 +6751,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/44.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/44_frame.json",
+          "swirl_id": 44,
+          "sequence_id": 3,
+          "sequence_frame_index": 6,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/44.swirl",
-        "Original file offset: 0x0E9212"
+        "Original file offset: 0x0E9212",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6308,11 +6782,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/45.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/45_frame.json",
+          "swirl_id": 45,
+          "sequence_id": 3,
+          "sequence_frame_index": 7,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/45.swirl",
-        "Original file offset: 0x0E9277"
+        "Original file offset: 0x0E9277",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6329,11 +6813,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/46.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/46_frame.json",
+          "swirl_id": 46,
+          "sequence_id": 3,
+          "sequence_frame_index": 8,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/46.swirl",
-        "Original file offset: 0x0E92D8"
+        "Original file offset: 0x0E92D8",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6350,11 +6844,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/47.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/47_frame.json",
+          "swirl_id": 47,
+          "sequence_id": 3,
+          "sequence_frame_index": 9,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/47.swirl",
-        "Original file offset: 0x0E934B"
+        "Original file offset: 0x0E934B",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6371,11 +6875,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/48.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/48_frame.json",
+          "swirl_id": 48,
+          "sequence_id": 3,
+          "sequence_frame_index": 10,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/48.swirl",
-        "Original file offset: 0x0E93E6"
+        "Original file offset: 0x0E93E6",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6392,11 +6906,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/49.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/49_frame.json",
+          "swirl_id": 49,
+          "sequence_id": 3,
+          "sequence_frame_index": 11,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/49.swirl",
-        "Original file offset: 0x0E9481"
+        "Original file offset: 0x0E9481",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6413,11 +6937,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/50.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/50_frame.json",
+          "swirl_id": 50,
+          "sequence_id": 3,
+          "sequence_frame_index": 12,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/50.swirl",
-        "Original file offset: 0x0E9509"
+        "Original file offset: 0x0E9509",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6434,11 +6968,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/51.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/51_frame.json",
+          "swirl_id": 51,
+          "sequence_id": 3,
+          "sequence_frame_index": 13,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/51.swirl",
-        "Original file offset: 0x0E95A4"
+        "Original file offset: 0x0E95A4",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6455,11 +6999,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/52.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/52_frame.json",
+          "swirl_id": 52,
+          "sequence_id": 3,
+          "sequence_frame_index": 14,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/52.swirl",
-        "Original file offset: 0x0E969F"
+        "Original file offset: 0x0E969F",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6476,11 +7030,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/53.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/53_frame.json",
+          "swirl_id": 53,
+          "sequence_id": 3,
+          "sequence_frame_index": 15,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/53.swirl",
-        "Original file offset: 0x0E97B2"
+        "Original file offset: 0x0E97B2",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6497,11 +7061,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/54.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/54_frame.json",
+          "swirl_id": 54,
+          "sequence_id": 3,
+          "sequence_frame_index": 16,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/54.swirl",
-        "Original file offset: 0x0E98C8"
+        "Original file offset: 0x0E98C8",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6518,11 +7092,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/55.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/55_frame.json",
+          "swirl_id": 55,
+          "sequence_id": 3,
+          "sequence_frame_index": 17,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/55.swirl",
-        "Original file offset: 0x0E9A34"
+        "Original file offset: 0x0E9A34",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6539,11 +7123,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/56.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/56_frame.json",
+          "swirl_id": 56,
+          "sequence_id": 3,
+          "sequence_frame_index": 18,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/56.swirl",
-        "Original file offset: 0x0E9CFA"
+        "Original file offset: 0x0E9CFA",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6560,11 +7154,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/57.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/57_frame.json",
+          "swirl_id": 57,
+          "sequence_id": 3,
+          "sequence_frame_index": 19,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/57.swirl",
-        "Original file offset: 0x0EA069"
+        "Original file offset: 0x0EA069",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6581,11 +7185,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/58.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/58_frame.json",
+          "swirl_id": 58,
+          "sequence_id": 3,
+          "sequence_frame_index": 20,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/58.swirl",
-        "Original file offset: 0x0EA3A3"
+        "Original file offset: 0x0EA3A3",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6602,11 +7216,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/59.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/59_frame.json",
+          "swirl_id": 59,
+          "sequence_id": 3,
+          "sequence_frame_index": 21,
+          "sequence_speed": 3,
+          "sequence_frame_count": 22
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/59.swirl",
-        "Original file offset: 0x0EA5AD"
+        "Original file offset: 0x0EA5AD",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6623,11 +7247,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/60.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/60_frame.json",
+          "swirl_id": 60,
+          "sequence_id": 4,
+          "sequence_frame_index": 0,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/60.swirl",
-        "Original file offset: 0x0EA5B5"
+        "Original file offset: 0x0EA5B5",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6644,11 +7278,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/61.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/61_frame.json",
+          "swirl_id": 61,
+          "sequence_id": 4,
+          "sequence_frame_index": 1,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/61.swirl",
-        "Original file offset: 0x0EA5C6"
+        "Original file offset: 0x0EA5C6",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6665,11 +7309,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/62.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/62_frame.json",
+          "swirl_id": 62,
+          "sequence_id": 4,
+          "sequence_frame_index": 2,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/62.swirl",
-        "Original file offset: 0x0EA5DF"
+        "Original file offset: 0x0EA5DF",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6686,11 +7340,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/63.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/63_frame.json",
+          "swirl_id": 63,
+          "sequence_id": 4,
+          "sequence_frame_index": 3,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/63.swirl",
-        "Original file offset: 0x0EA610"
+        "Original file offset: 0x0EA610",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6707,11 +7371,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/64.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/64_frame.json",
+          "swirl_id": 64,
+          "sequence_id": 4,
+          "sequence_frame_index": 4,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/64.swirl",
-        "Original file offset: 0x0EA661"
+        "Original file offset: 0x0EA661",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6728,11 +7402,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/65.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/65_frame.json",
+          "swirl_id": 65,
+          "sequence_id": 4,
+          "sequence_frame_index": 5,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/65.swirl",
-        "Original file offset: 0x0EA6EA"
+        "Original file offset: 0x0EA6EA",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6749,11 +7433,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/66.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/66_frame.json",
+          "swirl_id": 66,
+          "sequence_id": 4,
+          "sequence_frame_index": 6,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/66.swirl",
-        "Original file offset: 0x0EA7BB"
+        "Original file offset: 0x0EA7BB",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6770,11 +7464,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/67.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/67_frame.json",
+          "swirl_id": 67,
+          "sequence_id": 4,
+          "sequence_frame_index": 7,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/67.swirl",
-        "Original file offset: 0x0EA8DC"
+        "Original file offset: 0x0EA8DC",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6791,11 +7495,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/68.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/68_frame.json",
+          "swirl_id": 68,
+          "sequence_id": 4,
+          "sequence_frame_index": 8,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/68.swirl",
-        "Original file offset: 0x0EAA65"
+        "Original file offset: 0x0EAA65",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6812,11 +7526,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/69.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/69_frame.json",
+          "swirl_id": 69,
+          "sequence_id": 4,
+          "sequence_frame_index": 9,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/69.swirl",
-        "Original file offset: 0x0EAC5E"
+        "Original file offset: 0x0EAC5E",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6833,11 +7557,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/70.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/70_frame.json",
+          "swirl_id": 70,
+          "sequence_id": 4,
+          "sequence_frame_index": 10,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/70.swirl",
-        "Original file offset: 0x0EAEE0"
+        "Original file offset: 0x0EAEE0",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6854,11 +7588,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/71.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/71_frame.json",
+          "swirl_id": 71,
+          "sequence_id": 4,
+          "sequence_frame_index": 11,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/71.swirl",
-        "Original file offset: 0x0EB1F2"
+        "Original file offset: 0x0EB1F2",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6875,11 +7619,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/72.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/72_frame.json",
+          "swirl_id": 72,
+          "sequence_id": 4,
+          "sequence_frame_index": 12,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/72.swirl",
-        "Original file offset: 0x0EB576"
+        "Original file offset: 0x0EB576",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6896,11 +7650,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/73.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/73_frame.json",
+          "swirl_id": 73,
+          "sequence_id": 4,
+          "sequence_frame_index": 13,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/73.swirl",
-        "Original file offset: 0x0EB8FA"
+        "Original file offset: 0x0EB8FA",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6917,11 +7681,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/74.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/74_frame.json",
+          "swirl_id": 74,
+          "sequence_id": 4,
+          "sequence_frame_index": 14,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/74.swirl",
-        "Original file offset: 0x0EBC7E"
+        "Original file offset: 0x0EBC7E",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6938,11 +7712,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/75.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/75_frame.json",
+          "swirl_id": 75,
+          "sequence_id": 4,
+          "sequence_frame_index": 15,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/75.swirl",
-        "Original file offset: 0x0EC002"
+        "Original file offset: 0x0EC002",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6959,11 +7743,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/76.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/76_frame.json",
+          "swirl_id": 76,
+          "sequence_id": 4,
+          "sequence_frame_index": 16,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/76.swirl",
-        "Original file offset: 0x0EC386"
+        "Original file offset: 0x0EC386",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -6980,11 +7774,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/77.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/77_frame.json",
+          "swirl_id": 77,
+          "sequence_id": 4,
+          "sequence_frame_index": 17,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/77.swirl",
-        "Original file offset: 0x0EC54A"
+        "Original file offset: 0x0EC54A",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7001,11 +7805,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/78.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/78_frame.json",
+          "swirl_id": 78,
+          "sequence_id": 4,
+          "sequence_frame_index": 18,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/78.swirl",
-        "Original file offset: 0x0EC817"
+        "Original file offset: 0x0EC817",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7022,11 +7836,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/79.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/79_frame.json",
+          "swirl_id": 79,
+          "sequence_id": 4,
+          "sequence_frame_index": 19,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/79.swirl",
-        "Original file offset: 0x0EC8F8"
+        "Original file offset: 0x0EC8F8",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7043,11 +7867,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/80.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/80_frame.json",
+          "swirl_id": 80,
+          "sequence_id": 4,
+          "sequence_frame_index": 20,
+          "sequence_speed": 4,
+          "sequence_frame_count": 21
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/80.swirl",
-        "Original file offset: 0x0EC950"
+        "Original file offset: 0x0EC950",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7064,11 +7898,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/81.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/81_frame.json",
+          "swirl_id": 81,
+          "sequence_id": 5,
+          "sequence_frame_index": 0,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/81.swirl",
-        "Original file offset: 0x0EC958"
+        "Original file offset: 0x0EC958",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7085,11 +7929,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/82.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/82_frame.json",
+          "swirl_id": 82,
+          "sequence_id": 5,
+          "sequence_frame_index": 1,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/82.swirl",
-        "Original file offset: 0x0EC960"
+        "Original file offset: 0x0EC960",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7106,11 +7960,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/83.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/83_frame.json",
+          "swirl_id": 83,
+          "sequence_id": 5,
+          "sequence_frame_index": 2,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/83.swirl",
-        "Original file offset: 0x0EC96B"
+        "Original file offset: 0x0EC96B",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7127,11 +7991,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/84.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/84_frame.json",
+          "swirl_id": 84,
+          "sequence_id": 5,
+          "sequence_frame_index": 3,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/84.swirl",
-        "Original file offset: 0x0EC982"
+        "Original file offset: 0x0EC982",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7148,11 +8022,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/85.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/85_frame.json",
+          "swirl_id": 85,
+          "sequence_id": 5,
+          "sequence_frame_index": 4,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/85.swirl",
-        "Original file offset: 0x0EC999"
+        "Original file offset: 0x0EC999",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7169,11 +8053,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/86.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/86_frame.json",
+          "swirl_id": 86,
+          "sequence_id": 5,
+          "sequence_frame_index": 5,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/86.swirl",
-        "Original file offset: 0x0EC9B0"
+        "Original file offset: 0x0EC9B0",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7190,11 +8084,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/87.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/87_frame.json",
+          "swirl_id": 87,
+          "sequence_id": 5,
+          "sequence_frame_index": 6,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/87.swirl",
-        "Original file offset: 0x0EC9BB"
+        "Original file offset: 0x0EC9BB",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7211,11 +8115,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/88.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/88_frame.json",
+          "swirl_id": 88,
+          "sequence_id": 5,
+          "sequence_frame_index": 7,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/88.swirl",
-        "Original file offset: 0x0EC9C6"
+        "Original file offset: 0x0EC9C6",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7232,11 +8146,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/89.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/89_frame.json",
+          "swirl_id": 89,
+          "sequence_id": 5,
+          "sequence_frame_index": 8,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/89.swirl",
-        "Original file offset: 0x0EC9D1"
+        "Original file offset: 0x0EC9D1",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7253,11 +8177,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/90.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/90_frame.json",
+          "swirl_id": 90,
+          "sequence_id": 5,
+          "sequence_frame_index": 9,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/90.swirl",
-        "Original file offset: 0x0EC9DC"
+        "Original file offset: 0x0EC9DC",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7274,11 +8208,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/91.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/91_frame.json",
+          "swirl_id": 91,
+          "sequence_id": 5,
+          "sequence_frame_index": 10,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/91.swirl",
-        "Original file offset: 0x0EC9E7"
+        "Original file offset: 0x0EC9E7",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7295,11 +8239,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/92.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/92_frame.json",
+          "swirl_id": 92,
+          "sequence_id": 5,
+          "sequence_frame_index": 11,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/92.swirl",
-        "Original file offset: 0x0EC9F2"
+        "Original file offset: 0x0EC9F2",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7316,11 +8270,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/93.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/93_frame.json",
+          "swirl_id": 93,
+          "sequence_id": 5,
+          "sequence_frame_index": 12,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/93.swirl",
-        "Original file offset: 0x0EC9FD"
+        "Original file offset: 0x0EC9FD",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7337,11 +8301,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/94.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/94_frame.json",
+          "swirl_id": 94,
+          "sequence_id": 5,
+          "sequence_frame_index": 13,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/94.swirl",
-        "Original file offset: 0x0ECA08"
+        "Original file offset: 0x0ECA08",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7358,11 +8332,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/95.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/95_frame.json",
+          "swirl_id": 95,
+          "sequence_id": 5,
+          "sequence_frame_index": 14,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/95.swirl",
-        "Original file offset: 0x0ECA13"
+        "Original file offset: 0x0ECA13",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7379,11 +8363,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/96.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/96_frame.json",
+          "swirl_id": 96,
+          "sequence_id": 5,
+          "sequence_frame_index": 15,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/96.swirl",
-        "Original file offset: 0x0ECA1E"
+        "Original file offset: 0x0ECA1E",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7400,11 +8394,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/97.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/97_frame.json",
+          "swirl_id": 97,
+          "sequence_id": 5,
+          "sequence_frame_index": 16,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/97.swirl",
-        "Original file offset: 0x0ECA29"
+        "Original file offset: 0x0ECA29",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7421,11 +8425,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/98.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/98_frame.json",
+          "swirl_id": 98,
+          "sequence_id": 5,
+          "sequence_frame_index": 17,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/98.swirl",
-        "Original file offset: 0x0ECA34"
+        "Original file offset: 0x0ECA34",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7442,11 +8456,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/99.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/99_frame.json",
+          "swirl_id": 99,
+          "sequence_id": 5,
+          "sequence_frame_index": 18,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/99.swirl",
-        "Original file offset: 0x0ECA3F"
+        "Original file offset: 0x0ECA3F",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7463,11 +8487,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/100.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/100_frame.json",
+          "swirl_id": 100,
+          "sequence_id": 5,
+          "sequence_frame_index": 19,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/100.swirl",
-        "Original file offset: 0x0ECA4A"
+        "Original file offset: 0x0ECA4A",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7484,11 +8518,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/101.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/101_frame.json",
+          "swirl_id": 101,
+          "sequence_id": 5,
+          "sequence_frame_index": 20,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/101.swirl",
-        "Original file offset: 0x0ECA55"
+        "Original file offset: 0x0ECA55",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7505,11 +8549,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/102.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/102_frame.json",
+          "swirl_id": 102,
+          "sequence_id": 5,
+          "sequence_frame_index": 21,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/102.swirl",
-        "Original file offset: 0x0ECA60"
+        "Original file offset: 0x0ECA60",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7526,11 +8580,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/103.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/103_frame.json",
+          "swirl_id": 103,
+          "sequence_id": 5,
+          "sequence_frame_index": 22,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/103.swirl",
-        "Original file offset: 0x0ECA6B"
+        "Original file offset: 0x0ECA6B",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7547,11 +8611,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/104.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/104_frame.json",
+          "swirl_id": 104,
+          "sequence_id": 5,
+          "sequence_frame_index": 23,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/104.swirl",
-        "Original file offset: 0x0ECA76"
+        "Original file offset: 0x0ECA76",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7568,11 +8642,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/105.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/105_frame.json",
+          "swirl_id": 105,
+          "sequence_id": 5,
+          "sequence_frame_index": 24,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/105.swirl",
-        "Original file offset: 0x0ECA81"
+        "Original file offset: 0x0ECA81",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7589,11 +8673,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/106.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/106_frame.json",
+          "swirl_id": 106,
+          "sequence_id": 5,
+          "sequence_frame_index": 25,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/106.swirl",
-        "Original file offset: 0x0ECA8C"
+        "Original file offset: 0x0ECA8C",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7610,11 +8704,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/107.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/107_frame.json",
+          "swirl_id": 107,
+          "sequence_id": 5,
+          "sequence_frame_index": 26,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/107.swirl",
-        "Original file offset: 0x0ECA97"
+        "Original file offset: 0x0ECA97",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7631,11 +8735,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/108.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/108_frame.json",
+          "swirl_id": 108,
+          "sequence_id": 5,
+          "sequence_frame_index": 27,
+          "sequence_speed": 2,
+          "sequence_frame_count": 28
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/108.swirl",
-        "Original file offset: 0x0ECAA2"
+        "Original file offset: 0x0ECAA2",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7652,11 +8766,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/109.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/109_frame.json",
+          "swirl_id": 109,
+          "sequence_id": 6,
+          "sequence_frame_index": 0,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/109.swirl",
-        "Original file offset: 0x0ECAAA"
+        "Original file offset: 0x0ECAAA",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7673,11 +8797,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/110.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/110_frame.json",
+          "swirl_id": 110,
+          "sequence_id": 6,
+          "sequence_frame_index": 1,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/110.swirl",
-        "Original file offset: 0x0ECAB2"
+        "Original file offset: 0x0ECAB2",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7694,11 +8828,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/111.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/111_frame.json",
+          "swirl_id": 111,
+          "sequence_id": 6,
+          "sequence_frame_index": 2,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/111.swirl",
-        "Original file offset: 0x0ECAE1"
+        "Original file offset: 0x0ECAE1",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7715,11 +8859,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/112.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/112_frame.json",
+          "swirl_id": 112,
+          "sequence_id": 6,
+          "sequence_frame_index": 3,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/112.swirl",
-        "Original file offset: 0x0ECB8D"
+        "Original file offset: 0x0ECB8D",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7736,11 +8890,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/113.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/113_frame.json",
+          "swirl_id": 113,
+          "sequence_id": 6,
+          "sequence_frame_index": 4,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/113.swirl",
-        "Original file offset: 0x0ECC8D"
+        "Original file offset: 0x0ECC8D",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7757,11 +8921,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/114.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/114_frame.json",
+          "swirl_id": 114,
+          "sequence_id": 6,
+          "sequence_frame_index": 5,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/114.swirl",
-        "Original file offset: 0x0ECDE1"
+        "Original file offset: 0x0ECDE1",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7778,11 +8952,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/115.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/115_frame.json",
+          "swirl_id": 115,
+          "sequence_id": 6,
+          "sequence_frame_index": 6,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/115.swirl",
-        "Original file offset: 0x0ECF51"
+        "Original file offset: 0x0ECF51",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7799,11 +8983,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/116.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/116_frame.json",
+          "swirl_id": 116,
+          "sequence_id": 6,
+          "sequence_frame_index": 7,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/116.swirl",
-        "Original file offset: 0x0ED0DD"
+        "Original file offset: 0x0ED0DD",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7820,11 +9014,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/117.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/117_frame.json",
+          "swirl_id": 117,
+          "sequence_id": 6,
+          "sequence_frame_index": 8,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/117.swirl",
-        "Original file offset: 0x0ED285"
+        "Original file offset: 0x0ED285",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7841,11 +9045,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/118.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/118_frame.json",
+          "swirl_id": 118,
+          "sequence_id": 6,
+          "sequence_frame_index": 9,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/118.swirl",
-        "Original file offset: 0x0ED449"
+        "Original file offset: 0x0ED449",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7862,11 +9076,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/119.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/119_frame.json",
+          "swirl_id": 119,
+          "sequence_id": 6,
+          "sequence_frame_index": 10,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/119.swirl",
-        "Original file offset: 0x0ED5F0"
+        "Original file offset: 0x0ED5F0",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7883,11 +9107,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/120.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/120_frame.json",
+          "swirl_id": 120,
+          "sequence_id": 6,
+          "sequence_frame_index": 11,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/120.swirl",
-        "Original file offset: 0x0ED77B"
+        "Original file offset: 0x0ED77B",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7904,11 +9138,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/121.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/121_frame.json",
+          "swirl_id": 121,
+          "sequence_id": 6,
+          "sequence_frame_index": 12,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/121.swirl",
-        "Original file offset: 0x0ED8EA"
+        "Original file offset: 0x0ED8EA",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7925,11 +9169,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/122.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/122_frame.json",
+          "swirl_id": 122,
+          "sequence_id": 6,
+          "sequence_frame_index": 13,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/122.swirl",
-        "Original file offset: 0x0EDA3C"
+        "Original file offset: 0x0EDA3C",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7946,11 +9200,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/123.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/123_frame.json",
+          "swirl_id": 123,
+          "sequence_id": 6,
+          "sequence_frame_index": 14,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/123.swirl",
-        "Original file offset: 0x0EDB3A"
+        "Original file offset: 0x0EDB3A",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7967,11 +9231,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/124.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/124_frame.json",
+          "swirl_id": 124,
+          "sequence_id": 6,
+          "sequence_frame_index": 15,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/124.swirl",
-        "Original file offset: 0x0EDBE4"
+        "Original file offset: 0x0EDBE4",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -7988,11 +9262,21 @@
         {
           "kind": "raw",
           "path": "ce/swirls/125.swirl"
+        },
+        {
+          "kind": "battle_swirl_frame_json",
+          "path": "ce/swirls/125_frame.json",
+          "swirl_id": 125,
+          "sequence_id": 6,
+          "sequence_frame_index": 16,
+          "sequence_speed": 3,
+          "sequence_frame_count": 17
         }
       ],
       "notes": [
         "Source payload path from ebsrc: swirls/125.swirl",
-        "Original file offset: 0x0EDC3A"
+        "Original file offset: 0x0EDC3A",
+        "Swirl sequence/frame metadata is emitted as a JSON sidecar; the internal SWIRL_DATA drawing bytecode remains raw-preserved until a renderer needs to decode it."
       ]
     },
     {
@@ -8092,11 +9376,17 @@
         {
           "kind": "raw",
           "path": "ce/tables/055_data_battle_battle_sprites_pointers_asm.bin"
+        },
+        {
+          "kind": "battle_sprite_pointer_table_json",
+          "path": "ce/tables/055_data_battle_battle_sprites_pointers_asm_decoded.json",
+          "entry_count": 110
         }
       ],
       "notes": [
         "Source include from ebsrc: data/battle/battle_sprites_pointers.asm",
-        "Original file offset: 0x0E62EE"
+        "Original file offset: 0x0E62EE",
+        "Decoded as the battle sprite pointer/size table; rows preserve long pointer target and sprite dimensions."
       ]
     },
     {
@@ -8113,11 +9403,18 @@
         {
           "kind": "raw",
           "path": "ce/tables/214_data_battle_swirl_pointers_asm.bin"
+        },
+        {
+          "kind": "battle_swirl_pointer_table_json",
+          "path": "ce/tables/214_data_battle_swirl_pointers_asm_decoded.json",
+          "entry_count": 126,
+          "pointer_bank": 206
         }
       ],
       "notes": [
         "Source include from ebsrc: data/battle/swirl_pointers.asm",
-        "Original file offset: 0x0EDC45"
+        "Original file offset: 0x0EDC45",
+        "Decoded as the 126-entry little-endian pointer table for CE SWIRL_DATA payload frames."
       ]
     },
     {
@@ -8134,11 +9431,17 @@
         {
           "kind": "raw",
           "path": "ce/tables/215_inline_swirl_primary_table.bin"
+        },
+        {
+          "kind": "battle_swirl_sequence_table_json",
+          "path": "ce/tables/215_inline_swirl_primary_table_decoded.json",
+          "row_count": 7
         }
       ],
       "notes": [
         "Source include from ebsrc: inline:SWIRL_PRIMARY_TABLE",
-        "Original file offset: 0x0EDD41"
+        "Original file offset: 0x0EDD41",
+        "Decoded as the seven-row primary battle swirl sequence table; rows preserve speed, first payload, and frame count."
       ]
     },
     {

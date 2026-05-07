@@ -13,13 +13,27 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import extract_assets
 import rom_tools
-from asset_output_recipe_contracts import OUTPUT_RECIPE_CONTRACTS
+from asset_output_recipe_contracts import OUTPUT_RECIPE_CONTRACTS, SOURCE_FIELDS, validate_output_spec
+from build_asset_output_preview_geometry import preview_geometry
+from build_asset_output_source_refs import KNOWN_EXTERNAL_SOURCE_REFS, build_asset_source_index, source_ref_key
 
 
 ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_MANIFEST_DIR = ROOT / "asset-manifests"
 DEFAULT_FIXTURES = ROOT / "notes" / "asset-output-smoke-fixtures.json"
 DEFAULT_OUT = ROOT / "build" / "asset-output-smoke-fixtures"
-REPORT_ZERO_OK_FIELDS = {"arrangement_id", "graphics_id", "max_tile", "palette_id", "sprite_id"}
+REPORT_ZERO_OK_FIELDS = {
+    "arrangement_id",
+    "font_id",
+    "graphics_id",
+    "max_tile",
+    "min_tile_id",
+    "palette_id",
+    "sequence_frame_index",
+    "sentinel_ff_count",
+    "sprite_id",
+    "swirl_id",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -75,10 +89,62 @@ def manifest_path(text: str) -> Path:
     return path
 
 
+def validate_target_source_refs(
+    fixture_id: str,
+    output: dict[str, Any],
+    asset_sources: dict[tuple[str, int, str], list[dict[str, Any]]],
+) -> dict[str, int]:
+    kind = str(output["kind"])
+    contract = OUTPUT_RECIPE_CONTRACTS[kind]
+    source_fields = sorted((set(contract.required_fields) | set(contract.optional_fields)) & SOURCE_FIELDS)
+    checked = 0
+    manifest_matches = 0
+    known_external = 0
+    errors: list[str] = []
+
+    for field in source_fields:
+        source = output.get(field)
+        if source is None:
+            continue
+        if not isinstance(source, dict):
+            errors.append(f"{fixture_id}: {kind}.{field} must be an object")
+            continue
+        key = source_ref_key(source)
+        if key is None:
+            errors.append(f"{fixture_id}: {kind}.{field} is not a complete rom-range source ref")
+            continue
+        checked += 1
+        if asset_sources.get(key):
+            manifest_matches += 1
+        elif KNOWN_EXTERNAL_SOURCE_REFS.get(key) is not None:
+            known_external += 1
+        else:
+            errors.append(
+                f"{fixture_id}: {kind}.{field} does not match a manifest source range "
+                "or known external source boundary"
+            )
+
+    if errors:
+        raise ValueError("\n".join(errors))
+
+    return {
+        "checked": checked,
+        "manifest_matches": manifest_matches,
+        "known_external": known_external,
+    }
+
+
 def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
     fixture_ids = set()
     fixture_count_by_type: dict[str, int] = {}
     selected_by_manifest: dict[str, set[str]] = {}
+    fixtures_by_manifest: dict[str, list[dict[str, Any]]] = {}
+    preview_geometries_checked = 0
+    target_output_specs_checked = 0
+    target_source_refs_checked = 0
+    target_source_refs_manifest_matches = 0
+    target_source_refs_known_external = 0
+    asset_sources = build_asset_source_index(DEFAULT_MANIFEST_DIR)
 
     for fixture in plan["fixtures"]:
         fixture_id = fixture.get("id")
@@ -103,16 +169,68 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
             raise ValueError(f"{fixture_id}: target_output.kind is unsupported: {kind!r}")
         if not isinstance(path, str) or not path:
             raise ValueError(f"{fixture_id}: target_output.path must be a non-empty string")
+        contract = OUTPUT_RECIPE_CONTRACTS[kind]
+        if target_output.get("decoder") != contract.decoder:
+            raise ValueError(f"{fixture_id}: target_output.decoder is stale for {kind}")
+        if target_output.get("renderer") != contract.renderer:
+            raise ValueError(f"{fixture_id}: target_output.renderer is stale for {kind}")
         selected_by_manifest.setdefault(manifest, set()).add(asset_id)
+        fixtures_by_manifest.setdefault(manifest, []).append(fixture)
 
     manifest_asset_counts = {}
     for manifest, asset_ids in sorted(selected_by_manifest.items()):
         path = manifest_path(manifest)
         data = extract_assets.load_manifest(path)
-        known_ids = {str(asset["id"]) for asset in data["assets"]}
+        assets_by_id = {str(asset["id"]): asset for asset in data["assets"]}
+        known_ids = set(assets_by_id)
         missing = sorted(asset_ids - known_ids)
         if missing:
             raise ValueError(f"{manifest}: fixture asset ids not found: {missing}")
+        for fixture in fixtures_by_manifest[manifest]:
+            fixture_id = str(fixture["id"])
+            asset_id = str(fixture["asset_id"])
+            target_output = fixture["target_output"]
+            target_kind = str(target_output["kind"])
+            target_path = str(target_output["path"])
+            asset = assets_by_id[asset_id]
+            outputs = asset.get("outputs", [])
+            if not isinstance(outputs, list):
+                raise ValueError(f"{fixture_id}: asset outputs must be a list")
+            matched_output = next(
+                (
+                    output
+                    for output in outputs
+                    if isinstance(output, dict)
+                    and output.get("kind") == target_kind
+                    and output.get("path") == target_path
+                ),
+                None,
+            )
+            if matched_output is None:
+                raise ValueError(
+                    f"{fixture_id}: target output not found on {asset_id}: "
+                    f"{target_kind} {target_path}"
+                )
+            spec_errors = validate_output_spec(matched_output, asset_id)
+            if spec_errors:
+                raise ValueError(f"{fixture_id}: target output spec is invalid:\n- " + "\n- ".join(spec_errors))
+            target_output_specs_checked += 1
+            source_ref_counts = validate_target_source_refs(fixture_id, matched_output, asset_sources)
+            target_source_refs_checked += source_ref_counts["checked"]
+            target_source_refs_manifest_matches += source_ref_counts["manifest_matches"]
+            target_source_refs_known_external += source_ref_counts["known_external"]
+            expected_geometry = fixture.get("target_preview_geometry")
+            if isinstance(expected_geometry, dict):
+                source = asset.get("source", {})
+                if not isinstance(source, dict):
+                    source = {}
+                actual_geometry = preview_geometry(matched_output, int(source.get("bytes", 0) or 0))
+                if actual_geometry != expected_geometry:
+                    raise ValueError(
+                        f"{fixture_id}: target preview geometry is stale; "
+                        f"expected {expected_geometry!r}, actual {actual_geometry!r}"
+                    )
+                preview_geometries_checked += 1
         manifest_asset_counts[manifest] = len(asset_ids)
 
     command_group_assets = {
@@ -126,6 +244,12 @@ def validate_selectors(plan: dict[str, Any]) -> dict[str, Any]:
         "fixture_count": len(fixture_ids),
         "fixture_type_counts": dict(sorted(fixture_count_by_type.items())),
         "manifest_asset_counts": manifest_asset_counts,
+        "target_outputs_checked": len(fixture_ids),
+        "target_output_specs_checked": target_output_specs_checked,
+        "target_source_refs_checked": target_source_refs_checked,
+        "target_source_refs_manifest_matches": target_source_refs_manifest_matches,
+        "target_source_refs_known_external": target_source_refs_known_external,
+        "preview_geometries_checked": preview_geometries_checked,
         "unique_selected_assets": len({asset_id for asset_ids in selected_by_manifest.values() for asset_id in asset_ids}),
     }
 
@@ -198,21 +322,36 @@ def validate_report_preview_geometry(output: dict[str, Any], fixture: dict[str, 
 
 
 def validate_smoke_report(plan: dict[str, Any], report: dict[str, Any], out_root: Path) -> dict[str, Any]:
-    assets_by_id = {str(asset["id"]): asset for asset in report["assets"]}
     errors: list[str] = []
-    verified_output_keys: set[tuple[str, str, str]] = set()
+    assets_by_key: dict[tuple[str, str], dict[str, Any]] = {}
+    for asset in report["assets"]:
+        if not isinstance(asset, dict):
+            continue
+        manifest = asset.get("manifest_path")
+        asset_id = asset.get("id")
+        if not isinstance(manifest, str) or not isinstance(asset_id, str):
+            errors.append(f"extracted report asset is missing manifest_path or id: {asset!r}")
+            continue
+        key = (manifest, asset_id)
+        if key in assets_by_key:
+            errors.append(f"extracted report has duplicate manifest-qualified asset: {manifest} {asset_id}")
+            continue
+        assets_by_key[key] = asset
+
+    verified_output_keys: set[tuple[str, str, str, str]] = set()
     metadata_field_checks = 0
     preview_geometry_field_checks = 0
 
     for fixture in plan["fixtures"]:
         fixture_id = str(fixture["id"])
+        manifest = str(fixture["manifest_path"])
         asset_id = str(fixture["asset_id"])
         target_output = fixture["target_output"]
         target_kind = str(target_output["kind"])
         target_path = str(target_output["path"])
-        asset = assets_by_id.get(asset_id)
+        asset = assets_by_key.get((manifest, asset_id))
         if asset is None:
-            errors.append(f"{fixture_id}: extracted report is missing asset {asset_id}")
+            errors.append(f"{fixture_id}: extracted report is missing asset {manifest} {asset_id}")
             continue
 
         matched_output = None
@@ -237,13 +376,14 @@ def validate_smoke_report(plan: dict[str, Any], report: dict[str, Any], out_root
         geometry_errors, geometry_checks = validate_report_preview_geometry(matched_output, fixture)
         errors.extend(geometry_errors)
         preview_geometry_field_checks += geometry_checks
-        verified_output_keys.add((asset_id, target_kind, target_path))
+        verified_output_keys.add((manifest, asset_id, target_kind, target_path))
 
     if errors:
         raise ValueError("Smoke fixture report validation failed:\n- " + "\n- ".join(errors))
 
     return {
         "fixture_targets_checked": len(plan["fixtures"]),
+        "manifest_qualified_assets_checked": len(assets_by_key),
         "unique_outputs_checked": len(verified_output_keys),
         "metadata_field_checks": metadata_field_checks,
         "preview_geometry_field_checks": preview_geometry_field_checks,
@@ -294,7 +434,13 @@ def run_plan(
         )
         reports.append(report)
 
-    merged_assets = [asset for report in reports for asset in report["assets"]]
+    merged_assets = []
+    for report in reports:
+        report_manifest = rel(Path(str(report["manifest"])))
+        for asset in report["assets"]:
+            merged_asset = dict(asset)
+            merged_asset["manifest_path"] = report_manifest
+            merged_assets.append(merged_asset)
     output_count = sum(len(asset["outputs"]) for asset in merged_assets)
     result = {
         "schema": "earthbound-decomp.asset-output-smoke-fixtures-report.v1",
@@ -328,6 +474,12 @@ def main() -> int:
         print(
             "asset output smoke fixtures dry-run: "
             f"{selector_summary['fixture_count']} fixtures, "
+            f"{selector_summary['target_outputs_checked']} target outputs, "
+            f"{selector_summary['target_output_specs_checked']} output specs, "
+            f"{selector_summary['preview_geometries_checked']} preview geometries, "
+            f"{selector_summary['target_source_refs_checked']} source refs "
+            f"({selector_summary['target_source_refs_manifest_matches']} manifest, "
+            f"{selector_summary['target_source_refs_known_external']} known external), "
             f"{selector_summary['unique_selected_assets']} selected assets"
         )
         for manifest, count in selector_summary["manifest_asset_counts"].items():

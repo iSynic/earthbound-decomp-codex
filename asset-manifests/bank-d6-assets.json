@@ -36,20 +36,31 @@
       "smoke_fixture_plan": "notes/asset-output-smoke-fixtures.json"
     },
     "asset_count": 6,
-    "output_recipe_count": 6,
-    "typed_output_kind_count": 1,
-    "decoder_output_recipe_count": 0,
+    "output_recipe_count": 12,
+    "typed_output_kind_count": 2,
+    "decoder_output_recipe_count": 6,
     "renderer_output_recipe_count": 0,
     "preview_png_recipe_count": 0,
     "output_kind_counts": {
+      "map_tile_chunk_index_json": 6,
       "raw": 6
     },
-    "decoder_counts": {},
+    "decoder_counts": {
+      "map_tile_chunk_index": 6
+    },
     "renderer_counts": {},
-    "smoke_fixture_count": 0,
-    "smoke_fixture_asset_ids": [],
-    "smoke_fixture_type_counts": {},
-    "smoke_fixture_target_kind_counts": {}
+    "smoke_fixture_count": 3,
+    "smoke_fixture_asset_ids": [
+      "asset.d6.map_data_tile_table_chunk_1"
+    ],
+    "smoke_fixture_type_counts": {
+      "bank_output": 1,
+      "family_decoder": 1,
+      "recipe_kind": 1
+    },
+    "smoke_fixture_target_kind_counts": {
+      "map_tile_chunk_index_json": 3
+    }
   },
   "assets": [
     {
@@ -66,6 +77,11 @@
         {
           "kind": "raw",
           "path": "d6/maps/tiles/chunk_01.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d6/maps/tiles/chunk_01_tile_index.json",
+          "chunk_index": 1
         }
       ],
       "notes": [
@@ -87,6 +103,11 @@
         {
           "kind": "raw",
           "path": "d6/maps/tiles/chunk_02.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d6/maps/tiles/chunk_02_tile_index.json",
+          "chunk_index": 2
         }
       ],
       "notes": [
@@ -108,6 +129,11 @@
         {
           "kind": "raw",
           "path": "d6/maps/tiles/chunk_03.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d6/maps/tiles/chunk_03_tile_index.json",
+          "chunk_index": 3
         }
       ],
       "notes": [
@@ -129,6 +155,11 @@
         {
           "kind": "raw",
           "path": "d6/maps/tiles/chunk_04.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d6/maps/tiles/chunk_04_tile_index.json",
+          "chunk_index": 4
         }
       ],
       "notes": [
@@ -150,6 +181,11 @@
         {
           "kind": "raw",
           "path": "d6/maps/tiles/chunk_05.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d6/maps/tiles/chunk_05_tile_index.json",
+          "chunk_index": 5
         }
       ],
       "notes": [
@@ -171,6 +207,11 @@
         {
           "kind": "raw",
           "path": "d6/maps/tiles/chunk_06.bin"
+        },
+        {
+          "kind": "map_tile_chunk_index_json",
+          "path": "d6/maps/tiles/chunk_06_tile_index.json",
+          "chunk_index": 6
         }
       ],
       "notes": [
