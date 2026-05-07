@@ -185,6 +185,34 @@ def make_town_map_icon_table() -> bytes:
     return bytes(data)
 
 
+def make_photographer_config_table() -> bytes:
+    data = bytearray(32 * 0x3E)
+    for record_index in range(32):
+        base = record_index * 0x3E
+        data[base : base + 2] = (0x0200 + record_index).to_bytes(2, "little")
+        data[base + 2 : base + 4] = (0x0010 + record_index).to_bytes(2, "little")
+        data[base + 4 : base + 6] = (0x0020 + record_index).to_bytes(2, "little")
+        background_offset = 0x4000 + record_index * 0x10 if record_index % 2 else 0
+        data[base + 6 : base + 8] = background_offset.to_bytes(2, "little")
+        data[base + 8] = record_index & 0xFF
+        data[base + 9] = (record_index + 1) & 0xFF
+        data[base + 0x0A : base + 0x0C] = (0x0030 + record_index).to_bytes(2, "little")
+        data[base + 0x0C : base + 0x0E] = (0x0040 + record_index).to_bytes(2, "little")
+
+        data[base + 0x0E : base + 0x10] = (0x0050 + record_index).to_bytes(2, "little")
+        data[base + 0x10 : base + 0x12] = (0x0060 + record_index).to_bytes(2, "little")
+        if record_index % 3 == 0:
+            data[base + 0x12 : base + 0x14] = (0x0070 + record_index).to_bytes(2, "little")
+            data[base + 0x14 : base + 0x16] = (0x0080 + record_index).to_bytes(2, "little")
+
+        if record_index % 4 == 0:
+            data[base + 0x26 : base + 0x28] = (0x0090 + record_index).to_bytes(2, "little")
+            data[base + 0x28 : base + 0x2A] = (0x00A0 + record_index).to_bytes(2, "little")
+            data[base + 0x2A : base + 0x2C] = (0x0100 + record_index).to_bytes(2, "little")
+
+    return bytes(data)
+
+
 def synthetic_rom(palette: bytes, graphics: bytes) -> bytes:
     rom = bytearray(ROM_SIZE)
     palette_offset = 0x1000
@@ -598,6 +626,24 @@ def output_cases() -> list[dict[str, Any]]:
                 "descriptor_record_count": 117,
                 "blink_suppress_count": 16,
                 "placement_record_count": 42,
+            },
+        },
+        {
+            "id": "photographer-config-table",
+            "data": make_photographer_config_table(),
+            "spec": {
+                "kind": "photographer_config_table_json",
+                "path": "photographer_config.json",
+                "row_count": 32,
+                "record_size_bytes": 62,
+            },
+            "expected_metadata": {
+                "row_count": 32,
+                "enabled_event_flag_count": 32,
+                "background_offset_count": 16,
+                "slide_vector_count": 32,
+                "visual_position_count": 43,
+                "spawned_entity_count": 8,
             },
         },
         {

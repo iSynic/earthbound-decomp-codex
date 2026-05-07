@@ -30,9 +30,9 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 - manifests with typed output summaries: `38`
 - manifests with smoke fixture links: `23`
 - assets/tables/gaps represented: `2219`
-- output recipes: `6333`
-- typed output recipe kinds: `29`
-- decoder-backed output recipes: `4114`
+- output recipes: `6334`
+- typed output recipe kinds: `30`
+- decoder-backed output recipes: `4115`
 - renderer-backed output recipes: `3266`
 - PNG preview/render recipes: `3266`
 
@@ -67,6 +67,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | `earthbound_lzhal_snes_palette_swatch_png` | 10 | 10 | decompressed palette swatch PNG | `earthbound_lzhal+snes_palette` | `palette_swatch` | `per_row`, `swatch` | `compressed_bytes_consumed`, `decompressed_bytes`, `colors`, `width`, `height` | `asset.e1.compressed_palette_unknown` -> `e1/unknown_palette_palette.png` |
 | `font_metric_widths_json` | 5 | 5 | font metric width table JSON | `font_metric_widths` | - | `font_id`, `entry_count`, `first_character_code` | `font_id`, `entry_count`, `first_character_code`, `max_width`, `distinct_widths`, `sentinel_ff_count` | `asset.e0.mrsaturn_font_data` -> `e0/fonts/mrsaturn_widths.json` |
 | `map_tile_chunk_index_json` | 10 | 10 | decoded map tile chunk index JSON | `map_tile_chunk_index` | - | `chunk_index` | `chunk_index`, `entry_count`, `min_tile_id`, `max_tile_id`, `distinct_tile_ids` | `asset.d6.map_data_tile_table_chunk_1` -> `d6/maps/tiles/chunk_01_tile_index.json` |
+| `photographer_config_table_json` | 1 | 1 | photographer/photo-scene config table JSON | `photographer_config_table` | - | `row_count`, `record_size_bytes` | `row_count`, `enabled_event_flag_count`, `background_offset_count`, `slide_vector_count`, `visual_position_count`, `spawned_entity_count` | `table.e1.012_data_photographer_cfg_asm` -> `e1/tables/012_data_photographer_cfg_asm_decoded.json` |
 | `psi_anim_config_table_json` | 1 | 1 | PSI animation config table JSON | `psi_animation_config_table` | - | `row_count` | `row_count`, `max_frame_hold_frames`, `max_total_frames`, `distinct_target_modes`, `nonzero_enemy_colour_count` | `table.cc.043_data_psi_anim_cfg_asm` -> `cc/tables/043_data_psi_anim_cfg_asm_decoded.json` |
 | `psi_anim_pointer_table_json` | 1 | 1 | PSI animation arrangement pointer table JSON | `psi_animation_pointer_table` | - | `entry_count` | `entry_count`, `min_pointer`, `max_pointer`, `distinct_pointers`, `distinct_banks` | `table.cc.080_data_psi_anim_pointers_asm` -> `cc/tables/080_data_psi_anim_pointers_asm_decoded.json` |
 | `raw` | 2219 | 2219 | byte-for-byte extract | - | - | - | - | `asset.ca.battle_background_gfx_63` -> `ca/battle_bgs/graphics/63.gfx.lzhal` |
@@ -86,7 +87,7 @@ Generated asset-output reports are freshness-checked together with `tools/valida
 | Mixed asset/table banks | `CF, D0` | 7 | 7 | 0 | 0 | 0 | `raw` 7 | - |
 | Overworld sprites | `D1, D2, D3, D4, D5` | 1148 | 3440 | 2292 | 2292 | 2292 | `raw` 1148, `snes_4bpp_tiles_palette_png` 1146, `snes_4bpp_tiles_png` 1146 | `grayscale_tile_sheet` 1146, `palette_tile_sheet` 1146 |
 | Map tilesets and runtime tables | `D6, D7, D8, D9, DA, DB, DC, DD, DE, DF` | 130 | 292 | 162 | 55 | 55 | `raw` 130, `earthbound_lzhal` 64, `snes_palette_json` 33, `snes_palette_swatch_png` 33, `earthbound_lzhal_snes_4bpp_tiles_png` 22, +1 more | `palette_swatch` 33, `grayscale_tile_sheet` 22 |
-| UI, fonts, and town-map assets | `E0, E1` | 69 | 160 | 91 | 31 | 31 | `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, `earthbound_lzhal_snes_palette_swatch_png` 10, +7 more | `grayscale_tile_sheet` 19, `palette_swatch` 12 |
+| UI, fonts, and town-map assets | `E0, E1` | 69 | 161 | 92 | 31 | 31 | `raw` 69, `earthbound_lzhal` 41, `earthbound_lzhal_snes_4bpp_tiles_png` 13, `earthbound_lzhal_snes_palette_json` 10, `earthbound_lzhal_snes_palette_swatch_png` 10, +8 more | `grayscale_tile_sheet` 19, `palette_swatch` 12 |
 | Audio packs | `E2, E3, E4, E5, E6, E7, E8, E9, EA, EB, EC, ED, EE` | 171 | 171 | 0 | 0 | 0 | `raw` 171 | - |
 | EF debug and late-tail data | `EF` | 5 | 7 | 2 | 2 | 2 | `raw` 5, `snes_2bpp_tiles_png` 2 | `grayscale_tile_sheet` 2 |
 

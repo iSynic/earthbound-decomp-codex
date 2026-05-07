@@ -989,6 +989,18 @@ def convert_table_asset(bank: str, entry: dict[str, Any], rom: bytes) -> dict[st
         notes.append(
             "Decoded as the town-map icon descriptor, icon pointer, blink suppress, placement pointer, and placement record table."
         )
+    if bank.upper() == "E1" and include == "data/photographer_cfg.asm" and size == 1984:
+        outputs.append(
+            {
+                "kind": "photographer_config_table_json",
+                "path": sidecar_path(raw_path, "decoded", ".json"),
+                "row_count": 32,
+                "record_size_bytes": 62,
+            }
+        )
+        notes.append(
+            "Decoded as 32 photographer/photo-scene records; rows preserve event flag, map-load position, background offset, slide vector, photo anchor, visual positions, and spawned entity rows."
+        )
     if bank.upper() == "CA":
         battle_bg_pointer_output = battle_bg_pointer_table_output(raw_path, include, size)
         if battle_bg_pointer_output is not None:

@@ -490,6 +490,17 @@ TOWN_MAP_PLACEMENT_RECORD_OFFSET = 0x02A6
 TOWN_MAP_PLACEMENT_RECORD_BYTES = 0x00D8
 TOWN_MAP_ICON_EXPECTED_BYTES = TOWN_MAP_PLACEMENT_RECORD_OFFSET + TOWN_MAP_PLACEMENT_RECORD_BYTES
 
+PHOTOGRAPHER_CONFIG_TABLE_START = 0x2F8A
+PHOTOGRAPHER_CONFIG_RECORD_COUNT = 0x20
+PHOTOGRAPHER_CONFIG_RECORD_SIZE = 0x3E
+PHOTOGRAPHER_CONFIG_EXPECTED_BYTES = PHOTOGRAPHER_CONFIG_RECORD_COUNT * PHOTOGRAPHER_CONFIG_RECORD_SIZE
+PHOTOGRAPHER_VISUAL_POSITION_OFFSET = 0x0E
+PHOTOGRAPHER_VISUAL_POSITION_COUNT = 6
+PHOTOGRAPHER_VISUAL_POSITION_SIZE = 4
+PHOTOGRAPHER_SPAWNED_ENTITY_OFFSET = 0x26
+PHOTOGRAPHER_SPAWNED_ENTITY_COUNT = 4
+PHOTOGRAPHER_SPAWNED_ENTITY_SIZE = 6
+
 
 def bgr555_components(raw: int) -> dict[str, int]:
     return {
@@ -969,6 +980,198 @@ def write_town_map_icon_table_json(data: bytes, path: Path, spec: dict[str, Any]
         "descriptor_record_count": len(descriptor_records),
         "blink_suppress_count": blink_suppress_count,
         "placement_record_count": placement_record_count,
+    }
+
+
+def parse_photographer_position_pair(
+    data: bytes,
+    record_base: int,
+    relative_offset: int,
+    table_start: int,
+) -> dict[str, int | str]:
+    x_tile = read_u16_le(data, record_base + relative_offset)
+    y_tile = read_u16_le(data, record_base + relative_offset + 2)
+    return {
+        "range": e1_table_range(table_start, record_base + relative_offset, 4),
+        "x_tile": x_tile,
+        "y_tile": y_tile,
+        "x_world": x_tile * 8,
+        "y_world": y_tile * 8,
+    }
+
+
+def parse_photographer_config_record(data: bytes, record_index: int) -> dict[str, Any]:
+    record_base = record_index * PHOTOGRAPHER_CONFIG_RECORD_SIZE
+    record = data[record_base : record_base + PHOTOGRAPHER_CONFIG_RECORD_SIZE]
+    event_flag_word = read_u16_le(data, record_base)
+    background_tile_offset = read_u16_le(data, record_base + 6)
+    slide_direction_angle = data[record_base + 8]
+    slide_frame_count = data[record_base + 9]
+
+    visual_positions = []
+    for slot_index in range(PHOTOGRAPHER_VISUAL_POSITION_COUNT):
+        offset = (
+            PHOTOGRAPHER_VISUAL_POSITION_OFFSET
+            + slot_index * PHOTOGRAPHER_VISUAL_POSITION_SIZE
+        )
+        position = parse_photographer_position_pair(
+            data,
+            record_base,
+            offset,
+            PHOTOGRAPHER_CONFIG_TABLE_START,
+        )
+        visual_positions.append(
+            {
+                "slot_index": slot_index,
+                "is_empty": position["x_tile"] == 0 and position["y_tile"] == 0,
+                **position,
+            }
+        )
+
+    spawned_entities = []
+    for slot_index in range(PHOTOGRAPHER_SPAWNED_ENTITY_COUNT):
+        offset = (
+            PHOTOGRAPHER_SPAWNED_ENTITY_OFFSET
+            + slot_index * PHOTOGRAPHER_SPAWNED_ENTITY_SIZE
+        )
+        position = parse_photographer_position_pair(
+            data,
+            record_base,
+            offset,
+            PHOTOGRAPHER_CONFIG_TABLE_START,
+        )
+        entity_type_id = read_u16_le(data, record_base + offset + 4)
+        spawned_entities.append(
+            {
+                "slot_index": slot_index,
+                "range": e1_table_range(
+                    PHOTOGRAPHER_CONFIG_TABLE_START,
+                    record_base + offset,
+                    PHOTOGRAPHER_SPAWNED_ENTITY_SIZE,
+                ),
+                "is_empty": entity_type_id == 0,
+                "x_tile": position["x_tile"],
+                "y_tile": position["y_tile"],
+                "x_world": position["x_world"],
+                "y_world": position["y_world"],
+                "entity_type_id": entity_type_id,
+                "raw_bytes": list(
+                    data[
+                        record_base
+                        + offset : record_base
+                        + offset
+                        + PHOTOGRAPHER_SPAWNED_ENTITY_SIZE
+                    ]
+                ),
+            }
+        )
+
+    return {
+        "record_index": record_index,
+        "range": e1_table_range(
+            PHOTOGRAPHER_CONFIG_TABLE_START,
+            record_base,
+            PHOTOGRAPHER_CONFIG_RECORD_SIZE,
+        ),
+        "event_flag_word": event_flag_word,
+        "event_flag_id": event_flag_word & 0x7FFF,
+        "event_flag_high_bit": bool(event_flag_word & 0x8000),
+        "map_load_position": parse_photographer_position_pair(
+            data,
+            record_base,
+            2,
+            PHOTOGRAPHER_CONFIG_TABLE_START,
+        ),
+        "background_tile_offset": background_tile_offset,
+        "has_background_tile_offset": background_tile_offset != 0,
+        "slide_direction_angle": slide_direction_angle,
+        "slide_frame_count": slide_frame_count,
+        "has_slide_vector": slide_direction_angle != 0 or slide_frame_count != 0,
+        "photo_scene_anchor": parse_photographer_position_pair(
+            data,
+            record_base,
+            0x0A,
+            PHOTOGRAPHER_CONFIG_TABLE_START,
+        ),
+        "visual_attachment_positions": visual_positions,
+        "spawned_entities": spawned_entities,
+        "raw_bytes": list(record),
+    }
+
+
+def write_photographer_config_table_json(data: bytes, path: Path, spec: dict[str, Any]) -> dict[str, int]:
+    row_count = int(spec["row_count"])
+    record_size = int(spec["record_size_bytes"])
+    if row_count != PHOTOGRAPHER_CONFIG_RECORD_COUNT:
+        raise ValueError(f"Photographer config table row_count must be 32, got {row_count}")
+    if record_size != PHOTOGRAPHER_CONFIG_RECORD_SIZE:
+        raise ValueError(f"Photographer config record size must be 62, got {record_size}")
+    if len(data) != PHOTOGRAPHER_CONFIG_EXPECTED_BYTES:
+        raise ValueError(
+            "Photographer config table expected "
+            f"{PHOTOGRAPHER_CONFIG_EXPECTED_BYTES} bytes, got {len(data)}"
+        )
+
+    records = [parse_photographer_config_record(data, index) for index in range(row_count)]
+    enabled_event_flag_count = sum(1 for record in records if int(record["event_flag_word"]) != 0)
+    background_offset_count = sum(1 for record in records if record["has_background_tile_offset"])
+    slide_vector_count = sum(1 for record in records if record["has_slide_vector"])
+    visual_position_count = sum(
+        1
+        for record in records
+        for position in record["visual_attachment_positions"]
+        if not position["is_empty"]
+    )
+    spawned_entity_count = sum(
+        1
+        for record in records
+        for entity in record["spawned_entities"]
+        if not entity["is_empty"]
+    )
+    max_event_flag_id = max(int(record["event_flag_id"]) for record in records)
+    max_background_tile_offset = max(int(record["background_tile_offset"]) for record in records)
+
+    payload = {
+        "schema": "earthbound-decomp.photographer-config-table.v1",
+        "decoder": "photographer_config_table",
+        "byte_order": "little",
+        "source_bytes": len(data),
+        "source_sha1": hashlib.sha1(data).hexdigest(),
+        "record_count": row_count,
+        "record_size_bytes": record_size,
+        "sections": [
+            {
+                "id": "photographer_config_records",
+                "range": "E1:2F8A..E1:374A",
+                "bytes": len(data),
+                "record_count": row_count,
+                "record_size_bytes": record_size,
+            }
+        ],
+        "consumer_evidence": [
+            "C4:F264 uses +0 event flag, +2/+4 map-load position, +0E..+24 visual attachment positions, and +26..+3D spawned entity rows.",
+            "C4:F46F uses +8/+9 as slide direction and frame-count bytes.",
+            "C4:6D4B uses +0A/+0C as the photo-scene live anchor selected by $9E35.",
+            "C0:07B6 uses +6 as an offset into the decompressed E1:374A photograph background stream.",
+        ],
+        "enabled_event_flag_count": enabled_event_flag_count,
+        "background_offset_count": background_offset_count,
+        "slide_vector_count": slide_vector_count,
+        "visual_position_count": visual_position_count,
+        "spawned_entity_count": spawned_entity_count,
+        "max_event_flag_id": max_event_flag_id,
+        "max_background_tile_offset": max_background_tile_offset,
+        "records": records,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    return {
+        "row_count": row_count,
+        "enabled_event_flag_count": enabled_event_flag_count,
+        "background_offset_count": background_offset_count,
+        "slide_vector_count": slide_vector_count,
+        "visual_position_count": visual_position_count,
+        "spawned_entity_count": spawned_entity_count,
     }
 
 
@@ -1914,6 +2117,8 @@ def write_output(data: bytes, root: Path, spec: dict[str, Any], rom: bytes) -> d
         metadata.update(write_text_window_properties_table_json(data, path, spec))
     elif kind == "town_map_icon_table_json":
         metadata.update(write_town_map_icon_table_json(data, path, spec))
+    elif kind == "photographer_config_table_json":
+        metadata.update(write_photographer_config_table_json(data, path, spec))
     elif kind == "snes_2bpp_tiles_png":
         columns = int(spec.get("columns", 16))
         tile_data = trim_trailing_bytes(data, spec)
