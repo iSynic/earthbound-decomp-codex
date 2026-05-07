@@ -368,6 +368,8 @@
         "zero-probe-track-120-hotel_of_the_living_dead"
       ],
       "commands": [
+        "python tools/build_audio_zero_runtime_probe_packet.py",
+        "python tools/validate_audio_zero_runtime_probe_packet.py",
         "python tools/validate_audio_zero_runtime_coverage_report.py",
         "python tools/validate_audio_zero_runtime_probe_plan.py",
         "python tools/run_audio_probe_campaign.py --lane zero --mode dry-run-stub --force",

@@ -153,7 +153,16 @@ def validate(data: dict[str, Any]) -> None:
     require(len(zero.get("job_ids", [])) == 19, "zero lane should list 19 coverage jobs")
     require(len(zero.get("campaign_job_ids", [])) == 19, "zero lane should list 19 campaign jobs")
     require(len(track_ids(zero)) == 19, "zero lane should list 19 tracks")
-    require_commands(zero, ["run_audio_probe_campaign.py --lane zero", "run_audio_zero_runtime_probe_batch.py", "collect_audio_zero_runtime_probe_results.py"])
+    require_commands(
+        zero,
+        [
+            "build_audio_zero_runtime_probe_packet.py",
+            "validate_audio_zero_runtime_probe_packet.py",
+            "run_audio_probe_campaign.py --lane zero",
+            "run_audio_zero_runtime_probe_batch.py",
+            "collect_audio_zero_runtime_probe_results.py",
+        ],
+    )
 
     finite = by_id["finite_transition_tail_classification"]
     require(int(finite["counts"].get("track_count", 0)) == 5, "finite track count mismatch")

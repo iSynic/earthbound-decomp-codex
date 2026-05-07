@@ -200,6 +200,8 @@ def build_plan(
             "job_ids": job_ids(zero_jobs),
             "campaign_job_ids": zero_campaign_jobs,
             "commands": [
+                "python tools/build_audio_zero_runtime_probe_packet.py",
+                "python tools/validate_audio_zero_runtime_probe_packet.py",
                 "python tools/validate_audio_zero_runtime_coverage_report.py",
                 "python tools/validate_audio_zero_runtime_probe_plan.py",
                 "python tools/run_audio_probe_campaign.py --lane zero --mode dry-run-stub --force",
