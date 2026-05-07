@@ -52,11 +52,21 @@ FLYOVER_TEXT_POINTER_TABLE                   = $C49EA4
 FLYOVER_TEXT_POINTER_TABLE_BANK              = $00C4
 FLYOVER_TEXT_POINTER_ROW_SIZE                = $0004
 FLYOVER_TEXT_POINTER_COUNT                   = $0008
+FLYOVER_TEXT_POINTER_BANK_BYTE               = $E1
+FLYOVER_TEXT_POINTER_PADDING_BYTE            = $00
+FLYOVER_TEXT_YEAR199X_LOW                    = $0B86
+FLYOVER_TEXT_ONETT_LOW                       = $0B9C
+FLYOVER_TEXT_NESS_HOUSE_LOW                  = $0BC2
+FLYOVER_TEXT_POINTER3_LOW                    = $0BD2
+FLYOVER_TEXT_POINTER4_LOW                    = $0BFD
+FLYOVER_TEXT_POINTER5_LOW                    = $0C1B
+FLYOVER_TEXT_POINTER6_LOW                    = $0C38
+FLYOVER_TEXT_POINTER7_LOW                    = $0C61
 
 COFFEE_TEA_TILE_WINDOW_INDEX                 = $9F2D
 COFFEE_TEA_ROW_TILE_LIMIT                    = $2000
 COFFEE_TEA_FRAME_STEP                        = $0018
-COFFEE_TEA_TOKEN_WIDTH                       = $000C
+COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG           = $000C
 COFFEE_TEA_INITIAL_WINDOW_INDEX              = $001C
 COFFEE_PROMPT_TOKEN                          = $00E8
 TEA_PROMPT_TOKEN                             = $00EA
@@ -153,6 +163,9 @@ C49DC9_RunCoffeeTeaScene_UseTeaScript:
 C49DD3_RunCoffeeTeaScene_StartScript:
     stz.w SCENE_BUSY_FLAG_5E6E
 C49DD6_RunCoffeeTeaScene_ReadCommand:
+    ; Coffee/tea scripts are byte command streams in E1. C4 advances the
+    ; stream pointer here; token rendering and scroll work are delegated to the
+    ; shared tile-buffer helpers below.
     lda [$06]
     and #LowByteMask
     inc $06
@@ -167,6 +180,8 @@ C49DD6_RunCoffeeTeaScene_ReadCommand:
     bra C49E4B_RunCoffeeTeaScene_SingleToken
 
 C49DF3_RunCoffeeTeaScene_ScrollPage:
+    ; Command 09: upload one visible-window step, keep the C2 visual state
+    ; ticking, then drain VRAM/tile rows until the page boundary wraps.
     lda $04
     jsl C49D1E_AdvanceCoffeeTeaVramOffsetByTileRow_Ext
     tax
@@ -195,6 +210,7 @@ C49E14_RunCoffeeTeaScene_ContinueTileAdvanceCheck:
     bra C49DD6_RunCoffeeTeaScene_ReadCommand
 
 C49E2B_RunCoffeeTeaScene_AdvanceRow:
+    ; Command 01: consume the following byte as the row-reveal increment.
     sep #$20
     lda [$06]
     rep #$20
@@ -203,22 +219,28 @@ C49E2B_RunCoffeeTeaScene_AdvanceRow:
     bra C49DD6_RunCoffeeTeaScene_ReadCommand
 
 C49E39_RunCoffeeTeaScene_TokenString:
+    ; Command 08: consume the following byte as a compact C4 token-string row.
+    ; The #$000C register setup is preserved call-surface state; the shared
+    ; tile-token helper resolves actual glyph width from C3:F054 metadata.
     lda [$06]
     and #LowByteMask
     tay
     inc $06
-    ldx #COFFEE_TEA_TOKEN_WIDTH
+    ldx #COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     tya
     jsl C49CC3_RenderCoffeeTeaTokenString_Ext
     bra C49DD6_RunCoffeeTeaScene_ReadCommand
 
 C49E4B_RunCoffeeTeaScene_SingleToken:
-    ldy #COFFEE_TEA_TOKEN_WIDTH
+    ; Other nonzero bytes are direct token ids rendered by the shared tile path.
+    ldy #COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     ldx #ZeroWord
     jsl C49D16_RenderSingleCoffeeTeaTileToken_Ext
     jmp C49DD6_RunCoffeeTeaScene_ReadCommand
 
 C49E58_RunCoffeeTeaScene_EndScript:
+    ; Terminator: close the active transition state, wait for input release,
+    ; clear the tile staging span, mark the scene complete, and restore visuals.
     ldx #DISPLAY_TRANSITION_MAIN_SLOT
     txa
     jsl C0887A_ClearDisplayTransitionState
@@ -271,29 +293,29 @@ C49EA4_FlyoverIntroTextPointerTable:
     ; locally corroborated Year 199X, Onett, and Ness house intro strings.
     ; The runner indexes these as low word + bank byte + padding byte.
 C49EA4_FlyoverIntroTextYear199xPointer:
-    dw $0B86
-    db $E1,$00
+    dw FLYOVER_TEXT_YEAR199X_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EA8_FlyoverIntroTextOnettPointer:
-    dw $0B9C
-    db $E1,$00
+    dw FLYOVER_TEXT_ONETT_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EAC_FlyoverIntroTextNessHousePointer:
-    dw $0BC2
-    db $E1,$00
+    dw FLYOVER_TEXT_NESS_HOUSE_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EB0_FlyoverIntroTextPointer3:
-    dw $0BD2
-    db $E1,$00
+    dw FLYOVER_TEXT_POINTER3_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EB4_FlyoverIntroTextPointer4:
-    dw $0BFD
-    db $E1,$00
+    dw FLYOVER_TEXT_POINTER4_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EB8_FlyoverIntroTextPointer5:
-    dw $0C1B
-    db $E1,$00
+    dw FLYOVER_TEXT_POINTER5_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EBC_FlyoverIntroTextPointer6:
-    dw $0C38
-    db $E1,$00
+    dw FLYOVER_TEXT_POINTER6_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 C49EC0_FlyoverIntroTextPointer7:
-    dw $0C61
-    db $E1,$00
+    dw FLYOVER_TEXT_POINTER7_LOW
+    db FLYOVER_TEXT_POINTER_BANK_BYTE,FLYOVER_TEXT_POINTER_PADDING_BYTE
 
 ; Entry:
 ;   A = index into FlyoverIntroTextPointerTable.
@@ -335,6 +357,8 @@ C49EC4_RunFlyoverIntroTextSceneByIndex:
     sty $08
     stz.w SCENE_BUSY_FLAG_5E6E
 C49F04_RunFlyoverIntroTextScene_ReadCommand:
+    ; Flyover scripts use the same token/scroll command bytes as coffee/tea,
+    ; plus command 02 to set the visible tile-window index.
     lda [$06]
     and #LowByteMask
     inc $06
@@ -351,6 +375,7 @@ C49F04_RunFlyoverIntroTextScene_ReadCommand:
     bra C49F66_RunFlyoverIntroTextScene_SingleToken
 
 C49F26_RunFlyoverIntroTextScene_SetWindowIndex:
+    ; Command 02: consume the next byte as the active tile-window index.
     lda [$06]
     and #LowByteMask
     sta.w COFFEE_TEA_TILE_WINDOW_INDEX
@@ -358,6 +383,7 @@ C49F26_RunFlyoverIntroTextScene_SetWindowIndex:
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
 
 C49F32_RunFlyoverIntroTextScene_ScrollPage:
+    ; Command 09 in flyover mode is a single upload/wait/scroll-state advance.
     lda #COFFEE_TEA_FRAME_STEP
     jsl C49B6E_UploadCoffeeTeaTileBufferWindow_Ext
     jsl C08756_WaitOneFrameAndPollInput
@@ -366,6 +392,7 @@ C49F32_RunFlyoverIntroTextScene_ScrollPage:
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
 
 C49F46_RunFlyoverIntroTextScene_AdvanceRow:
+    ; Command 01: consume the following byte as the row-reveal increment.
     sep #$20
     lda [$06]
     rep #$20
@@ -374,22 +401,28 @@ C49F46_RunFlyoverIntroTextScene_AdvanceRow:
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
 
 C49F54_RunFlyoverIntroTextScene_TokenString:
+    ; Command 08: render a compact token string through the shared tile path.
+    ; The #$000C register setup is preserved call-surface state; the shared
+    ; tile-token helper resolves actual glyph width from C3:F054 metadata.
     lda [$06]
     and #LowByteMask
     tay
     inc $06
-    ldx #COFFEE_TEA_TOKEN_WIDTH
+    ldx #COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     tya
     jsl C49CC3_RenderCoffeeTeaTokenString_Ext
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
 
 C49F66_RunFlyoverIntroTextScene_SingleToken:
-    ldy #COFFEE_TEA_TOKEN_WIDTH
+    ; Other nonzero bytes are direct token ids.
+    ldy #COFFEE_TEA_LEGACY_TOKEN_WIDTH_ARG
     ldx #ZeroWord
     jsl C49D16_RenderSingleCoffeeTeaTileToken_Ext
     bra C49F04_RunFlyoverIntroTextScene_ReadCommand
 
 C49F72_RunFlyoverIntroTextScene_EndScript:
+    ; Terminator: run the fixed fade/wait tail, clear the staging span, restore
+    ; the saved $10E4 state word, and close the display bracket.
     sep #$20
     lda.b #COFFEE_TEA_DISPLAY_MODE_04
     sta.w DISPLAY_SHADOW_1A

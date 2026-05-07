@@ -83,6 +83,21 @@ now similarly mark `C4:92D2` as the `$7F:7900..7E00 -> $0240` frame stepper and
 visible CGRAM upload claim remains limited to the `$0200` shadow plus selector
 `#$18`; the `$7F:0000` copy is still treated as C4 staging/backup work.
 
+2026-05-06 landing palette copy-size follow-up: the same source now gives the
+`$0200` CGRAM-shadow address and `$0200` copy byte count separate names in the
+mirror/export helpers. The fade driver comment also documents the count-`1`
+immediate-export case and the duplicate selector `#$18` write after `C4:9740`,
+leaving the C0 display-selector semantics callee-owned.
+
+2026-05-06 landing profile source follow-up: the adjacent
+`nearby_truffle_and_landing_profile_interpolation_helpers.asm` source now names
+the local landing-plane builder and stepper loop labels, marks
+`C4:9208` as a `$7F:7900..7E00` plane initializer with no visible transfer by
+itself, and keeps `C4:92D2` bounded to the 7F component planes, `$0240`
+template repack, and selector-wait call surface. The `C4:939C` descriptor
+runner now explicitly separates C4-owned EF:10FB row selection and 7F/$0240
+staging from the C0 transfer, display-row, tilemap, and busy-byte callees.
+
 `C4:0BE8` is the shared blank source block immediately after the footstep sound
 table. The ROM bytes from `C4:0BE8..0DE7` are all zero, and the next named data
 family begins at `C4:0DE8`. Multiple setup paths use this as a fixed bank-`C4`
@@ -104,7 +119,9 @@ visual-mode wrapper for the coffee/tea transition family.
 `C4:9875` applies an 8-row byte mask into the destination tile buffer. Its
 callers set up `$3492` as the destination and feed it source bytes, row counts,
 and stride-like values; the routine uses C0 bit-scaling helpers to AND generated
-masks into paired destination bytes.
+masks into paired destination bytes. In this helper family it advances the
+row-pixel/base cursors as masks cross tile rows, but `$3C1E/$3C20` are only
+initialized/reset by the surrounding init/upload helpers.
 
 `C4:999B` draws or composites a token-driven run into the `$3492` tile buffer.
 It indexes data rooted at `$C3:F054`, maps the incoming token through table
@@ -126,7 +143,8 @@ waits a frame.
 
 `C4:9C56` advances the coffee/tea tile-scroll state. It accumulates caller A
 into `$3C16`, derives the next `$9F2D` position, wraps at `#$20`, commits the
-`$3492` tile block through `C0:8EFC`, and resets `$9F2F/$9F31`.
+`$3492` tile block through `C0:8EFC` on each call, keeps only the pixel
+remainder in `$3C16`, and resets `$9F2F/$9F31`.
 
 `C4:9CA8` advances the 8-pixel row cursor stored at `$9F2F/$9F31`. It adds
 caller A plus 8, stores the raw position, then aligns the derived row base to a
@@ -156,6 +174,14 @@ VRAM-offset/BG-scroll helper. The ownership boundary is intentionally narrow:
 C4 owns `$3492`, `$7DFE/$7E00`, `$9F2D/$9F2F/$9F31`, and `$3C14..$3C20`, while
 C0/C2 own the bracket, transfer, and battle-background callees.
 
+2026-05-06 tile-buffer contract follow-up: the source now limits the row-mask
+helper to `$3492` writes plus row-cursor advancement and leaves `$3C1E/$3C20`
+dirty-range changes to the init/upload reset points visible in this family.
+The scroll-state helper is also documented as committing through `C0:8EFC` on
+each call, not only on wrap, and the token-render entry comments now treat the
+`#$000C` register setup in the script interpreters as preserved call-surface
+state while the actual glyph width remains owned by the `C3:F054` metadata.
+
 ## Flyover intro text runner
 
 `C4:9EA4` is an eight-entry long-pointer table for the flyover/intro text
@@ -173,7 +199,7 @@ interprets the selected script as byte commands:
 | `02 xx` | set `$9F2D = xx`, the coffee/tea tile-window position |
 | `09` | upload/scroll one `#$18` step through `C4:9B6E`, wait one frame, then advance `C4:9C56` |
 | `01 xx` | advance the row reveal cursor through `C4:9CA8(xx)` |
-| `08 xx` | render compact token string `xx` through `C4:9CC3` with width/slot `#$000C` |
+| `08 xx` | render compact token string `xx` through `C4:9CC3`; the preserved `#$000C` register setup is not the glyph-width source |
 | other nonzero byte | render it as a single tile token through `C4:9D16` |
 
 The end tail changes display mode `$001A` to `#$04`, calls the C0 display
@@ -194,12 +220,25 @@ coffee/tea scene selector and flyover scene runner, and splits the flyover text
 pointer table into one long pointer per row with comments limiting the
 user-facing names to the three locally corroborated intro strings.
 
+2026-05-06 interpreter side-effect follow-up: the shared source now marks the
+command-stream read points, coffee/tea command `09` page-drain loop, command
+`01` row-reveal byte, command `08` compact token-string byte, direct-token
+fallback, flyover command `02` window-index byte, and both cleanup tails. These
+comments keep the bytecode grammar local to C4 while treating tile rendering,
+display brackets, and C2 visual ticking as callee contracts.
+
 2026-05-06 flyover pointer follow-up: the `C4:9EA4` table rows now have
 address-stable labels for all eight entries. The first three retain the local
 `Year199X`, `Onett`, and `NessHouse` roles; entries `3..7` remain numbered
 until the E1 text payload names are settled. The source also makes the row
 shape explicit as low word plus bank byte plus padding byte, matching the
 `C4:9EC4` indexed pointer walk.
+
+2026-05-06 flyover pointer table follow-up: the same source now names the E1
+low-word payload addresses, shared bank byte, and padding byte as row constants.
+This keeps the C4-owned table shape stable while leaving the underlying E1 text
+payload identities outside this pass, except for the three locally corroborated
+intro strings.
 
 The routine has no direct `JSL`/same-bank `JSR` callers in the split-bank scan,
 so the current best read is that it is reached through a pointer/script/event

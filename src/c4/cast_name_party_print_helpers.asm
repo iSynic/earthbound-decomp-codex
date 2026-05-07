@@ -13,12 +13,18 @@
 
 CopyCastNameTilemap = $C4EA9C
 PrintCastName       = $C4EB04
+CastNameE1PointerRecordBaseLow    = $2EFA
+CastNameE1PointerRecordBank       = $00E1
+CastNameE1PointerRecordStride     = $0003
+CastNamePointerRecordBankByteMask = $00FF
 
 ; ---------------------------------------------------------------------------
 ; C4:EBAD
 
 PRINT_CAST_NAME:
 C4EBAD_PrintCastNameParty = PRINT_CAST_NAME
+    ; A selects one E1 pointer record; X/Y are forwarded to the local tilemap
+    ; copy and print helpers as row/column placement arguments.
     rep #$31
     phd
     pha
@@ -33,12 +39,13 @@ C4EBAD_PrintCastNameParty = PRINT_CAST_NAME
     pla
     stx $02
     sta $0E
-    lda.w #$2EFA
+    lda.w #CastNameE1PointerRecordBaseLow
     sta $06
-    lda.w #$00E1
+    lda.w #CastNameE1PointerRecordBank
     sta $08
     lda $0E
     sta $04
+    ; E1 cast-name records are three bytes: source low word plus bank byte.
     asl A
     adc $04
     clc
@@ -51,12 +58,12 @@ C4EBAD_PrintCastNameParty = PRINT_CAST_NAME
     inc $0A
     ldy $02
     lda [$0A]
-    and.w #$00FF
+    and.w #CastNamePointerRecordBankByteMask
     tax
     lda [$06]
     jsl CopyCastNameTilemap
     lda [$0A]
-    and.w #$00FF
+    and.w #CastNamePointerRecordBankByteMask
     tay
     lda $10
     sta $04

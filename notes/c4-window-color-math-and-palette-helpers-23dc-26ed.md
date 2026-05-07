@@ -48,10 +48,16 @@ for these small entries.
 
 The HDMA helpers in this run program B-bus targets for the window edge registers:
 
-- `C4:245D` programs DMA channel 4 as HDMA mode `#$01`, target register `#$26` (`WH0`), source bank and indirect bank from caller A, source address from caller X, writes `WOBJSEL = #$A0`, then sets bit `#$10` in `$001F`.
+- `C4:245D` programs DMA channel 4 as HDMA mode `#$01`, B-bus target register `#$26` (`WH0`), table bank and indirect data bank from caller A, table address from caller X, writes `WOBJSEL = #$A0`, then sets bit `#$10` in `$001F`.
 - `C4:2542` programs the same channel-4 `WH0` HDMA setup but does not touch `WOBJSEL`.
 - `C4:25CC` is another channel-4 `WH0` setup entry with the same register shape as `C4:2542`; the callsite semantics are still open, so it keeps a distinct working name for now.
-- `C4:25FD` programs DMA channel 5 as HDMA mode `#$01`, target register `#$28` (`WH2`), source bank and indirect bank from caller A, source address from caller X, then sets bit `#$20` in `$001F`.
+- `C4:25FD` programs DMA channel 5 as HDMA mode `#$01`, B-bus target register `#$28` (`WH2`), table bank and indirect data bank from caller A, table address from caller X, then sets bit `#$20` in `$001F`.
+
+2026-05-06 HDMA register-name follow-up: `window_color_hdma_helpers.asm` now
+splits the channel-4/channel-5 DMA register aliases into HDMA mode, B-bus
+target, table address, table bank, and indirect-bank fields. The entry comments
+now say caller A is written to both bank fields and caller X to the table
+address, without assigning semantics to the stream payload bytes themselves.
 
 The disable helpers are similarly small:
 
@@ -84,6 +90,13 @@ It clears the fractional delta words, offsets caller X by `#$80`, calls the C0 s
 
 The three routines form a tidy movement/camera step: initialize direction-based deltas, advance the screen origin, then rebuild per-entity relative positions.
 
+2026-05-06 screen-position source follow-up: the source now marks the side
+effect boundary explicitly. `C4:2631` owns only the `$3C22..$3C30` fixed-point
+step staging and sign extension from the C0 projection helpers; `C4:268A` owns
+the screen-origin accumulator writes before handing the new origin to
+`C0:1731`; `C4:26C7` owns the live-slot screen-relative rebase from world
+coordinates.
+
 ## Palette interpolation export
 
 `C4:26ED` already has a strong local identity from the landing palette interpolation note. In this local run it belongs after the screen-position helpers, but its behavior is independent and much more palette-facing.
@@ -95,6 +108,19 @@ It reads three delta/current plane pairs:
 - `7F:0600 + 7F:0C00`
 
 For each packed color entry, it advances each current component, clamps each component to the 5-bit color range, clears finished deltas at the bounds, repacks the three components into a 15-bit SNES color word at `$0200,X`, and finally writes `$0030 = #$18`. The existing NMI/DMA notes identify `$0030 = #$18` as the selector for a full `CGRAM` upload from `$0200`.
+
+2026-05-06 palette-export source follow-up: the source now names the local
+direct-page frame size and zero component value in addition to the existing
+7F-plane, component-mask, `$0200` CGRAM shadow, byte-count, and `$0030` upload
+selector contracts. The unusual negative high-channel path still preserves the
+observed middle-delta clear exactly as byte-equivalence evidence, not as a
+broader semantic claim.
+
+2026-05-06 selector/rebase follow-up: the palette stepper source now separates
+the full-CGRAM-upload selector byte (`#$18`) from the `$0030` display-selector
+latch, explicitly leaving the actual CGRAM upload to C0/NMI behavior. The
+screen-position rebase helper now names the live-entity scan bound as a byte
+bound over two-byte slot table entries.
 
 ## Working Names
 

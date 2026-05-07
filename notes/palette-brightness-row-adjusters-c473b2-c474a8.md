@@ -31,6 +31,19 @@ passes only the derived magnitude and mode (`#$33` or `#$B3`) to `C4:249A`; the
 lower-level fixed-color register choreography remains documented with the C4
 window/color helper.
 
+2026-05-06 follow-up source polish: the source now uses the local constants in
+the helper bodies as well as the contract block. The battle-background loader
+names the BG mode/base queue arguments and the C2 sprite-resource `Y = 4`
+argument; the palette path names the signed-negative clamp boundary, 5-bit
+component masks, row count, saved-row/work-row bases, full-CGRAM upload
+selector, current-slot signed magnitude table, and fixed-color math mode values.
+This keeps C4's side of the contract at argument staging and row transformation.
+
+2026-05-06 selector/latch follow-up: the source now splits selector `#$18` from
+the `$0030` display-selector latch in the full-row batch wrapper. C4's local
+side effect is the adjusted `$0240` row block plus the latch write; C0/NMI owns
+the actual CGRAM upload interpretation.
+
 ## Component clamp
 
 `C4:73B2` is the shared 5-bit component clamp.
@@ -64,7 +77,7 @@ The source/destination operands are low WRAM offsets under the usual engine data
 
 `C4:746B` is the 16-row batch wrapper.
 
-It takes the caller's signed component offset in `A`, then calls `C4:73D0` for rows `0..15`. After all rows have been adjusted, it writes `$0030 = #$18`, the same upload selector used by the palette interpolation/export family for CGRAM refresh.
+It takes the caller's signed component offset in `A`, then calls `C4:73D0` for rows `0..15`. After all rows have been adjusted, it writes selector `#$18` into the `$0030` display-selector latch, the same selector value used by the palette interpolation/export family for CGRAM refresh. The NMI-side upload behavior stays outside this C4 contract.
 
 `C4:7499` is the current-slot wrapper. It reads `$0E5E[$1A42]` and passes that signed value to `C4:746B`. No direct JSL/JSR caller was found in the split-bank scan, so it may be reached through a table or pointer path.
 

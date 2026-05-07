@@ -25,15 +25,50 @@ DecompressAssetToLongDest                    = $C41A9E
 MovementLoadBattleBg                         = $C47370
 RefreshWindowFlavourPaletteBlock             = $C47F87
 PrepareCastNameTilemap                       = $C4E7AE
-CastNameTileBaseOffset                       = $B4D1
+
+; Local WRAM / presentation contracts
+DisplayTransferSelector30                    = $0030
+DisplayModeLatch1A                           = $001A
+TrackedItemPulseActiveCount                  = $9F2A
+LiveEntityStatusTable                        = $0A62
+EntityFlag8000Table                          = $116A
+CastNameGlyphWidthMode                       = $B4CE
 CastSceneLatchB4CF                           = $B4CF
+CastNameTileBaseOffset                       = $B4D1
 Bg3HScrollLow                                = $0031
 Bg3VScrollLow                                = $0033
 Bg3HScrollHigh                               = $0035
 Bg3VScrollHigh                               = $0037
 Bg3ScrollXExtra                              = $0039
 Bg3ScrollYExtra                              = $003B
+
+; Local constants
+CastSceneNoEntitySentinel                    = $FFFF
+CastSceneEntityFlag8000                      = $8000
 CastSceneEntitySlotCount                     = $001E
+CastSceneBattleBgPreset                      = $0117
+CastSceneBg3TilemapBase                      = $7C00
+CastSceneObjSizeAndBase                      = $0062
+CastSceneClearTilemapBytes                   = $0800
+CastSceneClear7fBytes                        = $1000
+CastSceneStagingBank                         = $007F
+CastSceneZeroSourceLow                       = $0000
+CastNameTilesSource1Low                      = $D6E1
+CastNameTilesSource2Low                      = $D835
+CastNamePaletteSourceLow                     = $D815
+CastSceneTailAssetSourceLow                  = $E4E6
+CastSceneE1AssetBank                         = $00E1
+CastSceneC3AssetBank                         = $00C3
+CastNameTilesDest1Low                        = $0200
+CastNameTilesDest2Low                        = $0600
+CastSceneTailAssetDestLow                    = $7000
+CastSceneTilemapUploadBytes                  = $8000
+CastScenePalettePayloadBytes                 = $0020
+CastScenePaletteDestLow                      = $0200
+CastSceneC3PayloadBytes                      = $0100
+CastSceneC3PayloadDestLow                    = $0300
+CastSceneDisplayTransferSelector             = $18
+CastSceneDisplayMode                         = $14
 
 ; ---------------------------------------------------------------------------
 ; C4:E369
@@ -50,9 +85,11 @@ C4E369_LoadCastScene = LOAD_CAST_SCENE
     tcd
     lda.w #$0000
     sta $06
-    lda.w #$007F
+    lda.w #CastSceneStagingBank
     sta $08
-    stz $9F2A
+    ; Clear local presentation latches before the loader starts forcing the
+    ; ending cast scene's asset and scroll state.
+    stz TrackedItemPulseActiveCount
     ldy.w #$0000
     ldx.w #$0001
     txa
@@ -65,15 +102,15 @@ C4E369_LoadCastScene = LOAD_CAST_SCENE
 C4E398_LoadCastScene_LE398:
     asl A
     tax
-    lda $0A62,X
-    cmp.w #$FFFF
+    lda LiveEntityStatusTable,X
+    cmp.w #CastSceneNoEntitySentinel
     beq C4E3B1_LoadCastScene_LE3B1
     txa
     clc
-    adc.w #$116A
+    adc.w #EntityFlag8000Table
     tax
     lda $0000,X
-    ora.w #$8000
+    ora.w #CastSceneEntityFlag8000
     sta $0000,X
 C4E3B1_LoadCastScene_LE3B1:
     lda $16
@@ -83,13 +120,13 @@ C4E3B6_LoadCastScene_LE3B6:
     cmp.w #CastSceneEntitySlotCount
     bcc C4E398_LoadCastScene_LE398
     ldx.w #$0000
-    lda.w #$0117
+    lda.w #CastSceneBattleBgPreset
     jsl MovementLoadBattleBg
     ldy.w #$0000
-    ldx.w #$7C00
+    ldx.w #CastSceneBg3TilemapBase
     tya
     jsl C08E1C_UpdateBg2ScreenBaseRegistersFromQueue
-    lda.w #$0062
+    lda.w #CastSceneObjSizeAndBase
     jsl C08D92_UpdateObjSizeAndBaseRegister
     stz Bg3ScrollXExtra
     stz Bg3ScrollYExtra
@@ -104,43 +141,45 @@ C4E3B6_LoadCastScene_LE3B6:
     sta $0E
     lda $08
     sta $10
-    ldy.w #$7C00
-    ldx.w #$0800
+    ldy.w #CastSceneBg3TilemapBase
+    ldx.w #CastSceneClearTilemapBytes
     sep #$20
     lda.b #$03
     jsl QueueVramTransfer_FromDpSource
     sep #$20
+    ; Force the cast-name tilemap prep path through the direct glyph-width
+    ; table while the local $7F staging rows are built, then clear it below.
     lda.b #$FF
-    sta $B4CE
+    sta CastNameGlyphWidthMode
     rep #$20
-    lda.w #$0000
+    lda.w #CastSceneZeroSourceLow
     sta $06
-    lda.w #$007F
+    lda.w #CastSceneStagingBank
     sta $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$1000
+    ldx.w #CastSceneClear7fBytes
     sep #$20
     lda.b #$00
     jsl Clear7fBufferMaybe
-    lda.w #$D6E1
+    lda.w #CastNameTilesSource1Low
     sta $0E
-    lda.w #$00E1
+    lda.w #CastSceneE1AssetBank
     sta $10
-    lda.w #$0200
+    lda.w #CastNameTilesDest1Low
     sta $12
-    lda.w #$007F
+    lda.w #CastSceneStagingBank
     sta $14
     jsl DecompressAssetToLongDest
-    lda.w #$D835
+    lda.w #CastNameTilesSource2Low
     sta $0E
-    lda.w #$00E1
+    lda.w #CastSceneE1AssetBank
     sta $10
-    lda.w #$0600
+    lda.w #CastNameTilesDest2Low
     sta $12
-    lda.w #$007F
+    lda.w #CastSceneStagingBank
     sta $14
     jsl DecompressAssetToLongDest
     jsl PrepareCastNameTilemap
@@ -149,41 +188,44 @@ C4E3B6_LoadCastScene_LE3B6:
     lda $08
     sta $10
     ldy.w #$0000
-    ldx.w #$8000
+    ldx.w #CastSceneTilemapUploadBytes
     sep #$20
     tya
     jsl QueueVramTransfer_FromDpSource
     sep #$20
-    stz $B4CE
+    stz CastNameGlyphWidthMode
     jsl RefreshWindowFlavourPaletteBlock
-    lda.w #$D815
+    lda.w #CastNamePaletteSourceLow
     sta $0E
-    lda.w #$00E1
+    lda.w #CastSceneE1AssetBank
     sta $10
-    ldx.w #$0020
-    lda.w #$0200
+    ldx.w #CastScenePalettePayloadBytes
+    lda.w #CastScenePaletteDestLow
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     lda.w #$0000
     sta $0E
-    lda.w #$00C3
+    lda.w #CastSceneC3AssetBank
     sta $10
-    ldx.w #$0100
-    lda.w #$0300
+    ldx.w #CastSceneC3PayloadBytes
+    lda.w #CastSceneC3PayloadDestLow
     jsl C08ED2_QueueOrTransferDynamicTileBlock
-    lda.w #$E4E6
+    lda.w #CastSceneTailAssetSourceLow
     sta $0E
-    lda.w #$00E1
+    lda.w #CastSceneE1AssetBank
     sta $10
-    lda.w #$7000
+    lda.w #CastSceneTailAssetDestLow
     sta $12
-    lda.w #$007F
+    lda.w #CastSceneStagingBank
     sta $14
     jsl DecompressAssetToLongDest
     sep #$20
-    lda.b #$18
-    sta $0030
-    lda.b #$14
-    sta $001A
+    ; Hand the prepared cast presentation to the renderer through the same
+    ; display selector/mode shadows used by the surrounding C4 presentation
+    ; helpers.
+    lda.b #CastSceneDisplayTransferSelector
+    sta DisplayTransferSelector30
+    lda.b #CastSceneDisplayMode
+    sta DisplayModeLatch1A
     rep #$20
     stz CastSceneLatchB4CF
     stz CastNameTileBaseOffset

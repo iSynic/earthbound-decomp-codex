@@ -72,6 +72,13 @@ several `E1`/`C3` asset payloads through `C4:1A9E`, prepares the cast-name
 tilemap, refreshes the window-flavor palette, sets `$0030 = 0x18` and
 `$001A = 0x14`, clears `$B4CF/$B4D1`, and opens the display transition bracket.
 
+2026-05-06 cast loader presentation follow-up: the source now keeps these as
+loader-local contracts, naming the `$9F2A` presentation latch reset, live
+entity `$0A62` sentinel scan and `$116A/$8000` marker, cast-name glyph-width
+mode byte `$B4CE`, BG3 `$7C00` clear/upload size, E1/C3 low-word asset staging
+tuples, and final `$0030/$001A` display selector seeds. The C0/C4 callee names
+remain caller references only.
+
 `C4:E4DA` stores a BG3/cast-scroll threshold for the active cast slot. It is
 called by event 801's `WaitForCastScrollThreshold` short subroutine after the
 script writes a small spacing/delay value. The helper uses `$1A42` as the
@@ -112,6 +119,18 @@ split into the three C4-local suffix patch rows consumed by
 Master. The prep helper names the three patch source lows plus the C4 bank byte
 where it stages the local copy arguments for the C0 tilemap-patch callee.
 
+2026-05-06 cast-name tilemap prep follow-up: the preparation and print helpers
+now name the local row/template counts, C3:FDB5 party source table, current-bank
+template lows, E1:2EFA pointer-record offsets for dad/mom/Master, `$7F:4000`
+staging bank, BG3 `$7C00` row wrap math, and C0 transfer selector byte. These
+remain C4-local presentation-table contracts; C0 copy/VRAM queue internals and
+C3/E1 payload decoding stay external.
+
+2026-05-06 cast-name wrapper follow-up: the copy/wrapper helpers now carry the
+same local `$7F:4000` row shape, `$B4D1` tile-base delta, E1:2EFA three-byte
+pointer-record shape, C3:FDB5 party source lookup, and special source-selector
+`7 -> 01C0` contract used by the polished preparation path.
+
 `C4:EBAD..C4:EC6E` are small print wrappers that select the party/current-slot
 or entity-var0 source before entering the cast-name print path.
 
@@ -121,10 +140,23 @@ staged cast X/Y fields from `$0E5E/$0E9A` and adds the live BG3 Y scroll at
 `$003B`; the onscreen check compares `$003B - 8` against the current slot's
 live Y at `$0BCA`.
 
+2026-05-06 cast palette/spawn follow-up: the current-slot print wrapper now
+keeps `$0E5E + slot*2` local to the cast-name selector role, the special palette
+helper names its `$7F:7000 + index*$20 -> $0380` transfer and `$0030 = #$10`
+selector, and the spawn/onscreen helpers name the `$0A38` rotating spawn
+variant, `$FFFF` default parent argument, and word-indexed live-Y comparison.
+The entity constructor and palette transfer callees remain external contracts.
+
 `C4:ED0E..C4:EDA3` is the promoted `PlayCastScene` controller. It brackets cast
 scene loading, transition state, event-801 driver allocation (`#$0321`),
 per-frame updates until `$9641` is set, final driver cleanup, and restoration
 of the normal delayed-action/presentation state.
+
+2026-05-06 cast controller follow-up: the controller now names the event-801
+driver id, `$9641` completion latch, live `$0A62` driver cleanup scan,
+delayed-action restore anchors `$0A4C/$0A4E = 17/18`, return transition mode,
+and final `$001A = #$17` display mode. The C0/C1/C2 frame/update/remove
+callees remain caller references.
 
 `C4:EDA3..C4:EE9D` is ebsrc's following unused cast-name scratch renderer. It
 shares the same glyph-run renderer and VRAM queue contracts as the live
@@ -166,6 +198,21 @@ threshold, `$7DFE` clear span, and display selector/mode bytes it seeds before
 arming the C0 command-stream callback. The playback tail now names the fixed
 post-scroll hold, return entity spawn coordinates, final `$7DFE` clear span,
 and display mode restored before the delayed-action callback is reinstalled.
+
+2026-05-06 credits photograph follow-up: the photograph render/count/slide
+helpers now share C4-local names for the `E1:2F8A` record gate, map-cell
+offsets, object and attached-visual coordinate/id fields, four-object and
+six-visual loop bounds, `$98CB` optional visual rows, fixed photo palette block,
+and slide angle/frame-count fields. The source comments identify only the C4
+argument staging for map load, entity spawn, visual attach, BG3 scroll, and
+DMA queue drains; the C0/C2 helper internals remain external.
+
+The adjacent producer-side follow-up in
+`src/c4/photo_and_new_entity_preparation_helpers.asm` now uses compatible
+names for the same photographer record family when `C4:6D4B` places the current
+slot from offsets `+$0A/+$0C`; see
+`notes/current-slot-position-staging-c46b8d-c46d4b.md` for that movement-facing
+contract.
 
 `C4:F70A..C4:F947` is the ebsrc-named music dataset table. `ChangeMusic` treats
 the requested music id as one-based, subtracts one for the row lookup, and reads

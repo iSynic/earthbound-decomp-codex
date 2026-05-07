@@ -21,6 +21,35 @@ C429AE_GenerateVisualProfileRenderDmaStrips = $C429AE
 
 ; ---------------------------------------------------------------------------
 ; C4:CC2F
+;
+; Walkers consume the dynamic 0x14-byte record table built by C4:C91A. C4 owns
+; the record cursor math, $7F scratch/occupancy writes, and calls into the
+; C4:28xx/C4:29xx render-strip helpers; those callees own their internal merge
+; and DMA-strip details.
+
+VisualRecordCount                           = $B4A6
+VisualRecordTablePtrLow                     = $B4AA
+VisualRecordTablePtrBank                    = $B4AC
+VisualRecordStrideBytes                     = $0014
+
+VisualRecordField_ProfileId                 = $0000
+VisualRecordField_State                     = $0004
+VisualRecordField_FootprintWidth            = $0006
+VisualRecordField_FrameSpanBytes            = $0008
+VisualRecordField_ScratchStart              = $000A
+VisualRecordField_ScratchMidpoint           = $000C
+VisualRecordField_FrameCursor               = $0010
+VisualRecordField_CompletionCounter         = $0012
+
+VisualRecordState2                          = $0002
+VisualRecordState3                          = $0003
+VisualRecordState4                          = $0004
+VisualRecordCompletionLimit                 = $0002
+VisualRecordGridCellCount                   = $0040
+VisualRecordGridMask                        = $003F
+VisualRecordGridWidthCells                  = $0008
+VisualRecordOccupancyBitmapLow              = $7F00
+VisualRecordWorkBank                        = $007F
 
 C4CC2F_StepState2VisualRecordFrameStrips:
     rep #$31
@@ -31,9 +60,9 @@ C4CC2F_StepState2VisualRecordFrameStrips:
     stz $1E
     lda.w #$0000
     sta $04
-    lda $B4AA
+    lda VisualRecordTablePtrLow
     sta $06
-    lda $B4AC
+    lda VisualRecordTablePtrBank
     sta $08
     lda $06
     sta $1A
@@ -44,9 +73,9 @@ C4CC2F_StepState2VisualRecordFrameStrips:
     sta $18
     jmp.w C4CD31_StepState2VisualRecordFrameStrips_LCD31
 C4CC5A_StepState2VisualRecordFrameStrips_LCC5A:
-    ldy.w #$0004
+    ldy.w #VisualRecordField_State
     lda [$1A],Y
-    cmp.w #$0002
+    cmp.w #VisualRecordState2
     beq C4CC67_StepState2VisualRecordFrameStrips_LCC67
     jmp.w C4CD11_StepState2VisualRecordFrameStrips_LCD11
 C4CC67_StepState2VisualRecordFrameStrips_LCC67:
@@ -55,7 +84,7 @@ C4CC67_StepState2VisualRecordFrameStrips_LCC67:
     sta $06
     lda $1C
     sta $08
-    lda.w #$0012
+    lda.w #VisualRecordField_CompletionCounter
     clc
     adc $06
     sta $06
@@ -63,7 +92,7 @@ C4CC67_StepState2VisualRecordFrameStrips_LCC67:
     lda $08
     sta $16
     lda [$14]
-    cmp.w #$0002
+    cmp.w #VisualRecordCompletionLimit
     bne C4CC8B_StepState2VisualRecordFrameStrips_LCC8B
     inc $1E
     jmp.w C4CD11_StepState2VisualRecordFrameStrips_LCD11
@@ -72,19 +101,19 @@ C4CC8B_StepState2VisualRecordFrameStrips_LCC8B:
     sta $0A
     lda $1C
     sta $0C
-    lda.w #$0010
+    lda.w #VisualRecordField_FrameCursor
     clc
     adc $0A
     sta $0A
     lda [$0A]
     sta $12
-    ldy.w #$0006
+    ldy.w #VisualRecordField_FootprintWidth
     lda [$1A],Y
     lsr A
     lsr A
     lsr A
     tax
-    ldy.w #$0008
+    ldy.w #VisualRecordField_FrameSpanBytes
     lda $12
     jsl C09231_ModUnsignedWordByIndex
     asl A
@@ -108,7 +137,7 @@ C4CC8B_StepState2VisualRecordFrameStrips_LCC8B:
     sta $06
     lda $1C
     sta $08
-    lda.w #$000C
+    lda.w #VisualRecordField_ScratchMidpoint
     clc
     adc $06
     sta $06
@@ -116,13 +145,13 @@ C4CC8B_StepState2VisualRecordFrameStrips_LCC8B:
     lda $12
     tay
     sty $10
-    ldy.w #$000A
+    ldy.w #VisualRecordField_ScratchStart
     lda [$1A],Y
     tax
     lda [$06]
     ldy $10
     jsl C428D1_Copy7fWordsEvery16ByCount
-    ldy.w #$0000
+    ldy.w #VisualRecordField_ProfileId
     lda [$1A],Y
     tax
     lda [$06]
@@ -131,7 +160,7 @@ C4CC8B_StepState2VisualRecordFrameStrips_LCC8B:
     inc A
     inc A
     sta [$0A]
-    ldy.w #$0008
+    ldy.w #VisualRecordField_FrameSpanBytes
     cmp [$1A],Y
     bcc C4CD11_StepState2VisualRecordFrameStrips_LCD11
     lda.w #$0001
@@ -144,7 +173,7 @@ C4CD11_StepState2VisualRecordFrameStrips_LCD11:
     sta $06
     lda $1C
     sta $08
-    lda.w #$0014
+    lda.w #VisualRecordStrideBytes
     clc
     adc $06
     sta $06
@@ -158,7 +187,7 @@ C4CD11_StepState2VisualRecordFrameStrips_LCD11:
     sta $18
 C4CD31_StepState2VisualRecordFrameStrips_LCD31:
     lda $02
-    cmp $B4A6
+    cmp VisualRecordCount
     bcs C4CD3D_StepState2VisualRecordFrameStrips_LCD3D
     beq C4CD3D_StepState2VisualRecordFrameStrips_LCD3D
     jmp.w C4CC5A_StepState2VisualRecordFrameStrips_LCC5A
@@ -177,32 +206,32 @@ C4CD44_StepState3VisualRecordMaskedColumns:
     stz $1E
     lda.w #$0000
     sta $04
-    lda $B4AA
+    lda VisualRecordTablePtrLow
     sta $0A
-    lda $B4AC
+    lda VisualRecordTablePtrBank
     sta $0C
     lda.w #$0000
     sta $02
     sta $1C
     jmp.w C4CE9D_StepState2VisualRecordFrameStrips_LCE9D
 C4CD67_StepState2VisualRecordFrameStrips_LCD67:
-    ldy.w #$0004
+    ldy.w #VisualRecordField_State
     lda [$0A],Y
-    cmp.w #$0003
+    cmp.w #VisualRecordState3
     beq C4CD74_StepState2VisualRecordFrameStrips_LCD74
     jmp.w C4CE8B_StepState2VisualRecordFrameStrips_LCE8B
 C4CD74_StepState2VisualRecordFrameStrips_LCD74:
     inc $04
-    ldy.w #$0012
+    ldy.w #VisualRecordField_CompletionCounter
     lda [$0A],Y
-    cmp.w #$0002
+    cmp.w #VisualRecordCompletionLimit
     bne C4CD85_StepState2VisualRecordFrameStrips_LCD85
     inc $1E
     jmp.w C4CE8B_StepState2VisualRecordFrameStrips_LCE8B
 C4CD85_StepState2VisualRecordFrameStrips_LCD85:
     cmp.w #$0000
     beq C4CDAB_StepState2VisualRecordFrameStrips_LCDAB
-    ldy.w #$0010
+    ldy.w #VisualRecordField_FrameCursor
     lda [$0A],Y
     sta $1A
     and.w #$0001
@@ -213,7 +242,7 @@ C4CD85_StepState2VisualRecordFrameStrips_LCD85:
 C4CD9B_StepState2VisualRecordFrameStrips_LCD9B:
     lda $1A
     sta $02
-    ldy.w #$0006
+    ldy.w #VisualRecordField_FootprintWidth
     lda [$0A],Y
     sec
     sbc $02
@@ -221,7 +250,7 @@ C4CD9B_StepState2VisualRecordFrameStrips_LCD9B:
     dex
     bra C4CDCA_StepState2VisualRecordFrameStrips_LCDCA
 C4CDAB_StepState2VisualRecordFrameStrips_LCDAB:
-    ldy.w #$0010
+    ldy.w #VisualRecordField_FrameCursor
     lda [$0A],Y
     sta $1A
     and.w #$0001
@@ -232,14 +261,14 @@ C4CDAB_StepState2VisualRecordFrameStrips_LCDAB:
 C4CDBC_StepState2VisualRecordFrameStrips_LCDBC:
     lda $1A
     sta $02
-    ldy.w #$0006
+    ldy.w #VisualRecordField_FootprintWidth
     lda [$0A],Y
     sec
     sbc $02
     tax
     dex
 C4CDCA_StepState2VisualRecordFrameStrips_LCDCA:
-    lda.w #$000C
+    lda.w #VisualRecordField_ScratchMidpoint
     ldy $0A
     sty $06
     ldy $0C
@@ -250,7 +279,7 @@ C4CDCA_StepState2VisualRecordFrameStrips_LCDCA:
     sta $16
     lda $08
     sta $18
-    lda.w #$0006
+    lda.w #VisualRecordField_FootprintWidth
     ldy $0A
     sty $06
     ldy $0C
@@ -261,7 +290,7 @@ C4CDCA_StepState2VisualRecordFrameStrips_LCDCA:
     sta $12
     lda $08
     sta $14
-    ldy.w #$0008
+    ldy.w #VisualRecordField_FrameSpanBytes
     lda [$0A],Y
     sta $0E
     lda [$12]
@@ -276,7 +305,7 @@ C4CDCA_StepState2VisualRecordFrameStrips_LCDCA:
     sta $10
     txy
     sty $1A
-    ldy.w #$000A
+    ldy.w #VisualRecordField_ScratchStart
     lda [$0A],Y
     tax
     lda $16
@@ -298,7 +327,7 @@ C4CDCA_StepState2VisualRecordFrameStrips_LCDCA:
     sta $08
     lda [$06]
     jsl C429AE_GenerateVisualProfileRenderDmaStrips
-    lda.w #$0010
+    lda.w #VisualRecordField_FrameCursor
     ldx $0A
     stx $06
     ldx $0C
@@ -319,7 +348,7 @@ C4CDCA_StepState2VisualRecordFrameStrips_LCDCA:
     lda $1A
     cmp $02
     bcc C4CE8B_StepState2VisualRecordFrameStrips_LCE8B
-    lda.w #$0012
+    lda.w #VisualRecordField_CompletionCounter
     ldx $0A
     stx $06
     ldx $0C
@@ -340,7 +369,7 @@ C4CDCA_StepState2VisualRecordFrameStrips_LCDCA:
     stx $08
     sta [$06]
 C4CE8B_StepState2VisualRecordFrameStrips_LCE8B:
-    lda.w #$0014
+    lda.w #VisualRecordStrideBytes
     clc
     adc $0A
     sta $0A
@@ -351,7 +380,7 @@ C4CE8B_StepState2VisualRecordFrameStrips_LCE8B:
     sta $1C
 C4CE9D_StepState2VisualRecordFrameStrips_LCE9D:
     lda $02
-    cmp $B4A6
+    cmp VisualRecordCount
     bcs C4CEA9_StepState2VisualRecordFrameStrips_LCEA9
     beq C4CEA9_StepState2VisualRecordFrameStrips_LCEA9
     jmp.w C4CD67_StepState2VisualRecordFrameStrips_LCD67
@@ -367,9 +396,9 @@ C4CEB0_ClearVisualRecordOccupancyBitmap7f7f00:
     tdc
     adc.w #$FFF2
     tcd
-    lda.w #$7F00
+    lda.w #VisualRecordOccupancyBitmapLow
     sta $06
-    lda.w #$007F
+    lda.w #VisualRecordWorkBank
     sta $08
     ldx.w #$0000
     bra C4CED1_StepState2VisualRecordFrameStrips_LCED1
@@ -380,7 +409,7 @@ C4CEC7_StepState2VisualRecordFrameStrips_LCEC7:
     inc $06
     inx
 C4CED1_StepState2VisualRecordFrameStrips_LCED1:
-    cpx.w #$0040
+    cpx.w #VisualRecordGridCellCount
     bcc C4CEC7_StepState2VisualRecordFrameStrips_LCEC7
     pld
     rtl
@@ -390,20 +419,20 @@ C4CED8_StepState4VisualRecordRandomTileMask:
     tdc
     adc.w #$FFE2
     tcd
-    lda $B4AA
+    lda VisualRecordTablePtrLow
     sta $0A
-    lda $B4AC
+    lda VisualRecordTablePtrBank
     sta $0C
-    lda.w #$7F00
+    lda.w #VisualRecordOccupancyBitmapLow
     sta $06
-    lda.w #$007F
+    lda.w #VisualRecordWorkBank
     sta $08
     lda $06
     sta $1A
     lda $08
     sta $1C
     jsl C08E9A_GetRandom16
-    and.w #$003F
+    and.w #VisualRecordGridMask
     sta $18
     asl A
     clc
@@ -414,7 +443,7 @@ C4CED8_StepState4VisualRecordRandomTileMask:
 C4CF0F_StepState2VisualRecordFrameStrips_LCF0F:
     lda $18
     inc A
-    and.w #$003F
+    and.w #VisualRecordGridMask
     sta $18
     asl A
     ldx $1A
@@ -443,16 +472,16 @@ C4CF29_StepState2VisualRecordFrameStrips_LCF29:
     lsr A
     lsr A
     sta $16
-    ldy.w #$0008
+    ldy.w #VisualRecordGridWidthCells
     lda $18
     jsl C09231_ModUnsignedWordByIndex
     sta $14
     stz $12
     jmp.w C4D001_StepState2VisualRecordFrameStrips_LD001
 C4CF55_StepState2VisualRecordFrameStrips_LCF55:
-    ldy.w #$0004
+    ldy.w #VisualRecordField_State
     lda [$0A],Y
-    cmp.w #$0004
+    cmp.w #VisualRecordState4
     beq C4CF62_StepState2VisualRecordFrameStrips_LCF62
     jmp.w C4CFF7_StepState2VisualRecordFrameStrips_LCFF7
 C4CF62_StepState2VisualRecordFrameStrips_LCF62:
@@ -495,10 +524,10 @@ C4CF72_StepState2VisualRecordFrameStrips_LCF72:
     lda $18
     tay
     sty $18
-    ldy.w #$000A
+    ldy.w #VisualRecordField_ScratchStart
     lda [$0A],Y
     tax
-    ldy.w #$000C
+    ldy.w #VisualRecordField_ScratchMidpoint
     lda [$0A],Y
     ldy $18
     jsl C42965_MergeMasked7fTileColumnPair
@@ -508,7 +537,7 @@ C4CF72_StepState2VisualRecordFrameStrips_LCF72:
     lda $02
     sta $10
 C4CFBB_StepState2VisualRecordFrameStrips_LCFBB:
-    ldy.w #$0006
+    ldy.w #VisualRecordField_FootprintWidth
     lda [$0A],Y
     lsr A
     lsr A
@@ -520,7 +549,7 @@ C4CFBB_StepState2VisualRecordFrameStrips_LCFBB:
     bcc C4CF72_StepState2VisualRecordFrameStrips_LCF72
     inc $04
 C4CFCE_StepState2VisualRecordFrameStrips_LCFCE:
-    ldy.w #$0008
+    ldy.w #VisualRecordField_FrameSpanBytes
     lda [$0A],Y
     lsr A
     lsr A
@@ -538,17 +567,17 @@ C4CFE3_StepState2VisualRecordFrameStrips_LCFE3:
     sta $08
     lda [$06]
     tax
-    ldy.w #$000C
+    ldy.w #VisualRecordField_ScratchMidpoint
     lda [$0A],Y
     jsl C429AE_GenerateVisualProfileRenderDmaStrips
 C4CFF7_StepState2VisualRecordFrameStrips_LCFF7:
-    lda.w #$0014
+    lda.w #VisualRecordStrideBytes
     clc
     adc $0A
     sta $0A
     inc $12
 C4D001_StepState2VisualRecordFrameStrips_LD001:
-    lda $B4A6
+    lda VisualRecordCount
     cmp $12
     beq C4D00D_StepState2VisualRecordFrameStrips_LD00D
     bcc C4D00D_StepState2VisualRecordFrameStrips_LD00D

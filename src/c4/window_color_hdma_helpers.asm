@@ -11,7 +11,7 @@
 ;
 ; Source units covered:
 ; - C4:23DC..C4:249A centered/fullscreen color-window presets, fixed color,
-;   and the first WH0 HDMA channel-4 setup/teardown pair.
+;   one-shot color math presets, and WH0/WH2 HDMA setup/teardown helpers.
 
 ; ---------------------------------------------------------------------------
 ; Hardware and WRAM contracts
@@ -32,16 +32,16 @@ REGISTER_CGADSUB                     = $002131
 REGISTER_COLDATA                     = $002132
 REGISTER_WOBJSEL                     = $002125
 
-DMA4_DMAP                            = $004340
-DMA4_BBAD                            = $004341
-DMA4_A1T                             = $004342
-DMA4_A1B                             = $004344
-DMA4_DASB                            = $004347
-DMA5_DMAP                            = $004350
-DMA5_BBAD                            = $004351
-DMA5_A1T                             = $004352
-DMA5_A1B                             = $004354
-DMA5_DASB                            = $004357
+DMA4_HDMA_MODE                       = $004340
+DMA4_BBUS_TARGET                     = $004341
+DMA4_HDMA_TABLE_ADDR                 = $004342
+DMA4_HDMA_TABLE_BANK                 = $004344
+DMA4_INDIRECT_BANK                   = $004347
+DMA5_HDMA_MODE                       = $004350
+DMA5_BBUS_TARGET                     = $004351
+DMA5_HDMA_TABLE_ADDR                 = $004352
+DMA5_HDMA_TABLE_BANK                 = $004354
+DMA5_INDIRECT_BANK                   = $004357
 
 HDMA_ENABLE_SHADOW                   = $001F
 HDMA_CHANNEL4_ENABLE_BIT             = $10
@@ -157,21 +157,21 @@ C42439_ApplyColorMathAndFixedColorFrom9e37:
 ; StartWh0HdmaChannel4AndWhselA0
 ;
 ; Entry:
-;   A = HDMA source bank / indirect bank.
-;   X = HDMA table source address.
+;   A = HDMA table bank, also written as the indirect data bank.
+;   X = HDMA table address.
 ; Side effects: programs DMA channel 4 for indirect HDMA to WH0/WH1, sets
 ; WOBJSEL to $A0, and sets bit $10 in the $001F HDMA enable shadow.
 C4245D_StartWh0HdmaChannel4AndWhselA0:
     sep #$20
-    sta.l DMA4_A1B
-    sta.l DMA4_DASB
+    sta.l DMA4_HDMA_TABLE_BANK
+    sta.l DMA4_INDIRECT_BANK
     lda.b #HDMA_MODE_INDIRECT_2REG
-    sta.l DMA4_DMAP
+    sta.l DMA4_HDMA_MODE
     lda.b #HDMA_TARGET_WH0
-    sta.l DMA4_BBAD
+    sta.l DMA4_BBUS_TARGET
     rep #$20
     txa
-    sta.l DMA4_A1T
+    sta.l DMA4_HDMA_TABLE_ADDR
     sep #$20
     lda.b #WOBJSEL_DUAL_WINDOW
     sta.l REGISTER_WOBJSEL
@@ -286,21 +286,21 @@ C42509_ApplyFullscreenColorSubtractHalfPreset:
 ; StartWh0HdmaChannel4
 ;
 ; Entry:
-;   A = HDMA source bank / indirect bank.
-;   X = HDMA table source address.
+;   A = HDMA table bank, also written as the indirect data bank.
+;   X = HDMA table address.
 ; Side effects: programs DMA channel 4 for indirect HDMA to WH0/WH1 and sets
 ; bit $10 in the $001F HDMA enable shadow. WOBJSEL is left unchanged.
 C42542_StartWh0HdmaChannel4:
     sep #$20
-    sta.l DMA4_A1B
-    sta.l DMA4_DASB
+    sta.l DMA4_HDMA_TABLE_BANK
+    sta.l DMA4_INDIRECT_BANK
     lda.b #HDMA_MODE_INDIRECT_2REG
-    sta.l DMA4_DMAP
+    sta.l DMA4_HDMA_MODE
     lda.b #HDMA_TARGET_WH0
-    sta.l DMA4_BBAD
+    sta.l DMA4_BBUS_TARGET
     rep #$20
     txa
-    sta.l DMA4_A1T
+    sta.l DMA4_HDMA_TABLE_ADDR
     sep #$20
     lda.b #HDMA_CHANNEL4_ENABLE_BIT
     tsb.w HDMA_ENABLE_SHADOW
@@ -372,22 +372,22 @@ C4258C_ApplyDualCenteredColorSubtractHalfPreset:
 ; StartWh0HdmaChannel4AltEntry
 ;
 ; Entry:
-;   A = HDMA source bank / indirect bank.
-;   X = HDMA table source address.
+;   A = HDMA table bank, also written as the indirect data bank.
+;   X = HDMA table address.
 ; Side effects match C4:2542: programs DMA channel 4 for WH0/WH1 HDMA and
 ; sets bit $10 in the $001F HDMA enable shadow. The distinct entry name is kept
 ; until call-site ownership proves whether it is semantically separate.
 C425CC_StartWh0HdmaChannel4AltEntry:
     sep #$20
-    sta.l DMA4_A1B
-    sta.l DMA4_DASB
+    sta.l DMA4_HDMA_TABLE_BANK
+    sta.l DMA4_INDIRECT_BANK
     lda.b #HDMA_MODE_INDIRECT_2REG
-    sta.l DMA4_DMAP
+    sta.l DMA4_HDMA_MODE
     lda.b #HDMA_TARGET_WH0
-    sta.l DMA4_BBAD
+    sta.l DMA4_BBUS_TARGET
     rep #$20
     txa
-    sta.l DMA4_A1T
+    sta.l DMA4_HDMA_TABLE_ADDR
     sep #$20
     lda.b #HDMA_CHANNEL4_ENABLE_BIT
     tsb.w HDMA_ENABLE_SHADOW
@@ -410,21 +410,21 @@ C425F3_ClearWh0HdmaChannel4EnableViaTrb:
 ; StartWh2HdmaChannel5
 ;
 ; Entry:
-;   A = HDMA source bank / indirect bank.
-;   X = HDMA table source address.
+;   A = HDMA table bank, also written as the indirect data bank.
+;   X = HDMA table address.
 ; Side effects: programs DMA channel 5 for indirect HDMA to WH2/WH3 and sets
 ; bit $20 in the $001F HDMA enable shadow.
 C425FD_StartWh2HdmaChannel5:
     sep #$20
-    sta.l DMA5_A1B
-    sta.l DMA5_DASB
+    sta.l DMA5_HDMA_TABLE_BANK
+    sta.l DMA5_INDIRECT_BANK
     lda.b #HDMA_MODE_INDIRECT_2REG
-    sta.l DMA5_DMAP
+    sta.l DMA5_HDMA_MODE
     lda.b #HDMA_TARGET_WH2
-    sta.l DMA5_BBAD
+    sta.l DMA5_BBUS_TARGET
     rep #$20
     txa
-    sta.l DMA5_A1T
+    sta.l DMA5_HDMA_TABLE_ADDR
     sep #$20
     lda.b #HDMA_CHANNEL5_ENABLE_BIT
     tsb.w HDMA_ENABLE_SHADOW

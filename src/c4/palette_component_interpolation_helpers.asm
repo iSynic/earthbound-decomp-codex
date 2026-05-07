@@ -25,9 +25,11 @@ PALETTE_HIGH_CURRENT_PLANE           = $7F0C00
 PALETTE_CGRAM_SHADOW                 = $0200
 
 PALETTE_COMPONENT_UPPER_MASK         = $1F00
-FULL_CGRAM_UPLOAD_SELECTOR           = $18
-DISPLAY_UPLOAD_SELECTOR              = $0030
+DISPLAY_SELECTOR_FULL_CGRAM_UPLOAD   = $18
+DISPLAY_UPLOAD_SELECTOR_LATCH        = $0030
 PALETTE_EXPORT_BYTE_SIZE             = $0200
+PALETTE_COMPONENT_ZERO               = $0000
+DIRECT_PAGE_FRAME_BYTES              = $0002
 
 ; Direct-page locals:
 ;   $00 = partially packed SNES 15-bit color word.
@@ -39,7 +41,9 @@ PALETTE_EXPORT_BYTE_SIZE             = $0200
 ;
 ; Steps the three component delta/current plane pairs, saturates each channel
 ; to the 5-bit range, repacks the result into the low WRAM CGRAM shadow, and
-; requests a full CGRAM upload through display selector $18.
+; requests a full CGRAM upload by writing selector $18 to the display latch.
+; Side effects are confined to the 7F interpolation planes, the $0200 CGRAM
+; shadow, and the $0030 display-selector latch. C0/NMI owns the actual upload.
 UPDATE_MAP_PALETTE_ANIMATION:
 C426ED_StepPaletteComponentInterpolationToCgramShadow = UPDATE_MAP_PALETTE_ANIMATION
     rep #$20
@@ -47,10 +51,10 @@ C426ED_StepPaletteComponentInterpolationToCgramShadow = UPDATE_MAP_PALETTE_ANIMA
     pha
     tdc
     sec
-    sbc #$0002
+    sbc #DIRECT_PAGE_FRAME_BYTES
     tcd
     pla
-    ldx #$0000
+    ldx #PALETTE_COMPONENT_ZERO
 
 C426FB_StepPaletteComponentInterpolationToCgramShadow_Loop:
     lda.l PALETTE_LOW_DELTA_PLANE,X
@@ -58,7 +62,7 @@ C426FB_StepPaletteComponentInterpolationToCgramShadow_Loop:
     adc.l PALETTE_LOW_CURRENT_PLANE,X
     sta.l PALETTE_LOW_CURRENT_PLANE,X
     bpl C42713_StepPaletteComponentInterpolationToCgramShadow_LowNonnegative
-    lda #$0000
+    lda #PALETTE_COMPONENT_ZERO
     sta.l PALETTE_LOW_DELTA_PLANE,X
     bra C42725_StepPaletteComponentInterpolationToCgramShadow_LowReady
 
@@ -66,7 +70,7 @@ C42713_StepPaletteComponentInterpolationToCgramShadow_LowNonnegative:
     and #PALETTE_COMPONENT_UPPER_MASK
     cmp #PALETTE_COMPONENT_UPPER_MASK
     bne C42725_StepPaletteComponentInterpolationToCgramShadow_LowReady
-    lda #$0000
+    lda #PALETTE_COMPONENT_ZERO
     sta.l PALETTE_LOW_DELTA_PLANE,X
     lda #PALETTE_COMPONENT_UPPER_MASK
 C42725_StepPaletteComponentInterpolationToCgramShadow_LowReady:
@@ -78,7 +82,7 @@ C42725_StepPaletteComponentInterpolationToCgramShadow_LowReady:
     adc.l PALETTE_MID_CURRENT_PLANE,X
     sta.l PALETTE_MID_CURRENT_PLANE,X
     bpl C42740_StepPaletteComponentInterpolationToCgramShadow_MidNonnegative
-    lda #$0000
+    lda #PALETTE_COMPONENT_ZERO
     sta.l PALETTE_MID_DELTA_PLANE,X
     bra C42752_StepPaletteComponentInterpolationToCgramShadow_MidReady
 
@@ -86,7 +90,7 @@ C42740_StepPaletteComponentInterpolationToCgramShadow_MidNonnegative:
     and #PALETTE_COMPONENT_UPPER_MASK
     cmp #PALETTE_COMPONENT_UPPER_MASK
     bne C42752_StepPaletteComponentInterpolationToCgramShadow_MidReady
-    lda #$0000
+    lda #PALETTE_COMPONENT_ZERO
     sta.l PALETTE_MID_DELTA_PLANE,X
     lda #PALETTE_COMPONENT_UPPER_MASK
 C42752_StepPaletteComponentInterpolationToCgramShadow_MidReady:
@@ -101,7 +105,7 @@ C42752_StepPaletteComponentInterpolationToCgramShadow_MidReady:
     adc.l PALETTE_HIGH_CURRENT_PLANE,X
     sta.l PALETTE_HIGH_CURRENT_PLANE,X
     bpl C42771_StepPaletteComponentInterpolationToCgramShadow_HighNonnegative
-    lda #$0000
+    lda #PALETTE_COMPONENT_ZERO
     ; Original code clears the middle delta plane on this negative high-channel
     ; clamp. Preserve byte-equivalence until a later semantic pass proves intent.
     sta.l PALETTE_MID_DELTA_PLANE,X
@@ -111,7 +115,7 @@ C42771_StepPaletteComponentInterpolationToCgramShadow_HighNonnegative:
     and #PALETTE_COMPONENT_UPPER_MASK
     cmp #PALETTE_COMPONENT_UPPER_MASK
     bne C42783_StepPaletteComponentInterpolationToCgramShadow_HighReady
-    lda #$0000
+    lda #PALETTE_COMPONENT_ZERO
     sta.l PALETTE_HIGH_DELTA_PLANE,X
     lda #PALETTE_COMPONENT_UPPER_MASK
 C42783_StepPaletteComponentInterpolationToCgramShadow_HighReady:
@@ -127,8 +131,8 @@ C42783_StepPaletteComponentInterpolationToCgramShadow_HighReady:
 
 C42794_StepPaletteComponentInterpolationToCgramShadow_Done:
     sep #$20
-    lda.b #FULL_CGRAM_UPLOAD_SELECTOR
-    sta.w DISPLAY_UPLOAD_SELECTOR
+    lda.b #DISPLAY_SELECTOR_FULL_CGRAM_UPLOAD
+    sta.w DISPLAY_UPLOAD_SELECTOR_LATCH
     rep #$20
     pld
     rtl

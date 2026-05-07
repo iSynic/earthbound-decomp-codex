@@ -41,8 +41,8 @@ WindowMaskCurrentSlotToggleOrGfxIndexTable   = $0E5E
 IndexedWindowGfxVariantTable                 = $0E9A
 CurrentEntityMirrorYAnchorTable              = $1002
 BoxMaskStreamToggle                          = $9E3A
-DisplayTransferSelector30                    = $0030
-BgScrollShadow3b                             = $003B
+DisplaySelectorLatch30                       = $0030
+PresentationRefreshLatch3b                   = $003B
 
 WindowMaskWorkBank                           = $007F
 CurrentEntityWh0MaskBufferA                  = $0000
@@ -55,6 +55,27 @@ WhBoxMaskBufferB                             = $02FE
 IndexedWindowGfxRecordTable                  = $CC2DE1
 IndexedWindowGfxRecordTableLow               = $2DE1
 IndexedWindowGfxRecordTableBank              = $00CC
+WindowSpanRadiusRampTableLow                 = $74F6
+WindowSpanRadiusRampTableBank                = $00C4
+WhScreenXLimit                               = $0100
+WhScreenYLimit                               = $00E0
+WhScreenCoordNegativeThreshold               = $8000
+WhDescriptorMaxRunLength                     = $007F
+WhDescriptorSplitRunThreshold                = $0080
+CurrentEntityWindowSpanHalfWidth             = $0010
+CurrentEntityWindowSpanRampMaxIndex          = $000A
+BaseSlotRelativeCameraYOffset                = $0070
+BaseSlotRelativeMaskYOffset                  = $0060
+BaseSlotRelativeMaskHalfWidth                = $0010
+BaseSlotRelativeMaskScreenRight              = $00F0
+MosaicFadeRampRunCount                       = $0010
+IndexedWindowGfxDecompressBufferLow          = $0000
+IndexedWindowGfxPrimaryVramDestination       = $6000
+IndexedWindowGfxPrimaryTileBlockSize         = $0200
+IndexedWindowGfxVariantVramDestination       = $7C00
+IndexedWindowGfxVariantBlockSize             = $0700
+WindowGfxDisplaySelector18                   = $18
+PresentationRefreshSentinel                  = $FFFF
 
 
 ; ---------------------------------------------------------------------------
@@ -76,19 +97,19 @@ C47501_WriteCurrentEntityWhWindowSpan:
     sta $06
     lda $24
     sta $08
-    lda $1A42
+    lda CurrentEntitySlotIndex
     sta $02
     asl A
     tax
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sec
-    sbc $0033
+    sbc CameraScreenOriginY
     tay
     iny
     iny
     iny
     iny
-    cpy.w #$8000
+    cpy.w #WhScreenCoordNegativeThreshold
     bcc C4752C_WindowMaskAndIndexedGfxHelpers_L752C
     jmp.w C475AA_WindowMaskAndIndexedGfxHelpers_L75AA
 C4752C_WindowMaskAndIndexedGfxHelpers_L752C:
@@ -98,20 +119,20 @@ C4752C_WindowMaskAndIndexedGfxHelpers_L752C:
     sta [$06]
     rep #$20
     inc $06
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     sta $12
     sec
-    sbc.w #$0010
+    sbc.w #CurrentEntityWindowSpanHalfWidth
     sec
-    sbc $0031
+    sbc CameraScreenOriginX
     tax
     lda $12
     clc
-    adc.w #$0010
+    adc.w #CurrentEntityWindowSpanHalfWidth
     sec
-    sbc $0031
+    sbc CameraScreenOriginX
     sta $12
-    cpx.w #$0100
+    cpx.w #WhScreenXLimit
     bcs C4757B_WindowMaskAndIndexedGfxHelpers_L757B
     txa
     sep #$20
@@ -119,7 +140,7 @@ C4752C_WindowMaskAndIndexedGfxHelpers_L752C:
     rep #$20
     inc $06
     lda $12
-    cmp.w #$0100
+    cmp.w #WhScreenXLimit
     bcs C4756F_WindowMaskAndIndexedGfxHelpers_L756F
     sep #$20
     sta [$06]
@@ -134,7 +155,7 @@ C4756F_WindowMaskAndIndexedGfxHelpers_L756F:
     inc $06
     bra C475AA_WindowMaskAndIndexedGfxHelpers_L75AA
 C4757B_WindowMaskAndIndexedGfxHelpers_L757B:
-    cmp.w #$0100
+    cmp.w #WhScreenXLimit
     bcs C47596_WindowMaskAndIndexedGfxHelpers_L7596
     sep #$20
     lda.b #$00
@@ -162,30 +183,30 @@ C475AA_WindowMaskAndIndexedGfxHelpers_L75AA:
     lda $02
     asl A
     tax
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     sec
-    sbc $0031
+    sbc CameraScreenOriginX
     sta $04
     tya
     clc
     adc.w #$000B
-    cmp.w #$8000
+    cmp.w #WhScreenCoordNegativeThreshold
     bcc C475C4_WindowMaskAndIndexedGfxHelpers_L75C4
     jmp.w C4767D_WindowMaskAndIndexedGfxHelpers_L767D
 C475C4_WindowMaskAndIndexedGfxHelpers_L75C4:
-    cmp.w #$000A
+    cmp.w #CurrentEntityWindowSpanRampMaxIndex
     bcs C475CC_WindowMaskAndIndexedGfxHelpers_L75CC
     tax
     bra C475CF_WindowMaskAndIndexedGfxHelpers_L75CF
 C475CC_WindowMaskAndIndexedGfxHelpers_L75CC:
-    ldx.w #$000A
+    ldx.w #CurrentEntityWindowSpanRampMaxIndex
 C475CF_WindowMaskAndIndexedGfxHelpers_L75CF:
     stx $02
-    lda.w #$74F6
+    lda.w #WindowSpanRadiusRampTableLow
     sta $0A
-    lda.w #$00C4
+    lda.w #WindowSpanRadiusRampTableBank
     sta $0C
-    lda.w #$000A
+    lda.w #CurrentEntityWindowSpanRampMaxIndex
     sec
     sbc $02
     clc
@@ -216,14 +237,14 @@ C475F1_WindowMaskAndIndexedGfxHelpers_L75F1:
     dex
     inc $0A
     lda $0E
-    cmp.w #$0100
+    cmp.w #WhScreenXLimit
     bcs C4763F_WindowMaskAndIndexedGfxHelpers_L763F
     lda $0E
     sep #$20
     sta [$06]
     rep #$20
     inc $06
-    cpx.w #$0100
+    cpx.w #WhScreenXLimit
     bcs C47633_WindowMaskAndIndexedGfxHelpers_L7633
     txa
     sep #$20
@@ -239,7 +260,7 @@ C47633_WindowMaskAndIndexedGfxHelpers_L7633:
     inc $06
     bra C4766D_WindowMaskAndIndexedGfxHelpers_L766D
 C4763F_WindowMaskAndIndexedGfxHelpers_L763F:
-    cpx.w #$0100
+    cpx.w #WhScreenXLimit
     bcs C47659_WindowMaskAndIndexedGfxHelpers_L7659
     sep #$20
     lda.b #$00
@@ -303,24 +324,24 @@ C476A5_StageCurrentEntityWh0MaskAndStartHdma:
     tdc
     adc.w #$FFE6
     tcd
-    ldy $1A42
+    ldy CurrentEntitySlotIndex
     sty $18
     tya
     asl A
     tax
-    lda $0E5E,X
+    lda WindowMaskCurrentSlotToggleOrGfxIndexTable,X
     and.w #$0001
     beq C476C4_WindowMaskAndIndexedGfxHelpers_L76C4
-    lda.w #$0000
+    lda.w #CurrentEntityWh0MaskBufferA
     sta $16
     bra C476C9_WindowMaskAndIndexedGfxHelpers_L76C9
 C476C4_WindowMaskAndIndexedGfxHelpers_L76C4:
-    lda.w #$02FE
+    lda.w #CurrentEntityWh0MaskBufferB
     sta $16
 C476C9_WindowMaskAndIndexedGfxHelpers_L76C9:
-    lda.w #$0000
+    lda.w #IndexedWindowGfxDecompressBufferLow
     sta $06
-    lda.w #$007F
+    lda.w #WindowMaskWorkBank
     sta $08
     lda $16
     clc
@@ -341,7 +362,7 @@ C476C9_WindowMaskAndIndexedGfxHelpers_L76C9:
     tya
     asl A
     clc
-    adc.w #$0E5E
+    adc.w #WindowMaskCurrentSlotToggleOrGfxIndexTable
     tax
     lda $0000,X
     inc A
@@ -356,24 +377,24 @@ C47705_StageCurrentEntityWh2MaskAndStartHdma:
     tdc
     adc.w #$FFE6
     tcd
-    ldy $1A42
+    ldy CurrentEntitySlotIndex
     sty $18
     tya
     asl A
     tax
-    lda $0E5E,X
+    lda WindowMaskCurrentSlotToggleOrGfxIndexTable,X
     and.w #$0001
     beq C47724_WindowMaskAndIndexedGfxHelpers_L7724
-    lda.w #$05FC
+    lda.w #CurrentEntityWh2MaskBufferA
     sta $16
     bra C47729_WindowMaskAndIndexedGfxHelpers_L7729
 C47724_WindowMaskAndIndexedGfxHelpers_L7724:
-    lda.w #$08FA
+    lda.w #CurrentEntityWh2MaskBufferB
     sta $16
 C47729_WindowMaskAndIndexedGfxHelpers_L7729:
-    lda.w #$0000
+    lda.w #IndexedWindowGfxDecompressBufferLow
     sta $06
-    lda.w #$007F
+    lda.w #WindowMaskWorkBank
     sta $08
     lda $16
     clc
@@ -394,7 +415,7 @@ C47729_WindowMaskAndIndexedGfxHelpers_L7729:
     tya
     asl A
     clc
-    adc.w #$0E5E
+    adc.w #WindowMaskCurrentSlotToggleOrGfxIndexTable
     tax
     lda $0000,X
     inc A
@@ -413,9 +434,9 @@ C47765_StageMosaicFadeWh0MaskAndStartHdma:
     pla
     sty $02
     tay
-    lda.w #$0BF8
+    lda.w #MosaicFadeWh0MaskBuffer
     sta $0A
-    lda.w #$007F
+    lda.w #WindowMaskWorkBank
     sta $0C
     lda $0A
     sta $06
@@ -431,38 +452,38 @@ C47765_StageMosaicFadeWh0MaskAndStartHdma:
     sta $08
     txa
     sec
-    sbc $0033
+    sbc CameraScreenOriginY
     sta $14
-    cmp.w #$007F
+    cmp.w #WhDescriptorMaxRunLength
     bcc C477DE_WindowMaskAndIndexedGfxHelpers_L77DE
     beq C477DE_WindowMaskAndIndexedGfxHelpers_L77DE
     sep #$20
     lda.b #$7F
     sta [$0A]
     rep #$20
-    lda.w #$0BF9
+    lda.w #MosaicFadeWh0MaskBuffer+1
     sta $06
-    lda.w #$007F
+    lda.w #WindowMaskWorkBank
     sta $08
     sep #$20
     lda.b #$00
     sta [$06]
     rep #$20
-    lda.w #$0BFA
+    lda.w #MosaicFadeWh0MaskBuffer+2
     sta $06
-    lda.w #$007F
+    lda.w #WindowMaskWorkBank
     sta $08
     sep #$20
     lda.b #$FF
     sta [$06]
     rep #$20
-    lda.w #$0BFB
+    lda.w #MosaicFadeWh0MaskBuffer+3
     sta $06
-    lda.w #$007F
+    lda.w #WindowMaskWorkBank
     sta $08
     lda $14
     sec
-    sbc.w #$007F
+    sbc.w #WhDescriptorMaxRunLength
 C477DE_WindowMaskAndIndexedGfxHelpers_L77DE:
     sep #$20
     sta [$06]
@@ -480,11 +501,11 @@ C477DE_WindowMaskAndIndexedGfxHelpers_L77DE:
     inc $06
     tya
     sec
-    sbc $0031
+    sbc CameraScreenOriginX
     tay
     lda $02
     sec
-    sbc $0031
+    sbc CameraScreenOriginX
     sta $12
     ldx.w #$0000
     bra C47831_WindowMaskAndIndexedGfxHelpers_L7831
@@ -510,7 +531,7 @@ C4780D_WindowMaskAndIndexedGfxHelpers_L780D:
     sta $12
     inx
 C47831_WindowMaskAndIndexedGfxHelpers_L7831:
-    cpx.w #$0010
+    cpx.w #MosaicFadeRampRunCount
     bcc C4780D_WindowMaskAndIndexedGfxHelpers_L780D
     sep #$20
     lda.b #$01
@@ -577,7 +598,7 @@ C4789A_WindowMaskAndIndexedGfxHelpers_L789A:
     pld
     rts
 ; Appends one WH window run descriptor to the long pointer in $1F/$21, splitting
-; runs at the $7F descriptor length boundary.
+; runs at the HDMA descriptor length boundary.
 C4789E_AppendWhWindowRunDescriptor:
     rep #$31
     phd
@@ -596,7 +617,7 @@ C4789E_AppendWhWindowRunDescriptor:
     sta $08
     cpx.w #$0000
     beq C47926_WindowMaskAndIndexedGfxHelpers_L7926
-    cpx.w #$0080
+    cpx.w #WhDescriptorSplitRunThreshold
     bcs C478DE_WindowMaskAndIndexedGfxHelpers_L78DE
     txa
     sep #$20
@@ -616,7 +637,7 @@ C4789E_AppendWhWindowRunDescriptor:
     bra C47926_WindowMaskAndIndexedGfxHelpers_L7926
 C478DE_WindowMaskAndIndexedGfxHelpers_L78DE:
     sep #$20
-    lda.b #$7F
+    lda.b #WhDescriptorMaxRunLength
     sta [$06]
     rep #$20
     inc $06
@@ -638,7 +659,7 @@ C478DE_WindowMaskAndIndexedGfxHelpers_L78DE:
     txa
     sep #$20
     sec
-    sbc.b #$7F
+    sbc.b #WhDescriptorMaxRunLength
     sta [$06]
     rep #$20
     inc $06
@@ -660,7 +681,7 @@ C47926_WindowMaskAndIndexedGfxHelpers_L7926:
     pld
     rts
 ; Stages a rectangular WH0 mask stream in alternating 7F buffers, starts
-; channel-4 HDMA through C4:245D, and increments the $9E3A box-mask toggle.
+; channel-4 HDMA through C4:245D, and increments the box-mask toggle.
 C47930_StageWh0BoxMaskAndStartHdma:
     rep #$31
     phd
@@ -674,19 +695,19 @@ C47930_StageWh0BoxMaskAndStartHdma:
     sta $04
     ldx $2C
     stx $02
-    lda $9E3A
+    lda BoxMaskStreamToggle
     and.w #$0001
     beq C47952_WindowMaskAndIndexedGfxHelpers_L7952
-    lda.w #$0000
+    lda.w #WhBoxMaskBufferA
     sta $1A
     bra C47957_WindowMaskAndIndexedGfxHelpers_L7957
 C47952_WindowMaskAndIndexedGfxHelpers_L7952:
-    lda.w #$02FE
+    lda.w #WhBoxMaskBufferB
     sta $1A
 C47957_WindowMaskAndIndexedGfxHelpers_L7957:
-    lda.w #$0000
+    lda.w #IndexedWindowGfxDecompressBufferLow
     sta $06
-    lda.w #$007F
+    lda.w #WindowMaskWorkBank
     sta $08
     lda $1A
     clc
@@ -695,19 +716,19 @@ C47957_WindowMaskAndIndexedGfxHelpers_L7957:
     sta $12
     lda $08
     sta $14
-    ldx.w #$00E0
+    ldx.w #WhScreenYLimit
     tya
     jsr.w C47866_ClampCoordToUnsignedLimit
     sta $18
-    ldx.w #$00E0
+    ldx.w #WhScreenYLimit
     lda $02
     jsr.w C47866_ClampCoordToUnsignedLimit
     sta $16
-    ldx.w #$0100
+    ldx.w #WhScreenXLimit
     lda $04
     jsr.w C47866_ClampCoordToUnsignedLimit
     sta $04
-    ldx.w #$0100
+    ldx.w #WhScreenXLimit
     lda $1C
     jsr.w C47866_ClampCoordToUnsignedLimit
     sta $02
@@ -715,8 +736,8 @@ C47957_WindowMaskAndIndexedGfxHelpers_L7957:
     sta $0E
     lda $08
     sta $10
-    ldy.w #$007F
-    ldx.w #$0080
+    ldy.w #WhDescriptorMaxRunLength
+    ldx.w #WhDescriptorSplitRunThreshold
     lda $18
     jsr.w C4789E_AppendWhWindowRunDescriptor
     lda $06
@@ -733,9 +754,9 @@ C47957_WindowMaskAndIndexedGfxHelpers_L7957:
     sta $0E
     lda $08
     sta $10
-    ldy.w #$007F
-    ldx.w #$0080
-    lda.w #$00E0
+    ldy.w #WhDescriptorMaxRunLength
+    ldx.w #WhDescriptorSplitRunThreshold
+    lda.w #WhScreenYLimit
     sec
     sbc $16
     dec A
@@ -747,7 +768,7 @@ C47957_WindowMaskAndIndexedGfxHelpers_L7957:
     rep #$20
     lda $14
     jsl C4245D_StartWh0HdmaFromDpStream
-    inc $9E3A
+    inc BoxMaskStreamToggle
     pld
     rtl
 ; Derives a centered rectangle from the current entity's screen-relative
@@ -758,18 +779,18 @@ C479E9_StageCurrentEntityCenteredWh0BoxMask:
     tdc
     adc.w #$FFEC
     tcd
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     sec
-    sbc $0031
+    sbc CameraScreenOriginX
     sta $04
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sec
-    sbc $0033
+    sbc CameraScreenOriginY
     sta $12
-    lda $0E5E,X
+    lda WindowMaskCurrentSlotToggleOrGfxIndexTable,X
     sta $02
     lda $12
     clc
@@ -794,53 +815,53 @@ C47A27_StageBaseSlotRelativeWh0BoxMask:
     tdc
     adc.w #$FFEC
     tcd
-    ldx $9889
+    ldx BaseEntitySlotIndex
     stx $12
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sec
-    sbc.w #$0070
-    sta $0033
+    sbc.w #BaseSlotRelativeCameraYOffset
+    sta CameraScreenOriginY
     sta $02
     ldx $12
     txa
     asl A
     tax
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sec
     sbc $02
     sta $10
     clc
-    adc.w #$0060
+    adc.w #BaseSlotRelativeMaskYOffset
     sta $0E
-    ldy.w #$00F0
+    ldy.w #BaseSlotRelativeMaskScreenRight
     lda $10
     sec
-    sbc.w #$0060
+    sbc.w #BaseSlotRelativeMaskYOffset
     tax
-    lda.w #$0010
+    lda.w #BaseSlotRelativeMaskHalfWidth
     jsl C47930_StageWh0BoxMaskAndStartHdma
     pld
     rtl
-; Mirrors current-slot live Y around the slot-local $1002 anchor/target word.
+; Mirrors current-slot live Y around the slot-local anchor/target word.
 C47A6B_MirrorCurrentEntityYAroundTarget1002:
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     sta $10
     clc
-    adc.w #$0BCA
+    adc.w #LiveEntityWorldYTable
     tax
     stx $0E
     lda $10
     tax
-    lda $1002,X
+    lda CurrentEntityMirrorYAnchorTable,X
     sta $10
     sta $04
     ldx $0E
@@ -854,23 +875,24 @@ C47A6B_MirrorCurrentEntityYAroundTarget1002:
     sta $0000,X
     pld
     rtl
-; Uses $0E5E[current] as an index into the CC:2DE1 graphics record family,
-; decompresses through C4:1A9E, queues the VRAM upload, sets $0030 = $18, and
-; marks $003B with $FFFF.
+; Uses the current-slot graphics index against the CC:2DE1 record family,
+; decompresses through C4:1A9E, queues the VRAM upload, sets the transfer
+; selector latch, and marks the presentation refresh sentinel. C4 only writes
+; the selector/sentinel values; C0/NMI owns the upload/refresh interpretation.
 C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     rep #$31
     phd
     tdc
     adc.w #$FFE4
     tcd
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0E5E,X
+    lda WindowMaskCurrentSlotToggleOrGfxIndexTable,X
     sta $1A
-    lda.w #$2DE1
+    lda.w #IndexedWindowGfxRecordTableLow
     sta $06
-    lda.w #$00CC
+    lda.w #IndexedWindowGfxRecordTableBank
     sta $08
     lda $06
     sta $16
@@ -881,9 +903,9 @@ C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     asl A
     asl A
     sta $1A
-    lda.w #$0000
+    lda.w #IndexedWindowGfxDecompressBufferLow
     sta $0A
-    lda.w #$007F
+    lda.w #WindowMaskWorkBank
     sta $0C
     lda $1A
     clc
@@ -931,7 +953,7 @@ C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     sta $0E
     lda $08
     sta $10
-    ldy.w #$6000
+    ldy.w #IndexedWindowGfxPrimaryVramDestination
     lda $16
     sta $06
     lda $18
@@ -956,18 +978,18 @@ C47A9E_LoadCurrentEntityIndexedWindowGfxToVram:
     lda $08
     sta $10
     ldx.w #$0008
-    lda.w #$0200
+    lda.w #IndexedWindowGfxPrimaryTileBlockSize
     jsl C08ED2_QueueOrTransferDynamicTileBlock
     sep #$20
-    lda.b #$18
-    sta $0030
+    lda.b #WindowGfxDisplaySelector18
+    sta DisplaySelectorLatch30
     rep #$20
-    lda.w #$FFFF
-    sta $003B
+    lda.w #PresentationRefreshSentinel
+    sta PresentationRefreshLatch3b
     pld
     rtl
-; Uses $0E5E[current] and $0E9A[current] against the CC:2DE1 graphics record
-; family, queues a $0700-byte block to $7C00, and returns the selected metadata
+; Uses the current-slot graphics index and variant against the CC:2DE1 record
+; family, queues a graphics block to VRAM, and returns the selected metadata
 ; byte from record offsets +6/+7.
 C47B77_LoadIndexedWindowGfxAndReadVariantByte:
     rep #$31
@@ -975,18 +997,18 @@ C47B77_LoadIndexedWindowGfxAndReadVariantByte:
     tdc
     adc.w #$FFE8
     tcd
-    lda.w #$FFFF
-    sta $003B
-    lda $1A42
+    lda.w #PresentationRefreshSentinel
+    sta PresentationRefreshLatch3b
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0E5E,X
+    lda WindowMaskCurrentSlotToggleOrGfxIndexTable,X
     sta $16
-    lda $0E9A,X
+    lda IndexedWindowGfxVariantTable,X
     sta $04
-    lda.w #$2DE1
+    lda.w #IndexedWindowGfxRecordTableLow
     sta $06
-    lda.w #$00CC
+    lda.w #IndexedWindowGfxRecordTableBank
     sta $08
     lda $06
     sta $12
@@ -997,7 +1019,7 @@ C47B77_LoadIndexedWindowGfxAndReadVariantByte:
     asl A
     asl A
     sta $02
-    ldy.w #$0700
+    ldy.w #IndexedWindowGfxVariantBlockSize
     lda $04
     jsl C09032_DivideUnsignedWordByIndex
     sta $0A
@@ -1025,14 +1047,14 @@ C47B77_LoadIndexedWindowGfxAndReadVariantByte:
     adc.w #$0008
     sta $06
     lda $08
-    adc.w #$007F
+    adc.w #WindowMaskWorkBank
     sta $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldy.w #$7C00
-    ldx.w #$0700
+    ldy.w #IndexedWindowGfxVariantVramDestination
+    ldx.w #IndexedWindowGfxVariantBlockSize
     sep #$20
     lda.b #$00
     jsl C08616_QueueVramTransferFromDpSource

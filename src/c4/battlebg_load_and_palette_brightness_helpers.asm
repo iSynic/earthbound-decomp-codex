@@ -43,10 +43,15 @@ PaletteBrightnessWorkRows                  = $0240
 PaletteRowByteSize                         = $0020
 PaletteRowColorCount                       = $0010
 PaletteComponent5BitMax                    = $001F
-FullCgramUploadSelector                    = $18
-DisplayTransferSelector30                  = $0030
+PaletteComponentSignedNegativeBoundary     = $8000
+PaletteComponentLowByteMask                = $00FF
+PaletteComponentHighByteMask               = $FF00
+FullCgramUploadSelector18                  = $18
+DisplaySelectorLatch30                     = $0030
 FixedColorMathAddMode33                    = $0033
 FixedColorMathSubModeB3                    = $00B3
+SignedWordInvertMask                       = $FFFF
+ZeroWord                                   = $0000
 
 ; Sets up the movement-script battle-background presentation surface: blanks
 ; through the C0 transition helper, queues BG mode/base values, loads the C2
@@ -63,17 +68,17 @@ C47370_LoadBattleBgPresentationForMovementScript = LOAD_BACKGROUND_ANIMATION
     stx $02
     sta $04
     jsl C08726_BlankWaitAndDisableHdma
-    lda.w #$0009
+    lda.w #MovementBattleBgModeValue
     jsl C08D79_UpdateBgModeRegisterFromQueue
-    ldy.w #$0000
-    ldx.w #$5800
+    ldy.w #ZeroWord
+    ldx.w #MovementBattleBg1ScreenBase
     tya
     jsl C08D9E_UpdateBg1ScreenBaseRegistersFromQueue
-    ldy.w #$1000
-    ldx.w #$5C00
-    lda.w #$0000
+    ldy.w #MovementBattleBg2TileBase
+    ldx.w #MovementBattleBg2ScreenBase
+    lda.w #ZeroWord
     jsl C08DDE_UpdateBg2ScreenBaseRegistersFromQueue
-    ldy.w #$0004
+    ldy.w #MovementSpriteResourceArgY
     ldx $02
     lda $04
     jsl C2D121_LoadPresentationSpriteResource
@@ -83,23 +88,23 @@ C47370_LoadBattleBgPresentationForMovementScript = LOAD_BACKGROUND_ANIMATION
 ; Clamps a signed-adjusted SNES RGB555 component into the valid 0..31 range.
 C473B2_ClampSignedPaletteComponentTo5Bit:
     rep #$31
-    cmp.w #$8000
+    cmp.w #PaletteComponentSignedNegativeBoundary
     bcc C473C0_BattleBgLoadAndPaletteBrightnessHelpers_L73C0
     beq C473C0_BattleBgLoadAndPaletteBrightnessHelpers_L73C0
-    lda.w #$0000
+    lda.w #ZeroWord
     bra C473CF_BattleBgLoadAndPaletteBrightnessHelpers_L73CF
 C473C0_BattleBgLoadAndPaletteBrightnessHelpers_L73C0:
-    cmp.w #$001F
+    cmp.w #PaletteComponent5BitMax
     bcc C473CC_BattleBgLoadAndPaletteBrightnessHelpers_L73CC
     beq C473CC_BattleBgLoadAndPaletteBrightnessHelpers_L73CC
-    lda.w #$001F
+    lda.w #PaletteComponent5BitMax
     bra C473CF_BattleBgLoadAndPaletteBrightnessHelpers_L73CF
 C473CC_BattleBgLoadAndPaletteBrightnessHelpers_L73CC:
-    and.w #$001F
+    and.w #PaletteComponent5BitMax
 C473CF_BattleBgLoadAndPaletteBrightnessHelpers_L73CF:
     rts
-; Applies caller X as a signed brightness offset to one 16-color palette row,
-; reading from $4476 + row*0x20 and writing adjusted RGB555 words to $0240.
+; Applies caller X as a signed brightness offset to one palette row, reading
+; from the saved CGRAM shadow rows and writing adjusted RGB555 words to $0240.
 C473D0_ApplySignedBrightnessOffsetToPaletteRow:
     rep #$31
     phd
@@ -116,19 +121,19 @@ C473D0_ApplySignedBrightnessOffsetToPaletteRow:
     asl A
     sta $18
     clc
-    adc.w #$4476
+    adc.w #SavedCgramShadowPaletteRows
     sta $16
     lda $18
     clc
-    adc.w #$0240
+    adc.w #PaletteBrightnessWorkRows
     sta $18
-    lda.w #$0000
+    lda.w #ZeroWord
     sta $04
     bra C47462_BattleBgLoadAndPaletteBrightnessHelpers_L7462
 C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8:
     lda ($16)
     tay
-    and.w #$001F
+    and.w #PaletteComponent5BitMax
     clc
     adc $1A
     sta $14
@@ -138,17 +143,17 @@ C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8:
     lsr A
     lsr A
     lsr A
-    and.w #$001F
+    and.w #PaletteComponent5BitMax
     clc
     adc $1A
     tax
     stx $12
     tya
     xba
-    and.w #$00FF
+    and.w #PaletteComponentLowByteMask
     lsr A
     lsr A
-    and.w #$001F
+    and.w #PaletteComponent5BitMax
     clc
     adc $1A
     tay
@@ -178,7 +183,7 @@ C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8:
     sta $02
     lda $10
     xba
-    and.w #$FF00
+    and.w #PaletteComponentHighByteMask
     asl A
     asl A
     ora $02
@@ -191,12 +196,12 @@ C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8:
     inc $04
 C47462_BattleBgLoadAndPaletteBrightnessHelpers_L7462:
     lda $04
-    cmp.w #$0010
+    cmp.w #PaletteRowColorCount
     bcc C473F8_BattleBgLoadAndPaletteBrightnessHelpers_L73F8
     pld
     rts
-; Applies the signed offset in A to all 16 palette rows and marks $0030 with
-; selector #$18 for the full CGRAM/palette upload path.
+; Applies the signed offset in A to all palette rows and writes selector #$18
+; into the $0030 display-selector latch. C0/NMI owns the actual CGRAM upload.
 C4746B_ApplySignedBrightnessOffsetToPaletteRowsAndUpload:
     rep #$31
     phd
@@ -206,7 +211,7 @@ C4746B_ApplySignedBrightnessOffsetToPaletteRowsAndUpload:
     tcd
     pla
     sta $02
-    ldy.w #$0000
+    ldy.w #ZeroWord
     sty $0E
     bra C47489_BattleBgLoadAndPaletteBrightnessHelpers_L7489
 C4747E_BattleBgLoadAndPaletteBrightnessHelpers_L747E:
@@ -217,11 +222,11 @@ C4747E_BattleBgLoadAndPaletteBrightnessHelpers_L747E:
     iny
     sty $0E
 C47489_BattleBgLoadAndPaletteBrightnessHelpers_L7489:
-    cpy.w #$0010
+    cpy.w #PaletteRowColorCount
     bcc C4747E_BattleBgLoadAndPaletteBrightnessHelpers_L747E
     sep #$20
-    lda.b #$18
-    sta $0030
+    lda.b #FullCgramUploadSelector18
+    sta DisplaySelectorLatch30
     rep #$20
     pld
     rtl
@@ -229,10 +234,10 @@ C47489_BattleBgLoadAndPaletteBrightnessHelpers_L7489:
 ; $0E5E[current] is a signed component offset, not a general visual state name.
 C47499_ApplyCurrentSlot0e5eBrightnessToPaletteRows:
     rep #$31
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0E5E,X
+    lda CurrentSlotBrightnessOrColorMathTable,X
     jsl C4746B_ApplySignedBrightnessOffsetToPaletteRowsAndUpload
     rtl
 ; Current-slot wrapper for fixed-color math. Converts signed $0E5E[current] to
@@ -243,13 +248,13 @@ C474A8_ApplyCurrentSlot0e5eFixedColorMath:
     tdc
     adc.w #$FFF0
     tcd
-    lda $1A42
+    lda CurrentEntitySlotIndex
     asl A
     tax
-    lda $0E5E,X
+    lda CurrentSlotBrightnessOrColorMathTable,X
     sta $0E
     sta $02
-    lda.w #$0000
+    lda.w #ZeroWord
     clc
     sbc $02
     bvs C474C8_BattleBgLoadAndPaletteBrightnessHelpers_L74C8
@@ -263,13 +268,13 @@ C474CA_BattleBgLoadAndPaletteBrightnessHelpers_L74CA:
     bra C474D6_BattleBgLoadAndPaletteBrightnessHelpers_L74D6
 C474CF_BattleBgLoadAndPaletteBrightnessHelpers_L74CF:
     lda $0E
-    eor.w #$FFFF
+    eor.w #SignedWordInvertMask
     inc A
     tax
 C474D6_BattleBgLoadAndPaletteBrightnessHelpers_L74D6:
     lda $0E
     sta $02
-    lda.w #$0000
+    lda.w #ZeroWord
     clc
     sbc $02
     bvs C474E6_BattleBgLoadAndPaletteBrightnessHelpers_L74E6
@@ -278,10 +283,10 @@ C474D6_BattleBgLoadAndPaletteBrightnessHelpers_L74D6:
 C474E6_BattleBgLoadAndPaletteBrightnessHelpers_L74E6:
     bmi C474ED_BattleBgLoadAndPaletteBrightnessHelpers_L74ED
 C474E8_BattleBgLoadAndPaletteBrightnessHelpers_L74E8:
-    lda.w #$0033
+    lda.w #FixedColorMathAddMode33
     bra C474F0_BattleBgLoadAndPaletteBrightnessHelpers_L74F0
 C474ED_BattleBgLoadAndPaletteBrightnessHelpers_L74ED:
-    lda.w #$00B3
+    lda.w #FixedColorMathSubModeB3
 C474F0_BattleBgLoadAndPaletteBrightnessHelpers_L74F0:
     jsl C4249A_ApplyFixedColorMathFromMagnitude
     pld

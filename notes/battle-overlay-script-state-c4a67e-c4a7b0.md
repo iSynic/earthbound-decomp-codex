@@ -61,6 +61,13 @@ The stepper source now also marks the active long-script path, the null-pointer
 table-driven frame path, the special-mode ladder, and the cleanup handoff as
 separate C4-owned phases.
 
+2026-05-06 transition-record constants follow-up: the same four payload rows
+now use named constants for the open/close delay words, initial X/Y seeds,
+open-size zero seeds, closing `$8000` size sentinels, signed width/height
+deltas, delta-step words, and zero terminator rows. This keeps the C4 table
+contract readable without naming the caller-side mode selector beyond the
+already-proven open/close mode split.
+
 ## Initializer
 
 `C4:A67E` initializes the active overlay state.
@@ -116,6 +123,12 @@ calls.
 ownership boundary explicitly: C2/C3 pass mode and flag words, but C4 owns the
 `$AEC2..$AEE6` state layout, the optional local `C4:A5CE` default opening
 script pointer, and the handoff to the C0 renderer primer.
+
+2026-05-06 stepper side-effect follow-up: the per-frame source now marks the
+size-delta accumulation phase, the width/height zero-crossing clamps, the
+zero-size long-script completion path, the `animation parity + 3` frame-tile
+selector passed to C0, reverse frame-table walking, and the special-mode
+`CE:DD41` reseed before rejoining the table-driven frame path.
 
 ## Working Names
 

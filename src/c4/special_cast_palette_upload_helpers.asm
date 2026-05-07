@@ -12,12 +12,22 @@
 ; External contracts used by this module
 
 QueueOrTransferDynamicTileBlock = $C08ED2
+DisplayTransferSelector30       = $0030
+
+; Cast-scene palette rows are staged in `$7F:7000 + index*$20`; C4 supplies
+; only the source, size, destination, and display selector for the renderer.
+SpecialCastPaletteSourceBaseLow      = $7000
+SpecialCastPaletteSourceBank         = $007F
+SpecialCastPaletteRowBytes           = $0020
+SpecialCastPaletteDestinationOffset  = $0380
+SpecialCastPaletteDisplaySelector    = $10
 
 ; ---------------------------------------------------------------------------
 ; C4:EC6E
 
 UPLOAD_SPECIAL_CAST_PALETTE:
 C4EC6E_UploadSpecialCastPalette = UPLOAD_SPECIAL_CAST_PALETTE
+    ; A selects a 0x20-byte palette row in the local cast-scene palette block.
     rep #$31
     phd
     pha
@@ -34,21 +44,21 @@ C4EC6E_UploadSpecialCastPalette = UPLOAD_SPECIAL_CAST_PALETTE
     stz $08
     clc
     lda $06
-    adc.w #$7000
+    adc.w #SpecialCastPaletteSourceBaseLow
     sta $06
     lda $08
-    adc.w #$007F
+    adc.w #SpecialCastPaletteSourceBank
     sta $08
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0020
-    lda.w #$0380
+    ldx.w #SpecialCastPaletteRowBytes
+    lda.w #SpecialCastPaletteDestinationOffset
     jsl QueueOrTransferDynamicTileBlock
     sep #$20
-    lda.b #$10
-    sta $0030
+    lda.b #SpecialCastPaletteDisplaySelector
+    sta DisplayTransferSelector30
     rep #$20
     pld
     rtl

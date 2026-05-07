@@ -90,6 +90,15 @@ The callers sit in event/text-control paths that resolve a visual slot/profile t
 
 These three routines are maintenance helpers over the records created by `C4:C91A`; they do not allocate or destroy records themselves.
 
+2026-05-06 source contract follow-up: the constructor/latch source now carries
+local names for `$B4A4/$B4A6/$B4A8/$B4AA/$B4AC`, the default `7F:7C00` record
+table, the `0x14` record stride, fields `+00..+12`, request modes `2..0A`,
+state selectors `1..4`, the `$FFFF` unset-handle sentinel, the `$116A/$4000`
+visual-profile flag, the four `$0E5E/$0E9A/$0ED6/$0F12` latch lanes, `$0F4E`
+latch sum, and the state-1 `$10F2` profile latch. C4 still only records its
+local writes and caller joins; `C0:92F5`, `C0:8F15`, and `C0:A48F` remain
+external allocation/clear/refresh callees.
+
 ## Working Names
 
 - `C4:C8A4` = `InitVisualRecordTable7f7c00`

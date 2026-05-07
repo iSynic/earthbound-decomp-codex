@@ -33,6 +33,7 @@ C4ECE7_IsEntityStillOnCastScreen = IS_ENTITY_STILL_ON_CAST_SCREEN
     lda.w #False
     sta $0E
     lda CurrentEntitySlot
+    ; Slot tables are word-indexed in this cast-scene family.
     asl A
     tax
     lda Bg3VerticalScrollShadow

@@ -116,3 +116,10 @@ The best next move is to tighten the registry family around `C4:608C` and the as
 ## Follow-up
 
 The adjacent wrapper cluster is now mapped in [entity-visual-flag-and-current-slot-wrappers-c46534-c469f1.md](notes/entity-visual-flag-and-current-slot-wrappers-c46534-c469f1.md). It confirms that the same three resolver styles also drive high-bit visual flag setters/clearers, movement-script queueing, and current-slot facing updates.
+
+2026-05-06 source polish: the frame-selector source now uses local names for
+the `$2AF6` frame-selector table, the `$2C9A/$2CD6` resolver keys, compact
+registry scan tables, missing-slot sentinel, registry broadcast cutoff, and
+the distinct C0 refresh entry points. The source comments keep C4's ownership
+to "select slot, compare/update frame selector, request refresh" rather than
+describing C0's redraw internals.

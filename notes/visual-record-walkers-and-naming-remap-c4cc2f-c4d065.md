@@ -77,6 +77,14 @@ Like the state-2 walker, it returns matching state-3 records minus records whose
 
 This is best treated as a random/unclaimed tile-mask stepper over state-4 visual records, not as a generic random-number helper.
 
+2026-05-06 walker source contract follow-up: the walker source now names the
+shared `$B4AA/$B4AC` table pointer, `$B4A6` record count, `0x14` stride, fields
+`+00/+04/+06/+08/+0A/+0C/+10/+12`, state filters `2/3/4`, completion counter
+limit `2`, and the `$7F:7F00` 64-word occupancy bitmap used by the state-4
+random tile-mask pass. The comments keep the C4-owned cursor/occupancy math
+separate from the C4:28xx merge helpers and C4:29AE render-strip generator,
+which remain callee-owned.
+
 ## Naming remap pair
 
 `C4:D065` has one direct local caller, `C1:EBBF`, in the naming commit path:

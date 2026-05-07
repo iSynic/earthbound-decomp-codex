@@ -18,11 +18,46 @@ C0A48F_RefreshVisualProfileForSlot            = $C0A48F
 C0A780_RefreshRegistryVisualProfileForSlot    = $C0A780
 C41EFF_CalculateAngleBetweenPoints            = $C41EFF
 C46028_FindEntitySlotByCachedPoseDescriptorId = $C46028
+MissingEntitySlot                             = $FFFF
+EntitySlotScanCount                           = $001E
+RegistryAllCode                               = $00FF
+RegistryLookupCount                           = $0006
+PlayerSlotIndex                               = $9889
+RegistryTypeCodeList                          = $988B
+RegistrySlotList                              = $9897
+RegistryActiveCount                           = $98A3
+LiveEntityWorldXTable                         = $0B8E
+LiveEntityWorldYTable                         = $0BCA
+LiveEntityFrameSelectorTable                  = $2AF6
+LiveEntityVisualTypeTable                     = $2C9A
+LiveEntityPoseDescriptorTable                 = $2CD6
+NewEntityStagedX                              = $9E2D
+NewEntityStagedY                              = $9E2F
+NewEntityStagedFacing                         = $9E31
+FixedEntityScriptDefaultLow                   = $A209
+FixedEntityScriptSpecialLow                   = $A204
+FixedEntityScriptBank                         = $00C3
+FixedEntityScriptSpecialSelector              = $0006
+ScriptDispatchRecordTableLo                   = $00D4
+ScriptDispatchRecordTableBank                 = $00C4
+ScriptDispatchRecordStride                    = $0003
+ScriptDispatchRecordYArgOffset                = $0002
+SelectorModeRegistry                          = $0000
+SelectorModeVisualType                        = $0001
+SelectorModePoseDescriptor                    = $0002
+AngleOctantUnit                               = $2000
+AngleOctantBias                               = $1000
+RegistryBroadcastTypeCutoff                   = $0010
+EntityFlag8000Table                           = $116A
+EntityFlagSet8000Mask                         = $8000
+PhotographerTempLatch                         = $5D58
 
 ; ---------------------------------------------------------------------------
 ; C4:6028
 
 C46028_FindEntitySlotByCachedPoseDescriptorId:
+    ; Scan the live entity slots for a cached pose-descriptor id match in
+    ; $2CD6. Returns the slot index or $FFFF.
     rep #$31
     phd
     pha
@@ -41,7 +76,7 @@ C4603C_EntitySlotResolverFrameSelectorHelpers_L603C:
     ldx $10
     txa
     plx
-    cmp $2CD6,X
+    cmp LiveEntityPoseDescriptorTable,X
     bne C4604B_EntitySlotResolverFrameSelectorHelpers_L604B
     lda $0E
     bra C46058_EntitySlotResolverFrameSelectorHelpers_L6058
@@ -50,13 +85,15 @@ C4604B_EntitySlotResolverFrameSelectorHelpers_L604B:
     inc A
     sta $0E
 C46050_EntitySlotResolverFrameSelectorHelpers_L6050:
-    cmp.w #$001E
+    cmp.w #EntitySlotScanCount
     bcc C4603C_EntitySlotResolverFrameSelectorHelpers_L603C
-    lda.w #$FFFF
+    lda.w #MissingEntitySlot
 C46058_EntitySlotResolverFrameSelectorHelpers_L6058:
     pld
     rtl
 C4605A_FindEntitySlotByVisualTypeId:
+    ; Sibling scan keyed by the caller-assigned visual-type/effect id in
+    ; $2C9A. Returns the slot index or $FFFF.
     rep #$31
     phd
     pha
@@ -75,7 +112,7 @@ C4606E_EntitySlotResolverFrameSelectorHelpers_L606E:
     ldx $10
     txa
     plx
-    cmp $2C9A,X
+    cmp LiveEntityVisualTypeTable,X
     bne C4607D_EntitySlotResolverFrameSelectorHelpers_L607D
     lda $0E
     bra C4608A_EntitySlotResolverFrameSelectorHelpers_L608A
@@ -84,13 +121,15 @@ C4607D_EntitySlotResolverFrameSelectorHelpers_L607D:
     inc A
     sta $0E
 C46082_EntitySlotResolverFrameSelectorHelpers_L6082:
-    cmp.w #$001E
+    cmp.w #EntitySlotScanCount
     bcc C4606E_EntitySlotResolverFrameSelectorHelpers_L606E
-    lda.w #$FFFF
+    lda.w #MissingEntitySlot
 C4608A_EntitySlotResolverFrameSelectorHelpers_L608A:
     pld
     rtl
 C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode:
+    ; Resolve an 8-bit overworld registry type code through the compact
+    ; $988B/$9897 list. $00FF selects the player/current lead slot directly.
     rep #$31
     phd
     pha
@@ -102,9 +141,9 @@ C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode:
     sta $0E
     rep #$20
     and.w #$00FF
-    cmp.w #$00FF
+    cmp.w #RegistryAllCode
     bne C460A9_EntitySlotResolverFrameSelectorHelpers_L60A9
-    lda $9889
+    lda PlayerSlotIndex
     bra C460CC_EntitySlotResolverFrameSelectorHelpers_L60CC
 C460A9_EntitySlotResolverFrameSelectorHelpers_L60A9:
     ldx.w #$0000
@@ -112,25 +151,27 @@ C460A9_EntitySlotResolverFrameSelectorHelpers_L60A9:
 C460AE_EntitySlotResolverFrameSelectorHelpers_L60AE:
     sep #$20
     lda $0E
-    cmp $988B,X
+    cmp RegistryTypeCodeList,X
     bne C460C1_EntitySlotResolverFrameSelectorHelpers_L60C1
     rep #$20
     txa
     asl A
     tax
-    lda $9897,X
+    lda RegistrySlotList,X
     bra C460CC_EntitySlotResolverFrameSelectorHelpers_L60CC
 C460C1_EntitySlotResolverFrameSelectorHelpers_L60C1:
     inx
 C460C2_EntitySlotResolverFrameSelectorHelpers_L60C2:
-    cpx.w #$0006
+    cpx.w #RegistryLookupCount
     bcc C460AE_EntitySlotResolverFrameSelectorHelpers_L60AE
     rep #$20
-    lda.w #$FFFF
+    lda.w #MissingEntitySlot
 C460CC_EntitySlotResolverFrameSelectorHelpers_L60CC:
     pld
     rtl
 C460CE_RunVisualTypeEntityScriptWithCachedPose:
+    ; Resolve by visual-type id, cache the resolved slot's world/facing state
+    ; into the staged new-entity words, then dispatch one fixed C3 script.
     rep #$31
     phd
     pha
@@ -143,28 +184,28 @@ C460CE_RunVisualTypeEntityScriptWithCachedPose:
     tax
     jsl C4605A_FindEntitySlotByVisualTypeId
     sta $12
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C46123_EntitySlotResolverFrameSelectorHelpers_L6123
     asl A
     tax
-    lda $0B8E,X
-    sta $9E2D
-    lda $0BCA,X
-    sta $9E2F
-    lda $2AF6,X
-    sta $9E31
+    lda LiveEntityWorldXTable,X
+    sta NewEntityStagedX
+    lda LiveEntityWorldYTable,X
+    sta NewEntityStagedY
+    lda LiveEntityFrameSelectorTable,X
+    sta NewEntityStagedFacing
     ldy $14
-    cpy.w #$0006
+    cpy.w #FixedEntityScriptSpecialSelector
     beq C4610E_EntitySlotResolverFrameSelectorHelpers_L610E
-    lda.w #$A209
+    lda.w #FixedEntityScriptDefaultLow
     sta $0E
-    lda.w #$00C3
+    lda.w #FixedEntityScriptBank
     sta $10
     bra C46118_EntitySlotResolverFrameSelectorHelpers_L6118
 C4610E_EntitySlotResolverFrameSelectorHelpers_L610E:
-    lda.w #$A204
+    lda.w #FixedEntityScriptSpecialLow
     sta $0E
-    lda.w #$00C3
+    lda.w #FixedEntityScriptBank
     sta $10
 C46118_EntitySlotResolverFrameSelectorHelpers_L6118:
     ldy $10
@@ -176,6 +217,7 @@ C46123_EntitySlotResolverFrameSelectorHelpers_L6123:
     pld
     rtl
 C46125_RunPoseDescriptorEntityScriptWithCachedPose:
+    ; Pose-descriptor keyed sibling of C460CE.
     rep #$31
     phd
     pha
@@ -188,28 +230,28 @@ C46125_RunPoseDescriptorEntityScriptWithCachedPose:
     tax
     jsl C46028_FindEntitySlotByCachedPoseDescriptorId
     sta $12
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C4617A_EntitySlotResolverFrameSelectorHelpers_L617A
     asl A
     tax
-    lda $0B8E,X
-    sta $9E2D
-    lda $0BCA,X
-    sta $9E2F
-    lda $2AF6,X
-    sta $9E31
+    lda LiveEntityWorldXTable,X
+    sta NewEntityStagedX
+    lda LiveEntityWorldYTable,X
+    sta NewEntityStagedY
+    lda LiveEntityFrameSelectorTable,X
+    sta NewEntityStagedFacing
     ldy $14
-    cpy.w #$0006
+    cpy.w #FixedEntityScriptSpecialSelector
     beq C46165_EntitySlotResolverFrameSelectorHelpers_L6165
-    lda.w #$A209
+    lda.w #FixedEntityScriptDefaultLow
     sta $0E
-    lda.w #$00C3
+    lda.w #FixedEntityScriptBank
     sta $10
     bra C4616F_EntitySlotResolverFrameSelectorHelpers_L616F
 C46165_EntitySlotResolverFrameSelectorHelpers_L6165:
-    lda.w #$A204
+    lda.w #FixedEntityScriptSpecialLow
     sta $0E
-    lda.w #$00C3
+    lda.w #FixedEntityScriptBank
     sta $10
 C4616F_EntitySlotResolverFrameSelectorHelpers_L616F:
     ldy $10
@@ -221,6 +263,9 @@ C4617A_EntitySlotResolverFrameSelectorHelpers_L617A:
     pld
     rtl
 C4617C_RunVisualTypeEntityScriptFromRecordC4c4d4:
+    ; Resolve by visual-type id, then dispatch through the local 3-byte
+    ; C4:C4D4 script record selected by caller Y. The ASL/ADC pair applies the
+    ; record stride, and the two INCs advance to the record's Y-argument byte.
     rep #$31
     phd
     pha
@@ -233,11 +278,11 @@ C4617C_RunVisualTypeEntityScriptFromRecordC4c4d4:
     tax
     jsl C4605A_FindEntitySlotByVisualTypeId
     tax
-    cpx.w #$FFFF
+    cpx.w #MissingEntitySlot
     beq C461CA_EntitySlotResolverFrameSelectorHelpers_L61CA
-    lda.w #$00D4
+    lda.w #ScriptDispatchRecordTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #ScriptDispatchRecordTableBank
     sta $08
     ldy $10
     tya
@@ -267,6 +312,8 @@ C461CA_EntitySlotResolverFrameSelectorHelpers_L61CA:
     pld
     rtl
 C461CC_RunPoseDescriptorEntityScriptFromRecordC4c4d4:
+    ; Pose-descriptor keyed sibling of C4617C; it uses the same 3-byte record
+    ; stride and Y-argument offset.
     rep #$31
     phd
     pha
@@ -279,11 +326,11 @@ C461CC_RunPoseDescriptorEntityScriptFromRecordC4c4d4:
     tax
     jsl C46028_FindEntitySlotByCachedPoseDescriptorId
     tax
-    cpx.w #$FFFF
+    cpx.w #MissingEntitySlot
     beq C4621A_EntitySlotResolverFrameSelectorHelpers_L621A
-    lda.w #$00D4
+    lda.w #ScriptDispatchRecordTableLo
     sta $06
-    lda.w #$00C4
+    lda.w #ScriptDispatchRecordTableBank
     sta $08
     ldy $10
     tya
@@ -313,6 +360,8 @@ C4621A_EntitySlotResolverFrameSelectorHelpers_L621A:
     pld
     rtl
 C4621C_ResolveEntitySlotBySelectorMode:
+    ; Local mode switch for the direction helpers: registry, visual-type, or
+    ; cached pose-descriptor resolver.
     rep #$31
     phd
     pha
@@ -321,9 +370,9 @@ C4621C_ResolveEntitySlotBySelectorMode:
     tcd
     pla
     beq C46234_EntitySlotResolverFrameSelectorHelpers_L6234
-    cmp.w #$0001
+    cmp.w #SelectorModeVisualType
     beq C46240_EntitySlotResolverFrameSelectorHelpers_L6240
-    cmp.w #$0002
+    cmp.w #SelectorModePoseDescriptor
     beq C4624A_EntitySlotResolverFrameSelectorHelpers_L624A
     bra C46252_EntitySlotResolverFrameSelectorHelpers_L6252
 C46234_EntitySlotResolverFrameSelectorHelpers_L6234:
@@ -350,6 +399,8 @@ C46252_EntitySlotResolverFrameSelectorHelpers_L6252:
     pld
     rts
 C46257_ComputeRoundedOctantBetweenResolvedEntities:
+    ; Resolve two entity slots by caller-selected modes, read their live world
+    ; anchors, and round the resulting angle into an octant.
     rep #$31
     phd
     pha
@@ -378,22 +429,22 @@ C46257_ComputeRoundedOctantBetweenResolvedEntities:
     txa
     asl A
     tax
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     sta $0E
-    ldy $0B8E,X
+    ldy LiveEntityWorldXTable,X
     lda $12
     tax
-    lda $0BCA,X
+    lda LiveEntityWorldYTable,X
     tax
     stx $10
     lda $12
     tax
-    lda $0B8E,X
+    lda LiveEntityWorldXTable,X
     ldx $10
     jsl C41EFF_CalculateAngleBetweenPoints
-    ldy.w #$2000
+    ldy.w #AngleOctantUnit
     clc
-    adc.w #$1000
+    adc.w #AngleOctantBias
     jsl C0915B_DivideUnsignedWordByY
     pld
     rtl
@@ -410,7 +461,7 @@ C462AE_ComputeVisualTypeEntityFacingOctantToTarget:
     tax
     lda $02
     sta $0E
-    lda.w #$0001
+    lda.w #SelectorModeVisualType
     jsl C46257_ComputeRoundedOctantBetweenResolvedEntities
     pld
     rtl
@@ -427,7 +478,7 @@ C462C9_ComputePoseDescriptorEntityFacingOctantToTarget:
     tax
     lda $02
     sta $0E
-    lda.w #$0002
+    lda.w #SelectorModePoseDescriptor
     jsl C46257_ComputeRoundedOctantBetweenResolvedEntities
     pld
     rtl
@@ -444,11 +495,13 @@ C462E4_ComputeRegistryEntityFacingOctantToTarget:
     tax
     lda $02
     sta $0E
-    lda.w #$0000
+    lda.w #SelectorModeRegistry
     jsl C46257_ComputeRoundedOctantBetweenResolvedEntities
     pld
     rtl
 C462FF_UpdateEntityFrameSelectorByVisualTypeId:
+    ; Update a visual-type matched slot's frame selector only when it changes;
+    ; C0 owns the visual-profile refresh side effects.
     rep #$31
     phd
     pha
@@ -460,11 +513,11 @@ C462FF_UpdateEntityFrameSelectorByVisualTypeId:
     tax
     jsl C4605A_FindEntitySlotByVisualTypeId
     sta $0E
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C4632F_EntitySlotResolverFrameSelectorHelpers_L632F
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #LiveEntityFrameSelectorTable
     tax
     lda $0000,X
     cmp $02
@@ -477,6 +530,7 @@ C4632F_EntitySlotResolverFrameSelectorHelpers_L632F:
     pld
     rtl
 C46331_UpdateEntityFrameSelectorByPoseDescriptorId:
+    ; Cached-pose-descriptor keyed sibling of C462FF.
     rep #$31
     phd
     pha
@@ -488,11 +542,11 @@ C46331_UpdateEntityFrameSelectorByPoseDescriptorId:
     tax
     jsl C46028_FindEntitySlotByCachedPoseDescriptorId
     sta $0E
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C46361_EntitySlotResolverFrameSelectorHelpers_L6361
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #LiveEntityFrameSelectorTable
     tax
     lda $0000,X
     cmp $02
@@ -505,6 +559,8 @@ C46361_EntitySlotResolverFrameSelectorHelpers_L6361:
     pld
     rtl
 C46363_UpdateEntityFrameSelectorByRegistryTypeCode:
+    ; Registry-code keyed frame-selector update. This uses the registry visual
+    ; refresh entry point, distinct from the full-slot scan refresh helper.
     rep #$31
     phd
     pha
@@ -517,11 +573,11 @@ C46363_UpdateEntityFrameSelectorByRegistryTypeCode:
     sep #$20
     jsl C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
     sta $0E
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C46395_EntitySlotResolverFrameSelectorHelpers_L6395
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #LiveEntityFrameSelectorTable
     tax
     lda $0000,X
     cmp $02
@@ -534,6 +590,8 @@ C46395_EntitySlotResolverFrameSelectorHelpers_L6395:
     pld
     rtl
 C46397_BroadcastRegistryEntityFrameSelectorUpdate:
+    ; Broadcast a frame-selector value to live registry entries whose type code
+    ; is below the local cutoff. Each changed slot gets the registry refresh.
     rep #$31
     phd
     pha
@@ -546,10 +604,10 @@ C46397_BroadcastRegistryEntityFrameSelectorUpdate:
     sty $10
     bra C463E5_EntitySlotResolverFrameSelectorHelpers_L63E5
 C463AA_EntitySlotResolverFrameSelectorHelpers_L63AA:
-    lda $988B,Y
+    lda RegistryTypeCodeList,Y
     and.w #$00FF
     sta $04
-    lda.w #$0010
+    lda.w #RegistryBroadcastTypeCutoff
     clc
     sbc $04
     bvc C463BE_EntitySlotResolverFrameSelectorHelpers_L63BE
@@ -561,11 +619,11 @@ C463C0_EntitySlotResolverFrameSelectorHelpers_L63C0:
     tya
     asl A
     tax
-    lda $9897,X
+    lda RegistrySlotList,X
     sta $0E
     asl A
     clc
-    adc.w #$2AF6
+    adc.w #LiveEntityFrameSelectorTable
     tax
     lda $0000,X
     cmp $02
@@ -579,7 +637,7 @@ C463E0_EntitySlotResolverFrameSelectorHelpers_L63E0:
     iny
     sty $10
 C463E5_EntitySlotResolverFrameSelectorHelpers_L63E5:
-    lda $98A3
+    lda RegistryActiveCount
     and.w #$00FF
     sta $04
     tya
@@ -588,6 +646,8 @@ C463E5_EntitySlotResolverFrameSelectorHelpers_L63E5:
     pld
     rtl
 C463F4_MarkRegistryEntitySlotsFlag8000:
+    ; Mark the C4-local $8000 flag-word family for one registry-selected slot,
+    ; or for every live registry slot when the caller passes $00FF.
     rep #$31
     phd
     pha
@@ -597,20 +657,20 @@ C463F4_MarkRegistryEntitySlotsFlag8000:
     pla
     sta $0E
     jsl C07C5B_ResolveCurrentEntityOrPlayerSlot
-    stz $5D58
+    stz PhotographerTempLatch
     lda $0E
-    cmp.w #$00FF
+    cmp.w #RegistryAllCode
     beq C4642A_EntitySlotResolverFrameSelectorHelpers_L642A
     sep #$20
     jsl C4608C_ResolveEntitySlotFromOverworldTypeRegistryCode
-    cmp.w #$FFFF
+    cmp.w #MissingEntitySlot
     beq C46458_EntitySlotResolverFrameSelectorHelpers_L6458
     asl A
     clc
-    adc.w #$116A
+    adc.w #EntityFlag8000Table
     tax
     lda $0000,X
-    ora.w #$8000
+    ora.w #EntityFlagSet8000Mask
     sta $0000,X
     bra C46458_EntitySlotResolverFrameSelectorHelpers_L6458
 C4642A_EntitySlotResolverFrameSelectorHelpers_L642A:
@@ -620,19 +680,19 @@ C4642A_EntitySlotResolverFrameSelectorHelpers_L642A:
 C46431_EntitySlotResolverFrameSelectorHelpers_L6431:
     asl A
     tax
-    lda $9897,X
+    lda RegistrySlotList,X
     asl A
     clc
-    adc.w #$116A
+    adc.w #EntityFlag8000Table
     tax
     lda $0000,X
-    ora.w #$8000
+    ora.w #EntityFlagSet8000Mask
     sta $0000,X
     lda $0E
     inc A
     sta $0E
 C4644A_EntitySlotResolverFrameSelectorHelpers_L644A:
-    lda $98A3
+    lda RegistryActiveCount
     and.w #$00FF
     sta $02
     lda $0E

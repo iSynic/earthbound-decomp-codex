@@ -12,9 +12,11 @@
 ; External contracts used by this module
 
 CastNameStagingBuffer          = $4000
+CastNameStagingBank            = $007F
 CastNameTileBaseOffset         = $B4D1
 CastNameTileLowNibbleMask      = $000F
 CastNameTileHighNibbleMask     = $03F0
+CastNameTileSecondRowDelta     = $0010
 CastNameSecondRowPlaneOffset   = $0040
 
 ; ---------------------------------------------------------------------------
@@ -23,7 +25,8 @@ CastNameSecondRowPlaneOffset   = $0040
 PREPARE_CAST_NAME_TILEMAP:
 C4EA9C_CopyCastNameTilemap = PREPARE_CAST_NAME_TILEMAP
     ; Expand a run of cast-name tile ids into the two-row staging buffer. Event
-    ; 801 can reset `$B4D1` between groups to adjust the base tile offset.
+    ; 801 can reset `$B4D1` between groups to adjust the base tile offset; this
+    ; helper only owns the local `$7F:4000` row shape.
     rep #$31
     phd
     pha
@@ -36,7 +39,7 @@ C4EA9C_CopyCastNameTilemap = PREPARE_CAST_NAME_TILEMAP
     sta $0E
     lda.w #CastNameStagingBuffer
     sta $06
-    lda.w #$007F
+    lda.w #CastNameStagingBank
     sta $08
     tya
     asl A
@@ -63,7 +66,7 @@ C4EABF_CopyCastNameTilemap_LEABF:
     stx $0C
     sta [$0A]
     clc
-    adc.w #$0010
+    adc.w #CastNameTileSecondRowDelta
     ldy.w #CastNameSecondRowPlaneOffset
     sta [$06],Y
     inc $06

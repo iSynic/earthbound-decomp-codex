@@ -13,30 +13,63 @@
 
 C064E3_QueueDeferredPointerRecord  = $C064E3
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+CurrentSlotIndex                   = $1A42
+PlayerSlotIndex                    = $9889
+PhotoSceneRecordIndex              = $9E35
+PhotographerCfgTableLo             = $2F8A
+PhotographerCfgTableBank           = $00E1
+PhotographerCfgRecordStride        = $003E
+PhotographerCfgSceneXCellOffset    = $000A
+PhotographerCfgSceneYCellOffset    = $000C
+TeleportDestinationTableLo         = $EBAB
+TeleportDestinationTableBank       = $00D5
+TeleportDestinationRecordStride    = $0008
+TeleportDestinationYCellOffset     = $0002
+TeleportDestinationFacingOffset    = $0004
+NewEntityStagedX                   = $9E2D
+NewEntityStagedY                   = $9E2F
+NewEntityStagedFacing              = $9E31
+LiveEntityWorldXTable              = $0B8E
+LiveEntityWorldYTable              = $0BCA
+LiveEntityFlag0C42Table            = $0C42
+LiveEntityFlag0C7ETable            = $0C7E
+YieldToTextLatch                   = $9641
+YieldToTextReadyValue              = $0001
+DeferredTextPointerRecordType      = $0008
+PresentationBusyFlag               = $9F3F
+PlayerWorldX                       = $9877
+PlayerWorldY                       = $987B
+CurrentSlotStagedXTable            = $0E5E
+CurrentSlotStagedYTable            = $0E9A
+CurrentSlotProximityXTable         = $0ED6
+CurrentSlotProximityYTable         = $0F12
+PositionInsideThresholdValue       = $0001
 
 ; ---------------------------------------------------------------------------
 ; C4:6D4B
 
 C46D4B_PlaceCurrentSlotFromPhotoSceneRecord:
+    ; Place the current slot from the photographer scene record chosen by
+    ; $9E35. This consumes only the C4-owned X/Y cell fields from E1:2F8A.
     rep #$31
     phd
     tdc
     adc.w #$FFF0
     tcd
-    ldy $9E35
-    lda $1A42
+    ldy PhotoSceneRecordIndex
+    lda CurrentSlotIndex
     asl A
     tax
-    lda.w #$2F8A
+    lda.w #PhotographerCfgTableLo
     sta $06
-    lda.w #$00E1
+    lda.w #PhotographerCfgTableBank
     sta $08
     tya
-    ldy.w #$003E
+    ldy.w #PhotographerCfgRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     sta $0E
     clc
-    adc.w #$000A
+    adc.w #PhotographerCfgSceneXCellOffset
     ldy $06
     sty $0A
     ldy $08
@@ -48,10 +81,10 @@ C46D4B_PlaceCurrentSlotFromPhotoSceneRecord:
     asl A
     asl A
     asl A
-    sta $0B8E,X
+    sta LiveEntityWorldXTable,X
     lda $0E
     clc
-    adc.w #$000C
+    adc.w #PhotographerCfgSceneYCellOffset
     clc
     adc $06
     sta $06
@@ -59,19 +92,23 @@ C46D4B_PlaceCurrentSlotFromPhotoSceneRecord:
     asl A
     asl A
     asl A
-    sta $0BCA,X
-    lda $1A42
+    sta LiveEntityWorldYTable,X
+    ; The camera-relative placement flags used by nearby spawn helpers are
+    ; cleared after the absolute photo-scene anchor is installed.
+    lda CurrentSlotIndex
     asl A
     tax
-    stz $0C7E,X
-    lda $1A42
+    stz LiveEntityFlag0C7ETable,X
+    lda CurrentSlotIndex
     asl A
     tax
-    stz $0C42,X
+    stz LiveEntityFlag0C42Table,X
     pld
     rtl
 PREPARE_NEW_ENTITY_AT_EXISTING_ENTITY_LOCATION:
 C46DAD_StageNewEntityFromCurrentOrPlayerSlot = PREPARE_NEW_ENTITY_AT_EXISTING_ENTITY_LOCATION
+    ; Stage the pending create-entity position from either the current slot
+    ; (A=0), the player slot (A=1), or the caller-selected fallback slot.
     rep #$31
     phd
     pha
@@ -84,27 +121,29 @@ C46DAD_StageNewEntityFromCurrentOrPlayerSlot = PREPARE_NEW_ENTITY_AT_EXISTING_EN
     beq C46DC7_PhotoAndNewEntityPreparationHelpers_L6DC7
     bra C46DCC_PhotoAndNewEntityPreparationHelpers_L6DCC
 C46DC0_PhotoAndNewEntityPreparationHelpers_L6DC0:
-    ldx $1A42
+    ldx CurrentSlotIndex
     stx $0E
     bra C46DCC_PhotoAndNewEntityPreparationHelpers_L6DCC
 C46DC7_PhotoAndNewEntityPreparationHelpers_L6DC7:
-    ldx $9889
+    ldx PlayerSlotIndex
     stx $0E
 C46DCC_PhotoAndNewEntityPreparationHelpers_L6DCC:
     ldx $0E
     txa
     asl A
     tax
-    lda $0B8E,X
-    sta $9E2D
-    lda $0BCA,X
-    sta $9E2F
+    lda LiveEntityWorldXTable,X
+    sta NewEntityStagedX
+    lda LiveEntityWorldYTable,X
+    sta NewEntityStagedY
     lda $2AF6,X
-    sta $9E31
+    sta NewEntityStagedFacing
     pld
     rtl
 PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION:
 C46DE5_StageNewEntityFromTeleportDestinationRecord = PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION
+    ; Stage a pending create-entity argument block from the D5 teleport
+    ; destination row selected by the low byte of A.
     rep #$31
     phd
     pha
@@ -115,9 +154,9 @@ C46DE5_StageNewEntityFromTeleportDestinationRecord = PREPARE_NEW_ENTITY_AT_TELEP
     sep #$20
     sta $0E
     rep #$20
-    lda.w #$EBAB
+    lda.w #TeleportDestinationTableLo
     sta $06
-    lda.w #$00D5
+    lda.w #TeleportDestinationTableBank
     sta $08
     lda $0E
     and.w #$00FF
@@ -134,36 +173,40 @@ C46DE5_StageNewEntityFromTeleportDestinationRecord = PREPARE_NEW_ENTITY_AT_TELEP
     asl A
     asl A
     asl A
-    sta $9E2D
-    ldy.w #$0002
+    sta NewEntityStagedX
+    ldy.w #TeleportDestinationYCellOffset
     lda [$06],Y
     asl A
     asl A
     asl A
-    sta $9E2F
+    sta NewEntityStagedY
     sep #$20
-    ldy.w #$0004
+    ldy.w #TeleportDestinationFacingOffset
     lda [$06],Y
     rep #$20
     and.w #$00FF
     dec A
-    sta $9E31
+    sta NewEntityStagedFacing
     pld
     rtl
 PREPARE_NEW_ENTITY:
 C46E37_StageNewEntityFromExplicitPositionAndFacing = PREPARE_NEW_ENTITY
+    ; Direct staging entry: X/Y carry world position and A low byte carries
+    ; facing. The actual entity creation is performed by later C4/C0 helpers.
     rep #$31
-    stx $9E2D
-    sty $9E2F
+    stx NewEntityStagedX
+    sty NewEntityStagedY
     and.w #$00FF
-    sta $9E31
+    sta NewEntityStagedFacing
     rtl
 C46E46_SetYieldToTextLatch9641:
     rep #$31
-    lda.w #$0001
-    sta $9641
+    lda.w #YieldToTextReadyValue
+    sta YieldToTextLatch
     rtl
 C46E4F_QueueEventTextPointerRecord8:
+    ; C4 packages the caller-supplied text pointer as deferred record type 8.
+    ; C0:64E3 owns the queue storage and later dispatch.
     rep #$31
     phd
     pha
@@ -180,29 +223,31 @@ C46E4F_QueueEventTextPointerRecord8:
     sta $0E
     lda $08
     sta $10
-    lda.w #$0008
+    lda.w #DeferredTextPointerRecordType
     jsl C064E3_QueueDeferredPointerRecord
     pld
     rtl
 TEST_PLAYER_IN_AREA:
 C46E74_CheckStagedPositionWithinPlayerProximityThreshold = TEST_PLAYER_IN_AREA
+    ; This is the pre-C4:6EF8 proximity sibling: compare staged X/Y for the
+    ; current slot against the live player position and the per-slot thresholds.
     rep #$31
     phd
     tdc
     adc.w #$FFEE
     tcd
-    lda $9F3F
+    lda PresentationBusyFlag
     beq C46E86_PhotoAndNewEntityPreparationHelpers_L6E86
     lda.w #$0000
     bra C46EF6_PhotoAndNewEntityPreparationHelpers_L6EF6
 C46E86_PhotoAndNewEntityPreparationHelpers_L6E86:
-    ldy $1A42
+    ldy CurrentSlotIndex
     tya
     asl A
     tax
-    lda $0E5E,X
+    lda CurrentSlotStagedXTable,X
     sec
-    sbc $9877
+    sbc PlayerWorldX
     sta $10
     sta $02
     lda.w #$0000
@@ -227,11 +272,11 @@ C46EB3_PhotoAndNewEntityPreparationHelpers_L6EB3:
     asl A
     tax
     lda $0E
-    cmp $0ED6,X
+    cmp CurrentSlotProximityXTable,X
     bcs C46EF3_PhotoAndNewEntityPreparationHelpers_L6EF3
-    lda $0E9A,X
+    lda CurrentSlotStagedYTable,X
     sec
-    sbc $987B
+    sbc PlayerWorldY
     sta $10
     sta $02
     lda.w #$0000
@@ -256,9 +301,9 @@ C46EE4_PhotoAndNewEntityPreparationHelpers_L6EE4:
     asl A
     tax
     lda $10
-    cmp $0F12,X
+    cmp CurrentSlotProximityYTable,X
     bcs C46EF3_PhotoAndNewEntityPreparationHelpers_L6EF3
-    lda.w #$0001
+    lda.w #PositionInsideThresholdValue
     bra C46EF6_PhotoAndNewEntityPreparationHelpers_L6EF6
 C46EF3_PhotoAndNewEntityPreparationHelpers_L6EF3:
     lda.w #$0000

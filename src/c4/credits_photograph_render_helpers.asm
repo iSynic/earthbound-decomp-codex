@@ -21,6 +21,32 @@ CheckEventFlagMaybe                = $C21628
 PhotographerCfgTableLo             = $2F8A
 PhotographerCfgTableBank           = $00E1
 PhotographerCfgRecordStride        = $003E
+PhotographerCfgEventFlagOffset     = $0000
+PhotographerCfgMapLoadYCellOffset  = $0002
+PhotographerCfgMapLoadXCellOffset  = $0004
+PhotographerCfgVisualXCellOffset   = $000E
+PhotographerCfgVisualYCellOffset   = $0010
+PhotographerCfgObjectXCellOffset   = $0026
+PhotographerCfgObjectYCellOffset   = $0028
+PhotographerCfgObjectIdOffset      = $002A
+PhotographerCfgObjectStride        = $0006
+PhotographerCfgObjectCount         = $0004
+PhotographerCfgVisualCount         = $0006
+CreditsVisualOverlayTable          = $98CB
+CreditsVisualOverlayRowStride      = $0008
+CreditsVisualOverlayIdMask         = $00FF
+CreditsVisualOverlayMaxExclusive   = $0012
+CreditsPhotoTileBufferBase         = $2000
+CreditsPhotoTileBufferWords        = $0400
+CreditsPhotoPaletteSourceLow       = $E92A
+CreditsPhotoPaletteSourceBank      = $00E1
+CreditsPhotoPaletteDest            = $0220
+CreditsPhotoPaletteBytes           = $0020
+CreditsCreateObjectXArg            = $031F
+CreditsCreateVisualXArg            = $0320
+CreditsCreateEntityYArg            = $FFFF
+CreditsPhotographActiveValue       = $0001
+CreditsPhotographSuccessValue      = $0001
 CreditsPhotographRenderActive      = $B4EF
 CreditsCurrentPhotographIndex      = $B4F1
 
@@ -55,13 +81,17 @@ C4F264_TryRenderingPhotograph = TRY_RENDERING_PHOTOGRAPH
     sta $06
     lda $0C
     sta $08
+    ; PhotographerCfgEventFlagOffset is the record's event flag gate; keep the
+    ; original no-index indirect read because the offset is zero.
     lda [$06]
     jsl CheckEventFlagMaybe
     cmp.w #$0000
     bne C4F2A1_TryRenderingPhotograph_LF2A1
     jmp.w C4F42E_TryRenderingPhotograph_LF42E
 C4F2A1_TryRenderingPhotograph_LF2A1:
-    lda.w #$0001
+    ; C4 marks the photograph render as active while it rebuilds the local BG3
+    ; tile/palette state and asks C0 to reload the map block for this record.
+    lda.w #CreditsPhotographActiveValue
     sta CreditsPhotographRenderActive
     lda $1E
     sta CreditsCurrentPhotographIndex
@@ -69,7 +99,7 @@ C4F2A1_TryRenderingPhotograph_LF2A1:
     sta $02
     stz $4A5A
     ldy.w #$0000
-    ldx.w #$2000
+    ldx.w #CreditsPhotoTileBufferBase
     bra C4F2C5_TryRenderingPhotograph_LF2C5
 C4F2BC_TryRenderingPhotograph_LF2BC:
     lda.w #$0000
@@ -78,25 +108,29 @@ C4F2BC_TryRenderingPhotograph_LF2BC:
     inx
     iny
 C4F2C5_TryRenderingPhotograph_LF2C5:
-    cpy.w #$0400
+    cpy.w #CreditsPhotoTileBufferWords
     bcc C4F2BC_TryRenderingPhotograph_LF2BC
+    ; Queue the fixed credits photo palette block; destination/size are C4's
+    ; arguments, while the transfer helper owns the actual upload behavior.
     sep #$20
     stz $0030
     rep #$20
-    lda.w #$E92A
+    lda.w #CreditsPhotoPaletteSourceLow
     sta $0E
-    lda.w #$00E1
+    lda.w #CreditsPhotoPaletteSourceBank
     sta $10
-    ldx.w #$0020
-    lda.w #$0220
+    ldx.w #CreditsPhotoPaletteBytes
+    lda.w #CreditsPhotoPaletteDest
     jsl QueueOrTransferDynamicTileBlock
-    ldy.w #$0004
+    ; The record stores map-cell coordinates; C4 scales them to pixels before
+    ; handing the position to the external map loader.
+    ldy.w #PhotographerCfgMapLoadXCellOffset
     lda [$0A],Y
     asl A
     asl A
     asl A
     tax
-    ldy.w #$0002
+    ldy.w #PhotographerCfgMapLoadYCellOffset
     lda [$0A],Y
     asl A
     asl A
@@ -112,6 +146,9 @@ C4F2C5_TryRenderingPhotograph_LF2C5:
     sta $02
     bra C4F387_TryRenderingPhotograph_LF387
 C4F311_TryRenderingPhotograph_LF311:
+    ; Up to four record-owned object entity ids are paired with their staged
+    ; record X/Y cells. The ASL/ADC/ASL sequence below is the 6-byte object
+    ; stride; C4 only prepares the create-entity arguments here.
     lda $02
     sta $04
     asl A
@@ -119,7 +156,7 @@ C4F311_TryRenderingPhotograph_LF311:
     asl A
     sta $18
     clc
-    adc.w #$002A
+    adc.w #PhotographerCfgObjectIdOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -137,7 +174,7 @@ C4F311_TryRenderingPhotograph_LF311:
     inc $1A
     lda $18
     clc
-    adc.w #$0026
+    adc.w #PhotographerCfgObjectXCellOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -152,7 +189,7 @@ C4F311_TryRenderingPhotograph_LF311:
     sta $0E
     lda $18
     clc
-    adc.w #$0028
+    adc.w #PhotographerCfgObjectYCellOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -165,8 +202,8 @@ C4F311_TryRenderingPhotograph_LF311:
     asl A
     asl A
     sta $10
-    ldy.w #$FFFF
-    ldx.w #$031F
+    ldy.w #CreditsCreateEntityYArg
+    ldx.w #CreditsCreateObjectXArg
     lda $14
     sta $06
     lda $16
@@ -177,7 +214,7 @@ C4F385_TryRenderingPhotograph_LF385:
     inc $02
 C4F387_TryRenderingPhotograph_LF387:
     lda $02
-    cmp.w #$0004
+    cmp.w #PhotographerCfgObjectCount
     bcs C4F393_TryRenderingPhotograph_LF393
     beq C4F393_TryRenderingPhotograph_LF393
     jmp.w C4F311_TryRenderingPhotograph_LF311
@@ -186,6 +223,9 @@ C4F393_TryRenderingPhotograph_LF393:
     sta $04
     jmp.w C4F41D_TryRenderingPhotograph_LF41D
 C4F39B_TryRenderingPhotograph_LF39B:
+    ; The parallel $98CB rows carry optional visual ids for each photograph.
+    ; The three ASLs select the 8-byte photo row, then nonzero ids below the
+    ; local cap are resolved and attached after spawn.
     lda $1E
     asl A
     asl A
@@ -193,13 +233,13 @@ C4F39B_TryRenderingPhotograph_LF39B:
     clc
     adc $04
     tax
-    lda $98CB,X
-    and.w #$00FF
+    lda CreditsVisualOverlayTable,X
+    and.w #CreditsVisualOverlayIdMask
     sta $02
     beq C4F41B_TryRenderingPhotograph_LF41B
     lda $02
     and.w #$001F
-    cmp.w #$0012
+    cmp.w #CreditsVisualOverlayMaxExclusive
     bcs C4F41B_TryRenderingPhotograph_LF41B
     cmp.w #$0000
     beq C4F41B_TryRenderingPhotograph_LF41B
@@ -217,7 +257,7 @@ C4F39B_TryRenderingPhotograph_LF39B:
     ldx $1C
     txa
     clc
-    adc.w #$000E
+    adc.w #PhotographerCfgVisualXCellOffset
     ldy $0A
     sty $06
     ldy $0C
@@ -232,7 +272,7 @@ C4F39B_TryRenderingPhotograph_LF39B:
     sta $0E
     txa
     clc
-    adc.w #$0010
+    adc.w #PhotographerCfgVisualYCellOffset
     ldx $0A
     stx $06
     ldx $0C
@@ -245,8 +285,8 @@ C4F39B_TryRenderingPhotograph_LF39B:
     asl A
     asl A
     sta $10
-    ldy.w #$FFFF
-    ldx.w #$0320
+    ldy.w #CreditsCreateEntityYArg
+    ldx.w #CreditsCreateVisualXArg
     lda $12
     jsl CreateEntityAtPositionMaybe
     tay
@@ -257,12 +297,12 @@ C4F41B_TryRenderingPhotograph_LF41B:
     inc $04
 C4F41D_TryRenderingPhotograph_LF41D:
     lda $04
-    cmp.w #$0006
+    cmp.w #PhotographerCfgVisualCount
     bcs C4F429_TryRenderingPhotograph_LF429
     beq C4F429_TryRenderingPhotograph_LF429
     jmp.w C4F39B_TryRenderingPhotograph_LF39B
 C4F429_TryRenderingPhotograph_LF429:
-    ldx.w #$0001
+    ldx.w #CreditsPhotographSuccessValue
     stx $1C
 C4F42E_TryRenderingPhotograph_LF42E:
     ldx $1C

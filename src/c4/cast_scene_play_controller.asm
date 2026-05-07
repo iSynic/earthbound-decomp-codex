@@ -26,7 +26,16 @@ RestoreC4VisualState              = $C4800B
 LoadCastScene                     = $C4E369
 CastSceneDriverScriptId           = $0321
 CastSceneFinishedLatch            = $9641
+LiveEntityStatusTable             = $0A62
+DelayedActionRestoreX             = $0A4C
+DelayedActionRestoreY             = $0A4E
+DisplayModeLatch1A                = $001A
 CastSceneEntitySlotCount          = $001E
+CastSceneTransitionState          = $0001
+CastSceneReturnTransitionMode     = $0001
+CastSceneReturnDelayedActionX     = $0017
+CastSceneReturnDelayedActionY     = $0018
+CastSceneRestoreDisplayMode       = $17
 
 ; ---------------------------------------------------------------------------
 ; C4:ED0E
@@ -43,11 +52,13 @@ C4ED0E_PlayCastScene = PLAY_CAST_SCENE
     tcd
     jsl LoadCastScene
     jsl WaitOneFrameAndUpdateDisplayState
-    ldx.w #$0001
+    ldx.w #CastSceneTransitionState
     txa
     jsl SetDisplayTransitionState
     ldy.w #$0000
     tyx
+    ; Allocate the event-801 driver that owns the per-frame cast script; this
+    ; controller only watches the `$9641` completion latch it sets.
     lda.w #CastSceneDriverScriptId
     jsl AllocateEntityOrSpriteSlot
     stz CastSceneFinishedLatch
@@ -59,17 +70,19 @@ C4ED3E_PlayCastScene_LED3E:
     lda CastSceneFinishedLatch
     beq C4ED36_PlayCastScene_LED36
     ldy.w #$0000
-    ldx.w #$0001
+    ldx.w #CastSceneReturnTransitionMode
     txa
     jsl SetDisplayTransitionMode
     ldx.w #$0000
     stx $0E
     bra C4ED6C_PlayCastScene_LED6C
 C4ED55_PlayCastScene_LED55:
+    ; Sweep the local entity status table and remove the cast driver slot by
+    ; script id before restoring the normal presentation state.
     txa
     asl A
     tax
-    lda $0A62,X
+    lda LiveEntityStatusTable,X
     cmp.w #CastSceneDriverScriptId
     bne C4ED67_PlayCastScene_LED67
     ldx $0E
@@ -82,21 +95,23 @@ C4ED67_PlayCastScene_LED67:
 C4ED6C_PlayCastScene_LED6C:
     cpx.w #CastSceneEntitySlotCount
     bcc C4ED55_PlayCastScene_LED55
-    lda.w #$0017
-    sta $0A4C
-    lda.w #$0018
-    sta $0A4E
+    ; Restore the delayed-action presentation anchor used after the cast scene
+    ; hands control back to the normal renderer.
+    lda.w #CastSceneReturnDelayedActionX
+    sta DelayedActionRestoreX
+    lda.w #CastSceneReturnDelayedActionY
+    sta DelayedActionRestoreY
     ldy.w #$0000
     tyx
-    lda.w #$0001
+    lda.w #CastSceneReturnTransitionMode
     jsl InitDelayedActionState
     jsl ResetPresentationTilemapState
     jsl RebuildMushroomizedWalkingState
     jsl C08726_BlankWaitAndDisableHdma
     jsl RestoreC4VisualState
     sep #$20
-    lda.b #$17
-    sta $001A
+    lda.b #CastSceneRestoreDisplayMode
+    sta DisplayModeLatch1A
     rep #$20
     pld
     rtl

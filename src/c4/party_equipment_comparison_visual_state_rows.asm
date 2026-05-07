@@ -13,11 +13,32 @@
 
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C090FF_AddLongPointerOffset        = $C090FF
+EquipmentComparisonPartyPtrOffset  = $0E10
+EquipmentComparisonClampEnd        = $EA60
+EquipmentComparisonClampLast       = $EA5F
+EquipmentComparisonRowHeaderTable  = $98C9
+EquipmentComparisonVisualSlotTable = $98CB
+EquipmentComparisonRowStride       = $0008
+EquipmentComparisonSlotCount       = $0006
+EquipmentComparisonCandidateBase   = $97F5
+EquipmentComparisonCandidateStateOffset = $0096
+EquipmentComparisonCandidateProfileOffset = $009C
+EquipmentComparisonPartyRecordBase = $99CE
+EquipmentComparisonPartyRecordStride = $005F
+EquipmentComparisonDescriptorOffset0E = $000E
+EquipmentComparisonDescriptorOffset0F = $000F
+EquipmentComparisonLowVisualMask   = $00FF
+EquipmentComparisonFlag20          = $0020
+EquipmentComparisonFlag40          = $0040
+EquipmentComparisonFlag80          = $0080
 
 ; ---------------------------------------------------------------------------
 ; C4:343E
 
 C4343E_BuildPartyEquipmentComparisonVisualStateRows:
+    ; Build one eight-byte visual-state row for the equipment comparison UI.
+    ; C4 owns the row packing at $98C9/$98CB; the descriptor meanings behind
+    ; the source profile records remain table-local.
     rep #$31
     phd
     pha
@@ -28,7 +49,7 @@ C4343E_BuildPartyEquipmentComparisonVisualStateRows:
     tax
     dec A
     sta $02
-    lda.w #$0E10
+    lda.w #EquipmentComparisonPartyPtrOffset
     sta $0A
     lda.w #$0000
     sta $0C
@@ -37,7 +58,7 @@ C4343E_BuildPartyEquipmentComparisonVisualStateRows:
     lda $00A9
     sta $08
     jsl C090FF_AddLongPointerOffset
-    lda.w #$EA60
+    lda.w #EquipmentComparisonClampEnd
     sta $0A
     lda.w #$0000
     sta $0C
@@ -56,7 +77,7 @@ C4347F_PartyEquipmentComparisonVisualStateRows_L347F:
     sta $12
     bra C4348A_PartyEquipmentComparisonVisualStateRows_L348A
 C43485_PartyEquipmentComparisonVisualStateRows_L3485:
-    lda.w #$EA5F
+    lda.w #EquipmentComparisonClampLast
     sta $12
 C4348A_PartyEquipmentComparisonVisualStateRows_L348A:
     lda $02
@@ -65,22 +86,24 @@ C4348A_PartyEquipmentComparisonVisualStateRows_L348A:
     asl A
     tax
     lda $12
-    sta $98C9,X
+    sta EquipmentComparisonRowHeaderTable,X
     ldy.w #$0000
     sty $10
     jmp.w C43542_PartyEquipmentComparisonVisualStateRows_L3542
 C4349D_PartyEquipmentComparisonVisualStateRows_L349D:
+    ; Six slot bytes follow the row header. A zero candidate clears the slot;
+    ; otherwise C4 packs the candidate id plus descriptor-derived flag bits.
     rep #$20
     tya
     clc
-    adc.w #$97F5
+    adc.w #EquipmentComparisonCandidateBase
     sta $12
     clc
-    adc.w #$0096
+    adc.w #EquipmentComparisonCandidateStateOffset
     tax
     stx $0E
     lda $0000,X
-    and.w #$00FF
+    and.w #EquipmentComparisonLowVisualMask
     bne C434C7_PartyEquipmentComparisonVisualStateRows_L34C7
     sty $04
     lda $02
@@ -91,33 +114,36 @@ C4349D_PartyEquipmentComparisonVisualStateRows_L349D:
     adc $04
     tax
     sep #$20
-    stz $98CB,X
+    stz EquipmentComparisonVisualSlotTable,X
     bra C4353F_PartyEquipmentComparisonVisualStateRows_L353F
 C434C7_PartyEquipmentComparisonVisualStateRows_L34C7:
     lda $12
     tax
+    ; CandidateProfileOffset is a small local offset; keep the raw operand so
+    ; its addressing form stays byte-identical.
     lda $009C,X
-    and.w #$00FF
-    ldy.w #$005F
+    and.w #EquipmentComparisonLowVisualMask
+    ldy.w #EquipmentComparisonPartyRecordStride
     jsl C08FF7_ResolveIndexedPointerOffset
     clc
-    adc.w #$99CE
+    adc.w #EquipmentComparisonPartyRecordBase
     sta $12
     sta $4DC6
     ldx $0E
     lda $0000,X
-    and.w #$00FF
+    and.w #EquipmentComparisonLowVisualMask
     tax
     stx $0E
     lda $12
     tax
+    ; Descriptor offsets $0E/$0F are local record bytes, not global fields.
     lda $000E,X
-    and.w #$00FF
+    and.w #EquipmentComparisonLowVisualMask
     cmp.w #$0001
     bne C43504_PartyEquipmentComparisonVisualStateRows_L3504
     ldx $0E
     txa
-    ora.w #$0020
+    ora.w #EquipmentComparisonFlag20
     tax
     stx $0E
     bra C43512_PartyEquipmentComparisonVisualStateRows_L3512
@@ -126,18 +152,18 @@ C43504_PartyEquipmentComparisonVisualStateRows_L3504:
     bne C43512_PartyEquipmentComparisonVisualStateRows_L3512
     ldx $0E
     txa
-    ora.w #$0040
+    ora.w #EquipmentComparisonFlag40
     tax
     stx $0E
 C43512_PartyEquipmentComparisonVisualStateRows_L3512:
     ldx $4DC6
     lda $000F,X
-    and.w #$00FF
+    and.w #EquipmentComparisonLowVisualMask
     cmp.w #$0001
     bne C43529_PartyEquipmentComparisonVisualStateRows_L3529
     ldx $0E
     txa
-    ora.w #$0080
+    ora.w #EquipmentComparisonFlag80
     tax
     stx $0E
 C43529_PartyEquipmentComparisonVisualStateRows_L3529:
@@ -154,12 +180,12 @@ C43529_PartyEquipmentComparisonVisualStateRows_L3529:
     txa
     sep #$20
     plx
-    sta $98CB,X
+    sta EquipmentComparisonVisualSlotTable,X
 C4353F_PartyEquipmentComparisonVisualStateRows_L353F:
     iny
     sty $10
 C43542_PartyEquipmentComparisonVisualStateRows_L3542:
-    cpy.w #$0006
+    cpy.w #EquipmentComparisonSlotCount
     bcs C4354C_PartyEquipmentComparisonVisualStateRows_L354C
     beq C4354C_PartyEquipmentComparisonVisualStateRows_L354C
     jmp.w C4349D_PartyEquipmentComparisonVisualStateRows_L349D

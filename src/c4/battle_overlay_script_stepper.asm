@@ -248,6 +248,9 @@ label_C4A87E:
 	LDA.b $08
 	STA.w $0002,Y
 label_C4A915:
+; Accumulate scripted X/Y and size-delta velocity. Width/height have a second
+; signed delta-step layer, so C4 updates the delta words before applying them to
+; the live size fields below.
 	LDX.w #BATTLE_OVERLAY_EFFECT_X
 	LDA.w $0000,X
 	CLC
@@ -281,6 +284,8 @@ label_C4A915:
 label_C4A95C:
 	BMI.b label_C4A978
 label_C4A95E:
+; Negative width delta would step past zero; clamp the live width instead of
+; allowing the unsigned field to wrap.
 	LDX.w #BATTLE_OVERLAY_EFFECT_WIDTH
 	LDA.b $15
 	EOR.w #SignedWordInvertMask
@@ -313,6 +318,7 @@ label_C4A985:
 label_C4A998:
 	BMI.b label_C4A9B4
 label_C4A99A:
+; Same zero-crossing clamp for the live height field.
 	LDX.w #BATTLE_OVERLAY_EFFECT_HEIGHT
 	LDA.b $15
 	EOR.w #SignedWordInvertMask
@@ -333,6 +339,8 @@ label_C4A9B4:
 	STA.w $0000,X
 
 label_C4A9C1:
+; A scripted overlay with both dimensions at zero has finished; clear the long
+; script pointer so later ticks fall through the inactive/table-driven paths.
 	LDA.w BATTLE_OVERLAY_EFFECT_WIDTH
 	BNE.b label_C4A9E1
 	LDA.w BATTLE_OVERLAY_EFFECT_HEIGHT
@@ -394,6 +402,8 @@ label_C4AA30:
 	JMP.w label_C4AB20
 
 label_C4AA42:
+; Repeat-count path for CE:DC45 frame records. C4 advances the frame pointer
+; and passes `animation parity + 3` as the frame-tile selector to the C0 helper.
 	SEP.b #$20
 	LDA.w BATTLE_OVERLAY_SCRIPT_FRAME_COUNT
 	STA.w BATTLE_OVERLAY_SCRIPT_ACTIVE
@@ -454,6 +464,8 @@ label_C4AA42:
 	BRA label_C4AB00
 
 label_C4AAC3:
+; Reverse mode walks the same frame pointer table backward before applying the
+; frame-tile payload.
 	LDX.w #BATTLE_OVERLAY_SCRIPT_FRAME_INDEX
 	SEP.b #$20
 	LDA.w $0000,X
@@ -508,6 +520,8 @@ label_C4AB20:
 	JMP.w label_C4AC07
 
 label_C4AB32:
+; Special mode re-reads its CE:DD41 mode row to reseed repeat/frame-index state
+; before returning to the normal table-driven frame path.
 	LDY.w #BATTLE_OVERLAY_SPECIAL_DELAY
 	SEP.b #$20
 	LDA.w $0000,Y

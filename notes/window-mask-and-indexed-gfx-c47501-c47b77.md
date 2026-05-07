@@ -106,6 +106,34 @@ limited to its local presentation side effects: BG2 screen-base queue arguments,
 window graphics reload, glyph-run reset, palette refresh, and `$0030 = #$18`;
 the raw `C2:038B` cleanup callee remains owned by C2.
 
+2026-05-06 follow-up source polish: the window-mask source now carries local
+names for current-slot and base-slot indexes, live world coordinates, camera
+origin shadows, WH stream double buffers, box-mask toggle, `$CC:2DE1` indexed
+graphics record roots, VRAM destinations, transfer sizes, and the `$0030/$003B`
+presentation-refresh arguments. The C4-side contract is still intentionally
+limited to generating WH0/WH2 streams and staging upload arguments; HDMA register
+installation and renderer queue interpretation remain in their callee helpers.
+
+2026-05-06 selector/latch follow-up: the indexed graphics loaders now split
+the `$0030` display-selector latch from the `#$18` selector value, and rename
+the local `$003B` use as a presentation-refresh latch rather than a BG-scroll
+shadow. This keeps the source focused on the values C4 writes while leaving the
+C0/NMI upload and refresh interpretation outside the contract.
+
+The adjacent window-gfx source now uses the same local boundary for the cache
+rebuild and flyover-undraw path: E0 source lows/banks, `$7F` work blocks,
+tile-state clear/copy sizes, `$3492/$9E23/$9E25` glyph scratch fields,
+window-flavour palette queue arguments, flyover BG2 screen-base values, glyph
+run reset index, and `$0030 = #$18` selector write are named locally. The raw
+`C2:038B` call is now a named C2 cleanup callee only in the sequencing sense;
+C4 does not claim its internal cleanup contract.
+
+2026-05-06 window-gfx selector/latch follow-up: the flyover-undraw source now
+splits the `$0030` display-selector latch from the `#$18` window-gfx selector
+value. `UNDRAW_FLYOVER_TEXT` still only sequences `C2:038B` before reloading the
+window graphics cache; C2 owns the cleanup side effects, and C0/NMI owns the
+later selector interpretation.
+
 ## Working Names
 
 - `C4:74F6` = `WhWindowSpanRadiusRampTable`
