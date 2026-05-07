@@ -179,6 +179,14 @@ bit reloads the source/template word. Source pilots therefore render `$FFFC`,
 `$DFFC`, and `$2000` as block-pattern masks rather than opaque palette
 selectors.
 
+The same `C0:AAB5` sites now also catalog the two trailing bytes. The palette
+scale byte is forwarded through X to `C4:954C`: `$32` is the full RGB555 scale,
+lower observed values dim the source block, and higher observed values such as
+`$5A` saturate through the C4 clamp path. The fade frame-count byte is forwarded
+through A to `C4:97C0`: `$01` is the immediate-export sentinel, while `$3C`,
+`$64`, and `$78` step the landing palette interpolation once per frame before
+exporting and queueing the CGRAM upload.
+
 The C3-local COLDATA component catalog names only the observed bytes passed
 through `C0:AA3F`: `$00`, `$10`, and `$18`. The C0 wrapper copies those bytes
 to `$9E37-$9E39`; `C4:2439` then writes them to `$2132 COLDATA` with the red,

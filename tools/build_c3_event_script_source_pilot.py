@@ -22,7 +22,9 @@ from decode_event_script import (
     ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS,
     ACTIONSCRIPT_FADE_EFFECT_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
+    ACTIONSCRIPT_LANDING_PALETTE_FADE_FRAME_COUNT_BYTES,
     ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS,
+    ACTIONSCRIPT_LANDING_PALETTE_SCALE_BYTES,
     ACTIONSCRIPT_MOSAIC_WH0_MASK_LEFT_X_WORDS,
     ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS,
     ACTIONSCRIPT_MOSAIC_WH0_MASK_Y_WORDS,
@@ -3542,6 +3544,26 @@ def call_arg_expr(
         raise ValueError(f"cannot render call argument field {field!r}")
     if width == 1:
         value = raw_args[cursor]
+        if field == "palette_scale_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_LANDING_PALETTE_SCALE_BYTES,
+                prefix="LANDING_PALETTE",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
+        if field == "fade_frame_count_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_LANDING_PALETTE_FADE_FRAME_COUNT_BYTES,
+                prefix="LANDING_PALETTE",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
         if field in {
             "coldata_red_component_byte",
             "coldata_green_component_byte",

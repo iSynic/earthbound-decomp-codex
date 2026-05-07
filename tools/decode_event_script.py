@@ -1054,6 +1054,58 @@ ACTIONSCRIPT_SURFACE_FLAGS_BYTES: dict[int, dict[str, str]] = {
     },
 }
 
+ACTIONSCRIPT_LANDING_PALETTE_SCALE_BYTES: dict[int, dict[str, str]] = {
+    value: {
+        "name": f"scale_{value:02x}",
+        "contract": f"landing palette scale byte ${value:02X} passed through C0:AAB5 to C4:954C; $32 is full RGB555 scale, lower values dim the source block, higher values saturate",
+    }
+    for value in (
+        0x00,
+        0x08,
+        0x0A,
+        0x0C,
+        0x0E,
+        0x10,
+        0x12,
+        0x14,
+        0x16,
+        0x18,
+        0x1A,
+        0x1C,
+        0x1E,
+        0x20,
+        0x22,
+        0x24,
+        0x26,
+        0x28,
+        0x2A,
+        0x2C,
+        0x2E,
+        0x31,
+        0x32,
+        0x5A,
+    )
+}
+
+ACTIONSCRIPT_LANDING_PALETTE_FADE_FRAME_COUNT_BYTES: dict[int, dict[str, str]] = {
+    0x01: {
+        "name": "fade_frames_01",
+        "contract": "landing palette fade frame-count byte $01; C4:97C0 treats this as the immediate-export sentinel",
+    },
+    0x3C: {
+        "name": "fade_frames_3c",
+        "contract": "landing palette fade frame-count byte $3C; C4:97C0 steps palette interpolation once per frame until this count is reached",
+    },
+    0x64: {
+        "name": "fade_frames_64",
+        "contract": "landing palette fade frame-count byte $64; C4:97C0 steps palette interpolation once per frame until this count is reached",
+    },
+    0x78: {
+        "name": "fade_frames_78",
+        "contract": "landing palette fade frame-count byte $78; C4:97C0 steps palette interpolation once per frame until this count is reached",
+    },
+}
+
 ACTIONSCRIPT_COLDATA_COMPONENT_BYTES: dict[int, dict[str, str]] = {
     0x00: {
         "name": "component_zero",
@@ -1540,6 +1592,10 @@ def format_call_arg_value(
         return None
     if width == 1:
         value = raw_args[cursor]
+        if field == "palette_scale_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_LANDING_PALETTE_SCALE_BYTES)}", cursor + 1
+        if field == "fade_frame_count_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_LANDING_PALETTE_FADE_FRAME_COUNT_BYTES)}", cursor + 1
         if field in {
             "coldata_red_component_byte",
             "coldata_green_component_byte",
