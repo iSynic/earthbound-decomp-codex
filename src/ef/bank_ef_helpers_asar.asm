@@ -5883,6 +5883,8 @@ EF84D4_EBattle1MetamorphoseAttemptText:
 db $01,$70,$1C,$0D,$17,$48,$9C,$91,$A8,$95,$94,$00,$50,$15,$04,$A4
 db $17,$37,$15,$BC,$94,$15,$C9,$50,$92,$16,$82,$98,$5E,$03,$02
 
+; EBATTLE1: successful player flee text; row 279 also uses it as row +4 text
+; with the C2:9039 default/no-op body.
 EF84F3_EBattle1PlayerFleeSuccessText:
 
 ; Original data gap before EF8511_EBattle1PlayerFleeFailureText:
@@ -7219,6 +7221,8 @@ db $95,$9F,$5E,$03,$00,$70,$16,$4E,$53,$00,$50,$50,$64,$16,$4E,$63
 db $00,$16,$4E,$62,$50,$65,$03,$00,$70,$74,$17,$01,$15,$3F,$96,$A2
 db $9F,$9E,$A4,$15,$09,$83,$A0,$98,$99,$9E,$A8,$51,$6E,$13,$02
 
+; EGOODS2: Town Map item-use payload text; row 271 also uses it as row +4 text
+; with the C2:9039 default/no-op body.
 EFA2AB_EGoods2MsgBtlTownMap:
 
 ; Original data gap before EFA2B5_EGoods2BranchTownMapNg:

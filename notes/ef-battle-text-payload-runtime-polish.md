@@ -493,18 +493,20 @@ offense-up rows `48/49` reuse the shared `EF:8543` PSI-name
 `ByteSubstitution` row-presentation anchor. Their C2 healing/stat wrappers and
 HP/C8 amount result lanes remain separate from that `DD9F` presentation text.
 
-The broader `C2:9039` default/item-use pass now has an EF/non-EF split. Rows
-`60/61` reuse the shared `EF:8543` PSI-name row text, item-use rows `259/270`
-enter EGOODS2 at `EF:9EF4` and `EF:A0DC`, and EBATTLE3 flavor rows `309` and
-`313..317` now carry `FlavorRowPresentationText` labels. Rows `190..200`,
-`288/289`, `308`, and `312` instead land in C9/C6 row-message banks, so they
-document C2 consumer joins without driving EF anchor renames.
+The complete `C2:9039` default/item-use pass now has an EF/non-EF split. Rows
+`60/61` reuse the shared `EF:8543` PSI-name row text, item-use rows `259`,
+`270`, and `271` enter EGOODS2 at `EF:9EF4`, `EF:A0DC`, and `EF:A2AB`, row
+`279` reuses the successful flee text at `EF:84F3`, and EBATTLE3 flavor rows
+`309` and `313..317` now carry `FlavorRowPresentationText` labels. Rows
+`190..200`, `272/276`, `281/282`, `284..289`, `308`, and `312` instead land in
+C7/C9/C6 row-message banks, so they document C2 consumer joins without driving
+EF anchor renames.
 
 The row-pointer recovery frontier now records the resolved set and the remaining
 local frontier. The ROM-backed inspector is available in this checkout, so the
-next EF pass can continue the remaining default/item-use row classification
-rather than the already proved Lifeup, numeric-effect, explosive, main
-no-op/flavor, and first `C2:9039` joins.
+next EF pass can continue with neighboring no-op-tail classification rather
+than the already proved Lifeup, numeric-effect, explosive, main no-op/flavor,
+and complete `C2:9039` joins.
 
 That no-op/flavor pass now proves the main `C2:9033` and tiny-tail frontier:
 rows `119..134`, `251..257`, and `260..266` have exact EF row `+4`

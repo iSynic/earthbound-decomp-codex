@@ -55,6 +55,7 @@ The front EBATTLE1 row-message joins are currently the strongest:
 | `32..35` | `EF:8543` | Shared PSI Lifeup row messages via `DD9F`, with PSI-name `ByteSubstitution` |
 | `48`, `49` | `EF:8543` | Shared PSI offense-up row messages via `DD9F`, with PSI-name `ByteSubstitution` |
 | `60`, `61` | `EF:8543` | Shared PSI row messages with `C2:9039` default/no-op behavior |
+| `279` | `EF:84F3` | Successful flee text reused as a row `+4` message with `C2:9039`; also seen as direct result text |
 
 The EF source labels for those early joins now carry the same lane names:
 `BashAttackRowPresentationText`, `ShootRowPresentationText`,
@@ -111,20 +112,20 @@ physical, special, item, and event rows (`99..102`, `104`, `117`, `118`,
 It also now records the recovered Lifeup/offense PSI rows (`32..35`, `48`,
 `49`), numeric-effect rows (`95..98`, `233`, `234`), and explosive rows
 (`64`, `65`). The latest pointer-recovery passes add the no-op/flavor rows
-`119..134`, `251..257`, and `260..266`, plus the first broad `C2:9039`
-default/item-use split: EF rows `60/61`, `259/270`, `309`, and `313..317`
-are recorded separately from C9/C6 non-EF rows. The EBATTLE2 `119..134` and
-EBATTLE3 `309/313..317` anchors now carry source-level
+`119..134`, `251..257`, and `260..266`, plus the complete `C2:9039`
+default/item-use split: EF rows `60/61`, `259`, `270`, `271`, `279`, `309`, and
+`313..317` are recorded separately from C7/C9/C6 non-EF rows. The EBATTLE2
+`119..134` and EBATTLE3 `309/313..317` anchors now carry source-level
 `FlavorRowPresentationText` names, while the EBATTLE4/status and EGOODS2
 item-use rows keep their event/status/result/item labels because several
 scripts are dual-use or not battle-action anchors.
 
 Rows whose C2 behavior bodies are known but whose row `+4` EF pointers are not
 locally recovered should stay out of the proved-join table. The current
-behavior-known frontier has narrowed to remaining default/item-use rows around
-`C2:9039`. The first sweep proves the rule: `C2:9039` is useful C2 behavior
-evidence, but it is not EF battle-anchor naming evidence unless row `+4` points
-back into EF.
+behavior-known frontier has moved past the `C2:9039` bucket and into the
+neighboring address-distinct no-op tails. The completed sweep proves the rule:
+default/no-op C2 bodies are useful behavior evidence, but they are not EF
+battle-anchor naming evidence unless row `+4` points back into EF.
 
 ## Direct Result Joins Adjacent To Action Islands
 

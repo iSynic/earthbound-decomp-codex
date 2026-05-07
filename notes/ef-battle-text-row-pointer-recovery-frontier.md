@@ -89,7 +89,7 @@ action-table sweep:
 
 | Priority | Rows | Why they matter |
 | ---: | --- | --- |
-| `1` | remaining `C2:9039` rows beyond the first default/item-use bucket | The initial sweep proved an EF/non-EF split: rows `60/61`, `259/270`, `309`, and `313..317` land in EF, while rows such as `190..200`, `288/289`, `308`, and `312` land in C9/C6. Continue bank-first classification before EF anchor churn. |
+| `1` | address-distinct no-op tails such as `C2:903C` and `C2:903F..904E` | The `C2:9039` bucket is now fully classified by row `+4` bank; repeat that method on the neighboring no-op tails before promoting more EF anchors. |
 | `2` | remaining exact `MSG_BTL_*` islands outside the recovered sets | These need the same row `+4/+8` proof before labels graduate from symbol-derived anchors. |
 
 ## Recovered No-Op And Flavor Joins
@@ -104,10 +104,11 @@ The no-op/flavor pass recovered the highest-risk behavior-only family:
 - rows `186..188`, `0..3`, `9`, and `258` prove non-EF row-message lanes
   through C7/C9, so they belong in the crosswalk but should not rename EF
   anchors.
-- the broader `C2:9039` pass splits cleanly by row `+4` bank: EF default rows
-  `60/61`, item-use rows `259/270`, and EBATTLE3 flavor rows `309` and
-  `313..317` now have proved joins, while rows `190..200`, `288/289`, `308`,
-  and `312` stay in non-EF C9/C6 presentation lanes.
+- the complete `C2:9039` pass splits cleanly by row `+4` bank: EF default rows
+  `60/61`, item-use rows `259`, `270`, and `271`, flee row `279`, and EBATTLE3
+  flavor rows `309` and `313..317` now have proved joins, while rows
+  `190..200`, `272/276`, `281/282`, `284..289`, `308`, and `312` stay in
+  non-EF C7/C9/C6 presentation lanes.
 
 The EBATTLE2 `119..134` anchors now carry `FlavorRowPresentationText` names in
 source. The EBATTLE4/status rows keep their existing event/status/result labels

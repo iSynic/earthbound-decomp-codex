@@ -2225,7 +2225,8 @@ EF84D4_EBattle1MetamorphoseAttemptText:
 ; ---------------------------------------------------------------------------
 ; EF:84F3
 
-; EBATTLE1: successful player flee text.
+; EBATTLE1: successful player flee text. D5:7B68 row 279 also uses this as row
+; +4 text with the `C2:9039` default/no-op body.
 EF84F3_EBattle1PlayerFleeSuccessText:
 
 ; ---------------------------------------------------------------------------
@@ -3396,7 +3397,8 @@ EFA0DC_EGoods2MsgBtlHiero:
 ; ---------------------------------------------------------------------------
 ; EF:A2AB
 
-; EGOODS2: Town Map item-use payload text.
+; EGOODS2: Town Map item-use payload text. D5:7B68 row 271 also uses this as
+; row +4 text with the `C2:9039` default/no-op body.
 EFA2AB_EGoods2MsgBtlTownMap:
 
 ; ---------------------------------------------------------------------------
