@@ -91,6 +91,16 @@ named `$0E/$10` and `$12/$14` aliases before invoking `C1:27EF` or `C1:1F5A`.
 This documents the menu/text-entry contract at the call sites while preserving
 the existing family dispatcher boundaries.
 
+Source polish follow-up (2026-05-06): the open-menu caller surface at
+`C1:33B0..4103` now names the scratch slots that bridge menu results back into
+text and interaction contexts. The pass covers `$0E/$10` as entry source,
+feedback text source, decimal source, and primary/secondary context source
+pointers; `$1F/$21` as the selected-character value; `$23` as the relevant
+local owner/context/index pointer; and active-context record offsets
+`+17/+1B/+21` for the primary pointer, selected inventory slot, and destination
+character fields. The result is source-facing only: existing `0x1A` menu-family
+helper calls and return behavior are unchanged.
+
 ## Best current case map
 
 ### `0x1A 00`

@@ -325,6 +325,14 @@ This planning pass is documentation-only.
   `C1:AF74`, `C1:03DC`, and `C1:0FEA` edges, leaving the source unit with no
   raw helper-call edges. See
   `notes/open-menu-prelude-helpers-c1339e-c133b0.md`.
+- 2026-05-06 follow-up: the `C1:33B0..4103` open-menu loop now names the
+  local scratch ABI used by its menu/text caller contracts. The pass covers
+  top-level Talk/Check fallback text pointers, open-menu text-entry source
+  pointers, selected-character value staging, Goods/Talk primary and secondary
+  interaction-context installs, active context offsets `+17/+1B/+21`, status
+  item text output, and debug decimal/fixed-string display sources. This keeps
+  the open-menu caller side aligned with the `0x1A` menu family and
+  text-entry helper contracts without changing helper boundaries.
 - 2026-05-06 follow-up: small C1 text/window helper cleanup named the local
   helper edges in the interaction-output selectors, the active-window
   descriptor initializer, and the `$89D4` text-entry constructor chain. This

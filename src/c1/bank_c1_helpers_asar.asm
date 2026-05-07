@@ -6697,6 +6697,25 @@ org $C133B0
 !CallbackDrivenPromptDisplayCallbackBank = $10
 !CallbackDrivenPromptEligibilityCallbackLo = $12
 !CallbackDrivenPromptEligibilityCallbackBank = $14
+!OpenMenuTextSourcePointerLo = $0E
+!OpenMenuTextSourcePointerBank = $10
+!OpenMenuEntrySourcePointerLo = $0E
+!OpenMenuEntrySourcePointerBank = $10
+!OpenMenuPrimaryContextSourcePointerLo = $0E
+!OpenMenuPrimaryContextSourcePointerBank = $10
+!OpenMenuSecondaryContextSourcePointerLo = $0E
+!OpenMenuSecondaryContextSourcePointerBank = $10
+!OpenMenuDecimalSourcePointerLo = $0E
+!OpenMenuDecimalSourcePointerHi = $10
+!OpenMenuSelectedCharacterValueLo = $1F
+!OpenMenuSelectedCharacterValueHi = $21
+!OpenMenuActiveContextRecordPointer = $23
+!OpenMenuSelectedCharacterRecordPointer = $23
+!OpenMenuInventoryOwnerPointer = $23
+!OpenMenuEntryBuildIndex = $23
+!OpenMenuPrimaryContextPointerOffset = $0017
+!OpenMenuSelectedInventorySlotPointerOffset = $001B
+!OpenMenuDestinationCharacterPointerOffset = $0021
 C133B0_RebuildOpenMenuTextEntryRecords:
     rep #$31
     phd
@@ -6772,9 +6791,9 @@ C13417_RebuildOpenMenuTextEntryRecords_L3417:
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !OpenMenuEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuEntrySourcePointerBank
     lda.w #$0000
     sta $12
     lda.w #$0000
@@ -6888,9 +6907,9 @@ C13526_RebuildOpenMenuTextEntryRecords_L3526:
     sta $08
 C13532_RebuildOpenMenuTextEntryRecords_L3532:
     lda $06
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     jmp.w C13C16_FinalizeOpenMenuLoopIteration
 C13541_RebuildOpenMenuTextEntryRecords_L3541:
@@ -6901,7 +6920,7 @@ C13544_RebuildOpenMenuTextEntryRecords_L3544:
     cmp.w #$0001
     bne C13599_RebuildOpenMenuTextEntryRecords_L3599
     ldy.w #$986F
-    sty $23
+    sty !OpenMenuInventoryOwnerPointer
     ldx.w #$0001
     lda $0000,Y
     and.w #$00FF
@@ -6911,11 +6930,11 @@ C13544_RebuildOpenMenuTextEntryRecords_L3544:
     jmp.w C134CD_RebuildOpenMenuTextEntryRecords_L34CD
 C13569_RebuildOpenMenuTextEntryRecords_L3569:
     ldx.w #$0002
-    ldy $23
+    ldy !OpenMenuInventoryOwnerPointer
     lda $0000,Y
     and.w #$00FF
     jsr !C198DE_RenderCharacterInventoryOrEquipmentRows
-    ldy $23
+    ldy !OpenMenuInventoryOwnerPointer
     sep #$20
     lda $0000,Y
     sta $06
@@ -6924,9 +6943,9 @@ C13569_RebuildOpenMenuTextEntryRecords_L3569:
     stz $09
     rep #$20
     lda $06
-    sta $1F
+    sta !OpenMenuSelectedCharacterValueLo
     lda $08
-    sta $21
+    sta !OpenMenuSelectedCharacterValueHi
     lda.w #$0000
     jsl !C43573_SelectFocusedPartyHpPpActorAndBlankRow
     bra C135C8_RebuildOpenMenuTextEntryRecords_L35C8
@@ -6947,9 +6966,9 @@ C13599_RebuildOpenMenuTextEntryRecords_L3599:
     sta $06
     stz $08
     lda $06
-    sta $1F
+    sta !OpenMenuSelectedCharacterValueLo
     lda $08
-    sta $21
+    sta !OpenMenuSelectedCharacterValueHi
 C135C8_RebuildOpenMenuTextEntryRecords_L35C8:
     lda.w #$0000
     sta $0A
@@ -7008,9 +7027,9 @@ C13648_RebuildOpenMenuTextEntryRecords_L3648:
 C13652_RebuildOpenMenuTextEntryRecords_L3652:
     lda.w #$0003
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     dec A
@@ -7037,7 +7056,7 @@ C13689_RebuildOpenMenuTextEntryRecords_L3689:
     ldx.w #$0000
 C1368C_RebuildOpenMenuTextEntryRecords_L368C:
     txy
-    sty $23
+    sty !OpenMenuEntryBuildIndex
     tyx
     lda.w #$0000
     jsl !C438A5_SetActiveWindowDescriptorCursorFields
@@ -7058,9 +7077,9 @@ C13699_RebuildOpenMenuTextEntryRecords_L3699:
     clc
     adc $06
     sta $06
-    sta $0E
+    sta !OpenMenuEntrySourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuEntrySourcePointerBank
     lda.w #$0000
     sta $12
     lda.w #$0000
@@ -7069,9 +7088,9 @@ C13699_RebuildOpenMenuTextEntryRecords_L3699:
     jsr !C115F4_CreateTypedTextEntryRecordDirect
     ldx $1B
     txy
-    sty $23
+    sty !OpenMenuEntryBuildIndex
 C136CC_RebuildOpenMenuTextEntryRecords_L36CC:
-    ldy $23
+    ldy !OpenMenuEntryBuildIndex
     cpy.w #$0004
     bcc C13699_RebuildOpenMenuTextEntryRecords_L3699
     ldy.w #$0000
@@ -7133,9 +7152,9 @@ C13749_RebuildOpenMenuTextEntryRecords_L3749:
     lda $1D
     sta $04
     ldx $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     jsr !C1AF74_RunItemUseBattleOrFieldBridgeBody
@@ -7159,13 +7178,13 @@ C13777_HandleOpenMenuStatusChoice:
     rep #$20
     lda.w #$0001
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tay
-    sty $23
+    sty !OpenMenuSelectedCharacterRecordPointer
     lda $1D
     sta $04
     ldx $04
@@ -7191,9 +7210,9 @@ C13777_HandleOpenMenuStatusChoice:
     sta $06
     sty $08
     lda $06
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     lda.w #$0001
     jsl !C3E521_CloseWindowById
@@ -7204,7 +7223,7 @@ C13777_HandleOpenMenuStatusChoice:
     sta $5E6C
     jsr.w C133B0_RebuildOpenMenuTextEntryRecords
     ldx.w #$0002
-    ldy $23
+    ldy !OpenMenuSelectedCharacterRecordPointer
     tya
     jsr !C198DE_RenderCharacterInventoryOrEquipmentRows
     lda.w #$0003
@@ -7243,9 +7262,9 @@ C13810_HandleOpenMenuGoodsChoice:
     sta $1A
     jmp.w C136E3_RebuildOpenMenuTextEntryRecords_L36E3
 C1385C_RebuildOpenMenuTextEntryRecords_L385C:
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $18
     sta $0A
@@ -7274,22 +7293,22 @@ C13874_RebuildOpenMenuTextEntryRecords_L3874:
     lda.w #$0001
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     lda $06
-    sta $0E
+    sta !OpenMenuPrimaryContextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuPrimaryContextSourcePointerBank
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $04
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !OpenMenuSecondaryContextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuSecondaryContextSourcePointerBank
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$C6C9
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     lda.w #$0001
     jsl !C3E521_CloseWindowById
@@ -7359,9 +7378,9 @@ C1394B_RebuildOpenMenuTextEntryRecords_L394B:
     lda.w #$0001
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
     jsr !C10301_GetActiveInteractionContextRecord
-    sta $23
+    sta !OpenMenuActiveContextRecordPointer
     clc
-    adc.w #$0017
+    adc.w #!OpenMenuPrimaryContextPointerOffset
     tay
     lda $06
     sta $0000,Y
@@ -7370,9 +7389,9 @@ C1394B_RebuildOpenMenuTextEntryRecords_L394B:
     lda $18
     sta $0A
     stz $0C
-    lda $23
+    lda !OpenMenuActiveContextRecordPointer
     clc
-    adc.w #$0021
+    adc.w #!OpenMenuDestinationCharacterPointerOffset
     tay
     lda $0A
     sta $0000,Y
@@ -7382,9 +7401,9 @@ C1394B_RebuildOpenMenuTextEntryRecords_L394B:
     sta $04
     sta $0A
     stz $0C
-    lda $23
+    lda !OpenMenuActiveContextRecordPointer
     clc
-    adc.w #$001B
+    adc.w #!OpenMenuSelectedInventorySlotPointerOffset
     tay
     lda $0A
     sta $0000,Y
@@ -7428,14 +7447,14 @@ C139DC_RebuildOpenMenuTextEntryRecords_L39DC:
     jmp.w C13AF6_RebuildOpenMenuTextEntryRecords_L3AF6
 C139DF_RebuildOpenMenuTextEntryRecords_L39DF:
     lda.w #$E3FA
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7444,28 +7463,28 @@ C139DF_RebuildOpenMenuTextEntryRecords_L39DF:
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A03_RebuildOpenMenuTextEntryRecords_L3A03:
     lda.w #$E42C
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A14_RebuildOpenMenuTextEntryRecords_L3A14:
     lda.w #$E468
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A25_RebuildOpenMenuTextEntryRecords_L3A25:
     lda.w #$E4A4
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7474,14 +7493,14 @@ C13A25_RebuildOpenMenuTextEntryRecords_L3A25:
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A49_RebuildOpenMenuTextEntryRecords_L3A49:
     lda.w #$E4C3
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7490,14 +7509,14 @@ C13A49_RebuildOpenMenuTextEntryRecords_L3A49:
     jmp.w C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A6D_RebuildOpenMenuTextEntryRecords_L3A6D:
     lda.w #$E4E9
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7506,28 +7525,28 @@ C13A6D_RebuildOpenMenuTextEntryRecords_L3A6D:
     bra C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13A90_RebuildOpenMenuTextEntryRecords_L3A90:
     lda.w #$E51C
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     bra C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13AA0_RebuildOpenMenuTextEntryRecords_L3AA0:
     lda.w #$E559
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     bra C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13AB0_RebuildOpenMenuTextEntryRecords_L3AB0:
     lda.w #$E5A1
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7536,14 +7555,14 @@ C13AB0_RebuildOpenMenuTextEntryRecords_L3AB0:
     bra C13AF8_ReturnToOpenMenuLoopAfterFeedback
 C13AD3_RebuildOpenMenuTextEntryRecords_L3AD3:
     lda.w #$E5C2
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     ldy $04
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
     tax
@@ -7563,28 +7582,28 @@ C13AF8_ReturnToOpenMenuLoopAfterFeedback:
 C13B10_HandleOpenMenuTalkChoice:
     lda.w #$0001
     jsr !C104EE_CreateOrBindWindowDescriptorAndContext
-    lda $1F
+    lda !OpenMenuSelectedCharacterValueLo
     sta $06
-    lda $21
+    lda !OpenMenuSelectedCharacterValueHi
     sta $08
     lda $06
-    sta $0E
+    sta !OpenMenuPrimaryContextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuPrimaryContextSourcePointerBank
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda $1D
     sta $04
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !OpenMenuSecondaryContextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuSecondaryContextSourcePointerBank
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$C609
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda.w #$00C7
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     lda.w #$0001
     jsl !C3E521_CloseWindowById
@@ -7659,9 +7678,9 @@ C13BE7_RebuildOpenMenuTextEntryRecords_L3BE7:
     sta $08
 C13BF3_RebuildOpenMenuTextEntryRecords_L3BF3:
     lda $06
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     bra C13C16_FinalizeOpenMenuLoopIteration
 C13C01_HandleOpenMenuSpecialChoice:
@@ -7721,9 +7740,9 @@ C13C6D_RebuildOpenMenuTextEntryRecords_L3C6D:
     sta $08
 C13C79_RebuildOpenMenuTextEntryRecords_L3C79:
     lda $06
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     jsl !C186B1_PrintTextFromPointer
     jsl !C3E4CA_ClearInstantPrinting
     jsr !C10A1D_HideHpppWindowsInternal
@@ -7795,9 +7814,9 @@ C13D10_RebuildOpenMenuTextEntryRecords_L3D10:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !OpenMenuDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuDecimalSourcePointerHi
     jsr !C10DF6_PrintDecimalValueFromCallerPointer
     lda.w #$0020
     jsl !C43F77_PrintGlyphWithTileCleanupSoundDelay
@@ -7818,9 +7837,9 @@ C13D53_RebuildOpenMenuTextEntryRecords_L3D53:
     sta $08
 C13D5D_RebuildOpenMenuTextEntryRecords_L3D5D:
     lda $06
-    sta $0E
+    sta !OpenMenuTextSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuTextSourcePointerBank
     lda.w #$0100
     jsr !C10EFC_PrintFixedString
     jsl !C3E4CA_ClearInstantPrinting
@@ -7942,9 +7961,9 @@ C13E34_RebuildOpenMenuTextEntryRecords_L3E34:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !OpenMenuDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuDecimalSourcePointerHi
     jsr !C10DF6_PrintDecimalValueFromCallerPointer
     jsl !C3E4CA_ClearInstantPrinting
     jsl !C12DD5_TickWindowTextSystem
@@ -8032,9 +8051,9 @@ C13EF4_RebuildOpenMenuTextEntryRecords_L3EF4:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !OpenMenuDecimalSourcePointerLo
     lda $08
-    sta $10
+    sta !OpenMenuDecimalSourcePointerHi
     jsr !C10DF6_PrintDecimalValueFromCallerPointer
     ldx.w #$0000
     lda.w #$0003
