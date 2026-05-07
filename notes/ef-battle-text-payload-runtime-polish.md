@@ -348,10 +348,13 @@ blob no longer hides dozens of direct battle-text payload targets.
 
 The current consumer frontier keeps this island as a row-message candidate set
 for `D5:7B68` row `+4` pointers. Locally proved rows `99 -> EF:7E88`,
-`100 -> EF:7EAC`, `101 -> EF:7ED5`, `102 -> EF:7F02`, `104 -> EF:7F32`,
-`117 -> EF:80C4`, `118 -> EF:80E4`, and `207 -> EF:83A8` now use
-`RowPresentationText` source names. The rest should stay exact `MSG_BTL_*`
-anchors until row `+8` behavior bodies are joined.
+`100 -> EF:7EAC`, `101 -> EF:7ED5`, `102 -> EF:7F02`, `103 -> EF:7F1E`,
+`104 -> EF:7F32`, `105..116 -> EF:7F5A..80AC`, `117 -> EF:80C4`,
+`118 -> EF:80E4`, `201..206 -> EF:82D7..838A`, `207 -> EF:83A8`,
+`208..210 -> EF:83CA..8413`, and `238 -> EF:8010` now use
+`RowPresentationText` source names. The remaining exact `MSG_BTL_*` anchors
+outside this EBATTLE2 island should stay symbol-derived until row `+8`
+behavior bodies are joined.
 
 ## EBATTLE0 Status Follow-up
 
@@ -504,9 +507,10 @@ EF anchor renames.
 
 The row-pointer recovery frontier now records the resolved set and the remaining
 local frontier. The ROM-backed inspector is available in this checkout, so the
-next EF pass can focus on remaining exact `MSG_BTL_*` islands rather than the
-already proved Lifeup, numeric-effect, explosive, main no-op/flavor, complete
-`C2:9039`, and neighboring no-op-tail joins.
+next EF pass can focus on remaining exact EBATTLE3/EBATTLE1 `MSG_BTL_*`
+islands rather than the already proved EBATTLE2 action rows, Lifeup,
+numeric-effect, explosive, main no-op/flavor, complete `C2:9039`, and
+neighboring no-op-tail joins.
 
 The neighboring no-op-tail pass is now also complete. `C2:903C` only joins row
 `9` to a C7 empty/default message, while `C2:903F`, `9042`, `9045`, `9048`,

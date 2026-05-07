@@ -1916,8 +1916,8 @@ EF7F02_EBattle2AttackContinuouslyRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:7F1E
 
-; EBATTLE2: `MSG_BTL_MIGAMAE` action-flavor text.
-EF7F1E_EBattle2MsgBtlMigamae:
+; EBATTLE2: row 103 row +4 `MSG_BTL_MIGAMAE` presentation text.
+EF7F1E_EBattle2MigamaeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F32
@@ -1928,74 +1928,74 @@ EF7F32_EBattle2FlamingFireballRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:7F5A
 
-; EBATTLE2: `MSG_BTL_GEKITOTU` action-flavor text.
-EF7F5A_EBattle2MsgBtlGekitotu:
+; EBATTLE2: row 105 row +4 `MSG_BTL_GEKITOTU` presentation text.
+EF7F5A_EBattle2GekitotuRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F7B
 
-; EBATTLE2: `MSG_BTL_KARATE` action-flavor text.
-EF7F7B_EBattle2MsgBtlKarate:
+; EBATTLE2: row 106 row +4 `MSG_BTL_KARATE` presentation text.
+EF7F7B_EBattle2KarateRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7F9A
 
-; EBATTLE2: `MSG_BTL_TOMOE` action-flavor text.
-EF7F9A_EBattle2MsgBtlTomoe:
+; EBATTLE2: row 107 row +4 `MSG_BTL_TOMOE` presentation text.
+EF7F9A_EBattle2TomoeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7FC3
 
-; EBATTLE2: `MSG_BTL_BOUSOU` action-flavor text.
-EF7FC3_EBattle2MsgBtlBousou:
+; EBATTLE2: row 108 row +4 `MSG_BTL_BOUSOU` presentation text.
+EF7FC3_EBattle2BousouRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7FE0
 
-; EBATTLE2: `MSG_BTL_KNIFE` action-flavor text.
-EF7FE0_EBattle2MsgBtlKnife:
+; EBATTLE2: row 109 row +4 `MSG_BTL_KNIFE` presentation text.
+EF7FE0_EBattle2KnifeRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7FFC
 
-; EBATTLE2: `MSG_BTL_TOSSIN` action-flavor text.
-EF7FFC_EBattle2MsgBtlTossin:
+; EBATTLE2: row 110 row +4 `MSG_BTL_TOSSIN` presentation text.
+EF7FFC_EBattle2TossinRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8010
 
-; EBATTLE2: `MSG_BTL_KAMITUKI` action-flavor text.
-EF8010_EBattle2MsgBtlKamituki:
+; EBATTLE2: rows 111 and 238 row +4 `MSG_BTL_KAMITUKI` presentation text.
+EF8010_EBattle2KamitukiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8026
 
-; EBATTLE2: `MSG_BTL_HIKKAKI` action-flavor text.
-EF8026_EBattle2MsgBtlHikkaki:
+; EBATTLE2: row 112 row +4 `MSG_BTL_HIKKAKI` presentation text.
+EF8026_EBattle2HikkakiRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:804B
 
-; EBATTLE2: `MSG_BTL_SIPPO` action-flavor text.
-EF804B_EBattle2MsgBtlSippo:
+; EBATTLE2: row 113 row +4 `MSG_BTL_SIPPO` presentation text.
+EF804B_EBattle2SippoRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:806D
 
-; EBATTLE2: `MSG_BTL_NOSHIKAKARI` action-flavor text.
-EF806D_EBattle2MsgBtlNoshikakari:
+; EBATTLE2: row 114 row +4 `MSG_BTL_NOSHIKAKARI` presentation text.
+EF806D_EBattle2NoshikakariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:808D
 
-; EBATTLE2: `MSG_BTL_KAMIBUKURO` action-flavor text.
-EF808D_EBattle2MsgBtlKamibukuro:
+; EBATTLE2: row 115 row +4 `MSG_BTL_KAMIBUKURO` presentation text.
+EF808D_EBattle2KamibukuroRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:80AC
 
-; EBATTLE2: `MSG_BTL_KONBOU` action-flavor text.
-EF80AC_EBattle2MsgBtlKonbou:
+; EBATTLE2: row 116 row +4 `MSG_BTL_KONBOU` presentation text.
+EF80AC_EBattle2KonbouRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:80C4
@@ -2108,38 +2108,38 @@ EF82BC_EBattle2TeethChatterFlavorRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:82D7
 
-; EBATTLE2: `MSG_BTL_MABUSII_HIKARI` action-flavor text.
-EF82D7_EBattle2MsgBtlMabusiiHikari:
+; EBATTLE2: row 201 row +4 `MSG_BTL_MABUSII_HIKARI` presentation text.
+EF82D7_EBattle2MabusiiHikariRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:82F7
 
-; EBATTLE2: `MSG_BTL_BIRIBIRI` action-flavor text.
-EF82F7_EBattle2MsgBtlBiribiri:
+; EBATTLE2: row 202 row +4 `MSG_BTL_BIRIBIRI` presentation text.
+EF82F7_EBattle2BiribiriRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8317
 
-; EBATTLE2: `MSG_BTL_KAFUN` action-flavor text.
-EF8317_EBattle2MsgBtlKafun:
+; EBATTLE2: row 203 row +4 `MSG_BTL_KAFUN` presentation text.
+EF8317_EBattle2KafunRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:833E
 
-; EBATTLE2: `MSG_BTL_COLD_HAND` action-flavor text.
-EF833E_EBattle2MsgBtlColdHand:
+; EBATTLE2: row 204 row +4 `MSG_BTL_COLD_HAND` presentation text.
+EF833E_EBattle2ColdHandRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:835C
 
-; EBATTLE2: `MSG_BTL_POISON_BREATH` action-flavor text.
-EF835C_EBattle2MsgBtlPoisonBreath:
+; EBATTLE2: row 205 row +4 `MSG_BTL_POISON_BREATH` presentation text.
+EF835C_EBattle2PoisonBreathRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:838A
 
-; EBATTLE2: `MSG_BTL_HAIKI_GAS` action-flavor text.
-EF838A_EBattle2MsgBtlHaikiGas:
+; EBATTLE2: row 206 row +4 `MSG_BTL_HAIKI_GAS` presentation text.
+EF838A_EBattle2HaikiGasRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:83A8
@@ -2150,20 +2150,20 @@ EF83A8_EBattle2StrangeStatusLaughRowPresentationText:
 ; ---------------------------------------------------------------------------
 ; EF:83CA
 
-; EBATTLE2: `MSG_BTL_FUE` action-flavor text.
-EF83CA_EBattle2MsgBtlFue:
+; EBATTLE2: row 208 row +4 `MSG_BTL_FUE` presentation text.
+EF83CA_EBattle2FueRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:83ED
 
-; EBATTLE2: `MSG_BTL_JUMP_TO_FACE` action-flavor text.
-EF83ED_EBattle2MsgBtlJumpToFace:
+; EBATTLE2: row 209 row +4 `MSG_BTL_JUMP_TO_FACE` presentation text.
+EF83ED_EBattle2JumpToFaceRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:8413
 
-; EBATTLE2: `MSG_BTL_CHOU_ONPA` action-flavor text.
-EF8413_EBattle2MsgBtlChouOnpa:
+; EBATTLE2: row 210 row +4 `MSG_BTL_CHOU_ONPA` presentation text.
+EF8413_EBattle2ChouOnpaRowPresentationText:
 
 ; ---------------------------------------------------------------------------
 ; EF:843F

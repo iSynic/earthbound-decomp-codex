@@ -347,6 +347,10 @@ This planning pass does not split EF source corridors or regenerate the bank.
   `C2:903C/903F..904E` bank-first classification. Row `9` stays non-EF C7,
   while rows `251..256` remain EF homesick/action-blocked/recovery row-message
   joins with dual-use labels and source comments instead of new anchor names.
+- 2026-05-06: EF EBATTLE2 exact-message follow-up promoted the row-backed
+  `MSG_BTL_*` anchors for rows `103`, `105..116`, `201..206`, `208..210`, and
+  reuse row `238` to `RowPresentationText`, preserving symbol stems while
+  removing that EBATTLE2 island from the exact-anchor frontier.
 - 2026-05-06: EF status-result label follow-up renamed the proved direct
   `DC1C` status-result anchors across `EF:6AC7..6C55` and shared fallback
   `EF:766E` with `StatusResultText`, keeping them distinct from `DD9F` row

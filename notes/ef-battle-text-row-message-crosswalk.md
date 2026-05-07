@@ -113,6 +113,21 @@ healing presentation wrapper, while row `247` uses the same row-message anchor
 with the normalization wrapper. The C2 row `+8` body is what separates those
 runtime roles.
 
+## EBATTLE2 Proved Action Row Messages
+
+The EBATTLE2 exact `MSG_BTL_*` subset below now has concrete row `+4/+8`
+evidence, so the EF labels use `RowPresentationText` while preserving the
+original symbol stem.
+
+| Row | Row `+4` EF message | Row `+8` C2 body | Current behavior read |
+| ---: | --- | --- | --- |
+| `103` | `EF:7F1E` `MigamaeRowPresentationText` | `C2:889B` | Guard/stance-style row presentation |
+| `105` | `EF:7F5A` `GekitotuRowPresentationText` | `C2:85DA` | Collision/charge row presentation |
+| `106..116` | `EF:7F7B..80AC` `Karate` through `Konbou` row presentation texts | mostly `C2:8651` | Physical action-flavor row presentations |
+| `201..206` | `EF:82D7..838A` `MabusiiHikari` through `HaikiGas` row presentation texts | `C2:99EF`, `987D`, `8A92`, `8CF1`, `8B2C`, `8C69` | Late EBATTLE2 special/status row presentations |
+| `208..210` | `EF:83CA..8413` `Fue`, `JumpToFace`, `ChouOnpa` row presentation texts | `C2:8E3B`, `8CF1`, `8CF1` | Late EBATTLE2 special/status row presentations |
+| `238` | `EF:8010` `KamitukiRowPresentationText` | `C2:859F` | Reuse of row `111` bite text with a single-target bash body |
+
 ## Flavor-Only No-Op Row Messages
 
 These rows have no-op or tiny row `+8` behavior tails, so the row `+4` message

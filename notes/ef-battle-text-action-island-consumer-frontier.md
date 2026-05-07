@@ -75,10 +75,14 @@ consumer-ready handoff points:
 | `100` | `EF:7EAC` | Poison-on-hit physical row message |
 | `101` | `EF:7ED5` | Fired-missile projectile/explosive row message |
 | `102` | `EF:7F02` | Double-bash / attack-continuously row message |
+| `103` | `EF:7F1E` | Migamae row presentation over `C2:889B` |
 | `104` | `EF:7F32` | Fire-damage / flaming-fireball row message |
+| `105..116` | `EF:7F5A..80AC` | EBATTLE2 exact `MSG_BTL_*` physical/action row presentations |
 | `117` | `EF:80C4` | All-target physical wrapper, tornado text |
 | `118` | `EF:80E4` | All-target physical wrapper, gigantic-blast text |
+| `201..206`, `208..210` | `EF:82D7..8413` | EBATTLE2 exact `MSG_BTL_*` special/status row presentations |
 | `207` | `EF:83A8` | Strange-status wrapper reuse row message |
+| `238` | `EF:8010` | Reuse of row `111` Kamituki presentation with a different bash body |
 
 EBATTLE3 now has a proved row-presentation subset inside the larger
 enemy-action island:
@@ -110,8 +114,10 @@ rows (`53`, `58`, `75`, `76`, `78..87`, `90`, `159`, and `207`) plus late
 physical, special, item, and event rows (`99..102`, `104`, `117`, `118`,
 `140`, `228`, `232..234`, `243`, `244`, `247`, `248`, `273`, and `290`).
 It also now records the recovered Lifeup/offense PSI rows (`32..35`, `48`,
-`49`), numeric-effect rows (`95..98`, `233`, `234`), and explosive rows
-(`64`, `65`). The latest pointer-recovery passes add the no-op/flavor rows
+`49`), numeric-effect rows (`95..98`, `233`, `234`), explosive rows
+(`64`, `65`), and the proved EBATTLE2 exact `MSG_BTL_*` action rows
+(`103`, `105..116`, `201..206`, `208..210`, and `238`). The latest
+pointer-recovery passes add the no-op/flavor rows
 `119..134`, `251..257`, and `260..266`, plus the complete `C2:9039`
 default/item-use split: EF rows `60/61`, `259`, `270`, `271`, `279`, `309`, and
 `313..317` are recorded separately from C7/C9/C6 non-EF rows. The EBATTLE2
