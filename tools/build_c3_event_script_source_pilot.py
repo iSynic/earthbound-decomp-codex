@@ -15,6 +15,7 @@ from decode_event_script import (
     ACTIONSCRIPT_ANIMATION_IDS,
     ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS,
     ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS,
+    ACTIONSCRIPT_COLDATA_COMPONENT_BYTES,
     ACTIONSCRIPT_DIRECTION_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
     ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS,
@@ -3534,6 +3535,20 @@ def call_arg_expr(
         raise ValueError(f"cannot render call argument field {field!r}")
     if width == 1:
         value = raw_args[cursor]
+        if field in {
+            "coldata_red_component_byte",
+            "coldata_green_component_byte",
+            "coldata_blue_component_byte",
+        }:
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_COLDATA_COMPONENT_BYTES,
+                prefix="COLDATA",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
         if field == "direction_class_byte":
             symbol = catalog_constant(
                 value,

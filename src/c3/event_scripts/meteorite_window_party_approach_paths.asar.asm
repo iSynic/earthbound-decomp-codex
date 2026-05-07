@@ -6,6 +6,9 @@ hirom
 ; External constants and action-script variable slots.
 !ACTIONSCRIPT_ANIMATION_FRAME0 = $00
 !ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_COLDATA_COMPONENT_10 = $10
+!ACTIONSCRIPT_COLDATA_COMPONENT_18 = $18
+!ACTIONSCRIPT_COLDATA_COMPONENT_ZERO = $00
 !ACTIONSCRIPT_DIRECTION_LEFT = $06
 !ACTIONSCRIPT_DIRECTION_UP = $04
 !ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
@@ -62,6 +65,14 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
+macro EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT(target, coldata_red_component_byte, coldata_green_component_byte, coldata_blue_component_byte)
+    db $42
+    dl <target>
+    db <coldata_red_component_byte>
+    db <coldata_green_component_byte>
+    db <coldata_blue_component_byte>
+endmacro
+
 macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
@@ -72,14 +83,6 @@ macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
     dw <field2b32_word>
-endmacro
-
-macro EVENT_CALLROUTINE_FIXED_COLOR_RED_FIXED_COLOR_GREEN_FIXED_COLOR_BLUE(target, fixed_color_red_byte, fixed_color_green_byte, fixed_color_blue_byte)
-    db $42
-    dl <target>
-    db <fixed_color_red_byte>
-    db <fixed_color_green_byte>
-    db <fixed_color_blue_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
@@ -220,7 +223,7 @@ Event54_MeteoriteWindowColorPresentation:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0001) ; C3:B152  0E 01 01 00
     %EVENT_CALLROUTINE_0(!SetCenteredColorWindowRangePreset) ; C3:B156  42 DC 23 C4
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:B15A  1D 00 00
-    %EVENT_CALLROUTINE_FIXED_COLOR_RED_FIXED_COLOR_GREEN_FIXED_COLOR_BLUE(!Script_SetVisualSetupBytesByMode, $00, $10, $18) ; C3:B15D  42 3F AA C0 00 10 18
+    %EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT(!Script_SetVisualSetupBytesByMode, !ACTIONSCRIPT_COLDATA_COMPONENT_ZERO, !ACTIONSCRIPT_COLDATA_COMPONENT_10, !ACTIONSCRIPT_COLDATA_COMPONENT_18) ; C3:B15D  42 3F AA C0 00 10 18
     %EVENT_SET_TICK_CALLBACK(!StageCurrentEntityCenteredWh0BoxMask) ; C3:B164  08 E9 79 C4
     %EVENT_LOOP($50) ; C3:B168  01 50
     %EVENT_PAUSE($01) ; C3:B16A  06 01

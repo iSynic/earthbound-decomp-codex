@@ -942,8 +942,8 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
     "C0:AA3F": {
         "name": "Script_SetVisualSetupBytesByMode",
         "group": "presentation-render",
-        "contract": "read fixed-color red/green/blue bytes into $9E37-$9E39, then apply color math using the caller-supplied mode selector",
-        "args": "fixed_color_red_byte, fixed_color_green_byte, fixed_color_blue_byte",
+        "contract": "read COLDATA red/green/blue component bytes into $9E37-$9E39, then apply color math using the caller-supplied mode selector",
+        "args": "coldata_red_component_byte, coldata_green_component_byte, coldata_blue_component_byte",
     },
     "C0:AAB5": {
         "name": "Script_RunLandingPaletteFade_ReadWordByteByte",
@@ -1051,6 +1051,21 @@ ACTIONSCRIPT_SURFACE_FLAGS_BYTES: dict[int, dict[str, str]] = {
     0x03: {
         "name": "surface_flags_bit0_bit1",
         "contract": "surface-flags byte $03 written by C0:A679 to current slot field $2BAA; bits 0 and 1 set, exact runtime meanings still local-unknown",
+    },
+}
+
+ACTIONSCRIPT_COLDATA_COMPONENT_BYTES: dict[int, dict[str, str]] = {
+    0x00: {
+        "name": "component_zero",
+        "contract": "COLDATA fixed-color component value $00 written through C4:2439 with the channel selector bit applied",
+    },
+    0x10: {
+        "name": "component_10",
+        "contract": "COLDATA fixed-color component value $10 written through C4:2439 with the channel selector bit applied",
+    },
+    0x18: {
+        "name": "component_18",
+        "contract": "COLDATA fixed-color component value $18 written through C4:2439 with the channel selector bit applied",
     },
 }
 
@@ -1456,6 +1471,12 @@ def format_call_arg_value(
         return None
     if width == 1:
         value = raw_args[cursor]
+        if field in {
+            "coldata_red_component_byte",
+            "coldata_green_component_byte",
+            "coldata_blue_component_byte",
+        }:
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_COLDATA_COMPONENT_BYTES)}", cursor + 1
         if field == "direction_class_byte":
             return f"{field}={format_named_byte(value, ACTIONSCRIPT_DIRECTION_WORDS)}", cursor + 1
         if field == "surface_flags_byte":

@@ -30,7 +30,7 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 - Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants.
 - Known sound-effect IDs render as `!ACTIONSCRIPT_SOUND_EFFECT_*` constants while keeping the word-shaped callback operand.
 - Direction tempvar writes render as `!ACTIONSCRIPT_DIRECTION_*` constants only when a later direction/vector callback consumes them in the same emitted row, with no intervening tempvar rewrite or unrelated native callback.
-- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_EVENT_FLAG`, `%EVENT_CALLROUTINE_FIELD2B32`, `%EVENT_CALLROUTINE_FIXED_COLOR_RED_FIXED_COLOR_GREEN_FIXED_COLOR_BLUE`, `%EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR`, +2.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT`, `%EVENT_CALLROUTINE_EVENT_FLAG`, `%EVENT_CALLROUTINE_FIELD2B32`, `%EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR`, +2.
 
 ## Next Promotion Step
 

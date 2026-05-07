@@ -6,6 +6,8 @@ hirom
 ; External constants and action-script variable slots.
 !ACTIONSCRIPT_ANIMATION_FRAME0 = $00
 !ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
+!ACTIONSCRIPT_COLDATA_COMPONENT_18 = $18
+!ACTIONSCRIPT_COLDATA_COMPONENT_ZERO = $00
 !ACTIONSCRIPT_DIRECTION_DOWN = $00
 !ACTIONSCRIPT_DIRECTION_UP = $04
 !ACTIONSCRIPT_SOUND_EFFECT_FALL_INTO_HOLE = $0011
@@ -55,6 +57,14 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
+macro EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT(target, coldata_red_component_byte, coldata_green_component_byte, coldata_blue_component_byte)
+    db $42
+    dl <target>
+    db <coldata_red_component_byte>
+    db <coldata_green_component_byte>
+    db <coldata_blue_component_byte>
+endmacro
+
 macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
     db $42
     dl <target>
@@ -65,14 +75,6 @@ macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
     dw <field2b32_word>
-endmacro
-
-macro EVENT_CALLROUTINE_FIXED_COLOR_RED_FIXED_COLOR_GREEN_FIXED_COLOR_BLUE(target, fixed_color_red_byte, fixed_color_green_byte, fixed_color_blue_byte)
-    db $42
-    dl <target>
-    db <fixed_color_red_byte>
-    db <fixed_color_green_byte>
-    db <fixed_color_blue_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_PARTY_MEMBER_SELECTOR(target, party_member_selector_byte)
@@ -272,7 +274,7 @@ RunWh0ColorWindowRiseAndFallEffect:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:4E00  39
     %EVENT_CALLROUTINE_0(!SetFullscreenColorWindowRangePreset) ; C3:4E01  42 0A 24 C4
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:4E05  1D 01 00
-    %EVENT_CALLROUTINE_FIXED_COLOR_RED_FIXED_COLOR_GREEN_FIXED_COLOR_BLUE(!Script_SetVisualSetupBytesByMode, $18, $18, $18) ; C3:4E08  42 3F AA C0 18 18 18
+    %EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT(!Script_SetVisualSetupBytesByMode, !ACTIONSCRIPT_COLDATA_COMPONENT_18, !ACTIONSCRIPT_COLDATA_COMPONENT_18, !ACTIONSCRIPT_COLDATA_COMPONENT_18) ; C3:4E08  42 3F AA C0 18 18 18
     %EVENT_SET_TICK_CALLBACK(!StageBaseSlotRelativeWh0BoxMask) ; C3:4E0F  08 27 7A C4
     %EVENT_START_TASK(LoopMovementVectorFromDirectionTask) ; C3:4E13  07 66 4E
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0000) ; C3:4E16  42 85 A6 C0 00 00
@@ -299,7 +301,7 @@ RunWh0ColorWindowRiseAndFallEffect:
     %EVENT_CLEAR_TICK_CALLBACK() ; C3:4E4E  0F
     %EVENT_CALLROUTINE_0(!StopWh0HdmaChannel4AndClearWhsel) ; C3:4E4F  42 8A 24 C4
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:4E53  1D 00 00
-    %EVENT_CALLROUTINE_FIXED_COLOR_RED_FIXED_COLOR_GREEN_FIXED_COLOR_BLUE(!Script_SetVisualSetupBytesByMode, $00, $00, $00) ; C3:4E56  42 3F AA C0 00 00 00
+    %EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT(!Script_SetVisualSetupBytesByMode, !ACTIONSCRIPT_COLDATA_COMPONENT_ZERO, !ACTIONSCRIPT_COLDATA_COMPONENT_ZERO, !ACTIONSCRIPT_COLDATA_COMPONENT_ZERO) ; C3:4E56  42 3F AA C0 00 00 00
     %EVENT_PAUSE($3C) ; C3:4E5D  06 3C
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:4E5F  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:4E63  19 04 A2

@@ -157,9 +157,9 @@ pilots:
   words passed to the mosaic fade-out transition helper.
 - `C0:AA23` -> `Script_StageMosaicWh0Mask_ReadThreeWords`: left-X, Y, and
   right-X words forwarded to the C4 WH0 mosaic/window-mask starter.
-- `C0:AA3F` -> `Script_SetVisualSetupBytesByMode`: fixed-color red, green,
-  and blue bytes loaded before the C4 color-math/fixed-color writer runs with
-  the caller-supplied mode selector.
+- `C0:AA3F` -> `Script_SetVisualSetupBytesByMode`: COLDATA red, green,
+  and blue component bytes loaded into `$9E37-$9E39` before the C4
+  color-math/fixed-color writer runs with the caller-supplied mode selector.
 - `C0:AAB5` -> `Script_RunLandingPaletteFade_ReadWordByteByte`: a landing
   palette existing-work mask word, palette scale byte, and fade frame-count
   byte forwarded to the C4 landing/flyover palette fade driver.
@@ -176,6 +176,13 @@ palette block; a set bit reuses the existing `$7F:0000` work block and a clear
 bit reloads the source/template word. Source pilots therefore render `$FFFC`,
 `$DFFC`, and `$2000` as block-pattern masks rather than opaque palette
 selectors.
+
+The C3-local COLDATA component catalog names only the observed bytes passed
+through `C0:AA3F`: `$00`, `$10`, and `$18`. The C0 wrapper copies those bytes
+to `$9E37-$9E39`; `C4:2439` then writes them to `$2132 COLDATA` with the red,
+green, and blue selector bits applied. These source-pilot aliases preserve the
+component-value contract without trying to name the exact screen effect from
+the script site alone.
 
 ## Surface-Flag Operands
 

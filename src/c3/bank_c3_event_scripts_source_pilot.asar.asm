@@ -8400,6 +8400,8 @@ Event569_MoveFromPartyMemberRightToAnchor:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_COLDATA_COMPONENT_18 = $18
+!ACTIONSCRIPT_COLDATA_COMPONENT_ZERO = $00
 !Event606_DoseiBoxAppearFallback = $6E2D
 !MirrorCurrentEntityYAroundTarget1002 = $C47A6B
 !Script_SetVisualSetupBytesByMode = $C0AA3F
@@ -8410,15 +8412,15 @@ Event569_MoveFromPartyMemberRightToAnchor:
 ; Minimal macro vocabulary used by this source pilot.
 
 
-
-
-macro EVENT_CALLROUTINE_FIXED_COLOR_RED_FIXED_COLOR_GREEN_FIXED_COLOR_BLUE(target, fixed_color_red_byte, fixed_color_green_byte, fixed_color_blue_byte)
+macro EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT(target, coldata_red_component_byte, coldata_green_component_byte, coldata_blue_component_byte)
     db $42
     dl <target>
-    db <fixed_color_red_byte>
-    db <fixed_color_green_byte>
-    db <fixed_color_blue_byte>
+    db <coldata_red_component_byte>
+    db <coldata_green_component_byte>
+    db <coldata_blue_component_byte>
 endmacro
+
+
 
 
 
@@ -8530,7 +8532,7 @@ RunWh0ColorWindowRiseAndFallEffect:
     %EVENT_SET_VELOCITIES_ZERO() ; C3:4E00  39
     %EVENT_CALLROUTINE_0(!SetFullscreenColorWindowRangePreset) ; C3:4E01  42 0A 24 C4
     %EVENT_WRITE_WORD_TEMPVAR($0001) ; C3:4E05  1D 01 00
-    %EVENT_CALLROUTINE_FIXED_COLOR_RED_FIXED_COLOR_GREEN_FIXED_COLOR_BLUE(!Script_SetVisualSetupBytesByMode, $18, $18, $18) ; C3:4E08  42 3F AA C0 18 18 18
+    %EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT(!Script_SetVisualSetupBytesByMode, !ACTIONSCRIPT_COLDATA_COMPONENT_18, !ACTIONSCRIPT_COLDATA_COMPONENT_18, !ACTIONSCRIPT_COLDATA_COMPONENT_18) ; C3:4E08  42 3F AA C0 18 18 18
     %EVENT_SET_TICK_CALLBACK(!StageBaseSlotRelativeWh0BoxMask) ; C3:4E0F  08 27 7A C4
     %EVENT_START_TASK(LoopMovementVectorFromDirectionTask) ; C3:4E13  07 66 4E
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, $0000) ; C3:4E16  42 85 A6 C0 00 00
@@ -8557,7 +8559,7 @@ RunWh0ColorWindowRiseAndFallEffect:
     %EVENT_CLEAR_TICK_CALLBACK() ; C3:4E4E  0F
     %EVENT_CALLROUTINE_0(!StopWh0HdmaChannel4AndClearWhsel) ; C3:4E4F  42 8A 24 C4
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:4E53  1D 00 00
-    %EVENT_CALLROUTINE_FIXED_COLOR_RED_FIXED_COLOR_GREEN_FIXED_COLOR_BLUE(!Script_SetVisualSetupBytesByMode, $00, $00, $00) ; C3:4E56  42 3F AA C0 00 00 00
+    %EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT(!Script_SetVisualSetupBytesByMode, !ACTIONSCRIPT_COLDATA_COMPONENT_ZERO, !ACTIONSCRIPT_COLDATA_COMPONENT_ZERO, !ACTIONSCRIPT_COLDATA_COMPONENT_ZERO) ; C3:4E56  42 3F AA C0 00 00 00
     %EVENT_PAUSE($3C) ; C3:4E5D  06 3C
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:4E5F  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:4E63  19 04 A2
@@ -18403,6 +18405,7 @@ Event50_ZVelocityHopTask:
 ; This file is intentionally not wired into the bank C3 scaffold yet.
 
 ; External constants and action-script variable slots.
+!ACTIONSCRIPT_COLDATA_COMPONENT_10 = $10
 !SetCenteredColorWindowRangePreset = $C423DC
 !StageCurrentEntityCenteredWh0BoxMask = $C479E9
 
@@ -18449,7 +18452,7 @@ Event54_MeteoriteWindowColorPresentation:
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0001) ; C3:B152  0E 01 01 00
     %EVENT_CALLROUTINE_0(!SetCenteredColorWindowRangePreset) ; C3:B156  42 DC 23 C4
     %EVENT_WRITE_WORD_TEMPVAR($0000) ; C3:B15A  1D 00 00
-    %EVENT_CALLROUTINE_FIXED_COLOR_RED_FIXED_COLOR_GREEN_FIXED_COLOR_BLUE(!Script_SetVisualSetupBytesByMode, $00, $10, $18) ; C3:B15D  42 3F AA C0 00 10 18
+    %EVENT_CALLROUTINE_COLDATA_RED_COMPONENT_COLDATA_GREEN_COMPONENT_COLDATA_BLUE_COMPONENT(!Script_SetVisualSetupBytesByMode, !ACTIONSCRIPT_COLDATA_COMPONENT_ZERO, !ACTIONSCRIPT_COLDATA_COMPONENT_10, !ACTIONSCRIPT_COLDATA_COMPONENT_18) ; C3:B15D  42 3F AA C0 00 10 18
     %EVENT_SET_TICK_CALLBACK(!StageCurrentEntityCenteredWh0BoxMask) ; C3:B164  08 E9 79 C4
     %EVENT_LOOP($50) ; C3:B168  01 50
     %EVENT_PAUSE($01) ; C3:B16A  06 01
