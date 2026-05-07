@@ -1080,6 +1080,39 @@ ACTIONSCRIPT_FADE_EFFECT_WORDS: dict[int, dict[str, str]] = {
     },
 }
 
+ACTIONSCRIPT_MOSAIC_WH0_MASK_LEFT_X_WORDS: dict[int, dict[str, str]] = {
+    0x1220: {
+        "name": "tstage_performance_corridor",
+        "contract": "left-X word for the repeated Tenda-stage performance-corridor C0:AA23 WH0 mask preset; C4:7765 subtracts screen X origin $0031 before writing stream edge bytes",
+    },
+    0x1AC0: {
+        "name": "tstage_dance_followup",
+        "contract": "left-X word for the Tenda-stage dance-followup C0:AA23 WH0 mask preset; C4:7765 subtracts screen X origin $0031 before writing stream edge bytes",
+    },
+}
+
+ACTIONSCRIPT_MOSAIC_WH0_MASK_Y_WORDS: dict[int, dict[str, str]] = {
+    0x1670: {
+        "name": "tstage_performance_corridor",
+        "contract": "Y word for the repeated Tenda-stage performance-corridor C0:AA23 WH0 mask preset; C4:7765 subtracts screen Y origin $0033 before seeding the WH0 stream start",
+    },
+    0x2170: {
+        "name": "tstage_dance_followup",
+        "contract": "Y word for the Tenda-stage dance-followup C0:AA23 WH0 mask preset; C4:7765 subtracts screen Y origin $0033 before seeding the WH0 stream start",
+    },
+}
+
+ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS: dict[int, dict[str, str]] = {
+    0x12E0: {
+        "name": "tstage_performance_corridor",
+        "contract": "right-X word for the repeated Tenda-stage performance-corridor C0:AA23 WH0 mask preset; C4:7765 subtracts screen X origin $0031 before writing stream edge bytes",
+    },
+    0x1B40: {
+        "name": "tstage_dance_followup",
+        "contract": "right-X word for the Tenda-stage dance-followup C0:AA23 WH0 mask preset; C4:7765 subtracts screen X origin $0031 before writing stream edge bytes",
+    },
+}
+
 ACTIONSCRIPT_BATTLE_BG_LAYER1_IDS: dict[int, dict[str, str]] = {
     0x00FF: {
         "name": "event340_winters_transition",
@@ -1505,6 +1538,12 @@ def format_call_arg_value(
             return f"{field}={format_named_word(value, ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS)}", cursor + 2
         if field in {"fadein_effect_word", "fadeout_effect_word"}:
             return f"{field}={format_named_word(value, ACTIONSCRIPT_FADE_EFFECT_WORDS)}", cursor + 2
+        if field == "mask_left_x_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_MOSAIC_WH0_MASK_LEFT_X_WORDS)}", cursor + 2
+        if field == "mask_y_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_MOSAIC_WH0_MASK_Y_WORDS)}", cursor + 2
+        if field == "mask_right_x_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS)}", cursor + 2
         if field == "sound_effect_id_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_SOUND_EFFECT_IDS)}", cursor + 2
         return f"{field}={format_word(value)}", cursor + 2

@@ -192,6 +192,14 @@ and move the byte-swapped copy through X before calling `C0:886C` or
 the high byte. Source pilots keep these as fade effect words until the display
 state machine has stronger player-facing effect names.
 
+The C3-local mosaic WH0 mask catalog names the two observed `C0:AA23` triples:
+`$1AC0/$2170/$1B40` for the Tenda-stage dance-followup path and
+`$1220/$1670/$12E0` for the repeated Tenda-stage performance-corridor path.
+`C4:7765` subtracts `$0031` from the left/right X words and `$0033` from the
+Y word while emitting the `$7F:0BF8` WH0 HDMA stream, so the source aliases
+name the callsite preset and edge role while leaving the final visual-effect
+name open.
+
 ## Surface-Flag Operands
 
 - `C0:A679` -> `Script_SetCurrentSlotSurfaceFlags`: reads one byte and stores it

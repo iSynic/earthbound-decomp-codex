@@ -20,6 +20,9 @@ from decode_event_script import (
     ACTIONSCRIPT_FADE_EFFECT_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
     ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS,
+    ACTIONSCRIPT_MOSAIC_WH0_MASK_LEFT_X_WORDS,
+    ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS,
+    ACTIONSCRIPT_MOSAIC_WH0_MASK_Y_WORDS,
     ACTIONSCRIPT_SOUND_EFFECT_IDS,
     ACTIONSCRIPT_SURFACE_FLAGS_BYTES,
     CALL_ARG_COUNTS,
@@ -3618,6 +3621,36 @@ def call_arg_expr(
                 value,
                 ACTIONSCRIPT_FADE_EFFECT_WORDS,
                 prefix="FADE_EFFECT",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "mask_left_x_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_MOSAIC_WH0_MASK_LEFT_X_WORDS,
+                prefix="MOSAIC_WH0_MASK_LEFT_X",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "mask_y_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_MOSAIC_WH0_MASK_Y_WORDS,
+                prefix="MOSAIC_WH0_MASK_Y",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "mask_right_x_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS,
+                prefix="MOSAIC_WH0_MASK_RIGHT_X",
                 formatter=fmt_word,
                 constants=constants,
             )
