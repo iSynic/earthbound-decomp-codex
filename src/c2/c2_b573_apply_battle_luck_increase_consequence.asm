@@ -104,13 +104,14 @@ C2B5E3_RunBattleStatChangeConsequenceEpilogue:
     lda [$06],Y
     rep #$20
     and.w #$00FF
-    beq C2B606_ApplyBattleLuckIncreaseConsequence_LB606
+    beq C2B606_ReturnFromBattleStatChangeConsequence
     and.w #$00FF
     sta $04
     asl A
     adc $04
     asl A
     jsl C076C8_DispatchBattleConsequenceControlByte
+C2B606_ReturnFromBattleStatChangeConsequence:
 C2B606_ApplyBattleLuckIncreaseConsequence_LB606:
     pld
     rtl

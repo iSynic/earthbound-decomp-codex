@@ -54,6 +54,11 @@ handoff as `DispatchBattleConsequenceControlByte`. The C0 helper name remains
 local to this consequence-record contract until its wider bank-C0 role is
 promoted from its own callers.
 
+Return-tail follow-up: `C2:B606` is now exposed as
+`ReturnFromBattleStatChangeConsequence`. The late condiment/odor no-effect
+route jumps there when it wants the shared `pld/rtl` return without entering
+the optional `C2:B5E3` control-byte epilogue.
+
 Selector-dispatch follow-up: `C2:B2E0` now jumps to each explicit jump selector
 leaf by behavioral contract instead of raw local addresses. Selector `2` is
 `ApplyBattleHpPpRecoveryConsequence`, selector `3` is

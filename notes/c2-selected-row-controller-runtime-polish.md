@@ -73,6 +73,9 @@ Promoted runtime contract:
   through `C2:FAD8` / `SetEnemySpriteColorWaveDuration`,
   `C2:FB35` / `EnemySpriteColorWaveComparisonHelper`, and `C2:69BE` /
   `WaitFrames`
+- the refresh loop's palette component extraction now calls the shared
+  `C0:9251` / `SignedDivide16By8` helper by name, matching the nearby
+  color-wave initializer vocabulary
 
 This keeps the helper named around behavior instead of final gameplay wording:
 it is wider than "print revived" because it also resets selected-row state,
@@ -120,6 +123,8 @@ This slice ties together several previously separate-looking facts:
   visual refresh loops.
 - `C2:7397` now shares named color-wave duration and per-entry setup helpers
   with the late selected-row collapse visual pass.
+- the heavy-recovery visual refresh now names the signed divide helper used for
+  RGB555 component extraction before calling the color-wave comparison helper.
 - battle-start front/back controller callsites now name the second-stage row
   counter and source-entry promoter that bridge battle-start row selection into
   the collapse/affliction controller state.

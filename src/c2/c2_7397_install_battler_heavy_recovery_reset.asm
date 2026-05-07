@@ -25,6 +25,7 @@
 
 C27126_SetBattlerHpTarget           = $7126
 C269BE_WaitFrames                   = $69BE
+C09251_SignedDivide16By8            = $C09251
 C08FF7_ResolveIndexedPointerOffset  = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C2FAD8_SetEnemySpriteColorWaveDuration = $C2FAD8
@@ -227,7 +228,7 @@ C274F6_InstallBattlerHeavyRecoveryReset_L74F6:
     txa
     sep #$10
     ply
-    jsl $C09251
+    jsl C09251_SignedDivide16By8
     and.w #$001F
     sta $0E
     rep #$10

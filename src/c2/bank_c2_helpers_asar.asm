@@ -3659,6 +3659,7 @@ org $C27397
 
 !C27126_SetBattlerHpTarget = $7126
 !C269BE_WaitFrames = $69BE
+!C09251_SignedDivide16By8 = $C09251
 !C08FF7_ResolveIndexedPointerOffset = $C08FF7
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 !C2FAD8_SetEnemySpriteColorWaveDuration = $C2FAD8
@@ -3854,7 +3855,7 @@ C274F6_InstallBattlerHeavyRecoveryReset_L74F6:
     txa
     sep #$10
     ply
-    jsl $C09251
+    jsl !C09251_SignedDivide16By8
     and.w #$001F
     sta $0E
     rep #$10
@@ -20331,13 +20332,14 @@ C2B5E3_RunBattleStatChangeConsequenceEpilogue:
     lda [$06],Y
     rep #$20
     and.w #$00FF
-    beq C2B606_ApplyBattleLuckIncreaseConsequence_LB606
+    beq C2B606_ReturnFromBattleStatChangeConsequence
     and.w #$00FF
     sta $04
     asl A
     adc $04
     asl A
     jsl !C076C8_DispatchBattleConsequenceControlByte
+C2B606_ReturnFromBattleStatChangeConsequence:
 C2B606_ApplyBattleLuckIncreaseConsequence_LB606:
     pld
     rtl
@@ -23274,6 +23276,7 @@ C2FB2E_ResetEnemySpriteColorWaveSlot_LFB2E:
 hirom
 org $C2FB35
 
+!C09251_SignedDivide16By8 = $C09251
 C2FB35_EnemySpriteColorWaveComparisonHelper:
     rep #$31
     phd
@@ -23318,7 +23321,7 @@ C2FB35_EnemySpriteColorWaveComparisonHelper:
     tay
     rep #$20
     lda $12
-    jsl $C09251
+    jsl !C09251_SignedDivide16By8
     and.w #$001F
     sta $0E
     lda $04
@@ -34225,6 +34228,7 @@ org $C2B172
 !C1DB33_FindCondimentForFoodItem = $C1DB33
 !C18EAD_SearchAndRemoveItemFromActiveInventories = $C18EAD
 !C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+!C2B606_ReturnFromBattleStatChangeConsequence = $B606
 !ItemConfigurationTableBase = $5000
 !ItemTableBank = $00D5
 !ItemRecordStride = $0027
@@ -34405,7 +34409,7 @@ C2B27B_ReturnLateNormalizationOdorContinuation:
     lda.w #!EF_BattleTextScriptBank
     sta $10
     jsl !C1DC1C_DisplayBattleTextFromPointer
-    jmp $B606
+    jmp !C2B606_ReturnFromBattleStatChangeConsequence
 C2B2B4_ResolveLateNormalizationAndOdorContinuation_LB2B4:
     jsr.w APPLY_CONDIMENT
     lda $06

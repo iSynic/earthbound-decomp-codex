@@ -823,6 +823,17 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-late-selected-row-runtime-polish.md`,
   `notes/class2-special-event-results-c29298-c2c14e.md`, and
   `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-06 one hundred and seventh slice: tightened a consequence return edge
+  and selected-row color math helper joins. The late condiment/odor no-effect
+  path now jumps to `C2:B606` as `ReturnFromBattleStatChangeConsequence`,
+  making explicit that it returns through the stat-consequence tail without the
+  optional `C2:B5E3` control-byte dispatch; the heavy-recovery visual refresh
+  and `C2:FB35` color-wave comparison helper now call `C0:9251` as
+  `SignedDivide16By8` while extracting RGB555 palette components. See
+  `notes/c2-late-normalization-odor-runtime-polish.md`,
+  `notes/c2-stat-consequence-runtime-polish.md`,
+  `notes/c2-selected-row-controller-runtime-polish.md`, and
+  `notes/c2-battle-sprite-runtime-polish.md`.
 
 ## Validation
 

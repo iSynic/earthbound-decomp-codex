@@ -56,14 +56,16 @@ Stable promoted anchors:
 - the later party-member gate uses stride `$005F` and still preserves the
   original special-case id `4` behavior with a named local constant rather than
   over-explaining it
-- blocked status continues to emit the shared no-effect script `EF:766E`
+- blocked status continues to emit the shared no-effect script `EF:766E`, then
+  returns through the neighboring stat-consequence return tail at `C2:B606`
+  without running the optional `C2:B5E3` control-byte dispatch
 
 ## Remaining Soft Spots
 
 - The exact gameplay identity of party member id `4` in this corridor is still
   intentionally local.
-- The `B172` module boundary ends before the complete continuation return path;
-  this pass only names the stable local constants and text/data joins in the
-  emitted source body.
+- The `B172` module boundary still rejoins a neighboring stat-consequence
+  return tail; the no-effect route now names that `C2:B606` edge, but the
+  broader post-`B2E0` continuation remains cross-module.
 - The `AF1F` pointer-copy body still needs a future field-by-field cleanup once
   the selected-row snapshot layout has stronger local evidence.
