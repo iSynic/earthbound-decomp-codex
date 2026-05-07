@@ -158,9 +158,13 @@ This planning pass does not split EF source corridors or regenerate the bank.
   anchors. This extends the C2/C1 present byte-substitution bridge without
   converting EB text bytes to macro source.
 - 2026-05-06: EF EBATTLE8 present-item naming follow-up tightened those source
-  anchors: `EF:7BDF/7DD5` now name present item `ByteSubstitutionText`
+  anchors: `EF:7BDF/7DD5` now name present item `ByteSubstitutionPayloadText`
   consumers directly, and `EF:7C42..7DBE` separates result text from prompt
   text inside the present continuation.
+- 2026-05-06: EF byte-substitution payload suffix follow-up renamed the bare
+  `EF:7B77`, `EF:7BDF`, and `EF:7DD5` `19 1F` consumers as
+  `ByteSubstitutionPayloadText`, making the staged DD7C payload lane explicit
+  without folding it into row-presentation or result-text suffixes.
 - 2026-05-05: EF EBATTLE4 status/event prelude follow-up split the
   `EF:7186..75AB` corridor into action-blocking status text, PSI-seal result
   branches, guard/Fly-Honey/homesick flavor, Runaway Five and Poo/Starstorm

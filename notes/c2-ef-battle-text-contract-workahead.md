@@ -466,6 +466,7 @@ Concrete script evidence (exact parsed hits via `tools/find_ebtext_command.py 19
 These occur in the same decoded script region as the present/UFO byte-substitution examples (see `tools/disasm_ebtext_script.py EF:7B70`):
 
 - `EF:7B77` uses `LOAD_BYTE_SUBSTITUTION` (`19 1F`) and prints a PSI name
+  through a `ByteSubstitutionPayloadText` anchor.
 - `EF:7B85` / `EF:7BA2` / `EF:7BC1` use `LOAD_POINTER_SUBSTITUTION` (`19 1E`) and branch on active-memory values
   - source labels keep the lane first:
     `PointerSubstitutionSweetBranch`, `PointerSubstitutionTearsBranch`, and
@@ -669,8 +670,8 @@ EF payload anchor suffixes should mirror those wrapper contracts:
 
 - `ActionAmount`: EF script consumes the `C1:DC66` secondary payload through
   `PRINT_ACTION_AMOUNT (1C 0F)`.
-- `ByteSubstitution`: EF script consumes the `C1:DD7C` byte slot through
-  `LOAD_BYTE_SUBSTITUTION (19 1F)`.
+- `ByteSubstitutionPayloadText`: EF script consumes the `C1:DD7C` byte slot
+  through `LOAD_BYTE_SUBSTITUTION (19 1F)`.
   High-confidence EF consumers now include present item text `EF:7BDF/7DD5`,
   learned/shared PSI text `EF:7B77/8543`, and shield PSI-name scripts
   `EF:70D2/70FA`.
@@ -740,9 +741,14 @@ And for the most actionable C2 call-site families:
   `BattlePresentItemByte`; EF now exposes the downstream result branches that
   run after `EF:7BDF` consumes that byte through `19 1F`.
 - 2026-05-06: EF present-item naming follow-up removed inherited `MsgBtl`
-  prose from the `EF:7BDF` and `EF:7DD5` item `ByteSubstitutionText` anchors
+  prose from the `EF:7BDF` and `EF:7DD5` item `ByteSubstitutionPayloadText`
+  anchors,
   and split the `EF:7C42..7DBE` continuation labels into present result versus
   prompt text roles. No C1/C2 source was edited in this pass.
+- 2026-05-06: EF byte-substitution payload suffix follow-up renamed the bare
+  `EF:7B77`, `EF:7BDF`, and `EF:7DD5` consumers as
+  `ByteSubstitutionPayloadText`, separating staged DD7C payload scripts from
+  row-presentation and direct-result substitution anchors.
 - 2026-05-01: `src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm`
   now names the Spy readout target battler offsets for offense, defense, fire/
   freeze/flash/paralysis resistance, hypnosis resistance, brainshock

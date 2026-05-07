@@ -1757,8 +1757,9 @@ EF7B64_EBattle8LearnedPsiLeadInText:
 ; ---------------------------------------------------------------------------
 ; EF:7B77
 
-; EBATTLE8: PSI-name text; consumes C1:DD7C byte slot through 19 1F.
-EF7B77_EBattle8PsiNameByteSubstitutionText:
+; EBATTLE8: learned-PSI name payload text; consumes the C1:DD7C byte slot
+; through 19 1F.
+EF7B77_EBattle8PsiNameByteSubstitutionPayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7B83
@@ -1799,8 +1800,9 @@ EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
 ; ---------------------------------------------------------------------------
 ; EF:7BDF
 
-; EBATTLE8: present item text; consumes C1:DD7C item byte through 19 1F.
-EF7BDF_EBattle8PresentItemByteSubstitutionText:
+; EBATTLE8: present item-name payload text; consumes the C1:DD7C item byte
+; through 19 1F.
+EF7BDF_EBattle8PresentItemByteSubstitutionPayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7C42
@@ -1859,8 +1861,9 @@ EF7DBE_EBattle8PresentDropForbiddenResultText:
 ; ---------------------------------------------------------------------------
 ; EF:7DD5
 
-; EBATTLE8: check-present-get text; consumes C1:DD7C item byte through 19 1F.
-EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionText:
+; EBATTLE8: check-present get-item payload text; consumes the C1:DD7C item byte
+; through 19 1F.
+EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionPayloadText:
 
 ; ---------------------------------------------------------------------------
 ; EF:7E25

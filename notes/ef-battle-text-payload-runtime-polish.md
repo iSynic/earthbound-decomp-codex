@@ -32,9 +32,9 @@ C1/C2 callers depend on:
   narration stages the same slot through `C1:AD0A` before dispatching its fixed
   EF scripts. Callers should keep the staged value type explicit, such as delta
   HP, delta PP, offense, defense, drained HP, drained PP, or stat gain.
-- `ByteSubstitution` anchors are EF scripts that consume the `C1:DD7C` byte
-  slot through `LOAD_BYTE_SUBSTITUTION (19 1F)`, including learned-PSI and
-  Present/Check Present item-name text.
+- `ByteSubstitutionPayloadText` anchors are EF scripts that consume the
+  `C1:DD7C` byte slot through `LOAD_BYTE_SUBSTITUTION (19 1F)`, including
+  learned-PSI and Present/Check Present item-name text.
 - `PointerSubstitution` anchors are EF branches that consume the staged pointer
   payload through `LOAD_POINTER_SUBSTITUTION (19 1E)`.
 
@@ -134,7 +134,7 @@ macros.
   stat-gain anchors are named as `ActionAmount` consumers because C1 stages
   their deltas through `C1:AD0A -> $9D12/$9D14 -> 1C 0F`.
 - `EF:7B64` now marks the learned-PSI lead-in that falls through to the
-  existing `EF:7B77` PSI-name byte-substitution text.
+  existing `EF:7B77` PSI-name byte-substitution payload text.
 - `EF:7B77`, `EF:7B85`, `EF:7BA2`, `EF:7BC1`, `EF:7BDF`, and `EF:7DD5` now
   mark the byte and pointer substitution examples in `EBATTLE8`: `19 1F` byte
   substitution for PSI/present item names and `19 1E` pointer substitution
@@ -332,7 +332,7 @@ also consume the `C1:DD7C -> $9D11 -> 19 1F` byte slot.
 The C2 battle-start and Check Present notes already prove the `$AA10 ->
 C1:DD7C -> $9D11 -> 19 1F` byte-substitution bridge into `EF:7BDF` and
 `EF:7DD5`. Those source anchors now use present-item and check-present-get
-`ByteSubstitutionText` names without inherited `MsgBtl` prose. Splitting
+`ByteSubstitutionPayloadText` names without inherited `MsgBtl` prose. Splitting
 `EF:7C42..7DD5` exposes the internal present continuation as result and prompt
 anchors: recipient-cannot-receive and inventory-full results, throw-away and
 abandon prompts, abandon-confirmed and drop-confirmed results, drop-selection

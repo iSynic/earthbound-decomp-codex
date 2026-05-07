@@ -5369,11 +5369,13 @@ db $80,$50,$A7,$16,$32,$A5,$A0,$15,$F5,$1C,$0F,$51,$14,$02
 
 EF7B64_EBattle8LearnedPsiLeadInText:
 
-; Original data gap before EF7B77_EBattle8PsiNameByteSubstitutionText:
+; Original data gap before EF7B77_EBattle8PsiNameByteSubstitutionPayloadText:
 db $01,$1F,$02,$67,$70,$1C,$0E,$16,$C4,$9C,$99,$AA,$15,$4A,$16,$FE
 db $15,$86,$00
 
-EF7B77_EBattle8PsiNameByteSubstitutionText:
+; EBATTLE8: learned-PSI name payload text; consumes the C1:DD7C byte slot
+; through 19 1F.
+EF7B77_EBattle8PsiNameByteSubstitutionPayloadText:
 
 ; Original data gap before EF7B83_EBattle8PointerSubstitutionIntroState:
 db $19,$1F,$1B,$04,$50,$50,$1C,$12,$00,$5E,$14,$02
@@ -5407,11 +5409,13 @@ db $1B,$00
 
 EF7BC1_EBattle8PointerSubstitutionOhBabyBranch:
 
-; Original data gap before EF7BDF_EBattle8PresentItemByteSubstitutionText:
+; Original data gap before EF7BDF_EBattle8PresentItemByteSubstitutionPayloadText:
 db $19,$1E,$18,$07,$03,$00,$00,$00,$00,$1B,$02,$DC,$7B,$EF,$00,$7F
 db $98,$5C,$50,$92,$91,$92,$A9,$51,$00,$50,$50,$1B,$01,$02
 
-EF7BDF_EBattle8PresentItemByteSubstitutionText:
+; EBATTLE8: present item-name payload text; consumes the C1:DD7C item byte
+; through 19 1F.
+EF7BDF_EBattle8PresentItemByteSubstitutionPayloadText:
 
 ; Original data gap before EF7C42_EBattle8PresentRecipientCannotReceiveResultText:
 db $01,$15,$7F,$15,$F3,$17,$EC,$96,$17,$0D,$16,$AF,$15,$9E,$51,$14
@@ -5484,11 +5488,13 @@ db $1D,$0E,$00,$00,$1F,$02,$74,$10,$01,$03,$02
 
 EF7DBE_EBattle8PresentDropForbiddenResultText:
 
-; Original data gap before EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionText:
+; Original data gap before EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionPayloadText:
 db $17,$94,$15,$81,$A4,$98,$17,$5B,$15,$18,$1C,$05,$00,$50,$16,$C9
 db $5E,$14,$0A,$0F,$7D,$EF,$00
 
-EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionText:
+; EBATTLE8: check-present get-item payload text; consumes the C1:DD7C item byte
+; through 19 1F.
+EF7DD5_EBattle8CheckPresentGetItemByteSubstitutionPayloadText:
 
 ; Original data gap before EF7E25_EBattle2PpReductionRowPresentationText:
 db $01,$70,$1C,$0D,$17,$CA,$A7,$00,$50,$15,$BC,$16,$AF,$16,$32,$92
