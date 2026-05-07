@@ -6,6 +6,7 @@ hirom
 ; External constants and action-script variable slots.
 !ACTIONSCRIPT_ANIMATION_FRAME0 = $00
 !ACTIONSCRIPT_DIRECTION_RIGHT = $02
+!ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1 = $03
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -23,7 +24,7 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -32,10 +33,10 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
     db $42
     dl <target>
-    db <display_control_bits_byte>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
@@ -205,7 +206,7 @@ Event436_ObscuredStageSlideRelease:
     %EVENT_SET_Y($166C) ; C3:34D2  29 6C 16
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:34D5  25 C8 9F
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:34D8  3B 00
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:34DA  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1) ; C3:34DA  42 79 A6 C0 03
     %EVENT_WRITE_WORD_TEMPVAR(!ACTIONSCRIPT_DIRECTION_RIGHT) ; C3:34DF  1D 02 00
     %EVENT_CALLROUTINE_0(!SetCurrentSlotDirectionClassIfActive) ; C3:34E2  42 5F A6 C0
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:34E6  42 BF A4 C0

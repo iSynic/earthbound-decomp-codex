@@ -16,6 +16,7 @@ hirom
 !ACTIONSCRIPT_SOUND_EFFECT_FALL_INTO_HOLE = $0011
 !ACTIONSCRIPT_SOUND_EFFECT_PLAYER_WOUNDED = $002E
 !ACTIONSCRIPT_SOUND_EFFECT_YELL_OR_SAY_SOMETHING_NASTY = $0054
+!ACTIONSCRIPT_SURFACE_FLAGS_NONE = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -50,8 +51,8 @@ hirom
 !RunWindowGfxVariantLoop = $3C1D
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_PlaySoundEffectParameter = $C0A841
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallback = $C48BE1
@@ -72,12 +73,6 @@ endmacro
 macro EVENT_CALLROUTINE_0(target)
     db $42
     dl <target>
-endmacro
-
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
-    db $42
-    dl <target>
-    db <display_control_bits_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_FADEOUT_EFFECT(target, fadeout_effect_word)
@@ -108,6 +103,12 @@ macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
     db $42
     dl <target>
     dw <sound_effect_id_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
+    db $42
+    dl <target>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
@@ -382,7 +383,7 @@ Event638_GumMachineCoordinateTextHalt:
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:777E  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity_WithSpriteRefresh) ; C3:7781  25 F1 9F
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:7784  3B 00
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:7786  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:7786  42 79 A6 C0 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:778B  39
     %EVENT_SET_Z($0020) ; C3:778C  2A 20 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:778F  42 BF A4 C0

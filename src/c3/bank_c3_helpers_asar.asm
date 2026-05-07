@@ -1512,12 +1512,12 @@ C3F016_BattlePsiMenuSelectorGroupTableEnd:
     db $03,$33,$08,$08,$0D,$0D,$12,$12,$17,$1C,$1C,$1C,$21,$25,$37,$29
     db $04,$34,$09,$09,$0E,$0E,$13,$13,$18,$1D,$1D,$1D,$22,$2E,$2D,$2A
     db $05,$35,$0A,$0A,$0F,$0F,$14,$14,$19,$1E,$1E,$1E,$23,$26,$38,$2B
-C3F054_BattlePsiMenuSelectorGroupTablePartF016End:
+C3F054_BattlePsiMenuGroupSliceCountTableEnd:
     db $0B,$06,$0B,$0B,$0B,$09,$0A,$04,$0C,$0B,$0A,$05,$0C,$0C,$0B,$0A
     db $0A,$0B,$0B,$07,$0A,$0B,$0C,$0C,$0C,$0B,$0C,$0C,$09,$0B,$09,$0C
     db $0C,$0B,$06,$0C,$0B,$08,$09,$07,$0B,$0C,$0A,$0C,$0A,$0B,$0B,$0B
     db $09,$06,$08,$09,$08,$09,$09,$07,$08,$08,$04,$06,$04,$07
-C3F0B0_BattlePsiMenuSelectorGroupTablePartF054End:
+C3F0B0_BattleTextControlToken50To7fMetadataTableEnd:
     db $7A,$0C,$E1,$00,$DA,$0C,$E1,$00,$20,$00,$10,$00,$59,$13,$E0,$00
     db $B9,$13,$E0,$00,$20,$00,$10,$00,$DA,$18,$E1,$00,$3A,$19,$E1,$00
     db $10,$00,$10,$00,$3A,$1F,$E1,$00,$9A,$1F,$E1,$00,$08,$00,$08,$00
@@ -1532,11 +1532,11 @@ C3F112_BattlePsiKnownStateGateTableEnd:
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00
-C3F11C_BattlePsiKnownStateGateTablePartF112End:
+C3F11C_BattlePsiRankSuffixTableEnd:
     db $8B,$00,$8C,$00,$8D,$00,$8E,$00,$8F,$00
-C3F124_BattlePsiKnownStateGateTablePartF11CEnd:
+C3F124_BattlePsiMenuEntryFixedTailEnd:
     db $80,$80,$50,$73,$9F,$A3,$A4,$6A
-C3F1EC_BattlePsiKnownStateGateTablePartF124End:
+C3F1EC_BattlePsiMenuEntryRowTableEnd:
     db $84,$9F,$50,$95,$9E,$95,$9D,$A9,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00,$00,$00,$84,$9F,$50,$9F,$9E,$95,$50,$95,$9E,$95,$9D,$A9
     db $00,$00,$00,$00,$00,$00,$00,$00,$A4,$9F,$50,$7F,$9E,$95,$50,$75
@@ -1692,7 +1692,7 @@ org $C3F2B1
 
 C3F2B5_LevelUpStatGrowthVarianceTableEnd:
     db $08,$04,$04,$04
-C3F3C5_LevelUpStatGrowthVarianceTablePartF2B5End:
+C3F3C5_VisualSelectorPoseRowTableEnd:
     db $01,$00,$08,$00,$11,$00,$15,$00,$1B,$00,$22,$00,$05,$00,$FF,$FF
     db $02,$00,$09,$00,$12,$00,$16,$00,$1C,$00,$22,$00,$19,$00,$FF,$FF
     db $03,$00,$0A,$00,$13,$00,$17,$00,$1D,$00,$22,$00,$19,$00,$FF,$FF

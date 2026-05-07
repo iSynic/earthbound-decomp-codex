@@ -8,6 +8,7 @@ hirom
 !ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
 !ACTIONSCRIPT_FIELD2B32_STEP_0280 = $0280
+!ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1 = $03
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -32,8 +33,8 @@ hirom
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !ReturnFromPhysicsCallback_NoMovement = $9FF0
 !ReturnFromPositionChangeCallback_NoProjection = $A039
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !Script_SetStagedPositionOffset_ReadTwoWords = $C0A8B3
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallback = $C48BE1
@@ -49,12 +50,6 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
-    db $42
-    dl <target>
-    db <display_control_bits_byte>
-endmacro
-
 macro EVENT_CALLROUTINE_FIELD2B32(target, field2b32_word)
     db $42
     dl <target>
@@ -66,6 +61,12 @@ macro EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(target, staged_offset_x_
     dl <target>
     dw <staged_offset_x_word>
     dw <staged_offset_y_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
+    db $42
+    dl <target>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(target, teleport_destination_selector_byte)
@@ -243,7 +244,7 @@ Event216_BusDesertTouchRoute:
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ReturnFromPositionChangeCallback_NoProjection) ; C3:DA49  23 39 A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:DA4C  25 C8 9F
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:DA4F  3B 00
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:DA51  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1) ; C3:DA51  42 79 A6 C0 03
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallback) ; C3:DA56  08 E1 8B C4
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0280) ; C3:DA5A  42 85 A6 C0 80 02
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0003) ; C3:DA60  0E 05 03 00

@@ -9,6 +9,7 @@ hirom
 !ACTIONSCRIPT_DIRECTION_UP = $04
 !ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
 !ACTIONSCRIPT_SOUND_EFFECT_SKY_RUNNER_SIGNAL_GIYGAS_SHIELD = $0049
+!ACTIONSCRIPT_SURFACE_FLAGS_NONE = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -30,8 +31,8 @@ hirom
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
 !Script_PlaySoundEffectParameter = $C0A841
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallback = $C48BE1
@@ -41,12 +42,6 @@ hirom
 macro EVENT_CALLROUTINE_0(target)
     db $42
     dl <target>
-endmacro
-
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
-    db $42
-    dl <target>
-    db <display_control_bits_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_FADEOUT_EFFECT(target, fadeout_effect_word)
@@ -77,6 +72,12 @@ macro EVENT_CALLROUTINE_SOUND_EFFECT_ID(target, sound_effect_id_word)
     db $42
     dl <target>
     dw <sound_effect_id_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
+    db $42
+    dl <target>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_VISUAL_STATE_COUNTDOWN(target, visual_state_byte, countdown_byte)
@@ -158,7 +159,7 @@ Event163_SkyRunnerElectricEffectReflectRelease:
     %EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(!Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord, $00D1) ; C3:CEC7  42 6F A8 C0 D1 00
     %EVENT_SET_Y_RELATIVE($FFD8) ; C3:CECD  2C D8 FF
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:CED0  25 C8 9F
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:CED3  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:CED3  42 79 A6 C0 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:CED8  39
     %EVENT_START_TASK(!LoopSkyRunnerElectricEffectRise) ; C3:CED9  07 B9 CE
     %EVENT_CALLROUTINE_SOUND_EFFECT_ID(!Script_PlaySoundEffectParameter, !ACTIONSCRIPT_SOUND_EFFECT_SKY_RUNNER_SIGNAL_GIYGAS_SHIELD) ; C3:CEDC  42 41 A8 C0 49 00

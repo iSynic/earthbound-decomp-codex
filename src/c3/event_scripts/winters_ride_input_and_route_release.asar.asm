@@ -10,6 +10,8 @@ hirom
 !ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_FIELD2B32_STEP_0180 = $0180
 !ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
+!ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1 = $03
+!ACTIONSCRIPT_SURFACE_FLAGS_NONE = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -33,8 +35,8 @@ hirom
 !RunFaceTargetShakeByRegistryCount = $B70C
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !Script_SetTargetToVisualTypeSlotPosition_ReadWord = $C0A92D
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallbackOffset = $C48C02
@@ -55,12 +57,6 @@ endmacro
 macro EVENT_CALLROUTINE_0(target)
     db $42
     dl <target>
-endmacro
-
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
-    db $42
-    dl <target>
-    db <display_control_bits_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
@@ -85,6 +81,12 @@ macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
     db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
+    db $42
+    dl <target>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(target, teleport_destination_selector_byte)
@@ -276,7 +278,7 @@ Event145_WintersRideVisualTypeRouteRelease:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C6DA  19 04 A2
 Event146_WintersRideLaunchArcRelease:
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:C6DD  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:C6E2  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1) ; C3:C6E2  42 79 A6 C0 03
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:C6E7  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:C6EA  25 0C A0
     %EVENT_SET_Z($0000) ; C3:C6ED  2A 00 00
@@ -284,7 +286,7 @@ Event146_WintersRideLaunchArcRelease:
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:C6F2  42 BF A4 C0
     %EVENT_SET_Z_VELOCITY($0040) ; C3:C6F6  41 40 00
     %EVENT_PAUSE($C8) ; C3:C6F9  06 C8
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:C6FB  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:C6FB  42 79 A6 C0 00
     %EVENT_PAUSE($28) ; C3:C700  06 28
     %EVENT_SET_VELOCITIES_ZERO() ; C3:C702  39
     %EVENT_PAUSE($3C) ; C3:C703  06 3C
@@ -314,7 +316,7 @@ Event146_WintersRideLaunchArcRelease:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C740  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C744  19 04 A2
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:C747  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:C74C  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:C74C  42 79 A6 C0 00
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:C751  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:C754  25 0C A0
     %EVENT_SET_Z($0000) ; C3:C757  2A 00 00
@@ -351,7 +353,7 @@ Event146_WintersRideLaunchArcRelease:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:C7A7  42 46 6E C4
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C7AB  19 04 A2
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:C7AE  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:C7B3  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1) ; C3:C7B3  42 79 A6 C0 03
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:C7B8  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:C7BB  25 0C A0
     %EVENT_SET_Z($0000) ; C3:C7BE  2A 00 00

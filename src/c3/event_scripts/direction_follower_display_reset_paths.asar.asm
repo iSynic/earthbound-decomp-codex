@@ -5,6 +5,7 @@ hirom
 
 ; External constants and action-script variable slots.
 !ACTIONSCRIPT_ANIMATION_FRAME0 = $00
+!ACTIONSCRIPT_SURFACE_FLAGS_NONE = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -18,7 +19,7 @@ hirom
 !ProjectWorldToScreen_CopyWorld = $A0BB
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReturnFromPhysicsCallback_NoMovement = $9FF0
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -27,10 +28,10 @@ macro EVENT_CALLROUTINE_0(target)
     dl <target>
 endmacro
 
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
     db $42
     dl <target>
-    db <display_control_bits_byte>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_END_TASK()
@@ -90,6 +91,6 @@ Event7_DisplayResetAndRelease:
     %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:A287  25 F0 9F
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:A28A  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:A28C  39
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:A28D  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:A28D  42 79 A6 C0 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:A292  42 BF A4 C0
     %EVENT_SHORTJUMP(!Event8_Entry2WaitUntilOffscreenRelease) ; C3:A296  19 B8 A2

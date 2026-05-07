@@ -11,6 +11,7 @@ hirom
 !ACTIONSCRIPT_FIELD2B32_STEP_0040 = $0040
 !ACTIONSCRIPT_FIELD2B32_STEP_0080 = $0080
 !ACTIONSCRIPT_FIELD2B32_STEP_00C0 = $00C0
+!ACTIONSCRIPT_SURFACE_FLAGS_NONE = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -33,8 +34,8 @@ hirom
 !ReturnFromPositionChangeCallback_NoProjection = $A039
 !Script_ApplyCurrentSlotVisualCountdownState = $C0AA6E
 !Script_CopyPoseDescriptorSlotAnchorToCurrentSlot_ReadWord = $C0A86F
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
 !UpdateCurrentSlotFootprintMask = $C0C7DB
@@ -46,12 +47,6 @@ hirom
 macro EVENT_CALLROUTINE_0(target)
     db $42
     dl <target>
-endmacro
-
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
-    db $42
-    dl <target>
-    db <display_control_bits_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
@@ -70,6 +65,12 @@ macro EVENT_CALLROUTINE_POSE_DESCRIPTOR_SLOT(target, pose_descriptor_slot_word)
     db $42
     dl <target>
     dw <pose_descriptor_slot_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
+    db $42
+    dl <target>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_TEXT_POINTER_LOW_TEXT_POINTER_BANK(target, text_pointer_low_word, text_pointer_bank_word)
@@ -276,11 +277,11 @@ Event712_AnimPortPokeyMovementHalt:
     %EVENT_CALLROUTINE_0(!SetYieldToTextLatch9641) ; C3:8867  42 46 6E C4
     %EVENT_HALT() ; C3:886B  09
     %EVENT_SET_PRIORITY($00) ; C3:886C  43 00
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:886E  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:886E  42 79 A6 C0 00
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:8873  25 C8 9F
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:8876  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:8878  39
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:8879  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:8879  42 79 A6 C0 00
     %EVENT_CALLROUTINE_0(!RefreshCurrentSlotVisualProfile_Mode0) ; C3:887E  42 BF A4 C0
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V0, $0D80) ; C3:8882  0E 00 80 0D
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V1, $0ED8) ; C3:8886  0E 01 D8 0E
@@ -302,11 +303,11 @@ Local_C388B8:
     %EVENT_SHORTJUMP(Local_C388B8) ; C3:88C0  19 B8 88
 Event713_AnimPortPriorityBlinkPath:
     %EVENT_SET_PRIORITY($00) ; C3:88C3  43 00
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:88C5  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:88C5  42 79 A6 C0 00
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:88CA  25 C8 9F
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:88CD  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:88CF  39
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:88D0  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:88D0  42 79 A6 C0 00
     %EVENT_START_TASK(!LoopAnimPortBlinkAnimation) ; C3:88D5  07 9E 89
     %EVENT_START_TASK(!LoopAnimPortDirectionFromVar4) ; C3:88D8  07 78 89
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V4, $0001) ; C3:88DB  0E 04 01 00
@@ -342,7 +343,7 @@ LoopEvent713_CopyPoseOffsetRight:
     %EVENT_SHORTJUMP(LoopEvent713_CopyPoseOffsetRight) ; C3:8936  19 28 89
 Event714_AnimPortDualOffsetPath:
     %EVENT_SET_PRIORITY($00) ; C3:8939  43 00
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:893B  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:893B  42 79 A6 C0 00
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:8940  25 C8 9F
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:8943  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:8945  39

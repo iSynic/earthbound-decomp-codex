@@ -157,6 +157,18 @@ These are byte-shape contracts only. Exact visual-effect naming can stay with
 the C0/C4 presentation notes; C3 pilots only need the operand widths and roles
 to avoid anonymous byte lists.
 
+## Surface-Flag Operands
+
+- `C0:A679` -> `Script_SetCurrentSlotSurfaceFlags`: reads one byte and stores it
+  to current slot field `$2BAA`. The ebsrc symbol at the C0 wrapper is
+  `SET_SURFACE_FLAGS`, so C3 now treats the operand as `surface_flags_byte`
+  rather than a generic display-control byte.
+- The observed C3 values are `$00`, `$01`, and `$03`. Source pilots render them
+  as `!ACTIONSCRIPT_SURFACE_FLAGS_NONE`,
+  `!ACTIONSCRIPT_SURFACE_FLAGS_BIT0`, and
+  `!ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1`; those names intentionally preserve
+  the bitmask shape without claiming exact per-bit runtime meaning yet.
+
 Source polish: `src/c4/actionscript_camera_and_screen_position_callbacks.asm`
 now names the current-slot index, action-script callback flag bit, active
 entity registry scan tables/count, live world/screen/offset coordinate tables,

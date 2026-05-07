@@ -7,6 +7,8 @@ hirom
 !ACTIONSCRIPT_ANIMATION_FRAME0 = $00
 !ACTIONSCRIPT_ANIMATION_HIDDEN_OR_OFF = $FF
 !ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
+!ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1 = $03
+!ACTIONSCRIPT_SURFACE_FLAGS_NONE = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -24,8 +26,8 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReleaseCurrentVisualEntityAndEnd = $A204
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallbackOffset = $C48C02
 !WaitForActiveEntityMovementToFinish = $AB59
@@ -35,12 +37,6 @@ hirom
 macro EVENT_CALLROUTINE_0(target)
     db $42
     dl <target>
-endmacro
-
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
-    db $42
-    dl <target>
-    db <display_control_bits_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_FADEOUT_EFFECT(target, fadeout_effect_word)
@@ -59,6 +55,12 @@ macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
     db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
+    db $42
+    dl <target>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(target, teleport_destination_selector_byte)
@@ -150,7 +152,7 @@ RunTeleportDestinationRiseFadeHelper:
     %EVENT_SHORT_RETURN() ; C3:C98F  1B
 Event153_TeleportDestinationLeftArcRelease:
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:C990  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:C995  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:C995  42 79 A6 C0 00
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:C99A  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:C99D  25 0C A0
     %EVENT_SET_Z($00C0) ; C3:C9A0  2A C0 00
@@ -174,7 +176,7 @@ Event153_TeleportDestinationLeftArcRelease:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:C9DD  19 04 A2
 Event155_TeleportDestinationLeftObscuredTextBC:
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:C9E0  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:C9E5  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1) ; C3:C9E5  42 79 A6 C0 03
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:C9EA  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:C9ED  25 0C A0
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:C9F0  3B 00
@@ -201,7 +203,7 @@ Event155_TeleportDestinationLeftObscuredTextBC:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:CA3B  19 04 A2
 Event154_TeleportDestinationRightArcRelease:
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CA3E  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:CA43  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:CA43  42 79 A6 C0 00
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:CA48  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:CA4B  25 0C A0
     %EVENT_SET_Z($00C0) ; C3:CA4E  2A C0 00
@@ -225,7 +227,7 @@ Event154_TeleportDestinationRightArcRelease:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:CA8B  19 04 A2
 Event156_TeleportDestinationRightObscuredTextBB:
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CA8E  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:CA93  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1) ; C3:CA93  42 79 A6 C0 03
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:CA98  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:CA9B  25 0C A0
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:CA9E  3B 00
@@ -251,7 +253,7 @@ Event156_TeleportDestinationRightObscuredTextBB:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:CAE7  19 04 A2
 Event157_TeleportDestinationLeftLongArcRelease:
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CAEA  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:CAEF  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:CAEF  42 79 A6 C0 00
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:CAF4  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:CAF7  25 0C A0
     %EVENT_SET_Z($00C0) ; C3:CAFA  2A C0 00
@@ -298,7 +300,7 @@ Event159_TeleportDestinationLeftTextBC:
     %EVENT_SHORTJUMP(!ReleaseCurrentVisualEntityAndEnd) ; C3:CB84  19 04 A2
 Event158_TeleportDestinationRightLongArcRelease:
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CB87  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:CB8C  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:CB8C  42 79 A6 C0 00
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:CB91  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:CB94  25 0C A0
     %EVENT_SET_Z($00C0) ; C3:CB97  2A C0 00

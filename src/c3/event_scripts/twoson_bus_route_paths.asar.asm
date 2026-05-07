@@ -14,6 +14,7 @@ hirom
 !ACTIONSCRIPT_FIELD2B32_STEP_0180 = $0180
 !ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
 !ACTIONSCRIPT_FIELD2B32_STEP_0280 = $0280
+!ACTIONSCRIPT_SURFACE_FLAGS_BIT0 = $01
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -43,8 +44,8 @@ hirom
 !ReturnFromPositionChangeCallback_NoProjection = $A039
 !ScriptRelease_CurrentEntityVisualState = $C020F1
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !Script_SetStagedPositionOffset_ReadTwoWords = $C0A8B3
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
@@ -59,12 +60,6 @@ hirom
 macro EVENT_CALLROUTINE_0(target)
     db $42
     dl <target>
-endmacro
-
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
-    db $42
-    dl <target>
-    db <display_control_bits_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_EVENT_FLAG(target, event_flag_word)
@@ -90,6 +85,12 @@ macro EVENT_CALLROUTINE_STAGED_OFFSET_X_STAGED_OFFSET_Y(target, staged_offset_x_
     dl <target>
     dw <staged_offset_x_word>
     dw <staged_offset_y_word>
+endmacro
+
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
+    db $42
+    dl <target>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_TELEPORT_DESTINATION_SELECTOR(target, teleport_destination_selector_byte)
@@ -224,7 +225,7 @@ LoopEvent65_BusDriverDialog:
     %EVENT_SHORTJUMP(LoopEvent65_BusDriverDialog) ; C3:B4A2  19 90 B4
 Event66_BusToThreedTunnelRoute:
     %EVENT_SHORTCALL(!PrepareObscuredSimplePositionActor) ; C3:B4A5  1A E0 DB
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $01) ; C3:B4A8  42 79 A6 C0 01
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_BIT0) ; C3:B4A8  42 79 A6 C0 01
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0180) ; C3:B4AD  42 85 A6 C0 80 01
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V5, $0002) ; C3:B4B3  0E 05 02 00
     %EVENT_SET_VAR(!ACTIONSCRIPT_VARS_V6, $08A8) ; C3:B4B7  0E 06 A8 08

@@ -28,7 +28,8 @@ The source is not wired into `src/c3/bank_c3_helpers_asar.asm` yet. That is deli
 
 - Known `EVENT_SET_ANIMATION` selectors render as `!ACTIONSCRIPT_ANIMATION_*` constants.
 - Known direction-class callback bytes render as `!ACTIONSCRIPT_DIRECTION_*` constants.
-- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_DIRECTION_CLASS`, `%EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS`.
+- Known `C0:A679` surface-flag bytes render as `!ACTIONSCRIPT_SURFACE_FLAGS_*` constants; bit-level meanings remain intentionally unsplit.
+- Known native callback argument schemas render as field-shaped macros: `%EVENT_CALLROUTINE_DIRECTION_CLASS`, `%EVENT_CALLROUTINE_SURFACE_FLAGS`.
 
 ## Next Promotion Step
 

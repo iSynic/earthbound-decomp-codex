@@ -8,6 +8,7 @@ hirom
 !ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_FIELD2B32_STEP_0180 = $0180
 !ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
+!ACTIONSCRIPT_SURFACE_FLAGS_NONE = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -28,8 +29,8 @@ hirom
 !RunTeleportFlyoverOffsetPulseBursts = $CC94
 !RunWindowGfxVariantLoop = $3C1D
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallbackOffset = $C48C02
 !WaitForActiveEntityMovementToFinish = $AB59
@@ -39,12 +40,6 @@ hirom
 macro EVENT_CALLROUTINE_0(target)
     db $42
     dl <target>
-endmacro
-
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
-    db $42
-    dl <target>
-    db <display_control_bits_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_FADEOUT_EFFECT(target, fadeout_effect_word)
@@ -71,6 +66,12 @@ macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
     db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
+    db $42
+    dl <target>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -144,7 +145,7 @@ endmacro
 org $C3CF76
 Event166_SkyRunnerFallFadeRelease:
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CF76  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:CF7B  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:CF7B  42 79 A6 C0 00
     %EVENT_SET_POSITION_CHANGE_CALLBACK(!ProjectWorldToScreen_FromCamera31AndHeight) ; C3:CF80  23 3A A0
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYAndZVelocity) ; C3:CF83  25 0C A0
     %EVENT_SET_Z($00C0) ; C3:CF86  2A C0 00

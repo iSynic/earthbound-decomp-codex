@@ -16,6 +16,7 @@ from decode_event_script import (
     ACTIONSCRIPT_DIRECTION_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
     ACTIONSCRIPT_SOUND_EFFECT_IDS,
+    ACTIONSCRIPT_SURFACE_FLAGS_BYTES,
     CALL_ARG_COUNTS,
     CALL_TARGET_SEMANTICS,
     OPCODES,
@@ -1346,7 +1347,7 @@ LABEL_OVERRIDES = {
     "C0:A0BB": "ProjectWorldToScreen_CopyWorld",
     "C0:9FA8": "ChooseRandomScriptByte",
     "C0:A65F": "SetCurrentSlotDirectionClassIfActive",
-    "C0:A679": "Script_SetCurrentSlotDisplayControlBits",
+    "C0:A679": "Script_SetCurrentSlotSurfaceFlags",
     "C0:A841": "Script_PlaySoundEffectParameter",
     "C0:A864": "Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte",
     "C0:A87A": "Script_SetCameraRelativeAnchor_ReadTwoWords",
@@ -1354,7 +1355,7 @@ LABEL_OVERRIDES = {
     "C0:A8E7": "ScriptWrapper_C472A8_Mode0",
     "C0:9FC8": "Integrate_XYVelocityOnly",
     "C0:9FBB": "ActionScript_FadeOutWrapper",
-    "C0:A98B": "ScriptWrapper_C46534_ReadThreeWords",
+    "C0:A98B": "SpawnEntityAtCurrentSlotAnchor_ReadTwoWords",
     "C0:A99F": "SpawnEntityRelative_ReadTwoWords",
     "C0:A9B3": "PrintCastNameParty_ReadThreeWords",
     "C0:A00C": "Integrate_XYAndZVelocity",
@@ -3540,6 +3541,16 @@ def call_arg_expr(
             )
             if symbol:
                 return symbol, cursor + 1
+        if field == "surface_flags_byte":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_SURFACE_FLAGS_BYTES,
+                prefix="SURFACE_FLAGS",
+                formatter=fmt_byte,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 1
         return fmt_byte(raw_args[cursor]), cursor + 1
     if width == 2:
         value = raw_args[cursor] | (raw_args[cursor + 1] << 8)
@@ -3935,6 +3946,10 @@ def render_report(
     if any(symbol.startswith("!ACTIONSCRIPT_SOUND_EFFECT_") for symbol in constants):
         readability_lines.append(
             "- Known sound-effect IDs render as `!ACTIONSCRIPT_SOUND_EFFECT_*` constants while keeping the word-shaped callback operand."
+        )
+    if any(symbol.startswith("!ACTIONSCRIPT_SURFACE_FLAGS_") for symbol in constants):
+        readability_lines.append(
+            "- Known `C0:A679` surface-flag bytes render as `!ACTIONSCRIPT_SURFACE_FLAGS_*` constants; bit-level meanings remain intentionally unsplit."
         )
     if direction_tempvar_write_count:
         readability_lines.append(

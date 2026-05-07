@@ -9,6 +9,8 @@ hirom
 !ACTIONSCRIPT_FIELD2B32_STEP_0100 = $0100
 !ACTIONSCRIPT_FIELD2B32_STEP_0180 = $0180
 !ACTIONSCRIPT_FIELD2B32_STEP_0200 = $0200
+!ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1 = $03
+!ACTIONSCRIPT_SURFACE_FLAGS_NONE = $00
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -29,8 +31,8 @@ hirom
 !RunTeleportFlyoverCoordinatePathB = $CC5C
 !RunWindowGfxVariantLoop = $3C1D
 !Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte = $C0A864
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
 !Script_SetCurrentSlotField2B32 = $C0A685
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !SetCurrentSlotDirectionClassIfActive = $C0A65F
 !SetYieldToTextLatch9641 = $C46E46
 !SimpleScreenPositionCallbackOffset = $C48C02
@@ -41,12 +43,6 @@ hirom
 macro EVENT_CALLROUTINE_0(target)
     db $42
     dl <target>
-endmacro
-
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
-    db $42
-    dl <target>
-    db <display_control_bits_byte>
 endmacro
 
 macro EVENT_CALLROUTINE_FADEOUT_EFFECT(target, fadeout_effect_word)
@@ -73,6 +69,12 @@ macro EVENT_CALLROUTINE_REGISTRY_SLOT(target, registry_slot_byte)
     db $42
     dl <target>
     db <registry_slot_byte>
+endmacro
+
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
+    db $42
+    dl <target>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_END_LAST_TASK()
@@ -164,7 +166,7 @@ org $C3CCB5
 Event161_SkyRunnerCrashLandingSequence:
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CCB5  42 64 A8 C0 FF
     %EVENT_SET_Y_RELATIVE($FF80) ; C3:CCBA  2C 80 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $00) ; C3:CCBD  42 79 A6 C0 00
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_NONE) ; C3:CCBD  42 79 A6 C0 00
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:CCC2  25 C8 9F
     %EVENT_START_TASK(!LoopSpawnSkyRunnerElectricEffect) ; C3:CCC5  07 A2 CE
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:CCC8  3B 00
@@ -255,7 +257,7 @@ Event161_SkyRunnerCrashLandingSequence:
     %EVENT_HALT() ; C3:CDEF  09
 Event164_ObscuredSkyRunnerLandingHalt:
     %EVENT_CALLROUTINE_REGISTRY_SLOT(!Script_CopyRegistrySlotAnchorToCurrentSlot_ReadByte, $FF) ; C3:CDF0  42 64 A8 C0 FF
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:CDF5  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1) ; C3:CDF5  42 79 A6 C0 03
     %EVENT_SET_PHYSICS_CALLBACK(!Integrate_XYVelocityOnly) ; C3:CDFA  25 C8 9F
     %EVENT_SET_TICK_CALLBACK(!SimpleScreenPositionCallbackOffset) ; C3:CDFD  08 02 8C C4
     %EVENT_CALLROUTINE_FIELD2B32(!Script_SetCurrentSlotField2B32, !ACTIONSCRIPT_FIELD2B32_STEP_0200) ; C3:CE01  42 85 A6 C0 00 02

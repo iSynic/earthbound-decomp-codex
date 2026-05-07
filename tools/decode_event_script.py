@@ -402,10 +402,10 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
         "args": "direction_class_byte",
     },
     "C0:A679": {
-        "name": "Script_SetCurrentSlotDisplayControlBits",
+        "name": "Script_SetCurrentSlotSurfaceFlags",
         "group": "current-slot-state",
-        "contract": "read one display-control byte and store it to current slot field $2BAA",
-        "args": "display_control_bits_byte",
+        "contract": "read one surface-flags byte and store it to current slot field $2BAA",
+        "args": "surface_flags_byte",
     },
     "C0:A685": {
         "name": "Script_SetCurrentSlotField2B32",
@@ -1039,6 +1039,21 @@ ACTIONSCRIPT_ANIMATION_IDS: dict[int, dict[str, str]] = {
     },
 }
 
+ACTIONSCRIPT_SURFACE_FLAGS_BYTES: dict[int, dict[str, str]] = {
+    0x00: {
+        "name": "surface_flags_none",
+        "contract": "surface-flags byte $00 written by C0:A679 to current slot field $2BAA; bit semantics not yet split",
+    },
+    0x01: {
+        "name": "surface_flags_bit0",
+        "contract": "surface-flags byte $01 written by C0:A679 to current slot field $2BAA; bit 0 set, exact runtime meaning still local-unknown",
+    },
+    0x03: {
+        "name": "surface_flags_bit0_bit1",
+        "contract": "surface-flags byte $03 written by C0:A679 to current slot field $2BAA; bits 0 and 1 set, exact runtime meanings still local-unknown",
+    },
+}
+
 ACTIONSCRIPT_FIELD2B32_WORDS: dict[int, dict[str, str]] = {
     0x0040: {
         "name": "field2b32_step_0040",
@@ -1406,6 +1421,8 @@ def format_call_arg_value(
         value = raw_args[cursor]
         if field == "direction_class_byte":
             return f"{field}={format_named_byte(value, ACTIONSCRIPT_DIRECTION_WORDS)}", cursor + 1
+        if field == "surface_flags_byte":
+            return f"{field}={format_named_byte(value, ACTIONSCRIPT_SURFACE_FLAGS_BYTES)}", cursor + 1
         return f"{field}={format_byte(value)}", cursor + 1
     if width == 2:
         value = raw_args[cursor] | (raw_args[cursor + 1] << 8)

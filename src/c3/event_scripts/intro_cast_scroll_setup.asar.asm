@@ -6,6 +6,7 @@ hirom
 ; External constants and action-script variable slots.
 !ACTIONSCRIPT_ANIMATION_FRAME0 = $00
 !ACTIONSCRIPT_DIRECTION_UP = $04
+!ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1 = $03
 !ACTIONSCRIPT_VARS_V0 = $00
 !ACTIONSCRIPT_VARS_V1 = $01
 !ACTIONSCRIPT_VARS_V2 = $02
@@ -17,7 +18,7 @@ hirom
 !RefreshCurrentSlotVisualProfile_Mode0 = $C0A4BF
 !ReturnFromPhysicsCallback_NoMovement = $9FF0
 !Script_RefreshCurrentSlotVisualProfile = $C0AAAC
-!Script_SetCurrentSlotDisplayControlBits = $C0A679
+!Script_SetCurrentSlotSurfaceFlags = $C0A679
 !Script_SetDirectionClassAndField1A86 = $C0A651
 
 ; Minimal macro vocabulary used by this source pilot.
@@ -32,10 +33,10 @@ macro EVENT_CALLROUTINE_DIRECTION_CLASS(target, direction_class_byte)
     db <direction_class_byte>
 endmacro
 
-macro EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(target, display_control_bits_byte)
+macro EVENT_CALLROUTINE_SURFACE_FLAGS(target, surface_flags_byte)
     db $42
     dl <target>
-    db <display_control_bits_byte>
+    db <surface_flags_byte>
 endmacro
 
 macro EVENT_HALT()
@@ -74,7 +75,7 @@ org $C351FD
 Event799_ObscuredDownFacingCastActorHalt:
     %EVENT_WRITE_VAR_TO_WAIT_TIMER(!ACTIONSCRIPT_VARS_V0) ; C3:51FD  21 00
     %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:51FF  25 F0 9F
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:5202  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1) ; C3:5202  42 79 A6 C0 03
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:5207  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:5209  39
     %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_UP) ; C3:520A  42 51 A6 C0 04
@@ -83,7 +84,7 @@ Event799_ObscuredDownFacingCastActorHalt:
 Event800_ObscuredDownFacingCastActorRefreshGate:
     %EVENT_WRITE_VAR_TO_WAIT_TIMER(!ACTIONSCRIPT_VARS_V0) ; C3:5214  21 00
     %EVENT_SET_PHYSICS_CALLBACK(!ReturnFromPhysicsCallback_NoMovement) ; C3:5216  25 F0 9F
-    %EVENT_CALLROUTINE_DISPLAY_CONTROL_BITS(!Script_SetCurrentSlotDisplayControlBits, $03) ; C3:5219  42 79 A6 C0 03
+    %EVENT_CALLROUTINE_SURFACE_FLAGS(!Script_SetCurrentSlotSurfaceFlags, !ACTIONSCRIPT_SURFACE_FLAGS_BIT0_BIT1) ; C3:5219  42 79 A6 C0 03
     %EVENT_SET_ANIMATION(!ACTIONSCRIPT_ANIMATION_FRAME0) ; C3:521E  3B 00
     %EVENT_SET_VELOCITIES_ZERO() ; C3:5220  39
     %EVENT_CALLROUTINE_DIRECTION_CLASS(!Script_SetDirectionClassAndField1A86, !ACTIONSCRIPT_DIRECTION_UP) ; C3:5221  42 51 A6 C0 04
