@@ -23,6 +23,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--spc", required=True, help="Reference SPC snapshot captured by the oracle emulator.")
     parser.add_argument("--wav", required=True, help="Reference WAV/PCM render captured or exported by the oracle emulator.")
     parser.add_argument("--oracle-id", default="external_reference", help="Reference oracle id/name.")
+    parser.add_argument("--oracle-kind", default="external_emulator_capture", help="Reference oracle kind.")
+    parser.add_argument("--emulator-version", default="", help="External emulator version/build string.")
+    parser.add_argument("--capture-command", default="", help="Command or manual steps used to produce the capture.")
+    parser.add_argument("--audio-settings", default="", help="Audio settings used for the external render.")
+    parser.add_argument(
+        "--not-independent-emulator-capture",
+        action="store_true",
+        help="Mark this import as non-independent despite using the external capture importer.",
+    )
     parser.add_argument("--notes", default="", help="Short capture note.")
     parser.add_argument(
         "--overwrite",
@@ -42,6 +51,37 @@ def sha1_file(path: Path) -> str:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def read_u16(data: bytes, offset: int) -> int:
+    return int.from_bytes(data[offset : offset + 2], "little")
+
+
+def read_u32(data: bytes, offset: int) -> int:
+    return int.from_bytes(data[offset : offset + 4], "little")
+
+
+def wav_metadata(path: Path) -> dict[str, float | int]:
+    data = path.read_bytes()
+    if len(data) < 44 or data[0:4] != b"RIFF" or data[8:12] != b"WAVE":
+        raise ValueError(f"reference WAV is missing RIFF/WAVE header: {path}")
+    if data[12:16] != b"fmt ":
+        raise ValueError(f"reference WAV is missing canonical fmt chunk: {path}")
+    fmt_size = read_u32(data, 16)
+    data_offset = 20 + fmt_size
+    if len(data) < data_offset + 8 or data[data_offset : data_offset + 4] != b"data":
+        raise ValueError(f"reference WAV is missing canonical data chunk: {path}")
+    channels = read_u16(data, 22)
+    sample_rate = read_u32(data, 24)
+    bits_per_sample = read_u16(data, 34)
+    data_bytes = read_u32(data, data_offset + 4)
+    bytes_per_frame = max(1, channels * bits_per_sample // 8)
+    return {
+        "render_sample_rate": sample_rate,
+        "channels": channels,
+        "bits_per_sample": bits_per_sample,
+        "duration_seconds": round(data_bytes / bytes_per_frame / sample_rate, 6) if sample_rate else 0.0,
+    }
 
 
 def resolve_repo_path(path_text: str) -> Path:
@@ -71,10 +111,7 @@ def validate_spc(path: Path) -> None:
 
 
 def validate_wav(path: Path) -> None:
-    with path.open("rb") as stream:
-        header = stream.read(12)
-    if header[0:4] != b"RIFF" or header[8:12] != b"WAVE":
-        raise ValueError(f"reference WAV is missing RIFF/WAVE header: {path}")
+    wav_metadata(path)
 
 
 def copy_checked(src: Path, dst: Path, *, overwrite: bool) -> None:
@@ -103,6 +140,9 @@ def main() -> int:
     dst_metadata = resolve_repo_path(outputs["capture_metadata"])
     copy_checked(src_spc, dst_spc, overwrite=args.overwrite)
     copy_checked(src_wav, dst_wav, overwrite=args.overwrite)
+    imported_spc_sha1 = sha1_file(dst_spc)
+    imported_wav_sha1 = sha1_file(dst_wav)
+    wav_fields = wav_metadata(dst_wav)
 
     metadata = {
         "schema": "earthbound-decomp.audio-oracle-reference-capture.v1",
@@ -110,21 +150,30 @@ def main() -> int:
         "track_id": job["track_id"],
         "track_name": job["track_name"],
         "oracle_id": args.oracle_id,
+        "oracle_kind": args.oracle_kind,
+        "independent_emulator_capture": not args.not_independent_emulator_capture,
+        "emulator_version": args.emulator_version,
+        "capture_command": args.capture_command,
+        "audio_settings": args.audio_settings,
+        "source_spc_sha1": job.get("source_spc", {}).get("sha1"),
+        "reference_wav_sha1": imported_wav_sha1,
+        **wav_fields,
         "notes": args.notes,
         "source_inputs": {
             "spc": str(src_spc),
             "wav": str(src_wav),
+            "source_spc_sha1": job.get("source_spc", {}).get("sha1"),
         },
         "imported_outputs": {
             "spc_snapshot": {
                 "path": outputs["spc_snapshot"],
                 "bytes": dst_spc.stat().st_size,
-                "sha1": sha1_file(dst_spc),
+                "sha1": imported_spc_sha1,
             },
             "pcm_wav": {
                 "path": outputs["pcm_wav"],
                 "bytes": dst_wav.stat().st_size,
-                "sha1": sha1_file(dst_wav),
+                "sha1": imported_wav_sha1,
             },
         },
         "distribution_policy": "generated_from_user_provided_rom_or_reference_emulator_output_do_not_commit",

@@ -101,6 +101,53 @@ EarthBound audio packs are modeled here as `LOAD_SPC700_DATA` streams that popul
 - Validate unified zero/nonzero probe campaign plan: `python tools/validate_audio_probe_campaign_plan.py`.
 - Run one unified probe campaign stub-shape job: `python tools/run_audio_probe_campaign.py --limit 1 --force --mode stub-shape`.
 - Validate unified probe campaign run summary: `python tools/validate_audio_probe_campaign_run_summary.py`.
+- Build independent external-emulator oracle campaign plan: `python tools/build_audio_independent_oracle_campaign_plan.py`.
+- Validate independent external-emulator oracle campaign plan: `python tools/validate_audio_independent_oracle_campaign_plan.py`.
+- Import one independent external-emulator oracle capture: `python tools/import_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id <id> --spc <capture.spc> --wav <capture.wav> --oracle-id <mesen2|bsnes_higan|mednafen> --emulator-version <version> --capture-command <command> --audio-settings <settings>`.
+- Validate one independent external-emulator oracle capture: `python tools/validate_audio_oracle_reference_capture.py --plan manifests/audio-oracle-comparison-plan-all-tracks.json --track-id <id>`.
+- Dry-run or audit independent external-emulator oracle campaign jobs: `python tools/run_audio_independent_oracle_campaign.py --limit 1 --mode dry-run-plan`.
+- Build full independent external-emulator oracle readiness rollup: `python tools/run_audio_independent_oracle_campaign.py --mode audit-existing-captures`.
+- Validate independent external-emulator oracle campaign run summary: `python tools/validate_audio_independent_oracle_campaign_run_summary.py`.
+- Build focused loop-point evidence plan: `python tools/build_audio_loop_point_evidence_plan.py`.
+- Validate focused loop-point evidence plan: `python tools/validate_audio_loop_point_evidence_plan.py`.
+- Audit focused loop-point evidence readiness: `python tools/run_audio_loop_point_evidence_plan.py --mode audit-current-export`.
+- Validate focused loop-point evidence run summary: `python tools/validate_audio_loop_point_evidence_run_summary.py`.
+- Build frame-normalized loop-point tail metrics: `python tools/build_audio_loop_point_tail_metrics.py`.
+- Validate frame-normalized loop-point tail metrics: `python tools/validate_audio_loop_point_tail_metrics.py`.
+- Build loop/hold classification packet: `python tools/build_audio_loop_hold_classification_packet.py`.
+- Validate loop/hold classification packet: `python tools/validate_audio_loop_hold_classification_packet.py`.
+- Build focused finite-ending evidence plan: `python tools/build_audio_finite_ending_evidence_plan.py`.
+- Validate focused finite-ending evidence plan: `python tools/validate_audio_finite_ending_evidence_plan.py`.
+- Audit focused finite-ending evidence readiness: `python tools/run_audio_finite_ending_evidence_plan.py --mode audit-current-export`.
+- Validate focused finite-ending evidence run summary: `python tools/validate_audio_finite_ending_evidence_run_summary.py`.
+- Build frame-normalized finite-ending tail metrics: `python tools/build_audio_finite_ending_tail_metrics.py`.
+- Validate frame-normalized finite-ending tail metrics: `python tools/validate_audio_finite_ending_tail_metrics.py`.
+- Build finite-transition classification packet: `python tools/build_audio_finite_transition_classification_packet.py`.
+- Validate finite-transition classification packet: `python tools/validate_audio_finite_transition_classification_packet.py`.
+- Build audio duration readiness rollup: `python tools/build_audio_duration_readiness_rollup.py`.
+- Validate audio duration readiness rollup: `python tools/validate_audio_duration_readiness_rollup.py`.
+- Build nonzero control coverage report: `python tools/build_audio_nonzero_control_coverage_report.py`.
+- Validate nonzero control coverage report: `python tools/validate_audio_nonzero_control_coverage_report.py`.
+- Build nonzero control probe packet: `python tools/build_audio_nonzero_control_probe_packet.py`.
+- Validate nonzero control probe packet: `python tools/validate_audio_nonzero_control_probe_packet.py`.
+- Build 0x00 runtime coverage report: `python tools/build_audio_zero_runtime_coverage_report.py`.
+- Validate 0x00 runtime coverage report: `python tools/validate_audio_zero_runtime_coverage_report.py`.
+- Build 0x00 runtime probe packet: `python tools/build_audio_zero_runtime_probe_packet.py`.
+- Validate 0x00 runtime probe packet: `python tools/validate_audio_zero_runtime_probe_packet.py`.
+- Build independent oracle coverage report: `python tools/build_audio_independent_oracle_coverage_report.py`.
+- Validate independent oracle coverage report: `python tools/validate_audio_independent_oracle_coverage_report.py`.
+- Build independent oracle capture packet: `python tools/build_audio_independent_oracle_capture_packet.py`.
+- Validate independent oracle capture packet: `python tools/validate_audio_independent_oracle_capture_packet.py`.
+- Build independent oracle handoff matrix: `python tools/build_audio_independent_oracle_handoff_matrix.py`.
+- Validate independent oracle handoff matrix: `python tools/validate_audio_independent_oracle_handoff_matrix.py`.
+- Build oracle source evidence preflight: `python tools/build_audio_oracle_source_evidence_preflight.py`.
+- Validate oracle source evidence preflight: `python tools/validate_audio_oracle_source_evidence_preflight.py`.
+- Build oracle source regeneration plan: `python tools/build_audio_oracle_source_regeneration_plan.py`.
+- Validate oracle source regeneration plan: `python tools/validate_audio_oracle_source_regeneration_plan.py`.
+- Build residual uncertainty coverage report: `python tools/build_audio_residual_uncertainty_coverage_report.py`.
+- Validate residual uncertainty coverage report: `python tools/validate_audio_residual_uncertainty_coverage_report.py`.
+- Build audio duration next-actions plan: `python tools/build_audio_duration_next_actions_plan.py`.
+- Validate audio duration next-actions plan: `python tools/validate_audio_duration_next_actions_plan.py`.
 - Collect fused post-command timing metrics: `python tools/collect_audio_fusion_timing_metrics.py`.
 - Validate fused post-command timing metrics: `python tools/validate_audio_fusion_timing_metrics.py`.
 - Build ignored renderer fixtures: `python tools/build_audio_renderer_fixtures.py --tracks 46`.
