@@ -298,6 +298,11 @@ That makes the return-value structure much clearer than before:
 
 `C1:90F1` itself now reads cleanly as the storage-capacity side of that split. It starts from `#$0024`, subtracts one for each nonzero byte in `$98AB[0..2]`, then scans `$984B` until it reaches either the first zero slot or the remaining capacity limit. It returns `1` only when no free queue entry exists within that remaining capacity, which is exactly the shape we would expect for a "storage full" bit. This helper is now source-backed in `src/c1/c1_90e6_read_active_overworld_registry_type_code.asm` as `CheckEscargoStorageQueueFull`.
 
+Source polish follow-up (2026-05-06): `C1:90F1` now names that capacity
+calculation inside source too. `$98AB[0..2]` reads as the active Escargo
+requester bytes, `$984B` as the packed storage queue, `$0E` as the remaining
+capacity, and `$02` as the scan index used to decide whether the queue is full.
+
 The script distribution lines up with that unusually well. This command is almost entirely confined to `ESHOP3`, and the hits cluster around Escargo-style request, refusal, and follow-up branches, including the path that sets `flag 0x0285` and triggers timed event row `0x03`. The community control-code docs also match the local return structure closely by describing `0x1D 0C` as "Check If Item Can Be Stored By Escargo Express."
 
 So the safest current read is no longer just "small service/item classifier." `0x1D 0C` is a compact Escargo storage result code composed from one live storage-capacity bit and one per-item storable/not-storable bit from item byte `+0x1C` bit `0x40`.
@@ -384,6 +389,12 @@ The strongest shared local anchor is the packed pending-item queue rooted at `$9
 `0x18` now has a much cleaner local role than before. Its real leaf is `C1:6124`, and that body either takes the explicit command argument or falls back to arg memory, then passes that item id straight to `C1:913D`.
 
 `C1:913D` is now a firm queue-insertion helper over the packed `0x24`-entry `$984B..$986E` item-id block; see [pending-item-queue-984b.md](notes/pending-item-queue-984b.md). It stores the selected item id into the first free slot and returns success only when a free entry exists. That matches both the `ESHOP3` script neighborhoods and the community control-code wording unusually well: `[1D 18 XX]` is described as adding item `XX` to Escargo Express inventory.
+
+Source polish follow-up (2026-05-06): the queue insertion/removal helpers now
+name the scan/compaction scratch used by those storage leaves. The source
+distinguishes the pending-item scan index, source character, selected inventory
+slot, removed queue byte, shift byte, next index, and the `0x24` queue capacity
+instead of leaving the packed `$984B` helpers as raw DP temporaries.
 
 So the safest current read is: `0x18` is the queue-add side of the same service-side pending-item family as `0x12/0x13`, not a generic customer predicate.
 

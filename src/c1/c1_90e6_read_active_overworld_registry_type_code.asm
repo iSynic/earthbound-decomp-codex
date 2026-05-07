@@ -13,6 +13,16 @@
 
 ; No named external contracts were supplied or recognized.
 
+EscargoStorageRemainingCapacity = $0E
+EscargoStorageScanIndex = $02
+ActiveEscargoRequesterBytes = $98AB
+EscargoStorageItemBytes = $984B
+EscargoStorageLogicalCapacity = $0024
+ActiveEscargoRequesterCount = $0003
+LowByteMask = $00FF
+ZeroWord = $0000
+OneWord = $0001
+
 ; ---------------------------------------------------------------------------
 ; C1:90E6
 
@@ -21,7 +31,7 @@ C190E6_ReadActiveOverworldRegistryTypeCode:
     tax
     dex
     lda $988B,X
-    and.w #$00FF
+    and.w #LowByteMask
     rts
 C190F1_CheckEscargoStorageQueueFull:
     rep #$31
@@ -29,44 +39,44 @@ C190F1_CheckEscargoStorageQueueFull:
     tdc
     adc.w #$FFF0
     tcd
-    lda.w #$0024
-    sta $0E
-    ldx.w #$0000
+    lda.w #EscargoStorageLogicalCapacity
+    sta EscargoStorageRemainingCapacity
+    ldx.w #ZeroWord
     bra C19111_c1_90e6_read_active_overworld_registry_type_code_L9111
 C19103_c1_90e6_read_active_overworld_registry_type_code_L9103:
-    lda $98AB,X
-    and.w #$00FF
+    lda ActiveEscargoRequesterBytes,X
+    and.w #LowByteMask
     beq C19110_c1_90e6_read_active_overworld_registry_type_code_L9110
-    lda $0E
+    lda EscargoStorageRemainingCapacity
     dec A
-    sta $0E
+    sta EscargoStorageRemainingCapacity
 C19110_c1_90e6_read_active_overworld_registry_type_code_L9110:
     inx
 C19111_c1_90e6_read_active_overworld_registry_type_code_L9111:
-    cpx.w #$0003
+    cpx.w #ActiveEscargoRequesterCount
     bcc C19103_c1_90e6_read_active_overworld_registry_type_code_L9103
-    ldx.w #$0000
+    ldx.w #ZeroWord
     bra C19129_c1_90e6_read_active_overworld_registry_type_code_L9129
 C1911B_c1_90e6_read_active_overworld_registry_type_code_L911B:
-    lda $984B,X
-    and.w #$00FF
+    lda EscargoStorageItemBytes,X
+    and.w #LowByteMask
     bne C19128_c1_90e6_read_active_overworld_registry_type_code_L9128
-    lda.w #$0000
+    lda.w #ZeroWord
     bra C1913B_c1_90e6_read_active_overworld_registry_type_code_L913B
 C19128_c1_90e6_read_active_overworld_registry_type_code_L9128:
     inx
 C19129_c1_90e6_read_active_overworld_registry_type_code_L9129:
-    stx $02
-    lda $0E
+    stx EscargoStorageScanIndex
+    lda EscargoStorageRemainingCapacity
     clc
-    sbc $02
+    sbc EscargoStorageScanIndex
     bvs C19136_c1_90e6_read_active_overworld_registry_type_code_L9136
     bpl C1911B_c1_90e6_read_active_overworld_registry_type_code_L911B
     bra C19138_c1_90e6_read_active_overworld_registry_type_code_L9138
 C19136_c1_90e6_read_active_overworld_registry_type_code_L9136:
     bmi C1911B_c1_90e6_read_active_overworld_registry_type_code_L911B
 C19138_c1_90e6_read_active_overworld_registry_type_code_L9138:
-    lda.w #$0001
+    lda.w #OneWord
 C1913B_c1_90e6_read_active_overworld_registry_type_code_L913B:
     pld
     rts

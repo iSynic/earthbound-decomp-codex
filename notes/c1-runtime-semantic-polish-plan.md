@@ -483,6 +483,12 @@ This planning pass is documentation-only.
   selected-inventory-slot-to-`$984B` queue transfer before the `C1:8C27`
   removal worker. See `notes/pending-item-queue-984b.md` and
   `notes/item-slot-helper-pair-c3e977-c3ee14.md`.
+- 2026-05-06 follow-up: the nearby Escargo queue/storage helpers now name their
+  local scan and compaction scratch. `C1:90F1` exposes the active requester
+  bytes at `$98AB`, packed storage bytes at `$984B`, remaining capacity, and
+  scan index; `C1:913D/9183` expose the pending-item scan index, capacity,
+  source character, and selected slot; and `C1:91B0` exposes the removed byte,
+  shift byte, next index, and compaction window.
 - 2026-05-06 follow-up: the `C1:9437..9A11` display/status helper bridge and
   `C1:A795..AA5D` per-character equipment loop now name their remaining
   helper-call edges. This closes the raw helper-call surface in those source

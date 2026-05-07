@@ -22849,12 +22849,21 @@ C190E4_c1_9066_dispatch_equipped_slot_subtype_update_L90E4:
 hirom
 org $C190E6
 
+!EscargoStorageRemainingCapacity = $0E
+!EscargoStorageScanIndex = $02
+!ActiveEscargoRequesterBytes = $98AB
+!EscargoStorageItemBytes = $984B
+!EscargoStorageLogicalCapacity = $0024
+!ActiveEscargoRequesterCount = $0003
+!LowByteMask = $00FF
+!ZeroWord = $0000
+!OneWord = $0001
 C190E6_ReadActiveOverworldRegistryTypeCode:
     rep #$31
     tax
     dex
     lda $988B,X
-    and.w #$00FF
+    and.w #!LowByteMask
     rts
 C190F1_CheckEscargoStorageQueueFull:
     rep #$31
@@ -22862,44 +22871,44 @@ C190F1_CheckEscargoStorageQueueFull:
     tdc
     adc.w #$FFF0
     tcd
-    lda.w #$0024
-    sta $0E
-    ldx.w #$0000
+    lda.w #!EscargoStorageLogicalCapacity
+    sta !EscargoStorageRemainingCapacity
+    ldx.w #!ZeroWord
     bra C19111_c1_90e6_read_active_overworld_registry_type_code_L9111
 C19103_c1_90e6_read_active_overworld_registry_type_code_L9103:
-    lda $98AB,X
-    and.w #$00FF
+    lda !ActiveEscargoRequesterBytes,X
+    and.w #!LowByteMask
     beq C19110_c1_90e6_read_active_overworld_registry_type_code_L9110
-    lda $0E
+    lda !EscargoStorageRemainingCapacity
     dec A
-    sta $0E
+    sta !EscargoStorageRemainingCapacity
 C19110_c1_90e6_read_active_overworld_registry_type_code_L9110:
     inx
 C19111_c1_90e6_read_active_overworld_registry_type_code_L9111:
-    cpx.w #$0003
+    cpx.w #!ActiveEscargoRequesterCount
     bcc C19103_c1_90e6_read_active_overworld_registry_type_code_L9103
-    ldx.w #$0000
+    ldx.w #!ZeroWord
     bra C19129_c1_90e6_read_active_overworld_registry_type_code_L9129
 C1911B_c1_90e6_read_active_overworld_registry_type_code_L911B:
-    lda $984B,X
-    and.w #$00FF
+    lda !EscargoStorageItemBytes,X
+    and.w #!LowByteMask
     bne C19128_c1_90e6_read_active_overworld_registry_type_code_L9128
-    lda.w #$0000
+    lda.w #!ZeroWord
     bra C1913B_c1_90e6_read_active_overworld_registry_type_code_L913B
 C19128_c1_90e6_read_active_overworld_registry_type_code_L9128:
     inx
 C19129_c1_90e6_read_active_overworld_registry_type_code_L9129:
-    stx $02
-    lda $0E
+    stx !EscargoStorageScanIndex
+    lda !EscargoStorageRemainingCapacity
     clc
-    sbc $02
+    sbc !EscargoStorageScanIndex
     bvs C19136_c1_90e6_read_active_overworld_registry_type_code_L9136
     bpl C1911B_c1_90e6_read_active_overworld_registry_type_code_L911B
     bra C19138_c1_90e6_read_active_overworld_registry_type_code_L9138
 C19136_c1_90e6_read_active_overworld_registry_type_code_L9136:
     bmi C1911B_c1_90e6_read_active_overworld_registry_type_code_L911B
 C19138_c1_90e6_read_active_overworld_registry_type_code_L9138:
-    lda.w #$0001
+    lda.w #!OneWord
 C1913B_c1_90e6_read_active_overworld_registry_type_code_L913B:
     pld
     rts
@@ -22914,6 +22923,13 @@ org $C1913D
 
 !C18C27_RemoveItemFromCharacterInventorySlot = $8C27
 !C3E977_ReadCharacterInventorySlotByte = $C3E977
+!EscargoPendingItemScanIndex = $0E
+!EscargoMoveSourceCharacter = $0E
+!EscargoPendingItemSlotIndex = $02
+!EscargoPendingItemBytes = $984B
+!EscargoPendingItemCapacity = $0024
+!ZeroWord = $0000
+!LowByteMask = $00FF
 ESCARGO_EXPRESS_STORE:
 !C1913D_EnqueuePendingItemId = ESCARGO_EXPRESS_STORE
     rep #$31
@@ -22924,16 +22940,16 @@ ESCARGO_EXPRESS_STORE:
     tcd
     pla
     tay
-    lda.w #$0000
-    sta $0E
+    lda.w #!ZeroWord
+    sta !EscargoPendingItemScanIndex
     bra C1916E_c1_913d_enqueue_pending_item_id_L916E
 C1914F_c1_913d_enqueue_pending_item_id_L914F:
-    lda $0E
+    lda !EscargoPendingItemScanIndex
     clc
-    adc.w #$984B
+    adc.w #!EscargoPendingItemBytes
     tax
     lda $0000,X
-    and.w #$00FF
+    and.w #!LowByteMask
     bne C19169_c1_913d_enqueue_pending_item_id_L9169
     tya
     sep #$20
@@ -22942,21 +22958,21 @@ C1914F_c1_913d_enqueue_pending_item_id_L914F:
     tya
     bra C19181_c1_913d_enqueue_pending_item_id_L9181
 C19169_c1_913d_enqueue_pending_item_id_L9169:
-    lda $0E
+    lda !EscargoPendingItemScanIndex
     inc A
-    sta $0E
+    sta !EscargoPendingItemScanIndex
 C1916E_c1_913d_enqueue_pending_item_id_L916E:
-    sta $02
-    lda.w #$0024
+    sta !EscargoPendingItemSlotIndex
+    lda.w #!EscargoPendingItemCapacity
     clc
-    sbc $02
+    sbc !EscargoPendingItemSlotIndex
     bvs C1917C_c1_913d_enqueue_pending_item_id_L917C
     bpl C1914F_c1_913d_enqueue_pending_item_id_L914F
     bra C1917E_c1_913d_enqueue_pending_item_id_L917E
 C1917C_c1_913d_enqueue_pending_item_id_L917C:
     bmi C1914F_c1_913d_enqueue_pending_item_id_L914F
 C1917E_c1_913d_enqueue_pending_item_id_L917E:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C19181_c1_913d_enqueue_pending_item_id_L9181:
     pld
     rts
@@ -22969,22 +22985,22 @@ ESCARGO_EXPRESS_MOVE:
     adc.w #$FFF0
     tcd
     pla
-    stx $02
+    stx !EscargoPendingItemSlotIndex
     tay
-    sty $0E
-    ldx $02
+    sty !EscargoMoveSourceCharacter
+    ldx !EscargoPendingItemSlotIndex
     tya
     jsl !C3E977_ReadCharacterInventorySlotByte
     jsr.w ESCARGO_EXPRESS_STORE
-    cmp.w #$0000
+    cmp.w #!ZeroWord
     beq C191AB_c1_913d_enqueue_pending_item_id_L91AB
-    ldx $02
-    ldy $0E
+    ldx !EscargoPendingItemSlotIndex
+    ldy !EscargoMoveSourceCharacter
     tya
     jsr REMOVE_ITEM_FROM_INVENTORY
     bra C191AE_c1_913d_enqueue_pending_item_id_L91AE
 C191AB_c1_913d_enqueue_pending_item_id_L91AB:
-    lda.w #$0000
+    lda.w #!ZeroWord
 C191AE_c1_913d_enqueue_pending_item_id_L91AE:
     pld
     rts
@@ -22997,6 +23013,13 @@ C191AE_c1_913d_enqueue_pending_item_id_L91AE:
 hirom
 org $C191B0
 
+!EscargoPendingItemRemovedValue = $01
+!EscargoPendingItemShiftByte = $00
+!EscargoPendingItemNextIndex = $0E
+!EscargoPendingItemBytes = $984B
+!EscargoPendingItemNextByteOffset = $984C
+!EscargoPendingItemCapacity = $0024
+!LowByteMask = $00FF
 C191B0_RemovePendingItemIdAtIndex:
     rep #$31
     phd
@@ -23008,35 +23031,35 @@ C191B0_RemovePendingItemIdAtIndex:
     tax
     dex
     sep #$20
-    lda $984B,X
-    sta $01
+    lda !EscargoPendingItemBytes,X
+    sta !EscargoPendingItemRemovedValue
     bra C191D1_c1_91b0_remove_pending_item_id_at_index_L91D1
 C191C5_c1_91b0_remove_pending_item_id_at_index_L91C5:
     sep #$20
-    lda $00
-    sta $984B,X
+    lda !EscargoPendingItemShiftByte
+    sta !EscargoPendingItemBytes,X
     rep #$20
-    lda $0E
+    lda !EscargoPendingItemNextIndex
     tax
 C191D1_c1_91b0_remove_pending_item_id_at_index_L91D1:
     sep #$20
-    lda $984C,X
-    sta $00
+    lda !EscargoPendingItemNextByteOffset,X
+    sta !EscargoPendingItemShiftByte
     rep #$20
-    lda $00
-    and.w #$00FF
+    lda !EscargoPendingItemShiftByte
+    and.w #!LowByteMask
     beq C191EA_c1_91b0_remove_pending_item_id_at_index_L91EA
     txa
     inc A
-    sta $0E
-    cmp.w #$0024
+    sta !EscargoPendingItemNextIndex
+    cmp.w #!EscargoPendingItemCapacity
     bcc C191C5_c1_91b0_remove_pending_item_id_at_index_L91C5
 C191EA_c1_91b0_remove_pending_item_id_at_index_L91EA:
     sep #$20
-    stz $984B,X
+    stz !EscargoPendingItemBytes,X
     rep #$20
-    lda $01
-    and.w #$00FF
+    lda !EscargoPendingItemRemovedValue
+    and.w #!LowByteMask
     pld
     rts
 

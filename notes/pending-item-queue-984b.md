@@ -30,6 +30,13 @@ now names the `C3:E977` inventory-slot accessor edge as
 `C3E977_ReadCharacterInventorySlotByte`, making the `C1:9183`
 inventory-slot-to-pending-queue bridge explicit in source.
 
+Source polish follow-up (2026-05-06): the packed queue helpers now expose their
+local scan and compaction ABI directly. `C1:90F1` names the active Escargo
+requester bytes at `$98AB`, the remaining storage capacity, and the scan over
+the `$984B` item-id queue. `C1:913D/9183` name the pending-item scan index,
+queue capacity, and preserved source character/slot pair. `C1:91B0` names the
+removed byte, shift byte, next index, and `$984B/$984C` compaction reads.
+
 ## Why this interpretation fits
 
 The core helpers around it are now fairly direct.
