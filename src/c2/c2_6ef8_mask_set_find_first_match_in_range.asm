@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C269EF_GetRandomByte = $69EF
 
 C4A279_OneHotTargetBitMaskTableLo = $A279
 C4A279_OneHotTargetBitMaskTableBank = $00C4
@@ -68,7 +68,8 @@ C26F24_MaskSet_FindFirstMatchInRange_L6F24:
 C26F31_MaskSet_FindFirstMatchInRange_L6F31:
     ldy.w #$0000
     sty TargetBitIndex
-    jsr $69EF
+    ; Randomize the scan start within the requested target mask.
+    jsr C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     and.w #RandomBitMask

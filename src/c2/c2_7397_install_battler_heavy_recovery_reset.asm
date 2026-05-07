@@ -17,15 +17,19 @@
 ;   `9A15/9A13` markers through the id stored at row `+0x10`.
 ; - When row `+0x0E == 1` and `+0x0F == 0`, resets `+0x4B` membership across
 ;   candidate rows, marks the selected row, and refreshes the row's visual
-;   presentation tiles through the `FAD8/FB35/69BE` helper family.
+;   presentation tiles through the color-wave duration/comparison helpers and
+;   `WaitFrames`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
 C27126_SetBattlerHpTarget           = $7126
 C269BE_WaitFrames                   = $69BE
+C09251_SignedDivide16By8            = $C09251
 C08FF7_ResolveIndexedPointerOffset  = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C2FAD8_SetEnemySpriteColorWaveDuration = $C2FAD8
+C2FB35_EnemySpriteColorWaveComparisonHelper = $C2FB35
 
 ; ---------------------------------------------------------------------------
 ; C2:7397
@@ -168,7 +172,7 @@ C274A6_InstallBattlerHeavyRecoveryReset_L74A6:
     bcc C27489_InstallBattlerHeavyRecoveryReset_L7489
     rep #$20
     lda.w #$000A
-    jsl $C2FAD8
+    jsl C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $02
     bra C274DB_InstallBattlerHeavyRecoveryReset_L74DB
@@ -188,7 +192,7 @@ C274BB_InstallBattlerHeavyRecoveryReset_L74BB:
     clc
     adc $02
     ldx $14
-    jsl $C2FB35
+    jsl C2FB35_EnemySpriteColorWaveComparisonHelper
     inc $02
 C274DB_InstallBattlerHeavyRecoveryReset_L74DB:
     lda $02
@@ -197,7 +201,7 @@ C274DB_InstallBattlerHeavyRecoveryReset_L74DB:
     lda.w #$000A
     jsr C269BE_WaitFrames
     lda.w #$0014
-    jsl $C2FAD8
+    jsl C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $02
     bra C2753E_InstallBattlerHeavyRecoveryReset_L753E
@@ -224,7 +228,7 @@ C274F6_InstallBattlerHeavyRecoveryReset_L74F6:
     txa
     sep #$10
     ply
-    jsl $C09251
+    jsl C09251_SignedDivide16By8
     and.w #$001F
     sta $0E
     rep #$10
@@ -241,7 +245,7 @@ C274F6_InstallBattlerHeavyRecoveryReset_L74F6:
     and.w #$001F
     tax
     lda $14
-    jsl $C2FB35
+    jsl C2FB35_EnemySpriteColorWaveComparisonHelper
     inc $02
 C2753E_InstallBattlerHeavyRecoveryReset_L753E:
     lda $02

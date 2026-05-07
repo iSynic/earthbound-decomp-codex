@@ -17,8 +17,11 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
+C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
 C269BE_WaitFrames                   = $69BE
+C2C21F_ApplyFinalPrayerBattleVisualSelector = $C21F
+C2C37A_RunFinalPrayerStageTransition = $C37A
 
 C9_BattleTextScriptBank       = $00C9
 C9MSG_FinalPrayerDamagePhase1 = $F86A
@@ -39,11 +42,11 @@ C2C572_RunFinalPrayerOpeningTransition = BTLACT_GIYGAS_PRAYER_1
     sta $10
     ldx.w #$00B9
     lda.w #$01DE
-    jsr $C37A
+    jsr C2C37A_RunFinalPrayerStageTransition
     lda.w #$0078
     jsr C269BE_WaitFrames
     lda.w #$0040
-    jsl $C0ABE0
+    jsl C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
     lda.w #$001E
     jsr C269BE_WaitFrames
     lda.w #$003C
@@ -62,6 +65,6 @@ C2C572_RunFinalPrayerOpeningTransition = BTLACT_GIYGAS_PRAYER_1
     jsr $C32C
     ldx.w #$0000
     lda.w #$01DF
-    jsr $C21F
+    jsr C2C21F_ApplyFinalPrayerBattleVisualSelector
     pld
     rtl

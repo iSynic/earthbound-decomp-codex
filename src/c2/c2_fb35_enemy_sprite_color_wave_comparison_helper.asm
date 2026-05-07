@@ -11,7 +11,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C09251_SignedDivide16By8 = $C09251
 
 ; ---------------------------------------------------------------------------
 ; C2:FB35
@@ -60,7 +60,7 @@ C2FB35_EnemySpriteColorWaveComparisonHelper:
     tay
     rep #$20
     lda $12
-    jsl $C09251
+    jsl C09251_SignedDivide16By8
     and.w #$001F
     sta $0E
     lda $04

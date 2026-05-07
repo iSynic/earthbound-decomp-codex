@@ -20,6 +20,7 @@
 C08FF7_ResolveIndexedPointerOffset                = $C08FF7
 C1DC66_DisplayBattleTextWithSubstitutionPayload   = $C1DC66
 C21BA4_RecalculateCharacterDerivedGuts            = $C21BA4
+C2B5E3_RunBattleStatChangeConsequenceEpilogue     = $B5E3
 
 SelectedRowGutsByte                               = $002C
 PartyRecordStride                                 = $005F
@@ -80,4 +81,4 @@ C2B43F_ApplyBattleGutsIncreaseConsequence:
     lda $08
     sta $14
     jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
-    jmp $B5E3
+    jmp C2B5E3_RunBattleStatChangeConsequenceEpilogue

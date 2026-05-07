@@ -20,10 +20,10 @@ This made it the best place to push from "strong crosswalk" into a real local fl
 
 The local wrappers feed `C2:966B` like this:
 
-- `C2:9871`: `X = 1`, `A = 0x0078`
-- `C2:987D`: `X = 2`, `A = 0x0078`
-- `C2:9889`: `X = 3`, `A = 0x00C8`
-- `C2:9895`: `X = 4`, `A = 0x00C8`
+- `C2:9871` / `RunPsiThunderAlpha`: `X = 1`, `A = 0x0078`
+- `C2:987D` / `RunPsiThunderBeta`: `X = 2`, `A = 0x0078`
+- `C2:9889` / `RunPsiThunderGamma`: `X = 3`, `A = 0x00C8`
+- `C2:9895` / `RunPsiThunderOmega`: `X = 4`, `A = 0x00C8`
 
 The local helper immediately stores those two inputs separately:
 
@@ -50,6 +50,7 @@ After deriving that clamped value, the local helper:
 
 - snapshots the current target mask from `$A96C/$A96E` into local pairs `$06/$08` and `$12/$14`
 - clears a local hit counter in `$18`
+- enters the first iteration through the named `C2:985A` requested-hit-count gate
 - enters a loop whose tail checks both:
   - whether side `0` still has remaining members through `C2:BAC5(0)`
   - whether side `1` still has remaining members through `C2:BAC5(1)`
@@ -60,7 +61,7 @@ This is a strong local match for the reference Thunder behavior, which attempts 
 
 ## Per-hit setup: rebuild and narrow the target selection
 
-The inner per-hit path begins at `C2:96CB` and does the following in broad shape:
+The inner per-hit path begins at `C2:96CB` / `RunPsiThunderNextStrike` and does the following in broad shape:
 
 - restores the saved working target mask
 - runs a filtering step through `C2:416F`
@@ -115,6 +116,12 @@ If the success roll does not pass, the helper takes a different branch:
 
 This strongly resembles the reference Thunder miss branch, which emits two different presentation or text payloads for the miss case.
 
+Source follow-up (2026-05-06): the cross-module Thunder loop edges now have
+source labels. The common helper jumps to `DisplayPsiThunderMissPresentation`
+for `C2:9821`, `CheckPsiThunderRequestedHitCountOrContinue` for `C2:985A`,
+and `ClearPsiThunderTargetMaskAndReturn` for `C2:9863`; the reflection tail
+continues the loop through `RunPsiThunderNextStrike` at `C2:96CB`.
+
 ## What is now locally solid
 
 The following Thunder claims are now locally solid enough to rely on in notes:
@@ -126,6 +133,7 @@ The following Thunder claims are now locally solid enough to rely on in notes:
 - it uses the same busy/effect wait helper `C2:EACF` already tied to battle-style presentation flow
 - it has distinct success and failure presentation branches
 - it includes a likely Franklin Badge reflection branch with a possession check, reflected-hit marker, and context swap
+- its rank wrappers and cross-module loop/tail targets are now named in source
 
 ## Current safest takeaway
 
@@ -135,9 +143,6 @@ That is an important step because it anchors the broader `D5:7B68 -> C2:40A4` ac
 
 ## Best next target
 
-The best next move is to tighten one of the helper clusters inside the success branch, probably:
-
-- `C2:941D` / `C2:94CE` for the post-hit cleanup and target-state path, or
-- `C2:7E8A` and the `C4:5683`-gated special branch, to confirm the reflection-style interpretation more directly
-
-The second option probably gives the better payoff, because it would verify the special-case branch with less ambiguity.
+The best next move is to tighten the remaining helper clusters that are still
+raw around Thunder-adjacent presentation or reflected-hit cleanup, now that the
+main wrapper and loop-tail boundaries are no longer ambiguous.

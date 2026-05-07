@@ -53,6 +53,10 @@ Rows `291..298` also form a tight body ladder:
 
 That is already much stronger than a loose thematic match.
 
+Source follow-up (2026-05-06): the row bodies now call the shared helpers by
+their promoted contracts: `RunFinalPrayerStageTransition`,
+`ApplyFinalPrayerDamageStep`, and `RunFinalPrayerNarrativeTransition`.
+
 ## `C2:C572` is the opening prayer setup
 
 Entry `291` uses text `C9:F0B8`, which begins:
@@ -64,13 +68,15 @@ Its body is richer than the later prayer damage rows:
 
 - loads `C7:BC96` and calls `C2:C37A` with `X = 0x00B9`, `A = 0x01DE`
 - waits `0x78`
-- plays sound through `C0:ABE0` with `0x40`
+- queues the `0x40` presentation cue through `C0:ABE0` /
+  `QueueSoundEffectOrPlayApuPort3Cue`
 - waits `0x1E`
 - writes `$AD8C = 0x003C`, `$AD8E = 0x000C`
 - displays `C9:F86A` through `C1:DC1C`
 - writes `$A97A = 5`
 - calls `C2:C32C` with `0x01E5`
-- calls `C2:C21F` with `X = 0`, `A = 0x01DF`
+- calls `C2:C21F` / `ApplyFinalPrayerBattleVisualSelector` with `X = 0`,
+  `A = 0x01DF`
 
 So the healthiest local read is:
 
@@ -134,6 +140,11 @@ Its body is much larger than every earlier prayer row:
 
 This is not just a stronger damage row. It is the end-of-battle finale controller.
 
+Source follow-up (2026-05-06): the finale source now names the established
+presentation and visual joins for the opening clamp/prep, queued cue dispatch,
+sprite-row commits, and layer-1 battle-bg distortion priming instead of leaving
+those source-backed edges as raw `C20F9A/C1DD41/C0ABE0/C2F8F9/C2DAE3` calls.
+
 The reference fit is very strong:
 
 - `BTLACT_GIYGAS_PRAYER_9`
@@ -150,11 +161,13 @@ This family is now strong enough to treat as a finished local map:
 - `C2:C5D1..C2:C69E` are the main prayer-damage ladder
 - `C2:C6D0` is the phase-8 narrative prayer step
 - `C2:C6F0` is the full final prayer finale
+- the visible source now names the helper calls that compose those rows instead
+  of leaving the common layer as raw `C37A/C3E2/C41F` calls
+- the opening and finale bodies now reuse the same presentation cue, sprite,
+  and battle-background helper vocabulary as the adjacent C2 visual sources
 
 ## What is still open
 
 Still open:
 
-- the exact healthiest local symbolic name for `C2:C37A`
-- the exact healthiest local symbolic name for `C2:C41F`
-- whether `C2:C3E2` should be fully promoted to a prayer-damage helper outside this note
+- lower-level visual selector calls inside the prayer transition helpers

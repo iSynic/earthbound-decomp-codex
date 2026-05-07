@@ -13,6 +13,10 @@
 
 C08EFC_CommitTileBufferToStaging   = $C08EFC
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C29CDC_ApplyTimedSubstateOrRefreshShieldCounter = $9CDC
+C2B608_ConvertElementalResistanceByte = $C2B608
+C2B639_ConvertStatusResistanceByte    = $C2B639
+C2B66A_ReadBattlerNameVariantFlag  = $C2B66A
 
 ; ---------------------------------------------------------------------------
 ; C2:B6EB
@@ -69,7 +73,7 @@ C2B737_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB737:
     sta $0002,X
     ldy $0F
     tya
-    jsl $C2B66A
+    jsl C2B66A_ReadBattlerNameVariantFlag
     ldx $02
     sta $000B,X
     lda.b #$01
@@ -154,22 +158,22 @@ C2B737_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB737:
     sta $0031,X
     ldy.w #$003F
     lda [$06],Y
-    jsl $C2B608
+    jsl C2B608_ConvertElementalResistanceByte
     ldx $02
     sta $003A,X
     ldy.w #$0040
     lda [$06],Y
-    jsl $C2B608
+    jsl C2B608_ConvertElementalResistanceByte
     ldx $02
     sta $0038,X
     ldy.w #$0041
     lda [$06],Y
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldx $02
     sta $0039,X
     ldy.w #$0042
     lda [$06],Y
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldx $02
     sta $0037,X
     rep #$20
@@ -183,7 +187,7 @@ C2B737_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB737:
     sta $0A
     sep #$20
     lda [$0A]
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldx $02
     sta $003C,X
     lda [$0A]
@@ -191,7 +195,7 @@ C2B737_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB737:
     lda.b #$03
     sec
     sbc $00
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldx $02
     sta $003B,X
     rep #$20
@@ -219,6 +223,7 @@ C2B737_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB737:
     sep #$20
     ldy.w #$0059
     lda [$06],Y
+    ; Enemy-data byte +0x59 seeds the row +0x23 timed shield/substate id.
     rep #$20
     and.w #$00FF
     cmp.w #$0001
@@ -239,22 +244,22 @@ C2B737_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB737:
 C2B8E5_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB8E5:
     ldx.w #$0002
     lda $02
-    jsr $9CDC
+    jsr C29CDC_ApplyTimedSubstateOrRefreshShieldCounter
     bra C2B92C_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB92C
 C2B8EF_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB8EF:
     ldx.w #$0001
     lda $02
-    jsr $9CDC
+    jsr C29CDC_ApplyTimedSubstateOrRefreshShieldCounter
     bra C2B92C_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB92C
 C2B8F9_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB8F9:
     ldx.w #$0004
     lda $02
-    jsr $9CDC
+    jsr C29CDC_ApplyTimedSubstateOrRefreshShieldCounter
     bra C2B92C_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB92C
 C2B903_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB903:
     ldx.w #$0003
     lda $02
-    jsr $9CDC
+    jsr C29CDC_ApplyTimedSubstateOrRefreshShieldCounter
     bra C2B92C_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB92C
 C2B90D_C2B6EB_InitializeEnemyBattlerStatsFromEnemyId_LB90D:
     sep #$20

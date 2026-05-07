@@ -35,11 +35,20 @@ Accepted item ids are written one byte at a time into `$A9D4`, and the helper re
 
 Working names used below are collected again in the final section for the generated proposal table.
 
+Source follow-up (2026-05-06): the battle-start front controller now calls
+`C2:4316` by the `SelectStealableItemCandidate` contract at both STEAL action
+argument setup sites. This makes row `0x42`'s selected-row `+8` byte read as a
+pending stolen item id instead of an opaque action argument.
+
 ## `C2:4348`: validate a pending steal item
 
 `C2:4348` takes an item id in `A`, rebuilds the `$A9D4` stealable candidate list through `C2:41DC`, then linearly scans the returned candidate count. It returns `1` if any candidate equals the input item id and `0` otherwise.
 
 The only direct caller is the STEAL action cleanup path at `C2:5AD1`. That caller checks the active battler's `current_action == #$0042`, loads `current_action_argument` from offset `+8`, calls `C2:4348`, and clears `current_action_argument` if the helper returns zero.
+
+The source callsite now uses `IsPendingStealItemStillStealable`, matching this
+guard role at the point where battle-start is about to stage the selected-row
+`+8` byte for text/payload consumption.
 
 `inspect_battle_action.py 66` corroborates table row `0x42` as the STEAL action:
 
@@ -75,6 +84,11 @@ If all gates pass, `C2:437E` calls `C1:DDC6` with the battler id and slot number
 
 Working name used below: `ApplyPendingStolenItemSlotIfStillValid`.
 
+Source follow-up (2026-05-06): the battle-start back half now calls
+`ApplyPendingStolenItemSlotIfStillValid` by name at the three end-state cleanup
+edges. That keeps the helper tied to committing a pending STEAL action fallout
+rather than reading like a generic inventory updater.
+
 ## `C2:4434`: random front/back target-row picker
 
 `C2:4434` takes a battler pointer in `A`, stores a one-based target code to battler offset `+0x0A` (`current_target`), and returns the selected battler code converted through the front/back row arrays.
@@ -91,6 +105,11 @@ The local byte flow is:
 The direct callers are `C2:462D` and `C2:465A`, both inside `CHOOSE_TARGET` loops for one-target actions whose battle-action table row says to avoid purely random targeting. The caller immediately validates the returned code with `CHECK_IF_VALID_TARGET` (`C4:A1F5` in local address form) and repeats until it finds a valid target.
 
 Working name used below: `PickRandomBattlerFromFrontBackRows`.
+
+Source follow-up (2026-05-06): the `CHOOSE_TARGET` source now calls
+`C2:4434` by this name at both front/back-row picker sites. The surrounding
+loop still validates the returned battler code through `C4:A1F5`, so the
+helper remains a row-list picker rather than a complete target-validity guard.
 
 ## Relation to `CHOOSE_TARGET`
 

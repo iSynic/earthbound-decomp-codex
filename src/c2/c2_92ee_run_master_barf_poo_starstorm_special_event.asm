@@ -21,6 +21,7 @@ C1DDCC_SelectPartyMemberPresentation           = $C1DDCC
 C228F8_SelectBattleParticipantById             = $C228F8
 C23BCF_BuildBattleAttackerTextContext          = $C23BCF
 C23D05_BuildBattleTargetTextContext            = $C23D05
+C27EAF_RunHitResolutionAndStatusActionCluster  = $7EAF
 C2B930_PrepareSpecialEventBattler              = $C2B930
 
 ; ---------------------------------------------------------------------------
@@ -146,7 +147,7 @@ C293BA_RunMasterBarfPooStarstormSpecialEvent_L93BA:
     jsr C26AFD_ApplyTwentyFivePercentVariance
     tax
     lda $A972
-    jsr $7EAF
+    jsr C27EAF_RunHitResolutionAndStatusActionCluster
 C293EF_RunMasterBarfPooStarstormSpecialEvent_L93EF:
     ldy $12
     iny

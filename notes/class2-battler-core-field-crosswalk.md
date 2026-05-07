@@ -82,6 +82,11 @@ Reference-side clue:
 - `BATTLE_INIT_ENEMY_STATS` stores the result of `UNKNOWN_C2B66A(enemyID)` into `battler::the_flag`
 - that makes `the_flag` look like enemy-specific naming or article metadata carried into the battler struct at setup time
 
+Source follow-up (2026-05-06): the local `C2:B6EB` initializer now calls that
+helper as `ReadBattlerNameVariantFlag`, matching the already named
+`C2:3BCF/3D05` text-context consumers that use the same flag for article/name
+formatting.
+
 Local-side clue:
 
 - `C2:3BCF` only enters its small optional-token append path when selected-row byte `+0x0B == 1`

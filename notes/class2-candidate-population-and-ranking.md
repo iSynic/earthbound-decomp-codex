@@ -46,6 +46,15 @@ Current best reading:
 
 This looks like a second-stage enrichment or alternative source path for the same runtime candidate pool.
 
+Source follow-up (2026-05-06): the `C2:4A8A` variable-source path now names the
+presentation and selection joins that sit around this enrichment pass. After the
+six source rows are considered it refreshes selected-row presentation through
+`C1:DD3B`, ticks one frame through `C1:2DD5`, keeps the battle-background frame
+lane moving through `C2:DB3F`, and hands the current battle-group index to
+`C1:E1A5` / `RunEnemySelectMode` when the enemy-select input branch is taken.
+The final present/result setup then opens the battle text window through
+`C1:DD47`.
+
 ## What this sharpens about the candidate fields
 
 These setup passes make a few earlier field guesses much stronger:

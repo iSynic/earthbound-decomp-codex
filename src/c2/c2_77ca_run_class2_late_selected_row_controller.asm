@@ -27,16 +27,22 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset           = $C08FF7
+C0ABE0_QueueSoundEffectOrPlayApuPort3Cue     = $C0ABE0
 C1DC1C_DisplayBattleTextFromPointer          = $C1DC1C
 C23BCF_BuildBattleAttackerTextContext        = $C23BCF
 C23D05_BuildBattleTargetTextContext          = $C23D05
+C23E32_BuildFirstTargetTextContextFromCurrentMask = $C23E32
 C240A4_ApplyBattleActionSecondPointerPayload = $C240A4
 C24477_BuildClass2DerivedActionCode          = $C24477
 C24703_DispatchClass2DerivedAction           = $C24703
+C20F9A_ClampHpPpRollTargetsToLiveValues      = $C20F9A
 C26A2D_GetRandomBelow                        = $6A2D
 C269BE_WaitFrames                            = $69BE
 C2B6EB_InitializeEnemyBattlerStatsFromEnemyId = $C2B6EB
 C2BAC5_CountRowsWithPhaseValue               = $C2BAC5
+C2F8F9_RenderAndCommitBattleSpriteRows       = $C2F8F9
+C2FAD8_SetEnemySpriteColorWaveDuration       = $C2FAD8
+C2FB35_EnemySpriteColorWaveComparisonHelper  = $C2FB35
 
 D57B68_BattleActionTableLo                   = $7B68
 D57B68_BattleActionTableBank                 = $00D5
@@ -130,7 +136,7 @@ C277EF_RunClass2LateSelectedRowController_L77EF:
     beq C277FE_RunClass2LateSelectedRowController_L77FE
     jmp.w C27879_RunClass2LateSelectedRowController_L7879
 C277FE_RunClass2LateSelectedRowController_L77FE:
-    jsl $C20F9A
+    jsl C20F9A_ClampHpPpRollTargetsToLiveValues
     lda.w #$0000
     sta $22
     bra C27874_RunClass2LateSelectedRowController_L7874
@@ -274,7 +280,7 @@ C278D9_RunClass2LateSelectedRowController_L78D9:
     jsl C24703_DispatchClass2DerivedAction
     lda.w #$0000
     jsl FIX_ATTACKER_NAME
-    jsl $C23E32
+    jsl C23E32_BuildFirstTargetTextContextFromCurrentMask
     lda.w #D57B68_BattleActionTableLo
     sta $0A
     lda.w #D57B68_BattleActionTableBank
@@ -421,7 +427,7 @@ C27A61_RunClass2LateSelectedRowController_L7A61:
     sta.w BattlerActiveMarkerByte,X
     rep #$20
     lda.w #$000A
-    jsl $C2FAD8
+    jsl C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $04
     bra C27A9F_RunClass2LateSelectedRowController_L7A9F
@@ -441,7 +447,7 @@ C27A7F_RunClass2LateSelectedRowController_L7A7F:
     clc
     adc $04
     ldx $1E
-    jsl $C2FB35
+    jsl C2FB35_EnemySpriteColorWaveComparisonHelper
     inc $04
 C27A9F_RunClass2LateSelectedRowController_L7A9F:
     lda $04
@@ -450,7 +456,7 @@ C27A9F_RunClass2LateSelectedRowController_L7A9F:
     lda.w #$000A
     jsr C269BE_WaitFrames
     lda.w #$0014
-    jsl $C2FAD8
+    jsl C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $04
     bra C27AD9_RunClass2LateSelectedRowController_L7AD9
@@ -469,7 +475,7 @@ C27ABA_RunClass2LateSelectedRowController_L7ABA:
     clc
     adc $04
     ldx $1E
-    jsl $C2FB35
+    jsl C2FB35_EnemySpriteColorWaveComparisonHelper
     inc $04
 C27AD9_RunClass2LateSelectedRowController_L7AD9:
     lda $04
@@ -531,9 +537,9 @@ C27B51_RunClass2LateSelectedRowController_L7B51:
     cpy.w #TargetBitLimit
     bcc C27B39_RunClass2LateSelectedRowController_L7B39
     lda.w #$0021
-    jsl $C0ABE0
+    jsl C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
     lda.w #$000A
-    jsl $C2FAD8
+    jsl C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $04
     bra C27B81_RunClass2LateSelectedRowController_L7B81
@@ -546,7 +552,7 @@ C27B6B_RunClass2LateSelectedRowController_L7B6B:
     tay
     tax
     lda $04
-    jsl $C2FB35
+    jsl C2FB35_EnemySpriteColorWaveComparisonHelper
 C27B7F_RunClass2LateSelectedRowController_L7B7F:
     inc $04
 C27B81_RunClass2LateSelectedRowController_L7B81:
@@ -556,7 +562,7 @@ C27B81_RunClass2LateSelectedRowController_L7B81:
     lda.w #$000A
     jsr C269BE_WaitFrames
     lda.w #$0014
-    jsl $C2FAD8
+    jsl C2FAD8_SetEnemySpriteColorWaveDuration
     lda.w #$0001
     sta $04
     bra C27BB1_RunClass2LateSelectedRowController_L7BB1
@@ -568,7 +574,7 @@ C27B9C_RunClass2LateSelectedRowController_L7B9C:
     ldy.w #$0000
     tyx
     lda $04
-    jsl $C2FB35
+    jsl C2FB35_EnemySpriteColorWaveComparisonHelper
 C27BAF_RunClass2LateSelectedRowController_L7BAF:
     inc $04
 C27BB1_RunClass2LateSelectedRowController_L7BB1:
@@ -598,7 +604,7 @@ C27BD5_RunClass2LateSelectedRowController_L7BD5:
 C27BDE_RunClass2LateSelectedRowController_L7BDE:
     cpy.w #TargetBitLimit
     bcc C27BC6_RunClass2LateSelectedRowController_L7BC6
-    jsl $C2F8F9
+    jsl C2F8F9_RenderAndCommitBattleSpriteRows
     lda.w #$0002
     sta LateVisualCompletionFlag
 C27BED_RunClass2LateSelectedRowController_L7BED:

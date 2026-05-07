@@ -23,6 +23,9 @@ Source-scaffold promotion:
   amount, party-slot scan count, party PP target/max-PP fields, visual pass
   counts, and the embedded `C2:698B` helper that returns the `D5:7B68` action
   type byte for a caller-provided action id.
+- Bounded-random follow-up: the local `C2:69F8` scaler now names the C0
+  multiply and 32-bit right-shift helpers it uses to compute
+  `floor(random_byte * limit / 256)` for `C2:6A2D` / `GetRandomBelow`.
 
 ## `C2:6189` - instant-win tile-buffer fill/upload helper
 
@@ -62,6 +65,8 @@ RTS
 The surrounding named handler also:
 
 - plays the sudden-victory music
+- clears battle overlay/layer-effect state through `C2:E9ED` /
+  `ClearBattleOverlayAndResetLayerEffects`
 - copies graphics/tile data through C0 buffer helpers
 - opens the battle text window through `C1:DD47` / `OpenBattleTextWindow`
 - caches battle money/EXP/drop scratch values
@@ -69,9 +74,11 @@ The surrounding named handler also:
   `ExportBattleSelectionSnapshot`
 - counts filtered second-stage battler rows through `C2:BAC5` /
   `CountFilteredSecondStageBattlerRows`
-- deposits money to ATM
+- converts the reward money through `C2:281D` / `DepositIntoAtm` before adding
+  it to `$98B9/$98BB`
 - rebuilds/reset battler state
-- awards EXP and item drops
+- awards EXP through `C1:D9E9` / `AwardExperienceToCharacter` and handles item
+  drops
 - restores/returns music
 
 So `C2:6189` should be understood as a presentational subroutine of the instant-win handler, not as independent battle logic.
@@ -122,6 +129,12 @@ The source also contains a small local helper at `C2:698B` that converts a
 helper now uses the shared battle-action table vocabulary rather than a raw
 `$D57B68` read, keeping this event-facing module aligned with the battle-start
 and selected-row action-table consumers.
+
+The bounded-random helper pair at `C2:69F8` and `C2:6A2D` is also now clearer:
+`C2:6A2D` draws a random byte, then `C2:69F8` multiplies that byte by the
+caller limit and shifts the 32-bit product right by 8. The result is the
+bounded value consumed by target selection, item drops, and several status or
+damage chance paths that call `GetRandomBelow`.
 
 ## Relation to instant-win check
 

@@ -21,9 +21,12 @@
 
 C0887A_ClearDisplayTransitionState  = $C0887A
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C1DD3B_RefreshBattlePresentationForSelectedRow = $C1DD3B
+C1DD47_OpenBattleTextWindow         = $C1DD47
 C1DD5F_WaitForTextOrMenuAcknowledge = $C1DD5F
 C269BE_WaitFrames                   = $69BE
 C269DE_WaitForDisplayTransitionBusyClear = $69DE
+C2C21F_ApplyFinalPrayerBattleVisualSelector = $C21F
 
 ; ---------------------------------------------------------------------------
 ; C2:C37A
@@ -65,12 +68,12 @@ C2C37A_RunFinalPrayerStageTransition:
     ldy $12
     tya
     ; Apply the caller-selected battle visual transition.
-    jsr $C21F
+    jsr C2C21F_ApplyFinalPrayerBattleVisualSelector
     lda.w #$0001
     sta $9643
-    jsl $C1DD3B
+    jsl C1DD3B_RefreshBattlePresentationForSelectedRow
     lda.w #$000E
-    jsl $C1DD47
+    jsl C1DD47_OpenBattleTextWindow
     lda.w #$003C
     jsr C269BE_WaitFrames
     pld

@@ -70,7 +70,12 @@ Promoted runtime contract:
   tables through the id stored at row `+0x10`
 - if row `+0x0E == 1` and `+0x0F == 0`, reset row-membership byte `+0x4B`
   across candidate rows, mark the selected row, and run the visual refresh loops
-  through the `FAD8/FB35` helpers and `C2:69BE` / `WaitFrames`
+  through `C2:FAD8` / `SetEnemySpriteColorWaveDuration`,
+  `C2:FB35` / `EnemySpriteColorWaveComparisonHelper`, and `C2:69BE` /
+  `WaitFrames`
+- the refresh loop's palette component extraction now calls the shared
+  `C0:9251` / `SignedDivide16By8` helper by name, matching the nearby
+  color-wave initializer vocabulary
 
 This keeps the helper named around behavior instead of final gameplay wording:
 it is wider than "print revived" because it also resets selected-row state,
@@ -116,13 +121,21 @@ This slice ties together several previously separate-looking facts:
   wrappers that delegate to those setters.
 - `C2:69BE` is now named as the counted frame wait used by the selected-row
   visual refresh loops.
+- `C2:7397` now shares named color-wave duration and per-entry setup helpers
+  with the late selected-row collapse visual pass.
+- the heavy-recovery visual refresh now names the signed divide helper used for
+  RGB555 component extraction before calling the color-wave comparison helper.
 - battle-start front/back controller callsites now name the second-stage row
   counter and source-entry promoter that bridge battle-start row selection into
   the collapse/affliction controller state.
+- the startup/death-text continuation now names its hardcoded collapse-text tail
+  and shared late-controller return join, clarifying where row `+0x0F` routes
+  leave the selected-row startup body.
 
 ## Remaining Soft Spots
 
 - final gameplay names for row bytes `+0x0D`, `+0x0F`, and `+0x10`
 - whether every non-curative reader of row `+0x1D == 1` should be promoted to
   the same global hard/collapsed enum
-- finer names for the `FAD8/FB35` visual-refresh helper family
+- final gameplay names for the two-stage color-wave refresh performed after
+  heavy recovery

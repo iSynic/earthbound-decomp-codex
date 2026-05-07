@@ -16,11 +16,18 @@ C08E9A_GetRandom16                           = $C08E9A
 C08FF7_ResolveIndexedPointerOffset           = $C08FF7
 C21628_CheckEventFlag                        = $C21628
 C23BCF_BuildBattleAttackerTextContext        = $C23BCF
+C1DD3B_RefreshBattlePresentationForSelectedRow = $C1DD3B
+C1DD47_OpenBattleTextWindow                  = $C1DD47
+C1E1A5_RunEnemySelectMode                    = $C1E1A5
 C26A2D_GetRandomBelow                        = $6A2D
+C248E0_ResetBattleStartVisualStateAndCandidateBuffers = $48E0
 C2B6EB_ApplyCandidateRecordPayload           = $C2B6EB
 C2B930_InitializeCandidateRecordFromSource   = $C2B930
+C2DB3F_RunBattleBgPerFrameUpdateBody         = $C2DB3F
 C2E116_AdvanceBattleVisualEffectOrSwirlState = $C2E116
+C4A67E_StartBattleOverlayScriptState         = $C4A67E
 C4FBBD_ChangeMusic                           = $C4FBBD
+C12DD5_WindowTick                            = $C12DD5
 
 BattlePresentItemByte           = $AA10
 D5EnemyRecordItemDropRateOffset = $0057
@@ -123,16 +130,17 @@ C24B45_C24A8A_PopulateCandidatePoolFromVariableSources_L4B45:
     ldy $31
     iny
     sty $31
+C24B4A_CheckVariableSourceScanComplete:
     cpy.w #$0006
     bcs C24B54_C24A8A_PopulateCandidatePoolFromVariableSources_L4B54
     beq C24B54_C24A8A_PopulateCandidatePoolFromVariableSources_L4B54
     jmp.w C24A8A_PopulateCandidatePoolFromVariableSources
 C24B54_C24A8A_PopulateCandidatePoolFromVariableSources_L4B54:
-    jsl $C1DD3B
-    jsl $C12DD5
+    jsl C1DD3B_RefreshBattlePresentationForSelectedRow
+    jsl C12DD5_WindowTick
 C24B5C_C24A8A_PopulateCandidatePoolFromVariableSources_L4B5C:
     jsl C08756_WaitOneFrameAndPollInput
-    jsl $C2DB3F
+    jsl C2DB3F_RunBattleBgPerFrameUpdateBody
     lda $006D
     and.w #$1000
     beq C24B6F_C24A8A_PopulateCandidatePoolFromVariableSources_L4B6F
@@ -142,7 +150,7 @@ C24B6F_C24A8A_PopulateCandidatePoolFromVariableSources_L4B6F:
     and.w #$2000
     beq C24BC5_C24A8A_PopulateCandidatePoolFromVariableSources_L4BC5
     lda $4A8C
-    jsl $C1E1A5
+    jsl C1E1A5_RunEnemySelectMode
     sta $31
     sta $4A8C
     lda.w #$D89A
@@ -246,7 +254,7 @@ C24C44_C24A8A_PopulateCandidatePoolFromVariableSources_L4C44:
 C24C4F_C24A8A_PopulateCandidatePoolFromVariableSources_L4C4F:
     ldx $AA74
     lda $AA72
-    jsl $C4A67E
+    jsl C4A67E_StartBattleOverlayScriptState
     ldx $AA72
     inx
     stx $AA72
@@ -308,7 +316,7 @@ C24CC9_C24A8A_PopulateCandidatePoolFromVariableSources_L4CC9:
 C24CCD_C24A8A_PopulateCandidatePoolFromVariableSources_L4CCD:
     cpx.w #$0006
     bcc C24CC9_C24A8A_PopulateCandidatePoolFromVariableSources_L4CC9
-    jmp $48E0
+    jmp C248E0_ResetBattleStartVisualStateAndCandidateBuffers
 C24CD5_C24A8A_PopulateCandidatePoolFromVariableSources_L4CD5:
     lda $9F8C
     ldy.w #$005E
@@ -375,7 +383,7 @@ C24D66_C24A8A_PopulateCandidatePoolFromVariableSources_L4D66:
     cpx.w #$0006
     bcc C24D1B_C24A8A_PopulateCandidatePoolFromVariableSources_L4D1B
 C24D6B_C24A8A_PopulateCandidatePoolFromVariableSources_L4D6B:
-    jsl $C1DD3B
+    jsl C1DD3B_RefreshBattlePresentationForSelectedRow
     lda $9F8A
     jsr C26A2D_GetRandomBelow
     asl A
@@ -546,6 +554,7 @@ C24EC3_C24A8A_PopulateCandidatePoolFromVariableSources_L4EC3:
     jmp.w C24E4B_C24A8A_PopulateCandidatePoolFromVariableSources_L4E4B
 C24ECD_C24A8A_PopulateCandidatePoolFromVariableSources_L4ECD:
     stz $1D
+C24CEF_BeginBattleStartRewardPresentSetup:
     lda $4DBC
     beq C24EEC_C24A8A_PopulateCandidatePoolFromVariableSources_L4EEC
     cmp.w #$0001
@@ -563,7 +572,7 @@ C24EE7_C24A8A_PopulateCandidatePoolFromVariableSources_L4EE7:
 C24EEC_C24A8A_PopulateCandidatePoolFromVariableSources_L4EEC:
     stz $4DBC
     lda.w #$000E
-    jsl $C1DD47
+    jsl C1DD47_OpenBattleTextWindow
     lda.w #$A21C
     sta $A970
     lda.w #$0001

@@ -19,12 +19,15 @@
 ;   may clear matching `row` (`+0x10`) links.
 ; - The embedded `C2:7784` tail is the hardcoded collapse text route reached
 ;   from `C2:7550` when row `+0x0F == 0`.
+; - Every route rejoins the late selected-row controller's shared return tail at
+;   `C2:7C92`.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset  = $C08FF7
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C27C92_ReturnFromClass2LateSelectedRowController = $7C92
 
 BattlersTableBase                   = $9FAC
 BattlerRowSize                      = $004E
@@ -94,7 +97,7 @@ C276C9_DisplayEnemyDeathText_L76C9:
     lda $983A,X
     and.w #$00FF
     bne C276E4_DisplayEnemyDeathText_L76E4
-    jmp $7C92
+    jmp C27C92_ReturnFromClass2LateSelectedRowController
 C276E4_DisplayEnemyDeathText_L76E4:
     sep #$20
     lda.b #$01
@@ -130,12 +133,12 @@ C276E4_DisplayEnemyDeathText_L76E4:
     and.w #$00FF
     ldx $02
     sta $0000,X
-    jmp $7C92
+    jmp C27C92_ReturnFromClass2LateSelectedRowController
 C27735_DisplayEnemyDeathText_L7735:
     lda $983A
     and.w #$00FF
     bne C27740_DisplayEnemyDeathText_L7740
-    jmp $7C92
+    jmp C27C92_ReturnFromClass2LateSelectedRowController
 C27740_DisplayEnemyDeathText_L7740:
     ldx.w #BattlersTableBase
     ldy.w #$0000
@@ -153,7 +156,7 @@ C27748_DisplayEnemyDeathText_L7748:
     cmp $983A
     bne C27768_DisplayEnemyDeathText_L7768
     stz.w BattlerRowByte,X
-    jmp $7C92
+    jmp C27C92_ReturnFromClass2LateSelectedRowController
 C27768_DisplayEnemyDeathText_L7768:
     rep #$20
     txa
@@ -172,7 +175,8 @@ C27771_DisplayEnemyDeathText_L7771:
 C2777F_DisplayEnemyDeathText_L777F:
     bmi C27748_DisplayEnemyDeathText_L7748
 C27781_DisplayEnemyDeathText_L7781:
-    jmp $7C92
+    jmp C27C92_ReturnFromClass2LateSelectedRowController
+C27784_DisplayHardcodedCollapseTextTail:
     ; C2:7784 external tail: hardcoded collapse text path from C2:7550.
     ldx $02
     stz $0013,X
@@ -200,4 +204,4 @@ C27781_DisplayEnemyDeathText_L7781:
     lda.w #HardCollapseScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
-    jmp $7C92
+    jmp C27C92_ReturnFromClass2LateSelectedRowController

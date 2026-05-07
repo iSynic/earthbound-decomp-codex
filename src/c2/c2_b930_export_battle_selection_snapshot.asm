@@ -24,6 +24,8 @@
 C08EED_CopyMemoryBlock             = $C08EED
 C08EFC_ClearDestinationBlock       = $C08EFC
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C2B608_ConvertElementalResistanceByte = $C2B608
+C2B639_ConvertStatusResistanceByte    = $C2B639
 
 ; ---------------------------------------------------------------------------
 ; C2:B930
@@ -161,22 +163,22 @@ C2B930_ExportBattleSelectionSnapshot = BATTLE_INIT_PLAYER_STATS
     sta $0031,Y
     ldx $02
     lda $0052,X
-    jsl $C2B608
+    jsl C2B608_ConvertElementalResistanceByte
     ldy $18
     sta $003A,Y
     ldx $02
     lda $0053,X
-    jsl $C2B608
+    jsl C2B608_ConvertElementalResistanceByte
     ldy $18
     sta $0038,Y
     ldx $02
     lda $0054,X
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldy $18
     sta $0039,Y
     ldx $02
     lda $0055,X
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldy $18
     sta $0037,Y
     rep #$20
@@ -187,7 +189,7 @@ C2B930_ExportBattleSelectionSnapshot = BATTLE_INIT_PLAYER_STATS
     stx $16
     sep #$20
     lda $0000,X
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldy $18
     sta $003C,Y
     ldx $16
@@ -196,7 +198,7 @@ C2B930_ExportBattleSelectionSnapshot = BATTLE_INIT_PLAYER_STATS
     lda.b #$03
     sec
     sbc $00
-    jsl $C2B639
+    jsl C2B639_ConvertStatusResistanceByte
     ldy $18
     sta $003B,Y
     rep #$20

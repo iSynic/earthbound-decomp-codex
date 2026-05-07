@@ -47,6 +47,26 @@ Current promoted selector map:
 The common epilogue restores the caller pointer and may dispatch a trailing
 control byte at record offset `+3` through `C0:76C8`.
 
+Source follow-up: the `C2:B573..B6EB` source now names selector `9` as
+`TryRecoverSelectedBattlerNarrowAffliction`, selector `0x0A` as
+`TryRecoverSelectedBattlerPoisonOnly`, and the epilogue's optional `+3` byte
+handoff as `DispatchBattleConsequenceControlByte`. The C0 helper name remains
+local to this consequence-record contract until its wider bank-C0 role is
+promoted from its own callers.
+
+Return-tail follow-up: `C2:B606` is now exposed as
+`ReturnFromBattleStatChangeConsequence`. The late condiment/odor no-effect
+route jumps there when it wants the shared `pld/rtl` return without entering
+the optional `C2:B5E3` control-byte epilogue.
+
+Selector-dispatch follow-up: `C2:B2E0` now jumps to each explicit jump selector
+leaf by behavioral contract instead of raw local addresses. Selector `2` is
+`ApplyBattleHpPpRecoveryConsequence`, selector `3` is
+`PickRandomBattleStatIncreaseConsequence`, selectors `4..8` target the named
+direct stat leaves, selectors `9/0x0A` target the named affliction-recovery
+consequence tails, and the default case lands on the shared
+`RunBattleStatChangeConsequenceEpilogue`.
+
 ## HP/PP Feedback Selectors
 
 Selectors `0` and `1` reuse the selected-row feedback helpers documented in the
@@ -66,6 +86,10 @@ The source leaves now name those joins directly: selector `0` calls
 `ApplyBattlerHpRecoveryFeedback`, selector `1` calls
 `ApplyBattlerPpRecoveryFeedback`, and selector `2` chains both after the same
 variance-shaped amount setup.
+
+The selector `2` continuation inside `C2:B360` is now locally labeled as
+`ApplyBattleHpPpRecoveryConsequence`, matching the dispatcher map and making
+the HP-then-PP pairing explicit at both entry points.
 
 ## Direct Stat Increase Selectors
 
@@ -88,6 +112,10 @@ Selectors `4..8` share a strong row-local plus live-character mirror pattern:
 This is a concrete runtime bridge between battle action consequences and the
 same live derived-stat family used by equipment and level-up paths.
 
+Selector `3` is now labeled as `PickRandomBattleStatIncreaseConsequence`; its
+random branches jump to the named guts, speed, vitality, and luck leaves, while
+the zero branch continues to the adjacent IQ leaf.
+
 Source-promotion status:
 
 - `src/c2/c2_b3d8_apply_battle_iq_increase_consequence.asm`,
@@ -101,6 +129,8 @@ Source-promotion status:
 - `src/c2/c2_a056_run_resist_checked_strange_status_action.asm` now uses the
   same C8 amount-script and selected-row stat-byte names for the 1d4 stat-up
   actions and random stat-up offense/defense branches.
+- The direct stat leaves and the HP/PP wrapper leaves now target the shared
+  `C2:B5E3` tail as `RunBattleStatChangeConsequenceEpilogue`.
 
 ## Affliction-Recovery Tails
 
@@ -118,6 +148,7 @@ action-table entries are promoted end to end.
 This slice makes one more C2 action-payload surface useful:
 
 - action payload selector bytes now have a source-commented dispatch contract
+- selector-to-leaf jumps now use behavior names rather than raw addresses
 - stat increases are tied to exact active-row fields, live character bytes,
   derived-stat refresh helpers, and amount-bearing battle text
 - the affliction-recovery ladder is linked back to the consequence dispatcher

@@ -21,6 +21,20 @@
 ;   affliction-recovery helpers.
 
 ; ---------------------------------------------------------------------------
+; External contracts used by this module
+
+C2B378_ApplyBattleHpPpRecoveryConsequence = $B378
+C2B3AA_PickRandomBattleStatIncreaseConsequence = $B3AA
+C2B3D8_ApplyBattleIqIncreaseConsequence = $B3D8
+C2B43F_ApplyBattleGutsIncreaseConsequence = $B43F
+C2B4A6_ApplyBattleSpeedIncreaseConsequence = $B4A6
+C2B50D_ApplyBattleVitalityIncreaseConsequence = $B50D
+C2B573_ApplyBattleLuckIncreaseConsequence = $B573
+C2B5D9_TryRecoverSelectedBattlerNarrowAfflictionConsequence = $B5D9
+C2B5DF_TryRecoverSelectedBattlerPoisonOnlyConsequence = $B5DF
+C2B5E3_RunBattleStatChangeConsequenceEpilogue = $B5E3
+
+; ---------------------------------------------------------------------------
 ; C2:B2E0
 
 C2B2E0_DispatchBattleStatChangeConsequence:
@@ -38,41 +52,41 @@ C2B2E0_DispatchBattleStatChangeConsequence:
     db $F0, $69
     cmp.w #$0002
     bne C2B2FF_C2B2E0_DispatchBattleStatChangeConsequence_LB2FF
-    jmp $B378
+    jmp C2B378_ApplyBattleHpPpRecoveryConsequence
 C2B2FF_C2B2E0_DispatchBattleStatChangeConsequence_LB2FF:
     cmp.w #$0003
     bne C2B307_C2B2E0_DispatchBattleStatChangeConsequence_LB307
-    jmp $B3AA
+    jmp C2B3AA_PickRandomBattleStatIncreaseConsequence
 C2B307_C2B2E0_DispatchBattleStatChangeConsequence_LB307:
     cmp.w #$0004
     bne C2B30F_C2B2E0_DispatchBattleStatChangeConsequence_LB30F
-    jmp $B3D8
+    jmp C2B3D8_ApplyBattleIqIncreaseConsequence
 C2B30F_C2B2E0_DispatchBattleStatChangeConsequence_LB30F:
     cmp.w #$0005
     bne C2B317_C2B2E0_DispatchBattleStatChangeConsequence_LB317
-    jmp $B43F
+    jmp C2B43F_ApplyBattleGutsIncreaseConsequence
 C2B317_C2B2E0_DispatchBattleStatChangeConsequence_LB317:
     cmp.w #$0006
     bne C2B31F_C2B2E0_DispatchBattleStatChangeConsequence_LB31F
-    jmp $B4A6
+    jmp C2B4A6_ApplyBattleSpeedIncreaseConsequence
 C2B31F_C2B2E0_DispatchBattleStatChangeConsequence_LB31F:
     cmp.w #$0007
     bne C2B327_C2B2E0_DispatchBattleStatChangeConsequence_LB327
-    jmp $B50D
+    jmp C2B50D_ApplyBattleVitalityIncreaseConsequence
 C2B327_C2B2E0_DispatchBattleStatChangeConsequence_LB327:
     cmp.w #$0008
     bne C2B32F_C2B2E0_DispatchBattleStatChangeConsequence_LB32F
-    jmp $B573
+    jmp C2B573_ApplyBattleLuckIncreaseConsequence
 C2B32F_C2B2E0_DispatchBattleStatChangeConsequence_LB32F:
     cmp.w #$0009
     bne C2B337_C2B2E0_DispatchBattleStatChangeConsequence_LB337
-    jmp $B5D9
+    jmp C2B5D9_TryRecoverSelectedBattlerNarrowAfflictionConsequence
 C2B337_C2B2E0_DispatchBattleStatChangeConsequence_LB337:
     cmp.w #$000A
     bne C2B33F_C2B2E0_DispatchBattleStatChangeConsequence_LB33F
-    jmp $B5DF
+    jmp C2B5DF_TryRecoverSelectedBattlerPoisonOnlyConsequence
 C2B33F_C2B2E0_DispatchBattleStatChangeConsequence_LB33F:
-    jmp $B5E3
+    jmp C2B5E3_RunBattleStatChangeConsequenceEpilogue
 
 ; ---------------------------------------------------------------------------
 ; C2:B342

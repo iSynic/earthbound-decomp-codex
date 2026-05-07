@@ -12,9 +12,13 @@
 ; External contracts used by this module
 
 C08FF7_ResolveIndexedPointerOffset              = $C08FF7
+C00AA1_LookupPositionCellContextWord            = $C00AA1
+C0DD53_SetTeleportStateSelectors                = $C0DD53
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C1DDC6_RedirectRemoveItemFromInventory          = $C1DDC6
 C240A4_ApplyBattleActionSecondPointerPayload    = $C240A4
+C269A8_GetEnemyConfigSprayVulnerabilityType     = $69A8
 C26A2D_GetRandomBelow                           = $6A2D
 C26A44_RollRandomAmount                         = $6A44
 C26AFD_ApplyTwentyFivePercentVariance           = $6AFD
@@ -210,7 +214,7 @@ C2A9BD_RunTypedRandomDamageCommon = INSECT_SPRAY_COMMON
     bne C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC
     ldx $A972
     lda $0000,X
-    jsr $69A8
+    jsr C269A8_GetEnemyConfigSprayVulnerabilityType
     cmp.w #$0001
     bne C2A9FC_RunRandomDamageAndStatusItemActionCluster_LA9FC
     ldx $12
@@ -261,7 +265,7 @@ C2AA1E_RunTypedRandomDamageCommon2 = RUST_SPRAY_COMMON
     bne C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D
     ldx $A972
     lda $0000,X
-    jsr $69A8
+    jsr C269A8_GetEnemyConfigSprayVulnerabilityType
     cmp.w #$0002
     bne C2AA5D_RunRandomDamageAndStatusItemActionCluster_LAA5D
     ldx $12
@@ -421,7 +425,7 @@ C2AB71_MaybeEmitTeleportLikeItemEffect = BTLACT_TELEPORT_BOX
     tcd
     ldx $987B
     lda $9877
-    jsl $C00AA1
+    jsl C00AA1_LookupPositionCellContextWord
     and.w #$0080
     beq C2AB8B_RunRandomDamageAndStatusItemActionCluster_LAB8B
     jmp.w C2AC1A_RunRandomDamageAndStatusItemActionCluster_LAC1A
@@ -462,7 +466,7 @@ C2ABCF_RunRandomDamageAndStatusItemActionCluster_LABCF:
     ldx $A970
     lda $0000,X
     ldx $12
-    jsl $C1DDC6
+    jsl C1DDC6_RedirectRemoveItemFromInventory
     lda.w #$FE41
     sta $0E
     lda.w #C9_BattleTextScriptBank
@@ -472,7 +476,7 @@ C2ABCF_RunRandomDamageAndStatusItemActionCluster_LABCF:
     lda.b #$03
     sta $0E
     lda $98B8
-    jsl $C0DD53
+    jsl C0DD53_SetTeleportStateSelectors
     lda.w #$0001
     sta $AA0E
     bra C2AC28_RunRandomDamageAndStatusItemActionCluster_LAC28

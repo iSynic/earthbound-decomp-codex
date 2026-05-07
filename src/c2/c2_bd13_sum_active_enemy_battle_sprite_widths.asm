@@ -23,6 +23,7 @@
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C0915B_DivideUnsignedWordByY       = $C0915B
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C2C13A_ReturnCallForHelpEnemySelectionBody = $C13A
 C2EFFD_GetBattleSpriteWidthBucket   = $EFFD
 
 EF_BattleTextScriptBank       = $00EF
@@ -129,6 +130,7 @@ C2BDB4_SumActiveEnemyBattleSpriteWidths_LBDB4:
     cmp.w #$00FF
     bne C2BDA3_SumActiveEnemyBattleSpriteWidths_LBDA3
 C2BDC6_SumActiveEnemyBattleSpriteWidths_LBDC6:
+C2BDC6_DisplayCallForHelpFailureAndReturn = C2BDC6_SumActiveEnemyBattleSpriteWidths_LBDC6
     lda $28
     beq C2BDDB_SumActiveEnemyBattleSpriteWidths_LBDDB
     lda.w #EFMSG_CallForHelpSeedNoSprout
@@ -136,14 +138,14 @@ C2BDC6_SumActiveEnemyBattleSpriteWidths_LBDC6:
     lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
-    jmp $C13A
+    jmp C2C13A_ReturnCallForHelpEnemySelectionBody
 C2BDDB_SumActiveEnemyBattleSpriteWidths_LBDDB:
     lda.w #EFMSG_CallForHelpNoOneCame
     sta $0E
     lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
-    jmp $C13A
+    jmp C2C13A_ReturnCallForHelpEnemySelectionBody
 C2BDEC_SumActiveEnemyBattleSpriteWidths_LBDEC:
     ldx.w #$9FAC
     lda.w #$0000

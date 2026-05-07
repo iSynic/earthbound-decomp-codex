@@ -22,12 +22,15 @@ C0943C_SaveCurrentCoordinateState             = $C0943C
 C09451_RestoreSavedCoordinateState            = $C09451
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
+C1D9E9_AwardExperienceToCharacter          = $C1D9E9
 C1DD47_OpenBattleTextWindow                   = $C1DD47
 C1DD7C_SetBattleTextByteSubstitution          = $C1DD7C
 C1DD5F_WaitForTextOrMenuAcknowledge           = $C1DD5F
+C2281D_DepositIntoAtm                         = $C2281D
 C26A2D_GetRandomBelow                         = $6A2D
 C2B930_ExportBattleSelectionSnapshot          = $C2B930
 C2BAC5_CountFilteredSecondStageBattlerRows    = $C2BAC5
+C2E9ED_ClearBattleOverlayAndResetLayerEffects = $C2E9ED
 C426ED_ApplyPaletteComponentInterpolationStep = $C426ED
 C496E7_StartPaletteFadeFromWorkBuffer         = $C496E7
 C49740_FinishPaletteFadeWorkBuffer            = $C49740
@@ -85,7 +88,7 @@ C261BD_InstantWinHandler = INSTANT_WIN_HANDLER
     stz $4DBC
     lda.w #InstantWinMusicTrack
     jsl C4FBBD_ChangeMusic
-    jsl $C2E9ED
+    jsl C2E9ED_ClearBattleOverlayAndResetLayerEffects
     ldx.w #$0000
     stx $1A
     bra C261F1_FillInstantWinTileBufferAndUpload_L61F1
@@ -165,7 +168,7 @@ C26274_FillInstantWinTileBufferAndUpload_L6274:
     sta $0E
     lda $08
     sta $10
-    jsl $C2281D
+    jsl C2281D_DepositIntoAtm
     lda $06
     sta $0A
     lda $08
@@ -353,7 +356,7 @@ C263EC_FillInstantWinTileBufferAndUpload_L63EC:
     sta $10
     ldx.w #$0001
     lda $0000,Y
-    jsl $C1D9E9
+    jsl C1D9E9_AwardExperienceToCharacter
 C26431_FillInstantWinTileBufferAndUpload_L6431:
     ldy $1A
     tya

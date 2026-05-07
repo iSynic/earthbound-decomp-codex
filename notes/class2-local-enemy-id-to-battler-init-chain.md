@@ -54,6 +54,25 @@ Strong local field writes include:
 
 That is much too close to the reference initializer to treat as coincidence.
 
+Source follow-up (2026-05-06): the initializer now calls `C2:B66A` by the
+`ReadBattlerNameVariantFlag` contract used by the C2 battle-text context
+builders.
+
+Second source follow-up (2026-05-06): the initializer and the player snapshot
+exporter now share the C1-backed `C2:B608` /
+`ConvertElementalResistanceByte` and `C2:B639` /
+`ConvertStatusResistanceByte` names. The transform lane is no longer just
+"compact stat" plumbing: enemy-data bytes `+0x3F/+0x40` and party bytes
+`+0x52/+0x53` feed the fire/freeze resistance mirrors, while enemy-data bytes
+`+0x41/+0x42/+0x43` and party bytes `+0x54/+0x55/+0x56` feed the flash,
+paralysis, hypnosis, and inverse brainshock resistance mirrors.
+
+Third source follow-up (2026-05-06): the initializer now names the initial
+timed-shield/substate seed path. Enemy-data byte `+0x59` dispatches through
+`C2:9CDC` / `ApplyTimedSubstateOrRefreshShieldCounter` for values `1..4`,
+installing the same row `+0x23/+0x25` shield-family state used by the selected
+row timed-substate action leaves.
+
 ## Direct local callers of `C2:B6EB`
 
 The direct caller scan now finds 12 direct call sites to `C2:B6EB`.

@@ -79,6 +79,8 @@ The local body also behaves like a staged event result rather than a normal acti
 - scans party registry `$986F` for id `4`
 - calls `C1:DDCC` when that party id is present
 - prints `EF:743B`
+- applies the scripted Starstorm damage through `C2:7EAF` /
+  `RunHitResolutionAndStatusActionCluster`
 - restores the saved `A970/A972` context
 
 The reference action-table alignment is now strong enough to tighten the wording further:
@@ -119,6 +121,13 @@ So the safest current local interpretation is:
 - `C2:C14E` belongs to a rainbow-colors special event family with strong Master Belch-side transformation or replacement evidence
 
 I am keeping the exact final symbolic name cautious because the full surrounding `C1BD..C2:C32A` family is larger than one single row body.
+
+Source follow-up (2026-05-06): the presentation-transition blocks inside
+`C2:C14E` now call the battle overlay helpers by role:
+`C2:E8C4` / `StartBattleSwirlOverlayAndRecordMode`, `C2:E9C8` /
+`PollBattleTransitionComplete`, and `C1:2DD5` / `WindowTick`. That makes the
+event's two overlay waits read as ordinary presentation lifecycle waits around
+the battle-background reload instead of raw long-call glue.
 
 ## Current takeaway
 

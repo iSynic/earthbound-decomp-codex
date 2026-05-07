@@ -625,6 +625,242 @@ contract notes for C0/C1/C3/C4 consumers.
   by call-for-help insertion and bomb splash overlap. See
   `notes/c2-battle-sprite-runtime-polish.md` and
   `notes/c2-call-for-help-runtime-polish.md`.
+- 2026-05-06 eighty-third slice: named the remaining high-confidence
+  C1/C2 presentation lifecycle joins in the battle-start and Final Prayer
+  action/result corridors. Battle-start pre-action presentation now calls
+  `C2:FEF9` as `LoadOrDimBattlePaletteSet` and its fixed waits through
+  `C1:2DD5` / `WindowTick`; battle-start completion now names the
+  `C1:DD3B` selected-row presentation refresh and `C1:DD59` battle-text wait.
+  Final Prayer stage/narrative transitions now name the `C1:DD3B` and
+  `C1:DD47` cleanup/window joins, and the finale loops name `WindowTick` plus
+  `WaitForBattleText`. See `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/c2-final-prayer-runtime-polish.md`, and
+  `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`.
+- 2026-05-06 eighty-fourth slice: carried the same presentation/frame
+  lifecycle vocabulary into the battle-start variable-source pool, the opening
+  battle-start menu/present controller, Rainbow Colors special-event overlay
+  waits, and the Final Prayer finale overlay wait. `C2:4A8A` now names its
+  selected-row presentation refresh, `WindowTick`, `C2:DB3F` frame updater,
+  `C1:E1A5` enemy-select join, and `C1:DD47` battle-text window open;
+  `C2:311B` names its `C2:FEF9` palette load/dim join; `C2:C14E` and
+  `C2:C6F0` name `C2:E8C4` overlay start and `C2:E9C8` completion-poll
+  helpers. See `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/class2-candidate-population-and-ranking.md`,
+  `notes/class2-special-event-results-c29298-c2c14e.md`, and
+  `notes/c2-final-prayer-runtime-polish.md`.
+- 2026-05-06 eighty-fifth slice: tightened the battle-start STEAL and cleanup
+  helper joins. The front/back controllers now call the source-backed
+  `C2:4316` stealable-candidate selector, `C2:4348` pending steal guard,
+  `C2:437E` pending stolen-slot applicator, `C1:DDCC` party-member
+  presentation selector, `C2:AF1F` battler normalization snapshot/restore,
+  `C2:108C` HP/PP roll latch clearer, `C2:0293` title-tile clearer, and
+  `C2:E0E7` battle visual flash/layer reset by contract names instead of raw
+  long-call addresses. See `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/c2-steal-and-target-selection-helpers-c241dc-c24434.md`, and
+  `notes/c2-window-hppp-and-menu-selection-helpers-c20266-c2108c.md`.
+- 2026-05-06 eighty-sixth slice: tightened target/result helper joins across
+  action dispatch, battle-start rewards, instant-win, and battler init.
+  `CHOOSE_TARGET` now calls `C2:4434` as
+  `PickRandomBattlerFromFrontBackRows`; battle-start and instant-win reward
+  tails name `C2:281D` as the `DepositIntoAtm` amount converter and `C1:D9E9`
+  as `AwardExperienceToCharacter`; instant-win names `C2:E9ED` as the battle
+  overlay/layer-effect reset; and `C2:B6EB` names `C2:B66A` as
+  `ReadBattlerNameVariantFlag` while leaving the still-soft `B608/B639`
+  compact-stat transforms raw. See `notes/c2-action-dispatch-runtime-polish.md`,
+  `notes/c2-steal-and-target-selection-helpers-c241dc-c24434.md`,
+  `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/c2-instant-win-and-magic-butterfly-helpers-c26189-c2654c.md`,
+  and `notes/class2-local-enemy-id-to-battler-init-chain.md`.
+- 2026-05-06 eighty-seventh slice: tightened the hit-resolution result tail
+  around physical damage reduction and Time Stop retargeting. `C2:7EAF` now
+  calls `C0:925B` as `ShiftMaskedResistanceBits` at the defending and
+  shield/power-shield reduction sites, calls `C0:ABE0` as the queued
+  sound/effect dispatcher for the target-switch cue, and names the `EF:0256` /
+  `EF:026E` music pause/resume helpers around the Time Stop repeated-bash
+  loop. See `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-06 eighty-eighth slice: tightened battle-start front/back helper
+  joins against established action-dispatch and HP/PP contracts. The
+  `C2:3D05..40A4` source now labels `C2:3E32` as the first-target
+  text-context rebuild from the current target mask and `C2:4009` as the
+  active-attacker target-mask builder; the front controller calls those labels,
+  the `C2:311B` present/message controller, `C4:A228` ranked-target ordinal
+  writer, and C1 text/presentation waits by name; and the back controller calls
+  `C2:0F9A` as `ClampHpPpRollTargetsToLiveValues` at each result-completion
+  branch. See `notes/c2-action-dispatch-runtime-polish.md` and
+  `notes/c2-battle-start-payload-join-runtime-polish.md`.
+- 2026-05-06 eighty-ninth slice: carried the same helper vocabulary into the
+  adjacent battle-start menu and late selected-row controller. `C2:311B` now
+  names `EF:0262` as `SetHalfHpPpMeterSpeed`, `EF:026E` as `ResumeMusic`, and
+  `C2:0266` as `LoadDefaultTitleUploadTiles`; `C2:77CA` now calls `C2:0F9A`
+  as `ClampHpPpRollTargetsToLiveValues` and `C2:3E32` as the current-mask
+  first-target text-context rebuild helper, while leaving debug shortcuts and
+  still-soft visual refresh helpers raw. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md` and
+  `notes/c2-late-selected-row-runtime-polish.md`.
+- 2026-05-06 ninetieth slice: tightened the battle stat-consequence epilogue
+  and recovery leaves. `C2:B573..B6EB` now names selector `9` as
+  `TryRecoverSelectedBattlerNarrowAffliction`, selector `0x0A` as
+  `TryRecoverSelectedBattlerPoisonOnly`, and the optional consequence-record
+  byte `+3` handoff through `C0:76C8` as
+  `DispatchBattleConsequenceControlByte`. See
+  `notes/c2-stat-consequence-runtime-polish.md`.
+- 2026-05-06 ninety-first slice: tightened the item/status cluster's
+  Teleport Box-style tail. `C2:A89D..AF1F` now calls `C0:0AA1` as
+  `LookupPositionCellContextWord`, `C1:DDC6` as
+  `RedirectRemoveItemFromInventory`, and `C0:DD53` as
+  `SetTeleportStateSelectors`, leaving the then-still-local spray type helper and
+  Pray/table pass raw. See `notes/c2-item-bomb-runtime-polish.md`.
+- 2026-05-06 ninety-second slice: tightened the battler-row resistance
+  conversion joins used by enemy initialization and player snapshot export.
+  `C2:B6EB` and `C2:B930` now call `C2:B608` as
+  `ConvertElementalResistanceByte` and `C2:B639` as
+  `ConvertStatusResistanceByte`, matching the C1 selected-row action-text
+  consumer and retiring the earlier compact-stat soft spot. See
+  `notes/class2-local-enemy-id-to-battler-init-chain.md` and
+  `notes/c2-action-dispatch-runtime-polish.md`.
+- 2026-05-06 ninety-third slice: tightened the remaining raw target-picker
+  helper in the class-2 action builder. `C2:3F6C` is now exposed as
+  `TryPickAiFlaggedNpcBattlerTargetOrdinal` and `C2:4477` calls it by that
+  zero-or-one-based-target-ordinal contract before falling back to its random
+  valid-target loop. See `notes/c2-action-dispatch-runtime-polish.md`.
+- 2026-05-06 ninety-fourth slice: tightened the late selected-row visual
+  refresh joins. `C2:77CA` now calls `C2:FAD8` as
+  `SetEnemySpriteColorWaveDuration`, `C2:FB35` as
+  `EnemySpriteColorWaveComparisonHelper`, and `C2:F8F9` as
+  `RenderAndCommitBattleSpriteRows`, using the same battle-sprite color-wave
+  vocabulary as the source helper family. See
+  `notes/c2-late-selected-row-runtime-polish.md`.
+- 2026-05-06 ninety-fifth slice: carried the same color-wave vocabulary into
+  the heavy recovery/status leaf. `C2:7397` now calls `C2:FAD8` as
+  `SetEnemySpriteColorWaveDuration` and `C2:FB35` as
+  `EnemySpriteColorWaveComparisonHelper`, tying revival-grade recovery visuals
+  to the late selected-row collapse visual-refresh contract. See
+  `notes/c2-selected-row-controller-runtime-polish.md` and
+  `notes/c2-affliction-recovery-runtime-polish.md`.
+- 2026-05-06 ninety-sixth slice: named the selected-row startup/death-text
+  cross-module control-flow joins. `C2:7550` now jumps to `C2:7784` as
+  `DisplayHardcodedCollapseTextTail`, and `C2:7680` returns through `C2:7C92`
+  as `ReturnFromClass2LateSelectedRowController`, making the hardcoded collapse
+  text route and shared late-controller return explicit. See
+  `notes/c2-late-selected-row-runtime-polish.md` and
+  `notes/c2-selected-row-controller-runtime-polish.md`.
+- 2026-05-06 ninety-seventh slice: tightened the stat-consequence selector
+  surface. `C2:B2E0` now dispatches selector `2`, selector `3`, direct stat
+  leaves, affliction-recovery tails, and the common `C2:B5E3` epilogue by
+  behavior names; the HP/PP wrapper and direct stat leaves also target
+  `RunBattleStatChangeConsequenceEpilogue` instead of raw `$B5E3`. See
+  `notes/c2-stat-consequence-runtime-polish.md`.
+- 2026-05-06 ninety-eighth slice: named the local random-byte helper used by
+  mask scans and sprite placement tie-breakers. `C2:69EF` is now exposed as
+  `GetRandomByte`; `C2:6EF8` uses it to randomize the first-match target-mask
+  scan, and `C2:F121` uses it for balanced enemy-sprite x-position tie
+  decisions. See `notes/class2-mask-helper-family.md` and
+  `notes/c2-battle-sprite-render-and-palette-tail-c2eee7-c2ff9a.md`.
+- 2026-05-06 ninety-ninth slice: tightened item/bomb action leaf joins. Bomb
+  and Super Bomb wrappers now call `C2:A658` as `RunBombCommonSplashDamage`,
+  while A89D insect/rust spray commons call `C2:69A8` as
+  `GetEnemyConfigSprayVulnerabilityType` before gating enemy config `+0x1B`
+  values `1` and `2`. See `notes/c2-item-bomb-runtime-polish.md` and
+  `notes/class2-bomb-common-family-c2a658-c2a821.md`.
+- 2026-05-06 one hundredth slice: connected enemy initialization to the
+  shield/timed-substate action contract. `C2:B6EB` now calls `C2:9CDC` as
+  `ApplyTimedSubstateOrRefreshShieldCounter` when enemy-data byte `+0x59`
+  seeds initial row `+0x23/+0x25` shield-family state for values `1..4`. See
+  `notes/class2-local-enemy-id-to-battler-init-chain.md`,
+  `notes/c2-action-dispatch-runtime-polish.md`, and
+  `notes/c2-affliction-recovery-runtime-polish.md`.
+- 2026-05-06 one hundred and first slice: tightened the PSI Thunder wrapper and
+  loop-tail contracts. `C2:9871/987D/9889/9895` are now labeled as
+  Thunder Alpha/Beta/Gamma/Omega wrappers over `RunPsiThunderCommon`, while
+  the cross-module edges name `C2:96CB` as `RunPsiThunderNextStrike`,
+  `C2:9821` as `DisplayPsiThunderMissPresentation`, `C2:985A` as
+  `CheckPsiThunderRequestedHitCountOrContinue`, and `C2:9863` as
+  `ClearPsiThunderTargetMaskAndReturn`. See
+  `notes/c2-psi-common-runtime-polish.md`,
+  `notes/class2-psi-thunder-common-local-flow.md`, and
+  `notes/class2-psi-thunder-reflection-branch.md`.
+- 2026-05-06 one hundred and second slice: tightened the Final Prayer phase
+  ladder helper joins. Rows `291..299` now call `C2:C37A` as
+  `RunFinalPrayerStageTransition`, `C2:C3E2` as
+  `ApplyFinalPrayerDamageStep`, and `C2:C41F` as
+  `RunFinalPrayerNarrativeTransition` across the opening, damage, phase-8,
+  and finale wrappers. See `notes/c2-final-prayer-runtime-polish.md`,
+  `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`, and
+  `notes/class2-final-prayer-family-c2c572-c2c6f0.md`.
+- 2026-05-06 one hundred and third slice: tightened call-for-help failure and
+  return-tail joins. The `BD5E` prefix and embedded `BD13..BE6C` prefix now
+  label `C2:BDC6` as `DisplayCallForHelpFailureAndReturn` and jump to
+  `C2:C13A` as `ReturnCallForHelpEnemySelectionBody`; the `BE6C` placement
+  body also uses the named failure block for probability and width/placement
+  rejects. See `notes/c2-call-for-help-runtime-polish.md` and
+  `notes/c2-pp-loss-and-call-for-help-width-helpers-c2bcb9-c2bd13.md`.
+- 2026-05-06 one hundred and fourth slice: tightened Final Prayer finale
+  presentation/visual joins. The phase-1 opening cue now calls `C0:ABE0` as
+  `QueueSoundEffectOrPlayApuPort3Cue`; the finale opener now names the
+  `C2:0F9A` HP/PP roll-target clamp, `C1:DD41` battle-presentation prep,
+  repeated `C0:ABE0` cue dispatches, `C2:F8F9` sprite-row commits, and
+  `C2:DAE3` layer-1 battle-bg distortion priming joins by established
+  source-facing contracts. See `notes/c2-final-prayer-runtime-polish.md` and
+  `notes/class2-final-prayer-family-c2c572-c2c6f0.md`.
+- 2026-05-06 one hundred and fifth slice: tightened battle-start
+  cross-module controller tails. The setup/action-dispatch source now exposes
+  `C2:48E0` as the shared visual-state and candidate-buffer reset entry; the
+  variable-source and status-prelude modules expose `C2:4B4A`, `C2:4CEF`, and
+  `C2:4FCF` by their scan/reward/status-prelude roles; and the front/back
+  battle-start controllers now jump to `C2:5EF7`, `C2:6081`, `C2:6088`, and
+  `C2:6093` by result-tail contract names instead of raw local addresses. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md` and
+  `notes/c2-action-dispatch-runtime-polish.md`.
+- 2026-05-06 one hundred and sixth slice: tightened remaining action/result
+  raw edges in the battle-start menu, late selected-row, and special-event
+  lanes. `C2:311B` now names the hidden C1 debug menu joins
+  `RunDebugSetCharacterLevelPrompt` and `RunDebugGoodsGrantViewer`; `C2:77CA`
+  names its late selected-row visual cue through the shared `C0:ABE0`
+  queue-dispatch contract; and `C2:92EE` calls `C2:7EAF` by the
+  `RunHitResolutionAndStatusActionCluster` contract for the scripted
+  Poo/Starstorm damage pass. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md`,
+  `notes/c2-late-selected-row-runtime-polish.md`,
+  `notes/class2-special-event-results-c29298-c2c14e.md`, and
+  `notes/c2-hit-resolution-status-runtime-polish.md`.
+- 2026-05-06 one hundred and seventh slice: tightened a consequence return edge
+  and selected-row color math helper joins. The late condiment/odor no-effect
+  path now jumps to `C2:B606` as `ReturnFromBattleStatChangeConsequence`,
+  making explicit that it returns through the stat-consequence tail without the
+  optional `C2:B5E3` control-byte dispatch; the heavy-recovery visual refresh
+  and `C2:FB35` color-wave comparison helper now call `C0:9251` as
+  `SignedDivide16By8` while extracting RGB555 palette components. See
+  `notes/c2-late-normalization-odor-runtime-polish.md`,
+  `notes/c2-stat-consequence-runtime-polish.md`,
+  `notes/c2-selected-row-controller-runtime-polish.md`, and
+  `notes/c2-battle-sprite-runtime-polish.md`.
+- 2026-05-06 one hundred and eighth slice: tightened the Check Present
+  inventory-room gate inside the hit-resolution/status cluster. `C2:8881` now
+  calls `C4:572B` as `FindPartyMemberWithInventoryRoomWildcard` after loading
+  fixed recipient id `3`, making the branch read as: conscious target,
+  recipient can carry the present, staged `BattlePresentItemByte`, then
+  `EF:7DD5` item-name text. See
+  `notes/c2-hit-resolution-status-runtime-polish.md` and
+  `notes/c2-battle-start-payload-join-runtime-polish.md`.
+- 2026-05-06 one hundred and ninth slice: tightened the local bounded-random
+  math under `C2:6A2D` / `GetRandomBelow`. The Magic Butterfly source now names
+  `C0:9086` as `MultiplyLongByLong_ViaHardwareRegisters` and `C0:926C` as
+  `ShiftUnsignedLongRightByY` inside `C2:69F8`, making the shared scaler read
+  as `floor(random_byte * limit / 256)`. See
+  `notes/c2-instant-win-and-magic-butterfly-helpers-c26189-c2654c.md`.
+- 2026-05-06 one hundred and tenth slice: tightened the battle-start
+  variable-source overlay join. `C2:4A8A` now calls `C4:A67E` as
+  `StartBattleOverlayScriptState` while advancing the `$AA72/$AA74` overlay
+  mode/profile pair in the interactive candidate-pool loop. See
+  `notes/c2-battle-start-payload-join-runtime-polish.md`.
+- 2026-05-06 one hundred and eleventh slice: tightened the Final Prayer battle
+  visual selector calls. The shared `C2:C21F` edge is now named
+  `ApplyFinalPrayerBattleVisualSelector` across the stage-transition helper,
+  phase-1 follow-up, phase-7 handoff, narrative transition tail, and finale
+  opening handoff, while the softer `C2:C32C` companion remains raw. See
+  `notes/c2-final-prayer-runtime-polish.md`,
+  `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`, and
+  `notes/class2-final-prayer-family-c2c572-c2c6f0.md`.
 
 ## Validation
 

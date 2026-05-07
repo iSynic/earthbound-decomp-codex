@@ -33,6 +33,8 @@ Promoted runtime contract:
 - other routes scan battler rows and may clear matching row `+0x10` links
 - the embedded `C2:7784` tail is the hardcoded collapse text route reached from
   `C2:7550` when row `+0x0F == 0`
+- all descriptor and hardcoded routes rejoin the late controller return tail at
+  `C2:7C92`
 
 This keeps the death/collapse text path tied to the enemy/battler descriptor
 field instead of only to the raw EF or D5 pointer bytes.
@@ -66,6 +68,8 @@ nested action pass:
 - make the current row the active row
 - copy descriptor-backed fields into row words `+0x04` and `+0x08`
 - run target selection and derived action dispatch
+- rebuild the first target text context from the current target mask through
+  `C2:3E32`
 - emit the first pointer from the selected `D5:7B68` action entry through
   `C1:DC1C`
 - apply the companion pointer through `C2:40A4`
@@ -74,6 +78,22 @@ nested action pass:
 
 That gives the decomp a source-commented bridge from selected-row phase state to
 the battle-action descriptor table and second-pointer payload path.
+
+Source follow-up: the late controller now calls `C2:0F9A` as
+`ClampHpPpRollTargetsToLiveValues` before the single phase-1 source claim scan,
+and calls the newly labeled `C2:3E32` helper as
+`BuildFirstTargetTextContextFromCurrentMask` in its nested action pass. The
+visual-refresh follow-up now names the same presentation helpers: `C2:FAD8`
+stores the color-wave duration in `$B37C`, `C2:FB35` installs per-entry
+enemy-sprite color-wave comparison/delta state, and `C2:F8F9` renders and
+commits the battle sprite rows after the optional descriptor `+0x5A` active-row
+marking route. The same optional visual route now names its `C0:ABE0` cue
+dispatch as `QueueSoundEffectOrPlayApuPort3Cue`.
+
+The descriptor text continuation also now names its cross-module control-flow
+joins: `C2:7550` jumps to `C2:7784` as
+`DisplayHardcodedCollapseTextTail`, while `C2:7680` returns through `C2:7C92` as
+`ReturnFromClass2LateSelectedRowController`.
 
 ## State And Marker Effects
 
@@ -116,6 +136,10 @@ This slice closes the immediate loop around `C2:7550`:
   late behavior
 - the old unresolved `760C` battler-init call now has a local selected-row
   companion rebuild contract
+- the collapse/late visual pass now calls the battle-sprite color-wave duration,
+  per-entry color-wave state, and render/commit helpers by source-backed names
+- the selected-row startup/death-text corridor now names the embedded
+  hardcoded-collapse text tail and the shared late-controller return tail
 
 ## Remaining Soft Spots
 
@@ -124,5 +148,5 @@ This slice closes the immediate loop around `C2:7550`:
 - precise gameplay meaning of descriptor field `D5:9589 + 0x5A`
 - exact gameplay identity of the special `0xD5` companion rebuilt through
   scratch battler base `$A180`
-- whether the hardcoded `C2:7784` tail should be split into its own named source
-  unit in a later scaffold pass
+- whether the now-named hardcoded `C2:7784` tail should be split into its own
+  source unit in a later scaffold pass

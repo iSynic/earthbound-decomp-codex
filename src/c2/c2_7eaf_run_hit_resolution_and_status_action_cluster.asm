@@ -13,11 +13,14 @@
 
 C08E9A_GetRandom16                 = $C08E9A
 C08FF7_ResolveIndexedPointerOffset = $C08FF7
+C0925B_ShiftMaskedResistanceBits   = $C0925B
+C0ABE0_QueueSoundEffectOrPlayApuPort3Cue = $C0ABE0
 C18EAD_SearchAndRemoveItemFromActiveInventories = $C18EAD
 C1DC1C_DisplayBattleTextFromPointer             = $C1DC1C
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C1DD7C_SetBattleTextByteSubstitution            = $C1DD7C
 C23D05_BuildBattleTargetTextContext             = $C23D05
+C4572B_FindPartyMemberWithInventoryRoomWildcard = $C4572B
 C2698B_GetBattleActionType                      = $698B
 C269BE_WaitFrames                               = $69BE
 C269F8_Truncate16To8                            = $69F8
@@ -36,6 +39,8 @@ C27CFD_CheckSelectedBattlerDefaultTextBlocker   = $7CFD
 C27E8A_SwapReflectedHitBattleTextContexts       = $7E8A
 C2416F_FilterBattleActionTargetMaskByRowState   = $C2416F
 C2BAC5_CountFilteredSelectedRows                = $C2BAC5
+EF0256_PauseMusic                               = $EF0256
+EF026E_ResumeMusic                              = $EF026E
 
 BattlerRecordSize             = $004E
 CurrentTargetBattlerPtr       = $A972
@@ -60,6 +65,7 @@ SelectedRowShieldCounterByte  = $0025
 TimedSubstatePowerShield      = $0003
 TimedSubstateShield           = $0004
 BattlePresentItemByte         = $AA10
+CheckPresentRecipientCharacterId = $0003
 
 EF_BattleTextScriptBank          = $00EF
 EFMSG_CheckOffense               = $69EA
@@ -159,7 +165,7 @@ C27EF5_RunHitResolutionAndStatusActionCluster_L7EF5:
     lda.w #$0010
     sta $ADA8
     lda.w #$0049
-    jsl $C0ABE0
+    jsl C0ABE0_QueueSoundEffectOrPlayApuPort3Cue
     lda.w #$001E
     jsr C269BE_WaitFrames
 C27F48_RunHitResolutionAndStatusActionCluster_L7F48:
@@ -434,7 +440,7 @@ C28176_RunHitResolutionAndStatusActionCluster_L8176:
     sep #$10
     ldy.b #$01
     lda $02
-    jsl $C0925B
+    jsl C0925B_ShiftMaskedResistanceBits
     sta $02
 C2819E_RunHitResolutionAndStatusActionCluster_L819E:
     rep #$10
@@ -454,7 +460,7 @@ C281C1_RunHitResolutionAndStatusActionCluster_L81C1:
     sep #$10
     ldy.b #$01
     lda $02
-    jsl $C0925B
+    jsl C0925B_ShiftMaskedResistanceBits
     sta $02
 C281CD_RunHitResolutionAndStatusActionCluster_L81CD:
     lda $02
@@ -497,7 +503,7 @@ C2821A_RunHitResolutionAndStatusActionCluster_L821A:
     sep #$10
     ldy.b #$01
     lda $02
-    jsl $C0925B
+    jsl C0925B_ShiftMaskedResistanceBits
     sta $02
     cmp.w #$0000
     bne C28235_RunHitResolutionAndStatusActionCluster_L8235
@@ -1272,8 +1278,8 @@ C28860_RunHitResolutionAndStatusActionCluster_L8860:
     and.w #$00FF
     cmp.w #$0001
     bne C28899_RunHitResolutionAndStatusActionCluster_L8899
-    lda.w #$0003
-    jsl $C4572B
+    lda.w #CheckPresentRecipientCharacterId
+    jsl C4572B_FindPartyMemberWithInventoryRoomWildcard
     cmp.w #$0000
     beq C28899_RunHitResolutionAndStatusActionCluster_L8899
     lda BattlePresentItemByte
@@ -1333,7 +1339,7 @@ C288EA_RunHitResolutionAndStatusActionCluster_L88EA:
     tdc
     adc.w #$FFE6
     tcd
-    jsl $EF0256
+    jsl EF0256_PauseMusic
     lda.w #$0004
     jsr C26A2D_GetRandomBelow
     sta $02
@@ -1420,7 +1426,7 @@ C289A4_RunHitResolutionAndStatusActionCluster_L89A4:
     beq C289AE_RunHitResolutionAndStatusActionCluster_L89AE
     jmp.w C2891B_RunHitResolutionAndStatusActionCluster_L891B
 C289AE_RunHitResolutionAndStatusActionCluster_L89AE:
-    jsl $EF026E
+    jsl EF026E_ResumeMusic
     lda.w #EFMSG_TimeStopReturn
     sta $0E
     lda.w #EF_BattleTextScriptBank

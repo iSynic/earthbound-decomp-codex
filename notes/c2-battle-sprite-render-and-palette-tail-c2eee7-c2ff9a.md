@@ -104,7 +104,8 @@ Observed behavior:
 - accumulates row widths and assigns battler row state around `$9FBC`
 - moves enemies to the opposite row when the front row would exceed the `0x1E` practical layout width
 - computes x positions around `$9FF0`, using the row total widths to center the group around battle-screen center `0x20`
-- uses the local random helper at `C2:69EF` for tie/placement variation
+- uses the local `C2:69EF` / `GetRandomByte` helper for tie/placement
+  variation when left/right x-position choices are exactly balanced
 
 The downstream render helpers consume the row and x-position fields this routine writes.
 
@@ -184,11 +185,12 @@ Observed behavior:
 - input `A` selects a palette entry
 - stores `$B37C` into the active group timer at `$AEF4[...]`
 - reads the source color word from `$0380 + A * 2`
-- extracts the RGB555 red, green, and blue components
+- extracts the RGB555 red, green, and blue components, using the shared
+  `C0:9251` / `SignedDivide16By8` helper for the blue/high-component path
 - initializes per-component delta/target state in `$AEFC`, `$AEFE`, `$AF00`, `$B1FC`, `$B1FE`, and `$B200`
 - clears matching accumulators at `$B07C`, `$B07E`, and `$B080`
 
-This helper appears adjacent to the known `C2:FB35` color-effect setup path and writes the same palette wave tables. No direct `JSL/JSR` caller was found, so it may be reached by local branch/fallthrough or an indirect table path.
+This helper appears adjacent to the known `C2:FB35` color-effect setup path and writes the same palette wave tables. `C2:FB35` now uses the same named signed-divide helper for its RGB555 component extraction. No direct `JSL/JSR` caller was found, so it may be reached by local branch/fallthrough or an indirect table path.
 
 ## `C2:FD99` - advance enemy sprite color-wave palettes
 

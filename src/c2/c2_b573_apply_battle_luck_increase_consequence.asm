@@ -21,8 +21,11 @@
 
 C08EFC_ClearDestinationBlock                    = $C08EFC
 C08FF7_ResolveIndexedPointerOffset              = $C08FF7
+C076C8_DispatchBattleConsequenceControlByte     = $C076C8
 C1DC66_DisplayBattleTextWithSubstitutionPayload = $C1DC66
 C21C5D_RecalculateCharacterDerivedLuck          = $C21C5D
+C29AEA_TryRecoverSelectedBattlerNarrowAffliction = $C29AEA
+C2A39D_TryRecoverSelectedBattlerPoisonOnly      = $C2A39D
 
 SelectedRowLuckByte                             = $002E
 PartyRecordStride                               = $005F
@@ -83,13 +86,15 @@ C2B573_ApplyBattleLuckIncreaseConsequence:
     lda $08
     sta $14
     jsl C1DC66_DisplayBattleTextWithSubstitutionPayload
-    bra C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3
+    bra C2B5E3_RunBattleStatChangeConsequenceEpilogue
+C2B5D9_TryRecoverSelectedBattlerNarrowAfflictionConsequence:
     ; Selector 9: narrow affliction-recovery tail.
-    jsl $C29AEA
-    bra C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3
+    jsl C29AEA_TryRecoverSelectedBattlerNarrowAffliction
+    bra C2B5E3_RunBattleStatChangeConsequenceEpilogue
+C2B5DF_TryRecoverSelectedBattlerPoisonOnlyConsequence:
     ; Selector 0x0A: poison-only item-side recovery tail.
-    jsl $C2A39D
-C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3:
+    jsl C2A39D_TryRecoverSelectedBattlerPoisonOnly
+C2B5E3_RunBattleStatChangeConsequenceEpilogue:
     lda $18
     sta $06
     lda $1A
@@ -99,13 +104,14 @@ C2B5E3_ApplyBattleLuckIncreaseConsequence_LB5E3:
     lda [$06],Y
     rep #$20
     and.w #$00FF
-    beq C2B606_ApplyBattleLuckIncreaseConsequence_LB606
+    beq C2B606_ReturnFromBattleStatChangeConsequence
     and.w #$00FF
     sta $04
     asl A
     adc $04
     asl A
-    jsl $C076C8
+    jsl C076C8_DispatchBattleConsequenceControlByte
+C2B606_ReturnFromBattleStatChangeConsequence:
 C2B606_ApplyBattleLuckIncreaseConsequence_LB606:
     pld
     rtl

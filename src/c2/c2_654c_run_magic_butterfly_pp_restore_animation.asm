@@ -15,6 +15,8 @@ C08756_AdvanceFrameOrFlushUpload     = $C08756
 C08E9A_GetRandom16                   = $C08E9A
 C08EED_CopyToLocalTileBuffer         = $C08EED
 C08FF7_ResolveIndexedPointerOffset   = $C08FF7
+C09086_MultiplyLongByLong_ViaHardwareRegisters = $C09086
+C0926C_ShiftUnsignedLongRightByY      = $C0926C
 C0ABE0_SetupVisualPass               = $C0ABE0
 C12DD5_WindowTick                    = $C12DD5
 C426ED_AdvanceEventFrame             = $C426ED
@@ -625,6 +627,9 @@ C2698B_LoadBattleActionTypeFromActionId = LOAD_BATTLE_ACTION_TYPE_FROM_ACTION_ID
     and.w #$00FF
     pld
     rts
+GET_ENEMY_CONFIG_SPRAY_VULNERABILITY_TYPE:
+C269A8_GetEnemyConfigSprayVulnerabilityType = GET_ENEMY_CONFIG_SPRAY_VULNERABILITY_TYPE
+    ; A is an enemy config id; return D5:9589 + 0x1B spray/type byte.
     rep #$31
     ldy.w #$005E
     jsl C08FF7_ResolveIndexedPointerOffset
@@ -667,7 +672,8 @@ C269E6_RunMagicButterflyPpRestoreAnimation_L69E6:
     bne C269E2_RunMagicButterflyPpRestoreAnimation_L69E2
     rts
 RAND_LONG:
-C269EF_RunMagicButterflyPpRestoreAnimation_L69EF = RAND_LONG
+C269EF_GetRandomByte = RAND_LONG
+C269EF_RunMagicButterflyPpRestoreAnimation_L69EF = C269EF_GetRandomByte
     rep #$31
     jsl C08E9A_GetRandom16
     sep #$20
@@ -694,10 +700,11 @@ C269F8_RunMagicButterflyPpRestoreAnimation_L69F8 = TRUNCATE_16_TO_8
     stz $08
     stz $09
     rep #$20
-    jsl $C09086
+    ; Return floor(A_byte * X_limit / 256), used by GetRandomBelow.
+    jsl C09086_MultiplyLongByLong_ViaHardwareRegisters
     sep #$10
     ldy.b #$08
-    jsl $C0926C
+    jsl C0926C_ShiftUnsignedLongRightByY
     lda $06
     rep #$10
     pld
@@ -714,7 +721,7 @@ C26A2D_RunMagicButterflyPpRestoreAnimation_L6A2D = C26A2D_GetRandomBelow
     pla
     tax
     stx $0E
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     ldx $0E
     jsr.w TRUNCATE_16_TO_8
     pld
@@ -728,12 +735,12 @@ C26A44_RollRandomAmount:
     tcd
     pla
     sta $04
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     tax
     stx $12
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     sta $10
@@ -841,12 +848,12 @@ C26AFD_ApplyTwentyFivePercentVariance:
     tcd
     pla
     sta $04
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     tax
     stx $12
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     rep #$20
     and.w #$00FF
     sta $10
@@ -956,7 +963,7 @@ C26BB4_RunMagicButterflyPpRestoreAnimation_L6BB4:
     pla
     sep #$20
     sta $00
-    jsr.w RAND_LONG
+    jsr.w C269EF_GetRandomByte
     cmp $00
     bcs C26BD4_RunMagicButterflyPpRestoreAnimation_L6BD4
     rep #$20

@@ -177,6 +177,29 @@ Hit-resolution follow-up: the Time Stop/retarget tail now uses the same named
 `FilterBattleActionTargetMaskByRowState` and `MaskSet_TestBit` contracts before
 refreshing the target text context and applying the selected hit payload.
 
+Target-picker follow-up: `src/c2/c2_4477_build_class2_derived_action_code.asm`
+now calls the documented `C2:4434` helper as
+`PickRandomBattlerFromFrontBackRows` in the two `CHOOSE_TARGET` loops that
+need a front/back-row candidate before validating it through `C4:A1F5`. The
+nearby `C2:3F6C` call now reads as
+`TryPickAiFlaggedNpcBattlerTargetOrdinal`: it may return a one-based
+`current_target` ordinal for an active battler whose `npc_id` matches a party
+slot carrying enemy-AI flag `0x02`, otherwise it returns zero and the existing
+random valid-target fallback remains in charge.
+
+Battle-start target-mask follow-up: the target text-context source now exposes
+two formerly hidden helper entries inside `C2:3D05..40A4`. `C2:3E32` rebuilds
+the first target text context from the current target mask, and `C2:4009`
+builds the current target mask from the active attacker's action-targeting
+byte before row-state pruning. The battle-start front controller now calls both
+entries by those roles instead of raw local addresses.
+
+Battle-start tail follow-up: the adjacent `C2:4703..4958` source now exposes
+`C2:48E0` as the shared battle-start visual-state and candidate-buffer reset
+entry used by variable source rebuilds, action cancellation, and battle-end
+cleanup paths. This keeps the action dispatcher source aligned with the
+battle-start controller tails that jump back into the setup lane.
+
 ## Battle Text Context Join
 
 The nearby `C2:3BCF` and `C2:3D05` context builders are the strongest local
@@ -206,6 +229,11 @@ Its helper tails also name the `$A96C/$A96E` current target mask, the
 `$AD56/$AD7A/$AD82` front/back battler order lists, and the mask builders used
 by action-targeting modes.
 
+Small target-picker tail: the same source now exposes `C2:3F6C` as the
+AI-flagged NPC battler target ordinal probe used by `C2:4477`. The helper keeps
+its zero-result ABI explicit so callers can distinguish "no special NPC target"
+from a real one-based target ordinal.
+
 This is the first source-backed spot where the newer `$9FAC == BATTLERS_TABLE`
 correction is carried directly through the battle-text context builders instead
 of only appearing in notes.
@@ -214,6 +242,18 @@ Battle-start controller follow-up: the front and back controller halves now
 call `BuildBattleAttackerTextContext` and `BuildBattleTargetTextContext` by
 name when they refresh `$A970/$A972` before damage/status feedback, target-mask
 payload dispatch, and selected-row result text.
+
+Battler-row resistance follow-up: the C2 enemy initializer and player snapshot
+exporter now call `C2:B608` as `ConvertElementalResistanceByte` and `C2:B639`
+as `ConvertStatusResistanceByte`, matching the C1 current-action text consumer.
+That ties the same resistance-byte normalization lane through enemy-data import,
+party-row snapshot export, and selected-row equipment text refresh.
+
+Enemy initializer shield follow-up: the same `C2:B6EB` source now calls
+`C2:9CDC` as `ApplyTimedSubstateOrRefreshShieldCounter` when enemy-data byte
+`+0x59` seeds initial timed shield/substate ids `1..4`. That connects enemy
+row initialization to the selected-row shield action leaves through the same
+row `+0x23/+0x25` contract.
 
 ## Decomp Value
 
@@ -233,6 +273,13 @@ This slice makes the selected-row controller more actionable:
   helper source bodies.
 - the hit-resolution retarget/status tail now shares that target-mask filter
   and bit-test vocabulary as well.
+- resistance mirrors in initialized/exported battler rows now share the same
+  elemental/status conversion helper names used by the C1 action-text lane.
+- initial timed shield/substate seeds in initialized enemy rows now share the
+  same `ApplyTimedSubstateOrRefreshShieldCounter` contract as shield action
+  leaves.
+- the last raw `C2:4477` target-picker helper now has an explicit zero-result
+  or one-based target ordinal contract for AI-flagged NPC battlers.
 
 ## Remaining Soft Spots
 

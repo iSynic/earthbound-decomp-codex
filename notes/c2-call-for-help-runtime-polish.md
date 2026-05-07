@@ -54,6 +54,12 @@ The prefix:
 - scales the probability by `max_called - already_present`
 - routes failure to EF text and the shared `C2:C13A` action tail
 
+The failure text block is now labeled as
+`C2:BDC6` / `DisplayCallForHelpFailureAndReturn`, and its exits jump to
+`C2:C13A` / `ReturnCallForHelpEnemySelectionBody` instead of a raw local tail
+address. The embedded prefix copy in the `BD13..BE6C` source unit carries the
+same names.
+
 The two failure scripts are now named at the source sites:
 
 - `EF:7824` / `MSG_BTL_NAKAMA_NO` for the ordinary "no one came" path.
@@ -105,6 +111,8 @@ sprite layout:
 - failure and success EF text paths are separated from placement mechanics
 - the `C1:DC1C` dispatch ABI is explicit on all four call-for-help result text
   exits
+- call-for-help failure paths now share a named failure-text block and named
+  return tail across the prefix, embedded prefix, and placement body
 
 ## Remaining Soft Spots
 

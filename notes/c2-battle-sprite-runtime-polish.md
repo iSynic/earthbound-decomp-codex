@@ -87,12 +87,17 @@ accumulators.
 `C2:FCA6` initializes one palette entry's wave state from its RGB555 source word
 in `$0380`. The high bits of the palette entry select the group timer slot.
 
+`C2:FB35` now names the same `C0:9251` / `SignedDivide16By8` helper used by
+`C2:FCA6` while extracting RGB555 components for color-wave comparison/setup.
+
 `C2:FD99` is the per-frame advancer. It decrements active timers, applies
 component deltas to palette entries `1..15`, writes updated RGB555 words back
 around `$0382`, and commits palette changes with `C0:856B(0x10)`.
 
 `C2:FEF9` either loads one C3 battle palette row into all four sprite palette
-slots or builds a dimmed copy from `$0200` into `$0280`.
+slots or builds a dimmed copy from `$0200` into `$0280`. The battle-start
+action-presentation controller now calls it by name for its pre-action palette
+category branches.
 
 ## Decomp Value
 

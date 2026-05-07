@@ -16,7 +16,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C2C41F_RunFinalPrayerNarrativeTransition = $C41F
 
 ; ---------------------------------------------------------------------------
 ; C2:C6D0
@@ -34,7 +34,7 @@ C2C6D0_RunFinalPrayerNarrativePhase8 = BTLACT_GIYGAS_PRAYER_8
     sta $10
     lda.w #$004A
     ; Phase 8 is narrative-only; no `C2:C3E2` damage step follows.
-    jsr $C41F
+    jsr C2C41F_RunFinalPrayerNarrativeTransition
     lda.w #$000C
     sta $A97A
     pld

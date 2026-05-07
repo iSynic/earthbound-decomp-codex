@@ -100,6 +100,10 @@ Wrappers:
 - `C2:A818` / `BTLACT_BOMB`: base damage `0x005A` (`90`)
 - `C2:A821` / `BTLACT_SUPER_BOMB`: base damage `0x010E` (`270`)
 
+The wrapper sources now call `C2:A658` as `RunBombCommonSplashDamage`, keeping
+the base-damage leaves tied to the same named splash worker used by the
+full-body bomb-common source.
+
 ## Random-Damage And Status Item Cluster
 
 `C2:A89D..AF1F` now has source-promoted text contracts for the stable item-side
@@ -122,6 +126,13 @@ leaves in the cluster:
   `C2:6BFB/6C82/6E00/6E77/6EF8` and the `C2:70E4` pruner build, subtract,
   scan, and prune candidate sets before handing the selected second-pointer
   payload to `C2:40A4`
+- the Teleport Box-style tail now names its cross-bank joins without broadening
+  the still-local Pray/table pass: `C0:0AA1` reads the position-cell context
+  word used by the initial gate, `C1:DDC6` removes the selected item slot, and
+  `C0:DD53` installs the teleport state selectors after the success text.
+- the insecticide and rust-promoter common paths now call `C2:69A8` as
+  `GetEnemyConfigSprayVulnerabilityType`, reading enemy config byte `+0x1B`
+  before accepting spray type `1` or rust type `2`.
 
 ## Decomp Value
 
@@ -147,6 +158,8 @@ This slice tightens several item-side runtime contracts:
   and uses the same `C2:7CAF` selected-vs-active row offset gate vocabulary as
   A5EC/A86B/A89D
 - bomb wrappers now have durable base damage constants
+- bomb wrappers now call the shared splash worker by `RunBombCommonSplashDamage`
+  instead of raw `C2:A658`
 - bomb splash damage is linked to sprite-width and position fields consumed by
   the battle sprite layout/rendering lane
 - the bomb splash overlap callers now name the same `GetBattleSpriteWidthBucket`
@@ -155,6 +168,11 @@ This slice tightens several item-side runtime contracts:
   counts, with the shared speed-gated damage path named locally
 - amount-shaping callers now distinguish `C2:6A44` / `RollRandomAmount` from
   `C2:6AFD` / `ApplyTwentyFivePercentVariance`
+- the A89D insect and rust spray leaves now name their enemy-config
+  spray-vulnerability byte helper instead of carrying raw `C2:69A8`
+- the Teleport Box-style item path now shares the same position-context,
+  inventory-removal, and teleport-state names used by the C0/C1/C2 source
+  families, while preserving its local boss/encounter gates.
 
 ## Remaining Soft Spots
 

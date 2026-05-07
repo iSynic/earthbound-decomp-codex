@@ -49,6 +49,7 @@ EnemyDataTableBase = $9589
 EnemyDataTableBank = $00D5
 EnemyDataRowSize = $005E
 EnemyAiTable = $D58F23
+EnemyAiNpcTargetFlag = $0002
 EnemyNameCopyLength = $0019
 TargetNameRedirectLength = $001B
 SelectedTargetNameRedirectLength = $001A
@@ -202,6 +203,7 @@ C23E11_BuildBattleTargetTextContext_L3E11:
 C23E30_BuildBattleTargetTextContext_L3E30:
     pld
     rtl
+C23E32_BuildFirstTargetTextContextFromCurrentMask:
     rep #$31
     phd
     tdc
@@ -351,6 +353,8 @@ C23F4E_BuildBattleTargetTextContext_L3F4E:
     sta LastAttackerBattleTextId
     pld
     rtl
+; Returns a one-based target ordinal, or zero when no AI-flagged NPC battler matches.
+C23F6C_TryPickAiFlaggedNpcBattlerTargetOrdinal:
     rep #$31
     phd
     tdc
@@ -378,7 +382,7 @@ C23F89_BuildBattleTargetTextContext_L3F89:
     tax
     lda.l EnemyAiTable,X
     and.w #$00FF
-    and.w #$0002
+    and.w #EnemyAiNpcTargetFlag
     beq C23FDB_BuildBattleTargetTextContext_L3FDB
     lda.w #$0000
     sta $10
@@ -435,6 +439,7 @@ C24005_BuildBattleTargetTextContext_L4005:
     lda.w #$0000
 C24008_BuildBattleTargetTextContext_L4008:
     rtl
+C24009_BuildBattleActionTargetMaskForActiveAttacker:
     rep #$31
     phd
     tdc

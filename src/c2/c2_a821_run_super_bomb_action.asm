@@ -15,7 +15,7 @@
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module
 
-; No named external contracts were supplied or recognized.
+C2A658_RunBombCommonSplashDamage = $A658
 
 ; ---------------------------------------------------------------------------
 ; C2:A821
@@ -25,5 +25,5 @@ C2A821_RunSuperBombAction = BTLACT_SUPER_BOMB
     rep #$31
     lda.w #$010E
     ; Super Bomb base damage: 270.
-    jsr $A658
+    jsr C2A658_RunBombCommonSplashDamage
     rtl

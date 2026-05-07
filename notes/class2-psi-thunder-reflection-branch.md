@@ -9,7 +9,10 @@ See also `notes/class2-busy-helper-eacf-and-window-setup.md`.
 
 ## Working Names
 
-- `C2:97A1` = `HandlePsiThunderFranklinBadgeReflection`
+- `C2:97A5` = `HandlePsiThunderFranklinBadgeReflection`
+- `C2:9821` = `DisplayPsiThunderMissPresentation`
+- `C2:985A` = `CheckPsiThunderRequestedHitCountOrContinue`
+- `C2:9863` = `ClearPsiThunderTargetMaskAndReturn`
 
 ## Current strongest claim
 
@@ -44,6 +47,11 @@ After the busy wait, the local success path:
 - calls `C2:7E8A`
 
 The row-byte-plus-one search pattern is the most important new clue. It matches the reference Thunder branch's inventory check shape much more closely than our earlier summary did.
+
+Source follow-up (2026-05-06): the reflection tail now names the miss
+presentation, requested-hit-count gate, target-mask cleanup return, and the
+back-edge to `C2:96CB` / `RunPsiThunderNextStrike`. The four rank wrappers at
+`C2:9871/987D/9889/9895` now call `RunPsiThunderCommon` by name.
 
 ## `C4:5683` now reads like an inventory or possession checker
 

@@ -53,6 +53,11 @@ one-hot table, bit-index, battler-row stride, and target-set helper names.
 That closes the currently documented `C2:6BFB..70E4` mask helper family for
 source-facing vocabulary.
 
+Random-start follow-up: `C2:6EF8` now calls the local `C2:69EF` random helper
+as `GetRandomByte` before masking the low five bits for its target-bit retry
+count. That keeps `MaskSet_FindFirstMatchInRange` tied to a randomized scan
+start rather than reading as a fixed first-set-bit walker.
+
 Second follow-up update: the source modules above now reserve "candidate" for
 the ranked front/back selection lists where it is still useful. The `$9FAC`
 domain itself is named as `BattlersTableBase` / `BattlerRowSize`, with field
@@ -198,6 +203,8 @@ Current best working name:
 ### `C2:6EF8`
 
 This routine takes an input mask in `$24/$26`, walks target bit indices, intersects each with the working set, and returns the first matching one-hot bit through `$1C/$1E`.
+It seeds the scan from `C2:69EF` / `GetRandomByte`, masks the low five bits,
+and then wraps through the 32-bit target domain until a requested bit survives.
 
 Current best reading:
 

@@ -30,6 +30,9 @@ C08FF7_ResolveIndexedPointerOffset            = $C08FF7
 C12DD5_RunThunderPresentationEffect           = $C12DD5
 C1DC1C_DisplayBattleTextFromPointer           = $C1DC1C
 C23D05_BuildBattleTargetTextContext           = $C23D05
+C29821_DisplayPsiThunderMissPresentation      = $9821
+C2985A_CheckPsiThunderRequestedHitCountOrContinue = $985A
+C29863_ClearPsiThunderTargetMaskAndReturn     = $9863
 C2416F_FilterBattleActionTargetMaskByRowState = $C2416F
 C26EF8_MaskSetFindFirstMatchInRange           = $C26EF8
 C27029_MaskSetTestBit                         = $C27029
@@ -96,7 +99,9 @@ C296B1_RunPsiThunderCommon_L96B1:
     ; Preserve the original mask for each attempted Thunder strike.
     ldy.w #$0000
     sty $18
-    jmp $985A
+    jmp C2985A_CheckPsiThunderRequestedHitCountOrContinue
+PSI_THUNDER_NEXT_STRIKE:
+C296CB_RunPsiThunderNextStrike = PSI_THUNDER_NEXT_STRIKE
     lda $12
     sta $06
     lda $14
@@ -121,7 +126,7 @@ C296B1_RunPsiThunderCommon_L96B1:
     cmp $06
 C296FD_RunPsiThunderCommon_L96FD:
     bne C29702_RunPsiThunderCommon_L9702
-    jmp $9863
+    jmp C29863_ClearPsiThunderTargetMaskAndReturn
 C29702_RunPsiThunderCommon_L9702:
     lda $A96C
     sta $06
@@ -173,7 +178,7 @@ C2974D_RunPsiThunderCommon_L974D:
     jsr C26BB8_RollActionChanceGate
     cmp.w #$0000
     bne C29771_RunPsiThunderCommon_L9771
-    jmp $9821
+    jmp C29821_DisplayPsiThunderMissPresentation
 C29771_RunPsiThunderCommon_L9771:
     lda $04
     cmp.w #$0078

@@ -15,6 +15,7 @@ C08FF7_ResolveIndexedPointerOffset = $C08FF7
 C1DB33_FindCondimentForFoodItem = $C1DB33
 C18EAD_SearchAndRemoveItemFromActiveInventories = $C18EAD
 C1DC1C_DisplayBattleTextFromPointer = $C1DC1C
+C2B606_ReturnFromBattleStatChangeConsequence = $B606
 
 ItemConfigurationTableBase = $5000
 ItemTableBank = $00D5
@@ -204,7 +205,7 @@ C2B27B_ReturnLateNormalizationOdorContinuation:
     lda.w #EF_BattleTextScriptBank
     sta $10
     jsl C1DC1C_DisplayBattleTextFromPointer
-    jmp $B606
+    jmp C2B606_ReturnFromBattleStatChangeConsequence
 C2B2B4_ResolveLateNormalizationAndOdorContinuation_LB2B4:
     jsr.w APPLY_CONDIMENT
     lda $06
