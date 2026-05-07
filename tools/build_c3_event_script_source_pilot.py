@@ -17,6 +17,9 @@ from decode_event_script import (
     ACTIONSCRIPT_BATTLE_BG_LAYER2_IDS,
     ACTIONSCRIPT_COLDATA_COMPONENT_BYTES,
     ACTIONSCRIPT_DIRECTION_WORDS,
+    ACTIONSCRIPT_DISPLAY_FADE_STEP_WORDS,
+    ACTIONSCRIPT_DISPLAY_FADE_WAIT_FRAME_WORDS,
+    ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS,
     ACTIONSCRIPT_FADE_EFFECT_WORDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
     ACTIONSCRIPT_LANDING_PALETTE_EXISTING_WORK_MASKS,
@@ -3651,6 +3654,36 @@ def call_arg_expr(
                 value,
                 ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS,
                 prefix="MOSAIC_WH0_MASK_RIGHT_X",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "display_fade_step_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_DISPLAY_FADE_STEP_WORDS,
+                prefix="DISPLAY_FADE",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "display_fade_wait_frames_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_DISPLAY_FADE_WAIT_FRAME_WORDS,
+                prefix="DISPLAY_FADE",
+                formatter=fmt_word,
+                constants=constants,
+            )
+            if symbol:
+                return symbol, cursor + 2
+        if field == "display_mosaic_update_flag_word":
+            symbol = catalog_constant(
+                value,
+                ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS,
+                prefix="DISPLAY_MOSAIC",
                 formatter=fmt_word,
                 constants=constants,
             )

@@ -154,8 +154,9 @@ pilots:
   the second into X before calling `C4:7370`; that helper fixes Y to `$0004`
   and forwards A/X/Y to `C2:D121`, whose runtime contract names A as layer 1,
   X as optional layer 2, and Y as layout flags.
-- `C0:AA07` -> `ActionScript_FadeOutWithMosaic`: three display-transition
-  words passed to the mosaic fade-out transition helper.
+- `C0:AA07` -> `ActionScript_FadeOutWithMosaic`: display fade step,
+  per-step wait, and mosaic-update flag words passed to the fade-out
+  transition helper.
 - `C0:AA23` -> `Script_StageMosaicWh0Mask_ReadThreeWords`: left-X, Y, and
   right-X words forwarded to the C4 WH0 mosaic/window-mask starter.
 - `C0:AA3F` -> `Script_SetVisualSetupBytesByMode`: COLDATA red, green,
@@ -199,6 +200,13 @@ The C3-local mosaic WH0 mask catalog names the two observed `C0:AA23` triples:
 Y word while emitting the `$7F:0BF8` WH0 HDMA stream, so the source aliases
 name the callsite preset and edge role while leaving the final visual-effect
 name open.
+
+The C3-local display fade-out catalog names the observed `C0:AA07` words:
+`$0001` as the fade step, `$0001/$0008` as per-step wait counts, and `$0000`
+as the disabled mosaic-update flag. The C0 wrapper forwards these as A/X/Y to
+`C0:8814`; that helper subtracts A from INIDISP mirror `$000D`, waits X frames
+through `C0:878B`, and only calls the `C0:87AB` mosaic-nibble updater when Y is
+nonzero.
 
 ## Surface-Flag Operands
 

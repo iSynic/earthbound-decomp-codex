@@ -930,8 +930,8 @@ CALL_TARGET_SEMANTICS: dict[str, dict[str, str]] = {
     "C0:AA07": {
         "name": "ActionScript_FadeOutWithMosaic",
         "group": "presentation-render",
-        "contract": "read three display-transition words and pass them to the mosaic fade-out transition helper at C0:8814",
-        "args": "display_transition_mode_word, display_transition_x_word, display_transition_y_word",
+        "contract": "read display fade step, per-step wait, and mosaic-update flag words, then forward them as A/X/Y to the fade-out transition helper at C0:8814",
+        "args": "display_fade_step_word, display_fade_wait_frames_word, display_mosaic_update_flag_word",
     },
     "C0:AA23": {
         "name": "Script_StageMosaicWh0Mask_ReadThreeWords",
@@ -1110,6 +1110,31 @@ ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS: dict[int, dict[str, str]] = {
     0x1B40: {
         "name": "tstage_dance_followup",
         "contract": "right-X word for the Tenda-stage dance-followup C0:AA23 WH0 mask preset; C4:7765 subtracts screen X origin $0031 before writing stream edge bytes",
+    },
+}
+
+ACTIONSCRIPT_DISPLAY_FADE_STEP_WORDS: dict[int, dict[str, str]] = {
+    0x0001: {
+        "name": "step_1",
+        "contract": "display fade-out step word $0001; C0:8814 subtracts this from INIDISP mirror $000D each transition step",
+    },
+}
+
+ACTIONSCRIPT_DISPLAY_FADE_WAIT_FRAME_WORDS: dict[int, dict[str, str]] = {
+    0x0001: {
+        "name": "wait_1_frame",
+        "contract": "display fade-out per-step wait word $0001 forwarded to C0:878B after each brightness step",
+    },
+    0x0008: {
+        "name": "wait_8_frames",
+        "contract": "display fade-out per-step wait word $0008 forwarded to C0:878B after each brightness step",
+    },
+}
+
+ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS: dict[int, dict[str, str]] = {
+    0x0000: {
+        "name": "update_disabled",
+        "contract": "display fade-out mosaic-update flag $0000; C0:8814 skips the C0:87AB mosaic-nibble update when this word is zero",
     },
 }
 
@@ -1544,6 +1569,12 @@ def format_call_arg_value(
             return f"{field}={format_named_word(value, ACTIONSCRIPT_MOSAIC_WH0_MASK_Y_WORDS)}", cursor + 2
         if field == "mask_right_x_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_MOSAIC_WH0_MASK_RIGHT_X_WORDS)}", cursor + 2
+        if field == "display_fade_step_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_DISPLAY_FADE_STEP_WORDS)}", cursor + 2
+        if field == "display_fade_wait_frames_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_DISPLAY_FADE_WAIT_FRAME_WORDS)}", cursor + 2
+        if field == "display_mosaic_update_flag_word":
+            return f"{field}={format_named_word(value, ACTIONSCRIPT_DISPLAY_MOSAIC_UPDATE_FLAG_WORDS)}", cursor + 2
         if field == "sound_effect_id_word":
             return f"{field}={format_named_word(value, ACTIONSCRIPT_SOUND_EFFECT_IDS)}", cursor + 2
         return f"{field}={format_word(value)}", cursor + 2
