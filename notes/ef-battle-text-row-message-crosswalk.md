@@ -156,6 +156,11 @@ Rows `251..257` and `260..266` prove `DD9F` row-message joins, but their source
 labels already encode useful event/status/result roles. Keep those labels until
 a narrower caller split proves that one role should dominate the other.
 
+The neighboring no-op-tail sweep is now complete: `C2:903C` is only row `9`
+with a C7 empty/default message, while `C2:903F`, `9042`, `9045`, `9048`,
+`904B`, and `904E` are the EF row `251..256` entries above. No additional EF
+anchor promotion is implied by the address-distinct tail bodies.
+
 ## Early Row-Message Anchors
 
 The early row-message joins remain the cleanest `DD9F` examples:

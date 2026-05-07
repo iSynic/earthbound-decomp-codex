@@ -319,6 +319,10 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   promoted to `FlavorRowPresentationText`; rows `190..200`, `272/276`,
   `281/282`, `284..289`, `308`, and `312` stay in non-EF C7/C9/C6
   presentation lanes.
+- 2026-05-06: EF neighboring no-op-tail follow-up classified `C2:903C` and
+  `C2:903F..904E`. Row `9` is the only `C2:903C` non-EF C7 lane, and rows
+  `251..256` are the only `903F..904E` EF joins, already named as
+  homesick/action-blocked/recovery payloads rather than pure flavor anchors.
 
 ## Key C1 entrypoints (contracts that drive C2 naming)
 

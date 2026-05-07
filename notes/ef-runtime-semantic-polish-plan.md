@@ -343,6 +343,10 @@ This planning pass does not split EF source corridors or regenerate the bank.
   EBATTLE3 flavor rows `309` and `313..317`; C7/C9/C6 rows such as
   `190..200`, `272/276`, `281/282`, `284..289`, `308`, and `312` remain
   consumer-contract notes rather than EF anchor-renaming evidence.
+- 2026-05-06: EF neighboring no-op-tail follow-up completed the
+  `C2:903C/903F..904E` bank-first classification. Row `9` stays non-EF C7,
+  while rows `251..256` remain EF homesick/action-blocked/recovery row-message
+  joins with dual-use labels and source comments instead of new anchor names.
 - 2026-05-06: EF status-result label follow-up renamed the proved direct
   `DC1C` status-result anchors across `EF:6AC7..6C55` and shared fallback
   `EF:766E` with `StatusResultText`, keeping them distinct from `DD9F` row

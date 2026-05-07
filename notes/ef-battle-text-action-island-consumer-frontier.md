@@ -122,10 +122,13 @@ scripts are dual-use or not battle-action anchors.
 
 Rows whose C2 behavior bodies are known but whose row `+4` EF pointers are not
 locally recovered should stay out of the proved-join table. The current
-behavior-known frontier has moved past the `C2:9039` bucket and into the
-neighboring address-distinct no-op tails. The completed sweep proves the rule:
-default/no-op C2 bodies are useful behavior evidence, but they are not EF
-battle-anchor naming evidence unless row `+4` points back into EF.
+behavior-known frontier has moved past the `C2:9039` bucket and the neighboring
+address-distinct no-op tails. `C2:903C` is only row `9` with a C7
+empty/default row message, while `C2:903F`, `9042`, `9045`, `9048`, `904B`, and
+`904E` are rows `251..256` and already live in the crosswalk. The completed
+sweeps prove the rule: default/no-op C2 bodies are useful behavior evidence,
+but they are not EF battle-anchor naming evidence unless row `+4` points back
+into EF.
 
 ## Direct Result Joins Adjacent To Action Islands
 

@@ -988,7 +988,8 @@ EF6EED_EBattle5ImmobilizedRecoveryResultText:
 ; ---------------------------------------------------------------------------
 ; EF:6F0B
 
-; EBATTLE5: frozen/solidified movement recovery direct-result text.
+; EBATTLE5: frozen/solidified movement recovery direct-result text. D5:7B68
+; row 255 also uses this as row +4 text with the `C2:9045` tiny no-op tail.
 EF6F0B_EBattle5FrozenMovementRecoveryResultText:
 
 ; ---------------------------------------------------------------------------
@@ -1126,7 +1127,8 @@ EF7186_EBattle4DiamondizedActionBlockedStatusText:
 ; ---------------------------------------------------------------------------
 ; EF:7192
 
-; EBATTLE4: paralysis action-blocked status text.
+; EBATTLE4: paralysis action-blocked status text. D5:7B68 row 252 also uses
+; this as row +4 text with the `C2:9042` tiny no-op tail.
 EF7192_EBattle4ParalysisActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
@@ -1144,19 +1146,22 @@ EF71CC_EBattle4PoisonActionBlockedStatusText:
 ; ---------------------------------------------------------------------------
 ; EF:71DF
 
-; EBATTLE4: asleep action-blocked status text.
+; EBATTLE4: asleep action-blocked status text. D5:7B68 row 253 also uses this
+; as row +4 text with the `C2:904B` tiny no-op tail.
 EF71DF_EBattle4AsleepActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:71F6
 
-; EBATTLE4: immobilized action-blocked status text.
+; EBATTLE4: immobilized action-blocked status text. D5:7B68 row 254 also uses
+; this as row +4 text with the `C2:903F` tiny no-op tail.
 EF71F6_EBattle4ImmobilizedActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
 ; EF:720C
 
-; EBATTLE4: PSI-seal action-blocked status text.
+; EBATTLE4: PSI-seal action-blocked status text. D5:7B68 row 256 also uses
+; this as row +4 text with the `C2:9048` tiny no-op tail.
 EF720C_EBattle4PsiSealActionBlockedStatusText:
 
 ; ---------------------------------------------------------------------------
@@ -1186,7 +1191,8 @@ EF725A_EBattle4FlyHoneyMindLostEventText:
 ; ---------------------------------------------------------------------------
 ; EF:727F
 
-; EBATTLE4: homesick random branch dispatcher.
+; EBATTLE4: homesick random branch dispatcher. D5:7B68 row 251 also uses this
+; as row +4 text with the `C2:904E` tiny no-op tail.
 EF727F_EBattle4HomesickRandomThoughtDispatcher:
 
 ; ---------------------------------------------------------------------------

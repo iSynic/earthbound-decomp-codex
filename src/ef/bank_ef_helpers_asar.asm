@@ -4582,6 +4582,8 @@ EF6EED_EBattle5ImmobilizedRecoveryResultText:
 db $01,$70,$1C,$0E,$15,$39,$92,$9F,$94,$A9,$00,$50,$15,$5B,$17,$6F
 db $A6,$15,$57,$96,$16,$FA,$9C,$A9,$51,$1F,$02,$25,$03,$02
 
+; EBATTLE5: row 255 row +4 text with the C2:9045 tiny no-op tail; also a
+; frozen/solidified movement recovery result script.
 EF6F0B_EBattle5FrozenMovementRecoveryResultText:
 
 ; Original data gap before EF6F1E_EBattle5StrangeRecoveryResultText:
@@ -4725,6 +4727,8 @@ EF7186_EBattle4DiamondizedActionBlockedStatusText:
 ; Original data gap before EF7192_EBattle4ParalysisActionBlockedStatusText:
 db $01,$70,$1C,$0D,$15,$C0,$9D,$16,$61,$51,$03,$02
 
+; EBATTLE4: row 252 row +4 action-blocked status text with the C2:9042 tiny
+; no-op tail.
 EF7192_EBattle4ParalysisActionBlockedStatusText:
 
 ; Original data gap before EF71B4_EBattle4NauseaActionBlockedStatusText:
@@ -4744,18 +4748,24 @@ EF71CC_EBattle4PoisonActionBlockedStatusText:
 db $01,$70,$1C,$0E,$16,$00,$00,$50,$50,$A0,$9F,$99,$A3,$15,$7E,$94
 db $51,$03,$02
 
+; EBATTLE4: row 253 row +4 action-blocked status text with the C2:904B tiny
+; no-op tail.
 EF71DF_EBattle4AsleepActionBlockedStatusText:
 
 ; Original data gap before EF71F6_EBattle4ImmobilizedActionBlockedStatusText:
 db $01,$70,$1C,$0D,$16,$0C,$A3,$00,$50,$50,$96,$15,$D8,$17,$46,$91
 db $A3,$9C,$15,$C9,$51,$03,$02
 
+; EBATTLE4: row 254 row +4 action-blocked status text with the C2:903F tiny
+; no-op tail.
 EF71F6_EBattle4ImmobilizedActionBlockedStatusText:
 
 ; Original data gap before EF720C_EBattle4PsiSealActionBlockedStatusText:
 db $01,$70,$1C,$0D,$17,$77,$9E,$16,$07,$00,$50,$50,$9D,$16,$61,$50
 db $91,$17,$10,$51,$03,$02
 
+; EBATTLE4: row 256 row +4 PSI-seal status text with the C2:9048 tiny no-op
+; tail.
 EF720C_EBattle4PsiSealActionBlockedStatusText:
 
 ; Original data gap before EF721E_EBattle4PsiSealPlayerSideSoundBranch:
@@ -4787,6 +4797,7 @@ db $01,$70,$1C,$0D,$17,$53,$A3,$A4,$00,$50,$16,$D9,$17,$84,$94,$15
 db $F5,$A7,$9F,$9C,$96,$15,$1B,$17,$9F,$50,$6C,$76,$15,$9D,$78,$17
 db $3E,$6E,$51,$03,$02
 
+; EBATTLE4: row 251 row +4 homesick dispatcher with the C2:904E tiny no-op tail.
 EF727F_EBattle4HomesickRandomThoughtDispatcher:
 
 ; Original data gap before EF72A0_EBattle4HomesickThoughtOfMomBranch:

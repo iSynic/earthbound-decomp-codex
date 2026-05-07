@@ -89,8 +89,7 @@ action-table sweep:
 
 | Priority | Rows | Why they matter |
 | ---: | --- | --- |
-| `1` | address-distinct no-op tails such as `C2:903C` and `C2:903F..904E` | The `C2:9039` bucket is now fully classified by row `+4` bank; repeat that method on the neighboring no-op tails before promoting more EF anchors. |
-| `2` | remaining exact `MSG_BTL_*` islands outside the recovered sets | These need the same row `+4/+8` proof before labels graduate from symbol-derived anchors. |
+| `1` | remaining exact `MSG_BTL_*` islands outside the recovered sets | These need the same row `+4/+8` proof before labels graduate from symbol-derived anchors. |
 
 ## Recovered No-Op And Flavor Joins
 
@@ -99,6 +98,9 @@ The no-op/flavor pass recovered the highest-risk behavior-only family:
 - rows `119..134` point at EBATTLE2 flavor text and share `C2:9033`;
 - rows `251..256` point at EF status/event/result text and use tiny no-op
   tails `C2:903F..904E`;
+- the neighboring no-op-tail sweep is complete: `C2:903C` is only row `9` with
+  a C7 empty/default message, and `C2:903F`, `9042`, `9045`, `9048`, `904B`,
+  and `904E` are exactly rows `251..256`;
 - row `257` and rows `260..266` point at EBATTLE4 event/flavor text and share
   `C2:9033`;
 - rows `186..188`, `0..3`, `9`, and `258` prove non-EF row-message lanes

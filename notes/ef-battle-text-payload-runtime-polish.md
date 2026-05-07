@@ -504,9 +504,15 @@ EF anchor renames.
 
 The row-pointer recovery frontier now records the resolved set and the remaining
 local frontier. The ROM-backed inspector is available in this checkout, so the
-next EF pass can continue with neighboring no-op-tail classification rather
-than the already proved Lifeup, numeric-effect, explosive, main no-op/flavor,
-and complete `C2:9039` joins.
+next EF pass can focus on remaining exact `MSG_BTL_*` islands rather than the
+already proved Lifeup, numeric-effect, explosive, main no-op/flavor, complete
+`C2:9039`, and neighboring no-op-tail joins.
+
+The neighboring no-op-tail pass is now also complete. `C2:903C` only joins row
+`9` to a C7 empty/default message, while `C2:903F`, `9042`, `9045`, `9048`,
+`904B`, and `904E` join rows `251..256` to already named EF
+homesick/action-blocked/recovery text. The EF source comments now record those
+row `+4` joins without renaming the dual-use anchors.
 
 That no-op/flavor pass now proves the main `C2:9033` and tiny-tail frontier:
 rows `119..134`, `251..257`, and `260..266` have exact EF row `+4`
