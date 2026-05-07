@@ -274,6 +274,15 @@ closure.
   starter. See
   `notes/c4-visual-frame-copy-and-footprint-tables-283f-2b0d.md` and
   `notes/secondary-visual-descriptor-contracts.md`.
+- 2026-05-06 visual record table follow-up: promoted the constructor and walker
+  sources to the same local contract as their notes by naming `$B4A4/$B4A6`,
+  `$B4A8`, `$B4AA/$B4AC`, the `7F:7C00` table, `0x14` record stride, fields
+  `+00..+12`, request modes `2..0A`, state filters `1..4`, latch lanes, the
+  `$FFFF` unset-handle sentinel, `$116A/$4000` visual-profile flag, `$10F2`
+  state-1 latch, and `$7F:7F00` occupancy bitmap while leaving C0
+  allocation/refresh and C4 render-strip helper internals callee-owned. See
+  `notes/visual-record-constructor-and-latches-c4c8a4-c4cbe3.md` and
+  `notes/visual-record-walkers-and-naming-remap-c4cc2f-c4d065.md`.
 - 2026-05-06 coffee/tea interpreter follow-up: tightened side-effect comments
   for the shared coffee/tea tile-buffer helpers and scene interpreters, naming
   the local `$3492`, `$7DFE/$7E00`, `$9F2D/$9F2F/$9F31`, and `$3C14..$3C20`

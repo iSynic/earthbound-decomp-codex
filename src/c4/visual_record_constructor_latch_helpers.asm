@@ -21,6 +21,64 @@ C42A63_VisualProfileFootprintWidthTable     = $C42A63
 
 ; ---------------------------------------------------------------------------
 ; C4:C8A4
+;
+; C4 owns the dynamic visual-record table layout and its per-record scratch
+; allocator. C0 callees below are used for allocation/clear/profile-refresh
+; joins only; this source keeps renderer-visible side effects local to the
+; WRAM fields and record bytes C4 writes.
+
+VisualRecordScratchCursor                   = $B4A4
+VisualRecordCount                           = $B4A6
+VisualRecordHandleSlot                      = $B4A8
+VisualRecordTablePtrLow                     = $B4AA
+VisualRecordTablePtrBank                    = $B4AC
+
+VisualRecordTableBaseLow                    = $7C00
+VisualRecordWorkBank                        = $007F
+VisualRecordTableClearBytes                 = $0400
+VisualRecordStrideBytes                     = $0014
+
+VisualRecordField_ProfileId                 = $0000
+VisualRecordField_RequestMode               = $0002
+VisualRecordField_State                     = $0004
+VisualRecordField_FootprintWidth            = $0006
+VisualRecordField_FrameSpanBytes            = $0008
+VisualRecordField_ScratchStart              = $000A
+VisualRecordField_ScratchMidpoint           = $000C
+VisualRecordField_HalfSpan                  = $000E
+VisualRecordField_FrameCursor               = $0010
+VisualRecordField_CompletionCounter         = $0012
+
+VisualRecordRejectMode1                     = $0001
+VisualRecordRejectMode6                     = $0006
+VisualRecordModeState1A                     = $0002
+VisualRecordModeState2A                     = $0003
+VisualRecordModeState3A                     = $0004
+VisualRecordModeState4A                     = $0005
+VisualRecordModeState1B                     = $0007
+VisualRecordModeState2B                     = $0008
+VisualRecordModeState3B                     = $0009
+VisualRecordModeState4B                     = $000A
+
+VisualRecordState1                          = $0001
+VisualRecordState2                          = $0002
+VisualRecordState3                          = $0003
+VisualRecordState4                          = $0004
+
+VisualProfileSecondaryThreshold             = $0018
+VisualProfileOwnedFlagTable                 = $116A
+VisualProfileOwnedFlagBit                   = $4000
+VisualProfileOwnedFlagClearMask             = $BFFF
+VisualRecordAllocatorSlotId                 = $035B
+VisualRecordUnsetHandleSentinel             = $FFFF
+
+VisualRecordState1Latch                     = $0E5E
+VisualRecordState2Latch                     = $0E9A
+VisualRecordState3Latch                     = $0ED6
+VisualRecordState4Latch                     = $0F12
+VisualRecordLatchSum                        = $0F4E
+VisualRecordState1ProfileLatch              = $10F2
+VisualRecordState1ProfileLatchSetValue      = $FFFF
 
 C4C8A4_InitVisualRecordTable7f7c00:
     rep #$31
@@ -28,21 +86,21 @@ C4C8A4_InitVisualRecordTable7f7c00:
     tdc
     adc.w #$FFEE
     tcd
-    stz $B4A4
-    stz $B4A6
-    lda.w #$7C00
+    stz VisualRecordScratchCursor
+    stz VisualRecordCount
+    lda.w #VisualRecordTableBaseLow
     sta $06
-    lda.w #$007F
+    lda.w #VisualRecordWorkBank
     sta $08
     lda $06
-    sta $B4AA
+    sta VisualRecordTablePtrLow
     lda $08
-    sta $B4AC
+    sta VisualRecordTablePtrBank
     lda $06
     sta $0E
     lda $08
     sta $10
-    ldx.w #$0400
+    ldx.w #VisualRecordTableClearBytes
     sep #$20
     lda.b #$00
     jsl C08F15_ClearVramOrRendererBuffer
@@ -50,10 +108,10 @@ C4C8A4_InitVisualRecordTable7f7c00:
     rts
 C4C8DB_AllocVisualRecordScratchBytes:
     rep #$31
-    ldx $B4A4
+    ldx VisualRecordScratchCursor
     clc
-    adc $B4A4
-    sta $B4A4
+    adc VisualRecordScratchCursor
+    sta VisualRecordScratchCursor
     txa
     rts
 C4C8E9_ClearVisualRecordScratchSpan7f:
@@ -71,7 +129,7 @@ C4C8E9_ClearVisualRecordScratchSpan7f:
     adc.w #$0000
     sta $06
     lda $08
-    adc.w #$007F
+    adc.w #VisualRecordWorkBank
     sta $08
     bra C4C913_InitVisualRecordTable7f7c00_LC913
 C4C908_InitVisualRecordTable7f7c00_LC908:
@@ -103,12 +161,12 @@ C4C91A_AppendDynamicVisualRecord:
     jmp.w C4CB4D_InitVisualRecordTable7f7c00_LCB4D
 C4C933_InitVisualRecordTable7f7c00_LC933:
     lda $02
-    cmp.w #$0001
+    cmp.w #VisualRecordRejectMode1
     bne C4C93D_InitVisualRecordTable7f7c00_LC93D
     jmp.w C4CB4D_InitVisualRecordTable7f7c00_LCB4D
 C4C93D_InitVisualRecordTable7f7c00_LC93D:
     lda $02
-    cmp.w #$0006
+    cmp.w #VisualRecordRejectMode6
     bne C4C947_InitVisualRecordTable7f7c00_LC947
     jmp.w C4CB4D_InitVisualRecordTable7f7c00_LCB4D
 C4C947_InitVisualRecordTable7f7c00_LC947:
@@ -119,8 +177,8 @@ C4C947_InitVisualRecordTable7f7c00_LC947:
     bne C4C953_InitVisualRecordTable7f7c00_LC953
     jmp.w C4CB4D_InitVisualRecordTable7f7c00_LCB4D
 C4C953_InitVisualRecordTable7f7c00_LC953:
-    lda $B4A8
-    cmp.w #$FFFF
+    lda VisualRecordHandleSlot
+    cmp.w #VisualRecordUnsetHandleSentinel
     bne C4C978_InitVisualRecordTable7f7c00_LC978
     jsr.w C4C8A4_InitVisualRecordTable7f7c00
     stz $0A3E
@@ -129,15 +187,15 @@ C4C953_InitVisualRecordTable7f7c00_LC953:
     stz $0A38
     ldy.w #$0000
     tyx
-    lda.w #$035B
+    lda.w #VisualRecordAllocatorSlotId
     jsl C092F5_AllocateEntityOrSpriteSlot
-    sta $B4A8
+    sta VisualRecordHandleSlot
 C4C978_InitVisualRecordTable7f7c00_LC978:
-    lda $B4AA
+    lda VisualRecordTablePtrLow
     sta $06
-    lda $B4AC
+    lda VisualRecordTablePtrBank
     sta $08
-    lda $B4A6
+    lda VisualRecordCount
     sta $04
     asl A
     asl A
@@ -152,7 +210,7 @@ C4C978_InitVisualRecordTable7f7c00_LC978:
     sta $1C
     lda $1E
     sta $04
-    ldy.w #$0000
+    ldy.w #VisualRecordField_ProfileId
     sta [$1A],Y
     lda $04
     asl A
@@ -160,13 +218,13 @@ C4C978_InitVisualRecordTable7f7c00_LC978:
     sty $18
     tya
     clc
-    adc.w #$116A
+    adc.w #VisualProfileOwnedFlagTable
     tax
     lda $0000,X
-    ora.w #$4000
+    ora.w #VisualProfileOwnedFlagBit
     sta $0000,X
     lda $02
-    ldy.w #$0002
+    ldy.w #VisualRecordField_RequestMode
     sta [$1A],Y
     ldy $18
     lda $2B6E,Y
@@ -175,7 +233,7 @@ C4C978_InitVisualRecordTable7f7c00_LC978:
     sta $0A
     lda $1C
     sta $0C
-    lda.w #$0006
+    lda.w #VisualRecordField_FootprintWidth
     clc
     adc $0A
     sta $0A
@@ -189,13 +247,13 @@ C4C978_InitVisualRecordTable7f7c00_LC978:
     asl A
     asl A
     sta $16
-    ldy.w #$0008
+    ldy.w #VisualRecordField_FrameSpanBytes
     sta [$1A],Y
     lda $1A
     sta $06
     lda $1C
     sta $08
-    lda.w #$000E
+    lda.w #VisualRecordField_HalfSpan
     clc
     adc $06
     sta $06
@@ -213,7 +271,7 @@ C4C978_InitVisualRecordTable7f7c00_LC978:
     sta $0A
     lda $1C
     sta $0C
-    lda.w #$000A
+    lda.w #VisualRecordField_ScratchStart
     clc
     adc $0A
     sta $0A
@@ -231,7 +289,7 @@ C4C978_InitVisualRecordTable7f7c00_LC978:
     sta $06
     lda $1C
     sta $08
-    lda.w #$000C
+    lda.w #VisualRecordField_ScratchMidpoint
     clc
     adc $06
     sta $06
@@ -249,25 +307,25 @@ C4C978_InitVisualRecordTable7f7c00_LC978:
     adc $02
     sta [$0E]
     lda.w #$0000
-    ldy.w #$0012
+    ldy.w #VisualRecordField_CompletionCounter
     sta [$1A],Y
-    ldy.w #$0010
+    ldy.w #VisualRecordField_FrameCursor
     sta [$1A],Y
     lda $20
     sta $02
-    cmp.w #$0002
+    cmp.w #VisualRecordModeState1A
     beq C4CA86_InitVisualRecordTable7f7c00_LCA86
     lda $02
-    cmp.w #$0003
+    cmp.w #VisualRecordModeState2A
     beq C4CA86_InitVisualRecordTable7f7c00_LCA86
     lda $02
-    cmp.w #$0004
+    cmp.w #VisualRecordModeState3A
     beq C4CA86_InitVisualRecordTable7f7c00_LCA86
     lda $02
-    cmp.w #$0005
+    cmp.w #VisualRecordModeState4A
     bne C4CA8F_InitVisualRecordTable7f7c00_LCA8F
 C4CA86_InitVisualRecordTable7f7c00_LCA86:
-    ldy.w #$000A
+    ldy.w #VisualRecordField_ScratchStart
     lda [$1A],Y
     sta $16
     bra C4CA93_InitVisualRecordTable7f7c00_LCA93
@@ -276,9 +334,9 @@ C4CA8F_InitVisualRecordTable7f7c00_LCA8F:
     sta $16
 C4CA93_InitVisualRecordTable7f7c00_LCA93:
     lda $04
-    cmp.w #$0018
+    cmp.w #VisualProfileSecondaryThreshold
     bcc C4CAAB_InitVisualRecordTable7f7c00_LCAAB
-    ldy.w #$000E
+    ldy.w #VisualRecordField_HalfSpan
     lda [$1A],Y
     tay
     lda $16
@@ -287,7 +345,7 @@ C4CA93_InitVisualRecordTable7f7c00_LCA93:
     jsl C4283F_CopySecondaryVisualProfileFrameWords
     bra C4CABA_InitVisualRecordTable7f7c00_LCABA
 C4CAAB_InitVisualRecordTable7f7c00_LCAAB:
-    ldy.w #$000E
+    ldy.w #VisualRecordField_HalfSpan
     lda [$1A],Y
     tay
     lda $16
@@ -295,77 +353,77 @@ C4CAAB_InitVisualRecordTable7f7c00_LCAAB:
     lda $04
     jsl C42884_CopyPrimaryVisualProfileFrameWords
 C4CABA_InitVisualRecordTable7f7c00_LCABA:
-    lda $B4A8
+    lda VisualRecordHandleSlot
     sta $16
     lda $02
-    cmp.w #$0002
+    cmp.w #VisualRecordModeState1A
     beq C4CAEB_InitVisualRecordTable7f7c00_LCAEB
-    cmp.w #$0007
+    cmp.w #VisualRecordModeState1B
     beq C4CAEB_InitVisualRecordTable7f7c00_LCAEB
-    cmp.w #$0003
+    cmp.w #VisualRecordModeState2A
     beq C4CAFC_InitVisualRecordTable7f7c00_LCAFC
-    cmp.w #$0008
+    cmp.w #VisualRecordModeState2B
     beq C4CAFC_InitVisualRecordTable7f7c00_LCAFC
-    cmp.w #$0004
+    cmp.w #VisualRecordModeState3A
     beq C4CB10_InitVisualRecordTable7f7c00_LCB10
-    cmp.w #$0009
+    cmp.w #VisualRecordModeState3B
     beq C4CB10_InitVisualRecordTable7f7c00_LCB10
-    cmp.w #$0005
+    cmp.w #VisualRecordModeState4A
     beq C4CB24_InitVisualRecordTable7f7c00_LCB24
-    cmp.w #$000A
+    cmp.w #VisualRecordModeState4B
     beq C4CB24_InitVisualRecordTable7f7c00_LCB24
     bra C4CB34_InitVisualRecordTable7f7c00_LCB34
 C4CAEB_InitVisualRecordTable7f7c00_LCAEB:
     lda $16
     asl A
     tax
-    lda.w #$0001
-    sta $0E5E,X
-    ldy.w #$0004
+    lda.w #VisualRecordState1
+    sta VisualRecordState1Latch,X
+    ldy.w #VisualRecordField_State
     sta [$1A],Y
     bra C4CB34_InitVisualRecordTable7f7c00_LCB34
 C4CAFC_InitVisualRecordTable7f7c00_LCAFC:
     lda $16
     asl A
     tax
-    lda.w #$0001
-    sta $0E9A,X
-    lda.w #$0002
-    ldy.w #$0004
+    lda.w #VisualRecordState1
+    sta VisualRecordState2Latch,X
+    lda.w #VisualRecordState2
+    ldy.w #VisualRecordField_State
     sta [$1A],Y
     bra C4CB34_InitVisualRecordTable7f7c00_LCB34
 C4CB10_InitVisualRecordTable7f7c00_LCB10:
     lda $16
     asl A
     tax
-    lda.w #$0001
-    sta $0ED6,X
-    lda.w #$0003
-    ldy.w #$0004
+    lda.w #VisualRecordState1
+    sta VisualRecordState3Latch,X
+    lda.w #VisualRecordState3
+    ldy.w #VisualRecordField_State
     sta [$1A],Y
     bra C4CB34_InitVisualRecordTable7f7c00_LCB34
 C4CB24_InitVisualRecordTable7f7c00_LCB24:
     lda $16
     asl A
     tax
-    lda.w #$0001
-    sta $0F12,X
-    lda.w #$0004
+    lda.w #VisualRecordState1
+    sta VisualRecordState4Latch,X
+    lda.w #VisualRecordState4
     tay
     sta [$1A],Y
 C4CB34_InitVisualRecordTable7f7c00_LCB34:
     lda $16
     asl A
     tax
-    lda $0E5E,X
+    lda VisualRecordState1Latch,X
     clc
-    adc $0E9A,X
+    adc VisualRecordState2Latch,X
     clc
-    adc $0ED6,X
+    adc VisualRecordState3Latch,X
     clc
-    adc $0F12,X
-    sta $0F4E,X
-    inc $B4A6
+    adc VisualRecordState4Latch,X
+    sta VisualRecordLatchSum,X
+    inc VisualRecordCount
 C4CB4D_InitVisualRecordTable7f7c00_LCB4D:
     pld
     rtl
@@ -375,9 +433,9 @@ C4CB4F_ClearVisualRecordSlot4000Flags:
     tdc
     adc.w #$FFF2
     tcd
-    lda $B4AA
+    lda VisualRecordTablePtrLow
     sta $06
-    lda $B4AC
+    lda VisualRecordTablePtrBank
     sta $08
     ldy.w #$0000
     bra C4CB88_InitVisualRecordTable7f7c00_LCB88
@@ -389,18 +447,18 @@ C4CB66_InitVisualRecordTable7f7c00_LCB66:
     lda [$0A]
     asl A
     clc
-    adc.w #$116A
+    adc.w #VisualProfileOwnedFlagTable
     tax
     lda $0000,X
-    and.w #$BFFF
+    and.w #VisualProfileOwnedFlagClearMask
     sta $0000,X
-    lda.w #$0014
+    lda.w #VisualRecordStrideBytes
     clc
     adc $06
     sta $06
     iny
 C4CB88_InitVisualRecordTable7f7c00_LCB88:
-    cpy $B4A6
+    cpy VisualRecordCount
     bcc C4CB66_InitVisualRecordTable7f7c00_LCB66
     pld
     rtl
@@ -410,17 +468,17 @@ C4CB8F_RefreshVisualRecordsAndClearState1Latch:
     tdc
     adc.w #$FFF0
     tcd
-    lda $B4AA
+    lda VisualRecordTablePtrLow
     sta $06
-    lda $B4AC
+    lda VisualRecordTablePtrBank
     sta $08
     ldx.w #$0000
     stx $0E
     bra C4CBDC_InitVisualRecordTable7f7c00_LCBDC
 C4CBA8_InitVisualRecordTable7f7c00_LCBA8:
-    ldy.w #$0004
+    ldy.w #VisualRecordField_State
     lda [$06],Y
-    cmp.w #$0001
+    cmp.w #VisualRecordState1
     bne C4CBC1_InitVisualRecordTable7f7c00_LCBC1
     lda $06
     sta $0A
@@ -429,7 +487,7 @@ C4CBA8_InitVisualRecordTable7f7c00_LCBA8:
     lda [$0A]
     asl A
     tax
-    stz $10F2,X
+    stz VisualRecordState1ProfileLatch,X
 C4CBC1_InitVisualRecordTable7f7c00_LCBC1:
     lda $06
     sta $0A
@@ -437,7 +495,7 @@ C4CBC1_InitVisualRecordTable7f7c00_LCBC1:
     sta $0C
     lda [$0A]
     jsl C0A48F_RefreshVisualProfileForSlot
-    lda.w #$0014
+    lda.w #VisualRecordStrideBytes
     clc
     adc $06
     sta $06
@@ -445,7 +503,7 @@ C4CBC1_InitVisualRecordTable7f7c00_LCBC1:
     inx
     stx $0E
 C4CBDC_InitVisualRecordTable7f7c00_LCBDC:
-    cpx $B4A6
+    cpx VisualRecordCount
     bcc C4CBA8_InitVisualRecordTable7f7c00_LCBA8
     pld
     rtl
@@ -455,17 +513,17 @@ C4CBE3_SetState1VisualRecordLatchFFFF:
     tdc
     adc.w #$FFF0
     tcd
-    lda $B4AA
+    lda VisualRecordTablePtrLow
     sta $06
-    lda $B4AC
+    lda VisualRecordTablePtrBank
     sta $08
     ldx.w #$0000
     stx $0E
     bra C4CC25_InitVisualRecordTable7f7c00_LCC25
 C4CBFC_InitVisualRecordTable7f7c00_LCBFC:
-    ldy.w #$0004
+    ldy.w #VisualRecordField_State
     lda [$06],Y
-    cmp.w #$0001
+    cmp.w #VisualRecordState1
     bne C4CC18_InitVisualRecordTable7f7c00_LCC18
     lda $06
     sta $0A
@@ -474,10 +532,10 @@ C4CBFC_InitVisualRecordTable7f7c00_LCBFC:
     lda [$0A]
     asl A
     tax
-    lda.w #$FFFF
-    sta $10F2,X
+    lda.w #VisualRecordState1ProfileLatchSetValue
+    sta VisualRecordState1ProfileLatch,X
 C4CC18_InitVisualRecordTable7f7c00_LCC18:
-    lda.w #$0014
+    lda.w #VisualRecordStrideBytes
     clc
     adc $06
     sta $06
@@ -485,7 +543,7 @@ C4CC18_InitVisualRecordTable7f7c00_LCC18:
     inx
     stx $0E
 C4CC25_InitVisualRecordTable7f7c00_LCC25:
-    cpx $B4A6
+    cpx VisualRecordCount
     bcc C4CBFC_InitVisualRecordTable7f7c00_LCBFC
     pld
     rtl
