@@ -130,6 +130,15 @@ wallet/ATM mutations call locally named C2 contracts while preserving the
 existing byte-equivalence gate.
 
 Source polish follow-up (2026-05-06): the same `C1:575D..621F` continuation
+now names the caller-frame result handoffs for the inventory/money leaves.
+`0x1D 10/11/13/14/17/19/21`, adjacent `0x1F 83`, and the ATM mutation leaves
+stage their booleans, selected slots, withdrawn character, wallet/ATM
+predicates, party-count predicate, random value, and C2 ATM mutation amounts
+through named `$0E/$10` text-context or money-amount pointer aliases. The
+Escargo store leaf also preserves its slot argument under a local name rather
+than a bare frame offset.
+
+Source polish follow-up (2026-05-06): the same `C1:575D..621F` continuation
 now names the deferred-byte and state ABI used by those leaves. `0x1D
 10/11/12/13` share the one-byte character/source selector queue, `0x1D
 14/06/07/17` share the three-byte amount queue, `0x1D 14` compares against

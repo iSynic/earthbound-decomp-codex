@@ -81,6 +81,11 @@ return inside the leaf. The body still leaves the submode split cautious, but
 the staged selector and status-window display handoff now use the same source
 vocabulary as the adjacent inventory/money callback leaves.
 
+Source polish follow-up (2026-05-06): the same `0x18 0D` leaf now names its
+preserved caller submode slot as `StatusWindowDisplayModeArgument`. That keeps
+the source clear about the split between the deferred character selector and
+the display-mode argument used to choose the status-rendering branch.
+
 Source polish follow-up (2026-05-06): the adjacent `0x18 05` forced-alignment
 leaf at `C1:4509` now names its one-byte queued argument, queue count,
 self-return callback low word, low-byte mask, and C4 glyph-versus-cursor staging

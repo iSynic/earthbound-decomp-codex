@@ -92,6 +92,14 @@ reader, delivery/pickup queue writer, and delivery/pickup queue reader all
 stage one byte through `$97BA/$97CA` and now return named callback low words,
 so the `0x19` queue helpers match the surrounding `0x1D` source vocabulary.
 
+Source polish follow-up (2026-05-06): the `C1:575D..621F` data-return leaves
+now expose their caller-frame output ABI too. `0x19 19`, `0x19 1A`, `0x19 1B`,
+and `0x19 1D` stage inventory-slot item bytes, selected character ids, Escargo
+storage bytes, loaded-string counts, and delivery queue owner/item bytes
+through named `$0E/$10` text-context source aliases before primary or
+secondary context installation. The queue scan temporaries remain named only
+where they are used as real scan state.
+
 Source polish follow-up (2026-05-06): the `C1:621F..7274` module now names the
 helper edges for `0x19 22/23/24/25/26` directly. The three direction helpers
 call the C4 registry, visual-type, and pose-descriptor facing-octant helpers by

@@ -11943,6 +11943,12 @@ org $C1575D
 !WorkValueByte3 = $09
 !QueueScanIndex = $0E
 !DeferredTextCommandArgument = $10
+!TextContextSourcePointerLo = $0E
+!TextContextSourcePointerHi = $10
+!MoneyAmountPointerLo = $0E
+!MoneyAmountPointerHi = $10
+!EscargoStoreSlotArgument = $0E
+!StatusWindowDisplayModeArgument = $0E
 !DeliveryQueueItemInfoPointer = $12
 !DeliveryQueueOwnerInfoPointer = $14
 !QueuedItemId = $02
@@ -12049,9 +12055,9 @@ C157AB_C1575D_TestEquippedItemPresenceForTextCommand_L57AB:
     dec $08
 C157BD_C1575D_TestEquippedItemPresenceForTextCommand_L57BD:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C157CB_C1575D_TestEquippedItemPresenceForTextCommand_L57CB:
@@ -12114,9 +12120,9 @@ C1581B_C1575D_TestEquippedItemPresenceForTextCommand_L581B:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C1583B_C1575D_TestEquippedItemPresenceForTextCommand_L583B:
@@ -12176,9 +12182,9 @@ C1588B_C1575D_TestEquippedItemPresenceForTextCommand_L588B:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda.w #$0000
 C158A3_C1575D_TestEquippedItemPresenceForTextCommand_L58A3:
@@ -12194,7 +12200,7 @@ CC_1D_12:
     tcd
     pla
     txy
-    sty $0E
+    sty !EscargoStoreSlotArgument
     lda.w #!DeferredSingleByteArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
@@ -12224,7 +12230,7 @@ C158E0_C1575D_TestEquippedItemPresenceForTextCommand_L58E0:
     lda $06
 C158E5_C1575D_TestEquippedItemPresenceForTextCommand_L58E5:
     sta $02
-    ldy $0E
+    ldy !EscargoStoreSlotArgument
     beq C158EE_C1575D_TestEquippedItemPresenceForTextCommand_L58EE
     tya
     bra C158F3_C1575D_TestEquippedItemPresenceForTextCommand_L58F3
@@ -12293,18 +12299,18 @@ C1594C_C1575D_TestEquippedItemPresenceForTextCommand_L594C:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     ldx $12
     txa
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C1597D_C1575D_TestEquippedItemPresenceForTextCommand_L597D:
@@ -12364,17 +12370,17 @@ C159CD_ReadInventorySlotItemByte:
     sta !WorkValueLo
     stz !WorkValueHi
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda !CharacterSelector
     sta !WorkValueLo
     stz !WorkValueHi
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
 C159F7_ReturnReadCharacterInventorySlotItem:
@@ -12516,9 +12522,9 @@ C15AF4_C1575D_TestEquippedItemPresenceForTextCommand_L5AF4:
     dec $08
 C15AFE_C1575D_TestEquippedItemPresenceForTextCommand_L5AFE:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15B0C_C1575D_TestEquippedItemPresenceForTextCommand_L5B0C:
@@ -12551,9 +12557,9 @@ C15B25_ReadEscargoStorageItemByte:
     stz !WorkValueByte3
     rep #!AccumulatorWidthFlag
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
     pld
@@ -12568,7 +12574,7 @@ CC_18_0D:
     tcd
     pla
     txy
-    sty $0E
+    sty !StatusWindowDisplayModeArgument
     lda.w #!DeferredSingleByteArgumentLimit
     clc
     sbc !DeferredCommandQueueCount
@@ -12598,7 +12604,7 @@ C15B81_C1575D_TestEquippedItemPresenceForTextCommand_L5B81:
     lda $06
 C15B86_C1575D_TestEquippedItemPresenceForTextCommand_L5B86:
     tax
-    ldy $0E
+    ldy !StatusWindowDisplayModeArgument
     tya
     cmp.w #$0001
     beq C15B96_C1575D_TestEquippedItemPresenceForTextCommand_L5B96
@@ -12688,9 +12694,9 @@ C15C13_C1575D_TestEquippedItemPresenceForTextCommand_L5C13:
     stz $08
     jsl !C09086_Multiply32
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15C34_C1575D_TestEquippedItemPresenceForTextCommand_L5C34:
@@ -12710,9 +12716,9 @@ CC_19_1B:
     sta !WorkValueLo
     stz !WorkValueHi
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #!ZeroWord
     pld
@@ -12855,9 +12861,9 @@ C15D55_C1575D_TestEquippedItemPresenceForTextCommand_L5D55:
     jsr !C103DC_ReadTextCommandArgumentWord
 C15D5A_C1575D_TestEquippedItemPresenceForTextCommand_L5D5A:
     lda $06
-    sta $0E
+    sta !MoneyAmountPointerLo
     lda $08
-    sta $10
+    sta !MoneyAmountPointerHi
     jsl !C2281D_DepositIntoAtm
     lda.w #$0000
 C15D69_C1575D_TestEquippedItemPresenceForTextCommand_L5D69:
@@ -12975,14 +12981,14 @@ C15E3B_C1575D_TestEquippedItemPresenceForTextCommand_L5E3B:
     jsr !C103DC_ReadTextCommandArgumentWord
 C15E40_C1575D_TestEquippedItemPresenceForTextCommand_L5E40:
     lda $06
-    sta $0E
+    sta !MoneyAmountPointerLo
     lda $08
-    sta $10
+    sta !MoneyAmountPointerHi
     jsl !C228B7_WithdrawFromAtm
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15E5A_C1575D_TestEquippedItemPresenceForTextCommand_L5E5A:
@@ -13124,9 +13130,9 @@ C15F57_C1575D_TestEquippedItemPresenceForTextCommand_L5F57:
     dec $08
 C15F61_C1575D_TestEquippedItemPresenceForTextCommand_L5F61:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
 C15F6F_C1575D_TestEquippedItemPresenceForTextCommand_L5F6F:
@@ -13348,9 +13354,9 @@ C160C0_LoadDeliveryQueueEntryPointers:
     stz !WorkValueByte3
     rep #!AccumulatorWidthFlag
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda !DeliveryQueueOwnerInfoPointer
     clc
@@ -13365,9 +13371,9 @@ C160C0_LoadDeliveryQueueEntryPointers:
     stz !WorkValueByte3
     rep #!AccumulatorWidthFlag
     lda !WorkValueLo
-    sta !QueueScanIndex
+    sta !TextContextSourcePointerLo
     lda !WorkValueHi
-    sta !DeferredTextCommandArgument
+    sta !TextContextSourcePointerHi
     jsr !C10489_InstallSecondaryInteractionContextPointer
     lda !QueuedItemId
     beq C1611D_ReturnDeliveryQueueEntryInfo
@@ -13425,9 +13431,9 @@ C1615A_C1575D_TestEquippedItemPresenceForTextCommand_L615A:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -13479,9 +13485,9 @@ C161B6_C1575D_TestEquippedItemPresenceForTextCommand_L61B6:
     dec $08
 C161C1_C1575D_TestEquippedItemPresenceForTextCommand_L61C1:
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld
@@ -13528,9 +13534,9 @@ C16207_C1575D_TestEquippedItemPresenceForTextCommand_L6207:
     sta $06
     stz $08
     lda $06
-    sta $0E
+    sta !TextContextSourcePointerLo
     lda $08
-    sta $10
+    sta !TextContextSourcePointerHi
     jsr !C1045D_InstallPrimaryInteractionContextPointer
     lda.w #$0000
     pld

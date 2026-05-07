@@ -402,6 +402,16 @@ This planning pass is documentation-only.
   `notes/text-command-family-1c-print-display.md`,
   `notes/pending-item-queue-984b.md`, and
   `notes/equipped-item-presence-predicate-c3e9a0.md`.
+- 2026-05-06 follow-up: the same `C1:575D..621F` continuation now carries
+  source-facing names for its caller-frame result ABI. Equipped-item and
+  inventory-usability booleans, deferred item compatibility, Escargo
+  store/withdraw handoffs, character inventory-slot reads, wallet/ATM
+  predicates and mutations, Escargo storage byte reads, loaded-string counts,
+  delivery queue item/owner outputs, equipment-slot classifiers,
+  party-count predicates, and random-number output now stage through named
+  text-context or money-amount pointer aliases rather than raw `$0E/$10`.
+  The Escargo store and status-window display leaves also distinguish their
+  preserved caller argument slots.
 - 2026-05-06 follow-up: the `C1:621F..7440` mixed callback and event-helper
   tail now names its helper-call surface through the `C1:7274..7440` sibling
   module. The pass covers the `1F C0`/`JUMP_MULTI2` target finalizer, Jeff
