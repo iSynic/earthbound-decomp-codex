@@ -12,6 +12,7 @@ from source_bank_byte_equivalence import (
     rel,
     render_combined_scaffold,
     resolve_path,
+    write_split_byte_listings,
 )
 
 
@@ -28,6 +29,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--module", default="all", help="range substring filter, or 'all'")
     parser.add_argument("--rom", help="explicit ROM path")
     parser.add_argument("--output", type=Path, help="output Asar scaffold path")
+    parser.add_argument(
+        "--no-split",
+        action="store_true",
+        help="write the historical monolithic scaffold instead of per-source-unit byte listings",
+    )
     return parser
 
 
@@ -46,8 +52,18 @@ def main() -> int:
         rebuild_parts.extend(["--module", args.module])
     if args.output:
         rebuild_parts.extend(["--output", rel(output)])
+    if args.no_split:
+        rebuild_parts.append("--no-split")
 
     output.parent.mkdir(parents=True, exist_ok=True)
+    if not args.no_split:
+        written = write_split_byte_listings(
+            modules,
+            rom,
+            generated_by="tools/build_source_bank_scaffold.py",
+        )
+    else:
+        written = []
     output.write_text(
         render_combined_scaffold(
             modules,
@@ -56,10 +72,13 @@ def main() -> int:
             purpose=f"Durable {bank} helper source scaffold for byte-equivalence validation.",
             ranges_path=rel(ranges_path),
             rebuild_command=" ".join(rebuild_parts),
+            split_sources=not args.no_split,
         ),
         encoding="utf-8",
     )
     print(f"Wrote {rel(output)} with {len(modules)} module(s).")
+    if written:
+        print(f"Wrote {len(written)} byte-preserving source-unit companion file(s).")
     return 0
 
 
