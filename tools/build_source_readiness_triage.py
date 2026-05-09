@@ -451,6 +451,7 @@ def render_markdown(payload: dict[str, object]) -> str:
         "- first bytecode/text priorities: C3 event/actionscript semantics and C5-C9 text-script export",
         "- readable source-bank closure status: `0` preserved source corridors in audited source-heavy banks",
         "- readable source-bank closure dashboard: `notes/readable-source-bank-closure.md`",
+        "- restored ebsrc drift audit: `notes/ebsrc-restored-reference-drift-audit.md`",
         "",
         "## Readiness Counts",
         "",

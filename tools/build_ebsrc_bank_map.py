@@ -16,10 +16,10 @@ EBSRC_ROOT = ROOT / "refs" / "ebsrc-main" / "ebsrc-main"
 BANKCONFIG_TEMPLATE = EBSRC_ROOT / "src" / "bankconfig" / "US" / "bank{index}.asm"
 SYMBOL_TEMPLATE = EBSRC_ROOT / "include" / "symbols" / "bank{index}.inc.asm"
 INCLUDE_RE = re.compile(r'(?:\.INCLUDE|LOCALEINCLUDE)\s+"([^"]+)"', re.IGNORECASE)
-FLAT_ADDR_RE = re.compile(r"\b(?:UNKNOWN_|REDIRECT_|DATA_|CODE_|NULL_)?(C[0-9A-F][0-9A-F]{4})\b", re.IGNORECASE)
-ADDR_RE = re.compile(r"\b(C[0-9A-F])[:_]?([0-9A-F]{4})\b", re.IGNORECASE)
+FLAT_ADDR_RE = re.compile(r"\b(?:UNKNOWN_|REDIRECT_|DATA_|CODE_|NULL_)?([C-E][0-9A-F][0-9A-F]{4})\b", re.IGNORECASE)
+ADDR_RE = re.compile(r"\b([C-E][0-9A-F])[:_]?([0-9A-F]{4})\b", re.IGNORECASE)
 GLOBAL_RE = re.compile(r"\.GLOBAL\s+([A-Z0-9_]+)\s*:", re.IGNORECASE)
-LABEL_RE = re.compile(r"^(C[0-9A-F]):([0-9A-F]{4})\s+(.+)$", re.IGNORECASE)
+LABEL_RE = re.compile(r"^([C-E][0-9A-F]):([0-9A-F]{4})\s+(.+)$", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -34,7 +34,10 @@ class Span:
 
 
 def bank_index(bank: str) -> str:
-    return f"{int(bank, 16) - 0xC0:02X}" if bank.upper().startswith("C") else bank[-2:]
+    value = int(bank.upper(), 16)
+    if 0xC0 <= value <= 0xEF:
+        return f"{value - 0xC0:02X}"
+    return f"{value:02X}"
 
 
 def parse_cpu_address(raw: str) -> tuple[str, int]:
@@ -48,7 +51,9 @@ def parse_cpu_address(raw: str) -> tuple[str, int]:
 
 
 def format_address(bank: str, address: int | None) -> str | None:
-    return None if address is None else f"{bank}:{address:04X}"
+    if address is None or address > 0xFFFF:
+        return None
+    return f"{bank}:{address:04X}"
 
 
 def address_from_text(text: str, bank: str) -> int | None:
