@@ -5,19 +5,20 @@ Status: restored ebsrc knowns are classified for curated integration; local sour
 ## Summary
 
 - banks audited: `['C0', 'C1', 'C2', 'C3', 'C4', 'EF']`
-- candidates: `8384`
+- candidates: `8392`
 - source rename default: `do_not_rename_when_local_name_is_more_specific`
 - first curated adoption policy: `apply only high-confidence exact symbols, table names, constants, and fields after local role/byte-equivalence review`
+- ebsrc symbols already integrated in local source: `198`
 
 ## Candidate Classes
 
 | Class | Count | Action |
 | --- | ---: | --- |
-| `adopt_constant_or_field_name` | 4249 | use as contract/comment vocabulary when touching the related semantic builder |
-| `adopt_exact_symbol` | 18 | consider a reviewed source label promotion while preserving old address-prefixed aliases |
-| `adopt_table_name` | 1 | use as table-name corroboration when local role and byte range already agree |
+| `adopt_constant_or_field_name` | 4257 | use as contract/comment vocabulary when touching the related semantic builder |
+| `adopt_exact_symbol` | 0 | consider a reviewed source label promotion while preserving old address-prefixed aliases |
+| `adopt_table_name` | 0 | use as table-name corroboration when local role and byte range already agree |
 | `blocked_unaddressed_or_payload_only` | 660 | keep as reference-only until there is exact local source or reader-path evidence |
-| `keep_local_supersedes` | 1814 | keep local semantic name/classification primary; cite ebsrc as corroborating reference |
+| `keep_local_supersedes` | 1833 | keep local semantic name/classification primary; cite ebsrc as corroborating reference |
 | `macro_vocab_reference` | 1396 | feed into event/text/actionscript decoder vocabulary only after local opcode proof |
 | `manual_review` | 246 | review address, role, and naming superiority before any source/doc adoption |
 
@@ -39,34 +40,69 @@ Status: restored ebsrc knowns are classified for curated integration; local sour
 | `overworld-runtime` | 199 |
 | `ppu-window-presentation` | 478 |
 | `shared-constants` | 3700 |
-| `shared-struct-fields` | 549 |
+| `shared-struct-fields` | 557 |
 | `text-vm` | 301 |
 
-## First Curated Adoption Batch
+## Source-Integrated ebsrc Symbols
 
-These are review-ready candidates only; source labels should be promoted separately with byte-equivalence validation.
+These exact-address ebsrc names are already present in local source as primary labels or compatibility aliases.
 
 | Target | Lane | Reference | ebsrc Name | Local Name | Reason |
 | --- | --- | --- | --- | --- | --- |
-| `C1:488C` | `text-vm` | `text/ccs/set_secmem.asm` | `SET_SECMEM` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DD3B` | `text-vm` | `text/show_hppp_windows_redirect.asm` | `SHOW_HPPP_WINDOWS_REDIRECT` | `RedirectShowHpppWindows` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DD41` | `text-vm` | `text/hide_hppp_windows_redirect.asm` | `HIDE_HPPP_WINDOWS_REDIRECT` | `RedirectHideHpppWindows` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DD47` | `text-vm` | `text/create_window_redirect.asm` | `CREATE_WINDOW_REDIRECT` | `RedirectCreateWindow` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DD4D` | `text-vm` | `text/set_window_focus_redirect.asm` | `SET_WINDOW_FOCUS_REDIRECT` | `RedirectSetWindowFocus` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DD59` | `text-vm` | `text/close_focus_window_redirect.asm` | `CLOSE_FOCUS_WINDOW_REDIRECT` | `RedirectCloseFocusWindow` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DDC6` | `bank-c1` | `misc/remove_item_from_inventory_redirect.asm` | `REMOVE_ITEM_FROM_INVENTORY_REDIRECT` | `RedirectRemoveItemFromInventory` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:E1A2` | `text-vm` | `text/print_menu_items_redirect.asm` | `PRINT_MENU_ITEMS_REDIRECT` | `NullFarCallback` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:955F` | `battle-runtime` | `battle/actions/psi_rockin_alpha.asm` | `PSI_ROCKIN_ALPHA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:9568` | `battle-runtime` | `battle/actions/psi_rockin_beta.asm` | `PSI_ROCKIN_BETA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:9571` | `battle-runtime` | `battle/actions/psi_rockin_gamma.asm` | `PSI_ROCKIN_GAMMA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:95B4` | `battle-runtime` | `battle/actions/psi_fire_alpha.asm` | `PSI_FIRE_ALPHA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:95BD` | `battle-runtime` | `battle/actions/psi_fire_beta.asm` | `PSI_FIRE_BETA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:95C6` | `battle-runtime` | `battle/actions/psi_fire_gamma.asm` | `PSI_FIRE_GAMMA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:9650` | `battle-runtime` | `battle/actions/psi_freeze_alpha.asm` | `PSI_FREEZE_ALPHA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:9659` | `battle-runtime` | `battle/actions/psi_freeze_beta.asm` | `PSI_FREEZE_BETA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:9662` | `battle-runtime` | `battle/actions/psi_freeze_gamma.asm` | `PSI_FREEZE_GAMMA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C3:FB1F` | `data-records` | `data/hp_meter_speeds.asm` | `HP_METER_SPEEDS` | `DATA_C3FB1F` | exact-covered named data table can corroborate local table naming |
-| `C4:EDA3` | `ppu-window-presentation` | `ending/play_cast_scene.asm` | `PLAY_CAST_SCENE` | `UnusedCastNameScratchRenderer` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
+| `C0:1A69` | `overworld-runtime` | `overworld/initialize_misc_object_data.asm` | `INITIALIZE_MISC_OBJECT_DATA` | `Reset_EntitySlotStateTables` | restored ebsrc semantic name is already present in the local source module |
+| `C0:1C11` | `bank-c0` | `system/alloc_sprite_mem.asm` | `ALLOC_SPRITE_MEM` | `Rewrite_VisualMemoryReservations4A00` | restored ebsrc semantic name is already present in the local source module |
+| `C0:1E49` | `overworld-runtime` | `overworld/create_entity.asm` | `CREATE_ENTITY` | `Initialize_EntityWithSpritePose` | restored ebsrc semantic name is already present in the local source module |
+| `C0:3C5E` | `overworld-runtime` | `overworld/get_on_bicycle.asm` | `GET_ON_BICYCLE` | `Get_OnBicycle` | restored ebsrc semantic name is already present in the local source module |
+| `C0:404F` | `overworld-runtime` | `overworld/map_input_to_direction.asm` | `MAP_INPUT_TO_DIRECTION` | `MapInputToDirection` | restored ebsrc semantic name is already present in the local source module |
+| `C0:4279` | `overworld-runtime` | `overworld/find_nearby_checkable_tpt_entry.asm` | `FIND_NEARBY_CHECKABLE_TPT_ENTRY` | `Resolve_InteractableAlongFacingTarget` | restored ebsrc semantic name is already present in the local source module |
+| `C0:4452` | `overworld-runtime` | `overworld/find_nearby_talkable_tpt_entry.asm` | `FIND_NEARBY_TALKABLE_TPT_ENTRY` | `Resolve_FrontInteractionTarget` | restored ebsrc semantic name is already present in the local source module |
+| `C0:5FF6` | `overworld-runtime` | `overworld/npc_collision_check.asm` | `NPC_COLLISION_CHECK` | `Find_OverlappingEntitySlot` | restored ebsrc semantic name is already present in the local source module |
+| `C0:6B21` | `overworld-runtime` | `overworld/spawn_buzz_buzz.asm` | `SPAWN_BUZZ_BUZZ` | `RunPostTransitionScriptHookAndSelectorPass` | restored ebsrc semantic name is already present in the local source module |
+| `C0:6BFF` | `overworld-runtime` | `overworld/door_transition.asm` | `DOOR_TRANSITION` | `RunDeferredScriptPointerAndRefreshTransitionState` | restored ebsrc semantic name is already present in the local source module |
+| `C0:75DD` | `overworld-runtime` | `overworld/process_queued_interactions.asm` | `PROCESS_QUEUED_INTERACTIONS` | `Consume_MovementRecordQueue` | restored ebsrc semantic name is already present in the local source module |
+| `C0:841B` | `bank-c0` | `system/read_joypad.asm` | `READ_JOYPAD` | `Advance_InputPlaybackStream` | restored ebsrc semantic name is already present in the local source module |
+| `C0:8501` | `bank-c0` | `system/process_sfx_queue.asm` | `PROCESS_SFX_QUEUE` | `Nmi_ServiceAudioQueue` | restored ebsrc semantic name is already present in the local source module |
+| `C0:8518` | `bank-c0` | `system/execute_irq_callback.asm` | `EXECUTE_IRQ_CALLBACK` | `Frame_CallbackDispatcher` | restored ebsrc semantic name is already present in the local source module |
+| `C0:851B` | `bank-c0` | `system/default_irq_callback.asm` | `DEFAULT_IRQ_CALLBACK` | `Frame_CallbackReturn` | restored ebsrc semantic name is already present in the local source module |
+| `C0:851C` | `bank-c0` | `system/set_irq_callback.asm` | `SET_IRQ_CALLBACK` | `Set_FrameCallbackPtr` | restored ebsrc semantic name is already present in the local source module |
+| `C0:8522` | `bank-c0` | `system/reset_irq_callback.asm` | `RESET_IRQ_CALLBACK` | `Reset_FrameCallbackToDefault` | restored ebsrc semantic name is already present in the local source module |
+| `C0:8D92` | `bank-c0` | `system/set_oam_size.asm` | `SET_OAM_SIZE` | `Update_ObselRegisterFromQueue` | restored ebsrc semantic name is already present in the local source module |
+| `C0:8D9E` | `bank-c0` | `system/set_bg1_vram_location.asm` | `SET_BG1_VRAM_LOCATION` | `Update_Bg1ScreenBaseRegistersFromQueue` | restored ebsrc semantic name is already present in the local source module |
+| `C0:8DDE` | `bank-c0` | `system/set_bg2_vram_location.asm` | `SET_BG2_VRAM_LOCATION` | `Update_Bg2ScreenBaseRegistersFromQueue` | restored ebsrc semantic name is already present in the local source module |
+| `C0:8E1C` | `bank-c0` | `system/set_bg3_vram_location.asm` | `SET_BG3_VRAM_LOCATION` | `Update_Bg3ScreenBaseRegistersFromQueue` | restored ebsrc semantic name is already present in the local source module |
+| `C0:8E5C` | `bank-c0` | `system/set_bg4_vram_location.asm` | `SET_BG4_VRAM_LOCATION` | `Update_Bg4ScreenBaseRegistersFromQueue` | restored ebsrc semantic name is already present in the local source module |
+| `C0:8FF7` | `bank-c0` | `system/math/mult168.asm` | `MULT168` | `Multiply16By8_ViaHardwareRegisters` | restored ebsrc semantic name is already present in the local source module |
+| `C0:9032` | `bank-c0` | `system/math/mult16.asm` | `MULT16` | `Multiply16By16_ViaHardwareRegisters` | restored ebsrc semantic name is already present in the local source module |
+| `C0:9321` | `overworld-runtime` | `overworld/init_entity.asm` | `INIT_ENTITY` | `Init_DelayedActionState` | restored ebsrc semantic name is already present in the local source module |
+| `C0:9F82` | `overworld-runtime` | `overworld/actionscript/choose_random.asm` | `CHOOSE_RANDOM` | `ChooseRandomScriptWord` | restored ebsrc semantic name is already present in the local source module |
+| `C0:A60B` | `map-data` | `data/sprite_direction_mapping_4_direction.asm` | `SPRITE_DIRECTION_MAPPING_4_DIRECTION` | `VisualProfileDirectionOffsetTable` | restored ebsrc semantic name is already present in the local source module |
+| `C0:A623` | `map-data` | `data/sprite_direction_mapping_8_direction.asm` | `SPRITE_DIRECTION_MAPPING_8_DIRECTION` | `VisualProfileSecondaryOffsetTable` | restored ebsrc semantic name is already present in the local source module |
+| `C0:A651` | `overworld-runtime` | `overworld/actionscript/set_direction8.asm` | `SET_DIRECTION8` | `Script_SetDirectionClassAndField1A86` | restored ebsrc semantic name is already present in the local source module |
+| `C0:A65F` | `overworld-runtime` | `overworld/actionscript/set_direction.asm` | `SET_DIRECTION` | `SetCurrentSlotDirectionClassIfActive` | restored ebsrc semantic name is already present in the local source module |
+| `C0:A679` | `overworld-runtime` | `overworld/actionscript/set_surface_flags.asm` | `SET_SURFACE_FLAGS` | `Script_SetCurrentSlotDisplayControlBits` | restored ebsrc semantic name is already present in the local source module |
+| `C0:A8F7` | `overworld-runtime` | `overworld/actionscript/prepare_new_entity_at_self.asm` | `ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_SELF` | `ActionScript_PrepareNewEntityAtSelf` | restored ebsrc semantic name is already present in the local source module |
+| `C0:A8FF` | `overworld-runtime` | `overworld/actionscript/prepare_new_entity_at_party_leader.asm` | `ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_PARTY_LEADER` | `ActionScript_PrepareNewEntityAtPartyLeader` | restored ebsrc semantic name is already present in the local source module |
+| `C0:A907` | `overworld-runtime` | `overworld/actionscript/prepare_new_entity_at_teleport_destination.asm` | `ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION` | `ActionScript_PrepareNewEntityAtTeleportDestination` | restored ebsrc semantic name is already present in the local source module |
+| `C0:A912` | `overworld-runtime` | `overworld/actionscript/prepare_new_entity.asm` | `ACTIONSCRIPT_PREPARE_NEW_ENTITY` | `ActionScript_PrepareNewEntity` | restored ebsrc semantic name is already present in the local source module |
+| `C0:A943` | `overworld-runtime` | `overworld/actionscript/get_position_of_party_member.asm` | `ACTIONSCRIPT_GET_POSITION_OF_PARTY_MEMBER` | `ActionScript_GetPositionOfPartyMember` | restored ebsrc semantic name is already present in the local source module |
+| `C0:AB06` | `audio-spc700` | `audio/load_spc700_data.asm` | `LOAD_SPC700_DATA` | `LoadSpc700DataStream` | restored ebsrc semantic name is already present in the local source module |
+| `C0:ABA8` | `audio-spc700` | `audio/wait_for_spc700.asm` | `WAIT_FOR_SPC700` | `WaitForSpcReadyAndResetApuPorts` | restored ebsrc semantic name is already present in the local source module |
+| `C0:ABC6` | `audio-spc700` | `audio/stop_music.asm` | `STOP_MUSIC` | `StopMusicAndLatchNoTrack` | restored ebsrc semantic name is already present in the local source module |
+| `C0:ABE0` | `audio-spc700` | `audio/play_sound.asm` | `PLAY_SOUND` | `QueueSoundEffectOrPlayApuPort3Cue` | restored ebsrc semantic name is already present in the local source module |
+
+## Remaining Exact/Table Adoption Batch
+
+These are review-ready exact source/table candidates only. An empty table means this pass either integrated or rejected the safe source-facing batch.
+
+| Target | Lane | Reference | ebsrc Name | Local Name | Reason |
+| --- | --- | --- | --- | --- | --- |
+
+## Constants And Field Vocabulary
+
+These restored ebsrc names are vocabulary inputs for semantic contracts and comments, not bulk source-renaming targets.
+
+| Target | Lane | Reference | ebsrc Name | Local Name | Reason |
+| --- | --- | --- | --- | --- | --- |
 | `NO_EFFECT` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `NO_EFFECT` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
 | `USE_NO_EFFECT` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `USE_NO_EFFECT` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
 | `ACTION_002` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `ACTION_002` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
@@ -88,6 +124,25 @@ These are review-ready candidates only; source labels should be promoted separat
 | `PSI_FREEZE_ALPHA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_FREEZE_ALPHA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
 | `PSI_FREEZE_BETA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_FREEZE_BETA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
 | `PSI_FREEZE_GAMMA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_FREEZE_GAMMA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_FREEZE_OMEGA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_FREEZE_OMEGA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_THUNDER_ALPHA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_THUNDER_ALPHA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_THUNDER_BETA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_THUNDER_BETA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_THUNDER_GAMMA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_THUNDER_GAMMA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_THUNDER_OMEGA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_THUNDER_OMEGA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_FLASH_ALPHA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_FLASH_ALPHA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_FLASH_BETA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_FLASH_BETA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_FLASH_GAMMA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_FLASH_GAMMA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_FLASH_OMEGA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_FLASH_OMEGA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_STARSTORM_ALPHA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_STARSTORM_ALPHA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_STARSTORM_OMEGA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_STARSTORM_OMEGA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_LIFEUP_ALPHA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_LIFEUP_ALPHA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_LIFEUP_BETA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_LIFEUP_BETA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_LIFEUP_GAMMA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_LIFEUP_GAMMA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_LIFEUP_OMEGA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_LIFEUP_OMEGA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_HEALING_ALPHA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_HEALING_ALPHA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_HEALING_BETA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_HEALING_BETA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_HEALING_GAMMA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_HEALING_GAMMA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
+| `PSI_HEALING_OMEGA` | `shared-constants` | `refs/ebsrc-main/ebsrc-main/include/constants/actions.asm` | `PSI_HEALING_OMEGA` | `` | restored ebsrc constant/enum vocabulary can improve local semantic contracts |
 
 ## Samples By Class
 
@@ -95,24 +150,6 @@ These are review-ready candidates only; source labels should be promoted separat
 
 | Target | Lane | Reference | ebsrc Name | Local Name | Reason |
 | --- | --- | --- | --- | --- | --- |
-| `C1:488C` | `text-vm` | `text/ccs/set_secmem.asm` | `SET_SECMEM` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DD3B` | `text-vm` | `text/show_hppp_windows_redirect.asm` | `SHOW_HPPP_WINDOWS_REDIRECT` | `RedirectShowHpppWindows` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DD41` | `text-vm` | `text/hide_hppp_windows_redirect.asm` | `HIDE_HPPP_WINDOWS_REDIRECT` | `RedirectHideHpppWindows` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DD47` | `text-vm` | `text/create_window_redirect.asm` | `CREATE_WINDOW_REDIRECT` | `RedirectCreateWindow` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DD4D` | `text-vm` | `text/set_window_focus_redirect.asm` | `SET_WINDOW_FOCUS_REDIRECT` | `RedirectSetWindowFocus` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DD59` | `text-vm` | `text/close_focus_window_redirect.asm` | `CLOSE_FOCUS_WINDOW_REDIRECT` | `RedirectCloseFocusWindow` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:DDC6` | `bank-c1` | `misc/remove_item_from_inventory_redirect.asm` | `REMOVE_ITEM_FROM_INVENTORY_REDIRECT` | `RedirectRemoveItemFromInventory` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C1:E1A2` | `text-vm` | `text/print_menu_items_redirect.asm` | `PRINT_MENU_ITEMS_REDIRECT` | `NullFarCallback` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:955F` | `battle-runtime` | `battle/actions/psi_rockin_alpha.asm` | `PSI_ROCKIN_ALPHA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:9568` | `battle-runtime` | `battle/actions/psi_rockin_beta.asm` | `PSI_ROCKIN_BETA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:9571` | `battle-runtime` | `battle/actions/psi_rockin_gamma.asm` | `PSI_ROCKIN_GAMMA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:95B4` | `battle-runtime` | `battle/actions/psi_fire_alpha.asm` | `PSI_FIRE_ALPHA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:95BD` | `battle-runtime` | `battle/actions/psi_fire_beta.asm` | `PSI_FIRE_BETA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:95C6` | `battle-runtime` | `battle/actions/psi_fire_gamma.asm` | `PSI_FIRE_GAMMA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:9650` | `battle-runtime` | `battle/actions/psi_freeze_alpha.asm` | `PSI_FREEZE_ALPHA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:9659` | `battle-runtime` | `battle/actions/psi_freeze_beta.asm` | `PSI_FREEZE_BETA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C2:9662` | `battle-runtime` | `battle/actions/psi_freeze_gamma.asm` | `PSI_FREEZE_GAMMA` | `` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
-| `C4:EDA3` | `ppu-window-presentation` | `ending/play_cast_scene.asm` | `PLAY_CAST_SCENE` | `UnusedCastNameScratchRenderer` | exact-covered named code has a non-placeholder ebsrc symbol and generic local name |
 
 ### `adopt_constant_or_field_name`
 
@@ -143,7 +180,6 @@ These are review-ready candidates only; source labels should be promoted separat
 
 | Target | Lane | Reference | ebsrc Name | Local Name | Reason |
 | --- | --- | --- | --- | --- | --- |
-| `C3:FB1F` | `data-records` | `data/hp_meter_speeds.asm` | `HP_METER_SPEEDS` | `DATA_C3FB1F` | exact-covered named data table can corroborate local table naming |
 
 ### `macro_vocab_reference`
 

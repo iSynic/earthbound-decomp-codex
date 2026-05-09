@@ -63,6 +63,10 @@ def validate(data: dict[str, Any]) -> None:
     require(int(class_counts.get("macro_vocab_reference", 0)) > 0, "expected macro vocabulary candidates")
     require(int(class_counts.get("blocked_unaddressed_or_payload_only", 0)) > 0, "expected blocked reference-only candidates")
     require("do_not_rename_when_local_name_is_more_specific" == summary.get("source_rename_default"), "unsafe rename default")
+    require(
+        int(summary.get("source_integrated_ebsrc_symbol_count", 0)) > 0,
+        "expected at least one integrated ebsrc symbol",
+    )
 
     counted: dict[str, int] = {name: 0 for name in REQUIRED_CLASSES}
     banks_seen: set[str] = set()
@@ -97,6 +101,7 @@ def validate(data: dict[str, Any]) -> None:
     for name, count in counted.items():
         require(int(class_counts.get(name, -1)) == count, f"class count mismatch for {name}")
     require(data.get("sample_candidates_by_class"), "missing class samples")
+    require(data.get("source_integrated_ebsrc_symbol_examples"), "missing integrated ebsrc symbol examples")
 
 
 def main() -> int:

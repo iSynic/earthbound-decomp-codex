@@ -36,7 +36,7 @@ CLASSES = (
     "blocked_unaddressed_or_payload_only",
     "manual_review",
 )
-PLACEHOLDER_RE = re.compile(r"^(UNKNOWN|NULL|REDIRECT|DATA|CODE|UNUSED|UNK)[_0-9A-F]*", re.IGNORECASE)
+PLACEHOLDER_RE = re.compile(r"^(UNKNOWN|NULL|DATA|CODE|UNUSED|UNK)(?:$|_|[0-9])", re.IGNORECASE)
 GENERIC_LOCAL_RE = re.compile(
     r"^(?:[c-e][0-9]_[0-9a-f]{4}(?:_[0-9a-f]{4})?|[A-F0-9]{6}(?:_(?:UNKNOWN|DATA|CODE|NULL|UNUSED).*)?|.*RawData)$",
     re.IGNORECASE,
@@ -108,14 +108,18 @@ def labels_from_source_range(bank: str, address: str | None) -> list[str]:
         return []
     payload = json.loads(ranges_path.read_text(encoding="utf-8"))
     for record in payload.get("ranges", []):
-        if record.get("start") != address:
-            continue
         labels: list[str] = []
+        for segment in record.get("source_segments", []):
+            for raw in segment.get("labels", []):
+                match = LABEL_RE.match(raw)
+                if match and f"{match.group(1).upper()}:{match.group(2).upper()}" == address:
+                    labels.append(match.group(3).strip())
         for raw in record.get("labels", []):
             match = LABEL_RE.match(raw)
-            if match:
+            if match and f"{match.group(1).upper()}:{match.group(2).upper()}" == address:
                 labels.append(match.group(3).strip())
-        return labels
+        if labels:
+            return labels
     return []
 
 
@@ -405,6 +409,12 @@ def summarize(candidates: list[dict[str, Any]], banks: list[str]) -> dict[str, A
     class_counts = Counter(record["candidate_class"] for record in candidates)
     lane_counts = Counter(record["lane"] for record in candidates)
     source_counts = Counter(record["source_kind"] for record in candidates)
+    source_integrated = sum(
+        1
+        for record in candidates
+        if record.get("candidate_class") == "keep_local_supersedes"
+        and record.get("reason") == "restored ebsrc semantic name is already present in the local source module"
+    )
     for name in CLASSES:
         class_counts.setdefault(name, 0)
     return {
@@ -414,6 +424,7 @@ def summarize(candidates: list[dict[str, Any]], banks: list[str]) -> dict[str, A
         "class_counts": dict(sorted(class_counts.items())),
         "lane_counts": dict(sorted(lane_counts.items())),
         "source_kind_counts": dict(sorted(source_counts.items())),
+        "source_integrated_ebsrc_symbol_count": source_integrated,
         "first_curated_adoption_policy": "apply only high-confidence exact symbols, table names, constants, and fields after local role/byte-equivalence review",
         "source_rename_default": "do_not_rename_when_local_name_is_more_specific",
     }
@@ -429,6 +440,12 @@ def build(banks: list[str]) -> dict[str, Any]:
     by_class: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in candidates:
         by_class[record["candidate_class"]].append(record)
+    source_integrated_examples = [
+        record
+        for record in candidates
+        if record.get("candidate_class") == "keep_local_supersedes"
+        and record.get("reason") == "restored ebsrc semantic name is already present in the local source module"
+    ][:40]
     return {
         "schema": "earthbound-decomp.ebsrc-knowns-integration-candidates.v1",
         "status": "restored_ebsrc_knowns_classified_for_curated_integration",
@@ -448,6 +465,7 @@ def build(banks: list[str]) -> dict[str, Any]:
         ],
         "summary": summary,
         "candidate_classes": {name: recommended_action(name) for name in CLASSES},
+        "source_integrated_ebsrc_symbol_examples": source_integrated_examples,
         "sample_candidates_by_class": {name: by_class.get(name, [])[:20] for name in CLASSES},
         "candidates": candidates,
     }
@@ -475,6 +493,7 @@ def render_markdown(data: dict[str, Any]) -> str:
         f"- candidates: `{summary['candidate_count']}`",
         f"- source rename default: `{summary['source_rename_default']}`",
         f"- first curated adoption policy: `{summary['first_curated_adoption_policy']}`",
+        f"- ebsrc symbols already integrated in local source: `{summary['source_integrated_ebsrc_symbol_count']}`",
         "",
         "## Candidate Classes",
         "",
@@ -497,9 +516,22 @@ def render_markdown(data: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "## First Curated Adoption Batch",
+            "## Source-Integrated ebsrc Symbols",
             "",
-            "These are review-ready candidates only; source labels should be promoted separately with byte-equivalence validation.",
+            "These exact-address ebsrc names are already present in local source as primary labels or compatibility aliases.",
+            "",
+            "| Target | Lane | Reference | ebsrc Name | Local Name | Reason |",
+            "| --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for record in data.get("source_integrated_ebsrc_symbol_examples", []):
+        lines.append(table_row(record))
+    lines.extend(
+        [
+            "",
+            "## Remaining Exact/Table Adoption Batch",
+            "",
+            "These are review-ready exact source/table candidates only. An empty table means this pass either integrated or rejected the safe source-facing batch.",
             "",
             "| Target | Lane | Reference | ebsrc Name | Local Name | Reason |",
             "| --- | --- | --- | --- | --- | --- |",
@@ -508,9 +540,26 @@ def render_markdown(data: dict[str, Any]) -> str:
     adoption_pool = [
         record
         for record in data["candidates"]
-        if record["candidate_class"] in {"adopt_exact_symbol", "adopt_table_name", "adopt_constant_or_field_name"}
+        if record["candidate_class"] in {"adopt_exact_symbol", "adopt_table_name"}
     ]
     for record in adoption_pool[:40]:
+        lines.append(table_row(record))
+    lines.extend(
+        [
+            "",
+            "## Constants And Field Vocabulary",
+            "",
+            "These restored ebsrc names are vocabulary inputs for semantic contracts and comments, not bulk source-renaming targets.",
+            "",
+            "| Target | Lane | Reference | ebsrc Name | Local Name | Reason |",
+            "| --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    for record in [
+        item
+        for item in data["candidates"]
+        if item["candidate_class"] == "adopt_constant_or_field_name"
+    ][:40]:
         lines.append(table_row(record))
     lines.extend(["", "## Samples By Class", ""])
     for class_name in CLASSES:
