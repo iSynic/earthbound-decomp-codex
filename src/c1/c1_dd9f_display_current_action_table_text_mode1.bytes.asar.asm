@@ -120,6 +120,9 @@ REDIRECT_C3E6F8:
     rep #$31
     jsl !C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
     rtl
+
+; ebsrc: SELECTION_MENU_SETUP (text/selection_menu_setup.asm)
+!SELECTION_MENU_SETUP = SELECTION_MENU_ITEM_SETUP
 SELECTION_MENU_ITEM_SETUP:
 !C1DDDA_BuildSelectionMenuSetupAndRedirects = SELECTION_MENU_ITEM_SETUP
     rep #$31

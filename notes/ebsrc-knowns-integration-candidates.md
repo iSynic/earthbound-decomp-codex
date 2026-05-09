@@ -8,7 +8,11 @@ Status: restored ebsrc knowns are classified for curated integration; local sour
 - candidates: `8392`
 - source rename default: `do_not_rename_when_local_name_is_more_specific`
 - first curated adoption policy: `apply only high-confidence exact symbols, table names, constants, and fields after local role/byte-equivalence review`
-- ebsrc symbols already integrated in local source: `198`
+- ebsrc symbols already integrated in local source: `220`
+
+## How to Read This Repo Against ebsrc
+
+Local semantic names remain the primary source of truth for C-port work. Exact-address restored ebsrc names are compatibility navigation: when a source-visible alias is safe, the source keeps the local primary label and adds an ebsrc alias; when a name is weaker, conflicting, unaddressed, or macro-only, this manifest keeps it in the crosswalk instead of changing source labels.
 
 ## Candidate Classes
 
@@ -21,6 +25,16 @@ Status: restored ebsrc knowns are classified for curated integration; local sour
 | `keep_local_supersedes` | 1833 | keep local semantic name/classification primary; cite ebsrc as corroborating reference |
 | `macro_vocab_reference` | 1396 | feed into event/text/actionscript decoder vocabulary only after local opcode proof |
 | `manual_review` | 246 | review address, role, and naming superiority before any source/doc adoption |
+
+## Community Alignment Statuses
+
+| Status | Count | Action |
+| --- | ---: | --- |
+| `blocked_conflict_or_unproven` | 765 | keep out of source until conflict, placeholder, or behavioral proof gap is resolved |
+| `docs_crosswalk_only` | 6989 | document as vocabulary or navigation reference, without source aliasing |
+| `local_primary_stronger` | 418 | keep local C-port semantic name primary; use the crosswalk for ebsrc lookup |
+| `source_alias_integrated` | 220 | ebsrc name is already searchable in source as a primary label or alias |
+| `source_alias_ready` | 0 | safe source-visible compatibility alias candidate; preserve local primary name |
 
 ## Lane Counts
 
@@ -49,6 +63,8 @@ These exact-address ebsrc names are already present in local source as primary l
 
 | Target | Lane | Reference | ebsrc Name | Local Name | Reason |
 | --- | --- | --- | --- | --- | --- |
+| `C0:19E2` | `overworld-runtime` | `overworld/reload_map.asm` | `RELOAD_MAP` | `Refresh_MapStripsAroundCamera` | restored ebsrc semantic name is already present in the local source module |
+| `C0:1A63` | `overworld-runtime` | `overworld/initialize_map.asm` | `INITIALIZE_MAP` | `Refresh_MapStripVia0E16_FarWrapper` | restored ebsrc semantic name is already present in the local source module |
 | `C0:1A69` | `overworld-runtime` | `overworld/initialize_misc_object_data.asm` | `INITIALIZE_MISC_OBJECT_DATA` | `Reset_EntitySlotStateTables` | restored ebsrc semantic name is already present in the local source module |
 | `C0:1C11` | `bank-c0` | `system/alloc_sprite_mem.asm` | `ALLOC_SPRITE_MEM` | `Rewrite_VisualMemoryReservations4A00` | restored ebsrc semantic name is already present in the local source module |
 | `C0:1E49` | `overworld-runtime` | `overworld/create_entity.asm` | `CREATE_ENTITY` | `Initialize_EntityWithSpritePose` | restored ebsrc semantic name is already present in the local source module |
@@ -66,6 +82,7 @@ These exact-address ebsrc names are already present in local source as primary l
 | `C0:851B` | `bank-c0` | `system/default_irq_callback.asm` | `DEFAULT_IRQ_CALLBACK` | `Frame_CallbackReturn` | restored ebsrc semantic name is already present in the local source module |
 | `C0:851C` | `bank-c0` | `system/set_irq_callback.asm` | `SET_IRQ_CALLBACK` | `Set_FrameCallbackPtr` | restored ebsrc semantic name is already present in the local source module |
 | `C0:8522` | `bank-c0` | `system/reset_irq_callback.asm` | `RESET_IRQ_CALLBACK` | `Reset_FrameCallbackToDefault` | restored ebsrc semantic name is already present in the local source module |
+| `C0:8616` | `bank-c0` | `system/transfer_to_vram.asm` | `TRANSFER_TO_VRAM` | `QueueVramTransfer_FromDpSource` | restored ebsrc semantic name is already present in the local source module |
 | `C0:8D92` | `bank-c0` | `system/set_oam_size.asm` | `SET_OAM_SIZE` | `Update_ObselRegisterFromQueue` | restored ebsrc semantic name is already present in the local source module |
 | `C0:8D9E` | `bank-c0` | `system/set_bg1_vram_location.asm` | `SET_BG1_VRAM_LOCATION` | `Update_Bg1ScreenBaseRegistersFromQueue` | restored ebsrc semantic name is already present in the local source module |
 | `C0:8DDE` | `bank-c0` | `system/set_bg2_vram_location.asm` | `SET_BG2_VRAM_LOCATION` | `Update_Bg2ScreenBaseRegistersFromQueue` | restored ebsrc semantic name is already present in the local source module |
@@ -85,10 +102,7 @@ These exact-address ebsrc names are already present in local source as primary l
 | `C0:A907` | `overworld-runtime` | `overworld/actionscript/prepare_new_entity_at_teleport_destination.asm` | `ACTIONSCRIPT_PREPARE_NEW_ENTITY_AT_TELEPORT_DESTINATION` | `ActionScript_PrepareNewEntityAtTeleportDestination` | restored ebsrc semantic name is already present in the local source module |
 | `C0:A912` | `overworld-runtime` | `overworld/actionscript/prepare_new_entity.asm` | `ACTIONSCRIPT_PREPARE_NEW_ENTITY` | `ActionScript_PrepareNewEntity` | restored ebsrc semantic name is already present in the local source module |
 | `C0:A943` | `overworld-runtime` | `overworld/actionscript/get_position_of_party_member.asm` | `ACTIONSCRIPT_GET_POSITION_OF_PARTY_MEMBER` | `ActionScript_GetPositionOfPartyMember` | restored ebsrc semantic name is already present in the local source module |
-| `C0:AB06` | `audio-spc700` | `audio/load_spc700_data.asm` | `LOAD_SPC700_DATA` | `LoadSpc700DataStream` | restored ebsrc semantic name is already present in the local source module |
-| `C0:ABA8` | `audio-spc700` | `audio/wait_for_spc700.asm` | `WAIT_FOR_SPC700` | `WaitForSpcReadyAndResetApuPorts` | restored ebsrc semantic name is already present in the local source module |
-| `C0:ABC6` | `audio-spc700` | `audio/stop_music.asm` | `STOP_MUSIC` | `StopMusicAndLatchNoTrack` | restored ebsrc semantic name is already present in the local source module |
-| `C0:ABE0` | `audio-spc700` | `audio/play_sound.asm` | `PLAY_SOUND` | `QueueSoundEffectOrPlayApuPort3Cue` | restored ebsrc semantic name is already present in the local source module |
+| `C0:AA07` | `overworld-runtime` | `overworld/actionscript/fade_out_with_mosaic.asm` | `FADE_OUT_WITH_MOSAIC` | `ActionScript_FadeOutWithMosaic` | restored ebsrc semantic name is already present in the local source module |
 
 ## Remaining Exact/Table Adoption Batch
 
@@ -215,8 +229,8 @@ These restored ebsrc names are vocabulary inputs for semantic contracts and comm
 | `C0:1181` | `bank-c0` | `unknown/C0/C01181.asm` | `` | `Upload_AuxiliaryMovementMapStrip` | restored ebsrc still marks this span unknown; keep local semantic classification |
 | `C0:1731` | `bank-c0` | `unknown/C0/C01731.asm` | `` | `` | restored ebsrc still marks this span unknown; keep local semantic classification |
 | `C0:17EA` | `bank-c0` | `unknown/C0/C017EA.asm` | `` | `AccumulateOverworldCameraStep` | restored ebsrc still marks this span unknown; keep local semantic classification |
-| `C0:19E2` | `overworld-runtime` | `overworld/reload_map.asm` | `RELOAD_MAP` | `Refresh_MapStripsAroundCamera` | local code name is already more specific; keep as primary and record ebsrc as corroboration |
-| `C0:1A63` | `overworld-runtime` | `overworld/initialize_map.asm` | `INITIALIZE_MAP` | `Refresh_MapStripVia0E16_FarWrapper` | local code name is already more specific; keep as primary and record ebsrc as corroboration |
+| `C0:19E2` | `overworld-runtime` | `overworld/reload_map.asm` | `RELOAD_MAP` | `Refresh_MapStripsAroundCamera` | restored ebsrc semantic name is already present in the local source module |
+| `C0:1A63` | `overworld-runtime` | `overworld/initialize_map.asm` | `INITIALIZE_MAP` | `Refresh_MapStripVia0E16_FarWrapper` | restored ebsrc semantic name is already present in the local source module |
 | `C0:19E2` | `bank-c0` | `unknown/C0/C019E2.asm` | `` | `Refresh_MapStripsAroundCamera` | restored ebsrc still marks this span unknown; keep local semantic classification |
 | `C0:1A63` | `bank-c0` | `unknown/C0/C01A63.asm` | `` | `Refresh_MapStripVia0E16_FarWrapper` | restored ebsrc still marks this span unknown; keep local semantic classification |
 | `C0:1A69` | `overworld-runtime` | `overworld/initialize_misc_object_data.asm` | `INITIALIZE_MISC_OBJECT_DATA` | `Reset_EntitySlotStateTables` | restored ebsrc semantic name is already present in the local source module |

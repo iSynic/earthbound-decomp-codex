@@ -142,6 +142,9 @@ C1DDD3_RedirectC3E6F8Helper = REDIRECT_C3E6F8
     jsl C3E6F8_ClearFocusedPartyHpPpActorAndBlankRow
     rtl
 SELECTION_MENU_ITEM_SETUP:
+
+; ebsrc: SELECTION_MENU_SETUP (text/selection_menu_setup.asm)
+SELECTION_MENU_SETUP = SELECTION_MENU_ITEM_SETUP
 C1DDDA_BuildSelectionMenuSetupAndRedirects = SELECTION_MENU_ITEM_SETUP
     rep #$31
     phd

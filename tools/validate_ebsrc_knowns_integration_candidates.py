@@ -21,6 +21,13 @@ REQUIRED_CLASSES = {
     "blocked_unaddressed_or_payload_only",
     "manual_review",
 }
+REQUIRED_COMMUNITY_STATUSES = {
+    "source_alias_ready",
+    "source_alias_integrated",
+    "docs_crosswalk_only",
+    "local_primary_stronger",
+    "blocked_conflict_or_unproven",
+}
 REQUIRED_REFERENCES = {
     "refs/ebsrc-main/ebsrc-main/src/bankconfig/US",
     "refs/ebsrc-main/ebsrc-main/include/constants",
@@ -58,6 +65,9 @@ def validate(data: dict[str, Any]) -> None:
 
     class_counts = summary.get("class_counts", {})
     require(set(class_counts) == REQUIRED_CLASSES, "candidate class coverage mismatch")
+    community_counts = summary.get("community_alignment_counts", {})
+    require(set(community_counts) == REQUIRED_COMMUNITY_STATUSES, "community alignment status coverage mismatch")
+    require(sum(int(count) for count in community_counts.values()) == len(candidates), "community status count mismatch")
     require(int(class_counts.get("keep_local_supersedes", 0)) > 0, "expected local-supersedes candidates")
     require(int(class_counts.get("adopt_constant_or_field_name", 0)) > 0, "expected constant/field candidates")
     require(int(class_counts.get("macro_vocab_reference", 0)) > 0, "expected macro vocabulary candidates")
@@ -67,8 +77,13 @@ def validate(data: dict[str, Any]) -> None:
         int(summary.get("source_integrated_ebsrc_symbol_count", 0)) > 0,
         "expected at least one integrated ebsrc symbol",
     )
+    require(int(community_counts.get("source_alias_integrated", 0)) > 0, "expected integrated ebsrc aliases")
+    require(int(community_counts.get("source_alias_ready", 0)) == 0, "source alias backlog must be applied or explained")
+    require(int(community_counts.get("docs_crosswalk_only", 0)) > 0, "expected docs-only community crosswalk entries")
+    require(int(community_counts.get("blocked_conflict_or_unproven", 0)) > 0, "expected blocked/unproven community entries")
 
     counted: dict[str, int] = {name: 0 for name in REQUIRED_CLASSES}
+    community_counted: dict[str, int] = {name: 0 for name in REQUIRED_COMMUNITY_STATUSES}
     banks_seen: set[str] = set()
     source_kinds: set[str] = set()
     lanes: set[str] = set()
@@ -76,6 +91,10 @@ def validate(data: dict[str, Any]) -> None:
         candidate_class = record.get("candidate_class")
         require(candidate_class in REQUIRED_CLASSES, f"candidate {index}: unknown class {candidate_class!r}")
         counted[str(candidate_class)] += 1
+        community_status = record.get("community_alignment_status")
+        require(community_status in REQUIRED_COMMUNITY_STATUSES, f"candidate {index}: unknown community status {community_status!r}")
+        community_counted[str(community_status)] += 1
+        require(record.get("community_alignment_confidence"), f"candidate {index}: missing community alignment confidence")
         require(record.get("lane"), f"candidate {index}: missing lane")
         require(record.get("source_kind"), f"candidate {index}: missing source_kind")
         require(record.get("reason"), f"candidate {index}: missing reason")
@@ -100,8 +119,11 @@ def validate(data: dict[str, Any]) -> None:
 
     for name, count in counted.items():
         require(int(class_counts.get(name, -1)) == count, f"class count mismatch for {name}")
+    for name, count in community_counted.items():
+        require(int(community_counts.get(name, -1)) == count, f"community status count mismatch for {name}")
     require(data.get("sample_candidates_by_class"), "missing class samples")
     require(data.get("source_integrated_ebsrc_symbol_examples"), "missing integrated ebsrc symbol examples")
+    require(data.get("community_alignment_statuses"), "missing community alignment status descriptions")
 
 
 def main() -> int:

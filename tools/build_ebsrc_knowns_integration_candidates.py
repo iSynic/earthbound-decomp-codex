@@ -26,6 +26,7 @@ EBSRC_ROOT = ROOT / "refs" / "ebsrc-main" / "ebsrc-main"
 DEFAULT_BANKS = ("C0", "C1", "C2", "C3", "C4", "EF")
 DEFAULT_OUTPUT = ROOT / "manifests" / "ebsrc-knowns-integration-candidates.json"
 DEFAULT_NOTES = ROOT / "notes" / "ebsrc-knowns-integration-candidates.md"
+DEFAULT_COMMUNITY_NOTES = ROOT / "notes" / "ebsrc-community-crosswalk.md"
 SOURCE_BACKED_AUDIO_INGEST = ROOT / "manifests" / "audio-spc700-sounddriver-source-ingest.json"
 CLASSES = (
     "adopt_exact_symbol",
@@ -35,6 +36,13 @@ CLASSES = (
     "keep_local_supersedes",
     "blocked_unaddressed_or_payload_only",
     "manual_review",
+)
+COMMUNITY_STATUSES = (
+    "source_alias_ready",
+    "source_alias_integrated",
+    "docs_crosswalk_only",
+    "local_primary_stronger",
+    "blocked_conflict_or_unproven",
 )
 PLACEHOLDER_RE = re.compile(r"^(UNKNOWN|NULL|DATA|CODE|UNUSED|UNK)(?:$|_|[0-9])", re.IGNORECASE)
 GENERIC_LOCAL_RE = re.compile(
@@ -48,6 +56,7 @@ MACRO_RE = re.compile(r"^\s*\.MACRO\s+([A-Za-z_][A-Za-z0-9_]*)\b", re.IGNORECASE
 SYMBOL_RE = re.compile(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\b")
 ASSIGN_RE = re.compile(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\s*(?:=|\.EQU)\s*(.+)$", re.IGNORECASE)
 SPC_LABEL_RE = re.compile(r"^\s*([A-Za-z_][A-Za-z0-9_]*):")
+GLOBAL_SOURCE_SYMBOLS: set[str] | None = None
 
 
 def parse_args() -> argparse.Namespace:
@@ -55,6 +64,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--bank", action="append", choices=DEFAULT_BANKS, help="Bank to include. Defaults to priority banks.")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--notes", type=Path, default=DEFAULT_NOTES)
+    parser.add_argument("--community-notes", type=Path, default=DEFAULT_COMMUNITY_NOTES)
     return parser.parse_args()
 
 
@@ -85,6 +95,81 @@ def is_generic_local(name: str | None) -> bool:
 
 def normalize_name(name: str | None) -> str:
     return re.sub(r"[^A-Z0-9]+", "_", name or "").strip("_").upper()
+
+
+def name_tokens(*parts: Any) -> set[str]:
+    text = " ".join(str(part or "") for part in parts)
+    split = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", text)
+    raw = re.split(r"[^A-Za-z0-9]+", split)
+    stopwords = {
+        "A",
+        "AN",
+        "AND",
+        "ASM",
+        "BANK",
+        "BY",
+        "C0",
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "CODE",
+        "COMMON",
+        "COPY",
+        "CREATE",
+        "DATA",
+        "EB",
+        "EBSRC",
+        "EF",
+        "FIND",
+        "FOR",
+        "FROM",
+        "GET",
+        "GIVE",
+        "HELPER",
+        "IN",
+        "INCLUDE",
+        "INIT",
+        "INITIALIZE",
+        "JUMP",
+        "LOAD",
+        "LOCAL",
+        "OPEN",
+        "OF",
+        "OR",
+        "PAUSE",
+        "PREPARE",
+        "QUEUE",
+        "READ",
+        "RELOAD",
+        "RUN",
+        "SET",
+        "SHOW",
+        "SPAWN",
+        "SRC",
+        "SOURCE",
+        "STORE",
+        "SUB",
+        "SUBMIT",
+        "TAKE",
+        "TEST",
+        "THE",
+        "TO",
+        "TOGGLE",
+        "TRANSFER",
+        "TRIGGER",
+        "UNKNOWN",
+        "UPDATE",
+        "USE",
+        "WITH",
+    }
+    return {token.upper() for token in raw if len(token) > 2 and token.upper() not in stopwords}
+
+
+def alias_token_aligned(record: dict[str, Any]) -> bool:
+    ebsrc_tokens = name_tokens(record.get("ebsrc_symbol"), Path(str(record.get("include_path") or "")).stem)
+    local_tokens = name_tokens(record.get("local_name"), Path(str(record.get("local_source_path") or "")).stem)
+    return bool(ebsrc_tokens) and ebsrc_tokens <= local_tokens
 
 
 def ebsrc_name_for_entry(entry: dict[str, Any]) -> str | None:
@@ -161,6 +246,56 @@ def source_contains_symbol(source_path: str | None, symbol: str | None) -> bool:
     return pattern.search(text) is not None
 
 
+def source_contains_symbol_anywhere(symbol: str | None) -> bool:
+    global GLOBAL_SOURCE_SYMBOLS
+    if not symbol:
+        return False
+    if GLOBAL_SOURCE_SYMBOLS is None:
+        symbols: set[str] = set()
+        definition_re = re.compile(r"^\s*!?([A-Za-z_][A-Za-z0-9_]*)\s*(?::|=)", re.MULTILINE)
+        for path in sorted((ROOT / "src").rglob("*.asm")):
+            text = path.read_text(encoding="utf-8", errors="ignore")
+            symbols.update(match.group(1) for match in definition_re.finditer(text))
+        GLOBAL_SOURCE_SYMBOLS = symbols
+    return symbol in GLOBAL_SOURCE_SYMBOLS
+
+
+def community_status(record: dict[str, Any]) -> str:
+    candidate_class = str(record.get("candidate_class") or "")
+    source_kind = str(record.get("source_kind") or "")
+    reason = str(record.get("reason") or "")
+    ebsrc_symbol = clean_symbol(record.get("ebsrc_symbol"))
+    local_source_path = clean_symbol(record.get("local_source_path"))
+
+    if source_kind != "bank-include":
+        return "docs_crosswalk_only"
+    if candidate_class in {"blocked_unaddressed_or_payload_only", "manual_review"}:
+        return "blocked_conflict_or_unproven"
+    if candidate_class in {"adopt_constant_or_field_name", "macro_vocab_reference"}:
+        return "docs_crosswalk_only"
+    if not ebsrc_symbol or not local_source_path:
+        return "docs_crosswalk_only"
+    if is_placeholder(ebsrc_symbol):
+        return "blocked_conflict_or_unproven"
+    if source_contains_symbol(local_source_path, ebsrc_symbol) or normalize_name(record.get("local_name")) == normalize_name(ebsrc_symbol):
+        return "source_alias_integrated"
+    if source_contains_symbol_anywhere(ebsrc_symbol):
+        return "blocked_conflict_or_unproven"
+    if candidate_class in {"adopt_exact_symbol", "adopt_table_name"}:
+        return "source_alias_ready"
+    if candidate_class == "keep_local_supersedes":
+        if reason == "local code name is already more specific; keep as primary and record ebsrc as corroboration":
+            if alias_token_aligned(record):
+                return "source_alias_ready"
+            return "local_primary_stronger"
+        if reason == "named ebsrc data overlaps a non-generic local source name; review before adopting":
+            return "local_primary_stronger"
+        if "unknown" in reason.lower():
+            return "blocked_conflict_or_unproven"
+        return "local_primary_stronger"
+    return "blocked_conflict_or_unproven"
+
+
 def lane_for_bank_entry(bank: str, entry: dict[str, Any]) -> str:
     include = str(entry.get("include_path") or "").lower()
     family = str(entry.get("family") or "").lower()
@@ -223,8 +358,7 @@ def build_bank_candidates(bank: str) -> list[dict[str, Any]]:
         ebsrc_name = ebsrc_name_for_entry(entry)
         local_name = local_name_for_entry(bank, entry)
         candidate_class, reason = classify_bank_entry(bank, entry, local_name, ebsrc_name)
-        candidates.append(
-            {
+        record = {
                 "candidate_class": candidate_class,
                 "lane": lane_for_bank_entry(bank, entry),
                 "source_kind": "bank-include",
@@ -240,7 +374,7 @@ def build_bank_candidates(bank: str) -> list[dict[str, Any]]:
                 "reason": reason,
                 "recommended_action": recommended_action(candidate_class),
             }
-        )
+        candidates.append(with_community_status(record))
     return candidates
 
 
@@ -254,6 +388,39 @@ def recommended_action(candidate_class: str) -> str:
         "blocked_unaddressed_or_payload_only": "keep as reference-only until there is exact local source or reader-path evidence",
         "manual_review": "review address, role, and naming superiority before any source/doc adoption",
     }[candidate_class]
+
+
+def community_action(status: str) -> str:
+    return {
+        "source_alias_ready": "safe source-visible compatibility alias candidate; preserve local primary name",
+        "source_alias_integrated": "ebsrc name is already searchable in source as a primary label or alias",
+        "docs_crosswalk_only": "document as vocabulary or navigation reference, without source aliasing",
+        "local_primary_stronger": "keep local C-port semantic name primary; use the crosswalk for ebsrc lookup",
+        "blocked_conflict_or_unproven": "keep out of source until conflict, placeholder, or behavioral proof gap is resolved",
+    }[status]
+
+
+def with_community_status(record: dict[str, Any]) -> dict[str, Any]:
+    record["community_alignment_status"] = community_status(record)
+    record["community_alignment_confidence"] = community_confidence(record)
+    return record
+
+
+def community_confidence(record: dict[str, Any]) -> str:
+    status = record.get("community_alignment_status")
+    if status == "source_alias_integrated":
+        return "exact_address_alias_or_primary_already_present"
+    if status == "source_alias_ready":
+        if record.get("candidate_class") in {"adopt_exact_symbol", "adopt_table_name"}:
+            return "exact_address_review_ready"
+        return "exact_address_role_compatible_token_aligned"
+    if status == "local_primary_stronger":
+        return "exact_address_local_name_more_specific_docs_crosswalk"
+    if status == "blocked_conflict_or_unproven" and source_contains_symbol_anywhere(record.get("ebsrc_symbol")):
+        return "source_symbol_collision_elsewhere_docs_crosswalk"
+    if status == "docs_crosswalk_only":
+        return "reference_vocabulary_or_payload_without_source_alias_target"
+    return "conflict_unproven_or_placeholder_reference"
 
 
 def include_records() -> list[dict[str, Any]]:
@@ -282,7 +449,8 @@ def include_records() -> list[dict[str, Any]]:
             name = assign_match.group(1) if assign_match else symbol_match.group(1) if current_enum and symbol_match else None
             if name and not name.startswith(".") and not is_placeholder(name):
                 records.append(
-                    {
+                    with_community_status(
+                        {
                         "candidate_class": "adopt_constant_or_field_name",
                         "lane": "shared-constants",
                         "source_kind": "constant-enum",
@@ -294,6 +462,7 @@ def include_records() -> list[dict[str, Any]]:
                         "reason": "restored ebsrc constant/enum vocabulary can improve local semantic contracts",
                         "recommended_action": recommended_action("adopt_constant_or_field_name"),
                     }
+                    )
                 )
                 if current_enum:
                     ordinal += 1
@@ -314,7 +483,8 @@ def include_records() -> list[dict[str, Any]]:
         match = SYMBOL_RE.match(stripped)
         if match and not is_placeholder(match.group(1)):
             records.append(
-                {
+                with_community_status(
+                    {
                     "candidate_class": "adopt_constant_or_field_name",
                     "lane": "shared-struct-fields",
                     "source_kind": "struct-field",
@@ -325,6 +495,7 @@ def include_records() -> list[dict[str, Any]]:
                     "reason": "restored ebsrc struct field vocabulary can improve local RAM/table contracts",
                     "recommended_action": recommended_action("adopt_constant_or_field_name"),
                 }
+                )
             )
 
     for path in [include_root / "eventmacros.asm", include_root / "textmacros.asm", include_root / "staffmacros.asm"]:
@@ -335,7 +506,8 @@ def include_records() -> list[dict[str, Any]]:
             if not match:
                 continue
             records.append(
-                {
+                with_community_status(
+                    {
                     "candidate_class": "macro_vocab_reference",
                     "lane": "macro-vocabulary",
                     "source_kind": "macro",
@@ -345,6 +517,7 @@ def include_records() -> list[dict[str, Any]]:
                     "reason": "restored ebsrc macro vocabulary is decoder/reference input, not behavior proof",
                     "recommended_action": recommended_action("macro_vocab_reference"),
                 }
+                )
             )
     return records
 
@@ -355,7 +528,8 @@ def audio_records() -> list[dict[str, Any]]:
         ingest = json.loads(SOURCE_BACKED_AUDIO_INGEST.read_text(encoding="utf-8"))
         nav = ingest.get("source_navigation", {})
         records.append(
-            {
+            with_community_status(
+                {
                 "candidate_class": "keep_local_supersedes",
                 "lane": "audio-spc700",
                 "source_kind": "source-backed-audio-ingest",
@@ -364,12 +538,14 @@ def audio_records() -> list[dict[str, Any]]:
                 "source_backed_vcmd_count": nav.get("vcmd_entry_count"),
                 "reason": "byte-perfect sound-driver source remains the audio command authority; restored ebsrc audio names are secondary corroboration",
                 "recommended_action": recommended_action("keep_local_supersedes"),
-            }
+                }
+            )
         )
     try:
         for entry in audio_spc700_source.vcmd_entry_records():
             records.append(
-                {
+                with_community_status(
+                    {
                     "candidate_class": "keep_local_supersedes",
                     "lane": "audio-spc700",
                     "source_kind": "source-backed-vcmd",
@@ -380,7 +556,8 @@ def audio_records() -> list[dict[str, Any]]:
                     "arg_length": entry["arg_length"],
                     "reason": "source-backed VCMD label and argument length already integrated into audio semantics",
                     "recommended_action": recommended_action("keep_local_supersedes"),
-                }
+                    }
+                )
             )
     except (FileNotFoundError, ValueError):
         pass
@@ -391,7 +568,8 @@ def audio_records() -> list[dict[str, Any]]:
             if not match or is_placeholder(match.group(1)):
                 continue
             records.append(
-                {
+                with_community_status(
+                    {
                     "candidate_class": "blocked_unaddressed_or_payload_only",
                     "lane": "audio-spc700",
                     "source_kind": "restored-ebsrc-spc700-label",
@@ -400,7 +578,8 @@ def audio_records() -> list[dict[str, Any]]:
                     "name": match.group(1),
                     "reason": "restored ebsrc SPC700 label is useful for comparison, but byte-perfect sound-driver source remains authoritative",
                     "recommended_action": recommended_action("blocked_unaddressed_or_payload_only"),
-                }
+                    }
+                )
             )
     return records
 
@@ -409,6 +588,7 @@ def summarize(candidates: list[dict[str, Any]], banks: list[str]) -> dict[str, A
     class_counts = Counter(record["candidate_class"] for record in candidates)
     lane_counts = Counter(record["lane"] for record in candidates)
     source_counts = Counter(record["source_kind"] for record in candidates)
+    community_counts = Counter(record["community_alignment_status"] for record in candidates)
     source_integrated = sum(
         1
         for record in candidates
@@ -417,11 +597,14 @@ def summarize(candidates: list[dict[str, Any]], banks: list[str]) -> dict[str, A
     )
     for name in CLASSES:
         class_counts.setdefault(name, 0)
+    for name in COMMUNITY_STATUSES:
+        community_counts.setdefault(name, 0)
     return {
         "bank_count": len(banks),
         "banks": banks,
         "candidate_count": len(candidates),
         "class_counts": dict(sorted(class_counts.items())),
+        "community_alignment_counts": dict(sorted(community_counts.items())),
         "lane_counts": dict(sorted(lane_counts.items())),
         "source_kind_counts": dict(sorted(source_counts.items())),
         "source_integrated_ebsrc_symbol_count": source_integrated,
@@ -465,6 +648,7 @@ def build(banks: list[str]) -> dict[str, Any]:
         ],
         "summary": summary,
         "candidate_classes": {name: recommended_action(name) for name in CLASSES},
+        "community_alignment_statuses": {name: community_action(name) for name in COMMUNITY_STATUSES},
         "source_integrated_ebsrc_symbol_examples": source_integrated_examples,
         "sample_candidates_by_class": {name: by_class.get(name, [])[:20] for name in CLASSES},
         "candidates": candidates,
@@ -478,6 +662,16 @@ def table_row(record: dict[str, Any]) -> str:
     local = record.get("local_name") or ""
     lane = record.get("lane") or ""
     return f"| `{target}` | `{lane}` | `{reference}` | `{ebsrc}` | `{local}` | {record.get('reason', '')} |"
+
+
+def community_table_row(record: dict[str, Any]) -> str:
+    target = record.get("start") or record.get("name") or record.get("command") or ""
+    reference = record.get("include_path") or record.get("reference_path") or ""
+    ebsrc = record.get("ebsrc_symbol") or record.get("name") or ""
+    local = record.get("local_name") or ""
+    confidence = record.get("community_alignment_confidence") or ""
+    action = record.get("recommended_action") or ""
+    return f"| `{target}` | `{record.get('lane', '')}` | `{reference}` | `{ebsrc}` | `{local}` | `{confidence}` | {action} |"
 
 
 def render_markdown(data: dict[str, Any]) -> str:
@@ -495,6 +689,10 @@ def render_markdown(data: dict[str, Any]) -> str:
         f"- first curated adoption policy: `{summary['first_curated_adoption_policy']}`",
         f"- ebsrc symbols already integrated in local source: `{summary['source_integrated_ebsrc_symbol_count']}`",
         "",
+        "## How to Read This Repo Against ebsrc",
+        "",
+        "Local semantic names remain the primary source of truth for C-port work. Exact-address restored ebsrc names are compatibility navigation: when a source-visible alias is safe, the source keeps the local primary label and adds an ebsrc alias; when a name is weaker, conflicting, unaddressed, or macro-only, this manifest keeps it in the crosswalk instead of changing source labels.",
+        "",
         "## Candidate Classes",
         "",
         "| Class | Count | Action |",
@@ -502,6 +700,17 @@ def render_markdown(data: dict[str, Any]) -> str:
     ]
     for name, count in summary["class_counts"].items():
         lines.append(f"| `{name}` | {count} | {data['candidate_classes'][name]} |")
+    lines.extend(
+        [
+            "",
+            "## Community Alignment Statuses",
+            "",
+            "| Status | Count | Action |",
+            "| --- | ---: | --- |",
+        ]
+    )
+    for name, count in summary["community_alignment_counts"].items():
+        lines.append(f"| `{name}` | {count} | {data['community_alignment_statuses'][name]} |")
     lines.extend(
         [
             "",
@@ -588,20 +797,107 @@ def render_markdown(data: dict[str, Any]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+def render_community_markdown(data: dict[str, Any]) -> str:
+    summary = data["summary"]
+    lines = [
+        "# ebsrc Community Crosswalk",
+        "",
+        "Status: alias-first community navigation is generated from exact-address restored ebsrc references while local C-port semantic names remain primary.",
+        "",
+        "## How to Read This Repo Against ebsrc",
+        "",
+        "When a local name is stronger, source keeps that local primary name. Safe exact-address ebsrc names are added as compatibility aliases such as `EBSRC_NAME = LocalPrimaryName`; otherwise the ebsrc name stays in this crosswalk as searchable provenance. Macro vocabulary, placeholders, and unaddressed payload names are reference-only until local opcode or reader-path evidence exists.",
+        "",
+        "## Status Counts",
+        "",
+        "| Status | Count | Meaning |",
+        "| --- | ---: | --- |",
+    ]
+    for name, count in summary["community_alignment_counts"].items():
+        lines.append(f"| `{name}` | {count} | {data['community_alignment_statuses'][name]} |")
+    lines.extend(
+        [
+            "",
+            "## Source Alias Integrated",
+            "",
+            "| Target | Lane | ebsrc Path | ebsrc Name | Local Primary | Confidence | Action |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    integrated = [
+        record
+        for record in data["candidates"]
+        if record.get("community_alignment_status") == "source_alias_integrated"
+    ]
+    for record in integrated[:80]:
+        lines.append(community_table_row(record))
+    lines.extend(
+        [
+            "",
+            "## Source Alias Ready",
+            "",
+            "These exact-address entries are safe candidates for source-visible compatibility aliases. A non-empty table is a backlog for the alias applier or manual review.",
+            "",
+            "| Target | Lane | ebsrc Path | ebsrc Name | Local Primary | Confidence | Action |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    ready = [
+        record
+        for record in data["candidates"]
+        if record.get("community_alignment_status") == "source_alias_ready"
+    ]
+    for record in ready[:80]:
+        lines.append(community_table_row(record))
+    lines.extend(
+        [
+            "",
+            "## Crosswalk Samples By Lane",
+            "",
+            "| Target | Lane | ebsrc Path | ebsrc Name | Local Primary | Confidence | Action |",
+            "| --- | --- | --- | --- | --- | --- | --- |",
+        ]
+    )
+    seen_lanes: set[str] = set()
+    for record in data["candidates"]:
+        lane = str(record.get("lane") or "")
+        if lane in seen_lanes:
+            continue
+        if record.get("community_alignment_status") in {"docs_crosswalk_only", "local_primary_stronger", "blocked_conflict_or_unproven"}:
+            lines.append(community_table_row(record))
+            seen_lanes.add(lane)
+    lines.extend(
+        [
+            "",
+            "## Guardrails",
+            "",
+            "- Do not rename local semantic labels away from their C-port-oriented names.",
+            "- Add source aliases only for exact-address, role-compatible ebsrc names.",
+            "- Keep ebsrc `UNKNOWN`, generic payload, and macro-only names in docs until local proof exists.",
+            "- Run byte-equivalence for every bank touched by source-visible aliases.",
+            "",
+        ]
+    )
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def main() -> int:
     args = parse_args()
     banks = [bank.upper() for bank in (args.bank or list(DEFAULT_BANKS))]
     data = build(banks)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.notes.parent.mkdir(parents=True, exist_ok=True)
+    args.community_notes.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
     args.notes.write_text(render_markdown(data), encoding="utf-8")
+    args.community_notes.write_text(render_community_markdown(data), encoding="utf-8")
     print(
         "Built ebsrc knowns integration candidates: "
         f"{data['summary']['candidate_count']} candidates across {len(banks)} banks"
     )
     print(f"Wrote {args.output}")
     print(f"Wrote {args.notes}")
+    print(f"Wrote {args.community_notes}")
     return 0
 
 
