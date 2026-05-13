@@ -29,7 +29,7 @@
   "summary": {
     "handoff_job_count": 5,
     "minimum_breakpoint_count": 10,
-    "breakpoint_count": 29,
+    "breakpoint_count": 32,
     "source_promotion_allowed": false,
     "behavior_change_allowed": false
   },
@@ -474,6 +474,12 @@
           "required_for_minimum_capture": false
         },
         {
+          "address": "C2:7550",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
           "address": "C2:A57A",
           "address_space": "snes_cpu_bus",
           "hit_policy": "capture_registers_dp_wram_then_continue",
@@ -493,6 +499,18 @@
         },
         {
           "address": "C2:941D",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:DC1C",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:DC66",
           "address_space": "snes_cpu_bus",
           "hit_policy": "capture_registers_dp_wram_then_continue",
           "required_for_minimum_capture": false
@@ -536,6 +554,9 @@
         "amount_input",
         "damage_selector_x",
         "selected_target_row",
+        "selected_target_row_decoded",
+        "selected_target_row_at_downstream_decoded",
+        "damage_entry_samples",
         "caller_family",
         "post_call_hp_roller_state",
         "collapse_candidate_state",

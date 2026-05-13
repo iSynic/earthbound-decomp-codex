@@ -9,7 +9,7 @@ emulator, and it does not prove behavior by itself.
 ## Summary
 
 - handoff jobs: `5`
-- breakpoints: `29`
+- breakpoints: `32`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
 
@@ -32,7 +32,7 @@ emulator, and it does not prove behavior by itself.
 | 1 | `c1_c2_target_action_staging` | `C1:ADB4, C1:CE85, C1:CFC6, C2:B930` | `31` | `build/c2/battle-trace-oracles/c1_c2_target_action_staging/result.json` |
 | 1 | `c2_40a4_current_action_payload` | `C2:40A4` | `27` | `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json` |
 | 1 | `c2_724a_affliction_writer_matrix` | `C2:724A, C2:9917` | `29` | `build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json` |
-| 1 | `c2_8125_damage_abi_boundary` | `C2:8125` | `26` | `build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json` |
+| 1 | `c2_8125_damage_abi_boundary` | `C2:8125` | `29` | `build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json` |
 | 2 | `resource_amount_pair_magnet_vs_pp_loss` | `C2:8E42, C2:9F5E` | `27` | `build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/result.json` |
 
 ## Job Details

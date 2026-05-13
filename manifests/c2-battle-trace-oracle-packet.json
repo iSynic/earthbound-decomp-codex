@@ -350,10 +350,13 @@
       "addresses": [
         "C2:8125",
         "C2:7EAF",
+        "C2:7550",
         "C2:A57A",
         "C2:A658",
         "C2:A5EC",
-        "C2:941D"
+        "C2:941D",
+        "C1:DC1C",
+        "C1:DC66"
       ],
       "capture_fields": [
         "trace_id",
@@ -378,6 +381,9 @@
         "amount_input",
         "damage_selector_x",
         "selected_target_row",
+        "selected_target_row_decoded",
+        "selected_target_row_at_downstream_decoded",
+        "damage_entry_samples",
         "caller_family",
         "post_call_hp_roller_state",
         "collapse_candidate_state",

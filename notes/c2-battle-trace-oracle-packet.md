@@ -22,7 +22,7 @@ comment or name promotion.
 | 1 | 1 | `c1_c2_target_action_staging` | `True` | `C1:ADB4, C1:CE85, C1:CFC6, C2:B930, C2:BAC5` | `build/c2/battle-trace-oracles/c1_c2_target_action_staging/result.json` |
 | 2 | 1 | `c2_40a4_current_action_payload` | `True` | `C2:40A4, C2:3D05, D5:7B68` | `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json` |
 | 3 | 1 | `c2_724a_affliction_writer_matrix` | `True` | `C2:724A, C2:9917, C2:9F06, C2:9FFE, C2:A056, C2:8CF1` | `build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json` |
-| 4 | 1 | `c2_8125_damage_abi_boundary` | `True` | `C2:8125, C2:7EAF, C2:A57A, C2:A658, C2:A5EC, C2:941D` | `build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json` |
+| 4 | 1 | `c2_8125_damage_abi_boundary` | `True` | `C2:8125, C2:7EAF, C2:7550, C2:A57A, C2:A658, C2:A5EC` | `build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json` |
 | 5 | 2 | `resource_amount_pair_magnet_vs_pp_loss` | `True` | `C2:8E42, C2:9F5E, C2:9FE1, C2:721D, C2:7318, C2:B360` | `build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/result.json` |
 | 6 | 2 | `battle_text_payload_join` | `False` | `C1:DC1C, C1:DC66, C1:AD0A, C1:AD26, EF:69A1, EF:75AB` | `build/c2/battle-trace-oracles/battle_text_payload_join/result.json` |
 | 7 | 2 | `healing_ladder_gamma_omega` | `False` | `C2:9AEA, C2:9B7A, C2:9C2C, C2:9CB8, C2:7397, C2:7294` | `build/c2/battle-trace-oracles/healing_ladder_gamma_omega/result.json` |
