@@ -266,7 +266,11 @@
         "C2:A5EC",
         "C2:941D",
         "C1:DC1C",
-        "C1:DC66"
+        "C1:DC66",
+        "C1:AD0A",
+        "C1:AD26",
+        "C1:7EED",
+        "C1:0DF6"
       ],
       "diary_entries": [
         21,
@@ -302,6 +306,8 @@
         "selected_target_row_decoded",
         "selected_target_row_at_downstream_decoded",
         "damage_entry_samples",
+        "c1_text_join_samples",
+        "text_payload_slot_samples",
         "caller_family",
         "post_call_hp_roller_state",
         "collapse_candidate_state",

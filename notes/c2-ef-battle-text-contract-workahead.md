@@ -385,6 +385,14 @@ Concrete C2 caller examples:
 - `C2:7294` (`src/c2/c2_7294_apply_battler_hp_recovery_feedback.asm`): success path chooses `EF:69BA`, stages `{delta}` as the secondary payload, then `JSL C1:DC66`.
 - `C2:7318` (`src/c2/c2_7318_apply_battler_pp_recovery_feedback.asm`): chooses `EF:69D2`, stages `{delta}`, then `JSL C1:DC66`.
 - Late action-table numeric effects (`notes/class2-late-stat-and-resource-family-c28e42-c29e38.md`) repeatedly “mutate stat/resource → print `{delta}` via `DC66`”.
+- Phase 2 Mesen trace evidence for `c2_8125_damage_abi_boundary` now observes
+  the same amount lane in hit resolution: `C2:8125` reaches `C1:DC66` with
+  EBATTLE4 scripts including `EF:75C2`, `EF:75D9`, and `EF:7607`, stages the
+  damage amount in caller `$12`, commits it through `C1:AD0A` to
+  `$9D12/$9D14`, then consumes it through `C1:7EED -> C1:AD26 -> C1:0DF6`.
+  Adjacent direct text in the same fixture reaches `C1:DC1C` with scripts such
+  as `EF:7630` and `EF:7655`, keeping direct result text separate from the
+  amount-bearing lane.
 
 ### `C1:DD9F` — `DisplayCurrentActionTableTextMode1` (mode-1 wrapper)
 

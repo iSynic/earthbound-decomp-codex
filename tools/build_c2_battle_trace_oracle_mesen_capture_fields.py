@@ -22,8 +22,15 @@ ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PACKET = ROOT / "manifests" / "c2-battle-trace-oracle-packet.json"
 SUPPORTED_ORACLES = {"c2_8125_damage_abi_boundary"}
 ROUTINE_LABELS = {
+    "C1:DC1C": "C1DC1C_DisplayBattleTextFromPointer",
+    "C1:DC66": "C1DC66_DisplayBattleTextWithSubstitutionPayload",
+    "C1:AD0A": "C1AD0A_StageBattleTextSubstitutionPointer",
+    "C1:AD26": "C1AD26_ReadBattleTextSubstitutionPointer",
+    "C1:7EED": "C17EED_PrintActionAmountConsumer",
+    "C1:0DF6": "C10DF6_PrintNumber",
     "C2:8125": "C28125_ApplyDamageToSelectedTarget",
     "C2:7EAF": "C27EAF_RunHitResolutionAndStatusActionCluster",
+    "C2:7550": "C27550_StartSelectedBattlerCollapseAfflictionPath",
     "C2:941D": "C2941D_CheckSelectedBattlerTimedSubstateBlocker",
 }
 BATTLE_ROW_FIELD_OFFSETS = {
@@ -182,6 +189,18 @@ def u16le(data: bytes, offset: int) -> int | None:
     return data[offset] | (data[offset + 1] << 8)
 
 
+def pointer_word(data: bytes, offset: int) -> dict[str, str | None]:
+    value = u16le(data, offset)
+    return {"offset": f"+0x{offset:02X}", "word": hex_word(value)}
+
+
+def format_far_pointer(lo: int | None, hi: int | None) -> str:
+    if lo is None or hi is None:
+        return "not_captured"
+    bank = hi & 0x00FF
+    return f"{bank:02X}:{lo:04X}"
+
+
 def decode_battle_row(row_hex: str, *, pointer: str | None = None) -> dict[str, Any]:
     data = parse_hex_bytes(row_hex)
     fields: dict[str, Any] = {
@@ -199,6 +218,110 @@ def decode_battle_row(row_hex: str, *, pointer: str | None = None) -> dict[str, 
         "collapse_call_candidate_when_hp_live_plus_0x11_becomes_zero_after_calc_damage": fields["hp_live_word_plus_0x11"],
     }
     return fields
+
+
+def decode_c1_text_entry(row: dict[str, Any]) -> dict[str, Any]:
+    pc = str(row.get("pc") or "")
+    data = parse_hex_bytes(str(row.get("directPageHex") or ""))
+    primary_lo = u16le(data, 0x0E)
+    primary_hi = u16le(data, 0x10)
+    payload_lo = u16le(data, 0x12)
+    payload_hi = u16le(data, 0x14)
+    event: dict[str, Any] = {
+        "frame": row.get("frame"),
+        "pc": pc,
+        "routine_label": ROUTINE_LABELS.get(pc, "unknown_c1_text_entry"),
+        "cpu_dp": row.get("cpuDP"),
+        "cpu_sp": row.get("cpuSP"),
+        "primary_text_pointer_0e_10": row.get("callerDpPrimaryTextPointer") or format_far_pointer(primary_lo, primary_hi),
+        "dp_words": {
+            "caller_primary_text_lo_plus_0x0e": pointer_word(data, 0x0E),
+            "caller_primary_text_hi_plus_0x10": pointer_word(data, 0x10),
+            "caller_payload_lo_plus_0x12": pointer_word(data, 0x12),
+            "caller_payload_hi_plus_0x14": pointer_word(data, 0x14),
+        },
+        "runner_decoded_slots": {
+            "caller_dp_primary_text_pointer": row.get("callerDpPrimaryTextPointer"),
+            "caller_dp_payload_pointer": row.get("callerDpPayloadPointer"),
+            "caller_dp_payload_lo": row.get("callerDpPayloadLo"),
+            "caller_dp_payload_hi": row.get("callerDpPayloadHi"),
+            "wram9d11": row.get("wram9d11"),
+            "wram9d12": row.get("wram9d12"),
+            "wram9d14": row.get("wram9d14"),
+            "text_payload_slots_hex": row.get("textPayloadSlotsHex"),
+        },
+    }
+    if pc == "C1:DC66":
+        event.update(
+            {
+                "text_call_kind": "display_with_substitution_payload",
+                "substitution_payload_12_14": {
+                    "lo": hex_word(payload_lo),
+                    "hi": hex_word(payload_hi),
+                    "as_far_pointer_if_pointer_payload": format_far_pointer(payload_lo, payload_hi),
+                    "amount_low_word_if_amount_payload": hex_word(payload_lo),
+                },
+                "contract_note": (
+                    "C1:DC66 reads caller $0E/$10 as the primary EF script pointer and caller $12/$14 "
+                    "as the payload committed through C1:AD0A into $9D12/$9D14."
+                ),
+            }
+        )
+    elif pc == "C1:DC1C":
+        event.update(
+            {
+                "text_call_kind": "direct_text_pointer_display",
+                "substitution_payload_12_14": "not_committed_by_c1_dc1c",
+                "contract_note": "C1:DC1C reads caller $0E/$10 as the EF script pointer and does not commit a secondary payload.",
+            }
+        )
+    else:
+        event["text_call_kind"] = "unknown"
+    return event
+
+
+def build_c1_text_events(rows: list[dict[str, Any]], *, start_index: int = -1) -> list[dict[str, Any]]:
+    events: list[dict[str, Any]] = []
+    for row in rows[start_index + 1 :]:
+        if row.get("type") != "breakpoint_hit":
+            continue
+        if row.get("pc") in {"C1:DC1C", "C1:DC66"}:
+            events.append(decode_c1_text_entry(row))
+    return events
+
+
+def build_text_payload_slot_samples(rows: list[dict[str, Any]], *, start_index: int = -1) -> list[dict[str, Any]]:
+    samples: list[dict[str, Any]] = []
+    for row in rows[start_index + 1 :]:
+        if row.get("type") != "breakpoint_hit":
+            continue
+        pc = str(row.get("pc") or "")
+        if pc not in {"C1:DC1C", "C1:DC66", "C1:AD0A", "C1:AD26", "C1:7EED", "C1:0DF6"}:
+            continue
+        samples.append(
+            {
+                "frame": row.get("frame"),
+                "pc": pc,
+                "routine_label": ROUTINE_LABELS.get(pc, "unknown_text_payload_join"),
+                "caller_dp_primary_text_pointer": row.get("callerDpPrimaryTextPointer"),
+                "caller_dp_payload_pointer": row.get("callerDpPayloadPointer"),
+                "caller_dp_payload_lo": row.get("callerDpPayloadLo"),
+                "caller_dp_payload_hi": row.get("callerDpPayloadHi"),
+                "wram9d11": row.get("wram9d11"),
+                "wram9d12": row.get("wram9d12"),
+                "wram9d14": row.get("wram9d14"),
+                "text_payload_slots_hex": row.get("textPayloadSlotsHex"),
+                "consumer_role": {
+                    "C1:DC1C": "direct display wrapper entry",
+                    "C1:DC66": "display wrapper with payload entry",
+                    "C1:AD0A": "payload slot setter",
+                    "C1:AD26": "payload slot getter",
+                    "C1:7EED": "1C 0F action amount text consumer",
+                    "C1:0DF6": "number printer reached from amount consumer",
+                }.get(pc, "unknown"),
+            }
+        )
+    return samples
 
 
 def build_c2_8125_samples(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -249,6 +372,7 @@ def build_c2_8125_fields(job: dict[str, Any], rows: list[dict[str, Any]], *, rom
         raise ValueError("trace does not contain a C2:8125 breakpoint hit")
     hit_index = row_index(rows, hit)
     downstream = first_after(rows, hit_index, event_type="breakpoint_hit", pc="C2:7EAF")
+    collapse = first_after(rows, hit_index, event_type="breakpoint_hit", pc="C2:7550")
     before_watch = first_after(rows, hit_index, event_type="watch_snapshot", pc="C2:8125")
     after_watch = first_after(rows, hit_index, event_type="watch_snapshot", pc="C2:7EAF")
     observed = sorted({str(row.get("pc")) for row in rows if row.get("type") == "breakpoint_hit" and row.get("pc")})
@@ -260,6 +384,9 @@ def build_c2_8125_fields(job: dict[str, Any], rows: list[dict[str, Any]], *, rom
     decoded_target_row = decode_battle_row(target_row, pointer=target_pointer)
     decoded_downstream_row = decode_battle_row(downstream_row, pointer=target_pointer)
     samples = build_c2_8125_samples(rows)
+    c1_text_events = build_c1_text_events(rows, start_index=hit_index)
+    text_payload_slot_samples = build_text_payload_slot_samples(rows, start_index=hit_index)
+    first_text_event = c1_text_events[0] if c1_text_events else None
     collapse_state = {
         "source_contract": (
             "C2:8125 first requires selected row +0x0C == 0x01 and +0x1D != 0x01; "
@@ -267,11 +394,13 @@ def build_c2_8125_fields(job: dict[str, Any], rows: list[dict[str, Any]], *, rom
         ),
         "first_sample": decoded_target_row["c28125_source_gate_summary"],
         "observed_sample_count": len(samples),
-        "proof_limit": "current trace observes live damage entries but does not prove the collapse-finalization branch or EF result-text pointer.",
+        "collapse_start_observed": collapse is not None,
+        "proof_limit": "current trace observes live damage and C1 text joins but does not prove the collapse-finalization branch.",
     }
     generated_evidence = (
         "Mesen canonical trace hit C2:8125 with CPU register capture and the pointed-to $A972 target row; "
-        "the capture assembler decodes the row gates used by the local source. Text pointer/collapse labels remain follow-up decode work."
+        "the capture assembler decodes the row gates and C1 battle-text entry joins used by the local source. "
+        "Collapse remains follow-up decode work."
     )
     fields = {
         "trace_id": f"{trace.as_posix()} sha256:{sha256(trace)}",
@@ -289,8 +418,8 @@ def build_c2_8125_fields(job: dict[str, Any], rows: list[dict[str, Any]], *, rom
         "direct_page_snapshot": require_text(hit, "directPageHex"),
         "wram_before": target_row,
         "wram_after": downstream_row,
-        "ef_text_pointer": "not_captured_by_current_mesen_runner",
-        "c1_text_call": "not_captured_by_current_mesen_runner",
+        "ef_text_pointer": (first_text_event or {}).get("primary_text_pointer_0e_10", "not_captured_by_current_mesen_runner"),
+        "c1_text_call": compact_json(c1_text_events) if c1_text_events else "not_captured_by_current_mesen_runner",
         "classification": classification,
         "classification_evidence": evidence or generated_evidence,
         "amount_input": require_text(hit, "cpuA"),
@@ -299,10 +428,12 @@ def build_c2_8125_fields(job: dict[str, Any], rows: list[dict[str, Any]], *, rom
         "selected_target_row_decoded": decoded_target_row,
         "selected_target_row_at_downstream_decoded": decoded_downstream_row,
         "damage_entry_samples": samples,
+        "c1_text_join_samples": c1_text_events,
+        "text_payload_slot_samples": text_payload_slot_samples,
         "caller_family": "damage ABI reached from numbered multi-enemy battle fixture; exact caller subfamily still needs call-stack/source join",
         "post_call_hp_roller_state": compact_json({"first_downstream_row": decoded_downstream_row, "sample_count": len(samples)}),
         "collapse_candidate_state": compact_json(collapse_state),
-        "result_text_pointer": "not_captured_by_current_mesen_runner",
+        "result_text_pointer": compact_json({"first_text_event": first_text_event, "all_text_event_count": len(c1_text_events)}),
         "observed_addresses": observed,
         "downstream_routine_label": ROUTINE_LABELS.get(str((downstream or {}).get("pc", "")), "not_observed"),
     }

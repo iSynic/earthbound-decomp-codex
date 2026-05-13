@@ -155,10 +155,17 @@ used to allocate the local frame, and `$A972` supplies the selected battler row.
 The decoded row snapshots also show the source gates used by this helper:
 `+0x0C` active/consciousness is `1`, primary affliction `+0x1D` is clear, timed
 substate `+0x23` is clear, shield countdown `+0x25` is clear, and HP live
-`+0x11` remains nonzero in the observed samples. This makes the ABI and row
-field read trace-observed, but not proof-grade for collapse or text output yet.
-The current runner still does not capture the exact caller subfamily, C1/EF
-text calls, or a `C2:7550` collapse-finalization case.
+`+0x11` remains nonzero in the observed samples. The expanded runner also
+captures the downstream C1/EF amount-text lane: damage entries reach
+`C1:DC66`, stage EF scripts such as `EF:75C2`, `EF:75D9`, and `EF:7607` in
+caller `$0E/$10`, commit the amount payload through `C1:AD0A` into
+`$9D12/$9D14`, consume it through the `C1:7EED` `1C 0F` action-amount command,
+read it with `C1:AD26`, and enter the C1 number printer at `C1:0DF6`. Direct
+result text through `C1:DC1C` is also observed for adjacent miss/SMAAAASH
+branches such as `EF:7630` and `EF:7655`. This makes the ABI, selected-row
+fields, and C1/EF amount-result join trace-observed, but still not proof-grade
+for the broader damage family because caller subfamily breadth and a real
+`C2:7550` collapse-finalization case remain open.
 
 ## Evidence Inputs
 

@@ -29,7 +29,7 @@
   "summary": {
     "handoff_job_count": 5,
     "minimum_breakpoint_count": 10,
-    "breakpoint_count": 32,
+    "breakpoint_count": 36,
     "source_promotion_allowed": false,
     "behavior_change_allowed": false
   },
@@ -514,6 +514,30 @@
           "address_space": "snes_cpu_bus",
           "hit_policy": "capture_registers_dp_wram_then_continue",
           "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:AD0A",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:AD26",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:7EED",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:0DF6",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
         }
       ],
       "watch_ranges": [
@@ -557,6 +581,8 @@
         "selected_target_row_decoded",
         "selected_target_row_at_downstream_decoded",
         "damage_entry_samples",
+        "c1_text_join_samples",
+        "text_payload_slot_samples",
         "caller_family",
         "post_call_hp_roller_state",
         "collapse_candidate_state",
