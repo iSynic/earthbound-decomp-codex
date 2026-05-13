@@ -115,6 +115,15 @@ promotion gates while still showing whether the run approached `C2:B930` or
   `C1:BA60`. For `c2_40a4_current_action_payload`, they are `C2:77CA`,
   `C2:90C6`, `C2:A89D`, and `C0:9279`. These are discovery aids only; the
   minimum gates remain `C2:B930` and `C2:40A4`.
+- The enhanced route-gap probe sweep added four `c2_40a4_current_action_payload`
+  route-hint fixtures. Saves 5, 7, 11, and the PSI-menu save reached `C0:9279`;
+  save 7 also reached `C2:77CA`. None reached `C2:40A4`, so the useful next
+  fixture is still an action state immediately before a real second-pointer
+  payload is applied rather than a post-result or text-context neighbor.
+- The enhanced `c1_c2_target_action_staging` route sweep still did not reach
+  `C2:B930` or its six C1 pre-export probe sites. Save 11 repeatedly hits
+  `C2:BAC5`, which makes it another target-count fixture, not a snapshot-export
+  fixture.
 - The current set did not satisfy the first-pass affliction-writer or resource
   amount-pair minimums. Save 6 is useful as an already-afflicted-state
   snapshot, but not as proof of the affliction writer.

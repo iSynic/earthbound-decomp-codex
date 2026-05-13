@@ -16,6 +16,8 @@ DEFAULT_PROBE_ROOTS = (
     ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "battle-fixtures-1-7",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "collapse-save-state-probes-neutral" / "hp_roller_collapse_boundary",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c1-c2-target-action-staging",
+    ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c1-c2-target-action-staging",
+    ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c2-40a4-current-action-payload",
 )
 DEFAULT_HANDOFF = ROOT / "manifests" / "c2-battle-trace-oracle-emulator-handoff.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "c2-battle-trace-manual-probe-matrix.json"
@@ -88,6 +90,7 @@ def build_record(probe_root: Path, summary_path: Path, minimums: dict[str, list[
     mesen = load_json(mesen_path) if mesen_path.is_file() else {}
     oracle_id = str(summary.get("oracle_id"))
     observed = [str(item) for item in summary.get("observed_addresses", [])]
+    probe_observed = [str(item) for item in summary.get("probe_observed_addresses", [])]
     configured_minimum = minimums.get(oracle_id, [str(item) for item in summary.get("configured_minimum_hits", [])])
     missing_minimum = sorted(set(configured_minimum) - set(observed))
     relative_parts = summary_path.relative_to(probe_root).parts
@@ -98,7 +101,10 @@ def build_record(probe_root: Path, summary_path: Path, minimums: dict[str, list[
         "oracle_id": oracle_id,
         "minimum_hits_satisfied": bool(summary.get("minimum_hits_satisfied")) and not missing_minimum,
         "observed_addresses": observed,
+        "probe_observed_addresses": probe_observed,
         "breakpoint_hit_counts": summary.get("breakpoint_hit_counts", {}),
+        "probe_breakpoint_hit_counts": summary.get("probe_breakpoint_hit_counts", {}),
+        "probe_route_group_hit_counts": summary.get("probe_route_group_hit_counts", {}),
         "configured_minimum_hits": configured_minimum,
         "missing_minimum_hits": missing_minimum,
         "first_frame": summary.get("first_frame"),
@@ -118,6 +124,8 @@ def classify_oracle(records: list[dict[str, Any]], configured_minimum: list[str]
         return "minimum-hit-candidate"
     if any(record["observed_addresses"] for record in records):
         return "partial-route-observed"
+    if any(record["probe_observed_addresses"] for record in records):
+        return "probe-route-observed"
     if records:
         return "probed-no-route"
     if configured_minimum:
@@ -130,14 +138,21 @@ def summarize_route_groups(oracle_id: str, records: list[dict[str, Any]], route_
     if not groups:
         return {}
     fixture_hits: dict[str, set[str]] = defaultdict(set)
+    probe_fixture_hits: dict[str, set[str]] = defaultdict(set)
     aggregate_hits: set[str] = set()
+    aggregate_probe_hits: set[str] = set()
     for record in records:
         hits = set(record["observed_addresses"])
+        probe_hits = set(record["probe_observed_addresses"])
         aggregate_hits.update(hits)
+        aggregate_probe_hits.update(probe_hits)
         for group_id, group in groups.items():
             addresses = [str(item) for item in group.get("addresses", [])]
             if set(addresses).issubset(hits):
                 fixture_hits[group_id].add(record["fixture_id"])
+            probe_hints = {str(item) for item in group.get("probe_breakpoint_hints", [])}
+            if probe_hints & probe_hits:
+                probe_fixture_hits[group_id].add(record["fixture_id"])
     summary: dict[str, Any] = {}
     for group_id, group in groups.items():
         addresses = [str(item) for item in group.get("addresses", [])]
@@ -152,6 +167,8 @@ def summarize_route_groups(oracle_id: str, records: list[dict[str, Any]], route_
             "covered_by_any_probe": not missing,
             "missing_from_all_probes": missing,
             "fixtures_covering_group": sorted(fixture_hits.get(group_id, set())),
+            "probe_hint_addresses_observed": sorted(set(group.get("probe_breakpoint_hints", [])) & aggregate_probe_hits),
+            "fixtures_with_probe_hints": sorted(probe_fixture_hits.get(group_id, set())),
         }
     return summary
 
@@ -168,9 +185,14 @@ def summarize_oracles(
     for oracle_id in sorted(set(minimums) | set(by_oracle)):
         oracle_records = sorted(by_oracle.get(oracle_id, []), key=lambda item: item["fixture_id"])
         hit_counter: Counter[str] = Counter()
+        probe_hit_counter: Counter[str] = Counter()
+        probe_route_group_counter: Counter[str] = Counter()
         fixture_hits: list[dict[str, Any]] = []
+        probe_fixture_hits: list[dict[str, Any]] = []
         for record in oracle_records:
             hit_counter.update(record["observed_addresses"])
+            probe_hit_counter.update(record["probe_observed_addresses"])
+            probe_route_group_counter.update(record.get("probe_route_group_hit_counts", {}))
             if record["observed_addresses"]:
                 fixture_hits.append(
                     {
@@ -178,6 +200,17 @@ def summarize_oracles(
                         "minimum_hits_satisfied": record["minimum_hits_satisfied"],
                         "observed_addresses": record["observed_addresses"],
                         "breakpoint_hit_counts": record["breakpoint_hit_counts"],
+                        "first_frame": record["first_frame"],
+                        "last_frame": record["last_frame"],
+                    }
+                )
+            if record["probe_observed_addresses"]:
+                probe_fixture_hits.append(
+                    {
+                        "fixture_id": record["fixture_id"],
+                        "probe_observed_addresses": record["probe_observed_addresses"],
+                        "probe_breakpoint_hit_counts": record["probe_breakpoint_hit_counts"],
+                        "probe_route_group_hit_counts": record.get("probe_route_group_hit_counts", {}),
                         "first_frame": record["first_frame"],
                         "last_frame": record["last_frame"],
                     }
@@ -190,9 +223,13 @@ def summarize_oracles(
                 "probe_count": len(oracle_records),
                 "minimum_hit_candidate_count": sum(1 for record in oracle_records if record["minimum_hits_satisfied"]),
                 "fixtures_with_any_hits": len(fixture_hits),
+                "fixtures_with_probe_hits": len(probe_fixture_hits),
                 "observed_address_counts": dict(sorted(hit_counter.items())),
+                "probe_observed_address_counts": dict(sorted(probe_hit_counter.items())),
+                "probe_route_group_counts": dict(sorted(probe_route_group_counter.items())),
                 "route_groups": summarize_route_groups(oracle_id, oracle_records, route_groups),
                 "fixture_hits": fixture_hits,
+                "probe_fixture_hits": probe_fixture_hits,
             }
         )
     return summaries
@@ -214,6 +251,8 @@ def build_route_gap_queue(oracle_summaries: list[dict[str, Any]]) -> list[dict[s
                     "covered_by_any_probe": bool(group.get("covered_by_any_probe")),
                     "missing_from_all_probes": missing,
                     "fixtures_covering_group": group.get("fixtures_covering_group", []),
+                    "probe_hint_addresses_observed": group.get("probe_hint_addresses_observed", []),
+                    "fixtures_with_probe_hints": group.get("fixtures_with_probe_hints", []),
                     "next_probe_goal": group.get("next_probe_goal", ""),
                     "probe_breakpoint_hints": group.get("probe_breakpoint_hints", []),
                     "watch_hints": group.get("watch_hints", []),
@@ -243,33 +282,37 @@ def render_note(manifest: dict[str, Any]) -> str:
         f"- probe records: `{manifest['summary']['record_count']}`",
         f"- oracles summarized: `{manifest['summary']['oracle_count']}`",
         f"- minimum-hit candidates: `{manifest['summary']['minimum_hit_candidate_count']}`",
+        f"- fixtures with route-hint hits: `{manifest['summary']['route_hint_fixture_count']}`",
         f"- remaining route gaps: `{manifest['summary']['remaining_route_gap_count']}`",
         f"- source promotion allowed: `{manifest['policy']['source_promotion_allowed']}`",
         f"- behavior change allowed: `{manifest['policy']['behavior_change_allowed']}`",
         "",
         "## Oracle Matrix",
         "",
-        "| Oracle | Status | Probes | Ready | Any-hit fixtures | Observed addresses |",
-        "| --- | --- | ---: | ---: | ---: | --- |",
+        "| Oracle | Status | Probes | Ready | Any-hit fixtures | Route-hint fixtures | Observed addresses | Route hints |",
+        "| --- | --- | ---: | ---: | ---: | ---: | --- | --- |",
     ]
     for item in manifest["oracles"]:
         observed = ", ".join(f"{addr}:{count}" for addr, count in item["observed_address_counts"].items()) or "-"
+        probe_observed = ", ".join(f"{addr}:{count}" for addr, count in item["probe_observed_address_counts"].items()) or "-"
         lines.append(
             f"| `{item['oracle_id']}` | `{item['status']}` | `{item['probe_count']}` | "
-            f"`{item['minimum_hit_candidate_count']}` | `{item['fixtures_with_any_hits']}` | {observed} |"
+            f"`{item['minimum_hit_candidate_count']}` | `{item['fixtures_with_any_hits']}` | "
+            f"`{item['fixtures_with_probe_hits']}` | {observed} | {probe_observed} |"
         )
     lines.extend(["", "## Route Gap Queue", ""])
     route_gap_queue = manifest.get("route_gap_queue", [])
     if route_gap_queue:
-        lines.extend(["| Oracle | Group | Status | Missing | Next probe | Breakpoints | Watches |", "| --- | --- | --- | --- | --- | --- | --- |"])
+        lines.extend(["| Oracle | Group | Status | Missing | Probe hints seen | Next probe | Breakpoints | Watches |", "| --- | --- | --- | --- | --- | --- | --- | --- |"])
         for item in route_gap_queue:
             missing = ", ".join(item.get("missing_from_all_probes", [])) or "-"
+            probe_seen = ", ".join(item.get("probe_hint_addresses_observed", [])) or "-"
             next_probe = item.get("next_probe_goal") or "-"
             breakpoints = ", ".join(f"`{address}`" for address in item.get("probe_breakpoint_hints", [])) or "-"
             watches = ", ".join(f"`{watch}`" for watch in item.get("watch_hints", [])) or "-"
             lines.append(
                 f"| `{item['oracle_id']}` | `{item['route_group']}` | `{item['status']}` | {missing} | "
-                f"{next_probe} | {breakpoints} | {watches} |"
+                f"{probe_seen} | {next_probe} | {breakpoints} | {watches} |"
             )
     else:
         lines.append("- No remaining route gaps are recorded in the current handoff metadata.")
@@ -286,6 +329,20 @@ def render_note(manifest: dict[str, Any]) -> str:
             frames = f"{fixture['first_frame']}..{fixture['last_frame']}"
             lines.append(f"| `{fixture['fixture_id']}` | `{fixture['minimum_hits_satisfied']}` | `{frames}` | {hits} |")
         lines.append("")
+    lines.extend(["## Route-Hint Fixture Hits", ""])
+    for item in manifest["oracles"]:
+        if not item["probe_fixture_hits"]:
+            continue
+        lines.append(f"### `{item['oracle_id']}`")
+        lines.append("")
+        lines.append("| Fixture | Frames | Probe hits | Route groups |")
+        lines.append("| --- | --- | --- | --- |")
+        for fixture in item["probe_fixture_hits"]:
+            hits = ", ".join(f"{addr}:{count}" for addr, count in fixture["probe_breakpoint_hit_counts"].items())
+            route_groups = ", ".join(f"{group}:{count}" for group, count in fixture["probe_route_group_hit_counts"].items()) or "-"
+            frames = f"{fixture['first_frame']}..{fixture['last_frame']}"
+            lines.append(f"| `{fixture['fixture_id']}` | `{frames}` | {hits} | {route_groups} |")
+        lines.append("")
     lines.extend(["## Route Group Coverage", ""])
     for item in manifest["oracles"]:
         route_groups = item.get("route_groups", {})
@@ -293,15 +350,16 @@ def render_note(manifest: dict[str, Any]) -> str:
             continue
         lines.append(f"### `{item['oracle_id']}`")
         lines.append("")
-        lines.append("| Group | Status | Covered | Missing | Fixtures | Next probe |")
-        lines.append("| --- | --- | --- | --- | --- | --- |")
+        lines.append("| Group | Status | Covered | Missing | Fixtures | Probe hints seen | Next probe |")
+        lines.append("| --- | --- | --- | --- | --- | --- | --- |")
         for group_id, group in route_groups.items():
             missing = ", ".join(group["missing_from_all_probes"]) or "-"
             fixtures = ", ".join(f"`{fixture}`" for fixture in group["fixtures_covering_group"]) or "-"
+            probe_seen = ", ".join(group.get("probe_hint_addresses_observed", [])) or "-"
             next_probe = group.get("next_probe_goal") or "-"
             lines.append(
                 f"| `{group_id}` | `{group['status']}` | `{group['covered_by_any_probe']}` | "
-                f"{missing} | {fixtures} | {next_probe} |"
+                f"{missing} | {fixtures} | {probe_seen} | {next_probe} |"
             )
         lines.append("")
     lines.extend(
@@ -310,8 +368,9 @@ def render_note(manifest: dict[str, Any]) -> str:
             "",
             "- `minimum-hit-candidate` means the ignored trace reached every configured minimum hit and may be promoted only after canonical rerun plus reviewed capture fields.",
             "- `partial-route-observed` means the fixture reaches useful neighboring code but is not enough for a reviewed oracle result.",
+            "- Route-hint fixtures hit optional approach breakpoints and are discovery aids only; they do not satisfy minimum hits or permit source promotion.",
             "- `probed-no-route` means the current local fixtures did not reach the lane.",
-            "- `c2_40a4_current_action_payload` has only `C2:3D05` neighbor/context hits in the current fixture set. The next useful fixture should stop immediately before confirming a concrete second-pointer curative, recovery, item-status, or random damage/status item payload against a selected target.",
+            "- `c2_40a4_current_action_payload` has `C2:3D05` neighbor/context hits plus route-hint hits at `C0:9279` and `C2:77CA`, but still no `C2:40A4` payload-applicator hit. The next useful fixture should stop immediately before confirming a concrete second-pointer curative, recovery, item-status, or random damage/status item payload against a selected target.",
             "- `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The remaining missing route is `C2:B930` snapshot export, not `C1:CFC6`.",
         ]
     )
@@ -351,6 +410,7 @@ def main() -> int:
             "record_count": len(records),
             "oracle_count": len(oracle_summaries),
             "minimum_hit_candidate_count": sum(item["minimum_hit_candidate_count"] for item in oracle_summaries),
+            "route_hint_fixture_count": sum(item["fixtures_with_probe_hits"] for item in oracle_summaries),
             "remaining_route_gap_count": sum(
                 1
                 for item in route_gap_queue

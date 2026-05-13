@@ -4,7 +4,9 @@
   "probe_roots": [
     "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7",
     "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary",
-    "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging"
+    "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging",
+    "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
+    "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload"
   ],
   "policy": {
     "source_promotion_allowed": false,
@@ -13,11 +15,12 @@
     "raw_traces_tracked": false
   },
   "summary": {
-    "probe_root_count": 3,
-    "probe_roots_found": 3,
-    "record_count": 65,
+    "probe_root_count": 5,
+    "probe_roots_found": 5,
+    "record_count": 75,
     "oracle_count": 6,
     "minimum_hit_candidate_count": 7,
+    "route_hint_fixture_count": 4,
     "remaining_route_gap_count": 2,
     "status_counts": {
       "partial-route-observed": 2,
@@ -35,6 +38,8 @@
         "C2:B930"
       ],
       "fixtures_covering_group": [],
+      "probe_hint_addresses_observed": [],
+      "fixtures_with_probe_hints": [],
       "next_probe_goal": "Run from a party-side selected-target/action confirmation state until the snapshot export breakpoint fires before the C2:BAC5 count loop repeats.",
       "probe_breakpoint_hints": [
         "C1:B3DB",
@@ -61,6 +66,16 @@
         "C2:40A4"
       ],
       "fixtures_covering_group": [],
+      "probe_hint_addresses_observed": [
+        "C0:9279",
+        "C2:77CA"
+      ],
+      "fixtures_with_probe_hints": [
+        "save11-confirm-enhanced",
+        "save3-psi-enhanced",
+        "save5-before-damage-enhanced",
+        "save7-hp-rolling-enhanced"
+      ],
       "next_probe_goal": "Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload.",
       "probe_breakpoint_hints": [
         "C2:77CA",
@@ -90,8 +105,13 @@
         "03-psi-menu-mash-a",
         "04-goods-menu-mash-a",
         "05-before-damage",
-        "07-jeff-hp-rolling"
+        "07-jeff-hp-rolling",
+        "save11-confirm-enhanced",
+        "save5-before-damage-enhanced",
+        "save7-hp-rolling-enhanced"
       ],
+      "probe_hint_addresses_observed": [],
+      "fixtures_with_probe_hints": [],
       "next_probe_goal": "Use only as a neighbor signal; do not mark the payload route covered until C2:40A4 itself is observed.",
       "probe_breakpoint_hints": [],
       "watch_hints": []
@@ -107,15 +127,18 @@
         "C2:B930"
       ],
       "status": "partial-route-observed",
-      "probe_count": 18,
+      "probe_count": 21,
       "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 18,
+      "fixtures_with_any_hits": 21,
+      "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
         "C1:ADB4": 6,
-        "C1:CE85": 5,
-        "C1:CFC6": 2,
-        "C2:BAC5": 18
+        "C1:CE85": 7,
+        "C1:CFC6": 4,
+        "C2:BAC5": 21
       },
+      "probe_observed_address_counts": {},
+      "probe_route_group_counts": {},
       "route_groups": {
         "inventory_selection_loop": {
           "addresses": [
@@ -131,8 +154,12 @@
           "missing_from_all_probes": [],
           "fixtures_covering_group": [
             "save1-right-confirm",
-            "save1-right-confirm-continue"
-          ]
+            "save1-right-confirm-continue",
+            "save1-right-confirm-continue-enhanced",
+            "save1-right-confirm-enhanced"
+          ],
+          "probe_hint_addresses_observed": [],
+          "fixtures_with_probe_hints": []
         },
         "target_resolution_count": {
           "addresses": [
@@ -153,7 +180,9 @@
             "04-goods-menu-mash-a",
             "save1-down-confirm",
             "save4-goods-confirm"
-          ]
+          ],
+          "probe_hint_addresses_observed": [],
+          "fixtures_with_probe_hints": []
         },
         "snapshot_export": {
           "addresses": [
@@ -181,7 +210,9 @@
           "missing_from_all_probes": [
             "C2:B930"
           ],
-          "fixtures_covering_group": []
+          "fixtures_covering_group": [],
+          "probe_hint_addresses_observed": [],
+          "fixtures_with_probe_hints": []
         }
       },
       "fixture_hits": [
@@ -400,6 +431,50 @@
           "last_frame": 2841
         },
         {
+          "fixture_id": "save1-right-confirm-continue-enhanced",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:CE85",
+            "C1:CFC6",
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:CE85": 2,
+            "C1:CFC6": 2,
+            "C2:BAC5": 2
+          },
+          "first_frame": 38,
+          "last_frame": 3441
+        },
+        {
+          "fixture_id": "save1-right-confirm-enhanced",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:CE85",
+            "C1:CFC6",
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:CE85": 1,
+            "C1:CFC6": 1,
+            "C2:BAC5": 1
+          },
+          "first_frame": 38,
+          "last_frame": 1013
+        },
+        {
+          "fixture_id": "save11-confirm-enhanced",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:BAC5": 24
+          },
+          "first_frame": 9,
+          "last_frame": 2404
+        },
+        {
           "fixture_id": "save2-target-confirm",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
@@ -427,7 +502,8 @@
           "first_frame": 26,
           "last_frame": 29
         }
-      ]
+      ],
+      "probe_fixture_hits": []
     },
     {
       "oracle_id": "c2_40a4_current_action_payload",
@@ -435,11 +511,19 @@
         "C2:40A4"
       ],
       "status": "partial-route-observed",
-      "probe_count": 11,
+      "probe_count": 18,
       "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 6,
+      "fixtures_with_any_hits": 9,
+      "fixtures_with_probe_hits": 4,
       "observed_address_counts": {
-        "C2:3D05": 6
+        "C2:3D05": 9
+      },
+      "probe_observed_address_counts": {
+        "C0:9279": 4,
+        "C2:77CA": 1
+      },
+      "probe_route_group_counts": {
+        "payload_applicator": 14
       },
       "route_groups": {
         "payload_applicator": {
@@ -468,7 +552,17 @@
           "missing_from_all_probes": [
             "C2:40A4"
           ],
-          "fixtures_covering_group": []
+          "fixtures_covering_group": [],
+          "probe_hint_addresses_observed": [
+            "C0:9279",
+            "C2:77CA"
+          ],
+          "fixtures_with_probe_hints": [
+            "save11-confirm-enhanced",
+            "save3-psi-enhanced",
+            "save5-before-damage-enhanced",
+            "save7-hp-rolling-enhanced"
+          ]
         },
         "target_text_context_neighbor": {
           "addresses": [
@@ -487,8 +581,13 @@
             "03-psi-menu-mash-a",
             "04-goods-menu-mash-a",
             "05-before-damage",
-            "07-jeff-hp-rolling"
-          ]
+            "07-jeff-hp-rolling",
+            "save11-confirm-enhanced",
+            "save5-before-damage-enhanced",
+            "save7-hp-rolling-enhanced"
+          ],
+          "probe_hint_addresses_observed": [],
+          "fixtures_with_probe_hints": []
         }
       },
       "fixture_hits": [
@@ -563,6 +662,102 @@
           },
           "first_frame": 41,
           "last_frame": 410
+        },
+        {
+          "fixture_id": "save11-confirm-enhanced",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:3D05"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:3D05": 14
+          },
+          "first_frame": 9,
+          "last_frame": 2298
+        },
+        {
+          "fixture_id": "save5-before-damage-enhanced",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:3D05"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:3D05": 22
+          },
+          "first_frame": 29,
+          "last_frame": 985
+        },
+        {
+          "fixture_id": "save7-hp-rolling-enhanced",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:3D05"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:3D05": 10
+          },
+          "first_frame": 41,
+          "last_frame": 410
+        }
+      ],
+      "probe_fixture_hits": [
+        {
+          "fixture_id": "save11-confirm-enhanced",
+          "probe_observed_addresses": [
+            "C0:9279"
+          ],
+          "probe_breakpoint_hit_counts": {
+            "C0:9279": 3
+          },
+          "probe_route_group_hit_counts": {
+            "payload_applicator": 3
+          },
+          "first_frame": 9,
+          "last_frame": 2298
+        },
+        {
+          "fixture_id": "save3-psi-enhanced",
+          "probe_observed_addresses": [
+            "C0:9279"
+          ],
+          "probe_breakpoint_hit_counts": {
+            "C0:9279": 1
+          },
+          "probe_route_group_hit_counts": {
+            "payload_applicator": 1
+          },
+          "first_frame": 27,
+          "last_frame": 27
+        },
+        {
+          "fixture_id": "save5-before-damage-enhanced",
+          "probe_observed_addresses": [
+            "C0:9279"
+          ],
+          "probe_breakpoint_hit_counts": {
+            "C0:9279": 6
+          },
+          "probe_route_group_hit_counts": {
+            "payload_applicator": 6
+          },
+          "first_frame": 29,
+          "last_frame": 985
+        },
+        {
+          "fixture_id": "save7-hp-rolling-enhanced",
+          "probe_observed_addresses": [
+            "C0:9279",
+            "C2:77CA"
+          ],
+          "probe_breakpoint_hit_counts": {
+            "C0:9279": 3,
+            "C2:77CA": 1
+          },
+          "probe_route_group_hit_counts": {
+            "payload_applicator": 4
+          },
+          "first_frame": 41,
+          "last_frame": 410
         }
       ]
     },
@@ -576,9 +771,13 @@
       "probe_count": 7,
       "minimum_hit_candidate_count": 0,
       "fixtures_with_any_hits": 0,
+      "fixtures_with_probe_hits": 0,
       "observed_address_counts": {},
+      "probe_observed_address_counts": {},
+      "probe_route_group_counts": {},
       "route_groups": {},
-      "fixture_hits": []
+      "fixture_hits": [],
+      "probe_fixture_hits": []
     },
     {
       "oracle_id": "c2_8125_damage_abi_boundary",
@@ -589,11 +788,14 @@
       "probe_count": 11,
       "minimum_hit_candidate_count": 6,
       "fixtures_with_any_hits": 6,
+      "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
         "C2:7EAF": 6,
         "C2:8125": 6,
         "C2:941D": 1
       },
+      "probe_observed_address_counts": {},
+      "probe_route_group_counts": {},
       "route_groups": {},
       "fixture_hits": [
         {
@@ -682,7 +884,8 @@
           "first_frame": 41,
           "last_frame": 333
         }
-      ]
+      ],
+      "probe_fixture_hits": []
     },
     {
       "oracle_id": "hp_roller_collapse_boundary",
@@ -694,6 +897,7 @@
       "probe_count": 7,
       "minimum_hit_candidate_count": 1,
       "fixtures_with_any_hits": 2,
+      "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
         "C1:DC1C": 2,
         "C1:DC66": 2,
@@ -702,6 +906,8 @@
         "C2:8125": 2,
         "C2:BB18": 2
       },
+      "probe_observed_address_counts": {},
+      "probe_route_group_counts": {},
       "route_groups": {},
       "fixture_hits": [
         {
@@ -744,7 +950,8 @@
           "first_frame": 41,
           "last_frame": 415
         }
-      ]
+      ],
+      "probe_fixture_hits": []
     },
     {
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
@@ -756,9 +963,13 @@
       "probe_count": 11,
       "minimum_hit_candidate_count": 0,
       "fixtures_with_any_hits": 0,
+      "fixtures_with_probe_hits": 0,
       "observed_address_counts": {},
+      "probe_observed_address_counts": {},
+      "probe_route_group_counts": {},
       "route_groups": {},
-      "fixture_hits": []
+      "fixture_hits": [],
+      "probe_fixture_hits": []
     }
   ],
   "records": [
@@ -770,9 +981,12 @@
       "observed_addresses": [
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:BAC5": 1
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -804,7 +1018,10 @@
       "oracle_id": "c2_40a4_current_action_payload",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -830,7 +1047,10 @@
       "oracle_id": "c2_724a_affliction_writer_matrix",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -858,7 +1078,10 @@
       "oracle_id": "c2_8125_damage_abi_boundary",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -884,7 +1107,10 @@
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -914,9 +1140,12 @@
       "observed_addresses": [
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:BAC5": 58
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -950,9 +1179,12 @@
       "observed_addresses": [
         "C2:3D05"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:3D05": 31
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -981,10 +1213,13 @@
         "C2:7EAF",
         "C2:8125"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:7EAF": 6,
         "C2:8125": 6
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1008,7 +1243,10 @@
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -1038,9 +1276,12 @@
       "observed_addresses": [
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:BAC5": 1
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1072,7 +1313,10 @@
       "oracle_id": "c2_40a4_current_action_payload",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -1098,7 +1342,10 @@
       "oracle_id": "c2_724a_affliction_writer_matrix",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -1126,7 +1373,10 @@
       "oracle_id": "c2_8125_damage_abi_boundary",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1152,7 +1402,10 @@
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -1182,9 +1435,12 @@
       "observed_addresses": [
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:BAC5": 58
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1218,9 +1474,12 @@
       "observed_addresses": [
         "C2:3D05"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:3D05": 31
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -1249,10 +1508,13 @@
         "C2:7EAF",
         "C2:8125"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:7EAF": 6,
         "C2:8125": 6
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1276,7 +1538,10 @@
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -1307,10 +1572,13 @@
         "C1:ADB4",
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C1:ADB4": 1,
         "C2:BAC5": 1
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1341,7 +1609,10 @@
       "oracle_id": "c2_40a4_current_action_payload",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -1367,7 +1638,10 @@
       "oracle_id": "c2_724a_affliction_writer_matrix",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -1395,7 +1669,10 @@
       "oracle_id": "c2_8125_damage_abi_boundary",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1421,7 +1698,10 @@
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -1452,10 +1732,13 @@
         "C1:ADB4",
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C1:ADB4": 1,
         "C2:BAC5": 59
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1488,9 +1771,12 @@
       "observed_addresses": [
         "C2:3D05"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:3D05": 32
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -1520,11 +1806,14 @@
         "C2:8125",
         "C2:941D"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:7EAF": 8,
         "C2:8125": 8,
         "C2:941D": 2
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1548,7 +1837,10 @@
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -1580,11 +1872,14 @@
         "C1:CE85",
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C1:ADB4": 1,
         "C1:CE85": 1,
         "C2:BAC5": 1
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1614,7 +1909,10 @@
       "oracle_id": "c2_40a4_current_action_payload",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -1640,7 +1938,10 @@
       "oracle_id": "c2_724a_affliction_writer_matrix",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -1668,7 +1969,10 @@
       "oracle_id": "c2_8125_damage_abi_boundary",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1694,7 +1998,10 @@
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -1726,11 +2033,14 @@
         "C1:CE85",
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C1:ADB4": 1,
         "C1:CE85": 1,
         "C2:BAC5": 63
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1762,9 +2072,12 @@
       "observed_addresses": [
         "C2:3D05"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:3D05": 34
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -1793,10 +2106,13 @@
         "C2:7EAF",
         "C2:8125"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:7EAF": 6,
         "C2:8125": 6
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1820,7 +2136,10 @@
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -1850,9 +2169,12 @@
       "observed_addresses": [
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:BAC5": 37
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1886,9 +2208,12 @@
       "observed_addresses": [
         "C2:3D05"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:3D05": 22
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -1914,7 +2239,10 @@
       "oracle_id": "c2_724a_affliction_writer_matrix",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -1945,10 +2273,13 @@
         "C2:7EAF",
         "C2:8125"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:7EAF": 5,
         "C2:8125": 5
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1972,7 +2303,10 @@
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -2002,9 +2336,12 @@
       "observed_addresses": [
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:BAC5": 1
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2036,7 +2373,10 @@
       "oracle_id": "c2_40a4_current_action_payload",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -2062,7 +2402,10 @@
       "oracle_id": "c2_724a_affliction_writer_matrix",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -2090,7 +2433,10 @@
       "oracle_id": "c2_8125_damage_abi_boundary",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -2116,7 +2462,10 @@
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -2146,9 +2495,12 @@
       "observed_addresses": [
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:BAC5": 20
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2182,9 +2534,12 @@
       "observed_addresses": [
         "C2:3D05"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:3D05": 10
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -2210,7 +2565,10 @@
       "oracle_id": "c2_724a_affliction_writer_matrix",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -2241,10 +2599,13 @@
         "C2:7EAF",
         "C2:8125"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:7EAF": 2,
         "C2:8125": 2
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -2268,7 +2629,10 @@
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -2296,7 +2660,10 @@
       "oracle_id": "hp_roller_collapse_boundary",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -2324,7 +2691,10 @@
       "oracle_id": "hp_roller_collapse_boundary",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -2352,7 +2722,10 @@
       "oracle_id": "hp_roller_collapse_boundary",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -2380,7 +2753,10 @@
       "oracle_id": "hp_roller_collapse_boundary",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -2413,12 +2789,15 @@
         "C2:8125",
         "C2:BB18"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C1:DC1C": 2,
         "C1:DC66": 6,
         "C2:8125": 5,
         "C2:BB18": 25
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -2445,7 +2824,10 @@
       "oracle_id": "hp_roller_collapse_boundary",
       "minimum_hits_satisfied": false,
       "observed_addresses": [],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -2480,6 +2862,7 @@
         "C2:8125",
         "C2:BB18"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C1:DC1C": 1,
         "C1:DC66": 2,
@@ -2488,6 +2871,8 @@
         "C2:8125": 2,
         "C2:BB18": 13
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -2514,9 +2899,12 @@
       "observed_addresses": [
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:BAC5": 2
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2551,10 +2939,13 @@
         "C1:ADB4",
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C1:ADB4": 1,
         "C2:BAC5": 1
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2587,9 +2978,12 @@
       "observed_addresses": [
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:BAC5": 2
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2625,11 +3019,14 @@
         "C1:CFC6",
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C1:CE85": 1,
         "C1:CFC6": 1,
         "C2:BAC5": 1
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2663,11 +3060,14 @@
         "C1:CFC6",
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C1:CE85": 2,
         "C1:CFC6": 2,
         "C2:BAC5": 2
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2699,9 +3099,12 @@
       "observed_addresses": [
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C2:BAC5": 1
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2737,11 +3140,14 @@
         "C1:CE85",
         "C2:BAC5"
       ],
+      "probe_observed_addresses": [],
       "breakpoint_hit_counts": {
         "C1:ADB4": 1,
         "C1:CE85": 1,
         "C2:BAC5": 1
       },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2762,6 +3168,368 @@
         "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging/save4-goods-confirm/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
+      "fixture_id": "save1-right-confirm-continue-enhanced",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:CE85": 2,
+        "C1:CFC6": 2,
+        "C2:BAC5": 2
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C2:B930"
+      ],
+      "first_frame": 38,
+      "last_frame": 3441,
+      "trace_line_count": 22,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900,a:4,neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save1-right-confirm-continue-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
+      "fixture_id": "save1-right-confirm-enhanced",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:CE85": 1,
+        "C1:CFC6": 1,
+        "C2:BAC5": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C2:B930"
+      ],
+      "first_frame": 38,
+      "last_frame": 1013,
+      "trace_line_count": 13,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save1-right-confirm-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
+      "fixture_id": "save11-confirm-enhanced",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:BAC5": 24
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "first_frame": 9,
+      "last_frame": 2404,
+      "trace_line_count": 76,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:40,a:4,neutral:2200",
+      "save_state": {
+        "basename": "EarthBound (USA)_11.mss",
+        "sha256": "9e05c706651fd49107b9c3d021a337eceaa7b774d61aad857ffae59d734bfe83"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save11-confirm-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
+      "fixture_id": "save1-command-enhanced",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save1-command-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
+      "fixture_id": "save11-confirm-enhanced",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:3D05"
+      ],
+      "probe_observed_addresses": [
+        "C0:9279"
+      ],
+      "breakpoint_hit_counts": {
+        "C2:3D05": 14
+      },
+      "probe_breakpoint_hit_counts": {
+        "C0:9279": 3
+      },
+      "probe_route_group_hit_counts": {
+        "payload_applicator": 3
+      },
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": 9,
+      "last_frame": 2298,
+      "trace_line_count": 55,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
+      "save_state": {
+        "basename": "EarthBound (USA)_11.mss",
+        "sha256": "9e05c706651fd49107b9c3d021a337eceaa7b774d61aad857ffae59d734bfe83"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save11-confirm-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
+      "fixture_id": "save2-target-enhanced",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
+      "save_state": {
+        "basename": "EarthBound (USA)_2.mss",
+        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save2-target-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
+      "fixture_id": "save3-psi-enhanced",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [
+        "C0:9279"
+      ],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {
+        "C0:9279": 1
+      },
+      "probe_route_group_hit_counts": {
+        "payload_applicator": 1
+      },
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": 27,
+      "last_frame": 27,
+      "trace_line_count": 7,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
+      "save_state": {
+        "basename": "EarthBound (USA)_3.mss",
+        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save3-psi-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
+      "fixture_id": "save4-goods-confirm-enhanced",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save4-goods-confirm-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
+      "fixture_id": "save5-before-damage-enhanced",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:3D05"
+      ],
+      "probe_observed_addresses": [
+        "C0:9279"
+      ],
+      "breakpoint_hit_counts": {
+        "C2:3D05": 22
+      },
+      "probe_breakpoint_hit_counts": {
+        "C0:9279": 6
+      },
+      "probe_route_group_hit_counts": {
+        "payload_applicator": 6
+      },
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": 29,
+      "last_frame": 985,
+      "trace_line_count": 88,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2200",
+      "save_state": {
+        "basename": "EarthBound (USA)_5.mss",
+        "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save5-before-damage-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
+      "fixture_id": "save7-hp-rolling-enhanced",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:3D05"
+      ],
+      "probe_observed_addresses": [
+        "C0:9279",
+        "C2:77CA"
+      ],
+      "breakpoint_hit_counts": {
+        "C2:3D05": 10
+      },
+      "probe_breakpoint_hit_counts": {
+        "C0:9279": 3,
+        "C2:77CA": 1
+      },
+      "probe_route_group_hit_counts": {
+        "payload_applicator": 4
+      },
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": 41,
+      "last_frame": 410,
+      "trace_line_count": 46,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2200",
+      "save_state": {
+        "basename": "EarthBound (USA)_7.mss",
+        "sha256": "facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save7-hp-rolling-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     }

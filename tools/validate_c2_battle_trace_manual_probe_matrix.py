@@ -13,7 +13,14 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_MATRIX = ROOT / "manifests" / "c2-battle-trace-manual-probe-matrix.json"
 SCHEMA = "earthbound-decomp.c2-battle-trace-manual-probe-matrix.v1"
-ALLOWED_STATUSES = {"minimum-hit-candidate", "partial-route-observed", "probed-no-route", "not-probed", "not-in-handoff"}
+ALLOWED_STATUSES = {
+    "minimum-hit-candidate",
+    "partial-route-observed",
+    "probe-route-observed",
+    "probed-no-route",
+    "not-probed",
+    "not-in-handoff",
+}
 WINDOWS_ABSOLUTE_RE = re.compile(r"[A-Za-z]:\\")
 
 
@@ -61,6 +68,9 @@ def validate(data: dict[str, Any]) -> list[str]:
             require(isinstance(record.get("fixture_id"), str) and record.get("fixture_id"), f"{prefix}: fixture_id missing", errors)
             require(isinstance(record.get("oracle_id"), str) and record.get("oracle_id"), f"{prefix}: oracle_id missing", errors)
             require(isinstance(record.get("observed_addresses"), list), f"{prefix}: observed_addresses not list", errors)
+            require(isinstance(record.get("probe_observed_addresses", []), list), f"{prefix}: probe_observed_addresses not list", errors)
+            require(isinstance(record.get("probe_breakpoint_hit_counts", {}), dict), f"{prefix}: probe breakpoint counts not object", errors)
+            require(isinstance(record.get("probe_route_group_hit_counts", {}), dict), f"{prefix}: probe route group counts not object", errors)
             require(isinstance(record.get("configured_minimum_hits"), list), f"{prefix}: configured_minimum_hits not list", errors)
             require(isinstance(record.get("missing_minimum_hits"), list), f"{prefix}: missing_minimum_hits not list", errors)
             if record.get("minimum_hits_satisfied"):
@@ -78,6 +88,9 @@ def validate(data: dict[str, Any]) -> list[str]:
             require(isinstance(oracle.get("oracle_id"), str) and oracle.get("oracle_id"), f"{prefix}: oracle_id missing", errors)
             ready_count = oracle.get("minimum_hit_candidate_count")
             require(isinstance(ready_count, int), f"{prefix}: ready count not int", errors)
+            require(isinstance(oracle.get("fixtures_with_probe_hits", 0), int), f"{prefix}: probe fixture count not int", errors)
+            require(isinstance(oracle.get("probe_observed_address_counts", {}), dict), f"{prefix}: probe observed counts not object", errors)
+            require(isinstance(oracle.get("probe_fixture_hits", []), list), f"{prefix}: probe fixture hits not list", errors)
             if isinstance(ready_count, int):
                 ready_total += ready_count
         summary = data.get("summary", {})
@@ -92,6 +105,8 @@ def validate(data: dict[str, Any]) -> list[str]:
             require(isinstance(item.get("route_group"), str) and item.get("route_group"), f"{prefix}: route_group missing", errors)
             require(isinstance(item.get("missing_from_all_probes"), list), f"{prefix}: missing list not list", errors)
             require(isinstance(item.get("covered_by_any_probe"), bool), f"{prefix}: covered flag not bool", errors)
+            require(isinstance(item.get("probe_hint_addresses_observed", []), list), f"{prefix}: observed probe hints not list", errors)
+            require(isinstance(item.get("fixtures_with_probe_hints", []), list), f"{prefix}: probe hint fixtures not list", errors)
             require(isinstance(item.get("probe_breakpoint_hints", []), list), f"{prefix}: breakpoint hints not list", errors)
             require(isinstance(item.get("watch_hints", []), list), f"{prefix}: watch hints not list", errors)
             if item.get("status") == "remaining_fixture_gap" and not item.get("covered_by_any_probe"):
