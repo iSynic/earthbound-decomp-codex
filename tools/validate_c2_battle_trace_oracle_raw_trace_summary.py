@@ -47,7 +47,14 @@ def validate(data: dict[str, Any], summary_path: Path) -> None:
     require(isinstance(data.get("invalid_line_count"), int) and data["invalid_line_count"] >= 0, "invalid_line_count must be non-negative int")
     for key in ("event_counts", "breakpoint_hit_counts", "watch_snapshot_counts"):
         require(isinstance(data.get(key), dict), f"{key} must be object")
-    for key in ("probe_breakpoint_hit_counts", "probe_route_group_hit_counts"):
+    for key in (
+        "probe_breakpoint_hit_counts",
+        "probe_route_group_hit_counts",
+        "dispatch_target_counts",
+        "probe_dispatch_target_counts",
+        "stack_return_counts",
+        "probe_stack_return_counts",
+    ):
         require(isinstance(data.get(key, {}), dict), f"{key} must be object when present")
     for key in ("observed_addresses", "required_hit_addresses", "configured_minimum_hits", "missing_minimum_hits"):
         require(isinstance(data.get(key), list), f"{key} must be list")

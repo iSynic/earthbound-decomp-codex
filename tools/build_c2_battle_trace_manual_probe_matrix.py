@@ -105,6 +105,10 @@ def build_record(probe_root: Path, summary_path: Path, minimums: dict[str, list[
         "breakpoint_hit_counts": summary.get("breakpoint_hit_counts", {}),
         "probe_breakpoint_hit_counts": summary.get("probe_breakpoint_hit_counts", {}),
         "probe_route_group_hit_counts": summary.get("probe_route_group_hit_counts", {}),
+        "dispatch_target_counts": summary.get("dispatch_target_counts", {}),
+        "probe_dispatch_target_counts": summary.get("probe_dispatch_target_counts", {}),
+        "stack_return_counts": summary.get("stack_return_counts", {}),
+        "probe_stack_return_counts": summary.get("probe_stack_return_counts", {}),
         "configured_minimum_hits": configured_minimum,
         "missing_minimum_hits": missing_minimum,
         "first_frame": summary.get("first_frame"),
@@ -187,12 +191,20 @@ def summarize_oracles(
         hit_counter: Counter[str] = Counter()
         probe_hit_counter: Counter[str] = Counter()
         probe_route_group_counter: Counter[str] = Counter()
+        dispatch_target_counter: Counter[str] = Counter()
+        probe_dispatch_target_counter: Counter[str] = Counter()
+        stack_return_counter: Counter[str] = Counter()
+        probe_stack_return_counter: Counter[str] = Counter()
         fixture_hits: list[dict[str, Any]] = []
         probe_fixture_hits: list[dict[str, Any]] = []
         for record in oracle_records:
             hit_counter.update(record["observed_addresses"])
             probe_hit_counter.update(record["probe_observed_addresses"])
             probe_route_group_counter.update(record.get("probe_route_group_hit_counts", {}))
+            dispatch_target_counter.update(record.get("dispatch_target_counts", {}))
+            probe_dispatch_target_counter.update(record.get("probe_dispatch_target_counts", {}))
+            stack_return_counter.update(record.get("stack_return_counts", {}))
+            probe_stack_return_counter.update(record.get("probe_stack_return_counts", {}))
             if record["observed_addresses"]:
                 fixture_hits.append(
                     {
@@ -211,6 +223,8 @@ def summarize_oracles(
                         "probe_observed_addresses": record["probe_observed_addresses"],
                         "probe_breakpoint_hit_counts": record["probe_breakpoint_hit_counts"],
                         "probe_route_group_hit_counts": record.get("probe_route_group_hit_counts", {}),
+                        "probe_dispatch_target_counts": record.get("probe_dispatch_target_counts", {}),
+                        "probe_stack_return_counts": record.get("probe_stack_return_counts", {}),
                         "first_frame": record["first_frame"],
                         "last_frame": record["last_frame"],
                     }
@@ -227,6 +241,10 @@ def summarize_oracles(
                 "observed_address_counts": dict(sorted(hit_counter.items())),
                 "probe_observed_address_counts": dict(sorted(probe_hit_counter.items())),
                 "probe_route_group_counts": dict(sorted(probe_route_group_counter.items())),
+                "dispatch_target_counts": dict(sorted(dispatch_target_counter.items())),
+                "probe_dispatch_target_counts": dict(sorted(probe_dispatch_target_counter.items())),
+                "stack_return_counts": dict(sorted(stack_return_counter.items())),
+                "probe_stack_return_counts": dict(sorted(probe_stack_return_counter.items())),
                 "route_groups": summarize_route_groups(oracle_id, oracle_records, route_groups),
                 "fixture_hits": fixture_hits,
                 "probe_fixture_hits": probe_fixture_hits,
@@ -289,16 +307,18 @@ def render_note(manifest: dict[str, Any]) -> str:
         "",
         "## Oracle Matrix",
         "",
-        "| Oracle | Status | Probes | Ready | Any-hit fixtures | Route-hint fixtures | Observed addresses | Route hints |",
-        "| --- | --- | ---: | ---: | ---: | ---: | --- | --- |",
+        "| Oracle | Status | Probes | Ready | Any-hit fixtures | Route-hint fixtures | Observed addresses | Route hints | Probe dispatch targets | Probe returns |",
+        "| --- | --- | ---: | ---: | ---: | ---: | --- | --- | --- | --- |",
     ]
     for item in manifest["oracles"]:
         observed = ", ".join(f"{addr}:{count}" for addr, count in item["observed_address_counts"].items()) or "-"
         probe_observed = ", ".join(f"{addr}:{count}" for addr, count in item["probe_observed_address_counts"].items()) or "-"
+        probe_dispatch = ", ".join(f"{target}:{count}" for target, count in item.get("probe_dispatch_target_counts", {}).items()) or "-"
+        probe_returns = ", ".join(f"{target}:{count}" for target, count in item.get("probe_stack_return_counts", {}).items()) or "-"
         lines.append(
             f"| `{item['oracle_id']}` | `{item['status']}` | `{item['probe_count']}` | "
             f"`{item['minimum_hit_candidate_count']}` | `{item['fixtures_with_any_hits']}` | "
-            f"`{item['fixtures_with_probe_hits']}` | {observed} | {probe_observed} |"
+            f"`{item['fixtures_with_probe_hits']}` | {observed} | {probe_observed} | {probe_dispatch} | {probe_returns} |"
         )
     lines.extend(["", "## Route Gap Queue", ""])
     route_gap_queue = manifest.get("route_gap_queue", [])
@@ -335,13 +355,15 @@ def render_note(manifest: dict[str, Any]) -> str:
             continue
         lines.append(f"### `{item['oracle_id']}`")
         lines.append("")
-        lines.append("| Fixture | Frames | Probe hits | Route groups |")
-        lines.append("| --- | --- | --- | --- |")
+        lines.append("| Fixture | Frames | Probe hits | Route groups | Dispatch targets | Returns |")
+        lines.append("| --- | --- | --- | --- | --- | --- |")
         for fixture in item["probe_fixture_hits"]:
             hits = ", ".join(f"{addr}:{count}" for addr, count in fixture["probe_breakpoint_hit_counts"].items())
             route_groups = ", ".join(f"{group}:{count}" for group, count in fixture["probe_route_group_hit_counts"].items()) or "-"
+            dispatch = ", ".join(f"{target}:{count}" for target, count in fixture.get("probe_dispatch_target_counts", {}).items()) or "-"
+            returns = ", ".join(f"{target}:{count}" for target, count in fixture.get("probe_stack_return_counts", {}).items()) or "-"
             frames = f"{fixture['first_frame']}..{fixture['last_frame']}"
-            lines.append(f"| `{fixture['fixture_id']}` | `{frames}` | {hits} | {route_groups} |")
+            lines.append(f"| `{fixture['fixture_id']}` | `{frames}` | {hits} | {route_groups} | {dispatch} | {returns} |")
         lines.append("")
     lines.extend(["## Route Group Coverage", ""])
     for item in manifest["oracles"]:
@@ -369,8 +391,9 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- `minimum-hit-candidate` means the ignored trace reached every configured minimum hit and may be promoted only after canonical rerun plus reviewed capture fields.",
             "- `partial-route-observed` means the fixture reaches useful neighboring code but is not enough for a reviewed oracle result.",
             "- Route-hint fixtures hit optional approach breakpoints and are discovery aids only; they do not satisfy minimum hits or permit source promotion.",
+            "- Dispatch-target and return columns are captured only for route-hint probes that use trampoline/context breakpoints; they identify the `$00BC` jump target and stack return path without proving the missing minimum address.",
             "- `probed-no-route` means the current local fixtures did not reach the lane.",
-            "- `c2_40a4_current_action_payload` has `C2:3D05` neighbor/context hits plus route-hint hits at `C0:9279` and `C2:77CA`, but still no `C2:40A4` payload-applicator hit. The next useful fixture should stop immediately before confirming a concrete second-pointer curative, recovery, item-status, or random damage/status item payload against a selected target.",
+            "- `c2_40a4_current_action_payload` has `C2:3D05` neighbor/context hits plus route-hint hits at `C0:9279` and `C2:77CA`. The `$00BC` target/return captures show real payload-adjacent dispatches, but still no `C2:40A4` payload-applicator hit. The next useful fixture should stop immediately before confirming a concrete second-pointer curative, recovery, item-status, or random damage/status item payload against a selected target.",
             "- `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The remaining missing route is `C2:B930` snapshot export, not `C1:CFC6`.",
         ]
     )

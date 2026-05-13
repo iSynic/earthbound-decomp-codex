@@ -6,24 +6,24 @@ It records fixture usefulness without storing local save-state paths or raw trac
 ## Summary
 
 - probe roots found: `5` / `5`
-- probe records: `75`
+- probe records: `79`
 - oracles summarized: `6`
 - minimum-hit candidates: `7`
-- fixtures with route-hint hits: `4`
+- fixtures with route-hint hits: `8`
 - remaining route gaps: `2`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
 
 ## Oracle Matrix
 
-| Oracle | Status | Probes | Ready | Any-hit fixtures | Route-hint fixtures | Observed addresses | Route hints |
-| --- | --- | ---: | ---: | ---: | ---: | --- | --- |
-| `c1_c2_target_action_staging` | `partial-route-observed` | `21` | `0` | `21` | `0` | C1:ADB4:6, C1:CE85:7, C1:CFC6:4, C2:BAC5:21 | - |
-| `c2_40a4_current_action_payload` | `partial-route-observed` | `18` | `0` | `9` | `4` | C2:3D05:9 | C0:9279:4, C2:77CA:1 |
-| `c2_724a_affliction_writer_matrix` | `probed-no-route` | `7` | `0` | `0` | `0` | - | - |
-| `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `11` | `6` | `6` | `0` | C2:7EAF:6, C2:8125:6, C2:941D:1 | - |
-| `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `7` | `1` | `2` | `0` | C1:DC1C:2, C1:DC66:2, C2:7550:1, C2:77CA:1, C2:8125:2, C2:BB18:2 | - |
-| `resource_amount_pair_magnet_vs_pp_loss` | `probed-no-route` | `11` | `0` | `0` | `0` | - | - |
+| Oracle | Status | Probes | Ready | Any-hit fixtures | Route-hint fixtures | Observed addresses | Route hints | Probe dispatch targets | Probe returns |
+| --- | --- | ---: | ---: | ---: | ---: | --- | --- | --- | --- |
+| `c1_c2_target_action_staging` | `partial-route-observed` | `21` | `0` | `21` | `0` | C1:ADB4:6, C1:CE85:7, C1:CFC6:4, C2:BAC5:21 | - | - | - |
+| `c2_40a4_current_action_payload` | `partial-route-observed` | `22` | `0` | `12` | `8` | C2:3D05:12 | C0:9279:8, C2:77CA:2 | C1:C8BC:1, C2:859F:7, C2:8651:1, C2:8740:4, C2:9033:1 | C1:1AE2:1, C2:5D3D:12, F3:1E64:1 |
+| `c2_724a_affliction_writer_matrix` | `probed-no-route` | `7` | `0` | `0` | `0` | - | - | - | - |
+| `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `11` | `6` | `6` | `0` | C2:7EAF:6, C2:8125:6, C2:941D:1 | - | - | - |
+| `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `7` | `1` | `2` | `0` | C1:DC1C:2, C1:DC66:2, C2:7550:1, C2:77CA:1, C2:8125:2, C2:BB18:2 | - | - | - |
+| `resource_amount_pair_magnet_vs_pp_loss` | `probed-no-route` | `11` | `0` | `0` | `0` | - | - | - | - |
 
 ## Route Gap Queue
 
@@ -71,8 +71,11 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `04-goods-menu-mash-a` | `False` | `172..2560` | C2:3D05:34 |
 | `05-before-damage` | `False` | `29..985` | C2:3D05:22 |
 | `07-jeff-hp-rolling` | `False` | `41..410` | C2:3D05:10 |
+| `save11-confirm-dispatch-target` | `False` | `9..2298` | C2:3D05:14 |
 | `save11-confirm-enhanced` | `False` | `9..2298` | C2:3D05:14 |
+| `save5-before-damage-dispatch-target` | `False` | `29..985` | C2:3D05:22 |
 | `save5-before-damage-enhanced` | `False` | `29..985` | C2:3D05:22 |
+| `save7-hp-rolling-dispatch-target` | `False` | `41..410` | C2:3D05:10 |
 | `save7-hp-rolling-enhanced` | `False` | `41..410` | C2:3D05:10 |
 
 ### `c2_8125_damage_abi_boundary`
@@ -97,12 +100,16 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 ### `c2_40a4_current_action_payload`
 
-| Fixture | Frames | Probe hits | Route groups |
-| --- | --- | --- | --- |
-| `save11-confirm-enhanced` | `9..2298` | C0:9279:3 | payload_applicator:3 |
-| `save3-psi-enhanced` | `27..27` | C0:9279:1 | payload_applicator:1 |
-| `save5-before-damage-enhanced` | `29..985` | C0:9279:6 | payload_applicator:6 |
-| `save7-hp-rolling-enhanced` | `41..410` | C0:9279:3, C2:77CA:1 | payload_applicator:4 |
+| Fixture | Frames | Probe hits | Route groups | Dispatch targets | Returns |
+| --- | --- | --- | --- | --- | --- |
+| `save11-confirm-dispatch-target` | `9..2298` | C0:9279:3 | payload_applicator:3 | C2:859F:2, C2:8740:1 | C2:5D3D:3 |
+| `save11-confirm-enhanced` | `9..2298` | C0:9279:3 | payload_applicator:3 | - | - |
+| `save3-psi-dispatch-target` | `27..27` | C0:9279:1 | payload_applicator:1 | C1:C8BC:1 | C1:1AE2:1 |
+| `save3-psi-enhanced` | `27..27` | C0:9279:1 | payload_applicator:1 | - | - |
+| `save5-before-damage-dispatch-target` | `29..985` | C0:9279:6 | payload_applicator:6 | C2:859F:3, C2:8651:1, C2:8740:2 | C2:5D3D:6 |
+| `save5-before-damage-enhanced` | `29..985` | C0:9279:6 | payload_applicator:6 | - | - |
+| `save7-hp-rolling-dispatch-target` | `41..410` | C0:9279:3, C2:77CA:1 | payload_applicator:4 | C2:859F:2, C2:8740:1, C2:9033:1 | C2:5D3D:3, F3:1E64:1 |
+| `save7-hp-rolling-enhanced` | `41..410` | C0:9279:3, C2:77CA:1 | payload_applicator:4 | - | - |
 
 ## Route Group Coverage
 
@@ -119,13 +126,14 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | Group | Status | Covered | Missing | Fixtures | Probe hints seen | Next probe |
 | --- | --- | --- | --- | --- | --- | --- |
 | `payload_applicator` | `remaining_fixture_gap` | `False` | C2:40A4 | - | C0:9279, C2:77CA | Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload. |
-| `target_text_context_neighbor` | `neighbor_only_until_c2_40a4_observed` | `True` | - | `01-command-menu-mash-a`, `02-target-select-mash-a`, `03-psi-menu-mash-a`, `04-goods-menu-mash-a`, `05-before-damage`, `07-jeff-hp-rolling`, `save11-confirm-enhanced`, `save5-before-damage-enhanced`, `save7-hp-rolling-enhanced` | - | Use only as a neighbor signal; do not mark the payload route covered until C2:40A4 itself is observed. |
+| `target_text_context_neighbor` | `neighbor_only_until_c2_40a4_observed` | `True` | - | `01-command-menu-mash-a`, `02-target-select-mash-a`, `03-psi-menu-mash-a`, `04-goods-menu-mash-a`, `05-before-damage`, `07-jeff-hp-rolling`, `save11-confirm-dispatch-target`, `save11-confirm-enhanced`, `save5-before-damage-dispatch-target`, `save5-before-damage-enhanced`, `save7-hp-rolling-dispatch-target`, `save7-hp-rolling-enhanced` | - | Use only as a neighbor signal; do not mark the payload route covered until C2:40A4 itself is observed. |
 
 ## Interpretation
 
 - `minimum-hit-candidate` means the ignored trace reached every configured minimum hit and may be promoted only after canonical rerun plus reviewed capture fields.
 - `partial-route-observed` means the fixture reaches useful neighboring code but is not enough for a reviewed oracle result.
 - Route-hint fixtures hit optional approach breakpoints and are discovery aids only; they do not satisfy minimum hits or permit source promotion.
+- Dispatch-target and return columns are captured only for route-hint probes that use trampoline/context breakpoints; they identify the `$00BC` jump target and stack return path without proving the missing minimum address.
 - `probed-no-route` means the current local fixtures did not reach the lane.
-- `c2_40a4_current_action_payload` has `C2:3D05` neighbor/context hits plus route-hint hits at `C0:9279` and `C2:77CA`, but still no `C2:40A4` payload-applicator hit. The next useful fixture should stop immediately before confirming a concrete second-pointer curative, recovery, item-status, or random damage/status item payload against a selected target.
+- `c2_40a4_current_action_payload` has `C2:3D05` neighbor/context hits plus route-hint hits at `C0:9279` and `C2:77CA`. The `$00BC` target/return captures show real payload-adjacent dispatches, but still no `C2:40A4` payload-applicator hit. The next useful fixture should stop immediately before confirming a concrete second-pointer curative, recovery, item-status, or random damage/status item payload against a selected target.
 - `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The remaining missing route is `C2:B930` snapshot export, not `C1:CFC6`.

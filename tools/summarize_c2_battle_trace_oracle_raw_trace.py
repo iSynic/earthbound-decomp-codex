@@ -93,6 +93,10 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
     hit_counts: Counter[str] = Counter()
     probe_hit_counts: Counter[str] = Counter()
     probe_route_group_counts: Counter[str] = Counter()
+    dispatch_target_counts: Counter[str] = Counter()
+    probe_dispatch_target_counts: Counter[str] = Counter()
+    stack_return_counts: Counter[str] = Counter()
+    probe_stack_return_counts: Counter[str] = Counter()
     required_hits = set()
     watch_counts: Counter[str] = Counter()
     frames: list[int] = []
@@ -110,14 +114,24 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
             runner_summary = row
         elif event_type == "breakpoint_hit":
             pc = str(row.get("pc", ""))
+            dispatch_target = str(row.get("dispatchTargetPointer", ""))
+            stack_return = str(row.get("stackReturnRtlAdjusted", ""))
             if pc:
                 if row.get("probeSource") == "route_group_hint":
                     probe_hit_counts[pc] += 1
+                    if dispatch_target:
+                        probe_dispatch_target_counts[dispatch_target] += 1
+                    if stack_return:
+                        probe_stack_return_counts[stack_return] += 1
                     route_group = str(row.get("routeGroup", ""))
                     if route_group:
                         probe_route_group_counts[route_group] += 1
                 else:
                     hit_counts[pc] += 1
+                    if dispatch_target:
+                        dispatch_target_counts[dispatch_target] += 1
+                    if stack_return:
+                        stack_return_counts[stack_return] += 1
                     if row.get("required") is True:
                         required_hits.add(pc)
         elif event_type == "watch_snapshot":
@@ -145,6 +159,10 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
         "breakpoint_hit_counts": dict(sorted(hit_counts.items())),
         "probe_breakpoint_hit_counts": dict(sorted(probe_hit_counts.items())),
         "probe_route_group_hit_counts": dict(sorted(probe_route_group_counts.items())),
+        "dispatch_target_counts": dict(sorted(dispatch_target_counts.items())),
+        "probe_dispatch_target_counts": dict(sorted(probe_dispatch_target_counts.items())),
+        "stack_return_counts": dict(sorted(stack_return_counts.items())),
+        "probe_stack_return_counts": dict(sorted(probe_stack_return_counts.items())),
         "watch_snapshot_counts": dict(sorted(watch_counts.items())),
         "observed_addresses": sorted(hit_counts),
         "probe_observed_addresses": sorted(probe_hit_counts),

@@ -120,6 +120,12 @@ promotion gates while still showing whether the run approached `C2:B930` or
   save 7 also reached `C2:77CA`. None reached `C2:40A4`, so the useful next
   fixture is still an action state immediately before a real second-pointer
   payload is applied rather than a post-result or text-context neighbor.
+- A follow-up dispatch-target sweep now records the actual `$00BC` trampoline
+  target and stack return for each `C0:9279` hit. The C2-side route hints return
+  through `C2:5D3D` and dispatch to payload-adjacent targets including
+  `C2:859F`, `C2:8651`, `C2:8740`, and `C2:9033`; the PSI-menu neighbor dispatch
+  instead targets `C1:C8BC` and returns through `C1:1AE2`. These are still
+  approach-path facts, not `C2:40A4` proof.
 - The enhanced `c1_c2_target_action_staging` route sweep still did not reach
   `C2:B930` or its six C1 pre-export probe sites. Save 11 repeatedly hits
   `C2:BAC5`, which makes it another target-count fixture, not a snapshot-export

@@ -71,6 +71,10 @@ def validate(data: dict[str, Any]) -> list[str]:
             require(isinstance(record.get("probe_observed_addresses", []), list), f"{prefix}: probe_observed_addresses not list", errors)
             require(isinstance(record.get("probe_breakpoint_hit_counts", {}), dict), f"{prefix}: probe breakpoint counts not object", errors)
             require(isinstance(record.get("probe_route_group_hit_counts", {}), dict), f"{prefix}: probe route group counts not object", errors)
+            require(isinstance(record.get("dispatch_target_counts", {}), dict), f"{prefix}: dispatch target counts not object", errors)
+            require(isinstance(record.get("probe_dispatch_target_counts", {}), dict), f"{prefix}: probe dispatch target counts not object", errors)
+            require(isinstance(record.get("stack_return_counts", {}), dict), f"{prefix}: stack return counts not object", errors)
+            require(isinstance(record.get("probe_stack_return_counts", {}), dict), f"{prefix}: probe stack return counts not object", errors)
             require(isinstance(record.get("configured_minimum_hits"), list), f"{prefix}: configured_minimum_hits not list", errors)
             require(isinstance(record.get("missing_minimum_hits"), list), f"{prefix}: missing_minimum_hits not list", errors)
             if record.get("minimum_hits_satisfied"):
@@ -90,6 +94,8 @@ def validate(data: dict[str, Any]) -> list[str]:
             require(isinstance(ready_count, int), f"{prefix}: ready count not int", errors)
             require(isinstance(oracle.get("fixtures_with_probe_hits", 0), int), f"{prefix}: probe fixture count not int", errors)
             require(isinstance(oracle.get("probe_observed_address_counts", {}), dict), f"{prefix}: probe observed counts not object", errors)
+            require(isinstance(oracle.get("probe_dispatch_target_counts", {}), dict), f"{prefix}: probe dispatch target counts not object", errors)
+            require(isinstance(oracle.get("probe_stack_return_counts", {}), dict), f"{prefix}: probe stack return counts not object", errors)
             require(isinstance(oracle.get("probe_fixture_hits", []), list), f"{prefix}: probe fixture hits not list", errors)
             if isinstance(ready_count, int):
                 ready_total += ready_count
