@@ -64,6 +64,10 @@ def validate(data: dict[str, Any], summary_path: Path) -> None:
         require(isinstance(data["observed_addresses"], list), "observed addresses must be a list")
         for address in data["observed_addresses"]:
             require(isinstance(address, str) and ":" in address, f"bad observed address {address!r}")
+    if data.get("probe_observed_addresses"):
+        require(isinstance(data["probe_observed_addresses"], list), "probe observed addresses must be a list")
+        for address in data["probe_observed_addresses"]:
+            require(isinstance(address, str) and ":" in address, f"bad probe observed address {address!r}")
 
 
 def main() -> int:

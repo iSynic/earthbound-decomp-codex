@@ -191,10 +191,11 @@ def ensure_job_manifest(packet: dict[str, Any], runner_data: dict[str, Any]) -> 
     return packet_job_path
 
 
-def parse_trace_addresses(trace_path: Path) -> list[str]:
+def parse_trace_addresses(trace_path: Path) -> tuple[list[str], list[str]]:
     if not trace_path.exists():
-        return []
+        return [], []
     addresses: list[str] = []
+    probe_addresses: list[str] = []
     for line in trace_path.read_text(encoding="utf-8", errors="ignore").splitlines():
         if not line.strip():
             continue
@@ -204,9 +205,11 @@ def parse_trace_addresses(trace_path: Path) -> list[str]:
             continue
         if row.get("type") == "breakpoint_hit":
             pc = row.get("pc")
-            if isinstance(pc, str) and pc not in addresses:
-                addresses.append(pc)
-    return addresses
+            if isinstance(pc, str):
+                target = probe_addresses if row.get("probeSource") == "route_group_hint" else addresses
+                if pc not in target:
+                    target.append(pc)
+    return addresses, probe_addresses
 
 
 def write_unresolved_result(runner_job: dict[str, Any], trace_path: Path, observed_addresses: list[str]) -> Path:
@@ -318,6 +321,7 @@ def main() -> int:
         "frame_limit": args.frame_limit,
         "command": command,
         "observed_addresses": [],
+        "probe_observed_addresses": [],
         "raw_trace_exists": False,
         "raw_trace_nonempty": False,
         "write_unresolved_result": bool(args.write_unresolved_result),
@@ -333,7 +337,7 @@ def main() -> int:
         return 0
 
     result = subprocess.run(command, cwd=ROOT, env=env, text=True, capture_output=True, timeout=args.timeout, check=False)
-    observed = parse_trace_addresses(trace_path)
+    observed, probe_observed = parse_trace_addresses(trace_path)
     run_record.update(
         {
             "status": "completed" if result.returncode == 0 else "failed",
@@ -341,6 +345,7 @@ def main() -> int:
             "stdout_tail": result.stdout[-4000:],
             "stderr_tail": result.stderr[-4000:],
             "observed_addresses": observed,
+            "probe_observed_addresses": probe_observed,
             "raw_trace_exists": trace_path.exists(),
             "raw_trace_nonempty": trace_path.exists() and trace_path.stat().st_size > 0,
         }

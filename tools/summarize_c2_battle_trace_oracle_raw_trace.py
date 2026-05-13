@@ -91,6 +91,8 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
     rows, invalid_lines = read_trace(trace_path)
     event_counts: Counter[str] = Counter()
     hit_counts: Counter[str] = Counter()
+    probe_hit_counts: Counter[str] = Counter()
+    probe_route_group_counts: Counter[str] = Counter()
     required_hits = set()
     watch_counts: Counter[str] = Counter()
     frames: list[int] = []
@@ -109,9 +111,15 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
         elif event_type == "breakpoint_hit":
             pc = str(row.get("pc", ""))
             if pc:
-                hit_counts[pc] += 1
-                if row.get("required") is True:
-                    required_hits.add(pc)
+                if row.get("probeSource") == "route_group_hint":
+                    probe_hit_counts[pc] += 1
+                    route_group = str(row.get("routeGroup", ""))
+                    if route_group:
+                        probe_route_group_counts[route_group] += 1
+                else:
+                    hit_counts[pc] += 1
+                    if row.get("required") is True:
+                        required_hits.add(pc)
         elif event_type == "watch_snapshot":
             watch_id = str(row.get("watchId", ""))
             if watch_id:
@@ -135,8 +143,11 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
         "invalid_line_count": invalid_lines,
         "event_counts": dict(sorted(event_counts.items())),
         "breakpoint_hit_counts": dict(sorted(hit_counts.items())),
+        "probe_breakpoint_hit_counts": dict(sorted(probe_hit_counts.items())),
+        "probe_route_group_hit_counts": dict(sorted(probe_route_group_counts.items())),
         "watch_snapshot_counts": dict(sorted(watch_counts.items())),
         "observed_addresses": sorted(hit_counts),
+        "probe_observed_addresses": sorted(probe_hit_counts),
         "required_hit_addresses": sorted(required_hits),
         "configured_minimum_hits": configured_minimum_hits,
         "missing_minimum_hits": missing_required_hits,

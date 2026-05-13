@@ -128,8 +128,33 @@ def result_template(job: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def route_group_probe_breakpoints(job: dict[str, Any]) -> list[dict[str, Any]]:
+    base_addresses = {str(record.get("address")) for record in job.get("breakpoints", [])}
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for group_id, group in job.get("route_groups", {}).items():
+        for address in group.get("probe_breakpoint_hints", []):
+            address_text = str(address)
+            if address_text in base_addresses or address_text in seen:
+                continue
+            seen.add(address_text)
+            records.append(
+                {
+                    "address": address_text,
+                    "address_space": "snes_cpu_bus",
+                    "hit_policy": "capture_registers_dp_wram_then_continue",
+                    "required_for_minimum_capture": False,
+                    "probe_source": "route_group_hint",
+                    "route_group": str(group_id),
+                    "route_group_status": str(group.get("status", "")),
+                }
+            )
+    return records
+
+
 def runner_job(job: dict[str, Any], lua_path: Path, checklist_path: Path, template_path: Path) -> dict[str, Any]:
     paths = job["output_paths"]
+    route_gap_breakpoints = route_group_probe_breakpoints(job)
     return {
         "schema": "earthbound-decomp.c2-battle-trace-oracle-runner-job.v1",
         "status": "runner_asset_generated_no_execution",
@@ -139,6 +164,7 @@ def runner_job(job: dict[str, Any], lua_path: Path, checklist_path: Path, templa
         "minimum_hits": job["minimum_hits"],
         "route_groups": job.get("route_groups", {}),
         "breakpoints": job["breakpoints"],
+        "route_gap_probe_breakpoints": route_gap_breakpoints,
         "watch_ranges": job["watch_ranges"],
         "extra_trace_fields": job["extra_trace_fields"],
         "capture_fields": job["capture_fields"],
@@ -170,7 +196,7 @@ def runner_job(job: dict[str, Any], lua_path: Path, checklist_path: Path, templa
 
 def render_lua(job: dict[str, Any]) -> str:
     breakpoints = []
-    for record in job["breakpoints"]:
+    for record in [*job["breakpoints"], *route_group_probe_breakpoints(job)]:
         value = cpu_address_value(str(record["address"]))
         if value is None:
             continue
@@ -179,6 +205,8 @@ def render_lua(job: dict[str, Any]) -> str:
                 "label": record["address"],
                 "address": value,
                 "required": bool(record["required_for_minimum_capture"]),
+                "probe_source": record.get("probe_source", "oracle_breakpoint"),
+                "route_group": record.get("route_group", ""),
             }
         )
     watch_ranges = []
@@ -196,7 +224,11 @@ def render_lua(job: dict[str, Any]) -> str:
         )
 
     breakpoint_lines = [
-        f'  {{ label = {lua_string(item["label"])}, address = 0x{item["address"]:06X}, required = {str(item["required"]).lower()} }},'
+        (
+            f'  {{ label = {lua_string(item["label"])}, address = 0x{item["address"]:06X}, '
+            f'required = {str(item["required"]).lower()}, probeSource = {lua_string(item["probe_source"])}, '
+            f'routeGroup = {lua_string(item["route_group"])} }},'
+        )
         for item in breakpoints
     ]
     watch_lines = [
@@ -402,6 +434,7 @@ def render_lua(job: dict[str, Any]) -> str:
             "    writeJson({",
             "      type = \"breakpoint_hit\", oracleId = oracleId, jobId = jobId, scenarioName = scenarioName,",
             "      frame = frame, pc = bp.label, address = hex(bp.address), required = bp.required,",
+            "      probeSource = bp.probeSource, routeGroup = bp.routeGroup,",
             "      cpuA = hex(cpu.a), cpuX = hex(cpu.x), cpuY = hex(cpu.y), cpuDB = hex(cpu.db), cpuDP = hex(cpu.dp),",
             "      cpuP = hex(cpu.ps), cpuSP = hex(cpu.sp), cpuPC = hex(cpu.pc), cpuK = hex(cpu.k), cpuCycleCount = cpu.cycle,",
             "      directPageHex = readBytes(cpu.dp, 64), selectedTargetPointer = hex(targetPtr),",
@@ -441,6 +474,10 @@ def render_lua(job: dict[str, Any]) -> str:
 
 def render_checklist(job_asset: dict[str, Any]) -> str:
     job = job_asset
+    route_gap_lines = [
+        "- `{address}` ({group})".format(address=record["address"], group=record["route_group"])
+        for record in job.get("route_gap_probe_breakpoints", [])
+    ] or ["- None"]
     route_group_lines = []
     if job.get("route_groups"):
         route_group_lines = [
@@ -485,6 +522,10 @@ def render_checklist(job_asset: dict[str, Any]) -> str:
             "## Minimum Hits",
             "",
             *[f"- `{address}`" for address in job["minimum_hits"]],
+            "",
+            "## Route-Gap Probe Breakpoints",
+            "",
+            *route_gap_lines,
             "",
             *route_group_lines,
             "## Mesen Test Runner Template",
@@ -555,6 +596,7 @@ def build_assets(handoff: dict[str, Any], output_root: Path) -> dict[str, Any]:
                 "target_result_path": job["output_paths"]["result_path"],
                 "minimum_hits": job["minimum_hits"],
                 "route_groups": job.get("route_groups", {}),
+                "route_gap_probe_breakpoints": job_asset["route_gap_probe_breakpoints"],
                 "capture_field_count": len(job["capture_fields"]),
             }
         )

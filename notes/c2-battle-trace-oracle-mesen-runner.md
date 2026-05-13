@@ -24,6 +24,14 @@ selected-target pointer, and the pointed-to 96-byte battler row. For the
 `selected_target_row` watch, `address` is now the resolved row pointer and
 `pointerAddress` records the original `$A972` pointer cell.
 
+Route-gap probe hints from the oracle handoff are now emitted as optional
+non-required Lua breakpoints. They carry `probeSource = route_group_hint` and a
+`routeGroup`, so raw summaries split them into `probe_breakpoint_hit_counts` /
+`probe_observed_addresses` instead of proof-facing `breakpoint_hit_counts` /
+`observed_addresses`. This keeps helper call-site discovery out of result
+promotion gates while still showing whether the run approached `C2:B930` or
+`C2:40A4`.
+
 ## Local Fixture Status
 
 - `F:\Mesen2\Mesen.exe` and `F:\Mesen\Mesen.exe` are known local Mesen2
@@ -101,6 +109,12 @@ selected-target pointer, and the pointed-to 96-byte battler row. For the
 - `c2_40a4_current_action_payload` does not yet hit its minimum `C2:40A4`, but
   saves 1, 2, 3, 4, 5, and 7 repeatedly hit nearby `C2:3D05`. Treat those as
   route hints only.
+- The generated runner assets now install route-gap probe breakpoints for the
+  two open lanes. For `c1_c2_target_action_staging`, the extra non-required
+  breakpoints are `C1:B3DB`, `C1:B462`, `C1:B505`, `C1:B859`, `C1:B9A9`, and
+  `C1:BA60`. For `c2_40a4_current_action_payload`, they are `C2:77CA`,
+  `C2:90C6`, `C2:A89D`, and `C0:9279`. These are discovery aids only; the
+  minimum gates remain `C2:B930` and `C2:40A4`.
 - The current set did not satisfy the first-pass affliction-writer or resource
   amount-pair minimums. Save 6 is useful as an already-afflicted-state
   snapshot, but not as proof of the affliction writer.

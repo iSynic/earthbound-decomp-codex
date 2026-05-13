@@ -47,16 +47,28 @@ def validate(data: dict[str, Any], summary_path: Path) -> None:
     require(isinstance(data.get("invalid_line_count"), int) and data["invalid_line_count"] >= 0, "invalid_line_count must be non-negative int")
     for key in ("event_counts", "breakpoint_hit_counts", "watch_snapshot_counts"):
         require(isinstance(data.get(key), dict), f"{key} must be object")
+    for key in ("probe_breakpoint_hit_counts", "probe_route_group_hit_counts"):
+        require(isinstance(data.get(key, {}), dict), f"{key} must be object when present")
     for key in ("observed_addresses", "required_hit_addresses", "configured_minimum_hits", "missing_minimum_hits"):
         require(isinstance(data.get(key), list), f"{key} must be list")
         for item in data[key]:
             require(isinstance(item, str), f"{key} entries must be strings")
+    probe_observed = data.get("probe_observed_addresses", [])
+    require(isinstance(probe_observed, list), "probe_observed_addresses must be list when present")
+    for item in probe_observed:
+        require(isinstance(item, str), "probe_observed_addresses entries must be strings")
     require(isinstance(data.get("minimum_hits_satisfied"), bool), "minimum_hits_satisfied must be bool")
     require(data.get("source_promotion_allowed") is False, "summary cannot allow source promotion")
     require(data.get("behavior_change_allowed") is False, "summary cannot allow behavior changes")
     if data.get("minimum_hits_satisfied") is True:
         require(data.get("trace_nonempty") is True, "minimum hits require non-empty trace")
         require(not data.get("missing_minimum_hits"), "minimum hits cannot be satisfied with missing hits")
+    else:
+        if data.get("configured_minimum_hits"):
+            require(
+                bool(data.get("missing_minimum_hits")) or data.get("trace_nonempty") is False,
+                "unsatisfied minimum hits must reflect missing configured hits or an empty trace",
+            )
 
 
 def main() -> int:

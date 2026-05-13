@@ -56,6 +56,30 @@ def require_under_build(path_text: str) -> None:
     require(str(path).startswith(str(build_root)), f"path is not under ignored C2 build output: {path_text}")
 
 
+def expected_route_gap_probe_breakpoints(handoff_job: dict[str, Any]) -> list[dict[str, Any]]:
+    base_addresses = {str(record.get("address")) for record in handoff_job.get("breakpoints", [])}
+    records: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for group_id, group in handoff_job.get("route_groups", {}).items():
+        for address in group.get("probe_breakpoint_hints", []):
+            address_text = str(address)
+            if address_text in base_addresses or address_text in seen:
+                continue
+            seen.add(address_text)
+            records.append(
+                {
+                    "address": address_text,
+                    "address_space": "snes_cpu_bus",
+                    "hit_policy": "capture_registers_dp_wram_then_continue",
+                    "required_for_minimum_capture": False,
+                    "probe_source": "route_group_hint",
+                    "route_group": str(group_id),
+                    "route_group_status": str(group.get("status", "")),
+                }
+            )
+    return records
+
+
 def validate_result_template(path_text: str, job: dict[str, Any]) -> None:
     data = load_json(require_existing_file(path_text, label="result template"))
     require(data.get("schema") == "earthbound-decomp.c2-battle-trace-oracle-result.v1", "bad result template schema")
@@ -81,6 +105,7 @@ def validate_runner_job(path_text: str, index_job: dict[str, Any], handoff_job: 
     require(data.get("oracle_id") == oracle_id, f"{oracle_id}: runner oracle mismatch")
     require(data.get("minimum_hits") == handoff_job["minimum_hits"], f"{oracle_id}: minimum hits mismatch")
     require(data.get("route_groups", {}) == handoff_job.get("route_groups", {}), f"{oracle_id}: route groups mismatch")
+    require(data.get("route_gap_probe_breakpoints", []) == expected_route_gap_probe_breakpoints(handoff_job), f"{oracle_id}: route gap probe breakpoints mismatch")
     require(data.get("breakpoints") == handoff_job["breakpoints"], f"{oracle_id}: breakpoints mismatch")
     require(data.get("capture_fields") == handoff_job["capture_fields"], f"{oracle_id}: capture fields mismatch")
     require(data.get("output_paths") == handoff_job["output_paths"], f"{oracle_id}: output paths mismatch")
@@ -101,7 +126,7 @@ def validate_runner_job(path_text: str, index_job: dict[str, Any], handoff_job: 
     require("validate_c2_battle_trace_oracle_result.py" in str(commands.get("validate_result", "")), f"{oracle_id}: missing validator command")
 
 
-def validate_lua(path_text: str, oracle_id: str, minimum_hits: list[str]) -> None:
+def validate_lua(path_text: str, oracle_id: str, minimum_hits: list[str], route_gap_breakpoints: list[dict[str, Any]]) -> None:
     path = require_existing_file(path_text, label="Lua skeleton")
     text = path.read_text(encoding="utf-8")
     require("emu.addMemoryCallback" in text, f"{oracle_id}: Lua skeleton missing memory callback")
@@ -111,6 +136,11 @@ def validate_lua(path_text: str, oracle_id: str, minimum_hits: list[str]) -> Non
     require("runner_start" in text and "breakpoint_hit" in text and "summary" in text, f"{oracle_id}: Lua skeleton missing trace events")
     for address in minimum_hits:
         require(address in text, f"{oracle_id}: Lua skeleton missing minimum hit {address}")
+    for record in route_gap_breakpoints:
+        address = str(record["address"])
+        require(address in text, f"{oracle_id}: Lua skeleton missing route-gap probe address {address}")
+    if route_gap_breakpoints:
+        require("route_group_hint" in text, f"{oracle_id}: Lua skeleton missing route-group hint marker")
 
 
 def validate_index(index: dict[str, Any], handoff: dict[str, Any]) -> None:
@@ -147,11 +177,13 @@ def validate_index(index: dict[str, Any], handoff: dict[str, Any]) -> None:
         require(job.get("target_result_path") == handoff_job["output_paths"]["result_path"], f"{oracle_id}: result path mismatch")
         require(job.get("minimum_hits") == handoff_job["minimum_hits"], f"{oracle_id}: minimum hits mismatch")
         require(job.get("route_groups", {}) == handoff_job.get("route_groups", {}), f"{oracle_id}: route groups mismatch")
+        expected_gap_bps = expected_route_gap_probe_breakpoints(handoff_job)
+        require(job.get("route_gap_probe_breakpoints", []) == expected_gap_bps, f"{oracle_id}: route gap probe breakpoints mismatch")
         require(job.get("capture_field_count") == len(handoff_job["capture_fields"]), f"{oracle_id}: capture count mismatch")
         for key in ("runner_job", "mesen_lua_skeleton", "operator_checklist", "result_template"):
             require_existing_file(str(job.get(key)), label=f"{oracle_id} {key}")
             require_under_build(str(job.get(key)))
-        validate_lua(str(job["mesen_lua_skeleton"]), oracle_id, handoff_job["minimum_hits"])
+        validate_lua(str(job["mesen_lua_skeleton"]), oracle_id, handoff_job["minimum_hits"], expected_gap_bps)
         validate_result_template(str(job["result_template"]), job)
         validate_runner_job(str(job["runner_job"]), job, handoff_job)
 
