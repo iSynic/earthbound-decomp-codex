@@ -19,6 +19,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import build_c2_battle_trace_oracle_runner_assets
 import rom_tools
+import summarize_c2_battle_trace_oracle_raw_trace
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -48,6 +49,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--mesen", help="Path to Mesen.exe. Defaults to MESEN_EXE/MESEN_PATH or common local paths.")
     parser.add_argument("--rom", help="Path to EarthBound (USA).sfc. Defaults to tools.rom_tools discovery.")
     parser.add_argument("--state", help="Optional local Mesen save-state path.")
+    parser.add_argument("--input-pattern", help="Optional input pattern such as neutral:30,a:4,neutral:30.")
+    parser.add_argument("--summarize-trace", action="store_true", help="Write raw-trace-summary.json after a non-dry run.")
     parser.add_argument("--frame-limit", type=int, default=3600, help="Frames before the generated Lua skeleton exits.")
     parser.add_argument("--timeout", type=int, default=180, help="Subprocess timeout in seconds.")
     parser.add_argument("--dry-run", action="store_true", help="Print and summarize the command without launching Mesen.")
@@ -95,6 +98,7 @@ def local_fixture_template() -> dict[str, Any]:
                 "role": "battle_save_state",
                 "oracle_ids": ["c1_c2_target_action_staging"],
                 "save_state_path": "<local-only ordinary battle .mss just before choosing a command>",
+                "input_pattern": "neutral:30,a:4,neutral:20,a:4,neutral:360",
                 "notes": "Create this locally in Mesen; do not commit the save state.",
             }
         ],
@@ -257,6 +261,7 @@ def main() -> int:
     fixture_mesen = fixture.get("mesen_path") if fixture else None
     fixture_rom = fixture.get("rom_path") if fixture else None
     fixture_state = fixture.get("save_state_path") if fixture else None
+    fixture_input_pattern = fixture.get("input_pattern") if fixture else None
     mesen = resolve_mesen(args.mesen or fixture_mesen or (fixture_config or {}).get("default_mesen_path"))
     rom = resolve_rom(args.rom or fixture_rom or (fixture_config or {}).get("default_rom_path"))
     state = Path(args.state or fixture_state) if (args.state or fixture_state) else None
@@ -280,6 +285,9 @@ def main() -> int:
     env["C2_ORACLE_JOB_PATH"] = str(job_path)
     env["C2_ORACLE_FRAME_LIMIT"] = str(args.frame_limit)
     env["C2_ORACLE_RUNNER_VERSION"] = "c2-battle-trace-oracle-mesen-v1"
+    input_pattern = args.input_pattern or fixture_input_pattern
+    if input_pattern:
+        env["C2_ORACLE_INPUT_PATTERN"] = str(input_pattern)
     if state is not None:
         env["C2_ORACLE_STATE_PATH"] = str(state)
 
@@ -295,6 +303,8 @@ def main() -> int:
         "save_state_path_local_only": str(state) if state else None,
         "fixture_config": manifest_path(fixtures_path) if fixtures_path.exists() else None,
         "fixture_id": args.fixture_id,
+        "input_pattern": input_pattern,
+        "raw_trace_summary_path": str(output_dir / "raw-trace-summary.json"),
         "lua_skeleton": manifest_path(lua_path),
         "job_path": manifest_path(job_path),
         "raw_trace_path": manifest_path(trace_path),
@@ -330,6 +340,17 @@ def main() -> int:
     )
     if args.write_unresolved_result and result.returncode == 0 and trace_path.exists() and trace_path.stat().st_size > 0:
         run_record["written_result_path"] = manifest_path(write_unresolved_result(runner_job, trace_path, observed))
+    if args.summarize_trace and trace_path.exists():
+        packet_job = summarize_c2_battle_trace_oracle_raw_trace.find_job(
+            packet,
+            job_id=str(runner_data["job_id"]),
+            oracle_id=str(runner_data["oracle_id"]),
+        )
+        raw_summary = summarize_c2_battle_trace_oracle_raw_trace.summarize(packet_job, trace_path, runner_job)
+        summary_output = output_dir / "raw-trace-summary.json"
+        write_json(summary_output, raw_summary)
+        run_record["raw_trace_summary"] = manifest_path(summary_output)
+        run_record["minimum_hits_satisfied"] = raw_summary["minimum_hits_satisfied"]
     write_json(summary_path, run_record)
     print(f"C2 Mesen oracle run {run_record['status']}: {runner_data['oracle_id']}")
     print(f"Observed addresses: {observed}")

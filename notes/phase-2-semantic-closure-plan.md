@@ -52,6 +52,8 @@ those assets; it writes ignored raw traces/run summaries and requires a
 local-only battle save state before the first proof capture can be reviewed.
 The ignored `build/c2/battle-trace-oracles/local-fixtures.json` config keeps
 that local save-state path out of source-controlled notes and commands.
+The runner skeletons also accept a small `atom:frames` input pattern, and raw
+trace summaries report whether minimum breakpoint hits were actually observed.
 Prioritize the contracts that most directly affect a C port:
 
 - C1/C2 target staging and selected action metadata.

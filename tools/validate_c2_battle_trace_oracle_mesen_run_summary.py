@@ -45,6 +45,8 @@ def validate(data: dict[str, Any], summary_path: Path) -> None:
     require(data.get("job_path"), "missing job path")
     require(data.get("raw_trace_path"), "missing raw trace path")
     require(isinstance(data.get("command"), list) and data.get("command"), "missing command vector")
+    if data.get("input_pattern") is not None:
+        require(isinstance(data.get("input_pattern"), str) and data.get("input_pattern"), "input_pattern must be a non-empty string")
     require(data.get("source_promotion_allowed") is False, "summary cannot allow source promotion")
     require(data.get("behavior_change_allowed") is False, "summary cannot allow behavior changes")
     require(str(summary_path.resolve()).startswith(str(DEFAULT_SUMMARY_ROOT.resolve())), "summary must stay under ignored C2 build output")

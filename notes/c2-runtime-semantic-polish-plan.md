@@ -928,6 +928,12 @@ contract notes for C0/C1/C3/C4 consumers.
   `build/c2/battle-trace-oracles/local-fixtures.json`, validate fixture ids
   against packet oracle ids, and run by fixture id once a local ordinary-battle
   save state exists.
+- 2026-05-13 one hundred and twenty-third slice: added Mesen input-pattern
+  support and raw-trace summarization for C2 oracle runs. Generated Lua
+  skeletons now accept the proven local `atom:frames` input grammar, and
+  `tools/summarize_c2_battle_trace_oracle_raw_trace.py` reports breakpoint hit
+  counts plus whether the first-pass minimum hits were satisfied, with a paired
+  validator for the ignored raw-trace summary artifact.
 
 ## Validation
 

@@ -36,6 +36,8 @@ Generated companions:
 - `tools/run_c2_battle_trace_oracle_mesen.py`
 - `tools/validate_c2_battle_trace_local_fixtures.py`
 - `tools/validate_c2_battle_trace_oracle_mesen_run_summary.py`
+- `tools/summarize_c2_battle_trace_oracle_raw_trace.py`
+- `tools/validate_c2_battle_trace_oracle_raw_trace_summary.py`
 - `tools/run_c2_battle_trace_oracle_batch.py`
 - `tools/collect_c2_battle_trace_oracle_results.py`
 

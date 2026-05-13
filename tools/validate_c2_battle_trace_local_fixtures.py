@@ -62,6 +62,9 @@ def validate(data: dict[str, Any], packet: dict[str, Any], *, allow_placeholders
         require(isinstance(oracle_ids, list) and oracle_ids, f"{fixture_id}: oracle_ids must be non-empty")
         for oracle_id in oracle_ids:
             require(str(oracle_id) in jobs_by_oracle, f"{fixture_id}: unknown oracle id {oracle_id}")
+        input_pattern = fixture.get("input_pattern")
+        if input_pattern is not None:
+            require(isinstance(input_pattern, str) and input_pattern, f"{fixture_id}: input_pattern must be non-empty string")
         require(isinstance(fixture.get("notes", ""), str), f"{fixture_id}: notes must be a string")
 
 

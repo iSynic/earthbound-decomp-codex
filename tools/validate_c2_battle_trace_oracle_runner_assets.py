@@ -105,6 +105,7 @@ def validate_lua(path_text: str, oracle_id: str, minimum_hits: list[str]) -> Non
     require("emu.addMemoryCallback" in text, f"{oracle_id}: Lua skeleton missing memory callback")
     require("emu.addEventCallback" in text, f"{oracle_id}: Lua skeleton missing event callback")
     require("C2_ORACLE_TRACE_OUT" in text, f"{oracle_id}: Lua skeleton missing trace env")
+    require("C2_ORACLE_INPUT_PATTERN" in text, f"{oracle_id}: Lua skeleton missing input pattern env")
     require("runner_start" in text and "breakpoint_hit" in text and "summary" in text, f"{oracle_id}: Lua skeleton missing trace events")
     for address in minimum_hits:
         require(address in text, f"{oracle_id}: Lua skeleton missing minimum hit {address}")

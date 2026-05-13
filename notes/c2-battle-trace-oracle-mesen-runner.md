@@ -14,6 +14,11 @@ non-proof unresolved result. Reviewed proof-grade results still have to pass
 `tools/validate_c2_battle_trace_oracle_result.py` and the collector before any
 source-facing semantic promotion.
 
+Generated skeletons accept `C2_ORACLE_INPUT_PATTERN` through the wrapper. The
+pattern reuses the prior Mesen route syntax: `atom:frames,atom:frames`. Locally
+proven atoms are `neutral`, `none`, `right`, `left`, `up`, `down`,
+`down_right`, `up_right`, `up_left`, `down_left`, `a`, `start`, and `a_start`.
+
 ## Local Fixture Status
 
 - `F:\Mesen\Mesen.exe` is the known local Mesen2 executable path used by prior
@@ -59,13 +64,15 @@ python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action
 Run a local battle fixture:
 
 ```powershell
-python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action_staging --fixture-id ordinary_battle_pre_command --frame-limit 3600
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action_staging --fixture-id ordinary_battle_pre_command --frame-limit 3600 --summarize-trace
 ```
 
 Validate the ignored run summary:
 
 ```powershell
 python tools\validate_c2_battle_trace_oracle_mesen_run_summary.py build\c2\battle-trace-oracles\c1_c2_target_action_staging\mesen-run-summary.json
+python tools\summarize_c2_battle_trace_oracle_raw_trace.py --oracle-id c1_c2_target_action_staging
+python tools\validate_c2_battle_trace_oracle_raw_trace_summary.py build\c2\battle-trace-oracles\c1_c2_target_action_staging\raw-trace-summary.json
 ```
 
 After manual review, assemble and validate a result:
