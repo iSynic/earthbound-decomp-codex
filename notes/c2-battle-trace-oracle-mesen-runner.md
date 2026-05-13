@@ -21,8 +21,8 @@ proven atoms are `neutral`, `none`, `right`, `left`, `up`, `down`,
 
 ## Local Fixture Status
 
-- `F:\Mesen\Mesen.exe` is the known local Mesen2 executable path used by prior
-  testRunner work.
+- `F:\Mesen2\Mesen.exe` and `F:\Mesen\Mesen.exe` are known local Mesen2
+  executable paths used by testRunner work.
 - `EarthBound (USA).sfc` is discoverable through `tools/rom_tools.py` in this
   checkout.
 - Local save states exist under `F:\Mesen\SaveStates`, but no save state is
@@ -41,6 +41,22 @@ proven atoms are `neutral`, `none`, `right`, `left`, `up`, `down`,
   PCs. All 21 runs completed, but none reached `C0:D19B`, `C0:D323`,
   `C0:44DA`, `C0:B731`, `C2:E8E0`, `C2:2F38`, `C2:4821`, `C2:311B`,
   `C1:ADB4`, `C1:CE85`, `C1:CFC6`, `C2:B930`, or `C2:BAC5`.
+- `F:\Mesen2\SaveStates\EarthBound (USA)_4.mss` is now a useful local
+  random-battle fixture candidate, but not a full command-staging fixture. The
+  state hash is
+  `3365cd0a78e56164658b06a0a708d45bf540b1025c15a27d0b9bd11df0c190d4`.
+  With `neutral:180,a:4,neutral:60,a:4,neutral:540`, the
+  `c1_c2_target_action_staging` probe completed and hit `C2:BAC5` 51 times,
+  but still missed `C1:ADB4`, `C1:CE85`, `C1:CFC6`, and `C2:B930`. The fixture
+  scout with absolute output paths classified the confirm and mash-confirm
+  patterns as battle-entry candidates via `C2:311B` plus repeated `C2:BAC5`
+  hits, but not command fixtures.
+- The same save with a confirm-and-wait pattern
+  (`neutral:120,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:1800`)
+  satisfied the first real runtime oracle for `c2_8125_damage_abi_boundary`,
+  hitting `C2:8125` and `C2:7EAF` four times each. It also hit `C2:3D05` in the
+  `c2_40a4_current_action_payload` probe, but missed `C2:40A4`; it did not hit
+  the affliction writer or resource amount pair minimums.
 
 The first useful fixture to create is an ordinary battle state just before
 choosing a command. That should target `c1_c2_target_action_staging`, because it
@@ -100,9 +116,9 @@ python tools\validate_c2_battle_trace_oracle_raw_trace_summary.py build\c2\battl
 Probe existing local Mesen save states without overwriting packet output paths:
 
 ```powershell
-python tools\probe_c2_battle_trace_save_states.py
+python tools\probe_c2_battle_trace_save_states.py --mesen F:\Mesen2\Mesen.exe
 python tools\validate_c2_battle_trace_save_state_probes.py
-python tools\probe_c2_battle_fixture_scout.py
+python tools\probe_c2_battle_fixture_scout.py --mesen F:\Mesen2\Mesen.exe
 python tools\validate_c2_battle_fixture_scout.py
 ```
 

@@ -28,6 +28,7 @@ DEFAULT_STATE_DIR = Path(r"F:\Mesen\SaveStates")
 COMMON_MESEN_PATHS = [
     Path(os.environ.get("MESEN_EXE", "")) if os.environ.get("MESEN_EXE") else None,
     Path(os.environ.get("MESEN_PATH", "")) if os.environ.get("MESEN_PATH") else None,
+    Path(r"F:\Mesen2\Mesen.exe"),
     Path(r"F:\Mesen\Mesen.exe"),
     Path(r"C:\Mesen\Mesen.exe"),
 ]
@@ -463,7 +464,7 @@ def build_summary(args: argparse.Namespace, records: list[dict[str, Any]], outpu
 
 def main() -> int:
     args = parse_args()
-    output_root = Path(args.output_root)
+    output_root = Path(args.output_root).resolve()
     lua_path = output_root / "fixture-scout.lua"
     render_lua(lua_path)
     mesen = resolve_mesen(args.mesen)

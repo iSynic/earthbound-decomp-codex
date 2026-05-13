@@ -30,6 +30,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--timeout", type=int, default=120)
     parser.add_argument("--limit", type=int, help="Maximum number of candidate save states to probe.")
     parser.add_argument("--output-root", default=str(DEFAULT_OUTPUT_ROOT))
+    parser.add_argument("--mesen", help="Path to Mesen.exe.")
     return parser.parse_args()
 
 
@@ -82,18 +83,24 @@ def run_probe(args: argparse.Namespace, state: Path, output_root: Path, index: i
         "tools/run_c2_battle_trace_oracle_mesen.py",
         "--oracle-id",
         args.oracle_id,
-        "--state",
-        str(state),
-        "--input-pattern",
-        args.pattern,
-        "--frame-limit",
-        str(args.frame_limit),
-        "--timeout",
-        str(args.timeout),
-        "--summarize-trace",
-        "--output-dir",
-        str(output_dir),
     ]
+    if args.mesen:
+        command.extend(["--mesen", args.mesen])
+    command.extend(
+        [
+            "--state",
+            str(state),
+            "--input-pattern",
+            args.pattern,
+            "--frame-limit",
+            str(args.frame_limit),
+            "--timeout",
+            str(args.timeout),
+            "--summarize-trace",
+            "--output-dir",
+            str(output_dir),
+        ]
+    )
     record: dict[str, Any] = {
         "probe_id": probe_id,
         "oracle_id": args.oracle_id,
