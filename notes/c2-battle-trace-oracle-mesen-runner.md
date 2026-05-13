@@ -164,6 +164,18 @@ Probe output stays under
 hits is only a fixture candidate; it still needs manual trace review and the
 normal result builder/validator before it can affect source comments.
 
+Build the sanitized tracked matrix from the ignored manual probe summaries:
+
+```powershell
+python tools\build_c2_battle_trace_manual_probe_matrix.py
+python tools\validate_c2_battle_trace_manual_probe_matrix.py
+```
+
+The matrix is written to
+`manifests/c2-battle-trace-manual-probe-matrix.json` and
+`notes/c2-battle-trace-manual-probe-matrix.md`. It records useful fixture
+hits, redacts local save-state paths, and does not promote source behavior.
+
 After manual review, assemble and validate a result:
 
 ```powershell
