@@ -26,6 +26,7 @@ DEFAULT_HANDOFF = ROOT / "manifests" / "c2-battle-trace-oracle-emulator-handoff.
 DEFAULT_PACKET = ROOT / "manifests" / "c2-battle-trace-oracle-packet.json"
 DEFAULT_INDEX = ROOT / "build" / "c2" / "battle-trace-oracles" / "mesen-runner-assets" / "index.json"
 DEFAULT_ASSET_ROOT = ROOT / "build" / "c2" / "battle-trace-oracles" / "mesen-runner-assets"
+DEFAULT_FIXTURES = ROOT / "build" / "c2" / "battle-trace-oracles" / "local-fixtures.json"
 COMMON_MESEN_PATHS = [
     Path(os.environ.get("MESEN_EXE", "")) if os.environ.get("MESEN_EXE") else None,
     Path(os.environ.get("MESEN_PATH", "")) if os.environ.get("MESEN_PATH") else None,
@@ -36,11 +37,14 @@ COMMON_MESEN_PATHS = [
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run a C2 battle trace-oracle Mesen skeleton.")
-    target = parser.add_mutually_exclusive_group(required=True)
+    target = parser.add_mutually_exclusive_group()
     target.add_argument("--job-id", help="Packet job id.")
     target.add_argument("--oracle-id", help="Oracle id.")
     parser.add_argument("--runner-index", default=str(DEFAULT_INDEX), help="Ignored runner asset index JSON.")
     parser.add_argument("--packet", default=str(DEFAULT_PACKET), help="C2 battle trace-oracle packet JSON.")
+    parser.add_argument("--fixtures", default=str(DEFAULT_FIXTURES), help="Ignored local fixture config JSON.")
+    parser.add_argument("--fixture-id", help="Fixture id from --fixtures; supplies ROM/Mesen/state defaults.")
+    parser.add_argument("--init-fixtures-template", action="store_true", help="Write an ignored local fixture template and exit.")
     parser.add_argument("--mesen", help="Path to Mesen.exe. Defaults to MESEN_EXE/MESEN_PATH or common local paths.")
     parser.add_argument("--rom", help="Path to EarthBound (USA).sfc. Defaults to tools.rom_tools discovery.")
     parser.add_argument("--state", help="Optional local Mesen save-state path.")
@@ -62,6 +66,56 @@ def load_json(path: Path) -> dict[str, Any]:
 def write_json(path: Path, data: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+
+def discover_mesen_path() -> str | None:
+    for candidate in COMMON_MESEN_PATHS:
+        if candidate and candidate.is_file():
+            return str(candidate)
+    found = shutil.which("Mesen.exe") or shutil.which("Mesen")
+    return found
+
+
+def discover_rom_path() -> str | None:
+    try:
+        return str(rom_tools.find_rom(None))
+    except FileNotFoundError:
+        return None
+
+
+def local_fixture_template() -> dict[str, Any]:
+    return {
+        "schema": "earthbound-decomp.c2-battle-trace-local-fixtures.v1",
+        "status": "local_template_requires_user_fixture",
+        "default_mesen_path": discover_mesen_path() or "<path-to-Mesen.exe>",
+        "default_rom_path": discover_rom_path() or "<path-to-earthbound-us.sfc>",
+        "fixtures": [
+            {
+                "id": "ordinary_battle_pre_command",
+                "role": "battle_save_state",
+                "oracle_ids": ["c1_c2_target_action_staging"],
+                "save_state_path": "<local-only ordinary battle .mss just before choosing a command>",
+                "notes": "Create this locally in Mesen; do not commit the save state.",
+            }
+        ],
+    }
+
+
+def load_fixtures(path: Path) -> dict[str, Any] | None:
+    if not path.exists():
+        return None
+    return load_json(path)
+
+
+def find_fixture(config: dict[str, Any] | None, fixture_id: str | None) -> dict[str, Any] | None:
+    if not fixture_id:
+        return None
+    if config is None:
+        raise FileNotFoundError(f"fixture config not found; run --init-fixtures-template first: {DEFAULT_FIXTURES}")
+    for fixture in config.get("fixtures", []):
+        if fixture.get("id") == fixture_id:
+            return fixture
+    raise ValueError(f"fixture id not found in local fixture config: {fixture_id}")
 
 
 def repo_path(path_text: str) -> Path:
@@ -187,15 +241,34 @@ def build_command(mesen: Path, lua: Path, rom: Path) -> list[str]:
 
 def main() -> int:
     args = parse_args()
+    fixtures_path = Path(args.fixtures)
+    if args.init_fixtures_template:
+        write_json(fixtures_path, local_fixture_template())
+        print(f"Wrote local C2 fixture template {fixtures_path}")
+        return 0
+    if not args.job_id and not args.oracle_id:
+        raise ValueError("one of --job-id or --oracle-id is required unless --init-fixtures-template is used")
+    fixture_config = load_fixtures(fixtures_path)
+    fixture = find_fixture(fixture_config, args.fixture_id)
     index = ensure_runner_assets(Path(args.runner_index))
     packet = load_json(Path(args.packet))
     runner_job = find_runner_job(index, job_id=args.job_id, oracle_id=args.oracle_id)
     runner_data = load_json(repo_path(str(runner_job["runner_job"])))
-    mesen = resolve_mesen(args.mesen)
-    rom = resolve_rom(args.rom)
-    state = Path(args.state) if args.state else None
+    fixture_mesen = fixture.get("mesen_path") if fixture else None
+    fixture_rom = fixture.get("rom_path") if fixture else None
+    fixture_state = fixture.get("save_state_path") if fixture else None
+    mesen = resolve_mesen(args.mesen or fixture_mesen or (fixture_config or {}).get("default_mesen_path"))
+    rom = resolve_rom(args.rom or fixture_rom or (fixture_config or {}).get("default_rom_path"))
+    state = Path(args.state or fixture_state) if (args.state or fixture_state) else None
     if state is not None and not state.is_file():
         raise FileNotFoundError(f"save state not found: {state}")
+    if fixture is not None:
+        allowed_oracles = set(str(item) for item in fixture.get("oracle_ids", []))
+        if allowed_oracles and str(runner_data["oracle_id"]) not in allowed_oracles:
+            raise ValueError(
+                f"fixture {fixture['id']} is not declared for oracle {runner_data['oracle_id']}; "
+                f"allowed: {sorted(allowed_oracles)}"
+            )
 
     job_path = ensure_job_manifest(packet, runner_data)
     trace_path = repo_path(str(runner_job["target_raw_trace_path"]))
@@ -220,6 +293,8 @@ def main() -> int:
         "mesen_path": str(mesen),
         "rom_path": manifest_path(rom),
         "save_state_path_local_only": str(state) if state else None,
+        "fixture_config": manifest_path(fixtures_path) if fixtures_path.exists() else None,
+        "fixture_id": args.fixture_id,
         "lua_skeleton": manifest_path(lua_path),
         "job_path": manifest_path(job_path),
         "raw_trace_path": manifest_path(trace_path),

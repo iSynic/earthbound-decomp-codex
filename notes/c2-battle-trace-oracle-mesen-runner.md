@@ -32,6 +32,17 @@ only needs the C1 target/action staging path and C2 candidate export path.
 
 ## Commands
 
+Initialize and validate the ignored local fixture config:
+
+```powershell
+python tools\run_c2_battle_trace_oracle_mesen.py --init-fixtures-template
+python tools\validate_c2_battle_trace_local_fixtures.py --allow-template-placeholders
+```
+
+After creating a local ordinary-battle save state, edit
+`build/c2/battle-trace-oracles/local-fixtures.json`, replace the placeholder
+`save_state_path`, and validate without `--allow-template-placeholders`.
+
 Regenerate runner assets:
 
 ```powershell
@@ -48,7 +59,7 @@ python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action
 Run a local battle fixture:
 
 ```powershell
-python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action_staging --state "<local-only battle save state>" --frame-limit 3600
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action_staging --fixture-id ordinary_battle_pre_command --frame-limit 3600
 ```
 
 Validate the ignored run summary:
@@ -71,3 +82,21 @@ python tools\validate_c2_battle_trace_oracle_results_summary.py
 Do not promote source names or comments from a Mesen run summary alone. The raw
 trace has to be reviewed into a non-stub result with all packet capture fields,
 then collected as trace-observed or proof-grade evidence.
+
+## Hook Fallbacks
+
+Do not use a ROM hook for the first fixture unless a manual local battle save
+state proves impractical. A cold jump into `C2:4821` / `BATTLE_ROUTINE` is too
+late in the setup path for ordinary-battle proof. If a hook lane becomes
+necessary later, `C2:2F38` / `INIT_BATTLE_SCRIPTED` is the safer candidate
+because it reads the battle-entry pointer table, stages `$9F8A/$9F8C`, sets
+`$4DC2`, runs the swirl/setup path, and reaches the shared battle init route.
+
+Useful anchors:
+
+- `C0:B731` / `INIT_BATTLE_OVERWORLD`: vanilla overworld battle entry when
+  `$4DC2` is set.
+- `C2:2F38` / `INIT_BATTLE_SCRIPTED`: scripted battle entry using the
+  `D0:C60D` battle-entry pointer table.
+- `C2:4821` / `BATTLE_ROUTINE`: battle runtime entry used by debug SHOW BATTLE,
+  not a complete ordinary battle initializer.

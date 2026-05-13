@@ -923,6 +923,11 @@ contract notes for C0/C1/C3/C4 consumers.
   promotion requires a reviewed non-stub result. A boot-only smoke run validates
   wrapper execution and trace output, but records no C2 proof hits; the next
   runtime blocker is a local ordinary-battle save state.
+- 2026-05-13 one hundred and twenty-second slice: added ignored local fixture
+  config support for the C2 Mesen wrapper. The wrapper can now initialize
+  `build/c2/battle-trace-oracles/local-fixtures.json`, validate fixture ids
+  against packet oracle ids, and run by fixture id once a local ordinary-battle
+  save state exists.
 
 ## Validation
 

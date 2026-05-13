@@ -50,6 +50,8 @@ reviewed trace evidence into the validated result schema.
 `tools/run_c2_battle_trace_oracle_mesen.py` is the local execution wrapper for
 those assets; it writes ignored raw traces/run summaries and requires a
 local-only battle save state before the first proof capture can be reviewed.
+The ignored `build/c2/battle-trace-oracles/local-fixtures.json` config keeps
+that local save-state path out of source-controlled notes and commands.
 Prioritize the contracts that most directly affect a C port:
 
 - C1/C2 target staging and selected action metadata.
