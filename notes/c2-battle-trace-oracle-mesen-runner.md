@@ -36,10 +36,26 @@ proven atoms are `neutral`, `none`, `right`, `left`, `up`, `down`,
   minimum C1/C2 battle-command addresses (`C1:ADB4`, `C1:CE85`, `C1:CFC6`,
   `C2:B930`). Those states are useful runner smoke fixtures, not ready battle
   proof fixtures.
+- The fixture scout then tested those same seven states under neutral, confirm,
+  and small movement-loop patterns against ordinary battle-entry and command
+  PCs. All 21 runs completed, but none reached `C0:D19B`, `C0:D323`,
+  `C0:44DA`, `C0:B731`, `C2:E8E0`, `C2:2F38`, `C2:4821`, `C2:311B`,
+  `C1:ADB4`, `C1:CE85`, `C1:CFC6`, `C2:B930`, or `C2:BAC5`.
 
 The first useful fixture to create is an ordinary battle state just before
 choosing a command. That should target `c1_c2_target_action_staging`, because it
 only needs the C1 target/action staging path and C2 candidate export path.
+
+The least invasive proof route is a normal overworld enemy encounter, then a
+local Mesen save at the first battle command prompt. The ordinary-entry
+provenance chain to confirm is:
+
+1. `C0:D19B` prepares the encounter slot and battle id.
+2. `C0:D323` builds `$9F8A/$9F8C` enemy entries.
+3. `C0:44DA` sets `$4DC2 = FFFF` after the encounter countdown.
+4. `C0:B731` enters the overworld battle initializer with `$4DC2 != 0`.
+5. `C2:4821` reaches the shared battle runtime while skipping the `$4DC2 == 0`
+   debug/default seed block at `C2:4830`.
 
 ## Commands
 
@@ -86,12 +102,15 @@ Probe existing local Mesen save states without overwriting packet output paths:
 ```powershell
 python tools\probe_c2_battle_trace_save_states.py
 python tools\validate_c2_battle_trace_save_state_probes.py
+python tools\probe_c2_battle_fixture_scout.py
+python tools\validate_c2_battle_fixture_scout.py
 ```
 
 Probe output stays under
-`build/c2/battle-trace-oracles/save-state-probes/`. A probe that satisfies
-minimum hits is only a fixture candidate; it still needs manual trace review and
-the normal result builder/validator before it can affect source comments.
+`build/c2/battle-trace-oracles/save-state-probes/` and
+`build/c2/battle-trace-oracles/fixture-scout/`. A probe that satisfies minimum
+hits is only a fixture candidate; it still needs manual trace review and the
+normal result builder/validator before it can affect source comments.
 
 After manual review, assemble and validate a result:
 
@@ -116,12 +135,20 @@ late in the setup path for ordinary-battle proof. If a hook lane becomes
 necessary later, `C2:2F38` / `INIT_BATTLE_SCRIPTED` is the safer candidate
 because it reads the battle-entry pointer table, stages `$9F8A/$9F8C`, sets
 `$4DC2`, runs the swirl/setup path, and reaches the shared battle init route.
+Do not use EF debug `SHOW BATTLE` as the ordinary fixture, because that path
+enters `C2:4821` directly and can fall through the `$4DC2 == 0` debug/default
+seed block instead of proving the overworld encounter initializer.
 
 Useful anchors:
 
+- `C0:D19B` / encounter prep: stages the encounter slot and battle id.
+- `C0:D323` / enemy-list build: fills `$9F8A/$9F8C`.
+- `C0:44DA` / encounter countdown tail: sets `$4DC2 = FFFF`.
 - `C0:B731` / `INIT_BATTLE_OVERWORLD`: vanilla overworld battle entry when
   `$4DC2` is set.
 - `C2:2F38` / `INIT_BATTLE_SCRIPTED`: scripted battle entry using the
   `D0:C60D` battle-entry pointer table.
 - `C2:4821` / `BATTLE_ROUTINE`: battle runtime entry used by debug SHOW BATTLE,
   not a complete ordinary battle initializer.
+- `C2:4830`: debug/default seed block to prove skipped for ordinary-entry
+  provenance.

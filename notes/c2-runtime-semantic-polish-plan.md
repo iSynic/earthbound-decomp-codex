@@ -941,6 +941,13 @@ contract notes for C0/C1/C3/C4 consumers.
   the aggregate candidate report. The first local sweep tested seven existing
   states; all executed, but none hit the minimum C1/C2 target/action staging
   breakpoints, so the runtime blocker remains a true ordinary-battle fixture.
+- 2026-05-13 one hundred and twenty-fifth slice: added a broader C2 battle
+  fixture scout. The scout probes existing Mesen save states against ordinary
+  encounter prep, enemy-list build, battle-flag set, shared battle entry, debug
+  seed avoidance, battle menu, and first target/action command PCs under neutral,
+  confirm, and movement-loop input patterns. The first 21-run sweep completed
+  without failures and found zero battle-entry or command candidates, narrowing
+  the next step to capturing a fresh ordinary overworld battle prompt state.
 
 ## Validation
 
@@ -962,6 +969,8 @@ python tools\validate_c2_battle_trace_oracle_runner_assets.py
 python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action_staging --dry-run
 python tools\probe_c2_battle_trace_save_states.py
 python tools\validate_c2_battle_trace_save_state_probes.py
+python tools\probe_c2_battle_fixture_scout.py
+python tools\validate_c2_battle_fixture_scout.py
 python tools\run_c2_battle_trace_oracle_batch.py --mode dry-run-stub --force
 python tools\validate_c2_battle_trace_oracle_batch_summary.py
 python tools\collect_c2_battle_trace_oracle_results.py

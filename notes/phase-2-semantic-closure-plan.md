@@ -57,6 +57,9 @@ trace summaries report whether minimum breakpoint hits were actually observed.
 The local save-state probe helper can scan ignored or emulator-owned `.mss`
 files into `build/c2/battle-trace-oracles/save-state-probes/`; its output ranks
 candidate fixtures only and cannot by itself unlock source promotion.
+The fixture scout adds a broader local check over ordinary-entry and command
+PCs, so existing save states can be ruled in or out before a human spends time
+reviewing traces.
 Prioritize the contracts that most directly affect a C port:
 
 - C1/C2 target staging and selected action metadata.

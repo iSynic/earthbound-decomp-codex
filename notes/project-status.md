@@ -42,9 +42,10 @@ before this becomes true human-readable source.
 - The C2 battle trace-oracle lane now has Mesen runner plumbing for local
   runtime proof captures plus save-state probe tooling. The seven currently
   discoverable local Mesen save states all load but do not hit the first C1/C2
-  battle-command oracle; the next blocker is creating or capturing a true
-  ordinary-battle save-state fixture and reviewing the first non-stub trace
-  result.
+  battle-command oracle, and a 21-run fixture scout found no ordinary
+  battle-entry or command PCs from those states. The next blocker is creating or
+  capturing a true ordinary-battle save-state fixture and reviewing the first
+  non-stub trace result.
 - Ghidra-SNES `v0.2.0` is installed in the dedicated pilot worktree
   `F:\EB Decomp WT - Ghidra SNES Pilot` as a bounded visual/decode oracle, not
   as a source-of-truth label generator.
