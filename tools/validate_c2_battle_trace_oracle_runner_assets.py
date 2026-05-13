@@ -92,6 +92,8 @@ def validate_runner_job(path_text: str, index_job: dict[str, Any], handoff_job: 
     commands = data.get("commands", {})
     require("Mesen.exe" in str(commands.get("mesen_test_runner_template", "")), f"{oracle_id}: missing Mesen command")
     require("--testRunner" in str(commands.get("mesen_test_runner_template", "")), f"{oracle_id}: missing testRunner flag")
+    require("run_c2_battle_trace_oracle_mesen.py" in str(commands.get("mesen_wrapper_dry_run", "")), f"{oracle_id}: missing Mesen wrapper dry-run command")
+    require("run_c2_battle_trace_oracle_mesen.py" in str(commands.get("mesen_wrapper_trace_run", "")), f"{oracle_id}: missing Mesen wrapper trace-run command")
     require("run_c2_battle_trace_oracle_batch.py" in str(commands.get("external_batch_template", "")), f"{oracle_id}: missing external batch command")
     require("build_c2_battle_trace_oracle_result_from_evidence.py" in str(commands.get("reviewed_result_template", "")), f"{oracle_id}: missing reviewed result command")
     require("validate_c2_battle_trace_oracle_result.py" in str(commands.get("validate_result", "")), f"{oracle_id}: missing validator command")

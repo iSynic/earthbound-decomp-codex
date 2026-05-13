@@ -39,6 +39,9 @@ before this becomes true human-readable source.
 - C-port implementation feedback is now folded back into
   `notes/c-port-feedback-intake.md`, especially for C1/C2 battle target,
   payload, affliction, damage, healing, and resource contracts.
+- The C2 battle trace-oracle lane now has Mesen runner plumbing for local
+  runtime proof captures; the next blocker is creating a local battle save-state
+  fixture and reviewing the first non-stub trace result.
 - Ghidra-SNES `v0.2.0` is installed in the dedicated pilot worktree
   `F:\EB Decomp WT - Ghidra SNES Pilot` as a bounded visual/decode oracle, not
   as a source-of-truth label generator.
@@ -424,6 +427,7 @@ that romhackers need to edit confidently:
 - `notes/c2-battle-trace-oracle-index.md`
 - `notes/c2-battle-trace-oracle-packet.md`
 - `notes/c2-battle-trace-oracle-emulator-handoff.md`
+- `notes/c2-battle-trace-oracle-mesen-runner.md`
 - `notes/c2-battle-trace-oracle-results-summary.md`
 - `notes/data-contracts-c0-c4.md`
 - `notes/reference-first-workflow.md`

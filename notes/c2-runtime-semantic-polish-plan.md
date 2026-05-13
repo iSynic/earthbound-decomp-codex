@@ -916,6 +916,13 @@ contract notes for C0/C1/C3/C4 consumers.
   reviewed captured-field JSON, observed addresses, harness provenance, and a
   classification rationale into the standard result schema, then runs the same
   validator that blocks weak or stub `ok` results.
+- 2026-05-13 one hundred and twenty-first slice: added the local Mesen runner
+  wrapper and run-summary validator for C2 trace-oracle jobs. The wrapper
+  resolves local Mesen and ROM fixtures, executes a generated Lua skeleton, and
+  writes ignored raw traces/run summaries while preserving the rule that source
+  promotion requires a reviewed non-stub result. A boot-only smoke run validates
+  wrapper execution and trace output, but records no C2 proof hits; the next
+  runtime blocker is a local ordinary-battle save state.
 
 ## Validation
 
@@ -934,6 +941,7 @@ python tools\build_c2_battle_trace_oracle_emulator_handoff.py
 python tools\validate_c2_battle_trace_oracle_emulator_handoff.py
 python tools\build_c2_battle_trace_oracle_runner_assets.py
 python tools\validate_c2_battle_trace_oracle_runner_assets.py
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action_staging --dry-run
 python tools\run_c2_battle_trace_oracle_batch.py --mode dry-run-stub --force
 python tools\validate_c2_battle_trace_oracle_batch_summary.py
 python tools\collect_c2_battle_trace_oracle_results.py

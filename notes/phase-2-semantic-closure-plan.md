@@ -47,6 +47,9 @@ templates. These assets are execution plumbing only; they do not count as proof
 without a reviewed non-stub result.
 `tools/build_c2_battle_trace_oracle_result_from_evidence.py` is the bridge from
 reviewed trace evidence into the validated result schema.
+`tools/run_c2_battle_trace_oracle_mesen.py` is the local execution wrapper for
+those assets; it writes ignored raw traces/run summaries and requires a
+local-only battle save state before the first proof capture can be reviewed.
 Prioritize the contracts that most directly affect a C port:
 
 - C1/C2 target staging and selected action metadata.

@@ -150,6 +150,14 @@ def runner_job(job: dict[str, Any], lua_path: Path, checklist_path: Path, templa
         },
         "commands": {
             "mesen_test_runner_template": runner_command(job, lua_path, output_root=DEFAULT_OUTPUT_ROOT),
+            "mesen_wrapper_dry_run": (
+                "python tools\\run_c2_battle_trace_oracle_mesen.py "
+                f"--job-id {job['job_id']} --dry-run"
+            ),
+            "mesen_wrapper_trace_run": (
+                "python tools\\run_c2_battle_trace_oracle_mesen.py "
+                f"--job-id {job['job_id']} --state \"<local-only save state>\" --frame-limit 3600"
+            ),
             "external_batch_template": external_batch_command(job),
             "reviewed_result_template": result_assembler_command(job),
             "validate_result": job["result_validator"],
@@ -342,6 +350,13 @@ def render_checklist(job_asset: dict[str, Any]) -> str:
             job["commands"]["mesen_test_runner_template"],
             "```",
             "",
+            "## Mesen Wrapper Templates",
+            "",
+            "```powershell",
+            job["commands"]["mesen_wrapper_dry_run"],
+            job["commands"]["mesen_wrapper_trace_run"],
+            "```",
+            "",
             "## External Batch Template",
             "",
             "```powershell",
@@ -482,6 +497,7 @@ def render_readme(handoff: dict[str, Any], output_root: Path, jobs: list[dict[st
             "",
             "```powershell",
             "python tools\\validate_c2_battle_trace_oracle_runner_assets.py",
+            "python tools\\run_c2_battle_trace_oracle_mesen.py --job-id <job-id> --dry-run",
             "python tools\\build_c2_battle_trace_oracle_result_from_evidence.py --job-id <job-id> --status unresolved --classification unresolved --classification-rationale \"review pending\"",
             "```",
             "",
