@@ -64,6 +64,15 @@ Current audit result:
   and first-pass contracts for high-value timed-delivery, visual-profile,
   current-slot-state, movement, collision, text/presentation, render, tick, and
   restore callbacks
+- value semantics readiness is now generated as a separate audit layer:
+  direction-class words and `$2B32` movement words are runtime-boundary
+  confirmed, animation/countdown/sound/entity ids have source or reference
+  contracts, and visual-state/surface-flag/pose-descriptor values remain
+  explicitly bounded until runtime or table-join evidence proves their exact
+  player-visible meaning
+- `tools/validate_c3_actionscript_semantics_audit.py` now enforces that the
+  audit remains syntactically complete, callback-target complete, and explicit
+  about bounded local-unknown operand classes
 
 This shifts the next pass away from opcode discovery and basic operand labeling.
 Remaining value semantics should be promoted only when the evidence is local and

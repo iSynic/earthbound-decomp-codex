@@ -13,7 +13,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from decode_event_script import (
     ACTIONSCRIPT_ANIMATION_IDS,
     ACTIONSCRIPT_DIRECTION_WORDS,
+    ACTIONSCRIPT_ENTITY_SCRIPT_IDS,
     ACTIONSCRIPT_FIELD2B32_WORDS,
+    ACTIONSCRIPT_SOUND_EFFECT_IDS,
+    ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_WORDS,
+    ACTIONSCRIPT_SURFACE_FLAGS_BYTES,
     ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES,
     ACTIONSCRIPT_VISUAL_STATE_BYTES,
     Address,
@@ -55,6 +59,10 @@ FIELD2B32_WORD_RE = re.compile(r"field2b32_word=\$([0-9A-F]{4})")
 TEMPVAR_WORD_RE = re.compile(r"EVENT_WRITE_WORD_TEMPVAR\s+value_word=\$([0-9A-F]{4})")
 VISUAL_STATE_BYTE_RE = re.compile(r"visual_state_byte=\$([0-9A-F]{2})")
 VISUAL_COUNTDOWN_BYTE_RE = re.compile(r"countdown_byte=\$([0-9A-F]{2})")
+SURFACE_FLAGS_BYTE_RE = re.compile(r"surface_flags_byte=\$([0-9A-F]{2})")
+SPRITE_POSE_DESCRIPTOR_WORD_RE = re.compile(r"sprite_pose_descriptor_word=\$([0-9A-F]{4})")
+ENTITY_SCRIPT_ID_WORD_RE = re.compile(r"entity_script_id_word=\$([0-9A-F]{4})")
+SOUND_EFFECT_ID_WORD_RE = re.compile(r"sound_effect_id_word=\$([0-9A-F]{4})")
 DECODED_ADDRESS_RE = re.compile(r"^([0-9A-F]{2}:[0-9A-F]{4})")
 RANDOM_CHOICES_RE = re.compile(r"EVENT_CALLROUTINE\s+\$C0:9F82\b.*choices=\d+\s+\[([^\]]+)\]")
 
@@ -190,6 +198,10 @@ def collect_operand_value_signals(rows: list[dict[str, Any]]) -> dict[str, dict[
     field2b32_words: Counter[str] = Counter()
     visual_state_bytes: Counter[str] = Counter()
     visual_countdown_bytes: Counter[str] = Counter()
+    surface_flags_bytes: Counter[str] = Counter()
+    sprite_pose_descriptor_words: Counter[str] = Counter()
+    entity_script_ids: Counter[str] = Counter()
+    sound_effect_ids: Counter[str] = Counter()
     tempvar_direction_word_candidates: Counter[str] = Counter()
     direction_values = set(ACTIONSCRIPT_DIRECTION_WORDS)
 
@@ -203,6 +215,14 @@ def collect_operand_value_signals(rows: list[dict[str, Any]]) -> dict[str, dict[
                 visual_state_bytes[f"${int(match.group(1), 16):02X}"] += 1
             if match := VISUAL_COUNTDOWN_BYTE_RE.search(line):
                 visual_countdown_bytes[f"${int(match.group(1), 16):02X}"] += 1
+            if match := SURFACE_FLAGS_BYTE_RE.search(line):
+                surface_flags_bytes[f"${int(match.group(1), 16):02X}"] += 1
+            if match := SPRITE_POSE_DESCRIPTOR_WORD_RE.search(line):
+                sprite_pose_descriptor_words[f"${int(match.group(1), 16):04X}"] += 1
+            if match := ENTITY_SCRIPT_ID_WORD_RE.search(line):
+                entity_script_ids[f"${int(match.group(1), 16):04X}"] += 1
+            if match := SOUND_EFFECT_ID_WORD_RE.search(line):
+                sound_effect_ids[f"${int(match.group(1), 16):04X}"] += 1
             if match := TEMPVAR_WORD_RE.search(line):
                 value = int(match.group(1), 16)
                 if value in direction_values:
@@ -213,6 +233,10 @@ def collect_operand_value_signals(rows: list[dict[str, Any]]) -> dict[str, dict[
         "field2b32_words": dict(field2b32_words.most_common()),
         "visual_state_bytes": dict(visual_state_bytes.most_common()),
         "visual_countdown_bytes": dict(visual_countdown_bytes.most_common()),
+        "surface_flags_bytes": dict(surface_flags_bytes.most_common()),
+        "sprite_pose_descriptor_words": dict(sprite_pose_descriptor_words.most_common()),
+        "entity_script_ids": dict(entity_script_ids.most_common()),
+        "sound_effect_ids": dict(sound_effect_ids.most_common()),
         "tempvar_direction_word_candidates": dict(
             tempvar_direction_word_candidates.most_common()
         ),
@@ -433,6 +457,117 @@ def collect_field2b32_boundary_signals(
             key=lambda item: address_sort_key(str(item["producer_address"])),
         ),
     }
+
+
+def observed_total(counts: dict[str, int]) -> int:
+    return sum(int(count) for count in counts.values())
+
+
+def readiness_item(
+    *,
+    value_class: str,
+    status: str,
+    catalog: dict[int, dict[str, str]],
+    counts: dict[str, int],
+    evidence: str,
+    next_action: str,
+) -> dict[str, Any]:
+    return {
+        "value_class": value_class,
+        "status": status,
+        "observed_values": len(counts),
+        "observations": observed_total(counts),
+        "catalog_values": len(catalog),
+        "coverage": dict(counts),
+        "evidence": evidence,
+        "next_action": next_action,
+    }
+
+
+def build_value_semantics_readiness(
+    operand_values: dict[str, dict[str, int]],
+    field2b32_boundary_signals: dict[str, Any],
+    direction_boundary_signals: dict[str, Any],
+) -> list[dict[str, Any]]:
+    direction_counts = dict(direction_boundary_signals.get("value_counts", {}))
+    field2b32_counts = dict(operand_values.get("field2b32_words", {}))
+    for value, count in field2b32_boundary_signals.get("value_counts", {}).items():
+        field2b32_counts[value] = max(int(field2b32_counts.get(value, 0)), int(count))
+
+    return [
+        readiness_item(
+            value_class="direction_class_words",
+            status="runtime_boundary_confirmed",
+            catalog=ACTIONSCRIPT_DIRECTION_WORDS,
+            counts=direction_counts,
+            evidence="C3 tempvar/random-choice producers reach C0:A65F and C0:C83B movement/direction consumers.",
+            next_action="Promote additional player-facing movement aliases only when a concrete script family needs them.",
+        ),
+        readiness_item(
+            value_class="field2b32_movement_words",
+            status="runtime_boundary_confirmed",
+            catalog=ACTIONSCRIPT_FIELD2B32_WORDS,
+            counts=field2b32_counts,
+            evidence="C0:A685 writes inline words to $2B32 and audited C3 spans reach C0:C83B/C0:CA4E/C0:A6AD/C0:CBD3 consumers.",
+            next_action="Keep numeric magnitudes unless runtime traces prove a higher-level speed preset name.",
+        ),
+        readiness_item(
+            value_class="animation_ids",
+            status="decode_contract_named",
+            catalog=ACTIONSCRIPT_ANIMATION_IDS,
+            counts=operand_values.get("animation_ids", {}),
+            evidence="EVENT_SET_ANIMATION operands are decoded directly from C3 scripts.",
+            next_action="Only rename frame selectors when tied to a specific visual asset contract.",
+        ),
+        readiness_item(
+            value_class="visual_countdown_seed_bytes",
+            status="reader_path_named",
+            catalog=ACTIONSCRIPT_VISUAL_COUNTDOWN_BYTES,
+            counts=operand_values.get("visual_countdown_bytes", {}),
+            evidence="C0:AA6E reads countdown/state bytes and the zero/nonzero write paths are source-backed.",
+            next_action="Trace representative visual-profile rows before calling these player-visible animation states.",
+        ),
+        readiness_item(
+            value_class="sound_effect_ids",
+            status="reference_label_correlated",
+            catalog=ACTIONSCRIPT_SOUND_EFFECT_IDS,
+            counts=operand_values.get("sound_effect_ids", {}),
+            evidence="C0:A841 plays script word ids through C0:ABE0 and names are cross-checked against sound-driver reference labels.",
+            next_action="Keep sound-driver reference labels as corroboration; do not infer timing or channel behavior here.",
+        ),
+        readiness_item(
+            value_class="entity_script_ids",
+            status="payload_join_named",
+            catalog=ACTIONSCRIPT_ENTITY_SCRIPT_IDS,
+            counts=operand_values.get("entity_script_ids", {}),
+            evidence="C0:A98B consumes entity-script ids together with sprite-pose descriptor words for script-driven spawns.",
+            next_action="Join to entity-script table records before promoting broader actor identity names.",
+        ),
+        readiness_item(
+            value_class="visual_state_bytes",
+            status="bounded_local_unknown",
+            catalog=ACTIONSCRIPT_VISUAL_STATE_BYTES,
+            counts=operand_values.get("visual_state_bytes", {}),
+            evidence="Values are bounded to $00..$07 and stored to current-slot $2AF6 by C0:AA6E before the visual-profile refresh path.",
+            next_action="Needs runtime visual-profile row evidence before assigning exact frame/pose meanings.",
+        ),
+        readiness_item(
+            value_class="surface_flags_bytes",
+            status="bounded_local_unknown",
+            catalog=ACTIONSCRIPT_SURFACE_FLAGS_BYTES,
+            counts=operand_values.get("surface_flags_bytes", {}),
+            evidence="C0:A679 writes surface flag bytes to current-slot $2BAA; observed values are named by bit shape only.",
+            next_action="Trace collision/terrain consumers before splitting bit 0 and bit 1 semantics.",
+        ),
+        readiness_item(
+            value_class="sprite_pose_descriptor_words",
+            status="payload_identity_pending",
+            catalog=ACTIONSCRIPT_SPRITE_POSE_DESCRIPTOR_WORDS,
+            counts=operand_values.get("sprite_pose_descriptor_words", {}),
+            evidence="C0:A98B consumes pose descriptor words for recovery/cast-style spawn payloads.",
+            next_action="Join descriptor words to sprite/pose tables before naming concrete character poses.",
+        ),
+    ]
 
 
 def normalize_evidence(items: Any) -> list[str]:
@@ -771,6 +906,14 @@ def build_audit(
         max_instructions=max_instructions,
         max_bytes=max_bytes,
     )
+    value_semantics_readiness = build_value_semantics_readiness(
+        operand_value_signals,
+        field2b32_boundary_signals,
+        direction_boundary_signals,
+    )
+    value_semantics_statuses = Counter(
+        str(item["status"]) for item in value_semantics_readiness
+    )
 
     return {
         "schema": SCHEMA,
@@ -796,9 +939,11 @@ def build_audit(
             "callback_groups": dict(callback_groups.most_common()),
             "installed_callback_contracts": len(installed_callback_contracts),
             "installed_callback_groups": dict(installed_callback_groups.most_common()),
+            "value_semantics_statuses": dict(value_semantics_statuses.most_common()),
         },
         "opcode_catalog": build_opcode_catalog(),
         "operand_value_catalog": operand_value_signals,
+        "value_semantics_readiness": value_semantics_readiness,
         "field2b32_boundary_signals": field2b32_boundary_signals,
         "direction_boundary_signals": direction_boundary_signals,
         "callback_contracts": callback_contracts,
@@ -876,11 +1021,35 @@ def render_markdown(audit: dict[str, Any]) -> str:
         f"- callback semantic groups: `{summary['callback_groups']}`",
         f"- installed callback semantic groups: `{summary['installed_callback_groups']}`",
         f"- unknown callback targets: `{summary['unknown_callback_targets']}`",
+        f"- value semantics statuses: `{summary['value_semantics_statuses']}`",
         f"- top C3 script targets: `{summary['top_c3_targets']}`",
         "",
+        "## Value semantics readiness",
+        "",
+        "C3 VM shape is closed at the current decode bounds, so this table separates operand classes that are runtime-boundary confirmed from classes that remain deliberately local-unknown.",
+        "",
+        "| Value class | Status | Observed values | Observations | Evidence | Next action |",
+        "| --- | --- | ---: | ---: | --- | --- |",
+    ]
+    for item in audit["value_semantics_readiness"]:
+        lines.append(
+            "| `{value_class}` | `{status}` | {observed_values} | {observations} | {evidence} | {next_action} |".format(
+                value_class=item["value_class"],
+                status=item["status"],
+                observed_values=item["observed_values"],
+                observations=item["observations"],
+                evidence=markdown_escape(item["evidence"]),
+                next_action=markdown_escape(item["next_action"]),
+            )
+        )
+
+    lines.extend(
+        [
+            "",
         "## Frontier rows",
         "",
-    ]
+        ]
+    )
 
     if frontier_rows:
         lines.extend(

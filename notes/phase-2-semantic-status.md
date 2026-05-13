@@ -60,7 +60,9 @@ Use these starting points instead of adding new material to first-pass notes:
   `notes/c2-battle-trace-oracle-mesen-runner.md`, and result intake lives in
   `notes/c2-battle-trace-oracle-results-summary.md`.
 - C3 VM: `notes/c3-actionscript-semantics-audit.md` and
-  `notes/c3-actionscript-semantics-roadmap.md`.
+  `notes/c3-actionscript-semantics-roadmap.md`; validate the current
+  complete-decode/value-readiness contract with
+  `tools/validate_c3_actionscript_semantics_audit.py`.
 - Text/localization VM: `notes/text-command-semantics-manifest.md` and
   `notes/text-vm-localization-semantics-closeout.md`.
 - Data/assets: `notes/asset-data-contract-frontier.md`,
