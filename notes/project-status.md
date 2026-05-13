@@ -7,7 +7,9 @@ before this becomes true human-readable source.
 ## Current Baseline
 
 - First-pass bank notes exist for all `48 / 48` configured banks from `C0`
-  through `EF`.
+  through `EF`; these are now historical inventory notes, not the live semantic
+  work log. The current semantic note package starts at
+  `notes/semantic-notes-package.md` and `notes/phase-2-semantic-status.md`.
 - Byte-equivalent scaffolds exist for all `48 / 48` banks under `src/<bank>/`.
 - Every current bank scaffold is byte-equivalent against the expected ROM:
   `65536` protected bytes, `0` residual bytes, and validation status `OK` for
@@ -25,8 +27,12 @@ before this becomes true human-readable source.
 - `notes/readable-source-bank-closure.md` is the stricter dashboard for the
   completed readable-source closure phase: decoded asm versus preserved
   corridors in the source-heavy banks.
-- `notes/source-readiness-triage.md` is the implementation queue for the next
-  semantic phase.
+- `notes/source-readiness-triage.md` is the generated implementation queue for
+  the next semantic phase.
+- `notes/semantic-notes-package.md` explains how to read the first-pass notes,
+  phase-2 semantic notes, generated dashboards, and ebsrc/community crosswalks.
+- `notes/phase-2-semantic-status.md` is the compact human-written status note
+  for current subsystem understanding and weak zones.
 
 ## What Is Complete
 
@@ -401,6 +407,8 @@ that romhackers need to edit confidently:
 - `notes/c3-flyover-palette-random-movement-paths-source-pilot.md`
 - `notes/c3-source-pilot-frontier.md`
 - `notes/bank-first-pass-coverage-index.md`
+- `notes/semantic-notes-package.md`
+- `notes/phase-2-semantic-status.md`
 - `notes/data-contracts-c0-c4.md`
 - `notes/reference-first-workflow.md`
 - `notes/earthbound-localization-script-authoring-format.md`
