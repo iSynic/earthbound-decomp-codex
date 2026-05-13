@@ -13,18 +13,20 @@
     "job_count": 10,
     "result_count": 10,
     "valid_result_count": 10,
-    "trace_observed_result_count": 0,
+    "trace_observed_result_count": 1,
     "proof_grade_result_count": 0,
-    "stub_result_count": 10,
-    "proof_capable_result_count": 0,
+    "stub_result_count": 9,
+    "proof_capable_result_count": 1,
     "status_counts": {
-      "unsupported": 10
+      "ok": 1,
+      "unsupported": 9
     },
     "validation_counts": {
       "valid": 10
     },
     "contract_classification_counts": {
-      "unresolved": 10
+      "needs_followup": 1,
+      "unresolved": 9
     },
     "priority_counts": {
       "1": 4,
@@ -32,15 +34,18 @@
       "3": 1
     },
     "remaining_blocker_counts": {
+      "followup_review": 1,
       "not_first_trace_pass": 5,
-      "oracle_contract_unresolved": 10,
-      "runtime_trace_proof": 10
+      "oracle_contract_unresolved": 9,
+      "runtime_trace_proof": 9
     },
-    "trace_observed_oracles": [],
+    "trace_observed_oracles": [
+      "c2_8125_damage_abi_boundary"
+    ],
     "proof_grade_oracles": [],
     "source_promotion_allowed": false,
     "behavior_change_allowed": false,
-    "semantic_status": "c2_battle_trace_outputs_pending"
+    "semantic_status": "c2_battle_trace_observed_followup_pending"
   },
   "result_acceptance_policy": [
     "Stub unsupported/unresolved results validate runner plumbing only and never count as trace-observed evidence.",
@@ -68,8 +73,8 @@
       "stub_result": true,
       "proof_capable": false,
       "proof_result": false,
-      "trace_path_exists": false,
-      "trace_path_nonempty": false,
+      "trace_path_exists": true,
+      "trace_path_nonempty": true,
       "promotion_allowed": false,
       "behavior_change_allowed": false
     },
@@ -126,19 +131,18 @@
       "first_trace_pass": true,
       "result_path": "build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json",
       "result_exists": true,
-      "status": "unsupported",
+      "status": "ok",
       "valid": true,
-      "contract_classification": "unresolved",
+      "contract_classification": "needs_followup",
       "errors": [],
       "remaining_blockers": [
-        "runtime_trace_proof",
-        "oracle_contract_unresolved"
+        "followup_review"
       ],
-      "stub_result": true,
-      "proof_capable": false,
+      "stub_result": false,
+      "proof_capable": true,
       "proof_result": false,
-      "trace_path_exists": false,
-      "trace_path_nonempty": false,
+      "trace_path_exists": true,
+      "trace_path_nonempty": true,
       "promotion_allowed": false,
       "behavior_change_allowed": false
     },
@@ -287,8 +291,9 @@
     }
   ],
   "next_work": [
-    "replace stub results with a real emulator or trace harness for the five first-pass jobs",
-    "review proof-grade results in the owning C2 subsystem notes before touching source comments",
+    "replace remaining stub results with real emulator or trace harness captures for the first-pass jobs",
+    "review trace-observed needs_followup results in the owning C2 subsystem notes before touching source comments",
+    "promote a result to proof-grade only after downstream text/collapse/status effects are decoded from trace evidence",
     "keep non-first-pass oracle jobs queued until the first-pass contracts stop moving"
   ]
 }

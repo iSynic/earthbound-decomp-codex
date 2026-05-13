@@ -18,6 +18,11 @@ Generated skeletons accept `C2_ORACLE_INPUT_PATTERN` through the wrapper. The
 pattern reuses the prior Mesen route syntax: `atom:frames,atom:frames`. Locally
 proven atoms are `neutral`, `none`, `right`, `left`, `up`, `down`,
 `down_right`, `up_right`, `up_left`, `down_left`, `a`, `start`, and `a_start`.
+Current skeletons emit rich breakpoint rows using `emu.getState()`: CPU
+`A/X/Y/DB/DP/P/SP/K/PC`, cycle count, a direct-page byte window, the `$A972`
+selected-target pointer, and the pointed-to 96-byte battler row. For the
+`selected_target_row` watch, `address` is now the resolved row pointer and
+`pointerAddress` records the original `$A972` pointer cell.
 
 ## Local Fixture Status
 
@@ -25,8 +30,9 @@ proven atoms are `neutral`, `none`, `right`, `left`, `up`, `down`,
   executable paths used by testRunner work.
 - `EarthBound (USA).sfc` is discoverable through `tools/rom_tools.py` in this
   checkout.
-- Local save states exist under `F:\Mesen\SaveStates`, but no save state is
-  currently documented as a battle fixture for the C2 first-pass oracle jobs.
+- Older local save states exist under `F:\Mesen\SaveStates`; the current
+  battle fixture set is the numbered `F:\Mesen2\SaveStates` set documented
+  below.
 - A boot-only smoke run with `c1_c2_target_action_staging` and a 10-frame limit
   launches Mesen and writes an ignored run summary/raw trace successfully. It
   records no C2 proof hits and should not be treated as behavior evidence.
@@ -69,6 +75,12 @@ proven atoms are `neutral`, `none`, `right`, `left`, `up`, `down`,
   and 7 satisfy the minimum `C2:8125` hit under either a complete-turn confirm
   pattern or a neutral wait. Save 3 also reaches `C2:941D`, giving a useful PSI
   damage/status-gate sample.
+- Save 5 has also been rerun through the richer canonical
+  `c2_8125_damage_abi_boundary` output path. The reviewed result validates as
+  non-stub `ok` / `needs_followup`: it proves `C2:8125` reachability with
+  captured amount input `A = 0x0045`, damage selector `X = 0x00FF`, direct page,
+  and selected target row pointer `$A21C`, but keeps downstream text/collapse
+  interpretation blocked until those fields are decoded.
 - `c2_40a4_current_action_payload` does not yet hit its minimum `C2:40A4`, but
   saves 1, 2, 3, 4, 5, and 7 repeatedly hit nearby `C2:3D05`. Treat those as
   route hints only.
@@ -149,8 +161,9 @@ normal result builder/validator before it can affect source comments.
 After manual review, assemble and validate a result:
 
 ```powershell
-python tools\build_c2_battle_trace_oracle_result_from_evidence.py --oracle-id c1_c2_target_action_staging --status ok --classification needs_followup --classification-rationale "<reviewed trace rationale>" --observed-address C1:ADB4 --captured-fields-json "<reviewed captured fields json>"
-python tools\validate_c2_battle_trace_oracle_result.py build\c2\battle-trace-oracles\c1_c2_target_action_staging\result.json
+python tools\build_c2_battle_trace_oracle_mesen_capture_fields.py --oracle-id c2_8125_damage_abi_boundary
+python tools\build_c2_battle_trace_oracle_result_from_evidence.py --oracle-id c2_8125_damage_abi_boundary --status ok --classification needs_followup --classification-rationale "<reviewed trace rationale>" --observed-address C2:8125 --observed-address C2:7EAF --captured-fields-json build\c2\battle-trace-oracles\c2_8125_damage_abi_boundary\captured-fields.json
+python tools\validate_c2_battle_trace_oracle_result.py build\c2\battle-trace-oracles\c2_8125_damage_abi_boundary\result.json
 python tools\collect_c2_battle_trace_oracle_results.py
 python tools\validate_c2_battle_trace_oracle_results_summary.py
 ```

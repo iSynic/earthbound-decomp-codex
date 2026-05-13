@@ -205,6 +205,19 @@ def collect(packet: dict[str, Any]) -> dict[str, Any]:
         records.append(record)
 
     proof_grade_result_count = len(proof_grade_oracles)
+    trace_observed_result_count = len(trace_observed_oracles)
+    if proof_grade_result_count:
+        semantic_status = "c2_battle_trace_outputs_partially_collected"
+    elif trace_observed_result_count:
+        semantic_status = "c2_battle_trace_observed_followup_pending"
+    else:
+        semantic_status = "c2_battle_trace_outputs_pending"
+    next_work = [
+        "replace remaining stub results with real emulator or trace harness captures for the first-pass jobs",
+        "review trace-observed needs_followup results in the owning C2 subsystem notes before touching source comments",
+        "promote a result to proof-grade only after downstream text/collapse/status effects are decoded from trace evidence",
+        "keep non-first-pass oracle jobs queued until the first-pass contracts stop moving",
+    ]
     return {
         "schema": "earthbound-decomp.c2-battle-trace-oracle-results-summary.v1",
         "status": "c2_battle_trace_oracle_results_collected",
@@ -214,7 +227,7 @@ def collect(packet: dict[str, Any]) -> dict[str, Any]:
             "job_count": len(records),
             "result_count": sum(1 for record in records if record["result_exists"]),
             "valid_result_count": sum(1 for record in records if record["valid"]),
-            "trace_observed_result_count": len(trace_observed_oracles),
+            "trace_observed_result_count": trace_observed_result_count,
             "proof_grade_result_count": proof_grade_result_count,
             "stub_result_count": sum(1 for record in records if record["stub_result"]),
             "proof_capable_result_count": sum(1 for record in records if record["proof_capable"]),
@@ -227,11 +240,7 @@ def collect(packet: dict[str, Any]) -> dict[str, Any]:
             "proof_grade_oracles": proof_grade_oracles,
             "source_promotion_allowed": False,
             "behavior_change_allowed": False,
-            "semantic_status": (
-                "c2_battle_trace_outputs_pending"
-                if proof_grade_result_count == 0
-                else "c2_battle_trace_outputs_partially_collected"
-            ),
+            "semantic_status": semantic_status,
         },
         "result_acceptance_policy": [
             "Stub unsupported/unresolved results validate runner plumbing only and never count as trace-observed evidence.",
@@ -241,11 +250,7 @@ def collect(packet: dict[str, Any]) -> dict[str, Any]:
             "This summary cannot directly promote source names, source comments, C-port helper contracts, or behavior changes.",
         ],
         "results": records,
-        "next_work": [
-            "replace stub results with a real emulator or trace harness for the five first-pass jobs",
-            "review proof-grade results in the owning C2 subsystem notes before touching source comments",
-            "keep non-first-pass oracle jobs queued until the first-pass contracts stop moving",
-        ],
+        "next_work": next_work,
     }
 
 
