@@ -85,7 +85,23 @@
             "C2:B930"
           ],
           "role": "C2 battle selection snapshot export into the wider target/action overlay",
-          "status": "remaining_fixture_gap"
+          "status": "remaining_fixture_gap",
+          "next_probe_goal": "Run from a party-side selected-target/action confirmation state until the snapshot export breakpoint fires before the C2:BAC5 count loop repeats.",
+          "probe_breakpoint_hints": [
+            "C1:B3DB",
+            "C1:B462",
+            "C1:B505",
+            "C1:B859",
+            "C1:B9A9",
+            "C1:BA60",
+            "C2:B930"
+          ],
+          "watch_hints": [
+            "registers A/X/Y",
+            "$9FFA..$A047 snapshot block",
+            "$9FAC candidate rows",
+            "$A970/$A972 selected row pointers"
+          ]
         }
       },
       "breakpoints": [
@@ -226,14 +242,31 @@
             "C2:40A4"
           ],
           "role": "second-pointer/current-action payload applicator",
-          "status": "remaining_fixture_gap"
+          "status": "remaining_fixture_gap",
+          "next_probe_goal": "Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload.",
+          "probe_breakpoint_hints": [
+            "C2:77CA",
+            "C2:90C6",
+            "C2:A89D",
+            "C2:40A4",
+            "C2:3D05",
+            "C0:9279"
+          ],
+          "watch_hints": [
+            "$1E/$20 second pointer",
+            "$00BC/$00BE payload pointer",
+            "$A21C target mask domain",
+            "$9FAC selected target rows",
+            "$A96C/$A96E action state"
+          ]
         },
         "target_text_context_neighbor": {
           "addresses": [
             "C2:3D05"
           ],
           "role": "nearby selected-target text-context builder reached by many non-payload routes",
-          "status": "neighbor_only_until_c2_40a4_observed"
+          "status": "neighbor_only_until_c2_40a4_observed",
+          "next_probe_goal": "Use only as a neighbor signal; do not mark the payload route covered until C2:40A4 itself is observed."
         }
       },
       "breakpoints": [

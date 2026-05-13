@@ -447,12 +447,22 @@ def render_checklist(job_asset: dict[str, Any]) -> str:
             "## Route Groups",
             "",
             *[
-                "- `{group_id}` ({status}): {addresses}".format(
+                "- `{group_id}` ({status}): {addresses}{next_probe}".format(
                     group_id=group_id,
                     status=group.get("status", ""),
                     addresses=", ".join(f"`{address}`" for address in group.get("addresses", [])) or "-",
+                    next_probe=f"; next probe: {group.get('next_probe_goal')}" if group.get("next_probe_goal") else "",
                 )
                 for group_id, group in job.get("route_groups", {}).items()
+            ],
+            *[
+                "- `{group_id}` probe hints: breakpoints {breakpoints}; watches {watches}".format(
+                    group_id=group_id,
+                    breakpoints=", ".join(f"`{address}`" for address in group.get("probe_breakpoint_hints", [])) or "-",
+                    watches=", ".join(f"`{watch}`" for watch in group.get("watch_hints", [])) or "-",
+                )
+                for group_id, group in job.get("route_groups", {}).items()
+                if group.get("probe_breakpoint_hints") or group.get("watch_hints")
             ],
             "",
         ]

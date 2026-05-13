@@ -89,6 +89,10 @@ def validate_oracle(oracle: dict[str, Any]) -> None:
             require(set(group_addresses).issubset(addresses), f"{oracle_id}/{group_id}: route group address outside oracle anchors")
             require(group.get("role"), f"{oracle_id}/{group_id}: missing role")
             require(group.get("status"), f"{oracle_id}/{group_id}: missing status")
+            for hint_key in ("probe_breakpoint_hints", "watch_hints"):
+                hints = group.get(hint_key, [])
+                require(isinstance(hints, list), f"{oracle_id}/{group_id}: {hint_key} must be a list")
+                require(all(isinstance(item, str) and item for item in hints), f"{oracle_id}/{group_id}: {hint_key} has blank entries")
 
 
 def validate(data: dict[str, Any]) -> None:

@@ -67,6 +67,10 @@ def validate_job(job: dict[str, Any]) -> None:
         require(set(group_addresses).issubset(address_set), f"{oracle_id}: route group {group_id} has non-oracle addresses")
         require(str(group.get("role", "")), f"{oracle_id}: route group {group_id} missing role")
         require(str(group.get("status", "")), f"{oracle_id}: route group {group_id} missing status")
+        for hint_key in ("probe_breakpoint_hints", "watch_hints"):
+            hints = group.get(hint_key, [])
+            require(isinstance(hints, list), f"{oracle_id}: route group {group_id} {hint_key} must be a list")
+            require(all(isinstance(item, str) and item for item in hints), f"{oracle_id}: route group {group_id} {hint_key} has blank entries")
     require(len(job.get("capture_fields", [])) >= 12, f"{oracle_id}: capture fields too thin")
     require_paths(job.get("evidence_notes", []), label="evidence note", owner=oracle_id)
     require_paths(job.get("source_paths", []), label="source", owner=oracle_id)

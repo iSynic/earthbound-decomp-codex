@@ -82,6 +82,22 @@ def validate(data: dict[str, Any]) -> list[str]:
                 ready_total += ready_count
         summary = data.get("summary", {})
         require(summary.get("minimum_hit_candidate_count") == ready_total, "summary ready count mismatch", errors)
+    route_gap_queue = data.get("route_gap_queue", [])
+    require(isinstance(route_gap_queue, list), "route_gap_queue must be a list", errors)
+    if isinstance(route_gap_queue, list):
+        remaining_gaps = 0
+        for index, item in enumerate(route_gap_queue):
+            prefix = f"route gap {index}"
+            require(isinstance(item.get("oracle_id"), str) and item.get("oracle_id"), f"{prefix}: oracle_id missing", errors)
+            require(isinstance(item.get("route_group"), str) and item.get("route_group"), f"{prefix}: route_group missing", errors)
+            require(isinstance(item.get("missing_from_all_probes"), list), f"{prefix}: missing list not list", errors)
+            require(isinstance(item.get("covered_by_any_probe"), bool), f"{prefix}: covered flag not bool", errors)
+            require(isinstance(item.get("probe_breakpoint_hints", []), list), f"{prefix}: breakpoint hints not list", errors)
+            require(isinstance(item.get("watch_hints", []), list), f"{prefix}: watch hints not list", errors)
+            if item.get("status") == "remaining_fixture_gap" and not item.get("covered_by_any_probe"):
+                remaining_gaps += 1
+        summary = data.get("summary", {})
+        require(summary.get("remaining_route_gap_count") == remaining_gaps, "summary route gap count mismatch", errors)
     return errors
 
 

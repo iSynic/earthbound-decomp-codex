@@ -70,6 +70,10 @@ def validate_job(job: dict[str, Any]) -> None:
         require(set(addresses).issubset(breakpoint_addresses), f"{oracle_id}/{group_id}: route group address must be breakpoint")
         require(group.get("role"), f"{oracle_id}/{group_id}: missing route group role")
         require(group.get("status"), f"{oracle_id}/{group_id}: missing route group status")
+        for hint_key in ("probe_breakpoint_hints", "watch_hints"):
+            hints = group.get(hint_key, [])
+            require(isinstance(hints, list), f"{oracle_id}/{group_id}: {hint_key} must be list")
+            require(all(isinstance(item, str) and item for item in hints), f"{oracle_id}/{group_id}: blank {hint_key} entry")
     require(job.get("extra_trace_fields"), f"{oracle_id}: missing extra trace fields")
     require(job.get("watch_ranges"), f"{oracle_id}: missing watch ranges")
     for watch in job.get("watch_ranges", []):

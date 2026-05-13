@@ -73,6 +73,9 @@ def load_handoff_metadata(handoff_path: Path) -> tuple[dict[str, list[str]], dic
                 "addresses": [str(item) for item in group.get("addresses", [])],
                 "role": group.get("role", ""),
                 "status": group.get("status", ""),
+                "next_probe_goal": group.get("next_probe_goal", ""),
+                "probe_breakpoint_hints": [str(item) for item in group.get("probe_breakpoint_hints", [])],
+                "watch_hints": [str(item) for item in group.get("watch_hints", [])],
             }
         if groups:
             route_groups[oracle_id] = groups
@@ -143,6 +146,9 @@ def summarize_route_groups(oracle_id: str, records: list[dict[str, Any]], route_
             "addresses": addresses,
             "role": group.get("role", ""),
             "status": group.get("status", ""),
+            "next_probe_goal": group.get("next_probe_goal", ""),
+            "probe_breakpoint_hints": [str(item) for item in group.get("probe_breakpoint_hints", [])],
+            "watch_hints": [str(item) for item in group.get("watch_hints", [])],
             "covered_by_any_probe": not missing,
             "missing_from_all_probes": missing,
             "fixtures_covering_group": sorted(fixture_hits.get(group_id, set())),
@@ -192,6 +198,38 @@ def summarize_oracles(
     return summaries
 
 
+def build_route_gap_queue(oracle_summaries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    queue: list[dict[str, Any]] = []
+    for oracle in oracle_summaries:
+        for group_id, group in oracle.get("route_groups", {}).items():
+            status = str(group.get("status", ""))
+            missing = [str(item) for item in group.get("missing_from_all_probes", [])]
+            if status != "remaining_fixture_gap" and not status.startswith("neighbor_only"):
+                continue
+            queue.append(
+                {
+                    "oracle_id": oracle["oracle_id"],
+                    "route_group": group_id,
+                    "status": status,
+                    "covered_by_any_probe": bool(group.get("covered_by_any_probe")),
+                    "missing_from_all_probes": missing,
+                    "fixtures_covering_group": group.get("fixtures_covering_group", []),
+                    "next_probe_goal": group.get("next_probe_goal", ""),
+                    "probe_breakpoint_hints": group.get("probe_breakpoint_hints", []),
+                    "watch_hints": group.get("watch_hints", []),
+                }
+            )
+    return sorted(
+        queue,
+        key=lambda item: (
+            item["status"] != "remaining_fixture_gap",
+            item["covered_by_any_probe"],
+            item["oracle_id"],
+            item["route_group"],
+        ),
+    )
+
+
 def render_note(manifest: dict[str, Any]) -> str:
     lines = [
         "# C2 Battle Trace Manual Probe Matrix",
@@ -205,6 +243,7 @@ def render_note(manifest: dict[str, Any]) -> str:
         f"- probe records: `{manifest['summary']['record_count']}`",
         f"- oracles summarized: `{manifest['summary']['oracle_count']}`",
         f"- minimum-hit candidates: `{manifest['summary']['minimum_hit_candidate_count']}`",
+        f"- remaining route gaps: `{manifest['summary']['remaining_route_gap_count']}`",
         f"- source promotion allowed: `{manifest['policy']['source_promotion_allowed']}`",
         f"- behavior change allowed: `{manifest['policy']['behavior_change_allowed']}`",
         "",
@@ -219,6 +258,21 @@ def render_note(manifest: dict[str, Any]) -> str:
             f"| `{item['oracle_id']}` | `{item['status']}` | `{item['probe_count']}` | "
             f"`{item['minimum_hit_candidate_count']}` | `{item['fixtures_with_any_hits']}` | {observed} |"
         )
+    lines.extend(["", "## Route Gap Queue", ""])
+    route_gap_queue = manifest.get("route_gap_queue", [])
+    if route_gap_queue:
+        lines.extend(["| Oracle | Group | Status | Missing | Next probe | Breakpoints | Watches |", "| --- | --- | --- | --- | --- | --- | --- |"])
+        for item in route_gap_queue:
+            missing = ", ".join(item.get("missing_from_all_probes", [])) or "-"
+            next_probe = item.get("next_probe_goal") or "-"
+            breakpoints = ", ".join(f"`{address}`" for address in item.get("probe_breakpoint_hints", [])) or "-"
+            watches = ", ".join(f"`{watch}`" for watch in item.get("watch_hints", [])) or "-"
+            lines.append(
+                f"| `{item['oracle_id']}` | `{item['route_group']}` | `{item['status']}` | {missing} | "
+                f"{next_probe} | {breakpoints} | {watches} |"
+            )
+    else:
+        lines.append("- No remaining route gaps are recorded in the current handoff metadata.")
     lines.extend(["", "## Fixture Hits", ""])
     for item in manifest["oracles"]:
         if not item["fixture_hits"]:
@@ -239,12 +293,16 @@ def render_note(manifest: dict[str, Any]) -> str:
             continue
         lines.append(f"### `{item['oracle_id']}`")
         lines.append("")
-        lines.append("| Group | Status | Covered | Missing | Fixtures |")
-        lines.append("| --- | --- | --- | --- | --- |")
+        lines.append("| Group | Status | Covered | Missing | Fixtures | Next probe |")
+        lines.append("| --- | --- | --- | --- | --- | --- |")
         for group_id, group in route_groups.items():
             missing = ", ".join(group["missing_from_all_probes"]) or "-"
             fixtures = ", ".join(f"`{fixture}`" for fixture in group["fixtures_covering_group"]) or "-"
-            lines.append(f"| `{group_id}` | `{group['status']}` | `{group['covered_by_any_probe']}` | {missing} | {fixtures} |")
+            next_probe = group.get("next_probe_goal") or "-"
+            lines.append(
+                f"| `{group_id}` | `{group['status']}` | `{group['covered_by_any_probe']}` | "
+                f"{missing} | {fixtures} | {next_probe} |"
+            )
         lines.append("")
     lines.extend(
         [
@@ -273,6 +331,7 @@ def main() -> int:
             summary_paths = sorted(probe_root.glob("*/raw-trace-summary.json"))
         records.extend(build_record(probe_root, path, minimums) for path in summary_paths)
     oracle_summaries = summarize_oracles(records, minimums, route_groups)
+    route_gap_queue = build_route_gap_queue(oracle_summaries)
     manifest = {
         "schema": "earthbound-decomp.c2-battle-trace-manual-probe-matrix.v1",
         "generated_by": "tools/build_c2_battle_trace_manual_probe_matrix.py",
@@ -292,8 +351,14 @@ def main() -> int:
             "record_count": len(records),
             "oracle_count": len(oracle_summaries),
             "minimum_hit_candidate_count": sum(item["minimum_hit_candidate_count"] for item in oracle_summaries),
+            "remaining_route_gap_count": sum(
+                1
+                for item in route_gap_queue
+                if item["status"] == "remaining_fixture_gap" and not item["covered_by_any_probe"]
+            ),
             "status_counts": dict(Counter(item["status"] for item in oracle_summaries)),
         },
+        "route_gap_queue": route_gap_queue,
         "oracles": oracle_summaries,
         "records": records,
     }

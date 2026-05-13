@@ -9,6 +9,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 - probe records: `65`
 - oracles summarized: `6`
 - minimum-hit candidates: `7`
+- remaining route gaps: `2`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
 
@@ -22,6 +23,14 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `11` | `6` | `6` | C2:7EAF:6, C2:8125:6, C2:941D:1 |
 | `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `7` | `1` | `2` | C1:DC1C:2, C1:DC66:2, C2:7550:1, C2:77CA:1, C2:8125:2, C2:BB18:2 |
 | `resource_amount_pair_magnet_vs_pp_loss` | `probed-no-route` | `11` | `0` | `0` | - |
+
+## Route Gap Queue
+
+| Oracle | Group | Status | Missing | Next probe | Breakpoints | Watches |
+| --- | --- | --- | --- | --- | --- | --- |
+| `c1_c2_target_action_staging` | `snapshot_export` | `remaining_fixture_gap` | C2:B930 | Run from a party-side selected-target/action confirmation state until the snapshot export breakpoint fires before the C2:BAC5 count loop repeats. | `C1:B3DB`, `C1:B462`, `C1:B505`, `C1:B859`, `C1:B9A9`, `C1:BA60`, `C2:B930` | `registers A/X/Y`, `$9FFA..$A047 snapshot block`, `$9FAC candidate rows`, `$A970/$A972 selected row pointers` |
+| `c2_40a4_current_action_payload` | `payload_applicator` | `remaining_fixture_gap` | C2:40A4 | Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload. | `C2:77CA`, `C2:90C6`, `C2:A89D`, `C2:40A4`, `C2:3D05`, `C0:9279` | `$1E/$20 second pointer`, `$00BC/$00BE payload pointer`, `$A21C target mask domain`, `$9FAC selected target rows`, `$A96C/$A96E action state` |
+| `c2_40a4_current_action_payload` | `target_text_context_neighbor` | `neighbor_only_until_c2_40a4_observed` | - | Use only as a neighbor signal; do not mark the payload route covered until C2:40A4 itself is observed. | - | - |
 
 ## Fixture Hits
 
@@ -81,18 +90,18 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 ### `c1_c2_target_action_staging`
 
-| Group | Status | Covered | Missing | Fixtures |
-| --- | --- | --- | --- | --- |
-| `inventory_selection_loop` | `linked_route_group` | `True` | - | `save1-right-confirm`, `save1-right-confirm-continue` |
-| `target_resolution_count` | `linked_route_group` | `True` | - | `03-psi-menu`, `03-psi-menu-mash-a`, `04-goods-menu`, `04-goods-menu-mash-a`, `save1-down-confirm`, `save4-goods-confirm` |
-| `snapshot_export` | `remaining_fixture_gap` | `False` | C2:B930 | - |
+| Group | Status | Covered | Missing | Fixtures | Next probe |
+| --- | --- | --- | --- | --- | --- |
+| `inventory_selection_loop` | `linked_route_group` | `True` | - | `save1-right-confirm`, `save1-right-confirm-continue` | - |
+| `target_resolution_count` | `linked_route_group` | `True` | - | `03-psi-menu`, `03-psi-menu-mash-a`, `04-goods-menu`, `04-goods-menu-mash-a`, `save1-down-confirm`, `save4-goods-confirm` | - |
+| `snapshot_export` | `remaining_fixture_gap` | `False` | C2:B930 | - | Run from a party-side selected-target/action confirmation state until the snapshot export breakpoint fires before the C2:BAC5 count loop repeats. |
 
 ### `c2_40a4_current_action_payload`
 
-| Group | Status | Covered | Missing | Fixtures |
-| --- | --- | --- | --- | --- |
-| `payload_applicator` | `remaining_fixture_gap` | `False` | C2:40A4 | - |
-| `target_text_context_neighbor` | `neighbor_only_until_c2_40a4_observed` | `True` | - | `01-command-menu-mash-a`, `02-target-select-mash-a`, `03-psi-menu-mash-a`, `04-goods-menu-mash-a`, `05-before-damage`, `07-jeff-hp-rolling` |
+| Group | Status | Covered | Missing | Fixtures | Next probe |
+| --- | --- | --- | --- | --- | --- |
+| `payload_applicator` | `remaining_fixture_gap` | `False` | C2:40A4 | - | Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload. |
+| `target_text_context_neighbor` | `neighbor_only_until_c2_40a4_observed` | `True` | - | `01-command-menu-mash-a`, `02-target-select-mash-a`, `03-psi-menu-mash-a`, `04-goods-menu-mash-a`, `05-before-damage`, `07-jeff-hp-rolling` | Use only as a neighbor signal; do not mark the payload route covered until C2:40A4 itself is observed. |
 
 ## Interpretation
 
