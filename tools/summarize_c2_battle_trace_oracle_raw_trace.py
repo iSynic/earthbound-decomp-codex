@@ -87,6 +87,20 @@ def read_trace(path: Path) -> tuple[list[dict[str, Any]], int]:
     return rows, invalid
 
 
+def classify_dispatch_lane(pc: str, stack_return: str) -> str | None:
+    if pc != "C0:9279":
+        return None
+    if stack_return in {"C2:4104", "C2:4159"}:
+        return "c2_40a4_loop_dispatch"
+    if stack_return == "C2:5D3D":
+        return "c2_battle_start_candidate_direct_dispatch"
+    if stack_return == "C1:1AE2":
+        return "c1_ui_text_neighbor_dispatch"
+    if stack_return:
+        return "other_c09279_dispatch"
+    return "unknown_c09279_dispatch"
+
+
 def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] | None = None) -> dict[str, Any]:
     rows, invalid_lines = read_trace(trace_path)
     event_counts: Counter[str] = Counter()
@@ -98,6 +112,8 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
     stack_return_counts: Counter[str] = Counter()
     probe_stack_return_counts: Counter[str] = Counter()
     post_call_snapshot_counts: Counter[str] = Counter()
+    dispatch_lane_counts: Counter[str] = Counter()
+    probe_dispatch_lane_counts: Counter[str] = Counter()
     required_hits = set()
     watch_counts: Counter[str] = Counter()
     frames: list[int] = []
@@ -118,12 +134,15 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
             dispatch_target = str(row.get("dispatchTargetPointer", ""))
             stack_return = str(row.get("stackReturnRtlAdjusted", ""))
             if pc:
+                dispatch_lane = classify_dispatch_lane(pc, stack_return)
                 if row.get("probeSource") == "route_group_hint":
                     probe_hit_counts[pc] += 1
                     if dispatch_target:
                         probe_dispatch_target_counts[dispatch_target] += 1
                     if stack_return:
                         probe_stack_return_counts[stack_return] += 1
+                    if dispatch_lane:
+                        probe_dispatch_lane_counts[dispatch_lane] += 1
                     route_group = str(row.get("routeGroup", ""))
                     if route_group:
                         probe_route_group_counts[route_group] += 1
@@ -133,9 +152,11 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
                         dispatch_target_counts[dispatch_target] += 1
                     if stack_return:
                         stack_return_counts[stack_return] += 1
+                    if dispatch_lane:
+                        dispatch_lane_counts[dispatch_lane] += 1
                     if row.get("required") is True:
                         required_hits.add(pc)
-        elif event_type == "watch_snapshot":
+        elif event_type in ("watch_snapshot", "post_call_watch_snapshot"):
             watch_id = str(row.get("watchId", ""))
             if watch_id:
                 watch_counts[watch_id] += 1
@@ -168,6 +189,8 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
         "probe_dispatch_target_counts": dict(sorted(probe_dispatch_target_counts.items())),
         "stack_return_counts": dict(sorted(stack_return_counts.items())),
         "probe_stack_return_counts": dict(sorted(probe_stack_return_counts.items())),
+        "dispatch_lane_counts": dict(sorted(dispatch_lane_counts.items())),
+        "probe_dispatch_lane_counts": dict(sorted(probe_dispatch_lane_counts.items())),
         "post_call_snapshot_counts": dict(sorted(post_call_snapshot_counts.items())),
         "watch_snapshot_counts": dict(sorted(watch_counts.items())),
         "observed_addresses": sorted(hit_counts),

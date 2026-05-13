@@ -30,7 +30,7 @@ emulator, and it does not prove behavior by itself.
 | Priority | Oracle | Minimum hits | Capture fields | Result path |
 | ---: | --- | --- | ---: | --- |
 | 1 | `c1_c2_target_action_staging` | `C1:ADB4, C1:CE85, C1:CFC6, C2:B930` | `42` | `build/c2/battle-trace-oracles/c1_c2_target_action_staging/result.json` |
-| 1 | `c2_40a4_current_action_payload` | `C2:40A4` | `27` | `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json` |
+| 1 | `c2_40a4_current_action_payload` | `C2:40A4` | `33` | `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json` |
 | 1 | `c2_724a_affliction_writer_matrix` | `C2:724A, C2:9917` | `29` | `build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json` |
 | 1 | `c2_8125_damage_abi_boundary` | `C2:8125` | `31` | `build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json` |
 | 2 | `hp_roller_collapse_boundary` | `C2:8125, C2:7550` | `29` | `build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json` |
@@ -65,8 +65,8 @@ emulator, and it does not prove behavior by itself.
 - stop condition: minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl
 - minimum hits: `['C2:40A4']`
 - route groups: `['payload_applicator', 'target_text_context_neighbor']`
-- watch ranges: `['payload_pointer_dp', 'selected_target_row']`
-- extra trace fields: `['$1E/$20 selected action pointer', '$06/$08 selected row pointer', '$00BC/$00BE payload pointer', '$A21C versus $9FAC target domain']`
+- watch ranges: `['payload_pointer_dp', 'selected_target_row', 'active_row_pointers', 'current_target_mask', 'effect_busy_gate', 'battle_busy_flag']`
+- extra trace fields: `['$1E/$20 selected action pointer', '$06/$08 selected row pointer', '$00BC/$00BE payload pointer', '$A970/$A972 active attacker/target row pointers', '$A96C/$A96E current target mask before/after', '$1B9E/$AEC2/$AECC/$AECE effect-busy gate', '$A21C versus $9FAC target domain']`
 - raw trace: `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/raw-trace.jsonl`
 - result: `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json`
 - manual setup:

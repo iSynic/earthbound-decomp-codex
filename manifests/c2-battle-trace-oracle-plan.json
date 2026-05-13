@@ -191,9 +191,17 @@
           "next_probe_goal": "Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload.",
           "probe_breakpoint_hints": [
             "C2:77CA",
+            "C2:79D1",
             "C2:90C6",
+            "C2:915C",
             "C2:A89D",
+            "C2:AF0D",
             "C2:40A4",
+            "C2:40F2",
+            "C2:4147",
+            "C2:3E32",
+            "C2:416F",
+            "C2:4703",
             "C2:3D05",
             "C0:9279"
           ],
@@ -202,7 +210,9 @@
             "$00BC/$00BE payload pointer",
             "$A21C target mask domain",
             "$9FAC selected target rows",
-            "$A96C/$A96E action state"
+            "$A970/$A972 active row pointers",
+            "$A96C/$A96E current target mask",
+            "$1B9E/$AEC2/$AECC/$AECE effect-busy gate"
           ]
         },
         "target_text_context_neighbor": {
@@ -236,6 +246,12 @@
         "classification_evidence",
         "action_row_id",
         "second_pointer",
+        "c2_40a4.static_callsite",
+        "c2_40a4.caller_frame_second_payload_pointer",
+        "c2_40a4.current_action_payload_pointer",
+        "c2_40a4.current_target_mask_before_after",
+        "c2_40a4.active_attacker_target_rows",
+        "c2_40a4.effect_busy_gate",
         "target_mask_low",
         "target_mask_high",
         "selected_row_pointer",

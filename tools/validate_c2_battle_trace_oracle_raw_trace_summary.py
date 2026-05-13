@@ -54,6 +54,8 @@ def validate(data: dict[str, Any], summary_path: Path) -> None:
         "probe_dispatch_target_counts",
         "stack_return_counts",
         "probe_stack_return_counts",
+        "dispatch_lane_counts",
+        "probe_dispatch_lane_counts",
         "post_call_snapshot_counts",
     ):
         require(isinstance(data.get(key, {}), dict), f"{key} must be object when present")

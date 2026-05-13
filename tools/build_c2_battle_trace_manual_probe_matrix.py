@@ -109,6 +109,9 @@ def build_record(probe_root: Path, summary_path: Path, minimums: dict[str, list[
         "probe_dispatch_target_counts": summary.get("probe_dispatch_target_counts", {}),
         "stack_return_counts": summary.get("stack_return_counts", {}),
         "probe_stack_return_counts": summary.get("probe_stack_return_counts", {}),
+        "dispatch_lane_counts": summary.get("dispatch_lane_counts", {}),
+        "probe_dispatch_lane_counts": summary.get("probe_dispatch_lane_counts", {}),
+        "post_call_snapshot_counts": summary.get("post_call_snapshot_counts", {}),
         "configured_minimum_hits": configured_minimum,
         "missing_minimum_hits": missing_minimum,
         "first_frame": summary.get("first_frame"),
@@ -195,6 +198,9 @@ def summarize_oracles(
         probe_dispatch_target_counter: Counter[str] = Counter()
         stack_return_counter: Counter[str] = Counter()
         probe_stack_return_counter: Counter[str] = Counter()
+        dispatch_lane_counter: Counter[str] = Counter()
+        probe_dispatch_lane_counter: Counter[str] = Counter()
+        post_call_snapshot_counter: Counter[str] = Counter()
         fixture_hits: list[dict[str, Any]] = []
         probe_fixture_hits: list[dict[str, Any]] = []
         for record in oracle_records:
@@ -205,6 +211,9 @@ def summarize_oracles(
             probe_dispatch_target_counter.update(record.get("probe_dispatch_target_counts", {}))
             stack_return_counter.update(record.get("stack_return_counts", {}))
             probe_stack_return_counter.update(record.get("probe_stack_return_counts", {}))
+            dispatch_lane_counter.update(record.get("dispatch_lane_counts", {}))
+            probe_dispatch_lane_counter.update(record.get("probe_dispatch_lane_counts", {}))
+            post_call_snapshot_counter.update(record.get("post_call_snapshot_counts", {}))
             if record["observed_addresses"]:
                 fixture_hits.append(
                     {
@@ -245,6 +254,9 @@ def summarize_oracles(
                 "probe_dispatch_target_counts": dict(sorted(probe_dispatch_target_counter.items())),
                 "stack_return_counts": dict(sorted(stack_return_counter.items())),
                 "probe_stack_return_counts": dict(sorted(probe_stack_return_counter.items())),
+                "dispatch_lane_counts": dict(sorted(dispatch_lane_counter.items())),
+                "probe_dispatch_lane_counts": dict(sorted(probe_dispatch_lane_counter.items())),
+                "post_call_snapshot_counts": dict(sorted(post_call_snapshot_counter.items())),
                 "route_groups": summarize_route_groups(oracle_id, oracle_records, route_groups),
                 "fixture_hits": fixture_hits,
                 "probe_fixture_hits": probe_fixture_hits,
@@ -391,9 +403,9 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- `minimum-hit-candidate` means the ignored trace reached every configured minimum hit and may be promoted only after canonical rerun plus reviewed capture fields.",
             "- `partial-route-observed` means the fixture reaches useful neighboring code but is not enough for a reviewed oracle result.",
             "- Route-hint fixtures hit optional approach breakpoints and are discovery aids only; they do not satisfy minimum hits or permit source promotion.",
-            "- Dispatch-target and return columns are captured only for route-hint probes that use trampoline/context breakpoints; they identify the `$00BC` jump target and stack return path without proving the missing minimum address.",
+            "- Dispatch-target and return columns are captured only for route-hint probes that use trampoline/context breakpoints; they identify the `$00BC` jump target and stack return path without proving the missing minimum address. Raw summaries also classify `C0:9279` lanes by stack return so direct dispatch can be separated from true `C2:40A4` loop dispatch.",
             "- `probed-no-route` means the current local fixtures did not reach the lane.",
-            "- `c2_40a4_current_action_payload` has `C2:3D05` neighbor/context hits plus route-hint hits at `C0:9279` and `C2:77CA`. The `$00BC` target/return captures show real payload-adjacent dispatches, but still no `C2:40A4` payload-applicator hit. The next useful fixture should stop immediately before confirming a concrete second-pointer curative, recovery, item-status, or random damage/status item payload against a selected target.",
+            "- `c2_40a4_current_action_payload` has `C2:4703`, `C2:3E32`, `C2:416F`, and `C2:3D05` neighbor/context hits plus `C0:9279` direct-dispatch hits. The `$00BC` target/return captures show real payload-adjacent dispatches, but the observed `C0:9279` lane returns through `C2:5D3D`, not the `C2:40A4` loop returns near `C2:4104` or `C2:4159`. The next useful fixture should stop immediately before confirming a concrete second-pointer curative, recovery, item-status, or random damage/status item payload against a selected target.",
             "- `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The remaining missing route is `C2:B930` snapshot export, not `C1:CFC6`.",
         ]
     )

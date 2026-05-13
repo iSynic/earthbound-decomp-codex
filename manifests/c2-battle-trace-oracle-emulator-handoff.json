@@ -275,9 +275,17 @@
           "next_probe_goal": "Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload.",
           "probe_breakpoint_hints": [
             "C2:77CA",
+            "C2:79D1",
             "C2:90C6",
+            "C2:915C",
             "C2:A89D",
+            "C2:AF0D",
             "C2:40A4",
+            "C2:40F2",
+            "C2:4147",
+            "C2:3E32",
+            "C2:416F",
+            "C2:4703",
             "C2:3D05",
             "C0:9279"
           ],
@@ -286,7 +294,9 @@
             "$00BC/$00BE payload pointer",
             "$A21C target mask domain",
             "$9FAC selected target rows",
-            "$A96C/$A96E action state"
+            "$A970/$A972 active row pointers",
+            "$A96C/$A96E current target mask",
+            "$1B9E/$AEC2/$AECC/$AECE effect-busy gate"
           ]
         },
         "target_text_context_neighbor": {
@@ -324,12 +334,39 @@
           "address_or_symbol": "$A972",
           "bytes": 64,
           "purpose": "selected battler row before/after"
+        },
+        {
+          "id": "active_row_pointers",
+          "address_or_symbol": "$A970",
+          "bytes": 4,
+          "purpose": "active attacker and target row pointers"
+        },
+        {
+          "id": "current_target_mask",
+          "address_or_symbol": "$A96C",
+          "bytes": 4,
+          "purpose": "current 32-bit action target mask"
+        },
+        {
+          "id": "effect_busy_gate",
+          "address_or_symbol": "$AEC2",
+          "bytes": 36,
+          "purpose": "effect countdown and pointer-driven effect-step block"
+        },
+        {
+          "id": "battle_busy_flag",
+          "address_or_symbol": "$1B9E",
+          "bytes": 1,
+          "purpose": "secondary busy flag checked by C2:EACF before C2:40A4 proceeds"
         }
       ],
       "extra_trace_fields": [
         "$1E/$20 selected action pointer",
         "$06/$08 selected row pointer",
         "$00BC/$00BE payload pointer",
+        "$A970/$A972 active attacker/target row pointers",
+        "$A96C/$A96E current target mask before/after",
+        "$1B9E/$AEC2/$AECC/$AECE effect-busy gate",
         "$A21C versus $9FAC target domain"
       ],
       "capture_fields": [
@@ -354,6 +391,12 @@
         "classification_evidence",
         "action_row_id",
         "second_pointer",
+        "c2_40a4.static_callsite",
+        "c2_40a4.caller_frame_second_payload_pointer",
+        "c2_40a4.current_action_payload_pointer",
+        "c2_40a4.current_target_mask_before_after",
+        "c2_40a4.active_attacker_target_rows",
+        "c2_40a4.effect_busy_gate",
         "target_mask_low",
         "target_mask_high",
         "selected_row_pointer",

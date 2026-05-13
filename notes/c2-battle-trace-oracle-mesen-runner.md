@@ -126,6 +126,16 @@ promotion gates while still showing whether the run approached `C2:B930` or
   `C2:859F`, `C2:8651`, `C2:8740`, and `C2:9033`; the PSI-menu neighbor dispatch
   instead targets `C1:C8BC` and returns through `C1:1AE2`. These are still
   approach-path facts, not `C2:40A4` proof.
+- The `c2_40a4_current_action_payload` runner now watches the three known
+  static `C2:40A4` callsites: `C2:79D1`, `C2:915C`, and `C2:AF0D`. It also
+  captures `$A970/$A972`, `$A96C/$A96E`, `$00BC/$00BE`, and the
+  `$1B9E/$AEC2/$AECC/$AECE` busy gate around payload-adjacent dispatches. Save
+  5 and save 7 still hit `C2:4703`, `C2:3E32`, `C2:416F`, downstream
+  `C2:3D05`, and `C0:9279`, but not the `C2:40A4` wrapper or any of the three
+  pre-call sites. The new dispatch-lane summary classifies those `C0:9279`
+  hits as `c2_battle_start_candidate_direct_dispatch` via return `C2:5D3D`,
+  so the current fixture set is useful for payload-target identities, but not
+  for proving the second-pointer wrapper contract.
 - The enhanced `c1_c2_target_action_staging` route sweep still did not reach
   `C2:B930` or its six C1 pre-export probe sites. Save 11 repeatedly hits
   `C2:BAC5`, which makes it another target-count fixture, not a snapshot-export

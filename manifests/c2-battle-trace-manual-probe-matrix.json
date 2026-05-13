@@ -17,10 +17,10 @@
   "summary": {
     "probe_root_count": 5,
     "probe_roots_found": 5,
-    "record_count": 84,
+    "record_count": 86,
     "oracle_count": 6,
     "minimum_hit_candidate_count": 7,
-    "route_hint_fixture_count": 8,
+    "route_hint_fixture_count": 10,
     "remaining_route_gap_count": 2,
     "status_counts": {
       "partial-route-observed": 2,
@@ -71,6 +71,9 @@
       "fixtures_covering_group": [],
       "probe_hint_addresses_observed": [
         "C0:9279",
+        "C2:3E32",
+        "C2:416F",
+        "C2:4703",
         "C2:77CA"
       ],
       "fixtures_with_probe_hints": [
@@ -78,17 +81,27 @@
         "save11-confirm-enhanced",
         "save3-psi-dispatch-target",
         "save3-psi-enhanced",
+        "save5-before-damage-callsite-fields",
         "save5-before-damage-dispatch-target",
         "save5-before-damage-enhanced",
+        "save7-hp-rolling-callsite-fields",
         "save7-hp-rolling-dispatch-target",
         "save7-hp-rolling-enhanced"
       ],
       "next_probe_goal": "Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload.",
       "probe_breakpoint_hints": [
         "C2:77CA",
+        "C2:79D1",
         "C2:90C6",
+        "C2:915C",
         "C2:A89D",
+        "C2:AF0D",
         "C2:40A4",
+        "C2:40F2",
+        "C2:4147",
+        "C2:3E32",
+        "C2:416F",
+        "C2:4703",
         "C2:3D05",
         "C0:9279"
       ],
@@ -97,7 +110,9 @@
         "$00BC/$00BE payload pointer",
         "$A21C target mask domain",
         "$9FAC selected target rows",
-        "$A96C/$A96E action state"
+        "$A970/$A972 active row pointers",
+        "$A96C/$A96E current target mask",
+        "$1B9E/$AEC2/$AECC/$AECE effect-busy gate"
       ]
     },
     {
@@ -115,8 +130,10 @@
         "07-jeff-hp-rolling",
         "save11-confirm-dispatch-target",
         "save11-confirm-enhanced",
+        "save5-before-damage-callsite-fields",
         "save5-before-damage-dispatch-target",
         "save5-before-damage-enhanced",
+        "save7-hp-rolling-callsite-fields",
         "save7-hp-rolling-dispatch-target",
         "save7-hp-rolling-enhanced"
       ],
@@ -172,6 +189,9 @@
         "C2:5F26": 4
       },
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "route_groups": {
         "inventory_selection_loop": {
           "addresses": [
@@ -625,46 +645,59 @@
         "C2:40A4"
       ],
       "status": "partial-route-observed",
-      "probe_count": 22,
+      "probe_count": 24,
       "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 12,
-      "fixtures_with_probe_hits": 8,
+      "fixtures_with_any_hits": 14,
+      "fixtures_with_probe_hits": 10,
       "observed_address_counts": {
-        "C2:3D05": 12
+        "C2:3D05": 14
       },
       "probe_observed_address_counts": {
-        "C0:9279": 8,
-        "C2:77CA": 2
+        "C0:9279": 10,
+        "C2:3E32": 2,
+        "C2:416F": 2,
+        "C2:4703": 2,
+        "C2:77CA": 3
       },
       "probe_route_group_counts": {
-        "payload_applicator": 28
+        "payload_applicator": 58
       },
       "dispatch_target_counts": {
-        "C1:CAF5": 1,
-        "C2:859F": 25,
-        "C2:8651": 8,
-        "C2:8740": 8,
-        "C2:9033": 4
+        "C1:CAF5": 2,
+        "C2:859F": 42,
+        "C2:8651": 12,
+        "C2:8740": 14,
+        "C2:9033": 8
       },
       "probe_dispatch_target_counts": {
         "C1:C8BC": 1,
-        "C2:859F": 7,
-        "C2:8651": 1,
-        "C2:8740": 4,
-        "C2:9033": 1
+        "C2:859F": 22,
+        "C2:8651": 5,
+        "C2:8740": 9,
+        "C2:9033": 7
       },
       "stack_return_counts": {
-        "C2:3E88": 10,
-        "C2:58D5": 10,
-        "C2:5CAE": 12,
-        "C2:5E26": 13,
+        "C2:3E88": 17,
+        "C2:58D5": 17,
+        "C2:5CAE": 21,
+        "C2:5E26": 22,
         "C2:BBD0": 1
       },
       "probe_stack_return_counts": {
         "C1:1AE2": 1,
-        "C2:5D3D": 12,
-        "F3:1E64": 1
+        "C2:59F9": 7,
+        "C2:5A1F": 4,
+        "C2:5A4B": 1,
+        "C2:5A4F": 1,
+        "C2:5AFB": 7,
+        "C2:5D3D": 21,
+        "F3:1E64": 2
       },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {
+        "c2_battle_start_candidate_direct_dispatch": 9
+      },
+      "post_call_snapshot_counts": {},
       "route_groups": {
         "payload_applicator": {
           "addresses": [
@@ -675,9 +708,17 @@
           "next_probe_goal": "Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload.",
           "probe_breakpoint_hints": [
             "C2:77CA",
+            "C2:79D1",
             "C2:90C6",
+            "C2:915C",
             "C2:A89D",
+            "C2:AF0D",
             "C2:40A4",
+            "C2:40F2",
+            "C2:4147",
+            "C2:3E32",
+            "C2:416F",
+            "C2:4703",
             "C2:3D05",
             "C0:9279"
           ],
@@ -686,7 +727,9 @@
             "$00BC/$00BE payload pointer",
             "$A21C target mask domain",
             "$9FAC selected target rows",
-            "$A96C/$A96E action state"
+            "$A970/$A972 active row pointers",
+            "$A96C/$A96E current target mask",
+            "$1B9E/$AEC2/$AECC/$AECE effect-busy gate"
           ],
           "covered_by_any_probe": false,
           "missing_from_all_probes": [
@@ -695,6 +738,9 @@
           "fixtures_covering_group": [],
           "probe_hint_addresses_observed": [
             "C0:9279",
+            "C2:3E32",
+            "C2:416F",
+            "C2:4703",
             "C2:77CA"
           ],
           "fixtures_with_probe_hints": [
@@ -702,8 +748,10 @@
             "save11-confirm-enhanced",
             "save3-psi-dispatch-target",
             "save3-psi-enhanced",
+            "save5-before-damage-callsite-fields",
             "save5-before-damage-dispatch-target",
             "save5-before-damage-enhanced",
+            "save7-hp-rolling-callsite-fields",
             "save7-hp-rolling-dispatch-target",
             "save7-hp-rolling-enhanced"
           ]
@@ -728,8 +776,10 @@
             "07-jeff-hp-rolling",
             "save11-confirm-dispatch-target",
             "save11-confirm-enhanced",
+            "save5-before-damage-callsite-fields",
             "save5-before-damage-dispatch-target",
             "save5-before-damage-enhanced",
+            "save7-hp-rolling-callsite-fields",
             "save7-hp-rolling-dispatch-target",
             "save7-hp-rolling-enhanced"
           ],
@@ -835,6 +885,18 @@
           "last_frame": 2298
         },
         {
+          "fixture_id": "save5-before-damage-callsite-fields",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:3D05"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:3D05": 22
+          },
+          "first_frame": 29,
+          "last_frame": 985
+        },
+        {
           "fixture_id": "save5-before-damage-dispatch-target",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
@@ -857,6 +919,18 @@
           },
           "first_frame": 29,
           "last_frame": 985
+        },
+        {
+          "fixture_id": "save7-hp-rolling-callsite-fields",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:3D05"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:3D05": 10
+          },
+          "first_frame": 41,
+          "last_frame": 410
         },
         {
           "fixture_id": "save7-hp-rolling-dispatch-target",
@@ -958,6 +1032,37 @@
           "last_frame": 27
         },
         {
+          "fixture_id": "save5-before-damage-callsite-fields",
+          "probe_observed_addresses": [
+            "C0:9279",
+            "C2:3E32",
+            "C2:416F",
+            "C2:4703"
+          ],
+          "probe_breakpoint_hit_counts": {
+            "C0:9279": 6,
+            "C2:3E32": 5,
+            "C2:416F": 3,
+            "C2:4703": 5
+          },
+          "probe_route_group_hit_counts": {
+            "payload_applicator": 19
+          },
+          "probe_dispatch_target_counts": {
+            "C2:859F": 11,
+            "C2:8651": 4,
+            "C2:8740": 4
+          },
+          "probe_stack_return_counts": {
+            "C2:59F9": 5,
+            "C2:5A1F": 3,
+            "C2:5AFB": 5,
+            "C2:5D3D": 6
+          },
+          "first_frame": 29,
+          "last_frame": 985
+        },
+        {
           "fixture_id": "save5-before-damage-dispatch-target",
           "probe_observed_addresses": [
             "C0:9279"
@@ -994,6 +1099,42 @@
           "probe_stack_return_counts": {},
           "first_frame": 29,
           "last_frame": 985
+        },
+        {
+          "fixture_id": "save7-hp-rolling-callsite-fields",
+          "probe_observed_addresses": [
+            "C0:9279",
+            "C2:3E32",
+            "C2:416F",
+            "C2:4703",
+            "C2:77CA"
+          ],
+          "probe_breakpoint_hit_counts": {
+            "C0:9279": 3,
+            "C2:3E32": 2,
+            "C2:416F": 2,
+            "C2:4703": 3,
+            "C2:77CA": 1
+          },
+          "probe_route_group_hit_counts": {
+            "payload_applicator": 11
+          },
+          "probe_dispatch_target_counts": {
+            "C2:859F": 4,
+            "C2:8740": 1,
+            "C2:9033": 6
+          },
+          "probe_stack_return_counts": {
+            "C2:59F9": 2,
+            "C2:5A1F": 1,
+            "C2:5A4B": 1,
+            "C2:5A4F": 1,
+            "C2:5AFB": 2,
+            "C2:5D3D": 3,
+            "F3:1E64": 1
+          },
+          "first_frame": 41,
+          "last_frame": 410
         },
         {
           "fixture_id": "save7-hp-rolling-dispatch-target",
@@ -1058,6 +1199,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "route_groups": {},
       "fixture_hits": [],
       "probe_fixture_hits": []
@@ -1083,6 +1227,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "route_groups": {},
       "fixture_hits": [
         {
@@ -1199,6 +1346,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "route_groups": {},
       "fixture_hits": [
         {
@@ -1262,6 +1412,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "route_groups": {},
       "fixture_hits": [],
       "probe_fixture_hits": []
@@ -1286,6 +1439,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1325,6 +1481,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -1358,6 +1517,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -1393,6 +1555,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1426,6 +1591,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -1465,6 +1633,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1508,6 +1679,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -1547,6 +1721,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1578,6 +1755,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -1617,6 +1797,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1656,6 +1839,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -1689,6 +1875,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -1724,6 +1913,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1757,6 +1949,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -1796,6 +1991,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1839,6 +2037,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -1878,6 +2079,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -1909,6 +2113,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -1950,6 +2157,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -1988,6 +2198,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -2021,6 +2234,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -2056,6 +2272,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -2089,6 +2308,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -2130,6 +2352,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2172,6 +2397,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -2213,6 +2441,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -2244,6 +2475,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -2287,6 +2521,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2324,6 +2561,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -2357,6 +2597,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -2392,6 +2635,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -2425,6 +2671,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -2468,6 +2717,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2509,6 +2761,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -2548,6 +2803,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -2579,6 +2837,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -2618,6 +2879,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2661,6 +2925,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -2694,6 +2961,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -2735,6 +3005,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -2766,6 +3039,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -2805,6 +3081,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -2844,6 +3123,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -2877,6 +3159,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -2912,6 +3197,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -2945,6 +3233,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -2984,6 +3275,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3027,6 +3321,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -3060,6 +3357,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -3101,6 +3401,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -3132,6 +3435,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -3167,6 +3473,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -3202,6 +3511,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -3237,6 +3549,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -3272,6 +3587,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -3317,6 +3635,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -3351,6 +3672,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -3400,6 +3724,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -3436,6 +3763,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3481,6 +3811,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3523,6 +3856,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3570,6 +3906,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3615,6 +3954,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3656,6 +3998,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3703,6 +4048,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3748,6 +4096,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3799,6 +4150,9 @@
         "C2:505A": 1
       },
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3844,6 +4198,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3895,6 +4252,9 @@
         "C2:505A": 3
       },
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3936,6 +4296,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -3991,6 +4354,9 @@
         "C2:5F26": 4
       },
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -4041,6 +4407,9 @@
         "C2:505A": 2
       },
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -4093,6 +4462,9 @@
         "C2:505A": 2
       },
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -4130,6 +4502,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -4188,6 +4563,9 @@
       "probe_stack_return_counts": {
         "C2:5D3D": 3
       },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -4231,6 +4609,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -4264,6 +4645,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -4307,6 +4691,9 @@
       "probe_stack_return_counts": {
         "C1:1AE2": 1
       },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -4346,6 +4733,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -4379,6 +4769,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -4395,6 +4788,79 @@
         "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save4-goods-confirm-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
+      "fixture_id": "save5-before-damage-callsite-fields",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:3D05"
+      ],
+      "probe_observed_addresses": [
+        "C0:9279",
+        "C2:3E32",
+        "C2:416F",
+        "C2:4703"
+      ],
+      "breakpoint_hit_counts": {
+        "C2:3D05": 22
+      },
+      "probe_breakpoint_hit_counts": {
+        "C0:9279": 6,
+        "C2:3E32": 5,
+        "C2:416F": 3,
+        "C2:4703": 5
+      },
+      "probe_route_group_hit_counts": {
+        "payload_applicator": 19
+      },
+      "dispatch_target_counts": {
+        "C1:CAF5": 1,
+        "C2:859F": 12,
+        "C2:8651": 4,
+        "C2:8740": 5
+      },
+      "probe_dispatch_target_counts": {
+        "C2:859F": 11,
+        "C2:8651": 4,
+        "C2:8740": 4
+      },
+      "stack_return_counts": {
+        "C2:3E88": 5,
+        "C2:58D5": 5,
+        "C2:5CAE": 6,
+        "C2:5E26": 6
+      },
+      "probe_stack_return_counts": {
+        "C2:59F9": 5,
+        "C2:5A1F": 3,
+        "C2:5AFB": 5,
+        "C2:5D3D": 6
+      },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {
+        "c2_battle_start_candidate_direct_dispatch": 6
+      },
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": 29,
+      "last_frame": 985,
+      "trace_line_count": 291,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:1200",
+      "save_state": {
+        "basename": "EarthBound (USA)_5.mss",
+        "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save5-before-damage-callsite-fields/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     },
@@ -4438,6 +4904,9 @@
       "probe_stack_return_counts": {
         "C2:5D3D": 6
       },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -4481,6 +4950,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -4497,6 +4969,83 @@
         "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save5-before-damage-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
+      "fixture_id": "save7-hp-rolling-callsite-fields",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:3D05"
+      ],
+      "probe_observed_addresses": [
+        "C0:9279",
+        "C2:3E32",
+        "C2:416F",
+        "C2:4703",
+        "C2:77CA"
+      ],
+      "breakpoint_hit_counts": {
+        "C2:3D05": 10
+      },
+      "probe_breakpoint_hit_counts": {
+        "C0:9279": 3,
+        "C2:3E32": 2,
+        "C2:416F": 2,
+        "C2:4703": 3,
+        "C2:77CA": 1
+      },
+      "probe_route_group_hit_counts": {
+        "payload_applicator": 11
+      },
+      "dispatch_target_counts": {
+        "C2:859F": 5,
+        "C2:8740": 1,
+        "C2:9033": 4
+      },
+      "probe_dispatch_target_counts": {
+        "C2:859F": 4,
+        "C2:8740": 1,
+        "C2:9033": 6
+      },
+      "stack_return_counts": {
+        "C2:3E88": 2,
+        "C2:58D5": 2,
+        "C2:5CAE": 3,
+        "C2:5E26": 3
+      },
+      "probe_stack_return_counts": {
+        "C2:59F9": 2,
+        "C2:5A1F": 1,
+        "C2:5A4B": 1,
+        "C2:5A4F": 1,
+        "C2:5AFB": 2,
+        "C2:5D3D": 3,
+        "F3:1E64": 1
+      },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {
+        "c2_battle_start_candidate_direct_dispatch": 3
+      },
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": 41,
+      "last_frame": 410,
+      "trace_line_count": 151,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:900",
+      "save_state": {
+        "basename": "EarthBound (USA)_7.mss",
+        "sha256": "facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save7-hp-rolling-callsite-fields/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     },
@@ -4542,6 +5091,9 @@
         "C2:5D3D": 3,
         "F3:1E64": 1
       },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -4587,6 +5139,9 @@
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {},
       "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],

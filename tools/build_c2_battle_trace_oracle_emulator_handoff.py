@@ -90,6 +90,9 @@ EXTRA_TRACE_FIELDS: dict[str, list[str]] = {
         "$1E/$20 selected action pointer",
         "$06/$08 selected row pointer",
         "$00BC/$00BE payload pointer",
+        "$A970/$A972 active attacker/target row pointers",
+        "$A96C/$A96E current target mask before/after",
+        "$1B9E/$AEC2/$AECC/$AECE effect-busy gate",
         "$A21C versus $9FAC target domain",
     ],
     "c2_724a_affliction_writer_matrix": [
@@ -129,6 +132,10 @@ WATCH_RANGES: dict[str, list[dict[str, Any]]] = {
     "c2_40a4_current_action_payload": [
         {"id": "payload_pointer_dp", "address_or_symbol": "$00BC", "bytes": 4, "purpose": "current action payload pointer"},
         {"id": "selected_target_row", "address_or_symbol": "$A972", "bytes": 64, "purpose": "selected battler row before/after"},
+        {"id": "active_row_pointers", "address_or_symbol": "$A970", "bytes": 4, "purpose": "active attacker and target row pointers"},
+        {"id": "current_target_mask", "address_or_symbol": "$A96C", "bytes": 4, "purpose": "current 32-bit action target mask"},
+        {"id": "effect_busy_gate", "address_or_symbol": "$AEC2", "bytes": 0x24, "purpose": "effect countdown and pointer-driven effect-step block"},
+        {"id": "battle_busy_flag", "address_or_symbol": "$1B9E", "bytes": 1, "purpose": "secondary busy flag checked by C2:EACF before C2:40A4 proceeds"},
     ],
     "c2_724a_affliction_writer_matrix": [
         {"id": "selected_battler_afflictions", "address_or_symbol": "$A972 + row", "bytes": 64, "purpose": "affliction subgroup before/after"},
