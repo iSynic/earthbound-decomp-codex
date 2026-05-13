@@ -5,6 +5,8 @@ and readable source closure. Its goal is not to prove that every byte exists in 
 scaffold; that is already tracked elsewhere. Its goal is to state how well the
 repo understands behavior, data contracts, and port-facing meaning.
 
+The execution roadmap for this phase is `notes/phase-2-semantic-closure-plan.md`.
+
 ## Baseline
 
 - Bank first-pass coverage is complete for `C0..EF`; those notes are historical
@@ -14,6 +16,9 @@ repo understands behavior, data contracts, and port-facing meaning.
   `C0`, `C1`, `C2`, `C4`, and `EF`.
 - Current semantic work is organized by subsystem, VM, data contract, and
   reference-alignment lane rather than by first-pass bank note.
+- Ghidra-SNES `v0.2.0` is installed in the dedicated pilot worktree as a
+  supporting visual/decode oracle only; local source, traces, and manifests
+  remain authoritative for names and behavior.
 
 ## Live Semantic Lanes
 
@@ -21,7 +26,7 @@ repo understands behavior, data contracts, and port-facing meaning.
 | --- | --- | --- | --- |
 | C0 overworld/runtime | Medium-high | Many entity, movement, interaction, collision, teleport, task, input, audio-bridge, and presentation routines have caller-backed names and byte-equivalence validation. | Large subsystem surface; some names are intentionally side-effect-oriented and should keep gaining comments/tests around WRAM contracts. |
 | C1 text/menu/UI | Medium-high | Text VM dispatch, menu/front-end corridors, file-select joins, and many text command leaves have manifests and local evidence. | Some final names depend on C2 battle semantics, C4 renderer behavior, and EF text/data payload joins. |
-| C2 battle runtime | Medium-high | Action dispatch, target/status/effect families, PSI/common handlers, Final Prayer, and battle visual tails have substantial polish. | Some action leaves and status edge cases still need final naming and proof-oriented comments. |
+| C2 battle runtime | Medium-high | Action dispatch, target/status/effect families, PSI/common handlers, Final Prayer, and battle visual tails have substantial polish. The C-port feedback diary has now been folded into `notes/c-port-feedback-intake.md` as 36 battle-runtime trace/action candidates, with a generated 10-oracle manifest/index, stub-validated execution packet, real-runner emulator handoff for the five first-pass jobs, strict `ok` result validation, and results summary that reports 0 proof-grade traces until a real harness runs. | Some action leaves and status edge cases still need final naming and proof-oriented comments; the weakest work is now replacing stub oracle results with real emulator/trace evidence and turning confirmed oracle results into source comments. |
 | C3 event/actionscript VM | Medium | Raw frontier is closed and opcode/operand audit exists. | VM operand semantics, callback contracts, and script-source emission are not yet as mature as the source-heavy runtime banks. |
 | C4 presentation/PPU | Medium-high | Text tile staging, window/color/HDMA helpers, town-map/file-select, credits/photo, and presentation islands have local source and contracts. | PPU/color side effects benefit from more subsystem-level comments and emulator probes. |
 | C5..C9 text banks | Medium | Text-bank structure and command usage are decoded enough for regression and extraction. | Port-ready text still depends on complete text-command VM and authoring macro semantics. |
@@ -46,6 +51,13 @@ repo understands behavior, data contracts, and port-facing meaning.
 Use these starting points instead of adding new material to first-pass notes:
 
 - Runtime source banks: `notes/runtime-semantic-polish-plans.md`.
+- Phase 2 execution roadmap: `notes/phase-2-semantic-closure-plan.md`.
+- C-port feedback: `notes/c-port-feedback-intake.md` and
+  `notes/c2-battle-trace-oracle-plan.md`, with generated queue
+  `notes/c2-battle-trace-oracle-index.md` and execution packet
+  `notes/c2-battle-trace-oracle-packet.md`; real-runner setup starts at
+  `notes/c2-battle-trace-oracle-emulator-handoff.md`, and result intake lives
+  in `notes/c2-battle-trace-oracle-results-summary.md`.
 - C3 VM: `notes/c3-actionscript-semantics-audit.md` and
   `notes/c3-actionscript-semantics-roadmap.md`.
 - Text/localization VM: `notes/text-command-semantics-manifest.md` and

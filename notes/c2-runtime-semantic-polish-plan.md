@@ -42,6 +42,15 @@ contract notes for C0/C1/C3/C4 consumers.
 - `notes/bank-c2-source-scaffold-handoff.md`
 - `notes/bank-c2-working-name-proposals.md`
 - `notes/bank-c2-progress-audit.md`
+- `notes/c2-battle-trace-oracle-plan.md`
+- `notes/c2-battle-trace-oracle-index.md`
+- `notes/c2-battle-trace-oracle-packet.md`
+- `notes/c2-battle-trace-oracle-emulator-handoff.md`
+- `notes/c2-battle-trace-oracle-results-summary.md`
+- `manifests/c2-battle-trace-oracle-plan.json`
+- `manifests/c2-battle-trace-oracle-packet.json`
+- `manifests/c2-battle-trace-oracle-emulator-handoff.json`
+- `manifests/c2-battle-trace-oracle-results-summary.json`
 - `notes/c2-battle-contract-workahead.md`
 - `notes/c2-ef-battle-text-contract-workahead.md`
 - `notes/battle-visual-asset-contracts.md`
@@ -861,6 +870,52 @@ contract notes for C0/C1/C3/C4 consumers.
   `notes/c2-final-prayer-runtime-polish.md`,
   `notes/class2-prayer-common-helpers-c2c37a-c2c3e2-c2c41f.md`, and
   `notes/class2-final-prayer-family-c2c572-c2c6f0.md`.
+- 2026-05-13 one hundred and twelfth slice: started Phase 2 C-port-feedback
+  closure by adding `notes/c2-battle-trace-oracle-plan.md`. The new queue
+  splits diary findings into proof lanes for target/action staging, `C2:40A4`
+  payloads, `C2:724A` affliction writes, `C2:8125` damage ABI, HP roller /
+  collapse timing, resource amounts, healing ladder behavior, numeric/stat edge
+  cases, PSI Flash/status gates, and battle-text payload joins.
+- 2026-05-13 one hundred and thirteenth slice: added the generated C2 battle
+  trace-oracle manifest and compact index. The builder/validator pair keeps the
+  ten oracle lanes source-path checked and explicitly blocks source-facing
+  promotion until a local trace or source proof exists.
+- 2026-05-13 one hundred and fourteenth slice: added the C2 battle trace-oracle
+  execution packet and schema-only stub runner. The packet turns the ten oracle
+  lanes into ignored `build/c2/battle-trace-oracles/` jobs, validates dry-run
+  result plumbing, and keeps every behavior/source-promotion gate closed until a
+  real emulator harness writes proof-grade results.
+- 2026-05-13 one hundred and fifteenth slice: added C2 battle trace-oracle
+  result collection. Stub results now validate as runner plumbing while the
+  committed summary reports zero trace-observed and zero proof-grade results,
+  preserving the runtime-proof blocker until a non-stub harness emits real
+  captures.
+- 2026-05-13 one hundred and sixteenth slice: strengthened the single-result
+  validator so weak `ok` results cannot pass. An `ok` result must now be
+  non-stub, path-exact against the packet, backed by a non-empty raw trace, and
+  carry the required proof capture fields before the collector can treat it as
+  trace-observed.
+- 2026-05-13 one hundred and seventeenth slice: tightened the same `ok` gate
+  around full capture coverage. Proof-capable C2 oracle results must now carry
+  every packet job capture field, typed non-empty observed addresses, and
+  non-empty evidence strings before a real harness output can validate.
+- 2026-05-13 one hundred and eighteenth slice: added the first-pass emulator
+  handoff for C2 oracle execution. The handoff packages the five first-pass jobs
+  into SNES CPU-bus breakpoint targets, scenario setup guidance, Mesen address
+  caveats, exact ignored output paths, and result-validator commands without
+  treating the handoff itself as proof.
+- 2026-05-13 one hundred and nineteenth slice: added ignored Mesen runner asset
+  generation for the first-pass C2 oracle jobs. The asset pack writes per-job
+  Lua trace skeletons, operator checklists, unresolved result templates, command
+  snippets, and a machine-readable index under
+  `build/c2/battle-trace-oracles/mesen-runner-assets/`; these assets are
+  execution plumbing only and still require reviewed non-stub trace results
+  before source-facing promotion.
+- 2026-05-13 one hundred and twentieth slice: added a reviewed-result assembler
+  for C2 trace-oracle outputs. The assembler turns a selected packet job,
+  reviewed captured-field JSON, observed addresses, harness provenance, and a
+  classification rationale into the standard result schema, then runs the same
+  validator that blocks weak or stub `ok` results.
 
 ## Validation
 
@@ -871,6 +926,18 @@ python tools\build_source_bank_scaffold.py --bank C2
 python tools\validate_source_bank_byte_equivalence.py --bank C2 --module all --combined --scaffold src\c2\bank_c2_helpers_asar.asm --strict
 python tools\build_source_bank_candidate_ranges_doc.py --bank C2
 python tools\build_source_bank_residual_map.py --bank C2
+python tools\build_c2_battle_trace_oracle_manifest.py
+python tools\validate_c2_battle_trace_oracle_manifest.py
+python tools\build_c2_battle_trace_oracle_packet.py
+python tools\validate_c2_battle_trace_oracle_packet.py
+python tools\build_c2_battle_trace_oracle_emulator_handoff.py
+python tools\validate_c2_battle_trace_oracle_emulator_handoff.py
+python tools\build_c2_battle_trace_oracle_runner_assets.py
+python tools\validate_c2_battle_trace_oracle_runner_assets.py
+python tools\run_c2_battle_trace_oracle_batch.py --mode dry-run-stub --force
+python tools\validate_c2_battle_trace_oracle_batch_summary.py
+python tools\collect_c2_battle_trace_oracle_results.py
+python tools\validate_c2_battle_trace_oracle_results_summary.py
 ```
 
-This planning pass does not alter C2 source or generated manifests.
+This oracle manifest/packet pass does not alter C2 source or ROM bytes.

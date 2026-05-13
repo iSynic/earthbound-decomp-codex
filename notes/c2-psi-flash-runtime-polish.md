@@ -105,6 +105,24 @@ previous C2 passes:
 - tier differences are represented as branch maps rather than vague difficulty
   labels
 
+## Phase 2 Trace Oracle
+
+Flash contributes the smallest high-signal `C2:724A` matrix rows:
+
+- caller: `C2:9917` for Flash paralysis/body-numb result
+- selected row source: the Flash tier wrapper's selected target after
+  `C2:98A1` passes
+- `X` subgroup slot: `0 -> +0x1D`
+- `Y` value: `3`
+- chance/resistance gate: shared Flash gate through selected-row `+0x39`, plus
+  the tier-specific random branch that chooses paralysis
+- EF text result: `EF:6AE0` on write, `EF:766E` on blocked/no-upgrade
+
+The C-port diary wording that treats Flash paralysis as an early trace oracle
+is useful, but it should stay an oracle request: local evidence pins the
+`X/Y`, row byte, gate byte, and text pair, while trace work still needs to
+record the live selected row source and branch choice in one run.
+
 ## Remaining Soft Spots
 
 - final user-facing wording for the `C2:7550` collapse outcome should stay broad

@@ -130,6 +130,22 @@ Special-event follow-up: `C2:92EE` now calls this cluster by its
 `RunHitResolutionAndStatusActionCluster` contract when the Poo/Starstorm event
 applies the scripted `0x0168` damage pass to each selected enemy row.
 
+## Phase 2 Trace-Oracles
+
+Damage/resource-lane closure should keep `C2:8125` as the selected-target
+damage ABI boundary, not as a catch-all name for everything that happens after
+damage is staged. Local source already supports the call ABI: A carries the
+amount and X carries the damage/resistance selector, with `0xFF` used by
+default-damage callers. Phase 2 traces should sample that boundary across plain
+hit resolution, reflected hits, random-damage item leaves, bottle rockets,
+bombs, HP-Sucker, and PSI common helpers.
+
+The C-port feedback also makes collapse-after-HP-roller behavior a high-value
+oracle. Until this workspace pins the timing locally, keep the diary wording as
+a trace candidate: damage application, HP roller settlement, guts/survival
+handling, collapse finalization, and EF result text should remain separate
+contracts in notes and tests.
+
 ## Evidence Inputs
 
 - `refs/EB-M2-Listing-v1/US/bank02.txt` for helper names such as

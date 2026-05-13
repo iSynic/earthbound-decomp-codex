@@ -1,0 +1,711 @@
+{
+  "schema": "earthbound-decomp.c2-battle-trace-oracle-emulator-handoff.v1",
+  "status": "c2_battle_trace_oracle_emulator_handoff_ready_runner_pending",
+  "packet": "manifests/c2-battle-trace-oracle-packet.json",
+  "references": [
+    "notes/c2-battle-trace-oracle-plan.md",
+    "notes/c2-battle-trace-oracle-packet.md",
+    "notes/c2-battle-trace-oracle-results-summary.md",
+    "notes/overworld_stutter_mesen_test_results_2026-04-30.md"
+  ],
+  "emulator_policy": {
+    "accepted_runner_classes": [
+      "mesen2_test_runner",
+      "ares_external_harness",
+      "other_external_snes_trace_harness"
+    ],
+    "mesen_address_policy": "Set breakpoints/watchpoints on SNES CPU bus addresses. If a runner patches ROM, use Mesen's emu.convertAddress result in the snesPrgRom domain; do not write CPU ROM addresses directly in snesMemory.",
+    "required_rom_role": "user-supplied EarthBound US ROM; ROM bytes are not committed",
+    "save_state_policy": "save states are local fixtures under ignored build/ or emulator folders",
+    "output_root": "build/c2/battle-trace-oracles"
+  },
+  "proof_policy": {
+    "stub_results_are_not_proof": true,
+    "ok_result_must_pass": "tools/validate_c2_battle_trace_oracle_result.py",
+    "collector_must_report_proof_grade": "tools/collect_c2_battle_trace_oracle_results.py",
+    "source_edits_allowed_from_handoff_alone": false,
+    "behavior_change_allowed_from_handoff_alone": false
+  },
+  "summary": {
+    "handoff_job_count": 5,
+    "minimum_breakpoint_count": 10,
+    "breakpoint_count": 29,
+    "source_promotion_allowed": false,
+    "behavior_change_allowed": false
+  },
+  "jobs": [
+    {
+      "job_id": "c2-battle-oracle-c1_c2_target_action_staging",
+      "oracle_id": "c1_c2_target_action_staging",
+      "priority": 1,
+      "question": "Which C1-staged action/target bytes are stable C2 contract fields?",
+      "scenario_goal": "reach a battle command/menu selection that crosses C1 target staging and exports into C2 selection snapshots",
+      "scenario": {
+        "scenario_name": "c1_c2_target_action_staging_manual_first_pass",
+        "save_state_id": "local_fixture_required",
+        "save_state_path_local_only": "<local-only save state path>",
+        "setup_steps": [
+          "load or create a save state in an ordinary battle before selecting a command",
+          "exercise one normal target prompt and one item/PSI target prompt if possible",
+          "stop after C2:B930/BAC5 have captured/exported candidate rows"
+        ],
+        "stop_condition": "minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl"
+      },
+      "manual_setup": [
+        "load or create a save state in an ordinary battle before selecting a command",
+        "exercise one normal target prompt and one item/PSI target prompt if possible",
+        "stop after C2:B930/BAC5 have captured/exported candidate rows"
+      ],
+      "preferred_trigger": "select a player action that opens target selection before the action resolves",
+      "minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "breakpoints": [
+        {
+          "address": "C1:ADB4",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C1:CE85",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C1:CFC6",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C2:B930",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C2:BAC5",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        }
+      ],
+      "watch_ranges": [
+        {
+          "id": "selection_snapshot",
+          "address_or_symbol": "$9FFA",
+          "bytes": 64,
+          "purpose": "C2 target/export snapshot"
+        },
+        {
+          "id": "candidate_rows",
+          "address_or_symbol": "$9FAC",
+          "bytes": 96,
+          "purpose": "candidate row and target byte state"
+        }
+      ],
+      "extra_trace_fields": [
+        "D5:7B68 action row direction/target bytes",
+        "$9FFA selection snapshot header",
+        "$9FAC candidate row pointer"
+      ],
+      "capture_fields": [
+        "trace_id",
+        "scenario_name",
+        "rom_sha1",
+        "save_state_id",
+        "frame_or_instruction_counter",
+        "pc",
+        "routine_label",
+        "registers.a",
+        "registers.x",
+        "registers.y",
+        "registers.db",
+        "registers.dp",
+        "direct_page_snapshot",
+        "wram_before",
+        "wram_after",
+        "ef_text_pointer",
+        "c1_text_call",
+        "classification",
+        "classification_evidence",
+        "input_action_id",
+        "acting_slot",
+        "selection_record_base",
+        "selection_record.+0",
+        "selection_record.+1",
+        "selection_record.+2",
+        "selection_record.+4",
+        "selection_record.+5",
+        "candidate_record.+0x07",
+        "candidate_record.+0x08",
+        "candidate_record.+0x0A",
+        "observed_target_byte"
+      ],
+      "acceptance_criteria": [
+        "observe target byte shapes 0x11, 0x01, or 0x12 in a local trace before promoting names",
+        "record which C1 record fields survive into the C2 consumer path",
+        "keep C1:CFC6 inventory selection distinct from C1:CE85 item action resolution"
+      ],
+      "output_paths": {
+        "job_path": "build/c2/battle-trace-oracles/c1_c2_target_action_staging/job.json",
+        "raw_trace_path": "build/c2/battle-trace-oracles/c1_c2_target_action_staging/raw-trace.jsonl",
+        "result_path": "build/c2/battle-trace-oracles/c1_c2_target_action_staging/result.json",
+        "evidence_markdown_path": "build/c2/battle-trace-oracles/c1_c2_target_action_staging/evidence.md"
+      },
+      "result_validator": "python tools/validate_c2_battle_trace_oracle_result.py build/c2/battle-trace-oracles/c1_c2_target_action_staging/result.json",
+      "result_collector": "python tools/collect_c2_battle_trace_oracle_results.py",
+      "proof_gate": {
+        "result_schema": "earthbound-decomp.c2-battle-trace-oracle-result.v1",
+        "required_status": "ok",
+        "required_capture_coverage": "every packet job capture field",
+        "stub_results_are_proof": false,
+        "source_promotion_allowed": false,
+        "behavior_change_allowed": false
+      }
+    },
+    {
+      "job_id": "c2-battle-oracle-c2_40a4_current_action_payload",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "priority": 1,
+      "question": "How does C2:40A4 apply second-pointer/current-action payloads over selected targets?",
+      "scenario_goal": "observe a selected action whose second-pointer/current-action payload is applied through C2:40A4",
+      "scenario": {
+        "scenario_name": "c2_40a4_current_action_payload_manual_first_pass",
+        "save_state_id": "local_fixture_required",
+        "save_state_path_local_only": "<local-only save state path>",
+        "setup_steps": [
+          "load or create a save state in battle with a curative, item-status, or other second-pointer action available",
+          "choose the action and allow it to enter the C2 payload application path",
+          "capture the selected row pointer, action row id, payload pointer, and per-target loop state"
+        ],
+        "stop_condition": "minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl"
+      },
+      "manual_setup": [
+        "load or create a save state in battle with a curative, item-status, or other second-pointer action available",
+        "choose the action and allow it to enter the C2 payload application path",
+        "capture the selected row pointer, action row id, payload pointer, and per-target loop state"
+      ],
+      "preferred_trigger": "use a curative or item-status action with a concrete selected target",
+      "minimum_hits": [
+        "C2:40A4"
+      ],
+      "breakpoints": [
+        {
+          "address": "C2:40A4",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C2:3D05",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        }
+      ],
+      "watch_ranges": [
+        {
+          "id": "payload_pointer_dp",
+          "address_or_symbol": "$00BC",
+          "bytes": 4,
+          "purpose": "current action payload pointer"
+        },
+        {
+          "id": "selected_target_row",
+          "address_or_symbol": "$A972",
+          "bytes": 64,
+          "purpose": "selected battler row before/after"
+        }
+      ],
+      "extra_trace_fields": [
+        "$1E/$20 selected action pointer",
+        "$06/$08 selected row pointer",
+        "$00BC/$00BE payload pointer",
+        "$A21C versus $9FAC target domain"
+      ],
+      "capture_fields": [
+        "trace_id",
+        "scenario_name",
+        "rom_sha1",
+        "save_state_id",
+        "frame_or_instruction_counter",
+        "pc",
+        "routine_label",
+        "registers.a",
+        "registers.x",
+        "registers.y",
+        "registers.db",
+        "registers.dp",
+        "direct_page_snapshot",
+        "wram_before",
+        "wram_after",
+        "ef_text_pointer",
+        "c1_text_call",
+        "classification",
+        "classification_evidence",
+        "action_row_id",
+        "second_pointer",
+        "target_mask_low",
+        "target_mask_high",
+        "selected_row_pointer",
+        "payload_pc",
+        "payload_kind",
+        "per_target_loop_index"
+      ],
+      "acceptance_criteria": [
+        "capture at least one curative or item-status payload crossing C2:40A4",
+        "separate target selection, payload application, and result text side effects"
+      ],
+      "output_paths": {
+        "job_path": "build/c2/battle-trace-oracles/c2_40a4_current_action_payload/job.json",
+        "raw_trace_path": "build/c2/battle-trace-oracles/c2_40a4_current_action_payload/raw-trace.jsonl",
+        "result_path": "build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json",
+        "evidence_markdown_path": "build/c2/battle-trace-oracles/c2_40a4_current_action_payload/evidence.md"
+      },
+      "result_validator": "python tools/validate_c2_battle_trace_oracle_result.py build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json",
+      "result_collector": "python tools/collect_c2_battle_trace_oracle_results.py",
+      "proof_gate": {
+        "result_schema": "earthbound-decomp.c2-battle-trace-oracle-result.v1",
+        "required_status": "ok",
+        "required_capture_coverage": "every packet job capture field",
+        "stub_results_are_proof": false,
+        "source_promotion_allowed": false,
+        "behavior_change_allowed": false
+      }
+    },
+    {
+      "job_id": "c2-battle-oracle-c2_724a_affliction_writer_matrix",
+      "oracle_id": "c2_724a_affliction_writer_matrix",
+      "priority": 1,
+      "question": "Which callers use C2:724A versus adjacent direct status writers?",
+      "scenario_goal": "observe one parameterized C2:724A affliction write and distinguish it from nearby direct writers",
+      "scenario": {
+        "scenario_name": "c2_724a_affliction_writer_matrix_manual_first_pass",
+        "save_state_id": "local_fixture_required",
+        "save_state_path_local_only": "<local-only save state path>",
+        "setup_steps": [
+          "load or create a battle state with PSI Flash, asleep/paralysis/strange status, or a solidification item available",
+          "prefer Flash paralysis or item solidification for the first capture because they have compact caller paths",
+          "capture caller PC, X subgroup, Y value, selected row, gate result, and success/failure text pointers"
+        ],
+        "stop_condition": "minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl"
+      },
+      "manual_setup": [
+        "load or create a battle state with PSI Flash, asleep/paralysis/strange status, or a solidification item available",
+        "prefer Flash paralysis or item solidification for the first capture because they have compact caller paths",
+        "capture caller PC, X subgroup, Y value, selected row, gate result, and success/failure text pointers"
+      ],
+      "preferred_trigger": "execute a status action that reaches C2:724A",
+      "minimum_hits": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "breakpoints": [
+        {
+          "address": "C2:724A",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C2:9917",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C2:9F06",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:9FFE",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:A056",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:8CF1",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:A630",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:A82A",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:8D5A",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:A3D1",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        }
+      ],
+      "watch_ranges": [
+        {
+          "id": "selected_battler_afflictions",
+          "address_or_symbol": "$A972 + row",
+          "bytes": 64,
+          "purpose": "affliction subgroup before/after"
+        }
+      ],
+      "extra_trace_fields": [
+        "row +0x0F host gate state",
+        "row +0x1D+X affliction subgroup before/after",
+        "$0E/$10 success or failure text pointer"
+      ],
+      "capture_fields": [
+        "trace_id",
+        "scenario_name",
+        "rom_sha1",
+        "save_state_id",
+        "frame_or_instruction_counter",
+        "pc",
+        "routine_label",
+        "registers.a",
+        "registers.x",
+        "registers.y",
+        "registers.db",
+        "registers.dp",
+        "direct_page_snapshot",
+        "wram_before",
+        "wram_after",
+        "ef_text_pointer",
+        "c1_text_call",
+        "classification",
+        "classification_evidence",
+        "caller_pc",
+        "selected_row_source",
+        "x_subgroup_slot",
+        "y_status_value",
+        "target_field_for_direct_writer",
+        "chance_gate_pc",
+        "resistance_gate_pc",
+        "writer_return_value",
+        "success_text_pointer",
+        "failure_text_pointer"
+      ],
+      "acceptance_criteria": [
+        "record X/Y pairs for each C2:724A caller before broad status enum promotion",
+        "keep concentration seal as direct +0x21 = 4 unless a local trace proves otherwise",
+        "tie success/failure text to the same captured caller path"
+      ],
+      "output_paths": {
+        "job_path": "build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/job.json",
+        "raw_trace_path": "build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/raw-trace.jsonl",
+        "result_path": "build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json",
+        "evidence_markdown_path": "build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/evidence.md"
+      },
+      "result_validator": "python tools/validate_c2_battle_trace_oracle_result.py build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json",
+      "result_collector": "python tools/collect_c2_battle_trace_oracle_results.py",
+      "proof_gate": {
+        "result_schema": "earthbound-decomp.c2-battle-trace-oracle-result.v1",
+        "required_status": "ok",
+        "required_capture_coverage": "every packet job capture field",
+        "stub_results_are_proof": false,
+        "source_promotion_allowed": false,
+        "behavior_change_allowed": false
+      }
+    },
+    {
+      "job_id": "c2-battle-oracle-c2_8125_damage_abi_boundary",
+      "oracle_id": "c2_8125_damage_abi_boundary",
+      "priority": 1,
+      "question": "Where is the selected-target damage ABI boundary, and what remains downstream?",
+      "scenario_goal": "prove the selected-target damage ABI boundary without folding HP roller/collapse behavior into it",
+      "scenario": {
+        "scenario_name": "c2_8125_damage_abi_boundary_manual_first_pass",
+        "save_state_id": "local_fixture_required",
+        "save_state_path_local_only": "<local-only save state path>",
+        "setup_steps": [
+          "load or create a battle state with a random-damage item, bomb, bottle rocket, or PSI common damage action",
+          "execute the action and capture amount input, damage selector X, selected target row, and downstream text/collapse state",
+          "prefer one low-noise item or PSI common path before broader damage family work"
+        ],
+        "stop_condition": "minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl"
+      },
+      "manual_setup": [
+        "load or create a battle state with a random-damage item, bomb, bottle rocket, or PSI common damage action",
+        "execute the action and capture amount input, damage selector X, selected target row, and downstream text/collapse state",
+        "prefer one low-noise item or PSI common path before broader damage family work"
+      ],
+      "preferred_trigger": "execute a damage action that calls C2:8125",
+      "minimum_hits": [
+        "C2:8125"
+      ],
+      "breakpoints": [
+        {
+          "address": "C2:8125",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C2:7EAF",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:A57A",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:A658",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:A5EC",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:941D",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        }
+      ],
+      "watch_ranges": [
+        {
+          "id": "selected_target_row",
+          "address_or_symbol": "$A972 + row",
+          "bytes": 96,
+          "purpose": "HP/shield/collapse before/after"
+        }
+      ],
+      "extra_trace_fields": [
+        "A amount input",
+        "X damage/resistance selector",
+        "$A972 selected target row pointer",
+        "$02 normalized amount scratch",
+        "HP/shield/collapse state before and after"
+      ],
+      "capture_fields": [
+        "trace_id",
+        "scenario_name",
+        "rom_sha1",
+        "save_state_id",
+        "frame_or_instruction_counter",
+        "pc",
+        "routine_label",
+        "registers.a",
+        "registers.x",
+        "registers.y",
+        "registers.db",
+        "registers.dp",
+        "direct_page_snapshot",
+        "wram_before",
+        "wram_after",
+        "ef_text_pointer",
+        "c1_text_call",
+        "classification",
+        "classification_evidence",
+        "amount_input",
+        "damage_selector_x",
+        "selected_target_row",
+        "caller_family",
+        "post_call_hp_roller_state",
+        "collapse_candidate_state",
+        "result_text_pointer"
+      ],
+      "acceptance_criteria": [
+        "prove amount and selector inputs at C2:8125 without folding HP roller or collapse into the ABI name",
+        "sample one random item, one bottle rocket, one bomb, and one PSI common path"
+      ],
+      "output_paths": {
+        "job_path": "build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/job.json",
+        "raw_trace_path": "build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/raw-trace.jsonl",
+        "result_path": "build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json",
+        "evidence_markdown_path": "build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/evidence.md"
+      },
+      "result_validator": "python tools/validate_c2_battle_trace_oracle_result.py build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json",
+      "result_collector": "python tools/collect_c2_battle_trace_oracle_results.py",
+      "proof_gate": {
+        "result_schema": "earthbound-decomp.c2-battle-trace-oracle-result.v1",
+        "required_status": "ok",
+        "required_capture_coverage": "every packet job capture field",
+        "stub_results_are_proof": false,
+        "source_promotion_allowed": false,
+        "behavior_change_allowed": false
+      }
+    },
+    {
+      "job_id": "c2-battle-oracle-resource_amount_pair_magnet_vs_pp_loss",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "priority": 2,
+      "question": "Which PP effects are transfers and which are loss-only?",
+      "scenario_goal": "distinguish PSI Magnet PP transfer from PP reduction/loss-only paths",
+      "scenario": {
+        "scenario_name": "resource_amount_pair_magnet_vs_pp_loss_manual_first_pass",
+        "save_state_id": "local_fixture_required",
+        "save_state_path_local_only": "<local-only save state path>",
+        "setup_steps": [
+          "load or create a battle state where PSI Magnet can target an enemy with PP",
+          "capture source and target PP before/after the Magnet path",
+          "run a separate PP reduction action and capture the same before/after fields for loss-only comparison"
+        ],
+        "stop_condition": "minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl"
+      },
+      "manual_setup": [
+        "load or create a battle state where PSI Magnet can target an enemy with PP",
+        "capture source and target PP before/after the Magnet path",
+        "run a separate PP reduction action and capture the same before/after fields for loss-only comparison"
+      ],
+      "preferred_trigger": "execute PSI Magnet, then a PP reduction action in a comparable battle state",
+      "minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "breakpoints": [
+        {
+          "address": "C2:8E42",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C2:9F5E",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C2:9FE1",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:721D",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:7318",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:B360",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        }
+      ],
+      "watch_ranges": [
+        {
+          "id": "source_target_pp_rows",
+          "address_or_symbol": "source/target battler rows",
+          "bytes": 96,
+          "purpose": "PP transfer/loss before/after"
+        }
+      ],
+      "extra_trace_fields": [
+        "source and target PP +0x17/+0x19/+0x1B before/after",
+        "random amount roll and cap amount",
+        "$12/$14 text payload pointer",
+        "transfer versus loss-only classification"
+      ],
+      "capture_fields": [
+        "trace_id",
+        "scenario_name",
+        "rom_sha1",
+        "save_state_id",
+        "frame_or_instruction_counter",
+        "pc",
+        "routine_label",
+        "registers.a",
+        "registers.x",
+        "registers.y",
+        "registers.db",
+        "registers.dp",
+        "direct_page_snapshot",
+        "wram_before",
+        "wram_after",
+        "ef_text_pointer",
+        "c1_text_call",
+        "classification",
+        "classification_evidence",
+        "source_row_pp_before",
+        "source_row_pp_after",
+        "target_row_pp_before",
+        "target_row_pp_after",
+        "amount_roll",
+        "cap_amount",
+        "text_payload_amount",
+        "transfer_or_loss_only_classification"
+      ],
+      "acceptance_criteria": [
+        "capture one PSI Magnet per-target transfer",
+        "capture one PP reduction loss-only path",
+        "do not reuse Magnet recovery wording for PP reduction unless the trace proves recovery"
+      ],
+      "output_paths": {
+        "job_path": "build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/job.json",
+        "raw_trace_path": "build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/raw-trace.jsonl",
+        "result_path": "build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/result.json",
+        "evidence_markdown_path": "build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/evidence.md"
+      },
+      "result_validator": "python tools/validate_c2_battle_trace_oracle_result.py build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/result.json",
+      "result_collector": "python tools/collect_c2_battle_trace_oracle_results.py",
+      "proof_gate": {
+        "result_schema": "earthbound-decomp.c2-battle-trace-oracle-result.v1",
+        "required_status": "ok",
+        "required_capture_coverage": "every packet job capture field",
+        "stub_results_are_proof": false,
+        "source_promotion_allowed": false,
+        "behavior_change_allowed": false
+      }
+    }
+  ],
+  "runner_result_contract": {
+    "write_result_schema": "earthbound-decomp.c2-battle-trace-oracle-result.v1",
+    "required_status_for_proof": "ok",
+    "required_capture_coverage": "every capture field listed on the job",
+    "trace_format": "jsonl; one event per breakpoint/watchpoint hit or explicit before/after capture",
+    "trace_minimum": "non-empty raw trace at output_paths.raw_trace_path"
+  },
+  "validation_commands": [
+    "python tools/validate_c2_battle_trace_oracle_emulator_handoff.py",
+    "python tools/build_c2_battle_trace_oracle_runner_assets.py",
+    "python tools/validate_c2_battle_trace_oracle_runner_assets.py",
+    "python tools/run_c2_battle_trace_oracle_batch.py --mode dry-run-stub --force",
+    "python tools/collect_c2_battle_trace_oracle_results.py",
+    "python tools/validate_c2_battle_trace_oracle_results_summary.py"
+  ]
+}

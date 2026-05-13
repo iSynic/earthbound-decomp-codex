@@ -33,6 +33,15 @@ before this becomes true human-readable source.
   phase-2 semantic notes, generated dashboards, and ebsrc/community crosswalks.
 - `notes/phase-2-semantic-status.md` is the compact human-written status note
   for current subsystem understanding and weak zones.
+- `notes/phase-2-semantic-closure-plan.md` is the formal execution roadmap for
+  turning byte-equivalent source and manifests into port-ready behavior
+  contracts.
+- C-port implementation feedback is now folded back into
+  `notes/c-port-feedback-intake.md`, especially for C1/C2 battle target,
+  payload, affliction, damage, healing, and resource contracts.
+- Ghidra-SNES `v0.2.0` is installed in the dedicated pilot worktree
+  `F:\EB Decomp WT - Ghidra SNES Pilot` as a bounded visual/decode oracle, not
+  as a source-of-truth label generator.
 
 ## What Is Complete
 
@@ -408,7 +417,14 @@ that romhackers need to edit confidently:
 - `notes/c3-source-pilot-frontier.md`
 - `notes/bank-first-pass-coverage-index.md`
 - `notes/semantic-notes-package.md`
+- `notes/phase-2-semantic-closure-plan.md`
 - `notes/phase-2-semantic-status.md`
+- `notes/c-port-feedback-intake.md`
+- `notes/c2-battle-trace-oracle-plan.md`
+- `notes/c2-battle-trace-oracle-index.md`
+- `notes/c2-battle-trace-oracle-packet.md`
+- `notes/c2-battle-trace-oracle-emulator-handoff.md`
+- `notes/c2-battle-trace-oracle-results-summary.md`
 - `notes/data-contracts-c0-c4.md`
 - `notes/reference-first-workflow.md`
 - `notes/earthbound-localization-script-authoring-format.md`

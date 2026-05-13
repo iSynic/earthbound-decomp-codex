@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+"""Validate an ignored C2 battle trace-oracle batch-run summary."""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+from typing import Any
+
+
+ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_SUMMARY = ROOT / "build" / "c2" / "battle-trace-oracles" / "batch-summary.json"
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Validate C2 battle trace-oracle batch summary.")
+    parser.add_argument("summary", nargs="?", default=str(DEFAULT_SUMMARY))
+    return parser.parse_args()
+
+
+def require(condition: bool, message: str) -> None:
+    if not condition:
+        raise ValueError(message)
+
+
+def validate(data: dict[str, Any]) -> None:
+    require(data.get("schema") == "earthbound-decomp.c2-battle-trace-oracle-batch-run.v1", "unexpected schema")
+    require(data.get("packet") == "manifests/c2-battle-trace-oracle-packet.json", "unexpected packet")
+    require(data.get("mode") in {"dry-run-stub", "external"}, f"unexpected mode {data.get('mode')}")
+    require(data.get("promotion_allowed_by_batch") is False, "batch must not allow promotion")
+    require(data.get("behavior_change_allowed") is False, "batch must not allow behavior changes")
+    runs = data.get("runs", [])
+    require(int(data.get("selected_count", -1)) == len(runs), "selected count mismatch")
+    require(
+        int(data.get("completed_count", -1)) == sum(1 for run in runs if run.get("status") == "completed"),
+        "completed count mismatch",
+    )
+    require(
+        int(data.get("failed_count", -1)) == sum(1 for run in runs if run.get("status") == "failed"),
+        "failed count mismatch",
+    )
+    seen: set[str] = set()
+    for run in runs:
+        job_id = str(run.get("job_id", ""))
+        oracle_id = str(run.get("oracle_id", ""))
+        require(job_id.startswith("c2-battle-oracle-"), f"unexpected job id {job_id}")
+        require(oracle_id, f"{job_id}: missing oracle id")
+        require(job_id not in seen, f"duplicate job id {job_id}")
+        seen.add(job_id)
+        require(run.get("status") in {"completed", "failed"}, f"{job_id}: unexpected status")
+        path_text = str(run.get("result_path", "")).replace("\\", "/")
+        require(
+            path_text.endswith(f"build/c2/battle-trace-oracles/{oracle_id}/result.json")
+            or path_text.endswith(f"build/c2/battle-trace-oracles\\{oracle_id}\\result.json"),
+            f"{job_id}: unexpected result path {path_text}",
+        )
+        if run.get("status") == "completed":
+            require(run.get("error") is None, f"{job_id}: completed run has error")
+
+
+def main() -> int:
+    args = parse_args()
+    data = json.loads(Path(args.summary).read_text(encoding="utf-8"))
+    validate(data)
+    print(
+        "C2 battle trace oracle batch summary validation OK: "
+        f"{data['completed_count']} completed, {data['failed_count']} failed"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

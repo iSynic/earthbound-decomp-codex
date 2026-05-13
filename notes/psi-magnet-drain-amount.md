@@ -73,3 +73,15 @@ ROM/SNES addresses to look at in the vanilla routine:
 
 `BTLACT_MAGNET_O` is mostly a wrapper; it calls `BTLACT_MAGNET_A` for each valid
 target, so alpha and omega share the same per-target drain amount.
+
+## Phase 2 Trace-Oracles
+
+PSI Magnet should be treated as a transfer contract, not just PP loss. The
+per-target trace should capture the two `RAND_LIMIT(4)` rolls, the `+2` base,
+the cap against target available PP, the target PP decrease, the user PP
+recovery side, and the amount-bearing battle text.
+
+This is the comparison point for the late PP-reduction action at `C2:8E42`.
+That sibling is loss-only: it should trace amount selection, cap, and PP-loss
+text, but should not inherit Magnet's recovery-side wording unless local source
+evidence proves a transfer.
