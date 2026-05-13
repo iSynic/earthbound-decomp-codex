@@ -44,6 +44,8 @@ def validate(data: dict[str, Any], summary_path: Path) -> None:
     require(data.get("lua_skeleton"), "missing Lua skeleton")
     require(data.get("job_path"), "missing job path")
     require(data.get("raw_trace_path"), "missing raw trace path")
+    if data.get("probe_output_dir") is not None:
+        require(isinstance(data.get("probe_output_dir"), str) and data.get("probe_output_dir"), "probe_output_dir must be a string")
     require(isinstance(data.get("command"), list) and data.get("command"), "missing command vector")
     if data.get("input_pattern") is not None:
         require(isinstance(data.get("input_pattern"), str) and data.get("input_pattern"), "input_pattern must be a non-empty string")

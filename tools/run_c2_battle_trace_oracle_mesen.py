@@ -51,6 +51,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--state", help="Optional local Mesen save-state path.")
     parser.add_argument("--input-pattern", help="Optional input pattern such as neutral:30,a:4,neutral:30.")
     parser.add_argument("--summarize-trace", action="store_true", help="Write raw-trace-summary.json after a non-dry run.")
+    parser.add_argument(
+        "--output-dir",
+        help="Optional ignored output directory for probes. Defaults to the packet oracle output directory.",
+    )
     parser.add_argument("--frame-limit", type=int, default=3600, help="Frames before the generated Lua skeleton exits.")
     parser.add_argument("--timeout", type=int, default=180, help="Subprocess timeout in seconds.")
     parser.add_argument("--dry-run", action="store_true", help="Print and summarize the command without launching Mesen.")
@@ -252,6 +256,8 @@ def main() -> int:
         return 0
     if not args.job_id and not args.oracle_id:
         raise ValueError("one of --job-id or --oracle-id is required unless --init-fixtures-template is used")
+    if args.output_dir and args.write_unresolved_result:
+        raise ValueError("--write-unresolved-result cannot be combined with --output-dir probe output")
     fixture_config = load_fixtures(fixtures_path)
     fixture = find_fixture(fixture_config, args.fixture_id)
     index = ensure_runner_assets(Path(args.runner_index))
@@ -276,10 +282,11 @@ def main() -> int:
             )
 
     job_path = ensure_job_manifest(packet, runner_data)
-    trace_path = repo_path(str(runner_job["target_raw_trace_path"]))
-    trace_path.parent.mkdir(parents=True, exist_ok=True)
     lua_path = repo_path(str(runner_job["mesen_lua_skeleton"]))
     command = build_command(mesen, lua_path, rom)
+    output_dir = repo_path(args.output_dir) if args.output_dir else repo_path(str(runner_data["output_paths"]["result_path"])).parent
+    output_dir.mkdir(parents=True, exist_ok=True)
+    trace_path = output_dir / "raw-trace.jsonl"
     env = os.environ.copy()
     env["C2_ORACLE_TRACE_OUT"] = str(trace_path)
     env["C2_ORACLE_JOB_PATH"] = str(job_path)
@@ -291,7 +298,6 @@ def main() -> int:
     if state is not None:
         env["C2_ORACLE_STATE_PATH"] = str(state)
 
-    output_dir = repo_path(str(runner_data["output_paths"]["result_path"])).parent
     summary_path = output_dir / "mesen-run-summary.json"
     run_record: dict[str, Any] = {
         "schema": "earthbound-decomp.c2-battle-trace-oracle-mesen-run.v1",
@@ -308,6 +314,7 @@ def main() -> int:
         "lua_skeleton": manifest_path(lua_path),
         "job_path": manifest_path(job_path),
         "raw_trace_path": manifest_path(trace_path),
+        "probe_output_dir": manifest_path(output_dir) if args.output_dir else None,
         "frame_limit": args.frame_limit,
         "command": command,
         "observed_addresses": [],

@@ -934,6 +934,13 @@ contract notes for C0/C1/C3/C4 consumers.
   `tools/summarize_c2_battle_trace_oracle_raw_trace.py` reports breakpoint hit
   counts plus whether the first-pass minimum hits were satisfied, with a paired
   validator for the ignored raw-trace summary artifact.
+- 2026-05-13 one hundred and twenty-fourth slice: added local Mesen save-state
+  probe tooling for the first C2 battle oracle. The probe runner scans existing
+  `.mss` files into ignored per-candidate output directories, records state
+  sizes/hashes, raw-summary hit counts, and promotion-deny flags, and validates
+  the aggregate candidate report. The first local sweep tested seven existing
+  states; all executed, but none hit the minimum C1/C2 target/action staging
+  breakpoints, so the runtime blocker remains a true ordinary-battle fixture.
 
 ## Validation
 
@@ -953,6 +960,8 @@ python tools\validate_c2_battle_trace_oracle_emulator_handoff.py
 python tools\build_c2_battle_trace_oracle_runner_assets.py
 python tools\validate_c2_battle_trace_oracle_runner_assets.py
 python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action_staging --dry-run
+python tools\probe_c2_battle_trace_save_states.py
+python tools\validate_c2_battle_trace_save_state_probes.py
 python tools\run_c2_battle_trace_oracle_batch.py --mode dry-run-stub --force
 python tools\validate_c2_battle_trace_oracle_batch_summary.py
 python tools\collect_c2_battle_trace_oracle_results.py

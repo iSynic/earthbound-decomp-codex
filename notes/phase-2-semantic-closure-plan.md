@@ -54,6 +54,9 @@ The ignored `build/c2/battle-trace-oracles/local-fixtures.json` config keeps
 that local save-state path out of source-controlled notes and commands.
 The runner skeletons also accept a small `atom:frames` input pattern, and raw
 trace summaries report whether minimum breakpoint hits were actually observed.
+The local save-state probe helper can scan ignored or emulator-owned `.mss`
+files into `build/c2/battle-trace-oracles/save-state-probes/`; its output ranks
+candidate fixtures only and cannot by itself unlock source promotion.
 Prioritize the contracts that most directly affect a C port:
 
 - C1/C2 target staging and selected action metadata.

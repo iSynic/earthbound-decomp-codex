@@ -38,6 +38,8 @@ Generated companions:
 - `tools/validate_c2_battle_trace_oracle_mesen_run_summary.py`
 - `tools/summarize_c2_battle_trace_oracle_raw_trace.py`
 - `tools/validate_c2_battle_trace_oracle_raw_trace_summary.py`
+- `tools/probe_c2_battle_trace_save_states.py`
+- `tools/validate_c2_battle_trace_save_state_probes.py`
 - `tools/run_c2_battle_trace_oracle_batch.py`
 - `tools/collect_c2_battle_trace_oracle_results.py`
 
@@ -122,6 +124,8 @@ python tools\validate_c2_battle_trace_oracle_emulator_handoff.py
 python tools\build_c2_battle_trace_oracle_runner_assets.py
 python tools\validate_c2_battle_trace_oracle_runner_assets.py
 python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action_staging --dry-run
+python tools\probe_c2_battle_trace_save_states.py
+python tools\validate_c2_battle_trace_save_state_probes.py
 python tools\run_c2_battle_trace_oracle_batch.py --mode dry-run-stub --force
 python tools\validate_c2_battle_trace_oracle_batch_summary.py
 python tools\collect_c2_battle_trace_oracle_results.py

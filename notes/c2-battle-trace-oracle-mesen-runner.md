@@ -30,6 +30,12 @@ proven atoms are `neutral`, `none`, `right`, `left`, `up`, `down`,
 - A boot-only smoke run with `c1_c2_target_action_staging` and a 10-frame limit
   launches Mesen and writes an ignored run summary/raw trace successfully. It
   records no C2 proof hits and should not be treated as behavior evidence.
+- The local save-state probe lane tested all seven currently discoverable
+  `F:\Mesen\SaveStates\*.mss` files for `c1_c2_target_action_staging`.
+  Mesen loaded every state and produced nonempty traces, but none hit the
+  minimum C1/C2 battle-command addresses (`C1:ADB4`, `C1:CE85`, `C1:CFC6`,
+  `C2:B930`). Those states are useful runner smoke fixtures, not ready battle
+  proof fixtures.
 
 The first useful fixture to create is an ordinary battle state just before
 choosing a command. That should target `c1_c2_target_action_staging`, because it
@@ -74,6 +80,18 @@ python tools\validate_c2_battle_trace_oracle_mesen_run_summary.py build\c2\battl
 python tools\summarize_c2_battle_trace_oracle_raw_trace.py --oracle-id c1_c2_target_action_staging
 python tools\validate_c2_battle_trace_oracle_raw_trace_summary.py build\c2\battle-trace-oracles\c1_c2_target_action_staging\raw-trace-summary.json
 ```
+
+Probe existing local Mesen save states without overwriting packet output paths:
+
+```powershell
+python tools\probe_c2_battle_trace_save_states.py
+python tools\validate_c2_battle_trace_save_state_probes.py
+```
+
+Probe output stays under
+`build/c2/battle-trace-oracles/save-state-probes/`. A probe that satisfies
+minimum hits is only a fixture candidate; it still needs manual trace review and
+the normal result builder/validator before it can affect source comments.
 
 After manual review, assemble and validate a result:
 
