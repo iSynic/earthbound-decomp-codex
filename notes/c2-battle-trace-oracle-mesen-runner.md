@@ -41,22 +41,40 @@ proven atoms are `neutral`, `none`, `right`, `left`, `up`, `down`,
   PCs. All 21 runs completed, but none reached `C0:D19B`, `C0:D323`,
   `C0:44DA`, `C0:B731`, `C2:E8E0`, `C2:2F38`, `C2:4821`, `C2:311B`,
   `C1:ADB4`, `C1:CE85`, `C1:CFC6`, `C2:B930`, or `C2:BAC5`.
-- `F:\Mesen2\SaveStates\EarthBound (USA)_4.mss` is now a useful local
-  random-battle fixture candidate, but not a full command-staging fixture. The
-  state hash is
-  `3365cd0a78e56164658b06a0a708d45bf540b1025c15a27d0b9bd11df0c190d4`.
-  With `neutral:180,a:4,neutral:60,a:4,neutral:540`, the
-  `c1_c2_target_action_staging` probe completed and hit `C2:BAC5` 51 times,
-  but still missed `C1:ADB4`, `C1:CE85`, `C1:CFC6`, and `C2:B930`. The fixture
-  scout with absolute output paths classified the confirm and mash-confirm
-  patterns as battle-entry candidates via `C2:311B` plus repeated `C2:BAC5`
-  hits, but not command fixtures.
-- The same save with a confirm-and-wait pattern
-  (`neutral:120,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:1800`)
-  satisfied the first real runtime oracle for `c2_8125_damage_abi_boundary`,
-  hitting `C2:8125` and `C2:7EAF` four times each. It also hit `C2:3D05` in the
-  `c2_40a4_current_action_payload` probe, but missed `C2:40A4`; it did not hit
-  the affliction writer or resource amount pair minimums.
+- An overwritten earlier save-state slot captured the start of the first dog
+  random battle and proved the Mesen route can reach `C2:BAC5` and `C2:8125`.
+  That file is no longer the live numbered fixture. Use the hashes in this note
+  for the current `EarthBound (USA)_1..7.mss` set.
+- The current numbered fixture set under `F:\Mesen2\SaveStates` is the best
+  C2 runtime input so far:
+
+| Save | Local State | SHA-256 | Role |
+| --- | --- | --- | --- |
+| `1` | `EarthBound (USA)_1.mss` | `6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377` | standard command menu, Bash highlighted |
+| `2` | `EarthBound (USA)_2.mss` | `a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c` | target select in a multi-enemy fight |
+| `3` | `EarthBound (USA)_3.mss` | `26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe` | PSI menu, Offense highlighted |
+| `4` | `EarthBound (USA)_4.mss` | `30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd` | Goods menu, Large Pizza selected |
+| `5` | `EarthBound (USA)_5.mss` | `a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb` | attack selected, before damage numbers |
+| `6` | `EarthBound (USA)_6.mss` | `b70d49925f8fbf84b83ed510a0eb324bfd6a8dda1046d1e83f4b216c1d609716` | Paula already has sunstroke |
+| `7` | `EarthBound (USA)_7.mss` | `facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c` | Jeff was hit by a SMAAAASH attack; HP is rolling |
+
+- The seven-save fixture scout ran neutral plus one-through-four confirm
+  patterns: 35 completed runs, 22 battle-entry candidates, and 0 full command
+  candidates. The useful C1 hits are `C1:ADB4` from the PSI/menu target path
+  and `C1:CE85` from the Goods path. The current probes still do not hit
+  `C1:CFC6` or `C2:B930`, so `c1_c2_target_action_staging` remains split across
+  partial traces rather than a single ready fixture.
+- Targeted first-pass oracle runs produced 51 valid Mesen/raw-trace summaries.
+  The strongest result is `c2_8125_damage_abi_boundary`: saves 1, 2, 3, 4, 5,
+  and 7 satisfy the minimum `C2:8125` hit under either a complete-turn confirm
+  pattern or a neutral wait. Save 3 also reaches `C2:941D`, giving a useful PSI
+  damage/status-gate sample.
+- `c2_40a4_current_action_payload` does not yet hit its minimum `C2:40A4`, but
+  saves 1, 2, 3, 4, 5, and 7 repeatedly hit nearby `C2:3D05`. Treat those as
+  route hints only.
+- The current set did not satisfy the first-pass affliction-writer or resource
+  amount-pair minimums. Save 6 is useful as an already-afflicted-state
+  snapshot, but not as proof of the affliction writer.
 
 The first useful fixture to create is an ordinary battle state just before
 choosing a command. That should target `c1_c2_target_action_staging`, because it
