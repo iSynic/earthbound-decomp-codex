@@ -24,6 +24,23 @@ DEFAULT_START = 0x0000
 DEFAULT_END = 0xE450
 SCHEMA = "earthbound-decomp.c3-event-script-source-scaffold.v1"
 
+SUPPLEMENTAL_SOURCE_SPANS = (
+    {
+        "start": 0x0100,
+        "end": 0x0142,
+        "source": "src/c3/system_screen_helpers.asar.asm",
+        "family": "system-screen-helpers",
+        "name": "DisplayAntiPiracyScreen",
+    },
+    {
+        "start": 0x0142,
+        "end": 0x0184,
+        "source": "src/c3/system_screen_helpers.asar.asm",
+        "family": "system-screen-helpers",
+        "name": "DisplayFaultyGamePakScreen",
+    },
+)
+
 CONST_RE = re.compile(r"^(![A-Za-z_][A-Za-z0-9_]*)\s*=\s*(\S+)\s*$")
 MACRO_RE = re.compile(r"^macro\s+([A-Za-z_][A-Za-z0-9_]*)\b")
 ORG_RE = re.compile(r"^org\s+\$C3([0-9A-Fa-f]{4})\s*$")
@@ -155,6 +172,24 @@ def gap_bytes(rom: bytes, start: int, end: int) -> bytes:
     if start_offset is None or end_offset is None:
         raise ValueError(f"unable to map {BANK}:{start:04X}..{BANK}:{end:04X}")
     return rom[start_offset:end_offset]
+
+
+def supplemental_source_spans(rom: bytes) -> list[Span]:
+    spans: list[Span] = []
+    for item in SUPPLEMENTAL_SOURCE_SPANS:
+        raw = gap_bytes(rom, int(item["start"]), int(item["end"]))
+        spans.append(
+            Span(
+                start=int(item["start"]),
+                end=int(item["end"]),
+                source=str(item["source"]),
+                family=str(item["family"]),
+                name=str(item["name"]),
+                size=len(raw),
+                sha1=hashlib.sha1(raw).hexdigest(),
+            )
+        )
+    return spans
 
 
 def find_gaps(spans: list[Span], rom: bytes, *, start: int, end: int) -> list[Gap]:
@@ -500,7 +535,7 @@ def main() -> int:
     report_path = resolve(args.report)
     rom = load_rom(find_rom(args.rom))
 
-    spans = load_pilot_spans(args.manifest_glob)
+    spans = load_pilot_spans(args.manifest_glob) + supplemental_source_spans(rom)
     spans = [span for span in spans if start <= span.start and span.end <= end]
     spans, skipped_spans = choose_nonoverlapping_spans(spans)
     validate_no_overlaps(spans)

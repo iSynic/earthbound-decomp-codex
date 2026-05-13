@@ -71,7 +71,10 @@ C3's canonical bank scaffold, `src/c3/bank_c3_helpers_asar.asm`, now replaces
 the old opaque event/actionscript corridor with
 `src/c3/bank_c3_event_scripts_source_pilot.asar.asm` and validates
 byte-equivalent over all `12` protected C3 ranges with `0` mismatches in
-`notes/c3-byte-equivalence-validation.md`.
+`notes/c3-byte-equivalence-validation.md`. The source-pilot corridor now
+includes the C3:0100/C3:0142 anti-piracy and faulty-Game-Pak display helpers as
+supplemental native source, leaving only the surrounding prefix palette/data and
+script-prelude bytes preserved by contract.
 
 The reviewed EB-M2 source-symbol promotion pass has adopted every currently
 ready exact-address, non-`UNKNOWN_*`, role-compatible EB-M2 label. Promoted
