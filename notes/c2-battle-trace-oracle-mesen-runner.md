@@ -70,6 +70,17 @@ selected-target pointer, and the pointed-to 96-byte battler row. For the
   and `C1:CE85` from the Goods path. The current probes still do not hit
   `C1:CFC6` or `C2:B930`, so `c1_c2_target_action_staging` remains split across
   partial traces rather than a single ready fixture.
+- A follow-up route probe from save 1 found the missing C1 inventory-selection
+  loop: `neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900` reaches
+  `C1:CFC6`, `C1:CE85`, and `C2:BAC5`. This confirms the existing command-menu
+  fixture can exercise the item-selection path, but `C2:B930` still has not
+  appeared in the Mesen route probes. Treat `C2:B930` as the remaining
+  snapshot-export fixture gap for `c1_c2_target_action_staging`.
+- Extending that route with one more confirm
+  (`...,neutral:900,a:4,neutral:1800`) still does not reach `C2:B930`. The
+  manual probe matrix now reports linked route-group coverage: inventory
+  selection and target counting are covered by existing probes, while snapshot
+  export remains uncovered.
 - Targeted first-pass oracle runs produced 51 valid Mesen/raw-trace summaries.
   The strongest result is `c2_8125_damage_abi_boundary`: saves 1, 2, 3, 4, 5,
   and 7 satisfy the minimum `C2:8125` hit under either a complete-turn confirm
@@ -175,6 +186,29 @@ The matrix is written to
 `manifests/c2-battle-trace-manual-probe-matrix.json` and
 `notes/c2-battle-trace-manual-probe-matrix.md`. It records useful fixture
 hits, redacts local save-state paths, and does not promote source behavior.
+
+Reproduce the save-1 inventory-selection route probe without overwriting the
+canonical oracle output:
+
+```powershell
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action_staging --mesen F:\Mesen2\Mesen.exe --state "F:\Mesen2\SaveStates\EarthBound (USA)_1.mss" --input-pattern neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900 --frame-limit 1400 --timeout 180 --summarize-trace --output-dir build\c2\battle-trace-oracles\route-probes\c1-c2-target-action-staging\save1-right-confirm
+```
+
+Continue the same route one more confirm:
+
+```powershell
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action_staging --mesen F:\Mesen2\Mesen.exe --state "F:\Mesen2\SaveStates\EarthBound (USA)_1.mss" --input-pattern neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900,a:4,neutral:1800 --frame-limit 3600 --timeout 240 --summarize-trace --output-dir build\c2\battle-trace-oracles\route-probes\c1-c2-target-action-staging\save1-right-confirm-continue
+```
+
+For `c2_40a4_current_action_payload`, current fixtures only reach the adjacent
+`C2:3D05` target text-context builder. Use a targeted local save immediately
+before confirming a curative, recovery, item-status, or random
+damage/status-item second-pointer payload:
+
+```powershell
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c2_40a4_current_action_payload --mesen F:\Mesen2\Mesen.exe --state "<local .mss>" --input-pattern neutral:20,a:4,neutral:20,a:4,neutral:1800 --frame-limit 2600 --timeout 180 --summarize-trace --output-dir build\c2\battle-trace-oracles\manual-probes\c2-40a4-targeted\<fixture-id>
+python tools\build_c2_battle_trace_manual_probe_matrix.py --probe-root build\c2\battle-trace-oracles\manual-probes\battle-fixtures-1-7 --probe-root build\c2\battle-trace-oracles\manual-probes\c2-40a4-targeted
+```
 
 After manual review, assemble and validate a result:
 

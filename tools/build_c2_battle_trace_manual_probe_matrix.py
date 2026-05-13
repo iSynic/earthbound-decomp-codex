@@ -15,10 +15,22 @@ ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PROBE_ROOTS = (
     ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "battle-fixtures-1-7",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "collapse-save-state-probes-neutral" / "hp_roller_collapse_boundary",
+    ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c1-c2-target-action-staging",
 )
 DEFAULT_HANDOFF = ROOT / "manifests" / "c2-battle-trace-oracle-emulator-handoff.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "c2-battle-trace-manual-probe-matrix.json"
 DEFAULT_NOTE = ROOT / "notes" / "c2-battle-trace-manual-probe-matrix.md"
+ROUTE_GROUPS = {
+    "c1_c2_target_action_staging": {
+        "inventory_selection_loop": ["C1:CFC6", "C1:CE85"],
+        "target_resolution_count": ["C1:ADB4", "C2:BAC5"],
+        "snapshot_export": ["C2:B930"],
+    },
+    "c2_40a4_current_action_payload": {
+        "payload_applicator": ["C2:40A4"],
+        "target_text_context_neighbor": ["C2:3D05"],
+    },
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -108,6 +120,30 @@ def classify_oracle(records: list[dict[str, Any]], configured_minimum: list[str]
     return "not-in-handoff"
 
 
+def summarize_route_groups(oracle_id: str, records: list[dict[str, Any]]) -> dict[str, Any]:
+    groups = ROUTE_GROUPS.get(oracle_id, {})
+    if not groups:
+        return {}
+    fixture_hits: dict[str, set[str]] = defaultdict(set)
+    aggregate_hits: set[str] = set()
+    for record in records:
+        hits = set(record["observed_addresses"])
+        aggregate_hits.update(hits)
+        for group_id, addresses in groups.items():
+            if set(addresses).issubset(hits):
+                fixture_hits[group_id].add(record["fixture_id"])
+    summary: dict[str, Any] = {}
+    for group_id, addresses in groups.items():
+        missing = sorted(set(addresses) - aggregate_hits)
+        summary[group_id] = {
+            "addresses": addresses,
+            "covered_by_any_probe": not missing,
+            "missing_from_all_probes": missing,
+            "fixtures_covering_group": sorted(fixture_hits.get(group_id, set())),
+        }
+    return summary
+
+
 def summarize_oracles(records: list[dict[str, Any]], minimums: dict[str, list[str]]) -> list[dict[str, Any]]:
     by_oracle: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in records:
@@ -139,6 +175,7 @@ def summarize_oracles(records: list[dict[str, Any]], minimums: dict[str, list[st
                 "minimum_hit_candidate_count": sum(1 for record in oracle_records if record["minimum_hits_satisfied"]),
                 "fixtures_with_any_hits": len(fixture_hits),
                 "observed_address_counts": dict(sorted(hit_counter.items())),
+                "route_groups": summarize_route_groups(oracle_id, oracle_records),
                 "fixture_hits": fixture_hits,
             }
         )
@@ -185,6 +222,20 @@ def render_note(manifest: dict[str, Any]) -> str:
             frames = f"{fixture['first_frame']}..{fixture['last_frame']}"
             lines.append(f"| `{fixture['fixture_id']}` | `{fixture['minimum_hits_satisfied']}` | `{frames}` | {hits} |")
         lines.append("")
+    lines.extend(["## Route Group Coverage", ""])
+    for item in manifest["oracles"]:
+        route_groups = item.get("route_groups", {})
+        if not route_groups:
+            continue
+        lines.append(f"### `{item['oracle_id']}`")
+        lines.append("")
+        lines.append("| Group | Covered | Missing | Fixtures |")
+        lines.append("| --- | --- | --- | --- |")
+        for group_id, group in route_groups.items():
+            missing = ", ".join(group["missing_from_all_probes"]) or "-"
+            fixtures = ", ".join(f"`{fixture}`" for fixture in group["fixtures_covering_group"]) or "-"
+            lines.append(f"| `{group_id}` | `{group['covered_by_any_probe']}` | {missing} | {fixtures} |")
+        lines.append("")
     lines.extend(
         [
             "## Interpretation",
@@ -192,6 +243,8 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- `minimum-hit-candidate` means the ignored trace reached every configured minimum hit and may be promoted only after canonical rerun plus reviewed capture fields.",
             "- `partial-route-observed` means the fixture reaches useful neighboring code but is not enough for a reviewed oracle result.",
             "- `probed-no-route` means the current local fixtures did not reach the lane.",
+            "- `c2_40a4_current_action_payload` has only `C2:3D05` neighbor/context hits in the current fixture set. The next useful fixture should stop immediately before confirming a concrete second-pointer curative, recovery, item-status, or random damage/status item payload against a selected target.",
+            "- `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The remaining missing route is `C2:B930` snapshot export, not `C1:CFC6`.",
         ]
     )
     return "\n".join(lines).rstrip() + "\n"

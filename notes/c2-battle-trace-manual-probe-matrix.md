@@ -5,8 +5,8 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 ## Summary
 
-- probe roots found: `2` / `2`
-- probe records: `58`
+- probe roots found: `3` / `3`
+- probe records: `65`
 - oracles summarized: `6`
 - minimum-hit candidates: `7`
 - source promotion allowed: `False`
@@ -16,7 +16,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 | Oracle | Status | Probes | Ready | Any-hit fixtures | Observed addresses |
 | --- | --- | ---: | ---: | ---: | --- |
-| `c1_c2_target_action_staging` | `partial-route-observed` | `11` | `0` | `11` | C1:ADB4:4, C1:CE85:2, C2:BAC5:11 |
+| `c1_c2_target_action_staging` | `partial-route-observed` | `18` | `0` | `18` | C1:ADB4:6, C1:CE85:5, C1:CFC6:2, C2:BAC5:18 |
 | `c2_40a4_current_action_payload` | `partial-route-observed` | `11` | `0` | `6` | C2:3D05:6 |
 | `c2_724a_affliction_writer_matrix` | `probed-no-route` | `7` | `0` | `0` | - |
 | `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `11` | `6` | `6` | C2:7EAF:6, C2:8125:6, C2:941D:1 |
@@ -40,6 +40,13 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `05-before-damage` | `False` | `104..990` | C2:BAC5:37 |
 | `06-paula-sunstroke` | `False` | `50..50` | C2:BAC5:1 |
 | `07-jeff-hp-rolling` | `False` | `117..415` | C2:BAC5:20 |
+| `save1-bash-confirm` | `False` | `50..998` | C2:BAC5:2 |
+| `save1-down-confirm` | `False` | `1004..1016` | C1:ADB4:1, C2:BAC5:1 |
+| `save1-down2-confirm` | `False` | `82..1062` | C2:BAC5:2 |
+| `save1-right-confirm` | `False` | `38..1013` | C1:CE85:1, C1:CFC6:1, C2:BAC5:1 |
+| `save1-right-confirm-continue` | `False` | `38..2841` | C1:CE85:2, C1:CFC6:2, C2:BAC5:2 |
+| `save2-target-confirm` | `False` | `26..26` | C2:BAC5:1 |
+| `save4-goods-confirm` | `False` | `26..29` | C1:ADB4:1, C1:CE85:1, C2:BAC5:1 |
 
 ### `c2_40a4_current_action_payload`
 
@@ -70,8 +77,27 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `05-earthbound-usa-5` | `False` | `29..990` | C1:DC1C:2, C1:DC66:6, C2:8125:5, C2:BB18:25 |
 | `07-earthbound-usa-7` | `True` | `41..415` | C1:DC1C:1, C1:DC66:2, C2:7550:1, C2:77CA:1, C2:8125:2, C2:BB18:13 |
 
+## Route Group Coverage
+
+### `c1_c2_target_action_staging`
+
+| Group | Covered | Missing | Fixtures |
+| --- | --- | --- | --- |
+| `inventory_selection_loop` | `True` | - | `save1-right-confirm`, `save1-right-confirm-continue` |
+| `target_resolution_count` | `True` | - | `03-psi-menu`, `03-psi-menu-mash-a`, `04-goods-menu`, `04-goods-menu-mash-a`, `save1-down-confirm`, `save4-goods-confirm` |
+| `snapshot_export` | `False` | C2:B930 | - |
+
+### `c2_40a4_current_action_payload`
+
+| Group | Covered | Missing | Fixtures |
+| --- | --- | --- | --- |
+| `payload_applicator` | `False` | C2:40A4 | - |
+| `target_text_context_neighbor` | `True` | - | `01-command-menu-mash-a`, `02-target-select-mash-a`, `03-psi-menu-mash-a`, `04-goods-menu-mash-a`, `05-before-damage`, `07-jeff-hp-rolling` |
+
 ## Interpretation
 
 - `minimum-hit-candidate` means the ignored trace reached every configured minimum hit and may be promoted only after canonical rerun plus reviewed capture fields.
 - `partial-route-observed` means the fixture reaches useful neighboring code but is not enough for a reviewed oracle result.
 - `probed-no-route` means the current local fixtures did not reach the lane.
+- `c2_40a4_current_action_payload` has only `C2:3D05` neighbor/context hits in the current fixture set. The next useful fixture should stop immediately before confirming a concrete second-pointer curative, recovery, item-status, or random damage/status item payload against a selected target.
+- `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The remaining missing route is `C2:B930` snapshot export, not `C1:CFC6`.
