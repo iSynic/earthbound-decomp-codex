@@ -52,6 +52,7 @@ def packet_job(oracle: dict[str, Any], *, execution_order: int, first_trace: boo
         "status": oracle["status"],
         "question": oracle["question"],
         "addresses": oracle.get("addresses", []),
+        "route_groups": oracle.get("route_groups", {}),
         "capture_fields": oracle.get("capture_fields", []),
         "diary_entries": oracle.get("diary_entries", []),
         "evidence_notes": oracle.get("evidence_notes", []),

@@ -49,6 +49,8 @@
             "C1:CFC6",
             "C1:CE85"
           ],
+          "role": "C1 item inventory loop and selected item-action resolution",
+          "status": "linked_route_group",
           "covered_by_any_probe": true,
           "missing_from_all_probes": [],
           "fixtures_covering_group": [
@@ -61,6 +63,8 @@
             "C1:ADB4",
             "C2:BAC5"
           ],
+          "role": "C1 target resolver plus C2 filtered target-row counter",
+          "status": "linked_route_group",
           "covered_by_any_probe": true,
           "missing_from_all_probes": [],
           "fixtures_covering_group": [
@@ -76,6 +80,8 @@
           "addresses": [
             "C2:B930"
           ],
+          "role": "C2 battle selection snapshot export into the wider target/action overlay",
+          "status": "remaining_fixture_gap",
           "covered_by_any_probe": false,
           "missing_from_all_probes": [
             "C2:B930"
@@ -345,6 +351,8 @@
           "addresses": [
             "C2:40A4"
           ],
+          "role": "second-pointer/current-action payload applicator",
+          "status": "remaining_fixture_gap",
           "covered_by_any_probe": false,
           "missing_from_all_probes": [
             "C2:40A4"
@@ -355,6 +363,8 @@
           "addresses": [
             "C2:3D05"
           ],
+          "role": "nearby selected-target text-context builder reached by many non-payload routes",
+          "status": "neighbor_only_until_c2_40a4_observed",
           "covered_by_any_probe": true,
           "missing_from_all_probes": [],
           "fixtures_covering_group": [

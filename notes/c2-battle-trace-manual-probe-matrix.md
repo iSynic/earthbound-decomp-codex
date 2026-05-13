@@ -81,18 +81,18 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 ### `c1_c2_target_action_staging`
 
-| Group | Covered | Missing | Fixtures |
-| --- | --- | --- | --- |
-| `inventory_selection_loop` | `True` | - | `save1-right-confirm`, `save1-right-confirm-continue` |
-| `target_resolution_count` | `True` | - | `03-psi-menu`, `03-psi-menu-mash-a`, `04-goods-menu`, `04-goods-menu-mash-a`, `save1-down-confirm`, `save4-goods-confirm` |
-| `snapshot_export` | `False` | C2:B930 | - |
+| Group | Status | Covered | Missing | Fixtures |
+| --- | --- | --- | --- | --- |
+| `inventory_selection_loop` | `linked_route_group` | `True` | - | `save1-right-confirm`, `save1-right-confirm-continue` |
+| `target_resolution_count` | `linked_route_group` | `True` | - | `03-psi-menu`, `03-psi-menu-mash-a`, `04-goods-menu`, `04-goods-menu-mash-a`, `save1-down-confirm`, `save4-goods-confirm` |
+| `snapshot_export` | `remaining_fixture_gap` | `False` | C2:B930 | - |
 
 ### `c2_40a4_current_action_payload`
 
-| Group | Covered | Missing | Fixtures |
-| --- | --- | --- | --- |
-| `payload_applicator` | `False` | C2:40A4 | - |
-| `target_text_context_neighbor` | `True` | - | `01-command-menu-mash-a`, `02-target-select-mash-a`, `03-psi-menu-mash-a`, `04-goods-menu-mash-a`, `05-before-damage`, `07-jeff-hp-rolling` |
+| Group | Status | Covered | Missing | Fixtures |
+| --- | --- | --- | --- | --- |
+| `payload_applicator` | `remaining_fixture_gap` | `False` | C2:40A4 | - |
+| `target_text_context_neighbor` | `neighbor_only_until_c2_40a4_observed` | `True` | - | `01-command-menu-mash-a`, `02-target-select-mash-a`, `03-psi-menu-mash-a`, `04-goods-menu-mash-a`, `05-before-damage`, `07-jeff-hp-rolling` |
 
 ## Interpretation
 

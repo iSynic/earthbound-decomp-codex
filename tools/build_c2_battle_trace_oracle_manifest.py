@@ -43,6 +43,23 @@ ORACLES: list[dict[str, Any]] = [
         "question": "Which C1-staged action/target bytes are stable C2 contract fields?",
         "addresses": ["C1:ADB4", "C1:CE85", "C1:CFC6", "C2:B930", "C2:BAC5"],
         "diary_entries": [2, 3, 5, 10, 11, 12],
+        "route_groups": {
+            "inventory_selection_loop": {
+                "addresses": ["C1:CFC6", "C1:CE85"],
+                "role": "C1 item inventory loop and selected item-action resolution",
+                "status": "linked_route_group",
+            },
+            "target_resolution_count": {
+                "addresses": ["C1:ADB4", "C2:BAC5"],
+                "role": "C1 target resolver plus C2 filtered target-row counter",
+                "status": "linked_route_group",
+            },
+            "snapshot_export": {
+                "addresses": ["C2:B930"],
+                "role": "C2 battle selection snapshot export into the wider target/action overlay",
+                "status": "remaining_fixture_gap",
+            },
+        },
         "capture_fields": [
             "input_action_id",
             "acting_slot",
@@ -83,6 +100,18 @@ ORACLES: list[dict[str, Any]] = [
         "question": "How does C2:40A4 apply second-pointer/current-action payloads over selected targets?",
         "addresses": ["C2:40A4", "C2:3D05", "D5:7B68"],
         "diary_entries": [6, 7, 10, 13, 25, 26, 31],
+        "route_groups": {
+            "payload_applicator": {
+                "addresses": ["C2:40A4"],
+                "role": "second-pointer/current-action payload applicator",
+                "status": "remaining_fixture_gap",
+            },
+            "target_text_context_neighbor": {
+                "addresses": ["C2:3D05"],
+                "role": "nearby selected-target text-context builder reached by many non-payload routes",
+                "status": "neighbor_only_until_c2_40a4_observed",
+            },
+        },
         "capture_fields": [
             "action_row_id",
             "second_pointer",

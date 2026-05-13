@@ -20,18 +20,6 @@ DEFAULT_PROBE_ROOTS = (
 DEFAULT_HANDOFF = ROOT / "manifests" / "c2-battle-trace-oracle-emulator-handoff.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "c2-battle-trace-manual-probe-matrix.json"
 DEFAULT_NOTE = ROOT / "notes" / "c2-battle-trace-manual-probe-matrix.md"
-ROUTE_GROUPS = {
-    "c1_c2_target_action_staging": {
-        "inventory_selection_loop": ["C1:CFC6", "C1:CE85"],
-        "target_resolution_count": ["C1:ADB4", "C2:BAC5"],
-        "snapshot_export": ["C2:B930"],
-    },
-    "c2_40a4_current_action_payload": {
-        "payload_applicator": ["C2:40A4"],
-        "target_text_context_neighbor": ["C2:3D05"],
-    },
-}
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build a C2 manual probe matrix from ignored Mesen outputs.")
@@ -72,9 +60,23 @@ def sanitize_state(path_text: str | None) -> dict[str, str | None]:
     return {"basename": path.name, "sha256": sha256(path)}
 
 
-def load_oracle_minimums(handoff_path: Path) -> dict[str, list[str]]:
+def load_handoff_metadata(handoff_path: Path) -> tuple[dict[str, list[str]], dict[str, dict[str, dict[str, Any]]]]:
     data = load_json(handoff_path)
-    return {str(job["oracle_id"]): [str(item) for item in job.get("minimum_hits", [])] for job in data.get("jobs", [])}
+    minimums: dict[str, list[str]] = {}
+    route_groups: dict[str, dict[str, dict[str, Any]]] = {}
+    for job in data.get("jobs", []):
+        oracle_id = str(job["oracle_id"])
+        minimums[oracle_id] = [str(item) for item in job.get("minimum_hits", [])]
+        groups: dict[str, dict[str, Any]] = {}
+        for group_id, group in job.get("route_groups", {}).items():
+            groups[str(group_id)] = {
+                "addresses": [str(item) for item in group.get("addresses", [])],
+                "role": group.get("role", ""),
+                "status": group.get("status", ""),
+            }
+        if groups:
+            route_groups[oracle_id] = groups
+    return minimums, route_groups
 
 
 def build_record(probe_root: Path, summary_path: Path, minimums: dict[str, list[str]]) -> dict[str, Any]:
@@ -120,8 +122,8 @@ def classify_oracle(records: list[dict[str, Any]], configured_minimum: list[str]
     return "not-in-handoff"
 
 
-def summarize_route_groups(oracle_id: str, records: list[dict[str, Any]]) -> dict[str, Any]:
-    groups = ROUTE_GROUPS.get(oracle_id, {})
+def summarize_route_groups(oracle_id: str, records: list[dict[str, Any]], route_groups: dict[str, dict[str, dict[str, Any]]]) -> dict[str, Any]:
+    groups = route_groups.get(oracle_id, {})
     if not groups:
         return {}
     fixture_hits: dict[str, set[str]] = defaultdict(set)
@@ -129,14 +131,18 @@ def summarize_route_groups(oracle_id: str, records: list[dict[str, Any]]) -> dic
     for record in records:
         hits = set(record["observed_addresses"])
         aggregate_hits.update(hits)
-        for group_id, addresses in groups.items():
+        for group_id, group in groups.items():
+            addresses = [str(item) for item in group.get("addresses", [])]
             if set(addresses).issubset(hits):
                 fixture_hits[group_id].add(record["fixture_id"])
     summary: dict[str, Any] = {}
-    for group_id, addresses in groups.items():
+    for group_id, group in groups.items():
+        addresses = [str(item) for item in group.get("addresses", [])]
         missing = sorted(set(addresses) - aggregate_hits)
         summary[group_id] = {
             "addresses": addresses,
+            "role": group.get("role", ""),
+            "status": group.get("status", ""),
             "covered_by_any_probe": not missing,
             "missing_from_all_probes": missing,
             "fixtures_covering_group": sorted(fixture_hits.get(group_id, set())),
@@ -144,7 +150,11 @@ def summarize_route_groups(oracle_id: str, records: list[dict[str, Any]]) -> dic
     return summary
 
 
-def summarize_oracles(records: list[dict[str, Any]], minimums: dict[str, list[str]]) -> list[dict[str, Any]]:
+def summarize_oracles(
+    records: list[dict[str, Any]],
+    minimums: dict[str, list[str]],
+    route_groups: dict[str, dict[str, dict[str, Any]]],
+) -> list[dict[str, Any]]:
     by_oracle: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for record in records:
         by_oracle[record["oracle_id"]].append(record)
@@ -175,7 +185,7 @@ def summarize_oracles(records: list[dict[str, Any]], minimums: dict[str, list[st
                 "minimum_hit_candidate_count": sum(1 for record in oracle_records if record["minimum_hits_satisfied"]),
                 "fixtures_with_any_hits": len(fixture_hits),
                 "observed_address_counts": dict(sorted(hit_counter.items())),
-                "route_groups": summarize_route_groups(oracle_id, oracle_records),
+                "route_groups": summarize_route_groups(oracle_id, oracle_records, route_groups),
                 "fixture_hits": fixture_hits,
             }
         )
@@ -229,12 +239,12 @@ def render_note(manifest: dict[str, Any]) -> str:
             continue
         lines.append(f"### `{item['oracle_id']}`")
         lines.append("")
-        lines.append("| Group | Covered | Missing | Fixtures |")
-        lines.append("| --- | --- | --- | --- |")
+        lines.append("| Group | Status | Covered | Missing | Fixtures |")
+        lines.append("| --- | --- | --- | --- | --- |")
         for group_id, group in route_groups.items():
             missing = ", ".join(group["missing_from_all_probes"]) or "-"
             fixtures = ", ".join(f"`{fixture}`" for fixture in group["fixtures_covering_group"]) or "-"
-            lines.append(f"| `{group_id}` | `{group['covered_by_any_probe']}` | {missing} | {fixtures} |")
+            lines.append(f"| `{group_id}` | `{group['status']}` | `{group['covered_by_any_probe']}` | {missing} | {fixtures} |")
         lines.append("")
     lines.extend(
         [
@@ -253,7 +263,7 @@ def render_note(manifest: dict[str, Any]) -> str:
 def main() -> int:
     args = parse_args()
     probe_roots = [repo_path(path) for path in (args.probe_root or [str(path) for path in DEFAULT_PROBE_ROOTS])]
-    minimums = load_oracle_minimums(repo_path(args.handoff))
+    minimums, route_groups = load_handoff_metadata(repo_path(args.handoff))
     records: list[dict[str, Any]] = []
     for probe_root in probe_roots:
         if not probe_root.exists():
@@ -262,7 +272,7 @@ def main() -> int:
         if not summary_paths:
             summary_paths = sorted(probe_root.glob("*/raw-trace-summary.json"))
         records.extend(build_record(probe_root, path, minimums) for path in summary_paths)
-    oracle_summaries = summarize_oracles(records, minimums)
+    oracle_summaries = summarize_oracles(records, minimums, route_groups)
     manifest = {
         "schema": "earthbound-decomp.c2-battle-trace-manual-probe-matrix.v1",
         "generated_by": "tools/build_c2_battle_trace_manual_probe_matrix.py",

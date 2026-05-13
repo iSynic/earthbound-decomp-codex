@@ -77,6 +77,18 @@ def validate_oracle(oracle: dict[str, Any]) -> None:
     require_existing_paths(sources, label="source", oracle_id=oracle_id)
     criteria = oracle.get("acceptance_criteria", [])
     require(len(criteria) >= 2, f"{oracle_id}: acceptance criteria too thin")
+    route_groups = oracle.get("route_groups", {})
+    if route_groups:
+        addresses = set(oracle.get("addresses", []))
+        require(isinstance(route_groups, dict), f"{oracle_id}: route_groups must be an object")
+        for group_id, group in route_groups.items():
+            require(isinstance(group_id, str) and group_id, f"{oracle_id}: empty route group id")
+            require(isinstance(group, dict), f"{oracle_id}/{group_id}: route group must be object")
+            group_addresses = group.get("addresses", [])
+            require(isinstance(group_addresses, list) and group_addresses, f"{oracle_id}/{group_id}: missing addresses")
+            require(set(group_addresses).issubset(addresses), f"{oracle_id}/{group_id}: route group address outside oracle anchors")
+            require(group.get("role"), f"{oracle_id}/{group_id}: missing role")
+            require(group.get("status"), f"{oracle_id}/{group_id}: missing status")
 
 
 def validate(data: dict[str, Any]) -> None:

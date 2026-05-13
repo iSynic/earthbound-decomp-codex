@@ -61,6 +61,15 @@ def validate_job(job: dict[str, Any]) -> None:
     breakpoint_addresses = {str(record.get("address")) for record in breakpoints}
     require(set(minimum_hits).issubset(breakpoint_addresses), f"{oracle_id}: minimum hits must be breakpoints")
     require("trace_id" in capture_fields and "classification_evidence" in capture_fields, f"{oracle_id}: missing proof capture core")
+    route_groups = job.get("route_groups", {})
+    require(isinstance(route_groups, dict), f"{oracle_id}: route_groups must be object")
+    for group_id, group in route_groups.items():
+        require(isinstance(group, dict), f"{oracle_id}/{group_id}: route group must be object")
+        addresses = group.get("addresses", [])
+        require(isinstance(addresses, list) and addresses, f"{oracle_id}/{group_id}: missing route group addresses")
+        require(set(addresses).issubset(breakpoint_addresses), f"{oracle_id}/{group_id}: route group address must be breakpoint")
+        require(group.get("role"), f"{oracle_id}/{group_id}: missing route group role")
+        require(group.get("status"), f"{oracle_id}/{group_id}: missing route group status")
     require(job.get("extra_trace_fields"), f"{oracle_id}: missing extra trace fields")
     require(job.get("watch_ranges"), f"{oracle_id}: missing watch ranges")
     for watch in job.get("watch_ranges", []):

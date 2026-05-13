@@ -46,6 +46,7 @@ emulator, and it does not prove behavior by itself.
 - save state: `<local-only save state path>`
 - stop condition: minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl
 - minimum hits: `['C1:ADB4', 'C1:CE85', 'C1:CFC6', 'C2:B930']`
+- route groups: `['inventory_selection_loop', 'target_resolution_count', 'snapshot_export']`
 - watch ranges: `['selection_snapshot', 'candidate_rows']`
 - extra trace fields: `['D5:7B68 action row direction/target bytes', '$9FFA selection snapshot header', '$9FAC candidate row pointer']`
 - raw trace: `build/c2/battle-trace-oracles/c1_c2_target_action_staging/raw-trace.jsonl`
@@ -63,6 +64,7 @@ emulator, and it does not prove behavior by itself.
 - save state: `<local-only save state path>`
 - stop condition: minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl
 - minimum hits: `['C2:40A4']`
+- route groups: `['payload_applicator', 'target_text_context_neighbor']`
 - watch ranges: `['payload_pointer_dp', 'selected_target_row']`
 - extra trace fields: `['$1E/$20 selected action pointer', '$06/$08 selected row pointer', '$00BC/$00BE payload pointer', '$A21C versus $9FAC target domain']`
 - raw trace: `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/raw-trace.jsonl`

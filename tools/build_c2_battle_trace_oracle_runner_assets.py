@@ -137,6 +137,7 @@ def runner_job(job: dict[str, Any], lua_path: Path, checklist_path: Path, templa
         "oracle_id": job["oracle_id"],
         "scenario": job["scenario"],
         "minimum_hits": job["minimum_hits"],
+        "route_groups": job.get("route_groups", {}),
         "breakpoints": job["breakpoints"],
         "watch_ranges": job["watch_ranges"],
         "extra_trace_fields": job["extra_trace_fields"],
@@ -440,6 +441,21 @@ def render_lua(job: dict[str, Any]) -> str:
 
 def render_checklist(job_asset: dict[str, Any]) -> str:
     job = job_asset
+    route_group_lines = []
+    if job.get("route_groups"):
+        route_group_lines = [
+            "## Route Groups",
+            "",
+            *[
+                "- `{group_id}` ({status}): {addresses}".format(
+                    group_id=group_id,
+                    status=group.get("status", ""),
+                    addresses=", ".join(f"`{address}`" for address in group.get("addresses", [])) or "-",
+                )
+                for group_id, group in job.get("route_groups", {}).items()
+            ],
+            "",
+        ]
     return "\n".join(
         [
             f"# C2 Oracle Runner Checklist: `{job['oracle_id']}`",
@@ -460,6 +476,7 @@ def render_checklist(job_asset: dict[str, Any]) -> str:
             "",
             *[f"- `{address}`" for address in job["minimum_hits"]],
             "",
+            *route_group_lines,
             "## Mesen Test Runner Template",
             "",
             "```powershell",
@@ -527,6 +544,7 @@ def build_assets(handoff: dict[str, Any], output_root: Path) -> dict[str, Any]:
                 "target_raw_trace_path": job["output_paths"]["raw_trace_path"],
                 "target_result_path": job["output_paths"]["result_path"],
                 "minimum_hits": job["minimum_hits"],
+                "route_groups": job.get("route_groups", {}),
                 "capture_field_count": len(job["capture_fields"]),
             }
         )

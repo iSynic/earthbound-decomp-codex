@@ -63,6 +63,31 @@
         "C1:CFC6",
         "C2:B930"
       ],
+      "route_groups": {
+        "inventory_selection_loop": {
+          "addresses": [
+            "C1:CFC6",
+            "C1:CE85"
+          ],
+          "role": "C1 item inventory loop and selected item-action resolution",
+          "status": "linked_route_group"
+        },
+        "target_resolution_count": {
+          "addresses": [
+            "C1:ADB4",
+            "C2:BAC5"
+          ],
+          "role": "C1 target resolver plus C2 filtered target-row counter",
+          "status": "linked_route_group"
+        },
+        "snapshot_export": {
+          "addresses": [
+            "C2:B930"
+          ],
+          "role": "C2 battle selection snapshot export into the wider target/action overlay",
+          "status": "remaining_fixture_gap"
+        }
+      },
       "breakpoints": [
         {
           "address": "C1:ADB4",
@@ -195,6 +220,22 @@
       "minimum_hits": [
         "C2:40A4"
       ],
+      "route_groups": {
+        "payload_applicator": {
+          "addresses": [
+            "C2:40A4"
+          ],
+          "role": "second-pointer/current-action payload applicator",
+          "status": "remaining_fixture_gap"
+        },
+        "target_text_context_neighbor": {
+          "addresses": [
+            "C2:3D05"
+          ],
+          "role": "nearby selected-target text-context builder reached by many non-payload routes",
+          "status": "neighbor_only_until_c2_40a4_observed"
+        }
+      },
       "breakpoints": [
         {
           "address": "C2:40A4",
@@ -306,6 +347,7 @@
         "C2:724A",
         "C2:9917"
       ],
+      "route_groups": {},
       "breakpoints": [
         {
           "address": "C2:724A",
@@ -460,6 +502,7 @@
       "minimum_hits": [
         "C2:8125"
       ],
+      "route_groups": {},
       "breakpoints": [
         {
           "address": "C2:8125",
@@ -636,6 +679,7 @@
         "C2:8125",
         "C2:7550"
       ],
+      "route_groups": {},
       "breakpoints": [
         {
           "address": "C2:8125",
@@ -792,6 +836,7 @@
         "C2:8E42",
         "C2:9F5E"
       ],
+      "route_groups": {},
       "breakpoints": [
         {
           "address": "C2:8E42",

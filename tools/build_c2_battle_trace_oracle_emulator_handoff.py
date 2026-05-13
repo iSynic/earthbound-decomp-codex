@@ -191,6 +191,7 @@ def handoff_job(job: dict[str, Any]) -> dict[str, Any]:
         "manual_setup": scenario["manual_setup"],
         "preferred_trigger": scenario["preferred_trigger"],
         "minimum_hits": scenario["minimum_hits"],
+        "route_groups": job.get("route_groups", {}),
         "breakpoints": breakpoint_records(job),
         "watch_ranges": WATCH_RANGES.get(oracle_id, []),
         "extra_trace_fields": EXTRA_TRACE_FIELDS.get(oracle_id, []),
@@ -323,6 +324,9 @@ def render_markdown(handoff: dict[str, Any]) -> str:
 
 
 def render_job_detail(job: dict[str, Any]) -> str:
+    route_group_lines = []
+    if job.get("route_groups"):
+        route_group_lines.append(f"- route groups: `{list(job.get('route_groups', {}))}`")
     return "\n".join(
         [
             f"### `{job['oracle_id']}`",
@@ -333,6 +337,7 @@ def render_job_detail(job: dict[str, Any]) -> str:
             f"- save state: `{job['scenario']['save_state_path_local_only']}`",
             f"- stop condition: {job['scenario']['stop_condition']}",
             f"- minimum hits: `{job['minimum_hits']}`",
+            *route_group_lines,
             f"- watch ranges: `{[item['id'] for item in job['watch_ranges']]}`",
             f"- extra trace fields: `{job['extra_trace_fields']}`",
             f"- raw trace: `{job['output_paths']['raw_trace_path']}`",

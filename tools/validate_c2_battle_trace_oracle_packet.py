@@ -57,6 +57,16 @@ def validate_job(job: dict[str, Any]) -> None:
     require(job.get("promotion_allowed_by_plan") is False, f"{oracle_id}: promotion must be blocked")
     require(job.get("behavior_change_allowed") is False, f"{oracle_id}: behavior changes must be blocked")
     require(len(job.get("addresses", [])) >= 2, f"{oracle_id}: missing address anchors")
+    address_set = {str(address) for address in job.get("addresses", [])}
+    route_groups = job.get("route_groups", {})
+    require(isinstance(route_groups, dict), f"{oracle_id}: route_groups must be an object")
+    for group_id, group in route_groups.items():
+        require(isinstance(group, dict), f"{oracle_id}: route group {group_id} must be an object")
+        group_addresses = [str(address) for address in group.get("addresses", [])]
+        require(group_addresses, f"{oracle_id}: route group {group_id} missing addresses")
+        require(set(group_addresses).issubset(address_set), f"{oracle_id}: route group {group_id} has non-oracle addresses")
+        require(str(group.get("role", "")), f"{oracle_id}: route group {group_id} missing role")
+        require(str(group.get("status", "")), f"{oracle_id}: route group {group_id} missing status")
     require(len(job.get("capture_fields", [])) >= 12, f"{oracle_id}: capture fields too thin")
     require_paths(job.get("evidence_notes", []), label="evidence note", owner=oracle_id)
     require_paths(job.get("source_paths", []), label="source", owner=oracle_id)

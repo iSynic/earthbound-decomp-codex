@@ -80,6 +80,7 @@ def validate_runner_job(path_text: str, index_job: dict[str, Any], handoff_job: 
     require(data.get("job_id") == handoff_job["job_id"], f"{oracle_id}: runner job id mismatch")
     require(data.get("oracle_id") == oracle_id, f"{oracle_id}: runner oracle mismatch")
     require(data.get("minimum_hits") == handoff_job["minimum_hits"], f"{oracle_id}: minimum hits mismatch")
+    require(data.get("route_groups", {}) == handoff_job.get("route_groups", {}), f"{oracle_id}: route groups mismatch")
     require(data.get("breakpoints") == handoff_job["breakpoints"], f"{oracle_id}: breakpoints mismatch")
     require(data.get("capture_fields") == handoff_job["capture_fields"], f"{oracle_id}: capture fields mismatch")
     require(data.get("output_paths") == handoff_job["output_paths"], f"{oracle_id}: output paths mismatch")
@@ -145,6 +146,7 @@ def validate_index(index: dict[str, Any], handoff: dict[str, Any]) -> None:
         require(job.get("target_raw_trace_path") == handoff_job["output_paths"]["raw_trace_path"], f"{oracle_id}: raw trace path mismatch")
         require(job.get("target_result_path") == handoff_job["output_paths"]["result_path"], f"{oracle_id}: result path mismatch")
         require(job.get("minimum_hits") == handoff_job["minimum_hits"], f"{oracle_id}: minimum hits mismatch")
+        require(job.get("route_groups", {}) == handoff_job.get("route_groups", {}), f"{oracle_id}: route groups mismatch")
         require(job.get("capture_field_count") == len(handoff_job["capture_fields"]), f"{oracle_id}: capture count mismatch")
         for key in ("runner_job", "mesen_lua_skeleton", "operator_checklist", "result_template"):
             require_existing_file(str(job.get(key)), label=f"{oracle_id} {key}")
