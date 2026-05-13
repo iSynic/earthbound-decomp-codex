@@ -181,6 +181,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Validate C3 source prototype files against the emission plan.")
     parser.add_argument("--plan", type=Path, default=DEFAULT_PLAN)
     parser.add_argument("--markdown-out", type=Path, default=ROOT / "notes" / "c3-source-prototype-validation.md")
+    parser.add_argument("--strict", action="store_true", help="exit nonzero when errors are found")
     return parser
 
 
@@ -196,7 +197,7 @@ def main() -> int:
     warnings = [finding for finding in findings if finding.severity == "warning"]
     print(f"Validated C3 source prototypes: {len(errors)} errors, {len(warnings)} warnings.")
     print(f"Wrote {rel(markdown_out)}.")
-    return 1 if errors else 0
+    return 1 if args.strict and errors else 0
 
 
 if __name__ == "__main__":

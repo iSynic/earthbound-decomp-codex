@@ -70,7 +70,7 @@ corridors in `notes/readable-source-bank-closure.md`.
 C3's canonical bank scaffold, `src/c3/bank_c3_helpers_asar.asm`, now replaces
 the old opaque event/actionscript corridor with
 `src/c3/bank_c3_event_scripts_source_pilot.asar.asm` and validates
-byte-equivalent over all `11` protected C3 ranges with `0` mismatches in
+byte-equivalent over all `12` protected C3 ranges with `0` mismatches in
 `notes/c3-byte-equivalence-validation.md`.
 
 The reviewed EB-M2 source-symbol promotion pass has adopted every currently

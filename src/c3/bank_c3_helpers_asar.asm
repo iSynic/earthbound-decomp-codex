@@ -32,6 +32,9 @@ incsrc "jeff_repair_psi_helpers.bytes.asar.asm"
 ; Source: src/c3/data_battle_visual_tables_f2b1_f5f9.asm
 incsrc "data_battle_visual_tables_f2b1_f5f9.bytes.asar.asm"
 
+; Source: src/c3/file_select_visual_transition_helper.asm
+incsrc "file_select_visual_transition_helper.bytes.asar.asm"
+
 ; Source: src/c3/battle_visual_effect_helpers.asm
 incsrc "battle_visual_effect_helpers.bytes.asar.asm"
 

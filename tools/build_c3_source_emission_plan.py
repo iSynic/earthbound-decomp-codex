@@ -320,7 +320,7 @@ def render_markdown(manifest: dict[str, Any]) -> str:
     lines = [
         "# C3 source emission plan",
         "",
-        "Generated from the source-ready C3 extraction queue. This is not source code yet; it is the module/file plan that turns documented C3 helpers into source-emission work items.",
+        "Generated from the source-ready C3 extraction queue. This is the module/file plan that maps documented C3 helpers to source prototypes, generated Asar companions, and durable byte-equivalence validation work items.",
         "",
         "## Summary",
         "",
@@ -418,7 +418,7 @@ def render_markdown(manifest: dict[str, Any]) -> str:
             "",
             f"`{len(present_build_candidates)}` planned C3 helper modules now have prototype artifacts at `build-candidate` level: "
             + ", ".join(f"`{path}`" for path in present_build_candidates)
-            + ". The remaining C3 source work is broader build-candidate hardening: assembler syntax, byte matching, external symbol naming, and preserving adjacent visual/script data tables as separate source assets.",
+            + ". The remaining C3 source work is broader build-candidate hardening: keeping the source prototypes, generated `.bytes.asar.asm` companions, durable scaffold, and adjacent visual/script data assets in byte-equivalent lockstep.",
         ]
     )
     return "\n".join(lines).rstrip() + "\n"

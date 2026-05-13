@@ -26,7 +26,7 @@ eventually reassemblable without guessing.
 - Event/actionscript integration scaffold:
   `src/c3/bank_c3_event_scripts_source_pilot.asar.asm`
 - Whole-bank C3 scaffold:
-  `src/c3/bank_c3_helpers_asar.asm` (`11` protected ranges, `0` mismatches)
+  `src/c3/bank_c3_helpers_asar.asm` (`12` protected ranges, `0` mismatches)
 
 This means the byte layer is stable. The open work is semantic: opcode
 contracts, operand meanings, script family roles, and reassembly-friendly source

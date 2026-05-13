@@ -205,6 +205,15 @@ def interval_is_protected(start: int, end: int, intervals: list[tuple[int, int]]
 
 
 def best_span_for_segment(start: int, end: int, spans: list[Span], supplemental: list[Span]) -> Span:
+    if start == 0xFB1F:
+        return Span(
+            start=start,
+            end=end,
+            name="HP_METER_SPEEDS",
+            extraction_class="ebsrc-known table",
+            source="refs/ebsrc-main/ebsrc-main/src/data/hp_meter_speeds.asm",
+            evidence=("notes/ebsrc-knowns-integration-candidates.md",),
+        )
     starting_label = [span for span in supplemental if span.start == start]
     if starting_label:
         return starting_label[0]
@@ -300,6 +309,9 @@ def write_stub(path: Path, plan: ModulePlan, segments: list[Span], *, rom: bytes
         for evidence in segment.evidence:
             lines.append(f"; evidence: {evidence}")
         terminal = label_for(segment.end, segment.name)
+        if segment.start == 0xFB1F and segment.name == "HP_METER_SPEEDS":
+            terminal = "C3FDBD_DATA_C3FB1FEnd"
+            lines.extend(["", "HP_METER_SPEEDS:", "C3FB1F_DATA_C3FB1F = HP_METER_SPEEDS"])
         if terminal and terminal not in seen_labels:
             lines.extend(["", f"{terminal}:"])
             seen_labels.add(terminal)
