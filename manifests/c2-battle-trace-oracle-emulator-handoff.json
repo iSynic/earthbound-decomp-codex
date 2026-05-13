@@ -27,9 +27,9 @@
     "behavior_change_allowed_from_handoff_alone": false
   },
   "summary": {
-    "handoff_job_count": 5,
-    "minimum_breakpoint_count": 10,
-    "breakpoint_count": 36,
+    "handoff_job_count": 6,
+    "minimum_breakpoint_count": 12,
+    "breakpoint_count": 44,
     "source_promotion_allowed": false,
     "behavior_change_allowed": false
   },
@@ -599,6 +599,162 @@
         "evidence_markdown_path": "build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/evidence.md"
       },
       "result_validator": "python tools/validate_c2_battle_trace_oracle_result.py build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json",
+      "result_collector": "python tools/collect_c2_battle_trace_oracle_results.py",
+      "proof_gate": {
+        "result_schema": "earthbound-decomp.c2-battle-trace-oracle-result.v1",
+        "required_status": "ok",
+        "required_capture_coverage": "every packet job capture field",
+        "stub_results_are_proof": false,
+        "source_promotion_allowed": false,
+        "behavior_change_allowed": false
+      }
+    },
+    {
+      "job_id": "c2-battle-oracle-hp_roller_collapse_boundary",
+      "oracle_id": "hp_roller_collapse_boundary",
+      "priority": 2,
+      "question": "Does collapse finalization occur after HP roller settlement?",
+      "scenario_goal": "capture a damage case that crosses from C2:8125 into collapse setup and death/result text",
+      "scenario": {
+        "scenario_name": "hp_roller_collapse_boundary_manual_first_pass",
+        "save_state_id": "local_fixture_required",
+        "save_state_path_local_only": "<local-only save state path>",
+        "setup_steps": [
+          "load or create a battle state where a target is near enough to zero HP for the next damage application to collapse it",
+          "execute the attack or damage action and keep the trace running until collapse or death text is emitted",
+          "capture selected-row HP live/target/max words, C2:7550/C2:7680 or late-controller entry, and any C1 result-text joins"
+        ],
+        "stop_condition": "minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl"
+      },
+      "manual_setup": [
+        "load or create a battle state where a target is near enough to zero HP for the next damage application to collapse it",
+        "execute the attack or damage action and keep the trace running until collapse or death text is emitted",
+        "capture selected-row HP live/target/max words, C2:7550/C2:7680 or late-controller entry, and any C1 result-text joins"
+      ],
+      "preferred_trigger": "deliver lethal or near-lethal damage and let the HP/collapse controller advance",
+      "minimum_hits": [
+        "C2:8125",
+        "C2:7550"
+      ],
+      "breakpoints": [
+        {
+          "address": "C2:8125",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C2:7550",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": true
+        },
+        {
+          "address": "C2:7680",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:77CA",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:BB18",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:BC5C",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:DC1C",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:DC66",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        }
+      ],
+      "watch_ranges": [
+        {
+          "id": "selected_target_row",
+          "address_or_symbol": "$A972 + row",
+          "bytes": 96,
+          "purpose": "selected target HP/collapse row before/after"
+        },
+        {
+          "id": "battler_rows",
+          "address_or_symbol": "$9FAC",
+          "bytes": 468,
+          "purpose": "six battler-sized rows for collapse promotion/cleanup review"
+        },
+        {
+          "id": "text_payload_slots",
+          "address_or_symbol": "$9D10",
+          "bytes": 8,
+          "purpose": "C1 battle-text byte/pointer/amount payload slots"
+        }
+      ],
+      "extra_trace_fields": [
+        "$A972 selected target row before/after C2:8125",
+        "row +0x11/+0x13/+0x15 HP live/target/max sequence",
+        "C2:7550 collapse startup entry and row +0x1D/+0x23 mutations",
+        "C2:7680 death text pointer or C2:77CA late-controller route",
+        "C1:DC1C/C1:DC66 result text pointer and payload state"
+      ],
+      "capture_fields": [
+        "trace_id",
+        "scenario_name",
+        "rom_sha1",
+        "save_state_id",
+        "frame_or_instruction_counter",
+        "pc",
+        "routine_label",
+        "registers.a",
+        "registers.x",
+        "registers.y",
+        "registers.db",
+        "registers.dp",
+        "direct_page_snapshot",
+        "wram_before",
+        "wram_after",
+        "ef_text_pointer",
+        "c1_text_call",
+        "classification",
+        "classification_evidence",
+        "damage_call_pc",
+        "hp_roller_before",
+        "hp_roller_after",
+        "candidate_promote_pc",
+        "inactive_cleanup_pc",
+        "collapse_start_pc",
+        "collapse_text_pointer",
+        "selected_row_before_after",
+        "c1_text_join_samples",
+        "settlement_order"
+      ],
+      "acceptance_criteria": [
+        "capture a damage case that reaches collapse handling",
+        "record ordering between damage application, HP roller state, and collapse text/action"
+      ],
+      "output_paths": {
+        "job_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/job.json",
+        "raw_trace_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/raw-trace.jsonl",
+        "result_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json",
+        "evidence_markdown_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/evidence.md"
+      },
+      "result_validator": "python tools/validate_c2_battle_trace_oracle_result.py build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json",
       "result_collector": "python tools/collect_c2_battle_trace_oracle_results.py",
       "proof_gate": {
         "result_schema": "earthbound-decomp.c2-battle-trace-oracle-result.v1",

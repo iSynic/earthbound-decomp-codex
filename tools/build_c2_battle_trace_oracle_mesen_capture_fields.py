@@ -20,7 +20,7 @@ import rom_tools
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PACKET = ROOT / "manifests" / "c2-battle-trace-oracle-packet.json"
-SUPPORTED_ORACLES = {"c2_8125_damage_abi_boundary"}
+SUPPORTED_ORACLES = {"c2_8125_damage_abi_boundary", "hp_roller_collapse_boundary"}
 ROUTINE_LABELS = {
     "C1:DC1C": "C1DC1C_DisplayBattleTextFromPointer",
     "C1:DC66": "C1DC66_DisplayBattleTextWithSubstitutionPayload",
@@ -31,7 +31,11 @@ ROUTINE_LABELS = {
     "C2:8125": "C28125_ApplyDamageToSelectedTarget",
     "C2:7EAF": "C27EAF_RunHitResolutionAndStatusActionCluster",
     "C2:7550": "C27550_StartSelectedBattlerCollapseAfflictionPath",
+    "C2:7680": "C27680_DisplayEnemyDeathText",
+    "C2:77CA": "C277CA_RunSelectedBattlerCollapsePresentationTail",
     "C2:941D": "C2941D_CheckSelectedBattlerTimedSubstateBlocker",
+    "C2:BB18": "C2BB18_PromoteCandidateToCollapseAfflictionController",
+    "C2:BC5C": "C2BC5C_ClearInactiveCandidateLiveSlotTransientFields",
 }
 BATTLE_ROW_FIELD_OFFSETS = {
     "row_word_plus_0x00": 0x00,
@@ -352,6 +356,51 @@ def compact_json(value: Any) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"))
 
 
+def row_brief(row: dict[str, Any] | None) -> dict[str, Any] | str:
+    if row is None:
+        return "not_observed"
+    pc = str(row.get("pc") or "")
+    return {
+        "frame": row.get("frame"),
+        "pc": pc,
+        "routine_label": ROUTINE_LABELS.get(pc, "unknown_or_unlabeled_trace_pc"),
+        "cpu_a": row.get("cpuA"),
+        "cpu_x": row.get("cpuX"),
+        "cpu_y": row.get("cpuY"),
+        "selected_target_pointer": row.get("selectedTargetPointer"),
+        "caller_dp_primary_text_pointer": row.get("callerDpPrimaryTextPointer"),
+        "caller_dp_payload_pointer": row.get("callerDpPayloadPointer"),
+        "text_payload_slots_hex": row.get("textPayloadSlotsHex"),
+    }
+
+
+def decoded_selected_row(row: dict[str, Any] | None) -> dict[str, Any] | str:
+    if row is None:
+        return "not_observed"
+    row_hex = str(row.get("selectedTargetRowHex") or "")
+    if not row_hex:
+        return "not_captured"
+    return decode_battle_row(row_hex, pointer=str(row.get("selectedTargetPointer") or "not_captured"))
+
+
+def hp_triplet(decoded: dict[str, Any] | str) -> dict[str, Any] | str:
+    if not isinstance(decoded, dict):
+        return decoded
+    return {
+        "pointer": decoded.get("pointer"),
+        "hp_live_word_plus_0x11": decoded.get("hp_live_word_plus_0x11"),
+        "hp_target_word_plus_0x13": decoded.get("hp_target_word_plus_0x13"),
+        "hp_max_word_plus_0x15": decoded.get("hp_max_word_plus_0x15"),
+        "active_gate_byte_plus_0x0c": decoded.get("active_gate_byte_plus_0x0c"),
+        "affliction_primary_byte_plus_0x1d": decoded.get("affliction_primary_byte_plus_0x1d"),
+        "timed_substate_byte_plus_0x23": decoded.get("timed_substate_byte_plus_0x23"),
+    }
+
+
+def first_breakpoint(rows: list[dict[str, Any]], pc: str, *, start_index: int = -1) -> dict[str, Any] | None:
+    return first_after(rows, start_index, event_type="breakpoint_hit", pc=pc)
+
+
 def save_state_id(row: dict[str, Any] | None) -> str:
     if row is None:
         return "not_captured"
@@ -362,6 +411,112 @@ def save_state_id(row: dict[str, Any] | None) -> str:
     if path.is_file():
         return f"{path.name} sha256:{sha256(path)}"
     return path.name or path_text
+
+
+def build_hp_roller_collapse_fields(
+    job: dict[str, Any],
+    rows: list[dict[str, Any]],
+    *,
+    rom: Path,
+    trace: Path,
+    classification: str,
+    evidence: str | None,
+) -> dict[str, Any]:
+    runner_start = first_row(rows, event_type="runner_start")
+    state_load = first_row(rows, event_type="before_state_load")
+    damage = first_breakpoint(rows, "C2:8125")
+    if damage is None:
+        raise ValueError("trace does not contain a C2:8125 damage breakpoint hit")
+    damage_index = row_index(rows, damage)
+    collapse = first_breakpoint(rows, "C2:7550", start_index=damage_index)
+    if collapse is None:
+        raise ValueError("trace does not contain a C2:7550 collapse-start breakpoint hit")
+    collapse_index = row_index(rows, collapse)
+    death_text = first_breakpoint(rows, "C2:7680", start_index=collapse_index)
+    collapse_tail = first_breakpoint(rows, "C2:77CA", start_index=collapse_index)
+    promote = first_breakpoint(rows, "C2:BB18", start_index=damage_index)
+    cleanup = first_breakpoint(rows, "C2:BC5C", start_index=damage_index)
+    second_damage = first_breakpoint(rows, "C2:8125", start_index=damage_index)
+
+    damage_row = decoded_selected_row(damage)
+    collapse_row = decoded_selected_row(collapse)
+    collapse_tail_row = decoded_selected_row(collapse_tail)
+    promote_row = decoded_selected_row(promote)
+    second_damage_row = decoded_selected_row(second_damage)
+    c1_text_events = build_c1_text_events(rows, start_index=damage_index)
+    first_text_event = c1_text_events[0] if c1_text_events else None
+    observed = sorted({str(row.get("pc")) for row in rows if row.get("type") == "breakpoint_hit" and row.get("pc")})
+    order = [
+        row_brief(row)
+        for row in rows
+        if row.get("type") == "breakpoint_hit"
+        and row.get("pc") in {"C2:8125", "C2:7550", "C2:7680", "C2:77CA", "C2:BB18", "C2:BC5C", "C1:DC1C", "C1:DC66"}
+    ]
+    selected_row_before_after = {
+        "damage_entry": damage_row,
+        "collapse_start": collapse_row,
+        "collapse_tail": collapse_tail_row,
+        "first_promote_candidate": promote_row,
+        "second_damage_entry": second_damage_row,
+        "optional_death_text_path": decoded_selected_row(death_text),
+        "optional_cleanup_path": decoded_selected_row(cleanup),
+    }
+    collapse_text_pointer = {
+        "c2_7680_death_text_path": row_brief(death_text),
+        "c2_77ca_tail_path": row_brief(collapse_tail),
+        "first_c1_text_after_damage": first_text_event or "not_observed",
+        "note": "This fixture reaches C2:77CA and C1 battle-text entries; C2:7680 was not observed in the neutral state-7 run.",
+    }
+    generated_evidence = (
+        "Mesen trace from the user-provided state 7 fixture observes C2:8125, then C2:7550 and C2:77CA "
+        "with C1 battle-text joins. It proves a usable collapse-boundary fixture and row snapshots, but not the "
+        "optional C2:7680 death-text descriptor path or C2:BC5C inactive cleanup path in this run."
+    )
+    fields = {
+        "trace_id": f"{trace.as_posix()} sha256:{sha256(trace)}",
+        "scenario_name": require_text(runner_start or {}, "scenarioName"),
+        "rom_sha1": sha1(rom),
+        "save_state_id": save_state_id(state_load),
+        "frame_or_instruction_counter": f"frame:{damage.get('frame')} collapse_frame:{collapse.get('frame')} cycle:{damage.get('cpuCycleCount')}",
+        "pc": "C2:8125",
+        "routine_label": ROUTINE_LABELS["C2:8125"],
+        "registers.a": require_text(damage, "cpuA"),
+        "registers.x": require_text(damage, "cpuX"),
+        "registers.y": require_text(damage, "cpuY"),
+        "registers.db": require_text(damage, "cpuDB"),
+        "registers.dp": require_text(damage, "cpuDP"),
+        "direct_page_snapshot": require_text(damage, "directPageHex"),
+        "wram_before": require_text(damage, "selectedTargetRowHex"),
+        "wram_after": require_text(collapse, "selectedTargetRowHex"),
+        "ef_text_pointer": (first_text_event or {}).get("primary_text_pointer_0e_10", "not_captured_by_current_mesen_runner"),
+        "c1_text_call": compact_json(c1_text_events) if c1_text_events else "not_captured_by_current_mesen_runner",
+        "classification": classification,
+        "classification_evidence": evidence or generated_evidence,
+        "damage_call_pc": row_brief(damage),
+        "hp_roller_before": hp_triplet(damage_row),
+        "hp_roller_after": {
+            "at_collapse_start": hp_triplet(collapse_row),
+            "at_collapse_tail": hp_triplet(collapse_tail_row),
+            "at_first_promote_candidate": hp_triplet(promote_row),
+            "at_second_damage_entry": hp_triplet(second_damage_row),
+        },
+        "candidate_promote_pc": row_brief(promote),
+        "inactive_cleanup_pc": row_brief(cleanup),
+        "collapse_start_pc": row_brief(collapse),
+        "collapse_text_pointer": collapse_text_pointer,
+        "selected_row_before_after": selected_row_before_after,
+        "c1_text_join_samples": c1_text_events,
+        "settlement_order": {
+            "observed_breakpoint_order": order,
+            "observed_addresses": observed,
+            "ordering_summary": "State 7 neutral trace observes C2:8125 at frame 41, C2:7550/C2:77CA/C1:DC1C at frame 117, then repeated C2:BB18 promotion-controller samples.",
+            "proof_limit": "This orders the collapse-boundary calls in one fixture; it does not alone prove all HP-roller visual settlement timing or the optional cleanup/death-text paths.",
+        },
+    }
+    missing = set(job.get("capture_fields", [])) - set(fields)
+    if missing:
+        raise ValueError(f"missing capture fields: {sorted(missing)}")
+    return fields
 
 
 def build_c2_8125_fields(job: dict[str, Any], rows: list[dict[str, Any]], *, rom: Path, trace: Path, classification: str, evidence: str | None) -> dict[str, Any]:
@@ -452,14 +607,26 @@ def main() -> int:
     trace = repo_path(args.trace or str(job["output_paths"]["raw_trace_path"]))
     rom = rom_tools.find_rom(args.rom)
     rows = read_trace(trace)
-    fields = build_c2_8125_fields(
-        job,
-        rows,
-        rom=rom,
-        trace=trace,
-        classification=args.classification,
-        evidence=args.classification_evidence,
-    )
+    if args.oracle_id == "c2_8125_damage_abi_boundary":
+        fields = build_c2_8125_fields(
+            job,
+            rows,
+            rom=rom,
+            trace=trace,
+            classification=args.classification,
+            evidence=args.classification_evidence,
+        )
+    elif args.oracle_id == "hp_roller_collapse_boundary":
+        fields = build_hp_roller_collapse_fields(
+            job,
+            rows,
+            rom=rom,
+            trace=trace,
+            classification=args.classification,
+            evidence=args.classification_evidence,
+        )
+    else:
+        raise ValueError(f"{args.oracle_id} is not supported by this Mesen capture assembler yet")
     output = repo_path(args.output) if args.output else trace.parent / "captured-fields.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(fields, indent=2) + "\n", encoding="utf-8")

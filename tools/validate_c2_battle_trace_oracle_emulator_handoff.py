@@ -17,6 +17,7 @@ REQUIRED_FIRST_PASS_IDS = {
     "c2_40a4_current_action_payload",
     "c2_724a_affliction_writer_matrix",
     "c2_8125_damage_abi_boundary",
+    "hp_roller_collapse_boundary",
     "resource_amount_pair_magnet_vs_pp_loss",
 }
 

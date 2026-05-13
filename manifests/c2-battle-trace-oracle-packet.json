@@ -18,7 +18,7 @@
   },
   "summary": {
     "job_count": 10,
-    "first_trace_job_count": 5,
+    "first_trace_job_count": 6,
     "priority_counts": {
       "1": 4,
       "2": 5,
@@ -439,9 +439,92 @@
       }
     },
     {
+      "job_id": "c2-battle-oracle-hp_roller_collapse_boundary",
+      "oracle_id": "hp_roller_collapse_boundary",
+      "execution_order": 5,
+      "priority": 2,
+      "first_trace_pass": true,
+      "status": "trace_plan_ready",
+      "question": "Does collapse finalization occur after HP roller settlement?",
+      "addresses": [
+        "C2:8125",
+        "C2:7550",
+        "C2:7680",
+        "C2:77CA",
+        "C2:BB18",
+        "C2:BC5C",
+        "C1:DC1C",
+        "C1:DC66"
+      ],
+      "capture_fields": [
+        "trace_id",
+        "scenario_name",
+        "rom_sha1",
+        "save_state_id",
+        "frame_or_instruction_counter",
+        "pc",
+        "routine_label",
+        "registers.a",
+        "registers.x",
+        "registers.y",
+        "registers.db",
+        "registers.dp",
+        "direct_page_snapshot",
+        "wram_before",
+        "wram_after",
+        "ef_text_pointer",
+        "c1_text_call",
+        "classification",
+        "classification_evidence",
+        "damage_call_pc",
+        "hp_roller_before",
+        "hp_roller_after",
+        "candidate_promote_pc",
+        "inactive_cleanup_pc",
+        "collapse_start_pc",
+        "collapse_text_pointer",
+        "selected_row_before_after",
+        "c1_text_join_samples",
+        "settlement_order"
+      ],
+      "diary_entries": [
+        8
+      ],
+      "evidence_notes": [
+        "notes/c2-hit-resolution-status-runtime-polish.md",
+        "notes/c2-target-selection-runtime-polish.md",
+        "notes/class2-handoff-4477-4703.md"
+      ],
+      "source_paths": [
+        "src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm",
+        "src/c2/c2_7550_start_selected_battler_collapse_affliction_path.asm",
+        "src/c2/c2_7680_display_enemy_death_text.asm",
+        "src/c2/c2_bb18_promote_candidate_to_collapse_affliction_controller.asm",
+        "src/c2/c2_bc5c_clear_inactive_candidate_live_slot_transient_fields.asm"
+      ],
+      "acceptance_criteria": [
+        "capture a damage case that reaches collapse handling",
+        "record ordering between damage application, HP roller state, and collapse text/action"
+      ],
+      "promotion_allowed_by_plan": false,
+      "behavior_change_allowed": false,
+      "output_paths": {
+        "output_dir": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary",
+        "job_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/job.json",
+        "raw_trace_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/raw-trace.jsonl",
+        "result_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json",
+        "evidence_markdown_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/evidence.md"
+      },
+      "commands": {
+        "dry_run_stub": "python tools/run_c2_battle_trace_oracle_batch.py --job-id c2-battle-oracle-hp_roller_collapse_boundary --mode dry-run-stub --force",
+        "external_run": "python tools/run_c2_battle_trace_oracle_batch.py --job-id c2-battle-oracle-hp_roller_collapse_boundary --mode external --external <harness> --job {job} --result {result} --trace {raw_trace}",
+        "validate_result": "python tools/validate_c2_battle_trace_oracle_result.py build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json"
+      }
+    },
+    {
       "job_id": "c2-battle-oracle-resource_amount_pair_magnet_vs_pp_loss",
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
-      "execution_order": 5,
+      "execution_order": 6,
       "priority": 2,
       "first_trace_pass": true,
       "status": "trace_plan_ready",
@@ -521,7 +604,7 @@
     {
       "job_id": "c2-battle-oracle-battle_text_payload_join",
       "oracle_id": "battle_text_payload_join",
-      "execution_order": 6,
+      "execution_order": 7,
       "priority": 2,
       "first_trace_pass": false,
       "status": "trace_plan_ready",
@@ -608,7 +691,7 @@
     {
       "job_id": "c2-battle-oracle-healing_ladder_gamma_omega",
       "oracle_id": "healing_ladder_gamma_omega",
-      "execution_order": 7,
+      "execution_order": 8,
       "priority": 2,
       "first_trace_pass": false,
       "status": "trace_plan_ready",
@@ -689,80 +772,6 @@
         "dry_run_stub": "python tools/run_c2_battle_trace_oracle_batch.py --job-id c2-battle-oracle-healing_ladder_gamma_omega --mode dry-run-stub --force",
         "external_run": "python tools/run_c2_battle_trace_oracle_batch.py --job-id c2-battle-oracle-healing_ladder_gamma_omega --mode external --external <harness> --job {job} --result {result} --trace {raw_trace}",
         "validate_result": "python tools/validate_c2_battle_trace_oracle_result.py build/c2/battle-trace-oracles/healing_ladder_gamma_omega/result.json"
-      }
-    },
-    {
-      "job_id": "c2-battle-oracle-hp_roller_collapse_boundary",
-      "oracle_id": "hp_roller_collapse_boundary",
-      "execution_order": 8,
-      "priority": 2,
-      "first_trace_pass": false,
-      "status": "trace_plan_ready",
-      "question": "Does collapse finalization occur after HP roller settlement?",
-      "addresses": [
-        "C2:8125",
-        "C2:BB18",
-        "C2:BC5C",
-        "C2:7680"
-      ],
-      "capture_fields": [
-        "trace_id",
-        "scenario_name",
-        "rom_sha1",
-        "save_state_id",
-        "frame_or_instruction_counter",
-        "pc",
-        "routine_label",
-        "registers.a",
-        "registers.x",
-        "registers.y",
-        "registers.db",
-        "registers.dp",
-        "direct_page_snapshot",
-        "wram_before",
-        "wram_after",
-        "ef_text_pointer",
-        "c1_text_call",
-        "classification",
-        "classification_evidence",
-        "damage_call_pc",
-        "hp_roller_before",
-        "hp_roller_after",
-        "candidate_promote_pc",
-        "inactive_cleanup_pc",
-        "collapse_text_pointer",
-        "settlement_order"
-      ],
-      "diary_entries": [
-        8
-      ],
-      "evidence_notes": [
-        "notes/c2-hit-resolution-status-runtime-polish.md",
-        "notes/c2-target-selection-runtime-polish.md",
-        "notes/class2-handoff-4477-4703.md"
-      ],
-      "source_paths": [
-        "src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm",
-        "src/c2/c2_bb18_promote_candidate_to_collapse_affliction_controller.asm",
-        "src/c2/c2_bc5c_clear_inactive_candidate_live_slot_transient_fields.asm"
-      ],
-      "acceptance_criteria": [
-        "capture a damage case that reaches collapse handling",
-        "record ordering between damage application, HP roller state, and collapse text/action"
-      ],
-      "promotion_allowed_by_plan": false,
-      "behavior_change_allowed": false,
-      "output_paths": {
-        "output_dir": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary",
-        "job_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/job.json",
-        "raw_trace_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/raw-trace.jsonl",
-        "result_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json",
-        "evidence_markdown_path": "build/c2/battle-trace-oracles/hp_roller_collapse_boundary/evidence.md"
-      },
-      "commands": {
-        "dry_run_stub": "python tools/run_c2_battle_trace_oracle_batch.py --job-id c2-battle-oracle-hp_roller_collapse_boundary --mode dry-run-stub --force",
-        "external_run": "python tools/run_c2_battle_trace_oracle_batch.py --job-id c2-battle-oracle-hp_roller_collapse_boundary --mode external --external <harness> --job {job} --result {result} --trace {raw_trace}",
-        "validate_result": "python tools/validate_c2_battle_trace_oracle_result.py build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json"
       }
     },
     {

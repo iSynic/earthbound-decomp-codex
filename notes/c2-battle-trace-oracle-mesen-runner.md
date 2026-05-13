@@ -81,6 +81,12 @@ selected-target pointer, and the pointed-to 96-byte battler row. For the
   captured amount input `A = 0x0045`, damage selector `X = 0x00FF`, direct page,
   and selected target row pointer `$A21C`, but keeps downstream text/collapse
   interpretation blocked until those fields are decoded.
+- Save 7 now validates as the canonical `hp_roller_collapse_boundary`
+  fixture. A neutral 1800-frame run observes `C2:8125`, `C2:7550`, `C2:77CA`,
+  `C1:DC66`, `C1:DC1C`, and `C2:BB18`, with row snapshots showing live HP at
+  `+0x11` reaching zero before collapse handling. The reviewed result remains
+  `needs_followup` because this run does not hit `C2:7680` or `C2:BC5C` and
+  does not prove HP-roller visual timing across the whole collapse family.
 - `c2_40a4_current_action_payload` does not yet hit its minimum `C2:40A4`, but
   saves 1, 2, 3, 4, 5, and 7 repeatedly hit nearby `C2:3D05`. Treat those as
   route hints only.
@@ -168,6 +174,16 @@ python tools\collect_c2_battle_trace_oracle_results.py
 python tools\validate_c2_battle_trace_oracle_results_summary.py
 ```
 
+The same capture assembler supports `hp_roller_collapse_boundary` after a
+canonical run from save 7:
+
+```powershell
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id hp_roller_collapse_boundary --mesen F:\Mesen2\Mesen.exe --state "F:\Mesen2\SaveStates\EarthBound (USA)_7.mss" --input-pattern neutral:1800 --frame-limit 1800 --timeout 240 --summarize-trace
+python tools\build_c2_battle_trace_oracle_mesen_capture_fields.py --oracle-id hp_roller_collapse_boundary
+python tools\build_c2_battle_trace_oracle_result_from_evidence.py --oracle-id hp_roller_collapse_boundary --status ok --classification needs_followup --classification-rationale "<reviewed collapse-boundary rationale>" --observed-address C2:8125 --observed-address C2:7550 --observed-address C2:77CA --observed-address C2:BB18 --observed-address C1:DC66 --observed-address C1:DC1C --captured-fields-json build\c2\battle-trace-oracles\hp_roller_collapse_boundary\captured-fields.json
+python tools\validate_c2_battle_trace_oracle_result.py build\c2\battle-trace-oracles\hp_roller_collapse_boundary\result.json
+```
+
 For `c2_8125_damage_abi_boundary`, the capture assembler decodes the selected
 `$A972` battler row into review fields such as the active/consciousness byte,
 HP live/target/max words, primary affliction byte, timed substate, shield
@@ -178,6 +194,11 @@ C1:AD26 -> C1:0DF6` amount-consumer path when the runner captures those
 breakpoints. Those decoded fields are evidence review aids only; the result
 remains `needs_followup` until caller provenance breadth and a real collapse
 path are captured.
+
+For `hp_roller_collapse_boundary`, the assembler captures the damage-entry
+row, collapse-start row, optional collapse-text/cleanup hits, C1 text joins,
+and ordered breakpoint samples. In the current save-7 trace it records
+`C2:7680` and `C2:BC5C` as not observed rather than inferring those paths.
 
 ## Promotion Rule
 

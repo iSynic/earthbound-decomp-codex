@@ -167,6 +167,19 @@ fields, and C1/EF amount-result join trace-observed, but still not proof-grade
 for the broader damage family because caller subfamily breadth and a real
 `C2:7550` collapse-finalization case remain open.
 
+Second local Mesen pass: the numbered multi-enemy fixture save
+`EarthBound (USA)_7.mss` now produces a reviewed `needs_followup` result for
+`hp_roller_collapse_boundary`. The neutral trace observes the collapse boundary
+that save 5 did not: first `C2:8125` at frame 41, then `C2:7550` at frame 117,
+the adjacent `C2:77CA` collapse-presentation tail, C1 direct/substitution
+battle-text entries, and later repeated `C2:BB18` promotion-controller samples.
+The decoded row snapshots show the selected row moving from live HP
+`+0x11 = 0x00B2` at damage entry to `+0x11 = 0x0000` at the collapse-start
+call. This makes state 7 a real collapse-boundary fixture for the oracle lane.
+It is still not proof-grade for every collapse contract: the neutral run does
+not observe `C2:7680` enemy-death descriptor text or `C2:BC5C` inactive-slot
+cleanup, and it does not by itself prove HP-roller visual timing.
+
 ## Evidence Inputs
 
 - `refs/EB-M2-Listing-v1/US/bank02.txt` for helper names such as

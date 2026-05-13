@@ -210,7 +210,7 @@ ORACLES: list[dict[str, Any]] = [
         "priority": 2,
         "status": "trace_plan_ready",
         "question": "Does collapse finalization occur after HP roller settlement?",
-        "addresses": ["C2:8125", "C2:BB18", "C2:BC5C", "C2:7680"],
+        "addresses": ["C2:8125", "C2:7550", "C2:7680", "C2:77CA", "C2:BB18", "C2:BC5C", "C1:DC1C", "C1:DC66"],
         "diary_entries": [8],
         "capture_fields": [
             "damage_call_pc",
@@ -218,7 +218,10 @@ ORACLES: list[dict[str, Any]] = [
             "hp_roller_after",
             "candidate_promote_pc",
             "inactive_cleanup_pc",
+            "collapse_start_pc",
             "collapse_text_pointer",
+            "selected_row_before_after",
+            "c1_text_join_samples",
             "settlement_order",
         ],
         "evidence_notes": [
@@ -228,6 +231,8 @@ ORACLES: list[dict[str, Any]] = [
         ],
         "source_paths": [
             "src/c2/c2_7eaf_run_hit_resolution_and_status_action_cluster.asm",
+            "src/c2/c2_7550_start_selected_battler_collapse_affliction_path.asm",
+            "src/c2/c2_7680_display_enemy_death_text.asm",
             "src/c2/c2_bb18_promote_candidate_to_collapse_affliction_controller.asm",
             "src/c2/c2_bc5c_clear_inactive_candidate_live_slot_transient_fields.asm",
         ],
@@ -461,6 +466,7 @@ def build_manifest() -> dict[str, Any]:
             "c2_40a4_current_action_payload",
             "c2_724a_affliction_writer_matrix",
             "c2_8125_damage_abi_boundary",
+            "hp_roller_collapse_boundary",
             "resource_amount_pair_magnet_vs_pp_loss",
         ],
         "oracles": oracles,

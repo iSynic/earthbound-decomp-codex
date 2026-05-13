@@ -8,8 +8,8 @@ emulator, and it does not prove behavior by itself.
 
 ## Summary
 
-- handoff jobs: `5`
-- breakpoints: `36`
+- handoff jobs: `6`
+- breakpoints: `44`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
 
@@ -33,6 +33,7 @@ emulator, and it does not prove behavior by itself.
 | 1 | `c2_40a4_current_action_payload` | `C2:40A4` | `27` | `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json` |
 | 1 | `c2_724a_affliction_writer_matrix` | `C2:724A, C2:9917` | `29` | `build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json` |
 | 1 | `c2_8125_damage_abi_boundary` | `C2:8125` | `31` | `build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json` |
+| 2 | `hp_roller_collapse_boundary` | `C2:8125, C2:7550` | `29` | `build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json` |
 | 2 | `resource_amount_pair_magnet_vs_pp_loss` | `C2:8E42, C2:9F5E` | `27` | `build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/result.json` |
 
 ## Job Details
@@ -104,6 +105,23 @@ emulator, and it does not prove behavior by itself.
   - load or create a battle state with a random-damage item, bomb, bottle rocket, or PSI common damage action
   - execute the action and capture amount input, damage selector X, selected target row, and downstream text/collapse state
   - prefer one low-noise item or PSI common path before broader damage family work
+
+### `hp_roller_collapse_boundary`
+
+- goal: capture a damage case that crosses from C2:8125 into collapse setup and death/result text
+- preferred trigger: deliver lethal or near-lethal damage and let the HP/collapse controller advance
+- scenario name: `hp_roller_collapse_boundary_manual_first_pass`
+- save state: `<local-only save state path>`
+- stop condition: minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl
+- minimum hits: `['C2:8125', 'C2:7550']`
+- watch ranges: `['selected_target_row', 'battler_rows', 'text_payload_slots']`
+- extra trace fields: `['$A972 selected target row before/after C2:8125', 'row +0x11/+0x13/+0x15 HP live/target/max sequence', 'C2:7550 collapse startup entry and row +0x1D/+0x23 mutations', 'C2:7680 death text pointer or C2:77CA late-controller route', 'C1:DC1C/C1:DC66 result text pointer and payload state']`
+- raw trace: `build/c2/battle-trace-oracles/hp_roller_collapse_boundary/raw-trace.jsonl`
+- result: `build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json`
+- manual setup:
+  - load or create a battle state where a target is near enough to zero HP for the next damage application to collapse it
+  - execute the attack or damage action and keep the trace running until collapse or death text is emitted
+  - capture selected-row HP live/target/max words, C2:7550/C2:7680 or late-controller entry, and any C1 result-text joins
 
 ### `resource_amount_pair_magnet_vs_pp_loss`
 

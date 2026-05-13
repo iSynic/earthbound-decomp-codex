@@ -55,6 +55,16 @@ SCENARIOS: dict[str, dict[str, Any]] = {
         "preferred_trigger": "execute a damage action that calls C2:8125",
         "minimum_hits": ["C2:8125"],
     },
+    "hp_roller_collapse_boundary": {
+        "scenario_goal": "capture a damage case that crosses from C2:8125 into collapse setup and death/result text",
+        "manual_setup": [
+            "load or create a battle state where a target is near enough to zero HP for the next damage application to collapse it",
+            "execute the attack or damage action and keep the trace running until collapse or death text is emitted",
+            "capture selected-row HP live/target/max words, C2:7550/C2:7680 or late-controller entry, and any C1 result-text joins",
+        ],
+        "preferred_trigger": "deliver lethal or near-lethal damage and let the HP/collapse controller advance",
+        "minimum_hits": ["C2:8125", "C2:7550"],
+    },
     "resource_amount_pair_magnet_vs_pp_loss": {
         "scenario_goal": "distinguish PSI Magnet PP transfer from PP reduction/loss-only paths",
         "manual_setup": [
@@ -91,6 +101,13 @@ EXTRA_TRACE_FIELDS: dict[str, list[str]] = {
         "$02 normalized amount scratch",
         "HP/shield/collapse state before and after",
     ],
+    "hp_roller_collapse_boundary": [
+        "$A972 selected target row before/after C2:8125",
+        "row +0x11/+0x13/+0x15 HP live/target/max sequence",
+        "C2:7550 collapse startup entry and row +0x1D/+0x23 mutations",
+        "C2:7680 death text pointer or C2:77CA late-controller route",
+        "C1:DC1C/C1:DC66 result text pointer and payload state",
+    ],
     "resource_amount_pair_magnet_vs_pp_loss": [
         "source and target PP +0x17/+0x19/+0x1B before/after",
         "random amount roll and cap amount",
@@ -113,6 +130,11 @@ WATCH_RANGES: dict[str, list[dict[str, Any]]] = {
     ],
     "c2_8125_damage_abi_boundary": [
         {"id": "selected_target_row", "address_or_symbol": "$A972 + row", "bytes": 96, "purpose": "HP/shield/collapse before/after"},
+    ],
+    "hp_roller_collapse_boundary": [
+        {"id": "selected_target_row", "address_or_symbol": "$A972 + row", "bytes": 96, "purpose": "selected target HP/collapse row before/after"},
+        {"id": "battler_rows", "address_or_symbol": "$9FAC", "bytes": 0x1D4, "purpose": "six battler-sized rows for collapse promotion/cleanup review"},
+        {"id": "text_payload_slots", "address_or_symbol": "$9D10", "bytes": 8, "purpose": "C1 battle-text byte/pointer/amount payload slots"},
     ],
     "resource_amount_pair_magnet_vs_pp_loss": [
         {"id": "source_target_pp_rows", "address_or_symbol": "source/target battler rows", "bytes": 96, "purpose": "PP transfer/loss before/after"},

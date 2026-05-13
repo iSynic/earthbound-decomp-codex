@@ -22,7 +22,7 @@ exists.
 | 1 | `c2_40a4_current_action_payload` | `C2:40A4, C2:3D05, D5:7B68` | notes/class2-second-pointer-consumer-40a4.md<br>notes/c2-action-dispatch-runtime-polish.md<br>notes/c2-late-selected-row-runtime-polish.md |
 | 1 | `c2_724a_affliction_writer_matrix` | `C2:724A, C2:9917, C2:9F06, C2:9FFE, C2:A056, C2:8CF1, ...` | notes/class2-affliction-apply-helper-724a.md<br>notes/class2-battler-affliction-crosswalk.md<br>notes/c2-psi-flash-runtime-polish.md |
 | 1 | `c2_8125_damage_abi_boundary` | `C2:8125, C2:7EAF, C2:7550, C2:A57A, C2:A658, C2:A5EC, ...` | notes/c2-hit-resolution-status-runtime-polish.md<br>notes/c2-bottle-rocket-runtime-polish.md<br>notes/c2-item-bomb-runtime-polish.md |
-| 2 | `hp_roller_collapse_boundary` | `C2:8125, C2:BB18, C2:BC5C, C2:7680` | notes/c2-hit-resolution-status-runtime-polish.md<br>notes/c2-target-selection-runtime-polish.md<br>notes/class2-handoff-4477-4703.md |
+| 2 | `hp_roller_collapse_boundary` | `C2:8125, C2:7550, C2:7680, C2:77CA, C2:BB18, C2:BC5C, ...` | notes/c2-hit-resolution-status-runtime-polish.md<br>notes/c2-target-selection-runtime-polish.md<br>notes/class2-handoff-4477-4703.md |
 | 2 | `resource_amount_pair_magnet_vs_pp_loss` | `C2:8E42, C2:9F5E, C2:9FE1, C2:721D, C2:7318, C2:B360` | notes/psi-magnet-drain-amount.md<br>notes/c2-late-stat-resource-runtime-polish.md<br>notes/c2-ef-battle-text-contract-workahead.md |
 | 2 | `healing_ladder_gamma_omega` | `C2:9AEA, C2:9B7A, C2:9C2C, C2:9CB8, C2:7397, C2:7294, ...` | notes/c2-lifeup-healing-runtime-polish.md<br>notes/battle-affliction-recovery-family-c29aea-a39d.md<br>notes/c2-affliction-recovery-runtime-polish.md |
 | 3 | `numeric_stat_edge_behavior` | `C2:B2E0, C2:8EAE, C2:8F21, C2:9E38, C2:9E86, C2:A056` | notes/c2-late-stat-resource-runtime-polish.md<br>notes/c2-offense-defense-stat-actions-runtime-polish.md<br>notes/battle-action-stat-change-family-c2b2e0-b5d7.md |
@@ -35,6 +35,7 @@ exists.
 - `c2_40a4_current_action_payload`: How does C2:40A4 apply second-pointer/current-action payloads over selected targets?
 - `c2_724a_affliction_writer_matrix`: Which callers use C2:724A versus adjacent direct status writers?
 - `c2_8125_damage_abi_boundary`: Where is the selected-target damage ABI boundary, and what remains downstream?
+- `hp_roller_collapse_boundary`: Does collapse finalization occur after HP roller settlement?
 - `resource_amount_pair_magnet_vs_pp_loss`: Which PP effects are transfers and which are loss-only?
 
 ## Promotion Policy
