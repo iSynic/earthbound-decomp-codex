@@ -130,6 +130,14 @@ promotion gates while still showing whether the run approached `C2:B930` or
   `C2:B930` or its six C1 pre-export probe sites. Save 11 repeatedly hits
   `C2:BAC5`, which makes it another target-count fixture, not a snapshot-export
   fixture.
+- A stack-context rerun of the save 1, save 3, save 4, and save 11 routes still
+  reaches only the C1 menu/target-count neighbors plus `C2:BAC5`, not the
+  `C2:B930` export. This confirms the current fixture set is outside the narrow
+  post-choice/pre-text export window. The runner now captures C1 direct-page
+  fields `$00..$2C`, the `$99CE` source slot row selected by `A`, destination
+  `X/Y` rows, and a `post_call_snapshot` after `C2:B930` returns, so the next
+  correctly timed fixture should produce before/after export evidence without
+  another tooling change.
 - The current set did not satisfy the first-pass affliction-writer or resource
   amount-pair minimums. Save 6 is useful as an already-afflicted-state
   snapshot, but not as proof of the affliction writer.

@@ -17,7 +17,7 @@
   "summary": {
     "probe_root_count": 5,
     "probe_roots_found": 5,
-    "record_count": 79,
+    "record_count": 84,
     "oracle_count": 6,
     "minimum_hit_candidate_count": 7,
     "route_hint_fixture_count": 8,
@@ -40,7 +40,7 @@
       "fixtures_covering_group": [],
       "probe_hint_addresses_observed": [],
       "fixtures_with_probe_hints": [],
-      "next_probe_goal": "Run from a party-side selected-target/action confirmation state until the snapshot export breakpoint fires before the C2:BAC5 count loop repeats.",
+      "next_probe_goal": "Start after the target/action choice is committed but before C1 choice/action text dispatch; prefer an item or PSI action whose D5:7B68 +0x08 second pointer is non-null.",
       "probe_breakpoint_hints": [
         "C1:B3DB",
         "C1:B462",
@@ -52,9 +52,12 @@
       ],
       "watch_hints": [
         "registers A/X/Y",
+        "C1 direct page $00..$2C",
+        "$99CE source slot row selected by A",
         "$9FFA..$A047 snapshot block",
         "$9FAC candidate rows",
-        "$A970/$A972 selected row pointers"
+        "$A970/$A972 selected row pointers",
+        "post-return destination row after C2:B930"
       ]
     },
     {
@@ -134,21 +137,40 @@
         "C2:B930"
       ],
       "status": "partial-route-observed",
-      "probe_count": 21,
+      "probe_count": 26,
       "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 21,
+      "fixtures_with_any_hits": 26,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
-        "C1:ADB4": 6,
-        "C1:CE85": 7,
-        "C1:CFC6": 4,
-        "C2:BAC5": 21
+        "C1:ADB4": 8,
+        "C1:CE85": 10,
+        "C1:CFC6": 6,
+        "C2:BAC5": 26
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
-      "dispatch_target_counts": {},
+      "dispatch_target_counts": {
+        "C0:4F47": 8,
+        "C1:C8BC": 3,
+        "C1:CAF5": 4,
+        "C2:859F": 12,
+        "C2:8651": 4,
+        "C2:8740": 8
+      },
       "probe_dispatch_target_counts": {},
-      "stack_return_counts": {},
+      "stack_return_counts": {
+        "5D:CF26": 1,
+        "6F:CDC2": 1,
+        "6F:D025": 3,
+        "88:DE36": 2,
+        "C2:505A": 10,
+        "C2:5624": 4,
+        "C2:5633": 4,
+        "C2:5D51": 3,
+        "C2:5D5D": 3,
+        "C2:5EFE": 4,
+        "C2:5F26": 4
+      },
       "probe_stack_return_counts": {},
       "route_groups": {
         "inventory_selection_loop": {
@@ -167,7 +189,9 @@
             "save1-right-confirm",
             "save1-right-confirm-continue",
             "save1-right-confirm-continue-enhanced",
-            "save1-right-confirm-enhanced"
+            "save1-right-confirm-continue-stack-context",
+            "save1-right-confirm-enhanced",
+            "save1-right-confirm-stack-context"
           ],
           "probe_hint_addresses_observed": [],
           "fixtures_with_probe_hints": []
@@ -190,7 +214,9 @@
             "04-goods-menu",
             "04-goods-menu-mash-a",
             "save1-down-confirm",
-            "save4-goods-confirm"
+            "save3-psi-stack-context",
+            "save4-goods-confirm",
+            "save4-goods-stack-context"
           ],
           "probe_hint_addresses_observed": [],
           "fixtures_with_probe_hints": []
@@ -201,7 +227,7 @@
           ],
           "role": "C2 battle selection snapshot export into the wider target/action overlay",
           "status": "remaining_fixture_gap",
-          "next_probe_goal": "Run from a party-side selected-target/action confirmation state until the snapshot export breakpoint fires before the C2:BAC5 count loop repeats.",
+          "next_probe_goal": "Start after the target/action choice is committed but before C1 choice/action text dispatch; prefer an item or PSI action whose D5:7B68 +0x08 second pointer is non-null.",
           "probe_breakpoint_hints": [
             "C1:B3DB",
             "C1:B462",
@@ -213,9 +239,12 @@
           ],
           "watch_hints": [
             "registers A/X/Y",
+            "C1 direct page $00..$2C",
+            "$99CE source slot row selected by A",
             "$9FFA..$A047 snapshot block",
             "$9FAC candidate rows",
-            "$A970/$A972 selected row pointers"
+            "$A970/$A972 selected row pointers",
+            "post-return destination row after C2:B930"
           ],
           "covered_by_any_probe": false,
           "missing_from_all_probes": [
@@ -458,6 +487,22 @@
           "last_frame": 3441
         },
         {
+          "fixture_id": "save1-right-confirm-continue-stack-context",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:CE85",
+            "C1:CFC6",
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:CE85": 1,
+            "C1:CFC6": 1,
+            "C2:BAC5": 1
+          },
+          "first_frame": 38,
+          "last_frame": 975
+        },
+        {
           "fixture_id": "save1-right-confirm-enhanced",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
@@ -474,7 +519,35 @@
           "last_frame": 1013
         },
         {
+          "fixture_id": "save1-right-confirm-stack-context",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:CE85",
+            "C1:CFC6",
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:CE85": 1,
+            "C1:CFC6": 1,
+            "C2:BAC5": 3
+          },
+          "first_frame": 38,
+          "last_frame": 2941
+        },
+        {
           "fixture_id": "save11-confirm-enhanced",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:BAC5": 24
+          },
+          "first_frame": 9,
+          "last_frame": 2404
+        },
+        {
+          "fixture_id": "save11-confirm-stack-context",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
             "C2:BAC5"
@@ -498,6 +571,20 @@
           "last_frame": 26
         },
         {
+          "fixture_id": "save3-psi-stack-context",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:ADB4",
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:ADB4": 1,
+            "C2:BAC5": 2
+          },
+          "first_frame": 44,
+          "last_frame": 1898
+        },
+        {
           "fixture_id": "save4-goods-confirm",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
@@ -512,6 +599,22 @@
           },
           "first_frame": 26,
           "last_frame": 29
+        },
+        {
+          "fixture_id": "save4-goods-stack-context",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:ADB4",
+            "C1:CE85",
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:ADB4": 1,
+            "C1:CE85": 1,
+            "C2:BAC5": 2
+          },
+          "first_frame": 26,
+          "last_frame": 1874
         }
       ],
       "probe_fixture_hits": []
@@ -3670,6 +3773,57 @@
     },
     {
       "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
+      "fixture_id": "save1-right-confirm-continue-stack-context",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:CE85": 1,
+        "C1:CFC6": 1,
+        "C2:BAC5": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C0:4F47": 3
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "6F:D025": 1,
+        "88:DE36": 1,
+        "C2:505A": 1
+      },
+      "probe_stack_return_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C2:B930"
+      ],
+      "first_frame": 38,
+      "last_frame": 975,
+      "trace_line_count": 13,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900,a:4,neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save1-right-confirm-continue-stack-context/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
       "fixture_id": "save1-right-confirm-enhanced",
       "oracle_id": "c1_c2_target_action_staging",
       "minimum_hits_satisfied": false,
@@ -3715,6 +3869,57 @@
     },
     {
       "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
+      "fixture_id": "save1-right-confirm-stack-context",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:CE85": 1,
+        "C1:CFC6": 1,
+        "C2:BAC5": 3
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C0:4F47": 5
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "6F:D025": 1,
+        "88:DE36": 1,
+        "C2:505A": 3
+      },
+      "probe_stack_return_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C2:B930"
+      ],
+      "first_frame": 38,
+      "last_frame": 2941,
+      "trace_line_count": 19,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save1-right-confirm-stack-context/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
       "fixture_id": "save11-confirm-enhanced",
       "oracle_id": "c1_c2_target_action_staging",
       "minimum_hits_satisfied": false,
@@ -3753,6 +3958,161 @@
         "sha256": "9e05c706651fd49107b9c3d021a337eceaa7b774d61aad857ffae59d734bfe83"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save11-confirm-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
+      "fixture_id": "save11-confirm-stack-context",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:BAC5": 24
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 12,
+        "C2:8651": 4,
+        "C2:8740": 8
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "C2:505A": 2,
+        "C2:5624": 4,
+        "C2:5633": 4,
+        "C2:5D51": 3,
+        "C2:5D5D": 3,
+        "C2:5EFE": 4,
+        "C2:5F26": 4
+      },
+      "probe_stack_return_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "first_frame": 9,
+      "last_frame": 2404,
+      "trace_line_count": 76,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:40,a:4,neutral:2200",
+      "save_state": {
+        "basename": "EarthBound (USA)_11.mss",
+        "sha256": "9e05c706651fd49107b9c3d021a337eceaa7b774d61aad857ffae59d734bfe83"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save11-confirm-stack-context/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
+      "fixture_id": "save3-psi-stack-context",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C1:ADB4",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:ADB4": 1,
+        "C2:BAC5": 2
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C1:C8BC": 3
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "6F:CDC2": 1,
+        "C2:505A": 2
+      },
+      "probe_stack_return_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "first_frame": 44,
+      "last_frame": 1898,
+      "trace_line_count": 13,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:1800",
+      "save_state": {
+        "basename": "EarthBound (USA)_3.mss",
+        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save3-psi-stack-context/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
+      "fixture_id": "save4-goods-stack-context",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:ADB4": 1,
+        "C1:CE85": 1,
+        "C2:BAC5": 2
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C1:CAF5": 4
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "5D:CF26": 1,
+        "6F:D025": 1,
+        "C2:505A": 2
+      },
+      "probe_stack_return_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "first_frame": 26,
+      "last_frame": 1874,
+      "trace_line_count": 16,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:1800",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save4-goods-stack-context/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     },

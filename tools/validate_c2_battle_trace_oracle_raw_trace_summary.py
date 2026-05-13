@@ -54,6 +54,7 @@ def validate(data: dict[str, Any], summary_path: Path) -> None:
         "probe_dispatch_target_counts",
         "stack_return_counts",
         "probe_stack_return_counts",
+        "post_call_snapshot_counts",
     ):
         require(isinstance(data.get(key, {}), dict), f"{key} must be object when present")
     for key in ("observed_addresses", "required_hit_addresses", "configured_minimum_hits", "missing_minimum_hits"):

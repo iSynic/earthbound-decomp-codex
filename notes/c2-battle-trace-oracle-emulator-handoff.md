@@ -29,7 +29,7 @@ emulator, and it does not prove behavior by itself.
 
 | Priority | Oracle | Minimum hits | Capture fields | Result path |
 | ---: | --- | --- | ---: | --- |
-| 1 | `c1_c2_target_action_staging` | `C1:ADB4, C1:CE85, C1:CFC6, C2:B930` | `31` | `build/c2/battle-trace-oracles/c1_c2_target_action_staging/result.json` |
+| 1 | `c1_c2_target_action_staging` | `C1:ADB4, C1:CE85, C1:CFC6, C2:B930` | `42` | `build/c2/battle-trace-oracles/c1_c2_target_action_staging/result.json` |
 | 1 | `c2_40a4_current_action_payload` | `C2:40A4` | `27` | `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json` |
 | 1 | `c2_724a_affliction_writer_matrix` | `C2:724A, C2:9917` | `29` | `build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json` |
 | 1 | `c2_8125_damage_abi_boundary` | `C2:8125` | `31` | `build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json` |
@@ -41,20 +41,20 @@ emulator, and it does not prove behavior by itself.
 ### `c1_c2_target_action_staging`
 
 - goal: reach a battle command/menu selection that crosses C1 target staging and exports into C2 selection snapshots
-- preferred trigger: select a player action that opens target selection before the action resolves
+- preferred trigger: confirm a selected player action or target, then allow the C1 pre-export callsites to reach C2:B930
 - scenario name: `c1_c2_target_action_staging_manual_first_pass`
 - save state: `<local-only save state path>`
 - stop condition: minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl
 - minimum hits: `['C1:ADB4', 'C1:CE85', 'C1:CFC6', 'C2:B930']`
 - route groups: `['inventory_selection_loop', 'target_resolution_count', 'snapshot_export']`
-- watch ranges: `['selection_snapshot', 'candidate_rows']`
-- extra trace fields: `['D5:7B68 action row direction/target bytes', '$9FFA selection snapshot header', '$9FAC candidate row pointer']`
+- watch ranges: `['selection_snapshot', 'candidate_rows', 'source_slot_rows', 'c1_staging_dp']`
+- extra trace fields: `['D5:7B68 action row direction/target bytes', 'C1 direct page $00..$2C target/action staging locals', '$99CE live source-slot row selected by C2:B930 A', '$9FFA selection snapshot header', '$9FAC candidate row pointer', 'C2:B930 destination X/Y row before and after return']`
 - raw trace: `build/c2/battle-trace-oracles/c1_c2_target_action_staging/raw-trace.jsonl`
 - result: `build/c2/battle-trace-oracles/c1_c2_target_action_staging/result.json`
 - manual setup:
-  - load or create a save state in an ordinary battle before selecting a command
-  - exercise one normal target prompt and one item/PSI target prompt if possible
-  - stop after C2:B930/BAC5 have captured/exported candidate rows
+  - load or create a save state after a target/action choice is committed but before C1 choice/action text dispatch
+  - prefer an item or PSI action whose D5:7B68 +0x08 second pointer is non-null
+  - stop after C2:B930 writes its source-slot snapshot into the X/Y destination row and the post-return snapshot is captured
 
 ### `c2_40a4_current_action_payload`
 

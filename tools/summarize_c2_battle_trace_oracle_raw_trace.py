@@ -97,6 +97,7 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
     probe_dispatch_target_counts: Counter[str] = Counter()
     stack_return_counts: Counter[str] = Counter()
     probe_stack_return_counts: Counter[str] = Counter()
+    post_call_snapshot_counts: Counter[str] = Counter()
     required_hits = set()
     watch_counts: Counter[str] = Counter()
     frames: list[int] = []
@@ -138,6 +139,10 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
             watch_id = str(row.get("watchId", ""))
             if watch_id:
                 watch_counts[watch_id] += 1
+        elif event_type == "post_call_snapshot":
+            call_pc = str(row.get("callPc", ""))
+            if call_pc:
+                post_call_snapshot_counts[call_pc] += 1
 
     # The packet does not mark minimum hits; use the emulator handoff's required
     # hits from the runner assets when available.
@@ -163,6 +168,7 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
         "probe_dispatch_target_counts": dict(sorted(probe_dispatch_target_counts.items())),
         "stack_return_counts": dict(sorted(stack_return_counts.items())),
         "probe_stack_return_counts": dict(sorted(probe_stack_return_counts.items())),
+        "post_call_snapshot_counts": dict(sorted(post_call_snapshot_counts.items())),
         "watch_snapshot_counts": dict(sorted(watch_counts.items())),
         "observed_addresses": sorted(hit_counts),
         "probe_observed_addresses": sorted(probe_hit_counts),

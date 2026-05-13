@@ -112,7 +112,7 @@
           ],
           "role": "C2 battle selection snapshot export into the wider target/action overlay",
           "status": "remaining_fixture_gap",
-          "next_probe_goal": "Run from a party-side selected-target/action confirmation state until the snapshot export breakpoint fires before the C2:BAC5 count loop repeats.",
+          "next_probe_goal": "Start after the target/action choice is committed but before C1 choice/action text dispatch; prefer an item or PSI action whose D5:7B68 +0x08 second pointer is non-null.",
           "probe_breakpoint_hints": [
             "C1:B3DB",
             "C1:B462",
@@ -124,9 +124,12 @@
           ],
           "watch_hints": [
             "registers A/X/Y",
+            "C1 direct page $00..$2C",
+            "$99CE source slot row selected by A",
             "$9FFA..$A047 snapshot block",
             "$9FAC candidate rows",
-            "$A970/$A972 selected row pointers"
+            "$A970/$A972 selected row pointers",
+            "post-return destination row after C2:B930"
           ]
         }
       },
@@ -152,6 +155,17 @@
         "classification_evidence",
         "input_action_id",
         "acting_slot",
+        "c1_dp.$00_target_byte",
+        "c1_dp.$01_battle_text_substitution_byte",
+        "c1_dp.$14_$16_action_row_pointer",
+        "c1_dp.$18_$1a_second_pointer_table_base",
+        "c1_dp.$1e_$20_selected_action_pointer",
+        "c1_dp.$22_party_loop_index",
+        "c1_dp.$2a_acting_slot",
+        "c1_dp.$2c_item_slot",
+        "b930.source_slot_row_99ce",
+        "b930.destination_base_x_or_y",
+        "b930.destination_before_after_4e",
         "selection_record_base",
         "selection_record.+0",
         "selection_record.+1",

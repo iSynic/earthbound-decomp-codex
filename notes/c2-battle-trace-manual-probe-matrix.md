@@ -6,7 +6,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 ## Summary
 
 - probe roots found: `5` / `5`
-- probe records: `79`
+- probe records: `84`
 - oracles summarized: `6`
 - minimum-hit candidates: `7`
 - fixtures with route-hint hits: `8`
@@ -18,7 +18,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 | Oracle | Status | Probes | Ready | Any-hit fixtures | Route-hint fixtures | Observed addresses | Route hints | Probe dispatch targets | Probe returns |
 | --- | --- | ---: | ---: | ---: | ---: | --- | --- | --- | --- |
-| `c1_c2_target_action_staging` | `partial-route-observed` | `21` | `0` | `21` | `0` | C1:ADB4:6, C1:CE85:7, C1:CFC6:4, C2:BAC5:21 | - | - | - |
+| `c1_c2_target_action_staging` | `partial-route-observed` | `26` | `0` | `26` | `0` | C1:ADB4:8, C1:CE85:10, C1:CFC6:6, C2:BAC5:26 | - | - | - |
 | `c2_40a4_current_action_payload` | `partial-route-observed` | `22` | `0` | `12` | `8` | C2:3D05:12 | C0:9279:8, C2:77CA:2 | C1:C8BC:1, C2:859F:7, C2:8651:1, C2:8740:4, C2:9033:1 | C1:1AE2:1, C2:5D3D:12, F3:1E64:1 |
 | `c2_724a_affliction_writer_matrix` | `probed-no-route` | `7` | `0` | `0` | `0` | - | - | - | - |
 | `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `11` | `6` | `6` | `0` | C2:7EAF:6, C2:8125:6, C2:941D:1 | - | - | - |
@@ -29,7 +29,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 | Oracle | Group | Status | Missing | Probe hints seen | Next probe | Breakpoints | Watches |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `c1_c2_target_action_staging` | `snapshot_export` | `remaining_fixture_gap` | C2:B930 | - | Run from a party-side selected-target/action confirmation state until the snapshot export breakpoint fires before the C2:BAC5 count loop repeats. | `C1:B3DB`, `C1:B462`, `C1:B505`, `C1:B859`, `C1:B9A9`, `C1:BA60`, `C2:B930` | `registers A/X/Y`, `$9FFA..$A047 snapshot block`, `$9FAC candidate rows`, `$A970/$A972 selected row pointers` |
+| `c1_c2_target_action_staging` | `snapshot_export` | `remaining_fixture_gap` | C2:B930 | - | Start after the target/action choice is committed but before C1 choice/action text dispatch; prefer an item or PSI action whose D5:7B68 +0x08 second pointer is non-null. | `C1:B3DB`, `C1:B462`, `C1:B505`, `C1:B859`, `C1:B9A9`, `C1:BA60`, `C2:B930` | `registers A/X/Y`, `C1 direct page $00..$2C`, `$99CE source slot row selected by A`, `$9FFA..$A047 snapshot block`, `$9FAC candidate rows`, `$A970/$A972 selected row pointers`, `post-return destination row after C2:B930` |
 | `c2_40a4_current_action_payload` | `payload_applicator` | `remaining_fixture_gap` | C2:40A4 | C0:9279, C2:77CA | Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload. | `C2:77CA`, `C2:90C6`, `C2:A89D`, `C2:40A4`, `C2:3D05`, `C0:9279` | `$1E/$20 second pointer`, `$00BC/$00BE payload pointer`, `$A21C target mask domain`, `$9FAC selected target rows`, `$A96C/$A96E action state` |
 | `c2_40a4_current_action_payload` | `target_text_context_neighbor` | `neighbor_only_until_c2_40a4_observed` | - | - | Use only as a neighbor signal; do not mark the payload route covered until C2:40A4 itself is observed. | - | - |
 
@@ -56,10 +56,15 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `save1-right-confirm` | `False` | `38..1013` | C1:CE85:1, C1:CFC6:1, C2:BAC5:1 |
 | `save1-right-confirm-continue` | `False` | `38..2841` | C1:CE85:2, C1:CFC6:2, C2:BAC5:2 |
 | `save1-right-confirm-continue-enhanced` | `False` | `38..3441` | C1:CE85:2, C1:CFC6:2, C2:BAC5:2 |
+| `save1-right-confirm-continue-stack-context` | `False` | `38..975` | C1:CE85:1, C1:CFC6:1, C2:BAC5:1 |
 | `save1-right-confirm-enhanced` | `False` | `38..1013` | C1:CE85:1, C1:CFC6:1, C2:BAC5:1 |
+| `save1-right-confirm-stack-context` | `False` | `38..2941` | C1:CE85:1, C1:CFC6:1, C2:BAC5:3 |
 | `save11-confirm-enhanced` | `False` | `9..2404` | C2:BAC5:24 |
+| `save11-confirm-stack-context` | `False` | `9..2404` | C2:BAC5:24 |
 | `save2-target-confirm` | `False` | `26..26` | C2:BAC5:1 |
+| `save3-psi-stack-context` | `False` | `44..1898` | C1:ADB4:1, C2:BAC5:2 |
 | `save4-goods-confirm` | `False` | `26..29` | C1:ADB4:1, C1:CE85:1, C2:BAC5:1 |
+| `save4-goods-stack-context` | `False` | `26..1874` | C1:ADB4:1, C1:CE85:1, C2:BAC5:2 |
 
 ### `c2_40a4_current_action_payload`
 
@@ -117,9 +122,9 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 | Group | Status | Covered | Missing | Fixtures | Probe hints seen | Next probe |
 | --- | --- | --- | --- | --- | --- | --- |
-| `inventory_selection_loop` | `linked_route_group` | `True` | - | `save1-right-confirm`, `save1-right-confirm-continue`, `save1-right-confirm-continue-enhanced`, `save1-right-confirm-enhanced` | - | - |
-| `target_resolution_count` | `linked_route_group` | `True` | - | `03-psi-menu`, `03-psi-menu-mash-a`, `04-goods-menu`, `04-goods-menu-mash-a`, `save1-down-confirm`, `save4-goods-confirm` | - | - |
-| `snapshot_export` | `remaining_fixture_gap` | `False` | C2:B930 | - | - | Run from a party-side selected-target/action confirmation state until the snapshot export breakpoint fires before the C2:BAC5 count loop repeats. |
+| `inventory_selection_loop` | `linked_route_group` | `True` | - | `save1-right-confirm`, `save1-right-confirm-continue`, `save1-right-confirm-continue-enhanced`, `save1-right-confirm-continue-stack-context`, `save1-right-confirm-enhanced`, `save1-right-confirm-stack-context` | - | - |
+| `target_resolution_count` | `linked_route_group` | `True` | - | `03-psi-menu`, `03-psi-menu-mash-a`, `04-goods-menu`, `04-goods-menu-mash-a`, `save1-down-confirm`, `save3-psi-stack-context`, `save4-goods-confirm`, `save4-goods-stack-context` | - | - |
+| `snapshot_export` | `remaining_fixture_gap` | `False` | C2:B930 | - | - | Start after the target/action choice is committed but before C1 choice/action text dispatch; prefer an item or PSI action whose D5:7B68 +0x08 second pointer is non-null. |
 
 ### `c2_40a4_current_action_payload`
 

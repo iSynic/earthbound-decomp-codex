@@ -18,11 +18,11 @@ SCENARIOS: dict[str, dict[str, Any]] = {
     "c1_c2_target_action_staging": {
         "scenario_goal": "reach a battle command/menu selection that crosses C1 target staging and exports into C2 selection snapshots",
         "manual_setup": [
-            "load or create a save state in an ordinary battle before selecting a command",
-            "exercise one normal target prompt and one item/PSI target prompt if possible",
-            "stop after C2:B930/BAC5 have captured/exported candidate rows",
+            "load or create a save state after a target/action choice is committed but before C1 choice/action text dispatch",
+            "prefer an item or PSI action whose D5:7B68 +0x08 second pointer is non-null",
+            "stop after C2:B930 writes its source-slot snapshot into the X/Y destination row and the post-return snapshot is captured",
         ],
-        "preferred_trigger": "select a player action that opens target selection before the action resolves",
+        "preferred_trigger": "confirm a selected player action or target, then allow the C1 pre-export callsites to reach C2:B930",
         "minimum_hits": ["C1:ADB4", "C1:CE85", "C1:CFC6", "C2:B930"],
     },
     "c2_40a4_current_action_payload": {
@@ -80,8 +80,11 @@ SCENARIOS: dict[str, dict[str, Any]] = {
 EXTRA_TRACE_FIELDS: dict[str, list[str]] = {
     "c1_c2_target_action_staging": [
         "D5:7B68 action row direction/target bytes",
+        "C1 direct page $00..$2C target/action staging locals",
+        "$99CE live source-slot row selected by C2:B930 A",
         "$9FFA selection snapshot header",
         "$9FAC candidate row pointer",
+        "C2:B930 destination X/Y row before and after return",
     ],
     "c2_40a4_current_action_payload": [
         "$1E/$20 selected action pointer",
@@ -120,6 +123,8 @@ WATCH_RANGES: dict[str, list[dict[str, Any]]] = {
     "c1_c2_target_action_staging": [
         {"id": "selection_snapshot", "address_or_symbol": "$9FFA", "bytes": 64, "purpose": "C2 target/export snapshot"},
         {"id": "candidate_rows", "address_or_symbol": "$9FAC", "bytes": 96, "purpose": "candidate row and target byte state"},
+        {"id": "source_slot_rows", "address_or_symbol": "$99CE", "bytes": 0x23A, "purpose": "live battler/source-slot rows used by C2:B930"},
+        {"id": "c1_staging_dp", "address_or_symbol": "$0000", "bytes": 0x30, "purpose": "C1 direct-page target/action staging fields"},
     ],
     "c2_40a4_current_action_payload": [
         {"id": "payload_pointer_dp", "address_or_symbol": "$00BC", "bytes": 4, "purpose": "current action payload pointer"},
