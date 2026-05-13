@@ -384,6 +384,10 @@ C28123_HitResolutionStatusActionReturn:
     rts
 CALC_RESIST_DAMAGE:
 C28125_ApplyDamageToSelectedTarget = CALC_RESIST_DAMAGE
+    ; ABI: A is staged damage, X is the damage/resistance selector.
+    ; The entry Y value is not semantic; TXY copies X over it immediately.
+    ; $A972 supplies the selected battler row, and caller DP is restored
+    ; after this routine allocates its local frame.
     rep #$31
     phd
     pha

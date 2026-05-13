@@ -168,6 +168,13 @@ python tools\collect_c2_battle_trace_oracle_results.py
 python tools\validate_c2_battle_trace_oracle_results_summary.py
 ```
 
+For `c2_8125_damage_abi_boundary`, the capture assembler also decodes the
+selected `$A972` battler row into review fields such as the active/consciousness
+byte, HP live/target/max words, primary affliction byte, timed substate,
+shield countdown, offense/defense, and resistance bytes. Those decoded fields
+are evidence review aids only; the result remains `needs_followup` until a
+runner captures caller provenance, C1/EF text joins, and a real collapse path.
+
 ## Promotion Rule
 
 Do not promote source names or comments from a Mesen run summary alone. The raw

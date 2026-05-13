@@ -146,6 +146,20 @@ a trace candidate: damage application, HP roller settlement, guts/survival
 handling, collapse finalization, and EF result text should remain separate
 contracts in notes and tests.
 
+First local Mesen pass: the numbered multi-enemy fixture save
+`EarthBound (USA)_5.mss` now produces a reviewed `needs_followup` result for
+`c2_8125_damage_abi_boundary`. The trace reaches `C2:8125` five times and
+corroborates the entry ABI: A carries the staged damage amount, X carries the
+damage/resistance selector, entry Y is overwritten by `TXY`, caller DP is only
+used to allocate the local frame, and `$A972` supplies the selected battler row.
+The decoded row snapshots also show the source gates used by this helper:
+`+0x0C` active/consciousness is `1`, primary affliction `+0x1D` is clear, timed
+substate `+0x23` is clear, shield countdown `+0x25` is clear, and HP live
+`+0x11` remains nonzero in the observed samples. This makes the ABI and row
+field read trace-observed, but not proof-grade for collapse or text output yet.
+The current runner still does not capture the exact caller subfamily, C1/EF
+text calls, or a `C2:7550` collapse-finalization case.
+
 ## Evidence Inputs
 
 - `refs/EB-M2-Listing-v1/US/bank02.txt` for helper names such as
