@@ -60,6 +60,13 @@ candidate fixtures only and cannot by itself unlock source promotion.
 The fixture scout adds a broader local check over ordinary-entry and command
 PCs, so existing save states can be ruled in or out before a human spends time
 reviewing traces.
+The generated D5 row-table crosswalk is
+`notes/battle-action-row-crosswalk.md` plus
+`manifests/battle-action-row-crosswalk.json`, refreshed by
+`tools/build_battle_action_row_crosswalk.py` and checked by
+`tools/validate_battle_action_row_crosswalk.py`. It is a navigation artifact
+for row `+4` presentation pointers and row `+8` behavior pointers, not a
+behavior-promotion source.
 Prioritize the contracts that most directly affect a C port:
 
 - C1/C2 target staging and selected action metadata.
@@ -79,6 +86,8 @@ Tighten the contracts where text/menu front ends feed runtime behavior:
 
 - C1 battle menus, item/PSI selection, and target prompts into C2.
 - EF battle-text row/pointer payloads back into C2 result text.
+- D5 battle-action row `+4` presentation pointers versus row `+8` behavior
+  bodies, using the generated crosswalk as the safe join layer.
 - Text VM runtime leaves versus localization authoring macros.
 - Script/text extraction and reinsertion boundaries for C5..C9 and EF.
 

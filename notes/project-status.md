@@ -46,6 +46,10 @@ before this becomes true human-readable source.
   battle-entry or command PCs from those states. The next blocker is creating or
   capturing a true ordinary-battle save-state fixture and reviewing the first
   non-stub trace result.
+- The D5 battle-action table now has a generated all-row crosswalk at
+  `notes/battle-action-row-crosswalk.md`, separating row `+4` presentation text
+  pointers from row `+8` behavior bodies for C1/C2/EF joins without promoting
+  new runtime claims.
 - Ghidra-SNES `v0.2.0` is installed in the dedicated pilot worktree
   `F:\EB Decomp WT - Ghidra SNES Pilot` as a bounded visual/decode oracle, not
   as a source-of-truth label generator.

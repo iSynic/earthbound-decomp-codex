@@ -699,6 +699,7 @@
         "direct_text_pointer_0e_10",
         "payload_pointer_12_14",
         "c1_entrypoint",
+        "battle_text_consumer_command",
         "ef_script_pointer",
         "substitution_payload_kind",
         "displayed_amount_source"
@@ -706,17 +707,21 @@
       "evidence_notes": [
         "notes/c2-ef-battle-text-contract-workahead.md",
         "notes/battle-text-entry-family-c1dc1c-dd7c.md",
-        "notes/class2-concrete-battle-text-call-paths.md"
+        "notes/class2-concrete-battle-text-call-paths.md",
+        "notes/battle-action-row-crosswalk.md",
+        "notes/ef-battle-text-consumer-lane-contracts.md"
       ],
       "source_paths": [
         "src/c1/c1_dc1c_display_battle_text_from_pointer.asm",
         "src/c1/c1_dc66_display_battle_text_with_substitution_payload.asm",
         "src/c2/c2_7294_apply_battler_hp_recovery_feedback.asm",
-        "src/c2/c2_7318_apply_battler_pp_recovery_feedback.asm"
+        "src/c2/c2_7318_apply_battler_pp_recovery_feedback.asm",
+        "src/ef/ef_4e20_c51b_text_payload_data.asm"
       ],
       "acceptance_criteria": [
         "capture one direct text and one amount-substitution text path",
-        "keep EF row/payload naming separate from C2 action behavior naming"
+        "keep EF row/payload naming separate from C2 action behavior naming",
+        "treat source/doc lane clarification as safe, but keep runtime proof blocked until an ordinary-battle fixture produces reviewed trace evidence"
       ],
       "promotion_allowed_by_plan": false,
       "evidence_class": "trace_required_before_source_promotion"

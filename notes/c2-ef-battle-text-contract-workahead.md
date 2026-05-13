@@ -421,6 +421,10 @@ Action-island handoff: `notes/ef-battle-text-action-island-consumer-frontier.md`
 keeps the row `+4` message pointer lane distinct from row `+8` behavior
 payloads and from the direct-result `DC1C` scripts emitted by those behavior
 bodies.
+Generated row-table handoff: `notes/battle-action-row-crosswalk.md` records
+all `318` D5 rows with row `+4` message pointers, row `+8` behavior pointers,
+source-label joins, and lane classifications. Use it as navigation evidence,
+not as source-promotion or runtime-behavior proof.
 
 ## Substitution-slot contracts that appear inside EF battle scripts
 
@@ -770,3 +774,4 @@ When promoting additional C2 corridors that call into the battle-text cluster:
 2. If you see `JSL C1:DC66`, verify the EF script(s) contain `PRINT_ACTION_AMOUNT` (`1C 0F`) or another `$9D12/$9D14` consumer; name the staged value accordingly.
 3. If you see `JSL C1:DD7C` shortly before a `DC1C` dispatch, decode the EF script and look for `LOAD_BYTE_SUBSTITUTION` (`19 1F`) + downstream printers (`PRINT_ITEM_NAME`, `PRINT_PSI_NAME`, etc.).
 4. Treat `DD9F` call sites as a distinct lane (mode forcing + “no prompt” behavior); don’t collapse into the main `DC1C` wrapper without evidence.
+5. For any D5 row claim, join the row through `notes/battle-action-row-crosswalk.md` first so row `+4` presentation text and row `+8` behavior payloads stay separate.
