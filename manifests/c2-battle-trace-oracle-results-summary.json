@@ -14,7 +14,7 @@
     "result_count": 10,
     "valid_result_count": 10,
     "trace_observed_result_count": 6,
-    "proof_grade_result_count": 0,
+    "proof_grade_result_count": 2,
     "stub_result_count": 4,
     "proof_capable_result_count": 6,
     "status_counts": {
@@ -25,7 +25,8 @@
       "valid": 10
     },
     "contract_classification_counts": {
-      "needs_followup": 6,
+      "needs_followup": 4,
+      "refined_contract": 2,
       "unresolved": 4
     },
     "priority_counts": {
@@ -34,7 +35,7 @@
       "3": 1
     },
     "remaining_blocker_counts": {
-      "followup_review": 6,
+      "followup_review": 4,
       "not_first_trace_pass": 4,
       "oracle_contract_unresolved": 4,
       "runtime_trace_proof": 4
@@ -47,10 +48,13 @@
       "hp_roller_collapse_boundary",
       "resource_amount_pair_magnet_vs_pp_loss"
     ],
-    "proof_grade_oracles": [],
+    "proof_grade_oracles": [
+      "c2_8125_damage_abi_boundary",
+      "hp_roller_collapse_boundary"
+    ],
     "source_promotion_allowed": false,
     "behavior_change_allowed": false,
-    "semantic_status": "c2_battle_trace_observed_followup_pending"
+    "semantic_status": "c2_battle_trace_outputs_partially_collected"
   },
   "result_acceptance_policy": [
     "Stub unsupported/unresolved results validate runner plumbing only and never count as trace-observed evidence.",
@@ -135,14 +139,12 @@
       "result_exists": true,
       "status": "ok",
       "valid": true,
-      "contract_classification": "needs_followup",
+      "contract_classification": "refined_contract",
       "errors": [],
-      "remaining_blockers": [
-        "followup_review"
-      ],
+      "remaining_blockers": [],
       "stub_result": false,
       "proof_capable": true,
-      "proof_result": false,
+      "proof_result": true,
       "trace_path_exists": true,
       "trace_path_nonempty": true,
       "promotion_allowed": false,
@@ -157,14 +159,12 @@
       "result_exists": true,
       "status": "ok",
       "valid": true,
-      "contract_classification": "needs_followup",
+      "contract_classification": "refined_contract",
       "errors": [],
-      "remaining_blockers": [
-        "followup_review"
-      ],
+      "remaining_blockers": [],
       "stub_result": false,
       "proof_capable": true,
-      "proof_result": false,
+      "proof_result": true,
       "trace_path_exists": true,
       "trace_path_nonempty": true,
       "promotion_allowed": false,

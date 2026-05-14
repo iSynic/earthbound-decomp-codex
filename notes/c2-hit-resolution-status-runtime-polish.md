@@ -147,38 +147,39 @@ handling, collapse finalization, and EF result text should remain separate
 contracts in notes and tests.
 
 First local Mesen pass: the numbered multi-enemy fixture save
-`EarthBound (USA)_5.mss` now produces a reviewed `needs_followup` result for
+`EarthBound (USA)_5.mss` now produces a reviewed `refined_contract` result for
 `c2_8125_damage_abi_boundary`. The trace reaches `C2:8125` five times and
 corroborates the entry ABI: A carries the staged damage amount, X carries the
 damage/resistance selector, entry Y is overwritten by `TXY`, caller DP is only
 used to allocate the local frame, and `$A972` supplies the selected battler row.
 The decoded row snapshots also show the source gates used by this helper:
 `+0x0C` active/consciousness is `1`, primary affliction `+0x1D` is clear, timed
-substate `+0x23` is clear, shield countdown `+0x25` is clear, and HP live
-`+0x11` remains nonzero in the observed samples. The expanded runner also
-captures the downstream C1/EF amount-text lane: damage entries reach
+substate `+0x23` is clear, shield countdown `+0x25` is clear, and later selected
+row samples show HP live/target mutation after the damage helper. The expanded
+runner also captures the downstream C1/EF amount-text lane: damage entries reach
 `C1:DC66`, stage EF scripts such as `EF:75C2`, `EF:75D9`, and `EF:7607` in
 caller `$0E/$10`, commit the amount payload through `C1:AD0A` into
 `$9D12/$9D14`, consume it through the `C1:7EED` `1C 0F` action-amount command,
 read it with `C1:AD26`, and enter the C1 number printer at `C1:0DF6`. Direct
 result text through `C1:DC1C` is also observed for adjacent miss/SMAAAASH
-branches such as `EF:7630` and `EF:7655`. This makes the ABI, selected-row
-fields, and C1/EF amount-result join trace-observed, but still not proof-grade
-for the broader damage family because caller subfamily breadth and a real
-`C2:7550` collapse-finalization case remain open.
+branches such as `EF:7630` and `EF:7655`. This promotes the ABI, selected-row
+HP mutation, and C1/EF amount-result join as proof-grade subcontracts; broader
+caller subfamily coverage remains a follow-up lane.
 
 Second local Mesen pass: the numbered multi-enemy fixture save
-`EarthBound (USA)_7.mss` now produces a reviewed `needs_followup` result for
+`EarthBound (USA)_7.mss` now produces a reviewed `refined_contract` result for
 `hp_roller_collapse_boundary`. The neutral trace observes the collapse boundary
 that save 5 did not: first `C2:8125` at frame 41, then `C2:7550` at frame 117,
 the adjacent `C2:77CA` collapse-presentation tail, C1 direct/substitution
 battle-text entries, and later repeated `C2:BB18` promotion-controller samples.
 The decoded row snapshots show the selected row moving from live HP
 `+0x11 = 0x00B2` at damage entry to `+0x11 = 0x0000` at the collapse-start
-call. This makes state 7 a real collapse-boundary fixture for the oracle lane.
-It is still not proof-grade for every collapse contract: the neutral run does
-not observe `C2:7680` enemy-death descriptor text or `C2:BC5C` inactive-slot
-cleanup, and it does not by itself prove HP-roller visual timing.
+call, with `+0x1D = 0x01` visible in the later promotion-controller sample.
+This promotes the HP-to-zero collapse boundary, `C2:7550 -> C2:77CA` order, and
+hard/collapsed row-state installation. It is still not proof-grade for every
+collapse contract: the neutral run does not observe `C2:7680` enemy-death
+descriptor text or `C2:BC5C` inactive-slot cleanup, and it does not by itself
+prove HP-roller visual timing.
 
 ## Evidence Inputs
 

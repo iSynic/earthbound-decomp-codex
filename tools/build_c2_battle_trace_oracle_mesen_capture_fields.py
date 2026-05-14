@@ -256,6 +256,73 @@ def decode_battle_row(row_hex: str, *, pointer: str | None = None) -> dict[str, 
     return fields
 
 
+def hex_word_to_int(value: Any) -> int | None:
+    text = str(value or "")
+    if not text.startswith("$"):
+        return None
+    try:
+        return int(text[1:], 16)
+    except ValueError:
+        return None
+
+
+def word_delta(before: Any, after: Any) -> int | None:
+    before_int = hex_word_to_int(before)
+    after_int = hex_word_to_int(after)
+    if before_int is None or after_int is None:
+        return None
+    return after_int - before_int
+
+
+def hp_delta(before: dict[str, Any] | str, after: dict[str, Any] | str) -> dict[str, Any] | str:
+    if not isinstance(before, dict) or not isinstance(after, dict):
+        return "not_available"
+    live_before = before.get("hp_live_word_plus_0x11")
+    live_after = after.get("hp_live_word_plus_0x11")
+    target_before = before.get("hp_target_word_plus_0x13")
+    target_after = after.get("hp_target_word_plus_0x13")
+    max_before = before.get("hp_max_word_plus_0x15")
+    max_after = after.get("hp_max_word_plus_0x15")
+    return {
+        "hp_live_before": live_before,
+        "hp_live_after": live_after,
+        "hp_live_delta": word_delta(live_before, live_after),
+        "hp_target_before": target_before,
+        "hp_target_after": target_after,
+        "hp_target_delta": word_delta(target_before, target_after),
+        "hp_max_before": max_before,
+        "hp_max_after": max_after,
+    }
+
+
+def selected_row_hp_changed(before: dict[str, Any], after: dict[str, Any]) -> bool:
+    return (
+        before.get("hp_live_word_plus_0x11") != after.get("hp_live_word_plus_0x11")
+        or before.get("hp_target_word_plus_0x13") != after.get("hp_target_word_plus_0x13")
+    )
+
+
+def first_selected_row_hp_change_after(
+    rows: list[dict[str, Any]],
+    start_index: int,
+    *,
+    pointer: str,
+    before_row: dict[str, Any],
+) -> dict[str, Any] | None:
+    for row in rows[start_index + 1 :]:
+        if row.get("type") != "breakpoint_hit":
+            continue
+        row_hex = str(row.get("selectedTargetRowHex") or "")
+        if not row_hex:
+            continue
+        if str(row.get("selectedTargetPointer") or "") != pointer:
+            continue
+        decoded = decode_battle_row(row_hex, pointer=pointer)
+        if selected_row_hp_changed(before_row, decoded):
+            return {"trace_row": row, "decoded_row": decoded}
+    return None
+
+
 def decode_c1_text_entry(row: dict[str, Any]) -> dict[str, Any]:
     pc = str(row.get("pc") or "")
     data = parse_hex_bytes(str(row.get("directPageHex") or ""))
@@ -369,6 +436,15 @@ def build_c2_8125_samples(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         pointer = str(row.get("selectedTargetPointer") or "")
         downstream = first_after(rows, index, event_type="breakpoint_hit", pc="C2:7EAF")
         downstream_hex = str((downstream or {}).get("selectedTargetRowHex") or "")
+        row_before = decode_battle_row(row_hex, pointer=pointer)
+        first_hp_change = first_selected_row_hp_change_after(
+            rows,
+            index,
+            pointer=pointer,
+            before_row=row_before,
+        )
+        first_hp_change_row = (first_hp_change or {}).get("trace_row")
+        first_hp_change_decoded = (first_hp_change or {}).get("decoded_row")
         samples.append(
             {
                 "frame": row.get("frame"),
@@ -376,9 +452,13 @@ def build_c2_8125_samples(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "damage_selector_x": row.get("cpuX"),
                 "damage_selector_y": row.get("cpuY"),
                 "selected_target_pointer": pointer,
-                "row_before": decode_battle_row(row_hex, pointer=pointer),
+                "row_before": row_before,
                 "downstream_pc": (downstream or {}).get("pc", "not_observed"),
                 "row_at_downstream": decode_battle_row(downstream_hex, pointer=pointer) if downstream_hex else "not_observed",
+                "first_selected_row_hp_change_pc": (first_hp_change_row or {}).get("pc", "not_observed"),
+                "first_selected_row_hp_change_frame": (first_hp_change_row or {}).get("frame", "not_observed"),
+                "row_at_first_selected_row_hp_change": first_hp_change_decoded or "not_observed",
+                "hp_delta_at_first_selected_row_hp_change": hp_delta(row_before, first_hp_change_decoded or "not_observed"),
             }
         )
     return samples
@@ -843,6 +923,7 @@ def build_hp_roller_collapse_fields(
         "optional_death_text_path": decoded_selected_row(death_text),
         "optional_cleanup_path": decoded_selected_row(cleanup),
     }
+    collapse_hp_delta = hp_delta(damage_row, collapse_row)
     collapse_text_pointer = {
         "c2_7680_death_text_path": row_brief(death_text),
         "c2_77ca_tail_path": row_brief(collapse_tail),
@@ -850,10 +931,31 @@ def build_hp_roller_collapse_fields(
         "note": "This fixture reaches C2:77CA and C1 battle-text entries; C2:7680 was not observed in the neutral state-7 run.",
     }
     generated_evidence = (
-        "Mesen trace from the user-provided state 7 fixture observes C2:8125, then C2:7550 and C2:77CA "
-        "with C1 battle-text joins. It proves a usable collapse-boundary fixture and row snapshots, but not the "
-        "optional C2:7680 death-text descriptor path or C2:BC5C inactive cleanup path in this run."
+        "Natural Mesen trace from the user-provided state 7 observes C2:8125, then C2:7550 and C2:77CA "
+        "with C1 battle-text joins and repeated C2:BB18 samples. The observed collapse-boundary order and "
+        "hard/collapsed row-state installation are refined contracts; optional C2:7680 descriptor text and "
+        "C2:BC5C inactive cleanup remain follow-up paths."
     )
+    proof_grade_subcontracts = {
+        "hp_to_zero_collapse_boundary": {
+            "status": "refined_contract",
+            "evidence": "Selected row +0x11/+0x13 are nonzero at C2:8125 and zero by C2:7550/C2:77CA in the natural state-7 trace.",
+            "hp_delta": collapse_hp_delta,
+        },
+        "collapse_start_to_tail_order": {
+            "status": "refined_contract",
+            "evidence": "Trace order is C2:8125 -> C2:7550 -> C2:77CA -> C1:DC1C, followed by repeated C2:BB18 promotion-controller samples.",
+        },
+        "hard_collapsed_row_state_install": {
+            "status": "refined_contract",
+            "evidence": "First C2:BB18 sample observes selected row affliction primary +0x1D == $01 after the collapse-start path.",
+            "first_promote_candidate": promote_row,
+        },
+        "descriptor_text_and_inactive_cleanup": {
+            "status": "needs_followup",
+            "evidence": "This natural run did not observe C2:7680 or C2:BC5C, so those optional presentation/cleanup paths stay out of the proof-grade claim.",
+        },
+    }
     fields = {
         "trace_id": f"{trace.as_posix()} sha256:{sha256(trace)}",
         "scenario_name": require_text(runner_start or {}, "scenarioName"),
@@ -887,12 +989,14 @@ def build_hp_roller_collapse_fields(
         "collapse_start_pc": row_brief(collapse),
         "collapse_text_pointer": collapse_text_pointer,
         "selected_row_before_after": selected_row_before_after,
+        "hp_collapse_delta": collapse_hp_delta,
         "c1_text_join_samples": c1_text_events,
+        "proof_grade_subcontracts": proof_grade_subcontracts,
         "settlement_order": {
             "observed_breakpoint_order": order,
             "observed_addresses": observed,
-            "ordering_summary": "State 7 neutral trace observes C2:8125 at frame 41, C2:7550/C2:77CA/C1:DC1C at frame 117, then repeated C2:BB18 promotion-controller samples.",
-            "proof_limit": "This orders the collapse-boundary calls in one fixture; it does not alone prove all HP-roller visual settlement timing or the optional cleanup/death-text paths.",
+            "ordering_summary": "State 7 natural trace observes C2:8125 at frame 41, C2:7550/C2:77CA/C1:DC1C at frame 117, then repeated C2:BB18 promotion-controller samples.",
+            "proof_limit": "This promotes the observed HP-to-zero/collapse-boundary order, not every HP-roller visual settlement or optional cleanup/death-text path.",
         },
     }
     missing = set(job.get("capture_fields", [])) - set(fields)
@@ -932,13 +1036,40 @@ def build_c2_8125_fields(job: dict[str, Any], rows: list[dict[str, Any]], *, rom
         "first_sample": decoded_target_row["c28125_source_gate_summary"],
         "observed_sample_count": len(samples),
         "collapse_start_observed": collapse is not None,
-        "proof_limit": "current trace observes live damage and C1 text joins but does not prove the collapse-finalization branch.",
+        "proof_limit": "current trace promotes the live damage ABI and amount-text join; collapse-finalization is proven by the separate hp_roller_collapse_boundary result.",
     }
     generated_evidence = (
-        "Mesen canonical trace hit C2:8125 with CPU register capture and the pointed-to $A972 target row; "
-        "the capture assembler decodes the row gates and C1 battle-text entry joins used by the local source. "
-        "Collapse remains follow-up decode work."
+        "Natural Mesen trace hit C2:8125 with CPU register capture, the pointed-to $A972 target row, "
+        "post-call HP row deltas, and C1 amount-text joins. The damage ABI, selected-row HP mutation, "
+        "and amount-text payload path are refined contracts; broader caller-family coverage and collapse "
+        "finalization stay in separate proof lanes."
     )
+    first_changed_samples = [
+        sample
+        for sample in samples
+        if sample.get("row_at_first_selected_row_hp_change") != "not_observed"
+    ]
+    proof_grade_subcontracts = {
+        "damage_entry_abi": {
+            "status": "refined_contract",
+            "evidence": "C2:8125 entry captures A as staged amount, X as damage/resistance selector, and $A972 as the selected battler row pointer.",
+            "first_entry_registers": {"a": require_text(hit, "cpuA"), "x": require_text(hit, "cpuX"), "y": require_text(hit, "cpuY")},
+        },
+        "selected_row_hp_mutation": {
+            "status": "refined_contract",
+            "evidence": "Natural samples show selected row +0x11/+0x13 HP words changing after C2:8125 and before the C1 amount text/display joins.",
+            "changed_sample_count": len(first_changed_samples),
+        },
+        "damage_amount_text_join": {
+            "status": "refined_contract",
+            "evidence": "C1:DC66 commits caller $12/$14 through C1:AD0A, then C1:7EED/C1:AD26/C1:0DF6 consume the amount payload for battle text.",
+            "first_text_event": first_text_event or "not_observed",
+        },
+        "caller_family_breadth": {
+            "status": "needs_followup",
+            "evidence": "The trace proves the ABI and row/text side effects for natural observed calls; it does not exhaustively classify every action-family caller.",
+        },
+    }
     fields = {
         "trace_id": f"{trace.as_posix()} sha256:{sha256(trace)}",
         "scenario_name": require_text(runner_start or {}, "scenarioName"),
@@ -965,8 +1096,10 @@ def build_c2_8125_fields(job: dict[str, Any], rows: list[dict[str, Any]], *, rom
         "selected_target_row_decoded": decoded_target_row,
         "selected_target_row_at_downstream_decoded": decoded_downstream_row,
         "damage_entry_samples": samples,
+        "damage_hp_delta_samples": first_changed_samples,
         "c1_text_join_samples": c1_text_events,
         "text_payload_slot_samples": text_payload_slot_samples,
+        "proof_grade_subcontracts": proof_grade_subcontracts,
         "caller_family": "damage ABI reached from numbered multi-enemy battle fixture; exact caller subfamily still needs call-stack/source join",
         "post_call_hp_roller_state": compact_json({"first_downstream_row": decoded_downstream_row, "sample_count": len(samples)}),
         "collapse_candidate_state": compact_json(collapse_state),

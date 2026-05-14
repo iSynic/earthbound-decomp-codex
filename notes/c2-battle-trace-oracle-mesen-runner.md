@@ -321,8 +321,8 @@ normal oracle-result path rather than promoting directly from the patch recipe.
 After manual review, assemble and validate a result:
 
 ```powershell
-python tools\build_c2_battle_trace_oracle_mesen_capture_fields.py --oracle-id c2_8125_damage_abi_boundary
-python tools\build_c2_battle_trace_oracle_result_from_evidence.py --oracle-id c2_8125_damage_abi_boundary --status ok --classification needs_followup --classification-rationale "<reviewed trace rationale>" --observed-address C2:8125 --observed-address C2:7EAF --observed-address C1:DC66 --observed-address C1:AD0A --observed-address C1:7EED --observed-address C1:AD26 --observed-address C1:0DF6 --captured-fields-json build\c2\battle-trace-oracles\c2_8125_damage_abi_boundary\captured-fields.json
+python tools\build_c2_battle_trace_oracle_mesen_capture_fields.py --oracle-id c2_8125_damage_abi_boundary --classification refined_contract
+python tools\build_c2_battle_trace_oracle_result_from_evidence.py --oracle-id c2_8125_damage_abi_boundary --status ok --classification refined_contract --classification-rationale "<reviewed trace rationale>" --observed-address C2:8125 --observed-address C2:7EAF --observed-address C1:DC66 --observed-address C1:AD0A --observed-address C1:7EED --observed-address C1:AD26 --observed-address C1:0DF6 --captured-fields-json build\c2\battle-trace-oracles\c2_8125_damage_abi_boundary\captured-fields.json
 python tools\validate_c2_battle_trace_oracle_result.py build\c2\battle-trace-oracles\c2_8125_damage_abi_boundary\result.json
 python tools\collect_c2_battle_trace_oracle_results.py
 python tools\validate_c2_battle_trace_oracle_results_summary.py
@@ -333,8 +333,8 @@ canonical run from save 7:
 
 ```powershell
 python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id hp_roller_collapse_boundary --mesen F:\Mesen2\Mesen.exe --state "F:\Mesen2\SaveStates\EarthBound (USA)_7.mss" --input-pattern neutral:1800 --frame-limit 1800 --timeout 240 --summarize-trace
-python tools\build_c2_battle_trace_oracle_mesen_capture_fields.py --oracle-id hp_roller_collapse_boundary
-python tools\build_c2_battle_trace_oracle_result_from_evidence.py --oracle-id hp_roller_collapse_boundary --status ok --classification needs_followup --classification-rationale "<reviewed collapse-boundary rationale>" --observed-address C2:8125 --observed-address C2:7550 --observed-address C2:77CA --observed-address C2:BB18 --observed-address C1:DC66 --observed-address C1:DC1C --captured-fields-json build\c2\battle-trace-oracles\hp_roller_collapse_boundary\captured-fields.json
+python tools\build_c2_battle_trace_oracle_mesen_capture_fields.py --oracle-id hp_roller_collapse_boundary --classification refined_contract
+python tools\build_c2_battle_trace_oracle_result_from_evidence.py --oracle-id hp_roller_collapse_boundary --status ok --classification refined_contract --classification-rationale "<reviewed collapse-boundary rationale>" --observed-address C2:8125 --observed-address C2:7550 --observed-address C2:77CA --observed-address C2:BB18 --observed-address C1:DC66 --observed-address C1:DC1C --captured-fields-json build\c2\battle-trace-oracles\hp_roller_collapse_boundary\captured-fields.json
 python tools\validate_c2_battle_trace_oracle_result.py build\c2\battle-trace-oracles\hp_roller_collapse_boundary\result.json
 ```
 
@@ -345,14 +345,16 @@ countdown, offense/defense, and resistance bytes. It also decodes C1 battle
 text joins: `C1:DC1C` direct `$0E/$10` text pointers, `C1:DC66` primary
 `$0E/$10` text plus `$12/$14` payload, and the `$9D12/$9D14 -> C1:7EED ->
 C1:AD26 -> C1:0DF6` amount-consumer path when the runner captures those
-breakpoints. Those decoded fields are evidence review aids only; the result
-remains `needs_followup` until caller provenance breadth and a real collapse
-path are captured.
+breakpoints. The reviewed result is now `refined_contract` for the damage ABI,
+selected-row HP mutation, and amount-text join; caller provenance breadth stays
+outside that promotion.
 
 For `hp_roller_collapse_boundary`, the assembler captures the damage-entry
 row, collapse-start row, optional collapse-text/cleanup hits, C1 text joins,
 and ordered breakpoint samples. In the current save-7 trace it records
-`C2:7680` and `C2:BC5C` as not observed rather than inferring those paths.
+`C2:7680` and `C2:BC5C` as not observed rather than inferring those paths. The
+reviewed result is now `refined_contract` for HP-to-zero collapse entry,
+`C2:7550 -> C2:77CA` order, and hard/collapsed row-state installation.
 
 ## Promotion Rule
 

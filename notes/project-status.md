@@ -39,13 +39,13 @@ before this becomes true human-readable source.
 - C-port implementation feedback is now folded back into
   `notes/c-port-feedback-intake.md`, especially for C1/C2 battle target,
   payload, affliction, damage, healing, and resource contracts.
-- The C2 battle trace-oracle lane now has Mesen runner plumbing for local
-  runtime proof captures plus save-state probe tooling. The seven currently
-  discoverable local Mesen save states all load but do not hit the first C1/C2
-  battle-command oracle, and a 21-run fixture scout found no ordinary
-  battle-entry or command PCs from those states. The next blocker is creating or
-  capturing a true ordinary-battle save-state fixture and reviewing the first
-  non-stub trace result.
+- The C2 battle trace-oracle lane now has Mesen runner plumbing, save-state
+  probes, fixture-ROM steering, 6 trace-observed non-stub results, and 2
+  proof-grade `refined_contract` promotions. The promoted C2 subcontracts cover
+  the `C2:8125` damage ABI, selected-row HP mutation, C1 amount-text join,
+  HP-to-zero collapse entry, `C2:7550 -> C2:77CA` order, and hard/collapsed row
+  state. Natural PP amount proof, paired `C2:724A`/`C2:9917`, and `C2:B930`
+  snapshot export remain the highest-value runtime gaps.
 - The D5 battle-action table now has a generated all-row crosswalk at
   `notes/battle-action-row-crosswalk.md`, separating row `+4` presentation text
   pointers from row `+8` behavior bodies for C1/C2/EF joins without promoting
