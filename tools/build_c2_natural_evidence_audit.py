@@ -122,10 +122,10 @@ MECHANISMS: list[dict[str, Any]] = [
         "id": "pp_transfer",
         "title": "PP transfer",
         "oracle": "resource_amount_pair_magnet_vs_pp_loss",
-        "natural_keywords": ("natural-magnet", "save"),
+        "natural_keywords": ("natural-magnet", "psi-magnet", "mook", "stonehenge", "save"),
         "required_hits": ("C2:9F5E", "C2:721D"),
-        "success_status": "runtime_steered_needed",
-        "next_action": "Use SRM anchors or runtime steering to create a nonzero-PP PSI Magnet setup.",
+        "success_status": "natural_proof_candidate",
+        "next_action": "Review Stonehenge Mook PSI Magnet capture: target PP loss and capped caster recovery are natural; visible non-full caster gain is optional follow-up.",
     },
     {
         "id": "pp_loss_only",

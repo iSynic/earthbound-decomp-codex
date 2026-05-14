@@ -55,8 +55,8 @@ C29F5E_RunHpSuckerStylePpDrainAction = BTLACT_MAGNET_A
     tcd
     ldx $A972
     lda $0019,X
-    ; Fixture runs can seed target PP and prove reducer/recovery mechanics, but
-    ; natural nonzero PSI Magnet amount evidence remains the promotion gate.
+    ; Natural Mook/Paula PSI Magnet traces prove nonzero target PP reduction
+    ; and the capped caster-side SET_PP call; non-full caster gain is follow-up.
     bne C29F7E_RunAsleepStatusWrapperAction_L9F7E
     lda.w #$FB05
     sta $0E

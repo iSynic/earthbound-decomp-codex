@@ -6,7 +6,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 ## Summary
 
 - probe roots found: `15` / `15`
-- probe records: `194`
+- probe records: `181`
 - oracles summarized: `6`
 - minimum-hit candidates: `16`
 - fixtures with route-hint hits: `16`
@@ -23,7 +23,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `c2_724a_affliction_writer_matrix` | `minimum-hit-candidate` | `14` | `1` | `4` | `0` | C2:724A:4, C2:9917:1 | - | - | - |
 | `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `15` | `9` | `10` | `0` | C1:0DF6:4, C1:7EED:4, C1:AD0A:4, C1:AD26:4, C1:DC1C:4, C1:DC66:4, C2:7550:1, C2:7EAF:9, C2:8125:9, C2:941D:2 | - | - | - |
 | `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `36` | `4` | `18` | `0` | C0:52AA:2, C0:B9B4:5, C1:DC1C:15, C1:DC66:13, C2:2F38:2, C2:4821:3, C2:488C:3, C2:48E0:3, C2:492D:2, C2:4949:2, C2:4958:2, C2:4A00:2, C2:4A2D:2, C2:4CEF:2, C2:4EEC:2, C2:4EF6:2, C2:4F03:2, C2:4F52:2, C2:4FCF:2, C2:5024:2, C2:5619:2, C2:5AFB:2, C2:5C30:2, C2:5C8C:1, C2:5D2B:1, C2:5D3D:1, C2:6081:2, C2:6088:1, C2:7550:5, C2:7680:1, C2:77CA:4, C2:8125:11, C2:BB18:15, C2:BC5C:2, C2:E8E0:2, C2:E9C8:2 | - | - | - |
-| `resource_amount_pair_magnet_vs_pp_loss` | `partial-route-observed` | `61` | `0` | `32` | `0` | C0:52AA:25, C0:B9B4:25, C1:04EE:25, C1:0528:19, C1:0536:19, C1:0644:19, C1:0772:19, C1:078B:19, C1:DC1C:19, C1:DD3B:25, C1:DD47:25, C2:2F38:25, C2:4821:25, C2:488C:25, C2:48E0:25, C2:492D:25, C2:4949:25, C2:4958:25, C2:4A00:25, C2:4A2D:25, C2:4CEF:25, C2:4EEC:25, C2:4EF6:19, C2:4F03:19, C2:4F52:19, C2:4FCF:19, C2:5024:19, C2:5619:19, C2:5AFB:19, C2:5C30:19, C2:5C8C:16, C2:5D2B:16, C2:5D3D:12, C2:6081:19, C2:6088:12, C2:7191:10, C2:721D:9, C2:8E42:8, C2:9F5E:12, C2:E8E0:25, C2:E9C8:25, C3:E4EF:19, C3:E4FE:19, C3:E512:11, C3:E51F:19 | - | - | - |
+| `resource_amount_pair_magnet_vs_pp_loss` | `partial-route-observed` | `48` | `0` | `31` | `0` | C0:52AA:25, C0:B9B4:25, C1:04EE:26, C1:0528:20, C1:0536:20, C1:0644:20, C1:0772:20, C1:078B:20, C1:DC1C:19, C1:DD3B:26, C1:DD47:26, C2:2F38:25, C2:4821:25, C2:488C:25, C2:48E0:25, C2:492D:25, C2:4949:25, C2:4958:25, C2:4A00:25, C2:4A2D:25, C2:4CEF:25, C2:4EEC:25, C2:4EF6:19, C2:4F03:19, C2:4F52:19, C2:4FCF:20, C2:5024:20, C2:5619:20, C2:5AFB:20, C2:5C30:20, C2:5C8C:17, C2:5D2B:17, C2:5D3D:13, C2:6081:20, C2:6088:13, C2:7191:9, C2:721D:10, C2:8E42:8, C2:9F5E:13, C2:9FE1:1, C2:E8E0:25, C2:E9C8:25, C3:E4EF:20, C3:E4FE:20, C3:E512:11, C3:E51F:20 | - | - | - |
 
 ## Route Gap Queue
 
@@ -174,8 +174,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `guardian-general-natural-pp-reduction-startup-probed` | `False` | `56..12536` | C0:52AA:1, C0:B9B4:1, C1:04EE:2, C1:0528:2, C1:0536:2, C1:0644:2, C1:0772:2, C1:078B:2, C1:DC1C:2, C1:DD3B:1, C1:DD47:2, C2:2F38:1, C2:4821:1, C2:488C:1, C2:48E0:1, C2:492D:32, C2:4949:33, C2:4958:1, C2:4A00:1, C2:4A2D:2, C2:4CEF:1, C2:4EEC:1, C2:4EF6:1, C2:4F03:1, C2:4F52:1, C2:4FCF:1, C2:5024:1, C2:5619:1, C2:5AFB:1, C2:5C30:1, C2:6081:1, C2:E8E0:1, C2:E9C8:73, C3:E4EF:2, C3:E4FE:2, C3:E51F:2 |
 | `pp-reduction-target-pp32` | `False` | `1..233` | C2:7191:2, C2:721D:1, C2:8E42:1 |
 | `psi-magnet-target-pp32` | `False` | `1..289` | C2:7191:3, C2:721D:1, C2:9F5E:1 |
-| `save2-target-select-mash-a-2000` | `False` | `1..1` | C2:7191:1 |
-| `save8-paula-freeze-neutral-2200` | `False` | `98..98` | C2:7191:1 |
+| `stonehenge-mook-paula-psi-magnet-slot1` | `False` | `151..871` | C1:04EE:1, C1:0528:1, C1:0536:1, C1:0644:1, C1:0772:1, C1:078B:1, C1:DD3B:5, C1:DD47:1, C2:4FCF:1, C2:5024:1, C2:5619:5, C2:5AFB:4, C2:5C30:4, C2:5C8C:160, C2:5D2B:8, C2:5D3D:8, C2:6081:5, C2:6088:1, C2:7191:3, C2:721D:1, C2:9F5E:1, C2:9FE1:1, C3:E4EF:1, C3:E4FE:1, C3:E51F:1 |
 
 ## Route-Hint Fixture Hits
 

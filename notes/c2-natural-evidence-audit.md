@@ -7,8 +7,8 @@ not promote source semantics by itself.
 ## Summary
 
 - mechanisms audited: `12`
-- natural proof candidates: `8`
-- natural captures needing fields/review: `2`
+- natural proof candidates: `9`
+- natural captures needing fields/review: `1`
 - runtime-steered setups needed: `1`
 - fixture-only navigation lanes: `1`
 - not yet observed: `0`
@@ -27,7 +27,7 @@ not promote source semantics by itself.
 | `item_effect` | `natural_proof_candidate` | `2` | `2` | `0` | Use Large Pizza natural save to join item action, HP amount, and text payload. |
 | `multi_target_heal` | `natural_proof_candidate` | `1` | `1` | `3` | Review Large Pizza party-row HP snapshots separately from collapse proof. |
 | `target_action_staging` | `natural_capture_fields_missing` | `8` | `8` | `16` | Upgrade target/action staging with export-field capture; do not require new saves first. |
-| `pp_transfer` | `natural_capture_fields_missing` | `0` | `2` | `9` | Use SRM anchors or runtime steering to create a nonzero-PP PSI Magnet setup. |
+| `pp_transfer` | `natural_proof_candidate` | `1` | `1` | `10` | Review Stonehenge Mook PSI Magnet capture: target PP loss and capped caster recovery are natural; visible non-full caster gain is optional follow-up. |
 | `pp_loss_only` | `runtime_steered_needed` | `0` | `0` | `13` | Use Guardian General/late-game SRM anchor with explicit evidence tier labeling. |
 | `flash_status_gate` | `fixture_only_navigation` | `0` | `0` | `1` | Find or steer a natural C2:98A1 gate run; current C2:9917 route is forced-fixture only. |
 | `battle_text_amount_substitution` | `natural_proof_candidate` | `3` | `4` | `0` | Review fallback C2:8125 C1 amount-payload joins; keep dedicated battle_text_payload_join oracle unresolved. |

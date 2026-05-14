@@ -16,12 +16,12 @@
     "mechanism_count": 12,
     "status_counts": {
       "fixture_only_navigation": 1,
-      "natural_capture_fields_missing": 2,
-      "natural_proof_candidate": 8,
+      "natural_capture_fields_missing": 1,
+      "natural_proof_candidate": 9,
       "runtime_steered_needed": 1
     },
-    "natural_proof_candidate_count": 8,
-    "natural_capture_fields_missing_count": 2,
+    "natural_proof_candidate_count": 9,
+    "natural_capture_fields_missing_count": 1,
     "runtime_steered_needed_count": 1,
     "fixture_only_navigation_count": 1,
     "not_yet_observed_count": 0,
@@ -1515,7 +1515,7 @@
     {
       "mechanism_id": "pp_transfer",
       "title": "PP transfer",
-      "status": "natural_capture_fields_missing",
+      "status": "natural_proof_candidate",
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "fallback_oracle_id": null,
       "required_hits": [
@@ -1524,53 +1524,104 @@
       ],
       "required_post_call_snapshots": [],
       "required_watch_snapshots": [],
-      "natural_candidate_count": 0,
-      "natural_partial_count": 2,
-      "steered_candidate_count": 9,
+      "natural_candidate_count": 1,
+      "natural_partial_count": 1,
+      "steered_candidate_count": 10,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
-      "next_action": "Use SRM anchors or runtime steering to create a nonzero-PP PSI Magnet setup.",
-      "best_natural_records": [],
+      "next_action": "Review Stonehenge Mook PSI Magnet capture: target PP loss and capped caster recovery are natural; visible non-full caster gain is optional follow-up.",
+      "best_natural_records": [
+        {
+          "fixture_id": "stonehenge-mook-paula-psi-magnet-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:04EE",
+            "C1:0528",
+            "C1:0536",
+            "C1:0644",
+            "C1:0772",
+            "C1:078B",
+            "C1:DD3B",
+            "C1:DD47",
+            "C2:4FCF",
+            "C2:5024",
+            "C2:5619",
+            "C2:5AFB",
+            "C2:5C30",
+            "C2:5C8C",
+            "C2:5D2B",
+            "C2:5D3D",
+            "C2:6081",
+            "C2:6088",
+            "C2:7191",
+            "C2:721D",
+            "C2:9F5E",
+            "C2:9FE1",
+            "C3:E4EF",
+            "C3:E4FE",
+            "C3:E51F"
+          ],
+          "post_call_snapshot_counts": {
+            "C2:7191": 3,
+            "C2:721D": 1
+          },
+          "watch_snapshot_counts": {},
+          "first_frame": 151,
+          "last_frame": 871,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "4813ce68b1af8dfcd37c7c35f282aa0271a6b8ed8265d6732245461ad8a8ee7d"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/stonehenge-mook-paula-psi-magnet-slot1/resource-neutral/raw-trace-summary.json"
+        }
+      ],
       "partial_natural_records": [
         {
-          "fixture_id": "save2-target-select-mash-a-2000",
+          "fixture_id": "stonehenge-mook-paula-psi-magnet-slot1",
           "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
           "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
-            "C2:7191"
+            "C1:04EE",
+            "C1:0528",
+            "C1:0536",
+            "C1:0644",
+            "C1:0772",
+            "C1:078B",
+            "C1:DD3B",
+            "C1:DD47",
+            "C2:4FCF",
+            "C2:5024",
+            "C2:5619",
+            "C2:5AFB",
+            "C2:5C30",
+            "C2:5C8C",
+            "C2:5D2B",
+            "C2:5D3D",
+            "C2:6081",
+            "C2:6088",
+            "C2:7191",
+            "C2:721D",
+            "C2:9F5E",
+            "C2:9FE1",
+            "C3:E4EF",
+            "C3:E4FE",
+            "C3:E51F"
           ],
           "post_call_snapshot_counts": {
-            "C2:7191": 1
+            "C2:7191": 3,
+            "C2:721D": 1
           },
           "watch_snapshot_counts": {},
-          "first_frame": 1,
-          "last_frame": 1,
+          "first_frame": 151,
+          "last_frame": 871,
           "save_state": {
-            "basename": "EarthBound (USA)_2.mss",
-            "sha256": "5aec7c75f902b606bc3a24943f62702ef11cd3785df50871fb52cb22040771df"
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "4813ce68b1af8dfcd37c7c35f282aa0271a6b8ed8265d6732245461ad8a8ee7d"
           },
-          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/save2-target-select-mash-a-2000/raw-trace-summary.json"
-        },
-        {
-          "fixture_id": "save8-paula-freeze-neutral-2200",
-          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
-          "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
-          "minimum_hits_satisfied": false,
-          "observed_addresses": [
-            "C2:7191"
-          ],
-          "post_call_snapshot_counts": {
-            "C2:7191": 1
-          },
-          "watch_snapshot_counts": {},
-          "first_frame": 98,
-          "last_frame": 98,
-          "save_state": {
-            "basename": "EarthBound (USA)_8.mss",
-            "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
-          },
-          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/save8-paula-freeze-neutral-2200/raw-trace-summary.json"
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/stonehenge-mook-paula-psi-magnet-slot1/resource-neutral/raw-trace-summary.json"
         }
       ],
       "steered_records": [

@@ -97,3 +97,15 @@ Magnet promotion because the target PP was seeded by the runner.
 
 The generated comparison note is
 `notes/c2-resource-amount-controlled-comparison.md`.
+
+Natural vanilla evidence now covers the amount-bearing target-loss half of the
+same contract. The Stonehenge Base Mook save-state capture
+`stonehenge-mook-paula-psi-magnet-slot1/resource-neutral` observes Paula's
+queued PSI Magnet with no input after load. The route hits
+`C2:9F5E -> C2:721D -> C2:7191`, carries amount payload `6`, and reduces the
+selected Mook PP target from `0x02BC` to `0x02B6`. The same run calls
+`C2:7191` for Paula with requested PP target `0x00D9`, but Paula's PP is
+already capped at `0x00D3`, so the visible caster-side delta is `0`. This is
+enough to treat natural PSI Magnet as proven for nonzero target PP loss and
+capped caster recovery routing; a non-full caster save remains useful only to
+show a visible positive caster PP delta.
