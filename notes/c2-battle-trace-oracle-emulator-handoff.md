@@ -9,7 +9,7 @@ emulator, and it does not prove behavior by itself.
 ## Summary
 
 - handoff jobs: `6`
-- breakpoints: `94`
+- breakpoints: `136`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
 
@@ -133,6 +133,7 @@ emulator, and it does not prove behavior by itself.
 - save state: `<local-only save state path>`
 - stop condition: minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl
 - minimum hits: `['C2:8E42', 'C2:9F5E']`
+- route groups: `['scripted_entry_startup']`
 - watch ranges: `['source_target_pp_rows']`
 - extra trace fields: `['source and target PP +0x17/+0x19/+0x1B before/after', 'random amount roll and cap amount', '$12/$14 text payload pointer', 'transfer versus loss-only classification']`
 - raw trace: `build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/raw-trace.jsonl`

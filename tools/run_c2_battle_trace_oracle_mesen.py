@@ -87,6 +87,15 @@ WRAM_PATCH_PROFILES: dict[str, list[str]] = {
         "0xA061:20 00 20 00",
         "0xA283:00 00 20 00",
     ],
+    "resource-party-target-pp32": [
+        "0xA283:20 00 20 00",
+    ],
+    "resource-selected-party-a21c-pp32": [
+        "0xA235:20 00 20 00",
+    ],
+    "resource-selected-row-9fac-pp32": [
+        "0x9FC5:20 00 20 00",
+    ],
 }
 WRAM_PATCH_PROFILES["scripted-entry-party-window-reset"] = (
     WRAM_PATCH_PROFILES["scripted-entry-party"]
@@ -123,6 +132,18 @@ def parse_args() -> argparse.Namespace:
             "Named WRAM patch profile. May repeat. Use scripted-entry-party-window-reset "
             "with --wram-patch-timing first-breakpoint for cold-boot scripted battle fixtures."
         ),
+    )
+    parser.add_argument(
+        "--wram-patch-on-hit",
+        action="append",
+        default=[],
+        help="Optional one-shot WRAM patch applied when a breakpoint label is hit, in LABEL=address:hex-bytes form.",
+    )
+    parser.add_argument(
+        "--wram-patch-profile-on-hit",
+        action="append",
+        default=[],
+        help="Optional one-shot named WRAM patch profile applied when a breakpoint label is hit, in LABEL=profile-id form.",
     )
     parser.add_argument(
         "--wram-patch-timing",
@@ -382,6 +403,22 @@ def profile_wram_patches(profile_ids: list[str]) -> list[str]:
     return patches
 
 
+def on_hit_profile_wram_patches(specs: list[str]) -> list[str]:
+    patches: list[str] = []
+    for spec in specs:
+        if "=" not in spec:
+            raise ValueError(f"--wram-patch-profile-on-hit must be LABEL=profile-id: {spec}")
+        label, profile_id = spec.split("=", 1)
+        label = label.strip()
+        profile_id = profile_id.strip()
+        if not label or not profile_id:
+            raise ValueError(f"--wram-patch-profile-on-hit must be LABEL=profile-id: {spec}")
+        if profile_id not in WRAM_PATCH_PROFILES:
+            raise ValueError(f"unknown WRAM patch profile for on-hit patch: {profile_id}")
+        patches.extend(f"{label}={patch}" for patch in WRAM_PATCH_PROFILES[profile_id])
+    return patches
+
+
 def main() -> int:
     args = parse_args()
     fixtures_path = Path(args.fixtures)
@@ -447,6 +484,11 @@ def main() -> int:
     if wram_patches:
         env["C2_ORACLE_WRAM_PATCHES"] = ";".join(wram_patches)
         env["C2_ORACLE_WRAM_PATCH_TIMING"] = wram_patch_timing.replace("-", "_")
+    wram_patches_on_hit = on_hit_profile_wram_patches(args.wram_patch_profile_on_hit) + [
+        normalize_wram_patch(item) if "=" not in item else item for item in args.wram_patch_on_hit
+    ]
+    if wram_patches_on_hit:
+        env["C2_ORACLE_WRAM_PATCHES_ON_HIT"] = ";".join(wram_patches_on_hit)
     if state is not None:
         env["C2_ORACLE_STATE_PATH"] = str(state)
 
@@ -465,6 +507,8 @@ def main() -> int:
         "input_pattern": input_pattern,
         "wram_patches": wram_patches,
         "wram_patch_profiles": fixture_wram_profiles + args.wram_patch_profile,
+        "wram_patches_on_hit": wram_patches_on_hit,
+        "wram_patch_profiles_on_hit": args.wram_patch_profile_on_hit,
         "wram_patch_timing": wram_patch_timing if wram_patches else None,
         "raw_trace_summary_path": str(output_dir / "raw-trace-summary.json"),
         "lua_skeleton": manifest_path(lua_path),

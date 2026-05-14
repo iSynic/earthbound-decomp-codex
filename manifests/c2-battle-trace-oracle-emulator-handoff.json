@@ -29,7 +29,7 @@
   "summary": {
     "handoff_job_count": 6,
     "minimum_breakpoint_count": 12,
-    "breakpoint_count": 94,
+    "breakpoint_count": 136,
     "source_promotion_allowed": false,
     "behavior_change_allowed": false
   },
@@ -1352,7 +1352,108 @@
         "C2:8E42",
         "C2:9F5E"
       ],
-      "route_groups": {},
+      "route_groups": {
+        "scripted_entry_startup": {
+          "addresses": [
+            "C0:B9B4",
+            "C2:2F38",
+            "C2:E8E0",
+            "C2:E9C8",
+            "C0:52AA",
+            "C2:4821",
+            "C2:488C",
+            "C2:48E0",
+            "C2:492D",
+            "C2:4949",
+            "C2:4958",
+            "C2:4A00",
+            "C2:4A2D",
+            "C2:4CEF",
+            "C2:4EEC",
+            "C2:4EF6",
+            "C2:4F03",
+            "C2:4F52",
+            "C2:4FCF",
+            "C2:5024",
+            "C2:5619",
+            "C2:5AFB",
+            "C2:5C30",
+            "C2:5C8C",
+            "C2:5D2B",
+            "C2:5D3D",
+            "C2:6081",
+            "C2:6088",
+            "C1:DD3B",
+            "C1:DD47",
+            "C1:04EE",
+            "C1:0528",
+            "C1:0536",
+            "C1:0644",
+            "C1:0772",
+            "C1:078B",
+            "C1:DC1C",
+            "C3:E4EF",
+            "C3:E4FE",
+            "C3:E512",
+            "C3:E51F",
+            "C0:1EDE"
+          ],
+          "role": "fixture-ROM autostart provenance for no-save resource-action scripted battle runs",
+          "status": "reachability_hint_only",
+          "next_probe_goal": "Use only to smoke-test resource fixture ROMs that hook C0:B9B4 into C2:2F38; these startup hits enable delayed WRAM seeding but do not replace C2:9F5E/C2:8E42 minimums.",
+          "probe_breakpoint_hints": [
+            "C0:B9B4",
+            "C2:2F38",
+            "C2:E8E0",
+            "C2:E9C8",
+            "C0:52AA",
+            "C2:4821",
+            "C2:488C",
+            "C2:48E0",
+            "C2:492D",
+            "C2:4949",
+            "C2:4958",
+            "C2:4A00",
+            "C2:4A2D",
+            "C2:4CEF",
+            "C2:4EEC",
+            "C2:4EF6",
+            "C2:4F03",
+            "C2:4F52",
+            "C2:4FCF",
+            "C2:5024",
+            "C2:5619",
+            "C2:5AFB",
+            "C2:5C30",
+            "C2:5C8C",
+            "C2:5D2B",
+            "C2:5D3D",
+            "C2:6081",
+            "C2:6088",
+            "C1:DD3B",
+            "C1:DD47",
+            "C1:04EE",
+            "C1:0528",
+            "C1:0536",
+            "C1:0644",
+            "C1:0772",
+            "C1:078B",
+            "C1:DC1C",
+            "C3:E4EF",
+            "C3:E4FE",
+            "C3:E512",
+            "C3:E51F",
+            "C0:1EDE"
+          ],
+          "watch_hints": [
+            "$986F GAME_STATE party_members",
+            "$99CE live party rows",
+            "$9FAC battler rows",
+            "$A970/$A972 active attacker/target row pointers",
+            "$88E0/$8958 window state used by cold-boot battle entry"
+          ]
+        }
+      },
       "breakpoints": [
         {
           "address": "C2:8E42",
@@ -1392,6 +1493,258 @@
         },
         {
           "address": "C2:B360",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C0:B9B4",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:2F38",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:E8E0",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:E9C8",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C0:52AA",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:4821",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:488C",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:48E0",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:492D",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:4949",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:4958",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:4A00",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:4A2D",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:4CEF",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:4EEC",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:4EF6",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:4F03",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:4F52",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:4FCF",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:5024",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:5619",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:5AFB",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:5C30",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:5C8C",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:5D2B",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:5D3D",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:6081",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C2:6088",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:DD3B",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:DD47",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:04EE",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:0528",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:0536",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:0644",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:0772",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:078B",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C1:DC1C",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C3:E4EF",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C3:E4FE",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C3:E512",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C3:E51F",
+          "address_space": "snes_cpu_bus",
+          "hit_policy": "capture_registers_dp_wram_then_continue",
+          "required_for_minimum_capture": false
+        },
+        {
+          "address": "C0:1EDE",
           "address_space": "snes_cpu_bus",
           "hit_policy": "capture_registers_dp_wram_then_continue",
           "required_for_minimum_capture": false

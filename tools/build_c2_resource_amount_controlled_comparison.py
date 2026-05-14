@@ -42,6 +42,30 @@ DEFAULT_INPUTS = {
     / "resource-action-steered-no-wram"
     / "pp-reduction-state1"
     / "captured-fields.json",
+    "gigantic_ant_forced_magnet_scripted_entry": ROOT
+    / "build"
+    / "c2"
+    / "battle-trace-oracles"
+    / "manual-probes"
+    / "resource-natural-scripted-entry"
+    / "gigantic-ant-force-magnet-onhit-9fac-pp32"
+    / "captured-fields.json",
+    "guardian_general_forced_pp_reduction_scripted_entry": ROOT
+    / "build"
+    / "c2"
+    / "battle-trace-oracles"
+    / "manual-probes"
+    / "resource-natural-scripted-entry"
+    / "guardian-general-force-pp-reduction-onhit-9fac-pp32"
+    / "captured-fields.json",
+}
+EVIDENCE_TIERS = {
+    "psi_magnet_transfer_controlled": "wram_seeded_controlled",
+    "pp_reduction_loss_only_controlled": "wram_seeded_controlled",
+    "psi_magnet_action_steered_no_wram": "action_row_steered_no_wram",
+    "pp_reduction_action_steered_no_wram": "action_row_steered_no_wram",
+    "gigantic_ant_forced_magnet_scripted_entry": "scripted_entry_enemy_action_forced",
+    "guardian_general_forced_pp_reduction_scripted_entry": "scripted_entry_enemy_action_forced",
 }
 DEFAULT_MANIFEST = ROOT / "manifests" / "c2-resource-amount-controlled-comparison.json"
 DEFAULT_NOTE = ROOT / "notes" / "c2-resource-amount-controlled-comparison.md"
@@ -86,7 +110,7 @@ def build_lane(lane_id: str, path: Path) -> dict[str, Any]:
         "lane_id": lane_id,
         "capture_path": repo_path(path),
         "status": status,
-        "evidence_tier": "action_row_steered_no_wram" if lane_id.endswith("_no_wram") else "wram_seeded_controlled",
+        "evidence_tier": EVIDENCE_TIERS.get(lane_id, "wram_seeded_controlled"),
         "source_promotion_allowed": False,
         "behavior_change_allowed": False,
         "natural_vanilla_amount_proven": False,
@@ -121,6 +145,7 @@ def build_lane(lane_id: str, path: Path) -> dict[str, Any]:
 def summarize(lanes: list[dict[str, Any]]) -> dict[str, Any]:
     loaded = [lane for lane in lanes if lane["status"] == "capture_loaded"]
     no_wram = [lane for lane in loaded if lane.get("evidence_tier") == "action_row_steered_no_wram"]
+    scripted = [lane for lane in loaded if lane.get("evidence_tier") == "scripted_entry_enemy_action_forced"]
     magnet = next((lane for lane in lanes if lane["lane_id"] == "psi_magnet_transfer_controlled"), {})
     reduction = next((lane for lane in lanes if lane["lane_id"] == "pp_reduction_loss_only_controlled"), {})
     magnet_no_wram = next((lane for lane in lanes if lane["lane_id"] == "psi_magnet_action_steered_no_wram"), {})
@@ -130,6 +155,7 @@ def summarize(lanes: list[dict[str, Any]]) -> dict[str, Any]:
         "loaded_capture_count": len(loaded),
         "controlled_comparison_complete": len(loaded) == len(lanes),
         "action_steered_no_wram_capture_count": len(no_wram),
+        "scripted_entry_enemy_action_capture_count": len(scripted),
         "magnet_target_pp_delta": magnet.get("target_pp_delta"),
         "magnet_active_pp_delta": magnet.get("active_pp_delta"),
         "pp_reduction_target_pp_delta": reduction.get("target_pp_delta"),
@@ -158,6 +184,7 @@ def render_note(manifest: dict[str, Any]) -> str:
             f"- controlled comparison complete: `{summary['controlled_comparison_complete']}`",
             f"- loaded captures: `{summary['loaded_capture_count']}` / `{summary['lane_count']}`",
             f"- action-row-steered no-WRAM captures: `{summary['action_steered_no_wram_capture_count']}`",
+            f"- scripted-entry enemy-action captures: `{summary['scripted_entry_enemy_action_capture_count']}`",
             f"- natural vanilla amount proven: `{summary['natural_vanilla_amount_proven']}`",
             f"- source promotion allowed: `{summary['source_promotion_allowed']}`",
             f"- behavior change allowed: `{summary['behavior_change_allowed']}`",
@@ -185,7 +212,8 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- PSI Magnet controlled capture shows transfer-style mechanics: target PP decreases and active battler PP increases by the same amount.",
             "- PP reduction controlled capture shows loss-only mechanics: target PP decreases while active battler PP remains unchanged.",
             "- The no-WRAM captures are cleaner amount evidence than the WRAM-seeded probes: the selected target already had PP in save 1, and the fixture-steered actions reduced that row by `5` and `9` PP respectively.",
-            "- All captures still rely on fixture action steering, so the natural proof lane remains open for real PSI Magnet and PP-reduction enemies.",
+            "- The scripted-entry enemy-action captures keep canonical enemy/action rows in play: Gigantic Ant reaches row `54` / `C2:9F5E`, and Guardian General reaches row `95` / `C2:8E42 -> C2:721D`; both still rely on generated fixture ROMs and targeted WRAM seeding.",
+            "- All captures still rely on fixture action steering or local WRAM seeding, so the natural proof lane remains open for real PSI Magnet and PP-reduction enemies.",
             "",
             "## Next Natural Proof Targets",
             "",

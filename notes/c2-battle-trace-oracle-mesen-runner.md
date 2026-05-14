@@ -268,6 +268,19 @@ Run the no-save scripted-entry fixture with the named delayed WRAM seed profile:
 python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c2_40a4_current_action_payload --rom build\c2\fixture-roms\scripted-entry-group0-force-enemy-action\EarthBound-USA-scripted-entry-group0-force-enemy-action.sfc --input-pattern neutral:240,a:4,neutral:36,a:4 --frame-limit 24000 --summarize-trace --wram-patch-timing first-breakpoint --wram-patch-profile scripted-entry-party-window-reset
 ```
 
+Resource scripted-entry probes can combine early startup seeding with an
+entry-specific PP seed. `--wram-patch-profile-on-hit LABEL=profile` applies the
+named profile once, immediately before that breakpoint is captured:
+
+```powershell
+python tools\build_c2_fixture_roms.py --scenario scripted-entry-gigantic-ant-natural-magnet --scenario scripted-entry-guardian-general-natural-pp-reduction --scenario scripted-entry-gigantic-ant-force-magnet-action --scenario scripted-entry-guardian-general-force-pp-reduction
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id resource_amount_pair_magnet_vs_pp_loss --rom build\c2\fixture-roms\scripted-entry-guardian-general-force-pp-reduction\EarthBound-USA-scripted-entry-guardian-general-force-pp-reduction.sfc --input-pattern neutral:240,a:4,neutral:36,a:4,neutral:36,a:4,neutral:12000 --frame-limit 16000 --summarize-trace --output-dir build\c2\battle-trace-oracles\manual-probes\resource-natural-scripted-entry\guardian-general-force-pp-reduction-onhit-9fac-pp32 --wram-patch-timing first-breakpoint --wram-patch-profile scripted-entry-party-window-reset --wram-patch-profile-on-hit C2:8E42=resource-selected-row-9fac-pp32
+```
+
+These scripted-entry resource probes are still fixture evidence: the natural
+enemy/action rows are useful navigation, but generated ROM entry and targeted
+WRAM PP seeding keep them below proof-grade promotion.
+
 Validate the ignored run summary:
 
 ```powershell

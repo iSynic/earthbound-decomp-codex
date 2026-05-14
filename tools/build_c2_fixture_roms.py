@@ -61,10 +61,22 @@ BATTLE_ACTION_FIELD_OFFSETS = {
 ACTION_NEUTRALIZE_ALL = 248
 ACTION_DREAD_SKELPION_POISON = 72
 ACTION_ROW_BASH = 4
+ACTION_ROW_PSI_MAGNET = 54
+ACTION_ROW_PP_REDUCTION = 95
 ACTION_POINTER_BATTLER_NORMALIZATION = (0xC2, 0x90C6)
 ACTION_POINTER_PSI_FLASH_BETA = (0xC2, 0x99AE)
 ACTION_POINTER_PSI_MAGNET_PP_DRAIN = (0xC2, 0x9F5E)
 ACTION_POINTER_PP_REDUCTION = (0xC2, 0x8E42)
+AUTOSTART_INIT_BATTLE_SCRIPTED_GROUP0 = (
+    0xA9,
+    0x00,
+    0x00,
+    0x22,
+    0x38,
+    0x2F,
+    0xC2,
+    0x60,
+)
 
 
 @dataclass(frozen=True)
@@ -307,6 +319,176 @@ SCENARIOS: dict[str, Scenario] = {
             "If the selected target has zero current PP or zero max-PP range, the result remains a route-only probe.",
         ),
     ),
+    "scripted-entry-gigantic-ant-natural-magnet": Scenario(
+        id="scripted-entry-gigantic-ant-natural-magnet",
+        title="Scripted battle group 0 autostarts natural Gigantic Ant action set",
+        purpose=(
+            "Patch the post-init C0:B9B4 GAME_INIT tail to call C2:2F38 "
+            "with A=0, patch group-0 scripted battle payload to contain one "
+            "Gigantic Ant enemy row, and otherwise preserve that row's vanilla "
+            "action table. Gigantic Ant naturally has action row 54 in slot 1, "
+            "which reaches C2:9F5E when selected by the normal battle action "
+            "picker."
+        ),
+        patches=(
+            {
+                "raw_cpu_patch": "C0:B9B4",
+                "bytes": AUTOSTART_INIT_BATTLE_SCRIPTED_GROUP0,
+                "field": "autostart_init_battle_scripted_group0",
+            },
+            {
+                "scripted_battle_group_payload": "D0:D52D",
+                "entries": (
+                    {
+                        "enemy_row": 38,
+                        "repeat_count": 1,
+                    },
+                ),
+                "field": "group0_enemy_list_payload",
+            },
+        ),
+        expected_probe=(
+            "Booting the fixture ROM should enter a scripted battle against "
+            "Gigantic Ant. A normal enemy action choice that selects action "
+            "slot 1 should route through battle action row 54 and reach C2:9F5E."
+        ),
+        caveats=(
+            "This is autonomous fixture evidence, not a natural overworld encounter.",
+            "The enemy row action fields are not changed, so repeated runs may be needed for the action picker to select row 54.",
+            "If the cold-boot party row has no PP, C2:9F5E may prove route entry without reaching C2:721D.",
+        ),
+    ),
+    "scripted-entry-guardian-general-natural-pp-reduction": Scenario(
+        id="scripted-entry-guardian-general-natural-pp-reduction",
+        title="Scripted battle group 0 autostarts natural Guardian General action set",
+        purpose=(
+            "Patch the post-init C0:B9B4 GAME_INIT tail to call C2:2F38 "
+            "with A=0, patch group-0 scripted battle payload to contain one "
+            "Guardian General enemy row, and otherwise preserve that row's "
+            "vanilla action table. Guardian General naturally has action row "
+            "95 in slot 2, which reaches C2:8E42 when selected by the normal "
+            "battle action picker."
+        ),
+        patches=(
+            {
+                "raw_cpu_patch": "C0:B9B4",
+                "bytes": AUTOSTART_INIT_BATTLE_SCRIPTED_GROUP0,
+                "field": "autostart_init_battle_scripted_group0",
+            },
+            {
+                "scripted_battle_group_payload": "D0:D52D",
+                "entries": (
+                    {
+                        "enemy_row": 73,
+                        "repeat_count": 1,
+                    },
+                ),
+                "field": "group0_enemy_list_payload",
+            },
+        ),
+        expected_probe=(
+            "Booting the fixture ROM should enter a scripted battle against "
+            "Guardian General. A normal enemy action choice that selects action "
+            "slot 2 should route through battle action row 95 and reach C2:8E42."
+        ),
+        caveats=(
+            "This is autonomous fixture evidence, not a natural overworld encounter.",
+            "The enemy row action fields are not changed, so repeated runs may be needed for the action picker to select row 95.",
+            "If the cold-boot party row has no PP, C2:8E42 may prove route entry without reaching C2:721D.",
+        ),
+    ),
+    "scripted-entry-gigantic-ant-force-magnet-action": Scenario(
+        id="scripted-entry-gigantic-ant-force-magnet-action",
+        title="Scripted battle group 0 autostarts Gigantic Ant forced PSI Magnet action",
+        purpose=(
+            "Patch the post-init C0:B9B4 GAME_INIT tail to call C2:2F38 "
+            "with A=0, patch group-0 scripted battle payload to contain one "
+            "Gigantic Ant enemy row, and replicate Gigantic Ant's vanilla "
+            "PSI Magnet action row 54 across its normal action slots. This "
+            "keeps the action row and enemy source canonical while making "
+            "the autonomous C2:9F5E resource trace deterministic."
+        ),
+        patches=(
+            {
+                "raw_cpu_patch": "C0:B9B4",
+                "bytes": AUTOSTART_INIT_BATTLE_SCRIPTED_GROUP0,
+                "field": "autostart_init_battle_scripted_group0",
+            },
+            {
+                "scripted_battle_group_payload": "D0:D52D",
+                "entries": (
+                    {
+                        "enemy_row": 38,
+                        "repeat_count": 1,
+                    },
+                ),
+                "field": "group0_enemy_list_payload",
+            },
+            {
+                "enemy_rows": (38,),
+                "speed": 255,
+                "normal_actions": (ACTION_ROW_PSI_MAGNET,) * 4,
+                "normal_arguments": (45, 45, 45, 45),
+                "action_order": 0,
+            },
+        ),
+        expected_probe=(
+            "Booting the fixture ROM should enter a scripted battle against "
+            "Gigantic Ant, then the enemy turn should deterministically use "
+            "battle action row 54 and reach C2:9F5E."
+        ),
+        caveats=(
+            "This is autonomous fixture evidence, not a natural overworld encounter.",
+            "The resource action row is vanilla, but action choice is forced by replicating row 54 across normal slots.",
+            "Use with a local WRAM party-PP seed profile if the cold-boot party row has no PP.",
+        ),
+    ),
+    "scripted-entry-guardian-general-force-pp-reduction": Scenario(
+        id="scripted-entry-guardian-general-force-pp-reduction",
+        title="Scripted battle group 0 autostarts Guardian General forced PP reduction action",
+        purpose=(
+            "Patch the post-init C0:B9B4 GAME_INIT tail to call C2:2F38 "
+            "with A=0, patch group-0 scripted battle payload to contain one "
+            "Guardian General enemy row, and replicate Guardian General's "
+            "vanilla PP-reduction action row 95 across its normal action "
+            "slots. This keeps the action row and enemy source canonical "
+            "while making the autonomous C2:8E42 resource trace deterministic."
+        ),
+        patches=(
+            {
+                "raw_cpu_patch": "C0:B9B4",
+                "bytes": AUTOSTART_INIT_BATTLE_SCRIPTED_GROUP0,
+                "field": "autostart_init_battle_scripted_group0",
+            },
+            {
+                "scripted_battle_group_payload": "D0:D52D",
+                "entries": (
+                    {
+                        "enemy_row": 73,
+                        "repeat_count": 1,
+                    },
+                ),
+                "field": "group0_enemy_list_payload",
+            },
+            {
+                "enemy_rows": (73,),
+                "speed": 255,
+                "normal_actions": (ACTION_ROW_PP_REDUCTION,) * 4,
+                "normal_arguments": (0, 0, 0, 0),
+                "action_order": 0,
+            },
+        ),
+        expected_probe=(
+            "Booting the fixture ROM should enter a scripted battle against "
+            "Guardian General, then the enemy turn should deterministically "
+            "use battle action row 95 and reach C2:8E42."
+        ),
+        caveats=(
+            "This is autonomous fixture evidence, not a natural overworld encounter.",
+            "The resource action row is vanilla, but action choice is forced by replicating row 95 across normal slots.",
+            "Use with a local WRAM party-PP seed profile if the cold-boot party row has no PP.",
+        ),
+    ),
     "runaway-dog-final-neutralize-c240a4": Scenario(
         id="runaway-dog-final-neutralize-c240a4",
         title="Runaway Dog KO final action forces Neutralize/all C2:40A4 lane",
@@ -370,16 +552,7 @@ SCENARIOS: dict[str, Scenario] = {
         patches=(
             {
                 "raw_cpu_patch": "C0:B9B4",
-                "bytes": (
-                    0xA9,
-                    0x00,
-                    0x00,
-                    0x22,
-                    0x38,
-                    0x2F,
-                    0xC2,
-                    0x60,
-                ),
+                "bytes": AUTOSTART_INIT_BATTLE_SCRIPTED_GROUP0,
                 "field": "autostart_init_battle_scripted_group0",
             },
             {
