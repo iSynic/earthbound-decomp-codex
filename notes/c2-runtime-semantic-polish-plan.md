@@ -961,6 +961,15 @@ contract notes for C0/C1/C3/C4 consumers.
   path reaches `C2:941D`, `C2:8125`, `C2:7EAF`, HP/text display joins, and HP
   roller/collapse neighbors, but still does not reach `C2:40A4`; treat it as
   PSI damage evidence, not second-pointer wrapper proof.
+- 2026-05-13 one hundred and twenty-ninth slice: made C2 Mesen run summaries
+  persist the save-state SHA-256 at capture time. The manual probe matrix now
+  uses the stored hash instead of re-hashing live save slots, which keeps
+  replaced local fixtures from rewriting historical evidence provenance.
+- 2026-05-13 one hundred and thirtieth slice: added replaced-slot probes for
+  highest-level Healing on Paula, Dread Scorpion poison on Jeff, and Large
+  Pizza party recovery. Healing and Large Pizza add more `C2:8125` amount/text
+  evidence; Dread Scorpion reaches the `C2:724A` poison writer through
+  `C2:8B2C`, while the paired `C2:9917` status-gate minimum remains unobserved.
 
 ## Validation
 

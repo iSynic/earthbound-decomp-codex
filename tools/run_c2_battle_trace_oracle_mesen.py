@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import shutil
@@ -73,6 +74,16 @@ def load_json(path: Path) -> dict[str, Any]:
 def write_json(path: Path, data: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+
+def sha256(path: Path | None) -> str | None:
+    if path is None or not path.is_file():
+        return None
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def discover_mesen_path() -> str | None:
@@ -310,6 +321,7 @@ def main() -> int:
         "mesen_path": str(mesen),
         "rom_path": manifest_path(rom),
         "save_state_path_local_only": str(state) if state else None,
+        "save_state_sha256": sha256(state),
         "fixture_config": manifest_path(fixtures_path) if fixtures_path.exists() else None,
         "fixture_id": args.fixture_id,
         "input_pattern": input_pattern,

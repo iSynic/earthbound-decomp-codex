@@ -5,11 +5,11 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 ## Summary
 
-- probe roots found: `6` / `6`
-- probe records: `92`
+- probe roots found: `7` / `7`
+- probe records: `110`
 - oracles summarized: `6`
-- minimum-hit candidates: `9`
-- fixtures with route-hint hits: `11`
+- minimum-hit candidates: `11`
+- fixtures with route-hint hits: `14`
 - remaining route gaps: `2`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
@@ -18,12 +18,12 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 | Oracle | Status | Probes | Ready | Any-hit fixtures | Route-hint fixtures | Observed addresses | Route hints | Probe dispatch targets | Probe returns |
 | --- | --- | ---: | ---: | ---: | ---: | --- | --- | --- | --- |
-| `c1_c2_target_action_staging` | `partial-route-observed` | `27` | `0` | `27` | `0` | C1:ADB4:8, C1:CE85:10, C1:CFC6:6, C2:BAC5:27 | - | - | - |
-| `c2_40a4_current_action_payload` | `partial-route-observed` | `25` | `0` | `15` | `11` | C2:3D05:15 | C0:9279:11, C2:3E32:3, C2:416F:3, C2:4703:3, C2:77CA:4 | C1:C8BC:1, C2:859F:28, C2:8651:9, C2:8740:11, C2:9033:11, C2:9647:3 | C1:1AE2:1, C2:59F9:12, C2:5A1F:7, C2:5A4B:1, C2:5A4F:1, C2:5AFB:12, C2:5D3D:26, F3:1E64:3 |
-| `c2_724a_affliction_writer_matrix` | `probed-no-route` | `8` | `0` | `0` | `0` | - | - | - | - |
-| `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `12` | `7` | `7` | `0` | C1:0DF6:1, C1:7EED:1, C1:AD0A:1, C1:AD26:1, C1:DC1C:1, C1:DC66:1, C2:7550:1, C2:7EAF:7, C2:8125:7, C2:941D:2 | - | - | - |
-| `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `8` | `2` | `3` | `0` | C1:DC1C:3, C1:DC66:3, C2:7550:2, C2:77CA:2, C2:8125:3, C2:BB18:3 | - | - | - |
-| `resource_amount_pair_magnet_vs_pp_loss` | `probed-no-route` | `12` | `0` | `0` | `0` | - | - | - | - |
+| `c1_c2_target_action_staging` | `partial-route-observed` | `30` | `0` | `30` | `0` | C1:ADB4:8, C1:CE85:10, C1:CFC6:6, C2:BAC5:30 | - | - | - |
+| `c2_40a4_current_action_payload` | `partial-route-observed` | `28` | `0` | `18` | `14` | C2:3D05:18 | C0:9279:14, C2:3E32:6, C2:416F:5, C2:4703:6, C2:77CA:4 | C1:C8BC:1, C2:859F:36, C2:8651:9, C2:8740:13, C2:889B:10, C2:8B2C:3, C2:9033:11, C2:9647:3, C2:9C2C:3, C2:B27D:6 | C1:1AE2:1, C2:59F9:20, C2:5A1F:9, C2:5A4B:1, C2:5A4F:1, C2:5AFB:20, C2:5D3D:40, F3:1E64:3 |
+| `c2_724a_affliction_writer_matrix` | `partial-route-observed` | `11` | `0` | `1` | `0` | C2:724A:1 | - | - | - |
+| `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `15` | `9` | `10` | `0` | C1:0DF6:4, C1:7EED:4, C1:AD0A:4, C1:AD26:4, C1:DC1C:4, C1:DC66:4, C2:7550:1, C2:7EAF:9, C2:8125:9, C2:941D:2 | - | - | - |
+| `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `11` | `2` | `6` | `0` | C1:DC1C:6, C1:DC66:6, C2:7550:2, C2:77CA:2, C2:8125:5, C2:BB18:6 | - | - | - |
+| `resource_amount_pair_magnet_vs_pp_loss` | `probed-no-route` | `15` | `0` | `0` | `0` | - | - | - | - |
 
 ## Route Gap Queue
 
@@ -41,13 +41,16 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | --- | --- | --- | --- |
 | `01-command-menu` | `False` | `50..50` | C2:BAC5:1 |
 | `01-command-menu-mash-a` | `False` | `50..2538` | C2:BAC5:58 |
+| `01-ness-healing-paula-sunstroke` | `False` | `129..445` | C2:BAC5:19 |
 | `02-target-select` | `False` | `26..26` | C2:BAC5:1 |
 | `02-target-select-mash-a` | `False` | `26..2538` | C2:BAC5:58 |
 | `03-psi-menu` | `False` | `44..56` | C1:ADB4:1, C2:BAC5:1 |
 | `03-psi-menu-mash-a` | `False` | `44..2538` | C1:ADB4:1, C2:BAC5:59 |
+| `04-dread-scorpion-poison-jeff` | `False` | `67..277` | C2:BAC5:31 |
 | `04-goods-menu` | `False` | `26..29` | C1:ADB4:1, C1:CE85:1, C2:BAC5:1 |
 | `04-goods-menu-mash-a` | `False` | `26..2538` | C1:ADB4:1, C1:CE85:1, C2:BAC5:63 |
 | `05-before-damage` | `False` | `104..990` | C2:BAC5:37 |
+| `05-large-pizza-party-heal` | `False` | `133..572` | C2:BAC5:25 |
 | `06-paula-sunstroke` | `False` | `50..50` | C2:BAC5:1 |
 | `07-jeff-hp-rolling` | `False` | `117..415` | C2:BAC5:20 |
 | `08-paula-freeze-before-animation` | `False` | `10..965` | C2:BAC5:38 |
@@ -72,10 +75,13 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | Fixture | Ready | Frames | Hits |
 | --- | --- | --- | --- |
 | `01-command-menu-mash-a` | `False` | `196..2560` | C2:3D05:31 |
+| `01-ness-healing-paula-sunstroke` | `False` | `67..440` | C2:3D05:10 |
 | `02-target-select-mash-a` | `False` | `172..2560` | C2:3D05:31 |
 | `03-psi-menu-mash-a` | `False` | `196..2560` | C2:3D05:32 |
+| `04-dread-scorpion-poison-jeff` | `False` | `14..272` | C2:3D05:18 |
 | `04-goods-menu-mash-a` | `False` | `172..2560` | C2:3D05:34 |
 | `05-before-damage` | `False` | `29..985` | C2:3D05:22 |
+| `05-large-pizza-party-heal` | `False` | `75..567` | C2:3D05:13 |
 | `07-jeff-hp-rolling` | `False` | `41..410` | C2:3D05:10 |
 | `08-paula-freeze-before-animation` | `False` | `11..960` | C2:3D05:21 |
 | `save11-confirm-dispatch-target` | `False` | `9..2298` | C2:3D05:14 |
@@ -87,15 +93,24 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `save7-hp-rolling-dispatch-target` | `False` | `41..410` | C2:3D05:10 |
 | `save7-hp-rolling-enhanced` | `False` | `41..410` | C2:3D05:10 |
 
+### `c2_724a_affliction_writer_matrix`
+
+| Fixture | Ready | Frames | Hits |
+| --- | --- | --- | --- |
+| `04-dread-scorpion-poison-jeff` | `False` | `14..14` | C2:724A:1 |
+
 ### `c2_8125_damage_abi_boundary`
 
 | Fixture | Ready | Frames | Hits |
 | --- | --- | --- | --- |
 | `01-command-menu-mash-a` | `True` | `236..2560` | C2:7EAF:6, C2:8125:6 |
+| `01-ness-healing-paula-sunstroke` | `True` | `67..365` | C1:0DF6:2, C1:7EED:2, C1:AD0A:2, C1:AD26:2, C1:DC1C:1, C1:DC66:2, C2:7EAF:2, C2:8125:2 |
 | `02-target-select-mash-a` | `True` | `212..2560` | C2:7EAF:6, C2:8125:6 |
 | `03-psi-menu-mash-a` | `True` | `212..2560` | C2:7EAF:8, C2:8125:8, C2:941D:2 |
+| `04-dread-scorpion-poison-jeff` | `False` | `14..185` | C1:0DF6:1, C1:7EED:1, C1:AD0A:1, C1:AD26:1, C1:DC1C:1, C1:DC66:1 |
 | `04-goods-menu-mash-a` | `True` | `188..2560` | C2:7EAF:6, C2:8125:6 |
 | `05-before-damage` | `True` | `29..908` | C2:7EAF:5, C2:8125:5 |
+| `05-large-pizza-party-heal` | `True` | `75..492` | C1:0DF6:2, C1:7EED:2, C1:AD0A:2, C1:AD26:2, C1:DC1C:4, C1:DC66:2, C2:7EAF:1, C2:8125:1 |
 | `07-jeff-hp-rolling` | `True` | `41..333` | C2:7EAF:2, C2:8125:2 |
 | `08-paula-freeze-before-animation` | `True` | `13..891` | C1:0DF6:5, C1:7EED:5, C1:AD0A:5, C1:AD26:5, C1:DC1C:1, C1:DC66:5, C2:7550:1, C2:7EAF:4, C2:8125:4, C2:941D:1 |
 
@@ -103,7 +118,10 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 | Fixture | Ready | Frames | Hits |
 | --- | --- | --- | --- |
+| `01-ness-healing-paula-sunstroke` | `False` | `67..445` | C1:DC1C:1, C1:DC66:2, C2:8125:2, C2:BB18:13 |
+| `04-dread-scorpion-poison-jeff` | `False` | `14..277` | C1:DC1C:1, C1:DC66:1, C2:BB18:21 |
 | `05-earthbound-usa-5` | `False` | `29..990` | C1:DC1C:2, C1:DC66:6, C2:8125:5, C2:BB18:25 |
+| `05-large-pizza-party-heal` | `False` | `75..572` | C1:DC1C:4, C1:DC66:2, C2:8125:1, C2:BB18:16 |
 | `07-earthbound-usa-7` | `True` | `41..415` | C1:DC1C:1, C1:DC66:2, C2:7550:1, C2:77CA:1, C2:8125:2, C2:BB18:13 |
 | `08-paula-freeze-before-animation` | `True` | `10..964` | C1:DC1C:1, C1:DC66:5, C2:7550:1, C2:77CA:1, C2:8125:4, C2:BB18:25 |
 
@@ -113,6 +131,9 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 | Fixture | Frames | Probe hits | Route groups | Dispatch targets | Returns |
 | --- | --- | --- | --- | --- | --- |
+| `01-ness-healing-paula-sunstroke` | `67..440` | C0:9279:3, C2:3E32:2, C2:416F:1, C2:4703:2 | payload_applicator:8 | C2:859F:4, C2:8740:1, C2:9C2C:3 | C2:59F9:2, C2:5A1F:1, C2:5AFB:2, C2:5D3D:3 |
+| `04-dread-scorpion-poison-jeff` | `14..272` | C0:9279:5, C2:3E32:4, C2:4703:4 | payload_applicator:13 | C2:889B:10, C2:8B2C:3 | C2:59F9:4, C2:5AFB:4, C2:5D3D:5 |
+| `05-large-pizza-party-heal` | `75..567` | C0:9279:6, C2:3E32:2, C2:416F:1, C2:4703:2 | payload_applicator:11 | C2:859F:4, C2:8740:1, C2:B27D:6 | C2:59F9:2, C2:5A1F:1, C2:5AFB:2, C2:5D3D:6 |
 | `08-paula-freeze-before-animation` | `11..960` | C0:9279:5, C2:3E32:5, C2:416F:3, C2:4703:5, C2:77CA:1 | payload_applicator:19 | C2:859F:6, C2:8651:4, C2:8740:2, C2:9033:4, C2:9647:3 | C2:59F9:5, C2:5A1F:3, C2:5AFB:5, C2:5D3D:5, F3:1E64:1 |
 | `save11-confirm-dispatch-target` | `9..2298` | C0:9279:3 | payload_applicator:3 | C2:859F:2, C2:8740:1 | C2:5D3D:3 |
 | `save11-confirm-enhanced` | `9..2298` | C0:9279:3 | payload_applicator:3 | - | - |
@@ -140,7 +161,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | Group | Status | Covered | Missing | Fixtures | Probe hints seen | Next probe |
 | --- | --- | --- | --- | --- | --- | --- |
 | `payload_applicator` | `remaining_fixture_gap` | `False` | C2:40A4 | - | C0:9279, C2:3E32, C2:416F, C2:4703, C2:77CA | Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload. |
-| `target_text_context_neighbor` | `neighbor_only_until_c2_40a4_observed` | `True` | - | `01-command-menu-mash-a`, `02-target-select-mash-a`, `03-psi-menu-mash-a`, `04-goods-menu-mash-a`, `05-before-damage`, `07-jeff-hp-rolling`, `08-paula-freeze-before-animation`, `save11-confirm-dispatch-target`, `save11-confirm-enhanced`, `save5-before-damage-callsite-fields`, `save5-before-damage-dispatch-target`, `save5-before-damage-enhanced`, `save7-hp-rolling-callsite-fields`, `save7-hp-rolling-dispatch-target`, `save7-hp-rolling-enhanced` | - | Use only as a neighbor signal; do not mark the payload route covered until C2:40A4 itself is observed. |
+| `target_text_context_neighbor` | `neighbor_only_until_c2_40a4_observed` | `True` | - | `01-command-menu-mash-a`, `01-ness-healing-paula-sunstroke`, `02-target-select-mash-a`, `03-psi-menu-mash-a`, `04-dread-scorpion-poison-jeff`, `04-goods-menu-mash-a`, `05-before-damage`, `05-large-pizza-party-heal`, `07-jeff-hp-rolling`, `08-paula-freeze-before-animation`, `save11-confirm-dispatch-target`, `save11-confirm-enhanced`, `save5-before-damage-callsite-fields`, `save5-before-damage-dispatch-target`, `save5-before-damage-enhanced`, `save7-hp-rolling-callsite-fields`, `save7-hp-rolling-dispatch-target`, `save7-hp-rolling-enhanced` | - | Use only as a neighbor signal; do not mark the payload route covered until C2:40A4 itself is observed. |
 
 ## Interpretation
 
@@ -150,4 +171,6 @@ It records fixture usefulness without storing local save-state paths or raw trac
 - Dispatch-target and return columns are captured only for route-hint probes that use trampoline/context breakpoints; they identify the `$00BC` jump target and stack return path without proving the missing minimum address. Raw summaries also classify `C0:9279` lanes by stack return so direct dispatch can be separated from true `C2:40A4` loop dispatch.
 - `probed-no-route` means the current local fixtures did not reach the lane.
 - `c2_40a4_current_action_payload` has `C2:4703`, `C2:3E32`, `C2:416F`, and `C2:3D05` neighbor/context hits plus `C0:9279` direct-dispatch hits. The `$00BC` target/return captures show real payload-adjacent dispatches, but the observed `C0:9279` lane returns through `C2:5D3D`, not the `C2:40A4` loop returns near `C2:4104` or `C2:4159`. The save-8 Paula Freeze fixture reinforces that offensive PSI damage uses the direct-dispatch family and is better evidence for `C2:8125`/HP text joins than for `C2:40A4`; the next useful `C2:40A4` fixture should be a curative, recovery, item-status, or random damage/status item payload against a selected target.
+- The replaced-slot Healing, Dread Scorpion poison, and Large Pizza fixtures add stronger direct-dispatch coverage, including `C2:8B2C`, `C2:9C2C`, and `C2:B27D` payload-adjacent targets, but still do not observe the `C2:40A4` wrapper or its static callsites.
+- `c2_724a_affliction_writer_matrix` now has a real `C2:724A` poison-writer hit from Dread Scorpion, but remains partial because the paired `C2:9917` status-gate minimum has not been observed in the same runner-backed fixture.
 - `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The remaining missing route is `C2:B930` snapshot export, not `C1:CFC6`.

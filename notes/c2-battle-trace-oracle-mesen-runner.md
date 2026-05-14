@@ -64,16 +64,19 @@ promotion gates while still showing whether the run approached `C2:B930` or
 
 | Save | Local State | SHA-256 | Role |
 | --- | --- | --- | --- |
-| `1` | `EarthBound (USA)_1.mss` | `6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377` | standard command menu, Bash highlighted |
-| `2` | `EarthBound (USA)_2.mss` | `a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c` | target select in a multi-enemy fight |
+| `1` | `EarthBound (USA)_1.mss` | `3602e383b607f3098250e9e7c239633d2b3bb7b3f60aa459654268420f3d51c5` | Ness queued highest-level Healing on sunstroke-afflicted Paula; effect is resolving |
+| `2` | `EarthBound (USA)_2.mss` | `5aec7c75f902b606bc3a24943f62702ef11cd3785df50871fb52cb22040771df` | current live slot not re-audited in this note after local save refresh |
 | `3` | `EarthBound (USA)_3.mss` | `26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe` | PSI menu, Offense highlighted |
-| `4` | `EarthBound (USA)_4.mss` | `30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd` | Goods menu, Large Pizza selected |
-| `5` | `EarthBound (USA)_5.mss` | `a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb` | attack selected, before damage numbers |
+| `4` | `EarthBound (USA)_4.mss` | `5f6958127bda0a6940d204ab1dcc25dae366d11c2ef153f2c906ad5fffd18451` | Dread Scorpion stinger is afflicting Jeff with poison |
+| `5` | `EarthBound (USA)_5.mss` | `239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23` | Ness used Large Pizza; party HP recovery is resolving |
 | `6` | `EarthBound (USA)_6.mss` | `b70d49925f8fbf84b83ed510a0eb324bfd6a8dda1046d1e83f4b216c1d609716` | Paula already has sunstroke |
-| `7` | `EarthBound (USA)_7.mss` | `facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c` | Jeff was hit by a SMAAAASH attack; HP is rolling |
+| `7` | `EarthBound (USA)_7.mss` | `d38c3cf5513b30b83943bf433c61a99d2b817bb2b22d47f52ca398ffb3d162c5` | current live slot not re-audited in this note after local save refresh |
 | `8` | `EarthBound (USA)_8.mss` | `bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a` | Paula queued PSI Freeze against Great Crested Booka A; battle execution is already running and Freeze resolves after Paula's sunstroke tick |
 
-- The seven-save fixture scout ran neutral plus one-through-four confirm
+- The save slots are intentionally volatile local fixtures. Checked-in matrices
+  now consume the SHA-256 captured in each ignored run summary rather than
+  re-hashing the live slot after later replacements.
+- The historical seven-save fixture scout ran neutral plus one-through-four confirm
   patterns: 35 completed runs, 22 battle-entry candidates, and 0 full command
   candidates. The useful C1 hits are `C1:ADB4` from the PSI/menu target path
   and `C1:CE85` from the Goods path. The current probes still do not hit
@@ -114,9 +117,19 @@ promotion gates while still showing whether the run approached `C2:B930` or
   `C2:BB18`, and the C1 text/display joins `C1:DC66`/`C1:DC1C`. It is useful
   evidence that offensive PSI damage shares the direct C2 damage/text family,
   not proof of the `C2:40A4` second-pointer wrapper.
+- The replaced-slot fixture pass adds three targeted runtime states. Save 1
+  validates another `c2_8125_damage_abi_boundary` minimum hit for highest-level
+  Healing on Paula and reaches the HP/text display family. Save 4 reaches the
+  `C2:724A` affliction writer once from Dread Scorpion poison, dispatching
+  through `C2:8B2C`, but does not satisfy the paired `C2:9917` status-gate
+  minimum. Save 5 validates another `c2_8125_damage_abi_boundary` minimum hit
+  for Large Pizza party HP recovery and reaches `C2:B27D` as a new
+  payload-adjacent direct-dispatch target.
 - `c2_40a4_current_action_payload` does not yet hit its minimum `C2:40A4`, but
-  saves 1, 2, 3, 4, 5, 7, and 8 repeatedly hit nearby `C2:3D05`. Treat those
-  as route hints only.
+  saves 1, 2, 3, 4, 5, 7, and 8 repeatedly hit nearby `C2:3D05`. The new
+  Healing, poison, and Large Pizza fixtures also stay in the same direct
+  dispatch family rather than the `C2:40A4` wrapper. Treat those as route hints
+  only.
 - The generated runner assets now install route-gap probe breakpoints for the
   two open lanes. For `c1_c2_target_action_staging`, the extra non-required
   breakpoints are `C1:B3DB`, `C1:B462`, `C1:B505`, `C1:B859`, `C1:B9A9`, and
@@ -137,10 +150,11 @@ promotion gates while still showing whether the run approached `C2:B930` or
 - The `c2_40a4_current_action_payload` runner now watches the three known
   static `C2:40A4` callsites: `C2:79D1`, `C2:915C`, and `C2:AF0D`. It also
   captures `$A970/$A972`, `$A96C/$A96E`, `$00BC/$00BE`, and the
-  `$1B9E/$AEC2/$AECC/$AECE` busy gate around payload-adjacent dispatches. Save
-  5, save 7, and save 8 still hit `C2:4703`, `C2:3E32`, `C2:416F`,
-  downstream `C2:3D05`, and `C0:9279`, but not the `C2:40A4` wrapper or any of
-  the three pre-call sites. The new dispatch-lane summary classifies those
+  `$1B9E/$AEC2/$AECC/$AECE` busy gate around payload-adjacent dispatches.
+  Physical damage, PSI damage, Healing, Dread Scorpion poison, and Large Pizza
+  recovery fixtures hit `C2:4703`, `C2:3E32`, `C2:416F`, downstream `C2:3D05`,
+  and `C0:9279` in different combinations, but not the `C2:40A4` wrapper or
+  any of the three pre-call sites. The dispatch-lane summary classifies those
   `C0:9279` hits as `c2_battle_start_candidate_direct_dispatch` via return
   `C2:5D3D`, so the current fixture set is useful for payload-target
   identities, but not for proving the second-pointer wrapper contract.
@@ -156,9 +170,11 @@ promotion gates while still showing whether the run approached `C2:B930` or
   `X/Y` rows, and a `post_call_snapshot` after `C2:B930` returns, so the next
   correctly timed fixture should produce before/after export evidence without
   another tooling change.
-- The current set did not satisfy the first-pass affliction-writer or resource
-  amount-pair minimums. Save 6 is useful as an already-afflicted-state
-  snapshot, but not as proof of the affliction writer.
+- The current set now reaches the first affliction-writer minimum address:
+  save 4 hits `C2:724A` for Dread Scorpion poison. The full
+  `c2_724a_affliction_writer_matrix` result remains partial because the paired
+  `C2:9917` path has not been observed, and the resource amount-pair minimums
+  remain unhit.
 
 The first useful fixture to create is an ordinary battle state just before
 choosing a command. That should target `c1_c2_target_action_staging`, because it

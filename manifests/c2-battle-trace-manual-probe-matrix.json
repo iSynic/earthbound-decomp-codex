@@ -4,6 +4,7 @@
   "probe_roots": [
     "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7",
     "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8",
+    "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
     "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary",
     "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging",
     "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
@@ -16,17 +17,17 @@
     "raw_traces_tracked": false
   },
   "summary": {
-    "probe_root_count": 6,
-    "probe_roots_found": 6,
-    "record_count": 92,
+    "probe_root_count": 7,
+    "probe_roots_found": 7,
+    "record_count": 110,
     "oracle_count": 6,
-    "minimum_hit_candidate_count": 9,
-    "route_hint_fixture_count": 11,
+    "minimum_hit_candidate_count": 11,
+    "route_hint_fixture_count": 14,
     "remaining_route_gap_count": 2,
     "status_counts": {
-      "partial-route-observed": 2,
-      "probed-no-route": 2,
-      "minimum-hit-candidate": 2
+      "partial-route-observed": 3,
+      "minimum-hit-candidate": 2,
+      "probed-no-route": 1
     }
   },
   "route_gap_queue": [
@@ -78,6 +79,9 @@
         "C2:77CA"
       ],
       "fixtures_with_probe_hints": [
+        "01-ness-healing-paula-sunstroke",
+        "04-dread-scorpion-poison-jeff",
+        "05-large-pizza-party-heal",
         "08-paula-freeze-before-animation",
         "save11-confirm-dispatch-target",
         "save11-confirm-enhanced",
@@ -125,10 +129,13 @@
       "missing_from_all_probes": [],
       "fixtures_covering_group": [
         "01-command-menu-mash-a",
+        "01-ness-healing-paula-sunstroke",
         "02-target-select-mash-a",
         "03-psi-menu-mash-a",
+        "04-dread-scorpion-poison-jeff",
         "04-goods-menu-mash-a",
         "05-before-damage",
+        "05-large-pizza-party-heal",
         "07-jeff-hp-rolling",
         "08-paula-freeze-before-animation",
         "save11-confirm-dispatch-target",
@@ -157,15 +164,15 @@
         "C2:B930"
       ],
       "status": "partial-route-observed",
-      "probe_count": 27,
+      "probe_count": 30,
       "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 27,
+      "fixtures_with_any_hits": 30,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
         "C1:ADB4": 8,
         "C1:CE85": 10,
         "C1:CFC6": 6,
-        "C2:BAC5": 27
+        "C2:BAC5": 30
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
@@ -173,11 +180,15 @@
         "C0:4F47": 8,
         "C1:C8BC": 3,
         "C1:CAF5": 4,
-        "C2:859F": 24,
+        "C2:859F": 36,
         "C2:8651": 10,
-        "C2:8740": 16,
+        "C2:8740": 30,
+        "C2:889B": 25,
+        "C2:8B2C": 6,
         "C2:9033": 6,
-        "C2:9647": 6
+        "C2:9647": 6,
+        "C2:9C2C": 6,
+        "C2:B27D": 12
       },
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {
@@ -185,13 +196,13 @@
         "6F:CDC2": 1,
         "6F:D025": 3,
         "88:DE36": 2,
-        "C2:505A": 11,
-        "C2:5624": 10,
-        "C2:5633": 10,
-        "C2:5D51": 9,
-        "C2:5D5D": 9,
-        "C2:5EFE": 10,
-        "C2:5F26": 10,
+        "C2:505A": 14,
+        "C2:5624": 21,
+        "C2:5633": 21,
+        "C2:5D51": 23,
+        "C2:5D5D": 23,
+        "C2:5EFE": 21,
+        "C2:5F26": 21,
         "C2:77F6": 1
       },
       "probe_stack_return_counts": {},
@@ -307,6 +318,18 @@
           "last_frame": 2538
         },
         {
+          "fixture_id": "01-ness-healing-paula-sunstroke",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:BAC5": 19
+          },
+          "first_frame": 129,
+          "last_frame": 445
+        },
+        {
           "fixture_id": "02-target-select",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
@@ -359,6 +382,18 @@
           "last_frame": 2538
         },
         {
+          "fixture_id": "04-dread-scorpion-poison-jeff",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:BAC5": 31
+          },
+          "first_frame": 67,
+          "last_frame": 277
+        },
+        {
           "fixture_id": "04-goods-menu",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
@@ -401,6 +436,18 @@
           },
           "first_frame": 104,
           "last_frame": 990
+        },
+        {
+          "fixture_id": "05-large-pizza-party-heal",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:BAC5": 25
+          },
+          "first_frame": 133,
+          "last_frame": 572
         },
         {
           "fixture_id": "06-paula-sunstroke",
@@ -663,59 +710,67 @@
         "C2:40A4"
       ],
       "status": "partial-route-observed",
-      "probe_count": 25,
+      "probe_count": 28,
       "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 15,
-      "fixtures_with_probe_hits": 11,
+      "fixtures_with_any_hits": 18,
+      "fixtures_with_probe_hits": 14,
       "observed_address_counts": {
-        "C2:3D05": 15
+        "C2:3D05": 18
       },
       "probe_observed_address_counts": {
-        "C0:9279": 11,
-        "C2:3E32": 3,
-        "C2:416F": 3,
-        "C2:4703": 3,
+        "C0:9279": 14,
+        "C2:3E32": 6,
+        "C2:416F": 5,
+        "C2:4703": 6,
         "C2:77CA": 4
       },
       "probe_route_group_counts": {
-        "payload_applicator": 77
+        "payload_applicator": 109
       },
       "dispatch_target_counts": {
         "C1:CAF5": 2,
-        "C2:859F": 50,
+        "C2:859F": 60,
         "C2:8651": 16,
-        "C2:8740": 15,
+        "C2:8740": 17,
+        "C2:889B": 14,
+        "C2:8B2C": 4,
         "C2:9033": 12,
-        "C2:9647": 4
+        "C2:9647": 4,
+        "C2:9C2C": 4,
+        "C2:B27D": 7
       },
       "probe_dispatch_target_counts": {
         "C1:C8BC": 1,
-        "C2:859F": 28,
+        "C2:859F": 36,
         "C2:8651": 9,
-        "C2:8740": 11,
+        "C2:8740": 13,
+        "C2:889B": 10,
+        "C2:8B2C": 3,
         "C2:9033": 11,
-        "C2:9647": 3
+        "C2:9647": 3,
+        "C2:9C2C": 3,
+        "C2:B27D": 6
       },
       "stack_return_counts": {
-        "C2:3E88": 22,
-        "C2:58D5": 22,
-        "C2:5CAE": 26,
-        "C2:5E26": 28,
+        "C2:3E88": 30,
+        "C2:58D5": 30,
+        "C2:5CAE": 40,
+        "C2:5E26": 39,
         "C2:BBD0": 1
       },
       "probe_stack_return_counts": {
         "C1:1AE2": 1,
-        "C2:59F9": 12,
-        "C2:5A1F": 7,
+        "C2:59F9": 20,
+        "C2:5A1F": 9,
         "C2:5A4B": 1,
         "C2:5A4F": 1,
-        "C2:5AFB": 12,
-        "C2:5D3D": 26,
+        "C2:5AFB": 20,
+        "C2:5D3D": 40,
         "F3:1E64": 3
       },
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {
-        "c2_battle_start_candidate_direct_dispatch": 14
+        "c2_battle_start_candidate_direct_dispatch": 28
       },
       "post_call_snapshot_counts": {},
       "route_groups": {
@@ -764,6 +819,9 @@
             "C2:77CA"
           ],
           "fixtures_with_probe_hints": [
+            "01-ness-healing-paula-sunstroke",
+            "04-dread-scorpion-poison-jeff",
+            "05-large-pizza-party-heal",
             "08-paula-freeze-before-animation",
             "save11-confirm-dispatch-target",
             "save11-confirm-enhanced",
@@ -790,10 +848,13 @@
           "missing_from_all_probes": [],
           "fixtures_covering_group": [
             "01-command-menu-mash-a",
+            "01-ness-healing-paula-sunstroke",
             "02-target-select-mash-a",
             "03-psi-menu-mash-a",
+            "04-dread-scorpion-poison-jeff",
             "04-goods-menu-mash-a",
             "05-before-damage",
+            "05-large-pizza-party-heal",
             "07-jeff-hp-rolling",
             "08-paula-freeze-before-animation",
             "save11-confirm-dispatch-target",
@@ -823,6 +884,18 @@
           "last_frame": 2560
         },
         {
+          "fixture_id": "01-ness-healing-paula-sunstroke",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:3D05"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:3D05": 10
+          },
+          "first_frame": 67,
+          "last_frame": 440
+        },
+        {
           "fixture_id": "02-target-select-mash-a",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
@@ -847,6 +920,18 @@
           "last_frame": 2560
         },
         {
+          "fixture_id": "04-dread-scorpion-poison-jeff",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:3D05"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:3D05": 18
+          },
+          "first_frame": 14,
+          "last_frame": 272
+        },
+        {
           "fixture_id": "04-goods-menu-mash-a",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
@@ -869,6 +954,18 @@
           },
           "first_frame": 29,
           "last_frame": 985
+        },
+        {
+          "fixture_id": "05-large-pizza-party-heal",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:3D05"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:3D05": 13
+          },
+          "first_frame": 75,
+          "last_frame": 567
         },
         {
           "fixture_id": "07-jeff-hp-rolling",
@@ -992,6 +1089,95 @@
         }
       ],
       "probe_fixture_hits": [
+        {
+          "fixture_id": "01-ness-healing-paula-sunstroke",
+          "probe_observed_addresses": [
+            "C0:9279",
+            "C2:3E32",
+            "C2:416F",
+            "C2:4703"
+          ],
+          "probe_breakpoint_hit_counts": {
+            "C0:9279": 3,
+            "C2:3E32": 2,
+            "C2:416F": 1,
+            "C2:4703": 2
+          },
+          "probe_route_group_hit_counts": {
+            "payload_applicator": 8
+          },
+          "probe_dispatch_target_counts": {
+            "C2:859F": 4,
+            "C2:8740": 1,
+            "C2:9C2C": 3
+          },
+          "probe_stack_return_counts": {
+            "C2:59F9": 2,
+            "C2:5A1F": 1,
+            "C2:5AFB": 2,
+            "C2:5D3D": 3
+          },
+          "first_frame": 67,
+          "last_frame": 440
+        },
+        {
+          "fixture_id": "04-dread-scorpion-poison-jeff",
+          "probe_observed_addresses": [
+            "C0:9279",
+            "C2:3E32",
+            "C2:4703"
+          ],
+          "probe_breakpoint_hit_counts": {
+            "C0:9279": 5,
+            "C2:3E32": 4,
+            "C2:4703": 4
+          },
+          "probe_route_group_hit_counts": {
+            "payload_applicator": 13
+          },
+          "probe_dispatch_target_counts": {
+            "C2:889B": 10,
+            "C2:8B2C": 3
+          },
+          "probe_stack_return_counts": {
+            "C2:59F9": 4,
+            "C2:5AFB": 4,
+            "C2:5D3D": 5
+          },
+          "first_frame": 14,
+          "last_frame": 272
+        },
+        {
+          "fixture_id": "05-large-pizza-party-heal",
+          "probe_observed_addresses": [
+            "C0:9279",
+            "C2:3E32",
+            "C2:416F",
+            "C2:4703"
+          ],
+          "probe_breakpoint_hit_counts": {
+            "C0:9279": 6,
+            "C2:3E32": 2,
+            "C2:416F": 1,
+            "C2:4703": 2
+          },
+          "probe_route_group_hit_counts": {
+            "payload_applicator": 11
+          },
+          "probe_dispatch_target_counts": {
+            "C2:859F": 4,
+            "C2:8740": 1,
+            "C2:B27D": 6
+          },
+          "probe_stack_return_counts": {
+            "C2:59F9": 2,
+            "C2:5A1F": 1,
+            "C2:5AFB": 2,
+            "C2:5D3D": 6
+          },
+          "first_frame": 75,
+          "last_frame": 567
+        },
         {
           "fixture_id": "08-paula-freeze-before-animation",
           "probe_observed_addresses": [
@@ -1257,23 +1443,42 @@
         "C2:724A",
         "C2:9917"
       ],
-      "status": "probed-no-route",
-      "probe_count": 8,
+      "status": "partial-route-observed",
+      "probe_count": 11,
       "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 0,
+      "fixtures_with_any_hits": 1,
       "fixtures_with_probe_hits": 0,
-      "observed_address_counts": {},
+      "observed_address_counts": {
+        "C2:724A": 1
+      },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
-      "dispatch_target_counts": {},
+      "dispatch_target_counts": {
+        "C2:8B2C": 1
+      },
       "probe_dispatch_target_counts": {},
-      "stack_return_counts": {},
+      "stack_return_counts": {
+        "97:8B48": 1
+      },
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
       "route_groups": {},
-      "fixture_hits": [],
+      "fixture_hits": [
+        {
+          "fixture_id": "04-dread-scorpion-poison-jeff",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:724A"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:724A": 1
+          },
+          "first_frame": 14,
+          "last_frame": 14
+        }
+      ],
       "probe_fixture_hits": []
     },
     {
@@ -1282,60 +1487,74 @@
         "C2:8125"
       ],
       "status": "minimum-hit-candidate",
-      "probe_count": 12,
-      "minimum_hit_candidate_count": 7,
-      "fixtures_with_any_hits": 7,
+      "probe_count": 15,
+      "minimum_hit_candidate_count": 9,
+      "fixtures_with_any_hits": 10,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
-        "C1:0DF6": 1,
-        "C1:7EED": 1,
-        "C1:AD0A": 1,
-        "C1:AD26": 1,
-        "C1:DC1C": 1,
-        "C1:DC66": 1,
+        "C1:0DF6": 4,
+        "C1:7EED": 4,
+        "C1:AD0A": 4,
+        "C1:AD26": 4,
+        "C1:DC1C": 4,
+        "C1:DC66": 4,
         "C2:7550": 1,
-        "C2:7EAF": 7,
-        "C2:8125": 7,
+        "C2:7EAF": 9,
+        "C2:8125": 9,
         "C2:941D": 2
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
       "dispatch_target_counts": {
-        "C2:859F": 12,
+        "C2:859F": 20,
         "C2:8651": 7,
-        "C2:8740": 9,
-        "C2:9647": 8
+        "C2:8740": 23,
+        "C2:889B": 5,
+        "C2:8B2C": 1,
+        "C2:9647": 8,
+        "C2:9C2C": 1,
+        "C2:B27D": 8
       },
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {
-        "11:7EF0": 2,
-        "11:7EFB": 2,
+        "11:7EF0": 5,
+        "11:7EFB": 5,
         "1D:7EF0": 1,
         "1D:7EFB": 1,
         "1F:7EF0": 1,
         "1F:7EFB": 1,
-        "47:DCA7": 2,
+        "2B:7EF0": 1,
+        "2B:7EFB": 1,
+        "47:DCA7": 5,
         "53:DCA7": 1,
         "55:DCA7": 1,
-        "61:7EF0": 1,
-        "61:7EFB": 1,
-        "75:81E0": 2,
+        "61:7EF0": 2,
+        "61:7EFB": 2,
+        "61:DCA7": 1,
+        "75:81E0": 5,
         "81:81E0": 1,
         "83:81E0": 1,
-        "85:8569": 2,
+        "85:8569": 5,
         "97:86B6": 1,
         "97:95E7": 1,
         "97:9603": 1,
-        "97:DCA7": 1,
+        "97:DCA7": 2,
+        "C2:593F": 1,
         "C2:5965": 1,
+        "C2:72E8": 3,
+        "C2:7306": 1,
         "C2:7A46": 1,
-        "C2:8055": 3,
-        "C2:810A": 1,
+        "C2:8055": 5,
+        "C2:810A": 2,
         "C2:81F4": 1,
-        "E6:1E12": 2,
+        "C2:83EE": 1,
+        "C2:8B5B": 1,
+        "C2:9B3C": 1,
+        "E6:1E12": 5,
         "E6:1E1E": 1,
         "E6:1E20": 1,
-        "E6:1E62": 1
+        "E6:1E2C": 1,
+        "E6:1E62": 2
       },
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
@@ -1356,6 +1575,32 @@
           },
           "first_frame": 236,
           "last_frame": 2560
+        },
+        {
+          "fixture_id": "01-ness-healing-paula-sunstroke",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C1:0DF6",
+            "C1:7EED",
+            "C1:AD0A",
+            "C1:AD26",
+            "C1:DC1C",
+            "C1:DC66",
+            "C2:7EAF",
+            "C2:8125"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:0DF6": 2,
+            "C1:7EED": 2,
+            "C1:AD0A": 2,
+            "C1:AD26": 2,
+            "C1:DC1C": 1,
+            "C1:DC66": 2,
+            "C2:7EAF": 2,
+            "C2:8125": 2
+          },
+          "first_frame": 67,
+          "last_frame": 365
         },
         {
           "fixture_id": "02-target-select-mash-a",
@@ -1388,6 +1633,28 @@
           "last_frame": 2560
         },
         {
+          "fixture_id": "04-dread-scorpion-poison-jeff",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:0DF6",
+            "C1:7EED",
+            "C1:AD0A",
+            "C1:AD26",
+            "C1:DC1C",
+            "C1:DC66"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:0DF6": 1,
+            "C1:7EED": 1,
+            "C1:AD0A": 1,
+            "C1:AD26": 1,
+            "C1:DC1C": 1,
+            "C1:DC66": 1
+          },
+          "first_frame": 14,
+          "last_frame": 185
+        },
+        {
           "fixture_id": "04-goods-menu-mash-a",
           "minimum_hits_satisfied": true,
           "observed_addresses": [
@@ -1414,6 +1681,32 @@
           },
           "first_frame": 29,
           "last_frame": 908
+        },
+        {
+          "fixture_id": "05-large-pizza-party-heal",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C1:0DF6",
+            "C1:7EED",
+            "C1:AD0A",
+            "C1:AD26",
+            "C1:DC1C",
+            "C1:DC66",
+            "C2:7EAF",
+            "C2:8125"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:0DF6": 2,
+            "C1:7EED": 2,
+            "C1:AD0A": 2,
+            "C1:AD26": 2,
+            "C1:DC1C": 4,
+            "C1:DC66": 2,
+            "C2:7EAF": 1,
+            "C2:8125": 1
+          },
+          "first_frame": 75,
+          "last_frame": 492
         },
         {
           "fixture_id": "07-jeff-hp-rolling",
@@ -1469,42 +1762,52 @@
         "C2:7550"
       ],
       "status": "minimum-hit-candidate",
-      "probe_count": 8,
+      "probe_count": 11,
       "minimum_hit_candidate_count": 2,
-      "fixtures_with_any_hits": 3,
+      "fixtures_with_any_hits": 6,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
-        "C1:DC1C": 3,
-        "C1:DC66": 3,
+        "C1:DC1C": 6,
+        "C1:DC66": 6,
         "C2:7550": 2,
         "C2:77CA": 2,
-        "C2:8125": 3,
-        "C2:BB18": 3
+        "C2:8125": 5,
+        "C2:BB18": 6
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
       "dispatch_target_counts": {
-        "C2:859F": 11,
+        "C2:859F": 22,
         "C2:8651": 6,
-        "C2:8740": 10,
+        "C2:8740": 24,
+        "C2:889B": 18,
+        "C2:8B2C": 5,
         "C2:9033": 4,
-        "C2:9647": 6
+        "C2:9647": 6,
+        "C2:9C2C": 5,
+        "C2:B27D": 11
       },
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {
-        "85:8569": 2,
+        "85:8569": 5,
         "97:86B6": 1,
         "97:9603": 1,
-        "C2:5053": 1,
-        "C2:561D": 6,
+        "C2:5053": 4,
+        "C2:561D": 17,
+        "C2:593F": 1,
         "C2:5965": 1,
-        "C2:5D41": 6,
-        "C2:5E1C": 6,
-        "C2:5EF3": 6,
+        "C2:5D41": 20,
+        "C2:5E1C": 17,
+        "C2:5EF3": 17,
+        "C2:72E8": 3,
+        "C2:7306": 1,
         "C2:7A46": 1,
-        "C2:8055": 3,
-        "C2:810A": 1,
+        "C2:8055": 5,
+        "C2:810A": 2,
         "C2:81F4": 1,
+        "C2:83EE": 1,
+        "C2:8B5B": 1,
+        "C2:9B3C": 1,
         "F3:1E64": 1
       },
       "probe_stack_return_counts": {},
@@ -1513,6 +1816,40 @@
       "post_call_snapshot_counts": {},
       "route_groups": {},
       "fixture_hits": [
+        {
+          "fixture_id": "01-ness-healing-paula-sunstroke",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:DC1C",
+            "C1:DC66",
+            "C2:8125",
+            "C2:BB18"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:DC1C": 1,
+            "C1:DC66": 2,
+            "C2:8125": 2,
+            "C2:BB18": 13
+          },
+          "first_frame": 67,
+          "last_frame": 445
+        },
+        {
+          "fixture_id": "04-dread-scorpion-poison-jeff",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:DC1C",
+            "C1:DC66",
+            "C2:BB18"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:DC1C": 1,
+            "C1:DC66": 1,
+            "C2:BB18": 21
+          },
+          "first_frame": 14,
+          "last_frame": 277
+        },
         {
           "fixture_id": "05-earthbound-usa-5",
           "minimum_hits_satisfied": false,
@@ -1530,6 +1867,24 @@
           },
           "first_frame": 29,
           "last_frame": 990
+        },
+        {
+          "fixture_id": "05-large-pizza-party-heal",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:DC1C",
+            "C1:DC66",
+            "C2:8125",
+            "C2:BB18"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:DC1C": 4,
+            "C1:DC66": 2,
+            "C2:8125": 1,
+            "C2:BB18": 16
+          },
+          "first_frame": 75,
+          "last_frame": 572
         },
         {
           "fixture_id": "07-earthbound-usa-7",
@@ -1585,7 +1940,7 @@
         "C2:9F5E"
       ],
       "status": "probed-no-route",
-      "probe_count": 12,
+      "probe_count": 15,
       "minimum_hit_candidate_count": 0,
       "fixtures_with_any_hits": 0,
       "fixtures_with_probe_hits": 0,
@@ -1645,7 +2000,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/01-command-menu/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -1681,7 +2036,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/01-command-menu/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -1719,7 +2074,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/01-command-menu/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -1755,7 +2110,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/01-command-menu/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -1793,7 +2148,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/01-command-menu/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -1839,7 +2194,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/01-command-menu-mash-a/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -1879,7 +2234,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/01-command-menu-mash-a/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -1919,7 +2274,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/01-command-menu-mash-a/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -1957,7 +2312,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/01-command-menu-mash-a/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2003,7 +2358,7 @@
       "input_pattern": "neutral:20,a:4,neutral:876",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/02-target-select/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2039,7 +2394,7 @@
       "input_pattern": "neutral:20,a:4,neutral:876",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/02-target-select/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2077,7 +2432,7 @@
       "input_pattern": "neutral:20,a:4,neutral:876",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/02-target-select/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2113,7 +2468,7 @@
       "input_pattern": "neutral:20,a:4,neutral:876",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/02-target-select/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2151,7 +2506,7 @@
       "input_pattern": "neutral:20,a:4,neutral:876",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/02-target-select/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2197,7 +2552,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/02-target-select-mash-a/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2237,7 +2592,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/02-target-select-mash-a/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2277,7 +2632,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/02-target-select-mash-a/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2315,7 +2670,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/02-target-select-mash-a/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2362,7 +2717,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:828",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/03-psi-menu/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2398,7 +2753,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:828",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/03-psi-menu/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2436,7 +2791,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:828",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/03-psi-menu/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2472,7 +2827,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:828",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/03-psi-menu/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2510,7 +2865,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:828",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/03-psi-menu/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2557,7 +2912,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/03-psi-menu-mash-a/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2597,7 +2952,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/03-psi-menu-mash-a/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2639,7 +2994,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/03-psi-menu-mash-a/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2677,7 +3032,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/03-psi-menu-mash-a/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2725,7 +3080,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/04-goods-menu/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2761,7 +3116,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/04-goods-menu/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2799,7 +3154,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/04-goods-menu/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2835,7 +3190,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/04-goods-menu/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2873,7 +3228,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/04-goods-menu/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2921,7 +3276,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/04-goods-menu-mash-a/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -2961,7 +3316,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/04-goods-menu-mash-a/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3001,7 +3356,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/04-goods-menu-mash-a/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3039,7 +3394,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,a:4,neutral:20,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/04-goods-menu-mash-a/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3085,7 +3440,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_5.mss",
-        "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/05-before-damage/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3125,7 +3480,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_5.mss",
-        "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/05-before-damage/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3163,7 +3518,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_5.mss",
-        "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/05-before-damage/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3203,7 +3558,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_5.mss",
-        "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/05-before-damage/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3241,7 +3596,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_5.mss",
-        "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/05-before-damage/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3287,7 +3642,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_6.mss",
-        "sha256": "b70d49925f8fbf84b83ed510a0eb324bfd6a8dda1046d1e83f4b216c1d609716"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/06-paula-sunstroke/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3323,7 +3678,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_6.mss",
-        "sha256": "b70d49925f8fbf84b83ed510a0eb324bfd6a8dda1046d1e83f4b216c1d609716"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/06-paula-sunstroke/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3361,7 +3716,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_6.mss",
-        "sha256": "b70d49925f8fbf84b83ed510a0eb324bfd6a8dda1046d1e83f4b216c1d609716"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/06-paula-sunstroke/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3397,7 +3752,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_6.mss",
-        "sha256": "b70d49925f8fbf84b83ed510a0eb324bfd6a8dda1046d1e83f4b216c1d609716"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/06-paula-sunstroke/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3435,7 +3790,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:852",
       "save_state": {
         "basename": "EarthBound (USA)_6.mss",
-        "sha256": "b70d49925f8fbf84b83ed510a0eb324bfd6a8dda1046d1e83f4b216c1d609716"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/06-paula-sunstroke/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3481,7 +3836,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_7.mss",
-        "sha256": "facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/07-jeff-hp-rolling/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3521,7 +3876,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_7.mss",
-        "sha256": "facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/07-jeff-hp-rolling/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3559,7 +3914,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_7.mss",
-        "sha256": "facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/07-jeff-hp-rolling/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3599,7 +3954,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_7.mss",
-        "sha256": "facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/07-jeff-hp-rolling/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3637,7 +3992,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_7.mss",
-        "sha256": "facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7/07-jeff-hp-rolling/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3698,7 +4053,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_8.mss",
-        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/c1_c2_target_action_staging/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3777,7 +4132,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_8.mss",
-        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/c2_40a4_current_action_payload/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3815,7 +4170,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_8.mss",
-        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3905,7 +4260,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_8.mss",
-        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/c2_8125_damage_abi_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -3975,7 +4330,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_8.mss",
-        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/hp_roller_collapse_boundary/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4013,9 +4368,1005 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_8.mss",
-        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "01-ness-healing-paula-sunstroke",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:BAC5": 19
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 6,
+        "C2:8740": 7,
+        "C2:9C2C": 6
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "C2:505A": 1,
+        "C2:5624": 3,
+        "C2:5633": 3,
+        "C2:5D51": 3,
+        "C2:5D5D": 3,
+        "C2:5EFE": 3,
+        "C2:5F26": 3
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "first_frame": 129,
+      "last_frame": 445,
+      "trace_line_count": 99,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "3602e383b607f3098250e9e7c239633d2b3bb7b3f60aa459654268420f3d51c5"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/01-ness-healing-paula-sunstroke/c1_c2_target_action_staging/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "01-ness-healing-paula-sunstroke",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:3D05"
+      ],
+      "probe_observed_addresses": [
+        "C0:9279",
+        "C2:3E32",
+        "C2:416F",
+        "C2:4703"
+      ],
+      "breakpoint_hit_counts": {
+        "C2:3D05": 10
+      },
+      "probe_breakpoint_hit_counts": {
+        "C0:9279": 3,
+        "C2:3E32": 2,
+        "C2:416F": 1,
+        "C2:4703": 2
+      },
+      "probe_route_group_hit_counts": {
+        "payload_applicator": 8
+      },
+      "dispatch_target_counts": {
+        "C2:859F": 5,
+        "C2:8740": 1,
+        "C2:9C2C": 4
+      },
+      "probe_dispatch_target_counts": {
+        "C2:859F": 4,
+        "C2:8740": 1,
+        "C2:9C2C": 3
+      },
+      "stack_return_counts": {
+        "C2:3E88": 2,
+        "C2:58D5": 2,
+        "C2:5CAE": 3,
+        "C2:5E26": 3
+      },
+      "probe_stack_return_counts": {
+        "C2:59F9": 2,
+        "C2:5A1F": 1,
+        "C2:5AFB": 2,
+        "C2:5D3D": 3
+      },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {
+        "c2_battle_start_candidate_direct_dispatch": 3
+      },
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": 67,
+      "last_frame": 440,
+      "trace_line_count": 130,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "3602e383b607f3098250e9e7c239633d2b3bb7b3f60aa459654268420f3d51c5"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/01-ness-healing-paula-sunstroke/c2_40a4_current_action_payload/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "01-ness-healing-paula-sunstroke",
+      "oracle_id": "c2_724a_affliction_writer_matrix",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "missing_minimum_hits": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "3602e383b607f3098250e9e7c239633d2b3bb7b3f60aa459654268420f3d51c5"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/01-ness-healing-paula-sunstroke/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "01-ness-healing-paula-sunstroke",
+      "oracle_id": "c2_8125_damage_abi_boundary",
+      "minimum_hits_satisfied": true,
+      "observed_addresses": [
+        "C1:0DF6",
+        "C1:7EED",
+        "C1:AD0A",
+        "C1:AD26",
+        "C1:DC1C",
+        "C1:DC66",
+        "C2:7EAF",
+        "C2:8125"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:0DF6": 2,
+        "C1:7EED": 2,
+        "C1:AD0A": 2,
+        "C1:AD26": 2,
+        "C1:DC1C": 1,
+        "C1:DC66": 2,
+        "C2:7EAF": 2,
+        "C2:8125": 2
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 7,
+        "C2:8740": 7,
+        "C2:9C2C": 1
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "11:7EF0": 2,
+        "11:7EFB": 2,
+        "47:DCA7": 2,
+        "75:81E0": 2,
+        "85:8569": 2,
+        "C2:8055": 1,
+        "C2:810A": 1,
+        "C2:9B3C": 1,
+        "E6:1E12": 2
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8125"
+      ],
+      "missing_minimum_hits": [],
+      "first_frame": 67,
+      "last_frame": 365,
+      "trace_line_count": 34,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "3602e383b607f3098250e9e7c239633d2b3bb7b3f60aa459654268420f3d51c5"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/01-ness-healing-paula-sunstroke/c2_8125_damage_abi_boundary/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "01-ness-healing-paula-sunstroke",
+      "oracle_id": "hp_roller_collapse_boundary",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C1:DC1C",
+        "C1:DC66",
+        "C2:8125",
+        "C2:BB18"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:DC1C": 1,
+        "C1:DC66": 2,
+        "C2:8125": 2,
+        "C2:BB18": 13
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 6,
+        "C2:8740": 7,
+        "C2:9C2C": 5
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "85:8569": 2,
+        "C2:5053": 1,
+        "C2:561D": 3,
+        "C2:5D41": 3,
+        "C2:5E1C": 3,
+        "C2:5EF3": 3,
+        "C2:8055": 1,
+        "C2:810A": 1,
+        "C2:9B3C": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8125",
+        "C2:7550"
+      ],
+      "missing_minimum_hits": [
+        "C2:7550"
+      ],
+      "first_frame": 67,
+      "last_frame": 445,
+      "trace_line_count": 76,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "3602e383b607f3098250e9e7c239633d2b3bb7b3f60aa459654268420f3d51c5"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/01-ness-healing-paula-sunstroke/hp_roller_collapse_boundary/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "01-ness-healing-paula-sunstroke",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "3602e383b607f3098250e9e7c239633d2b3bb7b3f60aa459654268420f3d51c5"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/01-ness-healing-paula-sunstroke/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "04-dread-scorpion-poison-jeff",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:BAC5": 31
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:889B": 25,
+        "C2:8B2C": 6
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "C2:505A": 1,
+        "C2:5624": 5,
+        "C2:5633": 5,
+        "C2:5D51": 5,
+        "C2:5D5D": 5,
+        "C2:5EFE": 5,
+        "C2:5F26": 5
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "first_frame": 67,
+      "last_frame": 277,
+      "trace_line_count": 159,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "5f6958127bda0a6940d204ab1dcc25dae366d11c2ef153f2c906ad5fffd18451"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/04-dread-scorpion-poison-jeff/c1_c2_target_action_staging/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "04-dread-scorpion-poison-jeff",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:3D05"
+      ],
+      "probe_observed_addresses": [
+        "C0:9279",
+        "C2:3E32",
+        "C2:4703"
+      ],
+      "breakpoint_hit_counts": {
+        "C2:3D05": 18
+      },
+      "probe_breakpoint_hit_counts": {
+        "C0:9279": 5,
+        "C2:3E32": 4,
+        "C2:4703": 4
+      },
+      "probe_route_group_hit_counts": {
+        "payload_applicator": 13
+      },
+      "dispatch_target_counts": {
+        "C2:889B": 14,
+        "C2:8B2C": 4
+      },
+      "probe_dispatch_target_counts": {
+        "C2:889B": 10,
+        "C2:8B2C": 3
+      },
+      "stack_return_counts": {
+        "C2:3E88": 4,
+        "C2:58D5": 4,
+        "C2:5CAE": 5,
+        "C2:5E26": 5
+      },
+      "probe_stack_return_counts": {
+        "C2:59F9": 4,
+        "C2:5AFB": 4,
+        "C2:5D3D": 5
+      },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {
+        "c2_battle_start_candidate_direct_dispatch": 5
+      },
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": 14,
+      "last_frame": 272,
+      "trace_line_count": 221,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "5f6958127bda0a6940d204ab1dcc25dae366d11c2ef153f2c906ad5fffd18451"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/04-dread-scorpion-poison-jeff/c2_40a4_current_action_payload/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "04-dread-scorpion-poison-jeff",
+      "oracle_id": "c2_724a_affliction_writer_matrix",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:724A"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:724A": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:8B2C": 1
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "97:8B48": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "missing_minimum_hits": [
+        "C2:9917"
+      ],
+      "first_frame": 14,
+      "last_frame": 14,
+      "trace_line_count": 6,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "5f6958127bda0a6940d204ab1dcc25dae366d11c2ef153f2c906ad5fffd18451"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/04-dread-scorpion-poison-jeff/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "04-dread-scorpion-poison-jeff",
+      "oracle_id": "c2_8125_damage_abi_boundary",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C1:0DF6",
+        "C1:7EED",
+        "C1:AD0A",
+        "C1:AD26",
+        "C1:DC1C",
+        "C1:DC66"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:0DF6": 1,
+        "C1:7EED": 1,
+        "C1:AD0A": 1,
+        "C1:AD26": 1,
+        "C1:DC1C": 1,
+        "C1:DC66": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:889B": 5,
+        "C2:8B2C": 1
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "61:7EF0": 1,
+        "61:7EFB": 1,
+        "97:DCA7": 1,
+        "C2:593F": 1,
+        "C2:8B5B": 1,
+        "E6:1E62": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8125"
+      ],
+      "missing_minimum_hits": [
+        "C2:8125"
+      ],
+      "first_frame": 14,
+      "last_frame": 185,
+      "trace_line_count": 16,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "5f6958127bda0a6940d204ab1dcc25dae366d11c2ef153f2c906ad5fffd18451"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/04-dread-scorpion-poison-jeff/c2_8125_damage_abi_boundary/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "04-dread-scorpion-poison-jeff",
+      "oracle_id": "hp_roller_collapse_boundary",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C1:DC1C",
+        "C1:DC66",
+        "C2:BB18"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:DC1C": 1,
+        "C1:DC66": 1,
+        "C2:BB18": 21
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:889B": 18,
+        "C2:8B2C": 5
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "C2:5053": 1,
+        "C2:561D": 5,
+        "C2:593F": 1,
+        "C2:5D41": 5,
+        "C2:5E1C": 5,
+        "C2:5EF3": 5,
+        "C2:8B5B": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8125",
+        "C2:7550"
+      ],
+      "missing_minimum_hits": [
+        "C2:7550",
+        "C2:8125"
+      ],
+      "first_frame": 14,
+      "last_frame": 277,
+      "trace_line_count": 96,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "5f6958127bda0a6940d204ab1dcc25dae366d11c2ef153f2c906ad5fffd18451"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/04-dread-scorpion-poison-jeff/hp_roller_collapse_boundary/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "04-dread-scorpion-poison-jeff",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "5f6958127bda0a6940d204ab1dcc25dae366d11c2ef153f2c906ad5fffd18451"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/04-dread-scorpion-poison-jeff/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "05-large-pizza-party-heal",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:BAC5": 25
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 6,
+        "C2:8740": 7,
+        "C2:B27D": 12
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "C2:505A": 1,
+        "C2:5624": 3,
+        "C2:5633": 3,
+        "C2:5D51": 6,
+        "C2:5D5D": 6,
+        "C2:5EFE": 3,
+        "C2:5F26": 3
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "first_frame": 133,
+      "last_frame": 572,
+      "trace_line_count": 129,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_5.mss",
+        "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/05-large-pizza-party-heal/c1_c2_target_action_staging/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "05-large-pizza-party-heal",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:3D05"
+      ],
+      "probe_observed_addresses": [
+        "C0:9279",
+        "C2:3E32",
+        "C2:416F",
+        "C2:4703"
+      ],
+      "breakpoint_hit_counts": {
+        "C2:3D05": 13
+      },
+      "probe_breakpoint_hit_counts": {
+        "C0:9279": 6,
+        "C2:3E32": 2,
+        "C2:416F": 1,
+        "C2:4703": 2
+      },
+      "probe_route_group_hit_counts": {
+        "payload_applicator": 11
+      },
+      "dispatch_target_counts": {
+        "C2:859F": 5,
+        "C2:8740": 1,
+        "C2:B27D": 7
+      },
+      "probe_dispatch_target_counts": {
+        "C2:859F": 4,
+        "C2:8740": 1,
+        "C2:B27D": 6
+      },
+      "stack_return_counts": {
+        "C2:3E88": 2,
+        "C2:58D5": 2,
+        "C2:5CAE": 6,
+        "C2:5E26": 3
+      },
+      "probe_stack_return_counts": {
+        "C2:59F9": 2,
+        "C2:5A1F": 1,
+        "C2:5AFB": 2,
+        "C2:5D3D": 6
+      },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {
+        "c2_battle_start_candidate_direct_dispatch": 6
+      },
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": 75,
+      "last_frame": 567,
+      "trace_line_count": 172,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_5.mss",
+        "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/05-large-pizza-party-heal/c2_40a4_current_action_payload/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "05-large-pizza-party-heal",
+      "oracle_id": "c2_724a_affliction_writer_matrix",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "missing_minimum_hits": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_5.mss",
+        "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/05-large-pizza-party-heal/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "05-large-pizza-party-heal",
+      "oracle_id": "c2_8125_damage_abi_boundary",
+      "minimum_hits_satisfied": true,
+      "observed_addresses": [
+        "C1:0DF6",
+        "C1:7EED",
+        "C1:AD0A",
+        "C1:AD26",
+        "C1:DC1C",
+        "C1:DC66",
+        "C2:7EAF",
+        "C2:8125"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:0DF6": 2,
+        "C1:7EED": 2,
+        "C1:AD0A": 2,
+        "C1:AD26": 2,
+        "C1:DC1C": 4,
+        "C1:DC66": 2,
+        "C2:7EAF": 1,
+        "C2:8125": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 1,
+        "C2:8740": 7,
+        "C2:B27D": 8
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "11:7EF0": 1,
+        "11:7EFB": 1,
+        "2B:7EF0": 1,
+        "2B:7EFB": 1,
+        "47:DCA7": 1,
+        "61:DCA7": 1,
+        "75:81E0": 1,
+        "85:8569": 1,
+        "C2:72E8": 3,
+        "C2:7306": 1,
+        "C2:8055": 1,
+        "C2:83EE": 1,
+        "E6:1E12": 1,
+        "E6:1E2C": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8125"
+      ],
+      "missing_minimum_hits": [],
+      "first_frame": 75,
+      "last_frame": 492,
+      "trace_line_count": 36,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_5.mss",
+        "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/05-large-pizza-party-heal/c2_8125_damage_abi_boundary/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "05-large-pizza-party-heal",
+      "oracle_id": "hp_roller_collapse_boundary",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C1:DC1C",
+        "C1:DC66",
+        "C2:8125",
+        "C2:BB18"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:DC1C": 4,
+        "C1:DC66": 2,
+        "C2:8125": 1,
+        "C2:BB18": 16
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 5,
+        "C2:8740": 7,
+        "C2:B27D": 11
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "85:8569": 1,
+        "C2:5053": 1,
+        "C2:561D": 3,
+        "C2:5D41": 6,
+        "C2:5E1C": 3,
+        "C2:5EF3": 3,
+        "C2:72E8": 3,
+        "C2:7306": 1,
+        "C2:8055": 1,
+        "C2:83EE": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8125",
+        "C2:7550"
+      ],
+      "missing_minimum_hits": [
+        "C2:7550"
+      ],
+      "first_frame": 75,
+      "last_frame": 572,
+      "trace_line_count": 96,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_5.mss",
+        "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/05-large-pizza-party-heal/hp_roller_collapse_boundary/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots",
+      "fixture_id": "05-large-pizza-party-heal",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_5.mss",
+        "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/05-large-pizza-party-heal/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     },
@@ -4051,7 +5402,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary/01-earthbound-usa-1/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4089,7 +5440,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary/02-earthbound-usa-2/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4127,7 +5478,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary/03-earthbound-usa-3/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4165,7 +5516,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary/04-earthbound-usa-4/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4212,7 +5563,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_5.mss",
-        "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary/05-earthbound-usa-5/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4250,7 +5601,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_6.mss",
-        "sha256": "b70d49925f8fbf84b83ed510a0eb324bfd6a8dda1046d1e83f4b216c1d609716"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary/06-earthbound-usa-6/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4299,7 +5650,7 @@
       "input_pattern": "neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_7.mss",
-        "sha256": "facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary/07-earthbound-usa-7/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4345,7 +5696,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:900",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging/save1-bash-confirm/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4392,7 +5743,7 @@
       "input_pattern": "neutral:20,down:6,neutral:12,a:4,neutral:20,a:4,neutral:900",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging/save1-down-confirm/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4438,7 +5789,7 @@
       "input_pattern": "neutral:20,down:6,neutral:8,down:6,neutral:12,a:4,neutral:20,a:4,neutral:900",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging/save1-down2-confirm/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4486,7 +5837,7 @@
       "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging/save1-right-confirm/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4534,7 +5885,7 @@
       "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900,a:4,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging/save1-right-confirm-continue/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4580,7 +5931,7 @@
       "input_pattern": "neutral:20,a:4,neutral:1200",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging/save2-target-confirm/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4628,7 +5979,7 @@
       "input_pattern": "neutral:20,a:4,neutral:1200",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging/save4-goods-confirm/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4676,7 +6027,7 @@
       "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900,a:4,neutral:2400",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save1-right-confirm-continue-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4730,7 +6081,7 @@
       "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900,a:4,neutral:2400",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save1-right-confirm-continue-stack-context/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4778,7 +6129,7 @@
       "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save1-right-confirm-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4832,7 +6183,7 @@
       "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save1-right-confirm-stack-context/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4878,7 +6229,7 @@
       "input_pattern": "neutral:20,a:4,neutral:40,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_11.mss",
-        "sha256": "54e14d9cfa82c8a7bc9ff679eadc8bc25816c3f5e3cf719ef1c80b9ef2410242"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save11-confirm-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4936,7 +6287,7 @@
       "input_pattern": "neutral:20,a:4,neutral:40,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_11.mss",
-        "sha256": "54e14d9cfa82c8a7bc9ff679eadc8bc25816c3f5e3cf719ef1c80b9ef2410242"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save11-confirm-stack-context/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4988,7 +6339,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save3-psi-stack-context/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5042,7 +6393,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:1800",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save4-goods-stack-context/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5078,7 +6429,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_1.mss",
-        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save1-command-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5139,7 +6490,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_11.mss",
-        "sha256": "54e14d9cfa82c8a7bc9ff679eadc8bc25816c3f5e3cf719ef1c80b9ef2410242"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save11-confirm-dispatch-target/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5185,7 +6536,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_11.mss",
-        "sha256": "54e14d9cfa82c8a7bc9ff679eadc8bc25816c3f5e3cf719ef1c80b9ef2410242"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save11-confirm-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5221,7 +6572,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_2.mss",
-        "sha256": "a0cee58506e6a361fba56fa7521f502c636830bc5c43ccb230459fffc1e0772c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save2-target-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5267,7 +6618,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save3-psi-dispatch-target/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5309,7 +6660,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_3.mss",
-        "sha256": "26cd24f40f17a8aa720b9421026a2ee74dfb30922400a6a747a867be883d35fe"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save3-psi-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5345,7 +6696,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_4.mss",
-        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save4-goods-confirm-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5418,7 +6769,7 @@
       "input_pattern": "neutral:1200",
       "save_state": {
         "basename": "EarthBound (USA)_5.mss",
-        "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save5-before-damage-callsite-fields/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5480,7 +6831,7 @@
       "input_pattern": "neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_5.mss",
-        "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save5-before-damage-dispatch-target/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5526,7 +6877,7 @@
       "input_pattern": "neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_5.mss",
-        "sha256": "a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save5-before-damage-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5603,7 +6954,7 @@
       "input_pattern": "neutral:900",
       "save_state": {
         "basename": "EarthBound (USA)_7.mss",
-        "sha256": "facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save7-hp-rolling-callsite-fields/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5667,7 +7018,7 @@
       "input_pattern": "neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_7.mss",
-        "sha256": "facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save7-hp-rolling-dispatch-target/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -5715,7 +7066,7 @@
       "input_pattern": "neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_7.mss",
-        "sha256": "facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c"
+        "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save7-hp-rolling-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
