@@ -32,9 +32,66 @@ DEFAULT_FIXTURES = ROOT / "build" / "c2" / "battle-trace-oracles" / "local-fixtu
 COMMON_MESEN_PATHS = [
     Path(os.environ.get("MESEN_EXE", "")) if os.environ.get("MESEN_EXE") else None,
     Path(os.environ.get("MESEN_PATH", "")) if os.environ.get("MESEN_PATH") else None,
+    Path(r"F:\Mesen2\Mesen.exe"),
     Path(r"F:\Mesen\Mesen.exe"),
     Path(r"C:\Mesen\Mesen.exe"),
 ]
+
+WRAM_PATCH_PROFILES: dict[str, list[str]] = {
+    "scripted-entry-party": [
+        "0x4DC8:CE 99 2D 9A 8C 9A EB 9A 4A 9B A9 9B",
+        "0x4DBC:02 00",
+        "0x986F:01 00 00 00 00 00",
+        "0x988B:01 00 00 00 00 00",
+        "0x9891:00",
+        "0x98A3:01 01",
+        "0x98B6:01 00",
+        "0x99CD:01",
+        "0x99D3:01",
+        "0x99D8:1E 00 00 00 00 00 00 00 00 00 00",
+        "0x99E3:02 02 02 02 02 02 02",
+        "0x9A11:00 00 1E 00 1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00",
+    ],
+    "scripted-entry-window-reset": [
+        "0x88E0:FF FF FF FF",
+        "0x8958:FF FF",
+        (
+            "0x88E4:"
+            "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF "
+            "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF "
+            "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF "
+            "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF "
+            "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF "
+            "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF "
+            "FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF FF"
+        ),
+        "0x894E:FF FF FF FF FF FF FF FF FF FF",
+        "0x8654:FF FF",
+        "0x86A6:FF FF",
+        "0x86F8:FF FF",
+        "0x874A:FF FF",
+        "0x879C:FF FF",
+        "0x87EE:FF FF",
+        "0x8840:FF FF",
+        "0x8892:FF FF",
+        "0x5E7A:FF FF FF FF",
+        "0x89C9:00",
+        "0x9622:00 00",
+        "0x5E70:00",
+        "0x5E75:00",
+    ],
+    "resource-target-pp32": [
+        "0xA061:20 00 20 00",
+    ],
+    "resource-magnet-transfer-pp32": [
+        "0xA061:20 00 20 00",
+        "0xA283:00 00 20 00",
+    ],
+}
+WRAM_PATCH_PROFILES["scripted-entry-party-window-reset"] = (
+    WRAM_PATCH_PROFILES["scripted-entry-party"]
+    + WRAM_PATCH_PROFILES["scripted-entry-window-reset"]
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -56,6 +113,16 @@ def parse_args() -> argparse.Namespace:
         action="append",
         default=[],
         help="Optional post-savestate WRAM patch in address:hex-bytes form, e.g. 0xA061:20 00 20 00. May repeat.",
+    )
+    parser.add_argument(
+        "--wram-patch-profile",
+        action="append",
+        choices=sorted(WRAM_PATCH_PROFILES),
+        default=[],
+        help=(
+            "Named WRAM patch profile. May repeat. Use scripted-entry-party-window-reset "
+            "with --wram-patch-timing first-breakpoint for cold-boot scripted battle fixtures."
+        ),
     )
     parser.add_argument(
         "--wram-patch-timing",
@@ -137,6 +204,8 @@ def local_fixture_template() -> dict[str, Any]:
                 "oracle_ids": ["resource_amount_pair_magnet_vs_pp_loss", "c2_724a_affliction_writer_matrix"],
                 "rom_path": "<ignored generated fixture ROM that autostarts C2:2F38>",
                 "input_pattern": "neutral:4200",
+                "wram_patch_profiles": ["scripted-entry-party-window-reset"],
+                "wram_patch_timing": "first-breakpoint",
                 "notes": "Generated ROM must stay under build/c2/fixture-roms and is reachability evidence only.",
             }
         ],
@@ -298,6 +367,21 @@ def normalize_wram_patch(patch: Any) -> str:
     raise TypeError(f"unsupported WRAM patch record: {patch!r}")
 
 
+def fixture_list(value: Any) -> list[Any]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    return [value]
+
+
+def profile_wram_patches(profile_ids: list[str]) -> list[str]:
+    patches: list[str] = []
+    for profile_id in profile_ids:
+        patches.extend(WRAM_PATCH_PROFILES[profile_id])
+    return patches
+
+
 def main() -> int:
     args = parse_args()
     fixtures_path = Path(args.fixtures)
@@ -319,7 +403,9 @@ def main() -> int:
     fixture_rom = fixture.get("rom_path") if fixture else None
     fixture_state = fixture.get("save_state_path") if fixture else None
     fixture_input_pattern = fixture.get("input_pattern") if fixture else None
-    fixture_wram_patches = fixture.get("wram_patches", []) if fixture else []
+    fixture_wram_patches = fixture_list(fixture.get("wram_patches")) if fixture else []
+    fixture_wram_profiles = [str(item) for item in fixture_list(fixture.get("wram_patch_profiles"))] if fixture else []
+    fixture_wram_timing = fixture.get("wram_patch_timing") if fixture else None
     mesen = resolve_mesen(args.mesen or fixture_mesen or (fixture_config or {}).get("default_mesen_path"))
     rom = resolve_rom(args.rom or fixture_rom or (fixture_config or {}).get("default_rom_path"))
     state = Path(args.state or fixture_state) if (args.state or fixture_state) else None
@@ -347,10 +433,20 @@ def main() -> int:
     input_pattern = args.input_pattern or fixture_input_pattern
     if input_pattern:
         env["C2_ORACLE_INPUT_PATTERN"] = str(input_pattern)
-    wram_patches = [normalize_wram_patch(item) for item in fixture_wram_patches] + args.wram_patch
+    wram_patches = (
+        [normalize_wram_patch(item) for item in fixture_wram_patches]
+        + profile_wram_patches(fixture_wram_profiles)
+        + profile_wram_patches(args.wram_patch_profile)
+        + [normalize_wram_patch(item) for item in args.wram_patch]
+    )
+    wram_patch_timing = args.wram_patch_timing
+    if fixture_wram_timing and args.wram_patch_timing == "initial":
+        wram_patch_timing = str(fixture_wram_timing)
+    if wram_patch_timing not in {"initial", "first-breakpoint"}:
+        raise ValueError(f"unsupported wram_patch_timing: {wram_patch_timing}")
     if wram_patches:
         env["C2_ORACLE_WRAM_PATCHES"] = ";".join(wram_patches)
-        env["C2_ORACLE_WRAM_PATCH_TIMING"] = args.wram_patch_timing.replace("-", "_")
+        env["C2_ORACLE_WRAM_PATCH_TIMING"] = wram_patch_timing.replace("-", "_")
     if state is not None:
         env["C2_ORACLE_STATE_PATH"] = str(state)
 
@@ -368,7 +464,8 @@ def main() -> int:
         "fixture_id": args.fixture_id,
         "input_pattern": input_pattern,
         "wram_patches": wram_patches,
-        "wram_patch_timing": args.wram_patch_timing if wram_patches else None,
+        "wram_patch_profiles": fixture_wram_profiles + args.wram_patch_profile,
+        "wram_patch_timing": wram_patch_timing if wram_patches else None,
         "raw_trace_summary_path": str(output_dir / "raw-trace-summary.json"),
         "lua_skeleton": manifest_path(lua_path),
         "job_path": manifest_path(job_path),

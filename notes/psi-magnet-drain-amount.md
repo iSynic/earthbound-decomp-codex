@@ -87,13 +87,13 @@ text, but should not inherit Magnet's recovery-side wording unless local source
 evidence proves a transfer.
 
 Current controlled runtime evidence now reaches the middle of that proof lane.
-The `bash-row-psi-magnet-pp-drain` fixture plus a post-savestate WRAM patch seeds
-the selected row with `32` PP and the active row with `0/32` PP. The reviewed
-manual capture observes `C2:9F5E -> C2:721D -> C2:7191`: amount payload `5`,
-selected target PP `32 -> 27`, and active row PP `0 -> 5`. This proves the
-local reducer/recovery mechanics under controlled state, but it is still not a
-natural vanilla PSI Magnet promotion because the target PP was seeded by the
-runner.
+The `bash-row-psi-magnet-force-reducer` fixture plus the
+`resource-magnet-transfer-pp32` runner profile seeds the selected row with `32`
+PP and the active row with `0/32` PP. The reviewed manual capture observes
+`C2:9F5E -> C2:721D -> C2:7191`: amount payload `5`, selected target PP
+`32 -> 27`, and active row PP `0 -> 5`. This proves the local reducer/recovery
+mechanics under controlled state, but it is still not a natural vanilla PSI
+Magnet promotion because the target PP was seeded by the runner.
 
 The generated comparison note is
 `notes/c2-resource-amount-controlled-comparison.md`.
