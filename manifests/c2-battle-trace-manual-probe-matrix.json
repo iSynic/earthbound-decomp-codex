@@ -10,6 +10,7 @@
     "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
     "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
     "build/c2/battle-trace-oracles/manual-probes/resource-wram-patched",
+    "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
     "build/c2/battle-trace-oracles/fixture-rom-tests"
   ],
   "policy": {
@@ -19,9 +20,9 @@
     "raw_traces_tracked": false
   },
   "summary": {
-    "probe_root_count": 9,
-    "probe_roots_found": 9,
-    "record_count": 127,
+    "probe_root_count": 10,
+    "probe_roots_found": 10,
+    "record_count": 128,
     "oracle_count": 6,
     "minimum_hit_candidate_count": 13,
     "route_hint_fixture_count": 15,
@@ -2104,7 +2105,7 @@
         "C2:9F5E"
       ],
       "status": "partial-route-observed",
-      "probe_count": 20,
+      "probe_count": 21,
       "minimum_hit_candidate_count": 0,
       "fixtures_with_any_hits": 5,
       "fixtures_with_probe_hits": 0,
@@ -7436,6 +7437,44 @@
         "sha256": "5aec7c75f902b606bc3a24943f62702ef11cd3785df50871fb52cb22040771df"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/resource-wram-patched/psi-magnet-target-pp32/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "dread-skelpion-save4-mash-a-1800",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:6,neutral:40,a:6,neutral:40,a:6,neutral:40,a:6,neutral:40,a:6,neutral:1200",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "5f6958127bda0a6940d204ab1dcc25dae366d11c2ef153f2c906ad5fffd18451"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/dread-skelpion-save4-mash-a-1800/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     },

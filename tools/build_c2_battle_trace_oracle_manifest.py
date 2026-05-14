@@ -345,6 +345,7 @@ ORACLES: list[dict[str, Any]] = [
         "evidence_notes": [
             "notes/psi-magnet-drain-amount.md",
             "notes/c2-late-stat-resource-runtime-polish.md",
+            "notes/c2-resource-amount-natural-candidates.md",
             "notes/c2-ef-battle-text-contract-workahead.md",
         ],
         "source_paths": [

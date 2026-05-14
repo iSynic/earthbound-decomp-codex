@@ -21,6 +21,7 @@ DEFAULT_PROBE_ROOTS = (
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c1-c2-target-action-staging",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c2-40a4-current-action-payload",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "resource-wram-patched",
+    ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "natural-resource-scout",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "fixture-rom-tests",
 )
 DEFAULT_HANDOFF = ROOT / "manifests" / "c2-battle-trace-oracle-emulator-handoff.json"

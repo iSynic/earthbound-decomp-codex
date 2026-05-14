@@ -192,6 +192,11 @@ promotion gates while still showing whether the run approached `C2:B930` or
   run seeded selected-target PP and observed target PP `32 -> 30` with no
   active-row recovery. Natural PP-bearing target traces are still required for
   proof-grade promotion.
+- `notes/c2-resource-amount-natural-candidates.md` now lists vanilla enemy/action
+  users for the natural resource probe. Current top lanes are Gigantic Ant or
+  Starman for row `54`/`C2:9F5E` PSI Magnet transfer, and Guardian General or
+  accessible Mad Duck/Armored Frog encounters for row `95`/`C2:8E42` PP
+  reduction.
 
 The first useful fixture to create is an ordinary battle state just before
 choosing a command. That should target `c1_c2_target_action_staging`, because it

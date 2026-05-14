@@ -5,8 +5,8 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 ## Summary
 
-- probe roots found: `9` / `9`
-- probe records: `127`
+- probe roots found: `10` / `10`
+- probe records: `128`
 - oracles summarized: `6`
 - minimum-hit candidates: `13`
 - fixtures with route-hint hits: `15`
@@ -23,7 +23,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `c2_724a_affliction_writer_matrix` | `minimum-hit-candidate` | `14` | `1` | `4` | `0` | C2:724A:4, C2:9917:1 | - | - | - |
 | `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `15` | `9` | `10` | `0` | C1:0DF6:4, C1:7EED:4, C1:AD0A:4, C1:AD26:4, C1:DC1C:4, C1:DC66:4, C2:7550:1, C2:7EAF:9, C2:8125:9, C2:941D:2 | - | - | - |
 | `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `11` | `2` | `6` | `0` | C1:DC1C:6, C1:DC66:6, C2:7550:2, C2:77CA:2, C2:8125:5, C2:BB18:6 | - | - | - |
-| `resource_amount_pair_magnet_vs_pp_loss` | `partial-route-observed` | `20` | `0` | `5` | `0` | C2:7191:2, C2:721D:3, C2:8E42:2, C2:9F5E:3 | - | - | - |
+| `resource_amount_pair_magnet_vs_pp_loss` | `partial-route-observed` | `21` | `0` | `5` | `0` | C2:7191:2, C2:721D:3, C2:8E42:2, C2:9F5E:3 | - | - | - |
 
 ## Route Gap Queue
 
