@@ -39,8 +39,8 @@ C28E42_RunPpReductionAction = BTLACT_REDUCEPP
     tcd
     ldx $A972
     lda $0019,X
-    ; Fixture runs can seed target PP and prove the C2:721D loss-only reducer;
-    ; natural PP-bearing target evidence remains the promotion gate.
+    ; Natural Mad Duck traces prove this as a loss-only PP reducer:
+    ; C2:8E42 -> C2:721D -> C2:7191 with no recovery-side SET_PP.
     ; No PP-side target left to reduce.
     bne C28E62_RunPpReductionAction_L8E62
     lda.w #C8MSG_NoPpLeftToReduce

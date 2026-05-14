@@ -131,10 +131,10 @@ MECHANISMS: list[dict[str, Any]] = [
         "id": "pp_loss_only",
         "title": "PP loss-only",
         "oracle": "resource_amount_pair_magnet_vs_pp_loss",
-        "natural_keywords": ("natural-pp-reduction", "guardian-general"),
+        "natural_keywords": ("natural-pp-reduction", "guardian-general", "mad-duck", "pp-loss"),
         "required_hits": ("C2:8E42", "C2:721D"),
-        "success_status": "runtime_steered_needed",
-        "next_action": "Use Guardian General/late-game SRM anchor with explicit evidence tier labeling.",
+        "success_status": "natural_proof_candidate",
+        "next_action": "Review Mad Duck PP-loss capture: target PP decreases through C2:8E42/C2:721D and no caster-side recovery occurs.",
     },
     {
         "id": "flash_status_gate",

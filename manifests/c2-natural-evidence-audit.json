@@ -17,12 +17,11 @@
     "status_counts": {
       "fixture_only_navigation": 1,
       "natural_capture_fields_missing": 1,
-      "natural_proof_candidate": 9,
-      "runtime_steered_needed": 1
+      "natural_proof_candidate": 10
     },
-    "natural_proof_candidate_count": 9,
+    "natural_proof_candidate_count": 10,
     "natural_capture_fields_missing_count": 1,
-    "runtime_steered_needed_count": 1,
+    "runtime_steered_needed_count": 0,
     "fixture_only_navigation_count": 1,
     "not_yet_observed_count": 0,
     "source_promotion_allowed": false,
@@ -1861,7 +1860,7 @@
     {
       "mechanism_id": "pp_loss_only",
       "title": "PP loss-only",
-      "status": "runtime_steered_needed",
+      "status": "natural_proof_candidate",
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "fallback_oracle_id": null,
       "required_hits": [
@@ -1870,14 +1869,106 @@
       ],
       "required_post_call_snapshots": [],
       "required_watch_snapshots": [],
-      "natural_candidate_count": 0,
-      "natural_partial_count": 0,
+      "natural_candidate_count": 1,
+      "natural_partial_count": 1,
       "steered_candidate_count": 13,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
-      "next_action": "Use Guardian General/late-game SRM anchor with explicit evidence tier labeling.",
-      "best_natural_records": [],
-      "partial_natural_records": [],
+      "next_action": "Review Mad Duck PP-loss capture: target PP decreases through C2:8E42/C2:721D and no caster-side recovery occurs.",
+      "best_natural_records": [
+        {
+          "fixture_id": "mad-duck-pp-loss-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:04EE",
+            "C1:0528",
+            "C1:0536",
+            "C1:0644",
+            "C1:0772",
+            "C1:078B",
+            "C1:DC1C",
+            "C1:DD3B",
+            "C1:DD47",
+            "C2:4FCF",
+            "C2:5024",
+            "C2:5619",
+            "C2:5AFB",
+            "C2:5C30",
+            "C2:5C8C",
+            "C2:5D2B",
+            "C2:5D3D",
+            "C2:6081",
+            "C2:6088",
+            "C2:7191",
+            "C2:721D",
+            "C2:8E42",
+            "C3:E4EF",
+            "C3:E4FE",
+            "C3:E51F"
+          ],
+          "post_call_snapshot_counts": {
+            "C2:7191": 1,
+            "C2:721D": 1
+          },
+          "watch_snapshot_counts": {},
+          "first_frame": 3,
+          "last_frame": 674,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "8e2866d3a61b937d20414b28c0841c9c0d5ade5d175cb267d0a03c1bdb699ee6"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/mad-duck-pp-loss-slot1/resource-neutral/raw-trace-summary.json"
+        }
+      ],
+      "partial_natural_records": [
+        {
+          "fixture_id": "mad-duck-pp-loss-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:04EE",
+            "C1:0528",
+            "C1:0536",
+            "C1:0644",
+            "C1:0772",
+            "C1:078B",
+            "C1:DC1C",
+            "C1:DD3B",
+            "C1:DD47",
+            "C2:4FCF",
+            "C2:5024",
+            "C2:5619",
+            "C2:5AFB",
+            "C2:5C30",
+            "C2:5C8C",
+            "C2:5D2B",
+            "C2:5D3D",
+            "C2:6081",
+            "C2:6088",
+            "C2:7191",
+            "C2:721D",
+            "C2:8E42",
+            "C3:E4EF",
+            "C3:E4FE",
+            "C3:E51F"
+          ],
+          "post_call_snapshot_counts": {
+            "C2:7191": 1,
+            "C2:721D": 1
+          },
+          "watch_snapshot_counts": {},
+          "first_frame": 3,
+          "last_frame": 674,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "8e2866d3a61b937d20414b28c0841c9c0d5ade5d175cb267d0a03c1bdb699ee6"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/mad-duck-pp-loss-slot1/resource-neutral/raw-trace-summary.json"
+        }
+      ],
       "steered_records": [
         {
           "fixture_id": "pp-reduction-target-pp32",

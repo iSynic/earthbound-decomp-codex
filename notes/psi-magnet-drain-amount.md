@@ -109,3 +109,11 @@ already capped at `0x00D3`, so the visible caster-side delta is `0`. This is
 enough to treat natural PSI Magnet as proven for nonzero target PP loss and
 capped caster recovery routing; a non-full caster save remains useful only to
 show a visible positive caster PP delta.
+
+Natural PP-reduction evidence now covers the loss-only comparison. The Desert
+Gold Mine Mad Duck save-state capture `mad-duck-pp-loss-slot1/resource-neutral`
+observes the enemy PP-loss action with no input after load. The route hits
+`C2:8E42 -> C2:721D -> C2:7191`, rolls amount `4`, and reduces the selected
+party row PP target from `0x0043` to `0x003F`. The active enemy row remains
+`0`, and there is no caster-side recovery call after the reducer, which proves
+that row `95` should not inherit PSI Magnet's transfer wording.
