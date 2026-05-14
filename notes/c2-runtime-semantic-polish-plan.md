@@ -948,6 +948,19 @@ contract notes for C0/C1/C3/C4 consumers.
   confirm, and movement-loop input patterns. The first 21-run sweep completed
   without failures and found zero battle-entry or command candidates, narrowing
   the next step to capturing a fresh ordinary overworld battle prompt state.
+- 2026-05-13 one hundred and twenty-sixth slice: folded the numbered
+  multi-enemy fixture set into the C2 trace-oracle matrix. The Mesen runner now
+  records useful target/action staging, damage ABI, HP roller, and payload-route
+  neighbor traces while keeping save-state paths and raw traces ignored.
+- 2026-05-13 one hundred and twenty-seventh slice: classified the current
+  `C2:40A4` route hints by dispatch lane. The observed `C0:9279` hits return
+  through `C2:5D3D`, so they are direct battle-start/action dispatches rather
+  than the `C2:40A4` loop returns near `C2:4104` or `C2:4159`.
+- 2026-05-13 one hundred and twenty-eighth slice: added the save-8 Paula
+  Freeze fixture. A neutral 1800-frame run proves a queued offensive-PSI damage
+  path reaches `C2:941D`, `C2:8125`, `C2:7EAF`, HP/text display joins, and HP
+  roller/collapse neighbors, but still does not reach `C2:40A4`; treat it as
+  PSI damage evidence, not second-pointer wrapper proof.
 
 ## Validation
 

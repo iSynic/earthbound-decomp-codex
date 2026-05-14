@@ -3,6 +3,7 @@
   "generated_by": "tools/build_c2_battle_trace_manual_probe_matrix.py",
   "probe_roots": [
     "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-1-7",
+    "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8",
     "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary",
     "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging",
     "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
@@ -15,12 +16,12 @@
     "raw_traces_tracked": false
   },
   "summary": {
-    "probe_root_count": 5,
-    "probe_roots_found": 5,
-    "record_count": 86,
+    "probe_root_count": 6,
+    "probe_roots_found": 6,
+    "record_count": 92,
     "oracle_count": 6,
-    "minimum_hit_candidate_count": 7,
-    "route_hint_fixture_count": 10,
+    "minimum_hit_candidate_count": 9,
+    "route_hint_fixture_count": 11,
     "remaining_route_gap_count": 2,
     "status_counts": {
       "partial-route-observed": 2,
@@ -77,6 +78,7 @@
         "C2:77CA"
       ],
       "fixtures_with_probe_hints": [
+        "08-paula-freeze-before-animation",
         "save11-confirm-dispatch-target",
         "save11-confirm-enhanced",
         "save3-psi-dispatch-target",
@@ -128,6 +130,7 @@
         "04-goods-menu-mash-a",
         "05-before-damage",
         "07-jeff-hp-rolling",
+        "08-paula-freeze-before-animation",
         "save11-confirm-dispatch-target",
         "save11-confirm-enhanced",
         "save5-before-damage-callsite-fields",
@@ -154,15 +157,15 @@
         "C2:B930"
       ],
       "status": "partial-route-observed",
-      "probe_count": 26,
+      "probe_count": 27,
       "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 26,
+      "fixtures_with_any_hits": 27,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
         "C1:ADB4": 8,
         "C1:CE85": 10,
         "C1:CFC6": 6,
-        "C2:BAC5": 26
+        "C2:BAC5": 27
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
@@ -170,9 +173,11 @@
         "C0:4F47": 8,
         "C1:C8BC": 3,
         "C1:CAF5": 4,
-        "C2:859F": 12,
-        "C2:8651": 4,
-        "C2:8740": 8
+        "C2:859F": 24,
+        "C2:8651": 10,
+        "C2:8740": 16,
+        "C2:9033": 6,
+        "C2:9647": 6
       },
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {
@@ -180,13 +185,14 @@
         "6F:CDC2": 1,
         "6F:D025": 3,
         "88:DE36": 2,
-        "C2:505A": 10,
-        "C2:5624": 4,
-        "C2:5633": 4,
-        "C2:5D51": 3,
-        "C2:5D5D": 3,
-        "C2:5EFE": 4,
-        "C2:5F26": 4
+        "C2:505A": 11,
+        "C2:5624": 10,
+        "C2:5633": 10,
+        "C2:5D51": 9,
+        "C2:5D5D": 9,
+        "C2:5EFE": 10,
+        "C2:5F26": 10,
+        "C2:77F6": 1
       },
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
@@ -421,6 +427,18 @@
           "last_frame": 415
         },
         {
+          "fixture_id": "08-paula-freeze-before-animation",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:BAC5"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:BAC5": 38
+          },
+          "first_frame": 10,
+          "last_frame": 965
+        },
+        {
           "fixture_id": "save1-bash-confirm",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
@@ -645,57 +663,59 @@
         "C2:40A4"
       ],
       "status": "partial-route-observed",
-      "probe_count": 24,
+      "probe_count": 25,
       "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 14,
-      "fixtures_with_probe_hits": 10,
+      "fixtures_with_any_hits": 15,
+      "fixtures_with_probe_hits": 11,
       "observed_address_counts": {
-        "C2:3D05": 14
+        "C2:3D05": 15
       },
       "probe_observed_address_counts": {
-        "C0:9279": 10,
-        "C2:3E32": 2,
-        "C2:416F": 2,
-        "C2:4703": 2,
-        "C2:77CA": 3
+        "C0:9279": 11,
+        "C2:3E32": 3,
+        "C2:416F": 3,
+        "C2:4703": 3,
+        "C2:77CA": 4
       },
       "probe_route_group_counts": {
-        "payload_applicator": 58
+        "payload_applicator": 77
       },
       "dispatch_target_counts": {
         "C1:CAF5": 2,
-        "C2:859F": 42,
-        "C2:8651": 12,
-        "C2:8740": 14,
-        "C2:9033": 8
+        "C2:859F": 50,
+        "C2:8651": 16,
+        "C2:8740": 15,
+        "C2:9033": 12,
+        "C2:9647": 4
       },
       "probe_dispatch_target_counts": {
         "C1:C8BC": 1,
-        "C2:859F": 22,
-        "C2:8651": 5,
-        "C2:8740": 9,
-        "C2:9033": 7
+        "C2:859F": 28,
+        "C2:8651": 9,
+        "C2:8740": 11,
+        "C2:9033": 11,
+        "C2:9647": 3
       },
       "stack_return_counts": {
-        "C2:3E88": 17,
-        "C2:58D5": 17,
-        "C2:5CAE": 21,
-        "C2:5E26": 22,
+        "C2:3E88": 22,
+        "C2:58D5": 22,
+        "C2:5CAE": 26,
+        "C2:5E26": 28,
         "C2:BBD0": 1
       },
       "probe_stack_return_counts": {
         "C1:1AE2": 1,
-        "C2:59F9": 7,
-        "C2:5A1F": 4,
+        "C2:59F9": 12,
+        "C2:5A1F": 7,
         "C2:5A4B": 1,
         "C2:5A4F": 1,
-        "C2:5AFB": 7,
-        "C2:5D3D": 21,
-        "F3:1E64": 2
+        "C2:5AFB": 12,
+        "C2:5D3D": 26,
+        "F3:1E64": 3
       },
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {
-        "c2_battle_start_candidate_direct_dispatch": 9
+        "c2_battle_start_candidate_direct_dispatch": 14
       },
       "post_call_snapshot_counts": {},
       "route_groups": {
@@ -744,6 +764,7 @@
             "C2:77CA"
           ],
           "fixtures_with_probe_hints": [
+            "08-paula-freeze-before-animation",
             "save11-confirm-dispatch-target",
             "save11-confirm-enhanced",
             "save3-psi-dispatch-target",
@@ -774,6 +795,7 @@
             "04-goods-menu-mash-a",
             "05-before-damage",
             "07-jeff-hp-rolling",
+            "08-paula-freeze-before-animation",
             "save11-confirm-dispatch-target",
             "save11-confirm-enhanced",
             "save5-before-damage-callsite-fields",
@@ -859,6 +881,18 @@
           },
           "first_frame": 41,
           "last_frame": 410
+        },
+        {
+          "fixture_id": "08-paula-freeze-before-animation",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:3D05"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:3D05": 21
+          },
+          "first_frame": 11,
+          "last_frame": 960
         },
         {
           "fixture_id": "save11-confirm-dispatch-target",
@@ -958,6 +992,42 @@
         }
       ],
       "probe_fixture_hits": [
+        {
+          "fixture_id": "08-paula-freeze-before-animation",
+          "probe_observed_addresses": [
+            "C0:9279",
+            "C2:3E32",
+            "C2:416F",
+            "C2:4703",
+            "C2:77CA"
+          ],
+          "probe_breakpoint_hit_counts": {
+            "C0:9279": 5,
+            "C2:3E32": 5,
+            "C2:416F": 3,
+            "C2:4703": 5,
+            "C2:77CA": 1
+          },
+          "probe_route_group_hit_counts": {
+            "payload_applicator": 19
+          },
+          "probe_dispatch_target_counts": {
+            "C2:859F": 6,
+            "C2:8651": 4,
+            "C2:8740": 2,
+            "C2:9033": 4,
+            "C2:9647": 3
+          },
+          "probe_stack_return_counts": {
+            "C2:59F9": 5,
+            "C2:5A1F": 3,
+            "C2:5AFB": 5,
+            "C2:5D3D": 5,
+            "F3:1E64": 1
+          },
+          "first_frame": 11,
+          "last_frame": 960
+        },
         {
           "fixture_id": "save11-confirm-dispatch-target",
           "probe_observed_addresses": [
@@ -1188,7 +1258,7 @@
         "C2:9917"
       ],
       "status": "probed-no-route",
-      "probe_count": 7,
+      "probe_count": 8,
       "minimum_hit_candidate_count": 0,
       "fixtures_with_any_hits": 0,
       "fixtures_with_probe_hits": 0,
@@ -1212,20 +1282,61 @@
         "C2:8125"
       ],
       "status": "minimum-hit-candidate",
-      "probe_count": 11,
-      "minimum_hit_candidate_count": 6,
-      "fixtures_with_any_hits": 6,
+      "probe_count": 12,
+      "minimum_hit_candidate_count": 7,
+      "fixtures_with_any_hits": 7,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
-        "C2:7EAF": 6,
-        "C2:8125": 6,
-        "C2:941D": 1
+        "C1:0DF6": 1,
+        "C1:7EED": 1,
+        "C1:AD0A": 1,
+        "C1:AD26": 1,
+        "C1:DC1C": 1,
+        "C1:DC66": 1,
+        "C2:7550": 1,
+        "C2:7EAF": 7,
+        "C2:8125": 7,
+        "C2:941D": 2
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
-      "dispatch_target_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 12,
+        "C2:8651": 7,
+        "C2:8740": 9,
+        "C2:9647": 8
+      },
       "probe_dispatch_target_counts": {},
-      "stack_return_counts": {},
+      "stack_return_counts": {
+        "11:7EF0": 2,
+        "11:7EFB": 2,
+        "1D:7EF0": 1,
+        "1D:7EFB": 1,
+        "1F:7EF0": 1,
+        "1F:7EFB": 1,
+        "47:DCA7": 2,
+        "53:DCA7": 1,
+        "55:DCA7": 1,
+        "61:7EF0": 1,
+        "61:7EFB": 1,
+        "75:81E0": 2,
+        "81:81E0": 1,
+        "83:81E0": 1,
+        "85:8569": 2,
+        "97:86B6": 1,
+        "97:95E7": 1,
+        "97:9603": 1,
+        "97:DCA7": 1,
+        "C2:5965": 1,
+        "C2:7A46": 1,
+        "C2:8055": 3,
+        "C2:810A": 1,
+        "C2:81F4": 1,
+        "E6:1E12": 2,
+        "E6:1E1E": 1,
+        "E6:1E20": 1,
+        "E6:1E62": 1
+      },
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
@@ -1317,6 +1428,36 @@
           },
           "first_frame": 41,
           "last_frame": 333
+        },
+        {
+          "fixture_id": "08-paula-freeze-before-animation",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C1:0DF6",
+            "C1:7EED",
+            "C1:AD0A",
+            "C1:AD26",
+            "C1:DC1C",
+            "C1:DC66",
+            "C2:7550",
+            "C2:7EAF",
+            "C2:8125",
+            "C2:941D"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:0DF6": 5,
+            "C1:7EED": 5,
+            "C1:AD0A": 5,
+            "C1:AD26": 5,
+            "C1:DC1C": 1,
+            "C1:DC66": 5,
+            "C2:7550": 1,
+            "C2:7EAF": 4,
+            "C2:8125": 4,
+            "C2:941D": 1
+          },
+          "first_frame": 13,
+          "last_frame": 891
         }
       ],
       "probe_fixture_hits": []
@@ -1328,23 +1469,44 @@
         "C2:7550"
       ],
       "status": "minimum-hit-candidate",
-      "probe_count": 7,
-      "minimum_hit_candidate_count": 1,
-      "fixtures_with_any_hits": 2,
+      "probe_count": 8,
+      "minimum_hit_candidate_count": 2,
+      "fixtures_with_any_hits": 3,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
-        "C1:DC1C": 2,
-        "C1:DC66": 2,
-        "C2:7550": 1,
-        "C2:77CA": 1,
-        "C2:8125": 2,
-        "C2:BB18": 2
+        "C1:DC1C": 3,
+        "C1:DC66": 3,
+        "C2:7550": 2,
+        "C2:77CA": 2,
+        "C2:8125": 3,
+        "C2:BB18": 3
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
-      "dispatch_target_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 11,
+        "C2:8651": 6,
+        "C2:8740": 10,
+        "C2:9033": 4,
+        "C2:9647": 6
+      },
       "probe_dispatch_target_counts": {},
-      "stack_return_counts": {},
+      "stack_return_counts": {
+        "85:8569": 2,
+        "97:86B6": 1,
+        "97:9603": 1,
+        "C2:5053": 1,
+        "C2:561D": 6,
+        "C2:5965": 1,
+        "C2:5D41": 6,
+        "C2:5E1C": 6,
+        "C2:5EF3": 6,
+        "C2:7A46": 1,
+        "C2:8055": 3,
+        "C2:810A": 1,
+        "C2:81F4": 1,
+        "F3:1E64": 1
+      },
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
@@ -1390,6 +1552,28 @@
           },
           "first_frame": 41,
           "last_frame": 415
+        },
+        {
+          "fixture_id": "08-paula-freeze-before-animation",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C1:DC1C",
+            "C1:DC66",
+            "C2:7550",
+            "C2:77CA",
+            "C2:8125",
+            "C2:BB18"
+          ],
+          "breakpoint_hit_counts": {
+            "C1:DC1C": 1,
+            "C1:DC66": 5,
+            "C2:7550": 1,
+            "C2:77CA": 1,
+            "C2:8125": 4,
+            "C2:BB18": 25
+          },
+          "first_frame": 10,
+          "last_frame": 964
         }
       ],
       "probe_fixture_hits": []
@@ -1401,7 +1585,7 @@
         "C2:9F5E"
       ],
       "status": "probed-no-route",
-      "probe_count": 11,
+      "probe_count": 12,
       "minimum_hit_candidate_count": 0,
       "fixtures_with_any_hits": 0,
       "fixtures_with_probe_hits": 0,
@@ -3460,6 +3644,382 @@
       "behavior_change_allowed": false
     },
     {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8",
+      "fixture_id": "08-paula-freeze-before-animation",
+      "oracle_id": "c1_c2_target_action_staging",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:BAC5": 38
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 12,
+        "C2:8651": 6,
+        "C2:8740": 8,
+        "C2:9033": 6,
+        "C2:9647": 6
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "C2:505A": 1,
+        "C2:5624": 6,
+        "C2:5633": 6,
+        "C2:5D51": 6,
+        "C2:5D5D": 6,
+        "C2:5EFE": 6,
+        "C2:5F26": 6,
+        "C2:77F6": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "first_frame": 10,
+      "last_frame": 965,
+      "trace_line_count": 194,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:1800",
+      "save_state": {
+        "basename": "EarthBound (USA)_8.mss",
+        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/c1_c2_target_action_staging/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8",
+      "fixture_id": "08-paula-freeze-before-animation",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:3D05"
+      ],
+      "probe_observed_addresses": [
+        "C0:9279",
+        "C2:3E32",
+        "C2:416F",
+        "C2:4703",
+        "C2:77CA"
+      ],
+      "breakpoint_hit_counts": {
+        "C2:3D05": 21
+      },
+      "probe_breakpoint_hit_counts": {
+        "C0:9279": 5,
+        "C2:3E32": 5,
+        "C2:416F": 3,
+        "C2:4703": 5,
+        "C2:77CA": 1
+      },
+      "probe_route_group_hit_counts": {
+        "payload_applicator": 19
+      },
+      "dispatch_target_counts": {
+        "C2:859F": 8,
+        "C2:8651": 4,
+        "C2:8740": 1,
+        "C2:9033": 4,
+        "C2:9647": 4
+      },
+      "probe_dispatch_target_counts": {
+        "C2:859F": 6,
+        "C2:8651": 4,
+        "C2:8740": 2,
+        "C2:9033": 4,
+        "C2:9647": 3
+      },
+      "stack_return_counts": {
+        "C2:3E88": 5,
+        "C2:58D5": 5,
+        "C2:5CAE": 5,
+        "C2:5E26": 6
+      },
+      "probe_stack_return_counts": {
+        "C2:59F9": 5,
+        "C2:5A1F": 3,
+        "C2:5AFB": 5,
+        "C2:5D3D": 5,
+        "F3:1E64": 1
+      },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {
+        "c2_battle_start_candidate_direct_dispatch": 5
+      },
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": 11,
+      "last_frame": 960,
+      "trace_line_count": 284,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:1800",
+      "save_state": {
+        "basename": "EarthBound (USA)_8.mss",
+        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/c2_40a4_current_action_payload/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8",
+      "fixture_id": "08-paula-freeze-before-animation",
+      "oracle_id": "c2_724a_affliction_writer_matrix",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "missing_minimum_hits": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:1800",
+      "save_state": {
+        "basename": "EarthBound (USA)_8.mss",
+        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/c2_724a_affliction_writer_matrix/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8",
+      "fixture_id": "08-paula-freeze-before-animation",
+      "oracle_id": "c2_8125_damage_abi_boundary",
+      "minimum_hits_satisfied": true,
+      "observed_addresses": [
+        "C1:0DF6",
+        "C1:7EED",
+        "C1:AD0A",
+        "C1:AD26",
+        "C1:DC1C",
+        "C1:DC66",
+        "C2:7550",
+        "C2:7EAF",
+        "C2:8125",
+        "C2:941D"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:0DF6": 5,
+        "C1:7EED": 5,
+        "C1:AD0A": 5,
+        "C1:AD26": 5,
+        "C1:DC1C": 1,
+        "C1:DC66": 5,
+        "C2:7550": 1,
+        "C2:7EAF": 4,
+        "C2:8125": 4,
+        "C2:941D": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 12,
+        "C2:8651": 7,
+        "C2:8740": 9,
+        "C2:9647": 8
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "11:7EF0": 2,
+        "11:7EFB": 2,
+        "1D:7EF0": 1,
+        "1D:7EFB": 1,
+        "1F:7EF0": 1,
+        "1F:7EFB": 1,
+        "47:DCA7": 2,
+        "53:DCA7": 1,
+        "55:DCA7": 1,
+        "61:7EF0": 1,
+        "61:7EFB": 1,
+        "75:81E0": 2,
+        "81:81E0": 1,
+        "83:81E0": 1,
+        "85:8569": 2,
+        "97:86B6": 1,
+        "97:95E7": 1,
+        "97:9603": 1,
+        "97:DCA7": 1,
+        "C2:5965": 1,
+        "C2:7A46": 1,
+        "C2:8055": 3,
+        "C2:810A": 1,
+        "C2:81F4": 1,
+        "E6:1E12": 2,
+        "E6:1E1E": 1,
+        "E6:1E20": 1,
+        "E6:1E62": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8125"
+      ],
+      "missing_minimum_hits": [],
+      "first_frame": 13,
+      "last_frame": 891,
+      "trace_line_count": 76,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:1800",
+      "save_state": {
+        "basename": "EarthBound (USA)_8.mss",
+        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/c2_8125_damage_abi_boundary/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8",
+      "fixture_id": "08-paula-freeze-before-animation",
+      "oracle_id": "hp_roller_collapse_boundary",
+      "minimum_hits_satisfied": true,
+      "observed_addresses": [
+        "C1:DC1C",
+        "C1:DC66",
+        "C2:7550",
+        "C2:77CA",
+        "C2:8125",
+        "C2:BB18"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C1:DC1C": 1,
+        "C1:DC66": 5,
+        "C2:7550": 1,
+        "C2:77CA": 1,
+        "C2:8125": 4,
+        "C2:BB18": 25
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 11,
+        "C2:8651": 6,
+        "C2:8740": 10,
+        "C2:9033": 4,
+        "C2:9647": 6
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "85:8569": 2,
+        "97:86B6": 1,
+        "97:9603": 1,
+        "C2:5053": 1,
+        "C2:561D": 6,
+        "C2:5965": 1,
+        "C2:5D41": 6,
+        "C2:5E1C": 6,
+        "C2:5EF3": 6,
+        "C2:7A46": 1,
+        "C2:8055": 3,
+        "C2:810A": 1,
+        "C2:81F4": 1,
+        "F3:1E64": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8125",
+        "C2:7550"
+      ],
+      "missing_minimum_hits": [],
+      "first_frame": 10,
+      "last_frame": 964,
+      "trace_line_count": 152,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:1800",
+      "save_state": {
+        "basename": "EarthBound (USA)_8.mss",
+        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/hp_roller_collapse_boundary/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8",
+      "fixture_id": "08-paula-freeze-before-animation",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:1800",
+      "save_state": {
+        "basename": "EarthBound (USA)_8.mss",
+        "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-8/08-paula-freeze-before-animation/resource_amount_pair_magnet_vs_pp_loss/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
       "probe_group": "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary",
       "fixture_id": "01-earthbound-usa-1",
       "oracle_id": "hp_roller_collapse_boundary",
@@ -4318,7 +4878,7 @@
       "input_pattern": "neutral:20,a:4,neutral:40,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_11.mss",
-        "sha256": "9e05c706651fd49107b9c3d021a337eceaa7b774d61aad857ffae59d734bfe83"
+        "sha256": "54e14d9cfa82c8a7bc9ff679eadc8bc25816c3f5e3cf719ef1c80b9ef2410242"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save11-confirm-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4376,7 +4936,7 @@
       "input_pattern": "neutral:20,a:4,neutral:40,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_11.mss",
-        "sha256": "9e05c706651fd49107b9c3d021a337eceaa7b774d61aad857ffae59d734bfe83"
+        "sha256": "54e14d9cfa82c8a7bc9ff679eadc8bc25816c3f5e3cf719ef1c80b9ef2410242"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging/save11-confirm-stack-context/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4579,7 +5139,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_11.mss",
-        "sha256": "9e05c706651fd49107b9c3d021a337eceaa7b774d61aad857ffae59d734bfe83"
+        "sha256": "54e14d9cfa82c8a7bc9ff679eadc8bc25816c3f5e3cf719ef1c80b9ef2410242"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save11-confirm-dispatch-target/raw-trace-summary.json",
       "source_promotion_allowed": false,
@@ -4625,7 +5185,7 @@
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2200",
       "save_state": {
         "basename": "EarthBound (USA)_11.mss",
-        "sha256": "9e05c706651fd49107b9c3d021a337eceaa7b774d61aad857ffae59d734bfe83"
+        "sha256": "54e14d9cfa82c8a7bc9ff679eadc8bc25816c3f5e3cf719ef1c80b9ef2410242"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save11-confirm-enhanced/raw-trace-summary.json",
       "source_promotion_allowed": false,

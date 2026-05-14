@@ -14,6 +14,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PROBE_ROOTS = (
     ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "battle-fixtures-1-7",
+    ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "battle-fixtures-8",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "collapse-save-state-probes-neutral" / "hp_roller_collapse_boundary",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c1-c2-target-action-staging",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c1-c2-target-action-staging",
@@ -405,7 +406,7 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- Route-hint fixtures hit optional approach breakpoints and are discovery aids only; they do not satisfy minimum hits or permit source promotion.",
             "- Dispatch-target and return columns are captured only for route-hint probes that use trampoline/context breakpoints; they identify the `$00BC` jump target and stack return path without proving the missing minimum address. Raw summaries also classify `C0:9279` lanes by stack return so direct dispatch can be separated from true `C2:40A4` loop dispatch.",
             "- `probed-no-route` means the current local fixtures did not reach the lane.",
-            "- `c2_40a4_current_action_payload` has `C2:4703`, `C2:3E32`, `C2:416F`, and `C2:3D05` neighbor/context hits plus `C0:9279` direct-dispatch hits. The `$00BC` target/return captures show real payload-adjacent dispatches, but the observed `C0:9279` lane returns through `C2:5D3D`, not the `C2:40A4` loop returns near `C2:4104` or `C2:4159`. The next useful fixture should stop immediately before confirming a concrete second-pointer curative, recovery, item-status, or random damage/status item payload against a selected target.",
+            "- `c2_40a4_current_action_payload` has `C2:4703`, `C2:3E32`, `C2:416F`, and `C2:3D05` neighbor/context hits plus `C0:9279` direct-dispatch hits. The `$00BC` target/return captures show real payload-adjacent dispatches, but the observed `C0:9279` lane returns through `C2:5D3D`, not the `C2:40A4` loop returns near `C2:4104` or `C2:4159`. The save-8 Paula Freeze fixture reinforces that offensive PSI damage uses the direct-dispatch family and is better evidence for `C2:8125`/HP text joins than for `C2:40A4`; the next useful `C2:40A4` fixture should be a curative, recovery, item-status, or random damage/status item payload against a selected target.",
             "- `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The remaining missing route is `C2:B930` snapshot export, not `C1:CFC6`.",
         ]
     )

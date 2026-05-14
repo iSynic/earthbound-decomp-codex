@@ -71,6 +71,7 @@ promotion gates while still showing whether the run approached `C2:B930` or
 | `5` | `EarthBound (USA)_5.mss` | `a62a6efa4d9ae7ea216695566fa5f6d31115b49bffb431bfb778cd88a28929fb` | attack selected, before damage numbers |
 | `6` | `EarthBound (USA)_6.mss` | `b70d49925f8fbf84b83ed510a0eb324bfd6a8dda1046d1e83f4b216c1d609716` | Paula already has sunstroke |
 | `7` | `EarthBound (USA)_7.mss` | `facbb2ebb317a4e92488f564fbccbe44de1392428fd617c6150c66c8719f620c` | Jeff was hit by a SMAAAASH attack; HP is rolling |
+| `8` | `EarthBound (USA)_8.mss` | `bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a` | Paula queued PSI Freeze against Great Crested Booka A; battle execution is already running and Freeze resolves after Paula's sunstroke tick |
 
 - The seven-save fixture scout ran neutral plus one-through-four confirm
   patterns: 35 completed runs, 22 battle-entry candidates, and 0 full command
@@ -106,9 +107,16 @@ promotion gates while still showing whether the run approached `C2:B930` or
   `+0x11` reaching zero before collapse handling. The reviewed result remains
   `needs_followup` because this run does not hit `C2:7680` or `C2:BC5C` and
   does not prove HP-roller visual timing across the whole collapse family.
+- Save 8 adds a queued offensive-PSI runtime fixture. A neutral 1800-frame
+  Paula Freeze run satisfies `c2_8125_damage_abi_boundary` and
+  `hp_roller_collapse_boundary`: it observes `C2:941D`, four `C2:8125` damage
+  ABI entries, four `C2:7EAF` amount/selector neighbors, `C2:7550`, `C2:77CA`,
+  `C2:BB18`, and the C1 text/display joins `C1:DC66`/`C1:DC1C`. It is useful
+  evidence that offensive PSI damage shares the direct C2 damage/text family,
+  not proof of the `C2:40A4` second-pointer wrapper.
 - `c2_40a4_current_action_payload` does not yet hit its minimum `C2:40A4`, but
-  saves 1, 2, 3, 4, 5, and 7 repeatedly hit nearby `C2:3D05`. Treat those as
-  route hints only.
+  saves 1, 2, 3, 4, 5, 7, and 8 repeatedly hit nearby `C2:3D05`. Treat those
+  as route hints only.
 - The generated runner assets now install route-gap probe breakpoints for the
   two open lanes. For `c1_c2_target_action_staging`, the extra non-required
   breakpoints are `C1:B3DB`, `C1:B462`, `C1:B505`, `C1:B859`, `C1:B9A9`, and
@@ -130,12 +138,12 @@ promotion gates while still showing whether the run approached `C2:B930` or
   static `C2:40A4` callsites: `C2:79D1`, `C2:915C`, and `C2:AF0D`. It also
   captures `$A970/$A972`, `$A96C/$A96E`, `$00BC/$00BE`, and the
   `$1B9E/$AEC2/$AECC/$AECE` busy gate around payload-adjacent dispatches. Save
-  5 and save 7 still hit `C2:4703`, `C2:3E32`, `C2:416F`, downstream
-  `C2:3D05`, and `C0:9279`, but not the `C2:40A4` wrapper or any of the three
-  pre-call sites. The new dispatch-lane summary classifies those `C0:9279`
-  hits as `c2_battle_start_candidate_direct_dispatch` via return `C2:5D3D`,
-  so the current fixture set is useful for payload-target identities, but not
-  for proving the second-pointer wrapper contract.
+  5, save 7, and save 8 still hit `C2:4703`, `C2:3E32`, `C2:416F`,
+  downstream `C2:3D05`, and `C0:9279`, but not the `C2:40A4` wrapper or any of
+  the three pre-call sites. The new dispatch-lane summary classifies those
+  `C0:9279` hits as `c2_battle_start_candidate_direct_dispatch` via return
+  `C2:5D3D`, so the current fixture set is useful for payload-target
+  identities, but not for proving the second-pointer wrapper contract.
 - The enhanced `c1_c2_target_action_staging` route sweep still did not reach
   `C2:B930` or its six C1 pre-export probe sites. Save 11 repeatedly hits
   `C2:BAC5`, which makes it another target-count fixture, not a snapshot-export
