@@ -37,6 +37,18 @@ The execution roadmap for this phase is `notes/phase-2-semantic-closure-plan.md`
 | EF mixed runtime/data/text | Medium | Save/SRAM, debug/menu, battle-text, map/text/glyph corridors, and late helper regions have improved source closure. | Large text/help/menu runs and some payload joins still need stronger script/data semantics. |
 | ebsrc/community alignment | Medium-high as crosswalk, selective as source | Exact-address ebsrc names are integrated or crosswalked with alias-first policy. | Community-preferred names should be added as compatibility aliases only when exact-address and role-compatible. |
 
+## C2 Resource-Lane Update
+
+The long C2 table row above still preserves some historical wording from before
+the latest manual save-state captures. The current resource-lane state is more
+advanced: `notes/psi-magnet-drain-amount.md` records natural vanilla evidence
+for Paula's PSI Magnet against a Stonehenge Mook and for Mad Duck's PP-loss
+action. PSI Magnet now has natural `C2:9F5E -> C2:721D -> C2:7191` evidence for
+nonzero target PP loss plus capped caster recovery routing, and Mad Duck has
+natural `C2:8E42 -> C2:721D -> C2:7191` evidence for loss-only PP reduction
+with no caster-side recovery. The remaining work there is source-facing polish
+and optional broader coverage, not initial proof acquisition.
+
 ## Confidence Language
 
 - `High`: byte-equivalent, exact-address, local callers and side effects are

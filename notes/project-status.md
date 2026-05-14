@@ -50,16 +50,17 @@ before this becomes true human-readable source.
   without promoting those as natural damage timing. The controlled resource
   comparison now separates WRAM-seeded, action-row-steered no-WRAM, seeded
   natural-table, and startup-only scripted-entry PSI Magnet/PP-reduction
-  evidence. The startup-only resource captures reach `C2:9F5E` and `C2:8E42`
-  without resource-specific on-hit PP seeding, but stop before `C2:721D`
-  because the selected target row still has `0` PP. The forced-entry `C2:B930`
-  snapshot-export capture is recorded as mechanics evidence. The natural
-  snapshot-export scout records 12 existing-save attempts and confirms the
-  current saves are mostly `C2:BAC5` neighbors rather than the pre-export
-  window. Natural PP amount proof, natural paired `C2:724A`/`C2:9917`, and
-  unpatched C1-to-`C2:B930` snapshot export remain the highest-value runtime
-  gaps; the next autonomy upgrade is ROM-side selected-target PP setup for the
-  scripted-entry resource fixture.
+  evidence. Natural vanilla save-state captures now cover Paula's PSI Magnet
+  against a Stonehenge Mook and Mad Duck's PP-loss action: `notes/psi-magnet-drain-amount.md`
+  records `C2:9F5E -> C2:721D -> C2:7191` for target PP loss/capped caster
+  recovery routing and `C2:8E42 -> C2:721D -> C2:7191` for loss-only PP
+  reduction with no caster-side recovery. The forced-entry `C2:B930`
+  snapshot-export capture is recorded as mechanics evidence, and the natural
+  Fresh Egg Goods Use route now proves the `C1:B3DB -> C2:B930` snapshot-export
+  path. Remaining high-value runtime gaps are narrower: final source-facing
+  promotion/comment polish for the PP lanes, broader optional `C2:B930`
+  item-family coverage, natural paired `C2:724A`/`C2:9917` status-gate review,
+  and optional collapse-tail timing cases.
 - The D5 battle-action table now has a generated all-row crosswalk at
   `notes/battle-action-row-crosswalk.md`, separating row `+4` presentation text
   pointers from row `+8` behavior bodies for C1/C2/EF joins without promoting
