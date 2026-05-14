@@ -93,6 +93,9 @@ WRAM_PATCH_PROFILES: dict[str, list[str]] = {
     "resource-selected-party-a21c-pp32": [
         "0xA235:20 00 20 00",
     ],
+    "resource-active-row-a21c-pp0-max81": [
+        "0xA235:00 00 51 00",
+    ],
     "resource-selected-row-9fac-pp32": [
         "0x9FC5:20 00 20 00",
     ],

@@ -48,7 +48,7 @@ DEFAULT_INPUTS = {
     / "battle-trace-oracles"
     / "manual-probes"
     / "resource-natural-scripted-entry"
-    / "gigantic-ant-force-magnet-onhit-9fac-pp32"
+    / "gigantic-ant-force-magnet-onhit-target32-active0-single-confirm"
     / "captured-fields.json",
     "guardian_general_forced_pp_reduction_scripted_entry": ROOT
     / "build"
@@ -212,7 +212,7 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- PSI Magnet controlled capture shows transfer-style mechanics: target PP decreases and active battler PP increases by the same amount.",
             "- PP reduction controlled capture shows loss-only mechanics: target PP decreases while active battler PP remains unchanged.",
             "- The no-WRAM captures are cleaner amount evidence than the WRAM-seeded probes: the selected target already had PP in save 1, and the fixture-steered actions reduced that row by `5` and `9` PP respectively.",
-            "- The scripted-entry enemy-action captures keep canonical enemy/action rows in play: Gigantic Ant reaches row `54` / `C2:9F5E`, and Guardian General reaches row `95` / `C2:8E42 -> C2:721D`; both still rely on generated fixture ROMs and targeted WRAM seeding.",
+            "- The scripted-entry enemy-action captures keep canonical enemy/action rows in play: Gigantic Ant row `54` now reaches `C2:9F5E -> C2:721D -> C2:7191` and shows target PP loss plus active PP gain; Guardian General row `95` reaches `C2:8E42 -> C2:721D` and stays loss-only. Both still rely on generated fixture ROMs and targeted WRAM seeding.",
             "- All captures still rely on fixture action steering or local WRAM seeding, so the natural proof lane remains open for real PSI Magnet and PP-reduction enemies.",
             "",
             "## Next Natural Proof Targets",
