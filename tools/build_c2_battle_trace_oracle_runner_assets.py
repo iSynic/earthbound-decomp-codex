@@ -888,7 +888,7 @@ def render_lua(job: dict[str, Any]) -> str:
             "  if bootstrapFrameCount > 0 and frame == bootstrapFrameCount then",
             "    writeJson({ type = \"bootstrap_complete\", oracleId = oracleId, jobId = jobId, scenarioName = scenarioName, frame = frame, inputPattern = bootstrapInputPatternSpec, frameCount = bootstrapFrameCount })",
             "    writeJson({ type = \"input_handoff\", oracleId = oracleId, jobId = jobId, scenarioName = scenarioName, frame = frame, fromPhase = \"bootstrap\", toPhase = \"scenario\" })",
-            "    emitStateSnapshot(\"post_srm_resume_bootstrap\")",
+            "    emitStateSnapshot(\"post_bootstrap_input_handoff\")",
             "  end",
             "  if frame >= frameLimit then",
             "    writeJson({ type = \"summary\", oracleId = oracleId, jobId = jobId, frames = frame, totalHits = totalHits, requiredHitLabels = requiredHitLabels })",

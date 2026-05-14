@@ -82,6 +82,8 @@ def prepare_srm_rom(
     spec: dict[str, Any],
     rom_arg: str | None,
     *,
+    mesen: str | None = None,
+    dry_run: bool = False,
     bootstrap_input_pattern: str | None = None,
     bootstrap_frame_count: int | None = None,
 ) -> tuple[Path, dict[str, Any]]:
@@ -94,6 +96,13 @@ def prepare_srm_rom(
     if not srm_path.is_file():
         raise FileNotFoundError(f"working SRM missing; rebuild catalog first: {srm_path}")
     shutil.copy2(srm_path, srm_dest)
+    mesen_save_install = install_srm_for_mesen(
+        mesen_path=Path(mesen) if mesen else None,
+        rom_path=rom_dest,
+        source_srm=srm_dest,
+        run_dir=run_dir,
+        dry_run=dry_run,
+    )
     effective_bootstrap_input = bootstrap_input_pattern or str(spec.get("bootstrap_input_pattern", "not_declared"))
     effective_bootstrap_frames = int(
         bootstrap_frame_count if bootstrap_frame_count is not None else spec.get("bootstrap_frame_count", 0)
@@ -105,6 +114,7 @@ def prepare_srm_rom(
         "srm_copied_sha256": sha256(srm_dest),
         "srm_rom_path": manifest_path(rom_dest),
         "srm_copy_path": manifest_path(srm_dest),
+        **mesen_save_install,
         "bootstrap_status": spec.get("bootstrap_status", "not_declared"),
         "bootstrap_input_pattern": effective_bootstrap_input,
         "bootstrap_frame_count": effective_bootstrap_frames,
@@ -116,6 +126,50 @@ def prepare_srm_rom(
             "A future bootstrap phase must record a post-resume snapshot before this becomes vanilla SRM-plus-input evidence."
         ),
     }
+
+
+def install_srm_for_mesen(
+    *,
+    mesen_path: Path | None,
+    rom_path: Path,
+    source_srm: Path,
+    run_dir: Path,
+    dry_run: bool,
+) -> dict[str, Any]:
+    if mesen_path is None:
+        return {"mesen_save_install_status": "not_installed_no_mesen_path"}
+    save_dir = mesen_path.parent / "Saves"
+    if not save_dir.is_dir():
+        return {
+            "mesen_save_install_status": "not_installed_save_dir_missing",
+            "mesen_save_dir": str(save_dir),
+        }
+    target = save_dir / f"{rom_path.stem}.srm"
+    record: dict[str, Any] = {
+        "mesen_save_install_status": "dry_run_not_installed" if dry_run else "installed",
+        "mesen_save_dir": str(save_dir),
+        "mesen_save_target": str(target),
+        "mesen_save_target_previous_sha256": sha256(target),
+        "mesen_save_source_sha256": sha256(source_srm),
+    }
+    if dry_run:
+        return record
+    backup_path = None
+    previous_hash = sha256(target)
+    source_hash = sha256(source_srm)
+    if target.is_file() and previous_hash and previous_hash != source_hash:
+        backup_dir = run_dir / "mesen-save-backups"
+        backup_dir.mkdir(parents=True, exist_ok=True)
+        backup_path = backup_dir / f"{target.stem}.{previous_hash}.srm"
+        shutil.copy2(target, backup_path)
+    shutil.copy2(source_srm, target)
+    record.update(
+        {
+            "mesen_save_target_installed_sha256": sha256(target),
+            "mesen_save_backup_path": manifest_path(backup_path) if backup_path else None,
+        }
+    )
+    return record
 
 
 def build_runner_command(
@@ -163,6 +217,8 @@ def build_runner_command(
         rom_path, run_metadata = prepare_srm_rom(
             spec,
             rom,
+            mesen=mesen,
+            dry_run=dry_run,
             bootstrap_input_pattern=bootstrap_input_pattern,
             bootstrap_frame_count=bootstrap_frame_count,
         )
@@ -216,6 +272,7 @@ def main() -> int:
         mesen_summary = load_json(mesen_summary_path)
         run_metadata["bootstrap_complete_seen"] = bool(mesen_summary.get("bootstrap_complete_seen"))
         run_metadata["input_handoff_seen"] = bool(mesen_summary.get("input_handoff_seen"))
+        run_metadata["post_bootstrap_snapshot_seen"] = bool(mesen_summary.get("post_bootstrap_snapshot_seen"))
         run_metadata["post_resume_snapshot_seen"] = bool(mesen_summary.get("post_resume_snapshot_seen"))
         run_metadata["raw_trace_summary"] = mesen_summary.get("raw_trace_summary")
     record.update(

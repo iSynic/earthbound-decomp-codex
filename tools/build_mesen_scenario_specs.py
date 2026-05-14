@@ -175,7 +175,11 @@ def render_note(data: dict[str, Any]) -> str:
             "",
             "The current SRM scenario copies a cataloged `.srm` beside a local ROM and confirms the paired launch path. It does not yet prove that Mesen selected Continue, loaded the anchor save, or reached a post-resume gameplay state. Treat SRM-anchor outputs as setup plumbing until a scenario records a post-resume snapshot.",
             "",
-            "The scenario runner now supports a separate bootstrap input phase via local override fields/CLI arguments, but the tracked Stonehenge scenario keeps `launch_smoke_only_post_resume_pending` until a verified Continue/load sequence is recorded.",
+            "When a Mesen path is supplied, `tools/run_mesen_scenario_spec.py` now installs the cataloged SRM into the portable Mesen `Saves/` directory using the temporary ROM basename and records the installed SHA-256. Existing target saves with different hashes are backed up under the ignored scenario run directory before replacement.",
+            "",
+            "The scenario runner now supports a separate bootstrap input phase via local override fields/CLI arguments, but the tracked Stonehenge scenario keeps `launch_smoke_only_post_resume_pending` until a verified Continue/load sequence and save-specific post-resume state are recorded.",
+            "",
+            "Latest local scout: a bounded Start/A bootstrap sweep records bootstrap completion, input handoff, and C1/C3 file/menu helper hits, but still no `C2:9F5E`/`C2:8E42` resource route and no post-resume proof. The next useful input from a human would be either the exact title-menu Continue/load button sequence for one SRM slot or a Mesen save state created immediately after loading one of the SRM anchors.",
         ]
     )
     lines.append("")

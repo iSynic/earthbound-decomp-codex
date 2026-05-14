@@ -537,6 +537,7 @@ def main() -> int:
         "bootstrap_frame_count": args.bootstrap_frame_count,
         "bootstrap_complete_seen": False,
         "input_handoff_seen": False,
+        "post_bootstrap_snapshot_seen": False,
         "post_resume_snapshot_seen": False,
         "wram_patches": wram_patches,
         "wram_patch_profiles": fixture_wram_profiles + args.wram_patch_profile,
@@ -595,6 +596,7 @@ def main() -> int:
         run_record["minimum_hits_satisfied"] = raw_summary["minimum_hits_satisfied"]
         run_record["bootstrap_complete_seen"] = bool(raw_summary.get("bootstrap_complete_seen"))
         run_record["input_handoff_seen"] = bool(raw_summary.get("input_handoff_seen"))
+        run_record["post_bootstrap_snapshot_seen"] = bool(raw_summary.get("post_bootstrap_snapshot_seen"))
         run_record["post_resume_snapshot_seen"] = bool(raw_summary.get("post_resume_snapshot_seen"))
     write_json(summary_path, run_record)
     print(f"C2 Mesen oracle run {run_record['status']}: {runner_data['oracle_id']}")

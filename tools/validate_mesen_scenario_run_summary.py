@@ -46,12 +46,19 @@ def validate(data: dict[str, Any]) -> list[str]:
         copied = str(metadata.get("srm_copied_sha256", ""))
         require(len(expected) == 64, "SRM expected SHA-256 missing/bad", errors)
         require(copied == expected, "copied SRM hash must match catalog hash", errors)
+        install_status = str(metadata.get("mesen_save_install_status", ""))
+        require(install_status, "SRM run missing Mesen save-install status", errors)
+        if install_status == "installed":
+            installed = str(metadata.get("mesen_save_target_installed_sha256", ""))
+            require(installed == expected, "installed Mesen save hash must match catalog hash", errors)
+            require(str(metadata.get("mesen_save_target", "")), "installed SRM run missing Mesen save target", errors)
         require(metadata.get("post_resume_snapshot_required") is True, "SRM run must require post-resume snapshot proof", errors)
         require(str(metadata.get("bootstrap_input_pattern", "")), "SRM run missing bootstrap input pattern", errors)
         require(isinstance(metadata.get("bootstrap_frame_count"), int), "SRM run missing bootstrap frame count", errors)
         bootstrap_status = str(metadata.get("bootstrap_status", ""))
         resume_status = str(metadata.get("resume_proof_status", ""))
         post_resume_seen = metadata.get("post_resume_snapshot_seen") is True
+        post_bootstrap_seen = metadata.get("post_bootstrap_snapshot_seen") is True
         bootstrap_complete_seen = metadata.get("bootstrap_complete_seen") is True
         input_handoff_seen = metadata.get("input_handoff_seen") is True
         if bootstrap_status == "launch_smoke_only_post_resume_pending":
@@ -61,6 +68,7 @@ def validate(data: dict[str, Any]) -> list[str]:
             require(resume_status == "proven", "post-resume SRM run must claim proven resume", errors)
             require(bootstrap_complete_seen, "post-resume SRM run must record bootstrap_complete", errors)
             require(input_handoff_seen, "post-resume SRM run must record input_handoff", errors)
+            require(post_bootstrap_seen, "post-resume SRM run must record post-bootstrap snapshot", errors)
             require(post_resume_seen, "post-resume SRM run must record snapshot proof", errors)
     return errors
 
