@@ -1615,6 +1615,8 @@ C28B2C_RunPoisonStatusAction = BTLACT_POISON
     bne C28B6B_RunHitResolutionAndStatusActionCluster_L8B6B
     ldy.w #BattleStatusPoisoned
     ldx.w #BattleStatusGroupPrimary
+    ; Dread Skelpion fixture trace reaches this writer path with X=0/Y=5;
+    ; keep as route evidence until post-return status capture is reviewed.
     lda $A972
     jsr C2724A_ApplySelectedRowAfflictionSlotValue
     cmp.w #$0000

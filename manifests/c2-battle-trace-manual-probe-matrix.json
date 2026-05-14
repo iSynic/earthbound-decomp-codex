@@ -22,7 +22,7 @@
   "summary": {
     "probe_root_count": 10,
     "probe_roots_found": 10,
-    "record_count": 128,
+    "record_count": 134,
     "oracle_count": 6,
     "minimum_hit_candidate_count": 13,
     "route_hint_fixture_count": 15,
@@ -2105,7 +2105,7 @@
         "C2:9F5E"
       ],
       "status": "partial-route-observed",
-      "probe_count": 21,
+      "probe_count": 27,
       "minimum_hit_candidate_count": 0,
       "fixtures_with_any_hits": 5,
       "fixtures_with_probe_hits": 0,
@@ -7475,6 +7475,234 @@
         "sha256": "5f6958127bda0a6940d204ab1dcc25dae366d11c2ef153f2c906ad5fffd18451"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/dread-skelpion-save4-mash-a-1800/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "save1-down-confirm-2200",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,down:6,neutral:12,a:4,neutral:60,a:4,neutral:2000",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "3602e383b607f3098250e9e7c239633d2b3bb7b3f60aa459654268420f3d51c5"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/save1-down-confirm-2200/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "save1-mash-a-2200",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:6,neutral:40,a:6,neutral:40,a:6,neutral:40,a:6,neutral:40,a:6,neutral:1800",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "3602e383b607f3098250e9e7c239633d2b3bb7b3f60aa459654268420f3d51c5"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/save1-mash-a-2200/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "save1-neutral-confirm-1600",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:1600",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "3602e383b607f3098250e9e7c239633d2b3bb7b3f60aa459654268420f3d51c5"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/save1-neutral-confirm-1600/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "save1-right-confirm-2200",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:60,a:4,neutral:2000",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "3602e383b607f3098250e9e7c239633d2b3bb7b3f60aa459654268420f3d51c5"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/save1-right-confirm-2200/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "save5-mash-a-2600",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:6,neutral:40,a:6,neutral:40,a:6,neutral:40,a:6,neutral:2200",
+      "save_state": {
+        "basename": "EarthBound (USA)_5.mss",
+        "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/save5-mash-a-2600/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "save5-neutral-2200",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:2200",
+      "save_state": {
+        "basename": "EarthBound (USA)_5.mss",
+        "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/save5-neutral-2200/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     },
