@@ -49,7 +49,7 @@ The first success criterion is only:
 - `tools/build_c2_fixture_roms.py`: add the scenario, D0 payload patch, D5 enemy
   row patching, and caveats.
 - `tools/run_c2_battle_trace_oracle_mesen.py`: already supports no-state runs,
-  but fixture config may need an autostart fixture role.
+  and its local fixture template includes an autostart fixture-ROM role.
 - `tools/validate_c2_battle_trace_local_fixtures.py`: allow a
   `fixture_rom_autostart` role where `save_state_path` is absent.
 - `tools/build_c2_battle_trace_oracle_manifest.py`: optionally add `C2:2F38`,

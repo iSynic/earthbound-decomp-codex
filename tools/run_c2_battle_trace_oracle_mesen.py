@@ -121,6 +121,14 @@ def local_fixture_template() -> dict[str, Any]:
                 "save_state_path": "<local-only ordinary battle .mss just before choosing a command>",
                 "input_pattern": "neutral:30,a:4,neutral:20,a:4,neutral:360",
                 "notes": "Create this locally in Mesen; do not commit the save state.",
+            },
+            {
+                "id": "scripted_battle_fixture_rom",
+                "role": "fixture_rom_autostart",
+                "oracle_ids": ["resource_amount_pair_magnet_vs_pp_loss", "c2_724a_affliction_writer_matrix"],
+                "rom_path": "<ignored generated fixture ROM that autostarts C2:2F38>",
+                "input_pattern": "neutral:4200",
+                "notes": "Generated ROM must stay under build/c2/fixture-roms and is reachability evidence only.",
             }
         ],
     }

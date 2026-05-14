@@ -43,6 +43,12 @@ def validate_path(path_text: str, *, label: str, allow_placeholder: bool) -> Non
     require(Path(path_text).is_file(), f"{label} not found: {path_text}")
 
 
+def validate_optional_path(path_text: Any, *, label: str, allow_placeholder: bool) -> None:
+    if path_text is None:
+        return
+    validate_path(str(path_text), label=label, allow_placeholder=allow_placeholder)
+
+
 def validate(data: dict[str, Any], packet: dict[str, Any], *, allow_placeholders: bool) -> None:
     require(data.get("schema") == "earthbound-decomp.c2-battle-trace-local-fixtures.v1", "bad schema")
     validate_path(str(data.get("default_mesen_path", "")), label="default_mesen_path", allow_placeholder=allow_placeholders)
@@ -56,8 +62,28 @@ def validate(data: dict[str, Any], packet: dict[str, Any], *, allow_placeholders
         require(fixture_id, "fixture missing id")
         require(fixture_id not in ids, f"duplicate fixture id {fixture_id}")
         ids.add(fixture_id)
-        require(fixture.get("role") == "battle_save_state", f"{fixture_id}: role must be battle_save_state")
-        validate_path(str(fixture.get("save_state_path", "")), label=f"{fixture_id} save_state_path", allow_placeholder=allow_placeholders)
+        role = fixture.get("role")
+        require(
+            role in {"battle_save_state", "fixture_rom_autostart"},
+            f"{fixture_id}: role must be battle_save_state or fixture_rom_autostart",
+        )
+        if role == "battle_save_state":
+            validate_path(
+                str(fixture.get("save_state_path", "")),
+                label=f"{fixture_id} save_state_path",
+                allow_placeholder=allow_placeholders,
+            )
+        if role == "fixture_rom_autostart":
+            validate_path(
+                str(fixture.get("rom_path", "")),
+                label=f"{fixture_id} rom_path",
+                allow_placeholder=allow_placeholders,
+            )
+            validate_optional_path(
+                fixture.get("save_state_path"),
+                label=f"{fixture_id} optional save_state_path",
+                allow_placeholder=allow_placeholders,
+            )
         oracle_ids = fixture.get("oracle_ids", [])
         require(isinstance(oracle_ids, list) and oracle_ids, f"{fixture_id}: oracle_ids must be non-empty")
         for oracle_id in oracle_ids:
