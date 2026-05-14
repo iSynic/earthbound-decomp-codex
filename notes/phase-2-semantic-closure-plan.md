@@ -135,7 +135,7 @@ outside the VCMD table unless reader-path evidence proves otherwise.
 
 ## Ghidra-SNES Policy
 
-`ghidra-snes v0.2.0` is installed in the dedicated pilot worktree:
+`ghidra-snes v1.0.0-rc1` is installed in the dedicated pilot worktree:
 `F:\EB Decomp WT - Ghidra SNES Pilot`.
 
 Use it as a supporting oracle only:
@@ -152,8 +152,9 @@ hint in notes/manifests, then confirmed against local source, byte-equivalence,
 trace data, or generated manifests before source-facing promotion.
 
 The current pilot result is bounded-positive: EarthBound imports as HiROM with
-the SNES ROM Loader, sampled lanes decode sensibly, but no materially better
-labels or boundaries were discovered beyond local source and crosswalks.
+the SNES ROM Loader, sampled lanes decode sensibly, but the refreshed rc1 dump
+did not materially improve EarthBound memory blocks, labels, lane decodes, or
+boundaries beyond the prior `v0.2.0` pilot, local source, and crosswalks.
 
 ## Validation
 

@@ -16,9 +16,11 @@ The execution roadmap for this phase is `notes/phase-2-semantic-closure-plan.md`
   `C0`, `C1`, `C2`, `C4`, and `EF`.
 - Current semantic work is organized by subsystem, VM, data contract, and
   reference-alignment lane rather than by first-pass bank note.
-- Ghidra-SNES `v0.2.0` is installed in the dedicated pilot worktree as a
+- Ghidra-SNES `v1.0.0-rc1` is installed in the dedicated pilot worktree as a
   supporting visual/decode oracle only; local source, traces, and manifests
-  remain authoritative for names and behavior.
+  remain authoritative for names and behavior. The refreshed pilot kept the
+  successful EarthBound HiROM import but did not materially change sampled
+  memory blocks, labels, or lane decodes versus `v0.2.0`.
 
 ## Live Semantic Lanes
 

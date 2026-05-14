@@ -64,9 +64,12 @@ before this becomes true human-readable source.
   `notes/battle-action-row-crosswalk.md`, separating row `+4` presentation text
   pointers from row `+8` behavior bodies for C1/C2/EF joins without promoting
   new runtime claims.
-- Ghidra-SNES `v0.2.0` is installed in the dedicated pilot worktree
+- Ghidra-SNES `v1.0.0-rc1` is installed in the dedicated pilot worktree
   `F:\EB Decomp WT - Ghidra SNES Pilot` as a bounded visual/decode oracle, not
-  as a source-of-truth label generator.
+  as a source-of-truth label generator. The refreshed import still maps
+  EarthBound as HiROM with `65816:LE:24:snes:default`, but did not materially
+  improve the sampled EarthBound memory blocks, labels, or lane decodes versus
+  `v0.2.0`.
 
 ## What Is Complete
 
