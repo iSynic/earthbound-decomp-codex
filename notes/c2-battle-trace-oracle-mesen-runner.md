@@ -158,6 +158,14 @@ promotion gates while still showing whether the run approached `C2:B930` or
   `C0:9279` hits as `c2_battle_start_candidate_direct_dispatch` via return
   `C2:5D3D`, so the current fixture set is useful for payload-target
   identities, but not for proving the second-pointer wrapper contract.
+- `tools/build_c2_fixture_roms.py` now builds ignored table-patched fixture
+  ROMs under `build/c2/fixture-roms/`. These are not source edits and are not
+  behavior proof by themselves; they are deterministic setup aids for local
+  Mesen runs. The first scenarios patch only `ENEMY_CONFIGURATION_TABLE` rows:
+  both Runaway Dog rows can force the `C2:90C6 -> C2:40A4` neutralize/all lane
+  as a normal action, both Runaway Dog rows can gain a 1-HP KO final-action
+  version of the same lane, and Dread Skelpion can repeatedly choose its known
+  poison action row `72` for faster `C2:724A` reruns.
 - The enhanced `c1_c2_target_action_staging` route sweep still did not reach
   `C2:B930` or its six C1 pre-export probe sites. Save 11 repeatedly hits
   `C2:BAC5`, which makes it another target-count fixture, not a snapshot-export
@@ -280,6 +288,28 @@ damage/status-item second-pointer payload:
 python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c2_40a4_current_action_payload --mesen F:\Mesen2\Mesen.exe --state "<local .mss>" --input-pattern neutral:20,a:4,neutral:20,a:4,neutral:1800 --frame-limit 2600 --timeout 180 --summarize-trace --output-dir build\c2\battle-trace-oracles\manual-probes\c2-40a4-targeted\<fixture-id>
 python tools\build_c2_battle_trace_manual_probe_matrix.py --probe-root build\c2\battle-trace-oracles\manual-probes\battle-fixtures-1-7 --probe-root build\c2\battle-trace-oracles\manual-probes\c2-40a4-targeted
 ```
+
+Build deterministic local fixture ROMs when save-state hunting becomes the
+limiting factor:
+
+```powershell
+python tools\build_c2_fixture_roms.py
+```
+
+The generated ROMs and manifests are ignored build artifacts:
+
+- `build/c2/fixture-roms/runaway-dog-neutralize-c240a4/`: early Runaway Dog
+  encounters force action row `248`, which ebsrc shows calling `C2:40A4` from
+  `C2:90C6`.
+- `build/c2/fixture-roms/runaway-dog-final-neutralize-c240a4/`: Runaway Dog
+  rows have 1 HP plus final action row `248`, aiming at the KO final-action
+  caller family.
+- `build/c2/fixture-roms/dread-skelpion-poison-fast/`: Dread Skelpion repeats
+  action row `72`, the known poison status action used for `C2:724A` reruns.
+
+Load these ROMs only as local probe fixtures. If a generated ROM produces a
+useful trace, review the raw runner output and promote the result through the
+normal oracle-result path rather than promoting directly from the patch recipe.
 
 After manual review, assemble and validate a result:
 
