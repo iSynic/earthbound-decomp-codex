@@ -78,6 +78,14 @@ should compare its max-PP-derived amount roll, current-PP cap, `C2:721D`
 reducer, and PP-loss text against PSI Magnet's transfer behavior, without
 borrowing recovery wording from the Magnet path.
 
+Current controlled runtime evidence covers the reducer half of this comparison.
+The `bash-row-pp-reduction` fixture plus a post-savestate WRAM patch seeds the
+selected row with `32/32` PP. The manual capture observes
+`C2:8E42 -> C2:721D -> C2:7191`: rolled amount `2`, target PP `32 -> 30`, and no
+active-row PP recovery. This is controlled fixture evidence only; natural
+PP-bearing target evidence is still required before this lane can become a
+proof-grade resource contract.
+
 Late numeric reducers need small 16-bit edge tests before the C port relies on
 normalized integer widths. Target cases should include zero current values,
 small max-resource nibbles, clamp floors for guts, bounded offense/defense

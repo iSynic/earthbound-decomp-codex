@@ -5,8 +5,8 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 ## Summary
 
-- probe roots found: `8` / `8`
-- probe records: `125`
+- probe roots found: `9` / `9`
+- probe records: `127`
 - oracles summarized: `6`
 - minimum-hit candidates: `13`
 - fixtures with route-hint hits: `15`
@@ -23,7 +23,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `c2_724a_affliction_writer_matrix` | `minimum-hit-candidate` | `14` | `1` | `4` | `0` | C2:724A:4, C2:9917:1 | - | - | - |
 | `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `15` | `9` | `10` | `0` | C1:0DF6:4, C1:7EED:4, C1:AD0A:4, C1:AD26:4, C1:DC1C:4, C1:DC66:4, C2:7550:1, C2:7EAF:9, C2:8125:9, C2:941D:2 | - | - | - |
 | `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `11` | `2` | `6` | `0` | C1:DC1C:6, C1:DC66:6, C2:7550:2, C2:77CA:2, C2:8125:5, C2:BB18:6 | - | - | - |
-| `resource_amount_pair_magnet_vs_pp_loss` | `partial-route-observed` | `18` | `0` | `3` | `0` | C2:721D:1, C2:8E42:1, C2:9F5E:2 | - | - | - |
+| `resource_amount_pair_magnet_vs_pp_loss` | `partial-route-observed` | `20` | `0` | `5` | `0` | C2:7191:2, C2:721D:3, C2:8E42:2, C2:9F5E:3 | - | - | - |
 
 ## Route Gap Queue
 
@@ -138,6 +138,8 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `bash-row-pp-reduction` | `False` | `233..233` | C2:8E42:1 |
 | `bash-row-psi-magnet-force-reducer` | `False` | `233..289` | C2:721D:1, C2:9F5E:1 |
 | `bash-row-psi-magnet-pp-drain` | `False` | `233..233` | C2:9F5E:1 |
+| `pp-reduction-target-pp32` | `False` | `1..233` | C2:7191:2, C2:721D:1, C2:8E42:1 |
+| `psi-magnet-target-pp32` | `False` | `1..289` | C2:7191:3, C2:721D:1, C2:9F5E:1 |
 
 ## Route-Hint Fixture Hits
 
@@ -189,4 +191,4 @@ It records fixture usefulness without storing local save-state paths or raw trac
 - The replaced-slot Healing, Dread Scorpion poison, Large Pizza, and Paula Freeze fixtures remain valuable direct-dispatch coverage for `C2:8125`, `C2:724A`, and payload-adjacent targets such as `C2:8B2C`, `C2:9C2C`, and `C2:B27D`, but their `C0:9279` lanes should stay separate from the Bash-row fixture's artificial `C2:40A4` steering proof.
 - `c2_724a_affliction_writer_matrix` now has both the Dread Scorpion poison-writer hit and a forced Flash Beta fixture that observes the paired `C2:9917 -> C2:724A` numb-status route. It remains follow-up rather than proof-grade because the natural `C2:98A1` gate and post-write return value still need cleaner evidence.
 - `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The forced-entry `adb4-force-b930-snapshot-export` fixture observes `C2:B930` export mechanics, but the natural unpatched C1 pre-export route still needs a cleaner capture.
-- `resource_amount_pair_magnet_vs_pp_loss` now has fixture-steered entry hits for both `C2:9F5E` and `C2:8E42`, plus a forced PSI Magnet reducer-route hit at `C2:721D`. The lane is open, but natural nonzero amount and loss-only comparison traces remain pending.
+- `resource_amount_pair_magnet_vs_pp_loss` now has fixture-steered entry hits for both `C2:9F5E` and `C2:8E42`, plus controlled WRAM-patched reducer probes that separate PSI Magnet transfer mechanics (target PP -5, active PP +5) from PP reduction loss-only mechanics (target PP -2, active PP unchanged). Natural PP-bearing target traces remain pending before proof-grade promotion.

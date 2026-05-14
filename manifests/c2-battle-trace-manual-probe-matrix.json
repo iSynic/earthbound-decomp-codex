@@ -9,6 +9,7 @@
     "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging",
     "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
     "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
+    "build/c2/battle-trace-oracles/manual-probes/resource-wram-patched",
     "build/c2/battle-trace-oracles/fixture-rom-tests"
   ],
   "policy": {
@@ -18,9 +19,9 @@
     "raw_traces_tracked": false
   },
   "summary": {
-    "probe_root_count": 8,
-    "probe_roots_found": 8,
-    "record_count": 125,
+    "probe_root_count": 9,
+    "probe_roots_found": 9,
+    "record_count": 127,
     "oracle_count": 6,
     "minimum_hit_candidate_count": 13,
     "route_hint_fixture_count": 15,
@@ -2103,30 +2104,39 @@
         "C2:9F5E"
       ],
       "status": "partial-route-observed",
-      "probe_count": 18,
+      "probe_count": 20,
       "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 3,
+      "fixtures_with_any_hits": 5,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
-        "C2:721D": 1,
-        "C2:8E42": 1,
-        "C2:9F5E": 2
+        "C2:7191": 2,
+        "C2:721D": 3,
+        "C2:8E42": 2,
+        "C2:9F5E": 3
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
       "dispatch_target_counts": {
-        "C2:8E42": 1,
-        "C2:9F5E": 3
+        "C2:859F": 2,
+        "C2:8E42": 4,
+        "C2:9F5E": 7
       },
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {
-        "97:9FCF": 1,
-        "C2:5D3D": 3
+        "7F:7248": 2,
+        "97:8E7B": 1,
+        "97:9FCF": 2,
+        "97:9FDF": 1,
+        "97:BCE4": 2,
+        "C2:5D3D": 5
       },
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
-      "post_call_snapshot_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:7191": 5,
+        "C2:721D": 2
+      },
       "route_groups": {},
       "fixture_hits": [
         {
@@ -2166,6 +2176,38 @@
           },
           "first_frame": 233,
           "last_frame": 233
+        },
+        {
+          "fixture_id": "pp-reduction-target-pp32",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:7191",
+            "C2:721D",
+            "C2:8E42"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:7191": 2,
+            "C2:721D": 1,
+            "C2:8E42": 1
+          },
+          "first_frame": 1,
+          "last_frame": 233
+        },
+        {
+          "fixture_id": "psi-magnet-target-pp32",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:7191",
+            "C2:721D",
+            "C2:9F5E"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:7191": 3,
+            "C2:721D": 1,
+            "C2:9F5E": 1
+          },
+          "first_frame": 1,
+          "last_frame": 289
         }
       ],
       "probe_fixture_hits": []
@@ -7281,6 +7323,119 @@
         "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save7-hp-rolling-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/resource-wram-patched",
+      "fixture_id": "pp-reduction-target-pp32",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:7191",
+        "C2:721D",
+        "C2:8E42"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:7191": 2,
+        "C2:721D": 1,
+        "C2:8E42": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 1,
+        "C2:8E42": 3
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "7F:7248": 1,
+        "97:8E7B": 1,
+        "97:BCE4": 1,
+        "C2:5D3D": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:7191": 2,
+        "C2:721D": 1
+      },
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:9F5E"
+      ],
+      "first_frame": 1,
+      "last_frame": 233,
+      "trace_line_count": 12,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:1400",
+      "save_state": {
+        "basename": "EarthBound (USA)_2.mss",
+        "sha256": "5aec7c75f902b606bc3a24943f62702ef11cd3785df50871fb52cb22040771df"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/resource-wram-patched/pp-reduction-target-pp32/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/resource-wram-patched",
+      "fixture_id": "psi-magnet-target-pp32",
+      "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:7191",
+        "C2:721D",
+        "C2:9F5E"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:7191": 3,
+        "C2:721D": 1,
+        "C2:9F5E": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:859F": 1,
+        "C2:9F5E": 4
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "7F:7248": 1,
+        "97:9FCF": 1,
+        "97:9FDF": 1,
+        "97:BCE4": 1,
+        "C2:5D3D": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:7191": 3,
+        "C2:721D": 1
+      },
+      "configured_minimum_hits": [
+        "C2:8E42",
+        "C2:9F5E"
+      ],
+      "missing_minimum_hits": [
+        "C2:8E42"
+      ],
+      "first_frame": 1,
+      "last_frame": 289,
+      "trace_line_count": 15,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:1400",
+      "save_state": {
+        "basename": "EarthBound (USA)_2.mss",
+        "sha256": "5aec7c75f902b606bc3a24943f62702ef11cd3785df50871fb52cb22040771df"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/resource-wram-patched/psi-magnet-target-pp32/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     },

@@ -55,9 +55,8 @@ C29F5E_RunHpSuckerStylePpDrainAction = BTLACT_MAGNET_A
     tcd
     ldx $A972
     lda $0019,X
-    ; Fixture `bash-row-psi-magnet-force-reducer` forces this zero-PP guard
-    ; only to prove the downstream C2:721D reducer route; it does not prove a
-    ; natural nonzero PSI Magnet amount.
+    ; Fixture runs can seed target PP and prove reducer/recovery mechanics, but
+    ; natural nonzero PSI Magnet amount evidence remains the promotion gate.
     bne C29F7E_RunAsleepStatusWrapperAction_L9F7E
     lda.w #$FB05
     sta $0E

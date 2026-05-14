@@ -184,8 +184,14 @@ promotion gates while still showing whether the run approached `C2:B930` or
 - The current set now reaches the first affliction-writer minimum address:
   save 4 hits `C2:724A` for Dread Scorpion poison. The full
   `c2_724a_affliction_writer_matrix` result remains partial because the paired
-  `C2:9917` path has not been observed, and the resource amount-pair minimums
-  remain unhit.
+  `C2:9917` path has not been observed.
+- The runner now supports post-savestate WRAM patches with `--wram-patch` for
+  controlled reducer mechanics probes. The resource lane uses this only as
+  fixture evidence: a Magnet run seeded selected-target PP and active-row PP
+  max, observing target PP `32 -> 27` and active row PP `0 -> 5`; a PP-reduction
+  run seeded selected-target PP and observed target PP `32 -> 30` with no
+  active-row recovery. Natural PP-bearing target traces are still required for
+  proof-grade promotion.
 
 The first useful fixture to create is an ordinary battle state just before
 choosing a command. That should target `c1_c2_target_action_staging`, because it
@@ -232,6 +238,15 @@ Run a local battle fixture:
 
 ```powershell
 python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id c1_c2_target_action_staging --fixture-id ordinary_battle_pre_command --frame-limit 3600 --summarize-trace
+```
+
+Run a controlled WRAM-patched PP reducer probe. These runs are navigation
+evidence only; they must stay below proof-grade until repeated with a natural
+PP-bearing target state:
+
+```powershell
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id resource_amount_pair_magnet_vs_pp_loss --rom build\c2\fixture-roms\bash-row-psi-magnet-pp-drain\EarthBound-USA-bash-row-psi-magnet-pp-drain.sfc --state "F:\Mesen2\SaveStates\EarthBound (USA)_2.mss" --input-pattern neutral:20,a:4,neutral:1400 --frame-limit 1600 --summarize-trace --output-dir build\c2\battle-trace-oracles\manual-probes\resource-wram-patched\psi-magnet-target-pp32 --wram-patch "0xA061:20 00 20 00" --wram-patch "0xA283:00 00 20 00"
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id resource_amount_pair_magnet_vs_pp_loss --rom build\c2\fixture-roms\bash-row-pp-reduction\EarthBound-USA-bash-row-pp-reduction.sfc --state "F:\Mesen2\SaveStates\EarthBound (USA)_2.mss" --input-pattern neutral:20,a:4,neutral:1400 --frame-limit 1600 --summarize-trace --output-dir build\c2\battle-trace-oracles\manual-probes\resource-wram-patched\pp-reduction-target-pp32 --wram-patch "0xA061:20 00 20 00"
 ```
 
 Validate the ignored run summary:

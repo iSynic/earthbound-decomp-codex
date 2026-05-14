@@ -51,6 +51,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--rom", help="Path to EarthBound (USA).sfc. Defaults to tools.rom_tools discovery.")
     parser.add_argument("--state", help="Optional local Mesen save-state path.")
     parser.add_argument("--input-pattern", help="Optional input pattern such as neutral:30,a:4,neutral:30.")
+    parser.add_argument(
+        "--wram-patch",
+        action="append",
+        default=[],
+        help="Optional post-savestate WRAM patch in address:hex-bytes form, e.g. 0xA061:20 00 20 00. May repeat.",
+    )
     parser.add_argument("--summarize-trace", action="store_true", help="Write raw-trace-summary.json after a non-dry run.")
     parser.add_argument(
         "--output-dir",
@@ -261,6 +267,20 @@ def build_command(mesen: Path, lua: Path, rom: Path) -> list[str]:
     ]
 
 
+def normalize_wram_patch(patch: Any) -> str:
+    if isinstance(patch, str):
+        return patch
+    if isinstance(patch, dict):
+        address = patch.get("address")
+        data = patch.get("bytes") or patch.get("data")
+        if isinstance(data, list):
+            data_text = " ".join(f"{int(value) & 0xFF:02X}" if isinstance(value, int) else str(value) for value in data)
+        else:
+            data_text = str(data or "")
+        return f"{address}:{data_text}"
+    raise TypeError(f"unsupported WRAM patch record: {patch!r}")
+
+
 def main() -> int:
     args = parse_args()
     fixtures_path = Path(args.fixtures)
@@ -282,6 +302,7 @@ def main() -> int:
     fixture_rom = fixture.get("rom_path") if fixture else None
     fixture_state = fixture.get("save_state_path") if fixture else None
     fixture_input_pattern = fixture.get("input_pattern") if fixture else None
+    fixture_wram_patches = fixture.get("wram_patches", []) if fixture else []
     mesen = resolve_mesen(args.mesen or fixture_mesen or (fixture_config or {}).get("default_mesen_path"))
     rom = resolve_rom(args.rom or fixture_rom or (fixture_config or {}).get("default_rom_path"))
     state = Path(args.state or fixture_state) if (args.state or fixture_state) else None
@@ -309,6 +330,9 @@ def main() -> int:
     input_pattern = args.input_pattern or fixture_input_pattern
     if input_pattern:
         env["C2_ORACLE_INPUT_PATTERN"] = str(input_pattern)
+    wram_patches = [normalize_wram_patch(item) for item in fixture_wram_patches] + args.wram_patch
+    if wram_patches:
+        env["C2_ORACLE_WRAM_PATCHES"] = ";".join(wram_patches)
     if state is not None:
         env["C2_ORACLE_STATE_PATH"] = str(state)
 
@@ -325,6 +349,7 @@ def main() -> int:
         "fixture_config": manifest_path(fixtures_path) if fixtures_path.exists() else None,
         "fixture_id": args.fixture_id,
         "input_pattern": input_pattern,
+        "wram_patches": wram_patches,
         "raw_trace_summary_path": str(output_dir / "raw-trace-summary.json"),
         "lua_skeleton": manifest_path(lua_path),
         "job_path": manifest_path(job_path),

@@ -51,6 +51,7 @@ ROUTINE_LABELS = {
     "C2:7EAF": "C27EAF_RunHitResolutionAndStatusActionCluster",
     "C2:7550": "C27550_StartSelectedBattlerCollapseAfflictionPath",
     "C2:7680": "C27680_DisplayEnemyDeathText",
+    "C2:7191": "C27191_SetBattlerPpTarget",
     "C2:721D": "C2721D_ReduceBattlerPpTarget",
     "C2:7318": "C27318_ApplyBattlerPpRecoveryFeedback",
     "C2:8E42": "C28E42_RunPpReductionAction",
@@ -258,6 +259,11 @@ def decode_battle_row(row_hex: str, *, pointer: str | None = None) -> dict[str, 
 
 def hex_word_to_int(value: Any) -> int | None:
     text = str(value or "")
+    if text.startswith("0x"):
+        try:
+            return int(text, 16)
+        except ValueError:
+            return None
     if not text.startswith("$"):
         return None
     try:
@@ -1118,6 +1124,20 @@ def pp_word(row_hex: str, offset: int) -> str:
     return hex_word(u16le(data, offset)) or "not_captured"
 
 
+def pp_delta(before_row: str, after_row: str, *, offset: int) -> dict[str, Any]:
+    before = pp_word(before_row, offset) if before_row else "not_captured"
+    after = pp_word(after_row, offset) if after_row else "not_captured"
+    return {
+        "before": before,
+        "after": after,
+        "delta": word_delta(before, after),
+    }
+
+
+def row_pointer_text(row: dict[str, Any], key: str) -> str:
+    return str(row.get(key) or "").lower().replace("0x00", "0x")
+
+
 def build_resource_amount_fields(
     job: dict[str, Any],
     rows: list[dict[str, Any]],
@@ -1137,23 +1157,71 @@ def build_resource_amount_fields(
         raise ValueError("trace does not contain a resource amount breakpoint hit")
     observed = sorted({str(row.get("pc")) for row in rows if row.get("type") == "breakpoint_hit" and row.get("pc")})
     before_row = str(hit.get("selectedTargetRowHex") or "")
-    after_row = str((reducer or hit).get("selectedTargetRowHex") or before_row)
+    reducer_post = post_call_snapshot(rows, "C2:721D")
+    pp_set_posts = [
+        row
+        for row in rows
+        if row.get("type") == "post_call_snapshot"
+        and row.get("callPc") == "C2:7191"
+        and int(row.get("frame") or 0) >= int(hit.get("frame") or 0)
+    ]
+    reducer_row_before = str((reducer_post or {}).get("reducerRowBeforeHex") or (reducer or {}).get("selectedTargetRowHex") or before_row)
+    reducer_row_after = str((reducer_post or {}).get("reducerRowAfterHex") or (reducer or {}).get("selectedTargetRowHex") or before_row)
+    after_row = reducer_row_after
     active_before = str(hit.get("activeAttackerRowHex") or "")
-    active_after = str((reducer or hit).get("activeAttackerRowHex") or active_before)
+    active_after = str((reducer_post or reducer or hit).get("activeAttackerRowHex") or active_before)
+    hit_target_pointer = row_pointer_text(hit, "selectedTargetPointer")
+    hit_active_pointer = row_pointer_text(hit, "activeAttackerPointer")
+    pp_setter_deltas: list[dict[str, Any]] = []
+    for post in pp_set_posts:
+        pointer = row_pointer_text(post, "ppSetterRowPointer")
+        before_hex = str(post.get("ppSetterRowBeforeHex") or "")
+        after_hex = str(post.get("ppSetterRowAfterHex") or "")
+        role = "other_pp_setter"
+        if pointer == hit_target_pointer:
+            role = "selected_target_pp_setter"
+        elif pointer == hit_active_pointer:
+            role = "active_attacker_pp_setter"
+            active_after = after_hex or active_after
+        pp_setter_deltas.append(
+            {
+                "frame": post.get("frame"),
+                "row_pointer": post.get("ppSetterRowPointer"),
+                "row_role": role,
+                "target_value_x": post.get("ppSetterTargetValue"),
+                "pp_delta": pp_delta(before_hex, after_hex, offset=0x19),
+            }
+        )
     amount_source = reducer or hit
-    generated_evidence = (
-        "Mesen fixture trace opened the resource-amount lane. The "
-        "`bash-row-psi-magnet-force-reducer` ROM steers Bash to C2:9F5E and "
-        "forces the zero-PP guard past the early exit, reaching C2:721D. This "
-        "proves reducer-path reachability only; a natural nonzero amount and "
-        "loss-only comparison remain follow-up work."
-    )
+    wram_patches = [row for row in rows if row.get("type") == "wram_patch"]
+    if wram_patches and "C2:9F5E" in observed and "C2:721D" in observed:
+        generated_evidence = (
+            "Controlled WRAM-patched PSI Magnet trace seeds the selected row with nonzero PP, "
+            "observes amount payload setup, reaches C2:721D, and captures the post-reducer PP delta. "
+            "This is fixture proof of reducer mechanics, not natural vanilla amount evidence."
+        )
+    elif wram_patches and "C2:8E42" in observed and "C2:721D" in observed:
+        generated_evidence = (
+            "Controlled WRAM-patched PP-reduction trace seeds the selected row with nonzero PP/max PP, "
+            "observes the loss-only C2:8E42 entry reaching C2:721D, and captures the post-reducer PP delta. "
+            "This is fixture proof of reducer mechanics, not natural vanilla amount evidence."
+        )
+    else:
+        generated_evidence = (
+            "Mesen fixture trace opened the resource-amount lane. The "
+            "`bash-row-psi-magnet-force-reducer` ROM steers Bash to C2:9F5E and "
+            "forces the zero-PP guard past the early exit, reaching C2:721D. This "
+            "proves reducer-path reachability only; a natural nonzero amount and "
+            "loss-only comparison remain follow-up work."
+        )
     if "C2:9F5E" in observed and "C2:721D" in observed:
-        transfer_class = "forced_transfer_style_reducer_route_observed_amount_pending"
+        transfer_class = "controlled_transfer_style_reducer_amount_observed_natural_pending" if wram_patches else "forced_transfer_style_reducer_route_observed_amount_pending"
     elif "C2:8E42" in observed:
-        transfer_class = "loss_only_entry_route_observed_amount_pending"
+        transfer_class = "controlled_loss_only_reducer_amount_observed_natural_pending" if "C2:721D" in observed and wram_patches else "loss_only_entry_route_observed_amount_pending"
     else:
         transfer_class = "resource_route_observed_amount_pending"
+    target_pp_delta = pp_delta(reducer_row_before, reducer_row_after, offset=0x19)
+    source_pp_delta = pp_delta(active_before, active_after, offset=0x19)
     fields = {
         "trace_id": f"{trace.as_posix()} sha256:{sha256(trace)}",
         "scenario_name": require_text(runner_start or {}, "scenarioName"),
@@ -1174,17 +1242,24 @@ def build_resource_amount_fields(
         "c1_text_call": "not_captured_by_current_mesen_runner",
         "classification": classification,
         "classification_evidence": evidence or generated_evidence,
-        "source_row_pp_before": pp_word(active_before, 0x19),
-        "source_row_pp_after": pp_word(active_after, 0x19),
-        "target_row_pp_before": pp_word(before_row, 0x19),
-        "target_row_pp_after": pp_word(after_row, 0x19),
+        "source_row_pp_before": source_pp_delta["before"],
+        "source_row_pp_after": source_pp_delta["after"],
+        "target_row_pp_before": target_pp_delta["before"],
+        "target_row_pp_after": target_pp_delta["after"],
         "amount_roll": str(amount_source.get("cpuX") or "not_captured"),
         "cap_amount": (
-            "forced fixture target row has zero current PP, so this trace reaches the reducer "
-            "without proving a nonzero cap amount"
+            "controlled WRAM-patched nonzero PP amount observed; natural vanilla PP-bearing target evidence remains pending"
+            if wram_patches and target_pp_delta["delta"] not in {None, 0}
+            else "forced fixture target row has zero current PP, so this trace reaches the reducer without proving a nonzero cap amount"
         ),
         "text_payload_amount": str((reducer or hit).get("textPayloadSlotsHex") or "not_captured_by_current_mesen_runner"),
         "transfer_or_loss_only_classification": transfer_class,
+        "wram_patch_events": wram_patches,
+        "reducer_post_call_snapshot": reducer_post or "not_observed",
+        "pp_setter_post_call_snapshots": pp_set_posts,
+        "pp_setter_deltas": pp_setter_deltas,
+        "reducer_row_pp_delta": target_pp_delta,
+        "active_row_pp_delta": source_pp_delta,
         "observed_addresses": observed,
     }
     missing = set(job.get("capture_fields", [])) - set(fields)

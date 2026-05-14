@@ -20,6 +20,7 @@ DEFAULT_PROBE_ROOTS = (
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c1-c2-target-action-staging",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c1-c2-target-action-staging",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c2-40a4-current-action-payload",
+    ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "resource-wram-patched",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "fixture-rom-tests",
 )
 DEFAULT_HANDOFF = ROOT / "manifests" / "c2-battle-trace-oracle-emulator-handoff.json"
@@ -412,7 +413,7 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- The replaced-slot Healing, Dread Scorpion poison, Large Pizza, and Paula Freeze fixtures remain valuable direct-dispatch coverage for `C2:8125`, `C2:724A`, and payload-adjacent targets such as `C2:8B2C`, `C2:9C2C`, and `C2:B27D`, but their `C0:9279` lanes should stay separate from the Bash-row fixture's artificial `C2:40A4` steering proof.",
             "- `c2_724a_affliction_writer_matrix` now has both the Dread Scorpion poison-writer hit and a forced Flash Beta fixture that observes the paired `C2:9917 -> C2:724A` numb-status route. It remains follow-up rather than proof-grade because the natural `C2:98A1` gate and post-write return value still need cleaner evidence.",
             "- `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The forced-entry `adb4-force-b930-snapshot-export` fixture observes `C2:B930` export mechanics, but the natural unpatched C1 pre-export route still needs a cleaner capture.",
-            "- `resource_amount_pair_magnet_vs_pp_loss` now has fixture-steered entry hits for both `C2:9F5E` and `C2:8E42`, plus a forced PSI Magnet reducer-route hit at `C2:721D`. The lane is open, but natural nonzero amount and loss-only comparison traces remain pending.",
+            "- `resource_amount_pair_magnet_vs_pp_loss` now has fixture-steered entry hits for both `C2:9F5E` and `C2:8E42`, plus controlled WRAM-patched reducer probes that separate PSI Magnet transfer mechanics (target PP -5, active PP +5) from PP reduction loss-only mechanics (target PP -2, active PP unchanged). Natural PP-bearing target traces remain pending before proof-grade promotion.",
         ]
     )
     return "\n".join(lines).rstrip() + "\n"

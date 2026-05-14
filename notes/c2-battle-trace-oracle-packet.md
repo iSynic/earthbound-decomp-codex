@@ -24,7 +24,7 @@ comment or name promotion.
 | 3 | 1 | `c2_724a_affliction_writer_matrix` | `True` | `C2:724A, C2:9917, C2:9F06, C2:9FFE, C2:A056, C2:8CF1` | `build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json` |
 | 4 | 1 | `c2_8125_damage_abi_boundary` | `True` | `C2:8125, C2:7EAF, C2:7550, C2:A57A, C2:A658, C2:A5EC` | `build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json` |
 | 5 | 2 | `hp_roller_collapse_boundary` | `True` | `C2:8125, C2:7550, C2:7680, C2:77CA, C2:BB18, C2:BC5C` | `build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json` |
-| 6 | 2 | `resource_amount_pair_magnet_vs_pp_loss` | `True` | `C2:8E42, C2:9F5E, C2:9FE1, C2:721D, C2:7318, C2:B360` | `build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/result.json` |
+| 6 | 2 | `resource_amount_pair_magnet_vs_pp_loss` | `True` | `C2:8E42, C2:9F5E, C2:9FE1, C2:7191, C2:721D, C2:7318` | `build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/result.json` |
 | 7 | 2 | `battle_text_payload_join` | `False` | `C1:DC1C, C1:DC66, C1:AD0A, C1:AD26, EF:69A1, EF:75AB` | `build/c2/battle-trace-oracles/battle_text_payload_join/result.json` |
 | 8 | 2 | `healing_ladder_gamma_omega` | `False` | `C2:9AEA, C2:9B7A, C2:9C2C, C2:9CB8, C2:7397, C2:7294` | `build/c2/battle-trace-oracles/healing_ladder_gamma_omega/result.json` |
 | 9 | 2 | `psi_flash_and_status_gate_family` | `False` | `C2:98A1, C2:9917, C2:9F06, C2:9FFE, C2:A056, C2:724A` | `build/c2/battle-trace-oracles/psi_flash_and_status_gate_family/result.json` |

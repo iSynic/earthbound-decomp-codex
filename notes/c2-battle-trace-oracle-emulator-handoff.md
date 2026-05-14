@@ -9,7 +9,7 @@ emulator, and it does not prove behavior by itself.
 ## Summary
 
 - handoff jobs: `6`
-- breakpoints: `44`
+- breakpoints: `45`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
 

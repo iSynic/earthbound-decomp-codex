@@ -330,7 +330,7 @@ ORACLES: list[dict[str, Any]] = [
         "priority": 2,
         "status": "trace_plan_ready",
         "question": "Which PP effects are transfers and which are loss-only?",
-        "addresses": ["C2:8E42", "C2:9F5E", "C2:9FE1", "C2:721D", "C2:7318", "C2:B360"],
+        "addresses": ["C2:8E42", "C2:9F5E", "C2:9FE1", "C2:7191", "C2:721D", "C2:7318", "C2:B360"],
         "diary_entries": [16, 18],
         "capture_fields": [
             "source_row_pp_before",
@@ -349,6 +349,7 @@ ORACLES: list[dict[str, Any]] = [
         ],
         "source_paths": [
             "src/c2/c2_8e42_run_pp_reduction_action.asm",
+            "src/c2/c2_70e4_mask_set_prune_flagged_candidates.asm",
             "src/c2/c2_9f57_run_asleep_status_wrapper_action.asm",
             "src/c2/c2_7318_apply_battler_pp_recovery_feedback.asm",
             "src/c2/c2_b360_apply_battle_pp_recovery_consequence.asm",
