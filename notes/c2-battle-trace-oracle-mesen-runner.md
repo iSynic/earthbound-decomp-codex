@@ -197,6 +197,10 @@ promotion gates while still showing whether the run approached `C2:B930` or
   Starman for row `54`/`C2:9F5E` PSI Magnet transfer, and Guardian General or
   accessible Mad Duck/Armored Frog encounters for row `95`/`C2:8E42` PP
   reduction.
+- `notes/c2-save-state-battler-scout.md` inventories the current local `.mss`
+  set through Mesen and records selected target/active row pointers plus
+  PP-bearing `$9FAC` battler rows. It is a probe picker only; it does not
+  promote resource semantics without a matching natural action trace.
 
 The first useful fixture to create is an ordinary battle state just before
 choosing a command. That should target `c1_c2_target_action_staging`, because it
