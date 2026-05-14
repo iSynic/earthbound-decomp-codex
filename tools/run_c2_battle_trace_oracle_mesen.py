@@ -57,6 +57,15 @@ def parse_args() -> argparse.Namespace:
         default=[],
         help="Optional post-savestate WRAM patch in address:hex-bytes form, e.g. 0xA061:20 00 20 00. May repeat.",
     )
+    parser.add_argument(
+        "--wram-patch-timing",
+        choices=["initial", "first-breakpoint"],
+        default="initial",
+        help=(
+            "When to apply --wram-patch records. Use first-breakpoint for cold-boot fixtures "
+            "whose reset path clears WRAM before the first useful hook."
+        ),
+    )
     parser.add_argument("--summarize-trace", action="store_true", help="Write raw-trace-summary.json after a non-dry run.")
     parser.add_argument(
         "--output-dir",
@@ -341,6 +350,7 @@ def main() -> int:
     wram_patches = [normalize_wram_patch(item) for item in fixture_wram_patches] + args.wram_patch
     if wram_patches:
         env["C2_ORACLE_WRAM_PATCHES"] = ";".join(wram_patches)
+        env["C2_ORACLE_WRAM_PATCH_TIMING"] = args.wram_patch_timing.replace("-", "_")
     if state is not None:
         env["C2_ORACLE_STATE_PATH"] = str(state)
 
@@ -358,6 +368,7 @@ def main() -> int:
         "fixture_id": args.fixture_id,
         "input_pattern": input_pattern,
         "wram_patches": wram_patches,
+        "wram_patch_timing": args.wram_patch_timing if wram_patches else None,
         "raw_trace_summary_path": str(output_dir / "raw-trace-summary.json"),
         "lua_skeleton": manifest_path(lua_path),
         "job_path": manifest_path(job_path),

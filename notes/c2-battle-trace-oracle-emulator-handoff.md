@@ -9,7 +9,7 @@ emulator, and it does not prove behavior by itself.
 ## Summary
 
 - handoff jobs: `6`
-- breakpoints: `45`
+- breakpoints: `94`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
 
@@ -64,7 +64,7 @@ emulator, and it does not prove behavior by itself.
 - save state: `<local-only save state path>`
 - stop condition: minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl
 - minimum hits: `['C2:40A4']`
-- route groups: `['payload_applicator', 'target_text_context_neighbor']`
+- route groups: `['payload_applicator', 'target_text_context_neighbor', 'scripted_entry_startup']`
 - watch ranges: `['payload_pointer_dp', 'selected_target_row', 'active_row_pointers', 'current_target_mask', 'effect_busy_gate', 'battle_busy_flag']`
 - extra trace fields: `['$1E/$20 selected action pointer', '$06/$08 selected row pointer', '$00BC/$00BE payload pointer', '$A970/$A972 active attacker/target row pointers', '$A96C/$A96E current target mask before/after', '$1B9E/$AEC2/$AECC/$AECE effect-busy gate', '$A21C versus $9FAC target domain']`
 - raw trace: `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/raw-trace.jsonl`

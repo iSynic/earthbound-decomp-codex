@@ -357,6 +357,63 @@ SCENARIOS: dict[str, Scenario] = {
             "second-pointer payload lane.",
         ),
     ),
+    "scripted-entry-group0-force-enemy-action": Scenario(
+        id="scripted-entry-group0-force-enemy-action",
+        title="Scripted battle group 0 autostarts a deterministic Runaway Dog action",
+        purpose=(
+            "Patch the post-init C0:B9B4 GAME_INIT tail to call C2:2F38 "
+            "with A=0 instead of entering MAIN_LOOP, patch the group-0 "
+            "scripted battle payload at D0:D52D to contain one Runaway Dog "
+            "enemy row, then make that row repeatedly choose the Neutralize/all "
+            "action that enters C2:90C6 and C2:40A4."
+        ),
+        patches=(
+            {
+                "raw_cpu_patch": "C0:B9B4",
+                "bytes": (
+                    0xA9,
+                    0x00,
+                    0x00,
+                    0x22,
+                    0x38,
+                    0x2F,
+                    0xC2,
+                    0x60,
+                ),
+                "field": "autostart_init_battle_scripted_group0",
+            },
+            {
+                "scripted_battle_group_payload": "D0:D52D",
+                "entries": (
+                    {
+                        "enemy_row": 121,
+                        "repeat_count": 1,
+                    },
+                ),
+                "field": "group0_enemy_list_payload",
+            },
+            {
+                "enemy_rows": (121,),
+                "hp": 999,
+                "speed": 255,
+                "normal_actions": (ACTION_NEUTRALIZE_ALL,) * 4,
+                "normal_arguments": (0, 0, 0, 0),
+                "action_order": 0,
+            },
+        ),
+        expected_probe=(
+            "Booting the fixture ROM should hit C2:2F38, scripted battle group "
+            "0 should expand to one Runaway Dog row, and the enemy turn should "
+            "reach C2:90C6 -> C2:40A4."
+        ),
+        caveats=(
+            "The C0:B9B4 hook replaces GAME_INIT's STZ DEBUG, JSL MAIN_LOOP, and RTS tail in this generated ROM only.",
+            "The hook runs after SRAM, music, NMI/joypad, hardware check, and two frame waits, but before MAIN_LOOP intro/file-select setup.",
+            "The Runaway Dog row is made durable and fast so a simple command-confirm input pattern can reach the fixture action lane.",
+            "Use the first successful run as reachability smoke evidence before promoting this as a stable oracle fixture.",
+            "The enemy action is fixture-steered and must not be promoted as vanilla Runaway Dog behavior.",
+        ),
+    ),
 }
 
 
@@ -543,7 +600,15 @@ def add_battle_action_patch(
     )
 
 
-def add_raw_cpu_patch(data: bytearray, label: str, new: bytes, field: str, reason: str) -> Patch | None:
+def add_raw_cpu_patch(
+    data: bytearray,
+    label: str,
+    new: bytes,
+    field: str,
+    reason: str,
+    table: str = "RAW_CPU_CODE_PATCH",
+    row_name: str | None = None,
+) -> Patch | None:
     bank, address = parse_cpu_label(label)
     offset = hirom_to_file_offset(bank, address, len(data))
     if offset is None:
@@ -553,9 +618,9 @@ def add_raw_cpu_patch(data: bytearray, label: str, new: bytes, field: str, reaso
         return None
     data[offset : offset + len(new)] = new
     return Patch(
-        table="RAW_CPU_CODE_PATCH",
+        table=table,
         row=0,
-        row_name=label,
+        row_name=row_name or label,
         field=field,
         cpu_address=label,
         file_offset=f"0x{offset:06X}",
@@ -563,6 +628,26 @@ def add_raw_cpu_patch(data: bytearray, label: str, new: bytes, field: str, reaso
         new=format_bytes(new),
         reason=reason,
     )
+
+
+def encode_scripted_battle_group_payload(
+    enemy_rows: dict[int, dict[str, Any]],
+    entries: tuple[dict[str, Any], ...],
+) -> tuple[bytes, str]:
+    output = bytearray()
+    labels: list[str] = []
+    for entry in entries:
+        row = int(entry["enemy_row"])
+        if row not in enemy_rows:
+            raise ValueError(f"Unknown enemy row for battle group payload: {row}")
+        repeat_count = int(entry.get("repeat_count", 1))
+        if not 0 <= repeat_count <= 0xFE:
+            raise ValueError(f"Battle group repeat_count must fit one non-FF byte: {repeat_count}")
+        output.append(repeat_count)
+        output.extend((row & 0xFF, (row >> 8) & 0xFF))
+        labels.append(f"{repeat_count}x {enemy_rows[row].get('Name')} (enemy row {row})")
+    output.append(0xFF)
+    return bytes(output), "; ".join(labels)
 
 
 def apply_scenario(
@@ -590,17 +675,43 @@ def apply_scenario(
             )
             continue
 
+        if "scripted_battle_group_payload" in patch_spec:
+            new, row_name = encode_scripted_battle_group_payload(
+                enemy_rows,
+                tuple(patch_spec["entries"]),
+            )
+            record(
+                add_raw_cpu_patch(
+                    data,
+                    str(patch_spec["scripted_battle_group_payload"]),
+                    new,
+                    str(patch_spec.get("field", "scripted_battle_group_payload")),
+                    reason,
+                    table="ENEMY_BATTLE_GROUPS_TABLE",
+                    row_name=row_name,
+                )
+            )
+            continue
+
         if "battle_action_row" in patch_spec:
             row = int(patch_spec["battle_action_row"])
             for field, value in patch_spec.get("battle_action_field_values", {}).items():
                 record(add_battle_action_patch(data, row, field, value, reason))
             continue
 
-        rows = matching_enemy_rows(enemy_rows, tuple(patch_spec["enemy_names"]))
+        if "enemy_rows" in patch_spec:
+            rows = [int(row) for row in patch_spec["enemy_rows"]]
+            for row in rows:
+                if row not in enemy_rows:
+                    raise ValueError(f"Unknown enemy row for fixture patch: {row}")
+        else:
+            rows = matching_enemy_rows(enemy_rows, tuple(patch_spec["enemy_names"]))
         for row in rows:
             reason = f"{scenario.id}: {scenario.purpose}"
             if "hp" in patch_spec:
                 record(add_patch(data, enemy_rows, row, "hp", patch_spec["hp"], reason))
+            if "speed" in patch_spec:
+                record(add_patch(data, enemy_rows, row, "speed", patch_spec["speed"], reason))
             if "action_order" in patch_spec:
                 record(add_patch(data, enemy_rows, row, "action_order", patch_spec["action_order"], reason))
             for index, action in enumerate(patch_spec.get("normal_actions", ())):
@@ -661,6 +772,8 @@ def write_manifest(
         "patches": [patch.__dict__ for patch in patches],
         "source_evidence": [
             "refs/EB-M2-Listing-v1/US/bank15.txt documents ENEMY_CONFIGURATION_TABLE field offsets",
+            "notes/d0-variable-list-contracts.md documents D0:D52D enemy battle-group payload entries",
+            "notes/c2-scripted-battle-fixture-workahead.md describes the scripted-entry fixture boundary",
             "refs/ebsrc-main/ebsrc-main/src/unknown/C2/C240A4.asm documents the two-pass target loop",
             "refs/ebsrc-main/ebsrc-main/src/unknown/C2/C290C6.asm calls C2:40A4 with TARGET_ALL",
             "notes/c2-battle-trace-manual-probe-matrix.md tracks remaining C2:40A4 fixture gap",

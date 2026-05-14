@@ -30,6 +30,55 @@ battle init.
 - Add the smallest possible autostart hook that loads `A = #$0000` and calls
   `JSL C22F38_InitBattleScripted`.
 
+## Implementation Checkpoint
+
+- `tools/build_c2_fixture_roms.py` now builds
+  `scripted-entry-group0-force-enemy-action`.
+- The first tested `C0:B810` main-loop prelude hook did not trigger from a
+  cold-boot neutral-input Mesen run, so it is not the primary no-save hook.
+- The scenario now patches `C0:B9B4` to `A9 00 00 22 38 2F C2 60`,
+  replacing the `GAME_INIT` tail (`STZ DEBUG; JSL MAIN_LOOP; RTS`) with
+  `LDA #$0000; JSL C2:2F38; RTS`.
+- The `C0:B9B4` hook runs after SRAM, music, NMI/joypad, hardware check, and
+  two frame waits, but before the normal main-loop intro/file-select setup.
+- The scenario patches `D0:D52D` to `01 79 00 FF`, making group 0 contain one
+  Runaway Dog enemy row (`121` / `$0079`).
+- The same scenario patches only that enemy row's normal-action slots to action
+  `248`, the Neutralize/all row that reaches `C2:90C6 -> C2:40A4`.
+- The row is also made durable and fast (`HP = 999`, `speed = 255`) so simple
+  command-confirm input patterns have a better chance of letting the fixture
+  action resolve before the trace budget expires.
+- `tools/run_c2_battle_trace_oracle_mesen.py` now supports
+  `--wram-patch-timing first-breakpoint`, which applies WRAM seeds at the first
+  traced hook instead of before reset clears RAM. This is needed for no-save
+  fixture ROMs that cold-boot through `GAME_INIT`.
+- This is still fixture-ROM reachability evidence only. The first successful
+  run should be treated as a smoke test that proves the hook reaches `C2:2F38`,
+  not as ordinary game behavior.
+
+## Smoke Results
+
+- `C0:B810` hook attempt: no startup or C2 hits under a 4200-frame neutral-input
+  cold boot, because the target was not a true executed instruction boundary.
+- `C0:B9B4` hook attempt: cold boot reached `C0:B9B4`, `C2:2F38`, `C2:E8E0`,
+  `C2:E9C8`, and `C0:52AA` under the same provenance-enhanced oracle.
+- Delayed party-state WRAM seeding moved the fixture through `BATTLE_ROUTINE`,
+  `C2:4CEF`, and the battle text-window open call at `C2:4EEC -> C1:DD47`.
+- A neutral delayed-party run stalled inside `CREATE_WINDOW` before allocator
+  entry because cold-boot window maps were zeroed, making window `0E` look
+  already bound.
+- A fixture-only window reset seed (`$88E0/$88E2/$8958 = FFFF`, logical window
+  maps and allocation markers initialized to `FFFF`) moved the run through
+  `C1:0528`, `C3:E4EF`, `C1:078B`, `C2:4EF6`, `C2:4F03`, and `C1:DC1C`.
+- Adding an A-pulse input pattern after that same seed produced the first no-save
+  scripted-entry `C2:40A4` minimum hit. The reviewed raw trace also observed the
+  wrapper/callsite corridor `C2:90C6 -> C2:915C -> C2:40A4`, loop returns near
+  `C2:4104`/`C2:4159`, downstream `C2:5D3D`/`C2:6088`, and dispatch target
+  `C2:9051`.
+- This result supersedes the earlier no-save smoke blocker, but remains
+  fixture-steered reachability and wrapper-mechanics evidence. It does not prove
+  natural Bash behavior or ordinary encounter provenance.
+
 ## Proof Boundary
 
 This fixture can prove fixture reachability and downstream helper mechanics. It

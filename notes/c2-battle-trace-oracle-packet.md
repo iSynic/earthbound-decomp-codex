@@ -20,7 +20,7 @@ comment or name promotion.
 | Order | Priority | Oracle | First pass | Key addresses | Result path |
 | ---: | ---: | --- | --- | --- | --- |
 | 1 | 1 | `c1_c2_target_action_staging` | `True` | `C1:ADB4, C1:CE85, C1:CFC6, C2:B930, C2:BAC5` | `build/c2/battle-trace-oracles/c1_c2_target_action_staging/result.json` |
-| 2 | 1 | `c2_40a4_current_action_payload` | `True` | `C2:40A4, C2:3D05, D5:7B68` | `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json` |
+| 2 | 1 | `c2_40a4_current_action_payload` | `True` | `C2:40A4, C2:3D05, D5:7B68, C0:B9B4, C2:2F38, C2:E8E0` | `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json` |
 | 3 | 1 | `c2_724a_affliction_writer_matrix` | `True` | `C2:724A, C2:9917, C2:9F06, C2:9FFE, C2:A056, C2:8CF1` | `build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json` |
 | 4 | 1 | `c2_8125_damage_abi_boundary` | `True` | `C2:8125, C2:7EAF, C2:7550, C2:A57A, C2:A658, C2:A5EC` | `build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json` |
 | 5 | 2 | `hp_roller_collapse_boundary` | `True` | `C2:8125, C2:7550, C2:7680, C2:77CA, C2:BB18, C2:BC5C` | `build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json` |
