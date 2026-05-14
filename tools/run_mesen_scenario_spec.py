@@ -89,8 +89,8 @@ def prepare_srm_rom(
 ) -> tuple[Path, dict[str, Any]]:
     source_rom = rom_tools.find_rom(rom_arg)
     run_dir = repo_path(str(spec["output_dir"])) / "srm-rom"
-    rom_dest = run_dir / "earthbound-us.sfc"
-    srm_dest = run_dir / "earthbound-us.srm"
+    rom_dest = run_dir / source_rom.name
+    srm_dest = run_dir / f"{source_rom.stem}.srm"
     link_or_copy(source_rom, rom_dest)
     srm_path = repo_path(str(spec["start"]["working_srm_path_local_only"]))
     if not srm_path.is_file():
