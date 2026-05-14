@@ -278,6 +278,8 @@ def build_route_gap_queue(oracle_summaries: list[dict[str, Any]]) -> list[dict[s
             missing = [str(item) for item in group.get("missing_from_all_probes", [])]
             if status != "remaining_fixture_gap" and not status.startswith("neighbor_only"):
                 continue
+            if not missing:
+                continue
             queue.append(
                 {
                     "oracle_id": oracle["oracle_id"],
@@ -408,6 +410,7 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- `minimum-hit-candidate` means the ignored trace reached every configured minimum hit and may be promoted only after canonical rerun plus reviewed capture fields.",
             "- `partial-route-observed` means the fixture reaches useful neighboring code but is not enough for a reviewed oracle result.",
             "- Route-hint fixtures hit optional approach breakpoints and are discovery aids only; they do not satisfy minimum hits or permit source promotion.",
+            "- The Route Gap Queue lists only groups whose configured minimum addresses are still missing from every local probe. Covered groups can still retain conservative handoff statuses in the coverage table until reviewed.",
             "- Dispatch-target and return columns are captured only for route-hint probes that use trampoline/context breakpoints; they identify the `$00BC` jump target and stack return path without proving the missing minimum address. Raw summaries also classify `C0:9279` lanes by stack return so direct dispatch can be separated from true `C2:40A4` loop dispatch.",
             "- `probed-no-route` means the current local fixtures did not reach the lane.",
             "- `c2_40a4_current_action_payload` now has its first runner-backed `C2:40A4` minimum hit from the ignored `bash-row-neutralize-c240a4` fixture ROM. That run also observed `C2:90C6`, the static pre-call site `C2:915C`, loop returns near `C2:4104`/`C2:4159`, and dispatch target `C2:9051`, which separates the true `C2:40A4` loop from the earlier direct-dispatch `C0:9279 -> C2:5D3D` neighbors.",

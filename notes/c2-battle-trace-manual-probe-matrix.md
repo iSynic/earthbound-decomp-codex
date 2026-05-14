@@ -27,11 +27,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 ## Route Gap Queue
 
-| Oracle | Group | Status | Missing | Probe hints seen | Next probe | Breakpoints | Watches |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `c1_c2_target_action_staging` | `snapshot_export` | `remaining_fixture_gap` | - | - | Start after the target/action choice is committed but before C1 choice/action text dispatch; prefer an item or PSI action whose D5:7B68 +0x08 second pointer is non-null. | `C1:B3DB`, `C1:B462`, `C1:B505`, `C1:B859`, `C1:B9A9`, `C1:BA60`, `C2:B930` | `registers A/X/Y`, `C1 direct page $00..$2C`, `$99CE source slot row selected by A`, `$9FFA..$A047 snapshot block`, `$9FAC candidate rows`, `$A970/$A972 selected row pointers`, `post-return destination row after C2:B930` |
-| `c2_40a4_current_action_payload` | `payload_applicator` | `remaining_fixture_gap` | - | C0:9279, C2:3E32, C2:40F2, C2:4147, C2:416F, C2:4703, C2:77CA, C2:90C6, C2:915C | Start immediately before confirming a concrete second-pointer action, preferably a curative, recovery, item-status, or random damage/status item payload. | `C2:77CA`, `C2:79D1`, `C2:90C6`, `C2:915C`, `C2:A89D`, `C2:AF0D`, `C2:40A4`, `C2:40F2`, `C2:4147`, `C2:3E32`, `C2:416F`, `C2:4703`, `C2:3D05`, `C0:9279` | `$1E/$20 second pointer`, `$00BC/$00BE payload pointer`, `$A21C target mask domain`, `$9FAC selected target rows`, `$A970/$A972 active row pointers`, `$A96C/$A96E current target mask`, `$1B9E/$AEC2/$AECC/$AECE effect-busy gate` |
-| `c2_40a4_current_action_payload` | `target_text_context_neighbor` | `neighbor_only_until_c2_40a4_observed` | - | - | Use only as a neighbor signal; do not mark the payload route covered until C2:40A4 itself is observed. | - | - |
+- No remaining route gaps are recorded in the current handoff metadata.
 
 ## Fixture Hits
 
@@ -187,6 +183,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 - `minimum-hit-candidate` means the ignored trace reached every configured minimum hit and may be promoted only after canonical rerun plus reviewed capture fields.
 - `partial-route-observed` means the fixture reaches useful neighboring code but is not enough for a reviewed oracle result.
 - Route-hint fixtures hit optional approach breakpoints and are discovery aids only; they do not satisfy minimum hits or permit source promotion.
+- The Route Gap Queue lists only groups whose configured minimum addresses are still missing from every local probe. Covered groups can still retain conservative handoff statuses in the coverage table until reviewed.
 - Dispatch-target and return columns are captured only for route-hint probes that use trampoline/context breakpoints; they identify the `$00BC` jump target and stack return path without proving the missing minimum address. Raw summaries also classify `C0:9279` lanes by stack return so direct dispatch can be separated from true `C2:40A4` loop dispatch.
 - `probed-no-route` means the current local fixtures did not reach the lane.
 - `c2_40a4_current_action_payload` now has its first runner-backed `C2:40A4` minimum hit from the ignored `bash-row-neutralize-c240a4` fixture ROM. That run also observed `C2:90C6`, the static pre-call site `C2:915C`, loop returns near `C2:4104`/`C2:4159`, and dispatch target `C2:9051`, which separates the true `C2:40A4` loop from the earlier direct-dispatch `C0:9279 -> C2:5D3D` neighbors.
