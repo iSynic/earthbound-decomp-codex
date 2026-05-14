@@ -165,7 +165,10 @@ promotion gates while still showing whether the run approached `C2:B930` or
   both Runaway Dog rows can force the `C2:90C6 -> C2:40A4` neutralize/all lane
   as a normal action, both Runaway Dog rows can gain a 1-HP KO final-action
   version of the same lane, and Dread Skelpion can repeatedly choose its known
-  poison action row `72` for faster `C2:724A` reruns.
+  poison action row `72` for faster `C2:724A` reruns. The Bash-row scenario is
+  deliberately more artificial: it patches `BATTLE_ACTION_TABLE` row `4` so an
+  existing command-menu save can confirm Bash and still dispatch through
+  `C2:90C6 -> C2:40A4`.
 - The enhanced `c1_c2_target_action_staging` route sweep still did not reach
   `C2:B930` or its six C1 pre-export probe sites. Save 11 repeatedly hits
   `C2:BAC5`, which makes it another target-count fixture, not a snapshot-export
@@ -306,6 +309,10 @@ The generated ROMs and manifests are ignored build artifacts:
   caller family.
 - `build/c2/fixture-roms/dread-skelpion-poison-fast/`: Dread Skelpion repeats
   action row `72`, the known poison status action used for `C2:724A` reruns.
+- `build/c2/fixture-roms/bash-row-neutralize-c240a4/`: battle action row `4`
+  keeps its Bash presentation but points its behavior pointer at `C2:90C6`, so
+  a command-menu save can test the `C2:40A4` wrapper without relying on enemy
+  row setup.
 
 Load these ROMs only as local probe fixtures. If a generated ROM produces a
 useful trace, review the raw runner output and promote the result through the

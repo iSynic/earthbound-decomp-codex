@@ -20,6 +20,7 @@ DEFAULT_PROBE_ROOTS = (
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c1-c2-target-action-staging",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c1-c2-target-action-staging",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c2-40a4-current-action-payload",
+    ROOT / "build" / "c2" / "battle-trace-oracles" / "fixture-rom-tests",
 )
 DEFAULT_HANDOFF = ROOT / "manifests" / "c2-battle-trace-oracle-emulator-handoff.json"
 DEFAULT_OUTPUT = ROOT / "manifests" / "c2-battle-trace-manual-probe-matrix.json"
@@ -407,8 +408,8 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- Route-hint fixtures hit optional approach breakpoints and are discovery aids only; they do not satisfy minimum hits or permit source promotion.",
             "- Dispatch-target and return columns are captured only for route-hint probes that use trampoline/context breakpoints; they identify the `$00BC` jump target and stack return path without proving the missing minimum address. Raw summaries also classify `C0:9279` lanes by stack return so direct dispatch can be separated from true `C2:40A4` loop dispatch.",
             "- `probed-no-route` means the current local fixtures did not reach the lane.",
-            "- `c2_40a4_current_action_payload` has `C2:4703`, `C2:3E32`, `C2:416F`, and `C2:3D05` neighbor/context hits plus `C0:9279` direct-dispatch hits. The `$00BC` target/return captures show real payload-adjacent dispatches, but the observed `C0:9279` lane returns through `C2:5D3D`, not the `C2:40A4` loop returns near `C2:4104` or `C2:4159`. The save-8 Paula Freeze fixture reinforces that offensive PSI damage uses the direct-dispatch family and is better evidence for `C2:8125`/HP text joins than for `C2:40A4`; the next useful `C2:40A4` fixture should be a curative, recovery, item-status, or random damage/status item payload against a selected target.",
-            "- The replaced-slot Healing, Dread Scorpion poison, and Large Pizza fixtures add stronger direct-dispatch coverage, including `C2:8B2C`, `C2:9C2C`, and `C2:B27D` payload-adjacent targets, but still do not observe the `C2:40A4` wrapper or its static callsites.",
+            "- `c2_40a4_current_action_payload` now has its first runner-backed `C2:40A4` minimum hit from the ignored `bash-row-neutralize-c240a4` fixture ROM. That run also observed `C2:90C6`, the static pre-call site `C2:915C`, loop returns near `C2:4104`/`C2:4159`, and dispatch target `C2:9051`, which separates the true `C2:40A4` loop from the earlier direct-dispatch `C0:9279 -> C2:5D3D` neighbors.",
+            "- The replaced-slot Healing, Dread Scorpion poison, Large Pizza, and Paula Freeze fixtures remain valuable direct-dispatch coverage for `C2:8125`, `C2:724A`, and payload-adjacent targets such as `C2:8B2C`, `C2:9C2C`, and `C2:B27D`, but their `C0:9279` lanes should stay separate from the Bash-row fixture's artificial `C2:40A4` steering proof.",
             "- `c2_724a_affliction_writer_matrix` now has a real `C2:724A` poison-writer hit from Dread Scorpion, but remains partial because the paired `C2:9917` status-gate minimum has not been observed in the same runner-backed fixture.",
             "- `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The remaining missing route is `C2:B930` snapshot export, not `C1:CFC6`.",
         ]

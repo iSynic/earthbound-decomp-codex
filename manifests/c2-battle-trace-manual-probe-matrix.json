@@ -8,7 +8,8 @@
     "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral/hp_roller_collapse_boundary",
     "build/c2/battle-trace-oracles/route-probes/c1-c2-target-action-staging",
     "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c1-c2-target-action-staging",
-    "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload"
+    "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload",
+    "build/c2/battle-trace-oracles/fixture-rom-tests"
   ],
   "policy": {
     "source_promotion_allowed": false,
@@ -17,16 +18,16 @@
     "raw_traces_tracked": false
   },
   "summary": {
-    "probe_root_count": 7,
-    "probe_roots_found": 7,
-    "record_count": 110,
+    "probe_root_count": 8,
+    "probe_roots_found": 8,
+    "record_count": 118,
     "oracle_count": 6,
-    "minimum_hit_candidate_count": 11,
-    "route_hint_fixture_count": 14,
-    "remaining_route_gap_count": 2,
+    "minimum_hit_candidate_count": 12,
+    "route_hint_fixture_count": 15,
+    "remaining_route_gap_count": 1,
     "status_counts": {
-      "partial-route-observed": 3,
-      "minimum-hit-candidate": 2,
+      "partial-route-observed": 2,
+      "minimum-hit-candidate": 3,
       "probed-no-route": 1
     }
   },
@@ -66,23 +67,28 @@
       "oracle_id": "c2_40a4_current_action_payload",
       "route_group": "payload_applicator",
       "status": "remaining_fixture_gap",
-      "covered_by_any_probe": false,
-      "missing_from_all_probes": [
-        "C2:40A4"
+      "covered_by_any_probe": true,
+      "missing_from_all_probes": [],
+      "fixtures_covering_group": [
+        "bash-row-neutralize-c240a4"
       ],
-      "fixtures_covering_group": [],
       "probe_hint_addresses_observed": [
         "C0:9279",
         "C2:3E32",
+        "C2:40F2",
+        "C2:4147",
         "C2:416F",
         "C2:4703",
-        "C2:77CA"
+        "C2:77CA",
+        "C2:90C6",
+        "C2:915C"
       ],
       "fixtures_with_probe_hints": [
         "01-ness-healing-paula-sunstroke",
         "04-dread-scorpion-poison-jeff",
         "05-large-pizza-party-heal",
         "08-paula-freeze-before-animation",
+        "bash-row-neutralize-c240a4",
         "save11-confirm-dispatch-target",
         "save11-confirm-enhanced",
         "save3-psi-dispatch-target",
@@ -138,6 +144,7 @@
         "05-large-pizza-party-heal",
         "07-jeff-hp-rolling",
         "08-paula-freeze-before-animation",
+        "bash-row-neutralize-c240a4",
         "save11-confirm-dispatch-target",
         "save11-confirm-enhanced",
         "save5-before-damage-callsite-fields",
@@ -709,70 +716,89 @@
       "configured_minimum_hits": [
         "C2:40A4"
       ],
-      "status": "partial-route-observed",
-      "probe_count": 28,
-      "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 18,
-      "fixtures_with_probe_hits": 14,
+      "status": "minimum-hit-candidate",
+      "probe_count": 35,
+      "minimum_hit_candidate_count": 1,
+      "fixtures_with_any_hits": 19,
+      "fixtures_with_probe_hits": 15,
       "observed_address_counts": {
-        "C2:3D05": 18
+        "C2:3D05": 19,
+        "C2:40A4": 1
       },
       "probe_observed_address_counts": {
-        "C0:9279": 14,
-        "C2:3E32": 6,
-        "C2:416F": 5,
-        "C2:4703": 6,
-        "C2:77CA": 4
+        "C0:9279": 15,
+        "C2:3E32": 7,
+        "C2:40F2": 1,
+        "C2:4147": 1,
+        "C2:416F": 6,
+        "C2:4703": 7,
+        "C2:77CA": 4,
+        "C2:90C6": 1,
+        "C2:915C": 1
       },
       "probe_route_group_counts": {
-        "payload_applicator": 109
+        "payload_applicator": 133
       },
       "dispatch_target_counts": {
         "C1:CAF5": 2,
-        "C2:859F": 60,
+        "C2:859F": 63,
         "C2:8651": 16,
-        "C2:8740": 17,
+        "C2:8740": 18,
         "C2:889B": 14,
         "C2:8B2C": 4,
         "C2:9033": 12,
+        "C2:9051": 9,
+        "C2:90C6": 2,
         "C2:9647": 4,
-        "C2:9C2C": 4,
+        "C2:9C2C": 8,
         "C2:B27D": 7
       },
       "probe_dispatch_target_counts": {
         "C1:C8BC": 1,
-        "C2:859F": 36,
+        "C2:859F": 38,
         "C2:8651": 9,
-        "C2:8740": 13,
+        "C2:8740": 14,
         "C2:889B": 10,
         "C2:8B2C": 3,
         "C2:9033": 11,
+        "C2:9051": 14,
+        "C2:90C6": 4,
         "C2:9647": 3,
-        "C2:9C2C": 3,
+        "C2:9C2C": 6,
         "C2:B27D": 6
       },
       "stack_return_counts": {
-        "C2:3E88": 30,
-        "C2:58D5": 30,
-        "C2:5CAE": 40,
-        "C2:5E26": 39,
+        "C2:3E88": 33,
+        "C2:40DE": 2,
+        "C2:4133": 4,
+        "C2:58D5": 33,
+        "C2:5CAE": 43,
+        "C2:5E26": 42,
+        "C2:9160": 1,
         "C2:BBD0": 1
       },
       "probe_stack_return_counts": {
+        "3C:1E98": 1,
+        "5F:1E80": 6,
         "C1:1AE2": 1,
-        "C2:59F9": 20,
-        "C2:5A1F": 9,
+        "C2:4104": 2,
+        "C2:4159": 4,
+        "C2:59F9": 23,
+        "C2:5A1F": 10,
         "C2:5A4B": 1,
         "C2:5A4F": 1,
-        "C2:5AFB": 20,
-        "C2:5D3D": 40,
+        "C2:5AFB": 23,
+        "C2:5D3D": 44,
         "F3:1E64": 3
       },
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {
-        "c2_battle_start_candidate_direct_dispatch": 28
+        "c2_40a4_loop_dispatch": 6,
+        "c2_battle_start_candidate_direct_dispatch": 31
       },
-      "post_call_snapshot_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:40A4": 1
+      },
       "route_groups": {
         "payload_applicator": {
           "addresses": [
@@ -806,23 +832,28 @@
             "$A96C/$A96E current target mask",
             "$1B9E/$AEC2/$AECC/$AECE effect-busy gate"
           ],
-          "covered_by_any_probe": false,
-          "missing_from_all_probes": [
-            "C2:40A4"
+          "covered_by_any_probe": true,
+          "missing_from_all_probes": [],
+          "fixtures_covering_group": [
+            "bash-row-neutralize-c240a4"
           ],
-          "fixtures_covering_group": [],
           "probe_hint_addresses_observed": [
             "C0:9279",
             "C2:3E32",
+            "C2:40F2",
+            "C2:4147",
             "C2:416F",
             "C2:4703",
-            "C2:77CA"
+            "C2:77CA",
+            "C2:90C6",
+            "C2:915C"
           ],
           "fixtures_with_probe_hints": [
             "01-ness-healing-paula-sunstroke",
             "04-dread-scorpion-poison-jeff",
             "05-large-pizza-party-heal",
             "08-paula-freeze-before-animation",
+            "bash-row-neutralize-c240a4",
             "save11-confirm-dispatch-target",
             "save11-confirm-enhanced",
             "save3-psi-dispatch-target",
@@ -857,6 +888,7 @@
             "05-large-pizza-party-heal",
             "07-jeff-hp-rolling",
             "08-paula-freeze-before-animation",
+            "bash-row-neutralize-c240a4",
             "save11-confirm-dispatch-target",
             "save11-confirm-enhanced",
             "save5-before-damage-callsite-fields",
@@ -990,6 +1022,20 @@
           },
           "first_frame": 11,
           "last_frame": 960
+        },
+        {
+          "fixture_id": "bash-row-neutralize-c240a4",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C2:3D05",
+            "C2:40A4"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:3D05": 18,
+            "C2:40A4": 1
+          },
+          "first_frame": 1,
+          "last_frame": 808
         },
         {
           "fixture_id": "save11-confirm-dispatch-target",
@@ -1213,6 +1259,51 @@
           },
           "first_frame": 11,
           "last_frame": 960
+        },
+        {
+          "fixture_id": "bash-row-neutralize-c240a4",
+          "probe_observed_addresses": [
+            "C0:9279",
+            "C2:3E32",
+            "C2:40F2",
+            "C2:4147",
+            "C2:416F",
+            "C2:4703",
+            "C2:90C6",
+            "C2:915C"
+          ],
+          "probe_breakpoint_hit_counts": {
+            "C0:9279": 9,
+            "C2:3E32": 3,
+            "C2:40F2": 2,
+            "C2:4147": 4,
+            "C2:416F": 1,
+            "C2:4703": 3,
+            "C2:90C6": 1,
+            "C2:915C": 1
+          },
+          "probe_route_group_hit_counts": {
+            "payload_applicator": 24
+          },
+          "probe_dispatch_target_counts": {
+            "C2:859F": 2,
+            "C2:8740": 1,
+            "C2:9051": 14,
+            "C2:90C6": 4,
+            "C2:9C2C": 3
+          },
+          "probe_stack_return_counts": {
+            "3C:1E98": 1,
+            "5F:1E80": 6,
+            "C2:4104": 2,
+            "C2:4159": 4,
+            "C2:59F9": 3,
+            "C2:5A1F": 1,
+            "C2:5AFB": 3,
+            "C2:5D3D": 4
+          },
+          "first_frame": 1,
+          "last_frame": 808
         },
         {
           "fixture_id": "save11-confirm-dispatch-target",
@@ -1444,21 +1535,21 @@
         "C2:9917"
       ],
       "status": "partial-route-observed",
-      "probe_count": 11,
+      "probe_count": 12,
       "minimum_hit_candidate_count": 0,
-      "fixtures_with_any_hits": 1,
+      "fixtures_with_any_hits": 2,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
-        "C2:724A": 1
+        "C2:724A": 2
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
       "dispatch_target_counts": {
-        "C2:8B2C": 1
+        "C2:8B2C": 2
       },
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {
-        "97:8B48": 1
+        "97:8B48": 2
       },
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
@@ -1468,6 +1559,18 @@
       "fixture_hits": [
         {
           "fixture_id": "04-dread-scorpion-poison-jeff",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:724A"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:724A": 1
+          },
+          "first_frame": 14,
+          "last_frame": 14
+        },
+        {
+          "fixture_id": "dread-skelpion-poison-fast",
           "minimum_hits_satisfied": false,
           "observed_addresses": [
             "C2:724A"
@@ -7069,6 +7172,361 @@
         "sha256": null
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/route-probes/c2-route-gap-hints/c2-40a4-current-action-payload/save7-hp-rolling-enhanced/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/fixture-rom-tests",
+      "fixture_id": "bash-row-neutralize-c240a4",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "6cba602ac4c0c934ce97a1c215a8a1e2f9e9a89c552f9c7fd9cba58e78c84377"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/fixture-rom-tests/bash-row-neutralize-c240a4/historical-save1-bash-confirm/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/fixture-rom-tests",
+      "fixture_id": "bash-row-neutralize-c240a4",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 1,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,b:4,neutral:20,b:4,neutral:20,a:4,neutral:20,a:4,neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/fixture-rom-tests/bash-row-neutralize-c240a4/historical-save4-back-to-bash-confirm/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/fixture-rom-tests",
+      "fixture_id": "bash-row-neutralize-c240a4",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": true,
+      "observed_addresses": [
+        "C2:3D05",
+        "C2:40A4"
+      ],
+      "probe_observed_addresses": [
+        "C0:9279",
+        "C2:3E32",
+        "C2:40F2",
+        "C2:4147",
+        "C2:416F",
+        "C2:4703",
+        "C2:90C6",
+        "C2:915C"
+      ],
+      "breakpoint_hit_counts": {
+        "C2:3D05": 18,
+        "C2:40A4": 1
+      },
+      "probe_breakpoint_hit_counts": {
+        "C0:9279": 9,
+        "C2:3E32": 3,
+        "C2:40F2": 2,
+        "C2:4147": 4,
+        "C2:416F": 1,
+        "C2:4703": 3,
+        "C2:90C6": 1,
+        "C2:915C": 1
+      },
+      "probe_route_group_hit_counts": {
+        "payload_applicator": 24
+      },
+      "dispatch_target_counts": {
+        "C2:859F": 3,
+        "C2:8740": 1,
+        "C2:9051": 9,
+        "C2:90C6": 2,
+        "C2:9C2C": 4
+      },
+      "probe_dispatch_target_counts": {
+        "C2:859F": 2,
+        "C2:8740": 1,
+        "C2:9051": 14,
+        "C2:90C6": 4,
+        "C2:9C2C": 3
+      },
+      "stack_return_counts": {
+        "C2:3E88": 3,
+        "C2:40DE": 2,
+        "C2:4133": 4,
+        "C2:58D5": 3,
+        "C2:5CAE": 3,
+        "C2:5E26": 3,
+        "C2:9160": 1
+      },
+      "probe_stack_return_counts": {
+        "3C:1E98": 1,
+        "5F:1E80": 6,
+        "C2:4104": 2,
+        "C2:4159": 4,
+        "C2:59F9": 3,
+        "C2:5A1F": 1,
+        "C2:5AFB": 3,
+        "C2:5D3D": 4
+      },
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {
+        "c2_40a4_loop_dispatch": 6,
+        "c2_battle_start_candidate_direct_dispatch": 3
+      },
+      "post_call_snapshot_counts": {
+        "C2:40A4": 1
+      },
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [],
+      "first_frame": 1,
+      "last_frame": 808,
+      "trace_line_count": 312,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_2.mss",
+        "sha256": "5aec7c75f902b606bc3a24943f62702ef11cd3785df50871fb52cb22040771df"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/fixture-rom-tests/bash-row-neutralize-c240a4/save2-target-confirm/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/fixture-rom-tests",
+      "fixture_id": "dread-skelpion-poison-fast",
+      "oracle_id": "c2_724a_affliction_writer_matrix",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:724A"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:724A": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:8B2C": 1
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "97:8B48": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "missing_minimum_hits": [
+        "C2:9917"
+      ],
+      "first_frame": 14,
+      "last_frame": 14,
+      "trace_line_count": 6,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:1800",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "5f6958127bda0a6940d204ab1dcc25dae366d11c2ef153f2c906ad5fffd18451"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/fixture-rom-tests/dread-skelpion-poison-fast/save4-neutral/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/fixture-rom-tests",
+      "fixture_id": "runaway-dog-final-neutralize-c240a4",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/fixture-rom-tests/runaway-dog-final-neutralize-c240a4/historical-save4-bash-confirm/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/fixture-rom-tests",
+      "fixture_id": "runaway-dog-final-neutralize-c240a4",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/fixture-rom-tests/runaway-dog-final-neutralize-c240a4/historical-save4-neutral/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/fixture-rom-tests",
+      "fixture_id": "runaway-dog-neutralize-c240a4",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/fixture-rom-tests/runaway-dog-neutralize-c240a4/historical-save4-bash-confirm/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/fixture-rom-tests",
+      "fixture_id": "runaway-dog-neutralize-c240a4",
+      "oracle_id": "c2_40a4_current_action_payload",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {},
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {},
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {},
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:40A4"
+      ],
+      "missing_minimum_hits": [
+        "C2:40A4"
+      ],
+      "first_frame": null,
+      "last_frame": null,
+      "trace_line_count": 4,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_4.mss",
+        "sha256": "30381044ccf3b64523d0f6222fa7c8bd681abe648307dfeecd5129cf5ee0fcbd"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/fixture-rom-tests/runaway-dog-neutralize-c240a4/historical-save4-neutral/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     }

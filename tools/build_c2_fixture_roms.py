@@ -29,8 +29,11 @@ from rom_tools import (
 ENEMY_TABLE_BANK = 0xD5
 ENEMY_TABLE_ADDRESS = 0x9589
 ENEMY_TABLE_STRIDE = 0x5E
+BATTLE_ACTION_TABLE_BANK = 0xD5
+BATTLE_ACTION_TABLE_ADDRESS = 0x7B68
+BATTLE_ACTION_TABLE_STRIDE = 0x0C
 
-FIELD_OFFSETS = {
+ENEMY_FIELD_OFFSETS = {
     "hp": 0x21,
     "speed": 0x3C,
     "action_order": 0x45,
@@ -46,8 +49,19 @@ FIELD_OFFSETS = {
     "final_action_argument": 0x54,
 }
 
+BATTLE_ACTION_FIELD_OFFSETS = {
+    "direction": 0x00,
+    "target": 0x01,
+    "action_type": 0x02,
+    "pp_cost": 0x03,
+    "message_pointer": 0x04,
+    "action_pointer": 0x08,
+}
+
 ACTION_NEUTRALIZE_ALL = 248
 ACTION_DREAD_SKELPION_POISON = 72
+ACTION_ROW_BASH = 4
+ACTION_POINTER_BATTLER_NORMALIZATION = (0xC2, 0x90C6)
 
 
 @dataclass(frozen=True)
@@ -97,6 +111,34 @@ SCENARIOS: dict[str, Scenario] = {
         caveats=(
             "This is a table fixture, not a gameplay-balanced hack.",
             "The action text/effect may look odd when assigned to a dog.",
+        ),
+    ),
+    "bash-row-neutralize-c240a4": Scenario(
+        id="bash-row-neutralize-c240a4",
+        title="Bash action row points at C2:90C6 C2:40A4 lane",
+        purpose=(
+            "Patch battle action row 4, the ordinary Bash row, so any existing "
+            "command-menu save that confirms Bash can exercise the "
+            "C2:90C6 -> C2:40A4 wrapper without depending on a matching enemy "
+            "configuration row."
+        ),
+        patches=(
+            {
+                "battle_action_row": ACTION_ROW_BASH,
+                "battle_action_field_values": {
+                    "action_pointer": ACTION_POINTER_BATTLER_NORMALIZATION,
+                },
+            },
+        ),
+        expected_probe=(
+            "Confirming Bash should dispatch battle action row 4 through "
+            "C2:90C6, then hit C2:40A4."
+        ),
+        caveats=(
+            "This is a behavior-table fixture for tracing, not a plausible "
+            "gameplay edit.",
+            "Use only with local Mesen traces; do not infer real Bash semantics "
+            "from this patched row.",
         ),
     ),
     "runaway-dog-final-neutralize-c240a4": Scenario(
@@ -218,7 +260,7 @@ def normalize_snes_checksum(data: bytearray) -> dict[str, str]:
 
 
 def enemy_row_file_offset(row: int, field: str, rom_size: int) -> int:
-    cpu_address = ENEMY_TABLE_ADDRESS + row * ENEMY_TABLE_STRIDE + FIELD_OFFSETS[field]
+    cpu_address = ENEMY_TABLE_ADDRESS + row * ENEMY_TABLE_STRIDE + ENEMY_FIELD_OFFSETS[field]
     offset = hirom_to_file_offset(ENEMY_TABLE_BANK, cpu_address, rom_size)
     if offset is None:
         raise ValueError(f"Enemy row {row} field {field} is not a ROM address")
@@ -226,7 +268,22 @@ def enemy_row_file_offset(row: int, field: str, rom_size: int) -> int:
 
 
 def cpu_label_for_enemy_field(row: int, field: str) -> str:
-    return f"{ENEMY_TABLE_BANK:02X}:{ENEMY_TABLE_ADDRESS + row * ENEMY_TABLE_STRIDE + FIELD_OFFSETS[field]:04X}"
+    return f"{ENEMY_TABLE_BANK:02X}:{ENEMY_TABLE_ADDRESS + row * ENEMY_TABLE_STRIDE + ENEMY_FIELD_OFFSETS[field]:04X}"
+
+
+def battle_action_row_file_offset(row: int, field: str, rom_size: int) -> int:
+    cpu_address = BATTLE_ACTION_TABLE_ADDRESS + row * BATTLE_ACTION_TABLE_STRIDE + BATTLE_ACTION_FIELD_OFFSETS[field]
+    offset = hirom_to_file_offset(BATTLE_ACTION_TABLE_BANK, cpu_address, rom_size)
+    if offset is None:
+        raise ValueError(f"Battle action row {row} field {field} is not a ROM address")
+    return offset
+
+
+def cpu_label_for_battle_action_field(row: int, field: str) -> str:
+    return (
+        f"{BATTLE_ACTION_TABLE_BANK:02X}:"
+        f"{BATTLE_ACTION_TABLE_ADDRESS + row * BATTLE_ACTION_TABLE_STRIDE + BATTLE_ACTION_FIELD_OFFSETS[field]:04X}"
+    )
 
 
 def format_bytes(data: bytes) -> str:
@@ -276,6 +333,41 @@ def add_patch(
     )
 
 
+def encode_battle_action_value(field: str, value: Any) -> bytes:
+    if field in {"direction", "target", "action_type", "pp_cost"}:
+        return bytes((int(value) & 0xFF,))
+    if field in {"message_pointer", "action_pointer"}:
+        bank, address = value
+        return bytes((address & 0xFF, (address >> 8) & 0xFF, bank & 0xFF, 0x00))
+    raise ValueError(f"Unsupported battle action field: {field}")
+
+
+def add_battle_action_patch(
+    data: bytearray,
+    row: int,
+    field: str,
+    value: Any,
+    reason: str,
+) -> Patch | None:
+    new = encode_battle_action_value(field, value)
+    offset = battle_action_row_file_offset(row, field, len(data))
+    old = bytes(data[offset : offset + len(new)])
+    if old == new:
+        return None
+    data[offset : offset + len(new)] = new
+    return Patch(
+        table="BATTLE_ACTION_TABLE",
+        row=row,
+        row_name=f"battle_action_{row}",
+        field=field,
+        cpu_address=cpu_label_for_battle_action_field(row, field),
+        file_offset=f"0x{offset:06X}",
+        old=format_bytes(old),
+        new=format_bytes(new),
+        reason=reason,
+    )
+
+
 def apply_scenario(
     clean_rom: bytes,
     enemy_rows: dict[int, dict[str, Any]],
@@ -288,6 +380,13 @@ def apply_scenario(
             patches.append(patch)
 
     for patch_spec in scenario.patches:
+        reason = f"{scenario.id}: {scenario.purpose}"
+        if "battle_action_row" in patch_spec:
+            row = int(patch_spec["battle_action_row"])
+            for field, value in patch_spec.get("battle_action_field_values", {}).items():
+                record(add_battle_action_patch(data, row, field, value, reason))
+            continue
+
         rows = matching_enemy_rows(enemy_rows, tuple(patch_spec["enemy_names"]))
         for row in rows:
             reason = f"{scenario.id}: {scenario.purpose}"
