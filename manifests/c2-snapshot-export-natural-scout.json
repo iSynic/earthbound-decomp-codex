@@ -6,12 +6,12 @@
     "build/c2/battle-trace-oracles/manual-probes/target-staging-scout"
   ],
   "summary": {
-    "run_count": 28,
+    "run_count": 30,
     "snapshot_export_callsite_run_count": 0,
     "natural_b930_run_count": 0,
-    "c1_adb4_neighbor_run_count": 4,
-    "c1_ce85_item_resolver_neighbor_run_count": 1,
-    "c2_bac5_neighbor_run_count": 24,
+    "c1_adb4_neighbor_run_count": 6,
+    "c1_ce85_item_resolver_neighbor_run_count": 3,
+    "c2_bac5_neighbor_run_count": 26,
     "natural_route_proven": false,
     "source_promotion_allowed": false,
     "behavior_change_allowed": false
@@ -499,6 +499,72 @@
       "frame_limit": 500
     },
     {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-goods-fresh-egg-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-goods-fresh-egg-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-goods-fresh-egg-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 20,
+      "first_frame": 26,
+      "last_frame": 956,
+      "observed_addresses": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C1:ADB4": 1,
+        "C1:CE85": 1,
+        "C2:BAC5": 1
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": true,
+      "c1_ce85_hit": true,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:900",
+      "frame_limit": 1000
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-goods-fresh-egg-aa",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-goods-fresh-egg-aa/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-goods-fresh-egg-aa/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 25,
+      "first_frame": 26,
+      "last_frame": 1090,
+      "observed_addresses": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C1:ADB4": 1,
+        "C1:CE85": 1,
+        "C2:BAC5": 2
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": true,
+      "c1_ce85_hit": true,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:60,a:8,neutral:900",
+      "frame_limit": 1100
+    },
+    {
       "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-generic-a",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-generic-a/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-generic-a/raw-trace.jsonl",
@@ -877,8 +943,8 @@
   ],
   "interpretation": {
     "current_existing_saves_position": "mostly_after_c1_snapshot_export_or_on_target_count_neighbors",
-    "best_existing_neighbor": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-goods-large-pizza-a",
-    "latest_live_result": "The slot9 Large Pizza Goods save reaches C1:CE85 -> C1:ADB4 -> C2:BAC5, but the all-party item path still skips the observed C2:B930 export breakpoint.",
-    "next_required_fixture": "A single-target Goods or PSI save before target confirmation, preferably a healing item such as hamburger/pizza/croissant or a single-target PSI action, so the target-choice path can reach a C2:B930 snapshot export callsite."
+    "best_existing_neighbor": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-goods-fresh-egg-a",
+    "latest_live_result": "The slot9 Large Pizza and slot2 Fresh Egg battle Goods saves both reach C1:CE85 -> C1:ADB4 -> C2:BAC5, but neither battle-selection path touches the C1:AF73 use-item bridge where the C2:B930 export callsites live.",
+    "next_required_fixture": "An overworld/menu Goods Use save that enters the C1:AF73 USE_ITEM bridge, preferably with a usable item whose D5 action row has a non-null +0x08 payload. Battle Goods C1:CE85/ADB4 saves are now proven neighbor evidence, not B930 routes."
   }
 }

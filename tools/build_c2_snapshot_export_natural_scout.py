@@ -104,13 +104,14 @@ def build_manifest(input_roots: tuple[Path, ...] = DEFAULT_INPUT_ROOTS) -> dict[
             "current_existing_saves_position": "mostly_after_c1_snapshot_export_or_on_target_count_neighbors",
             "best_existing_neighbor": best_neighbor,
             "latest_live_result": (
-                "The slot9 Large Pizza Goods save reaches C1:CE85 -> C1:ADB4 -> C2:BAC5, "
-                "but the all-party item path still skips the observed C2:B930 export breakpoint."
+                "The slot9 Large Pizza and slot2 Fresh Egg battle Goods saves both reach "
+                "C1:CE85 -> C1:ADB4 -> C2:BAC5, but neither battle-selection path touches "
+                "the C1:AF73 use-item bridge where the C2:B930 export callsites live."
             ),
             "next_required_fixture": (
-                "A single-target Goods or PSI save before target confirmation, preferably a healing item "
-                "such as hamburger/pizza/croissant or a single-target PSI action, so the target-choice "
-                "path can reach a C2:B930 snapshot export callsite."
+                "An overworld/menu Goods Use save that enters the C1:AF73 USE_ITEM bridge, "
+                "preferably with a usable item whose D5 action row has a non-null +0x08 payload. "
+                "Battle Goods C1:CE85/ADB4 saves are now proven neighbor evidence, not B930 routes."
             ),
         },
     }

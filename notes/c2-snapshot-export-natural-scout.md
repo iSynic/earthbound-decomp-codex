@@ -5,12 +5,12 @@ This note records negative/neighbor evidence for existing saves; it is not sourc
 
 ## Summary
 
-- scout runs: `28`
+- scout runs: `30`
 - natural snapshot-export callsite runs: `0`
 - natural `C2:B930` runs: `0`
-- `C1:ADB4` neighbor runs: `4`
-- `C1:CE85` + `C1:ADB4` item-resolver neighbor runs: `1`
-- `C2:BAC5` neighbor runs: `24`
+- `C1:ADB4` neighbor runs: `6`
+- `C1:CE85` + `C1:ADB4` item-resolver neighbor runs: `3`
+- `C2:BAC5` neighbor runs: `26`
 - natural route proven: `False`
 
 ## Runs
@@ -33,6 +33,8 @@ This note records negative/neighbor evidence for existing saves; it is not sourc
 | `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot11-generic-a` | - | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | - |
 | `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-current-aa` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 160..677 |
 | `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-generic-a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 160..398 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-goods-fresh-egg-a` | C1:ADB4, C1:CE85, C2:BAC5 | - | C1:CFC6, C2:B930 | 26..956 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-goods-fresh-egg-aa` | C1:ADB4, C1:CE85, C2:BAC5 | - | C1:CFC6, C2:B930 | 26..1090 |
 | `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-generic-a` | C1:ADB4, C2:BAC5 | - | C1:CE85, C1:CFC6, C2:B930 | 48..60 |
 | `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-psi-menu-aaa` | C1:ADB4, C2:BAC5 | - | C1:CE85, C1:CFC6, C2:B930 | 48..60 |
 | `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot4-generic-a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 49..259 |
@@ -49,11 +51,11 @@ This note records negative/neighbor evidence for existing saves; it is not sourc
 ## Interpretation
 
 - Existing saves mostly observe `C2:BAC5` target-count neighbors or later effect-resolution paths.
-- `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-goods-large-pizza-a` is the best current neighbor because it reaches the deepest natural pre-export route seen so far, but it still misses the natural snapshot-export callsites and `C2:B930`.
-- The slot9 Large Pizza Goods save reaches C1:CE85 -> C1:ADB4 -> C2:BAC5, but the all-party item path still skips the observed C2:B930 export breakpoint.
+- `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-goods-fresh-egg-a` is the best current neighbor because it reaches the deepest natural pre-export route seen so far, but it still misses the natural snapshot-export callsites and `C2:B930`.
+- The slot9 Large Pizza and slot2 Fresh Egg battle Goods saves both reach C1:CE85 -> C1:ADB4 -> C2:BAC5, but neither battle-selection path touches the C1:AF73 use-item bridge where the C2:B930 export callsites live.
 - The enhanced runner remains useful: it is now waiting for an earlier pre-export fixture rather than missing capture support.
 
 ## Next Fixture
 
-- A single-target Goods or PSI save before target confirmation, preferably a healing item such as hamburger/pizza/croissant or a single-target PSI action, so the target-choice path can reach a C2:B930 snapshot export callsite.
+- An overworld/menu Goods Use save that enters the C1:AF73 USE_ITEM bridge, preferably with a usable item whose D5 action row has a non-null +0x08 payload. Battle Goods C1:CE85/ADB4 saves are now proven neighbor evidence, not B930 routes.
 - Until that exists, keep `notes/c2-b930-controlled-snapshot-export.md` as controlled mechanics evidence only.
