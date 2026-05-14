@@ -406,6 +406,20 @@ and ordered breakpoint samples. In the current save-7 trace it records
 reviewed result is now `refined_contract` for HP-to-zero collapse entry,
 `C2:7550 -> C2:77CA` order, and hard/collapsed row-state installation.
 
+Controlled helper-entry probes now cover the two optional HP/collapse-tail
+helpers separately. These are fixture mechanics, not natural damage proof:
+
+```powershell
+python tools\build_c2_fixture_roms.py --scenario direct-c27550-descriptor-death-text --scenario direct-c2bc5c-cleanup
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id hp_roller_collapse_boundary --rom build\c2\fixture-roms\direct-c27550-descriptor-death-text\EarthBound-USA-direct-c27550-descriptor-death-text.sfc --input-pattern neutral:600 --frame-limit 1200 --timeout 240 --summarize-trace --output-dir build\c2\battle-trace-oracles\manual-probes\hp-roller-collapse-tail\direct-c27550-descriptor-death-text --wram-patch-timing first-breakpoint --wram-patch-profile collapse-descriptor-row-9fac-runaway-dog
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id hp_roller_collapse_boundary --rom build\c2\fixture-roms\direct-c2bc5c-cleanup\EarthBound-USA-direct-c2bc5c-cleanup.sfc --input-pattern neutral:120 --frame-limit 300 --timeout 240 --summarize-trace --output-dir build\c2\battle-trace-oracles\manual-probes\hp-roller-collapse-tail\direct-c2bc5c-cleanup-postcall --wram-patch-timing first-breakpoint --wram-patch-profile bc5c-source-entry0-live-slot0-dirty
+```
+
+The descriptor fixture observes `C0:B9B4 -> C2:7550 -> C2:7680 -> C1:DC1C`
+with `$9FAC` seeded as a minimal Runaway Dog selected row. The cleanup fixture
+observes `C2:BC5C` and a `return_from:C2:BC5C` post-call snapshot where live
+slot bytes `+0x10/+0x11/+0x12/+0x14` change from nonzero seed values to zero.
+
 ## Promotion Rule
 
 Do not promote source names or comments from a Mesen run summary alone. The raw

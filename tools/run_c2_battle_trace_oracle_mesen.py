@@ -99,6 +99,16 @@ WRAM_PATCH_PROFILES: dict[str, list[str]] = {
     "resource-selected-row-9fac-pp32": [
         "0x9FC5:20 00 20 00",
     ],
+    "collapse-descriptor-row-9fac-runaway-dog": [
+        "0x9FAC:79 00",
+        "0x9FB8:01 00 00 01 00",
+        "0x9FC9:00 00 00 00 00 00 00",
+    ],
+    "bc5c-source-entry0-live-slot0-dirty": [
+        "0x9FB8:01 00 00 00 00",
+        "0x99DE:10 11 12",
+        "0x99E2:14",
+    ],
 }
 WRAM_PATCH_PROFILES["scripted-entry-party-window-reset"] = (
     WRAM_PATCH_PROFILES["scripted-entry-party"]

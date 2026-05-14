@@ -6,7 +6,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 ## Summary
 
 - probe roots found: `13` / `13`
-- probe records: `183`
+- probe records: `186`
 - oracles summarized: `6`
 - minimum-hit candidates: `16`
 - fixtures with route-hint hits: `16`
@@ -22,7 +22,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `c2_40a4_current_action_payload` | `minimum-hit-candidate` | `36` | `2` | `20` | `16` | C0:52AA:1, C0:B9B4:1, C1:04EE:1, C1:0528:1, C1:0536:1, C1:0644:1, C1:0772:1, C1:078B:1, C1:DC1C:1, C1:DD3B:1, C1:DD47:1, C2:2F38:1, C2:3D05:20, C2:40A4:2, C2:4821:1, C2:488C:1, C2:48E0:1, C2:492D:1, C2:4949:1, C2:4958:1, C2:4A00:1, C2:4A2D:1, C2:4CEF:1, C2:4EEC:1, C2:4EF6:1, C2:4F03:1, C2:4F52:1, C2:4FCF:1, C2:5024:1, C2:5619:1, C2:5AFB:1, C2:5C30:1, C2:5C8C:1, C2:5D2B:1, C2:5D3D:1, C2:6081:1, C2:6088:1, C2:E8E0:1, C2:E9C8:1, C3:E4EF:1, C3:E4FE:1, C3:E512:1, C3:E51F:1 | C0:9279:16, C2:3E32:8, C2:40F2:2, C2:4147:2, C2:416F:7, C2:4703:8, C2:77CA:4, C2:90C6:2, C2:915C:2 | 00:0000:3, C1:C8BC:1, C2:859F:114, C2:8651:9, C2:8740:14, C2:889B:10, C2:8B2C:3, C2:9033:11, C2:9051:137, C2:90C6:88, C2:9647:3, C2:9C2C:6, C2:B27D:6 | 3C:1E98:1, 3C:1EA8:21, 5F:1E80:6, 5F:1E90:41, C1:1AE2:1, C2:4104:23, C2:4159:24, C2:477B:21, C2:59F9:64, C2:5A1F:29, C2:5A4B:1, C2:5A4F:1, C2:5AFB:64, C2:5D3D:105, F3:1E64:3 |
 | `c2_724a_affliction_writer_matrix` | `minimum-hit-candidate` | `14` | `1` | `4` | `0` | C2:724A:4, C2:9917:1 | - | - | - |
 | `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `15` | `9` | `10` | `0` | C1:0DF6:4, C1:7EED:4, C1:AD0A:4, C1:AD26:4, C1:DC1C:4, C1:DC66:4, C2:7550:1, C2:7EAF:9, C2:8125:9, C2:941D:2 | - | - | - |
-| `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `33` | `4` | `15` | `0` | C0:52AA:2, C0:B9B4:2, C1:DC1C:14, C1:DC66:13, C2:2F38:2, C2:4821:2, C2:488C:2, C2:48E0:2, C2:492D:2, C2:4949:2, C2:4958:2, C2:4A00:2, C2:4A2D:2, C2:4CEF:2, C2:4EEC:2, C2:4EF6:2, C2:4F03:2, C2:4F52:2, C2:4FCF:2, C2:5024:2, C2:5619:2, C2:5AFB:2, C2:5C30:2, C2:5C8C:1, C2:5D2B:1, C2:5D3D:1, C2:6081:2, C2:6088:1, C2:7550:4, C2:77CA:4, C2:8125:11, C2:BB18:15, C2:E8E0:2, C2:E9C8:2 | - | - | - |
+| `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `36` | `4` | `18` | `0` | C0:52AA:2, C0:B9B4:5, C1:DC1C:15, C1:DC66:13, C2:2F38:2, C2:4821:3, C2:488C:3, C2:48E0:3, C2:492D:2, C2:4949:2, C2:4958:2, C2:4A00:2, C2:4A2D:2, C2:4CEF:2, C2:4EEC:2, C2:4EF6:2, C2:4F03:2, C2:4F52:2, C2:4FCF:2, C2:5024:2, C2:5619:2, C2:5AFB:2, C2:5C30:2, C2:5C8C:1, C2:5D2B:1, C2:5D3D:1, C2:6081:2, C2:6088:1, C2:7550:5, C2:7680:1, C2:77CA:4, C2:8125:11, C2:BB18:15, C2:BC5C:2, C2:E8E0:2, C2:E9C8:2 | - | - | - |
 | `resource_amount_pair_magnet_vs_pp_loss` | `partial-route-observed` | `53` | `0` | `24` | `0` | C0:52AA:17, C0:B9B4:17, C1:04EE:17, C1:0528:17, C1:0536:17, C1:0644:17, C1:0772:17, C1:078B:17, C1:DC1C:17, C1:DD3B:17, C1:DD47:17, C2:2F38:17, C2:4821:17, C2:488C:17, C2:48E0:17, C2:492D:17, C2:4949:17, C2:4958:17, C2:4A00:17, C2:4A2D:17, C2:4CEF:17, C2:4EEC:17, C2:4EF6:17, C2:4F03:17, C2:4F52:17, C2:4FCF:17, C2:5024:17, C2:5619:17, C2:5AFB:17, C2:5C30:17, C2:5C8C:14, C2:5D2B:14, C2:5D3D:10, C2:6081:17, C2:6088:10, C2:7191:10, C2:721D:9, C2:8E42:7, C2:9F5E:11, C2:E8E0:17, C2:E9C8:17, C3:E4EF:17, C3:E4FE:17, C3:E512:9, C3:E51F:17 | - | - | - |
 
 ## Route Gap Queue
@@ -133,6 +133,9 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `07-earthbound-usa-7` | `True` | `41..415` | C1:DC1C:1, C1:DC66:2, C2:7550:1, C2:77CA:1, C2:8125:2, C2:BB18:13 |
 | `08-paula-freeze-before-animation` | `True` | `10..964` | C1:DC1C:1, C1:DC66:5, C2:7550:1, C2:77CA:1, C2:8125:4, C2:BB18:25 |
 | `09-earthbound-usa-8` | `True` | `10..964` | C1:DC1C:1, C1:DC66:5, C2:7550:1, C2:77CA:1, C2:8125:4, C2:BB18:25 |
+| `direct-c27550-descriptor-death-text` | `False` | `60..60` | C0:B9B4:1, C1:DC1C:1, C2:7550:1, C2:7680:1 |
+| `direct-c2bc5c-cleanup` | `False` | `60..600` | C0:B9B4:1, C2:4821:1, C2:488C:1, C2:48E0:1, C2:BC5C:1 |
+| `direct-c2bc5c-cleanup-postcall` | `False` | `60..60` | C0:B9B4:1, C2:BC5C:1 |
 | `save7-extended-confirm` | `False` | `3609..3609` | C2:BB18:1 |
 | `scripted-entry-bc5c-expanded-oracle` | `False` | `56..6536` | C0:52AA:1, C0:B9B4:1, C1:DC1C:2, C2:2F38:1, C2:4821:1, C2:488C:1, C2:48E0:1, C2:492D:32, C2:4949:33, C2:4958:1, C2:4A00:1, C2:4A2D:2, C2:4CEF:1, C2:4EEC:1, C2:4EF6:1, C2:4F03:1, C2:4F52:1, C2:4FCF:1, C2:5024:1, C2:5619:1, C2:5AFB:1, C2:5C30:1, C2:6081:1, C2:BB18:7, C2:E8E0:1, C2:E9C8:73 |
 | `scripted-entry-bc5c-expanded-oracle-long` | `False` | `56..23812` | C0:52AA:1, C0:B9B4:1, C1:DC1C:62, C1:DC66:2, C2:2F38:1, C2:4821:1, C2:488C:1, C2:48E0:1, C2:492D:32, C2:4949:33, C2:4958:1, C2:4A00:1, C2:4A2D:2, C2:4CEF:1, C2:4EEC:1, C2:4EF6:1, C2:4F03:1, C2:4F52:1, C2:4FCF:21, C2:5024:21, C2:5619:61, C2:5AFB:41, C2:5C30:41, C2:5C8C:1249, C2:5D2B:40, C2:5D3D:39, C2:6081:61, C2:6088:20, C2:8125:2, C2:BB18:306, C2:E8E0:1, C2:E9C8:73 |
@@ -211,8 +214,8 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 | Group | Status | Covered | Missing | Fixtures | Probe hints seen | Next probe |
 | --- | --- | --- | --- | --- | --- | --- |
-| `collapse_tail` | `proof_grade_core_with_optional_tail_open` | `False` | C2:7680 | - | - | Find a row state that reaches descriptor death text C2:7680 rather than the C2:77CA direct collapse controller tail. |
-| `scripted_entry_cleanup_tail` | `fixture_navigation_only_until_c2_bc5c_observed` | `False` | C2:6093, C2:6145, C2:BC5C | - | - | Use generated scripted-entry fixture ROMs to reach C2:6145 -> C2:BC5C, then seed one inactive/live-slot pair before claiming cleanup mechanics. |
+| `collapse_tail` | `proof_grade_core_with_optional_tail_open` | `True` | - | - | - | Find a row state that reaches descriptor death text C2:7680 rather than the C2:77CA direct collapse controller tail. |
+| `scripted_entry_cleanup_tail` | `fixture_navigation_only_until_c2_bc5c_observed` | `False` | C2:6093, C2:6145 | - | - | Use generated scripted-entry fixture ROMs to reach C2:6145 -> C2:BC5C, then seed one inactive/live-slot pair before claiming cleanup mechanics. |
 
 ### `resource_amount_pair_magnet_vs_pp_loss`
 
@@ -232,5 +235,5 @@ It records fixture usefulness without storing local save-state paths or raw trac
 - The replaced-slot Healing, Dread Scorpion poison, Large Pizza, and Paula Freeze fixtures remain valuable direct-dispatch coverage for `C2:8125`, `C2:724A`, and payload-adjacent targets such as `C2:8B2C`, `C2:9C2C`, and `C2:B27D`, but their `C0:9279` lanes should stay separate from the Bash-row fixture's artificial `C2:40A4` steering proof.
 - `c2_724a_affliction_writer_matrix` now has both the Dread Scorpion poison-writer hit and a forced Flash Beta fixture that observes the paired `C2:9917 -> C2:724A` numb-status route. It remains follow-up rather than proof-grade because the natural `C2:98A1` gate and post-write return value still need cleaner evidence.
 - `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The forced-entry `adb4-force-b930-snapshot-export` fixture observes `C2:B930` export mechanics, but the natural unpatched C1 pre-export route still needs a cleaner capture.
-- `hp_roller_collapse_boundary` now has a long save-state sweep and scripted-entry startup probes folded into the matrix. The save-state sweep found additional minimum-hit collapse candidates but still no `C2:7680` descriptor-death-text hit. The scripted-entry cleanup scout reaches `C0:B9B4 -> C2:2F38`, `C2:5AFB`, `C2:6088`, and repeated `C2:BB18`, but not `C2:6093`, `C2:6145`, or `C2:BC5C`, so inactive-slot cleanup remains a dedicated fixture/seed follow-up rather than an inferred tail.
+- `hp_roller_collapse_boundary` now separates natural and controlled-helper evidence. The long save-state sweep found additional natural minimum-hit collapse candidates that still route through `C2:77CA`, while the direct `C2:7550` fixture proves the `C2:7680 -> C1:DC1C` descriptor-death-text path under a seeded Runaway Dog row. The direct `C2:BC5C` fixture records a post-call cleanup snapshot where live-slot transient bytes `+0x10/+0x11/+0x12/+0x14` clear from `10 11 12 00 14` to zero. These optional tail helpers are covered as controlled helper-entry mechanics, not natural damage/cleanup timing.
 - `resource_amount_pair_magnet_vs_pp_loss` now has fixture-steered entry hits for both `C2:9F5E` and `C2:8E42`, controlled WRAM-patched reducer probes that separate PSI Magnet transfer mechanics from PP reduction loss-only mechanics, and scripted-entry enemy fixtures that reach canonical Gigantic Ant row 54 and Guardian General row 95 lanes. Both lanes now have natural enemy-action-table hits, but targeted WRAM PP seeding still keeps them below proof-grade promotion.

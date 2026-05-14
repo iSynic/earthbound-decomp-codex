@@ -25,7 +25,7 @@
   "summary": {
     "probe_root_count": 13,
     "probe_roots_found": 13,
-    "record_count": 183,
+    "record_count": 186,
     "oracle_count": 6,
     "minimum_hit_candidate_count": 16,
     "route_hint_fixture_count": 16,
@@ -2152,19 +2152,19 @@
         "C2:7550"
       ],
       "status": "minimum-hit-candidate",
-      "probe_count": 33,
+      "probe_count": 36,
       "minimum_hit_candidate_count": 4,
-      "fixtures_with_any_hits": 15,
+      "fixtures_with_any_hits": 18,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
         "C0:52AA": 2,
-        "C0:B9B4": 2,
-        "C1:DC1C": 14,
+        "C0:B9B4": 5,
+        "C1:DC1C": 15,
         "C1:DC66": 13,
         "C2:2F38": 2,
-        "C2:4821": 2,
-        "C2:488C": 2,
-        "C2:48E0": 2,
+        "C2:4821": 3,
+        "C2:488C": 3,
+        "C2:48E0": 3,
         "C2:492D": 2,
         "C2:4949": 2,
         "C2:4958": 2,
@@ -2185,17 +2185,19 @@
         "C2:5D3D": 1,
         "C2:6081": 2,
         "C2:6088": 1,
-        "C2:7550": 4,
+        "C2:7550": 5,
+        "C2:7680": 1,
         "C2:77CA": 4,
         "C2:8125": 11,
         "C2:BB18": 15,
+        "C2:BC5C": 2,
         "C2:E8E0": 2,
         "C2:E9C8": 2
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
       "dispatch_target_counts": {
-        "00:0000": 340,
+        "00:0000": 348,
         "C0:4F47": 1,
         "C2:859F": 962,
         "C2:8651": 12,
@@ -2206,19 +2208,24 @@
         "C2:9051": 1052,
         "C2:9647": 12,
         "C2:9C2C": 15,
-        "C2:B27D": 22
+        "C2:B27D": 22,
+        "E4:E4E4": 3
       },
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {
-        "00:0001": 2,
+        "00:0001": 5,
+        "85:08A6": 1,
         "85:84A3": 1,
         "85:8569": 13,
         "95:84A3": 2,
         "97:86B6": 2,
         "97:9603": 2,
+        "A5:1C86": 2,
+        "BA:1F01": 1,
         "C0:1EDF": 1752,
         "C0:52C1": 2,
-        "C0:B9BB": 2,
+        "C0:B9B8": 2,
+        "C0:B9BB": 3,
         "C2:2FAD": 2,
         "C2:2FBB": 146,
         "C2:2FC4": 2,
@@ -2234,6 +2241,7 @@
         "C2:5FFC": 1,
         "C2:72E8": 6,
         "C2:7306": 2,
+        "C2:76AD": 1,
         "C2:7A46": 3,
         "C2:8033": 3,
         "C2:8055": 11,
@@ -2251,7 +2259,9 @@
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
-      "post_call_snapshot_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:BC5C": 1
+      },
       "route_groups": {
         "collapse_tail": {
           "addresses": [
@@ -2268,10 +2278,8 @@
           "next_probe_goal": "Find a row state that reaches descriptor death text C2:7680 rather than the C2:77CA direct collapse controller tail.",
           "probe_breakpoint_hints": [],
           "watch_hints": [],
-          "covered_by_any_probe": false,
-          "missing_from_all_probes": [
-            "C2:7680"
-          ],
+          "covered_by_any_probe": true,
+          "missing_from_all_probes": [],
           "fixtures_covering_group": [],
           "probe_hint_addresses_observed": [],
           "fixtures_with_probe_hints": []
@@ -2323,8 +2331,7 @@
           "covered_by_any_probe": false,
           "missing_from_all_probes": [
             "C2:6093",
-            "C2:6145",
-            "C2:BC5C"
+            "C2:6145"
           ],
           "fixtures_covering_group": [],
           "probe_hint_addresses_observed": [],
@@ -2559,6 +2566,58 @@
           },
           "first_frame": 10,
           "last_frame": 964
+        },
+        {
+          "fixture_id": "direct-c27550-descriptor-death-text",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C0:B9B4",
+            "C1:DC1C",
+            "C2:7550",
+            "C2:7680"
+          ],
+          "breakpoint_hit_counts": {
+            "C0:B9B4": 1,
+            "C1:DC1C": 1,
+            "C2:7550": 1,
+            "C2:7680": 1
+          },
+          "first_frame": 60,
+          "last_frame": 60
+        },
+        {
+          "fixture_id": "direct-c2bc5c-cleanup",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C0:B9B4",
+            "C2:4821",
+            "C2:488C",
+            "C2:48E0",
+            "C2:BC5C"
+          ],
+          "breakpoint_hit_counts": {
+            "C0:B9B4": 1,
+            "C2:4821": 1,
+            "C2:488C": 1,
+            "C2:48E0": 1,
+            "C2:BC5C": 1
+          },
+          "first_frame": 60,
+          "last_frame": 600
+        },
+        {
+          "fixture_id": "direct-c2bc5c-cleanup-postcall",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C0:B9B4",
+            "C2:BC5C"
+          ],
+          "breakpoint_hit_counts": {
+            "C0:B9B4": 1,
+            "C2:BC5C": 1
+          },
+          "first_frame": 60,
+          "last_frame": 60
         },
         {
           "fixture_id": "save7-extended-confirm",
@@ -9058,6 +9117,169 @@
         "sha256": "44bc53d1683e5eb675c268e264fb87df07df7677d600c4e3c3809f8405b07547"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral-long/hp_roller_collapse_boundary/16-overworld-stutter-vertical-defer-all-intro-velocity-transition-safe-diag-cadence-debug-v9b-4/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/hp-roller-collapse-tail",
+      "fixture_id": "direct-c27550-descriptor-death-text",
+      "oracle_id": "hp_roller_collapse_boundary",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C0:B9B4",
+        "C1:DC1C",
+        "C2:7550",
+        "C2:7680"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C0:B9B4": 1,
+        "C1:DC1C": 1,
+        "C2:7550": 1,
+        "C2:7680": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "00:0000": 4
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "00:0001": 1,
+        "BA:1F01": 1,
+        "C0:B9BB": 1,
+        "C2:76AD": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8125",
+        "C2:7550"
+      ],
+      "missing_minimum_hits": [
+        "C2:8125"
+      ],
+      "first_frame": 60,
+      "last_frame": 60,
+      "trace_line_count": 21,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:600",
+      "save_state": {
+        "basename": null,
+        "sha256": null
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/hp-roller-collapse-tail/direct-c27550-descriptor-death-text/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/hp-roller-collapse-tail",
+      "fixture_id": "direct-c2bc5c-cleanup",
+      "oracle_id": "hp_roller_collapse_boundary",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C0:B9B4",
+        "C2:4821",
+        "C2:488C",
+        "C2:48E0",
+        "C2:BC5C"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C0:B9B4": 1,
+        "C2:4821": 1,
+        "C2:488C": 1,
+        "C2:48E0": 1,
+        "C2:BC5C": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "00:0000": 2,
+        "E4:E4E4": 3
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "00:0001": 1,
+        "85:08A6": 1,
+        "A5:1C86": 2,
+        "C0:B9B8": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:8125",
+        "C2:7550"
+      ],
+      "missing_minimum_hits": [
+        "C2:7550",
+        "C2:8125"
+      ],
+      "first_frame": 60,
+      "last_frame": 600,
+      "trace_line_count": 25,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:300",
+      "save_state": {
+        "basename": null,
+        "sha256": null
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/hp-roller-collapse-tail/direct-c2bc5c-cleanup/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/hp-roller-collapse-tail",
+      "fixture_id": "direct-c2bc5c-cleanup-postcall",
+      "oracle_id": "hp_roller_collapse_boundary",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C0:B9B4",
+        "C2:BC5C"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C0:B9B4": 1,
+        "C2:BC5C": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "00:0000": 2
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "00:0001": 1,
+        "C0:B9B8": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:BC5C": 1
+      },
+      "configured_minimum_hits": [
+        "C2:8125",
+        "C2:7550"
+      ],
+      "missing_minimum_hits": [
+        "C2:7550",
+        "C2:8125"
+      ],
+      "first_frame": 60,
+      "last_frame": 60,
+      "trace_line_count": 17,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:120",
+      "save_state": {
+        "basename": null,
+        "sha256": null
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/hp-roller-collapse-tail/direct-c2bc5c-cleanup-postcall/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     },

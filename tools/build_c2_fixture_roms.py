@@ -77,6 +77,26 @@ AUTOSTART_INIT_BATTLE_SCRIPTED_GROUP0 = (
     0xC2,
     0x60,
 )
+AUTOSTART_CALL_C27550_WITH_9FAC = (
+    0xA9,
+    0xAC,
+    0x9F,
+    0x22,
+    0x50,
+    0x75,
+    0xC2,
+    0x60,
+)
+AUTOSTART_CALL_C2BC5C = (
+    0x22,
+    0x5C,
+    0xBC,
+    0xC2,
+    0x60,
+    0xEA,
+    0xEA,
+    0xEA,
+)
 
 
 @dataclass(frozen=True)
@@ -585,6 +605,61 @@ SCENARIOS: dict[str, Scenario] = {
             "The Runaway Dog row is made durable and fast so a simple command-confirm input pattern can reach the fixture action lane.",
             "Use the first successful run as reachability smoke evidence before promoting this as a stable oracle fixture.",
             "The enemy action is fixture-steered and must not be promoted as vanilla Runaway Dog behavior.",
+        ),
+    ),
+    "direct-c27550-descriptor-death-text": Scenario(
+        id="direct-c27550-descriptor-death-text",
+        title="Direct C2:7550 entry exercises descriptor-backed enemy death text",
+        purpose=(
+            "Patch the post-init C0:B9B4 GAME_INIT tail to call C2:7550 with "
+            "A=$9FAC. A companion WRAM profile seeds $9FAC as a minimal "
+            "Runaway Dog selected row whose +0x0E side byte is clear and whose "
+            "+0x0F route byte is nonzero, steering the collapse startup path "
+            "to C2:7680 descriptor death text."
+        ),
+        patches=(
+            {
+                "raw_cpu_patch": "C0:B9B4",
+                "bytes": AUTOSTART_CALL_C27550_WITH_9FAC,
+                "field": "autostart_call_c27550_selected_row_9fac",
+            },
+        ),
+        expected_probe=(
+            "Booting the fixture ROM with the matching WRAM profile should hit "
+            "C2:7550, then C2:7680 and C1:DC1C for the descriptor-backed death "
+            "text path."
+        ),
+        caveats=(
+            "This is a direct controlled helper-entry fixture, not a natural damage or HP-roller proof.",
+            "Use only with the collapse-descriptor-row-9fac-runaway-dog WRAM seed profile.",
+            "It proves route mechanics for the descriptor-backed death-text path, not vanilla enemy death timing.",
+        ),
+    ),
+    "direct-c2bc5c-cleanup": Scenario(
+        id="direct-c2bc5c-cleanup",
+        title="Direct C2:BC5C entry exercises inactive live-slot cleanup",
+        purpose=(
+            "Patch the post-init C0:B9B4 GAME_INIT tail to call C2:BC5C "
+            "directly. A companion WRAM profile seeds one active source entry "
+            "linked to live character slot 0 with nonzero transient bytes so "
+            "the cleanup helper can be observed in isolation."
+        ),
+        patches=(
+            {
+                "raw_cpu_patch": "C0:B9B4",
+                "bytes": AUTOSTART_CALL_C2BC5C,
+                "field": "autostart_call_c2bc5c_cleanup",
+            },
+        ),
+        expected_probe=(
+            "Booting the fixture ROM with the matching WRAM profile should hit "
+            "C2:BC5C and clear live row +0x10/+0x11/+0x12/+0x14 for linked "
+            "slot 0."
+        ),
+        caveats=(
+            "This is a direct controlled helper-entry fixture, not a natural battle-start controller proof.",
+            "Use only with the bc5c-source-entry0-live-slot0-dirty WRAM seed profile.",
+            "It proves cleanup helper mechanics; C2:6145 caller timing remains a separate route proof.",
         ),
     ),
 }
