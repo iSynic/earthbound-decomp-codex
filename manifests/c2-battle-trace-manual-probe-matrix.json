@@ -1817,7 +1817,9 @@
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
-      "post_call_snapshot_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:724A": 1
+      },
       "route_groups": {},
       "fixture_hits": [
         {
@@ -5154,6 +5156,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 1,
+        "selection_snapshot": 1
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -5196,6 +5202,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -5232,6 +5239,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -5270,6 +5278,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -5306,6 +5315,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -5348,6 +5358,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 58,
+        "selection_snapshot": 58
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -5394,6 +5408,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 31,
+        "selected_target_row": 31
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -5436,6 +5454,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_target_row": 12
+      },
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -5470,6 +5491,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -5512,6 +5534,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 1,
+        "selection_snapshot": 1
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -5554,6 +5580,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -5590,6 +5617,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -5628,6 +5656,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -5664,6 +5693,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -5706,6 +5736,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 58,
+        "selection_snapshot": 58
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -5752,6 +5786,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 31,
+        "selected_target_row": 31
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -5794,6 +5832,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_target_row": 12
+      },
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -5828,6 +5869,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -5872,6 +5914,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 2,
+        "selection_snapshot": 2
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -5913,6 +5959,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -5949,6 +5996,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -5987,6 +6035,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -6023,6 +6072,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -6067,6 +6117,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 60,
+        "selection_snapshot": 60
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -6112,6 +6166,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 32,
+        "selected_target_row": 32
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -6156,6 +6214,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_target_row": 18
+      },
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -6190,6 +6251,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -6236,6 +6298,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 3,
+        "selection_snapshot": 3
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -6276,6 +6342,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -6312,6 +6379,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -6350,6 +6418,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -6386,6 +6455,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -6432,6 +6502,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 65,
+        "selection_snapshot": 65
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -6476,6 +6550,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 34,
+        "selected_target_row": 34
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -6518,6 +6596,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_target_row": 12
+      },
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -6552,6 +6633,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -6594,6 +6676,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 37,
+        "selection_snapshot": 37
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -6640,6 +6726,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 22,
+        "selected_target_row": 22
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -6676,6 +6766,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -6720,6 +6811,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_target_row": 10
+      },
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -6754,6 +6848,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -6796,6 +6891,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 1,
+        "selection_snapshot": 1
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -6838,6 +6937,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -6874,6 +6974,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -6912,6 +7013,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -6948,6 +7050,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -6990,6 +7093,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 20,
+        "selection_snapshot": 20
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -7036,6 +7143,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 10,
+        "selected_target_row": 10
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -7072,6 +7183,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -7116,6 +7228,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_target_row": 4
+      },
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -7150,6 +7265,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -7207,6 +7323,12 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "c1_staging_dp": 38,
+        "candidate_rows": 38,
+        "selection_snapshot": 38,
+        "source_slot_rows": 38
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -7292,6 +7414,14 @@
         "c2_battle_start_candidate_direct_dispatch": 5
       },
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "active_row_pointers": 40,
+        "battle_busy_flag": 40,
+        "current_target_mask": 40,
+        "effect_busy_gate": 40,
+        "payload_pointer_dp": 40,
+        "selected_target_row": 40
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -7328,6 +7458,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -7422,6 +7553,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_target_row": 36
+      },
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -7491,6 +7625,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 37,
+        "selected_target_row": 37,
+        "text_payload_slots": 37
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -7526,6 +7665,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -7580,6 +7720,12 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "c1_staging_dp": 19,
+        "candidate_rows": 19,
+        "selection_snapshot": 19,
+        "source_slot_rows": 19
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -7658,6 +7804,14 @@
         "c2_battle_start_candidate_direct_dispatch": 3
       },
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "active_row_pointers": 18,
+        "battle_busy_flag": 18,
+        "current_target_mask": 18,
+        "effect_busy_gate": 18,
+        "payload_pointer_dp": 18,
+        "selected_target_row": 18
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -7694,6 +7848,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -7764,6 +7919,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_target_row": 15
+      },
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -7822,6 +7980,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 18,
+        "selected_target_row": 18,
+        "text_payload_slots": 18
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -7859,6 +8022,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -7912,6 +8076,12 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "c1_staging_dp": 31,
+        "candidate_rows": 31,
+        "selection_snapshot": 31,
+        "source_slot_rows": 31
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -7985,6 +8155,14 @@
         "c2_battle_start_candidate_direct_dispatch": 5
       },
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "active_row_pointers": 31,
+        "battle_busy_flag": 31,
+        "current_target_mask": 31,
+        "effect_busy_gate": 31,
+        "payload_pointer_dp": 31,
+        "selected_target_row": 31
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -8028,7 +8206,12 @@
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
-      "post_call_snapshot_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:724A": 1
+      },
+      "watch_snapshot_counts": {
+        "selected_battler_afflictions": 2
+      },
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -8038,7 +8221,7 @@
       ],
       "first_frame": 14,
       "last_frame": 14,
-      "trace_line_count": 6,
+      "trace_line_count": 9,
       "trace_nonempty": true,
       "input_pattern": "neutral:2400",
       "save_state": {
@@ -8090,6 +8273,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_target_row": 6
+      },
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -8145,6 +8331,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 23,
+        "selected_target_row": 23,
+        "text_payload_slots": 23
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -8183,6 +8374,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -8237,6 +8429,12 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "c1_staging_dp": 25,
+        "candidate_rows": 25,
+        "selection_snapshot": 25,
+        "source_slot_rows": 25
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -8315,6 +8513,14 @@
         "c2_battle_start_candidate_direct_dispatch": 6
       },
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "active_row_pointers": 24,
+        "battle_busy_flag": 24,
+        "current_target_mask": 24,
+        "effect_busy_gate": 24,
+        "payload_pointer_dp": 24,
+        "selected_target_row": 24
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -8351,6 +8557,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -8426,6 +8633,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_target_row": 16
+      },
       "configured_minimum_hits": [
         "C2:8125"
       ],
@@ -8485,6 +8695,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 23,
+        "selected_target_row": 23,
+        "text_payload_slots": 23
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -8522,6 +8737,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -8560,6 +8776,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -8598,6 +8815,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -8636,6 +8854,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -8674,6 +8893,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -8722,6 +8942,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 38,
+        "selected_target_row": 38,
+        "text_payload_slots": 38
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -8759,6 +8984,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -8811,6 +9037,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 20,
+        "selected_target_row": 20,
+        "text_payload_slots": 20
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -8870,6 +9101,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 18,
+        "selected_target_row": 18,
+        "text_payload_slots": 18
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -8938,6 +9174,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 18,
+        "selected_target_row": 18,
+        "text_payload_slots": 18
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -8997,6 +9238,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 19,
+        "selected_target_row": 19,
+        "text_payload_slots": 19
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9034,6 +9280,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9091,6 +9338,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 23,
+        "selected_target_row": 23,
+        "text_payload_slots": 23
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9154,6 +9406,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 23,
+        "selected_target_row": 23,
+        "text_payload_slots": 23
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9191,6 +9448,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9229,6 +9487,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9302,6 +9561,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 37,
+        "selected_target_row": 37,
+        "text_payload_slots": 37
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9337,6 +9601,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9375,6 +9640,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9413,6 +9679,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9451,6 +9718,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9489,6 +9757,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9527,6 +9796,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9565,6 +9835,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9620,6 +9891,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 4,
+        "selected_target_row": 4,
+        "text_payload_slots": 4
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9677,6 +9953,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 5,
+        "selected_target_row": 5,
+        "text_payload_slots": 5
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9728,6 +10009,11 @@
       "post_call_snapshot_counts": {
         "C2:BC5C": 1
       },
+      "watch_snapshot_counts": {
+        "battler_rows": 3,
+        "selected_target_row": 3,
+        "text_payload_slots": 3
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9774,6 +10060,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 1,
+        "selected_target_row": 1,
+        "text_payload_slots": 1
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9812,6 +10103,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -9918,6 +10210,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 169,
+        "selected_target_row": 169,
+        "text_payload_slots": 169
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -10047,6 +10344,11 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "battler_rows": 2120,
+        "selected_target_row": 2120,
+        "text_payload_slots": 2120
+      },
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -10084,6 +10386,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -10122,6 +10425,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8125",
         "C2:7550"
@@ -10331,6 +10635,14 @@
       "post_call_snapshot_counts": {
         "C2:40A4": 20
       },
+      "watch_snapshot_counts": {
+        "active_row_pointers": 3022,
+        "battle_busy_flag": 3022,
+        "current_target_mask": 3022,
+        "effect_busy_gate": 3022,
+        "payload_pointer_dp": 3022,
+        "selected_target_row": 3022
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -10369,6 +10681,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 2,
+        "selection_snapshot": 2
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10417,6 +10733,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 2,
+        "selection_snapshot": 2
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10462,6 +10782,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 2,
+        "selection_snapshot": 2
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10512,6 +10836,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 3,
+        "selection_snapshot": 3
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10560,6 +10888,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 6,
+        "selection_snapshot": 6
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10604,6 +10936,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 1,
+        "selection_snapshot": 1
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10654,6 +10990,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 3,
+        "selection_snapshot": 3
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10702,6 +11042,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 6,
+        "selection_snapshot": 6
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10756,6 +11100,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 3,
+        "selection_snapshot": 3
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10804,6 +11152,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 3,
+        "selection_snapshot": 3
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10858,6 +11210,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 5,
+        "selection_snapshot": 5
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10902,6 +11258,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 24,
+        "selection_snapshot": 24
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -10960,6 +11320,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 24,
+        "selection_snapshot": 24
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -11013,6 +11377,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 3,
+        "selection_snapshot": 3
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -11068,6 +11436,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "candidate_rows": 4,
+        "selection_snapshot": 4
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -11108,6 +11480,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11169,6 +11542,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 17,
+        "selected_target_row": 17
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11215,6 +11592,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 17,
+        "selected_target_row": 17
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11251,6 +11632,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11297,6 +11679,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 1,
+        "selected_target_row": 1
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11339,6 +11725,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 1,
+        "selected_target_row": 1
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11375,6 +11765,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11448,6 +11839,14 @@
         "c2_battle_start_candidate_direct_dispatch": 6
       },
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "active_row_pointers": 41,
+        "battle_busy_flag": 41,
+        "current_target_mask": 41,
+        "effect_busy_gate": 41,
+        "payload_pointer_dp": 41,
+        "selected_target_row": 41
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11510,6 +11909,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 28,
+        "selected_target_row": 28
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11556,6 +11959,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 28,
+        "selected_target_row": 28
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11633,6 +12040,14 @@
         "c2_battle_start_candidate_direct_dispatch": 3
       },
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "active_row_pointers": 21,
+        "battle_busy_flag": 21,
+        "current_target_mask": 21,
+        "effect_busy_gate": 21,
+        "payload_pointer_dp": 21,
+        "selected_target_row": 21
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11697,6 +12112,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 14,
+        "selected_target_row": 14
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11745,6 +12164,10 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "payload_pointer_dp": 14,
+        "selected_target_row": 14
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -11800,6 +12223,7 @@
         "C2:7191": 2,
         "C2:721D": 1
       },
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -11857,6 +12281,7 @@
         "C2:7191": 3,
         "C2:721D": 1
       },
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -11996,6 +12421,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -12161,6 +12587,7 @@
         "C2:7191": 6,
         "C2:721D": 3
       },
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -12301,6 +12728,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -12466,6 +12894,7 @@
         "C2:7191": 6,
         "C2:721D": 3
       },
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -12629,6 +13058,7 @@
         "C2:7191": 2,
         "C2:721D": 1
       },
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -12769,6 +13199,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -12909,6 +13340,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -12946,6 +13378,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -13125,6 +13558,7 @@
         "C2:7191": 19,
         "C2:721D": 6
       },
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -13270,6 +13704,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -13402,6 +13837,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -13565,6 +14001,7 @@
         "C2:7191": 1,
         "C2:721D": 1
       },
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -13719,6 +14156,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -13873,6 +14311,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -14027,6 +14466,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -14064,6 +14504,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -14232,6 +14673,7 @@
         "C2:7191": 7,
         "C2:721D": 7
       },
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -14363,6 +14805,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -14495,6 +14938,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -14650,6 +15094,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -14804,6 +15249,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -14892,6 +15338,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -14981,6 +15428,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15070,6 +15518,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15159,6 +15608,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15248,6 +15698,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15337,6 +15788,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15375,6 +15827,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15413,6 +15866,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15451,6 +15905,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15489,6 +15944,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15527,6 +15983,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15565,6 +16022,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15613,6 +16071,7 @@
       "post_call_snapshot_counts": {
         "C2:7191": 1
       },
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15651,6 +16110,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15689,6 +16149,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15727,6 +16188,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15765,6 +16227,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15803,6 +16266,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15841,6 +16305,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15889,6 +16354,7 @@
       "post_call_snapshot_counts": {
         "C2:7191": 1
       },
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -15939,6 +16405,12 @@
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {
         "C2:B930": 1
+      },
+      "watch_snapshot_counts": {
+        "c1_staging_dp": 3,
+        "candidate_rows": 3,
+        "selection_snapshot": 3,
+        "source_slot_rows": 3
       },
       "configured_minimum_hits": [
         "C1:ADB4",
@@ -15991,6 +16463,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_battler_afflictions": 2
+      },
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -16026,6 +16501,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -16062,6 +16538,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -16158,6 +16635,14 @@
       "post_call_snapshot_counts": {
         "C2:40A4": 1
       },
+      "watch_snapshot_counts": {
+        "active_row_pointers": 44,
+        "battle_busy_flag": 44,
+        "current_target_mask": 44,
+        "effect_busy_gate": 44,
+        "payload_pointer_dp": 44,
+        "selected_target_row": 44
+      },
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -16209,6 +16694,12 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "c1_staging_dp": 23,
+        "candidate_rows": 23,
+        "selection_snapshot": 23,
+        "source_slot_rows": 23
+      },
       "configured_minimum_hits": [
         "C1:ADB4",
         "C1:CE85",
@@ -16259,6 +16750,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -16307,6 +16799,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -16352,6 +16845,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:8E42",
         "C2:9F5E"
@@ -16397,6 +16891,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_battler_afflictions": 1
+      },
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -16442,6 +16939,9 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {
+        "selected_battler_afflictions": 1
+      },
       "configured_minimum_hits": [
         "C2:724A",
         "C2:9917"
@@ -16479,6 +16979,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -16515,6 +17016,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -16551,6 +17053,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],
@@ -16587,6 +17090,7 @@
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
       "configured_minimum_hits": [
         "C2:40A4"
       ],

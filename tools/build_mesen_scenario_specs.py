@@ -106,6 +106,11 @@ def build_specs(catalog: dict[str, Any], save_state_root: Path, runnable_root: P
             "scenario_id": "srm-stonehenge-base-resource-scout",
             "title": "SRM Stonehenge Base resource scout",
             "evidence_tier": "vanilla_srm_plus_input",
+            "bootstrap_status": "launch_smoke_only_post_resume_pending",
+            "bootstrap_input_pattern": "not_implemented",
+            "bootstrap_frame_count": 0,
+            "post_resume_snapshot_required": True,
+            "resume_proof_status": "not_proven",
             "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
             "start": {
                 "type": "load_srm_anchor",
@@ -118,7 +123,8 @@ def build_specs(catalog: dict[str, Any], save_state_root: Path, runnable_root: P
             "frame_limit": 720,
             "watched_routines": ["C2:9F5E", "C2:8E42", "C2:721D", "C2:7191"],
             "output_dir": "build/mesen-scenarios/runs/srm-stonehenge-base-resource-scout",
-            "expected_use": "Smoke SRM-anchor launch path before adding navigation inputs.",
+            "expected_use": "Smoke SRM-anchor ROM/SRM pairing before adding title-menu Continue/load bootstrap inputs.",
+            "next_step": "Add a fixed resume bootstrap that proves the SRM anchor was loaded before treating this lane as vanilla_srm_plus_input evidence.",
             "source_promotion_allowed": False,
         },
     ]
@@ -145,11 +151,12 @@ def render_note(data: dict[str, Any]) -> str:
         f"- scenarios: `{data['summary']['scenario_count']}`",
         f"- evidence tiers: `{data['summary']['evidence_tiers']}`",
         "- source promotion allowed: `False`",
+        "- SRM-anchor specs are launch/bootstrap scaffolds until a post-resume snapshot proves the save was loaded.",
         "",
         "## Scenarios",
         "",
-        "| Scenario | Tier | Start | Oracle | Purpose |",
-        "| --- | --- | --- | --- | --- |",
+        "| Scenario | Tier | Start | Oracle | Bootstrap | Purpose |",
+        "| --- | --- | --- | --- | --- | --- |",
     ]
     for spec in data["scenarios"]:
         start = spec["start"]
@@ -157,9 +164,18 @@ def render_note(data: dict[str, Any]) -> str:
             start_text = f"state `{start['state_basename']}`"
         else:
             start_text = f"SRM anchor `{start['anchor_id']}`"
+        bootstrap = spec.get("bootstrap_status", "ready")
         lines.append(
-            f"| `{spec['scenario_id']}` | `{spec['evidence_tier']}` | {start_text} | `{spec['oracle_id']}` | {spec['expected_use']} |"
+            f"| `{spec['scenario_id']}` | `{spec['evidence_tier']}` | {start_text} | `{spec['oracle_id']}` | `{bootstrap}` | {spec['expected_use']} |"
         )
+    lines.extend(
+        [
+            "",
+            "## SRM Bootstrap Caveat",
+            "",
+            "The current SRM scenario copies a cataloged `.srm` beside a local ROM and confirms the paired launch path. It does not yet prove that Mesen selected Continue, loaded the anchor save, or reached a post-resume gameplay state. Treat SRM-anchor outputs as setup plumbing until a scenario records a post-resume snapshot.",
+        ]
+    )
     lines.append("")
     return "\n".join(lines)
 

@@ -8,10 +8,15 @@ sanitized; runnable specs with local paths live under ignored `build/`.
 - scenarios: `2`
 - evidence tiers: `['vanilla_save_state', 'vanilla_srm_plus_input']`
 - source promotion allowed: `False`
+- SRM-anchor specs are launch/bootstrap scaffolds until a post-resume snapshot proves the save was loaded.
 
 ## Scenarios
 
-| Scenario | Tier | Start | Oracle | Purpose |
-| --- | --- | --- | --- | --- |
-| `mss-large-pizza-party-heal-c2-smoke` | `vanilla_save_state` | state `EarthBound (USA)_5.mss` | `hp_roller_collapse_boundary` | Smoke existing vanilla multi-target heal and HP roller capture. |
-| `srm-stonehenge-base-resource-scout` | `vanilla_srm_plus_input` | SRM anchor `31-StonehBase` | `resource_amount_pair_magnet_vs_pp_loss` | Smoke SRM-anchor launch path before adding navigation inputs. |
+| Scenario | Tier | Start | Oracle | Bootstrap | Purpose |
+| --- | --- | --- | --- | --- | --- |
+| `mss-large-pizza-party-heal-c2-smoke` | `vanilla_save_state` | state `EarthBound (USA)_5.mss` | `hp_roller_collapse_boundary` | `ready` | Smoke existing vanilla multi-target heal and HP roller capture. |
+| `srm-stonehenge-base-resource-scout` | `vanilla_srm_plus_input` | SRM anchor `31-StonehBase` | `resource_amount_pair_magnet_vs_pp_loss` | `launch_smoke_only_post_resume_pending` | Smoke SRM-anchor ROM/SRM pairing before adding title-menu Continue/load bootstrap inputs. |
+
+## SRM Bootstrap Caveat
+
+The current SRM scenario copies a cataloged `.srm` beside a local ROM and confirms the paired launch path. It does not yet prove that Mesen selected Continue, loaded the anchor save, or reached a post-resume gameplay state. Treat SRM-anchor outputs as setup plumbing until a scenario records a post-resume snapshot.

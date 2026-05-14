@@ -86,8 +86,9 @@ MECHANISMS: list[dict[str, Any]] = [
         "oracle": "c2_724a_affliction_writer_matrix",
         "natural_keywords": ("dread-scorpion", "poison"),
         "required_hits": ("C2:724A",),
-        "success_status": "natural_capture_fields_missing",
-        "next_action": "Rerun Dread Scorpion poison with C2:724A post-return capture before promotion.",
+        "required_post_call_snapshots": ("C2:724A",),
+        "success_status": "natural_proof_candidate",
+        "next_action": "Review Dread Scorpion poison post-return fields before broad status enum promotion.",
     },
     {
         "id": "item_effect",
@@ -104,8 +105,9 @@ MECHANISMS: list[dict[str, Any]] = [
         "oracle": "hp_roller_collapse_boundary",
         "natural_keywords": ("large-pizza",),
         "required_hits": ("C2:BB18",),
-        "success_status": "natural_capture_fields_missing",
-        "next_action": "Add per-party-row HP before/after capture for Large Pizza.",
+        "required_watch_snapshots": ("battler_rows", "text_payload_slots"),
+        "success_status": "natural_proof_candidate",
+        "next_action": "Review Large Pizza party-row HP snapshots separately from collapse proof.",
     },
     {
         "id": "target_action_staging",
@@ -201,6 +203,20 @@ def has_required_hits(record: dict[str, Any], required_hits: tuple[str, ...]) ->
     return set(required_hits).issubset(hits)
 
 
+def has_required_post_call_snapshots(record: dict[str, Any], required_snapshots: tuple[str, ...]) -> bool:
+    counts = record.get("post_call_snapshot_counts", {})
+    if not isinstance(counts, dict):
+        return not required_snapshots
+    return all(int(counts.get(snapshot, 0)) > 0 for snapshot in required_snapshots)
+
+
+def has_required_watch_snapshots(record: dict[str, Any], required_snapshots: tuple[str, ...]) -> bool:
+    counts = record.get("watch_snapshot_counts", {})
+    if not isinstance(counts, dict):
+        return not required_snapshots
+    return all(int(counts.get(snapshot, 0)) > 0 for snapshot in required_snapshots)
+
+
 def sanitize_record(record: dict[str, Any]) -> dict[str, Any]:
     return {
         "fixture_id": record.get("fixture_id"),
@@ -209,6 +225,7 @@ def sanitize_record(record: dict[str, Any]) -> dict[str, Any]:
         "minimum_hits_satisfied": bool(record.get("minimum_hits_satisfied")),
         "observed_addresses": record.get("observed_addresses", []),
         "post_call_snapshot_counts": record.get("post_call_snapshot_counts", {}),
+        "watch_snapshot_counts": record.get("watch_snapshot_counts", {}),
         "first_frame": record.get("first_frame"),
         "last_frame": record.get("last_frame"),
         "save_state": record.get("save_state", {}),
@@ -229,6 +246,8 @@ def audit_mechanism(
     fallback_oracle = str(mechanism.get("fallback_oracle") or oracle)
     keywords = tuple(str(item) for item in mechanism.get("natural_keywords", ()))
     required_hits = tuple(str(item) for item in mechanism.get("required_hits", ()))
+    required_snapshots = tuple(str(item) for item in mechanism.get("required_post_call_snapshots", ()))
+    required_watch_snapshots = tuple(str(item) for item in mechanism.get("required_watch_snapshots", ()))
     candidates = [
         record
         for record in records
@@ -236,6 +255,8 @@ def audit_mechanism(
         and is_natural_record(record)
         and keyword_match(record, keywords)
         and (not required_hits or has_required_hits(record, required_hits))
+        and (not required_snapshots or has_required_post_call_snapshots(record, required_snapshots))
+        and (not required_watch_snapshots or has_required_watch_snapshots(record, required_watch_snapshots))
     ]
     partial_natural = [
         record
@@ -272,6 +293,8 @@ def audit_mechanism(
         "oracle_id": oracle,
         "fallback_oracle_id": fallback_oracle if fallback_oracle != oracle else None,
         "required_hits": list(required_hits),
+        "required_post_call_snapshots": list(required_snapshots),
+        "required_watch_snapshots": list(required_watch_snapshots),
         "natural_candidate_count": len(candidates),
         "natural_partial_count": len(partial_natural),
         "steered_candidate_count": len(steered),

@@ -7,8 +7,8 @@ not promote source semantics by itself.
 ## Summary
 
 - mechanisms audited: `12`
-- natural proof candidates: `5`
-- natural captures needing fields/review: `5`
+- natural proof candidates: `7`
+- natural captures needing fields/review: `3`
 - runtime-steered setups needed: `1`
 - fixture-only navigation lanes: `1`
 - not yet observed: `0`
@@ -23,9 +23,9 @@ not promote source semantics by itself.
 | `psi_damage` | `natural_proof_candidate` | `2` | `2` | `0` | Use Paula Freeze save-backed traces for PSI amount and text-join review. |
 | `hp_healing` | `natural_proof_candidate` | `2` | `2` | `0` | Review healing amount fields before adding any new saves. |
 | `hp_roller_collapse` | `natural_proof_candidate` | `3` | `3` | `1` | Keep collapse/death tails split from HP rolling unless C2:7550/C2:77CA are present. |
-| `status_apply_success` | `natural_capture_fields_missing` | `1` | `1` | `3` | Rerun Dread Scorpion poison with C2:724A post-return capture before promotion. |
+| `status_apply_success` | `natural_proof_candidate` | `1` | `1` | `3` | Review Dread Scorpion poison post-return fields before broad status enum promotion. |
 | `item_effect` | `natural_proof_candidate` | `2` | `2` | `0` | Use Large Pizza natural save to join item action, HP amount, and text payload. |
-| `multi_target_heal` | `natural_capture_fields_missing` | `1` | `1` | `3` | Add per-party-row HP before/after capture for Large Pizza. |
+| `multi_target_heal` | `natural_proof_candidate` | `1` | `1` | `3` | Review Large Pizza party-row HP snapshots separately from collapse proof. |
 | `target_action_staging` | `natural_capture_fields_missing` | `8` | `8` | `16` | Upgrade target/action staging with export-field capture; do not require new saves first. |
 | `pp_transfer` | `natural_capture_fields_missing` | `0` | `2` | `9` | Use SRM anchors or runtime steering to create a nonzero-PP PSI Magnet setup. |
 | `pp_loss_only` | `runtime_steered_needed` | `0` | `0` | `13` | Use Guardian General/late-game SRM anchor with explicit evidence tier labeling. |

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import shutil
@@ -38,6 +39,16 @@ def load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def sha256(path: Path) -> str | None:
+    if not path.is_file():
+        return None
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def write_json(path: Path, data: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
@@ -65,7 +76,7 @@ def link_or_copy(source: Path, dest: Path) -> None:
         shutil.copy2(source, dest)
 
 
-def prepare_srm_rom(spec: dict[str, Any], rom_arg: str | None) -> Path:
+def prepare_srm_rom(spec: dict[str, Any], rom_arg: str | None) -> tuple[Path, dict[str, Any]]:
     source_rom = rom_tools.find_rom(rom_arg)
     run_dir = repo_path(str(spec["output_dir"])) / "srm-rom"
     rom_dest = run_dir / "earthbound-us.sfc"
@@ -75,10 +86,27 @@ def prepare_srm_rom(spec: dict[str, Any], rom_arg: str | None) -> Path:
     if not srm_path.is_file():
         raise FileNotFoundError(f"working SRM missing; rebuild catalog first: {srm_path}")
     shutil.copy2(srm_path, srm_dest)
-    return rom_dest
+    return rom_dest, {
+        "srm_anchor_id": spec["start"].get("anchor_id"),
+        "srm_archive_name": spec["start"].get("archive_name"),
+        "srm_expected_sha256": spec["start"].get("srm_sha256"),
+        "srm_copied_sha256": sha256(srm_dest),
+        "srm_rom_path": manifest_path(rom_dest),
+        "srm_copy_path": manifest_path(srm_dest),
+        "bootstrap_status": spec.get("bootstrap_status", "not_declared"),
+        "bootstrap_input_pattern": spec.get("bootstrap_input_pattern", "not_declared"),
+        "bootstrap_frame_count": spec.get("bootstrap_frame_count", 0),
+        "post_resume_snapshot_required": bool(spec.get("post_resume_snapshot_required")),
+        "resume_proof_status": spec.get("resume_proof_status", "not_declared"),
+        "post_resume_snapshot_seen": False,
+        "srm_launch_caveat": (
+            "This runner currently proves only ROM/SRM pairing and launch. "
+            "A future bootstrap phase must record a post-resume snapshot before this becomes vanilla SRM-plus-input evidence."
+        ),
+    }
 
 
-def build_runner_command(spec: dict[str, Any], *, dry_run: bool, mesen: str | None, rom: str | None, timeout: int) -> list[str]:
+def build_runner_command(spec: dict[str, Any], *, dry_run: bool, mesen: str | None, rom: str | None, timeout: int) -> tuple[list[str], dict[str, Any]]:
     cmd = [
         sys.executable,
         str(ROOT / "tools" / "run_c2_battle_trace_oracle_mesen.py"),
@@ -98,6 +126,7 @@ def build_runner_command(spec: dict[str, Any], *, dry_run: bool, mesen: str | No
     if mesen:
         cmd.extend(["--mesen", mesen])
     start = spec["start"]
+    run_metadata: dict[str, Any] = {}
     if start["type"] == "load_state":
         state = Path(start["state_path_local_only"])
         if not state.is_file():
@@ -106,19 +135,20 @@ def build_runner_command(spec: dict[str, Any], *, dry_run: bool, mesen: str | No
         if rom:
             cmd.extend(["--rom", rom])
     elif start["type"] == "load_srm_anchor":
-        cmd.extend(["--rom", str(prepare_srm_rom(spec, rom))])
+        rom_path, run_metadata = prepare_srm_rom(spec, rom)
+        cmd.extend(["--rom", str(rom_path)])
     else:
         raise ValueError(f"unsupported scenario start type: {start['type']}")
     if not dry_run:
         cmd.append("--summarize-trace")
-    return cmd
+    return cmd, run_metadata
 
 
 def main() -> int:
     args = parse_args()
     spec_path = Path(args.spec)
     spec = load_json(spec_path)
-    cmd = build_runner_command(spec, dry_run=args.dry_run, mesen=args.mesen, rom=args.rom, timeout=args.timeout)
+    cmd, run_metadata = build_runner_command(spec, dry_run=args.dry_run, mesen=args.mesen, rom=args.rom, timeout=args.timeout)
     summary_path = repo_path(str(spec["output_dir"])) / "scenario-run-summary.json"
     record: dict[str, Any] = {
         "schema": "earthbound-decomp.mesen-scenario-run.v1",
@@ -130,6 +160,7 @@ def main() -> int:
         "output_dir": manifest_path(repo_path(str(spec["output_dir"]))),
         "command": cmd,
         "source_promotion_allowed": False,
+        "scenario_run_metadata": run_metadata,
     }
     if args.dry_run:
         write_json(summary_path, record)

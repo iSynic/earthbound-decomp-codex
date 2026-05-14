@@ -15,6 +15,12 @@ SCHEMA = "earthbound-decomp.mesen-scenario-spec-index.v1"
 STATUS = "scenario_specs_generated_local_paths_ignored"
 START_TYPES = {"load_state", "load_srm_anchor"}
 TIERS = {"vanilla_save_state", "vanilla_srm_plus_input", "runtime_steered", "fixture_rom_or_game_genie"}
+BOOTSTRAP_STATUSES = {
+    "ready",
+    "launch_smoke_only_post_resume_pending",
+    "post_resume_snapshot_observed",
+}
+RESUME_PROOF_STATUSES = {"not_applicable", "not_proven", "proven"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -63,6 +69,17 @@ def validate(data: dict[str, Any]) -> list[str]:
                 if start_type == "load_srm_anchor":
                     require(str(start.get("anchor_id", "")), f"{prefix}: missing anchor id", errors)
                     require(len(str(start.get("srm_sha256", ""))) == 64, f"{prefix}: bad SRM hash", errors)
+                    bootstrap_status = str(spec.get("bootstrap_status", ""))
+                    require(bootstrap_status in BOOTSTRAP_STATUSES, f"{prefix}: bad bootstrap status", errors)
+                    require(str(spec.get("bootstrap_input_pattern", "")), f"{prefix}: missing bootstrap input pattern", errors)
+                    require(isinstance(spec.get("bootstrap_frame_count"), int), f"{prefix}: bootstrap frame count not integer", errors)
+                    require(spec.get("post_resume_snapshot_required") is True, f"{prefix}: SRM specs must require post-resume snapshot proof", errors)
+                    resume_status = str(spec.get("resume_proof_status", ""))
+                    require(resume_status in RESUME_PROOF_STATUSES, f"{prefix}: bad resume proof status", errors)
+                    if bootstrap_status == "launch_smoke_only_post_resume_pending":
+                        require(resume_status == "not_proven", f"{prefix}: launch-smoke SRM status must not claim resume proof", errors)
+                    if bootstrap_status == "post_resume_snapshot_observed":
+                        require(resume_status == "proven", f"{prefix}: post-resume bootstrap status must claim proven resume", errors)
     summary = data.get("summary", {})
     if isinstance(scenarios, list):
         require(summary.get("scenario_count") == len(scenarios), "summary scenario_count mismatch", errors)

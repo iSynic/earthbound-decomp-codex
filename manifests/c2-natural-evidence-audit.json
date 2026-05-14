@@ -16,12 +16,12 @@
     "mechanism_count": 12,
     "status_counts": {
       "fixture_only_navigation": 1,
-      "natural_capture_fields_missing": 5,
-      "natural_proof_candidate": 5,
+      "natural_capture_fields_missing": 3,
+      "natural_proof_candidate": 7,
       "runtime_steered_needed": 1
     },
-    "natural_proof_candidate_count": 5,
-    "natural_capture_fields_missing_count": 5,
+    "natural_proof_candidate_count": 7,
+    "natural_capture_fields_missing_count": 3,
     "runtime_steered_needed_count": 1,
     "fixture_only_navigation_count": 1,
     "not_yet_observed_count": 0,
@@ -39,6 +39,8 @@
         "C2:8125",
         "C2:7EAF"
       ],
+      "required_post_call_snapshots": [],
+      "required_watch_snapshots": [],
       "natural_candidate_count": 4,
       "natural_partial_count": 4,
       "steered_candidate_count": 0,
@@ -56,6 +58,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 12
+          },
           "first_frame": 236,
           "last_frame": 2560,
           "save_state": {
@@ -74,6 +79,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 12
+          },
           "first_frame": 212,
           "last_frame": 2560,
           "save_state": {
@@ -92,6 +100,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 10
+          },
           "first_frame": 29,
           "last_frame": 908,
           "save_state": {
@@ -110,6 +121,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 4
+          },
           "first_frame": 41,
           "last_frame": 333,
           "save_state": {
@@ -130,6 +144,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 12
+          },
           "first_frame": 236,
           "last_frame": 2560,
           "save_state": {
@@ -148,6 +165,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 12
+          },
           "first_frame": 212,
           "last_frame": 2560,
           "save_state": {
@@ -166,6 +186,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 10
+          },
           "first_frame": 29,
           "last_frame": 908,
           "save_state": {
@@ -184,6 +207,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 4
+          },
           "first_frame": 41,
           "last_frame": 333,
           "save_state": {
@@ -204,6 +230,8 @@
       "required_hits": [
         "C2:8125"
       ],
+      "required_post_call_snapshots": [],
+      "required_watch_snapshots": [],
       "natural_candidate_count": 2,
       "natural_partial_count": 2,
       "steered_candidate_count": 0,
@@ -222,6 +250,9 @@
             "C2:941D"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 18
+          },
           "first_frame": 212,
           "last_frame": 2560,
           "save_state": {
@@ -248,6 +279,9 @@
             "C2:941D"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 36
+          },
           "first_frame": 13,
           "last_frame": 891,
           "save_state": {
@@ -269,6 +303,9 @@
             "C2:941D"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 18
+          },
           "first_frame": 212,
           "last_frame": 2560,
           "save_state": {
@@ -295,6 +332,9 @@
             "C2:941D"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 36
+          },
           "first_frame": 13,
           "last_frame": 891,
           "save_state": {
@@ -315,6 +355,8 @@
       "required_hits": [
         "C2:8125"
       ],
+      "required_post_call_snapshots": [],
+      "required_watch_snapshots": [],
       "natural_candidate_count": 2,
       "natural_partial_count": 2,
       "steered_candidate_count": 0,
@@ -338,6 +380,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 15
+          },
           "first_frame": 67,
           "last_frame": 365,
           "save_state": {
@@ -362,6 +407,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 16
+          },
           "first_frame": 75,
           "last_frame": 492,
           "save_state": {
@@ -388,6 +436,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 15
+          },
           "first_frame": 67,
           "last_frame": 365,
           "save_state": {
@@ -412,6 +463,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 16
+          },
           "first_frame": 75,
           "last_frame": 492,
           "save_state": {
@@ -433,6 +487,8 @@
         "C2:8125",
         "C2:BB18"
       ],
+      "required_post_call_snapshots": [],
+      "required_watch_snapshots": [],
       "natural_candidate_count": 3,
       "natural_partial_count": 3,
       "steered_candidate_count": 1,
@@ -454,6 +510,11 @@
             "C2:BB18"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 37,
+            "selected_target_row": 37,
+            "text_payload_slots": 37
+          },
           "first_frame": 10,
           "last_frame": 964,
           "save_state": {
@@ -476,6 +537,11 @@
             "C2:BB18"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 20,
+            "selected_target_row": 20,
+            "text_payload_slots": 20
+          },
           "first_frame": 41,
           "last_frame": 415,
           "save_state": {
@@ -498,6 +564,11 @@
             "C2:BB18"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 37,
+            "selected_target_row": 37,
+            "text_payload_slots": 37
+          },
           "first_frame": 10,
           "last_frame": 964,
           "save_state": {
@@ -522,6 +593,11 @@
             "C2:BB18"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 37,
+            "selected_target_row": 37,
+            "text_payload_slots": 37
+          },
           "first_frame": 10,
           "last_frame": 964,
           "save_state": {
@@ -544,6 +620,11 @@
             "C2:BB18"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 20,
+            "selected_target_row": 20,
+            "text_payload_slots": 20
+          },
           "first_frame": 41,
           "last_frame": 415,
           "save_state": {
@@ -566,6 +647,11 @@
             "C2:BB18"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 37,
+            "selected_target_row": 37,
+            "text_payload_slots": 37
+          },
           "first_frame": 10,
           "last_frame": 964,
           "save_state": {
@@ -616,6 +702,11 @@
             "C2:E9C8"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 2120,
+            "selected_target_row": 2120,
+            "text_payload_slots": 2120
+          },
           "first_frame": 56,
           "last_frame": 23812,
           "save_state": {
@@ -629,18 +720,22 @@
     {
       "mechanism_id": "status_apply_success",
       "title": "Status apply success",
-      "status": "natural_capture_fields_missing",
+      "status": "natural_proof_candidate",
       "oracle_id": "c2_724a_affliction_writer_matrix",
       "fallback_oracle_id": null,
       "required_hits": [
         "C2:724A"
       ],
+      "required_post_call_snapshots": [
+        "C2:724A"
+      ],
+      "required_watch_snapshots": [],
       "natural_candidate_count": 1,
       "natural_partial_count": 1,
       "steered_candidate_count": 3,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
-      "next_action": "Rerun Dread Scorpion poison with C2:724A post-return capture before promotion.",
+      "next_action": "Review Dread Scorpion poison post-return fields before broad status enum promotion.",
       "best_natural_records": [
         {
           "fixture_id": "04-dread-scorpion-poison-jeff",
@@ -650,7 +745,12 @@
           "observed_addresses": [
             "C2:724A"
           ],
-          "post_call_snapshot_counts": {},
+          "post_call_snapshot_counts": {
+            "C2:724A": 1
+          },
+          "watch_snapshot_counts": {
+            "selected_battler_afflictions": 2
+          },
           "first_frame": 14,
           "last_frame": 14,
           "save_state": {
@@ -669,7 +769,12 @@
           "observed_addresses": [
             "C2:724A"
           ],
-          "post_call_snapshot_counts": {},
+          "post_call_snapshot_counts": {
+            "C2:724A": 1
+          },
+          "watch_snapshot_counts": {
+            "selected_battler_afflictions": 2
+          },
           "first_frame": 14,
           "last_frame": 14,
           "save_state": {
@@ -690,6 +795,9 @@
             "C2:9917"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_battler_afflictions": 2
+          },
           "first_frame": 233,
           "last_frame": 233,
           "save_state": {
@@ -707,6 +815,9 @@
             "C2:724A"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_battler_afflictions": 1
+          },
           "first_frame": 14,
           "last_frame": 14,
           "save_state": {
@@ -724,6 +835,9 @@
             "C2:724A"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_battler_afflictions": 1
+          },
           "first_frame": 14,
           "last_frame": 14,
           "save_state": {
@@ -743,6 +857,8 @@
       "required_hits": [
         "C2:8125"
       ],
+      "required_post_call_snapshots": [],
+      "required_watch_snapshots": [],
       "natural_candidate_count": 2,
       "natural_partial_count": 2,
       "steered_candidate_count": 0,
@@ -760,6 +876,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 12
+          },
           "first_frame": 188,
           "last_frame": 2560,
           "save_state": {
@@ -784,6 +903,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 16
+          },
           "first_frame": 75,
           "last_frame": 492,
           "save_state": {
@@ -804,6 +926,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 12
+          },
           "first_frame": 188,
           "last_frame": 2560,
           "save_state": {
@@ -828,6 +953,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 16
+          },
           "first_frame": 75,
           "last_frame": 492,
           "save_state": {
@@ -842,18 +970,23 @@
     {
       "mechanism_id": "multi_target_heal",
       "title": "Multi-target heal",
-      "status": "natural_capture_fields_missing",
+      "status": "natural_proof_candidate",
       "oracle_id": "hp_roller_collapse_boundary",
       "fallback_oracle_id": null,
       "required_hits": [
         "C2:BB18"
+      ],
+      "required_post_call_snapshots": [],
+      "required_watch_snapshots": [
+        "battler_rows",
+        "text_payload_slots"
       ],
       "natural_candidate_count": 1,
       "natural_partial_count": 1,
       "steered_candidate_count": 3,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
-      "next_action": "Add per-party-row HP before/after capture for Large Pizza.",
+      "next_action": "Review Large Pizza party-row HP snapshots separately from collapse proof.",
       "best_natural_records": [
         {
           "fixture_id": "05-large-pizza-party-heal",
@@ -867,6 +1000,11 @@
             "C2:BB18"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 23,
+            "selected_target_row": 23,
+            "text_payload_slots": 23
+          },
           "first_frame": 75,
           "last_frame": 572,
           "save_state": {
@@ -889,6 +1027,11 @@
             "C2:BB18"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 23,
+            "selected_target_row": 23,
+            "text_payload_slots": 23
+          },
           "first_frame": 75,
           "last_frame": 572,
           "save_state": {
@@ -908,6 +1051,11 @@
             "C2:BB18"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 1,
+            "selected_target_row": 1,
+            "text_payload_slots": 1
+          },
           "first_frame": 3609,
           "last_frame": 3609,
           "save_state": {
@@ -950,6 +1098,11 @@
             "C2:E9C8"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 169,
+            "selected_target_row": 169,
+            "text_payload_slots": 169
+          },
           "first_frame": 56,
           "last_frame": 6536,
           "save_state": {
@@ -998,6 +1151,11 @@
             "C2:E9C8"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 2120,
+            "selected_target_row": 2120,
+            "text_payload_slots": 2120
+          },
           "first_frame": 56,
           "last_frame": 23812,
           "save_state": {
@@ -1017,6 +1175,8 @@
       "required_hits": [
         "C2:BAC5"
       ],
+      "required_post_call_snapshots": [],
+      "required_watch_snapshots": [],
       "natural_candidate_count": 8,
       "natural_partial_count": 8,
       "steered_candidate_count": 16,
@@ -1033,6 +1193,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 1,
+            "selection_snapshot": 1
+          },
           "first_frame": 50,
           "last_frame": 50,
           "save_state": {
@@ -1050,6 +1214,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 58,
+            "selection_snapshot": 58
+          },
           "first_frame": 50,
           "last_frame": 2538,
           "save_state": {
@@ -1067,6 +1235,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 1,
+            "selection_snapshot": 1
+          },
           "first_frame": 26,
           "last_frame": 26,
           "save_state": {
@@ -1084,6 +1256,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 58,
+            "selection_snapshot": 58
+          },
           "first_frame": 26,
           "last_frame": 2538,
           "save_state": {
@@ -1102,6 +1278,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 2,
+            "selection_snapshot": 2
+          },
           "first_frame": 44,
           "last_frame": 56,
           "save_state": {
@@ -1121,6 +1301,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 1,
+            "selection_snapshot": 1
+          },
           "first_frame": 50,
           "last_frame": 50,
           "save_state": {
@@ -1138,6 +1322,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 58,
+            "selection_snapshot": 58
+          },
           "first_frame": 50,
           "last_frame": 2538,
           "save_state": {
@@ -1155,6 +1343,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 1,
+            "selection_snapshot": 1
+          },
           "first_frame": 26,
           "last_frame": 26,
           "save_state": {
@@ -1172,6 +1364,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 58,
+            "selection_snapshot": 58
+          },
           "first_frame": 26,
           "last_frame": 2538,
           "save_state": {
@@ -1190,6 +1386,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 2,
+            "selection_snapshot": 2
+          },
           "first_frame": 44,
           "last_frame": 56,
           "save_state": {
@@ -1209,6 +1409,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 2,
+            "selection_snapshot": 2
+          },
           "first_frame": 50,
           "last_frame": 998,
           "save_state": {
@@ -1227,6 +1431,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 2,
+            "selection_snapshot": 2
+          },
           "first_frame": 1004,
           "last_frame": 1016,
           "save_state": {
@@ -1244,6 +1452,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 2,
+            "selection_snapshot": 2
+          },
           "first_frame": 82,
           "last_frame": 1062,
           "save_state": {
@@ -1263,6 +1475,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 3,
+            "selection_snapshot": 3
+          },
           "first_frame": 38,
           "last_frame": 1013,
           "save_state": {
@@ -1282,6 +1498,10 @@
             "C2:BAC5"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "candidate_rows": 6,
+            "selection_snapshot": 6
+          },
           "first_frame": 38,
           "last_frame": 2841,
           "save_state": {
@@ -1302,6 +1522,8 @@
         "C2:9F5E",
         "C2:721D"
       ],
+      "required_post_call_snapshots": [],
+      "required_watch_snapshots": [],
       "natural_candidate_count": 0,
       "natural_partial_count": 2,
       "steered_candidate_count": 9,
@@ -1321,6 +1543,7 @@
           "post_call_snapshot_counts": {
             "C2:7191": 1
           },
+          "watch_snapshot_counts": {},
           "first_frame": 1,
           "last_frame": 1,
           "save_state": {
@@ -1340,6 +1563,7 @@
           "post_call_snapshot_counts": {
             "C2:7191": 1
           },
+          "watch_snapshot_counts": {},
           "first_frame": 98,
           "last_frame": 98,
           "save_state": {
@@ -1364,6 +1588,7 @@
             "C2:7191": 3,
             "C2:721D": 1
           },
+          "watch_snapshot_counts": {},
           "first_frame": 1,
           "last_frame": 289,
           "save_state": {
@@ -1427,6 +1652,7 @@
             "C2:7191": 6,
             "C2:721D": 3
           },
+          "watch_snapshot_counts": {},
           "first_frame": 56,
           "last_frame": 10863,
           "save_state": {
@@ -1490,6 +1716,7 @@
             "C2:7191": 6,
             "C2:721D": 3
           },
+          "watch_snapshot_counts": {},
           "first_frame": 56,
           "last_frame": 10863,
           "save_state": {
@@ -1553,6 +1780,7 @@
             "C2:7191": 2,
             "C2:721D": 1
           },
+          "watch_snapshot_counts": {},
           "first_frame": 56,
           "last_frame": 1196,
           "save_state": {
@@ -1568,6 +1796,7 @@
           "minimum_hits_satisfied": false,
           "observed_addresses": [],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {},
           "first_frame": null,
           "last_frame": null,
           "save_state": {
@@ -1588,6 +1817,8 @@
         "C2:8E42",
         "C2:721D"
       ],
+      "required_post_call_snapshots": [],
+      "required_watch_snapshots": [],
       "natural_candidate_count": 0,
       "natural_partial_count": 0,
       "steered_candidate_count": 13,
@@ -1611,6 +1842,7 @@
             "C2:7191": 2,
             "C2:721D": 1
           },
+          "watch_snapshot_counts": {},
           "first_frame": 1,
           "last_frame": 233,
           "save_state": {
@@ -1674,6 +1906,7 @@
             "C2:7191": 1,
             "C2:721D": 1
           },
+          "watch_snapshot_counts": {},
           "first_frame": 56,
           "last_frame": 12644,
           "save_state": {
@@ -1732,6 +1965,7 @@
             "C3:E51F"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {},
           "first_frame": 56,
           "last_frame": 12644,
           "save_state": {
@@ -1790,6 +2024,7 @@
             "C3:E51F"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {},
           "first_frame": 60,
           "last_frame": 12644,
           "save_state": {
@@ -1848,6 +2083,7 @@
             "C3:E51F"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {},
           "first_frame": 56,
           "last_frame": 12644,
           "save_state": {
@@ -1868,6 +2104,8 @@
         "C2:9917",
         "C2:724A"
       ],
+      "required_post_call_snapshots": [],
+      "required_watch_snapshots": [],
       "natural_candidate_count": 0,
       "natural_partial_count": 0,
       "steered_candidate_count": 1,
@@ -1887,6 +2125,9 @@
             "C2:9917"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_battler_afflictions": 2
+          },
           "first_frame": 233,
           "last_frame": 233,
           "save_state": {
@@ -1906,6 +2147,8 @@
       "required_hits": [
         "C1:DC1C"
       ],
+      "required_post_call_snapshots": [],
+      "required_watch_snapshots": [],
       "natural_candidate_count": 3,
       "natural_partial_count": 4,
       "steered_candidate_count": 0,
@@ -1931,6 +2174,9 @@
             "C2:941D"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 36
+          },
           "first_frame": 13,
           "last_frame": 891,
           "save_state": {
@@ -1955,6 +2201,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 15
+          },
           "first_frame": 67,
           "last_frame": 365,
           "save_state": {
@@ -1979,6 +2228,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 16
+          },
           "first_frame": 75,
           "last_frame": 492,
           "save_state": {
@@ -1999,6 +2251,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 10
+          },
           "first_frame": 29,
           "last_frame": 908,
           "save_state": {
@@ -2025,6 +2280,9 @@
             "C2:941D"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 36
+          },
           "first_frame": 13,
           "last_frame": 891,
           "save_state": {
@@ -2049,6 +2307,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 15
+          },
           "first_frame": 67,
           "last_frame": 365,
           "save_state": {
@@ -2073,6 +2334,9 @@
             "C2:8125"
           ],
           "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 16
+          },
           "first_frame": 75,
           "last_frame": 492,
           "save_state": {

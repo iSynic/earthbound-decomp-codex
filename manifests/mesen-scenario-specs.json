@@ -43,6 +43,11 @@
       "scenario_id": "srm-stonehenge-base-resource-scout",
       "title": "SRM Stonehenge Base resource scout",
       "evidence_tier": "vanilla_srm_plus_input",
+      "bootstrap_status": "launch_smoke_only_post_resume_pending",
+      "bootstrap_input_pattern": "not_implemented",
+      "bootstrap_frame_count": 0,
+      "post_resume_snapshot_required": true,
+      "resume_proof_status": "not_proven",
       "oracle_id": "resource_amount_pair_magnet_vs_pp_loss",
       "start": {
         "type": "load_srm_anchor",
@@ -59,7 +64,8 @@
         "C2:7191"
       ],
       "output_dir": "build/mesen-scenarios/runs/srm-stonehenge-base-resource-scout",
-      "expected_use": "Smoke SRM-anchor launch path before adding navigation inputs.",
+      "expected_use": "Smoke SRM-anchor ROM/SRM pairing before adding title-menu Continue/load bootstrap inputs.",
+      "next_step": "Add a fixed resume bootstrap that proves the SRM anchor was loaded before treating this lane as vanilla_srm_plus_input evidence.",
       "source_promotion_allowed": false,
       "runnable_spec_path": "build/mesen-scenarios/specs/srm-stonehenge-base-resource-scout.json"
     }

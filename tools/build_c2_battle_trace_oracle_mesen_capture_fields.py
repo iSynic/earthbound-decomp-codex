@@ -825,17 +825,32 @@ def build_c2_724a_fields(
     text_call = first_after(rows, writer_index, event_type="breakpoint_hit", pc="C1:DC1C") if writer_index >= 0 else None
     if writer is None:
         raise ValueError("trace does not contain a C2:724A breakpoint hit")
-    if numb is None:
-        raise ValueError("trace does not contain a C2:9917 breakpoint hit")
-    generated_evidence = (
-        "Fixture-steered Bash-row ROM routes action row 4 to Flash Beta and patches "
-        "the Flash gate/random result to the numb branch. The trace observes "
-        "C2:9917 -> C2:724A with X=0 and Y=3, proving the paired numb writer "
-        "mechanics. The post-return snapshot captures the writer return value and row "
-        "mutation; natural C2:98A1 gate behavior remains follow-up work."
-    )
+    if numb is not None:
+        generated_evidence = (
+            "Fixture-steered Bash-row ROM routes action row 4 to Flash Beta and patches "
+            "the Flash gate/random result to the numb branch. The trace observes "
+            "C2:9917 -> C2:724A with X=0 and Y=3, proving the paired numb writer "
+            "mechanics. The post-return snapshot captures the writer return value and row "
+            "mutation; natural C2:98A1 gate behavior remains follow-up work."
+        )
+        chance_gate_pc = "forced fixture bypasses natural C2:98A1 gate at C2:99B8"
+        resistance_gate_pc = "not_observed_in_forced_numb_fixture"
+        ef_text_pointer_fallback = "source-backed success EF:6AE0 / failure EF:766E; text call not captured in this short runner window"
+        success_text_pointer = "EF:6AE0"
+        failure_text_pointer = "EF:766E"
+    else:
+        generated_evidence = (
+            "Vanilla save-state trace reaches C2:724A directly, without the C2:9917 "
+            "Flash numb helper. The post-return snapshot captures the writer return "
+            "value and selected-row status-slot mutation for the direct caller."
+        )
+        chance_gate_pc = "not_applicable_to_direct_c2_724a_caller"
+        resistance_gate_pc = "not_observed_for_direct_c2_724a_caller"
+        ef_text_pointer_fallback = "not_captured_for_direct_c2_724a_caller"
+        success_text_pointer = "not_captured_for_direct_c2_724a_caller"
+        failure_text_pointer = "not_captured_for_direct_c2_724a_caller"
     source_target = {
-        "selected_target_pointer_at_9917": numb.get("selectedTargetPointer"),
+        "selected_target_pointer_at_9917": (numb or {}).get("selectedTargetPointer"),
         "selected_target_pointer_at_724a": writer.get("selectedTargetPointer"),
         "post_return_selected_target_pointer": (post or {}).get("selectedTargetPointer"),
         "post_return_slot_address": (post or {}).get("statusWriterSlotAddress"),
@@ -863,18 +878,18 @@ def build_c2_724a_fields(
         "direct_page_snapshot": require_text(writer, "directPageHex"),
         "wram_before": require_text(post or writer, "statusWriterRowBeforeHex")
         if post is not None
-        else require_text(numb, "selectedTargetRowHex"),
+        else require_text(writer, "selectedTargetRowHex"),
         "wram_after": require_text(post or writer, "statusWriterRowAfterHex")
         if post is not None
         else require_text(writer, "selectedTargetRowHex"),
         "ef_text_pointer": (text_call or {}).get("callerDpPrimaryTextPointer")
-        or "source-backed success EF:6AE0 / failure EF:766E; text call not captured in this short runner window",
+        or ef_text_pointer_fallback,
         "c1_text_call": compact_json(row_brief(text_call)) if text_call is not None else "not_captured_after_c2_724a_return",
         "classification": classification,
         "classification_evidence": evidence or generated_evidence,
         "caller_pc": compact_json(
             {
-                "status_helper": row_brief(numb),
+                "status_helper": row_brief(numb) if numb is not None else "not_observed_direct_c2_724a_caller",
                 "writer_stack_return": writer.get("stackReturnRtlAdjusted"),
                 "writer_post_return": row_brief(post) if post is not None else "not_captured",
                 "dispatch_target": writer.get("dispatchTargetPointer"),
@@ -885,11 +900,11 @@ def build_c2_724a_fields(
         "y_status_value": require_text(writer, "cpuY"),
         "target_field_for_direct_writer": (post or {}).get("statusWriterSlotOffset")
         or "selected battler row +0x1D primary affliction byte",
-        "chance_gate_pc": "forced fixture bypasses natural C2:98A1 gate at C2:99B8",
-        "resistance_gate_pc": "not_observed_in_forced_numb_fixture",
+        "chance_gate_pc": chance_gate_pc,
+        "resistance_gate_pc": resistance_gate_pc,
         "writer_return_value": (post or {}).get("postCpuA") or "not_captured_by_current_runner",
-        "success_text_pointer": "EF:6AE0",
-        "failure_text_pointer": "EF:766E",
+        "success_text_pointer": success_text_pointer,
+        "failure_text_pointer": failure_text_pointer,
     }
     missing = set(job.get("capture_fields", [])) - set(fields)
     if missing:

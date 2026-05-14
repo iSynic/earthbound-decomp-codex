@@ -17,7 +17,8 @@
 ;   observed this helper entering `C2:724A` with `X=0/Y=3`, then returning
 ;   with `A=1` after writing value `3` to selected-row slot `+0x1D`. That
 ;   fixture forces the Flash gate/result and does not prove natural
-;   `C2:98A1` odds.
+;   `C2:98A1` odds; natural Dread Scorpion poison covers the same writer
+;   mechanics without passing through this helper.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

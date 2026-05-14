@@ -67,6 +67,16 @@ def validate(data: dict[str, Any]) -> list[str]:
             require(str(row.get("status")) in STATUSES, f"{prefix}: bad status {row.get('status')}", errors)
             require(isinstance(row.get("oracle_id"), str) and row.get("oracle_id"), f"{prefix}: oracle missing", errors)
             require(isinstance(row.get("required_hits"), list), f"{prefix}: required_hits not list", errors)
+            require(
+                isinstance(row.get("required_post_call_snapshots", []), list),
+                f"{prefix}: required_post_call_snapshots not list",
+                errors,
+            )
+            require(
+                isinstance(row.get("required_watch_snapshots", []), list),
+                f"{prefix}: required_watch_snapshots not list",
+                errors,
+            )
             require(isinstance(row.get("best_natural_records"), list), f"{prefix}: best records not list", errors)
             require(isinstance(row.get("partial_natural_records"), list), f"{prefix}: partial records not list", errors)
             require(isinstance(row.get("steered_records"), list), f"{prefix}: steered records not list", errors)
