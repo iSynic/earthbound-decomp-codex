@@ -820,6 +820,9 @@ def build_c2_724a_fields(
     state_load = first_row(rows, event_type="before_state_load")
     writer = first_row(rows, event_type="breakpoint_hit", pc="C2:724A")
     numb = first_row(rows, event_type="breakpoint_hit", pc="C2:9917")
+    writer_index = row_index(rows, writer) if writer is not None else -1
+    post = post_call_snapshot(rows, "C2:724A")
+    text_call = first_after(rows, writer_index, event_type="breakpoint_hit", pc="C1:DC1C") if writer_index >= 0 else None
     if writer is None:
         raise ValueError("trace does not contain a C2:724A breakpoint hit")
     if numb is None:
@@ -828,11 +831,16 @@ def build_c2_724a_fields(
         "Fixture-steered Bash-row ROM routes action row 4 to Flash Beta and patches "
         "the Flash gate/random result to the numb branch. The trace observes "
         "C2:9917 -> C2:724A with X=0 and Y=3, proving the paired numb writer "
-        "mechanics. Natural C2:98A1 gate behavior and post-write return value remain follow-up work."
+        "mechanics. The post-return snapshot captures the writer return value and row "
+        "mutation; natural C2:98A1 gate behavior remains follow-up work."
     )
     source_target = {
         "selected_target_pointer_at_9917": numb.get("selectedTargetPointer"),
         "selected_target_pointer_at_724a": writer.get("selectedTargetPointer"),
+        "post_return_selected_target_pointer": (post or {}).get("selectedTargetPointer"),
+        "post_return_slot_address": (post or {}).get("statusWriterSlotAddress"),
+        "post_return_slot_before": (post or {}).get("statusWriterSlotBefore"),
+        "post_return_slot_after": (post or {}).get("statusWriterSlotAfter"),
         "current_target_mask": writer.get("currentTargetMaskHex"),
         "watch_snapshot": (
             watch_snapshot(rows, pc="C2:724A", watch_id="selected_battler_afflictions", start_index=row_index(rows, writer))
@@ -853,26 +861,33 @@ def build_c2_724a_fields(
         "registers.db": require_text(writer, "cpuDB"),
         "registers.dp": require_text(writer, "cpuDP"),
         "direct_page_snapshot": require_text(writer, "directPageHex"),
-        "wram_before": require_text(numb, "selectedTargetRowHex"),
-        "wram_after": require_text(writer, "selectedTargetRowHex"),
-        "ef_text_pointer": "source-backed success EF:6AE0 / failure EF:766E; text call not reached before captured writer entry",
-        "c1_text_call": "not_captured_before_c2_724a_entry",
+        "wram_before": require_text(post or writer, "statusWriterRowBeforeHex")
+        if post is not None
+        else require_text(numb, "selectedTargetRowHex"),
+        "wram_after": require_text(post or writer, "statusWriterRowAfterHex")
+        if post is not None
+        else require_text(writer, "selectedTargetRowHex"),
+        "ef_text_pointer": (text_call or {}).get("callerDpPrimaryTextPointer")
+        or "source-backed success EF:6AE0 / failure EF:766E; text call not captured in this short runner window",
+        "c1_text_call": compact_json(row_brief(text_call)) if text_call is not None else "not_captured_after_c2_724a_return",
         "classification": classification,
         "classification_evidence": evidence or generated_evidence,
         "caller_pc": compact_json(
             {
                 "status_helper": row_brief(numb),
                 "writer_stack_return": writer.get("stackReturnRtlAdjusted"),
+                "writer_post_return": row_brief(post) if post is not None else "not_captured",
                 "dispatch_target": writer.get("dispatchTargetPointer"),
             }
         ),
         "selected_row_source": compact_json(source_target),
         "x_subgroup_slot": require_text(writer, "cpuX"),
         "y_status_value": require_text(writer, "cpuY"),
-        "target_field_for_direct_writer": "selected battler row +0x1D primary affliction byte",
+        "target_field_for_direct_writer": (post or {}).get("statusWriterSlotOffset")
+        or "selected battler row +0x1D primary affliction byte",
         "chance_gate_pc": "forced fixture bypasses natural C2:98A1 gate at C2:99B8",
         "resistance_gate_pc": "not_observed_in_forced_numb_fixture",
-        "writer_return_value": "not_captured_by_current_runner",
+        "writer_return_value": (post or {}).get("postCpuA") or "not_captured_by_current_runner",
         "success_text_pointer": "EF:6AE0",
         "failure_text_pointer": "EF:766E",
     }

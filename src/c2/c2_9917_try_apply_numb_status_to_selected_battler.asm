@@ -14,8 +14,10 @@
 ;   selected-row byte `+0x1D`.
 ; - Emits `EF:6AE0` on success and shared no-effect text `EF:766E` on failure.
 ; - Fixture-steered trace evidence from `bash-row-flash-beta-force-numb`
-;   observed this helper entering `C2:724A` with `X=0/Y=3`. That fixture
-;   forces the Flash gate/result and does not prove natural `C2:98A1` odds.
+;   observed this helper entering `C2:724A` with `X=0/Y=3`, then returning
+;   with `A=1` after writing value `3` to selected-row slot `+0x1D`. That
+;   fixture forces the Flash gate/result and does not prove natural
+;   `C2:98A1` odds.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

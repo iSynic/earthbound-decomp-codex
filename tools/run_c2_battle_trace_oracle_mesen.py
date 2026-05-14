@@ -99,6 +99,12 @@ WRAM_PATCH_PROFILES: dict[str, list[str]] = {
     "resource-selected-row-9fac-pp32": [
         "0x9FC5:20 00 20 00",
     ],
+    "resource-current-selected-target-pp32": [
+        "selectedTarget+0x19:20 00 20 00",
+    ],
+    "resource-current-active-attacker-pp0-max81": [
+        "activeAttacker+0x19:00 00 51 00",
+    ],
     "collapse-descriptor-row-9fac-runaway-dog": [
         "0x9FAC:79 00",
         "0x9FB8:01 00 00 01 00",

@@ -6,11 +6,12 @@ This is controlled fixture evidence only: it compares reducer mechanics, not a f
 ## Summary
 
 - controlled comparison complete: `True`
-- loaded captures: `10` / `10`
+- loaded captures: `12` / `12`
 - action-row-steered no-WRAM captures: `2`
 - scripted-entry enemy-action captures: `2`
 - scripted-entry natural-table seeded captures: `2`
 - scripted-entry startup-only captures: `2`
+- scripted-entry dynamic selected-target captures: `2`
 - natural vanilla amount proven: `False`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
@@ -29,6 +30,8 @@ This is controlled fixture evidence only: it compares reducer mechanics, not a f
 | `guardian_general_natural_table_pp_reduction_seeded` | `scripted_entry_natural_enemy_action_table_wram_seeded` | `capture_loaded` | C0:52AA, C0:B9B4, C1:04EE, C1:0528, C1:0536, C1:0644, C1:0772, C1:078B, C1:DC1C, C1:DD3B, C1:DD47, C2:2F38, C2:4821, C2:488C, C2:48E0, C2:492D, C2:4949, C2:4958, C2:4A00, C2:4A2D, C2:4CEF, C2:4EEC, C2:4EF6, C2:4F03, C2:4F52, C2:4FCF, C2:5024, C2:5619, C2:5AFB, C2:5C30, C2:5C8C, C2:5D2B, C2:5D3D, C2:6081, C2:6088, C2:7191, C2:721D, C2:8E42, C2:E8E0, C2:E9C8, C3:E4EF, C3:E4FE, C3:E512, C3:E51F | `0x000002` | 0x0020 -> 0x001E (-2) | 0x0006 -> 0x0006 (0) | `controlled_loss_only_reducer_amount_observed_natural_pending` |
 | `gigantic_ant_forced_magnet_startup_only` | `scripted_entry_startup_only_no_resource_seed` | `capture_loaded` | C0:52AA, C0:B9B4, C1:04EE, C1:0528, C1:0536, C1:0644, C1:0772, C1:078B, C1:DC1C, C1:DD3B, C1:DD47, C2:2F38, C2:4821, C2:488C, C2:48E0, C2:492D, C2:4949, C2:4958, C2:4A00, C2:4A2D, C2:4CEF, C2:4EEC, C2:4EF6, C2:4F03, C2:4F52, C2:4FCF, C2:5024, C2:5619, C2:5AFB, C2:5C30, C2:5C8C, C2:5D2B, C2:5D3D, C2:6081, C2:6088, C2:9F5E, C2:E8E0, C2:E9C8, C3:E4EF, C3:E4FE, C3:E512, C3:E51F | `not_captured_no_reducer` | 0x0000 -> 0x0000 (0) | 0x0051 -> 0x0051 (0) | `resource_route_observed_amount_pending` |
 | `guardian_general_forced_pp_reduction_startup_only` | `scripted_entry_startup_only_no_resource_seed` | `capture_loaded` | C0:52AA, C0:B9B4, C1:04EE, C1:0528, C1:0536, C1:0644, C1:0772, C1:078B, C1:DC1C, C1:DD3B, C1:DD47, C2:2F38, C2:4821, C2:488C, C2:48E0, C2:492D, C2:4949, C2:4958, C2:4A00, C2:4A2D, C2:4CEF, C2:4EEC, C2:4EF6, C2:4F03, C2:4F52, C2:4FCF, C2:5024, C2:5619, C2:5AFB, C2:5C30, C2:5C8C, C2:5D2B, C2:5D3D, C2:6081, C2:6088, C2:8E42, C2:E8E0, C2:E9C8, C3:E4EF, C3:E4FE, C3:E512, C3:E51F | `not_captured_no_reducer` | 0x0000 -> 0x0000 (0) | 0x0006 -> 0x0006 (0) | `loss_only_entry_route_observed_amount_pending` |
+| `gigantic_ant_dynamic_selected_target_magnet` | `scripted_entry_dynamic_selected_target_seed` | `capture_loaded` | C0:52AA, C0:B9B4, C1:04EE, C1:0528, C1:0536, C1:0644, C1:0772, C1:078B, C1:DC1C, C1:DD3B, C1:DD47, C2:2F38, C2:4821, C2:488C, C2:48E0, C2:492D, C2:4949, C2:4958, C2:4A00, C2:4A2D, C2:4CEF, C2:4EEC, C2:4EF6, C2:4F03, C2:4F52, C2:4FCF, C2:5024, C2:5619, C2:5AFB, C2:5C30, C2:5C8C, C2:5D2B, C2:5D3D, C2:6081, C2:6088, C2:7191, C2:721D, C2:9F5E, C2:E8E0, C2:E9C8, C3:E4EF, C3:E4FE, C3:E512, C3:E51F | `0x000005` | 0x0020 -> 0x001B (-5) | 0x0000 -> 0x0005 (5) | `controlled_transfer_style_reducer_amount_observed_natural_pending` |
+| `guardian_general_dynamic_selected_target_pp_reduction` | `scripted_entry_dynamic_selected_target_seed` | `capture_loaded` | C0:52AA, C0:B9B4, C1:04EE, C1:0528, C1:0536, C1:0644, C1:0772, C1:078B, C1:DC1C, C1:DD3B, C1:DD47, C2:2F38, C2:4821, C2:488C, C2:48E0, C2:492D, C2:4949, C2:4958, C2:4A00, C2:4A2D, C2:4CEF, C2:4EEC, C2:4EF6, C2:4F03, C2:4F52, C2:4FCF, C2:5024, C2:5619, C2:5AFB, C2:5C30, C2:5C8C, C2:5D2B, C2:5D3D, C2:6081, C2:6088, C2:7191, C2:721D, C2:8E42, C2:E8E0, C2:E9C8, C3:E4EF, C3:E4FE, C3:E512, C3:E51F | `0x000002` | 0x0020 -> 0x001E (-2) | 0x0006 -> 0x0006 (0) | `controlled_loss_only_reducer_amount_observed_natural_pending` |
 
 ## Interpretation
 
@@ -38,6 +41,7 @@ This is controlled fixture evidence only: it compares reducer mechanics, not a f
 - The scripted-entry forced-action captures keep canonical enemy/action rows in deterministic play: Gigantic Ant row `54` reaches `C2:9F5E -> C2:721D -> C2:7191`, and Guardian General row `95` reaches `C2:8E42 -> C2:721D`.
 - The scripted-entry natural-table seeded captures are stronger: they preserve the enemy rows' vanilla action tables, observe Gigantic Ant naturally selecting row `54`, and observe Guardian General naturally selecting row `95`; targeted WRAM PP seeding still keeps them below proof-grade promotion.
 - The startup-only scripted-entry captures remove the resource-specific on-hit PP seed and still reach `C2:9F5E`/`C2:8E42`, but they stop before `C2:721D`; the remaining clean-fixture gap is selected-target PP setup, not action dispatch.
+- The dynamic selected-target scripted-entry captures seed the row currently pointed to by `$A972` at the resource-action entry. They reach `C2:721D` on both the transfer and loss-only sides without guessing a static row, but remain controlled on-hit evidence rather than natural vanilla proof.
 - All captures still rely on fixture action steering or local WRAM seeding, so the natural proof lane remains open for real PSI Magnet and PP-reduction enemies.
 
 ## Next Natural Proof Targets

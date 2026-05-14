@@ -21,8 +21,9 @@
 ; - Returns `1` on write and `0` on blocked/no-upgrade.
 ; - Fixture traces currently cover Dread Scorpion poison reaching this writer
 ;   without `C2:9917`, plus a forced Flash Beta numb branch reaching it from
-;   `C2:9917` with `X=0/Y=3`; post-return value capture remains follow-up
-;   work.
+;   `C2:9917` with `X=0/Y=3`. The forced Flash fixture captures post-return
+;   `A=1` and selected-row slot `+0x1D` changing `0 -> 3`; the natural Flash
+;   odds gate remains follow-up work.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

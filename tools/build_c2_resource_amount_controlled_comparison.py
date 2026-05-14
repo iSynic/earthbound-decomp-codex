@@ -90,6 +90,22 @@ DEFAULT_INPUTS = {
     / "resource-startup-only-scripted-entry"
     / "guardian-general-force-pp-reduction-startup-only"
     / "captured-fields.json",
+    "gigantic_ant_dynamic_selected_target_magnet": ROOT
+    / "build"
+    / "c2"
+    / "battle-trace-oracles"
+    / "manual-probes"
+    / "resource-dynamic-selected-pp-scripted-entry"
+    / "gigantic-ant-force-magnet-selected-target-pp32"
+    / "captured-fields.json",
+    "guardian_general_dynamic_selected_target_pp_reduction": ROOT
+    / "build"
+    / "c2"
+    / "battle-trace-oracles"
+    / "manual-probes"
+    / "resource-dynamic-selected-pp-scripted-entry"
+    / "guardian-general-force-pp-reduction-selected-target-pp32"
+    / "captured-fields.json",
 }
 EVIDENCE_TIERS = {
     "psi_magnet_transfer_controlled": "wram_seeded_controlled",
@@ -102,6 +118,8 @@ EVIDENCE_TIERS = {
     "guardian_general_natural_table_pp_reduction_seeded": "scripted_entry_natural_enemy_action_table_wram_seeded",
     "gigantic_ant_forced_magnet_startup_only": "scripted_entry_startup_only_no_resource_seed",
     "guardian_general_forced_pp_reduction_startup_only": "scripted_entry_startup_only_no_resource_seed",
+    "gigantic_ant_dynamic_selected_target_magnet": "scripted_entry_dynamic_selected_target_seed",
+    "guardian_general_dynamic_selected_target_pp_reduction": "scripted_entry_dynamic_selected_target_seed",
 }
 DEFAULT_MANIFEST = ROOT / "manifests" / "c2-resource-amount-controlled-comparison.json"
 DEFAULT_NOTE = ROOT / "notes" / "c2-resource-amount-controlled-comparison.md"
@@ -199,6 +217,11 @@ def summarize(lanes: list[dict[str, Any]]) -> dict[str, Any]:
         for lane in loaded
         if lane.get("evidence_tier") == "scripted_entry_startup_only_no_resource_seed"
     ]
+    dynamic_selected_target = [
+        lane
+        for lane in loaded
+        if lane.get("evidence_tier") == "scripted_entry_dynamic_selected_target_seed"
+    ]
     magnet = next((lane for lane in lanes if lane["lane_id"] == "psi_magnet_transfer_controlled"), {})
     reduction = next((lane for lane in lanes if lane["lane_id"] == "pp_reduction_loss_only_controlled"), {})
     magnet_no_wram = next((lane for lane in lanes if lane["lane_id"] == "psi_magnet_action_steered_no_wram"), {})
@@ -211,6 +234,7 @@ def summarize(lanes: list[dict[str, Any]]) -> dict[str, Any]:
         "scripted_entry_enemy_action_capture_count": len(scripted),
         "scripted_entry_natural_table_seeded_capture_count": len(natural_table),
         "scripted_entry_startup_only_capture_count": len(startup_only),
+        "scripted_entry_dynamic_selected_target_capture_count": len(dynamic_selected_target),
         "magnet_target_pp_delta": magnet.get("target_pp_delta"),
         "magnet_active_pp_delta": magnet.get("active_pp_delta"),
         "pp_reduction_target_pp_delta": reduction.get("target_pp_delta"),
@@ -242,6 +266,7 @@ def render_note(manifest: dict[str, Any]) -> str:
             f"- scripted-entry enemy-action captures: `{summary['scripted_entry_enemy_action_capture_count']}`",
             f"- scripted-entry natural-table seeded captures: `{summary['scripted_entry_natural_table_seeded_capture_count']}`",
             f"- scripted-entry startup-only captures: `{summary['scripted_entry_startup_only_capture_count']}`",
+            f"- scripted-entry dynamic selected-target captures: `{summary['scripted_entry_dynamic_selected_target_capture_count']}`",
             f"- natural vanilla amount proven: `{summary['natural_vanilla_amount_proven']}`",
             f"- source promotion allowed: `{summary['source_promotion_allowed']}`",
             f"- behavior change allowed: `{summary['behavior_change_allowed']}`",
@@ -272,6 +297,7 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- The scripted-entry forced-action captures keep canonical enemy/action rows in deterministic play: Gigantic Ant row `54` reaches `C2:9F5E -> C2:721D -> C2:7191`, and Guardian General row `95` reaches `C2:8E42 -> C2:721D`.",
             "- The scripted-entry natural-table seeded captures are stronger: they preserve the enemy rows' vanilla action tables, observe Gigantic Ant naturally selecting row `54`, and observe Guardian General naturally selecting row `95`; targeted WRAM PP seeding still keeps them below proof-grade promotion.",
             "- The startup-only scripted-entry captures remove the resource-specific on-hit PP seed and still reach `C2:9F5E`/`C2:8E42`, but they stop before `C2:721D`; the remaining clean-fixture gap is selected-target PP setup, not action dispatch.",
+            "- The dynamic selected-target scripted-entry captures seed the row currently pointed to by `$A972` at the resource-action entry. They reach `C2:721D` on both the transfer and loss-only sides without guessing a static row, but remain controlled on-hit evidence rather than natural vanilla proof.",
             "- All captures still rely on fixture action steering or local WRAM seeding, so the natural proof lane remains open for real PSI Magnet and PP-reduction enemies.",
             "",
             "## Next Natural Proof Targets",
