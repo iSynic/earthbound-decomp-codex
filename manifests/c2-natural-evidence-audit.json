@@ -16,12 +16,12 @@
     "mechanism_count": 12,
     "status_counts": {
       "fixture_only_navigation": 1,
-      "natural_capture_fields_missing": 3,
-      "natural_proof_candidate": 7,
+      "natural_capture_fields_missing": 2,
+      "natural_proof_candidate": 8,
       "runtime_steered_needed": 1
     },
-    "natural_proof_candidate_count": 7,
-    "natural_capture_fields_missing_count": 3,
+    "natural_proof_candidate_count": 8,
+    "natural_capture_fields_missing_count": 2,
     "runtime_steered_needed_count": 1,
     "fixture_only_navigation_count": 1,
     "not_yet_observed_count": 0,
@@ -2141,11 +2141,15 @@
     {
       "mechanism_id": "battle_text_amount_substitution",
       "title": "Battle text amount substitution",
-      "status": "natural_capture_fields_missing",
+      "status": "natural_proof_candidate",
       "oracle_id": "battle_text_payload_join",
       "fallback_oracle_id": "c2_8125_damage_abi_boundary",
       "required_hits": [
-        "C1:DC1C"
+        "C1:DC66",
+        "C1:AD0A",
+        "C1:7EED",
+        "C1:AD26",
+        "C1:0DF6"
       ],
       "required_post_call_snapshots": [],
       "required_watch_snapshots": [],
@@ -2154,7 +2158,7 @@
       "steered_candidate_count": 0,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
-      "next_action": "Capture C1/EF text pointer and amount payload joins from existing natural saves.",
+      "next_action": "Review fallback C2:8125 C1 amount-payload joins; keep dedicated battle_text_payload_join oracle unresolved.",
       "best_natural_records": [
         {
           "fixture_id": "08-paula-freeze-before-animation",

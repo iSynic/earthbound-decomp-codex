@@ -152,9 +152,9 @@ MECHANISMS: list[dict[str, Any]] = [
         "oracle": "battle_text_payload_join",
         "fallback_oracle": "c2_8125_damage_abi_boundary",
         "natural_keywords": ("large-pizza", "paula-freeze", "ness-healing", "before-damage"),
-        "required_hits": ("C1:DC1C",),
-        "success_status": "natural_capture_fields_missing",
-        "next_action": "Capture C1/EF text pointer and amount payload joins from existing natural saves.",
+        "required_hits": ("C1:DC66", "C1:AD0A", "C1:7EED", "C1:AD26", "C1:0DF6"),
+        "success_status": "natural_proof_candidate",
+        "next_action": "Review fallback C2:8125 C1 amount-payload joins; keep dedicated battle_text_payload_join oracle unresolved.",
     },
 ]
 

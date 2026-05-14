@@ -7,8 +7,8 @@ not promote source semantics by itself.
 ## Summary
 
 - mechanisms audited: `12`
-- natural proof candidates: `7`
-- natural captures needing fields/review: `3`
+- natural proof candidates: `8`
+- natural captures needing fields/review: `2`
 - runtime-steered setups needed: `1`
 - fixture-only navigation lanes: `1`
 - not yet observed: `0`
@@ -30,7 +30,7 @@ not promote source semantics by itself.
 | `pp_transfer` | `natural_capture_fields_missing` | `0` | `2` | `9` | Use SRM anchors or runtime steering to create a nonzero-PP PSI Magnet setup. |
 | `pp_loss_only` | `runtime_steered_needed` | `0` | `0` | `13` | Use Guardian General/late-game SRM anchor with explicit evidence tier labeling. |
 | `flash_status_gate` | `fixture_only_navigation` | `0` | `0` | `1` | Find or steer a natural C2:98A1 gate run; current C2:9917 route is forced-fixture only. |
-| `battle_text_amount_substitution` | `natural_capture_fields_missing` | `3` | `4` | `0` | Capture C1/EF text pointer and amount payload joins from existing natural saves. |
+| `battle_text_amount_substitution` | `natural_proof_candidate` | `3` | `4` | `0` | Review fallback C2:8125 C1 amount-payload joins; keep dedicated battle_text_payload_join oracle unresolved. |
 
 ## Evidence Policy
 
