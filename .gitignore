@@ -17,6 +17,10 @@
 *.zip
 *.7z
 *.rar
+*.srm
+*.sav
+*.mss
+*.zst
 baserom/
 asm/
 dumps/
