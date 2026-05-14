@@ -5,7 +5,7 @@
   "status": "result_loaded",
   "policy": {
     "forced_entry_fixture_only": true,
-    "natural_c1_route_proven": false,
+    "natural_c1_route_proven_in_this_result": false,
     "source_promotion_allowed": false,
     "behavior_change_allowed": false
   },
@@ -15,7 +15,7 @@
     "source_slot_base": "0x0099CE",
     "destination_base": "0x009FFA",
     "return_address": "C1:ADC3",
-    "natural_c1_route_proven": false,
+    "natural_c1_route_proven_in_this_result": false,
     "source_promotion_allowed": false,
     "behavior_change_allowed": false
   },
@@ -73,10 +73,10 @@
       "word": "0x0001"
     }
   },
-  "natural_route_gaps": [
-    "Capture the unpatched C1 path from committed target/action selection into C2:B930.",
-    "Observe C1:CE85 and C1:CFC6 in the same route context as the export.",
-    "Confirm whether the natural destination base is $9FFA and which caller owns A/X/Y setup.",
-    "Only then consider source comments beyond forced-entry wrapper mechanics."
+  "controlled_result_limits": [
+    "This forced-entry result still proves only the `$99CE -> destination` copy/derive mechanics.",
+    "Natural Fresh Egg Goods Use evidence now separately proves one unpatched `C1:B3DB -> C2:B930` route.",
+    "Battle Goods `C1:CE85 -> C1:ADB4 -> C2:BAC5` traces remain neighbor routes, not snapshot-export proof.",
+    "Additional item or target families are optional broadening rather than blockers for the first natural route."
   ]
 }

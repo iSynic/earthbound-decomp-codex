@@ -36,6 +36,8 @@ before this becomes true human-readable source.
 - `notes/phase-2-semantic-closure-plan.md` is the formal execution roadmap for
   turning byte-equivalent source and manifests into port-ready behavior
   contracts.
+- `notes/c2-runtime-proof-promotion-closeout.md` is the compact index for C2
+  runtime evidence that is strong enough to guide source-facing contracts.
 - C-port implementation feedback is now folded back into
   `notes/c-port-feedback-intake.md`, especially for C1/C2 battle target,
   payload, affliction, damage, healing, and resource contracts.

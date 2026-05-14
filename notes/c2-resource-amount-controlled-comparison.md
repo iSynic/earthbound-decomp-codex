@@ -39,12 +39,12 @@ This is controlled fixture evidence only: it compares reducer mechanics, not a f
 - PP reduction controlled capture shows loss-only mechanics: target PP decreases while active battler PP remains unchanged.
 - The no-WRAM captures are cleaner amount evidence than the WRAM-seeded probes: the selected target already had PP in save 1, and the fixture-steered actions reduced that row by `5` and `9` PP respectively.
 - The scripted-entry forced-action captures keep canonical enemy/action rows in deterministic play: Gigantic Ant row `54` reaches `C2:9F5E -> C2:721D -> C2:7191`, and Guardian General row `95` reaches `C2:8E42 -> C2:721D`.
-- The scripted-entry natural-table seeded captures are stronger: they preserve the enemy rows' vanilla action tables, observe Gigantic Ant naturally selecting row `54`, and observe Guardian General naturally selecting row `95`; targeted WRAM PP seeding still keeps them below proof-grade promotion.
+- The scripted-entry natural-table seeded captures are stronger controlled navigation: they preserve the enemy rows' vanilla action tables, observe Gigantic Ant naturally selecting row `54`, and observe Guardian General naturally selecting row `95`, while targeted WRAM PP seeding keeps those specific runs in the controlled-evidence tier.
 - The startup-only scripted-entry captures remove the resource-specific on-hit PP seed and still reach `C2:9F5E`/`C2:8E42`, but they stop before `C2:721D`; the remaining clean-fixture gap is selected-target PP setup, not action dispatch.
 - The dynamic selected-target scripted-entry captures seed the row currently pointed to by `$A972` at the resource-action entry. They reach `C2:721D` on both the transfer and loss-only sides without guessing a static row, but remain controlled on-hit evidence rather than natural vanilla proof.
-- All captures still rely on fixture action steering or local WRAM seeding, so the natural proof lane remains open for real PSI Magnet and PP-reduction enemies.
+- These controlled captures remain mechanics evidence, but later natural save-state captures close the initial proof lane for Paula PSI Magnet and Mad Duck PP loss; see `notes/psi-magnet-drain-amount.md`.
 
-## Next Natural Proof Targets
+## Optional Broadening Targets
 
-- PSI Magnet: `Gigantic Ant`, `Starman`, `Mobile Sprout`, or another row `54` user with a PP-bearing target.
-- PP reduction: `Guardian General` is the best nonzero-PP row `95` candidate; `Mad Duck` and `Armored Frog` remain route candidates but have zero enemy PP in the source table.
+- PSI Magnet: a non-full caster trace would visibly show positive caster PP gain, but the transfer route is already proven.
+- PP reduction: Guardian General or another row `95` candidate can broaden loss-only coverage, but Mad Duck already proves the no-recovery path.

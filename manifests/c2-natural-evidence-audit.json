@@ -1527,7 +1527,7 @@
       "steered_candidate_count": 10,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
-      "next_action": "Review Stonehenge Mook PSI Magnet capture: target PP loss and capped caster recovery are natural; visible non-full caster gain is optional follow-up.",
+      "next_action": "Source-polish Stonehenge Mook PSI Magnet capture: target PP loss and capped caster recovery are natural; visible non-full caster gain is optional broadening only.",
       "best_natural_records": [
         {
           "fixture_id": "stonehenge-mook-paula-psi-magnet-slot1",
@@ -1873,7 +1873,7 @@
       "steered_candidate_count": 13,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
-      "next_action": "Review Mad Duck PP-loss capture: target PP decreases through C2:8E42/C2:721D and no caster-side recovery occurs.",
+      "next_action": "Source-polish Mad Duck PP-loss capture: target PP decreases through C2:8E42/C2:721D and no caster-side recovery occurs.",
       "best_natural_records": [
         {
           "fixture_id": "mad-duck-pp-loss-slot1",

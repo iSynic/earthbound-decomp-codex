@@ -296,7 +296,9 @@ input-pattern retry.
 
 These scripted-entry resource probes are still fixture evidence: the natural
 enemy/action rows are useful navigation, but generated ROM entry and any WRAM
-startup or PP seeding keep them below proof-grade promotion.
+startup or PP seeding keep those specific runs in the controlled-evidence tier.
+Natural vanilla PSI Magnet and Mad Duck PP-loss save-state captures are tracked
+separately in `notes/psi-magnet-drain-amount.md`.
 
 Validate the ignored run summary:
 

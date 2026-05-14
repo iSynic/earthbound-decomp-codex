@@ -25,7 +25,7 @@ def validate(manifest: dict[str, Any]) -> list[str]:
     policy = manifest.get("policy", {})
     if policy.get("forced_entry_fixture_only") is not True:
         errors.append("policy must mark forced_entry_fixture_only true")
-    for field in ("natural_c1_route_proven", "source_promotion_allowed", "behavior_change_allowed"):
+    for field in ("natural_c1_route_proven_in_this_result", "source_promotion_allowed", "behavior_change_allowed"):
         if policy.get(field) is not False:
             errors.append(f"policy {field} must be false")
     summary = manifest.get("summary", {})
@@ -33,7 +33,7 @@ def validate(manifest: dict[str, Any]) -> list[str]:
         errors.append("controlled snapshot export must be observed")
     if summary.get("source_fields_exported_to_destination") is not True:
         errors.append("source fields exported-to-destination check failed")
-    for field in ("natural_c1_route_proven", "source_promotion_allowed", "behavior_change_allowed"):
+    for field in ("natural_c1_route_proven_in_this_result", "source_promotion_allowed", "behavior_change_allowed"):
         if summary.get(field) is not False:
             errors.append(f"summary {field} must be false")
     evidence = manifest.get("evidence", {})
@@ -57,8 +57,8 @@ def validate(manifest: dict[str, Any]) -> list[str]:
         errors.append(f"expected 95 source bytes, got {source.get('byte_count')}")
     if destination.get("after_byte_count") != 78:
         errors.append(f"expected 78 destination after bytes, got {destination.get('after_byte_count')}")
-    if not manifest.get("natural_route_gaps"):
-        errors.append("natural route gaps must be listed")
+    if not manifest.get("controlled_result_limits"):
+        errors.append("controlled result limits must be listed")
     return errors
 
 

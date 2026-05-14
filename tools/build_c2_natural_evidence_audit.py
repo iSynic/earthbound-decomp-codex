@@ -125,7 +125,7 @@ MECHANISMS: list[dict[str, Any]] = [
         "natural_keywords": ("natural-magnet", "psi-magnet", "mook", "stonehenge", "save"),
         "required_hits": ("C2:9F5E", "C2:721D"),
         "success_status": "natural_proof_candidate",
-        "next_action": "Review Stonehenge Mook PSI Magnet capture: target PP loss and capped caster recovery are natural; visible non-full caster gain is optional follow-up.",
+        "next_action": "Source-polish Stonehenge Mook PSI Magnet capture: target PP loss and capped caster recovery are natural; visible non-full caster gain is optional broadening only.",
     },
     {
         "id": "pp_loss_only",
@@ -134,7 +134,7 @@ MECHANISMS: list[dict[str, Any]] = [
         "natural_keywords": ("natural-pp-reduction", "guardian-general", "mad-duck", "pp-loss"),
         "required_hits": ("C2:8E42", "C2:721D"),
         "success_status": "natural_proof_candidate",
-        "next_action": "Review Mad Duck PP-loss capture: target PP decreases through C2:8E42/C2:721D and no caster-side recovery occurs.",
+        "next_action": "Source-polish Mad Duck PP-loss capture: target PP decreases through C2:8E42/C2:721D and no caster-side recovery occurs.",
     },
     {
         "id": "flash_status_gate",
