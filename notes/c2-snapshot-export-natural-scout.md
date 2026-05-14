@@ -5,37 +5,55 @@ This note records negative/neighbor evidence for existing saves; it is not sourc
 
 ## Summary
 
-- scout runs: `12`
+- scout runs: `28`
 - natural snapshot-export callsite runs: `0`
 - natural `C2:B930` runs: `0`
-- `C1:ADB4` neighbor runs: `1`
-- `C2:BAC5` neighbor runs: `9`
+- `C1:ADB4` neighbor runs: `4`
+- `C1:CE85` + `C1:ADB4` item-resolver neighbor runs: `1`
+- `C2:BAC5` neighbor runs: `24`
 - natural route proven: `False`
 
 ## Runs
 
 | Run | Observed | Snapshot Export Hits | Missing Minimums | Frames |
 | --- | --- | --- | --- | --- |
-| `planck-p1-save1-inventory-path` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 129..3414 |
-| `planck-p2-save4-goods-target` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 45..1898 |
-| `planck-p3-save3-psi-target` | C1:ADB4, C2:BAC5 | - | C1:CE85, C1:CFC6, C2:B930 | 44..1898 |
-| `save1-confirm-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 113..429 |
-| `save11-natural-resource-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 28..449 |
-| `save2-target-confirm-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 0..463 |
-| `save3-psi-confirm-long` | - | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | - |
-| `save4-status-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 67..277 |
-| `save5-pizza-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 133..572 |
-| `save6-status-sunstroke-long` | - | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | - |
-| `save7-rolling-hp-long` | - | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | - |
-| `save8-freeze-resolve-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 10..965 |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p1-save1-inventory-path` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 129..3414 |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p2-save4-goods-target` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 45..1898 |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p3-save3-psi-target` | C1:ADB4, C2:BAC5 | - | C1:CE85, C1:CFC6, C2:B930 | 44..1898 |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save1-confirm-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 113..429 |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save11-natural-resource-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 28..449 |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save2-target-confirm-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 0..463 |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save3-psi-confirm-long` | - | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | - |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save4-status-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 67..277 |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save5-pizza-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 133..572 |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save6-status-sunstroke-long` | - | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | - |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save7-rolling-hp-long` | - | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | - |
+| `build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save8-freeze-resolve-long` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 10..965 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot1-generic-a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 166..349 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot11-generic-a` | - | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | - |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-current-aa` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 160..677 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-generic-a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 160..398 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-generic-a` | C1:ADB4, C2:BAC5 | - | C1:CE85, C1:CFC6, C2:B930 | 48..60 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-psi-menu-aaa` | C1:ADB4, C2:BAC5 | - | C1:CE85, C1:CFC6, C2:B930 | 48..60 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot4-generic-a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 49..259 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot5-generic-a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 77..385 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot6-generic-a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 54..54 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot7-generic-a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 54..54 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot8-generic-a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 10..432 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-4a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 28..977 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-8a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 28..1032 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-menu-defendish` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 28..1084 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-goods-large-pizza-a` | C1:ADB4, C1:CE85, C2:BAC5 | - | C1:CFC6, C2:B930 | 26..29 |
+| `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-target-confirm-a` | C2:BAC5 | - | C1:ADB4, C1:CE85, C1:CFC6, C2:B930 | 28..28 |
 
 ## Interpretation
 
 - Existing saves mostly observe `C2:BAC5` target-count neighbors or later effect-resolution paths.
-- `planck-p3-save3-psi-target` is the best current neighbor because it reaches both `C1:ADB4` and `C2:BAC5`, but it still misses the natural snapshot-export callsites and `C2:B930`.
+- `build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-goods-large-pizza-a` is the best current neighbor because it reaches the deepest natural pre-export route seen so far, but it still misses the natural snapshot-export callsites and `C2:B930`.
+- The slot9 Large Pizza Goods save reaches C1:CE85 -> C1:ADB4 -> C2:BAC5, but the all-party item path still skips the observed C2:B930 export breakpoint.
 - The enhanced runner remains useful: it is now waiting for an earlier pre-export fixture rather than missing capture support.
 
 ## Next Fixture
 
-- A save after target/action choice commit but before C1 choice/action text dispatch, preferably an item or PSI action with a non-null D5 action row +0x08 pointer.
+- A single-target Goods or PSI save before target confirmation, preferably a healing item such as hamburger/pizza/croissant or a single-target PSI action, so the target-choice path can reach a C2:B930 snapshot export callsite.
 - Until that exists, keep `notes/c2-b930-controlled-snapshot-export.md` as controlled mechanics evidence only.

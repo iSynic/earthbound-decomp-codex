@@ -9,13 +9,10 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_INPUT_ROOT = (
-    ROOT
-    / "build"
-    / "c2"
-    / "battle-trace-oracles"
-    / "manual-probes"
-    / "snapshot-export-natural-scout"
+MANUAL_PROBES_ROOT = ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes"
+DEFAULT_INPUT_ROOTS = (
+    MANUAL_PROBES_ROOT / "snapshot-export-natural-scout",
+    MANUAL_PROBES_ROOT / "target-staging-scout",
 )
 DEFAULT_MANIFEST = ROOT / "manifests" / "c2-snapshot-export-natural-scout.json"
 DEFAULT_NOTE = ROOT / "notes" / "c2-snapshot-export-natural-scout.md"
@@ -50,7 +47,7 @@ def build_run(path: Path) -> dict[str, Any]:
     hit_counts = summary.get("breakpoint_hit_counts", {})
     export_hits = sorted(SNAPSHOT_EXPORT_CALLSITES & set(hit_counts))
     return {
-        "run_id": path.parent.name,
+        "run_id": repo_path(path.parent),
         "summary_path": repo_path(path),
         "trace_path": summary.get("trace_path"),
         "status": summary.get("status"),
@@ -65,6 +62,7 @@ def build_run(path: Path) -> dict[str, Any]:
         "snapshot_export_callsite_hits": export_hits,
         "natural_b930_hit": hit_count(summary, "C2:B930") > 0,
         "c1_adb4_hit": hit_count(summary, "C1:ADB4") > 0,
+        "c1_ce85_hit": hit_count(summary, "C1:CE85") > 0,
         "c2_bac5_hit": hit_count(summary, "C2:BAC5") > 0,
         "post_call_snapshot_counts": summary.get("post_call_snapshot_counts", {}),
         "input_pattern": summary.get("runner_start", {}).get("inputPattern"),
@@ -72,20 +70,30 @@ def build_run(path: Path) -> dict[str, Any]:
     }
 
 
-def build_manifest(input_root: Path = DEFAULT_INPUT_ROOT) -> dict[str, Any]:
-    runs = [build_run(path) for path in sorted(input_root.glob("*/raw-trace-summary.json"))]
+def build_manifest(input_roots: tuple[Path, ...] = DEFAULT_INPUT_ROOTS) -> dict[str, Any]:
+    summary_paths: list[Path] = []
+    for input_root in input_roots:
+        summary_paths.extend(sorted(input_root.glob("*/raw-trace-summary.json")))
+    runs = [build_run(path) for path in summary_paths]
     export_ready = [run for run in runs if run["snapshot_export_callsite_hits"] or run["natural_b930_hit"]]
     c1_neighbors = [run for run in runs if run["c1_adb4_hit"]]
+    item_neighbors = [run for run in runs if run["c1_ce85_hit"] and run["c1_adb4_hit"]]
     bac5_neighbors = [run for run in runs if run["c2_bac5_hit"]]
+    best_neighbor = (
+        item_neighbors[0]["run_id"]
+        if item_neighbors
+        else (c1_neighbors[0]["run_id"] if c1_neighbors else "none")
+    )
     return {
         "schema": "earthbound-decomp.c2-snapshot-export-natural-scout.v1",
         "generated_by": "tools/build_c2_snapshot_export_natural_scout.py",
-        "input_root": repo_path(input_root),
+        "input_roots": [repo_path(path) for path in input_roots],
         "summary": {
             "run_count": len(runs),
             "snapshot_export_callsite_run_count": len(export_ready),
             "natural_b930_run_count": len([run for run in runs if run["natural_b930_hit"]]),
             "c1_adb4_neighbor_run_count": len(c1_neighbors),
+            "c1_ce85_item_resolver_neighbor_run_count": len(item_neighbors),
             "c2_bac5_neighbor_run_count": len(bac5_neighbors),
             "natural_route_proven": False,
             "source_promotion_allowed": False,
@@ -94,10 +102,15 @@ def build_manifest(input_root: Path = DEFAULT_INPUT_ROOT) -> dict[str, Any]:
         "runs": runs,
         "interpretation": {
             "current_existing_saves_position": "mostly_after_c1_snapshot_export_or_on_target_count_neighbors",
-            "best_existing_neighbor": "planck-p3-save3-psi-target",
+            "best_existing_neighbor": best_neighbor,
+            "latest_live_result": (
+                "The slot9 Large Pizza Goods save reaches C1:CE85 -> C1:ADB4 -> C2:BAC5, "
+                "but the all-party item path still skips the observed C2:B930 export breakpoint."
+            ),
             "next_required_fixture": (
-                "A save after target/action choice commit but before C1 choice/action text dispatch, "
-                "preferably an item or PSI action with a non-null D5 action row +0x08 pointer."
+                "A single-target Goods or PSI save before target confirmation, preferably a healing item "
+                "such as hamburger/pizza/croissant or a single-target PSI action, so the target-choice "
+                "path can reach a C2:B930 snapshot export callsite."
             ),
         },
     }
@@ -117,6 +130,7 @@ def render_note(manifest: dict[str, Any]) -> str:
         f"- natural snapshot-export callsite runs: `{summary['snapshot_export_callsite_run_count']}`",
         f"- natural `C2:B930` runs: `{summary['natural_b930_run_count']}`",
         f"- `C1:ADB4` neighbor runs: `{summary['c1_adb4_neighbor_run_count']}`",
+        f"- `C1:CE85` + `C1:ADB4` item-resolver neighbor runs: `{summary['c1_ce85_item_resolver_neighbor_run_count']}`",
         f"- `C2:BAC5` neighbor runs: `{summary['c2_bac5_neighbor_run_count']}`",
         f"- natural route proven: `{summary['natural_route_proven']}`",
         "",
@@ -140,7 +154,8 @@ def render_note(manifest: dict[str, Any]) -> str:
             "## Interpretation",
             "",
             "- Existing saves mostly observe `C2:BAC5` target-count neighbors or later effect-resolution paths.",
-            "- `planck-p3-save3-psi-target` is the best current neighbor because it reaches both `C1:ADB4` and `C2:BAC5`, but it still misses the natural snapshot-export callsites and `C2:B930`.",
+            f"- `{manifest['interpretation']['best_existing_neighbor']}` is the best current neighbor because it reaches the deepest natural pre-export route seen so far, but it still misses the natural snapshot-export callsites and `C2:B930`.",
+            f"- {manifest['interpretation']['latest_live_result']}",
             "- The enhanced runner remains useful: it is now waiting for an earlier pre-export fixture rather than missing capture support.",
             "",
             "## Next Fixture",

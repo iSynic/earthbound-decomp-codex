@@ -1,20 +1,24 @@
 {
   "schema": "earthbound-decomp.c2-snapshot-export-natural-scout.v1",
   "generated_by": "tools/build_c2_snapshot_export_natural_scout.py",
-  "input_root": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout",
+  "input_roots": [
+    "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout",
+    "build/c2/battle-trace-oracles/manual-probes/target-staging-scout"
+  ],
   "summary": {
-    "run_count": 12,
+    "run_count": 28,
     "snapshot_export_callsite_run_count": 0,
     "natural_b930_run_count": 0,
-    "c1_adb4_neighbor_run_count": 1,
-    "c2_bac5_neighbor_run_count": 9,
+    "c1_adb4_neighbor_run_count": 4,
+    "c1_ce85_item_resolver_neighbor_run_count": 1,
+    "c2_bac5_neighbor_run_count": 24,
     "natural_route_proven": false,
     "source_promotion_allowed": false,
     "behavior_change_allowed": false
   },
   "runs": [
     {
-      "run_id": "planck-p1-save1-inventory-path",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p1-save1-inventory-path",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p1-save1-inventory-path/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p1-save1-inventory-path/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -38,13 +42,14 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": true,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900,a:4,neutral:2400",
       "frame_limit": 4200
     },
     {
-      "run_id": "planck-p2-save4-goods-target",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p2-save4-goods-target",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p2-save4-goods-target/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p2-save4-goods-target/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -68,13 +73,14 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": true,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:1800",
       "frame_limit": 3400
     },
     {
-      "run_id": "planck-p3-save3-psi-target",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p3-save3-psi-target",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p3-save3-psi-target/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p3-save3-psi-target/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -99,13 +105,14 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": true,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": true,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:1800",
       "frame_limit": 3400
     },
     {
-      "run_id": "save1-confirm-long",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save1-confirm-long",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save1-confirm-long/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save1-confirm-long/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -129,13 +136,14 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": true,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:20,a:4,neutral:3600",
       "frame_limit": 3600
     },
     {
-      "run_id": "save11-natural-resource-long",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save11-natural-resource-long",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save11-natural-resource-long/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save11-natural-resource-long/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -159,13 +167,14 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": true,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:3600",
       "frame_limit": 3600
     },
     {
-      "run_id": "save2-target-confirm-long",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save2-target-confirm-long",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save2-target-confirm-long/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save2-target-confirm-long/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -189,13 +198,14 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": true,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:20,a:4,neutral:3600",
       "frame_limit": 3600
     },
     {
-      "run_id": "save3-psi-confirm-long",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save3-psi-confirm-long",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save3-psi-confirm-long/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save3-psi-confirm-long/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -215,13 +225,14 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": false,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:20,a:4,a:4,neutral:3600",
       "frame_limit": 3600
     },
     {
-      "run_id": "save4-status-long",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save4-status-long",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save4-status-long/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save4-status-long/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -245,13 +256,14 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": true,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:3600",
       "frame_limit": 3600
     },
     {
-      "run_id": "save5-pizza-long",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save5-pizza-long",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save5-pizza-long/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save5-pizza-long/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -275,13 +287,14 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": true,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:3600",
       "frame_limit": 3600
     },
     {
-      "run_id": "save6-status-sunstroke-long",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save6-status-sunstroke-long",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save6-status-sunstroke-long/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save6-status-sunstroke-long/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -301,13 +314,14 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": false,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:3600",
       "frame_limit": 3600
     },
     {
-      "run_id": "save7-rolling-hp-long",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save7-rolling-hp-long",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save7-rolling-hp-long/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save7-rolling-hp-long/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -327,13 +341,14 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": false,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:3600",
       "frame_limit": 3600
     },
     {
-      "run_id": "save8-freeze-resolve-long",
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save8-freeze-resolve-long",
       "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save8-freeze-resolve-long/raw-trace-summary.json",
       "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save8-freeze-resolve-long/raw-trace.jsonl",
       "status": "raw_trace_summarized",
@@ -357,15 +372,513 @@
       "snapshot_export_callsite_hits": [],
       "natural_b930_hit": false,
       "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
       "c2_bac5_hit": true,
       "post_call_snapshot_counts": {},
       "input_pattern": "neutral:3600",
       "frame_limit": 3600
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot1-generic-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot1-generic-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot1-generic-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 80,
+      "first_frame": 166,
+      "last_frame": 349,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 15
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:20,a:8,neutral:20,a:8,neutral:400",
+      "frame_limit": 500
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot11-generic-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot11-generic-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot11-generic-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 5,
+      "first_frame": null,
+      "last_frame": null,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {},
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": false,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:20,a:8,neutral:20,a:8,neutral:400",
+      "frame_limit": 500
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-current-aa",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-current-aa/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-current-aa/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 75,
+      "first_frame": 160,
+      "last_frame": 677,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 14
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:20,a:8,neutral:600",
+      "frame_limit": 700
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-generic-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-generic-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot2-generic-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 45,
+      "first_frame": 160,
+      "last_frame": 398,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 8
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:20,a:8,neutral:20,a:8,neutral:400",
+      "frame_limit": 500
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-generic-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-generic-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-generic-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 15,
+      "first_frame": 48,
+      "last_frame": 60,
+      "observed_addresses": [
+        "C1:ADB4",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C1:ADB4": 1,
+        "C2:BAC5": 1
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": true,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:20,a:8,neutral:20,a:8,neutral:400",
+      "frame_limit": 500
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-psi-menu-aaa",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-psi-menu-aaa/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot3-psi-menu-aaa/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 15,
+      "first_frame": 48,
+      "last_frame": 60,
+      "observed_addresses": [
+        "C1:ADB4",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C1:ADB4": 1,
+        "C2:BAC5": 1
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": true,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:20,a:8,neutral:20,a:8,neutral:600",
+      "frame_limit": 700
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot4-generic-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot4-generic-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot4-generic-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 160,
+      "first_frame": 49,
+      "last_frame": 259,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 31
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:20,a:8,neutral:20,a:8,neutral:400",
+      "frame_limit": 500
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot5-generic-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot5-generic-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot5-generic-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 95,
+      "first_frame": 77,
+      "last_frame": 385,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 18
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:20,a:8,neutral:20,a:8,neutral:400",
+      "frame_limit": 500
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot6-generic-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot6-generic-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot6-generic-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 10,
+      "first_frame": 54,
+      "last_frame": 54,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 1
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:20,a:8,neutral:20,a:8,neutral:400",
+      "frame_limit": 500
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot7-generic-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot7-generic-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot7-generic-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 10,
+      "first_frame": 54,
+      "last_frame": 54,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 1
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:20,a:8,neutral:20,a:8,neutral:400",
+      "frame_limit": 500
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot8-generic-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot8-generic-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot8-generic-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 95,
+      "first_frame": 10,
+      "last_frame": 432,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 18
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:20,a:8,neutral:20,a:8,neutral:400",
+      "frame_limit": 500
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-4a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-4a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-4a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 65,
+      "first_frame": 28,
+      "last_frame": 977,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 12
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:30,a:8,neutral:30,a:8,neutral:30,a:8,neutral:700",
+      "frame_limit": 1100
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-8a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-8a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-8a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 220,
+      "first_frame": 28,
+      "last_frame": 1032,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 43
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:25,a:8,neutral:25,a:8,neutral:25,a:8,neutral:25,a:8,neutral:25,a:8,neutral:25,a:8,neutral:25,a:8,neutral:900",
+      "frame_limit": 1100
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-menu-defendish",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-menu-defendish/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-confirm-plus-menu-defendish/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 35,
+      "first_frame": 28,
+      "last_frame": 1084,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 6
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:25,down:6,neutral:4,a:8,neutral:25,down:6,neutral:4,a:8,neutral:900",
+      "frame_limit": 1100
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-goods-large-pizza-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-goods-large-pizza-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-goods-large-pizza-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 20,
+      "first_frame": 26,
+      "last_frame": 29,
+      "observed_addresses": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C1:ADB4": 1,
+        "C1:CE85": 1,
+        "C2:BAC5": 1
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": true,
+      "c1_ce85_hit": true,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:900",
+      "frame_limit": 1000
+    },
+    {
+      "run_id": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-target-confirm-a",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-target-confirm-a/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-target-confirm-a/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 10,
+      "first_frame": 28,
+      "last_frame": 28,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 1
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c1_ce85_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:8,neutral:500",
+      "frame_limit": 560
     }
   ],
   "interpretation": {
     "current_existing_saves_position": "mostly_after_c1_snapshot_export_or_on_target_count_neighbors",
-    "best_existing_neighbor": "planck-p3-save3-psi-target",
-    "next_required_fixture": "A save after target/action choice commit but before C1 choice/action text dispatch, preferably an item or PSI action with a non-null D5 action row +0x08 pointer."
+    "best_existing_neighbor": "build/c2/battle-trace-oracles/manual-probes/target-staging-scout/slot9-goods-large-pizza-a",
+    "latest_live_result": "The slot9 Large Pizza Goods save reaches C1:CE85 -> C1:ADB4 -> C2:BAC5, but the all-party item path still skips the observed C2:B930 export breakpoint.",
+    "next_required_fixture": "A single-target Goods or PSI save before target confirmation, preferably a healing item such as hamburger/pizza/croissant or a single-target PSI action, so the target-choice path can reach a C2:B930 snapshot export callsite."
   }
 }
