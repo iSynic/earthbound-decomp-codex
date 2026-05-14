@@ -76,6 +76,13 @@ def validate(data: dict[str, Any]) -> list[str]:
                     require(spec.get("post_resume_snapshot_required") is True, f"{prefix}: SRM specs must require post-resume snapshot proof", errors)
                     resume_status = str(spec.get("resume_proof_status", ""))
                     require(resume_status in RESUME_PROOF_STATUSES, f"{prefix}: bad resume proof status", errors)
+                    if bootstrap_status in {"ready", "post_resume_snapshot_observed"}:
+                        require(
+                            str(spec.get("bootstrap_input_pattern")) != "not_implemented",
+                            f"{prefix}: ready SRM bootstrap must use a real input pattern",
+                            errors,
+                        )
+                        require(int(spec.get("bootstrap_frame_count", 0)) > 0, f"{prefix}: ready SRM bootstrap needs frames", errors)
                     if bootstrap_status == "launch_smoke_only_post_resume_pending":
                         require(resume_status == "not_proven", f"{prefix}: launch-smoke SRM status must not claim resume proof", errors)
                     if bootstrap_status == "post_resume_snapshot_observed":

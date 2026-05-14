@@ -31,6 +31,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--mesen")
     parser.add_argument("--rom")
+    parser.add_argument("--bootstrap-input-pattern", help="Override spec bootstrap input pattern.")
+    parser.add_argument("--bootstrap-frame-count", type=int, help="Override spec bootstrap frame count.")
     parser.add_argument("--timeout", type=int, default=180)
     return parser.parse_args()
 
@@ -76,7 +78,13 @@ def link_or_copy(source: Path, dest: Path) -> None:
         shutil.copy2(source, dest)
 
 
-def prepare_srm_rom(spec: dict[str, Any], rom_arg: str | None) -> tuple[Path, dict[str, Any]]:
+def prepare_srm_rom(
+    spec: dict[str, Any],
+    rom_arg: str | None,
+    *,
+    bootstrap_input_pattern: str | None = None,
+    bootstrap_frame_count: int | None = None,
+) -> tuple[Path, dict[str, Any]]:
     source_rom = rom_tools.find_rom(rom_arg)
     run_dir = repo_path(str(spec["output_dir"])) / "srm-rom"
     rom_dest = run_dir / "earthbound-us.sfc"
@@ -86,6 +94,10 @@ def prepare_srm_rom(spec: dict[str, Any], rom_arg: str | None) -> tuple[Path, di
     if not srm_path.is_file():
         raise FileNotFoundError(f"working SRM missing; rebuild catalog first: {srm_path}")
     shutil.copy2(srm_path, srm_dest)
+    effective_bootstrap_input = bootstrap_input_pattern or str(spec.get("bootstrap_input_pattern", "not_declared"))
+    effective_bootstrap_frames = int(
+        bootstrap_frame_count if bootstrap_frame_count is not None else spec.get("bootstrap_frame_count", 0)
+    )
     return rom_dest, {
         "srm_anchor_id": spec["start"].get("anchor_id"),
         "srm_archive_name": spec["start"].get("archive_name"),
@@ -94,8 +106,8 @@ def prepare_srm_rom(spec: dict[str, Any], rom_arg: str | None) -> tuple[Path, di
         "srm_rom_path": manifest_path(rom_dest),
         "srm_copy_path": manifest_path(srm_dest),
         "bootstrap_status": spec.get("bootstrap_status", "not_declared"),
-        "bootstrap_input_pattern": spec.get("bootstrap_input_pattern", "not_declared"),
-        "bootstrap_frame_count": spec.get("bootstrap_frame_count", 0),
+        "bootstrap_input_pattern": effective_bootstrap_input,
+        "bootstrap_frame_count": effective_bootstrap_frames,
         "post_resume_snapshot_required": bool(spec.get("post_resume_snapshot_required")),
         "resume_proof_status": spec.get("resume_proof_status", "not_declared"),
         "post_resume_snapshot_seen": False,
@@ -106,7 +118,20 @@ def prepare_srm_rom(spec: dict[str, Any], rom_arg: str | None) -> tuple[Path, di
     }
 
 
-def build_runner_command(spec: dict[str, Any], *, dry_run: bool, mesen: str | None, rom: str | None, timeout: int) -> tuple[list[str], dict[str, Any]]:
+def build_runner_command(
+    spec: dict[str, Any],
+    *,
+    dry_run: bool,
+    mesen: str | None,
+    rom: str | None,
+    bootstrap_input_pattern: str | None,
+    bootstrap_frame_count: int | None,
+    timeout: int,
+) -> tuple[list[str], dict[str, Any]]:
+    effective_bootstrap_frames = int(
+        bootstrap_frame_count if bootstrap_frame_count is not None else spec.get("bootstrap_frame_count", 0)
+    )
+    effective_frame_limit = int(spec.get("frame_limit", 1200)) + max(effective_bootstrap_frames, 0)
     cmd = [
         sys.executable,
         str(ROOT / "tools" / "run_c2_battle_trace_oracle_mesen.py"),
@@ -115,7 +140,7 @@ def build_runner_command(spec: dict[str, Any], *, dry_run: bool, mesen: str | No
         "--input-pattern",
         str(spec["input_pattern"]),
         "--frame-limit",
-        str(spec.get("frame_limit", 1200)),
+        str(effective_frame_limit),
         "--timeout",
         str(timeout),
         "--output-dir",
@@ -135,8 +160,17 @@ def build_runner_command(spec: dict[str, Any], *, dry_run: bool, mesen: str | No
         if rom:
             cmd.extend(["--rom", rom])
     elif start["type"] == "load_srm_anchor":
-        rom_path, run_metadata = prepare_srm_rom(spec, rom)
+        rom_path, run_metadata = prepare_srm_rom(
+            spec,
+            rom,
+            bootstrap_input_pattern=bootstrap_input_pattern,
+            bootstrap_frame_count=bootstrap_frame_count,
+        )
         cmd.extend(["--rom", str(rom_path)])
+        if effective_bootstrap_frames > 0:
+            effective_bootstrap_input = bootstrap_input_pattern or str(spec.get("bootstrap_input_pattern", ""))
+            cmd.extend(["--bootstrap-input-pattern", effective_bootstrap_input])
+            cmd.extend(["--bootstrap-frame-count", str(effective_bootstrap_frames)])
     else:
         raise ValueError(f"unsupported scenario start type: {start['type']}")
     if not dry_run:
@@ -148,7 +182,15 @@ def main() -> int:
     args = parse_args()
     spec_path = Path(args.spec)
     spec = load_json(spec_path)
-    cmd, run_metadata = build_runner_command(spec, dry_run=args.dry_run, mesen=args.mesen, rom=args.rom, timeout=args.timeout)
+    cmd, run_metadata = build_runner_command(
+        spec,
+        dry_run=args.dry_run,
+        mesen=args.mesen,
+        rom=args.rom,
+        bootstrap_input_pattern=args.bootstrap_input_pattern,
+        bootstrap_frame_count=args.bootstrap_frame_count,
+        timeout=args.timeout,
+    )
     summary_path = repo_path(str(spec["output_dir"])) / "scenario-run-summary.json"
     record: dict[str, Any] = {
         "schema": "earthbound-decomp.mesen-scenario-run.v1",
@@ -169,6 +211,13 @@ def main() -> int:
         print(f"Wrote {summary_path}")
         return 0
     result = subprocess.run(cmd, cwd=ROOT, text=True, capture_output=True, timeout=args.timeout + 30, check=False)
+    mesen_summary_path = repo_path(str(spec["output_dir"])) / "mesen-run-summary.json"
+    if mesen_summary_path.is_file() and run_metadata:
+        mesen_summary = load_json(mesen_summary_path)
+        run_metadata["bootstrap_complete_seen"] = bool(mesen_summary.get("bootstrap_complete_seen"))
+        run_metadata["input_handoff_seen"] = bool(mesen_summary.get("input_handoff_seen"))
+        run_metadata["post_resume_snapshot_seen"] = bool(mesen_summary.get("post_resume_snapshot_seen"))
+        run_metadata["raw_trace_summary"] = mesen_summary.get("raw_trace_summary")
     record.update(
         {
             "status": "completed" if result.returncode == 0 else "failed",

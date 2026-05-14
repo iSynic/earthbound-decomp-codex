@@ -47,14 +47,20 @@ def validate(data: dict[str, Any]) -> list[str]:
         require(len(expected) == 64, "SRM expected SHA-256 missing/bad", errors)
         require(copied == expected, "copied SRM hash must match catalog hash", errors)
         require(metadata.get("post_resume_snapshot_required") is True, "SRM run must require post-resume snapshot proof", errors)
+        require(str(metadata.get("bootstrap_input_pattern", "")), "SRM run missing bootstrap input pattern", errors)
+        require(isinstance(metadata.get("bootstrap_frame_count"), int), "SRM run missing bootstrap frame count", errors)
         bootstrap_status = str(metadata.get("bootstrap_status", ""))
         resume_status = str(metadata.get("resume_proof_status", ""))
         post_resume_seen = metadata.get("post_resume_snapshot_seen") is True
+        bootstrap_complete_seen = metadata.get("bootstrap_complete_seen") is True
+        input_handoff_seen = metadata.get("input_handoff_seen") is True
         if bootstrap_status == "launch_smoke_only_post_resume_pending":
             require(resume_status == "not_proven", "launch-smoke SRM run must not claim resume proof", errors)
             require(not post_resume_seen, "launch-smoke SRM run must not claim post-resume snapshot", errors)
         if bootstrap_status == "post_resume_snapshot_observed":
             require(resume_status == "proven", "post-resume SRM run must claim proven resume", errors)
+            require(bootstrap_complete_seen, "post-resume SRM run must record bootstrap_complete", errors)
+            require(input_handoff_seen, "post-resume SRM run must record input_handoff", errors)
             require(post_resume_seen, "post-resume SRM run must record snapshot proof", errors)
     return errors
 

@@ -20,3 +20,5 @@ sanitized; runnable specs with local paths live under ignored `build/`.
 ## SRM Bootstrap Caveat
 
 The current SRM scenario copies a cataloged `.srm` beside a local ROM and confirms the paired launch path. It does not yet prove that Mesen selected Continue, loaded the anchor save, or reached a post-resume gameplay state. Treat SRM-anchor outputs as setup plumbing until a scenario records a post-resume snapshot.
+
+The scenario runner now supports a separate bootstrap input phase via local override fields/CLI arguments, but the tracked Stonehenge scenario keeps `launch_smoke_only_post_resume_pending` until a verified Continue/load sequence is recorded.

@@ -136,6 +136,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--rom", help="Path to EarthBound (USA).sfc. Defaults to tools.rom_tools discovery.")
     parser.add_argument("--state", help="Optional local Mesen save-state path.")
     parser.add_argument("--input-pattern", help="Optional input pattern such as neutral:30,a:4,neutral:30.")
+    parser.add_argument("--bootstrap-input-pattern", help="Optional pre-scenario input pattern for SRM/title-menu bootstrap.")
+    parser.add_argument("--bootstrap-frame-count", type=int, default=0, help="Frames to spend on bootstrap input before scenario input begins.")
     parser.add_argument(
         "--wram-patch",
         action="append",
@@ -467,6 +469,10 @@ def main() -> int:
     state = Path(args.state or fixture_state) if (args.state or fixture_state) else None
     if state is not None and not state.is_file():
         raise FileNotFoundError(f"save state not found: {state}")
+    if args.bootstrap_frame_count < 0:
+        raise ValueError("--bootstrap-frame-count must be >= 0")
+    if args.bootstrap_frame_count > 0 and not args.bootstrap_input_pattern:
+        raise ValueError("--bootstrap-frame-count requires --bootstrap-input-pattern")
     if fixture is not None:
         allowed_oracles = set(str(item) for item in fixture.get("oracle_ids", []))
         if allowed_oracles and str(runner_data["oracle_id"]) not in allowed_oracles:
@@ -489,6 +495,9 @@ def main() -> int:
     input_pattern = args.input_pattern or fixture_input_pattern
     if input_pattern:
         env["C2_ORACLE_INPUT_PATTERN"] = str(input_pattern)
+    if args.bootstrap_input_pattern:
+        env["C2_ORACLE_BOOTSTRAP_INPUT_PATTERN"] = str(args.bootstrap_input_pattern)
+        env["C2_ORACLE_BOOTSTRAP_FRAME_COUNT"] = str(args.bootstrap_frame_count)
     wram_patches = (
         [normalize_wram_patch(item) for item in fixture_wram_patches]
         + profile_wram_patches(fixture_wram_profiles)
@@ -524,6 +533,11 @@ def main() -> int:
         "fixture_config": manifest_path(fixtures_path) if fixtures_path.exists() else None,
         "fixture_id": args.fixture_id,
         "input_pattern": input_pattern,
+        "bootstrap_input_pattern": args.bootstrap_input_pattern,
+        "bootstrap_frame_count": args.bootstrap_frame_count,
+        "bootstrap_complete_seen": False,
+        "input_handoff_seen": False,
+        "post_resume_snapshot_seen": False,
         "wram_patches": wram_patches,
         "wram_patch_profiles": fixture_wram_profiles + args.wram_patch_profile,
         "wram_patches_on_hit": wram_patches_on_hit,
@@ -579,6 +593,9 @@ def main() -> int:
         write_json(summary_output, raw_summary)
         run_record["raw_trace_summary"] = manifest_path(summary_output)
         run_record["minimum_hits_satisfied"] = raw_summary["minimum_hits_satisfied"]
+        run_record["bootstrap_complete_seen"] = bool(raw_summary.get("bootstrap_complete_seen"))
+        run_record["input_handoff_seen"] = bool(raw_summary.get("input_handoff_seen"))
+        run_record["post_resume_snapshot_seen"] = bool(raw_summary.get("post_resume_snapshot_seen"))
     write_json(summary_path, run_record)
     print(f"C2 Mesen oracle run {run_record['status']}: {runner_data['oracle_id']}")
     print(f"Observed addresses: {observed}")

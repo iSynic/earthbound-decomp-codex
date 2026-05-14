@@ -119,6 +119,7 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
     frames: list[int] = []
     runner_start: dict[str, Any] | None = None
     runner_summary: dict[str, Any] | None = None
+    snapshot_reasons: Counter[str] = Counter()
     for row in rows:
         event_type = str(row.get("type", "unknown"))
         event_counts[event_type] += 1
@@ -164,6 +165,10 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
             call_pc = str(row.get("callPc", ""))
             if call_pc:
                 post_call_snapshot_counts[call_pc] += 1
+        elif event_type == "scenario_state_snapshot":
+            reason = str(row.get("reason", ""))
+            if reason:
+                snapshot_reasons[reason] += 1
 
     # The packet does not mark minimum hits; use the emulator handoff's required
     # hits from the runner assets when available.
@@ -193,6 +198,10 @@ def summarize(job: dict[str, Any], trace_path: Path, runner_job: dict[str, Any] 
         "probe_dispatch_lane_counts": dict(sorted(probe_dispatch_lane_counts.items())),
         "post_call_snapshot_counts": dict(sorted(post_call_snapshot_counts.items())),
         "watch_snapshot_counts": dict(sorted(watch_counts.items())),
+        "scenario_state_snapshot_reasons": dict(sorted(snapshot_reasons.items())),
+        "bootstrap_complete_seen": event_counts.get("bootstrap_complete", 0) > 0,
+        "input_handoff_seen": event_counts.get("input_handoff", 0) > 0,
+        "post_resume_snapshot_seen": snapshot_reasons.get("post_srm_resume_bootstrap", 0) > 0,
         "observed_addresses": sorted(hit_counts),
         "probe_observed_addresses": sorted(probe_hit_counts),
         "required_hit_addresses": sorted(required_hits),
