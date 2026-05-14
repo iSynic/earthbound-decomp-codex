@@ -8,6 +8,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from run_c2_battle_trace_oracle_mesen import WRAM_PATCH_PROFILES, normalize_wram_patch
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_FIXTURES = ROOT / "build" / "c2" / "battle-trace-oracles" / "local-fixtures.json"
@@ -47,6 +49,14 @@ def validate_optional_path(path_text: Any, *, label: str, allow_placeholder: boo
     if path_text is None:
         return
     validate_path(str(path_text), label=label, allow_placeholder=allow_placeholder)
+
+
+def listish(value: Any) -> list[Any]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    return [value]
 
 
 def validate(data: dict[str, Any], packet: dict[str, Any], *, allow_placeholders: bool) -> None:
@@ -91,6 +101,23 @@ def validate(data: dict[str, Any], packet: dict[str, Any], *, allow_placeholders
         input_pattern = fixture.get("input_pattern")
         if input_pattern is not None:
             require(isinstance(input_pattern, str) and input_pattern, f"{fixture_id}: input_pattern must be non-empty string")
+        for patch in listish(fixture.get("wram_patches")):
+            normalized = normalize_wram_patch(patch)
+            require(":" in normalized, f"{fixture_id}: wram_patches entry must be address:bytes form")
+            address, payload = normalized.split(":", 1)
+            require(address.strip(), f"{fixture_id}: wram_patches entry missing address")
+            require(payload.strip(), f"{fixture_id}: wram_patches entry missing bytes")
+        for profile_id in listish(fixture.get("wram_patch_profiles")):
+            require(
+                str(profile_id) in WRAM_PATCH_PROFILES,
+                f"{fixture_id}: unknown wram_patch_profiles entry {profile_id}",
+            )
+        timing = fixture.get("wram_patch_timing")
+        if timing is not None:
+            require(
+                timing in {"initial", "first-breakpoint"},
+                f"{fixture_id}: wram_patch_timing must be initial or first-breakpoint",
+            )
         require(isinstance(fixture.get("notes", ""), str), f"{fixture_id}: notes must be a string")
 
 

@@ -227,6 +227,9 @@ python tools\run_c2_battle_trace_oracle_mesen.py --init-fixtures-template
 python tools\validate_c2_battle_trace_local_fixtures.py --allow-template-placeholders
 ```
 
+The validator checks local paths, declared oracle ids, named WRAM patch profiles,
+and `initial` versus `first-breakpoint` WRAM patch timing.
+
 After creating a local ordinary-battle save state, edit
 `build/c2/battle-trace-oracles/local-fixtures.json`, replace the placeholder
 `save_state_path`, and validate without `--allow-template-placeholders`.
