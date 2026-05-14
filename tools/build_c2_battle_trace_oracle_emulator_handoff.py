@@ -39,7 +39,7 @@ SCENARIOS: dict[str, dict[str, Any]] = {
         "scenario_goal": "observe one parameterized C2:724A affliction write and distinguish it from nearby direct writers",
         "manual_setup": [
             "load or create a battle state with PSI Flash, asleep/paralysis/strange status, or a solidification item available",
-            "prefer Flash paralysis or item solidification for the first capture because they have compact caller paths",
+            "prefer Flash body numbness or item solidification for the first capture because they have compact caller paths",
             "capture caller PC, X subgroup, Y value, selected row, gate result, and success/failure text pointers",
         ],
         "preferred_trigger": "execute a status action that reaches C2:724A",

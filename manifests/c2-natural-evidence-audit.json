@@ -15,11 +15,11 @@
   "summary": {
     "mechanism_count": 12,
     "status_counts": {
-      "natural_capture_fields_missing": 2,
-      "natural_proof_candidate": 10
+      "natural_capture_fields_missing": 1,
+      "natural_proof_candidate": 11
     },
-    "natural_proof_candidate_count": 10,
-    "natural_capture_fields_missing_count": 2,
+    "natural_proof_candidate_count": 11,
+    "natural_capture_fields_missing_count": 1,
     "runtime_steered_needed_count": 0,
     "fixture_only_navigation_count": 0,
     "not_yet_observed_count": 0,
@@ -2238,7 +2238,7 @@
     {
       "mechanism_id": "flash_status_gate",
       "title": "Flash/status gate",
-      "status": "natural_capture_fields_missing",
+      "status": "natural_proof_candidate",
       "oracle_id": "psi_flash_and_status_gate_family",
       "fallback_oracle_id": "c2_724a_affliction_writer_matrix",
       "required_hits": [
@@ -2247,14 +2247,61 @@
       ],
       "required_post_call_snapshots": [],
       "required_watch_snapshots": [],
-      "natural_candidate_count": 0,
-      "natural_partial_count": 3,
+      "natural_candidate_count": 1,
+      "natural_partial_count": 4,
       "steered_candidate_count": 1,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
-      "next_action": "Natural Stonehenge/Mook Senior Flash now proves C2:98A1 gate entry and C2:9950 -> C2:724A crying; still need natural C2:9917 -> C2:724A numb/paralysis.",
-      "best_natural_records": [],
+      "next_action": "Review natural Mighty Bear Seven Flash capture: C2:98A1 -> C2:9917 -> C2:724A writes selected-row +0x1D from 0 to 3, confirming the English body-numb branch; Mook Senior Flash also covers C2:9950 -> C2:724A crying.",
+      "best_natural_records": [
+        {
+          "fixture_id": "mighty-bear-seven-flash-numb-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "psi_flash_and_status_gate_family",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:724A",
+            "C2:98A1",
+            "C2:98DE",
+            "C2:9917"
+          ],
+          "post_call_snapshot_counts": {
+            "C2:724A": 2
+          },
+          "watch_snapshot_counts": {},
+          "first_frame": 109,
+          "last_frame": 188,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "498e0aa22a30b07f9942e5ff1fc9f3f261e610a2c600ca5053950cfbef6f8a4f"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/mighty-bear-seven-flash-numb-slot1/psi-flash-numb-neutral/raw-trace-summary.json"
+        }
+      ],
       "partial_natural_records": [
+        {
+          "fixture_id": "mighty-bear-seven-flash-numb-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "psi_flash_and_status_gate_family",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:724A",
+            "C2:98A1",
+            "C2:98DE",
+            "C2:9917"
+          ],
+          "post_call_snapshot_counts": {
+            "C2:724A": 2
+          },
+          "watch_snapshot_counts": {},
+          "first_frame": 109,
+          "last_frame": 188,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "498e0aa22a30b07f9942e5ff1fc9f3f261e610a2c600ca5053950cfbef6f8a4f"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/mighty-bear-seven-flash-numb-slot1/psi-flash-numb-neutral/raw-trace-summary.json"
+        },
         {
           "fixture_id": "stonehenge-flash-crying-slot2",
           "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",

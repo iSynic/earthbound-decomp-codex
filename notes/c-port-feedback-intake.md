@@ -78,7 +78,8 @@ Primary local notes:
 The diary provides useful pressure for treating `C2:724A` as a small reusable
 affliction/subgroup writer, with chance and resistance gates modeled separately:
 
-- Solidification, late status payloads, PSI status leaves, Flash paralysis,
+- Solidification, late status payloads, PSI status leaves, Flash body numbness
+  (called paralysis in ebsrc/internal status vocabulary),
   item-side statuses, and concentration-seal paths all converge on the same
   family shape.
 - The writer contract should stay parameterized by selected row plus subgroup
@@ -147,7 +148,7 @@ writers:
 - PSI Flash is a trace-gate family over several result/status possibilities.
 - The resist-checked PSI status trio should be modeled as one host gate shape
   with distinct payload outcomes.
-- Flash paralysis is small enough to be an early local trace oracle for the
+- Flash body numbness is small enough to be an early local trace oracle for the
   broader `C2:724A` affliction writer model.
 
 Primary local notes:
@@ -209,7 +210,7 @@ The concrete execution queue for these probes now lives in
 | 26 Fixed PP Recovery Mirrors The HP Recovery Wrapper Shape | confirmed | Mirror fixed PP recovery structurally while keeping PP resource wording. |
 | 27 Direct 1d4 Stat-Up Items Share B2E0 Stat Leaves | confirmed | Use direct stat-up items to test the B2E0 stat leaf family. |
 | 28 Odor Offense Reduction Is The Offense Half Of 8F21 | confirmed | Record odor as offense-reduction evidence for the 8F21/late numeric family. |
-| 29 Flash Paralysis Leaf Is A Small Affliction Writer | confirmed | Use Flash paralysis as a compact writer-gate oracle. |
+| 29 Flash Body-Numb Leaf Is A Small Affliction Writer | confirmed | Use Flash body numbness as a compact writer-gate oracle; keep ebsrc `FLASH_INFLICT_PARALYSIS` as an alias. |
 | 30 Enemy-Side Concentration Seal Shares The Item-Side Post-Gate Effect | confirmed | Pair enemy-side and item-side concentration seal effects after their gates. |
 | 31 Item-Side Status Leaves Split Cleanly From A89D Cluster | confirmed | Keep item-side status leaves grouped but split from the broader A89D cluster. |
 | 32 Healing Gamma Broad Recovery Has A Small Trace Gate | confirmed | Add a Gamma-specific trace around the broad recovery gate. |

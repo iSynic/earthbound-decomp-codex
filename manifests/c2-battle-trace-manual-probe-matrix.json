@@ -27,9 +27,9 @@
   "summary": {
     "probe_root_count": 15,
     "probe_roots_found": 15,
-    "record_count": 185,
+    "record_count": 187,
     "oracle_count": 7,
-    "minimum_hit_candidate_count": 18,
+    "minimum_hit_candidate_count": 19,
     "route_hint_fixture_count": 16,
     "remaining_route_gap_count": 0,
     "status_counts": {
@@ -1794,32 +1794,33 @@
         "C2:9917"
       ],
       "status": "minimum-hit-candidate",
-      "probe_count": 15,
-      "minimum_hit_candidate_count": 1,
-      "fixtures_with_any_hits": 5,
+      "probe_count": 16,
+      "minimum_hit_candidate_count": 2,
+      "fixtures_with_any_hits": 6,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
-        "C2:724A": 5,
-        "C2:9917": 1
+        "C2:724A": 6,
+        "C2:9917": 2
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
       "dispatch_target_counts": {
         "C2:8B2C": 3,
-        "C2:99AE": 3
+        "C2:99AE": 6
       },
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {
-        "3C:99E1": 1,
+        "3C:99E1": 2,
         "97:8B48": 3,
-        "97:992B": 1,
+        "97:98F2": 1,
+        "97:992B": 2,
         "97:9962": 1
       },
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {
-        "C2:724A": 2
+        "C2:724A": 4
       },
       "route_groups": {},
       "fixture_hits": [
@@ -1872,6 +1873,20 @@
           },
           "first_frame": 14,
           "last_frame": 14
+        },
+        {
+          "fixture_id": "mighty-bear-seven-flash-numb-slot1",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C2:724A",
+            "C2:9917"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:724A": 2,
+            "C2:9917": 1
+          },
+          "first_frame": 109,
+          "last_frame": 188
         },
         {
           "fixture_id": "stonehenge-flash-crying-slot2",
@@ -2791,36 +2806,60 @@
       "oracle_id": "psi_flash_and_status_gate_family",
       "configured_minimum_hits": [],
       "status": "minimum-hit-candidate",
-      "probe_count": 2,
+      "probe_count": 3,
       "minimum_hit_candidate_count": 2,
-      "fixtures_with_any_hits": 2,
+      "fixtures_with_any_hits": 3,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
-        "C2:724A": 1,
-        "C2:98A1": 2,
+        "C2:724A": 2,
+        "C2:98A1": 3,
+        "C2:98DE": 1,
+        "C2:9917": 1,
         "C2:9950": 1
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
       "dispatch_target_counts": {
-        "C2:99AE": 3,
+        "C2:99AE": 9,
         "C2:99EF": 1
       },
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {
-        "3C:99BB": 1,
+        "3C:99BB": 3,
+        "3C:99E1": 1,
+        "3C:99E6": 1,
         "3C:99EB": 1,
         "3C:99FC": 1,
+        "97:98F2": 1,
+        "97:992B": 1,
         "97:9962": 1
       },
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {
-        "C2:724A": 1
+        "C2:724A": 3
       },
       "route_groups": {},
       "fixture_hits": [
+        {
+          "fixture_id": "mighty-bear-seven-flash-numb-slot1",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:724A",
+            "C2:98A1",
+            "C2:98DE",
+            "C2:9917"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:724A": 2,
+            "C2:98A1": 2,
+            "C2:98DE": 1,
+            "C2:9917": 1
+          },
+          "first_frame": 109,
+          "last_frame": 188
+        },
         {
           "fixture_id": "stonehenge-flash-crying-slot2",
           "minimum_hits_satisfied": true,
@@ -16104,6 +16143,117 @@
         "sha256": "8e2866d3a61b937d20414b28c0841c9c0d5ade5d175cb267d0a03c1bdb699ee6"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/mad-duck-pp-loss-slot1/resource-neutral/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "mighty-bear-seven-flash-numb-slot1",
+      "oracle_id": "c2_724a_affliction_writer_matrix",
+      "minimum_hits_satisfied": true,
+      "observed_addresses": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:724A": 2,
+        "C2:9917": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:99AE": 3
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "3C:99E1": 1,
+        "97:98F2": 1,
+        "97:992B": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:724A": 2
+      },
+      "watch_snapshot_counts": {
+        "selected_battler_afflictions": 5
+      },
+      "configured_minimum_hits": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "missing_minimum_hits": [],
+      "first_frame": 109,
+      "last_frame": 188,
+      "trace_line_count": 15,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "498e0aa22a30b07f9942e5ff1fc9f3f261e610a2c600ca5053950cfbef6f8a4f"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/mighty-bear-seven-flash-numb-slot1/affliction-neutral/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "mighty-bear-seven-flash-numb-slot1",
+      "oracle_id": "psi_flash_and_status_gate_family",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:724A",
+        "C2:98A1",
+        "C2:98DE",
+        "C2:9917"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:724A": 2,
+        "C2:98A1": 2,
+        "C2:98DE": 1,
+        "C2:9917": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:99AE": 6
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "3C:99BB": 2,
+        "3C:99E1": 1,
+        "3C:99E6": 1,
+        "97:98F2": 1,
+        "97:992B": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:724A": 2
+      },
+      "watch_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:98A1",
+        "C2:9950",
+        "C2:724A"
+      ],
+      "missing_minimum_hits": [
+        "C2:9950"
+      ],
+      "first_frame": 109,
+      "last_frame": 188,
+      "trace_line_count": 13,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "498e0aa22a30b07f9942e5ff1fc9f3f261e610a2c600ca5053950cfbef6f8a4f"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/mighty-bear-seven-flash-numb-slot1/psi-flash-numb-neutral/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     },

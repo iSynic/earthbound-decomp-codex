@@ -80,7 +80,7 @@ The first trace pass should stay narrow and reusable:
 
 1. Run a target-selection case that exercises `C1:ADB4 -> C2:B930/BAC5`.
 2. Run one `C2:40A4` payload case with a direct curative or item-side status.
-3. Run one `C2:724A` status case, preferably Flash paralysis or
+3. Run one `C2:724A` status case, preferably Flash body numbness or
    solidification.
 4. Run one `C2:8125` amount case, preferably a random-damage item or PSI common
    damage helper.

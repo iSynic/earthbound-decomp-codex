@@ -174,7 +174,7 @@ Representative local rows already backed by notes/source comments:
 
 | Lane | Caller | Selected row source | X slot | Y | Chance/resistance gate | EF text result |
 | --- | --- | --- | --- | --- | --- | --- |
-| Flash paralysis | `C2:9917` | Flash selected target after `C2:98A1` | `0 -> +0x1D` | `3` | Flash gate uses selected-row `+0x39`; tier wrappers choose this branch from their random map | `EF:6AE0` on write, `EF:766E` on no-upgrade |
+| Flash body numbness | `C2:9917` | Flash selected target after `C2:98A1` | `0 -> +0x1D` | `3` | Flash gate uses selected-row `+0x39`; tier wrappers choose this branch from their random map | `EF:6AE0` on write, `EF:766E` on no-upgrade |
 | Late asleep PSI status | `C2:9F06` | selected row from late action body/wrapper | `2 -> +0x1F` | `1` | default blocker, then selected-row `+0x3C` through `C2:6BB8` | `EF:6C55` / `EF:766E` |
 | Late paralysis PSI status | `C2:9FFE` | selected row from adjacent late PSI-status tail | `0 -> +0x1D` | `3` | selected-row `+0x37` through `C2:6BB8` | `EF:6AE0` / `EF:766E` |
 | Late strange PSI status | `C2:A056` | selected row from strange wrapper/body | `3 -> +0x20` | `1` | selected-row `+0x3B` through `C2:6BB8` | `EF:6C3A` / `EF:766E` |
@@ -188,7 +188,7 @@ pin the row source and gate order. The key candidates are:
 - solidification as the lowest-noise repeated `X = 2`, `Y = 4` lane across
   enemy-side and item-side callers
 - late status payloads as a compact coverage set for `+0x1E/+0x1F/+0x20`
-- Flash paralysis as the small Flash-family `X = 0`, `Y = 3` oracle
+- Flash body numbness as the small Flash-family `X = 0`, `Y = 3` oracle
 - item-side statuses, especially the A89D cluster, as selected-row/action-table
   trace candidates before broad item names are promoted
 - concentration seal as an adjacent status-writer lane, but not a `724A` row:

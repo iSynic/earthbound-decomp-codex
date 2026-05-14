@@ -820,21 +820,33 @@ def build_c2_724a_fields(
     state_load = first_row(rows, event_type="before_state_load")
     writer = first_row(rows, event_type="breakpoint_hit", pc="C2:724A")
     numb = first_row(rows, event_type="breakpoint_hit", pc="C2:9917")
+    flash_gate = first_row(rows, event_type="breakpoint_hit", pc="C2:98A1")
+    has_wram_patch = any(row.get("type") == "wram_patch" for row in rows)
+    fixture_steered = "fixture-rom-tests" in trace.as_posix() or has_wram_patch
     writer_index = row_index(rows, writer) if writer is not None else -1
     post = post_call_snapshot(rows, "C2:724A")
     text_call = first_after(rows, writer_index, event_type="breakpoint_hit", pc="C1:DC1C") if writer_index >= 0 else None
     if writer is None:
         raise ValueError("trace does not contain a C2:724A breakpoint hit")
     if numb is not None:
-        generated_evidence = (
-            "Fixture-steered Bash-row ROM routes action row 4 to Flash Beta and patches "
-            "the Flash gate/random result to the numb branch. The trace observes "
-            "C2:9917 -> C2:724A with X=0 and Y=3, proving the paired numb writer "
-            "mechanics. The post-return snapshot captures the writer return value and row "
-            "mutation; natural C2:98A1 gate behavior remains follow-up work."
-        )
-        chance_gate_pc = "forced fixture bypasses natural C2:98A1 gate at C2:99B8"
-        resistance_gate_pc = "not_observed_in_forced_numb_fixture"
+        if fixture_steered:
+            generated_evidence = (
+                "Fixture-steered Bash-row ROM routes action row 4 to Flash Beta and patches "
+                "the Flash gate/random result to the numb branch. The trace observes "
+                "C2:9917 -> C2:724A with X=0 and Y=3, proving the paired numb writer "
+                "mechanics. The post-return snapshot captures the writer return value and row "
+                "mutation; natural C2:98A1 gate behavior remains follow-up work."
+            )
+            chance_gate_pc = "forced fixture bypasses natural C2:98A1 gate at C2:99B8"
+            resistance_gate_pc = "not_observed_in_forced_numb_fixture"
+        else:
+            generated_evidence = (
+                "Vanilla save-state trace observes the Flash body-numb branch "
+                "C2:9917 -> C2:724A with X=0 and Y=3. The post-return snapshot "
+                "captures the writer return value and selected-row +0x1D mutation."
+            )
+            chance_gate_pc = "C2:98A1 observed before C2:9917" if flash_gate is not None else "not_captured_by_this_narrow_writer_runner"
+            resistance_gate_pc = "not_separate_for_flash_body_numb_branch_in_this_capture"
         ef_text_pointer_fallback = "source-backed success EF:6AE0 / failure EF:766E; text call not captured in this short runner window"
         success_text_pointer = "EF:6AE0"
         failure_text_pointer = "EF:766E"

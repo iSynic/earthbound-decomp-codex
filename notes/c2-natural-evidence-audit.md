@@ -7,8 +7,8 @@ not promote source semantics by itself.
 ## Summary
 
 - mechanisms audited: `12`
-- natural proof candidates: `10`
-- natural captures needing fields/review: `2`
+- natural proof candidates: `11`
+- natural captures needing fields/review: `1`
 - runtime-steered setups needed: `0`
 - fixture-only navigation lanes: `0`
 - not yet observed: `0`
@@ -29,7 +29,7 @@ not promote source semantics by itself.
 | `target_action_staging` | `natural_capture_fields_missing` | `8` | `8` | `16` | Upgrade target/action staging with export-field capture; do not require new saves first. |
 | `pp_transfer` | `natural_proof_candidate` | `1` | `1` | `10` | Review Stonehenge Mook PSI Magnet capture: target PP loss and capped caster recovery are natural; visible non-full caster gain is optional follow-up. |
 | `pp_loss_only` | `natural_proof_candidate` | `1` | `1` | `13` | Review Mad Duck PP-loss capture: target PP decreases through C2:8E42/C2:721D and no caster-side recovery occurs. |
-| `flash_status_gate` | `natural_capture_fields_missing` | `0` | `3` | `1` | Natural Stonehenge/Mook Senior Flash now proves C2:98A1 gate entry and C2:9950 -> C2:724A crying; still need natural C2:9917 -> C2:724A numb/paralysis. |
+| `flash_status_gate` | `natural_proof_candidate` | `1` | `4` | `1` | Review natural Mighty Bear Seven Flash capture: C2:98A1 -> C2:9917 -> C2:724A writes selected-row +0x1D from 0 to 3, confirming the English body-numb branch; Mook Senior Flash also covers C2:9950 -> C2:724A crying. |
 | `battle_text_amount_substitution` | `natural_proof_candidate` | `3` | `4` | `0` | Review fallback C2:8125 C1 amount-payload joins; keep dedicated battle_text_payload_join oracle unresolved. |
 
 ## Evidence Policy

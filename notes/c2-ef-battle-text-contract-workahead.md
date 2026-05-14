@@ -77,7 +77,7 @@ This is a **workahead contract note** (no source/manifest edits). It consolidate
   prints it through `C1:0DF6`.
 - 2026-05-01: EF text-payload split follow-up added source anchors for the
   C2-proven battle scripts and corrected the local `C2:9FFE` naming drift:
-  `EF:6AE0` is the body-numb/paralysis result used by `BTLACT_PARALYSIS_A`,
+  `EF:6AE0` is the body-numb result used by `BTLACT_PARALYSIS_A`,
   while poison-inflicted text remains the separate `EF:6B18` script.
 - 2026-05-01: EF status-infliction payload follow-up split the neighboring
   EBATTLE5 status text around `EF:6B18` poison and `EF:6BEF` solidification,
@@ -517,7 +517,7 @@ These are core “amount/status result” scripts used by C2 feedback helpers.
   - same structure as `EF:69BA`, but prints `" PP!"`
   - **C2 caller**: `C2:7318` (`src/c2/c2_7318_apply_battler_pp_recovery_feedback.asm`) uses `DC66` here.
 
-- `EF:6AE0` (paralysis/body-numb inflicted message)
+- `EF:6AE0` (body-numb inflicted message; ebsrc status vocabulary: paralysis)
   - starts `01 70 1C 0E` = `START_NEW_LINE`, `"@"`, `PRINT_ACTION_TARGET_NAME`
   - **C2 caller**: `C2:9FFE` (in `src/c2/c2_9f57_run_asleep_status_wrapper_action.asm`, `RunResistCheckedParalysisStatusAction`) chooses `EF:6AE0` vs `EF:766E`.
 - `EF:6C55` (asleep inflicted message)

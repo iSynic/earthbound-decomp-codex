@@ -141,10 +141,10 @@ MECHANISMS: list[dict[str, Any]] = [
         "title": "Flash/status gate",
         "oracle": "psi_flash_and_status_gate_family",
         "fallback_oracle": "c2_724a_affliction_writer_matrix",
-        "natural_keywords": ("flash", "numb", "stonehenge"),
+        "natural_keywords": ("flash", "numb", "stonehenge", "mighty-bear-seven"),
         "required_hits": ("C2:9917", "C2:724A"),
-        "success_status": "fixture_only_navigation",
-        "next_action": "Natural Stonehenge/Mook Senior Flash now proves C2:98A1 gate entry and C2:9950 -> C2:724A crying; still need natural C2:9917 -> C2:724A numb/paralysis.",
+        "success_status": "natural_proof_candidate",
+        "next_action": "Review natural Mighty Bear Seven Flash capture: C2:98A1 -> C2:9917 -> C2:724A writes selected-row +0x1D from 0 to 3, confirming the English body-numb branch; Mook Senior Flash also covers C2:9950 -> C2:724A crying.",
     },
     {
         "id": "battle_text_amount_substitution",

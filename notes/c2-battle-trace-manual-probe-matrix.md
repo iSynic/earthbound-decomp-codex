@@ -6,9 +6,9 @@ It records fixture usefulness without storing local save-state paths or raw trac
 ## Summary
 
 - probe roots found: `15` / `15`
-- probe records: `185`
+- probe records: `187`
 - oracles summarized: `7`
-- minimum-hit candidates: `18`
+- minimum-hit candidates: `19`
 - fixtures with route-hint hits: `16`
 - remaining route gaps: `0`
 - source promotion allowed: `False`
@@ -20,10 +20,10 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | --- | --- | ---: | ---: | ---: | ---: | --- | --- | --- | --- |
 | `c1_c2_target_action_staging` | `partial-route-observed` | `32` | `0` | `32` | `0` | C1:ADB4:9, C1:CE85:10, C1:CFC6:6, C2:B930:1, C2:BAC5:31 | - | - | - |
 | `c2_40a4_current_action_payload` | `minimum-hit-candidate` | `36` | `2` | `20` | `16` | C0:52AA:1, C0:B9B4:1, C1:04EE:1, C1:0528:1, C1:0536:1, C1:0644:1, C1:0772:1, C1:078B:1, C1:DC1C:1, C1:DD3B:1, C1:DD47:1, C2:2F38:1, C2:3D05:20, C2:40A4:2, C2:4821:1, C2:488C:1, C2:48E0:1, C2:492D:1, C2:4949:1, C2:4958:1, C2:4A00:1, C2:4A2D:1, C2:4CEF:1, C2:4EEC:1, C2:4EF6:1, C2:4F03:1, C2:4F52:1, C2:4FCF:1, C2:5024:1, C2:5619:1, C2:5AFB:1, C2:5C30:1, C2:5C8C:1, C2:5D2B:1, C2:5D3D:1, C2:6081:1, C2:6088:1, C2:E8E0:1, C2:E9C8:1, C3:E4EF:1, C3:E4FE:1, C3:E512:1, C3:E51F:1 | C0:9279:16, C2:3E32:8, C2:40F2:2, C2:4147:2, C2:416F:7, C2:4703:8, C2:77CA:4, C2:90C6:2, C2:915C:2 | 00:0000:3, C1:C8BC:1, C2:859F:114, C2:8651:9, C2:8740:14, C2:889B:10, C2:8B2C:3, C2:9033:11, C2:9051:137, C2:90C6:88, C2:9647:3, C2:9C2C:6, C2:B27D:6 | 3C:1E98:1, 3C:1EA8:21, 5F:1E80:6, 5F:1E90:41, C1:1AE2:1, C2:4104:23, C2:4159:24, C2:477B:21, C2:59F9:64, C2:5A1F:29, C2:5A4B:1, C2:5A4F:1, C2:5AFB:64, C2:5D3D:105, F3:1E64:3 |
-| `c2_724a_affliction_writer_matrix` | `minimum-hit-candidate` | `15` | `1` | `5` | `0` | C2:724A:5, C2:9917:1 | - | - | - |
+| `c2_724a_affliction_writer_matrix` | `minimum-hit-candidate` | `16` | `2` | `6` | `0` | C2:724A:6, C2:9917:2 | - | - | - |
 | `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `15` | `9` | `10` | `0` | C1:0DF6:4, C1:7EED:4, C1:AD0A:4, C1:AD26:4, C1:DC1C:4, C1:DC66:4, C2:7550:1, C2:7EAF:9, C2:8125:9, C2:941D:2 | - | - | - |
 | `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `36` | `4` | `18` | `0` | C0:52AA:2, C0:B9B4:5, C1:DC1C:15, C1:DC66:13, C2:2F38:2, C2:4821:3, C2:488C:3, C2:48E0:3, C2:492D:2, C2:4949:2, C2:4958:2, C2:4A00:2, C2:4A2D:2, C2:4CEF:2, C2:4EEC:2, C2:4EF6:2, C2:4F03:2, C2:4F52:2, C2:4FCF:2, C2:5024:2, C2:5619:2, C2:5AFB:2, C2:5C30:2, C2:5C8C:1, C2:5D2B:1, C2:5D3D:1, C2:6081:2, C2:6088:1, C2:7550:5, C2:7680:1, C2:77CA:4, C2:8125:11, C2:BB18:15, C2:BC5C:2, C2:E8E0:2, C2:E9C8:2 | - | - | - |
-| `psi_flash_and_status_gate_family` | `minimum-hit-candidate` | `2` | `2` | `2` | `0` | C2:724A:1, C2:98A1:2, C2:9950:1 | - | - | - |
+| `psi_flash_and_status_gate_family` | `minimum-hit-candidate` | `3` | `2` | `3` | `0` | C2:724A:2, C2:98A1:3, C2:98DE:1, C2:9917:1, C2:9950:1 | - | - | - |
 | `resource_amount_pair_magnet_vs_pp_loss` | `partial-route-observed` | `49` | `0` | `32` | `0` | C0:52AA:25, C0:B9B4:25, C1:04EE:27, C1:0528:21, C1:0536:21, C1:0644:21, C1:0772:21, C1:078B:21, C1:DC1C:20, C1:DD3B:27, C1:DD47:27, C2:2F38:25, C2:4821:25, C2:488C:25, C2:48E0:25, C2:492D:25, C2:4949:25, C2:4958:25, C2:4A00:25, C2:4A2D:25, C2:4CEF:25, C2:4EEC:25, C2:4EF6:19, C2:4F03:19, C2:4F52:19, C2:4FCF:21, C2:5024:21, C2:5619:21, C2:5AFB:21, C2:5C30:21, C2:5C8C:18, C2:5D2B:18, C2:5D3D:14, C2:6081:21, C2:6088:14, C2:7191:10, C2:721D:11, C2:8E42:9, C2:9F5E:13, C2:9FE1:1, C2:E8E0:25, C2:E9C8:25, C3:E4EF:21, C3:E4FE:21, C3:E512:11, C3:E51F:21 | - | - | - |
 
 ## Route Gap Queue
@@ -102,6 +102,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `bash-row-flash-beta-force-numb` | `True` | `233..233` | C2:724A:1, C2:9917:1 |
 | `dread-skelpion-poison-fast` | `False` | `14..14` | C2:724A:1 |
 | `dread-skelpion-poison-fast` | `False` | `14..14` | C2:724A:1 |
+| `mighty-bear-seven-flash-numb-slot1` | `True` | `109..188` | C2:724A:2, C2:9917:1 |
 | `stonehenge-flash-crying-slot2` | `False` | `107..107` | C2:724A:1 |
 
 ### `c2_8125_damage_abi_boundary`
@@ -146,6 +147,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 
 | Fixture | Ready | Frames | Hits |
 | --- | --- | --- | --- |
+| `mighty-bear-seven-flash-numb-slot1` | `False` | `109..188` | C2:724A:2, C2:98A1:2, C2:98DE:1, C2:9917:1 |
 | `stonehenge-flash-crying-slot2` | `True` | `107..107` | C2:724A:1, C2:98A1:1, C2:9950:1 |
 | `stonehenge-flash-status-slot1` | `True` | `156..156` | C2:98A1:1 |
 
@@ -250,7 +252,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 - `probed-no-route` means the current local fixtures did not reach the lane.
 - `c2_40a4_current_action_payload` now has its first runner-backed `C2:40A4` minimum hit from the ignored `bash-row-neutralize-c240a4` fixture ROM. That run also observed `C2:90C6`, the static pre-call site `C2:915C`, loop returns near `C2:4104`/`C2:4159`, and dispatch target `C2:9051`, which separates the true `C2:40A4` loop from the earlier direct-dispatch `C0:9279 -> C2:5D3D` neighbors.
 - The replaced-slot Healing, Dread Scorpion poison, Large Pizza, and Paula Freeze fixtures remain valuable direct-dispatch coverage for `C2:8125`, `C2:724A`, and payload-adjacent targets such as `C2:8B2C`, `C2:9C2C`, and `C2:B27D`, but their `C0:9279` lanes should stay separate from the Bash-row fixture's artificial `C2:40A4` steering proof.
-- `c2_724a_affliction_writer_matrix` now has natural Dread Scorpion poison-writer and Mook Senior Flash Beta crying-writer hits with `C2:724A` post-return capture. The Flash lane also has natural `C2:98A1 -> C2:9950 -> C2:724A` coverage plus a forced Flash Beta fixture for `C2:9917 -> C2:724A`; only the natural numb-status branch remains pending.
+- `c2_724a_affliction_writer_matrix` now has natural Dread Scorpion poison-writer, Mook Senior Flash Beta crying-writer, and Mighty Bear Seven Flash body-numb writer hits with `C2:724A` post-return capture. The Flash lane now has natural `C2:98A1 -> C2:9917 -> C2:724A` coverage for body numbness plus natural `C2:98A1 -> C2:9950 -> C2:724A` coverage for crying; the remaining work is review/promotion wording rather than proving the numb branch exists.
 - `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The forced-entry `adb4-force-b930-snapshot-export` fixture observes `C2:B930` export mechanics, but the natural unpatched C1 pre-export route still needs a cleaner capture.
 - `hp_roller_collapse_boundary` now separates natural and controlled-helper evidence. The long save-state sweep found additional natural minimum-hit collapse candidates that still route through `C2:77CA`, while the direct `C2:7550` fixture proves the `C2:7680 -> C1:DC1C` descriptor-death-text path under a seeded Runaway Dog row. The direct `C2:BC5C` fixture records a post-call cleanup snapshot where live-slot transient bytes `+0x10/+0x11/+0x12/+0x14` clear from `10 11 12 00 14` to zero. These optional tail helpers are covered as controlled helper-entry mechanics, not natural damage/cleanup timing.
 - `resource_amount_pair_magnet_vs_pp_loss` now has fixture-steered entry hits for both `C2:9F5E` and `C2:8E42`, controlled WRAM-patched reducer probes that separate PSI Magnet transfer mechanics from PP reduction loss-only mechanics, and scripted-entry enemy fixtures that reach canonical Gigantic Ant row 54 and Guardian General row 95 lanes. Both lanes now have natural enemy-action-table hits, but targeted WRAM PP seeding still keeps them below proof-grade promotion. Unseeded ROM-only scripted-entry probes reach startup/front-end breakpoints but do not yet enter enemy action resolution, so the next cleaner fixture needs ROM-side battle-state setup rather than another input-pattern retry.

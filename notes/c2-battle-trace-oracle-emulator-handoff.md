@@ -88,7 +88,7 @@ emulator, and it does not prove behavior by itself.
 - result: `build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json`
 - manual setup:
   - load or create a battle state with PSI Flash, asleep/paralysis/strange status, or a solidification item available
-  - prefer Flash paralysis or item solidification for the first capture because they have compact caller paths
+  - prefer Flash body numbness or item solidification for the first capture because they have compact caller paths
   - capture caller PC, X subgroup, Y value, selected row, gate result, and success/failure text pointers
 
 ### `c2_8125_damage_abi_boundary`

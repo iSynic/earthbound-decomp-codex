@@ -600,7 +600,7 @@ ORACLES: list[dict[str, Any]] = [
             "src/c2/c2_724a_apply_battler_affliction_subgroup_value.asm",
         ],
         "acceptance_criteria": [
-            "capture Flash paralysis as the first compact writer-gate oracle",
+            "capture Flash body numbness as the first compact writer-gate oracle",
             "compare resist-checked asleep/paralysis/strange gates before sharing a C-port host-gate helper",
         ],
     },

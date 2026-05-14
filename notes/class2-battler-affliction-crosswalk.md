@@ -121,7 +121,7 @@ chance/resistance gate, and EF text result.
 
 Current lane split for that matrix:
 
-- `C2:724A` lanes cover solidification, late status payloads, Flash paralysis,
+- `C2:724A` lanes cover solidification, late status payloads, Flash body numbness,
   item-side status leaves that reach the slot writer, and the resist-checked
   PSI status trio.
 - concentration seal is adjacent but distinct: local evidence has

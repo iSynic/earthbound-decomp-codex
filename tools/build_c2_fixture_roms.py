@@ -249,7 +249,7 @@ SCENARIOS: dict[str, Scenario] = {
         ),
         expected_probe=(
             "Confirming Bash should dispatch Flash Beta, enter C2:9917, then "
-            "call C2:724A with the numb/paralysis subgroup/value pair."
+            "call C2:724A with the body-numb subgroup/value pair."
         ),
         caveats=(
             "This bypasses the natural Flash resistance/precondition gate.",
