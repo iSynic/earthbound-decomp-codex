@@ -6,9 +6,9 @@ It records fixture usefulness without storing local save-state paths or raw trac
 ## Summary
 
 - probe roots found: `15` / `15`
-- probe records: `182`
-- oracles summarized: `6`
-- minimum-hit candidates: `16`
+- probe records: `183`
+- oracles summarized: `7`
+- minimum-hit candidates: `17`
 - fixtures with route-hint hits: `16`
 - remaining route gaps: `0`
 - source promotion allowed: `False`
@@ -23,6 +23,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `c2_724a_affliction_writer_matrix` | `minimum-hit-candidate` | `14` | `1` | `4` | `0` | C2:724A:4, C2:9917:1 | - | - | - |
 | `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `15` | `9` | `10` | `0` | C1:0DF6:4, C1:7EED:4, C1:AD0A:4, C1:AD26:4, C1:DC1C:4, C1:DC66:4, C2:7550:1, C2:7EAF:9, C2:8125:9, C2:941D:2 | - | - | - |
 | `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `36` | `4` | `18` | `0` | C0:52AA:2, C0:B9B4:5, C1:DC1C:15, C1:DC66:13, C2:2F38:2, C2:4821:3, C2:488C:3, C2:48E0:3, C2:492D:2, C2:4949:2, C2:4958:2, C2:4A00:2, C2:4A2D:2, C2:4CEF:2, C2:4EEC:2, C2:4EF6:2, C2:4F03:2, C2:4F52:2, C2:4FCF:2, C2:5024:2, C2:5619:2, C2:5AFB:2, C2:5C30:2, C2:5C8C:1, C2:5D2B:1, C2:5D3D:1, C2:6081:2, C2:6088:1, C2:7550:5, C2:7680:1, C2:77CA:4, C2:8125:11, C2:BB18:15, C2:BC5C:2, C2:E8E0:2, C2:E9C8:2 | - | - | - |
+| `psi_flash_and_status_gate_family` | `minimum-hit-candidate` | `1` | `1` | `1` | `0` | C2:98A1:1 | - | - | - |
 | `resource_amount_pair_magnet_vs_pp_loss` | `partial-route-observed` | `49` | `0` | `32` | `0` | C0:52AA:25, C0:B9B4:25, C1:04EE:27, C1:0528:21, C1:0536:21, C1:0644:21, C1:0772:21, C1:078B:21, C1:DC1C:20, C1:DD3B:27, C1:DD47:27, C2:2F38:25, C2:4821:25, C2:488C:25, C2:48E0:25, C2:492D:25, C2:4949:25, C2:4958:25, C2:4A00:25, C2:4A2D:25, C2:4CEF:25, C2:4EEC:25, C2:4EF6:19, C2:4F03:19, C2:4F52:19, C2:4FCF:21, C2:5024:21, C2:5619:21, C2:5AFB:21, C2:5C30:21, C2:5C8C:18, C2:5D2B:18, C2:5D3D:14, C2:6081:21, C2:6088:14, C2:7191:10, C2:721D:11, C2:8E42:9, C2:9F5E:13, C2:9FE1:1, C2:E8E0:25, C2:E9C8:25, C3:E4EF:21, C3:E4FE:21, C3:E512:11, C3:E51F:21 | - | - | - |
 
 ## Route Gap Queue
@@ -139,6 +140,12 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `save7-extended-confirm` | `False` | `3609..3609` | C2:BB18:1 |
 | `scripted-entry-bc5c-expanded-oracle` | `False` | `56..6536` | C0:52AA:1, C0:B9B4:1, C1:DC1C:2, C2:2F38:1, C2:4821:1, C2:488C:1, C2:48E0:1, C2:492D:32, C2:4949:33, C2:4958:1, C2:4A00:1, C2:4A2D:2, C2:4CEF:1, C2:4EEC:1, C2:4EF6:1, C2:4F03:1, C2:4F52:1, C2:4FCF:1, C2:5024:1, C2:5619:1, C2:5AFB:1, C2:5C30:1, C2:6081:1, C2:BB18:7, C2:E8E0:1, C2:E9C8:73 |
 | `scripted-entry-bc5c-expanded-oracle-long` | `False` | `56..23812` | C0:52AA:1, C0:B9B4:1, C1:DC1C:62, C1:DC66:2, C2:2F38:1, C2:4821:1, C2:488C:1, C2:48E0:1, C2:492D:32, C2:4949:33, C2:4958:1, C2:4A00:1, C2:4A2D:2, C2:4CEF:1, C2:4EEC:1, C2:4EF6:1, C2:4F03:1, C2:4F52:1, C2:4FCF:21, C2:5024:21, C2:5619:61, C2:5AFB:41, C2:5C30:41, C2:5C8C:1249, C2:5D2B:40, C2:5D3D:39, C2:6081:61, C2:6088:20, C2:8125:2, C2:BB18:306, C2:E8E0:1, C2:E9C8:73 |
+
+### `psi_flash_and_status_gate_family`
+
+| Fixture | Ready | Frames | Hits |
+| --- | --- | --- | --- |
+| `stonehenge-flash-status-slot1` | `True` | `156..156` | C2:98A1:1 |
 
 ### `resource_amount_pair_magnet_vs_pp_loss`
 

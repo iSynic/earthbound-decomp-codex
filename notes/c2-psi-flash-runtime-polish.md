@@ -69,6 +69,13 @@ text `EF:766E` on failure.
 The Flash tier wrappers therefore only enter their random branch maps after both
 the default target/NPC gate and this selected-row gate pass.
 
+Natural vanilla trace evidence now covers the shared gate entry. The Stonehenge
+Base save-state capture `stonehenge-flash-status-slot1/psi-flash-gate-neutral`
+observes a Flash Gamma action dispatching through `C2:99EF` and entering
+`C2:98A1`; that run then took the collapse/instant-kill side rather than the
+`C2:9917` numb branch. This proves the gate is reached naturally, while the
+paralysis writer branch still needs a natural save-state capture.
+
 ## Tier Branch Maps
 
 All four Flash tiers sample `C0:8E9A & 7`.

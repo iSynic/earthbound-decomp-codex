@@ -15,14 +15,13 @@
   "summary": {
     "mechanism_count": 12,
     "status_counts": {
-      "fixture_only_navigation": 1,
-      "natural_capture_fields_missing": 1,
+      "natural_capture_fields_missing": 2,
       "natural_proof_candidate": 10
     },
     "natural_proof_candidate_count": 10,
-    "natural_capture_fields_missing_count": 1,
+    "natural_capture_fields_missing_count": 2,
     "runtime_steered_needed_count": 0,
-    "fixture_only_navigation_count": 1,
+    "fixture_only_navigation_count": 0,
     "not_yet_observed_count": 0,
     "source_promotion_allowed": false,
     "behavior_change_allowed": false
@@ -2239,7 +2238,7 @@
     {
       "mechanism_id": "flash_status_gate",
       "title": "Flash/status gate",
-      "status": "fixture_only_navigation",
+      "status": "natural_capture_fields_missing",
       "oracle_id": "psi_flash_and_status_gate_family",
       "fallback_oracle_id": "c2_724a_affliction_writer_matrix",
       "required_hits": [
@@ -2249,13 +2248,32 @@
       "required_post_call_snapshots": [],
       "required_watch_snapshots": [],
       "natural_candidate_count": 0,
-      "natural_partial_count": 0,
+      "natural_partial_count": 1,
       "steered_candidate_count": 1,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
-      "next_action": "Find or steer a natural C2:98A1 gate run; current C2:9917 route is forced-fixture only.",
+      "next_action": "Natural Stonehenge Flash now proves C2:98A1 gate entry; still need a natural C2:9917 -> C2:724A numb/paralysis branch.",
       "best_natural_records": [],
-      "partial_natural_records": [],
+      "partial_natural_records": [
+        {
+          "fixture_id": "stonehenge-flash-status-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "psi_flash_and_status_gate_family",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C2:98A1"
+          ],
+          "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {},
+          "first_frame": 156,
+          "last_frame": 156,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "87db5215fdf93ac4e0c2b53f8c48cdca32e5492cfdcea571f2507d7054760f4e"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/stonehenge-flash-status-slot1/psi-flash-gate-neutral/raw-trace-summary.json"
+        }
+      ],
       "steered_records": [
         {
           "fixture_id": "bash-row-flash-beta-force-numb",

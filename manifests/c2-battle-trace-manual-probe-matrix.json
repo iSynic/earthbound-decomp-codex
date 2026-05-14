@@ -27,14 +27,14 @@
   "summary": {
     "probe_root_count": 15,
     "probe_roots_found": 15,
-    "record_count": 182,
-    "oracle_count": 6,
-    "minimum_hit_candidate_count": 16,
+    "record_count": 183,
+    "oracle_count": 7,
+    "minimum_hit_candidate_count": 17,
     "route_hint_fixture_count": 16,
     "remaining_route_gap_count": 0,
     "status_counts": {
       "partial-route-observed": 2,
-      "minimum-hit-candidate": 4
+      "minimum-hit-candidate": 5
     }
   },
   "route_gap_queue": [],
@@ -2770,6 +2770,47 @@
           },
           "first_frame": 56,
           "last_frame": 23812
+        }
+      ],
+      "probe_fixture_hits": []
+    },
+    {
+      "oracle_id": "psi_flash_and_status_gate_family",
+      "configured_minimum_hits": [],
+      "status": "minimum-hit-candidate",
+      "probe_count": 1,
+      "minimum_hit_candidate_count": 1,
+      "fixtures_with_any_hits": 1,
+      "fixtures_with_probe_hits": 0,
+      "observed_address_counts": {
+        "C2:98A1": 1
+      },
+      "probe_observed_address_counts": {},
+      "probe_route_group_counts": {},
+      "dispatch_target_counts": {
+        "C2:99EF": 1
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "3C:99FC": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "route_groups": {},
+      "fixture_hits": [
+        {
+          "fixture_id": "stonehenge-flash-status-slot1",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C2:98A1"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:98A1": 1
+          },
+          "first_frame": 156,
+          "last_frame": 156
         }
       ],
       "probe_fixture_hits": []
@@ -16026,6 +16067,49 @@
         "sha256": "8e2866d3a61b937d20414b28c0841c9c0d5ade5d175cb267d0a03c1bdb699ee6"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/mad-duck-pp-loss-slot1/resource-neutral/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "stonehenge-flash-status-slot1",
+      "oracle_id": "psi_flash_and_status_gate_family",
+      "minimum_hits_satisfied": true,
+      "observed_addresses": [
+        "C2:98A1"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:98A1": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:99EF": 1
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "3C:99FC": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {},
+      "watch_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:98A1"
+      ],
+      "missing_minimum_hits": [],
+      "first_frame": 156,
+      "last_frame": 156,
+      "trace_line_count": 6,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_1.mss",
+        "sha256": "87db5215fdf93ac4e0c2b53f8c48cdca32e5492cfdcea571f2507d7054760f4e"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/stonehenge-flash-status-slot1/psi-flash-gate-neutral/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     },
