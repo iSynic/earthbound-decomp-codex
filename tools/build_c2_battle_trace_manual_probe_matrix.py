@@ -17,6 +17,8 @@ DEFAULT_PROBE_ROOTS = (
     ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "battle-fixtures-8",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "battle-fixtures-replaced-slots",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "collapse-save-state-probes-neutral" / "hp_roller_collapse_boundary",
+    ROOT / "build" / "c2" / "battle-trace-oracles" / "collapse-save-state-probes-neutral-long" / "hp_roller_collapse_boundary",
+    ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "hp-roller-collapse-tail",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c1-c2-target-action-staging",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c1-c2-target-action-staging",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c2-40a4-current-action-payload",
@@ -418,6 +420,7 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- The replaced-slot Healing, Dread Scorpion poison, Large Pizza, and Paula Freeze fixtures remain valuable direct-dispatch coverage for `C2:8125`, `C2:724A`, and payload-adjacent targets such as `C2:8B2C`, `C2:9C2C`, and `C2:B27D`, but their `C0:9279` lanes should stay separate from the Bash-row fixture's artificial `C2:40A4` steering proof.",
             "- `c2_724a_affliction_writer_matrix` now has both the Dread Scorpion poison-writer hit and a forced Flash Beta fixture that observes the paired `C2:9917 -> C2:724A` numb-status route. It remains follow-up rather than proof-grade because the natural `C2:98A1` gate and post-write return value still need cleaner evidence.",
             "- `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The forced-entry `adb4-force-b930-snapshot-export` fixture observes `C2:B930` export mechanics, but the natural unpatched C1 pre-export route still needs a cleaner capture.",
+            "- `hp_roller_collapse_boundary` now has a long save-state sweep and scripted-entry startup probes folded into the matrix. The save-state sweep found additional minimum-hit collapse candidates but still no `C2:7680` descriptor-death-text hit. The scripted-entry cleanup scout reaches `C0:B9B4 -> C2:2F38`, `C2:5AFB`, `C2:6088`, and repeated `C2:BB18`, but not `C2:6093`, `C2:6145`, or `C2:BC5C`, so inactive-slot cleanup remains a dedicated fixture/seed follow-up rather than an inferred tail.",
             "- `resource_amount_pair_magnet_vs_pp_loss` now has fixture-steered entry hits for both `C2:9F5E` and `C2:8E42`, controlled WRAM-patched reducer probes that separate PSI Magnet transfer mechanics from PP reduction loss-only mechanics, and scripted-entry enemy fixtures that reach canonical Gigantic Ant row 54 and Guardian General row 95 lanes. Both lanes now have natural enemy-action-table hits, but targeted WRAM PP seeding still keeps them below proof-grade promotion.",
         ]
     )

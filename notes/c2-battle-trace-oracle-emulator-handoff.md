@@ -9,7 +9,7 @@ emulator, and it does not prove behavior by itself.
 ## Summary
 
 - handoff jobs: `6`
-- breakpoints: `136`
+- breakpoints: `166`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
 
@@ -116,6 +116,7 @@ emulator, and it does not prove behavior by itself.
 - save state: `<local-only save state path>`
 - stop condition: minimum breakpoint hits plus required before/after snapshots written to raw-trace.jsonl
 - minimum hits: `['C2:8125', 'C2:7550']`
+- route groups: `['collapse_tail', 'scripted_entry_cleanup_tail']`
 - watch ranges: `['selected_target_row', 'battler_rows', 'text_payload_slots']`
 - extra trace fields: `['$A972 selected target row before/after C2:8125', 'row +0x11/+0x13/+0x15 HP live/target/max sequence', 'C2:7550 collapse startup entry and row +0x1D/+0x23 mutations', 'C2:7680 death text pointer or C2:77CA late-controller route', 'C1:DC1C/C1:DC66 result text pointer and payload state']`
 - raw trace: `build/c2/battle-trace-oracles/hp_roller_collapse_boundary/raw-trace.jsonl`
