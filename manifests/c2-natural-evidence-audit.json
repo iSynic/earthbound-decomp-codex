@@ -2247,13 +2247,36 @@
       ],
       "required_post_call_snapshots": [],
       "required_watch_snapshots": [],
-      "natural_candidate_count": 1,
-      "natural_partial_count": 4,
+      "natural_candidate_count": 2,
+      "natural_partial_count": 5,
       "steered_candidate_count": 1,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
       "next_action": "Review natural Mighty Bear Seven Flash capture: C2:98A1 -> C2:9917 -> C2:724A writes selected-row +0x1D from 0 to 3, confirming the English body-numb branch; Mook Senior Flash also covers C2:9950 -> C2:724A crying.",
       "best_natural_records": [
+        {
+          "fixture_id": "mighty-bear-seven-flash-numb-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "c2_724a_affliction_writer_matrix",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C2:724A",
+            "C2:9917"
+          ],
+          "post_call_snapshot_counts": {
+            "C2:724A": 2
+          },
+          "watch_snapshot_counts": {
+            "selected_battler_afflictions": 5
+          },
+          "first_frame": 109,
+          "last_frame": 188,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "498e0aa22a30b07f9942e5ff1fc9f3f261e610a2c600ca5053950cfbef6f8a4f"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/mighty-bear-seven-flash-numb-slot1/affliction-neutral/raw-trace-summary.json"
+        },
         {
           "fixture_id": "mighty-bear-seven-flash-numb-slot1",
           "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
@@ -2279,6 +2302,29 @@
         }
       ],
       "partial_natural_records": [
+        {
+          "fixture_id": "mighty-bear-seven-flash-numb-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "c2_724a_affliction_writer_matrix",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C2:724A",
+            "C2:9917"
+          ],
+          "post_call_snapshot_counts": {
+            "C2:724A": 2
+          },
+          "watch_snapshot_counts": {
+            "selected_battler_afflictions": 5
+          },
+          "first_frame": 109,
+          "last_frame": 188,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "498e0aa22a30b07f9942e5ff1fc9f3f261e610a2c600ca5053950cfbef6f8a4f"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/mighty-bear-seven-flash-numb-slot1/affliction-neutral/raw-trace-summary.json"
+        },
         {
           "fixture_id": "mighty-bear-seven-flash-numb-slot1",
           "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",

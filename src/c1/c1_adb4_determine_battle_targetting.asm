@@ -909,8 +909,8 @@ C1B3D0_DetermineBattleTargetting_LB3D0:
     tax
     lda $2A
     sta $04
-    ; Natural callsite for C2:B930 snapshot export; current runtime proof of
-    ; row mechanics uses the forced C1:ADB4 fixture.
+    ; Natural USE_ITEM route proof: Fresh Egg target confirmation reaches
+    ; this C1:B3DB callsite before C2:B930 exports the battler snapshot.
     jsl C2B930_ExportBattleSelectionSnapshot
     sep #$20
     lda $01

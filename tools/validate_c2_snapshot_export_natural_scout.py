@@ -27,12 +27,14 @@ def validate(manifest: dict[str, Any]) -> list[str]:
     if summary.get("run_count", 0) < 8:
         errors.append("expected at least the numbered-save scout runs")
     for field in ("natural_route_proven", "source_promotion_allowed", "behavior_change_allowed"):
-        if summary.get(field) is not False:
-            errors.append(f"{field} must remain false")
-    if summary.get("snapshot_export_callsite_run_count") != 0:
-        errors.append("current scout should not claim natural snapshot-export callsite hits")
-    if summary.get("natural_b930_run_count") != 0:
-        errors.append("current scout should not claim natural C2:B930 hits")
+        if field == "behavior_change_allowed":
+            expected = False
+        else:
+            expected = summary.get("snapshot_export_callsite_run_count", 0) > 0 or summary.get("natural_b930_run_count", 0) > 0
+        if summary.get(field) is not expected:
+            errors.append(f"{field} expected {expected}")
+    if summary.get("natural_route_proven") and summary.get("natural_b930_run_count", 0) <= 0:
+        errors.append("natural route proof requires at least one C2:B930 hit")
     if summary.get("c2_bac5_neighbor_run_count", 0) <= 0:
         errors.append("expected C2:BAC5 neighbor evidence")
     if not any(run.get("c1_adb4_hit") for run in runs):

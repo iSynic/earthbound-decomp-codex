@@ -95,23 +95,26 @@ def build_manifest(input_roots: tuple[Path, ...] = DEFAULT_INPUT_ROOTS) -> dict[
             "c1_adb4_neighbor_run_count": len(c1_neighbors),
             "c1_ce85_item_resolver_neighbor_run_count": len(item_neighbors),
             "c2_bac5_neighbor_run_count": len(bac5_neighbors),
-            "natural_route_proven": False,
-            "source_promotion_allowed": False,
+            "natural_route_proven": bool(export_ready),
+            "source_promotion_allowed": bool(export_ready),
             "behavior_change_allowed": False,
         },
         "runs": runs,
         "interpretation": {
-            "current_existing_saves_position": "mostly_after_c1_snapshot_export_or_on_target_count_neighbors",
+            "current_existing_saves_position": (
+                "battle_goods_saves_are_neighbors; overworld_goods_use_save_now_reaches_snapshot_export"
+            ),
             "best_existing_neighbor": best_neighbor,
             "latest_live_result": (
-                "The slot9 Large Pizza and slot2 Fresh Egg battle Goods saves both reach "
-                "C1:CE85 -> C1:ADB4 -> C2:BAC5, but neither battle-selection path touches "
-                "the C1:AF73 use-item bridge where the C2:B930 export callsites live."
+                "The slot2 overworld Goods Use Fresh Egg save reaches the C1:B3DB "
+                "snapshot-export callsite and C2:B930. The earlier slot9 Large Pizza "
+                "and slot2 Fresh Egg battle Goods saves remain useful C1:CE85/ADB4 "
+                "neighbors, but they are not B930 routes."
             ),
             "next_required_fixture": (
-                "An overworld/menu Goods Use save that enters the C1:AF73 USE_ITEM bridge, "
-                "preferably with a usable item whose D5 action row has a non-null +0x08 payload. "
-                "Battle Goods C1:CE85/ADB4 saves are now proven neighbor evidence, not B930 routes."
+                "Optional follow-up: repeat the overworld Goods Use route with one more item "
+                "family or one more target to broaden C1:B3DB coverage. The first natural "
+                "C2:B930 route is now proven for the Fresh Egg -> Poo save."
             ),
         },
     }
@@ -155,9 +158,9 @@ def render_note(manifest: dict[str, Any]) -> str:
             "## Interpretation",
             "",
             "- Existing saves mostly observe `C2:BAC5` target-count neighbors or later effect-resolution paths.",
-            f"- `{manifest['interpretation']['best_existing_neighbor']}` is the best current neighbor because it reaches the deepest natural pre-export route seen so far, but it still misses the natural snapshot-export callsites and `C2:B930`.",
+            f"- `{manifest['interpretation']['best_existing_neighbor']}` is the best current neighbor among non-export routes.",
             f"- {manifest['interpretation']['latest_live_result']}",
-            "- The enhanced runner remains useful: it is now waiting for an earlier pre-export fixture rather than missing capture support.",
+            "- The enhanced runner is now useful for broadening the route rather than merely waiting for a pre-export fixture.",
             "",
             "## Next Fixture",
             "",
