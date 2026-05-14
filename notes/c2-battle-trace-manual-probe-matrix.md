@@ -6,9 +6,9 @@ It records fixture usefulness without storing local save-state paths or raw trac
 ## Summary
 
 - probe roots found: `15` / `15`
-- probe records: `187`
+- probe records: `189`
 - oracles summarized: `7`
-- minimum-hit candidates: `19`
+- minimum-hit candidates: `20`
 - fixtures with route-hint hits: `16`
 - remaining route gaps: `0`
 - source promotion allowed: `False`
@@ -21,8 +21,8 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `c1_c2_target_action_staging` | `partial-route-observed` | `32` | `0` | `32` | `0` | C1:ADB4:9, C1:CE85:10, C1:CFC6:6, C2:B930:1, C2:BAC5:31 | - | - | - |
 | `c2_40a4_current_action_payload` | `minimum-hit-candidate` | `36` | `2` | `20` | `16` | C0:52AA:1, C0:B9B4:1, C1:04EE:1, C1:0528:1, C1:0536:1, C1:0644:1, C1:0772:1, C1:078B:1, C1:DC1C:1, C1:DD3B:1, C1:DD47:1, C2:2F38:1, C2:3D05:20, C2:40A4:2, C2:4821:1, C2:488C:1, C2:48E0:1, C2:492D:1, C2:4949:1, C2:4958:1, C2:4A00:1, C2:4A2D:1, C2:4CEF:1, C2:4EEC:1, C2:4EF6:1, C2:4F03:1, C2:4F52:1, C2:4FCF:1, C2:5024:1, C2:5619:1, C2:5AFB:1, C2:5C30:1, C2:5C8C:1, C2:5D2B:1, C2:5D3D:1, C2:6081:1, C2:6088:1, C2:E8E0:1, C2:E9C8:1, C3:E4EF:1, C3:E4FE:1, C3:E512:1, C3:E51F:1 | C0:9279:16, C2:3E32:8, C2:40F2:2, C2:4147:2, C2:416F:7, C2:4703:8, C2:77CA:4, C2:90C6:2, C2:915C:2 | 00:0000:3, C1:C8BC:1, C2:859F:114, C2:8651:9, C2:8740:14, C2:889B:10, C2:8B2C:3, C2:9033:11, C2:9051:137, C2:90C6:88, C2:9647:3, C2:9C2C:6, C2:B27D:6 | 3C:1E98:1, 3C:1EA8:21, 5F:1E80:6, 5F:1E90:41, C1:1AE2:1, C2:4104:23, C2:4159:24, C2:477B:21, C2:59F9:64, C2:5A1F:29, C2:5A4B:1, C2:5A4F:1, C2:5AFB:64, C2:5D3D:105, F3:1E64:3 |
 | `c2_724a_affliction_writer_matrix` | `minimum-hit-candidate` | `16` | `2` | `6` | `0` | C2:724A:6, C2:9917:2 | - | - | - |
-| `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `15` | `9` | `10` | `0` | C1:0DF6:4, C1:7EED:4, C1:AD0A:4, C1:AD26:4, C1:DC1C:4, C1:DC66:4, C2:7550:1, C2:7EAF:9, C2:8125:9, C2:941D:2 | - | - | - |
-| `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `36` | `4` | `18` | `0` | C0:52AA:2, C0:B9B4:5, C1:DC1C:15, C1:DC66:13, C2:2F38:2, C2:4821:3, C2:488C:3, C2:48E0:3, C2:492D:2, C2:4949:2, C2:4958:2, C2:4A00:2, C2:4A2D:2, C2:4CEF:2, C2:4EEC:2, C2:4EF6:2, C2:4F03:2, C2:4F52:2, C2:4FCF:2, C2:5024:2, C2:5619:2, C2:5AFB:2, C2:5C30:2, C2:5C8C:1, C2:5D2B:1, C2:5D3D:1, C2:6081:2, C2:6088:1, C2:7550:5, C2:7680:1, C2:77CA:4, C2:8125:11, C2:BB18:15, C2:BC5C:2, C2:E8E0:2, C2:E9C8:2 | - | - | - |
+| `c2_8125_damage_abi_boundary` | `minimum-hit-candidate` | `16` | `10` | `11` | `0` | C1:0DF6:5, C1:7EED:5, C1:AD0A:5, C1:AD26:5, C1:DC1C:4, C1:DC66:5, C2:7550:1, C2:7EAF:10, C2:8125:10, C2:941D:2 | - | - | - |
+| `hp_roller_collapse_boundary` | `minimum-hit-candidate` | `37` | `4` | `19` | `0` | C0:52AA:2, C0:B9B4:5, C1:DC1C:15, C1:DC66:14, C2:2F38:2, C2:4821:3, C2:488C:3, C2:48E0:3, C2:492D:2, C2:4949:2, C2:4958:2, C2:4A00:2, C2:4A2D:2, C2:4CEF:2, C2:4EEC:2, C2:4EF6:2, C2:4F03:2, C2:4F52:2, C2:4FCF:3, C2:5024:3, C2:5619:3, C2:5AFB:3, C2:5C30:3, C2:5C8C:2, C2:5D2B:2, C2:5D3D:2, C2:6081:3, C2:6088:2, C2:7550:5, C2:7680:1, C2:77CA:4, C2:8125:12, C2:BB18:16, C2:BC5C:2, C2:E8E0:2, C2:E9C8:2 | - | - | - |
 | `psi_flash_and_status_gate_family` | `minimum-hit-candidate` | `3` | `2` | `3` | `0` | C2:724A:2, C2:98A1:3, C2:98DE:1, C2:9917:1, C2:9950:1 | - | - | - |
 | `resource_amount_pair_magnet_vs_pp_loss` | `partial-route-observed` | `49` | `0` | `32` | `0` | C0:52AA:25, C0:B9B4:25, C1:04EE:27, C1:0528:21, C1:0536:21, C1:0644:21, C1:0772:21, C1:078B:21, C1:DC1C:20, C1:DD3B:27, C1:DD47:27, C2:2F38:25, C2:4821:25, C2:488C:25, C2:48E0:25, C2:492D:25, C2:4949:25, C2:4958:25, C2:4A00:25, C2:4A2D:25, C2:4CEF:25, C2:4EEC:25, C2:4EF6:19, C2:4F03:19, C2:4F52:19, C2:4FCF:21, C2:5024:21, C2:5619:21, C2:5AFB:21, C2:5C30:21, C2:5C8C:18, C2:5D2B:18, C2:5D3D:14, C2:6081:21, C2:6088:14, C2:7191:10, C2:721D:11, C2:8E42:9, C2:9F5E:13, C2:9FE1:1, C2:E8E0:25, C2:E9C8:25, C3:E4EF:21, C3:E4FE:21, C3:E512:11, C3:E51F:21 | - | - | - |
 
@@ -119,6 +119,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `05-large-pizza-party-heal` | `True` | `75..492` | C1:0DF6:2, C1:7EED:2, C1:AD0A:2, C1:AD26:2, C1:DC1C:4, C1:DC66:2, C2:7EAF:1, C2:8125:1 |
 | `07-jeff-hp-rolling` | `True` | `41..333` | C2:7EAF:2, C2:8125:2 |
 | `08-paula-freeze-before-animation` | `True` | `13..891` | C1:0DF6:5, C1:7EED:5, C1:AD0A:5, C1:AD26:5, C1:DC1C:1, C1:DC66:5, C2:7550:1, C2:7EAF:4, C2:8125:4, C2:941D:1 |
+| `hp-sucker-slot1` | `True` | `147..353` | C1:0DF6:2, C1:7EED:2, C1:AD0A:2, C1:AD26:2, C1:DC66:2, C2:7EAF:1, C2:8125:1 |
 
 ### `hp_roller_collapse_boundary`
 
@@ -139,6 +140,7 @@ It records fixture usefulness without storing local save-state paths or raw trac
 | `direct-c27550-descriptor-death-text` | `False` | `60..60` | C0:B9B4:1, C1:DC1C:1, C2:7550:1, C2:7680:1 |
 | `direct-c2bc5c-cleanup` | `False` | `60..600` | C0:B9B4:1, C2:4821:1, C2:488C:1, C2:48E0:1, C2:BC5C:1 |
 | `direct-c2bc5c-cleanup-postcall` | `False` | `60..60` | C0:B9B4:1, C2:BC5C:1 |
+| `hp-sucker-slot1` | `False` | `147..455` | C1:DC66:2, C2:4FCF:1, C2:5024:1, C2:5619:5, C2:5AFB:3, C2:5C30:3, C2:5C8C:128, C2:5D2B:4, C2:5D3D:4, C2:6081:5, C2:6088:1, C2:8125:1, C2:BB18:18 |
 | `save7-extended-confirm` | `False` | `3609..3609` | C2:BB18:1 |
 | `scripted-entry-bc5c-expanded-oracle` | `False` | `56..6536` | C0:52AA:1, C0:B9B4:1, C1:DC1C:2, C2:2F38:1, C2:4821:1, C2:488C:1, C2:48E0:1, C2:492D:32, C2:4949:33, C2:4958:1, C2:4A00:1, C2:4A2D:2, C2:4CEF:1, C2:4EEC:1, C2:4EF6:1, C2:4F03:1, C2:4F52:1, C2:4FCF:1, C2:5024:1, C2:5619:1, C2:5AFB:1, C2:5C30:1, C2:6081:1, C2:BB18:7, C2:E8E0:1, C2:E9C8:73 |
 | `scripted-entry-bc5c-expanded-oracle-long` | `False` | `56..23812` | C0:52AA:1, C0:B9B4:1, C1:DC1C:62, C1:DC66:2, C2:2F38:1, C2:4821:1, C2:488C:1, C2:48E0:1, C2:492D:32, C2:4949:33, C2:4958:1, C2:4A00:1, C2:4A2D:2, C2:4CEF:1, C2:4EEC:1, C2:4EF6:1, C2:4F03:1, C2:4F52:1, C2:4FCF:21, C2:5024:21, C2:5619:61, C2:5AFB:41, C2:5C30:41, C2:5C8C:1249, C2:5D2B:40, C2:5D3D:39, C2:6081:61, C2:6088:20, C2:8125:2, C2:BB18:306, C2:E8E0:1, C2:E9C8:73 |

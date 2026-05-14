@@ -487,8 +487,8 @@
       ],
       "required_post_call_snapshots": [],
       "required_watch_snapshots": [],
-      "natural_candidate_count": 3,
-      "natural_partial_count": 3,
+      "natural_candidate_count": 4,
+      "natural_partial_count": 4,
       "steered_candidate_count": 1,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
@@ -574,6 +574,40 @@
             "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
           },
           "raw_trace_summary": "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral-long/hp_roller_collapse_boundary/09-earthbound-usa-8/raw-trace-summary.json"
+        },
+        {
+          "fixture_id": "hp-sucker-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "hp_roller_collapse_boundary",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:DC66",
+            "C2:4FCF",
+            "C2:5024",
+            "C2:5619",
+            "C2:5AFB",
+            "C2:5C30",
+            "C2:5C8C",
+            "C2:5D2B",
+            "C2:5D3D",
+            "C2:6081",
+            "C2:6088",
+            "C2:8125",
+            "C2:BB18"
+          ],
+          "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 176,
+            "selected_target_row": 176,
+            "text_payload_slots": 176
+          },
+          "first_frame": 147,
+          "last_frame": 455,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "bc4a04e597b0a38ee1a74f164cb9f4ca46856a8506581518e393c23c1352cc1c"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/hp-sucker-slot1/hp-roller-neutral/raw-trace-summary.json"
         }
       ],
       "partial_natural_records": [
@@ -657,6 +691,40 @@
             "sha256": "bb9f66fbb11d7fe9d7bc7e8d80fa987311e224b32ae95cf1e3fcdf02448c7b0a"
           },
           "raw_trace_summary": "build/c2/battle-trace-oracles/collapse-save-state-probes-neutral-long/hp_roller_collapse_boundary/09-earthbound-usa-8/raw-trace-summary.json"
+        },
+        {
+          "fixture_id": "hp-sucker-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "hp_roller_collapse_boundary",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C1:DC66",
+            "C2:4FCF",
+            "C2:5024",
+            "C2:5619",
+            "C2:5AFB",
+            "C2:5C30",
+            "C2:5C8C",
+            "C2:5D2B",
+            "C2:5D3D",
+            "C2:6081",
+            "C2:6088",
+            "C2:8125",
+            "C2:BB18"
+          ],
+          "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "battler_rows": 176,
+            "selected_target_row": 176,
+            "text_payload_slots": 176
+          },
+          "first_frame": 147,
+          "last_frame": 455,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "bc4a04e597b0a38ee1a74f164cb9f4ca46856a8506581518e393c23c1352cc1c"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/hp-sucker-slot1/hp-roller-neutral/raw-trace-summary.json"
         }
       ],
       "steered_records": [
@@ -857,12 +925,12 @@
       ],
       "required_post_call_snapshots": [],
       "required_watch_snapshots": [],
-      "natural_candidate_count": 2,
-      "natural_partial_count": 2,
+      "natural_candidate_count": 3,
+      "natural_partial_count": 3,
       "steered_candidate_count": 0,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
-      "next_action": "Use Large Pizza natural save to join item action, HP amount, and text payload.",
+      "next_action": "Use Large Pizza and HP-Sucker natural saves to join item action, HP amount, and text payload.",
       "best_natural_records": [
         {
           "fixture_id": "04-goods-menu-mash-a",
@@ -911,6 +979,32 @@
             "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
           },
           "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/05-large-pizza-party-heal/c2_8125_damage_abi_boundary/raw-trace-summary.json"
+        },
+        {
+          "fixture_id": "hp-sucker-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "c2_8125_damage_abi_boundary",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C1:0DF6",
+            "C1:7EED",
+            "C1:AD0A",
+            "C1:AD26",
+            "C1:DC66",
+            "C2:7EAF",
+            "C2:8125"
+          ],
+          "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 12
+          },
+          "first_frame": 147,
+          "last_frame": 353,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "bc4a04e597b0a38ee1a74f164cb9f4ca46856a8506581518e393c23c1352cc1c"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/hp-sucker-slot1/damage-neutral/raw-trace-summary.json"
         }
       ],
       "partial_natural_records": [
@@ -961,6 +1055,32 @@
             "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
           },
           "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/05-large-pizza-party-heal/c2_8125_damage_abi_boundary/raw-trace-summary.json"
+        },
+        {
+          "fixture_id": "hp-sucker-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "c2_8125_damage_abi_boundary",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C1:0DF6",
+            "C1:7EED",
+            "C1:AD0A",
+            "C1:AD26",
+            "C1:DC66",
+            "C2:7EAF",
+            "C2:8125"
+          ],
+          "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 12
+          },
+          "first_frame": 147,
+          "last_frame": 353,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "bc4a04e597b0a38ee1a74f164cb9f4ca46856a8506581518e393c23c1352cc1c"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/hp-sucker-slot1/damage-neutral/raw-trace-summary.json"
         }
       ],
       "steered_records": []
@@ -2450,12 +2570,12 @@
       ],
       "required_post_call_snapshots": [],
       "required_watch_snapshots": [],
-      "natural_candidate_count": 3,
-      "natural_partial_count": 4,
+      "natural_candidate_count": 4,
+      "natural_partial_count": 5,
       "steered_candidate_count": 0,
       "reviewed_result_classification": null,
       "reviewed_result_status": null,
-      "next_action": "Review fallback C2:8125 C1 amount-payload joins; keep dedicated battle_text_payload_join oracle unresolved.",
+      "next_action": "Review fallback C2:8125 C1 amount-payload joins, including HP-Sucker EF:75AB; keep dedicated battle_text_payload_join oracle unresolved.",
       "best_natural_records": [
         {
           "fixture_id": "08-paula-freeze-before-animation",
@@ -2539,6 +2659,32 @@
             "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
           },
           "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/05-large-pizza-party-heal/c2_8125_damage_abi_boundary/raw-trace-summary.json"
+        },
+        {
+          "fixture_id": "hp-sucker-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "c2_8125_damage_abi_boundary",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C1:0DF6",
+            "C1:7EED",
+            "C1:AD0A",
+            "C1:AD26",
+            "C1:DC66",
+            "C2:7EAF",
+            "C2:8125"
+          ],
+          "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 12
+          },
+          "first_frame": 147,
+          "last_frame": 353,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "bc4a04e597b0a38ee1a74f164cb9f4ca46856a8506581518e393c23c1352cc1c"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/hp-sucker-slot1/damage-neutral/raw-trace-summary.json"
         }
       ],
       "partial_natural_records": [
@@ -2645,6 +2791,32 @@
             "sha256": "239155e944acc4e13f7b0cb045d4b28872140a84b1a419c3ebdca03ffa697a23"
           },
           "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/battle-fixtures-replaced-slots/05-large-pizza-party-heal/c2_8125_damage_abi_boundary/raw-trace-summary.json"
+        },
+        {
+          "fixture_id": "hp-sucker-slot1",
+          "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+          "oracle_id": "c2_8125_damage_abi_boundary",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C1:0DF6",
+            "C1:7EED",
+            "C1:AD0A",
+            "C1:AD26",
+            "C1:DC66",
+            "C2:7EAF",
+            "C2:8125"
+          ],
+          "post_call_snapshot_counts": {},
+          "watch_snapshot_counts": {
+            "selected_target_row": 12
+          },
+          "first_frame": 147,
+          "last_frame": 353,
+          "save_state": {
+            "basename": "EarthBound (USA)_1.mss",
+            "sha256": "bc4a04e597b0a38ee1a74f164cb9f4ca46856a8506581518e393c23c1352cc1c"
+          },
+          "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/hp-sucker-slot1/damage-neutral/raw-trace-summary.json"
         }
       ],
       "steered_records": []

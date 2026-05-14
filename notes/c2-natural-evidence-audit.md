@@ -22,15 +22,15 @@ not promote source semantics by itself.
 | `physical_damage` | `natural_proof_candidate` | `4` | `4` | `0` | Review existing C2:8125 fields and keep source contract proof-grade. |
 | `psi_damage` | `natural_proof_candidate` | `2` | `2` | `0` | Use Paula Freeze save-backed traces for PSI amount and text-join review. |
 | `hp_healing` | `natural_proof_candidate` | `2` | `2` | `0` | Review healing amount fields before adding any new saves. |
-| `hp_roller_collapse` | `natural_proof_candidate` | `3` | `3` | `1` | Keep collapse/death tails split from HP rolling unless C2:7550/C2:77CA are present. |
+| `hp_roller_collapse` | `natural_proof_candidate` | `4` | `4` | `1` | Keep collapse/death tails split from HP rolling unless C2:7550/C2:77CA are present. |
 | `status_apply_success` | `natural_proof_candidate` | `1` | `1` | `3` | Review Dread Scorpion poison post-return fields before broad status enum promotion. |
-| `item_effect` | `natural_proof_candidate` | `2` | `2` | `0` | Use Large Pizza natural save to join item action, HP amount, and text payload. |
+| `item_effect` | `natural_proof_candidate` | `3` | `3` | `0` | Use Large Pizza and HP-Sucker natural saves to join item action, HP amount, and text payload. |
 | `multi_target_heal` | `natural_proof_candidate` | `1` | `1` | `3` | Review Large Pizza party-row HP snapshots separately from collapse proof. |
 | `target_action_staging` | `natural_capture_fields_missing` | `8` | `8` | `16` | Upgrade target/action staging with export-field capture; do not require new saves first. |
 | `pp_transfer` | `natural_proof_candidate` | `1` | `1` | `10` | Source-polish Stonehenge Mook PSI Magnet capture: target PP loss and capped caster recovery are natural; visible non-full caster gain is optional broadening only. |
 | `pp_loss_only` | `natural_proof_candidate` | `1` | `1` | `13` | Source-polish Mad Duck PP-loss capture: target PP decreases through C2:8E42/C2:721D and no caster-side recovery occurs. |
 | `flash_status_gate` | `natural_proof_candidate` | `2` | `5` | `1` | Review natural Mighty Bear Seven Flash capture: C2:98A1 -> C2:9917 -> C2:724A writes selected-row +0x1D from 0 to 3, confirming the English body-numb branch; Mook Senior Flash also covers C2:9950 -> C2:724A crying. |
-| `battle_text_amount_substitution` | `natural_proof_candidate` | `3` | `4` | `0` | Review fallback C2:8125 C1 amount-payload joins; keep dedicated battle_text_payload_join oracle unresolved. |
+| `battle_text_amount_substitution` | `natural_proof_candidate` | `4` | `5` | `0` | Review fallback C2:8125 C1 amount-payload joins, including HP-Sucker EF:75AB; keep dedicated battle_text_payload_join oracle unresolved. |
 
 ## Evidence Policy
 

@@ -17,6 +17,7 @@ fixtures, local ASM review, and byte-equivalence-protected source comments.
 | Flash numb and crying | Mighty Bear Seven Flash reaches `C2:98A1 -> C2:9917 -> C2:724A` and writes selected-row `+0x1D = 3`; Mook Senior Flash reaches the crying writer path. | Numb and crying writers are proven as Flash-family paths; avoid broad status-enum promotion beyond observed slots. |
 | Poison writer | Dread Scorpion poison reaches `C2:724A` with selected-row `+0x1D` write evidence. | Poison writer is family-specific proof; keep generic writer comments parameterized. |
 | Item healing | Large Pizza and Healing captures join item/action resolution, HP amount, row snapshots, and text payloads. | Good enough for HP recovery/comment polish; do not infer unrelated item families. |
+| HP-Sucker item drain | Jeff HP-Sucker save-state capture reaches `C2:A46B`, stages `EF:8E5E`, mutates target HP through `C2:8125`, and displays the drained amount through `C1:DC66` with `EF:75AB`. | Treat as natural item-drain coverage for HP amount/text joins; keep self-drain and no-effect branches separate until captured. |
 
 ## Controlled Or Neighbor Evidence
 
