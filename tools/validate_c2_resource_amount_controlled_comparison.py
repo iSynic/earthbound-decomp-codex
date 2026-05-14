@@ -21,6 +21,16 @@ EXPECTED_LANES = {
         "target_delta_sign": -1,
         "active_delta_sign": 0,
     },
+    "psi_magnet_action_steered_no_wram": {
+        "required_addresses": {"C2:9F5E", "C2:721D"},
+        "target_delta_sign": -1,
+        "active_delta_sign": 0,
+    },
+    "pp_reduction_action_steered_no_wram": {
+        "required_addresses": {"C2:8E42", "C2:721D"},
+        "target_delta_sign": -1,
+        "active_delta_sign": 0,
+    },
 }
 
 

@@ -45,10 +45,12 @@ before this becomes true human-readable source.
   promotions. The promoted C2 subcontracts cover
   the `C2:8125` damage ABI, selected-row HP mutation, C1 amount-text join,
   HP-to-zero collapse entry, `C2:7550 -> C2:77CA` order, and hard/collapsed row
-  state. The controlled resource comparison now separates PSI Magnet
-  transfer-style mechanics from PP-reduction loss-only mechanics, while natural
-  PP amount proof, natural paired `C2:724A`/`C2:9917`, and `C2:B930` snapshot
-  export remain the highest-value runtime gaps.
+  state. The controlled resource comparison now separates WRAM-seeded and
+  action-row-steered no-WRAM PSI Magnet/PP-reduction amount evidence, and the
+  forced-entry `C2:B930` snapshot-export capture is recorded as mechanics
+  evidence. Natural PP amount proof, natural paired `C2:724A`/`C2:9917`, and
+  unpatched C1-to-`C2:B930` snapshot export remain the highest-value runtime
+  gaps.
 - The D5 battle-action table now has a generated all-row crosswalk at
   `notes/battle-action-row-crosswalk.md`, separating row `+4` presentation text
   pointers from row `+8` behavior bodies for C1/C2/EF joins without promoting

@@ -26,6 +26,22 @@ DEFAULT_INPUTS = {
     / "resource-wram-patched"
     / "pp-reduction-target-pp32"
     / "captured-fields.json",
+    "psi_magnet_action_steered_no_wram": ROOT
+    / "build"
+    / "c2"
+    / "battle-trace-oracles"
+    / "manual-probes"
+    / "resource-action-steered-no-wram"
+    / "psi-magnet-state1"
+    / "captured-fields.json",
+    "pp_reduction_action_steered_no_wram": ROOT
+    / "build"
+    / "c2"
+    / "battle-trace-oracles"
+    / "manual-probes"
+    / "resource-action-steered-no-wram"
+    / "pp-reduction-state1"
+    / "captured-fields.json",
 }
 DEFAULT_MANIFEST = ROOT / "manifests" / "c2-resource-amount-controlled-comparison.json"
 DEFAULT_NOTE = ROOT / "notes" / "c2-resource-amount-controlled-comparison.md"
@@ -70,6 +86,7 @@ def build_lane(lane_id: str, path: Path) -> dict[str, Any]:
         "lane_id": lane_id,
         "capture_path": repo_path(path),
         "status": status,
+        "evidence_tier": "action_row_steered_no_wram" if lane_id.endswith("_no_wram") else "wram_seeded_controlled",
         "source_promotion_allowed": False,
         "behavior_change_allowed": False,
         "natural_vanilla_amount_proven": False,
@@ -103,16 +120,22 @@ def build_lane(lane_id: str, path: Path) -> dict[str, Any]:
 
 def summarize(lanes: list[dict[str, Any]]) -> dict[str, Any]:
     loaded = [lane for lane in lanes if lane["status"] == "capture_loaded"]
+    no_wram = [lane for lane in loaded if lane.get("evidence_tier") == "action_row_steered_no_wram"]
     magnet = next((lane for lane in lanes if lane["lane_id"] == "psi_magnet_transfer_controlled"), {})
     reduction = next((lane for lane in lanes if lane["lane_id"] == "pp_reduction_loss_only_controlled"), {})
+    magnet_no_wram = next((lane for lane in lanes if lane["lane_id"] == "psi_magnet_action_steered_no_wram"), {})
+    reduction_no_wram = next((lane for lane in lanes if lane["lane_id"] == "pp_reduction_action_steered_no_wram"), {})
     return {
         "lane_count": len(lanes),
         "loaded_capture_count": len(loaded),
         "controlled_comparison_complete": len(loaded) == len(lanes),
+        "action_steered_no_wram_capture_count": len(no_wram),
         "magnet_target_pp_delta": magnet.get("target_pp_delta"),
         "magnet_active_pp_delta": magnet.get("active_pp_delta"),
         "pp_reduction_target_pp_delta": reduction.get("target_pp_delta"),
         "pp_reduction_active_pp_delta": reduction.get("active_pp_delta"),
+        "magnet_no_wram_target_pp_delta": magnet_no_wram.get("target_pp_delta"),
+        "pp_reduction_no_wram_target_pp_delta": reduction_no_wram.get("target_pp_delta"),
         "natural_vanilla_amount_proven": False,
         "source_promotion_allowed": False,
         "behavior_change_allowed": False,
@@ -134,14 +157,15 @@ def render_note(manifest: dict[str, Any]) -> str:
         [
             f"- controlled comparison complete: `{summary['controlled_comparison_complete']}`",
             f"- loaded captures: `{summary['loaded_capture_count']}` / `{summary['lane_count']}`",
+            f"- action-row-steered no-WRAM captures: `{summary['action_steered_no_wram_capture_count']}`",
             f"- natural vanilla amount proven: `{summary['natural_vanilla_amount_proven']}`",
             f"- source promotion allowed: `{summary['source_promotion_allowed']}`",
             f"- behavior change allowed: `{summary['behavior_change_allowed']}`",
             "",
             "## Comparison",
             "",
-            "| Lane | Status | Observed | Amount | Target PP | Active PP | Classification |",
-            "| --- | --- | --- | --- | --- | --- | --- |",
+            "| Lane | Tier | Status | Observed | Amount | Target PP | Active PP | Classification |",
+            "| --- | --- | --- | --- | --- | --- | --- | --- |",
         ]
     )
     for lane in manifest["lanes"]:
@@ -149,7 +173,7 @@ def render_note(manifest: dict[str, Any]) -> str:
         target = f"{lane.get('target_pp_before', '-')} -> {lane.get('target_pp_after', '-')} ({lane.get('target_pp_delta', '-')})"
         active = f"{lane.get('active_pp_before', '-')} -> {lane.get('active_pp_after', '-')} ({lane.get('active_pp_delta', '-')})"
         lines.append(
-            f"| `{lane['lane_id']}` | `{lane['status']}` | {observed} | "
+            f"| `{lane['lane_id']}` | `{lane.get('evidence_tier', '-')}` | `{lane['status']}` | {observed} | "
             f"`{lane.get('amount_roll', '-')}` | {target} | {active} | "
             f"`{lane.get('transfer_or_loss_only_classification', '-')}` |"
         )
@@ -160,7 +184,8 @@ def render_note(manifest: dict[str, Any]) -> str:
             "",
             "- PSI Magnet controlled capture shows transfer-style mechanics: target PP decreases and active battler PP increases by the same amount.",
             "- PP reduction controlled capture shows loss-only mechanics: target PP decreases while active battler PP remains unchanged.",
-            "- Both captures rely on fixture steering and WRAM-seeded PP fields, so the natural proof lane remains open for real PSI Magnet and PP-reduction enemies.",
+            "- The no-WRAM captures are cleaner amount evidence than the WRAM-seeded probes: the selected target already had PP in save 1, and the fixture-steered actions reduced that row by `5` and `9` PP respectively.",
+            "- All captures still rely on fixture action steering, so the natural proof lane remains open for real PSI Magnet and PP-reduction enemies.",
             "",
             "## Next Natural Proof Targets",
             "",

@@ -6,23 +6,27 @@ This is controlled fixture evidence only: it compares reducer mechanics, not nat
 ## Summary
 
 - controlled comparison complete: `True`
-- loaded captures: `2` / `2`
+- loaded captures: `4` / `4`
+- action-row-steered no-WRAM captures: `2`
 - natural vanilla amount proven: `False`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
 
 ## Comparison
 
-| Lane | Status | Observed | Amount | Target PP | Active PP | Classification |
-| --- | --- | --- | --- | --- | --- | --- |
-| `psi_magnet_transfer_controlled` | `capture_loaded` | C2:7191, C2:721D, C2:9F5E | `0x000005` | 0x0020 -> 0x001B (-5) | 0x0000 -> 0x0005 (5) | `controlled_transfer_style_reducer_amount_observed_natural_pending` |
-| `pp_reduction_loss_only_controlled` | `capture_loaded` | C2:7191, C2:721D, C2:8E42 | `0x000002` | 0x0020 -> 0x001E (-2) | 0x0000 -> 0x0000 (0) | `controlled_loss_only_reducer_amount_observed_natural_pending` |
+| Lane | Tier | Status | Observed | Amount | Target PP | Active PP | Classification |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `psi_magnet_transfer_controlled` | `wram_seeded_controlled` | `capture_loaded` | C2:7191, C2:721D, C2:9F5E | `0x000005` | 0x0020 -> 0x001B (-5) | 0x0000 -> 0x0005 (5) | `controlled_transfer_style_reducer_amount_observed_natural_pending` |
+| `pp_reduction_loss_only_controlled` | `wram_seeded_controlled` | `capture_loaded` | C2:7191, C2:721D, C2:8E42 | `0x000002` | 0x0020 -> 0x001E (-2) | 0x0000 -> 0x0000 (0) | `controlled_loss_only_reducer_amount_observed_natural_pending` |
+| `psi_magnet_action_steered_no_wram` | `action_row_steered_no_wram` | `capture_loaded` | C2:7191, C2:721D, C2:9F5E | `0x000005` | 0x0087 -> 0x0082 (-5) | 0x0000 -> 0x0000 (0) | `forced_transfer_style_reducer_route_observed_amount_pending` |
+| `pp_reduction_action_steered_no_wram` | `action_row_steered_no_wram` | `capture_loaded` | C2:7191, C2:721D, C2:8E42 | `0x000009` | 0x0087 -> 0x007E (-9) | 0x0000 -> 0x0000 (0) | `loss_only_entry_route_observed_amount_pending` |
 
 ## Interpretation
 
 - PSI Magnet controlled capture shows transfer-style mechanics: target PP decreases and active battler PP increases by the same amount.
 - PP reduction controlled capture shows loss-only mechanics: target PP decreases while active battler PP remains unchanged.
-- Both captures rely on fixture steering and WRAM-seeded PP fields, so the natural proof lane remains open for real PSI Magnet and PP-reduction enemies.
+- The no-WRAM captures are cleaner amount evidence than the WRAM-seeded probes: the selected target already had PP in save 1, and the fixture-steered actions reduced that row by `5` and `9` PP respectively.
+- All captures still rely on fixture action steering, so the natural proof lane remains open for real PSI Magnet and PP-reduction enemies.
 
 ## Next Natural Proof Targets
 
