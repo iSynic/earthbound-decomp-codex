@@ -682,26 +682,46 @@ def build_c1_c2_target_action_fields(
     runner_start = first_row(rows, event_type="runner_start")
     state_load = first_row(rows, event_type="before_state_load")
     c1_entry = first_row(rows, event_type="breakpoint_hit", pc="C1:ADB4")
-    hit = first_row(rows, event_type="breakpoint_hit", pc="C2:B930")
-    if c1_entry is None:
-        raise ValueError("trace does not contain a C1:ADB4 breakpoint hit")
+    natural_callsite = next(
+        (
+            row
+            for row in rows
+            if row.get("type") == "breakpoint_hit"
+            and row.get("routeGroup") == "snapshot_export"
+            and row.get("pc") != "C2:B930"
+        ),
+        None,
+    )
+    hit = first_row(rows, event_type="breakpoint_hit", pc="C2:B930") or natural_callsite
+    route_entry = c1_entry or natural_callsite
+    if route_entry is None:
+        raise ValueError("trace does not contain C1:ADB4 or a snapshot_export C1 callsite breakpoint hit")
     if hit is None:
-        raise ValueError("trace does not contain a C2:B930 breakpoint hit")
+        raise ValueError("trace does not contain a C2:B930 or snapshot_export callsite breakpoint hit")
     post = post_call_snapshot(rows, "C2:B930")
+    if post is None and natural_callsite is not None:
+        post = post_call_snapshot(rows, require_text(natural_callsite, "pc"))
     if post is None:
-        raise ValueError("trace does not contain a return_from:C2:B930 post-call snapshot")
+        raise ValueError("trace does not contain a C2:B930/snapshot_export post-call snapshot")
     before_row = require_text(hit, "xDestinationHex")
     after_row = require_text(post, "xDestinationAfterHex")
     after_data = row_bytes(after_row)
     hit_index = row_index(rows, hit)
     candidate_watch = watch_snapshot(rows, pc="C2:B930", watch_id="candidate_rows", start_index=hit_index)
     candidate_data = row_bytes(str((candidate_watch or {}).get("valueHex") or after_row))
-    generated_evidence = (
-        "Forced-entry fixture ROM rewrites C1:ADB4 to call C2:B930 with A=1 and X/Y=$9FFA. "
-        "The trace proves C2:B930 copies the $99CE source slot into the $9FFA snapshot row and "
-        "captures the post-return destination row. It is mechanics evidence only; the vanilla "
-        "C1 target resolver route still needs a natural pre-export capture."
-    )
+    if natural_callsite is not None:
+        generated_evidence = (
+            f"Trace observed natural C1 snapshot-export callsite {natural_callsite.get('pc')} "
+            "with pre-call A/X/Y, source-slot, destination, and post-return snapshot fields. "
+            "This can support route proof after review; source promotion still requires local ASM agreement."
+        )
+    else:
+        generated_evidence = (
+            "Forced-entry fixture ROM rewrites C1:ADB4 to call C2:B930 with A=1 and X/Y=$9FFA. "
+            "The trace proves C2:B930 exports source fields into the $9FFA snapshot row and "
+            "captures the post-return destination row. It is mechanics evidence only; the vanilla "
+            "C1 target resolver route still needs a natural pre-export capture."
+        )
     destination = {
         "x_base": post.get("xDestinationBase"),
         "x_domain": post.get("xDestinationDomain"),
@@ -721,8 +741,10 @@ def build_c1_c2_target_action_fields(
         "rom_sha1": sha1(rom),
         "save_state_id": save_state_id(state_load),
         "frame_or_instruction_counter": f"frame:{hit.get('frame')} return_frame:{post.get('frame')} cycle:{hit.get('cpuCycleCount')}",
-        "pc": "C2:B930",
-        "routine_label": ROUTINE_LABELS["C2:B930"],
+        "pc": "C2:B930" if hit.get("pc") == "C2:B930" else f"{hit.get('pc')}->C2:B930",
+        "routine_label": ROUTINE_LABELS["C2:B930"]
+        if hit.get("pc") == "C2:B930"
+        else "C1SnapshotExportCallsiteToC2B930",
         "registers.a": require_text(hit, "cpuA"),
         "registers.x": require_text(hit, "cpuX"),
         "registers.y": require_text(hit, "cpuY"),
@@ -732,19 +754,23 @@ def build_c1_c2_target_action_fields(
         "wram_before": before_row,
         "wram_after": after_row,
         "ef_text_pointer": hit.get("callerDpPrimaryTextPointer", "not_applicable_to_forced_b930_fixture"),
-        "c1_text_call": "forced_c1_adb4_entry_no_text_call",
+        "c1_text_call": "forced_c1_adb4_entry_no_text_call"
+        if natural_callsite is None
+        else f"snapshot_export_callsite:{natural_callsite.get('pc')}",
         "classification": classification,
         "classification_evidence": evidence or generated_evidence,
-        "input_action_id": "forced_c1_adb4_slot_1_snapshot_export",
+        "input_action_id": "forced_c1_adb4_slot_1_snapshot_export"
+        if natural_callsite is None
+        else f"natural_snapshot_export_callsite:{natural_callsite.get('pc')}",
         "acting_slot": require_text(hit, "cpuA"),
-        "c1_dp.$00_target_byte": require_text(c1_entry, "c1Dp0000SelectedTargetByte"),
-        "c1_dp.$01_battle_text_substitution_byte": require_text(c1_entry, "c1Dp0001TextSubstitutionByte"),
-        "c1_dp.$14_$16_action_row_pointer": require_text(c1_entry, "c1Dp0014Pointer"),
-        "c1_dp.$18_$1a_second_pointer_table_base": require_text(c1_entry, "c1Dp0018Pointer"),
-        "c1_dp.$1e_$20_selected_action_pointer": require_text(c1_entry, "c1Dp001ePointer"),
-        "c1_dp.$22_party_loop_index": require_text(c1_entry, "c1Dp0022Word"),
-        "c1_dp.$2a_acting_slot": require_text(c1_entry, "c1Dp002aActingSlotWord"),
-        "c1_dp.$2c_item_slot": require_text(c1_entry, "c1Dp002cItemSlotWord"),
+        "c1_dp.$00_target_byte": require_text(route_entry, "c1Dp0000SelectedTargetByte"),
+        "c1_dp.$01_battle_text_substitution_byte": require_text(route_entry, "c1Dp0001TextSubstitutionByte"),
+        "c1_dp.$14_$16_action_row_pointer": require_text(route_entry, "c1Dp0014Pointer"),
+        "c1_dp.$18_$1a_second_pointer_table_base": require_text(route_entry, "c1Dp0018Pointer"),
+        "c1_dp.$1e_$20_selected_action_pointer": require_text(route_entry, "c1Dp001ePointer"),
+        "c1_dp.$22_party_loop_index": require_text(route_entry, "c1Dp0022Word"),
+        "c1_dp.$2a_acting_slot": require_text(route_entry, "c1Dp002aActingSlotWord"),
+        "c1_dp.$2c_item_slot": require_text(route_entry, "c1Dp002cItemSlotWord"),
         "b930.source_slot_row_99ce": compact_json(
             {
                 "base": post.get("sourceSlotBase") or hit.get("b930SourceSlotBase"),
@@ -764,9 +790,14 @@ def build_c1_c2_target_action_fields(
         "candidate_record.+0x0A": record_byte_word(candidate_data, 0x0A),
         "observed_target_byte": compact_json(
             {
-                "c1_entry_dp00": c1_entry.get("c1Dp0000SelectedTargetByte"),
+                "c1_entry_dp00": route_entry.get("c1Dp0000SelectedTargetByte"),
                 "exported_row_plus_0": hex_byte(u8(after_data, 0x00)),
-                "forced_fixture_limit": "C1:ADB4 was patched to call C2:B930 directly.",
+                "route_context": "natural_snapshot_export_callsite"
+                if natural_callsite is not None
+                else "forced_c1_adb4_entry",
+                "forced_fixture_limit": None
+                if natural_callsite is not None
+                else "C1:ADB4 was patched to call C2:B930 directly.",
             }
         ),
     }

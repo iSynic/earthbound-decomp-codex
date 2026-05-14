@@ -37,6 +37,11 @@ This is forced-entry fixture evidence only: it proves `C2:B930` field-export mec
 - Confirm whether the natural destination base is $9FFA and which caller owns A/X/Y setup.
 - Only then consider source comments beyond forced-entry wrapper mechanics.
 
+## Runner Follow-Up
+
+- The generated Mesen runner now captures pre-call and post-return rows for C1 `snapshot_export` route-hint callsites.
+- The next clean pre-export save can therefore produce a natural callsite result without patching `C1:ADB4` into the helper.
+
 ## Policy
 
 - forced-entry fixture only: `True`

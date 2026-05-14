@@ -221,6 +221,11 @@ def render_note(manifest: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
+            "## Runner Follow-Up",
+            "",
+            "- The generated Mesen runner now captures pre-call and post-return rows for C1 `snapshot_export` route-hint callsites.",
+            "- The next clean pre-export save can therefore produce a natural callsite result without patching `C1:ADB4` into the helper.",
+            "",
             "## Policy",
             "",
             f"- forced-entry fixture only: `{policy.get('forced_entry_fixture_only')}`",
