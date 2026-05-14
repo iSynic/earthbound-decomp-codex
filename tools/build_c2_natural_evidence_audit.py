@@ -144,7 +144,7 @@ MECHANISMS: list[dict[str, Any]] = [
         "natural_keywords": ("flash", "numb", "stonehenge"),
         "required_hits": ("C2:9917", "C2:724A"),
         "success_status": "fixture_only_navigation",
-        "next_action": "Natural Stonehenge Flash now proves C2:98A1 gate entry; still need a natural C2:9917 -> C2:724A numb/paralysis branch.",
+        "next_action": "Natural Stonehenge/Mook Senior Flash now proves C2:98A1 gate entry and C2:9950 -> C2:724A crying; still need natural C2:9917 -> C2:724A numb/paralysis.",
     },
     {
         "id": "battle_text_amount_substitution",

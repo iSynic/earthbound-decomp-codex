@@ -76,6 +76,12 @@ observes a Flash Gamma action dispatching through `C2:99EF` and entering
 `C2:9917` numb branch. This proves the gate is reached naturally, while the
 paralysis writer branch still needs a natural save-state capture.
 
+Natural vanilla evidence now also covers the crying branch. The Mook Senior
+save-state capture `stonehenge-flash-crying-slot2/psi-flash-crying-neutral`
+observes Flash Beta dispatching through `C2:99AE`, passing `C2:98A1`, entering
+`C2:9950`, then calling `C2:724A` with `X=2/Y=2`. The post-return writer
+snapshot records selected-row field `+0x1F` changing from `0` to `2`.
+
 ## Tier Branch Maps
 
 All four Flash tiers sample `C0:8E9A & 7`.

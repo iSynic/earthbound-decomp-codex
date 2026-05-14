@@ -27,9 +27,9 @@
   "summary": {
     "probe_root_count": 15,
     "probe_roots_found": 15,
-    "record_count": 183,
+    "record_count": 185,
     "oracle_count": 7,
-    "minimum_hit_candidate_count": 17,
+    "minimum_hit_candidate_count": 18,
     "route_hint_fixture_count": 16,
     "remaining_route_gap_count": 0,
     "status_counts": {
@@ -1794,31 +1794,32 @@
         "C2:9917"
       ],
       "status": "minimum-hit-candidate",
-      "probe_count": 14,
+      "probe_count": 15,
       "minimum_hit_candidate_count": 1,
-      "fixtures_with_any_hits": 4,
+      "fixtures_with_any_hits": 5,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
-        "C2:724A": 4,
+        "C2:724A": 5,
         "C2:9917": 1
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
       "dispatch_target_counts": {
         "C2:8B2C": 3,
-        "C2:99AE": 2
+        "C2:99AE": 3
       },
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {
         "3C:99E1": 1,
         "97:8B48": 3,
-        "97:992B": 1
+        "97:992B": 1,
+        "97:9962": 1
       },
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
       "post_call_snapshot_counts": {
-        "C2:724A": 1
+        "C2:724A": 2
       },
       "route_groups": {},
       "fixture_hits": [
@@ -1871,6 +1872,18 @@
           },
           "first_frame": 14,
           "last_frame": 14
+        },
+        {
+          "fixture_id": "stonehenge-flash-crying-slot2",
+          "minimum_hits_satisfied": false,
+          "observed_addresses": [
+            "C2:724A"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:724A": 1
+          },
+          "first_frame": 107,
+          "last_frame": 107
         }
       ],
       "probe_fixture_hits": []
@@ -2778,28 +2791,52 @@
       "oracle_id": "psi_flash_and_status_gate_family",
       "configured_minimum_hits": [],
       "status": "minimum-hit-candidate",
-      "probe_count": 1,
-      "minimum_hit_candidate_count": 1,
-      "fixtures_with_any_hits": 1,
+      "probe_count": 2,
+      "minimum_hit_candidate_count": 2,
+      "fixtures_with_any_hits": 2,
       "fixtures_with_probe_hits": 0,
       "observed_address_counts": {
-        "C2:98A1": 1
+        "C2:724A": 1,
+        "C2:98A1": 2,
+        "C2:9950": 1
       },
       "probe_observed_address_counts": {},
       "probe_route_group_counts": {},
       "dispatch_target_counts": {
+        "C2:99AE": 3,
         "C2:99EF": 1
       },
       "probe_dispatch_target_counts": {},
       "stack_return_counts": {
-        "3C:99FC": 1
+        "3C:99BB": 1,
+        "3C:99EB": 1,
+        "3C:99FC": 1,
+        "97:9962": 1
       },
       "probe_stack_return_counts": {},
       "dispatch_lane_counts": {},
       "probe_dispatch_lane_counts": {},
-      "post_call_snapshot_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:724A": 1
+      },
       "route_groups": {},
       "fixture_hits": [
+        {
+          "fixture_id": "stonehenge-flash-crying-slot2",
+          "minimum_hits_satisfied": true,
+          "observed_addresses": [
+            "C2:724A",
+            "C2:98A1",
+            "C2:9950"
+          ],
+          "breakpoint_hit_counts": {
+            "C2:724A": 1,
+            "C2:98A1": 1,
+            "C2:9950": 1
+          },
+          "first_frame": 107,
+          "last_frame": 107
+        },
         {
           "fixture_id": "stonehenge-flash-status-slot1",
           "minimum_hits_satisfied": true,
@@ -16067,6 +16104,109 @@
         "sha256": "8e2866d3a61b937d20414b28c0841c9c0d5ade5d175cb267d0a03c1bdb699ee6"
       },
       "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/mad-duck-pp-loss-slot1/resource-neutral/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "stonehenge-flash-crying-slot2",
+      "oracle_id": "c2_724a_affliction_writer_matrix",
+      "minimum_hits_satisfied": false,
+      "observed_addresses": [
+        "C2:724A"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:724A": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:99AE": 1
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "97:9962": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:724A": 1
+      },
+      "watch_snapshot_counts": {
+        "selected_battler_afflictions": 2
+      },
+      "configured_minimum_hits": [
+        "C2:724A",
+        "C2:9917"
+      ],
+      "missing_minimum_hits": [
+        "C2:9917"
+      ],
+      "first_frame": 107,
+      "last_frame": 107,
+      "trace_line_count": 9,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_2.mss",
+        "sha256": "d5c542a2b1112753c47835b5dc80566dc102eeb845f60a621cc1bdb7aabceb0c"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/stonehenge-flash-crying-slot2/affliction-neutral/raw-trace-summary.json",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false
+    },
+    {
+      "probe_group": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout",
+      "fixture_id": "stonehenge-flash-crying-slot2",
+      "oracle_id": "psi_flash_and_status_gate_family",
+      "minimum_hits_satisfied": true,
+      "observed_addresses": [
+        "C2:724A",
+        "C2:98A1",
+        "C2:9950"
+      ],
+      "probe_observed_addresses": [],
+      "breakpoint_hit_counts": {
+        "C2:724A": 1,
+        "C2:98A1": 1,
+        "C2:9950": 1
+      },
+      "probe_breakpoint_hit_counts": {},
+      "probe_route_group_hit_counts": {},
+      "dispatch_target_counts": {
+        "C2:99AE": 3
+      },
+      "probe_dispatch_target_counts": {},
+      "stack_return_counts": {
+        "3C:99BB": 1,
+        "3C:99EB": 1,
+        "97:9962": 1
+      },
+      "probe_stack_return_counts": {},
+      "dispatch_lane_counts": {},
+      "probe_dispatch_lane_counts": {},
+      "post_call_snapshot_counts": {
+        "C2:724A": 1
+      },
+      "watch_snapshot_counts": {},
+      "configured_minimum_hits": [
+        "C2:98A1",
+        "C2:9950",
+        "C2:724A"
+      ],
+      "missing_minimum_hits": [],
+      "first_frame": 107,
+      "last_frame": 107,
+      "trace_line_count": 9,
+      "trace_nonempty": true,
+      "input_pattern": "neutral:2400",
+      "save_state": {
+        "basename": "EarthBound (USA)_2.mss",
+        "sha256": "d5c542a2b1112753c47835b5dc80566dc102eeb845f60a621cc1bdb7aabceb0c"
+      },
+      "raw_trace_summary": "build/c2/battle-trace-oracles/manual-probes/natural-resource-scout/stonehenge-flash-crying-slot2/psi-flash-crying-neutral/raw-trace-summary.json",
       "source_promotion_allowed": false,
       "behavior_change_allowed": false
     },
