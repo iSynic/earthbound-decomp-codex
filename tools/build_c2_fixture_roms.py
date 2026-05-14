@@ -62,6 +62,9 @@ ACTION_NEUTRALIZE_ALL = 248
 ACTION_DREAD_SKELPION_POISON = 72
 ACTION_ROW_BASH = 4
 ACTION_POINTER_BATTLER_NORMALIZATION = (0xC2, 0x90C6)
+ACTION_POINTER_PSI_FLASH_BETA = (0xC2, 0x99AE)
+ACTION_POINTER_PSI_MAGNET_PP_DRAIN = (0xC2, 0x9F5E)
+ACTION_POINTER_PP_REDUCTION = (0xC2, 0x8E42)
 
 
 @dataclass(frozen=True)
@@ -88,6 +91,49 @@ class Scenario:
 
 
 SCENARIOS: dict[str, Scenario] = {
+    "adb4-force-b930-snapshot-export": Scenario(
+        id="adb4-force-b930-snapshot-export",
+        title="C1:ADB4 forced-entry C2:B930 battle selection snapshot export",
+        purpose=(
+            "Replace the C1:ADB4 target resolver entry with a tiny controlled "
+            "call into C2:B930 using A=1 and X/Y=$9FFA. This exercises the "
+            "battle selection snapshot exporter from an already route-observed "
+            "C1 entrypoint without depending on a hand-made pre-export save."
+        ),
+        patches=(
+            {
+                "raw_cpu_patch": "C1:ADB4",
+                "bytes": (
+                    0xC2,
+                    0x31,
+                    0xA9,
+                    0x01,
+                    0x00,
+                    0xA2,
+                    0xFA,
+                    0x9F,
+                    0xA0,
+                    0xFA,
+                    0x9F,
+                    0x22,
+                    0x30,
+                    0xB9,
+                    0xC2,
+                    0x6B,
+                ),
+                "field": "forced_b930_call_stub",
+            },
+        ),
+        expected_probe=(
+            "Any save that reaches C1:ADB4 should immediately call C2:B930, "
+            "copy source slot 1 from $99CE into the $9FFA snapshot block, and "
+            "emit a post-return C2:B930 snapshot."
+        ),
+        caveats=(
+            "This is a forced-entry mechanics fixture, not normal target resolver behavior.",
+            "Use it to review C2:B930 row export fields only; do not promote a vanilla C1 route from this trace.",
+        ),
+    ),
     "runaway-dog-neutralize-c240a4": Scenario(
         id="runaway-dog-neutralize-c240a4",
         title="Runaway Dog normal action forces Neutralize/all C2:40A4 lane",
@@ -139,6 +185,126 @@ SCENARIOS: dict[str, Scenario] = {
             "gameplay edit.",
             "Use only with local Mesen traces; do not infer real Bash semantics "
             "from this patched row.",
+        ),
+    ),
+    "bash-row-flash-beta-force-numb": Scenario(
+        id="bash-row-flash-beta-force-numb",
+        title="Bash action row routes to Flash Beta forced numb branch",
+        purpose=(
+            "Patch battle action row 4 to run the Flash Beta wrapper, then "
+            "force the Flash gate and random result so the action reaches "
+            "C2:9917 and its C2:724A affliction writer call. This is a compact "
+            "paired-status mechanics fixture for the C2:9917 lane."
+        ),
+        patches=(
+            {
+                "battle_action_row": ACTION_ROW_BASH,
+                "battle_action_field_values": {
+                    "action_pointer": ACTION_POINTER_PSI_FLASH_BETA,
+                },
+            },
+            {
+                "raw_cpu_patch": "C2:99B8",
+                "bytes": (0xA9, 0x01, 0x00, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA),
+                "field": "force_flash_gate_pass",
+            },
+            {
+                "raw_cpu_patch": "C2:99C0",
+                "bytes": (0xA9, 0x01, 0x00, 0xEA, 0xEA, 0xEA, 0xEA),
+                "field": "force_flash_random_numb_branch",
+            },
+        ),
+        expected_probe=(
+            "Confirming Bash should dispatch Flash Beta, enter C2:9917, then "
+            "call C2:724A with the numb/paralysis subgroup/value pair."
+        ),
+        caveats=(
+            "This bypasses the natural Flash resistance/precondition gate.",
+            "Use it to capture paired C2:9917/C2:724A mechanics; do not promote natural Flash probabilities from this trace.",
+        ),
+    ),
+    "bash-row-psi-magnet-pp-drain": Scenario(
+        id="bash-row-psi-magnet-pp-drain",
+        title="Bash action row routes to PSI Magnet PP drain action",
+        purpose=(
+            "Patch battle action row 4 to run the PSI Magnet-style PP drain "
+            "body at C2:9F5E. This gives the resource-amount oracle a compact "
+            "route to the PP drain amount setup and shared PP reducer without "
+            "requiring a hand-authored PSI Magnet save."
+        ),
+        patches=(
+            {
+                "battle_action_row": ACTION_ROW_BASH,
+                "battle_action_field_values": {
+                    "action_pointer": ACTION_POINTER_PSI_MAGNET_PP_DRAIN,
+                },
+            },
+        ),
+        expected_probe=(
+            "Confirming Bash should dispatch C2:9F5E and, when the selected "
+            "target has PP, reach the shared C2:721D PP reducer and the "
+            "amount-bearing battle-text path."
+        ),
+        caveats=(
+            "This is action-row steering only; it does not prove vanilla Bash or PSI command routing.",
+            "If the selected target has no PP, the fixture still proves the entry path but not amount flow.",
+        ),
+    ),
+    "bash-row-psi-magnet-force-reducer": Scenario(
+        id="bash-row-psi-magnet-force-reducer",
+        title="Bash action row routes to forced PSI Magnet reducer path",
+        purpose=(
+            "Patch battle action row 4 to run C2:9F5E, then force the early "
+            "selected-target PP check to continue into the random amount and "
+            "C2:721D reducer path. This is a reducer-route fixture for saves "
+            "whose selected enemy row has zero current PP."
+        ),
+        patches=(
+            {
+                "battle_action_row": ACTION_ROW_BASH,
+                "battle_action_field_values": {
+                    "action_pointer": ACTION_POINTER_PSI_MAGNET_PP_DRAIN,
+                },
+            },
+            {
+                "raw_cpu_patch": "C2:9F6C",
+                "bytes": (0x80,),
+                "field": "force_pp_drain_nonzero_branch",
+            },
+        ),
+        expected_probe=(
+            "Confirming Bash should dispatch C2:9F5E, skip the no-PP text "
+            "early exit, and reach the C2:721D PP reducer path."
+        ),
+        caveats=(
+            "This is a forced reducer-route fixture; it does not prove a nonzero vanilla PP drain amount.",
+            "Use it only to separate transfer-style routing from loss-only routing before later amount-proof traces.",
+        ),
+    ),
+    "bash-row-pp-reduction": Scenario(
+        id="bash-row-pp-reduction",
+        title="Bash action row routes to PP reduction action",
+        purpose=(
+            "Patch battle action row 4 to run the direct PP reduction action "
+            "at C2:8E42. This is the PP-loss side of the resource-amount lane "
+            "and should expose the C2:721D reducer plus EF:7755 amount text "
+            "when the selected target row has PP to reduce."
+        ),
+        patches=(
+            {
+                "battle_action_row": ACTION_ROW_BASH,
+                "battle_action_field_values": {
+                    "action_pointer": ACTION_POINTER_PP_REDUCTION,
+                },
+            },
+        ),
+        expected_probe=(
+            "Confirming Bash should dispatch C2:8E42 and, for a PP-bearing "
+            "target, reach C2:721D with a rolled PP-loss amount."
+        ),
+        caveats=(
+            "This is action-row steering only; it does not prove vanilla Bash or item/PSI command routing.",
+            "If the selected target has zero current PP or zero max-PP range, the result remains a route-only probe.",
         ),
     ),
     "runaway-dog-final-neutralize-c240a4": Scenario(
@@ -203,7 +369,7 @@ def parse_args() -> argparse.Namespace:
         "--scenario",
         action="append",
         choices=sorted([*SCENARIOS.keys(), "all"]),
-        default=["all"],
+        default=None,
         help="Scenario to build. May be repeated. Defaults to all.",
     )
     parser.add_argument(
@@ -224,7 +390,9 @@ def load_enemy_rows(root: Path) -> dict[int, dict[str, Any]]:
     return {int(key): value for key, value in payload.items()}
 
 
-def selected_scenarios(raw: list[str]) -> list[Scenario]:
+def selected_scenarios(raw: list[str] | None) -> list[Scenario]:
+    if not raw:
+        return [SCENARIOS[key] for key in sorted(SCENARIOS)]
     if "all" in raw:
         return [SCENARIOS[key] for key in sorted(SCENARIOS)]
     return [SCENARIOS[key] for key in raw]
@@ -284,6 +452,13 @@ def cpu_label_for_battle_action_field(row: int, field: str) -> str:
         f"{BATTLE_ACTION_TABLE_BANK:02X}:"
         f"{BATTLE_ACTION_TABLE_ADDRESS + row * BATTLE_ACTION_TABLE_STRIDE + BATTLE_ACTION_FIELD_OFFSETS[field]:04X}"
     )
+
+
+def parse_cpu_label(label: str) -> tuple[int, int]:
+    if ":" not in label:
+        raise ValueError(f"CPU label must be BANK:ADDR: {label}")
+    bank_text, address_text = label.split(":", 1)
+    return int(bank_text, 16), int(address_text, 16)
 
 
 def format_bytes(data: bytes) -> str:
@@ -368,6 +543,28 @@ def add_battle_action_patch(
     )
 
 
+def add_raw_cpu_patch(data: bytearray, label: str, new: bytes, field: str, reason: str) -> Patch | None:
+    bank, address = parse_cpu_label(label)
+    offset = hirom_to_file_offset(bank, address, len(data))
+    if offset is None:
+        raise ValueError(f"Raw CPU patch address is not a ROM address: {label}")
+    old = bytes(data[offset : offset + len(new)])
+    if old == new:
+        return None
+    data[offset : offset + len(new)] = new
+    return Patch(
+        table="RAW_CPU_CODE_PATCH",
+        row=0,
+        row_name=label,
+        field=field,
+        cpu_address=label,
+        file_offset=f"0x{offset:06X}",
+        old=format_bytes(old),
+        new=format_bytes(new),
+        reason=reason,
+    )
+
+
 def apply_scenario(
     clean_rom: bytes,
     enemy_rows: dict[int, dict[str, Any]],
@@ -381,6 +578,18 @@ def apply_scenario(
 
     for patch_spec in scenario.patches:
         reason = f"{scenario.id}: {scenario.purpose}"
+        if "raw_cpu_patch" in patch_spec:
+            record(
+                add_raw_cpu_patch(
+                    data,
+                    str(patch_spec["raw_cpu_patch"]),
+                    bytes(int(byte) & 0xFF for byte in patch_spec["bytes"]),
+                    str(patch_spec.get("field", "raw_bytes")),
+                    reason,
+                )
+            )
+            continue
+
         if "battle_action_row" in patch_spec:
             row = int(patch_spec["battle_action_row"])
             for field, value in patch_spec.get("battle_action_field_values", {}).items():

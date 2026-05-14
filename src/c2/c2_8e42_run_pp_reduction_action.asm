@@ -39,6 +39,9 @@ C28E42_RunPpReductionAction = BTLACT_REDUCEPP
     tcd
     ldx $A972
     lda $0019,X
+    ; Fixture `bash-row-pp-reduction` currently proves this action entry from
+    ; action-row steering; a PP-bearing target trace is still needed for the
+    ; C2:721D amount/reducer path.
     ; No PP-side target left to reduce.
     bne C28E62_RunPpReductionAction_L8E62
     lda.w #C8MSG_NoPpLeftToReduce

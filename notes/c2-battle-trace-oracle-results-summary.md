@@ -8,14 +8,14 @@ only when ignored `build/c2/battle-trace-oracles/` result files exist.
 - jobs: `10`
 - result files found: `10`
 - valid results: `10`
-- trace-observed results: `2`
+- trace-observed results: `6`
 - proof-grade results: `0`
-- stub results: `8`
-- proof-capable results: `2`
-- statuses: `{'ok': 2, 'unsupported': 8}`
+- stub results: `4`
+- proof-capable results: `6`
+- statuses: `{'ok': 6, 'unsupported': 4}`
 - validation: `{'valid': 10}`
-- classifications: `{'needs_followup': 2, 'unresolved': 8}`
-- remaining blockers: `{'followup_review': 2, 'not_first_trace_pass': 4, 'oracle_contract_unresolved': 8, 'runtime_trace_proof': 8}`
+- classifications: `{'needs_followup': 6, 'unresolved': 4}`
+- remaining blockers: `{'followup_review': 6, 'not_first_trace_pass': 4, 'oracle_contract_unresolved': 4, 'runtime_trace_proof': 4}`
 - source promotion allowed: `False`
 - behavior change allowed: `False`
 
@@ -31,12 +31,12 @@ only when ignored `build/c2/battle-trace-oracles/` result files exist.
 
 | Oracle | Priority | First pass | Status | Valid | Stub | Proof capable | Classification | Remaining blockers | Result path |
 | --- | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
-| `c1_c2_target_action_staging` | `1` | `True` | `unsupported` | `True` | `True` | `False` | `unresolved` | `['runtime_trace_proof', 'oracle_contract_unresolved']` | `build/c2/battle-trace-oracles/c1_c2_target_action_staging/result.json` |
-| `c2_40a4_current_action_payload` | `1` | `True` | `unsupported` | `True` | `True` | `False` | `unresolved` | `['runtime_trace_proof', 'oracle_contract_unresolved']` | `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json` |
-| `c2_724a_affliction_writer_matrix` | `1` | `True` | `unsupported` | `True` | `True` | `False` | `unresolved` | `['runtime_trace_proof', 'oracle_contract_unresolved']` | `build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json` |
+| `c1_c2_target_action_staging` | `1` | `True` | `ok` | `True` | `False` | `True` | `needs_followup` | `['followup_review']` | `build/c2/battle-trace-oracles/c1_c2_target_action_staging/result.json` |
+| `c2_40a4_current_action_payload` | `1` | `True` | `ok` | `True` | `False` | `True` | `needs_followup` | `['followup_review']` | `build/c2/battle-trace-oracles/c2_40a4_current_action_payload/result.json` |
+| `c2_724a_affliction_writer_matrix` | `1` | `True` | `ok` | `True` | `False` | `True` | `needs_followup` | `['followup_review']` | `build/c2/battle-trace-oracles/c2_724a_affliction_writer_matrix/result.json` |
 | `c2_8125_damage_abi_boundary` | `1` | `True` | `ok` | `True` | `False` | `True` | `needs_followup` | `['followup_review']` | `build/c2/battle-trace-oracles/c2_8125_damage_abi_boundary/result.json` |
 | `hp_roller_collapse_boundary` | `2` | `True` | `ok` | `True` | `False` | `True` | `needs_followup` | `['followup_review']` | `build/c2/battle-trace-oracles/hp_roller_collapse_boundary/result.json` |
-| `resource_amount_pair_magnet_vs_pp_loss` | `2` | `True` | `unsupported` | `True` | `True` | `False` | `unresolved` | `['runtime_trace_proof', 'oracle_contract_unresolved']` | `build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/result.json` |
+| `resource_amount_pair_magnet_vs_pp_loss` | `2` | `True` | `ok` | `True` | `False` | `True` | `needs_followup` | `['followup_review']` | `build/c2/battle-trace-oracles/resource_amount_pair_magnet_vs_pp_loss/result.json` |
 | `battle_text_payload_join` | `2` | `False` | `unsupported` | `True` | `True` | `False` | `unresolved` | `['runtime_trace_proof', 'oracle_contract_unresolved', 'not_first_trace_pass']` | `build/c2/battle-trace-oracles/battle_text_payload_join/result.json` |
 | `healing_ladder_gamma_omega` | `2` | `False` | `unsupported` | `True` | `True` | `False` | `unresolved` | `['runtime_trace_proof', 'oracle_contract_unresolved', 'not_first_trace_pass']` | `build/c2/battle-trace-oracles/healing_ladder_gamma_omega/result.json` |
 | `psi_flash_and_status_gate_family` | `2` | `False` | `unsupported` | `True` | `True` | `False` | `unresolved` | `['runtime_trace_proof', 'oracle_contract_unresolved', 'not_first_trace_pass']` | `build/c2/battle-trace-oracles/psi_flash_and_status_gate_family/result.json` |

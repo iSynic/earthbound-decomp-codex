@@ -17,6 +17,10 @@
 ; - When the destination is `$9FFA`, the first bytes overlap the formal battle
 ;   menu-selection header, but this helper intentionally writes the wider
 ;   adjacent snapshot block used by C1 target/choice prompts and C2 controllers.
+; - Fixture-steered trace evidence from `adb4-force-b930-snapshot-export`
+;   observed `A=1`, `X/Y=$9FFA`, source row `$99CE`, and the post-return
+;   destination row. That proves the export mechanics only; the natural
+;   unpatched C1 pre-export route remains a separate proof target.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

@@ -19,6 +19,9 @@
 ; - Reads the target slot at `row + X + 0x1D`; writes Y only when the slot is
 ;   clear or currently contains a weaker/lower value than Y.
 ; - Returns `1` on write and `0` on blocked/no-upgrade.
+; - Fixture traces currently cover Dread Scorpion poison reaching this writer
+;   and a forced Flash Beta numb branch reaching it from `C2:9917` with
+;   `X=0/Y=3`; post-return value capture remains follow-up work.
 
 ; ---------------------------------------------------------------------------
 ; External contracts used by this module

@@ -20,22 +20,54 @@ import rom_tools
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PACKET = ROOT / "manifests" / "c2-battle-trace-oracle-packet.json"
-SUPPORTED_ORACLES = {"c2_8125_damage_abi_boundary", "hp_roller_collapse_boundary"}
+SUPPORTED_ORACLES = {
+    "c1_c2_target_action_staging",
+    "c2_724a_affliction_writer_matrix",
+    "c2_8125_damage_abi_boundary",
+    "c2_40a4_current_action_payload",
+    "hp_roller_collapse_boundary",
+    "resource_amount_pair_magnet_vs_pp_loss",
+}
 ROUTINE_LABELS = {
+    "C0:9279": "C09279_DispatchBattleActionPayload",
+    "C1:ADB4": "C1ADB4_DetermineBattleTargetting",
+    "C1:CE85": "C1CE85_ResolveSelectedBattleItemAction",
+    "C1:CFC6": "C1CFC6_OpenBattleItemSelectionLoop",
     "C1:DC1C": "C1DC1C_DisplayBattleTextFromPointer",
     "C1:DC66": "C1DC66_DisplayBattleTextWithSubstitutionPayload",
     "C1:AD0A": "C1AD0A_StageBattleTextSubstitutionPointer",
     "C1:AD26": "C1AD26_ReadBattleTextSubstitutionPointer",
     "C1:7EED": "C17EED_PrintActionAmountConsumer",
     "C1:0DF6": "C10DF6_PrintNumber",
+    "C2:3D05": "C23D05_BuildBattleTargetTextContext",
+    "C2:3E32": "C23E32_BuildBattleTargetTextContext_SelectedTargetName",
+    "C2:40A4": "C240A4_ApplyBattleActionSecondPointerPayload",
+    "C2:40F2": "C240F2_ApplyBattleActionSecondPointerPayload_DispatchActorDomainPayload",
+    "C2:4147": "C24147_ApplyBattleActionSecondPointerPayload_DispatchBattlerDomainPayload",
+    "C2:416F": "C2416F_FilterBattleActionTargetMaskByRowState",
+    "C2:4703": "C24703_BattleTargetPresentationNeighbor",
+    "C2:724A": "C2724A_ApplySelectedRowAfflictionSlotValue",
     "C2:8125": "C28125_ApplyDamageToSelectedTarget",
     "C2:7EAF": "C27EAF_RunHitResolutionAndStatusActionCluster",
     "C2:7550": "C27550_StartSelectedBattlerCollapseAfflictionPath",
     "C2:7680": "C27680_DisplayEnemyDeathText",
+    "C2:721D": "C2721D_ReduceBattlerPpTarget",
+    "C2:7318": "C27318_ApplyBattlerPpRecoveryFeedback",
+    "C2:8E42": "C28E42_RunPpReductionAction",
+    "C2:9051": "C29051_QueuedBattlerStatShieldNormalizationCallback",
+    "C2:98A1": "C298A1_GateSelectedBattlerForRandomStatusAction",
+    "C2:9F5E": "C29F5E_RunHpSuckerStylePpDrainAction",
+    "C2:9FE1": "C29FE1_RunPpDrainIfTargetCanActWrapper",
+    "C2:9917": "C29917_TryApplyNumbStatusToSelectedBattler",
+    "C2:90C6": "C290C6_RunBattlerNormalizationActionWrapper",
+    "C2:915C": "C2915C_RunBattlerNormalizationActionWrapper_InvokeSecondPointerPayload",
+    "C2:B360": "C2B360_ApplyBattlePpRecoveryConsequence",
     "C2:77CA": "C277CA_RunSelectedBattlerCollapsePresentationTail",
     "C2:941D": "C2941D_CheckSelectedBattlerTimedSubstateBlocker",
     "C2:BB18": "C2BB18_PromoteCandidateToCollapseAfflictionController",
     "C2:BC5C": "C2BC5C_ClearInactiveCandidateLiveSlotTransientFields",
+    "C2:B930": "C2B930_ExportBattleSelectionSnapshot",
+    "C2:BAC5": "C2BAC5_CountFilteredSecondStageRows",
 }
 BATTLE_ROW_FIELD_OFFSETS = {
     "row_word_plus_0x00": 0x00,
@@ -383,6 +415,356 @@ def decoded_selected_row(row: dict[str, Any] | None) -> dict[str, Any] | str:
     return decode_battle_row(row_hex, pointer=str(row.get("selectedTargetPointer") or "not_captured"))
 
 
+def post_call_snapshot(rows: list[dict[str, Any]], call_pc: str) -> dict[str, Any] | None:
+    for row in rows:
+        if row.get("type") == "post_call_snapshot" and row.get("callPc") == call_pc:
+            return row
+    return None
+
+
+def watch_snapshot(
+    rows: list[dict[str, Any]],
+    *,
+    pc: str,
+    watch_id: str,
+    start_index: int = -1,
+) -> dict[str, Any] | None:
+    for row in rows[start_index + 1 :]:
+        if row.get("type") == "watch_snapshot" and row.get("pc") == pc and row.get("watchId") == watch_id:
+            return row
+    return None
+
+
+def dispatch_samples(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    samples: list[dict[str, Any]] = []
+    for row in rows:
+        if row.get("type") != "breakpoint_hit" or row.get("pc") != "C0:9279":
+            continue
+        target = str(row.get("dispatchTargetPointer") or row.get("absolute00bcPointer") or row.get("dp00bcPointer") or "")
+        samples.append(
+            {
+                "frame": row.get("frame"),
+                "target": target or "not_captured",
+                "return_rtl_adjusted": row.get("stackReturnRtlAdjusted"),
+                "route_group": row.get("routeGroup"),
+                "probe_source": row.get("probeSource"),
+                "selected_target_pointer": row.get("selectedTargetPointer"),
+                "current_target_mask": row.get("currentTargetMaskHex"),
+            }
+        )
+    return samples
+
+
+def build_c2_40a4_fields(
+    job: dict[str, Any],
+    rows: list[dict[str, Any]],
+    *,
+    rom: Path,
+    trace: Path,
+    classification: str,
+    evidence: str | None,
+) -> dict[str, Any]:
+    runner_start = first_row(rows, event_type="runner_start")
+    state_load = first_row(rows, event_type="before_state_load")
+    hit = first_row(rows, event_type="breakpoint_hit", pc="C2:40A4")
+    if hit is None:
+        raise ValueError("trace does not contain a C2:40A4 breakpoint hit")
+    hit_index = row_index(rows, hit)
+    post = post_call_snapshot(rows, "C2:40A4")
+    if post is None:
+        raise ValueError("trace does not contain a return_from:C2:40A4 post-call snapshot")
+    wrapper = first_breakpoint(rows, "C2:90C6")
+    callsite = first_breakpoint(rows, "C2:915C")
+    context = first_breakpoint(rows, "C2:3D05")
+    dispatches = dispatch_samples(rows)
+    loop_dispatches = [
+        sample
+        for sample in dispatches
+        if sample.get("return_rtl_adjusted") in {"C2:4104", "C2:4159"}
+    ]
+    direct_dispatches = [
+        sample
+        for sample in dispatches
+        if sample.get("return_rtl_adjusted") == "C2:5D3D"
+    ]
+    observed = sorted(
+        {str(row.get("pc")) for row in rows if row.get("type") == "breakpoint_hit" and row.get("pc")}
+    )
+    generated_evidence = (
+        "Fixture-steered Bash-row ROM rewires battle action row 4 to C2:90C6. "
+        "The trace observes C2:90C6 -> C2:915C -> C2:40A4, then C2:40A4 "
+        "dispatches the C2:9051 payload through C0:9279 and returns through "
+        "the target-loop sites C2:4104/C2:4159. This proves wrapper and loop "
+        "mechanics only; it is not evidence for vanilla Bash behavior."
+    )
+    target_mask = {
+        "before_lo": post.get("targetMaskBeforeLo"),
+        "before_hi": post.get("targetMaskBeforeHi"),
+        "after_lo": post.get("targetMaskAfterLo"),
+        "after_hi": post.get("targetMaskAfterHi"),
+        "hit_mask_hex": hit.get("currentTargetMaskHex"),
+    }
+    active_rows = {
+        "attacker_pointer": post.get("activeAttackerPointer"),
+        "attacker_row_hex": post.get("activeAttackerRowHex"),
+        "target_pointer": post.get("activeTargetPointer"),
+        "target_row_hex": post.get("activeTargetRowHex"),
+        "context_builder": row_brief(context),
+    }
+    busy_gate = {
+        "battle_busy_flag_1b9e": post.get("battleBusyFlag1b9e"),
+        "effect_countdown_aec2": post.get("effectCountdownAec2"),
+        "effect_pointer_aecc_aece": post.get("effectPointerAeccAece"),
+        "effect_step_state_hex": post.get("effectStepStateHex"),
+    }
+    loop_index = {
+        "wrapper_entry": row_brief(wrapper),
+        "static_callsite": row_brief(callsite),
+        "loop_dispatches": loop_dispatches,
+        "direct_dispatch_contrast": direct_dispatches,
+        "all_dispatches": dispatches,
+        "observed_addresses": observed,
+        "proof_limit": "Fixture row proves C2:40A4 mechanics and loop dispatch shape, not the real Bash action contract.",
+    }
+    fields = {
+        "trace_id": f"{trace.as_posix()} sha256:{sha256(trace)}",
+        "scenario_name": require_text(runner_start or {}, "scenarioName"),
+        "rom_sha1": sha1(rom),
+        "save_state_id": save_state_id(state_load),
+        "frame_or_instruction_counter": f"frame:{hit.get('frame')} return_frame:{post.get('frame')} cycle:{hit.get('cpuCycleCount')}",
+        "pc": "C2:40A4",
+        "routine_label": ROUTINE_LABELS["C2:40A4"],
+        "registers.a": require_text(hit, "cpuA"),
+        "registers.x": require_text(hit, "cpuX"),
+        "registers.y": require_text(hit, "cpuY"),
+        "registers.db": require_text(hit, "cpuDB"),
+        "registers.dp": require_text(hit, "cpuDP"),
+        "direct_page_snapshot": require_text(hit, "directPageHex"),
+        "wram_before": require_text(hit, "selectedTargetRowHex"),
+        "wram_after": require_text(post, "activeTargetRowHex"),
+        "ef_text_pointer": hit.get("callerDpPrimaryTextPointer", "not_applicable_to_fixture_payload_wrapper"),
+        "c1_text_call": "not_applicable_to_c2_40a4_fixture_wrapper",
+        "classification": classification,
+        "classification_evidence": evidence or generated_evidence,
+        "action_row_id": "4 (fixture-patched Bash row)",
+        "second_pointer": require_text(post, "callerFrameSecondPayloadPointer"),
+        "c2_40a4.static_callsite": compact_json(row_brief(callsite)),
+        "c2_40a4.caller_frame_second_payload_pointer": require_text(post, "callerFrameSecondPayloadPointer"),
+        "c2_40a4.current_action_payload_pointer": require_text(post, "currentActionPayloadPointer"),
+        "c2_40a4.current_target_mask_before_after": compact_json(target_mask),
+        "c2_40a4.active_attacker_target_rows": compact_json(active_rows),
+        "c2_40a4.effect_busy_gate": compact_json(busy_gate),
+        "target_mask_low": f"{post.get('targetMaskBeforeLo')} -> {post.get('targetMaskAfterLo')}",
+        "target_mask_high": f"{post.get('targetMaskBeforeHi')} -> {post.get('targetMaskAfterHi')}",
+        "selected_row_pointer": str(post.get("activeTargetPointer") or hit.get("selectedTargetPointer") or "not_captured"),
+        "payload_pc": require_text(post, "currentActionPayloadPointer"),
+        "payload_kind": "fixture_steered_c29051_normalization_callback",
+        "per_target_loop_index": compact_json(loop_index),
+    }
+    missing = set(job.get("capture_fields", [])) - set(fields)
+    if missing:
+        raise ValueError(f"missing capture fields: {sorted(missing)}")
+    return fields
+
+
+def row_bytes(row_hex: str) -> bytes:
+    data = parse_hex_bytes(row_hex)
+    if not data:
+        raise ValueError("empty row hex")
+    return data
+
+
+def record_byte_word(data: bytes, offset: int) -> str:
+    return compact_json(
+        {
+            "offset": f"+0x{offset:02X}",
+            "byte": hex_byte(u8(data, offset)),
+            "word": hex_word(u16le(data, offset)),
+        }
+    )
+
+
+def build_c1_c2_target_action_fields(
+    job: dict[str, Any],
+    rows: list[dict[str, Any]],
+    *,
+    rom: Path,
+    trace: Path,
+    classification: str,
+    evidence: str | None,
+) -> dict[str, Any]:
+    runner_start = first_row(rows, event_type="runner_start")
+    state_load = first_row(rows, event_type="before_state_load")
+    c1_entry = first_row(rows, event_type="breakpoint_hit", pc="C1:ADB4")
+    hit = first_row(rows, event_type="breakpoint_hit", pc="C2:B930")
+    if c1_entry is None:
+        raise ValueError("trace does not contain a C1:ADB4 breakpoint hit")
+    if hit is None:
+        raise ValueError("trace does not contain a C2:B930 breakpoint hit")
+    post = post_call_snapshot(rows, "C2:B930")
+    if post is None:
+        raise ValueError("trace does not contain a return_from:C2:B930 post-call snapshot")
+    before_row = require_text(hit, "xDestinationHex")
+    after_row = require_text(post, "xDestinationAfterHex")
+    after_data = row_bytes(after_row)
+    hit_index = row_index(rows, hit)
+    candidate_watch = watch_snapshot(rows, pc="C2:B930", watch_id="candidate_rows", start_index=hit_index)
+    candidate_data = row_bytes(str((candidate_watch or {}).get("valueHex") or after_row))
+    generated_evidence = (
+        "Forced-entry fixture ROM rewrites C1:ADB4 to call C2:B930 with A=1 and X/Y=$9FFA. "
+        "The trace proves C2:B930 copies the $99CE source slot into the $9FFA snapshot row and "
+        "captures the post-return destination row. It is mechanics evidence only; the vanilla "
+        "C1 target resolver route still needs a natural pre-export capture."
+    )
+    destination = {
+        "x_base": post.get("xDestinationBase"),
+        "x_domain": post.get("xDestinationDomain"),
+        "y_base": post.get("yDestinationBase"),
+        "y_domain": post.get("yDestinationDomain"),
+        "return_address": post.get("returnAddress"),
+    }
+    before_after = {
+        "before": before_row,
+        "after": after_row,
+        "source_slot_base": post.get("sourceSlotBase") or hit.get("b930SourceSlotBase"),
+        "source_slot_hex": post.get("sourceSlotHex") or hit.get("b930SourceSlotHex"),
+    }
+    fields = {
+        "trace_id": f"{trace.as_posix()} sha256:{sha256(trace)}",
+        "scenario_name": require_text(runner_start or {}, "scenarioName"),
+        "rom_sha1": sha1(rom),
+        "save_state_id": save_state_id(state_load),
+        "frame_or_instruction_counter": f"frame:{hit.get('frame')} return_frame:{post.get('frame')} cycle:{hit.get('cpuCycleCount')}",
+        "pc": "C2:B930",
+        "routine_label": ROUTINE_LABELS["C2:B930"],
+        "registers.a": require_text(hit, "cpuA"),
+        "registers.x": require_text(hit, "cpuX"),
+        "registers.y": require_text(hit, "cpuY"),
+        "registers.db": require_text(hit, "cpuDB"),
+        "registers.dp": require_text(hit, "cpuDP"),
+        "direct_page_snapshot": require_text(hit, "directPageHex"),
+        "wram_before": before_row,
+        "wram_after": after_row,
+        "ef_text_pointer": hit.get("callerDpPrimaryTextPointer", "not_applicable_to_forced_b930_fixture"),
+        "c1_text_call": "forced_c1_adb4_entry_no_text_call",
+        "classification": classification,
+        "classification_evidence": evidence or generated_evidence,
+        "input_action_id": "forced_c1_adb4_slot_1_snapshot_export",
+        "acting_slot": require_text(hit, "cpuA"),
+        "c1_dp.$00_target_byte": require_text(c1_entry, "c1Dp0000SelectedTargetByte"),
+        "c1_dp.$01_battle_text_substitution_byte": require_text(c1_entry, "c1Dp0001TextSubstitutionByte"),
+        "c1_dp.$14_$16_action_row_pointer": require_text(c1_entry, "c1Dp0014Pointer"),
+        "c1_dp.$18_$1a_second_pointer_table_base": require_text(c1_entry, "c1Dp0018Pointer"),
+        "c1_dp.$1e_$20_selected_action_pointer": require_text(c1_entry, "c1Dp001ePointer"),
+        "c1_dp.$22_party_loop_index": require_text(c1_entry, "c1Dp0022Word"),
+        "c1_dp.$2a_acting_slot": require_text(c1_entry, "c1Dp002aActingSlotWord"),
+        "c1_dp.$2c_item_slot": require_text(c1_entry, "c1Dp002cItemSlotWord"),
+        "b930.source_slot_row_99ce": compact_json(
+            {
+                "base": post.get("sourceSlotBase") or hit.get("b930SourceSlotBase"),
+                "row_hex": post.get("sourceSlotHex") or hit.get("b930SourceSlotHex"),
+            }
+        ),
+        "b930.destination_base_x_or_y": compact_json(destination),
+        "b930.destination_before_after_4e": compact_json(before_after),
+        "selection_record_base": str(post.get("xDestinationBase") or "0x009FFA"),
+        "selection_record.+0": record_byte_word(after_data, 0x00),
+        "selection_record.+1": record_byte_word(after_data, 0x01),
+        "selection_record.+2": record_byte_word(after_data, 0x02),
+        "selection_record.+4": record_byte_word(after_data, 0x04),
+        "selection_record.+5": record_byte_word(after_data, 0x05),
+        "candidate_record.+0x07": record_byte_word(candidate_data, 0x07),
+        "candidate_record.+0x08": record_byte_word(candidate_data, 0x08),
+        "candidate_record.+0x0A": record_byte_word(candidate_data, 0x0A),
+        "observed_target_byte": compact_json(
+            {
+                "c1_entry_dp00": c1_entry.get("c1Dp0000SelectedTargetByte"),
+                "exported_row_plus_0": hex_byte(u8(after_data, 0x00)),
+                "forced_fixture_limit": "C1:ADB4 was patched to call C2:B930 directly.",
+            }
+        ),
+    }
+    missing = set(job.get("capture_fields", [])) - set(fields)
+    if missing:
+        raise ValueError(f"missing capture fields: {sorted(missing)}")
+    return fields
+
+
+def build_c2_724a_fields(
+    job: dict[str, Any],
+    rows: list[dict[str, Any]],
+    *,
+    rom: Path,
+    trace: Path,
+    classification: str,
+    evidence: str | None,
+) -> dict[str, Any]:
+    runner_start = first_row(rows, event_type="runner_start")
+    state_load = first_row(rows, event_type="before_state_load")
+    writer = first_row(rows, event_type="breakpoint_hit", pc="C2:724A")
+    numb = first_row(rows, event_type="breakpoint_hit", pc="C2:9917")
+    if writer is None:
+        raise ValueError("trace does not contain a C2:724A breakpoint hit")
+    if numb is None:
+        raise ValueError("trace does not contain a C2:9917 breakpoint hit")
+    generated_evidence = (
+        "Fixture-steered Bash-row ROM routes action row 4 to Flash Beta and patches "
+        "the Flash gate/random result to the numb branch. The trace observes "
+        "C2:9917 -> C2:724A with X=0 and Y=3, proving the paired numb writer "
+        "mechanics. Natural C2:98A1 gate behavior and post-write return value remain follow-up work."
+    )
+    source_target = {
+        "selected_target_pointer_at_9917": numb.get("selectedTargetPointer"),
+        "selected_target_pointer_at_724a": writer.get("selectedTargetPointer"),
+        "current_target_mask": writer.get("currentTargetMaskHex"),
+        "watch_snapshot": (
+            watch_snapshot(rows, pc="C2:724A", watch_id="selected_battler_afflictions", start_index=row_index(rows, writer))
+            or {}
+        ).get("valueHex", "not_captured"),
+    }
+    fields = {
+        "trace_id": f"{trace.as_posix()} sha256:{sha256(trace)}",
+        "scenario_name": require_text(runner_start or {}, "scenarioName"),
+        "rom_sha1": sha1(rom),
+        "save_state_id": save_state_id(state_load),
+        "frame_or_instruction_counter": f"frame:{writer.get('frame')} cycle:{writer.get('cpuCycleCount')}",
+        "pc": "C2:724A",
+        "routine_label": ROUTINE_LABELS["C2:724A"],
+        "registers.a": require_text(writer, "cpuA"),
+        "registers.x": require_text(writer, "cpuX"),
+        "registers.y": require_text(writer, "cpuY"),
+        "registers.db": require_text(writer, "cpuDB"),
+        "registers.dp": require_text(writer, "cpuDP"),
+        "direct_page_snapshot": require_text(writer, "directPageHex"),
+        "wram_before": require_text(numb, "selectedTargetRowHex"),
+        "wram_after": require_text(writer, "selectedTargetRowHex"),
+        "ef_text_pointer": "source-backed success EF:6AE0 / failure EF:766E; text call not reached before captured writer entry",
+        "c1_text_call": "not_captured_before_c2_724a_entry",
+        "classification": classification,
+        "classification_evidence": evidence or generated_evidence,
+        "caller_pc": compact_json(
+            {
+                "status_helper": row_brief(numb),
+                "writer_stack_return": writer.get("stackReturnRtlAdjusted"),
+                "dispatch_target": writer.get("dispatchTargetPointer"),
+            }
+        ),
+        "selected_row_source": compact_json(source_target),
+        "x_subgroup_slot": require_text(writer, "cpuX"),
+        "y_status_value": require_text(writer, "cpuY"),
+        "target_field_for_direct_writer": "selected battler row +0x1D primary affliction byte",
+        "chance_gate_pc": "forced fixture bypasses natural C2:98A1 gate at C2:99B8",
+        "resistance_gate_pc": "not_observed_in_forced_numb_fixture",
+        "writer_return_value": "not_captured_by_current_runner",
+        "success_text_pointer": "EF:6AE0",
+        "failure_text_pointer": "EF:766E",
+    }
+    missing = set(job.get("capture_fields", [])) - set(fields)
+    if missing:
+        raise ValueError(f"missing capture fields: {sorted(missing)}")
+    return fields
+
+
 def hp_triplet(decoded: dict[str, Any] | str) -> dict[str, Any] | str:
     if not isinstance(decoded, dict):
         return decoded
@@ -598,6 +980,86 @@ def build_c2_8125_fields(job: dict[str, Any], rows: list[dict[str, Any]], *, rom
     return fields
 
 
+def pp_word(row_hex: str, offset: int) -> str:
+    data = parse_hex_bytes(row_hex)
+    return hex_word(u16le(data, offset)) or "not_captured"
+
+
+def build_resource_amount_fields(
+    job: dict[str, Any],
+    rows: list[dict[str, Any]],
+    *,
+    rom: Path,
+    trace: Path,
+    classification: str,
+    evidence: str | None,
+) -> dict[str, Any]:
+    runner_start = first_row(rows, event_type="runner_start")
+    state_load = first_row(rows, event_type="before_state_load")
+    pp_drain = first_row(rows, event_type="breakpoint_hit", pc="C2:9F5E")
+    pp_loss = first_row(rows, event_type="breakpoint_hit", pc="C2:8E42")
+    reducer = first_row(rows, event_type="breakpoint_hit", pc="C2:721D")
+    hit = pp_drain or pp_loss or reducer
+    if hit is None:
+        raise ValueError("trace does not contain a resource amount breakpoint hit")
+    observed = sorted({str(row.get("pc")) for row in rows if row.get("type") == "breakpoint_hit" and row.get("pc")})
+    before_row = str(hit.get("selectedTargetRowHex") or "")
+    after_row = str((reducer or hit).get("selectedTargetRowHex") or before_row)
+    active_before = str(hit.get("activeAttackerRowHex") or "")
+    active_after = str((reducer or hit).get("activeAttackerRowHex") or active_before)
+    amount_source = reducer or hit
+    generated_evidence = (
+        "Mesen fixture trace opened the resource-amount lane. The "
+        "`bash-row-psi-magnet-force-reducer` ROM steers Bash to C2:9F5E and "
+        "forces the zero-PP guard past the early exit, reaching C2:721D. This "
+        "proves reducer-path reachability only; a natural nonzero amount and "
+        "loss-only comparison remain follow-up work."
+    )
+    if "C2:9F5E" in observed and "C2:721D" in observed:
+        transfer_class = "forced_transfer_style_reducer_route_observed_amount_pending"
+    elif "C2:8E42" in observed:
+        transfer_class = "loss_only_entry_route_observed_amount_pending"
+    else:
+        transfer_class = "resource_route_observed_amount_pending"
+    fields = {
+        "trace_id": f"{trace.as_posix()} sha256:{sha256(trace)}",
+        "scenario_name": require_text(runner_start or {}, "scenarioName"),
+        "rom_sha1": sha1(rom),
+        "save_state_id": save_state_id(state_load),
+        "frame_or_instruction_counter": f"frame:{hit.get('frame')} cycle:{hit.get('cpuCycleCount')}",
+        "pc": require_text(hit, "pc"),
+        "routine_label": ROUTINE_LABELS.get(require_text(hit, "pc"), "unknown_resource_amount_entry"),
+        "registers.a": require_text(hit, "cpuA"),
+        "registers.x": require_text(hit, "cpuX"),
+        "registers.y": require_text(hit, "cpuY"),
+        "registers.db": require_text(hit, "cpuDB"),
+        "registers.dp": require_text(hit, "cpuDP"),
+        "direct_page_snapshot": require_text(hit, "directPageHex"),
+        "wram_before": before_row,
+        "wram_after": after_row,
+        "ef_text_pointer": str((reducer or hit).get("callerDpPrimaryTextPointer") or "not_captured_by_current_mesen_runner"),
+        "c1_text_call": "not_captured_by_current_mesen_runner",
+        "classification": classification,
+        "classification_evidence": evidence or generated_evidence,
+        "source_row_pp_before": pp_word(active_before, 0x19),
+        "source_row_pp_after": pp_word(active_after, 0x19),
+        "target_row_pp_before": pp_word(before_row, 0x19),
+        "target_row_pp_after": pp_word(after_row, 0x19),
+        "amount_roll": str(amount_source.get("cpuX") or "not_captured"),
+        "cap_amount": (
+            "forced fixture target row has zero current PP, so this trace reaches the reducer "
+            "without proving a nonzero cap amount"
+        ),
+        "text_payload_amount": str((reducer or hit).get("textPayloadSlotsHex") or "not_captured_by_current_mesen_runner"),
+        "transfer_or_loss_only_classification": transfer_class,
+        "observed_addresses": observed,
+    }
+    missing = set(job.get("capture_fields", [])) - set(fields)
+    if missing:
+        raise ValueError(f"missing capture fields: {sorted(missing)}")
+    return fields
+
+
 def main() -> int:
     args = parse_args()
     if args.oracle_id not in SUPPORTED_ORACLES:
@@ -607,8 +1069,35 @@ def main() -> int:
     trace = repo_path(args.trace or str(job["output_paths"]["raw_trace_path"]))
     rom = rom_tools.find_rom(args.rom)
     rows = read_trace(trace)
-    if args.oracle_id == "c2_8125_damage_abi_boundary":
+    if args.oracle_id == "c1_c2_target_action_staging":
+        fields = build_c1_c2_target_action_fields(
+            job,
+            rows,
+            rom=rom,
+            trace=trace,
+            classification=args.classification,
+            evidence=args.classification_evidence,
+        )
+    elif args.oracle_id == "c2_724a_affliction_writer_matrix":
+        fields = build_c2_724a_fields(
+            job,
+            rows,
+            rom=rom,
+            trace=trace,
+            classification=args.classification,
+            evidence=args.classification_evidence,
+        )
+    elif args.oracle_id == "c2_8125_damage_abi_boundary":
         fields = build_c2_8125_fields(
+            job,
+            rows,
+            rom=rom,
+            trace=trace,
+            classification=args.classification,
+            evidence=args.classification_evidence,
+        )
+    elif args.oracle_id == "c2_40a4_current_action_payload":
+        fields = build_c2_40a4_fields(
             job,
             rows,
             rom=rom,
@@ -618,6 +1107,15 @@ def main() -> int:
         )
     elif args.oracle_id == "hp_roller_collapse_boundary":
         fields = build_hp_roller_collapse_fields(
+            job,
+            rows,
+            rom=rom,
+            trace=trace,
+            classification=args.classification,
+            evidence=args.classification_evidence,
+        )
+    elif args.oracle_id == "resource_amount_pair_magnet_vs_pp_loss":
+        fields = build_resource_amount_fields(
             job,
             rows,
             rom=rom,
