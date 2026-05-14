@@ -24,6 +24,8 @@ DEFAULT_PROBE_ROOTS = (
     ROOT / "build" / "c2" / "battle-trace-oracles" / "route-probes" / "c2-route-gap-hints" / "c2-40a4-current-action-payload",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "resource-wram-patched",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "resource-natural-scripted-entry",
+    ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "resource-startup-only-scripted-entry",
+    ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "resource-unseeded-scripted-entry",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "manual-probes" / "natural-resource-scout",
     ROOT / "build" / "c2" / "battle-trace-oracles" / "fixture-rom-tests",
 )
@@ -421,7 +423,7 @@ def render_note(manifest: dict[str, Any]) -> str:
             "- `c2_724a_affliction_writer_matrix` now has both the Dread Scorpion poison-writer hit and a forced Flash Beta fixture that observes the paired `C2:9917 -> C2:724A` numb-status route. It remains follow-up rather than proof-grade because the natural `C2:98A1` gate and post-write return value still need cleaner evidence.",
             "- `c1_c2_target_action_staging` now has separate partial routes for target setup, item-action resolution, and the inventory-selection loop. The forced-entry `adb4-force-b930-snapshot-export` fixture observes `C2:B930` export mechanics, but the natural unpatched C1 pre-export route still needs a cleaner capture.",
             "- `hp_roller_collapse_boundary` now separates natural and controlled-helper evidence. The long save-state sweep found additional natural minimum-hit collapse candidates that still route through `C2:77CA`, while the direct `C2:7550` fixture proves the `C2:7680 -> C1:DC1C` descriptor-death-text path under a seeded Runaway Dog row. The direct `C2:BC5C` fixture records a post-call cleanup snapshot where live-slot transient bytes `+0x10/+0x11/+0x12/+0x14` clear from `10 11 12 00 14` to zero. These optional tail helpers are covered as controlled helper-entry mechanics, not natural damage/cleanup timing.",
-            "- `resource_amount_pair_magnet_vs_pp_loss` now has fixture-steered entry hits for both `C2:9F5E` and `C2:8E42`, controlled WRAM-patched reducer probes that separate PSI Magnet transfer mechanics from PP reduction loss-only mechanics, and scripted-entry enemy fixtures that reach canonical Gigantic Ant row 54 and Guardian General row 95 lanes. Both lanes now have natural enemy-action-table hits, but targeted WRAM PP seeding still keeps them below proof-grade promotion.",
+            "- `resource_amount_pair_magnet_vs_pp_loss` now has fixture-steered entry hits for both `C2:9F5E` and `C2:8E42`, controlled WRAM-patched reducer probes that separate PSI Magnet transfer mechanics from PP reduction loss-only mechanics, and scripted-entry enemy fixtures that reach canonical Gigantic Ant row 54 and Guardian General row 95 lanes. Both lanes now have natural enemy-action-table hits, but targeted WRAM PP seeding still keeps them below proof-grade promotion. Unseeded ROM-only scripted-entry probes reach startup/front-end breakpoints but do not yet enter enemy action resolution, so the next cleaner fixture needs ROM-side battle-state setup rather than another input-pattern retry.",
         ]
     )
     return "\n".join(lines).rstrip() + "\n"

@@ -280,9 +280,23 @@ python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id resource_amount_pai
 python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id resource_amount_pair_magnet_vs_pp_loss --rom build\c2\fixture-roms\scripted-entry-guardian-general-force-pp-reduction\EarthBound-USA-scripted-entry-guardian-general-force-pp-reduction.sfc --input-pattern neutral:240,a:4,neutral:36,a:4,neutral:36,a:4,neutral:12000 --frame-limit 16000 --summarize-trace --output-dir build\c2\battle-trace-oracles\manual-probes\resource-natural-scripted-entry\guardian-general-force-pp-reduction-onhit-9fac-pp32 --wram-patch-timing first-breakpoint --wram-patch-profile scripted-entry-party-window-reset --wram-patch-profile-on-hit C2:8E42=resource-selected-row-9fac-pp32
 ```
 
+Startup-only variants omit the resource-specific on-hit PP seed. They are a
+cleaner diagnostic tier: the forced-action ROMs reach `C2:9F5E` and `C2:8E42`,
+but selected target PP remains zero and `C2:721D` is not reached:
+
+```powershell
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id resource_amount_pair_magnet_vs_pp_loss --rom build\c2\fixture-roms\scripted-entry-gigantic-ant-force-magnet-action\EarthBound-USA-scripted-entry-gigantic-ant-force-magnet-action.sfc --input-pattern neutral:240,a:4,neutral:36,a:4,neutral:36,a:4,neutral:360,a:4,neutral:120,a:4,neutral:120,a:4,neutral:120,a:4,neutral:120,a:4,neutral:1200 --frame-limit 2200 --summarize-trace --output-dir build\c2\battle-trace-oracles\manual-probes\resource-startup-only-scripted-entry\gigantic-ant-force-magnet-startup-only --wram-patch-timing first-breakpoint --wram-patch-profile scripted-entry-party-window-reset
+python tools\run_c2_battle_trace_oracle_mesen.py --oracle-id resource_amount_pair_magnet_vs_pp_loss --rom build\c2\fixture-roms\scripted-entry-guardian-general-force-pp-reduction\EarthBound-USA-scripted-entry-guardian-general-force-pp-reduction.sfc --input-pattern neutral:240,a:4,neutral:36,a:4,neutral:36,a:4,neutral:120,a:4,neutral:120,a:4,neutral:120,a:4,neutral:120,a:4,neutral:120,a:4,neutral:1200 --frame-limit 2200 --summarize-trace --output-dir build\c2\battle-trace-oracles\manual-probes\resource-startup-only-scripted-entry\guardian-general-force-pp-reduction-startup-only --wram-patch-timing first-breakpoint --wram-patch-profile scripted-entry-party-window-reset
+```
+
+ROM-only variants omit even the startup WRAM profile. They reach battle
+startup/front-end breakpoints, but do not enter enemy action resolution yet;
+the next cleaner fixture needs ROM-side selected-target PP setup, not another
+input-pattern retry.
+
 These scripted-entry resource probes are still fixture evidence: the natural
-enemy/action rows are useful navigation, but generated ROM entry and targeted
-WRAM PP seeding keep them below proof-grade promotion.
+enemy/action rows are useful navigation, but generated ROM entry and any WRAM
+startup or PP seeding keep them below proof-grade promotion.
 
 Validate the ignored run summary:
 

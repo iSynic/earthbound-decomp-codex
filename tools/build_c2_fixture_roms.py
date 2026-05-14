@@ -35,6 +35,7 @@ BATTLE_ACTION_TABLE_STRIDE = 0x0C
 
 ENEMY_FIELD_OFFSETS = {
     "hp": 0x21,
+    "pp": 0x23,
     "speed": 0x3C,
     "action_order": 0x45,
     "action_1": 0x46,
@@ -786,7 +787,7 @@ def add_patch(
     value: int,
     reason: str,
 ) -> Patch | None:
-    width = 2 if field in {"hp", "action_1", "action_2", "action_3", "action_4", "final_action"} else 1
+    width = 2 if field in {"hp", "pp", "action_1", "action_2", "action_3", "action_4", "final_action"} else 1
     offset = enemy_row_file_offset(row, field, len(data))
     if width == 2:
         new = bytes((value & 0xFF, (value >> 8) & 0xFF))
@@ -958,6 +959,8 @@ def apply_scenario(
             reason = f"{scenario.id}: {scenario.purpose}"
             if "hp" in patch_spec:
                 record(add_patch(data, enemy_rows, row, "hp", patch_spec["hp"], reason))
+            if "pp" in patch_spec:
+                record(add_patch(data, enemy_rows, row, "pp", patch_spec["pp"], reason))
             if "speed" in patch_spec:
                 record(add_patch(data, enemy_rows, row, "speed", patch_spec["speed"], reason))
             if "action_order" in patch_spec:

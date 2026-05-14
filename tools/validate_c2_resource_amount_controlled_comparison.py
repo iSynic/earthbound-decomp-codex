@@ -41,6 +41,16 @@ EXPECTED_LANES = {
         "target_delta_sign": -1,
         "active_delta_sign": 0,
     },
+    "gigantic_ant_forced_magnet_startup_only": {
+        "required_addresses": {"C2:9F5E"},
+        "target_delta_sign": 0,
+        "active_delta_sign": 0,
+    },
+    "guardian_general_forced_pp_reduction_startup_only": {
+        "required_addresses": {"C2:8E42"},
+        "target_delta_sign": 0,
+        "active_delta_sign": 0,
+    },
 }
 
 

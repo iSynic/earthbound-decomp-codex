@@ -1277,7 +1277,7 @@ def build_resource_amount_fields(
         "source_row_pp_after": source_pp_delta["after"],
         "target_row_pp_before": target_pp_delta["before"],
         "target_row_pp_after": target_pp_delta["after"],
-        "amount_roll": str(amount_source.get("cpuX") or "not_captured"),
+        "amount_roll": str(amount_source.get("cpuX") or "not_captured") if reducer else "not_captured_no_reducer",
         "cap_amount": (
             "controlled WRAM-patched nonzero PP amount observed; natural vanilla PP-bearing target evidence remains pending"
             if wram_patches and target_pp_delta["delta"] not in {None, 0}
