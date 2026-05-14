@@ -31,6 +31,16 @@ EXPECTED_LANES = {
         "target_delta_sign": -1,
         "active_delta_sign": 0,
     },
+    "gigantic_ant_natural_table_magnet_seeded": {
+        "required_addresses": {"C2:9F5E", "C2:721D", "C2:7191"},
+        "target_delta_sign": -1,
+        "active_delta_sign": 1,
+    },
+    "guardian_general_natural_table_pp_reduction_seeded": {
+        "required_addresses": {"C2:8E42", "C2:721D", "C2:7191"},
+        "target_delta_sign": -1,
+        "active_delta_sign": 0,
+    },
 }
 
 
