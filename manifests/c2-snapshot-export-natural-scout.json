@@ -1,0 +1,371 @@
+{
+  "schema": "earthbound-decomp.c2-snapshot-export-natural-scout.v1",
+  "generated_by": "tools/build_c2_snapshot_export_natural_scout.py",
+  "input_root": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout",
+  "summary": {
+    "run_count": 12,
+    "snapshot_export_callsite_run_count": 0,
+    "natural_b930_run_count": 0,
+    "c1_adb4_neighbor_run_count": 1,
+    "c2_bac5_neighbor_run_count": 9,
+    "natural_route_proven": false,
+    "source_promotion_allowed": false,
+    "behavior_change_allowed": false
+  },
+  "runs": [
+    {
+      "run_id": "planck-p1-save1-inventory-path",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p1-save1-inventory-path/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p1-save1-inventory-path/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 104,
+      "first_frame": 129,
+      "last_frame": 3414,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 20
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,right:6,neutral:12,a:4,neutral:20,a:4,neutral:900,a:4,neutral:2400",
+      "frame_limit": 4200
+    },
+    {
+      "run_id": "planck-p2-save4-goods-target",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p2-save4-goods-target/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p2-save4-goods-target/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 164,
+      "first_frame": 45,
+      "last_frame": 1898,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 32
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:1800",
+      "frame_limit": 3400
+    },
+    {
+      "run_id": "planck-p3-save3-psi-target",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p3-save3-psi-target/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/planck-p3-save3-psi-target/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 19,
+      "first_frame": 44,
+      "last_frame": 1898,
+      "observed_addresses": [
+        "C1:ADB4",
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C1:ADB4": 1,
+        "C2:BAC5": 2
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": true,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:4,neutral:20,a:4,neutral:1800",
+      "frame_limit": 3400
+    },
+    {
+      "run_id": "save1-confirm-long",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save1-confirm-long/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save1-confirm-long/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 99,
+      "first_frame": 113,
+      "last_frame": 429,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 19
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:4,neutral:3600",
+      "frame_limit": 3600
+    },
+    {
+      "run_id": "save11-natural-resource-long",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save11-natural-resource-long/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save11-natural-resource-long/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 99,
+      "first_frame": 28,
+      "last_frame": 449,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 19
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:3600",
+      "frame_limit": 3600
+    },
+    {
+      "run_id": "save2-target-confirm-long",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save2-target-confirm-long/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save2-target-confirm-long/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 119,
+      "first_frame": 0,
+      "last_frame": 463,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 23
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:4,neutral:3600",
+      "frame_limit": 3600
+    },
+    {
+      "run_id": "save3-psi-confirm-long",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save3-psi-confirm-long/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save3-psi-confirm-long/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 4,
+      "first_frame": null,
+      "last_frame": null,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {},
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c2_bac5_hit": false,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:20,a:4,a:4,neutral:3600",
+      "frame_limit": 3600
+    },
+    {
+      "run_id": "save4-status-long",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save4-status-long/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save4-status-long/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 159,
+      "first_frame": 67,
+      "last_frame": 277,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 31
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:3600",
+      "frame_limit": 3600
+    },
+    {
+      "run_id": "save5-pizza-long",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save5-pizza-long/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save5-pizza-long/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 129,
+      "first_frame": 133,
+      "last_frame": 572,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 25
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:3600",
+      "frame_limit": 3600
+    },
+    {
+      "run_id": "save6-status-sunstroke-long",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save6-status-sunstroke-long/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save6-status-sunstroke-long/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 4,
+      "first_frame": null,
+      "last_frame": null,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {},
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c2_bac5_hit": false,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:3600",
+      "frame_limit": 3600
+    },
+    {
+      "run_id": "save7-rolling-hp-long",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save7-rolling-hp-long/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save7-rolling-hp-long/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 4,
+      "first_frame": null,
+      "last_frame": null,
+      "observed_addresses": [],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {},
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c2_bac5_hit": false,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:3600",
+      "frame_limit": 3600
+    },
+    {
+      "run_id": "save8-freeze-resolve-long",
+      "summary_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save8-freeze-resolve-long/raw-trace-summary.json",
+      "trace_path": "build/c2/battle-trace-oracles/manual-probes/snapshot-export-natural-scout/save8-freeze-resolve-long/raw-trace.jsonl",
+      "status": "raw_trace_summarized",
+      "line_count": 194,
+      "first_frame": 10,
+      "last_frame": 965,
+      "observed_addresses": [
+        "C2:BAC5"
+      ],
+      "probe_observed_addresses": [],
+      "minimum_hits_satisfied": false,
+      "missing_minimum_hits": [
+        "C1:ADB4",
+        "C1:CE85",
+        "C1:CFC6",
+        "C2:B930"
+      ],
+      "hit_counts": {
+        "C2:BAC5": 38
+      },
+      "snapshot_export_callsite_hits": [],
+      "natural_b930_hit": false,
+      "c1_adb4_hit": false,
+      "c2_bac5_hit": true,
+      "post_call_snapshot_counts": {},
+      "input_pattern": "neutral:3600",
+      "frame_limit": 3600
+    }
+  ],
+  "interpretation": {
+    "current_existing_saves_position": "mostly_after_c1_snapshot_export_or_on_target_count_neighbors",
+    "best_existing_neighbor": "planck-p3-save3-psi-target",
+    "next_required_fixture": "A save after target/action choice commit but before C1 choice/action text dispatch, preferably an item or PSI action with a non-null D5 action row +0x08 pointer."
+  }
+}
