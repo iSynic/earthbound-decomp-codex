@@ -26,3 +26,5 @@ When a Mesen path is supplied, `tools/run_mesen_scenario_spec.py` now installs t
 The scenario runner now supports a separate bootstrap input phase via local override fields/CLI arguments, but the tracked Stonehenge scenario keeps `launch_smoke_only_post_resume_pending` until a verified Continue/load sequence and save-specific post-resume state are recorded.
 
 Latest local scout: a bounded Start/A bootstrap sweep records bootstrap completion, input handoff, and C1/C3 file/menu helper hits, but still no `C2:9F5E`/`C2:8E42` resource route and no post-resume proof. The next useful input from a human would be either the exact title-menu Continue/load button sequence for one SRM slot or a Mesen save state created immediately after loading one of the SRM anchors.
+
+For visible/manual launch, use `python tools/launch_mesen_srm_anchor.py --anchor-id 31-StonehBase`. It installs the cataloged SRM to `F:\Mesen2\Saves\EarthBound (USA).srm` and launches `EarthBound (USA).sfc` with the ROM path passed as a single argument, avoiding PowerShell path-splitting on spaces.
