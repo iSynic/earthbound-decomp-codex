@@ -86,6 +86,9 @@ active-row PP recovery. This is controlled fixture evidence only; natural
 PP-bearing target evidence is still required before this lane can become a
 proof-grade resource contract.
 
+The generated PSI Magnet versus PP-reduction controlled comparison lives at
+`notes/c2-resource-amount-controlled-comparison.md`.
+
 Late numeric reducers need small 16-bit edge tests before the C port relies on
 normalized integer widths. Target cases should include zero current values,
 small max-resource nibbles, clamp floors for guts, bounded offense/defense

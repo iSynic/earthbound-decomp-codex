@@ -1,0 +1,84 @@
+{
+  "schema": "earthbound-decomp.c2-resource-amount-controlled-comparison.v1",
+  "generated_by": "tools/build_c2_resource_amount_controlled_comparison.py",
+  "inputs": {
+    "psi_magnet_transfer_controlled": "build/c2/battle-trace-oracles/manual-probes/resource-wram-patched/psi-magnet-target-pp32/captured-fields.json",
+    "pp_reduction_loss_only_controlled": "build/c2/battle-trace-oracles/manual-probes/resource-wram-patched/pp-reduction-target-pp32/captured-fields.json"
+  },
+  "summary": {
+    "lane_count": 2,
+    "loaded_capture_count": 2,
+    "controlled_comparison_complete": true,
+    "magnet_target_pp_delta": -5,
+    "magnet_active_pp_delta": 5,
+    "pp_reduction_target_pp_delta": -2,
+    "pp_reduction_active_pp_delta": 0,
+    "natural_vanilla_amount_proven": false,
+    "source_promotion_allowed": false,
+    "behavior_change_allowed": false
+  },
+  "lanes": [
+    {
+      "lane_id": "psi_magnet_transfer_controlled",
+      "capture_path": "build/c2/battle-trace-oracles/manual-probes/resource-wram-patched/psi-magnet-target-pp32/captured-fields.json",
+      "status": "capture_loaded",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false,
+      "natural_vanilla_amount_proven": false,
+      "classification": "needs_followup",
+      "classification_evidence": "Controlled WRAM-patched PSI Magnet trace seeds the selected row with nonzero PP, observes amount payload setup, reaches C2:721D, and captures the post-reducer PP delta. This is fixture proof of reducer mechanics, not natural vanilla amount evidence.",
+      "transfer_or_loss_only_classification": "controlled_transfer_style_reducer_amount_observed_natural_pending",
+      "observed_addresses": [
+        "C2:7191",
+        "C2:721D",
+        "C2:9F5E"
+      ],
+      "amount_roll": "0x000005",
+      "text_payload_amount": "00 00 05 00 00 00 00 00",
+      "target_pp_before": "0x0020",
+      "target_pp_after": "0x001B",
+      "target_pp_delta": -5,
+      "active_pp_before": "0x0000",
+      "active_pp_after": "0x0005",
+      "active_pp_delta": 5,
+      "wram_patch_count": 2,
+      "trace_id": "F:/Earthbound Decomp - Codex/build/c2/battle-trace-oracles/manual-probes/resource-wram-patched/psi-magnet-target-pp32/raw-trace.jsonl sha256:9ff8f730a4d3ecba6bad18cc9f531fb71798623868a24b48163777671c4f3f8f",
+      "rom_sha1": "d67a8ef36ef616bc39306aa1b486e1bd3047815a",
+      "save_state_id": "EarthBound (USA)_2.mss sha256:5aec7c75f902b606bc3a24943f62702ef11cd3785df50871fb52cb22040771df"
+    },
+    {
+      "lane_id": "pp_reduction_loss_only_controlled",
+      "capture_path": "build/c2/battle-trace-oracles/manual-probes/resource-wram-patched/pp-reduction-target-pp32/captured-fields.json",
+      "status": "capture_loaded",
+      "source_promotion_allowed": false,
+      "behavior_change_allowed": false,
+      "natural_vanilla_amount_proven": false,
+      "classification": "needs_followup",
+      "classification_evidence": "Controlled WRAM-patched PP-reduction trace seeds the selected row with nonzero PP/max PP, observes the loss-only C2:8E42 entry reaching C2:721D, and captures the post-reducer PP delta. This is fixture proof of reducer mechanics, not natural vanilla amount evidence.",
+      "transfer_or_loss_only_classification": "controlled_loss_only_reducer_amount_observed_natural_pending",
+      "observed_addresses": [
+        "C2:7191",
+        "C2:721D",
+        "C2:8E42"
+      ],
+      "amount_roll": "0x000002",
+      "text_payload_amount": "00 00 56 00 00 00 00 00",
+      "target_pp_before": "0x0020",
+      "target_pp_after": "0x001E",
+      "target_pp_delta": -2,
+      "active_pp_before": "0x0000",
+      "active_pp_after": "0x0000",
+      "active_pp_delta": 0,
+      "wram_patch_count": 1,
+      "trace_id": "F:/Earthbound Decomp - Codex/build/c2/battle-trace-oracles/manual-probes/resource-wram-patched/pp-reduction-target-pp32/raw-trace.jsonl sha256:5da00357dd47f448f626d1d32ea8436dfd830697d6f4663d3a2055be25d9e9c7",
+      "rom_sha1": "d67a8ef36ef616bc39306aa1b486e1bd3047815a",
+      "save_state_id": "EarthBound (USA)_2.mss sha256:5aec7c75f902b606bc3a24943f62702ef11cd3785df50871fb52cb22040771df"
+    }
+  ],
+  "policy": {
+    "fixture_or_wram_seeded_evidence_only": true,
+    "natural_vanilla_amount_proven": false,
+    "source_promotion_allowed": false,
+    "behavior_change_allowed": false
+  }
+}

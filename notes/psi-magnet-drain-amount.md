@@ -94,3 +94,6 @@ selected target PP `32 -> 27`, and active row PP `0 -> 5`. This proves the
 local reducer/recovery mechanics under controlled state, but it is still not a
 natural vanilla PSI Magnet promotion because the target PP was seeded by the
 runner.
+
+The generated comparison note is
+`notes/c2-resource-amount-controlled-comparison.md`.
