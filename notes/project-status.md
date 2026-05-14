@@ -40,20 +40,23 @@ before this becomes true human-readable source.
   `notes/c-port-feedback-intake.md`, especially for C1/C2 battle target,
   payload, affliction, damage, healing, and resource contracts.
 - The C2 battle trace-oracle lane now has Mesen runner plumbing, save-state
-  probes, fixture-ROM steering, a 141-record manual probe matrix, 6
+  probes, fixture-ROM steering, a 186-record manual probe matrix, 6
   trace-observed non-stub results, and 2 proof-grade `refined_contract`
   promotions. The promoted C2 subcontracts cover
   the `C2:8125` damage ABI, selected-row HP mutation, C1 amount-text join,
   HP-to-zero collapse entry, `C2:7550 -> C2:77CA` order, and hard/collapsed row
-  state. The controlled resource comparison now separates WRAM-seeded and
-  action-row-steered no-WRAM PSI Magnet/PP-reduction amount evidence, and the
-  forced-entry `C2:B930` snapshot-export capture is recorded as mechanics
-  evidence. The natural snapshot-export scout records 12 existing-save attempts
-  and confirms the current saves are mostly `C2:BAC5` neighbors rather than the
-  pre-export window. Natural PP amount proof, natural paired `C2:724A`/`C2:9917`,
-  and unpatched C1-to-`C2:B930` snapshot export remain the highest-value runtime
-  gaps; the next autonomy upgrade is an ignored `C2:2F38` scripted-battle
-  fixture ROM.
+  state. Controlled helper-entry probes now cover the optional `C2:7680`
+  descriptor-death-text path and `C2:BC5C` inactive live-slot cleanup snapshot
+  without promoting those as natural damage timing. The controlled resource
+  comparison now separates WRAM-seeded and action-row-steered no-WRAM PSI
+  Magnet/PP-reduction amount evidence, and the forced-entry `C2:B930`
+  snapshot-export capture is recorded as mechanics evidence. The natural
+  snapshot-export scout records 12 existing-save attempts and confirms the
+  current saves are mostly `C2:BAC5` neighbors rather than the pre-export
+  window. Natural PP amount proof, natural paired `C2:724A`/`C2:9917`, and
+  unpatched C1-to-`C2:B930` snapshot export remain the highest-value runtime
+  gaps; the next autonomy upgrade is a cleaner unseeded scripted-battle
+  resource/status fixture.
 - The D5 battle-action table now has a generated all-row crosswalk at
   `notes/battle-action-row-crosswalk.md`, separating row `+4` presentation text
   pointers from row `+8` behavior bodies for C1/C2/EF joins without promoting

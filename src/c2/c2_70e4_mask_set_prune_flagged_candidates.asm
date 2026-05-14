@@ -140,6 +140,7 @@ C27191_SetBattlerPpTarget = SET_PP
     sta $02
     tya
     cmp $02
+    ; Clamp requested PP target to the battler's max PP-side word.
     bcc C271B2_MaskSet_PruneFlaggedCandidates_L71B2
     beq C271B2_MaskSet_PruneFlaggedCandidates_L71B2
     lda $0E
@@ -219,6 +220,8 @@ C2721D_ReduceBattlerPpTarget:
     lda $0019,Y
     sta $0E
     sta $04
+    ; Shared PP reducer: A is the battler row and X is the requested loss.
+    ; Floors at zero, then commits through SET_PP so live/target mirrors stay in sync.
     lda $02
     cmp $04
     bcc C2723E_MaskSet_PruneFlaggedCandidates_L723E
